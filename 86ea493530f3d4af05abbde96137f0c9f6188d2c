@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a4de975_b78a6310",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T08:05:33Z",
+      "side": 1,
+      "message": "This return type is not useful",
+      "range": {
+        "startLine": 82,
+        "startChar": 63,
+        "endLine": 82,
+        "endChar": 78
+      },
+      "revId": "86ea493530f3d4af05abbde96137f0c9f6188d2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1eca5f69_f0be5783",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T08:05:33Z",
+      "side": 1,
+      "message": "Suggest making this an extension method\n\n    private fun String.toAssetInputStream() \u003d DataInputStream(context.assets.open(this))",
+      "revId": "86ea493530f3d4af05abbde96137f0c9f6188d2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "080824a8_2a0eef64",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T08:05:33Z",
+      "side": 1,
+      "message": "Are directories guaranteed to happen earlier than any file in the zip ? Or would you not depend on that ? E.g.\n\n    if (entry.isDirectory) mkdirs()\n    else {\n      File(dirname(entry.name)).mkdirs()\n      FileOuptputStream().use { ... }\n    }",
+      "revId": "86ea493530f3d4af05abbde96137f0c9f6188d2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
