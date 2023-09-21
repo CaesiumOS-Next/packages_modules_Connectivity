@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "467adcd0_cae8a00c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-21T08:40:55Z",
+      "side": 1,
+      "message": "note: apparently the gts test case (which uses test.o created bpf map) runs as network_stack uid even on inprocess using devices.",
+      "revId": "4e3f03ee5af6b55bd2dedc9138069115c4c23f5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
