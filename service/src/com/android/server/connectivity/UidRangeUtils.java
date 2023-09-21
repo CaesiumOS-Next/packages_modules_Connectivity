@@ -18,7 +18,11 @@ package com.android.server.connectivity;
 
 import android.annotation.NonNull;
 import android.net.UidRange;
+import android.os.UserHandle;
 import android.util.ArraySet;
+import android.util.Range;
+
+import com.android.net.module.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -220,5 +224,40 @@ public final class UidRangeUtils {
         }
 
         return false;
+    }
+
+    /**
+     * Create the List of uid ranges for the user excluding a given list of app ids.
+     *
+     * @param userId The user id of the user.
+     * @param excludedAppIds The list of appIds to exclude from the ranges.
+     * @return List of integer ranges.
+     */
+    public static List<Range<Integer>> userUidIntRangesExcludingAppIds(
+            final int userId, final @NonNull List<Integer> excludedAppIds) {
+        final UserHandle user = UserHandle.of(userId);
+        final UserHandle nextUser = UserHandle.of(userId + 1);
+
+        final List<Integer> excludedUids = CollectionUtils.map(excludedAppIds,
+                appId -> user.getUid(appId));
+        final int userBase = user.getUid(0 /* appId */);
+        final int maxUid = nextUser.getUid(0 /* appId */) - 1;
+
+        int start = userBase;
+        Collections.sort(excludedUids);
+        final List<Range<Integer>> ranges = new ArrayList<>();
+        for (int excludedUid : excludedUids) {
+            if (excludedUid == start) {
+                start++;
+            } else {
+                ranges.add(new Range<>(start, excludedUid - 1));
+                start = excludedUid + 1;
+            }
+        }
+        if (start <= maxUid) {
+            ranges.add(new Range<>(start, maxUid));
+        }
+
+        return ranges;
     }
 }

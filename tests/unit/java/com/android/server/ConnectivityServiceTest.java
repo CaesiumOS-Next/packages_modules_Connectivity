@@ -937,32 +937,7 @@ public class ConnectivityServiceTest {
         if (!excludedUidsList.contains(0)) {
             excludedUidsList.add(0);
         }
-        return intRangesExcludingUids(PRIMARY_USER, excludedUidsList);
-    }
-
-    private static List<Range<Integer>> intRangesExcludingUids(int userId,
-            List<Integer> excludedAppIds) {
-        final List<Integer> excludedUids = CollectionUtils.map(excludedAppIds,
-                appId -> UserHandle.getUid(userId, appId));
-        final int userBase = userId * UserHandle.PER_USER_RANGE;
-        final int maxUid = userBase + UserHandle.PER_USER_RANGE - 1;
-
-        int start = userBase;
-        Collections.sort(excludedUids);
-        final List<Range<Integer>> ranges = new ArrayList<>();
-        for (int excludedUid : excludedUids) {
-            if (excludedUid == start) {
-                start++;
-            } else {
-                ranges.add(new Range<>(start, excludedUid - 1));
-                start = excludedUid + 1;
-            }
-        }
-        if (start <= maxUid) {
-            ranges.add(new Range<>(start, maxUid));
-        }
-
-        return ranges;
+        return UidRangeUtils.userUidIntRangesExcludingAppIds(PRIMARY_USER, excludedUidsList);
     }
 
     private void waitForIdle() {
@@ -9435,7 +9410,7 @@ public class ConnectivityServiceTest {
         // Add a restricted user.
         // This is equivalent to `mMockVpn.onUserAdded(RESTRICTED_USER);`, coverage in VpnTest.
         final List<Range<Integer>> restrictedRanges =
-                intRangesExcludingUids(RESTRICTED_USER, excludedUids);
+                UidRangeUtils.userUidIntRangesExcludingAppIds(RESTRICTED_USER, excludedUids);
         mCm.setRequireVpnForUids(true, restrictedRanges);
         waitForIdle();
 
