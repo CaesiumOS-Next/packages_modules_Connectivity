@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f296c534_dc9eb192",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-21T07:43:12Z",
+      "side": 1,
+      "message": "Added bug. The issue was found from the parent cls.",
+      "parentUuid": "4f99a494_adbd356a",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 1
+      },
+      "revId": "f0fc9777c38334d492e7ca12ce5f3a56dede78ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55cf80dc_7a221611",
