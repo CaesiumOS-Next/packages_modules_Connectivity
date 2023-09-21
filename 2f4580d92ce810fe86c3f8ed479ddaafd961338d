@@ -3,6 +3,69 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19a95152_7afe696d",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-21T02:59:26Z",
+      "side": 1,
+      "message": "I think single upstream network could satisfy multiple LocalNetworks\u0027 upstreamSelectors and traffic is forwarded to multiple LocalNetwork but only the LocalNetwork has non-null mForwardedNetwork?",
+      "revId": "2f4580d92ce810fe86c3f8ed479ddaafd961338d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aef41bea_abd7718f",
+        "filename": "framework/src/android/net/LocalNetworkInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-21T02:59:26Z",
+      "side": 1,
+      "message": "nits: I think setter should be `setUpstreamConfig` or getter should be `getUpstreamMulticastRoutingConfig`.\nAlso, linter may complain when we make LocalNetworkInfo SystemApi.\ngo/android-api-guidelines#builders-symmetric-setters",
+      "range": {
+        "startLine": 140,
+        "startChar": 23,
+        "endLine": 140,
+        "endChar": 56
+      },
+      "revId": "2f4580d92ce810fe86c3f8ed479ddaafd961338d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "696984fd_1744f643",
+        "filename": "framework/src/android/net/MulticastRoutingConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-21T02:59:26Z",
+      "side": 1,
+      "message": "nits: This can be final",
+      "range": {
+        "startLine": 165,
+        "startChar": 39,
+        "endLine": 165,
+        "endChar": 58
+      },
+      "revId": "2f4580d92ce810fe86c3f8ed479ddaafd961338d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ba602dfc_8bf1c08b",
         "filename": "framework/src/android/net/MulticastRoutingConfig.java",
         "patchSetId": 4
@@ -19,6 +82,29 @@
         "startChar": 58,
         "endLine": 240,
         "endChar": 61
+      },
+      "revId": "2f4580d92ce810fe86c3f8ed479ddaafd961338d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e341d6e_081bae6b",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-21T02:59:26Z",
+      "side": 1,
+      "message": "nits: \"Must not be null\"? and \"NET_CAPABILITY_LOCAL_NETWORK\"?",
+      "range": {
+        "startLine": 540,
+        "startChar": 39,
+        "endLine": 540,
+        "endChar": 95
       },
       "revId": "2f4580d92ce810fe86c3f8ed479ddaafd961338d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
