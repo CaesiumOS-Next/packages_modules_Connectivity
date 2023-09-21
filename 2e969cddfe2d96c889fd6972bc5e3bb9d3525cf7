@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae017ab6_b0bb7499",
+        "filename": "DnsResolver/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-21T10:39:15Z",
+      "side": 1,
+      "message": "care to explain why we need each of these?",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 6
+      },
+      "revId": "2e969cddfe2d96c889fd6972bc5e3bb9d3525cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ccb8163_371475eb",
+        "filename": "DnsResolver/BpfReader.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-21T10:39:15Z",
+      "side": 1,
+      "message": "bool",
+      "range": {
+        "startLine": 34,
+        "startChar": 7,
+        "endLine": 34,
+        "endChar": 10
+      },
+      "revId": "2e969cddfe2d96c889fd6972bc5e3bb9d3525cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04693a24_72525e8c",
+        "filename": "DnsResolver/BpfReader.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-21T10:39:15Z",
+      "side": 1,
+      "message": "BpfMap uses Result\u003c\u003e can\u0027t we use Result\u003cint\u003e instead of adding this dep on Status and netdutils?",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 6
+      },
+      "revId": "2e969cddfe2d96c889fd6972bc5e3bb9d3525cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6fcb388_012fd43f",
+        "filename": "DnsResolver/BpfReader.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-21T10:39:15Z",
+      "side": 1,
+      "message": "perhaps this should be less generic?\n\nDnsBpfReader?\nDnsBpfHelper?\nDnsBpfReadHelper?\nDnsBpfReaderHelper?",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 15
+      },
+      "revId": "2e969cddfe2d96c889fd6972bc5e3bb9d3525cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14dd6cdb_c639af88",
+        "filename": "DnsResolver/BpfReader.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-21T10:39:15Z",
+      "side": 1,
+      "message": "probably should be just init()",
+      "range": {
+        "startLine": 33,
+        "startChar": 20,
+        "endLine": 33,
+        "endChar": 28
+      },
+      "revId": "2e969cddfe2d96c889fd6972bc5e3bb9d3525cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ba873d0_3eae749b",
+        "filename": "DnsResolver/BpfReader.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-21T10:39:15Z",
+      "side": 1,
+      "message": "I\u0027m not really seeing the point of this class...\ncan\u0027t this all be straight in the call .c file?",
+      "revId": "2e969cddfe2d96c889fd6972bc5e3bb9d3525cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bab37f61_23ad0678",
+        "filename": "DnsResolver/ForDnsResolver.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-21T10:39:15Z",
+      "side": 1,
+      "message": "we should have an explicit library init function\n\ncalled when we dlopen and do the resolve\n\ngives us ability to for example treat the library open as failed if init() fails",
+      "revId": "2e969cddfe2d96c889fd6972bc5e3bb9d3525cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
