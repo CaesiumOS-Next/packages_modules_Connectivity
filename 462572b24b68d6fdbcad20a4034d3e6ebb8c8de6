@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4aa9af0a_a094928b",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-21T10:17:32Z",
+      "side": 0,
+      "message": "There will be merge conflicts if you touch these 2 lines, I\u0027d suggest leaving them out in this CL, because CLs are needed in different branches to remove them",
+      "revId": "462572b24b68d6fdbcad20a4034d3e6ebb8c8de6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
