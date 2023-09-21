@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c551947_04addd71",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10196,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-21T05:32:07Z",
+      "side": 1,
+      "message": "Nit: final",
+      "range": {
+        "startLine": 10196,
+        "startChar": 8,
+        "endLine": 10196,
+        "endChar": 9
+      },
+      "revId": "e4c5a14ff3686a706b6d7a1983c55dce7bfe75cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b732d8d_14a6d8b6",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1849,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-21T05:32:07Z",
+      "side": 1,
+      "message": "Nit: new IpPrefix(Inet6Address.ANY, 0)",
+      "range": {
+        "startLine": 1849,
+        "startChar": 53,
+        "endLine": 1849,
+        "endChar": 73
+      },
+      "revId": "e4c5a14ff3686a706b6d7a1983c55dce7bfe75cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "887d8478_aa6fef84",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1852,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-21T05:32:07Z",
+      "side": 1,
+      "message": "Suggest to also move the comment here.\n\n\n// IllegalStateException thrown since legacy VPN only supports IPv4.",
+      "range": {
+        "startLine": 1852,
+        "startChar": 8,
+        "endLine": 1852,
+        "endChar": 9
+      },
+      "revId": "e4c5a14ff3686a706b6d7a1983c55dce7bfe75cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
