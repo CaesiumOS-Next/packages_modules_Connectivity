@@ -212,8 +212,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -1154,40 +1152,18 @@ public class VpnTest extends VpnTestBase {
     }
 
     private List<Range<Integer>> makeVpnUidRange(int userId, List<Integer> excludedList) {
-        final SortedSet<Integer> list = new TreeSet<>();
+        final List<Integer> list = new ArrayList<>();
 
-        final int userBase = userId * UserHandle.PER_USER_RANGE;
         for (int uid : excludedList) {
             if (UserHandle.isCore(uid)) {
                 list.add(uid);
                 continue;
             }
-            final int applicationUid = UserHandle.getUid(userId, uid);
-            list.add(applicationUid);
-            list.add(Process.toSdkSandboxUid(applicationUid)); // Add Sdk Sandbox UID
+            list.add(uid);
+            list.add(Process.toSdkSandboxUid(uid)); // Add Sdk Sandbox UID
         }
 
-        final int minUid = userBase;
-        final int maxUid = userBase + UserHandle.PER_USER_RANGE - 1;
-        final List<Range<Integer>> ranges = new ArrayList<>();
-
-        // Iterate the list to create the ranges between each uid.
-        int start = minUid;
-        for (int uid : list) {
-            if (uid == start) {
-                start++;
-            } else {
-                ranges.add(new Range<>(start, uid - 1));
-                start = uid + 1;
-            }
-        }
-
-        // Create the range between last uid and max uid.
-        if (start <= maxUid) {
-            ranges.add(new Range<>(start, maxUid));
-        }
-
-        return ranges;
+        return UidRangeUtils.userUidIntRangesExcludingAppIds(userId, list);
     }
 
     private Set<Range<Integer>> makeVpnUidRangeSet(int userId, List<Integer> excludedList) {
