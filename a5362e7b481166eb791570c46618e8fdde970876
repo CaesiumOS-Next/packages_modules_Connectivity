@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a37dd19_e9de7189",
+        "filename": "thread/framework/java/android/net/thread/BorderRouterConfiguration.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-09-21T06:43:16Z",
+      "side": 1,
+      "message": "What about \n```\nreturn \"{borderRouterEnabled\u003d\" + mBorderRouterEnabled + \"}\";\n```?",
+      "revId": "a5362e7b481166eb791570c46618e8fdde970876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
