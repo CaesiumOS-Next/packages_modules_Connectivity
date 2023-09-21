@@ -16,6 +16,92 @@
       "message": "Moved from aosp/2720855",
       "revId": "f1846ac13b4afb91cd6f9320170e99b3ebec968c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f86971b_5d278db1",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectUtil.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T04:57:38Z",
+      "side": 1,
+      "message": "Optional : this is such a common thing that we could add it to CapabilitiesChanged :\n\n    data class CapabilitiesChanged(\n            override val network: Network,\n            val caps: NetworkCapabilities\n        ) : CallbackEntry() {\n        val isValidated get() \u003d caps.hasCapability(NET_CAPABILITY_VALIDATED)\n    }",
+      "revId": "f1846ac13b4afb91cd6f9320170e99b3ebec968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "357fcc38_5fda3ea6",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectUtil.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T04:57:38Z",
+      "side": 1,
+      "message": "This is worded like the device successfully connected, which may or may not be the case. Maybe just reword saying \"can\u0027t connect or the access point does not have Internet access\"",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 94
+      },
+      "revId": "f1846ac13b4afb91cd6f9320170e99b3ebec968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3619497_4e4d3b84",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectUtil.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T04:57:38Z",
+      "side": 1,
+      "message": "You could inline this val",
+      "range": {
+        "startLine": 113,
+        "startChar": 12,
+        "endLine": 113,
+        "endChar": 14
+      },
+      "revId": "f1846ac13b4afb91cd6f9320170e99b3ebec968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aa8b124_bf7651a4",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectUtil.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T04:57:38Z",
+      "side": 1,
+      "message": "This code is not trivial and has gone through several revisions ; please do not copy-paste it. Instead add the error message arg that you need to the general utility.",
+      "range": {
+        "startLine": 241,
+        "startChar": 7,
+        "endLine": 243,
+        "endChar": 6
+      },
+      "revId": "f1846ac13b4afb91cd6f9320170e99b3ebec968c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
