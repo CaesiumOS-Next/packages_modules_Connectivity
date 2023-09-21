@@ -33,6 +33,24 @@
       "message": "nits:\nsetPackageFirewallRule throws if `appId \u003c Process.FIRST_APPLICATION_UID` now.\nSo this check is duplicated.",
       "revId": "5b31b0aaa58194df64f3df52656cd3a621405cf8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d293947_76a6da32",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10682,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-21T03:57:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b672bb6_de5e2a57",
+      "revId": "5b31b0aaa58194df64f3df52656cd3a621405cf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
