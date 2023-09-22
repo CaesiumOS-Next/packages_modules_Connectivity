@@ -41,7 +41,6 @@ import java.util.List;
 /**
  * A class that handles advertising services on a {@link MdnsInterfaceSocket} tied to an interface.
  */
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHandler {
     private static final boolean DBG = MdnsAdvertiser.DBG;
     @VisibleForTesting

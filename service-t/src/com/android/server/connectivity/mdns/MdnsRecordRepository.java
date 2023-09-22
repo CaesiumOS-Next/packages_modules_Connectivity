@@ -60,7 +60,6 @@ import java.util.stream.Collectors;
  *
  * Must be used on a consistent looper thread.
  */
-@TargetApi(Build.VERSION_CODES.TIRAMISU) // Allow calling T+ APIs; this is only loaded on T+
 public class MdnsRecordRepository {
     // RFC6762 p.15
     private static final long MIN_MULTICAST_REPLY_INTERVAL_MS = 1_000L;
@@ -455,10 +454,9 @@ public class MdnsRecordRepository {
         final ArrayList<RecordInfo<?>> answerInfo = new ArrayList<>();
         for (MdnsRecord question : packet.questions) {
             // Add answers from general records
-            addReplyFromService(question, mGeneralRecords,
-                    Collections.emptyList() /* servicePtrRecord */, null /* serviceSrvRecord */,
-                    null /* serviceTxtRecord */, replyUnicast, now, answerInfo,
-                    additionalAnswerRecords);
+            addReplyFromService(question, mGeneralRecords, null /* servicePtrRecord */,
+                    null /* serviceSrvRecord */, null /* serviceTxtRecord */, replyUnicast, now,
+                    answerInfo, additionalAnswerRecords);
 
             // Add answers from each service
             for (int i = 0; i < mServices.size(); i++) {
@@ -524,7 +522,7 @@ public class MdnsRecordRepository {
      */
     private boolean addReplyFromService(@NonNull MdnsRecord question,
             @NonNull List<RecordInfo<?>> serviceRecords,
-            @NonNull List<RecordInfo<MdnsPointerRecord>> servicePtrRecords,
+            @Nullable List<RecordInfo<MdnsPointerRecord>> servicePtrRecords,
             @Nullable RecordInfo<MdnsServiceRecord> serviceSrvRecord,
             @Nullable RecordInfo<MdnsTextRecord> serviceTxtRecord,
             boolean replyUnicast, long now, @NonNull List<RecordInfo<?>> answerInfo,
@@ -558,7 +556,8 @@ public class MdnsRecordRepository {
             }
 
             hasKnownAnswer = true;
-            hasDnsSdPtrRecordAnswer |= servicePtrRecords.contains(info);
+            hasDnsSdPtrRecordAnswer |= (servicePtrRecords != null
+                    && CollectionUtils.any(servicePtrRecords, r -> info == r));
             hasDnsSdSrvRecordAnswer |= (info == serviceSrvRecord);
 
             // TODO: responses to probe queries should bypass this check and only ensure the
