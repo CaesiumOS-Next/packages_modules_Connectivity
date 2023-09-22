@@ -86,7 +86,7 @@ class MdnsProberTest {
         replySender: MdnsReplySender,
         cb: PacketRepeaterCallback<ProbingInfo>,
         sharedLog: SharedLog
-    ) : MdnsProber(looper, replySender, cb, sharedLog) {
+    ) : MdnsProber(looper, replySender, cb, sharedLog, true /* enableDebugLog */) {
         override fun getInitialDelay() = 0L
     }
 
