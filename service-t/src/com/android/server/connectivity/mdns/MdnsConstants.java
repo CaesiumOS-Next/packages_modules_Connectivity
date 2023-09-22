@@ -19,6 +19,7 @@ package com.android.server.connectivity.mdns;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 
@@ -42,6 +43,10 @@ public final class MdnsConstants {
     public static final String SUBTYPE_PREFIX = "_";
     private static final String MDNS_IPV4_HOST_ADDRESS = "224.0.0.251";
     private static final String MDNS_IPV6_HOST_ADDRESS = "FF02::FB";
+    public static final InetSocketAddress IPV6_SOCKET_ADDR = new InetSocketAddress(
+            MdnsConstants.getMdnsIPv6Address(), MdnsConstants.MDNS_PORT);
+    public static final InetSocketAddress IPV4_SOCKET_ADDR = new InetSocketAddress(
+            MdnsConstants.getMdnsIPv4Address(), MdnsConstants.MDNS_PORT);
     private static InetAddress mdnsAddress;
     private MdnsConstants() {
     }
