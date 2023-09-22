@@ -24,9 +24,9 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import com.android.net.module.util.SharedLog;
-import com.android.server.connectivity.mdns.MdnsRecordRepository.ReplyInfo;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
 
 import java.io.IOException;
@@ -45,7 +45,8 @@ import java.util.Collections;
  */
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public class MdnsReplySender {
-    private static final boolean DBG = MdnsAdvertiser.DBG;
+    private static final String TAG = MdnsReplySender.class.getSimpleName();
+    private static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
     private static final int MSG_SEND = 1;
     private static final int PACKET_NOT_SENT = 0;
     private static final int PACKET_SENT = 1;
@@ -70,7 +71,7 @@ public class MdnsReplySender {
     /**
      * Queue a reply to be sent when its send delay expires.
      */
-    public void queueReply(@NonNull ReplyInfo reply) {
+    public void queueReply(@NonNull MdnsReplyInfo reply) {
         ensureRunningOnHandlerThread(mHandler);
         // TODO: implement response aggregation (RFC 6762 6.4)
         mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SEND, reply), reply.sendDelayMs);
@@ -118,7 +119,7 @@ public class MdnsReplySender {
 
         @Override
         public void handleMessage(@NonNull Message msg) {
-            final ReplyInfo replyInfo = (ReplyInfo) msg.obj;
+            final MdnsReplyInfo replyInfo = (MdnsReplyInfo) msg.obj;
             if (DBG) mSharedLog.v("Sending " + replyInfo);
 
             final int flags = 0x8400; // Response, authoritative (rfc6762 18.4)

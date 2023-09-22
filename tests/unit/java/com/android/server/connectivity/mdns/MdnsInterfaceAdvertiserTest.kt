@@ -190,7 +190,7 @@ class MdnsInterfaceAdvertiserTest {
     fun testReplyToQuery() {
         addServiceAndFinishProbing(TEST_SERVICE_ID_1, TEST_SERVICE_1)
 
-        val mockReply = mock(MdnsRecordRepository.ReplyInfo::class.java)
+        val mockReply = mock(MdnsReplyInfo::class.java)
         doReturn(mockReply).`when`(repository).getReply(any(), any())
 
         // Query obtained with:

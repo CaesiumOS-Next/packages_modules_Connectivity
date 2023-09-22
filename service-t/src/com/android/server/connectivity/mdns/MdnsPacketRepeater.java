@@ -16,8 +16,8 @@
 
 package com.android.server.connectivity.mdns;
 
-import static com.android.server.connectivity.mdns.MdnsRecordRepository.IPV4_ADDR;
-import static com.android.server.connectivity.mdns.MdnsRecordRepository.IPV6_ADDR;
+import static com.android.server.connectivity.mdns.MdnsConstants.IPV4_SOCKET_ADDR;
+import static com.android.server.connectivity.mdns.MdnsConstants.IPV6_SOCKET_ADDR;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -26,6 +26,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import com.android.net.module.util.SharedLog;
 
@@ -38,9 +39,10 @@ import java.net.InetSocketAddress;
  */
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
-    private static final boolean DBG = MdnsAdvertiser.DBG;
+    private static final String TAG = MdnsPacketRepeater.class.getSimpleName();
+    private static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
     private static final InetSocketAddress[] ALL_ADDRS = new InetSocketAddress[] {
-            IPV4_ADDR, IPV6_ADDR
+            IPV4_SOCKET_ADDR, IPV6_SOCKET_ADDR
     };
 
     @NonNull
