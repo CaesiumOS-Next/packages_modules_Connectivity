@@ -20,7 +20,7 @@ import static com.android.server.connectivity.mdns.MdnsConstants.NO_PACKET;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
-import android.annotation.TargetApi;
+import android.annotation.RequiresApi;
 import android.net.LinkAddress;
 import android.net.nsd.NsdServiceInfo;
 import android.os.Build;
@@ -57,7 +57,7 @@ import java.util.concurrent.TimeUnit;
  *
  * Must be used on a consistent looper thread.
  */
-@TargetApi(Build.VERSION_CODES.TIRAMISU) // Allow calling T+ APIs; this is only loaded on T+
+@RequiresApi(Build.VERSION_CODES.TIRAMISU) // Allow calling T+ APIs; this is only loaded on T+
 public class MdnsRecordRepository {
     // RFC6762 p.15
     private static final long MIN_MULTICAST_REPLY_INTERVAL_MS = 1_000L;
