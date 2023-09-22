@@ -35,6 +35,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cfcee02_5906cf98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1061009
+      },
+      "writtenOn": "2023-09-22T22:48:00Z",
+      "side": 1,
+      "message": "(ag/24804357 was merged, removing API-2 since this will now be caught by presubmit)",
+      "revId": "1300ad8992f4ffe30dbc79558bb0f7f05b8837dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a656bb1_c71b79f5",
