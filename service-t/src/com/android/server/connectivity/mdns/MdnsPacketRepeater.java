@@ -36,7 +36,6 @@ import java.net.InetSocketAddress;
  * A class used to send several packets at given time intervals.
  * @param <T> The type of the request providing packet repeating parameters.
  */
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
     private static final InetSocketAddress[] ALL_ADDRS = new InetSocketAddress[] {
             IPV4_SOCKET_ADDR, IPV6_SOCKET_ADDR
