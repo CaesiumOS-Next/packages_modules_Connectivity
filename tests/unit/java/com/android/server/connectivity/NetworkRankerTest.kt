@@ -18,6 +18,8 @@ package com.android.server.connectivity
 
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL as NET_CAP_PORTAL
+import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET as NET_CAP_INTERNET
+import android.net.NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH as NET_CAP_PRIO_BW
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkScore.KEEP_CONNECTED_NONE
@@ -50,8 +52,8 @@ private fun caps(transport: Int, vararg capabilities: Int) =
 class NetworkRankerTest(private val activelyPreferBadWifi: Boolean) {
     private val mRanker = NetworkRanker(NetworkRanker.Configuration(activelyPreferBadWifi))
 
-    private class TestScore(private val sc: FullScore, private val nc: NetworkCapabilities)
-            : NetworkRanker.Scoreable {
+    private class TestScore(private val sc: FullScore, private val nc: NetworkCapabilities) :
+            NetworkRanker.Scoreable {
         override fun getScore() = sc
         override fun getCapsNoCopy(): NetworkCapabilities = nc
     }
@@ -195,5 +197,15 @@ class NetworkRankerTest(private val activelyPreferBadWifi: Boolean) {
         val cell = TestScore(score(EVER_EVALUATED, YIELD_TO_BAD_WIFI, IS_VALIDATED), CAPS_CELL)
         val badExitingWifi = TestScore(score(EVER_EVALUATED, EVER_VALIDATED, EXITING), CAPS_WIFI)
         assertEquals(cell, rank(cell, badExitingWifi))
+    }
+
+    @Test
+    fun testPreferNonSlices() {
+        // Slices lose to non-slices for general ranking
+        val nonslice = TestScore(score(EVER_EVALUATED, IS_VALIDATED),
+                caps(TRANSPORT_CELLULAR, NET_CAP_INTERNET))
+        val slice = TestScore(score(EVER_EVALUATED, IS_VALIDATED),
+                caps(TRANSPORT_CELLULAR, NET_CAP_INTERNET, NET_CAP_PRIO_BW))
+        assertEquals(nonslice, rank(slice, nonslice))
     }
 }

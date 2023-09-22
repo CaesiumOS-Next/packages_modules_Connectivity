@@ -17,6 +17,8 @@
 package com.android.server.connectivity;
 
 import static android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_LATENCY;
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
@@ -323,6 +325,16 @@ public class NetworkRanker {
         // If there were no primary network, then candidates.size() > 0 because it didn't
         // change from the previous result. If there were, it's guaranteed candidates.size() > 0
         // because accepted.size() > 0 above.
+
+        // If any network is not a slice with prioritized bandwidth or latency, don't choose one
+        // that is.
+        partitionInto(candidates, nai -> !nai.getCapsNoCopy()
+                        .hasCapability(NET_CAPABILITY_PRIORITIZE_BANDWIDTH)
+                        && !nai.getCapsNoCopy()
+                        .hasCapability(NET_CAPABILITY_PRIORITIZE_LATENCY),
+                accepted, rejected);
+        if (accepted.size() == 1) return accepted.get(0);
+        if (accepted.size() > 0 && rejected.size() > 0) candidates = new ArrayList<>(accepted);
 
         // If some of the networks have a better transport than others, keep only the ones with
         // the best transports.
