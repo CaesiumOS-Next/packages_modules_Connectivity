@@ -17,8 +17,7 @@
 
 #pragma once
 
-#include <log/log.h>
-
+#include <android/log.h>
 #include <android-base/properties.h>
 
 namespace android {
