@@ -42,7 +42,6 @@ import java.util.Collections;
  *
  * TODO: implement sending after a delay, combining queued replies and duplicate answer suppression
  */
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public class MdnsReplySender {
     private static final int MSG_SEND = 1;
     private static final int PACKET_NOT_SENT = 0;
