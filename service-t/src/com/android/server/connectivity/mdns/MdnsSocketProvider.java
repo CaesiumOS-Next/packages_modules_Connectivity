@@ -68,7 +68,6 @@ import java.util.Objects;
  * to their default value (0, false or null).
  *
  */
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public class MdnsSocketProvider {
     private static final String TAG = MdnsSocketProvider.class.getSimpleName();
     private static final boolean DBG = MdnsDiscoveryManager.DBG;

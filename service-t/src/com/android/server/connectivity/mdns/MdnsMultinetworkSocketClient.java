@@ -42,7 +42,6 @@ import java.util.List;
  *
  *  * <p>This class is not thread safe.
  */
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
     private static final String TAG = MdnsMultinetworkSocketClient.class.getSimpleName();
     private static final boolean DBG = MdnsDiscoveryManager.DBG;
