@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63fc41db_a147e28e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1061009
+      },
+      "writtenOn": "2023-09-22T20:18:15Z",
+      "side": 1,
+      "message": "APIs merging into internal main require @FlaggedApi. This will break the build after ag/24804357.",
+      "revId": "1300ad8992f4ffe30dbc79558bb0f7f05b8837dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a656bb1_c71b79f5",
