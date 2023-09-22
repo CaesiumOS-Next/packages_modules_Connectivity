@@ -51,7 +51,6 @@ import java.util.List;
  * @see MulticastSocket for javadoc of each public method.
  * @see MulticastSocket for javadoc of each public method.
  */
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public class MdnsInterfaceSocket {
     private static final String TAG = MdnsInterfaceSocket.class.getSimpleName();
     @NonNull private final MulticastSocket mMulticastSocket;
