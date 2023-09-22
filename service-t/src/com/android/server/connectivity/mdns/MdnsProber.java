@@ -41,8 +41,8 @@ public class MdnsProber extends MdnsPacketRepeater<MdnsProber.ProbingInfo> {
 
     public MdnsProber(@NonNull Looper looper, @NonNull MdnsReplySender replySender,
             @NonNull PacketRepeaterCallback<ProbingInfo> cb,
-            @NonNull SharedLog sharedLog) {
-        super(looper, replySender, cb, sharedLog);
+            @NonNull SharedLog sharedLog, boolean enableDebugLog) {
+        super(looper, replySender, cb, sharedLog, enableDebugLog);
     }
 
     /** Probing request to send with {@link MdnsProber}. */
