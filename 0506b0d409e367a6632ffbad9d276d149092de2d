@@ -16,6 +16,24 @@
       "message": "the build isn\u0027t particularly happy with you",
       "revId": "0506b0d409e367a6632ffbad9d276d149092de2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43f89025_67973cce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-22T18:46:02Z",
+      "side": 1,
+      "message": "Indeed.\n\nIn file included from packages/modules/Connectivity/tests/native/connectivity_native_test/connectivity_native_test.cpp:25:\npackages/modules/Connectivity/staticlibs/native/bpf_headers/include/bpf/BpfUtils.h:48:9: error: use of undeclared identifier \u0027ALOGE\u0027\nALOGE(\"Failed to get socket cookie: %s\\n\", strerror(err));\n\nthis makes me confused.  Because part 1 did include an ALOGE()...\n\nI\u0027m guess that means that one is now wrong, just always used in a place where ALOGE is already defined anyway.",
+      "parentUuid": "ef727472_78c1dcb8",
+      "revId": "0506b0d409e367a6632ffbad9d276d149092de2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
