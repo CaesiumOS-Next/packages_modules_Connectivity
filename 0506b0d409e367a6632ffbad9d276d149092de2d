@@ -34,6 +34,24 @@
       "parentUuid": "ef727472_78c1dcb8",
       "revId": "0506b0d409e367a6632ffbad9d276d149092de2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efc6d9e1_a6806856",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-22T18:54:24Z",
+      "side": 1,
+      "message": "log/log.h\n\n#ifndef LOG_TAG\n#define LOG_TAG NULL\n#endif\n\nlog_main.h\n#define ALOGE(...) ((void)ALOG(LOG_ERROR, LOG_TAG, __VA_ARGS__))\n\n#define ALOG(priority, tag, ...) LOG_PRI(ANDROID_##priority, tag, __VA_ARGS__)\n\n#define LOG_PRI(priority, tag, ...) android_printLog(priority, tag, __VA_ARGS__)\n\n#define android_printLog(prio, tag, ...) \\\n  __android_log_print(prio, tag, __VA_ARGS__)\n  \nand that one *is* in android/log.h\n\nndk_headers {\n    name: \"liblog_ndk_headers\",\n    from: \"include/android\",\n    to: \"android\",\n    srcs: [\"include/android/log.h\"],\n    license: \"NOTICE\",\n}\n\nI guess this is the ndk problem all over again, where even macros aren\u0027t accessible to ndk code\n\nPresumably we could\n\n#ifndef LOG_TAG\n#define LOG_TAG NULL\n#endif\n#define ALOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__))\n// or thereabouts",
+      "parentUuid": "43f89025_67973cce",
+      "revId": "0506b0d409e367a6632ffbad9d276d149092de2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
