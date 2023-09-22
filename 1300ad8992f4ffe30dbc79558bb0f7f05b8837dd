@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6336e1d_4914cdd1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-22T06:42:16Z",
+      "side": 1,
+      "message": "LGTM apart from the required change in udc-extended-api",
+      "revId": "1300ad8992f4ffe30dbc79558bb0f7f05b8837dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a656bb1_c71b79f5",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2906,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-22T06:42:16Z",
+      "side": 1,
+      "message": "nits: I think it\u0027s helpful to mention that the capability will be removed from the required capability as we have in the NetworkCapabilities#addForbiddenCapability\n```\n     * If the capability was previously added to the list of required capabilities (for\n     * example, it was there by default or added using {@link #addCapability(int)} method), then\n     * it will be removed from the list of required capabilities as well.\n```",
+      "range": {
+        "startLine": 2906,
+        "startChar": 10,
+        "endLine": 2906,
+        "endChar": 11
+      },
+      "revId": "1300ad8992f4ffe30dbc79558bb0f7f05b8837dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6322a6c8_34dbd02d",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-22T06:42:16Z",
+      "side": 1,
+      "message": "We need to have @IgnoreUpTo(Build.VERSION_CODES.R), I think",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 9
+      },
+      "revId": "1300ad8992f4ffe30dbc79558bb0f7f05b8837dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
