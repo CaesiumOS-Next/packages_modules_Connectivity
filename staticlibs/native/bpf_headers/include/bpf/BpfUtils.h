@@ -26,7 +26,11 @@
 #include <sys/socket.h>
 #include <sys/utsname.h>
 
-#include <log/log.h>
+#include <android/log.h>
+
+#ifndef LOG_TAG
+#define LOG_TAG NULL
+#endif
 
 #include "KernelUtils.h"
 
@@ -45,13 +49,15 @@ static inline uint64_t getSocketCookie(int sockFd) {
     if (getsockopt(sockFd, SOL_SOCKET, SO_COOKIE, &sock_cookie, &cookie_len)) {
         // Failure is almost certainly either EBADF or ENOTSOCK
         const int err = errno;
-        ALOGE("Failed to get socket cookie: %s\n", strerror(err));
+        android_log_print(ANDROID_LOG_ERROR, LOG_TAG,
+                          "Failed to get socket cookie: %s\n", strerror(err));
         errno = err;
         return NONEXISTENT_COOKIE;
     }
     if (cookie_len != sizeof(sock_cookie)) {
         // This probably cannot actually happen, but...
-        ALOGE("Failed to get socket cookie: len %d != 8\n", cookie_len);
+        android_log_print(ANDROID_LOG_ERROR, LOG_TAG,
+                          "Failed to get socket cookie: len %d != 8\n", cookie_len);
         errno = 523; // EBADCOOKIE: kernel internal, seems reasonable enough...
         return NONEXISTENT_COOKIE;
     }
@@ -70,14 +76,16 @@ static inline int synchronizeKernelRCU() {
 
     if (pfSocket < 0) {
         const int err = errno;
-        ALOGE("create PF_KEY socket failed: %s", strerror(err));
+        android_log_print(ANDROID_LOG_ERROR, LOG_TAG,
+                          "create PF_KEY socket failed: %s", strerror(err));
         return -err;
     }
 
     // When closing socket, synchronize_rcu() gets called in sock_release().
     if (close(pfSocket)) {
         const int err = errno;
-        ALOGE("failed to close the PF_KEY socket: %s", strerror(err));
+        android_log_print(ANDROID_LOG_ERROR, LOG_TAG,
+                          "failed to close the PF_KEY socket: %s", strerror(err));
         return -err;
     }
     return 0;
@@ -90,7 +98,10 @@ static inline int setrlimitForTest() {
             .rlim_max = 1073741824,  // 1 GiB
     };
     const int res = setrlimit(RLIMIT_MEMLOCK, &limit);
-    if (res) ALOGE("Failed to set the default MEMLOCK rlimit: %s", strerror(errno));
+    if (res) {
+        android_log_print(ANDROID_LOG_ERROR, LOG_TAG,
+                          "Failed to set the default MEMLOCK rlimit: %s", strerror(errno));
+    }
     return res;
 }
 
