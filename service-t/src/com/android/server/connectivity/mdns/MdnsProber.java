@@ -35,7 +35,6 @@ import java.util.List;
  *
  * TODO: implement receiving replies and handling conflicts.
  */
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public class MdnsProber extends MdnsPacketRepeater<MdnsProber.ProbingInfo> {
     private static final long CONFLICT_RETRY_DELAY_MS = 5_000L;
 
