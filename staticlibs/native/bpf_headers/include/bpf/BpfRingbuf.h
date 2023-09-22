@@ -16,11 +16,11 @@
 
 #pragma once
 
+#include <android/log.h>
 #include <android-base/result.h>
 #include <android-base/unique_fd.h>
 #include <linux/bpf.h>
 #include <sys/mman.h>
-#include <utils/Log.h>
 
 #include "bpf/BpfUtils.h"
 
