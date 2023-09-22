@@ -312,7 +312,7 @@ genrule {
         ":service-connectivity-jarjar-gen",
         ":service-nearby-jarjar-gen",
         ":service-remoteauth-jarjar-gen",
-        ":service-thread-jarjar-gen",
+        //":service-thread-jarjar-gen",
     ],
     out: ["connectivity-jarjar-rules.txt"],
     visibility: ["//packages/modules/Connectivity:__subpackages__"],
