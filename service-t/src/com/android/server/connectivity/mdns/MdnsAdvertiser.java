@@ -52,7 +52,6 @@ import java.util.function.Consumer;
  *
  * All methods except the constructor must be called on the looper thread.
  */
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public class MdnsAdvertiser {
     private static final String TAG = MdnsAdvertiser.class.getSimpleName();
     static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
