@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "865b1031_fbfbac23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-22T02:25:58Z",
+      "side": 1,
+      "message": "Lint is incorrect – this code cannot run on Android R.",
+      "revId": "c8fefb36d81afe272fb7f16f6664cc5750ef624a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
