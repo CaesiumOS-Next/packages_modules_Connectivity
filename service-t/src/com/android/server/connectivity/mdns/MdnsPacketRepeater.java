@@ -37,7 +37,6 @@ import java.net.InetSocketAddress;
  * A class used to send several packets at given time intervals.
  * @param <T> The type of the request providing packet repeating parameters.
  */
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
     private static final String TAG = MdnsPacketRepeater.class.getSimpleName();
     private static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
