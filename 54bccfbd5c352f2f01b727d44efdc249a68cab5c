@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a163299_efd3df37",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2023-09-22T16:30:17Z",
+      "side": 1,
+      "message": "1) We just need to move the slices to the back of the list to reduce the priority right?\n\n2) Can we also keep all such slices with lower priority to be default network in a list and refer the list here, so that we can just add to the list in future if we have more such slices",
+      "range": {
+        "startLine": 334,
+        "startChar": 39,
+        "endLine": 334,
+        "endChar": 72
+      },
+      "revId": "54bccfbd5c352f2f01b727d44efdc249a68cab5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
