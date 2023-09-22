@@ -26,7 +26,7 @@
 #include <sys/socket.h>
 #include <sys/utsname.h>
 
-#include <log/log.h>
+#include <android/log.h>
 
 #include "KernelUtils.h"
 
