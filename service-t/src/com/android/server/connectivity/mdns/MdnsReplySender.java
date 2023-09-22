@@ -43,7 +43,6 @@ import java.util.Collections;
  *
  * TODO: implement sending after a delay, combining queued replies and duplicate answer suppression
  */
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public class MdnsReplySender {
     private static final String TAG = MdnsReplySender.class.getSimpleName();
     private static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
