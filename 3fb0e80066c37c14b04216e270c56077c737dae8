@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97818d5d_d77e7ed1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-25T07:21:14Z",
+      "side": 1,
+      "message": "Let\u0027s have 2 constructors as was suggested on the other comment thread. You could either keep this constructor for test and check that `(null \u003d\u003d looper) !\u003d (null \u003d\u003d thread)`, or you could have 2 @VisibleForTest constructors.",
+      "range": {
+        "startLine": 44,
+        "startChar": 18,
+        "endLine": 44,
+        "endChar": 19
+      },
+      "revId": "3fb0e80066c37c14b04216e270c56077c737dae8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2118175f_dd34d6a5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-25T07:21:14Z",
+      "side": 1,
+      "message": "This doesn\u0027t capture anything though ?",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 57,
+        "endChar": 19
+      },
+      "revId": "3fb0e80066c37c14b04216e270c56077c737dae8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2e94be7_b97c8d27",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/StateMachineShimTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-25T07:21:14Z",
+      "side": 1,
+      "message": "No use for the explicit type\n\n    override fun makeAsyncStateMachine(name: String, looper: Looper) \u003d mAsyncSM",
+      "range": {
+        "startLine": 46,
+        "startChar": 16,
+        "endLine": 46,
+        "endChar": 33
+      },
+      "revId": "3fb0e80066c37c14b04216e270c56077c737dae8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
