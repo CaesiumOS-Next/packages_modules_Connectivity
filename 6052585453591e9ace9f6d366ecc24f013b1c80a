@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c586f729_3b0c7ea5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-25T02:31:00Z",
+      "side": 1,
+      "message": "Nit: you could add a short description to be more specific around what the additional test capabilities are",
+      "revId": "6052585453591e9ace9f6d366ecc24f013b1c80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e8b68b9_22b92db8",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1419,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-25T02:31:00Z",
+      "side": 1,
+      "message": "Nit: Besides (to mean apart from)",
+      "range": {
+        "startLine": 1419,
+        "startChar": 37,
+        "endLine": 1419,
+        "endChar": 43
+      },
+      "revId": "6052585453591e9ace9f6d366ecc24f013b1c80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98a2a597_57c5f35f",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-25T02:31:00Z",
+      "side": 1,
+      "message": "I find it a bit confusing that every test that starts with \"Hostside\" in packages/modules/Connectivity/tests/cts/net/src/ is considered a CarrierServiceTest, and not included in CtsNetTestCases, but included in CtsCarrierServiceTest instead.\n\nSince these tests don\u0027t share sources, it doesn\u0027t seem right to have them in the same directory. Also being a host-driven test, should this be in packages/modules/Connectivity/tests/cts/hostside/ instead ? You could have packages/modules/Connectivity/tests/cts/hostside/carrierservice and packages/modules/Connectivity/tests/cts/hostside/carrierserviceapp",
+      "revId": "6052585453591e9ace9f6d366ecc24f013b1c80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39c98453_2d76c96a",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-25T02:31:00Z",
+      "side": 1,
+      "message": "Do you want this in MTS too ? Or is it not useful there ?",
+      "revId": "6052585453591e9ace9f6d366ecc24f013b1c80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "316597b2_eb70908e",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-25T02:31:00Z",
+      "side": 1,
+      "message": "I don\u0027t understand why you need this; was this for temporary testing and should be removed ? Otherwise you could have a comment on the java_test_host to explain what it does with each app",
+      "revId": "6052585453591e9ace9f6d366ecc24f013b1c80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0fd109c_a73958f9",
+        "filename": "tests/cts/net/AndroidCarrierServiceTest.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-25T02:31:00Z",
+      "side": 1,
+      "message": "You\u0027d probably want the ConnectivityTestTargetPreparer to do the connectivity checks and block GMS networking: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/cts/net/AndroidTestTemplate.xml;drc\u003d89570aca440b51a263966c4e47eec60392527624;l\u003d31\n\nAlso if you decide to put this in MTS too, you may want to add a MainlineTestModuleController with an appropriate set of modules: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/cts/net/AndroidTestTemplate.xml;drc\u003d89570aca440b51a263966c4e47eec60392527624;l\u003d54\n\nAnd if there\u0027s a minSdk \u003e R, a SdkXXModuleController: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/nearby/tests/cts/fastpair/AndroidTest.xml;drc\u003d81a900dade7cb645ce1a833b22707628e8614f5d;l\u003d18",
+      "revId": "6052585453591e9ace9f6d366ecc24f013b1c80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c878d5a0_2dddb7b9",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-25T02:31:00Z",
+      "side": 1,
+      "message": "Does the test break with the service/src change if you don\u0027t remove this transport ? In that case, is this breaking T/U CTS ? Ideally you should first fix the test in CTS 13 R2 before making breaking changes (with proper presubmit breaking the test in android13-tests-dev wouldn\u0027t be allowed).",
+      "revId": "6052585453591e9ace9f6d366ecc24f013b1c80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
