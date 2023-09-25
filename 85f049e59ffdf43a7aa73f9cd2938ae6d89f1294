@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad03ee39_ac32fa03",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-25T10:26:38Z",
+      "side": 1,
+      "message": "Should you remove all other messages before sending this one ?\n- Before this, other messages would be handled by the destination state.\n- After this, you\u0027d be handling all other messages before transitioning.\n\nI think if we failed to start, any outstanding message probably should be canceled. They were probably ignored before, and if they weren\u0027t then they were probably misinterpreted.",
+      "range": {
+        "startLine": 1101,
+        "startChar": 0,
+        "endLine": 1101,
+        "endChar": 16
+      },
+      "revId": "85f049e59ffdf43a7aa73f9cd2938ae6d89f1294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
