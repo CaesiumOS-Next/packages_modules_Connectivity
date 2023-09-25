@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b71e074_ea5aaf7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-25T10:22:18Z",
+      "side": 1,
+      "message": "I think this is very likely correct, but it\u0027s almost impossible to be sure.\n\nAt the very least : your cover comment describes an observable change in the order of events. You should have tests that cover this.\nAlso, interface up/interface down is for USB, but in WiFi/Eth it will be tether unrequested I think ? You need test coverage for *both* of these cases.\n\nIdeally this would be subject to a rollout. But I think this is\n- rare enough\n- safe enough\n- already not guaranteed to be correct\nso that we can check this in when you have the test coverage above.",
+      "revId": "36a30af3d3b26db4f1af4f18017d772edabeb990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c48a58c0_56c6d04b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2187,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-25T10:22:18Z",
+      "side": 1,
+      "message": "You don\u0027t need to call this, it will be unboxed for you.",
+      "range": {
+        "startLine": 2187,
+        "startChar": 71,
+        "endLine": 2187,
+        "endChar": 83
+      },
+      "revId": "36a30af3d3b26db4f1af4f18017d772edabeb990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
