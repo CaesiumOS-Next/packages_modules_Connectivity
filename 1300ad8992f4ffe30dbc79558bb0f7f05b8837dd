@@ -75,6 +75,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "009f1215_1be8322d",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2906,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-25T10:40:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a656bb1_c71b79f5",
+      "range": {
+        "startLine": 2906,
+        "startChar": 10,
+        "endLine": 2906,
+        "endChar": 11
+      },
+      "revId": "1300ad8992f4ffe30dbc79558bb0f7f05b8837dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6322a6c8_34dbd02d",
@@ -88,6 +112,30 @@
       "writtenOn": "2023-09-22T06:42:16Z",
       "side": 1,
       "message": "We need to have @IgnoreUpTo(Build.VERSION_CODES.R), I think",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 9
+      },
+      "revId": "1300ad8992f4ffe30dbc79558bb0f7f05b8837dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "011c5d04_b1c6b1fc",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-25T10:40:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6322a6c8_34dbd02d",
       "range": {
         "startLine": 107,
         "startChar": 4,
