@@ -22,6 +22,30 @@
       },
       "revId": "54bccfbd5c352f2f01b727d44efdc249a68cab5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2e54062_7e64b9e9",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-25T06:10:47Z",
+      "side": 1,
+      "message": "1) No, that\u0027s not how this code works : this code outputs the ONE best network from the list of candidates. Not an ordered list. Therefore this ranking code works by dropping networks by applying successive policies until there\u0027s only one left. The list is never ordered at any point in the function.\n\n2) If we have more slices in the future we\u0027ll need to list somewhere the list of slices that should be de-prioritized. Right now It\u0027s right here in l.332 and 334, but we can make a static list of them if we think that\u0027s easier to read. Either way we have to add the capability when we add a new slice.\nAt this point I think it\u0027s a bit overkill to make a list and iterate over 2 elements, but if you feel strongly I\u0027ll do it.",
+      "parentUuid": "7a163299_efd3df37",
+      "range": {
+        "startLine": 334,
+        "startChar": 39,
+        "endLine": 334,
+        "endChar": 72
+      },
+      "revId": "54bccfbd5c352f2f01b727d44efdc249a68cab5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
