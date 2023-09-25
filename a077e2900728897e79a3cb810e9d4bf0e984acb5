@@ -16,6 +16,24 @@
       "message": "As I commented in the other change, paulhu@ has a refactor to use this class and MdnsReplySender in the discovery code, so this shouldn\u0027t be excluded\n\nPaul can probably provide more details on how to make the discovery code build with it",
       "revId": "a077e2900728897e79a3cb810e9d4bf0e984acb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03e07c5e_80b3c39c",
+        "filename": "service-t/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-25T04:14:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afba8ebd_7de1da57",
+      "revId": "a077e2900728897e79a3cb810e9d4bf0e984acb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
