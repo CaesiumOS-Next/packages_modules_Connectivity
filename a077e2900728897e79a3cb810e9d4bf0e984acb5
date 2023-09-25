@@ -34,6 +34,24 @@
       "parentUuid": "afba8ebd_7de1da57",
       "revId": "a077e2900728897e79a3cb810e9d4bf0e984acb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c541f2ee_256af4aa",
+        "filename": "service-t/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-25T06:30:38Z",
+      "side": 1,
+      "message": "In the latest snapshot. I made a few refactoring to make it buildable without excluding `MdnsReplySender` and `MdnsPacketRepeater`.\n\n@reminv@google.com @paulhu@google.com PTAL",
+      "parentUuid": "03e07c5e_80b3c39c",
+      "revId": "a077e2900728897e79a3cb810e9d4bf0e984acb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
