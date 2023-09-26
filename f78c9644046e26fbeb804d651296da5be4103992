@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f4e8857_a3fe321f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-26T08:50:36Z",
+      "side": 1,
+      "message": "In principle yes but we lose coverage for *adding* a v4 address after a v6 address, which is a very common case and must work. Can you please add back that case ? It should probably be in VpnTest.",
+      "revId": "f78c9644046e26fbeb804d651296da5be4103992",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
