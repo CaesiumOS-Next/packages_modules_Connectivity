@@ -21,6 +21,7 @@ import android.annotation.Nullable;
 import android.net.Network;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.util.ArraySet;
 
@@ -148,6 +149,22 @@ public class MdnsUtils {
         return false;
     }
 
+    /*** Ensure that current running thread is same as given looper thread */
+    public static void ensureRunningOnLooperThread(@NonNull Looper looper) {
+        if (!isRunningOnLooperThread(looper)) {
+            throw new IllegalStateException(
+                    "Not running on Looper thread: " + Thread.currentThread().getName());
+        }
+    }
+
+    /*** Check that current running thread is same as given looper thread */
+    public static boolean isRunningOnLooperThread(@NonNull Looper looper) {
+        if (looper.getThread() == Thread.currentThread()) {
+            return true;
+        }
+        return false;
+    }
+
     /*** Check whether the target network matches the current network */
     public static boolean isNetworkMatched(@Nullable Network targetNetwork,
             @Nullable Network currentNetwork) {
@@ -189,7 +206,7 @@ public class MdnsUtils {
         // TODO: support packets over size (send in multiple packets with TC bit set)
         final MdnsPacketWriter writer = new MdnsPacketWriter(packetCreationBuffer);
 
-        writer.writeUInt16(0); // Transaction ID (advertisement: 0)
+        writer.writeUInt16(packet.transactionId); // Transaction ID (advertisement: 0)
         writer.writeUInt16(packet.flags); // Response, authoritative (rfc6762 18.4)
         writer.writeUInt16(packet.questions.size()); // questions count
         writer.writeUInt16(packet.answers.size()); // answers count
