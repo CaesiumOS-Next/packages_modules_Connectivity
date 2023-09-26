@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ba6cfab_07572cf8",
+        "filename": "tests/unit/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-26T08:18:59Z",
+      "side": 1,
+      "message": "LockdownVpnTracker is in frameworks/base. Are you sure you want to write this in the module tests ? It should belong in the platform, together with the code it\u0027s testing.",
+      "range": {
+        "startLine": 69,
+        "startChar": 33,
+        "endLine": 69,
+        "endChar": 55
+      },
+      "revId": "d9addac66febd08babc5f4a1a0f591b6f7f9c88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29e838c9_f68d838c",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-26T08:18:59Z",
+      "side": 1,
+      "message": "Ignoring the return value of a getter doesn\u0027t sound very useful ; for sure, in this call site it *looks* completely useless. I suppose you\u0027re calling this to check the methods on CM have indeed been called, but if that\u0027s the side effect that you\u0027re interested in then the methods should be called verifyXXX and absolutely not getXXX.\n\nBut more realistically, do you actually care, here ? ISTM you just can remove these two lines. It doesn\u0027t seem to actually matter if these have been called here or not, considering you\u0027re not even using the return value, and you\u0027ll be calling the getters again later when you actually use them.",
+      "range": {
+        "startLine": 136,
+        "startChar": 8,
+        "endLine": 136,
+        "endChar": 33
+      },
+      "revId": "d9addac66febd08babc5f4a1a0f591b6f7f9c88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10d93388_bf6f3dd6",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-26T08:18:59Z",
+      "side": 1,
+      "message": "Is this test really necessary considering all your other tests start with these 2 lines anyway ?",
+      "range": {
+        "startLine": 144,
+        "startChar": 16,
+        "endLine": 144,
+        "endChar": 24
+      },
+      "revId": "d9addac66febd08babc5f4a1a0f591b6f7f9c88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b128ef86_f13bc04d",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-26T08:18:59Z",
+      "side": 1,
+      "message": "This is a bit unrealistic ; can you call onAvailable and onNetworkCapabilitiesChanged first ?\n\nBesides, this tests the case of no network → test network, not really a change in default LP like the method name says. Do you want to also have coverage for a change in default networks ?",
+      "range": {
+        "startLine": 174,
+        "startChar": 24,
+        "endLine": 174,
+        "endChar": 47
+      },
+      "revId": "d9addac66febd08babc5f4a1a0f591b6f7f9c88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
