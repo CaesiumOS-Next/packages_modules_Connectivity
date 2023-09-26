@@ -52,6 +52,24 @@
       "parentUuid": "03e07c5e_80b3c39c",
       "revId": "a077e2900728897e79a3cb810e9d4bf0e984acb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27470d2b_79c8a5d8",
+        "filename": "service-t/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-26T02:49:20Z",
+      "side": 1,
+      "message": "\u003e Paul can probably provide more details on how to make the discovery code build with it\n\nThe sample code aosp/2762787 demonstrates how to use MdnsPacketRepeater and MdnsReplySender on discovery code. We avoid using both an executor and a handler on MdnsServiceTypeClient, and instead use MdnsPacketRepeater to send packets in a way that is aligned with the advertisement design.",
+      "parentUuid": "c541f2ee_256af4aa",
+      "revId": "a077e2900728897e79a3cb810e9d4bf0e984acb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
