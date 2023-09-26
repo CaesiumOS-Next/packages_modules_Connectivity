@@ -22,6 +22,30 @@
       },
       "revId": "9244912a3fd27751f396f9894d8f68e1218c55c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe8e12d8_08a3ec7c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-26T12:44:17Z",
+      "side": 1,
+      "message": "verified with `atest --instant  CtsNetTestCases:android.net.cts.NsdManagerDownstreamTetheringTest`",
+      "parentUuid": "ebfa3d07_be27fcdc",
+      "range": {
+        "startLine": 13,
+        "startChar": 6,
+        "endLine": 13,
+        "endChar": 8
+      },
+      "revId": "9244912a3fd27751f396f9894d8f68e1218c55c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
