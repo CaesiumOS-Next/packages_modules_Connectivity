@@ -19,6 +19,7 @@ package com.android.server;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN;
+import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
@@ -123,6 +124,9 @@ public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
         mNetworkCapabilities.addCapability(NET_CAPABILITY_NOT_VCN_MANAGED);
         mNetworkCapabilities.addTransportType(transport);
         switch (transport) {
+            case TRANSPORT_BLUETOOTH:
+                mScore = new NetworkScore.Builder().setLegacyInt(100).build();
+                break;
             case TRANSPORT_ETHERNET:
                 mScore = new NetworkScore.Builder().setLegacyInt(70).build();
                 break;
