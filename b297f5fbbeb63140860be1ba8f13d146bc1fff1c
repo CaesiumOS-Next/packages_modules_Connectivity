@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fa94c5b_816e8434",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-09-26T05:30:45Z",
+      "side": 1,
+      "message": "```suggestion\nimport com.android.server.thread.openthread.IOtDaemon;\nimport com.android.server.thread.openthread.IOtDaemonCallback;\nimport com.android.server.thread.openthread.IOtStatusReceiver;\nimport com.android.server.thread.openthread.Ipv6AddressInfo;\n```",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 53
+      },
+      "revId": "b297f5fbbeb63140860be1ba8f13d146bc1fff1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
