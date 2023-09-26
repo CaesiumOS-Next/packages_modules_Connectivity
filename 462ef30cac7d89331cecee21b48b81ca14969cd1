@@ -22,6 +22,30 @@
       },
       "revId": "462ef30cac7d89331cecee21b48b81ca14969cd1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb40d12b_8c0f6370",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-26T03:50:27Z",
+      "side": 0,
+      "message": "Not for the flag, but it still is for everything else – also a mistake while rebasing. Thanks.",
+      "parentUuid": "39501327_8e99dffa",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 30
+      },
+      "revId": "462ef30cac7d89331cecee21b48b81ca14969cd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
