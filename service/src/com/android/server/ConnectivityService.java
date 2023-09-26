@@ -97,12 +97,14 @@ import static android.os.Process.VPN_UID;
 import static android.system.OsConstants.ETH_P_ALL;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
+
 import static com.android.net.module.util.NetworkMonitorUtils.isPrivateDnsValidationRequired;
 import static com.android.net.module.util.PermissionUtils.checkAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermission;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermissionOr;
 import static com.android.server.ConnectivityStatsLog.CONNECTIVITY_STATE_SAMPLE;
+
 import static java.util.Map.Entry;
 
 import android.Manifest;
@@ -11418,7 +11420,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         public void onInterfaceLinkStateChanged(@NonNull String iface, boolean up) {
             mHandler.post(() -> {
                 for (NetworkAgentInfo nai : mNetworkAgentInfos) {
-                    nai.clatd.interfaceLinkStateChanged(iface, up);
+                    nai.clatd.handleInterfaceLinkStateChanged(iface, up);
                 }
             });
         }
@@ -11427,7 +11429,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         public void onInterfaceRemoved(@NonNull String iface) {
             mHandler.post(() -> {
                 for (NetworkAgentInfo nai : mNetworkAgentInfos) {
-                    nai.clatd.interfaceRemoved(iface);
+                    nai.clatd.handleInterfaceRemoved(iface);
                 }
             });
         }
