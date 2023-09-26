@@ -272,8 +272,7 @@ public class Nat464XlatTest {
         verifyClatdStart(null /* inOrder */);
 
         // Stacked interface up notification arrives.
-        nat.interfaceLinkStateChanged(STACKED_IFACE, true);
-        mLooper.dispatchNext();
+        nat.handleInterfaceLinkStateChanged(STACKED_IFACE, true);
 
         verify(mNetd).interfaceGetCfg(eq(STACKED_IFACE));
         verify(mConnectivity).handleUpdateLinkProperties(eq(mNai), c.capture());
@@ -294,8 +293,7 @@ public class Nat464XlatTest {
         // Verify the generated v6 is reset when clat is stopped.
         assertNull(nat.mIPv6Address);
         // Stacked interface removed notification arrives and is ignored.
-        nat.interfaceRemoved(STACKED_IFACE);
-        mLooper.dispatchNext();
+        nat.handleInterfaceRemoved(STACKED_IFACE);
 
         verifyNoMoreInteractions(mNetd, mConnectivity);
     }
@@ -324,8 +322,7 @@ public class Nat464XlatTest {
         verifyClatdStart(inOrder);
 
         // Stacked interface up notification arrives.
-        nat.interfaceLinkStateChanged(STACKED_IFACE, true);
-        mLooper.dispatchNext();
+        nat.handleInterfaceLinkStateChanged(STACKED_IFACE, true);
 
         inOrder.verify(mConnectivity).handleUpdateLinkProperties(eq(mNai), c.capture());
         assertFalse(c.getValue().getStackedLinks().isEmpty());
@@ -344,10 +341,8 @@ public class Nat464XlatTest {
 
         if (interfaceRemovedFirst) {
             // Stacked interface removed notification arrives and is ignored.
-            nat.interfaceRemoved(STACKED_IFACE);
-            mLooper.dispatchNext();
-            nat.interfaceLinkStateChanged(STACKED_IFACE, false);
-            mLooper.dispatchNext();
+            nat.handleInterfaceRemoved(STACKED_IFACE);
+            nat.handleInterfaceLinkStateChanged(STACKED_IFACE, false);
         }
 
         assertTrue(c.getValue().getStackedLinks().isEmpty());
@@ -361,15 +356,12 @@ public class Nat464XlatTest {
 
         if (!interfaceRemovedFirst) {
             // Stacked interface removed notification arrives and is ignored.
-            nat.interfaceRemoved(STACKED_IFACE);
-            mLooper.dispatchNext();
-            nat.interfaceLinkStateChanged(STACKED_IFACE, false);
-            mLooper.dispatchNext();
+            nat.handleInterfaceRemoved(STACKED_IFACE);
+            nat.handleInterfaceLinkStateChanged(STACKED_IFACE, false);
         }
 
         // Stacked interface up notification arrives.
-        nat.interfaceLinkStateChanged(STACKED_IFACE, true);
-        mLooper.dispatchNext();
+        nat.handleInterfaceLinkStateChanged(STACKED_IFACE, true);
 
         inOrder.verify(mConnectivity).handleUpdateLinkProperties(eq(mNai), c.capture());
         assertFalse(c.getValue().getStackedLinks().isEmpty());
@@ -411,8 +403,7 @@ public class Nat464XlatTest {
         verifyClatdStart(null /* inOrder */);
 
         // Stacked interface up notification arrives.
-        nat.interfaceLinkStateChanged(STACKED_IFACE, true);
-        mLooper.dispatchNext();
+        nat.handleInterfaceLinkStateChanged(STACKED_IFACE, true);
 
         verify(mNetd).interfaceGetCfg(eq(STACKED_IFACE));
         verify(mConnectivity, times(1)).handleUpdateLinkProperties(eq(mNai), c.capture());
@@ -421,8 +412,7 @@ public class Nat464XlatTest {
         assertRunning(nat);
 
         // Stacked interface removed notification arrives (clatd crashed, ...).
-        nat.interfaceRemoved(STACKED_IFACE);
-        mLooper.dispatchNext();
+        nat.handleInterfaceRemoved(STACKED_IFACE);
 
         verifyClatdStop(null /* inOrder */);
         verify(mConnectivity, times(2)).handleUpdateLinkProperties(eq(mNai), c.capture());
@@ -457,12 +447,10 @@ public class Nat464XlatTest {
         assertIdle(nat);
 
         // In-flight interface up notification arrives: no-op
-        nat.interfaceLinkStateChanged(STACKED_IFACE, true);
-        mLooper.dispatchNext();
+        nat.handleInterfaceLinkStateChanged(STACKED_IFACE, true);
 
         // Interface removed notification arrives after stopClatd() takes effect: no-op.
-        nat.interfaceRemoved(STACKED_IFACE);
-        mLooper.dispatchNext();
+        nat.handleInterfaceRemoved(STACKED_IFACE);
 
         assertIdle(nat);
 
