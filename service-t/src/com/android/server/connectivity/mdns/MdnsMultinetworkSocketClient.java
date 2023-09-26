@@ -30,10 +30,7 @@ import android.util.ArrayMap;
 
 import com.android.net.module.util.SharedLog;
 
-import java.io.IOException;
 import java.net.DatagramPacket;
-import java.net.Inet4Address;
-import java.net.Inet6Address;
 import java.net.InetSocketAddress;
 import java.util.List;
 
@@ -88,7 +85,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
             }
             socket.addPacketHandler(handler);
             mActiveSockets.put(socketKey, socket);
-            mSocketCreationCallback.onSocketCreated(socketKey);
+            mSocketCreationCallback.onSocketCreated(socketKey, socket);
         }
 
         @Override
@@ -210,30 +207,6 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         return true;
     }
 
-    private void sendMdnsPacket(@NonNull DatagramPacket packet, @NonNull SocketKey targetSocketKey,
-            boolean onlyUseIpv6OnIpv6OnlyNetworks) {
-        final MdnsInterfaceSocket socket = getTargetSocket(targetSocketKey);
-        if (socket == null) {
-            mSharedLog.e("No socket matches targetSocketKey=" + targetSocketKey);
-            return;
-        }
-
-        final boolean isIpv6 = ((InetSocketAddress) packet.getSocketAddress()).getAddress()
-                instanceof Inet6Address;
-        final boolean isIpv4 = ((InetSocketAddress) packet.getSocketAddress()).getAddress()
-                instanceof Inet4Address;
-        final boolean shouldQueryIpv6 = !onlyUseIpv6OnIpv6OnlyNetworks || !socket.hasJoinedIpv4();
-        // Check ip capability and network before sending packet
-        if ((isIpv6 && socket.hasJoinedIpv6() && shouldQueryIpv6)
-                || (isIpv4 && socket.hasJoinedIpv4())) {
-            try {
-                socket.send(packet);
-            } catch (IOException e) {
-                mSharedLog.e("Failed to send a mDNS packet.", e);
-            }
-        }
-    }
-
     private void processResponsePacket(byte[] recvbuf, int length, @NonNull SocketKey socketKey) {
         int packetNumber = ++mReceivedPacketNumber;
 
@@ -260,7 +233,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
      */
     public void sendPacketRequestingMulticastResponse(@NonNull DatagramPacket packet,
             @NonNull SocketKey socketKey, boolean onlyUseIpv6OnIpv6OnlyNetworks) {
-        mHandler.post(() -> sendMdnsPacket(packet, socketKey, onlyUseIpv6OnIpv6OnlyNetworks));
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -278,7 +251,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
      */
     public void sendPacketRequestingUnicastResponse(@NonNull DatagramPacket packet,
             @NonNull SocketKey socketKey, boolean onlyUseIpv6OnIpv6OnlyNetworks) {
-        mHandler.post(() -> sendMdnsPacket(packet, socketKey, onlyUseIpv6OnIpv6OnlyNetworks));
+        throw new UnsupportedOperationException();
     }
 
     @Override

@@ -44,6 +44,11 @@ import java.util.Objects;
 public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
     private static final String TAG = MdnsDiscoveryManager.class.getSimpleName();
     public static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
+    // Max-sized buffers to be used as temporary buffer to read/build packets. May be used by
+    // multiple components, but only for self-contained operations in the looper thread, so not
+    // concurrently.
+    // TODO: set according to MTU. 1300 should fit for ethernet MTU 1500 with some overhead.
+    private final byte[] packetCreationBuffer = new byte[1300];
 
     private final ExecutorProvider executorProvider;
     private final MdnsSocketClientBase socketClient;
@@ -53,6 +58,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
     @NonNull private final Handler handler;
     @Nullable private final HandlerThread handlerThread;
     @NonNull private final MdnsServiceCache serviceCache;
+    @NonNull private final ArrayMap<SocketKey, MdnsReplySender> socketSenders = new ArrayMap<>();
 
     private static class PerSocketServiceTypeClients {
         private final ArrayMap<Pair<String, SocketKey>, MdnsServiceTypeClient> clients =
@@ -187,14 +193,16 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
         socketClient.notifyNetworkRequested(listener, searchOptions.getNetwork(),
                 new MdnsSocketClientBase.SocketCreationCallback() {
                     @Override
-                    public void onSocketCreated(@NonNull SocketKey socketKey) {
+                    public void onSocketCreated(@NonNull SocketKey socketKey,
+                            @NonNull MdnsInterfaceSocket socket) {
                         ensureRunningOnHandlerThread(handler);
                         // All listeners of the same service types shares the same
                         // MdnsServiceTypeClient.
                         MdnsServiceTypeClient serviceTypeClient =
                                 perSocketServiceTypeClients.get(serviceType, socketKey);
                         if (serviceTypeClient == null) {
-                            serviceTypeClient = createServiceTypeClient(serviceType, socketKey);
+                            serviceTypeClient =
+                                    createServiceTypeClient(serviceType, socketKey, socket);
                             perSocketServiceTypeClients.put(serviceType, socketKey,
                                     serviceTypeClient);
                         }
@@ -292,13 +300,24 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
 
     @VisibleForTesting
     MdnsServiceTypeClient createServiceTypeClient(@NonNull String serviceType,
-            @NonNull SocketKey socketKey) {
+            @NonNull SocketKey socketKey, @NonNull MdnsInterfaceSocket socket) {
         sharedLog.log("createServiceTypeClient for type:" + serviceType + " " + socketKey);
         final String tag = serviceType + "-" + socketKey.getNetwork()
                 + "/" + socketKey.getInterfaceIndex();
+        MdnsReplySender replySender = socketSenders.get(socketKey);
+        if (replySender == null) {
+            if (socketClient.getLooper() != null) {
+                replySender = new MdnsReplySender(socketClient.getLooper(), socket,
+                        packetCreationBuffer, sharedLog);
+            } else {
+                replySender = new MdnsReplySender(handlerThread.getLooper(), socket,
+                        packetCreationBuffer, sharedLog);
+            }
+            socketSenders.put(socketKey, replySender);
+        }
         return new MdnsServiceTypeClient(
                 serviceType, socketClient,
                 executorProvider.newServiceTypeClientSchedulerExecutor(), socketKey,
-                sharedLog.forSubComponent(tag), handler.getLooper(), serviceCache);
+                sharedLog.forSubComponent(tag), handler.getLooper(), serviceCache, replySender);
     }
 }

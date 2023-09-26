@@ -224,7 +224,7 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
             throw new IllegalArgumentException("This socket client does not support requesting "
                     + "specific networks");
         }
-        socketCreationCallback.onSocketCreated(new SocketKey(multicastSocket.getInterfaceIndex()));
+        socketCreationCallback.onSocketCreated(new SocketKey(multicastSocket.getInterfaceIndex()), null);
     }
 
     @Override
