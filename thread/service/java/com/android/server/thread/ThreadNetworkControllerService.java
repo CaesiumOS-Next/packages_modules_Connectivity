@@ -104,9 +104,10 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
     private NetworkAgent mNetworkAgent;
     private volatile Network mNetwork;
     private volatile BorderRouterConfiguration mBorderRouterConfig;
-    private volatile ActiveOperationalDataset mActiveOpDataset;
-    private volatile PendingOperationalDataset mPendingOpDataset;
-    private volatile int mDeviceRole;
+    private ActiveOperationalDataset mActiveOpDataset;
+    private PendingOperationalDataset mPendingOpDataset;
+    private int mDeviceRole;
+    private long mPartitionId;
 
     @VisibleForTesting
     ThreadNetworkControllerService(
@@ -672,6 +673,15 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
         }
     }
 
+    private void handlePartitionIdChanged(long partitionId) {
+        if (partitionId == mPartitionId) {
+            return;
+        }
+
+        Log.d(TAG, String.format("Partition ID changed: %d -> %d", mPartitionId, partitionId));
+        mPartitionId = partitionId;
+    }
+
     private void handleDeviceRoleChanged(@DeviceRole int deviceRole) {
         if (deviceRole == mDeviceRole) {
             return;
@@ -835,18 +845,28 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
                 new HashMap<>();
 
         public synchronized void registerStateCallback(IStateCallback callback) {
-            if (mStateCallbacks.containsKey(callback)) {
-                return;
+            if (!mStateCallbacks.containsKey(callback)) {
+                IBinder.DeathRecipient deathRecipient =
+                        () -> mHandler.post(() -> unregisterStateCallback(callback));
+                mStateCallbacks.put(callback, deathRecipient);
+                try {
+                    callback.asBinder().linkToDeath(deathRecipient, 0);
+                } catch (RemoteException e) {
+                    mStateCallbacks.remove(callback);
+                    // This is thrown when the client is dead, do nothing
+                    return;
+                }
             }
-            IBinder.DeathRecipient deathRecipient =
-                    () -> mHandler.post(() -> unregisterStateCallback(callback));
-            mStateCallbacks.put(callback, deathRecipient);
-            try {
-                callback.asBinder().linkToDeath(deathRecipient, 0);
-            } catch (RemoteException e) {
-                mStateCallbacks.remove(callback);
-                // This is thrown when the client is dead, no necessary to propagate the exception
-            }
+
+            mHandler.post(
+                    () -> {
+                        try {
+                            callback.onDeviceRoleChanged(mDeviceRole);
+                            callback.onPartitionIdChanged(mPartitionId);
+                        } catch (RemoteException e) {
+                            // The client is dead, do nothing
+                        }
+                    });
         }
 
         public synchronized void unregisterStateCallback(IStateCallback callback) {
@@ -857,17 +877,26 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
         }
 
         public synchronized void registerDatasetCallback(IOperationalDatasetCallback callback) {
-            if (mOpDatasetCallbacks.containsKey(callback)) {
-                return;
+            if (!mOpDatasetCallbacks.containsKey(callback)) {
+                IBinder.DeathRecipient deathRecipient =
+                        () -> mHandler.post(() -> unregisterDatasetCallback(callback));
+                mOpDatasetCallbacks.put(callback, deathRecipient);
+                try {
+                    callback.asBinder().linkToDeath(deathRecipient, 0);
+                } catch (RemoteException e) {
+                    mOpDatasetCallbacks.remove(callback);
+                }
             }
-            IBinder.DeathRecipient deathRecipient =
-                    () -> mHandler.post(() -> unregisterDatasetCallback(callback));
-            mOpDatasetCallbacks.put(callback, deathRecipient);
-            try {
-                callback.asBinder().linkToDeath(deathRecipient, 0);
-            } catch (RemoteException e) {
-                mOpDatasetCallbacks.remove(callback);
-            }
+
+            mHandler.post(
+                    () -> {
+                        try {
+                            callback.onActiveOperationalDatasetChanged(mActiveOpDataset);
+                            callback.onPendingOperationalDatasetChanged(mPendingOpDataset);
+                        } catch (RemoteException e) {
+                            // The client is dead, do nothing
+                        }
+                    });
         }
 
         public synchronized void unregisterDatasetCallback(IOperationalDatasetCallback callback) {
@@ -917,6 +946,7 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
         public void onPartitionIdChanged(long partitionId) {
             mHandler.post(
                     () -> {
+                        handlePartitionIdChanged(partitionId);
                         synchronized (this) {
                             for (IStateCallback callback : mStateCallbacks.keySet()) {
                                 try {
