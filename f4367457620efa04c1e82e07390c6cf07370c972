@@ -22,6 +22,30 @@
       },
       "revId": "f4367457620efa04c1e82e07390c6cf07370c972",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47a98cb9_4bb7f76d",
+        "filename": "tests/unit/java/com/android/server/connectivity/CarrierPrivilegeAuthenticatorTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-26T05:14:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6cb5db6_ad5d6ddb",
+      "range": {
+        "startLine": 116,
+        "startChar": 32,
+        "endLine": 116,
+        "endChar": 37
+      },
+      "revId": "f4367457620efa04c1e82e07390c6cf07370c972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
