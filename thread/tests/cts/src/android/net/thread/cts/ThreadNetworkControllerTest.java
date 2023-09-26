@@ -47,6 +47,7 @@ import androidx.test.filters.SmallTest;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRunner;
+
 import com.google.common.util.concurrent.SettableFuture;
 
 import org.junit.After;
@@ -61,7 +62,6 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 /** CTS tests for {@link ThreadNetworkController}. */

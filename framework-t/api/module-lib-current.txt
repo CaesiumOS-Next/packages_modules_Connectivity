@@ -39,7 +39,7 @@ package android.net {
 
   public final class ConnectivityFrameworkInitializerTiramisu {
     method public static void registerServiceWrappers();
-    method public static void setConnectivityServiceManager(@NonNull android.net.ConnectivityServiceManager);
+    method public static void setThreadDaemonServiceSupplier(@NonNull java.util.function.Supplier<android.os.IBinder>);
   }
 
   public class EthernetManager {

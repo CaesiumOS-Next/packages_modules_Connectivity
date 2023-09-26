@@ -21,7 +21,6 @@ import static java.util.Objects.requireNonNull;
 import android.Manifest.permission;
 import android.annotation.CallbackExecutor;
 import android.annotation.IntDef;
-import android.annotation.IntRange;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
