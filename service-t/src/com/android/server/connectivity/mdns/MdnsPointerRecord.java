@@ -17,6 +17,7 @@
 package com.android.server.connectivity.mdns;
 
 import android.annotation.Nullable;
+import android.net.DnsResolver;
 
 import androidx.annotation.VisibleForTesting;
 
@@ -37,6 +38,11 @@ public class MdnsPointerRecord extends MdnsRecord {
     public MdnsPointerRecord(String[] name, MdnsPacketReader reader, boolean isQuestion)
             throws IOException {
         super(name, TYPE_PTR, reader, isQuestion);
+    }
+
+    public MdnsPointerRecord(String[] name, boolean unicast) {
+        super(name, TYPE_PTR, DnsResolver.CLASS_IN /* cls */,
+                0L /* receiptTimeMillis */, unicast /* cacheFlush */, 0L /* ttlMillis */);
     }
 
     public MdnsPointerRecord(String[] name, long receiptTimeMillis, boolean cacheFlush,

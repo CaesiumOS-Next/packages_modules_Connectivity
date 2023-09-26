@@ -43,10 +43,8 @@ import java.util.Collections;
  * TODO: implement sending after a delay, combining queued replies and duplicate answer suppression
  */
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-public class MdnsReplySender {
+public class MdnsReplySender implements MdnsSender {
     private static final int MSG_SEND = 1;
-    private static final int PACKET_NOT_SENT = 0;
-    private static final int PACKET_SENT = 1;
 
     @NonNull
     private final MdnsInterfaceSocket mSocket;
@@ -57,6 +55,7 @@ public class MdnsReplySender {
     @NonNull
     private final SharedLog mSharedLog;
     private final boolean mEnableDebugLog;
+    private boolean mDestoryed = false;
 
     public MdnsReplySender(@NonNull Looper looper, @NonNull MdnsInterfaceSocket socket,
             @NonNull byte[] packetCreationBuffer, @NonNull SharedLog sharedLog,
@@ -86,11 +85,17 @@ public class MdnsReplySender {
      *
      * Must be called on the looper thread used by the {@link MdnsReplySender}.
      */
-    public int sendNow(@NonNull MdnsPacket packet, @NonNull InetSocketAddress destination)
+    public int sendNow(@NonNull MdnsPacket packet, @NonNull InetSocketAddress destination,
+            boolean onlyUseIpv6OnIpv6OnlyNetworks, boolean expectUnicastResponse)
             throws IOException {
         ensureRunningOnHandlerThread(mHandler);
-        if (!((destination.getAddress() instanceof Inet6Address && mSocket.hasJoinedIpv6())
-                || (destination.getAddress() instanceof Inet4Address && mSocket.hasJoinedIpv4()))) {
+        if (mDestoryed) return PACKET_NOT_SENT;
+
+        final boolean isIpv6 = destination.getAddress() instanceof Inet6Address;
+        final boolean isIpv4 = destination.getAddress() instanceof Inet4Address;
+        final boolean shouldQueryIpv6 = !onlyUseIpv6OnIpv6OnlyNetworks || !mSocket.hasJoinedIpv4();
+        if (!((isIpv6 && mSocket.hasJoinedIpv6() && shouldQueryIpv6)
+                || (isIpv4 && mSocket.hasJoinedIpv4()))) {
             // Skip sending if the socket has not joined the v4/v6 group (there was no address)
             return PACKET_NOT_SENT;
         }
@@ -110,6 +115,7 @@ public class MdnsReplySender {
     public void cancelAll() {
         ensureRunningOnHandlerThread(mHandler);
         mHandler.removeMessages(MSG_SEND);
+        mDestoryed = true;
     }
 
     private class SendHandler extends Handler {
@@ -130,7 +136,8 @@ public class MdnsReplySender {
                     replyInfo.additionalAnswers);
 
             try {
-                sendNow(packet, replyInfo.destination);
+                sendNow(packet, replyInfo.destination, false /* onlyUseIpv6OnIpv6OnlyNetworks */,
+                        false /* expectUnicastResponse */);
             } catch (IOException e) {
                 mSharedLog.e("Error sending MDNS response", e);
             }

@@ -19,13 +19,11 @@ package com.android.server.connectivity.mdns;
 import static com.android.server.connectivity.mdns.MdnsServiceCache.ServiceExpiredCallback;
 import static com.android.server.connectivity.mdns.MdnsServiceCache.findMatchedResponse;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.Clock;
-import static com.android.server.connectivity.mdns.util.MdnsUtils.ensureRunningOnHandlerThread;
+import static com.android.server.connectivity.mdns.util.MdnsUtils.ensureRunningOnLooperThread;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
-import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.Pair;
@@ -33,17 +31,20 @@ import android.util.Pair;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.SharedLog;
+import com.android.server.connectivity.mdns.MdnsQuerier.QueryTask;
+import com.android.server.connectivity.mdns.MdnsQueryScheduler.ScheduledQueryTaskArgs;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
 
+import java.io.IOException;
+import java.net.DatagramPacket;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * Instance of this class sends and receives mDNS packets of a given service type and invoke
@@ -52,20 +53,12 @@ import java.util.concurrent.ScheduledExecutorService;
 public class MdnsServiceTypeClient {
 
     private static final String TAG = MdnsServiceTypeClient.class.getSimpleName();
-    private static final int DEFAULT_MTU = 1500;
-    @VisibleForTesting
-    static final int EVENT_START_QUERYTASK = 1;
-    static final int EVENT_QUERY_RESULT = 2;
-    static final int INVALID_TRANSACTION_ID = -1;
-
     private final String serviceType;
     private final String[] serviceTypeLabels;
-    private final MdnsSocketClientBase socketClient;
     private final MdnsResponseDecoder responseDecoder;
-    private final ScheduledExecutorService executor;
     @NonNull private final SocketKey socketKey;
     @NonNull private final SharedLog sharedLog;
-    @NonNull private final Handler handler;
+    @NonNull private final Looper looper;
     @NonNull private final MdnsQueryScheduler mdnsQueryScheduler;
     @NonNull private final Dependencies dependencies;
     /**
@@ -81,8 +74,11 @@ public class MdnsServiceTypeClient {
                     notifyRemovedServiceToListeners(previousResponse, "Service record expired");
                 }
             };
+    @NonNull private final MdnsQuerier mdnsQuerier;
+
     private final ArrayMap<MdnsServiceBrowserListener, MdnsSearchOptions> listeners =
             new ArrayMap<>();
+
     private final boolean removeServiceAfterTtlExpires =
             MdnsConfigs.removeServiceAfterTtlExpires();
     private final Clock clock;
@@ -92,150 +88,81 @@ public class MdnsServiceTypeClient {
     // The session ID increases when startSendAndReceive() is called where we schedule a
     // QueryTask for
     // new subtypes. It stays the same between packets for same subtypes.
-    private long currentSessionId = 0;
+    private int currentSessionId = 0;
     private long lastSentTime;
-
-    private class QueryTaskHandler extends Handler {
-        QueryTaskHandler(Looper looper) {
-            super(looper);
-        }
-
-        @Override
-        @SuppressWarnings("FutureReturnValueIgnored")
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case EVENT_START_QUERYTASK: {
-                    final MdnsQueryScheduler.ScheduledQueryTaskArgs taskArgs =
-                            (MdnsQueryScheduler.ScheduledQueryTaskArgs) msg.obj;
-                    // QueryTask should be run immediately after being created (not be scheduled in
-                    // advance). Because the result of "makeResponsesForResolve" depends on answers
-                    // that were received before it is called, so to take into account all answers
-                    // before sending the query, it needs to be called just before sending it.
-                    final List<MdnsResponse> servicesToResolve = makeResponsesForResolve(socketKey);
-                    final QueryTask queryTask = new QueryTask(taskArgs, servicesToResolve,
-                            servicesToResolve.size() < listeners.size() /* sendDiscoveryQueries */);
-                    executor.submit(queryTask);
-                    break;
-                }
-                case EVENT_QUERY_RESULT: {
-                    final QuerySentArguments sentResult = (QuerySentArguments) msg.obj;
-                    // If a task is cancelled while the Executor is running it, EVENT_QUERY_RESULT
-                    // will still be sent when it ends. So use session ID to check if this task
-                    // should continue to schedule more.
-                    if (sentResult.taskArgs.sessionId != currentSessionId) {
-                        break;
-                    }
-
-                    if ((sentResult.transactionId != INVALID_TRANSACTION_ID)) {
-                        for (int i = 0; i < listeners.size(); i++) {
-                            listeners.keyAt(i).onDiscoveryQuerySent(
-                                    sentResult.subTypes, sentResult.transactionId);
-                        }
-                    }
-
-                    tryRemoveServiceAfterTtlExpires();
-
-                    final long now = clock.elapsedRealtime();
-                    lastSentTime = now;
-                    final long minRemainingTtl = getMinRemainingTtl(now);
-                    MdnsQueryScheduler.ScheduledQueryTaskArgs args =
-                            mdnsQueryScheduler.scheduleNextRun(
-                                    sentResult.taskArgs.config,
-                                    minRemainingTtl,
-                                    now,
-                                    lastSentTime,
-                                    sentResult.taskArgs.sessionId
-                            );
-                    dependencies.sendMessageDelayed(
-                            handler,
-                            handler.obtainMessage(EVENT_START_QUERYTASK, args),
-                            calculateTimeToNextTask(args, now, sharedLog));
-                    break;
-                }
-                default:
-                    sharedLog.e("Unrecognized event " + msg.what);
-                    break;
-            }
-        }
-    }
 
     /**
      * Dependencies of MdnsServiceTypeClient, for injection in tests.
      */
     @VisibleForTesting
     public static class Dependencies {
-        /**
-         * @see Handler#sendMessageDelayed(Message, long)
-         */
-        public void sendMessageDelayed(@NonNull Handler handler, @NonNull Message message,
-                long delayMillis) {
-            handler.sendMessageDelayed(message, delayMillis);
+        public DatagramPacket makeDatagramPacketFromMdnsPacket(byte[] buffer, MdnsPacket mdnsPacket,
+                InetSocketAddress address) throws IOException {
+            final byte[] outBuffer = MdnsUtils.createRawDnsPacket(buffer, mdnsPacket);
+            return new DatagramPacket(outBuffer, 0, outBuffer.length, address);
         }
 
-        /**
-         * @see Handler#removeMessages(int)
-         */
-        public void removeMessages(@NonNull Handler handler, int what) {
-            handler.removeMessages(what);
+        public MdnsQuerier makeMdnsQuerier(@NonNull Looper looper, @NonNull MdnsSender sender,
+                @Nullable MdnsPacketRepeater.PacketRepeaterCallback<QueryTask> cb,
+                @NonNull SharedLog sharedLog) {
+            return new MdnsQuerier(looper, sender, cb, sharedLog);
         }
+    }
 
-        /**
-         * @see Handler#hasMessages(int)
-         */
-        public boolean hasMessages(@NonNull Handler handler, int what) {
-            return handler.hasMessages(what);
-        }
+    private class QueryingCallback implements
+            MdnsPacketRepeater.PacketRepeaterCallback<QueryTask> {
+        @Override
+        public void onSent(int index, @NonNull QueryTask task, int sentPacketCount) {
+            if (task.getSessionId() != currentSessionId) {
+                return;
+            }
+            lastSentTime = clock.elapsedRealtime();
 
-        /**
-         * @see Handler#post(Runnable)
-         */
-        public void sendMessage(@NonNull Handler handler, @NonNull Message message) {
-            handler.sendMessage(message);
+            final QueryTaskConfig config = task.getQueryTaskConfig();
+            for (int i = 0; i < listeners.size(); i++) {
+                listeners.keyAt(i).onDiscoveryQuerySent(config.subtypes, config.transactionId);
+            }
+            tryRemoveServiceAfterTtlExpires();
         }
     }
 
     /**
      * Constructor of {@link MdnsServiceTypeClient}.
-     *
-     * @param socketClient Sends and receives mDNS packet.
-     * @param executor         A {@link ScheduledExecutorService} used to schedule query tasks.
      */
     public MdnsServiceTypeClient(
             @NonNull String serviceType,
-            @NonNull MdnsSocketClientBase socketClient,
-            @NonNull ScheduledExecutorService executor,
             @NonNull SocketKey socketKey,
             @NonNull SharedLog sharedLog,
             @NonNull Looper looper,
-            @NonNull MdnsServiceCache serviceCache) {
-        this(serviceType, socketClient, executor, new Clock(), socketKey, sharedLog, looper,
-                new Dependencies(), serviceCache);
+            @NonNull MdnsServiceCache serviceCache,
+            @NonNull MdnsSender sender) {
+        this(serviceType, new Clock(), socketKey, sharedLog, looper, new Dependencies(),
+                serviceCache, sender);
     }
 
     @VisibleForTesting
     public MdnsServiceTypeClient(
             @NonNull String serviceType,
-            @NonNull MdnsSocketClientBase socketClient,
-            @NonNull ScheduledExecutorService executor,
             @NonNull Clock clock,
             @NonNull SocketKey socketKey,
             @NonNull SharedLog sharedLog,
             @NonNull Looper looper,
             @NonNull Dependencies dependencies,
-            @NonNull MdnsServiceCache serviceCache) {
+            @NonNull MdnsServiceCache serviceCache,
+            @NonNull MdnsSender sender) {
         this.serviceType = serviceType;
-        this.socketClient = socketClient;
-        this.executor = executor;
         this.serviceTypeLabels = TextUtils.split(serviceType, "\\.");
         this.responseDecoder = new MdnsResponseDecoder(clock, serviceTypeLabels);
         this.clock = clock;
         this.socketKey = socketKey;
         this.sharedLog = sharedLog;
-        this.handler = new QueryTaskHandler(looper);
+        this.looper = looper;
         this.dependencies = dependencies;
         this.serviceCache = serviceCache;
         this.mdnsQueryScheduler = new MdnsQueryScheduler();
         this.cacheKey = new MdnsServiceCache.CacheKey(serviceType, socketKey);
+        this.mdnsQuerier = dependencies.makeMdnsQuerier(
+                looper, sender, new QueryingCallback(), sharedLog);
     }
 
     /**
@@ -296,6 +223,27 @@ public class MdnsServiceTypeClient {
                 response.getNetwork());
     }
 
+    private List<String> makeResolveInstanceNames() {
+        final List<String> resolveInstanceNames = new ArrayList<>();
+        for (int i = 0; i < listeners.size(); i++) {
+            final String resolveName = listeners.valueAt(i).getResolveInstanceName();
+            if (resolveName == null) {
+                continue;
+            }
+            resolveInstanceNames.add(resolveName);
+        }
+        return resolveInstanceNames;
+    }
+
+    private QueryTask makeQueryTask(@NonNull ScheduledQueryTaskArgs args) {
+        final List<String> resolveInstanceNames = makeResolveInstanceNames();
+        final boolean sendDiscoveryQueries = resolveInstanceNames.size() < listeners.size();
+        final boolean onlyUseIpv6OnIpv6OnlyNetworks = searchOptions.onlyUseIpv6OnIpv6OnlyNetworks();
+        return new QueryTask(args, serviceType, cacheKey, onlyUseIpv6OnIpv6OnlyNetworks, clock,
+                sharedLog, resolveInstanceNames, sendDiscoveryQueries, serviceCache,
+                mdnsQueryScheduler);
+    }
+
     /**
      * Registers {@code listener} for receiving discovery event of mDNS service instances, and
      * starts
@@ -308,7 +256,7 @@ public class MdnsServiceTypeClient {
     public void startSendAndReceive(
             @NonNull MdnsServiceBrowserListener listener,
             @NonNull MdnsSearchOptions searchOptions) {
-        ensureRunningOnHandlerThread(handler);
+        ensureRunningOnLooperThread(looper);
         this.searchOptions = searchOptions;
         boolean hadReply = false;
         if (listeners.put(listener, searchOptions) == null) {
@@ -339,43 +287,26 @@ public class MdnsServiceTypeClient {
         if (lastSentTime == 0) {
             lastSentTime = now;
         }
-        final long minRemainingTtl = getMinRemainingTtl(now);
+        final long minRemainingTtl = serviceCache.getServiceMinRemainingTtl(cacheKey, now);
         if (hadReply) {
-            MdnsQueryScheduler.ScheduledQueryTaskArgs args =
-                    mdnsQueryScheduler.scheduleNextRun(
-                            taskConfig,
-                            minRemainingTtl,
-                            now,
-                            lastSentTime,
-                            currentSessionId
-                    );
-            dependencies.sendMessageDelayed(
-                    handler,
-                    handler.obtainMessage(EVENT_START_QUERYTASK, args),
+            final ScheduledQueryTaskArgs args = mdnsQueryScheduler.scheduleNextRun(taskConfig,
+                    minRemainingTtl, now, lastSentTime, currentSessionId);
+
+            mdnsQuerier.startSending(currentSessionId, makeQueryTask(args),
                     calculateTimeToNextTask(args, now, sharedLog));
         } else {
-            final List<MdnsResponse> servicesToResolve = makeResponsesForResolve(socketKey);
-            final QueryTask queryTask = new QueryTask(
-                    mdnsQueryScheduler.scheduleFirstRun(taskConfig, now,
-                            minRemainingTtl, currentSessionId), servicesToResolve,
-                    servicesToResolve.size() < listeners.size() /* sendDiscoveryQueries */);
-            executor.submit(queryTask);
+            final ScheduledQueryTaskArgs args =
+                    mdnsQueryScheduler.scheduleFirstRun(
+                            taskConfig, now, minRemainingTtl, currentSessionId);
+            mdnsQuerier.startSending(currentSessionId, makeQueryTask(args), 0 /* initialDelayMs */);
         }
 
         serviceCache.registerServiceExpiredCallback(cacheKey, serviceExpiredCallback);
     }
 
-    /**
-     * Get the executor service.
-     */
-    public ScheduledExecutorService getExecutor() {
-        return executor;
-    }
-
     private void removeScheduledTask() {
-        dependencies.removeMessages(handler, EVENT_START_QUERYTASK);
-        sharedLog.log("Remove EVENT_START_QUERYTASK"
-                + ", current session: " + currentSessionId);
+        mdnsQuerier.stop(currentSessionId);
+        sharedLog.log("Remove QueryTask" + ", current session: " + currentSessionId);
         ++currentSessionId;
     }
 
@@ -407,7 +338,7 @@ public class MdnsServiceTypeClient {
      * listener}. Otherwise returns {@code false}.
      */
     public boolean stopSendAndReceive(@NonNull MdnsServiceBrowserListener listener) {
-        ensureRunningOnHandlerThread(handler);
+        ensureRunningOnLooperThread(looper);
         if (listeners.remove(listener) == null) {
             return listeners.isEmpty();
         }
@@ -422,12 +353,13 @@ public class MdnsServiceTypeClient {
      */
     public synchronized void processResponse(@NonNull MdnsPacket packet,
             @NonNull SocketKey socketKey) {
-        ensureRunningOnHandlerThread(handler);
+        ensureRunningOnLooperThread(looper);
         // Augment the list of current known responses, and generated responses for resolve
         // requests if there is no known response
         final List<MdnsResponse> cachedList = serviceCache.getCachedServices(cacheKey);
         final List<MdnsResponse> currentList = new ArrayList<>(cachedList);
-        List<MdnsResponse> additionalResponses = makeResponsesForResolve(socketKey);
+        List<MdnsResponse> additionalResponses = serviceCache.makeResponsesForResolve(
+                makeResolveInstanceNames(), cacheKey, serviceTypeLabels);
         for (MdnsResponse additionalResponse : additionalResponses) {
             if (findMatchedResponse(
                     cachedList, additionalResponse.getServiceInstanceName()) == null) {
@@ -455,24 +387,22 @@ public class MdnsServiceTypeClient {
                 serviceCache.addOrUpdateService(cacheKey, response);
             }
         }
-        if (dependencies.hasMessages(handler, EVENT_START_QUERYTASK)) {
+        if (mdnsQuerier.hasTaskId(currentSessionId)) {
             final long now = clock.elapsedRealtime();
-            final long minRemainingTtl = getMinRemainingTtl(now);
-            MdnsQueryScheduler.ScheduledQueryTaskArgs args =
+            final long minRemainingTtl = serviceCache.getServiceMinRemainingTtl(cacheKey, now);
+            final ScheduledQueryTaskArgs args =
                     mdnsQueryScheduler.maybeRescheduleCurrentRun(now, minRemainingTtl,
                             lastSentTime, currentSessionId + 1);
             if (args != null) {
                 removeScheduledTask();
-                dependencies.sendMessageDelayed(
-                        handler,
-                        handler.obtainMessage(EVENT_START_QUERYTASK, args),
+                mdnsQuerier.startSending(currentSessionId, makeQueryTask(args),
                         calculateTimeToNextTask(args, now, sharedLog));
             }
         }
     }
 
     public synchronized void onFailedToParseMdnsResponse(int receivedPacketNumber, int errorCode) {
-        ensureRunningOnHandlerThread(handler);
+        ensureRunningOnLooperThread(looper);
         for (int i = 0; i < listeners.size(); i++) {
             listeners.keyAt(i).onFailedToParseMdnsResponse(receivedPacketNumber, errorCode);
         }
@@ -498,7 +428,7 @@ public class MdnsServiceTypeClient {
 
     /** Notify all services are removed because the socket is destroyed. */
     public void notifySocketDestroyed() {
-        ensureRunningOnHandlerThread(handler);
+        ensureRunningOnLooperThread(looper);
         for (MdnsResponse response : serviceCache.getCachedServices(cacheKey)) {
             final String name = response.getServiceInstanceName();
             if (name == null) continue;
@@ -569,34 +499,6 @@ public class MdnsServiceTypeClient {
         return searchOptions != null && searchOptions.removeExpiredService();
     }
 
-    @VisibleForTesting
-    MdnsPacketWriter createMdnsPacketWriter() {
-        return new MdnsPacketWriter(DEFAULT_MTU);
-    }
-
-    private List<MdnsResponse> makeResponsesForResolve(@NonNull SocketKey socketKey) {
-        final List<MdnsResponse> resolveResponses = new ArrayList<>();
-        for (int i = 0; i < listeners.size(); i++) {
-            final String resolveName = listeners.valueAt(i).getResolveInstanceName();
-            if (resolveName == null) {
-                continue;
-            }
-            MdnsResponse knownResponse =
-                    serviceCache.getCachedService(resolveName, cacheKey);
-            if (knownResponse == null) {
-                final ArrayList<String> instanceFullName = new ArrayList<>(
-                        serviceTypeLabels.length + 1);
-                instanceFullName.add(resolveName);
-                instanceFullName.addAll(Arrays.asList(serviceTypeLabels));
-                knownResponse = new MdnsResponse(
-                        0L /* lastUpdateTime */, instanceFullName.toArray(new String[0]),
-                        socketKey.getInterfaceIndex(), socketKey.getNetwork());
-            }
-            resolveResponses.add(knownResponse);
-        }
-        return resolveResponses;
-    }
-
     private void tryRemoveServiceAfterTtlExpires() {
         if (!shouldRemoveServiceAfterTtlExpires()) return;
 
@@ -612,81 +514,7 @@ public class MdnsServiceTypeClient {
         }
     }
 
-    private static class QuerySentArguments {
-        private final int transactionId;
-        private final List<String> subTypes = new ArrayList<>();
-        private final MdnsQueryScheduler.ScheduledQueryTaskArgs taskArgs;
-
-        QuerySentArguments(int transactionId, @NonNull List<String> subTypes,
-                @NonNull MdnsQueryScheduler.ScheduledQueryTaskArgs taskArgs) {
-            this.transactionId = transactionId;
-            this.subTypes.addAll(subTypes);
-            this.taskArgs = taskArgs;
-        }
-    }
-
-    // A FutureTask that enqueues a single query, and schedule a new FutureTask for the next task.
-    private class QueryTask implements Runnable {
-        private final MdnsQueryScheduler.ScheduledQueryTaskArgs taskArgs;
-        private final List<MdnsResponse> servicesToResolve = new ArrayList<>();
-        private final boolean sendDiscoveryQueries;
-        QueryTask(@NonNull MdnsQueryScheduler.ScheduledQueryTaskArgs taskArgs,
-                @NonNull List<MdnsResponse> servicesToResolve, boolean sendDiscoveryQueries) {
-            this.taskArgs = taskArgs;
-            this.servicesToResolve.addAll(servicesToResolve);
-            this.sendDiscoveryQueries = sendDiscoveryQueries;
-        }
-
-        @Override
-        public void run() {
-            Pair<Integer, List<String>> result;
-            try {
-                result =
-                        new EnqueueMdnsQueryCallable(
-                                socketClient,
-                                createMdnsPacketWriter(),
-                                serviceType,
-                                taskArgs.config.subtypes,
-                                taskArgs.config.expectUnicastResponse,
-                                taskArgs.config.transactionId,
-                                taskArgs.config.socketKey,
-                                taskArgs.config.onlyUseIpv6OnIpv6OnlyNetworks,
-                                sendDiscoveryQueries,
-                                servicesToResolve,
-                                clock,
-                                sharedLog)
-                                .call();
-            } catch (RuntimeException e) {
-                sharedLog.e(String.format("Failed to run EnqueueMdnsQueryCallable for subtype: %s",
-                        TextUtils.join(",", taskArgs.config.subtypes)), e);
-                result = Pair.create(INVALID_TRANSACTION_ID, new ArrayList<>());
-            }
-            dependencies.sendMessage(
-                    handler, handler.obtainMessage(EVENT_QUERY_RESULT,
-                            new QuerySentArguments(result.first, result.second, taskArgs)));
-        }
-    }
-
-    private long getMinRemainingTtl(long now) {
-        long minRemainingTtl = Long.MAX_VALUE;
-        for (MdnsResponse response : serviceCache.getCachedServices(cacheKey)) {
-            if (!response.isComplete()) {
-                continue;
-            }
-            long remainingTtl =
-                    response.getServiceRecord().getRemainingTTL(now);
-            // remainingTtl is <= 0 means the service expired.
-            if (remainingTtl <= 0) {
-                return 0;
-            }
-            if (remainingTtl < minRemainingTtl) {
-                minRemainingTtl = remainingTtl;
-            }
-        }
-        return minRemainingTtl == Long.MAX_VALUE ? 0 : minRemainingTtl;
-    }
-
-    private static long calculateTimeToNextTask(MdnsQueryScheduler.ScheduledQueryTaskArgs args,
+    static long calculateTimeToNextTask(MdnsQueryScheduler.ScheduledQueryTaskArgs args,
             long now, SharedLog sharedLog) {
         long timeToNextTasksWithBackoffInMs = Math.max(args.timeToRun - now, 0);
         sharedLog.log(String.format("Next run: sessionId: %d, in %d ms",

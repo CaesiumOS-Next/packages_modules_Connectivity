@@ -16,7 +16,6 @@
 
 package com.android.server.connectivity.mdns;
 
-import static com.android.server.connectivity.mdns.MdnsServiceTypeClient.EVENT_START_QUERYTASK;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -28,12 +27,12 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -47,11 +46,13 @@ import android.net.InetAddresses;
 import android.net.Network;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
 
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.SharedLog;
+import com.android.server.connectivity.mdns.MdnsQuerier.QueryTask;
 import com.android.server.connectivity.mdns.MdnsServiceInfo.TextEntry;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
 import com.android.testutils.DevSdkIgnoreRule;
@@ -68,7 +69,6 @@ import org.mockito.ArgumentMatcher;
 import org.mockito.Captor;
 import org.mockito.InOrder;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
@@ -80,10 +80,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /** Tests for {@link MdnsServiceTypeClient}. */
@@ -120,6 +122,10 @@ public class MdnsServiceTypeClientTests {
     private SharedLog mockSharedLog;
     @Mock
     private MdnsServiceTypeClient.Dependencies mockDeps;
+    @Mock
+    private MdnsSender mockSender;
+    @Mock
+    private MdnsQuerier mockQuerier;
     @Captor
     private ArgumentCaptor<MdnsServiceInfo> serviceInfoCaptor;
 
@@ -127,16 +133,14 @@ public class MdnsServiceTypeClientTests {
 
     private DatagramPacket[] expectedIPv4Packets;
     private DatagramPacket[] expectedIPv6Packets;
-    private FakeExecutor currentThreadExecutor = new FakeExecutor();
+    //honda private FakeExecutor currentThreadExecutor = new FakeExecutor();
 
     private MdnsServiceTypeClient client;
     private SocketKey socketKey;
     private HandlerThread thread;
     private Handler handler;
     private MdnsServiceCache serviceCache;
-    private long latestDelayMs = 0;
-    private Message delayMessage = null;
-    private Handler realHandler = null;
+    private MdnsPacketRepeater.PacketRepeaterCallback<QueryTask> callback = null;
 
     @Before
     @SuppressWarnings("DoNotMock")
@@ -197,34 +201,12 @@ public class MdnsServiceTypeClientTests {
                 thread.getLooper(), MdnsFeatureFlags.newBuilder().build());
 
         doAnswer(inv -> {
-            latestDelayMs = 0;
-            delayMessage = null;
-            return true;
-        }).when(mockDeps).removeMessages(any(Handler.class), eq(EVENT_START_QUERYTASK));
+            callback = (MdnsPacketRepeater.PacketRepeaterCallback<QueryTask>) inv.getArguments()[2];
+            return mockQuerier;
+        }).when(mockDeps).makeMdnsQuerier(any(), any(), any(), any());
 
-        doAnswer(inv -> {
-            realHandler = (Handler) inv.getArguments()[0];
-            delayMessage = (Message) inv.getArguments()[1];
-            latestDelayMs = (long) inv.getArguments()[2];
-            return true;
-        }).when(mockDeps).sendMessageDelayed(any(Handler.class), any(Message.class), anyLong());
-
-        doAnswer(inv -> {
-            final Handler handler = (Handler) inv.getArguments()[0];
-            final Message message = (Message) inv.getArguments()[1];
-            runOnHandler(() -> handler.dispatchMessage(message));
-            return true;
-        }).when(mockDeps).sendMessage(any(Handler.class), any(Message.class));
-
-        client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                        mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                        serviceCache) {
-                    @Override
-                    MdnsPacketWriter createMdnsPacketWriter() {
-                        return mockPacketWriter;
-                    }
-                };
+        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockDecoderClock, socketKey, mockSharedLog,
+                thread.getLooper(), mockDeps, serviceCache, mockSender);
     }
 
     @After
@@ -237,6 +219,12 @@ public class MdnsServiceTypeClientTests {
     private void runOnHandler(Runnable r) {
         handler.post(r);
         HandlerUtils.waitForIdle(handler, DEFAULT_TIMEOUT);
+    }
+
+    private <T> T runningOnHandlerAndReturn(Supplier<T> supplier) throws Exception {
+        final CompletableFuture<T> future = new CompletableFuture<>();
+        handler.post(() -> future.complete(supplier.get()));
+        return future.get(DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS);
     }
 
     private void startSendAndReceive(MdnsServiceBrowserListener listener,
@@ -256,18 +244,13 @@ public class MdnsServiceTypeClientTests {
         runOnHandler(() -> client.notifySocketDestroyed());
     }
 
-    private void dispatchMessage() {
-        runOnHandler(() -> realHandler.dispatchMessage(delayMessage));
-        delayMessage = null;
-    }
-
     @Test
-    public void sendQueries_activeScanMode() {
+    public void sendQueries_activeScanMode() throws IOException {
         MdnsSearchOptions searchOptions =
                 MdnsSearchOptions.newBuilder().addSubtype(SUBTYPE).setIsPassiveMode(false).build();
         startSendAndReceive(mockListenerOne, searchOptions);
         // Always try to remove the task.
-        verify(mockDeps, times(1)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(0 /* id */);
 
         // First burst, 3 queries.
         verifyAndSendQuery(0, 0, /* expectsUnicastResponse= */ true);
@@ -306,20 +289,20 @@ public class MdnsServiceTypeClientTests {
         verifyAndSendQuery(
                 14, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
         // Verify that Task is not removed before stopSendAndReceive was called.
-        verify(mockDeps, times(1)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier, times(1)).stop(anyInt() /* id */);
 
         // Stop sending packets.
         stopSendAndReceive(mockListenerOne);
-        verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(1 /* id */);
     }
 
     @Test
-    public void sendQueries_reentry_activeScanMode() {
+    public void sendQueries_reentry_activeScanMode() throws IOException {
         MdnsSearchOptions searchOptions =
                 MdnsSearchOptions.newBuilder().addSubtype(SUBTYPE).setIsPassiveMode(false).build();
         startSendAndReceive(mockListenerOne, searchOptions);
         // Always try to remove the task.
-        verify(mockDeps, times(1)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(0 /* id */);
 
         // First burst, first query is sent.
         verifyAndSendQuery(0, 0, /* expectsUnicastResponse= */ true);
@@ -333,7 +316,7 @@ public class MdnsServiceTypeClientTests {
                         .build();
         startSendAndReceive(mockListenerOne, searchOptions);
         // The previous scheduled task should be canceled.
-        verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(1 /* id */);
 
         // Queries should continue to be sent.
         verifyAndSendQuery(1, 0, /* expectsUnicastResponse= */ true);
@@ -344,16 +327,16 @@ public class MdnsServiceTypeClientTests {
 
         // Stop sending packets.
         stopSendAndReceive(mockListenerOne);
-        verify(mockDeps, times(3)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(2 /* id */);
     }
 
     @Test
-    public void sendQueries_passiveScanMode() {
+    public void sendQueries_passiveScanMode() throws IOException {
         MdnsSearchOptions searchOptions =
                 MdnsSearchOptions.newBuilder().addSubtype(SUBTYPE).setIsPassiveMode(true).build();
         startSendAndReceive(mockListenerOne, searchOptions);
         // Always try to remove the task.
-        verify(mockDeps, times(1)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(0 /* id */);
 
         // First burst, 3 query.
         verifyAndSendQuery(0, 0, /* expectsUnicastResponse= */ true);
@@ -370,17 +353,17 @@ public class MdnsServiceTypeClientTests {
 
         // Stop sending packets.
         stopSendAndReceive(mockListenerOne);
-        verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(1 /* id */);
     }
 
     @Test
-    public void sendQueries_activeScanWithQueryBackoff() {
+    public void sendQueries_activeScanWithQueryBackoff() throws IOException {
         MdnsSearchOptions searchOptions =
                 MdnsSearchOptions.newBuilder().addSubtype(SUBTYPE).setIsPassiveMode(
                         false).setNumOfQueriesBeforeBackoff(11).build();
         startSendAndReceive(mockListenerOne, searchOptions);
         // Always try to remove the task.
-        verify(mockDeps, times(1)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(0 /* id */);
 
         // First burst, 3 queries.
         verifyAndSendQuery(0, 0, /* expectsUnicastResponse= */ true);
@@ -415,13 +398,12 @@ public class MdnsServiceTypeClientTests {
         // 0.8 * smallestRemainingTtl is larger than time to next run.
         long currentTime = TEST_TTL / 2 + TEST_ELAPSED_REALTIME;
         doReturn(currentTime).when(mockDecoderClock).elapsedRealtime();
-        doReturn(true).when(mockDeps).hasMessages(any(), eq(EVENT_START_QUERYTASK));
+        doReturn(true).when(mockQuerier).hasTaskId(anyInt());
         processResponse(createResponse(
                 "service-instance-1", "192.0.2.123", 5353,
                 SERVICE_TYPE_LABELS,
                 Collections.emptyMap(), TEST_TTL), socketKey);
-        verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
-        assertNotNull(delayMessage);
+        verify(mockQuerier).stop(1 /* id */);
         verifyAndSendQuery(12 /* index */, (long) (TEST_TTL / 2 * 0.8) /* timeInMs */,
                 false /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
                 14 /* scheduledCount */);
@@ -433,13 +415,13 @@ public class MdnsServiceTypeClientTests {
     }
 
     @Test
-    public void sendQueries_passiveScanWithQueryBackoff() {
+    public void sendQueries_passiveScanWithQueryBackoff() throws IOException {
         MdnsSearchOptions searchOptions =
                 MdnsSearchOptions.newBuilder().addSubtype(SUBTYPE).setIsPassiveMode(
                         true).setNumOfQueriesBeforeBackoff(3).build();
         startSendAndReceive(mockListenerOne, searchOptions);
         // Always try to remove the task.
-        verify(mockDeps, times(1)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(0 /* id */);
 
         verifyAndSendQuery(0 /* index */, 0 /* timeInMs */, true /* expectsUnicastResponse */,
                 true /* multipleSocketDiscovery */, 1 /* scheduledCount */);
@@ -456,13 +438,12 @@ public class MdnsServiceTypeClientTests {
         // In backoff mode, the current scheduled task will be canceled and reschedule if the
         // 0.8 * smallestRemainingTtl is larger than time to next run.
         doReturn(TEST_ELAPSED_REALTIME + 20000).when(mockDecoderClock).elapsedRealtime();
-        doReturn(true).when(mockDeps).hasMessages(any(), eq(EVENT_START_QUERYTASK));
+        doReturn(true).when(mockQuerier).hasTaskId(anyInt());
         processResponse(createResponse(
                 "service-instance-1", "192.0.2.123", 5353,
                 SERVICE_TYPE_LABELS,
                 Collections.emptyMap(), TEST_TTL), socketKey);
-        verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
-        assertNotNull(delayMessage);
+        verify(mockQuerier).stop(1 /* id */);
         verifyAndSendQuery(4 /* index */, 80000 /* timeInMs */, false /* expectsUnicastResponse */,
                 true /* multipleSocketDiscovery */, 6 /* scheduledCount */);
         // Next run should also be scheduled in 0.8 * smallestRemainingTtl
@@ -476,7 +457,7 @@ public class MdnsServiceTypeClientTests {
                 SERVICE_TYPE_LABELS,
                 Collections.emptyMap(), TEST_TTL,
                 TEST_ELAPSED_REALTIME - 1), socketKey);
-        verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier, times(2)).stop(anyInt() /* id */);
 
         // In backoff mode, the current scheduled task will not be canceled if the
         // 0.8 * smallestRemainingTtl is smaller than time to next run.
@@ -485,19 +466,19 @@ public class MdnsServiceTypeClientTests {
                 "service-instance-1", "192.0.2.123", 5353,
                 SERVICE_TYPE_LABELS,
                 Collections.emptyMap(), TEST_TTL), socketKey);
-        verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier, times(2)).stop(anyInt() /* id */);
 
         stopSendAndReceive(mockListenerOne);
-        verify(mockDeps, times(3)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(2 /* id */);
     }
 
     @Test
-    public void sendQueries_reentry_passiveScanMode() {
+    public void sendQueries_reentry_passiveScanMode() throws IOException {
         MdnsSearchOptions searchOptions =
                 MdnsSearchOptions.newBuilder().addSubtype(SUBTYPE).setIsPassiveMode(true).build();
         startSendAndReceive(mockListenerOne, searchOptions);
         // Always try to remove the task.
-        verify(mockDeps, times(1)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(0 /* id */);
 
         // First burst, first query is sent.
         verifyAndSendQuery(0, 0, /* expectsUnicastResponse= */ true);
@@ -511,7 +492,7 @@ public class MdnsServiceTypeClientTests {
                         .build();
         startSendAndReceive(mockListenerOne, searchOptions);
         // The previous scheduled task should be canceled.
-        verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(1 /* id */);
 
         // Queries should continue to be sent.
         verifyAndSendQuery(1, 0, /* expectsUnicastResponse= */ true);
@@ -522,7 +503,7 @@ public class MdnsServiceTypeClientTests {
 
         // Stop sending packets.
         stopSendAndReceive(mockListenerOne);
-        verify(mockDeps, times(3)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(2 /* id */);
     }
 
     @Test
@@ -590,57 +571,11 @@ public class MdnsServiceTypeClientTests {
     }
 
     @Test
-    public void testIfPreviousTaskIsCanceledWhenNewSessionStarts() {
-        MdnsSearchOptions searchOptions =
-                MdnsSearchOptions.newBuilder().addSubtype(SUBTYPE).setIsPassiveMode(true).build();
-        startSendAndReceive(mockListenerOne, searchOptions);
-        Runnable firstMdnsTask = currentThreadExecutor.getAndClearSubmittedRunnable();
-
-        // Change the sutypes and start a new session.
-        searchOptions =
-                MdnsSearchOptions.newBuilder()
-                        .addSubtype(SUBTYPE)
-                        .addSubtype("_subtype2")
-                        .setIsPassiveMode(true)
-                        .build();
-        startSendAndReceive(mockListenerOne, searchOptions);
-
-        // Clear the scheduled runnable.
-        currentThreadExecutor.getAndClearLastScheduledRunnable();
-
-        // Simulate the case where the first mdns task is not successful canceled and it gets
-        // executed anyway.
-        firstMdnsTask.run();
-
-        // Although it gets executes, no more task gets scheduled.
-        assertNull(currentThreadExecutor.getAndClearLastScheduledRunnable());
-    }
-
-    @Test
-    @Ignore("MdnsConfigs is not configurable currently.")
-    public void testIfPreviousTaskIsCanceledWhenSessionStops() {
-        //MdnsConfigsFlagsImpl.shouldCancelScanTaskWhenFutureIsNull.override(true);
-        MdnsSearchOptions searchOptions =
-                MdnsSearchOptions.newBuilder().addSubtype(SUBTYPE).setIsPassiveMode(true).build();
-        startSendAndReceive(mockListenerOne, searchOptions);
-        // Change the sutypes and start a new session.
-        stopSendAndReceive(mockListenerOne);
-        // Clear the scheduled runnable.
-        currentThreadExecutor.getAndClearLastScheduledRunnable();
-
-        // Simulate the case where the first mdns task is not successful canceled and it gets
-        // executed anyway.
-        currentThreadExecutor.getAndClearSubmittedRunnable().run();
-
-        // Although it gets executes, no more task gets scheduled.
-        assertNull(currentThreadExecutor.getAndClearLastScheduledRunnable());
-    }
-
-    @Test
     public void testQueryScheduledWhenAnsweredFromCache() {
         final MdnsSearchOptions searchOptions = MdnsSearchOptions.getDefaultOptions();
         startSendAndReceive(mockListenerOne, searchOptions);
-        assertNotNull(currentThreadExecutor.getAndClearSubmittedRunnable());
+        verify(mockQuerier).startSending(
+                eq(1) /* id */, any(QueryTask.class), eq(0L) /* initialDelayMs */);
 
         processResponse(createResponse(
                 "service-instance-1", "192.0.2.123", 5353,
@@ -657,10 +592,8 @@ public class MdnsServiceTypeClientTests {
         verify(mockListenerTwo).onServiceFound(any(), eq(true) /* isServiceFromCache */);
 
         // This time no query is submitted, only scheduled
-        assertNull(currentThreadExecutor.getAndClearSubmittedRunnable());
-        // This just skips the first query of the first burst
-        verify(mockDeps).sendMessageDelayed(
-                any(), any(), eq(MdnsConfigs.timeBetweenQueriesInBurstMs()));
+        verify(mockQuerier).startSending(eq(2) /* id */, any(QueryTask.class),
+                eq(MdnsConfigs.timeBetweenQueriesInBurstMs()) /* initialDelayMs */);
     }
 
     private static void verifyServiceInfo(MdnsServiceInfo serviceInfo, String serviceName,
@@ -915,42 +848,31 @@ public class MdnsServiceTypeClientTests {
     public void processResponse_searchOptionsEnableServiceRemoval_shouldRemove()
             throws Exception {
         final String serviceInstanceName = "service-instance-1";
-        client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                        mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                        serviceCache) {
-                    @Override
-                    MdnsPacketWriter createMdnsPacketWriter() {
-                        return mockPacketWriter;
-                    }
-                };
         MdnsSearchOptions searchOptions = MdnsSearchOptions.newBuilder()
                 .setRemoveExpiredService(true)
                 .setNumOfQueriesBeforeBackoff(Integer.MAX_VALUE)
                 .build();
         startSendAndReceive(mockListenerOne, searchOptions);
-        Runnable firstMdnsTask = currentThreadExecutor.getAndClearSubmittedRunnable();
+        final ArgumentCaptor<QueryTask> taskCaptor = ArgumentCaptor.forClass(QueryTask.class);
+        verify(mockQuerier).startSending(
+                eq(1) /* id */, taskCaptor.capture(), eq(0L) /* initialDelayMs */);
 
         // Process the initial response.
         processResponse(createResponse(
                 serviceInstanceName, "192.168.1.1", 5353, SUBTYPE,
                 Collections.emptyMap(), TEST_TTL), socketKey);
 
-        // Clear the scheduled runnable.
-        currentThreadExecutor.getAndClearLastScheduledRunnable();
-
         // Simulate the case where the response is under TTL.
+        final QueryTask task = taskCaptor.getAllValues().get(0);
         doReturn(TEST_ELAPSED_REALTIME + TEST_TTL - 1L).when(mockDecoderClock).elapsedRealtime();
-        firstMdnsTask.run();
-        verify(mockDeps, times(1)).sendMessage(any(), any(Message.class));
+        runOnHandler(() -> callback.onSent(1 /* index */, task, 2 /* sentPacketCount */));
 
         // Verify removed callback was not called.
         verifyServiceRemovedNoCallback(mockListenerOne);
 
         // Simulate the case where the response is after TTL.
         doReturn(TEST_ELAPSED_REALTIME + TEST_TTL + 1L).when(mockDecoderClock).elapsedRealtime();
-        firstMdnsTask.run();
-        verify(mockDeps, times(2)).sendMessage(any(), any(Message.class));
+        runOnHandler(() -> callback.onSent(1 /* index */, task, 2 /* sentPacketCount */));
 
         // Verify removed callback was called.
         verifyServiceRemovedCallback(
@@ -961,29 +883,20 @@ public class MdnsServiceTypeClientTests {
     public void processResponse_searchOptionsNotEnableServiceRemoval_shouldNotRemove()
             throws Exception {
         final String serviceInstanceName = "service-instance-1";
-        client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                        mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                        serviceCache) {
-                    @Override
-                    MdnsPacketWriter createMdnsPacketWriter() {
-                        return mockPacketWriter;
-                    }
-                };
         startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
-        Runnable firstMdnsTask = currentThreadExecutor.getAndClearSubmittedRunnable();
+        final ArgumentCaptor<QueryTask> taskCaptor = ArgumentCaptor.forClass(QueryTask.class);
+        verify(mockQuerier).startSending(
+                eq(1) /* id */, taskCaptor.capture(), eq(0L) /* initialDelayMs */);
 
         // Process the initial response.
         processResponse(createResponse(
                 serviceInstanceName, "192.168.1.1", 5353, SUBTYPE,
                 Collections.emptyMap(), TEST_TTL), socketKey);
 
-        // Clear the scheduled runnable.
-        currentThreadExecutor.getAndClearLastScheduledRunnable();
-
         // Simulate the case where the response is after TTL.
+        final QueryTask task = taskCaptor.getAllValues().get(0);
         doReturn(TEST_ELAPSED_REALTIME + TEST_TTL + 1L).when(mockDecoderClock).elapsedRealtime();
-        firstMdnsTask.run();
+        runOnHandler(() -> callback.onSent(1 /* index */, task, 2 /* sentPacketCount */));
 
         // Verify removed callback was not called.
         verifyServiceRemovedNoCallback(mockListenerOne);
@@ -995,29 +908,20 @@ public class MdnsServiceTypeClientTests {
             throws Exception {
         //MdnsConfigsFlagsImpl.removeServiceAfterTtlExpires.override(true);
         final String serviceInstanceName = "service-instance-1";
-        client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                        mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                        serviceCache) {
-                    @Override
-                    MdnsPacketWriter createMdnsPacketWriter() {
-                        return mockPacketWriter;
-                    }
-                };
         startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
-        Runnable firstMdnsTask = currentThreadExecutor.getAndClearSubmittedRunnable();
+        final ArgumentCaptor<QueryTask> taskCaptor = ArgumentCaptor.forClass(QueryTask.class);
+        verify(mockQuerier).startSending(
+                eq(1) /* id */, taskCaptor.capture(), eq(0L) /* initialDelayMs */);
 
         // Process the initial response.
         processResponse(createResponse(
                 serviceInstanceName, "192.168.1.1", 5353, SUBTYPE,
                 Collections.emptyMap(), TEST_TTL), socketKey);
 
-        // Clear the scheduled runnable.
-        currentThreadExecutor.getAndClearLastScheduledRunnable();
-
         // Simulate the case where the response is after TTL.
+        final QueryTask task = taskCaptor.getAllValues().get(0);
         doReturn(TEST_ELAPSED_REALTIME + TEST_TTL + 1L).when(mockDecoderClock).elapsedRealtime();
-        firstMdnsTask.run();
+        runOnHandler(() -> callback.onSent(1 /* index */, task, 2 /* sentPacketCount */));
 
         // Verify removed callback was called.
         verifyServiceRemovedCallback(
@@ -1118,10 +1022,6 @@ public class MdnsServiceTypeClientTests {
 
     @Test
     public void testProcessResponse_Resolve() throws Exception {
-        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
-
         final String instanceName = "service-instance";
         final String[] hostname = new String[] { "testhost "};
         final String ipV4Address = "192.0.2.0";
@@ -1134,19 +1034,13 @@ public class MdnsServiceTypeClientTests {
         InOrder inOrder = inOrder(mockListenerOne, mockSocketClient);
 
         // Verify a query for SRV/TXT was sent, but no PTR query
-        final ArgumentCaptor<DatagramPacket> srvTxtQueryCaptor =
-                ArgumentCaptor.forClass(DatagramPacket.class);
-        currentThreadExecutor.getAndClearLastScheduledRunnable().run();
-        // Send twice for IPv4 and IPv6
-        inOrder.verify(mockSocketClient, times(2)).sendPacketRequestingUnicastResponse(
-                srvTxtQueryCaptor.capture(),
-                eq(socketKey), eq(false));
-        verify(mockDeps, times(1)).sendMessage(any(), any(Message.class));
-        assertNotNull(delayMessage);
+        final ArgumentCaptor<QueryTask> taskCaptor = ArgumentCaptor.forClass(QueryTask.class);
+        verify(mockQuerier).startSending(
+                eq(1) /* id */, taskCaptor.capture(), eq(0L) /* initialDelayMs */);
 
-        final MdnsPacket srvTxtQueryPacket = MdnsPacket.parse(
-                new MdnsPacketReader(srvTxtQueryCaptor.getValue()));
-
+        final QueryTask task = taskCaptor.getAllValues().get(0);
+        final MdnsPacket srvTxtQueryPacket = runningOnHandlerAndReturn(
+                () -> task.getPacket(0 /* index */));
         final String[] serviceName = getTestServiceName(instanceName);
         assertFalse(hasQuestion(srvTxtQueryPacket, MdnsRecord.TYPE_PTR));
         assertTrue(hasQuestion(srvTxtQueryPacket, MdnsRecord.TYPE_ANY, serviceName));
@@ -1164,20 +1058,12 @@ public class MdnsServiceTypeClientTests {
                                 Collections.emptyList() /* entries */)),
                 Collections.emptyList() /* authorityRecords */,
                 Collections.emptyList() /* additionalRecords */);
-
+        doReturn(true).when(mockQuerier).hasTaskId(anyInt());
         processResponse(srvTxtResponse, socketKey);
 
         // Expect a query for A/AAAA
-        dispatchMessage();
-        final ArgumentCaptor<DatagramPacket> addressQueryCaptor =
-                ArgumentCaptor.forClass(DatagramPacket.class);
-        currentThreadExecutor.getAndClearLastScheduledRunnable().run();
-        inOrder.verify(mockSocketClient, times(2)).sendPacketRequestingMulticastResponse(
-                addressQueryCaptor.capture(),
-                eq(socketKey), eq(false));
-
-        final MdnsPacket addressQueryPacket = MdnsPacket.parse(
-                new MdnsPacketReader(addressQueryCaptor.getValue()));
+        final MdnsPacket addressQueryPacket = runningOnHandlerAndReturn(
+                () -> task.getPacket(1 /* index */));
         assertTrue(hasQuestion(addressQueryPacket, MdnsRecord.TYPE_A, hostname));
         assertTrue(hasQuestion(addressQueryPacket, MdnsRecord.TYPE_AAAA, hostname));
 
@@ -1213,10 +1099,6 @@ public class MdnsServiceTypeClientTests {
 
     @Test
     public void testRenewTxtSrvInResolve() throws Exception {
-        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
-
         final String instanceName = "service-instance";
         final String[] hostname = new String[] { "testhost "};
         final String ipV4Address = "192.0.2.0";
@@ -1229,19 +1111,13 @@ public class MdnsServiceTypeClientTests {
         InOrder inOrder = inOrder(mockListenerOne, mockSocketClient);
 
         // Get the query for SRV/TXT
-        final ArgumentCaptor<DatagramPacket> srvTxtQueryCaptor =
-                ArgumentCaptor.forClass(DatagramPacket.class);
-        currentThreadExecutor.getAndClearLastScheduledRunnable().run();
-        // Send twice for IPv4 and IPv6
-        inOrder.verify(mockSocketClient, times(2)).sendPacketRequestingUnicastResponse(
-                srvTxtQueryCaptor.capture(),
-                eq(socketKey), eq(false));
-        verify(mockDeps, times(1)).sendMessage(any(), any(Message.class));
-        assertNotNull(delayMessage);
+        final ArgumentCaptor<QueryTask> taskCaptor = ArgumentCaptor.forClass(QueryTask.class);
+        verify(mockQuerier).startSending(
+                eq(1) /* id */, taskCaptor.capture(), eq(0L) /* initialDelayMs */);
 
-        final MdnsPacket srvTxtQueryPacket = MdnsPacket.parse(
-                new MdnsPacketReader(srvTxtQueryCaptor.getValue()));
-
+        final QueryTask task = taskCaptor.getAllValues().get(0);
+        final MdnsPacket srvTxtQueryPacket = runningOnHandlerAndReturn(
+                () -> task.getPacket(0 /* index */));
         final String[] serviceName = getTestServiceName(instanceName);
         assertTrue(hasQuestion(srvTxtQueryPacket, MdnsRecord.TYPE_ANY, serviceName));
 
@@ -1265,33 +1141,22 @@ public class MdnsServiceTypeClientTests {
                 Collections.emptyList() /* authorityRecords */,
                 Collections.emptyList() /* additionalRecords */);
         processResponse(srvTxtResponse, socketKey);
-        dispatchMessage();
         inOrder.verify(mockListenerOne).onServiceNameDiscovered(
                 any(), eq(false) /* isServiceFromCache */);
         inOrder.verify(mockListenerOne).onServiceFound(
                 any(), eq(false) /* isServiceFromCache */);
 
         // Expect no query on the next run
-        currentThreadExecutor.getAndClearLastScheduledRunnable().run();
         inOrder.verifyNoMoreInteractions();
 
         // Advance time so 75% of TTL passes and re-execute
         doReturn(TEST_ELAPSED_REALTIME + (long) (TEST_TTL * 0.75))
                 .when(mockDecoderClock).elapsedRealtime();
-        verify(mockDeps, times(2)).sendMessage(any(), any(Message.class));
-        assertNotNull(delayMessage);
-        dispatchMessage();
-        currentThreadExecutor.getAndClearLastScheduledRunnable().run();
 
         // Expect a renewal query
         final ArgumentCaptor<DatagramPacket> renewalQueryCaptor =
                 ArgumentCaptor.forClass(DatagramPacket.class);
         // Second and later sends are sent as "expect multicast response" queries
-        inOrder.verify(mockSocketClient, times(2)).sendPacketRequestingMulticastResponse(
-                renewalQueryCaptor.capture(),
-                eq(socketKey), eq(false));
-        verify(mockDeps, times(3)).sendMessage(any(), any(Message.class));
-        assertNotNull(delayMessage);
         inOrder.verify(mockListenerOne).onDiscoveryQuerySent(any(), anyInt());
         final MdnsPacket renewalPacket = MdnsPacket.parse(
                 new MdnsPacketReader(renewalQueryCaptor.getValue()));
@@ -1318,21 +1183,15 @@ public class MdnsServiceTypeClientTests {
                 Collections.emptyList() /* authorityRecords */,
                 Collections.emptyList() /* additionalRecords */);
         processResponse(refreshedSrvTxtResponse, socketKey);
-        dispatchMessage();
 
         // Advance time to updatedReceiptTime + 1, expected no refresh query because the cache
         // should contain the record that have update last receipt time.
         doReturn(updatedReceiptTime + 1).when(mockDecoderClock).elapsedRealtime();
-        currentThreadExecutor.getAndClearLastScheduledRunnable().run();
         inOrder.verifyNoMoreInteractions();
     }
 
     @Test
     public void testProcessResponse_ResolveExcludesOtherServices() {
-        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
-
         final String requestedInstance = "instance1";
         final String otherInstance = "instance2";
         final String ipV4Address = "192.0.2.0";
@@ -1399,10 +1258,6 @@ public class MdnsServiceTypeClientTests {
 
     @Test
     public void testProcessResponse_SubtypeDiscoveryLimitedToSubtype() {
-        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
-
         final String matchingInstance = "instance1";
         final String subtype = "_subtype";
         final String otherInstance = "instance2";
@@ -1489,10 +1344,6 @@ public class MdnsServiceTypeClientTests {
 
     @Test
     public void testNotifySocketDestroyed() throws Exception {
-        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
-
         final String requestedInstance = "instance1";
         final String otherInstance = "instance2";
         final String ipV4Address = "192.0.2.0";
@@ -1503,20 +1354,20 @@ public class MdnsServiceTypeClientTests {
 
         startSendAndReceive(mockListenerOne, resolveOptions);
         // Always try to remove the task.
-        verify(mockDeps, times(1)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(0 /* id */);
         // Ensure the first task is executed so it schedules a future task
-        currentThreadExecutor.getAndClearSubmittedFuture().get(
-                TEST_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        verify(mockQuerier).startSending(
+                eq(1) /* id */, any(QueryTask.class), eq(0) /* initialDelayMs */);
         startSendAndReceive(mockListenerTwo,
                 MdnsSearchOptions.newBuilder().setNumOfQueriesBeforeBackoff(
                         Integer.MAX_VALUE).build());
 
         // Filing the second request cancels the first future
-        verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(1 /* id */);
 
         // Ensure it gets executed too
-        currentThreadExecutor.getAndClearSubmittedFuture().get(
-                TEST_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        verify(mockQuerier).startSending(
+                eq(2) /* id */, any(QueryTask.class), eq(0) /* initialDelayMs */);
 
         // Complete response from instanceName
         processResponse(createResponse(
@@ -1531,7 +1382,7 @@ public class MdnsServiceTypeClientTests {
                 socketKey);
 
         notifySocketDestroyed();
-        verify(mockDeps, times(3)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(2 /* id */);
 
         // mockListenerOne gets notified for the requested instance
         final InOrder inOrder1 = inOrder(mockListenerOne);
@@ -1570,7 +1421,7 @@ public class MdnsServiceTypeClientTests {
         final String ipV4Address = "192.0.2.0";
         // Register a listener
         startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
-        verify(mockDeps, times(1)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(0 /* id */);
         InOrder inOrder = inOrder(mockListenerOne);
 
         // Process a response which has ip address to make response become complete.
@@ -1608,11 +1459,11 @@ public class MdnsServiceTypeClientTests {
 
         // Unregister the listener
         stopSendAndReceive(mockListenerOne);
-        verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(1 /* id */);
 
         // Register another listener.
         startSendAndReceive(mockListenerTwo, MdnsSearchOptions.getDefaultOptions());
-        verify(mockDeps, times(3)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        verify(mockQuerier).stop(2 /* id */);
         InOrder inOrder2 = inOrder(mockListenerTwo);
 
         // The services are cached in MdnsServiceCache, verify that onServiceNameDiscovered is
@@ -1668,39 +1519,25 @@ public class MdnsServiceTypeClientTests {
 
     // verifies that the right query was enqueued with the right delay, and send query by executing
     // the runnable.
-    private void verifyAndSendQuery(int index, long timeInMs, boolean expectsUnicastResponse) {
+    private void verifyAndSendQuery(int index, long timeInMs, boolean expectsUnicastResponse)
+            throws IOException {
         verifyAndSendQuery(index, timeInMs, expectsUnicastResponse,
                 true /* multipleSocketDiscovery */, index + 1 /* scheduledCount */);
     }
 
     private void verifyAndSendQuery(int index, long timeInMs, boolean expectsUnicastResponse,
-            boolean multipleSocketDiscovery, int scheduledCount) {
-        // Dispatch the message
-        if (delayMessage != null && realHandler != null) {
-            dispatchMessage();
-        }
-        assertEquals(timeInMs, latestDelayMs);
-        currentThreadExecutor.getAndClearLastScheduledRunnable().run();
+            boolean multipleSocketDiscovery, int scheduledCount) throws IOException {
         if (expectsUnicastResponse) {
-            verify(mockSocketClient).sendPacketRequestingUnicastResponse(
-                    expectedIPv4Packets[index], socketKey, false);
+            verify(mockSender).sendNow(any(MdnsPacket.class), any(), anyBoolean(), anyBoolean());
             if (multipleSocketDiscovery) {
-                verify(mockSocketClient).sendPacketRequestingUnicastResponse(
-                        expectedIPv6Packets[index], socketKey, false);
+                verify(mockSender).sendNow(any(MdnsPacket.class), any(), anyBoolean(), anyBoolean());
             }
         } else {
-            verify(mockSocketClient).sendPacketRequestingMulticastResponse(
-                    expectedIPv4Packets[index], socketKey, false);
+            verify(mockSender).sendNow(any(MdnsPacket.class), any(), anyBoolean(), anyBoolean());
             if (multipleSocketDiscovery) {
-                verify(mockSocketClient).sendPacketRequestingMulticastResponse(
-                        expectedIPv6Packets[index], socketKey, false);
+                verify(mockSender).sendNow(any(MdnsPacket.class), any(), anyBoolean(), anyBoolean());
             }
         }
-        verify(mockDeps, times(index + 1))
-                .sendMessage(any(Handler.class), any(Message.class));
-        // Verify the task has been scheduled.
-        verify(mockDeps, times(scheduledCount))
-                .sendMessageDelayed(any(Handler.class), any(Message.class), anyLong());
     }
 
     private static String[] getTestServiceName(String instanceName) {
@@ -1745,7 +1582,7 @@ public class MdnsServiceTypeClientTests {
         public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
             lastScheduledDelayInMs = delay;
             lastScheduledRunnable = command;
-            return Mockito.mock(ScheduledFuture.class);
+            return mock(ScheduledFuture.class);
         }
 
         // Returns the delay of the last scheduled task, and clear it.

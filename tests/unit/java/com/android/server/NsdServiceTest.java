@@ -222,8 +222,7 @@ public class NsdServiceTest {
         doReturn(true).when(mMockMDnsM).resolve(
                 anyInt(), anyString(), anyString(), anyString(), anyInt());
         doReturn(false).when(mDeps).isMdnsDiscoveryManagerEnabled(any(Context.class));
-        doReturn(mDiscoveryManager).when(mDeps)
-                .makeMdnsDiscoveryManager(any(), any(), any(), any());
+        doReturn(mDiscoveryManager).when(mDeps).makeMdnsDiscoveryManager(any(), any(), any());
         doReturn(mMulticastLock).when(mWifiManager).createMulticastLock(any());
         doReturn(mSocketProvider).when(mDeps).makeMdnsSocketProvider(any(), any(), any(), any());
         doReturn(DEFAULT_RUNNING_APP_ACTIVE_IMPORTANCE_CUTOFF).when(mDeps).getDeviceConfigInt(
