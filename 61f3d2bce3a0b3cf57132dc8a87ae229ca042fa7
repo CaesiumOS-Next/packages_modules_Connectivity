@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36170ea3_fcbd4512",
+        "filename": "tests/unit/java/com/android/server/connectivity/CarrierPrivilegeAuthenticatorTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-26T09:30:57Z",
+      "side": 1,
+      "message": "nits:\nI think we usually use DevSdkIgnoreRunner and IgnoreUpTo annotation is simpler, I felt.\n```\n@RunWith(DevSdkIgnoreRunner.class)\n@IgnoreUpTo(Build.VERSION_CODES.S_V2)\n```",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 54
+      },
+      "revId": "61f3d2bce3a0b3cf57132dc8a87ae229ca042fa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
