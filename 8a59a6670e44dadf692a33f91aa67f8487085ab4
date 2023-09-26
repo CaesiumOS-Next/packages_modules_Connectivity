@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6c73b96_4d8b175d",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21cf8916_a01582fe",
+      "range": {
+        "startLine": 63,
+        "startChar": 60,
+        "endLine": 63,
+        "endChar": 71
+      },
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88606c0d_bfb181d4",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-09-21T07:57:33Z",
       "side": 1,
       "message": "maybe specify the unit",
+      "range": {
+        "startLine": 87,
+        "startChar": 51,
+        "endLine": 87,
+        "endChar": 52
+      },
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93660fbf_7bda0163",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88606c0d_bfb181d4",
       "range": {
         "startLine": 87,
         "startChar": 51,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bd8ab27_733ce0ea",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec4fe990_8fec6e2e",
+      "range": {
+        "startLine": 90,
+        "startChar": 41,
+        "endLine": 90,
+        "endChar": 44
+      },
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f420613a_7c35201e",
@@ -104,6 +176,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93d07348_b623840f",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f420613a_7c35201e",
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1bbf5b25_37bd5522",
@@ -117,6 +207,30 @@
       "writtenOn": "2023-09-21T07:57:33Z",
       "side": 1,
       "message": "_BYTES",
+      "range": {
+        "startLine": 117,
+        "startChar": 61,
+        "endLine": 117,
+        "endChar": 65
+      },
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b380809_e190db6b",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "In this class, we didn\u0027t add \"_BYTES\" for all other \"LENGTH_XXX\" constants. Probably better to keep consistent with them. Please let me know if you have a strong preference on this, then we can do the changes for all constants together.",
+      "parentUuid": "1bbf5b25_37bd5522",
       "range": {
         "startLine": 117,
         "startChar": 61,
@@ -150,6 +264,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87ab1599_a27fe21c",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0efc9674_2cf5e399",
+      "range": {
+        "startLine": 169,
+        "startChar": 4,
+        "endLine": 170,
+        "endChar": 28
+      },
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40c9c5aa_2aea1cdd",
@@ -163,6 +301,24 @@
       "writtenOn": "2023-09-21T10:04:41Z",
       "side": 1,
       "message": "Should we use `\u003e` instead?",
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5606c773_ce7ed774",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Good catch! updated.",
+      "parentUuid": "40c9c5aa_2aea1cdd",
       "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -213,6 +369,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a43c2106_e0f62c87",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "141cada1_1bd83cd5",
+      "range": {
+        "startLine": 245,
+        "startChar": 62,
+        "endLine": 245,
+        "endChar": 63
+      },
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f379b8b_845c72ca",
@@ -226,6 +406,24 @@
       "writtenOn": "2023-09-21T10:04:41Z",
       "side": 1,
       "message": "nit: You may not need to clone the value.",
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a16dbb30_088400aa",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f379b8b_845c72ca",
       "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -247,6 +445,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0478cf6e_3c98261a",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71f87ede_7557247d",
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bcd3b59e_e1afc83a",
@@ -260,6 +476,24 @@
       "writtenOn": "2023-09-21T10:04:41Z",
       "side": 1,
       "message": "What\u0027s the format of PAN ID here? hex?",
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e90a3b95_2bcff1f0",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "It\u0027s decimal, updated.",
+      "parentUuid": "bcd3b59e_e1afc83a",
       "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -287,6 +521,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da4e8550_fd022536",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "470609c6_f375ad40",
+      "range": {
+        "startLine": 371,
+        "startChar": 49,
+        "endLine": 372,
+        "endChar": 45
+      },
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "549f3fec_09b29360",
@@ -300,6 +558,24 @@
       "writtenOn": "2023-09-21T10:04:41Z",
       "side": 1,
       "message": "That\u0027s different from the comment of `createRandomDataset()`.",
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55e7034f_648a490c",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Updated the comment.",
+      "parentUuid": "549f3fec_09b29360",
       "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -327,6 +603,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2fd6e87_12025e8b",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57955678_f1a3550d",
+      "range": {
+        "startLine": 417,
+        "startChar": 54,
+        "endLine": 417,
+        "endChar": 57
+      },
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "183f56ed_78e62531",
@@ -340,6 +640,24 @@
       "writtenOn": "2023-09-21T10:04:41Z",
       "side": 1,
       "message": "IIUC, this function\u0027s name is kind of different from what it does. It\u0027s comparing two sparse arrays of byte arrays.",
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e92bc909_a48991a1",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "The name is updated to \"areByteSparseArraysEqual\"",
+      "parentUuid": "183f56ed_78e62531",
       "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -361,6 +679,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4099f621_c6822726",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Both work, updated to be consistent.",
+      "parentUuid": "2ba9e865_fa1ba0f9",
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ab13442_97641632",
@@ -374,6 +710,24 @@
       "writtenOn": "2023-09-21T10:04:41Z",
       "side": 1,
       "message": "I wonder if you need to convert it to int in this way:\n```\nmUnknownTlvs.keyAt(i) \u0026 0xff\n```",
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3c01a5e_9385413d",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Not really. I removed \" \u0026 0xff\" for mPanId and mChannel. \n\nI make this change because:\n1. ByteArrayOutputStream#write() already takes only the least 8 bits\n2. To be consistent with also other integer values such as the lengths",
+      "parentUuid": "0ab13442_97641632",
       "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -395,6 +749,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68c85a81_8344a217",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c67c043_2ab3fd6a",
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e868c61_4bc87c10",
@@ -408,6 +780,30 @@
       "writtenOn": "2023-09-21T10:04:41Z",
       "side": 1,
       "message": "nit: put channel mask before pskc to get the order consistent with the constructor.",
+      "range": {
+        "startLine": 640,
+        "startChar": 23,
+        "endLine": 640,
+        "endChar": 82
+      },
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b8e5b67_2e46f2dc",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e868c61_4bc87c10",
       "range": {
         "startLine": 640,
         "startChar": 23,
@@ -441,6 +837,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19de986d_3a71612c",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56e15fd4_24c9bc14",
+      "range": {
+        "startLine": 680,
+        "startChar": 0,
+        "endLine": 691,
+        "endChar": 47
+      },
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed795335_65f62f96",
@@ -454,6 +874,30 @@
       "writtenOn": "2023-09-21T07:57:33Z",
       "side": 1,
       "message": "Let\u0027s be a little bit more specific here because this reads like it\u0027s the number of java \u0027char\u0027s that\u0027s the limit, but in fact it\u0027s the number of bytes in the UTF8 representation of it.",
+      "range": {
+        "startLine": 738,
+        "startChar": 44,
+        "endLine": 739,
+        "endChar": 83
+      },
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8746da82_57f16eef",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed795335_65f62f96",
       "range": {
         "startLine": 738,
         "startChar": 44,
@@ -481,6 +925,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3eb030e_5be56183",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cd2c462_2194e100",
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df23d3d5_31738e08",
@@ -498,6 +960,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee735810_fd871f35",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df23d3d5_31738e08",
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "135fb7cf_5dde5784",
@@ -511,6 +991,30 @@
       "writtenOn": "2023-09-21T07:57:33Z",
       "side": 1,
       "message": "Let\u0027s make sure this actually clones the byte[]s inside, lest it be possible to modify them after this method returns",
+      "range": {
+        "startLine": 845,
+        "startChar": 44,
+        "endLine": 845,
+        "endChar": 52
+      },
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb669a31_bed40184",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "135fb7cf_5dde5784",
       "range": {
         "startLine": 845,
         "startChar": 44,
@@ -544,6 +1048,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f9d0056_b6456765",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22b90a84_389b168d",
+      "range": {
+        "startLine": 930,
+        "startChar": 16,
+        "endLine": 930,
+        "endChar": 21
+      },
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc2b3ad7_f9fe5d98",
@@ -561,6 +1089,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb6a5d97_5c0da7af",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "`toThreadTlvs()` is the method of `ActiveOperationalDataset` and we shouldn\u0027t create an ActiveOperationalDataset object without validating the arguments for creating it.",
+      "parentUuid": "cc2b3ad7_f9fe5d98",
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "056da57d_02afff38",
@@ -574,6 +1120,30 @@
       "writtenOn": "2023-09-21T07:57:33Z",
       "side": 1,
       "message": "// 9 items with 1 byte of type and 1 byte of length",
+      "range": {
+        "startLine": 995,
+        "startChar": 20,
+        "endLine": 995,
+        "endChar": 25
+      },
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d480e9f2_3b7235af",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "056da57d_02afff38",
       "range": {
         "startLine": 995,
         "startChar": 20,
@@ -607,6 +1177,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02df0062_53cdf996",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d65dc2e2_35bfff26",
+      "range": {
+        "startLine": 1009,
+        "startChar": 23,
+        "endLine": 1009,
+        "endChar": 24
+      },
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c626868_46cff95d",
@@ -624,6 +1218,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9780b3a_8cd5c471",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c626868_46cff95d",
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "203f1414_6f032393",
@@ -637,6 +1249,24 @@
       "writtenOn": "2023-09-21T10:04:41Z",
       "side": 1,
       "message": "nit: what about `(rotationTimeHours \u003e\u003e 8) \u0026 0xff`?",
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c40d2bb3_98628ef7",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-09-26T10:17:28Z",
+      "side": 1,
+      "message": "I updated it to \"rotationTimeHours \u003e\u003e 8\"",
+      "parentUuid": "203f1414_6f032393",
       "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
