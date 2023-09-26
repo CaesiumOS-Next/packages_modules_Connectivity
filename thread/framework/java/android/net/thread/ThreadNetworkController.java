@@ -83,25 +83,21 @@ public class ThreadNetworkController {
     public @interface ThreadVersion {}
 
     private final IThreadNetworkController mControllerService;
-    private final StateCallbackProxy mStateCallbackProxy;
-    private final OperationalDatasetCallbackProxy mOpDatasetCallbackProxy;
+
+    private final Object mStateCallbackMapLock = new Object();
+
+    @GuardedBy("mStateCallbackMapLock")
+    private final Map<StateCallback, StateCallbackProxy> mStateCallbackMap = new HashMap<>();
+
+    private final Object mOpDatasetCallbackMapLock = new Object();
+
+    @GuardedBy("mOpDatasetCallbackMapLock")
+    private final Map<OperationalDatasetCallback, OperationalDatasetCallbackProxy>
+            mOpDatasetCallbackMap = new HashMap<>();
 
     ThreadNetworkController(@NonNull IThreadNetworkController controllerService) {
-        this(
-                controllerService,
-                new StateCallbackProxy(controllerService),
-                new OperationalDatasetCallbackProxy(controllerService));
-    }
-
-    private ThreadNetworkController(
-            @NonNull IThreadNetworkController controllerService,
-            StateCallbackProxy callbackProxy,
-            OperationalDatasetCallbackProxy opDatasetCallbackProxy) {
         requireNonNull(controllerService, "controllerService cannot be null");
-
         mControllerService = controllerService;
-        this.mStateCallbackProxy = callbackProxy;
-        this.mOpDatasetCallbackProxy = opDatasetCallbackProxy;
     }
 
     /** Returns the Thread version this device is operating on. */
@@ -147,6 +143,26 @@ public class ThreadNetworkController {
         default void onPartitionIdChanged(long partitionId) {}
     }
 
+    private final class StateCallbackProxy extends IStateCallback.Stub {
+        private final Executor mExecutor;
+        private final StateCallback mCallback;
+
+        StateCallbackProxy(@CallbackExecutor Executor executor, StateCallback callback) {
+            mExecutor = executor;
+            mCallback = callback;
+        }
+
+        @Override
+        public void onDeviceRoleChanged(@DeviceRole int deviceRole) {
+            mExecutor.execute(() -> mCallback.onDeviceRoleChanged(deviceRole));
+        }
+
+        @Override
+        public void onPartitionIdChanged(long partitionId) {
+            mExecutor.execute(() -> mCallback.onPartitionIdChanged(partitionId));
+        }
+    }
+
     /**
      * Registers a callback to be called when Thread network states are changed.
      *
@@ -160,7 +176,15 @@ public class ThreadNetworkController {
             @NonNull @CallbackExecutor Executor executor, @NonNull StateCallback callback) {
         requireNonNull(executor, "executor cannot be null");
         requireNonNull(callback, "callback cannot be null");
-        mStateCallbackProxy.register(executor, callback);
+        synchronized (mStateCallbackMapLock) {
+            try {
+                mControllerService.registerStateCallback(
+                        mStateCallbackMap.computeIfAbsent(
+                                callback, cb -> new StateCallbackProxy(executor, cb)));
+            } catch (RemoteException e) {
+                e.rethrowFromSystemServer();
+            }
+        }
     }
 
     /**
@@ -170,7 +194,17 @@ public class ThreadNetworkController {
      */
     public void unregisterStateCallback(@NonNull StateCallback callback) {
         requireNonNull(callback, "callback cannot be null");
-        mStateCallbackProxy.unregister(callback);
+        synchronized (mStateCallbackMapLock) {
+            StateCallbackProxy callbackProxy = mStateCallbackMap.remove(callback);
+            if (callbackProxy == null) {
+                return;
+            }
+            try {
+                mControllerService.unregisterStateCallback(callbackProxy);
+            } catch (RemoteException e) {
+                e.rethrowFromSystemServer();
+            }
+        }
     }
 
     /**
@@ -198,6 +232,29 @@ public class ThreadNetworkController {
                 @Nullable PendingOperationalDataset pendingOpDataset) {}
     }
 
+    private final class OperationalDatasetCallbackProxy extends IOperationalDatasetCallback.Stub {
+        private final Executor mExecutor;
+        private final OperationalDatasetCallback mCallback;
+
+        OperationalDatasetCallbackProxy(
+                @CallbackExecutor Executor executor, OperationalDatasetCallback callback) {
+            mExecutor = executor;
+            mCallback = callback;
+        }
+
+        @Override
+        public void onActiveOperationalDatasetChanged(
+                @Nullable ActiveOperationalDataset activeOpDataset) {
+            mExecutor.execute(() -> mCallback.onActiveOperationalDatasetChanged(activeOpDataset));
+        }
+
+        @Override
+        public void onPendingOperationalDatasetChanged(
+                @Nullable PendingOperationalDataset pendingOpDataset) {
+            mExecutor.execute(() -> mCallback.onPendingOperationalDatasetChanged(pendingOpDataset));
+        }
+    }
+
     /**
      * Registers a callback to be called when Thread Operational Datasets are changed.
      *
@@ -211,7 +268,15 @@ public class ThreadNetworkController {
             @NonNull OperationalDatasetCallback callback) {
         requireNonNull(executor, "executor cannot be null");
         requireNonNull(callback, "callback cannot be null");
-        mOpDatasetCallbackProxy.register(executor, callback);
+        synchronized (mOpDatasetCallbackMapLock) {
+            try {
+                mControllerService.registerOperationalDatasetCallback(
+                        mOpDatasetCallbackMap.computeIfAbsent(
+                                callback, cb -> new OperationalDatasetCallbackProxy(executor, cb)));
+            } catch (RemoteException e) {
+                e.rethrowFromSystemServer();
+            }
+        }
     }
 
     /**
@@ -222,7 +287,17 @@ public class ThreadNetworkController {
      */
     public void unregisterOperationalDatasetCallback(@NonNull OperationalDatasetCallback callback) {
         requireNonNull(callback, "callback cannot be null");
-        mOpDatasetCallbackProxy.unregister(callback);
+        synchronized (mOpDatasetCallbackMapLock) {
+            OperationalDatasetCallbackProxy callbackProxy = mOpDatasetCallbackMap.remove(callback);
+            if (callbackProxy == null) {
+                return;
+            }
+            try {
+                mControllerService.unregisterOperationalDatasetCallback(callbackProxy);
+            } catch (RemoteException e) {
+                e.rethrowFromSystemServer();
+            }
+        }
     }
 
     /**
@@ -509,132 +584,6 @@ public class ThreadNetworkController {
                     () ->
                             resultReceiver.onError(
                                     new ThreadNetworkException(errorCode, errorMessage)));
-        }
-    }
-
-    private static final class StateCallbackProxy extends IStateCallback.Stub {
-        private final IThreadNetworkController mControllerService;
-
-        @GuardedBy("this")
-        private final Map<StateCallback, Executor> mCallbacks = new HashMap<>();
-
-        StateCallbackProxy(IThreadNetworkController service) {
-            mControllerService = service;
-        }
-
-        public void register(@CallbackExecutor Executor executor, StateCallback callback) {
-            synchronized (this) {
-                if (mCallbacks.isEmpty()) {
-                    try {
-                        mControllerService.registerStateCallback(this);
-                    } catch (RemoteException e) {
-                        throw e.rethrowFromSystemServer();
-                    }
-                }
-                mCallbacks.put(callback, executor);
-            }
-        }
-
-        public void unregister(StateCallback callback) {
-            synchronized (this) {
-                mCallbacks.remove(callback);
-                if (mCallbacks.isEmpty()) {
-                    try {
-                        mControllerService.unregisterStateCallback(this);
-                    } catch (RemoteException e) {
-                        throw e.rethrowFromSystemServer();
-                    }
-                }
-            }
-        }
-
-        @Override
-        public void onDeviceRoleChanged(@DeviceRole int deviceRole) {
-            synchronized (this) {
-                for (Map.Entry<StateCallback, Executor> entry : mCallbacks.entrySet()) {
-                    StateCallback callback = entry.getKey();
-                    Executor executor = entry.getValue();
-                    executor.execute(() -> callback.onDeviceRoleChanged(deviceRole));
-                }
-            }
-        }
-
-        @Override
-        public void onPartitionIdChanged(long partitionId) {
-            synchronized (this) {
-                for (Map.Entry<StateCallback, Executor> entry : mCallbacks.entrySet()) {
-                    StateCallback callback = entry.getKey();
-                    Executor executor = entry.getValue();
-                    executor.execute(() -> callback.onPartitionIdChanged(partitionId));
-                }
-            }
-        }
-    }
-
-    private static final class OperationalDatasetCallbackProxy
-            extends IOperationalDatasetCallback.Stub {
-        private final IThreadNetworkController mControllerService;
-
-        @GuardedBy("this")
-        private final Map<OperationalDatasetCallback, Executor> mCallbacks = new HashMap<>();
-
-        OperationalDatasetCallbackProxy(IThreadNetworkController service) {
-            mControllerService = service;
-        }
-
-        public void register(
-                @CallbackExecutor Executor executor, OperationalDatasetCallback callback) {
-            synchronized (this) {
-                if (mCallbacks.isEmpty()) {
-                    try {
-                        mControllerService.registerOperationalDatasetCallback(this);
-                    } catch (RemoteException e) {
-                        throw e.rethrowFromSystemServer();
-                    }
-                }
-                mCallbacks.put(callback, executor);
-            }
-        }
-
-        public void unregister(OperationalDatasetCallback callback) {
-            synchronized (this) {
-                mCallbacks.remove(callback);
-                if (mCallbacks.isEmpty()) {
-                    try {
-                        mControllerService.unregisterOperationalDatasetCallback(this);
-                    } catch (RemoteException e) {
-                        throw e.rethrowFromSystemServer();
-                    }
-                }
-            }
-        }
-
-        @Override
-        public void onActiveOperationalDatasetChanged(
-                @Nullable ActiveOperationalDataset activeOpDataset) {
-            synchronized (this) {
-                for (Map.Entry<OperationalDatasetCallback, Executor> entry :
-                        mCallbacks.entrySet()) {
-                    OperationalDatasetCallback callback = entry.getKey();
-                    Executor executor = entry.getValue();
-                    executor.execute(
-                            () -> callback.onActiveOperationalDatasetChanged(activeOpDataset));
-                }
-            }
-        }
-
-        @Override
-        public void onPendingOperationalDatasetChanged(
-                @Nullable PendingOperationalDataset pendingOpDataset) {
-            synchronized (this) {
-                for (Map.Entry<OperationalDatasetCallback, Executor> entry :
-                        mCallbacks.entrySet()) {
-                    OperationalDatasetCallback callback = entry.getKey();
-                    Executor executor = entry.getValue();
-                    executor.execute(
-                            () -> callback.onPendingOperationalDatasetChanged(pendingOpDataset));
-                }
-            }
         }
     }
 }
