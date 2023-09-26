@@ -16,6 +16,8 @@
 
 package android.net;
 
+import static java.util.Objects.requireNonNull;
+
 import android.annotation.NonNull;
 import android.annotation.SystemApi;
 import android.app.SystemServiceRegistry;
@@ -27,8 +29,11 @@ import android.net.nsd.MDnsManager;
 import android.net.nsd.NsdManager;
 import android.net.thread.IThreadNetworkManager;
 import android.net.thread.ThreadNetworkManager;
+import android.os.IBinder;
 
 import com.android.internal.util.Preconditions;
+
+import java.util.function.Supplier;
 
 /**
  * Class for performing registration for Connectivity services which are exposed via updatable APIs
@@ -40,26 +45,24 @@ import com.android.internal.util.Preconditions;
 public final class ConnectivityFrameworkInitializerTiramisu {
     private ConnectivityFrameworkInitializerTiramisu() {}
 
-    private static ConnectivityServiceManager sConnectivityServiceManager;
+    private static Supplier<IBinder> sThreadDaemonServiceSupplier;
 
     /**
-     * Sets an instance of {@link ConnectivityServiceManager} that allows the connectivity mainline
-     * module to register/obtain connectivity binder services. This is called by the platform
-     * during the system initialization.
+     * Sets a {@link Supplier} of the Thread daemon binder service (i.e. "ot_daemon").
      */
-    public static void setConnectivityServiceManager(
-            @NonNull ConnectivityServiceManager connectivityServiceManager) {
-        Preconditions.checkState(sConnectivityServiceManager == null,
-                "setConnectivityServiceManager called twice!");
-        sConnectivityServiceManager = Preconditions.checkNotNull(connectivityServiceManager);
+    public static void setThreadDaemonServiceSupplier(
+            @NonNull Supplier<IBinder> threadDaemonServiceSupplier) {
+        Preconditions.checkState(sThreadDaemonServiceSupplier == null,
+                "setThreadDaemonServiceSupplier called twice!");
+        sThreadDaemonServiceSupplier = requireNonNull(threadDaemonServiceSupplier);
     }
 
     /**
      * Returns the {@link ConnectivityServiceManager} singleton instance.
      * @hide
      */
-    public static ConnectivityServiceManager getConnectivityServiceManager() {
-        return sConnectivityServiceManager;
+    public static Supplier<IBinder> getThreadDaemonServiceSupplier() {
+        return sThreadDaemonServiceSupplier;
     }
 
     /**

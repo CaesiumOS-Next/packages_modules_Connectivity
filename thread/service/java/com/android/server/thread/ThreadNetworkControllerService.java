@@ -234,9 +234,7 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
 
     private static IBinder getOtDaemonBinder() throws RemoteException {
         IBinder binder =
-                ConnectivityFrameworkInitializerTiramisu.getConnectivityServiceManager()
-                        .getThreadDaemonServiceRegisterer()
-                        .waitForService();
+                ConnectivityFrameworkInitializerTiramisu.getThreadDaemonServiceSupplier().get();
 
         // TODO: return it as ThreadNetworkException.UNAVAILABLE_ERROR
         if (binder == null) {
