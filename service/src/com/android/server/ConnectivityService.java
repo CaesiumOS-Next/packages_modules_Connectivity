@@ -4404,12 +4404,19 @@ public class ConnectivityService extends IConnectivityManager.Stub
             } else if (partialConnectivityChanged) {
                 updateCapabilitiesForNetwork(nai);
             } else if (portalChanged) {
-                if (portal && ConnectivitySettingsManager.CAPTIVE_PORTAL_MODE_AVOID
-                        == getCaptivePortalMode()) {
-                    if (DBG) log("Avoiding captive portal network: " + nai.toShortString());
-                    nai.onPreventAutomaticReconnect();
-                    teardownUnneededNetwork(nai);
-                    return;
+                if (portal && ConnectivitySettingsManager.CAPTIVE_PORTAL_MODE_AVOID ==
+                        getCaptivePortalMode()) {
+                    if (nai.networkCapabilities.hasTransport(
+                            NetworkCapabilities.TRANSPORT_BLUETOOTH) &&
+                            mContext.getPackageManager().hasSystemFeature(FEATURE_WATCH)) {
+                        if (DBG) log("Proxy behind captive portal: " + nai.toShortString());
+                        updateCapabilitiesForNetwork(nai);
+                    } else {
+                        if (DBG) log("Avoiding captive portal network: " + nai.toShortString());
+                        nai.onPreventAutomaticReconnect();
+                        teardownUnneededNetwork(nai);
+                        return;
+                    }
                 } else {
                     updateCapabilitiesForNetwork(nai);
                 }
