@@ -28,6 +28,7 @@ import android.text.format.DateUtils;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.SharedLog;
+import com.android.server.connectivity.mdns.util.MdnsUtils;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -71,6 +72,7 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
     final Queue<DatagramPacket> unicastPacketQueue = new ArrayDeque<>();
     private final Context context;
     private final byte[] multicastReceiverBuffer = new byte[RECEIVER_BUFFER_SIZE];
+    private final byte[] packetCreationBuffer = new byte[1300];
     @Nullable private final byte[] unicastReceiverBuffer;
     private final MulticastLock multicastLock;
     private final boolean useSeparateSocketForUnicast =
@@ -105,6 +107,7 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
     private AtomicInteger packetsCount;
     @Nullable private Timer checkMulticastResponseTimer;
     private final SharedLog sharedLog;
+    @Nullable private MdnsSocketClientSender sender;
 
     public MdnsSocketClient(@NonNull Context context, @NonNull MulticastLock multicastLock,
             SharedLog sharedLog) {
@@ -161,6 +164,7 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
         }
         createAndStartSendThread();
         createAndStartReceiverThreads();
+        sender = new MdnsSocketClientSender();
     }
 
     @RequiresPermission(permission.CHANGE_WIFI_MULTICAST_STATE)
@@ -189,6 +193,7 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
         synchronized (socketLock) {
             multicastSocket = null;
             unicastSocket = null;
+            sender = null;
         }
 
         synchronized (timerObject) {
@@ -199,19 +204,20 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
         }
     }
 
-    @Override
-    public void sendPacketRequestingMulticastResponse(@NonNull DatagramPacket packet,
-            boolean onlyUseIpv6OnIpv6OnlyNetworks) {
-        sendMdnsPacket(packet, multicastPacketQueue, onlyUseIpv6OnIpv6OnlyNetworks);
-    }
-
-    @Override
-    public void sendPacketRequestingUnicastResponse(@NonNull DatagramPacket packet,
-            boolean onlyUseIpv6OnIpv6OnlyNetworks) {
-        if (useSeparateSocketForUnicast) {
-            sendMdnsPacket(packet, unicastPacketQueue, onlyUseIpv6OnIpv6OnlyNetworks);
-        } else {
-            sendMdnsPacket(packet, multicastPacketQueue, onlyUseIpv6OnIpv6OnlyNetworks);
+    private class MdnsSocketClientSender implements MdnsSender {
+        @Override
+        public int sendNow(@NonNull MdnsPacket packet, @NonNull InetSocketAddress destination,
+                boolean onlyUseIpv6OnIpv6OnlyNetworks, boolean expectUnicastResponse)
+                throws IOException {
+            final byte[] outBuffer = MdnsUtils.createRawDnsPacket(packetCreationBuffer, packet);
+            final DatagramPacket dPacket =
+                    new DatagramPacket(outBuffer, 0, outBuffer.length, destination);
+            if (expectUnicastResponse && useSeparateSocketForUnicast) {
+                sendMdnsPacket(dPacket, unicastPacketQueue, onlyUseIpv6OnIpv6OnlyNetworks);
+            } else {
+                sendMdnsPacket(dPacket, multicastPacketQueue, onlyUseIpv6OnIpv6OnlyNetworks);
+            }
+            return PACKET_SENT;
         }
     }
 
@@ -224,7 +230,8 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
             throw new IllegalArgumentException("This socket client does not support requesting "
                     + "specific networks");
         }
-        socketCreationCallback.onSocketCreated(new SocketKey(multicastSocket.getInterfaceIndex()));
+        socketCreationCallback.onSocketCreated(
+                new SocketKey(multicastSocket.getInterfaceIndex()), sender);
     }
 
     @Override

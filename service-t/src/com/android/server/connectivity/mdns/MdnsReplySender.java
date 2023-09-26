@@ -27,13 +27,8 @@ import android.os.Message;
 
 import com.android.net.module.util.SharedLog;
 import com.android.server.connectivity.mdns.MdnsRecordRepository.ReplyInfo;
-import com.android.server.connectivity.mdns.util.MdnsUtils;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.Inet4Address;
-import java.net.Inet6Address;
-import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
 import java.util.Collections;
 
@@ -44,27 +39,16 @@ import java.util.Collections;
  * TODO: implement sending after a delay, combining queued replies and duplicate answer suppression
  */
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-public class MdnsReplySender {
-    private static final boolean DBG = MdnsAdvertiser.DBG;
+public class MdnsReplySender extends MdnsPacketSender {
     private static final int MSG_SEND = 1;
-    private static final int PACKET_NOT_SENT = 0;
-    private static final int PACKET_SENT = 1;
 
     @NonNull
-    private final MdnsInterfaceSocket mSocket;
-    @NonNull
     private final Handler mHandler;
-    @NonNull
-    private final byte[] mPacketCreationBuffer;
-    @NonNull
-    private final SharedLog mSharedLog;
 
     public MdnsReplySender(@NonNull Looper looper, @NonNull MdnsInterfaceSocket socket,
             @NonNull byte[] packetCreationBuffer, @NonNull SharedLog sharedLog) {
+        super(looper, socket, packetCreationBuffer, sharedLog);
         mHandler = new SendHandler(looper);
-        mSocket = socket;
-        mPacketCreationBuffer = packetCreationBuffer;
-        mSharedLog = sharedLog;
     }
 
     /**
@@ -78,29 +62,6 @@ public class MdnsReplySender {
         if (DBG) {
             mSharedLog.v("Scheduling " + reply);
         }
-    }
-
-    /**
-     * Send a packet immediately.
-     *
-     * Must be called on the looper thread used by the {@link MdnsReplySender}.
-     */
-    public int sendNow(@NonNull MdnsPacket packet, @NonNull InetSocketAddress destination)
-            throws IOException {
-        ensureRunningOnHandlerThread(mHandler);
-        if (!((destination.getAddress() instanceof Inet6Address && mSocket.hasJoinedIpv6())
-                || (destination.getAddress() instanceof Inet4Address && mSocket.hasJoinedIpv4()))) {
-            // Skip sending if the socket has not joined the v4/v6 group (there was no address)
-            return PACKET_NOT_SENT;
-        }
-        final byte[] outBuffer = MdnsUtils.createRawDnsPacket(mPacketCreationBuffer, packet);
-        mSocket.send(new DatagramPacket(outBuffer, 0, outBuffer.length, destination));
-        return PACKET_SENT;
-    }
-
-    /** Get the packetCreationBuffer */
-    public byte[] getPacketCreationBuffer() {
-        return mPacketCreationBuffer;
     }
 
     /**
@@ -129,7 +90,8 @@ public class MdnsReplySender {
                     replyInfo.additionalAnswers);
 
             try {
-                sendNow(packet, replyInfo.destination);
+                sendNow(packet, replyInfo.destination, false /* onlyUseIpv6OnIpv6OnlyNetworks */,
+                        false /* expectUnicastResponse */);
             } catch (IOException e) {
                 mSharedLog.e("Error sending MDNS response", e);
             }

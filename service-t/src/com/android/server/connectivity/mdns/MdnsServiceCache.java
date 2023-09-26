@@ -180,5 +180,34 @@ public class MdnsServiceCache {
         return null;
     }
 
+    /**
+     * Get the min remaining ttl from cache services which are queried from given service type and
+     * socket.
+     *
+     * @param serviceType the target service type.
+     * @param socketKey the target socket
+     * @param now the current time.
+     * @return the set of services which matches the given service type.
+     */
+    public long getServiceMinRemainingTtl(@NonNull String serviceType, @NonNull SocketKey socketKey,
+            long now) {
+        long minRemainingTtl = Long.MAX_VALUE;
+        for (MdnsResponse response : getCachedServices(serviceType, socketKey)) {
+            if (!response.isComplete()) {
+                continue;
+            }
+            long remainingTtl =
+                    response.getServiceRecord().getRemainingTTL(now);
+            // remainingTtl is <= 0 means the service expired.
+            if (remainingTtl <= 0) {
+                return 0;
+            }
+            if (remainingTtl < minRemainingTtl) {
+                minRemainingTtl = remainingTtl;
+            }
+        }
+        return minRemainingTtl == Long.MAX_VALUE ? 0 : minRemainingTtl;
+    }
+
     // TODO: check ttl expiration for each service and notify to the clients.
 }

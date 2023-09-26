@@ -44,7 +44,7 @@ public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
     };
 
     @NonNull
-    private final MdnsReplySender mReplySender;
+    private final MdnsSender mSender;
     @NonNull
     protected final Handler mHandler;
     @Nullable
@@ -91,6 +91,9 @@ public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
          * Get the number of packets that should be sent.
          */
         int getNumSends();
+
+        default boolean onlyUseIpv6OnIpv6OnlyNetworks() { return false; }
+        default boolean expectUnicastResponse() { return false; }
     }
 
     private final class ProbeHandler extends Handler {
@@ -111,6 +114,8 @@ public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
             }
 
             final MdnsPacket packet = request.getPacket(index);
+            final boolean onlyUseIpv6OnIpv6OnlyNetworks = request.onlyUseIpv6OnIpv6OnlyNetworks();
+            final boolean expectUnicastResponse = request.expectUnicastResponse();
             if (DBG) {
                 mSharedLog.v("Sending packets for iteration " + index + " out of "
                         + request.getNumSends() + " for ID " + msg.what);
@@ -120,7 +125,7 @@ public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
             int sentPacketCount = 0;
             for (InetSocketAddress destination : ALL_ADDRS) {
                 try {
-                    sentPacketCount += mReplySender.sendNow(packet, destination);
+                    sentPacketCount += mSender.sendNow(packet, destination, onlyUseIpv6OnIpv6OnlyNetworks, expectUnicastResponse);
                 } catch (IOException e) {
                     mSharedLog.e("Error sending packet to " + destination, e);
                 }
@@ -144,10 +149,10 @@ public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
         }
     }
 
-    protected MdnsPacketRepeater(@NonNull Looper looper, @NonNull MdnsReplySender replySender,
+    protected MdnsPacketRepeater(@NonNull Looper looper, @NonNull MdnsSender sender,
             @Nullable PacketRepeaterCallback<T> cb, @NonNull SharedLog sharedLog) {
         mHandler = new ProbeHandler(looper);
-        mReplySender = replySender;
+        mSender = sender;
         mCb = cb;
         mSharedLog = sharedLog;
     }
@@ -179,5 +184,9 @@ public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
             return true;
         }
         return false;
+    }
+
+    public boolean hasTaskId(int id) {
+        return mHandler.hasMessages(id);
     }
 }

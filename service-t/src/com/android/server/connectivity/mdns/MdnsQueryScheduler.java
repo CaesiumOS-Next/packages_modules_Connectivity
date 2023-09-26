@@ -33,10 +33,10 @@ public class MdnsQueryScheduler {
         public final QueryTaskConfig config;
         public final long timeToRun;
         public final long minTtlExpirationTimeWhenScheduled;
-        public final long sessionId;
+        public final int sessionId;
 
         ScheduledQueryTaskArgs(@NonNull QueryTaskConfig config, long timeToRun,
-                long minTtlExpirationTimeWhenScheduled, long sessionId) {
+                long minTtlExpirationTimeWhenScheduled, int sessionId) {
             this.config = config;
             this.timeToRun = timeToRun;
             this.minTtlExpirationTimeWhenScheduled = minTtlExpirationTimeWhenScheduled;
@@ -64,7 +64,7 @@ public class MdnsQueryScheduler {
      */
     @Nullable
     public ScheduledQueryTaskArgs maybeRescheduleCurrentRun(long now,
-            long minRemainingTtl, long lastSentTime, long sessionId) {
+            long minRemainingTtl, long lastSentTime, int sessionId) {
         if (mLastScheduledQueryTaskArgs == null) {
             return null;
         }
@@ -95,7 +95,7 @@ public class MdnsQueryScheduler {
             long minRemainingTtl,
             long now,
             long lastSentTime,
-            long sessionId) {
+            int sessionId) {
         final QueryTaskConfig nextRunConfig = currentConfig.getConfigForNextRun();
         final long timeToRun;
         if (mLastScheduledQueryTaskArgs == null) {
@@ -114,7 +114,7 @@ public class MdnsQueryScheduler {
      *  Calculates the ScheduledQueryTaskArgs for the initial run.
      */
     public ScheduledQueryTaskArgs scheduleFirstRun(@NonNull QueryTaskConfig taskConfig,
-            long now, long minRemainingTtl, long currentSessionId) {
+            long now, long minRemainingTtl, int currentSessionId) {
         mLastScheduledQueryTaskArgs = new ScheduledQueryTaskArgs(taskConfig, now /* timeToRun */,
                 now + minRemainingTtl/* minTtlExpirationTimeWhenScheduled */,
                 currentSessionId);

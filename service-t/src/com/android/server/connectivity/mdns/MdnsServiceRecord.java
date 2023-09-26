@@ -48,6 +48,11 @@ public class MdnsServiceRecord extends MdnsRecord {
         super(name, TYPE_SRV, reader, isQuestion);
     }
 
+    public MdnsServiceRecord(String[] name, long receiptTimeMillis, boolean unicast,
+            long ttlMillis) {
+        super(name, TYPE_SRV, MdnsConstants.QCLASS_INTERNET, receiptTimeMillis, unicast, ttlMillis);
+    }
+
     public MdnsServiceRecord(String[] name, long receiptTimeMillis, boolean cacheFlush,
                     long ttlMillis, int servicePriority, int serviceWeight, int servicePort,
                     String[] serviceHost) {

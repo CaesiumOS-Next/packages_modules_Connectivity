@@ -187,14 +187,16 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
         socketClient.notifyNetworkRequested(listener, searchOptions.getNetwork(),
                 new MdnsSocketClientBase.SocketCreationCallback() {
                     @Override
-                    public void onSocketCreated(@NonNull SocketKey socketKey) {
+                    public void onSocketCreated(@NonNull SocketKey socketKey,
+                            @NonNull MdnsSender sender) {
                         ensureRunningOnHandlerThread(handler);
                         // All listeners of the same service types shares the same
                         // MdnsServiceTypeClient.
                         MdnsServiceTypeClient serviceTypeClient =
                                 perSocketServiceTypeClients.get(serviceType, socketKey);
                         if (serviceTypeClient == null) {
-                            serviceTypeClient = createServiceTypeClient(serviceType, socketKey);
+                            serviceTypeClient =
+                                    createServiceTypeClient(serviceType, socketKey, sender);
                             perSocketServiceTypeClients.put(serviceType, socketKey,
                                     serviceTypeClient);
                         }
@@ -292,13 +294,12 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
 
     @VisibleForTesting
     MdnsServiceTypeClient createServiceTypeClient(@NonNull String serviceType,
-            @NonNull SocketKey socketKey) {
+            @NonNull SocketKey socketKey, @NonNull MdnsSender sender) {
         sharedLog.log("createServiceTypeClient for type:" + serviceType + " " + socketKey);
         final String tag = serviceType + "-" + socketKey.getNetwork()
                 + "/" + socketKey.getInterfaceIndex();
         return new MdnsServiceTypeClient(
-                serviceType, socketClient,
-                executorProvider.newServiceTypeClientSchedulerExecutor(), socketKey,
-                sharedLog.forSubComponent(tag), handler.getLooper(), serviceCache);
+                serviceType, executorProvider.newServiceTypeClientSchedulerExecutor(), socketKey,
+                sharedLog.forSubComponent(tag), handler.getLooper(), serviceCache, sender);
     }
 }
