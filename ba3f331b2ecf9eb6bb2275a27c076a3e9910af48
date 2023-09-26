@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b223958c_239be32b",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-09-26T08:41:14Z",
+      "side": 1,
+      "message": "nits: this method now support wifi network",
+      "range": {
+        "startLine": 199,
+        "startChar": 60,
+        "endLine": 199,
+        "endChar": 61
+      },
+      "revId": "ba3f331b2ecf9eb6bb2275a27c076a3e9910af48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
