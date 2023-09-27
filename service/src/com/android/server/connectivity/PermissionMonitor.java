@@ -723,7 +723,7 @@ public class PermissionMonitor {
             return;
         }
 
-        if (UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid)) {
+        if (SdkLevel.isAtLeastT() && UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid)) {
             updateLockdownUidRule(uid, add);
         }
     }

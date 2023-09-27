@@ -97,12 +97,14 @@ import static android.os.Process.VPN_UID;
 import static android.system.OsConstants.ETH_P_ALL;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
+
 import static com.android.net.module.util.NetworkMonitorUtils.isPrivateDnsValidationRequired;
 import static com.android.net.module.util.PermissionUtils.checkAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermission;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermissionOr;
 import static com.android.server.ConnectivityStatsLog.CONNECTIVITY_STATE_SAMPLE;
+
 import static java.util.Map.Entry;
 
 import android.Manifest;
@@ -1797,7 +1799,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 && mDeps.isFeatureEnabled(context, KEY_DESTROY_FROZEN_SOCKETS_VERSION);
         mDelayDestroyFrozenSockets = mDeps.isAtLeastU()
                 && mDeps.isFeatureEnabled(context, DELAY_DESTROY_FROZEN_SOCKETS_VERSION);
-        if (mDestroyFrozenSockets) {
+        if (mDeps.isAtLeastU() && mDestroyFrozenSockets) {
             final UidFrozenStateChangedCallback frozenStateChangedCallback =
                     new UidFrozenStateChangedCallback() {
                 @Override
@@ -12453,7 +12455,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    @Override
+    @Override @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void updateMeteredNetworkAllowList(final int uid, final boolean add) {
         enforceNetworkStackOrSettingsPermission();
 
@@ -12468,7 +12470,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    @Override
+    @Override @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void updateMeteredNetworkDenyList(final int uid, final boolean add) {
         enforceNetworkStackOrSettingsPermission();
 
@@ -12498,7 +12500,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return appId;
     }
 
-    @Override
+    @Override @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void setUidFirewallRule(final int chain, final int uid, final int rule) {
         enforceNetworkStackOrSettingsPermission();
 
@@ -12569,7 +12571,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    @Override
+    @Override @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void setFirewallChainEnabled(final int chain, final boolean enable) {
         enforceNetworkStackOrSettingsPermission();
 
@@ -12595,7 +12597,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return mBpfNetMaps.isChainEnabled(chain);
     }
 
-    @Override
+    @Override @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void replaceFirewallChain(final int chain, final int[] uids) {
         enforceNetworkStackOrSettingsPermission();
 
