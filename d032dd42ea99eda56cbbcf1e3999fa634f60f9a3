@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "706169ed_27dab4c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1092843
+      },
+      "writtenOn": "2023-09-27T17:39:00Z",
+      "side": 1,
+      "message": "failing test_mapping/presubmit-large-avd - broken test, known issue.\nfailing FrameworksServicesTests Test - nothing related to connectivity service or the change; many known issues.",
+      "revId": "d032dd42ea99eda56cbbcf1e3999fa634f60f9a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
