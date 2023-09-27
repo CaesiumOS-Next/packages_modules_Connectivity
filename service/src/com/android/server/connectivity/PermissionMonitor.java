@@ -38,6 +38,7 @@ import static com.android.net.module.util.CollectionUtils.toIntArray;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -208,6 +209,7 @@ public class PermissionMonitor {
         /**
          * Get device first sdk version.
          */
+        @SuppressLint("NewApi")
         public int getDeviceFirstSdkInt() {
             return Build.VERSION.DEVICE_INITIAL_SDK_INT;
         }
@@ -723,7 +725,7 @@ public class PermissionMonitor {
             return;
         }
 
-        if (UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid)) {
+        if (SdkLevel.isAtLeastT() && UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid)) {
             updateLockdownUidRule(uid, add);
         }
     }
