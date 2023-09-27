@@ -40,6 +40,7 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkProvider;
 import android.net.NetworkRequest;
 import android.net.NetworkScore;
+import android.net.StubNetworkInfo;
 import android.net.thread.ActiveOperationalDataset;
 import android.net.thread.BorderRouterConfiguration;
 import android.net.thread.IOperationReceiver;
@@ -56,6 +57,7 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.OutcomeReceiver;
+import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
 import android.os.SystemClock;
 import android.util.Log;
@@ -81,6 +83,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 /** Implementation of the {@link IThreadNetworkController} API. */
 public final class ThreadNetworkControllerService extends IThreadNetworkController.Stub {
+
     private static final String TAG = "ThreadNetworkService";
     private static final String THREAD_TUN_IF_NAME = IOtDaemon.TUN_IF_NAME;
     private static final int MTU = TunInterfaceController.MTU;
@@ -94,6 +97,7 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
     private final NetworkProvider mNetworkProvider;
     private final ConnectivityManager mConnectivityManager;
     private final TunInterfaceController mTunIfController;
+    private InfraInterfaceController mInfraIfController;
     private final LinkProperties mLinkProperties = new LinkProperties();
     private final OtDaemonCallbackProxy mOtDaemonCallbackProxy = new OtDaemonCallbackProxy();
     private final List<AttachOperation> mOngoingAttachOperations = new LinkedList<>();
@@ -233,6 +237,31 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
         }
     }
 
+    private void onOtDaemonDead() {
+        Log.w(TAG, "OT daemon became dead, clean up...");
+        mOtDaemonCallbackProxy.onOtDaemonBinderDeath();
+
+        // For any reason the OT daemon process crashed, terminates all ongoing requests
+
+        for (var detachCallback : mOngoingDetachReceivers) {
+            detachCallback.onError(
+                    new ThreadNetworkException(ERROR_INTERNAL_ERROR, "Thread stack error"));
+        }
+        mOngoingDetachReceivers.clear();
+
+        for (AttachOperation attachOperation : mOngoingAttachOperations) {
+            attachOperation.onError(ERROR_INTERNAL_ERROR, "Thread stack error");
+        }
+        mOngoingAttachOperations.clear();
+
+        for (ScheduleMigrationOperation migrationOperation : mOngoingMigrationOperations) {
+            migrationOperation.onError(ERROR_INTERNAL_ERROR, "Thread stack error");
+        }
+        mOngoingMigrationOperations.clear();
+
+        mOtDaemon = null;
+    }
+
     private static IBinder getOtDaemonBinder() throws RemoteException {
         IBinder binder =
                 ConnectivityFrameworkInitializerTiramisu.getConnectivityServiceManager()
@@ -259,6 +288,68 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
         mConnectivityManager.registerNetworkProvider(mNetworkProvider);
 
         initializeOtDaemon();
+
+        mConnectivityManager.registerNetworkCallback(
+                new NetworkRequest.Builder()
+                        .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                        .build(),
+                new ConnectivityManager.NetworkCallback() {
+                    @Override
+                    public void onAvailable(@NonNull Network network) {
+                        Log.i(TAG, "AIL is availalble");
+                    }
+
+                    @Override
+                    public void onLost(@NonNull Network network) {
+                        Log.i(TAG, "AIL is lost");
+                        try {
+                            mOtDaemon
+                                    .onInfraInterfaceStateChanged(
+                                            mInfraIfController.getInterfaceName(),
+                                            false,
+                                            ParcelFileDescriptor.adoptFd(-1));
+                            if (mInfraIfController != null) {
+                                mInfraIfController.destroyInfraInterfaceSocket();
+                                mInfraIfController = null;
+                            }
+                        } catch (Exception e) {
+                            Log.i(TAG, "exception: " + e.toString());
+                        }
+                    }
+
+                    @Override
+                    public void onLinkPropertiesChanged(
+                            @NonNull Network network, @NonNull LinkProperties linkProperties) {
+                        try {
+                            Log.i(
+                                    TAG,
+                                    "AIL link properties changed: "
+                                            + linkProperties.getInterfaceName());
+                            if (mInfraIfController == null) {
+                                final String infraIfName = linkProperties.getInterfaceName();
+
+                                Log.i(TAG, "111111111111111111");
+
+                                mInfraIfController = new InfraInterfaceController(infraIfName);
+                                Log.i(TAG, "222222222222222222");
+                                mInfraIfController.createInfraInterfaceSocket();
+                                Log.i(TAG, "333333333333333333");
+                                ParcelFileDescriptor sockFd = mInfraIfController.getSocketFd();
+                                mOtDaemon
+                                        .onInfraInterfaceStateChanged(infraIfName, true, sockFd);
+                                Log.i(TAG, "444444444444444444");
+                                mLinkProperties.setStubNetworkInfo(
+                                        new StubNetworkInfo(infraIfName));
+                                if (mNetworkAgent != null) {
+                                    mNetworkAgent.sendLinkProperties(mLinkProperties);
+                                }
+                                Log.i(TAG, "555555555555555555");
+                            }
+                        } catch (Exception e) {
+                            Log.i(TAG, "exception: " + e.toString());
+                        }
+                    }
+                });
     }
 
     private void requestThreadNetwork() {
@@ -330,6 +421,7 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
             mNetworkAgent.sendLinkProperties(mLinkProperties);
         }
     }
+
 
     @Override
     public int getThreadVersion() {

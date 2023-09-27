@@ -78,6 +78,8 @@ public final class LinkProperties implements Parcelable {
     private boolean mWakeOnLanSupported;
     private Uri mCaptivePortalApiUrl;
     private CaptivePortalData mCaptivePortalData;
+    private Network mForwardedNetwork;
+    private StubNetworkInfo mStubNetworkInfo;
 
     /**
      * Indicates whether parceling should preserve fields that are set based on permissions of
@@ -205,6 +207,7 @@ public final class LinkProperties implements Parcelable {
         mWakeOnLanSupported = source.mWakeOnLanSupported;
         mCaptivePortalApiUrl = source.mCaptivePortalApiUrl;
         mCaptivePortalData = source.mCaptivePortalData;
+        mStubNetworkInfo = source.mStubNetworkInfo;
     }
 
     /**
@@ -822,6 +825,24 @@ public final class LinkProperties implements Parcelable {
      */
     public @Nullable IpPrefix getNat64Prefix() {
         return mNat64Prefix;
+    }
+
+    /**
+     * @return
+     * @hide
+     */
+    @SystemApi
+    public @Nullable StubNetworkInfo getStubNetworkInfo() {
+        return mStubNetworkInfo;
+    }
+
+    /**
+     * @return
+     * @hide
+     */
+    @SystemApi
+    public void setStubNetworkInfo(@Nullable StubNetworkInfo stubNetworkInfo) {
+        mStubNetworkInfo = stubNetworkInfo;
     }
 
     /**
@@ -1578,6 +1599,17 @@ public final class LinkProperties implements Parcelable {
     }
 
     /**
+     * Compares this {@code LinkProperties}'s StubNetworkInfo against the target.
+     *
+     * @param target LinkProperties to compare.
+     * @return {@code true} if both are identical, {@code false} otherwise.
+     * @hide
+     */
+    public boolean isIdenticalStubNetworkInfo(LinkProperties target) {
+        return Objects.equals(mStubNetworkInfo, target.mStubNetworkInfo);
+    }
+
+    /**
      * Set whether the network interface supports WakeOnLAN
      *
      * @param supported WakeOnLAN supported value
@@ -1685,7 +1717,8 @@ public final class LinkProperties implements Parcelable {
                 && isIdenticalNat64Prefix(target)
                 && isIdenticalWakeOnLan(target)
                 && isIdenticalCaptivePortalApiUrl(target)
-                && isIdenticalCaptivePortalData(target);
+                && isIdenticalCaptivePortalData(target)
+                && isIdenticalStubNetworkInfo(target);
     }
 
     /**
@@ -1753,6 +1786,7 @@ public final class LinkProperties implements Parcelable {
         dest.writeBoolean(mWakeOnLanSupported);
         dest.writeParcelable(mParcelSensitiveFields ? mCaptivePortalApiUrl : null, 0);
         dest.writeParcelable(mParcelSensitiveFields ? mCaptivePortalData : null, 0);
+        dest.writeParcelable(mStubNetworkInfo, flags);
     }
 
     private static void writeAddresses(@NonNull Parcel dest, @NonNull List<InetAddress> list) {
@@ -1847,6 +1881,7 @@ public final class LinkProperties implements Parcelable {
 
                 netProp.setCaptivePortalApiUrl(in.readParcelable(null));
                 netProp.setCaptivePortalData(in.readParcelable(null));
+                netProp.setStubNetworkInfo(in.readParcelable(null));
                 return netProp;
             }
 
