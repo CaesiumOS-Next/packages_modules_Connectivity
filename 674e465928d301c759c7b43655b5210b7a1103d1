@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07f2f4c0_d699d210",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-09-27T16:38:31Z",
+      "side": 1,
+      "message": "(That PV+2 is very interesting. It seems wrong to skip presubmit here...)",
+      "revId": "674e465928d301c759c7b43655b5210b7a1103d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
