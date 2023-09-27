@@ -38,6 +38,7 @@ import static com.android.net.module.util.CollectionUtils.toIntArray;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -65,6 +66,8 @@ import android.util.ArrayMap;
 import android.util.ArraySet;
 import android.util.Log;
 import android.util.SparseIntArray;
+
+import androidx.annotation.RequiresApi;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
@@ -208,6 +211,9 @@ public class PermissionMonitor {
         /**
          * Get device first sdk version.
          */
+        // This is safe since DEVICE_INITIAL_SDK_INT is available on S+ and PermissionMonitor is
+        // mainlined on S+
+        @SuppressLint("NewApi")
         public int getDeviceFirstSdkInt() {
             return Build.VERSION.DEVICE_INITIAL_SDK_INT;
         }
@@ -723,7 +729,7 @@ public class PermissionMonitor {
             return;
         }
 
-        if (UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid)) {
+        if (SdkLevel.isAtLeastT() && UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid)) {
             updateLockdownUidRule(uid, add);
         }
     }
@@ -1014,6 +1020,7 @@ public class PermissionMonitor {
      *               Ranges can have duplications, overlaps, and/or contain the range that is
      *               already subject to lockdown.
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public synchronized void updateVpnLockdownUidRanges(boolean add, UidRange[] ranges) {
         final Set<UidRange> affectedUidRanges = new HashSet<>();
 
@@ -1118,6 +1125,8 @@ public class PermissionMonitor {
         }
     }
 
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private void updateLockdownUidRule(int uid, boolean add) {
         try {
             mBpfNetMaps.updateUidLockdownRule(uid, add);
