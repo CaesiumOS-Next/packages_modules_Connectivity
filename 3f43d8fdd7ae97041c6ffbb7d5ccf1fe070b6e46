@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3c9aa79_007eed5f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-27T08:25:36Z",
+      "side": 1,
+      "message": "Also here, can you pass it as argument so it uses the right setting depending on the use-case ?",
+      "range": {
+        "startLine": 49,
+        "startChar": 33,
+        "endLine": 49,
+        "endChar": 36
+      },
+      "revId": "3f43d8fdd7ae97041c6ffbb7d5ccf1fe070b6e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0ab555c_f40ae54a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiserTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-27T08:25:36Z",
+      "side": 1,
+      "message": "As per https://source.android.com/docs/setup/contribute/respectful-code#term-examples\n\nMaybe just use \"testReply\" or \"fakeReply\"... Or just \"reply\"",
+      "range": {
+        "startLine": 193,
+        "startChar": 12,
+        "endLine": 193,
+        "endChar": 22
+      },
+      "revId": "3f43d8fdd7ae97041c6ffbb7d5ccf1fe070b6e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

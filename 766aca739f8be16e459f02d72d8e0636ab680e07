@@ -86,6 +86,23 @@
       },
       "revId": "766aca739f8be16e459f02d72d8e0636ab680e07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "449c9466_f47f1719",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsPacketRepeater.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-27T08:25:36Z",
+      "side": 1,
+      "message": "Could you pass DBG as argument instead ? Since this is going to be used both for discovery and advertising, each usage should have logging gated on different tags",
+      "revId": "766aca739f8be16e459f02d72d8e0636ab680e07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
