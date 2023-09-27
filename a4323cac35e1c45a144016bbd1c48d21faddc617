@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5ab63c8_9e82202d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10184,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-27T12:53:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d12fadb4_c42ed04e",
+      "range": {
+        "startLine": 10184,
+        "startChar": 30,
+        "endLine": 10184,
+        "endChar": 31
+      },
+      "revId": "a4323cac35e1c45a144016bbd1c48d21faddc617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b2d3024_63902cb4",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-26T08:36:50Z",
       "side": 1,
       "message": "Can you please clarify this comment ? It\u0027s unclear if you mean that this is to simulate LockdownVpnTracker behavior, or if you mean there is a real LockdownVpnTracker attempting to do this. I think you mean the former, but please clarify the comment.\n\nAlso, it probably is useful mentioning that LockdownVpnTracker catches IllegalStateException and shows a notification in this case, and that\u0027s expected, which is why this is testing that the exception is actually thrown.",
+      "range": {
+        "startLine": 10201,
+        "startChar": 10,
+        "endLine": 10201,
+        "endChar": 38
+      },
+      "revId": "a4323cac35e1c45a144016bbd1c48d21faddc617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b792bd00_0be6602f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10201,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-27T12:53:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b2d3024_63902cb4",
       "range": {
         "startLine": 10201,
         "startChar": 10,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d51853d_10258ac6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10301,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-27T12:53:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1f17f23_5bbf8a95",
+      "range": {
+        "startLine": 10301,
+        "startChar": 30,
+        "endLine": 10301,
+        "endChar": 38
+      },
+      "revId": "a4323cac35e1c45a144016bbd1c48d21faddc617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08fcaa42_bde95868",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-09-26T08:36:50Z",
       "side": 1,
       "message": "Whoa. Thanks for the analysis. Please file a bug about this ; it\u0027s very unexpected. IIUC, it also happens in production.",
+      "range": {
+        "startLine": 10360,
+        "startChar": 81,
+        "endLine": 10361,
+        "endChar": 87
+      },
+      "revId": "a4323cac35e1c45a144016bbd1c48d21faddc617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24b3df16_9dcc0fa4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10361,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-27T12:53:56Z",
+      "side": 1,
+      "message": "Done, b/302086665",
+      "parentUuid": "08fcaa42_bde95868",
       "range": {
         "startLine": 10360,
         "startChar": 81,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "219c2322_c3100c61",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-27T12:53:56Z",
+      "side": 1,
+      "message": "Done on aosp/2764767.",
+      "parentUuid": "e2ff846b_2dfe52a7",
+      "range": {
+        "startLine": 193,
+        "startChar": 11,
+        "endLine": 193,
+        "endChar": 35
+      },
+      "revId": "a4323cac35e1c45a144016bbd1c48d21faddc617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23273b09_23aa87dc",
@@ -129,6 +249,24 @@
       "writtenOn": "2023-09-26T08:36:50Z",
       "side": 1,
       "message": "This is a bit too dependent on the specific implementation. In practice, the callback will receive onAvailable, onCapsChanged, onLPChanged. It would not be incorrect to key on onAvailable and wait for LP, but your change would break.\n\nI suggest you send all three callbacks. It\u0027s important then to verify that stop and start have been called exactly once in l.219~220, but that\u0027s the default behavior for verify so we\u0027re good.",
+      "revId": "a4323cac35e1c45a144016bbd1c48d21faddc617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eb909ee_e0d51aa3",
+        "filename": "tests/unit/java/com/android/server/LockdownVpnTrackerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-27T12:53:56Z",
+      "side": 1,
+      "message": "Done on aosp/2764767.",
+      "parentUuid": "23273b09_23aa87dc",
       "revId": "a4323cac35e1c45a144016bbd1c48d21faddc617",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
