@@ -19,6 +19,8 @@ package com.android.server.net;
 import static android.Manifest.permission.NETWORK_STATS_PROVIDER;
 import static android.Manifest.permission.READ_NETWORK_USAGE_HISTORY;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
+import static android.app.usage.NetworkStatsManager.FLAG_POLL_FORCE;
+import static android.app.usage.NetworkStatsManager.FLAG_POLL_ON_OPEN;
 import static android.app.usage.NetworkStatsManager.PREFIX_DEV;
 import static android.content.Intent.ACTION_SHUTDOWN;
 import static android.content.Intent.ACTION_UID_REMOVED;
@@ -62,7 +64,6 @@ import static android.text.format.DateUtils.DAY_IN_MILLIS;
 import static android.text.format.DateUtils.HOUR_IN_MILLIS;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
-
 import static com.android.internal.annotations.VisibleForTesting.Visibility.PRIVATE;
 import static com.android.net.module.util.NetworkCapabilitiesUtils.getDisplayTransport;
 import static com.android.net.module.util.NetworkStatsUtils.LIMIT_GLOBAL_ALERT;
@@ -127,6 +128,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.PowerManager;
+import android.os.Process;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.os.SystemClock;
@@ -444,7 +446,12 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     @GuardedBy("mOpenSessionCallsLock")
     private final HashMap<OpenSessionKey, Integer> mOpenSessionCallsPerCaller = new HashMap<>();
 
-    private final static int DUMP_STATS_SESSION_COUNT = 20;
+    // Only for SYSTEM_UID to identify the callers under the same package.
+    @GuardedBy("mOpenSessionCallsLock")
+    private final HashMap<String, Integer> mSystemUidCallers = new HashMap<>();
+
+    private static final int DUMP_STATS_SESSION_COUNT = 20;
+    private static final int DUMP_SYSTEM_UID_CALLERS_COUNT = 5;
 
     @NonNull
     private final Dependencies mDeps;
@@ -1383,6 +1390,15 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         return openSessionInternal(flags, callingPackage);
     }
 
+    private StackTraceElement[] getStackTrace() {
+        final StackTraceElement[] stack = new Exception().getStackTrace();
+        if (stack.length > 5) {
+            return Arrays.copyOfRange(stack, 5, stack.length - 1);
+        } else {
+            return new StackTraceElement[0];
+        }
+    }
+
     private boolean isRateLimitedForPoll(@NonNull OpenSessionKey key) {
         final long lastCallTime;
         final long now = SystemClock.elapsedRealtime();
@@ -1414,21 +1430,38 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
                 android.Manifest.permission.NETWORK_STACK);
         if (!isPrivileged) {
-            flags |= NetworkStatsManager.FLAG_POLL_ON_OPEN;
+            flags |= FLAG_POLL_ON_OPEN;
         }
         // Non-system uids are rate limited for POLL_ON_OPEN.
         final int callingUid = Binder.getCallingUid();
         final OpenSessionKey key = new OpenSessionKey(callingUid, callingPackage);
         flags = isRateLimitedForPoll(key)
-                ? flags & (~NetworkStatsManager.FLAG_POLL_ON_OPEN)
+                ? flags & (~FLAG_POLL_ON_OPEN)
                 : flags;
+
+        // System server callers are not rate limited, and there is no way other than callstack to
+        // distinguish callers. Collect callstack information to track down misbehaved system
+        // server callers.
+        if (callingUid == Process.SYSTEM_UID) {
+            synchronized (mOpenSessionCallsLock) {
+                final String callstack = callingPackage + "(" + flags + "): " + Arrays.toString(
+                        getStackTrace());
+                final Integer systemUidCallsPerStack = mSystemUidCallers.get(callstack);
+                if (systemUidCallsPerStack == null) {
+                    mSystemUidCallers.put(callstack, 1);
+                } else {
+                    mSystemUidCallers.put(callstack, Integer.sum(systemUidCallsPerStack, 1));
+                }
+            }
+        }
+
         return flags;
     }
 
     private INetworkStatsSession openSessionInternal(final int flags, final String callingPackage) {
         final int restrictedFlags = restrictFlagsForCaller(flags, callingPackage);
-        if ((restrictedFlags & (NetworkStatsManager.FLAG_POLL_ON_OPEN
-                | NetworkStatsManager.FLAG_POLL_FORCE)) != 0) {
+        if ((restrictedFlags & (FLAG_POLL_ON_OPEN
+                | FLAG_POLL_FORCE)) != 0) {
             final long ident = Binder.clearCallingIdentity();
             try {
                 performPoll(FLAG_PERSIST_ALL);
@@ -2725,25 +2758,55 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             pw.println();
             pw.decreaseIndent();
 
-            // Get the top openSession callers
-            final HashMap calls;
-            synchronized (mOpenSessionCallsLock) {
-                calls = new HashMap<>(mOpenSessionCallsPerCaller);
-            }
-            final List<Map.Entry<OpenSessionKey, Integer>> list = new ArrayList<>(calls.entrySet());
-            Collections.sort(list,
-                    (left, right) -> Integer.compare(left.getValue(), right.getValue()));
-            final int num = list.size();
-            final int end = Math.max(0, num - DUMP_STATS_SESSION_COUNT);
-            pw.println("Top openSession callers:");
-            pw.increaseIndent();
-            for (int j = num - 1; j >= end; j--) {
-                final Map.Entry<OpenSessionKey, Integer> entry = list.get(j);
-                pw.print(entry.getKey()); pw.print("="); pw.println(entry.getValue());
+            {
+                // Get the top openSession callers
+                final HashMap calls;
+                synchronized (mOpenSessionCallsLock) {
+                    calls = new HashMap<>(mOpenSessionCallsPerCaller);
+                }
+                final List<Map.Entry<OpenSessionKey, Integer>> list = new ArrayList<>(
+                        calls.entrySet());
+                Collections.sort(list,
+                        (left, right) -> Integer.compare(left.getValue(), right.getValue()));
+                final int num = list.size();
+                final int end = Math.max(0, num - DUMP_STATS_SESSION_COUNT);
+                pw.println("Top openSession callers:");
+                pw.increaseIndent();
+                for (int j = num - 1; j >= end; j--) {
+                    final Map.Entry<OpenSessionKey, Integer> entry = list.get(j);
+                    pw.print(entry.getKey());
+                    pw.print("=");
+                    pw.println(entry.getValue());
 
+                }
+                pw.decreaseIndent();
+                pw.println();
             }
-            pw.decreaseIndent();
-            pw.println();
+
+            {
+                // Get the top SYSTEM_UID openSession callers
+                final HashMap stacks;
+                synchronized (mOpenSessionCallsLock) {
+                    stacks = new HashMap<>(mSystemUidCallers);
+                }
+                final List<Map.Entry<String, Integer>> list = new ArrayList<>(
+                        stacks.entrySet());
+                Collections.sort(list,
+                        (left, right) -> Integer.compare(left.getValue(), right.getValue()));
+                final int num = list.size();
+                final int end = Math.max(0, num - DUMP_SYSTEM_UID_CALLERS_COUNT);
+                pw.println("Top SYSTEM_UID openSession callers:");
+                pw.increaseIndent();
+                for (int j = num - 1; j >= end; j--) {
+                    final Map.Entry<String, Integer> entry = list.get(j);
+                    pw.print(entry.getKey());
+                    pw.print("=");
+                    pw.println(entry.getValue());
+
+                }
+                pw.decreaseIndent();
+                pw.println();
+            }
 
             pw.println("Stats Providers:");
             pw.increaseIndent();
