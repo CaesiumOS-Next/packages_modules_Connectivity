@@ -58,6 +58,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce189b0c_666a8759",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4407,
+      "author": {
+        "id": 1092843
+      },
+      "writtenOn": "2023-09-27T07:34:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1659059_22538308",
+      "range": {
+        "startLine": 4407,
+        "startChar": 58,
+        "endLine": 4407,
+        "endChar": 83
+      },
+      "revId": "60a09ed3d269c9c98a34c11bcc996ad05e48032e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a244fae_6bcf6e6e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4407,
+      "author": {
+        "id": 1092843
+      },
+      "writtenOn": "2023-09-27T07:34:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31d0977f_53596fcc",
+      "revId": "60a09ed3d269c9c98a34c11bcc996ad05e48032e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d4132c8_fe83c415",
@@ -71,6 +113,24 @@
       "writtenOn": "2023-09-27T06:29:53Z",
       "side": 1,
       "message": "As discussed in chat, to make the test more realistic it would be best to use what the BT NetworkFactory actually uses; which is 100 or 50 depending on whether the watch is on charger.",
+      "revId": "60a09ed3d269c9c98a34c11bcc996ad05e48032e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "995eb1ef_3f0e7e0e",
+        "filename": "tests/integration/util/com/android/server/NetworkAgentWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1092843
+      },
+      "writtenOn": "2023-09-27T07:34:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d4132c8_fe83c415",
       "revId": "60a09ed3d269c9c98a34c11bcc996ad05e48032e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
