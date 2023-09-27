@@ -16,6 +16,24 @@
       "message": "In principle yes but we lose coverage for *adding* a v4 address after a v6 address, which is a very common case and must work. Can you please add back that case ? It should probably be in VpnTest.",
       "revId": "f78c9644046e26fbeb804d651296da5be4103992",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7073eb35_9c0a95a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-09-27T12:54:48Z",
+      "side": 1,
+      "message": "AFAICT, these are the interactions to cover when a v4 address is added by sendLinkProperties():\n\n1. LINK_PROPERTIES_CHANGED callbacks. (likely covered elsewhere in ConnectivityServiceTest)\n2. LockdownVpnTracker not calling Vpn#startLegacyVpn() after the callback. (covered in LockdownVpnTrackerTest)\n3. Vpn#startLegacyVpn() works with an LP that has both v4 and v6. Since there is no call to an unstarted Vpn that indicates *adding* the v4 address(?), only a new start attempt with both addresses can be tested ? (Not sure if this is significantly different to just starting with only v4)\n\nWhich part is missing exactly?",
+      "parentUuid": "0f4e8857_a3fe321f",
+      "revId": "f78c9644046e26fbeb804d651296da5be4103992",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
