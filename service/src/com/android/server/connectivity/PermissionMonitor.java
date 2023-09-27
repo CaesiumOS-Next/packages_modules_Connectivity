@@ -66,6 +66,8 @@ import android.util.ArraySet;
 import android.util.Log;
 import android.util.SparseIntArray;
 
+import androidx.annotation.RequiresApi;
+
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
@@ -88,6 +90,7 @@ import java.util.Set;
  *
  * @hide
  */
+@RequiresApi(Build.VERSION_CODES.S)
 public class PermissionMonitor {
     private static final String TAG = "PermissionMonitor";
     private static final boolean DBG = true;
@@ -723,7 +726,7 @@ public class PermissionMonitor {
             return;
         }
 
-        if (UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid)) {
+        if (SdkLevel.isAtLeastT() && UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid)) {
             updateLockdownUidRule(uid, add);
         }
     }
