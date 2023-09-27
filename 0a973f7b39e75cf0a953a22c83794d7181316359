@@ -563,6 +563,30 @@
       },
       "revId": "0a973f7b39e75cf0a953a22c83794d7181316359",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6ca28c1_d68bf608",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1555,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-27T07:41:46Z",
+      "side": 1,
+      "message": "If we keep using ArraySet (or any set in general) for this, let\u0027s make sure we eventually address this. Not for this CL.",
+      "parentUuid": "02e4462f_a43df5d4",
+      "range": {
+        "startLine": 1554,
+        "startChar": 0,
+        "endLine": 1555,
+        "endChar": 62
+      },
+      "revId": "0a973f7b39e75cf0a953a22c83794d7181316359",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
