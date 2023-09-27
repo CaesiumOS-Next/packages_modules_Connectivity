@@ -13,3 +13,10 @@ flag {
   description: "This flag controls the forbidden capability API"
   bug: "302997505"
 }
+
+flag {
+  name: "network_stats_event_logger"
+  namespace: "android_core_networking"
+  description: "NetworkStatsEventLogger tracks events happened regard to NetworkStatsService"
+  bug: "301141955"
+}
