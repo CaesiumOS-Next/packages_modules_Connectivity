@@ -250,6 +250,7 @@ public class BpfNetMaps {
      * Initializes the class if it is not already initialized. This method will open maps but not
      * cause any other effects. This method may be called multiple times on any thread.
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private static synchronized void ensureInitialized(final Context context) {
         if (sInitialized) return;
         if (sEnableJavaBpfMap == null) {
@@ -283,6 +284,7 @@ public class BpfNetMaps {
         /**
          * Call synchronize_rcu()
          */
+        @RequiresApi(Build.VERSION_CODES.TIRAMISU)
         public int synchronizeKernelRCU() {
             return native_synchronizeKernelRCU();
         }
@@ -420,6 +422,7 @@ public class BpfNetMaps {
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void addNaughtyApp(final int uid) {
         throwIfPreT("addNaughtyApp is not available on pre-T devices");
 
@@ -438,6 +441,7 @@ public class BpfNetMaps {
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void removeNaughtyApp(final int uid) {
         throwIfPreT("removeNaughtyApp is not available on pre-T devices");
 
@@ -456,6 +460,7 @@ public class BpfNetMaps {
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void addNiceApp(final int uid) {
         throwIfPreT("addNiceApp is not available on pre-T devices");
 
@@ -474,6 +479,7 @@ public class BpfNetMaps {
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void removeNiceApp(final int uid) {
         throwIfPreT("removeNiceApp is not available on pre-T devices");
 
@@ -494,6 +500,7 @@ public class BpfNetMaps {
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void setChildChain(final int childChain, final boolean enable) {
         throwIfPreT("setChildChain is not available on pre-T devices");
 
@@ -524,6 +531,7 @@ public class BpfNetMaps {
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public boolean isChainEnabled(final int childChain) {
         throwIfPreT("isChainEnabled is not available on pre-T devices");
 
@@ -554,6 +562,7 @@ public class BpfNetMaps {
      * @throws UnsupportedOperationException if called on pre-T devices.
      * @throws IllegalArgumentException if {@code chain} is not a valid chain.
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void replaceUidChain(final int chain, final int[] uids) {
         throwIfPreT("replaceUidChain is not available on pre-T devices");
 
@@ -638,6 +647,7 @@ public class BpfNetMaps {
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void setUidRule(final int childChain, final int uid, final int firewallRule) {
         throwIfPreT("setUidRule is not available on pre-T devices");
 
@@ -668,6 +678,7 @@ public class BpfNetMaps {
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public int getUidRule(final int childChain, final int uid) {
         throwIfPreT("isUidChainEnabled is not available on pre-T devices");
 
@@ -830,6 +841,7 @@ public class BpfNetMaps {
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void updateUidLockdownRule(final int uid, final boolean add) {
         throwIfPreT("updateUidLockdownRule is not available on pre-T devices");
 
@@ -852,6 +864,7 @@ public class BpfNetMaps {
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void swapActiveStatsMap() {
         throwIfPreT("swapActiveStatsMap is not available on pre-T devices");
 
