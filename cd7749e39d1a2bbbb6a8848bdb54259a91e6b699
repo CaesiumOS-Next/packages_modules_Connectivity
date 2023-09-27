@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62e45156_45fe557c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 10351,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-27T06:44:09Z",
+      "side": 1,
+      "message": "There are some code duplication between testLockdownVpn and testLegacyLockdownVpn. Could you try to move some codes to helper methods to reduce the code duplication?",
+      "range": {
+        "startLine": 10351,
+        "startChar": 16,
+        "endLine": 10351,
+        "endChar": 31
+      },
+      "revId": "cd7749e39d1a2bbbb6a8848bdb54259a91e6b699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51fe9451_c23e71f1",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 10381,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-27T06:44:09Z",
+      "side": 1,
+      "message": "Nit: Can\u0027t this be final? We can use another ExpectedBroadcast variable for l.10405\n\nDitto for b2",
+      "range": {
+        "startLine": 10381,
+        "startChar": 26,
+        "endLine": 10381,
+        "endChar": 28
+      },
+      "revId": "cd7749e39d1a2bbbb6a8848bdb54259a91e6b699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff067eed_1d8b7606",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 10390,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-27T06:44:09Z",
+      "side": 1,
+      "message": "You\u0027re relying on the implementation in U. I think this test will fail in U- platform device. CSTest is in mainline test. This will be a problem. You may not depend on implementation in Vpn.java. Theoretically, OEMs can update the platform code. This does not look safe even if run the test on U+ device. \n\nYou\u0027re also removing the dependency on LegacyVpnRunner. You may want to do something similar on  IkeV2VpnRunner.",
+      "range": {
+        "startLine": 10390,
+        "startChar": 20,
+        "endLine": 10390,
+        "endChar": 43
+      },
+      "revId": "cd7749e39d1a2bbbb6a8848bdb54259a91e6b699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a3bf2fe_20780f2f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 10410,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-27T06:44:09Z",
+      "side": 1,
+      "message": "Nit: final\n\nTry to use another variable if you need another NC.",
+      "range": {
+        "startLine": 10410,
+        "startChar": 8,
+        "endLine": 10410,
+        "endChar": 9
+      },
+      "revId": "cd7749e39d1a2bbbb6a8848bdb54259a91e6b699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
