@@ -46,6 +46,23 @@
       },
       "revId": "9244912a3fd27751f396f9894d8f68e1218c55c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70375300_04b8a37d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-27T03:29:52Z",
+      "side": 1,
+      "message": "LGTM as minor correction of the test added in aosp/2606668",
+      "revId": "9244912a3fd27751f396f9894d8f68e1218c55c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
