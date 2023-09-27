@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fd07524_e3e769d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-27T03:25:32Z",
+      "side": 1,
+      "message": "LGTM but Lorenzo needs to +1 CTS changes",
+      "revId": "e72c5a396cfa79593c6be747ac3c9739ec7254b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f783b0aa_35979878",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-27T03:25:32Z",
+      "side": 1,
+      "message": "Could you upload a change to add the method to @TestApi ?",
+      "revId": "e72c5a396cfa79593c6be747ac3c9739ec7254b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
