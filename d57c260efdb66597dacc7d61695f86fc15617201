@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8af154f_1b53c2df",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-27T03:01:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a552444_ba028722",
+      "revId": "d57c260efdb66597dacc7d61695f86fc15617201",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84a2b3b9_16714863",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-09-27T02:44:20Z",
       "side": 1,
       "message": "Similarly here, this could be isAtLeastU() now (see also other usages in this class)",
+      "range": {
+        "startLine": 239,
+        "startChar": 22,
+        "endLine": 239,
+        "endChar": 37
+      },
+      "revId": "d57c260efdb66597dacc7d61695f86fc15617201",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9da9d415_2eeffc56",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-09-27T03:01:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84a2b3b9_16714863",
       "range": {
         "startLine": 239,
         "startChar": 22,
