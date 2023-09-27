@@ -66,6 +66,8 @@ import android.util.ArraySet;
 import android.util.Log;
 import android.util.SparseIntArray;
 
+import androidx.annotation.RequiresApi;
+
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
@@ -723,7 +725,7 @@ public class PermissionMonitor {
             return;
         }
 
-        if (UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid)) {
+        if (SdkLevel.isAtLeastT() && UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid)) {
             updateLockdownUidRule(uid, add);
         }
     }
@@ -1014,6 +1016,7 @@ public class PermissionMonitor {
      *               Ranges can have duplications, overlaps, and/or contain the range that is
      *               already subject to lockdown.
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public synchronized void updateVpnLockdownUidRanges(boolean add, UidRange[] ranges) {
         final Set<UidRange> affectedUidRanges = new HashSet<>();
 
@@ -1118,6 +1121,8 @@ public class PermissionMonitor {
         }
     }
 
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private void updateLockdownUidRule(int uid, boolean add) {
         try {
             mBpfNetMaps.updateUidLockdownRule(uid, add);
