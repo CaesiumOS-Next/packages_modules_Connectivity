@@ -102,6 +102,7 @@ import com.android.testutils.HandlerUtils;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.AdditionalAnswers;
@@ -119,6 +120,9 @@ import java.util.Set;
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 public class PermissionMonitorTest {
+    @Rule
+    public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
+
     private static final int MOCK_USER_ID1 = 0;
     private static final int MOCK_USER_ID2 = 1;
     private static final int MOCK_USER_ID3 = 2;
@@ -904,7 +908,7 @@ public class PermissionMonitorTest {
         doTestUidFilteringDuringPackageInstallAndUninstall(null /* ifName */);
     }
 
-    @Test
+    @Test @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testLockdownUidFilteringWithLockdownEnableDisable() {
         doReturn(List.of(
                 buildPackageInfo(SYSTEM_PACKAGE1, SYSTEM_APP_UID11, CHANGE_NETWORK_STATE,
@@ -935,7 +939,7 @@ public class PermissionMonitorTest {
         verify(mBpfNetMaps).updateUidLockdownRule(VPN_UID, false /* add */);
     }
 
-    @Test
+    @Test @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testLockdownUidFilteringWithLockdownEnableDisableWithMultiAdd() {
         doReturn(List.of(
                 buildPackageInfo(SYSTEM_PACKAGE1, SYSTEM_APP_UID11, CHANGE_NETWORK_STATE,
@@ -976,7 +980,7 @@ public class PermissionMonitorTest {
         verify(mBpfNetMaps).updateUidLockdownRule(MOCK_UID11, false /* add */);
     }
 
-    @Test
+    @Test @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testLockdownUidFilteringWithLockdownEnableDisableWithMultiAddAndOverlap() {
         doReturn(List.of(buildPackageInfo(SYSTEM_PACKAGE1, SYSTEM_APP_UID11, CHANGE_NETWORK_STATE,
                         CONNECTIVITY_USE_RESTRICTED_NETWORKS),
@@ -1036,7 +1040,7 @@ public class PermissionMonitorTest {
         verify(mBpfNetMaps).updateUidLockdownRule(MOCK_UID14, false /* add */);
     }
 
-    @Test
+    @Test @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testLockdownUidFilteringWithLockdownEnableDisableWithDuplicates() {
         doReturn(List.of(
                 buildPackageInfo(SYSTEM_PACKAGE1, SYSTEM_APP_UID11, CHANGE_NETWORK_STATE,
@@ -1070,7 +1074,7 @@ public class PermissionMonitorTest {
         verify(mBpfNetMaps).updateUidLockdownRule(MOCK_UID11, false /* add */);
     }
 
-    @Test
+    @Test @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testLockdownUidFilteringWithInstallAndUnInstall() {
         doReturn(List.of(
                 buildPackageInfo(SYSTEM_PACKAGE1, SYSTEM_APP_UID11, CHANGE_NETWORK_STATE,

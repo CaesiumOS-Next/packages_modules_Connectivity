@@ -38,6 +38,7 @@ import static com.android.net.module.util.CollectionUtils.toIntArray;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -65,6 +66,8 @@ import android.util.ArrayMap;
 import android.util.ArraySet;
 import android.util.Log;
 import android.util.SparseIntArray;
+
+import androidx.annotation.RequiresApi;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
@@ -208,6 +211,9 @@ public class PermissionMonitor {
         /**
          * Get device first sdk version.
          */
+        // This is safe since DEVICE_INITIAL_SDK_INT is available on S+ and PermissionMonitor is
+        // mainlined on S+
+        @SuppressLint("NewApi")
         public int getDeviceFirstSdkInt() {
             return Build.VERSION.DEVICE_INITIAL_SDK_INT;
         }
@@ -717,6 +723,7 @@ public class PermissionMonitor {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private synchronized void updateLockdownUid(int uid, boolean add) {
         // Apps that can use restricted networks can always bypass VPNs.
         if (hasRestrictedNetworksPermission(uid)) {
@@ -825,7 +832,9 @@ public class PermissionMonitor {
         // hasRestrictedNetworksPermission() in updateVpnUid() and updateLockdownUid() depends on
         // mUidToNetworkPerm to check if the package can bypass VPN.
         updateVpnUid(uid, true /* add */);
-        updateLockdownUid(uid, true /* add */);
+        if (SdkLevel.isAtLeastT()) {
+            updateLockdownUid(uid, true /* add */);
+        }
         mAllApps.add(appId);
 
         // Log package added.
@@ -873,7 +882,9 @@ public class PermissionMonitor {
         // hasRestrictedNetworksPermission() in updateVpnUid() and updateLockdownUid() depends on
         // mUidToNetworkPerm to check if the package can bypass VPN.
         updateVpnUid(uid, false /* add */);
-        updateLockdownUid(uid, false /* add */);
+        if (SdkLevel.isAtLeastT()) {
+            updateLockdownUid(uid, false /* add */);
+        }
         // If the package has been removed from all users on the device, clear it form mAllApps.
         if (mPackageManager.getNameForUid(uid) == null) {
             mAllApps.remove(appId);
@@ -1014,6 +1025,7 @@ public class PermissionMonitor {
      *               Ranges can have duplications, overlaps, and/or contain the range that is
      *               already subject to lockdown.
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public synchronized void updateVpnLockdownUidRanges(boolean add, UidRange[] ranges) {
         final Set<UidRange> affectedUidRanges = new HashSet<>();
 
@@ -1118,6 +1130,8 @@ public class PermissionMonitor {
         }
     }
 
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private void updateLockdownUidRule(int uid, boolean add) {
         try {
             mBpfNetMaps.updateUidLockdownRule(uid, add);
