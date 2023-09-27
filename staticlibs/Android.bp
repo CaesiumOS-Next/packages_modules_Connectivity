@@ -258,7 +258,10 @@ java_library {
         "//packages/modules/Wifi/framework/tests:__subpackages__",
         "//packages/apps/Settings",
     ],
-    lint: { strict_updatability_linting: true },
+    lint: {
+        strict_updatability_linting: true,
+        error_checks: ["NewApi"],
+    },
     errorprone: {
         enabled: true,
         // Error-prone checking only warns of problems when building. To make the build fail with
