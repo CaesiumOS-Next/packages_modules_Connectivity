@@ -64,10 +64,10 @@ import android.util.Log;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
-import com.android.server.openthread.IOtDaemon;
-import com.android.server.openthread.IOtDaemonCallback;
-import com.android.server.openthread.IOtStatusReceiver;
-import com.android.server.openthread.Ipv6AddressInfo;
+import com.android.server.thread.openthread.IOtDaemon;
+import com.android.server.thread.openthread.IOtDaemonCallback;
+import com.android.server.thread.openthread.IOtStatusReceiver;
+import com.android.server.thread.openthread.Ipv6AddressInfo;
 
 import java.io.IOException;
 import java.net.InetAddress;

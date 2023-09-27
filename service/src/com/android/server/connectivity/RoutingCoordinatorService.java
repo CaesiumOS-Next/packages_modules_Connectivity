@@ -57,7 +57,7 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
     @Override
     public void addRoute(final int netId, final RouteInfo route)
             throws ServiceSpecificException, RemoteException {
-        mNetd.networkAddRouteParcel(netId, toRouteInfoParcel(route));
+        //mNetd.networkAddRouteParcel(netId, toRouteInfoParcel(route));
     }
 
     /**
@@ -71,7 +71,7 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
     @Override
     public void removeRoute(final int netId, final RouteInfo route)
             throws ServiceSpecificException, RemoteException {
-        mNetd.networkRemoveRouteParcel(netId, toRouteInfoParcel(route));
+        //mNetd.networkRemoveRouteParcel(netId, toRouteInfoParcel(route));
     }
 
     /**
