@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0643d5bf_253b7a09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-27T06:29:53Z",
+      "side": 1,
+      "message": "Generally LGTM but I\u0027ve got some nits",
+      "revId": "60a09ed3d269c9c98a34c11bcc996ad05e48032e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31d0977f_53596fcc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4407,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-27T06:29:53Z",
+      "side": 1,
+      "message": "Nit: actually this may be clearer/simpler if added to getCaptivePortalMode, since that method is only called here:\n\n    private int getCaptivePortalMode(@NonNull NetworkAgentInfo nai) {\n        if (TRANSPORT_BLUETOOTH \u0026\u0026 FEATURE_WATCH) {\n            return CAPTIVE_PORTAL_MODE_PROMPT;\n        }\n        return Settings.Global.getInt(...);\n    }",
+      "revId": "60a09ed3d269c9c98a34c11bcc996ad05e48032e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1659059_22538308",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4407,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-27T06:29:53Z",
+      "side": 1,
+      "message": "Can you update the javadoc on CAPTIVE_PORTAL_MODE_AVOID to specify that it doesn\u0027t apply to bluetooth networks on watches ?",
+      "range": {
+        "startLine": 4407,
+        "startChar": 58,
+        "endLine": 4407,
+        "endChar": 83
+      },
+      "revId": "60a09ed3d269c9c98a34c11bcc996ad05e48032e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d4132c8_fe83c415",
+        "filename": "tests/integration/util/com/android/server/NetworkAgentWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-27T06:29:53Z",
+      "side": 1,
+      "message": "As discussed in chat, to make the test more realistic it would be best to use what the BT NetworkFactory actually uses; which is 100 or 50 depending on whether the watch is on charger.",
+      "revId": "60a09ed3d269c9c98a34c11bcc996ad05e48032e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
