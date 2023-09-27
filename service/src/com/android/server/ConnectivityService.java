@@ -97,12 +97,14 @@ import static android.os.Process.VPN_UID;
 import static android.system.OsConstants.ETH_P_ALL;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
+
 import static com.android.net.module.util.NetworkMonitorUtils.isPrivateDnsValidationRequired;
 import static com.android.net.module.util.PermissionUtils.checkAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermission;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermissionOr;
 import static com.android.server.ConnectivityStatsLog.CONNECTIVITY_STATE_SAMPLE;
+
 import static java.util.Map.Entry;
 
 import android.Manifest;
@@ -10652,6 +10654,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                             return -1;
                         }
                     case "set-chain3-enabled": {
+                        if (!mDeps.isAtLeastT()) {
+                            pw.println("set-chain3-enabled command is not available on pre-T"
+                                    + " devices");
+                            return -1;
+                        }
                         final Boolean enabled = parseBooleanArgument(getNextArg());
                         if (null == enabled) {
                             onHelp();
@@ -10663,12 +10670,22 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         return 0;
                     }
                     case "get-chain3-enabled": {
+                        if (!mDeps.isAtLeastT()) {
+                            pw.println("get-chain3-enabled command is not available on pre-T"
+                                    + " devices");
+                            return -1;
+                        }
                         final boolean chainEnabled = getFirewallChainEnabled(
                                 ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3);
                         pw.println("chain:" + (chainEnabled ? "enabled" : "disabled"));
                         return 0;
                     }
                     case "set-package-networking-enabled": {
+                        if (!mDeps.isAtLeastT()) {
+                            pw.println("set-chain3-enabled command is not available on pre-T"
+                                    + " devices");
+                            return -1;
+                        }
                         final Boolean enabled = parseBooleanArgument(getNextArg());
                         final String packageName = getNextArg();
                         if (null == enabled || null == packageName) {
@@ -10686,6 +10703,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         return 0;
                     }
                     case "get-package-networking-enabled": {
+                        if (!mDeps.isAtLeastT()) {
+                            pw.println("get-package-networking-enabled command is not available on"
+                                    + " pre-T devices");
+                            return -1;
+                        }
                         final String packageName = getNextArg();
                         final int rule = getPackageFirewallRule(
                                 ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3, packageName);
@@ -10740,14 +10762,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
             pw.println("  airplane-mode");
             pw.println("    Get airplane mode.");
             pw.println("  set-chain3-enabled [true|false]");
-            pw.println("    Enable or disable FIREWALL_CHAIN_OEM_DENY_3 for debugging.");
+            pw.println("    Enable or disable FIREWALL_CHAIN_OEM_DENY_3 for debugging.\n"
+                    + "    Available only on T or later devices.");
             pw.println("  get-chain3-enabled");
-            pw.println("    Returns whether FIREWALL_CHAIN_OEM_DENY_3 is enabled.");
+            pw.println("    Returns whether FIREWALL_CHAIN_OEM_DENY_3 is enabled.\n"
+                    + "    Available only on T or later devices.");
             pw.println("  set-package-networking-enabled [true|false] [package name]");
             pw.println("    Set the deny bit in FIREWALL_CHAIN_OEM_DENY_3 to package. This has\n"
-                    + "    no effect if the chain is disabled.");
+                    + "    no effect if the chain is disabled.\n"
+                    + "    Available only on T or later devices.");
             pw.println("  get-package-networking-enabled [package name]");
-            pw.println("    Get the deny bit in FIREWALL_CHAIN_OEM_DENY_3 for package.");
+            pw.println("    Get the deny bit in FIREWALL_CHAIN_OEM_DENY_3 for package.\n"
+                    + "    Available only on T or later devices.");
         }
     }
 
@@ -12453,7 +12479,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    @Override
+    @Override @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void updateMeteredNetworkAllowList(final int uid, final boolean add) {
         enforceNetworkStackOrSettingsPermission();
 
@@ -12468,7 +12494,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    @Override
+    @Override @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void updateMeteredNetworkDenyList(final int uid, final boolean add) {
         enforceNetworkStackOrSettingsPermission();
 
@@ -12483,6 +12509,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private int setPackageFirewallRule(final int chain, final String packageName, final int rule)
             throws PackageManager.NameNotFoundException {
         final PackageManager pm = mContext.getPackageManager();
@@ -12498,7 +12525,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return appId;
     }
 
-    @Override
+    @Override @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void setUidFirewallRule(final int chain, final int uid, final int rule) {
         enforceNetworkStackOrSettingsPermission();
 
@@ -12516,6 +12543,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private int getPackageFirewallRule(final int chain, final String packageName)
             throws PackageManager.NameNotFoundException {
         final PackageManager pm = mContext.getPackageManager();
@@ -12523,7 +12551,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return getUidFirewallRule(chain, appId);
     }
 
-    @Override
+    @Override @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public int getUidFirewallRule(final int chain, final int uid) {
         enforceNetworkStackOrSettingsPermission();
         return mBpfNetMaps.getUidRule(chain, uid);
@@ -12569,7 +12597,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    @Override
+    @Override @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void setFirewallChainEnabled(final int chain, final boolean enable) {
         enforceNetworkStackOrSettingsPermission();
 
@@ -12588,14 +12616,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    @Override
+    @Override @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public boolean getFirewallChainEnabled(final int chain) {
         enforceNetworkStackOrSettingsPermission();
 
         return mBpfNetMaps.isChainEnabled(chain);
     }
 
-    @Override
+    @Override @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void replaceFirewallChain(final int chain, final int[] uids) {
         enforceNetworkStackOrSettingsPermission();
 
