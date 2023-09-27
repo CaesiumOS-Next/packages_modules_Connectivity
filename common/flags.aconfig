@@ -6,3 +6,10 @@ flag {
   description: "NetworkActivityTracker tracks multiple networks including non default networks"
   bug: "267870186"
 }
+
+flag {
+  name: "network_stats_event_logger"
+  namespace: "android_core_networking"
+  description: "NetworkStatsEventLogger tracks events happened regard to NetworkStatsService"
+  bug: "301141955"
+}
