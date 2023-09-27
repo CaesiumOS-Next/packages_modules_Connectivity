@@ -31,7 +31,7 @@ import com.android.testutils.RecorderCallback.CallbackEntry.BlockedStatus
 import com.android.testutils.RecorderCallback.CallbackEntry.BlockedStatusInt
 import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
-import com.android.testutils.RecorderCallback.CallbackEntry.LocalInfoChanged
+//import com.android.testutils.RecorderCallback.CallbackEntry.LocalInfoChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.Losing
 import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.RecorderCallback.CallbackEntry.Resumed
@@ -106,8 +106,6 @@ open class RecorderCallback private constructor(
             val LINK_PROPERTIES_CHANGED = LinkPropertiesChanged::class
 //            @JvmField
 //            val LOCAL_INFO_CHANGED = LocalInfoChanged::class
-            @JvmField
-            val LOCAL_INFO_CHANGED = LocalInfoChanged::class
             @JvmField
             val SUSPENDED = Suspended::class
             @JvmField
@@ -481,9 +479,9 @@ open class TestableNetworkCallback private constructor(
             validated == null || validated == it.caps.hasCapability(NET_CAPABILITY_VALIDATED)
         }
         expect<LinkPropertiesChanged>(net, tmt)
-        if (capsCb.caps.hasCapability(NET_CAPABILITY_LOCAL_NETWORK)) {
-            expect<LocalInfoChanged>(net, tmt)
-        }
+//        if (capsCb.caps.hasCapability(NET_CAPABILITY_LOCAL_NETWORK)) {
+//            expect<LocalInfoChanged>(net, tmt)
+//        }
     }
 
     // Backward compatibility for existing Java code. Use named arguments instead and remove all

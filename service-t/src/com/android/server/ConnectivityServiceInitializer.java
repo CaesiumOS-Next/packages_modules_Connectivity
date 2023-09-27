@@ -181,9 +181,6 @@ public final class ConnectivityServiceInitializer extends SystemService {
         if (!SdkLevel.isAtLeastU()) {
             return null;
         }
-        if (!SdkLevel.isAtLeastV() && !pm.hasSystemFeature(PackageManager.FEATURE_LEANBACK)) {
-            return null;
-        }
         return new ThreadNetworkService(context);
     }
 }

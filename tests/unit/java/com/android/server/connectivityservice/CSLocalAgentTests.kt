@@ -170,13 +170,14 @@ class CSLocalAgentTests : CSTest() {
     fun testForwardingRules() {
         deps.setBuildSdk(VERSION_V)
         // Set up a local agent that should forward its traffic to the best DUN upstream.
+        val lnc = LocalNetworkConfig.Builder()
+                .setUpstreamSelector(NetworkRequest.Builder()
+                        .addCapability(NET_CAPABILITY_DUN)
+                        .build())
+                .build()
         val localAgent = Agent(nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_LOCAL_NETWORK),
                 lp = lp("local0"),
-                lnc = LocalNetworkConfig.Builder()
-                        .setUpstreamSelector(NetworkRequest.Builder()
-                                .addCapability(NET_CAPABILITY_DUN)
-                                .build())
-                        .build(),
+                lnc = lnc,
                 score = FromS(NetworkScore.Builder()
                         .setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_DOWNSTREAM_NETWORK)
                         .build())
