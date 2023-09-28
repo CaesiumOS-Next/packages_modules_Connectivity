@@ -22,6 +22,30 @@
       },
       "revId": "d4712910899fb6d5d89a2735894a2f1f6e5e56e4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0284f4b_2bf143f5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1876,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-28T04:14:28Z",
+      "side": 1,
+      "message": "Today non-cell transports don\u0027t use these capabilities and there are no plans to do so. If you feel strongly that we should accept a wifi PRIORITIZE_* for a default, I can do that – personally I don\u0027t feel very strongly, but I note that we don\u0027t know what a wifi use case looks like and it would make the request more complex, so I don\u0027t think now is the time to do this. It would also make the code more complex to understand for developers – it would be yet another \"cell is special\" thing to remember.\nSo I understand the general concern, but I think we can revisit this when we know what a wifi PRIORITIZE_* network looks like. This is mainline code and we can update it many releases back at any time. When we know what a wifi PRIORITIZE_* network looks like, we can change this to accept it as a default without accepting cell PRIORITIZE_* as a default if we think that\u0027s right.\n\nWhat I wish we actually knew is whether this network is on a different, more expensive billing plan, and whether the user expects that to be possibly used.\n\nThe INTERNET capability trick is a pretty ugly hack really. The definition of INTERNET is whether the network provides internet. Touching it to influence the network selection instead of to mean what the doc says is really using it completely contrary to the API\u0027s intent, and it\u0027s lying to the apps. That is why I\u0027m really not very hot on it. I think we\u0027ll have a lot less problems going forward if caps do what they are documented to do and we don\u0027t lie to apps.",
+      "parentUuid": "d5ebbdc7_e048b9f6",
+      "range": {
+        "startLine": 1875,
+        "startChar": 7,
+        "endLine": 1876,
+        "endChar": 75
+      },
+      "revId": "d4712910899fb6d5d89a2735894a2f1f6e5e56e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
