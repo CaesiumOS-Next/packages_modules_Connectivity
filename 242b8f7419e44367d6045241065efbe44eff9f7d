@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72f2b6bb_f7c2ad7e",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfMap.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-28T18:33:14Z",
+      "side": 1,
+      "message": "This operator is weird because, due to lack of subclass override, we currently have:\n\n\"BpfMapRW \u003d BpfMapRW\" returning a BpfMapRO\n\nThis means:\n\nBpfMapRW \u003d BpfMapRW \u003d BpfMapRW\n\ndoesn\u0027t work... but why would you want to do that?\n\nChoosing to leave as is for now...",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 76
+      },
+      "revId": "242b8f7419e44367d6045241065efbe44eff9f7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98c7aee6_01878054",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfMap.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-28T18:33:14Z",
+      "side": 1,
+      "message": "I don\u0027t know how to pass \u0027true\u0027 here for BpfMap\u003c\u003e.reset() without overriding this again in the child...\n\nobviously I could add a \u0027bool mWritable\u0027, but I like the map being \u0027just an int/fd\u0027...",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 70
+      },
+      "revId": "242b8f7419e44367d6045241065efbe44eff9f7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19a0e042_d1554d6d",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfMap.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-28T18:33:14Z",
+      "side": 1,
+      "message": "these iterate are ugly... long term should probably move them out of the class?",
+      "revId": "242b8f7419e44367d6045241065efbe44eff9f7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
