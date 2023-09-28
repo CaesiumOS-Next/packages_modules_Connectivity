@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b22205e1_62b79cbf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-28T07:07:05Z",
+      "side": 1,
+      "message": "Re-reviewed PS24 up to the same point",
+      "revId": "f66fafa1cbf879af9f4810949af67cebceedb4c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ecc5705_51041a50",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 24
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-28T07:07:05Z",
+      "side": 1,
+      "message": "Per offline discussion : for all limits to string lengths we should have a unit in the constant name, otherwise it\u0027s not clear to the caller whether this is bytes, or java chars, or codepoints",
+      "range": {
+        "startLine": 416,
+        "startChar": 34,
+        "endLine": 416,
+        "endChar": 57
+      },
+      "revId": "f66fafa1cbf879af9f4810949af67cebceedb4c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

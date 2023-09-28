@@ -629,6 +629,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "92ff595e_4fdf43ed",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-28T07:07:05Z",
+      "side": 1,
+      "message": "not done",
+      "parentUuid": "d2fd6e87_12025e8b",
+      "range": {
+        "startLine": 417,
+        "startChar": 54,
+        "endLine": 417,
+        "endChar": 57
+      },
+      "revId": "8a59a6670e44dadf692a33f91aa67f8487085ab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "183f56ed_78e62531",
         "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
         "patchSetId": 20
