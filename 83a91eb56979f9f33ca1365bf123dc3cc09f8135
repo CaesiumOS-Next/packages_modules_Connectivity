@@ -39,6 +39,29 @@
       },
       "revId": "83a91eb56979f9f33ca1365bf123dc3cc09f8135",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4b3f572_0195e854",
+        "filename": "staticlibs/native/bpf_headers/BpfMapTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-28T18:25:21Z",
+      "side": 1,
+      "message": "I\u0027ve chosen to get rid of this auto-aborting constructor.\nHence the need to switch to .resetMap()",
+      "range": {
+        "startLine": 110,
+        "startChar": 31,
+        "endLine": 110,
+        "endChar": 39
+      },
+      "revId": "83a91eb56979f9f33ca1365bf123dc3cc09f8135",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
