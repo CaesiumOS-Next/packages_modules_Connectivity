@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85dfc325_1587674d",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfMap.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-09-28T21:51:01Z",
+      "side": 1,
+      "message": "move inside ifdef and add a comment that unique_fd has a implicit int conversion defined.",
+      "range": {
+        "startLine": 155,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 38
+      },
+      "revId": "3e9984e79c9390e59da04f3d91152f93de55184f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
