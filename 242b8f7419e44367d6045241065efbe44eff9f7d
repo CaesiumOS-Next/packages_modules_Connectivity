@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "601f6d20_cb78ec53",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfMap.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-28T18:39:44Z",
+      "side": 1,
+      "message": "Note: overriding it in the subclass isn\u0027t really enough either.\n\nBpfMapRW\u003cK,V\u003e RW;\nBpfMapRO\u003cK,V\u003e \u0026RO \u003d RW;\nRO.reset(mapRetrieveRO());\n\nDoesn\u0027t fail... the .reset() doesn\u0027t know the map should be RW.\n\nWe\u0027d need to make reset virtual... so far we\u0027ve avoided adding a VMT\nand the extra hidden field that adds to the class storage.\n\nSince this is used only in tests, I think we can ignore it for now.",
+      "parentUuid": "98c7aee6_01878054",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 70
+      },
+      "revId": "242b8f7419e44367d6045241065efbe44eff9f7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "19a0e042_d1554d6d",
         "filename": "staticlibs/native/bpf_headers/include/bpf/BpfMap.h",
         "patchSetId": 2
