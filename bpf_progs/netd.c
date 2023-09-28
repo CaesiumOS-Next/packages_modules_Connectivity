@@ -507,7 +507,7 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb, boo
 DEFINE_BPF_PROG_EXT("cgroupskb/ingress/stats$trace", AID_ROOT, AID_SYSTEM,
                     bpf_cgroup_ingress_trace, KVER(5, 8, 0), KVER_INF,
                     BPFLOADER_IGNORED_ON_VERSION, BPFLOADER_MAX_VER, false,
-                    "fs_bpf_netd_readonly", "", false, true, false)
+                    "fs_bpf_netd_readonly", "", false, false, false)
 (struct __sk_buff* skb) {
     return bpf_traffic_account(skb, INGRESS, TRACE_ON, KVER(5, 8, 0));
 }
@@ -527,7 +527,7 @@ DEFINE_NETD_BPF_PROG_KVER_RANGE("cgroupskb/ingress/stats$4_14", AID_ROOT, AID_SY
 DEFINE_BPF_PROG_EXT("cgroupskb/egress/stats$trace", AID_ROOT, AID_SYSTEM,
                     bpf_cgroup_egress_trace, KVER(5, 8, 0), KVER_INF,
                     BPFLOADER_IGNORED_ON_VERSION, BPFLOADER_MAX_VER, false,
-                    "fs_bpf_netd_readonly", "", false, true, false)
+                    "fs_bpf_netd_readonly", "", false, false, false)
 (struct __sk_buff* skb) {
     return bpf_traffic_account(skb, EGRESS, TRACE_ON, KVER(5, 8, 0));
 }
