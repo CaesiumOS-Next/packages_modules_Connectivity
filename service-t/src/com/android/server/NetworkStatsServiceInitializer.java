@@ -18,7 +18,6 @@ package com.android.server;
 
 import android.content.Context;
 import android.net.TrafficStats;
-import android.os.Build;
 import android.util.Log;
 
 import com.android.modules.utils.build.SdkLevel;
@@ -48,11 +47,9 @@ public final class NetworkStatsServiceInitializer extends SystemService {
             TrafficStats.init(getContext());
         }
 
-        // The following code registers the Perfetto Network Trace Handler on non-user builds.
-        // The enhanced tracing is intended to be used for debugging and diagnosing issues. This
-        // is conditional on the build type rather than `isDebuggable` to match the system_server
-        // selinux rules which only allow the Perfetto connection under the same circumstances.
-        if (SdkLevel.isAtLeastU() && !Build.TYPE.equals("user")) {
+        // The following code registers the Perfetto Network Trace Handler. The enhanced tracing
+        // is intended to be used for debugging and diagnosing issues.
+        if (SdkLevel.isAtLeastU()) {
             Log.i(TAG, "Initializing network tracing hooks");
             NetworkStatsService.nativeInitNetworkTracing();
         }
