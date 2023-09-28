@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca3d2bb2_78f66315",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-28T18:23:48Z",
+      "side": 1,
+      "message": "Both of these maps were netd writable purely due to test requirements.\n\nie. the tests needed to write to the fakes, and there was no way to put a \u0027fake\u0027 R/W map into a R/O field, so the field needed to be R/W so the \u0027real\u0027 map needed to be R/W.\n\nThis patch fixes that.",
+      "revId": "83a91eb56979f9f33ca1365bf123dc3cc09f8135",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cc2585a_ec209a8e",
+        "filename": "netd/BpfHandlerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-28T18:23:48Z",
+      "side": 1,
+      "message": "Technically this could stay BpfMapRO since we never write into it.\n\nHowever, I\u0027ve chosen to not provide BpfMapRO.resetMap() helper,\nas creating a new read only map just doesn\u0027t seem useful.\n\nHence the fakes all need to be R/W.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 53
+      },
+      "revId": "83a91eb56979f9f33ca1365bf123dc3cc09f8135",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
