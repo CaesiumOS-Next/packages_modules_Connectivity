@@ -104,14 +104,13 @@ DEFINE_BPF_MAP_NO_NETD(iface_index_name_map, HASH, uint32_t, IfaceValue, IFACE_I
 DEFINE_BPF_MAP_EXT(packet_trace_enabled_map, ARRAY, uint32_t, bool, 1,
                    AID_ROOT, AID_SYSTEM, 0060, "fs_bpf_net_shared", "", false,
                    BPFLOADER_IGNORED_ON_VERSION, BPFLOADER_MAX_VER, LOAD_ON_ENG,
-                   IGNORE_ON_USER, LOAD_ON_USERDEBUG)
+                   LOAD_ON_USER, LOAD_ON_USERDEBUG)
 
-// A ring buffer on which packet information is pushed. This map will only be loaded
-// on eng and userdebug devices. User devices won't load this to save memory.
+// A ring buffer on which packet information is pushed.
 DEFINE_BPF_RINGBUF_EXT(packet_trace_ringbuf, PacketTrace, PACKET_TRACE_BUF_SIZE,
                        AID_ROOT, AID_SYSTEM, 0060, "fs_bpf_net_shared", "", false,
                        BPFLOADER_IGNORED_ON_VERSION, BPFLOADER_MAX_VER, LOAD_ON_ENG,
-                       IGNORE_ON_USER, LOAD_ON_USERDEBUG);
+                       LOAD_ON_USER, LOAD_ON_USERDEBUG);
 
 // iptables xt_bpf programs need to be usable by both netd and netutils_wrappers
 // selinux contexts, because even non-xt_bpf iptables mutations are implemented as
@@ -504,10 +503,11 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb, boo
     return match;
 }
 
+// This version of the stats program loads on U+ with a 5.8 or later kernel.
 DEFINE_BPF_PROG_EXT("cgroupskb/ingress/stats$trace", AID_ROOT, AID_SYSTEM,
                     bpf_cgroup_ingress_trace, KVER(5, 8, 0), KVER_INF,
                     BPFLOADER_IGNORED_ON_VERSION, BPFLOADER_MAX_VER, false,
-                    "fs_bpf_netd_readonly", "", false, true, false)
+                    "fs_bpf_netd_readonly", "", false, false, false)
 (struct __sk_buff* skb) {
     return bpf_traffic_account(skb, INGRESS, TRACE_ON, KVER(5, 8, 0));
 }
@@ -524,10 +524,11 @@ DEFINE_NETD_BPF_PROG_KVER_RANGE("cgroupskb/ingress/stats$4_14", AID_ROOT, AID_SY
     return bpf_traffic_account(skb, INGRESS, TRACE_OFF, KVER_NONE);
 }
 
+// This version of the stats program loads on U+ with a 5.8 or later kernel.
 DEFINE_BPF_PROG_EXT("cgroupskb/egress/stats$trace", AID_ROOT, AID_SYSTEM,
                     bpf_cgroup_egress_trace, KVER(5, 8, 0), KVER_INF,
                     BPFLOADER_IGNORED_ON_VERSION, BPFLOADER_MAX_VER, false,
-                    "fs_bpf_netd_readonly", "", false, true, false)
+                    "fs_bpf_netd_readonly", "", false, false, false)
 (struct __sk_buff* skb) {
     return bpf_traffic_account(skb, EGRESS, TRACE_ON, KVER(5, 8, 0));
 }
