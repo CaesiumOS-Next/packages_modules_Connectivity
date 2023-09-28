@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62054a84_3eb4f9a9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsPacketRepeater.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-28T02:03:16Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Check Contents: Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nLines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 107
+      },
+      "revId": "223bc9f871cdcb6a73accc451dd0588ea8946046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7e323f6_d253d714",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsProber.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-28T02:03:16Z",
+      "side": 1,
+      "message": "Sorry, actually here you can probably just pass MdnsAdvertiser.DBG, like for MdnsAnnouncer\n\nSince MdnsProber is also only used for advertising and part of the exclude list",
+      "range": {
+        "startLine": 45,
+        "startChar": 50,
+        "endLine": 45,
+        "endChar": 64
+      },
+      "revId": "223bc9f871cdcb6a73accc451dd0588ea8946046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
