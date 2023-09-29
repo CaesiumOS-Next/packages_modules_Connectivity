@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fd71acd_c7465446",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/NetlinkUtilsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-29T02:37:50Z",
+      "side": 1,
+      "message": "Supernet: Probably not worth respinning, but this parenthesis is not closed and misses a space",
+      "range": {
+        "startLine": 92,
+        "startChar": 68,
+        "endLine": 92,
+        "endChar": 69
+      },
+      "revId": "794019e47d97696314e16516e73ec0289ea992b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18218375_8479ac19",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/NetlinkUtilsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-29T02:37:50Z",
+      "side": 1,
+      "message": "Nit: I think that\u0027s a bit too specific, we might want to rename the test or run it in another situation where it\u0027s network_stack context, and this message wouldn\u0027t be correct\n\nYou could just say \"network_stack context is expected to have permission to use RTM_GETNEIGH\".",
+      "range": {
+        "startLine": 94,
+        "startChar": 37,
+        "endLine": 94,
+        "endChar": 62
+      },
+      "revId": "794019e47d97696314e16516e73ec0289ea992b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
