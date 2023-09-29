@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f37dde4e_effb7ef8",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T06:18:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54227df2_24beab03",
+      "range": {
+        "startLine": 332,
+        "startChar": 0,
+        "endLine": 334,
+        "endChar": 74
+      },
+      "revId": "03a21e6a03813efa2170098df8370d03b97a8bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "678c82d7_7e0bd90f",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-29T04:31:45Z",
       "side": 1,
       "message": "What happens in other circumstances, such as if the slice is validated and the general internet network is not? Maybe add more tests here?",
+      "range": {
+        "startLine": 210,
+        "startChar": 4,
+        "endLine": 210,
+        "endChar": 5
+      },
+      "revId": "03a21e6a03813efa2170098df8370d03b97a8bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29c11264_0ee824cd",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkRankerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T06:18:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "678c82d7_7e0bd90f",
       "range": {
         "startLine": 210,
         "startChar": 4,
