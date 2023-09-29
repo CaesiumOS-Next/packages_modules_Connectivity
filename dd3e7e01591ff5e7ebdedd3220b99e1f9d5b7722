@@ -22,6 +22,30 @@
       },
       "revId": "dd3e7e01591ff5e7ebdedd3220b99e1f9d5b7722",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "959329b3_755dc59b",
+        "filename": "service-t/src/com/android/server/NetworkStatsServiceInitializer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-09-29T17:04:10Z",
+      "side": 0,
+      "message": "This was changed earlier this year:\nhttps://r.android.com/c/platform/system/sepolicy/+/2419280/3/private/system_server.te\n\nThe system server permission used to be userdebug/eng only, but now applies to user builds as well. This was also backported to T, and since this is still U+, it should be fine.",
+      "parentUuid": "ce98b838_85e6f39d",
+      "range": {
+        "startLine": 53,
+        "startChar": 84,
+        "endLine": 54,
+        "endChar": 95
+      },
+      "revId": "dd3e7e01591ff5e7ebdedd3220b99e1f9d5b7722",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

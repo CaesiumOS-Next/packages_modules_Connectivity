@@ -22,6 +22,30 @@
       },
       "revId": "74c72fde3afeb63df7609b9a9668aa4925a4871b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbf0d21f_b6edd2e1",
+        "filename": "service-t/src/com/android/server/NetworkStatsServiceInitializer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-09-29T17:04:10Z",
+      "side": 1,
+      "message": "Thanks! I added the flag and tested turning on/off a few times.\n\nI\u0027ve also re-added the build !\u003d \"user\" check so that we continue to allow this in userdebug/eng builds. The flag will only control user build support.",
+      "parentUuid": "b4ec317a_ada1f9c4",
+      "range": {
+        "startLine": 52,
+        "startChar": 33,
+        "endLine": 52,
+        "endChar": 34
+      },
+      "revId": "74c72fde3afeb63df7609b9a9668aa4925a4871b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
