@@ -85,6 +85,24 @@
       "message": "vsoc_x86:/ # uname -r; ls -l /sys/fs/bpf/netd_shared/*{create,packet}*                                                               \n6.1.25-android14-11-g34fde9ec08a3-ab10675345\n----rw---- 1 root system 0 2023-09-28 01:56 /sys/fs/bpf/netd_shared/map_netd_packet_trace_enabled_map\n----rw---- 1 root system 0 2023-09-28 01:56 /sys/fs/bpf/netd_shared/map_netd_packet_trace_ringbuf\n-r--r----- 1 root root   0 2023-09-28 01:56 /sys/fs/bpf/netd_shared/prog_netd_cgroupsock_inet_create",
       "revId": "6166087636ce876bea448e7133ce8f987d7832eb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a4f56d0_e2c08ebe",
+        "filename": "tests/mts/bpf_existence_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-29T23:48:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2a11744a_f1fd24cb",
+      "revId": "6166087636ce876bea448e7133ce8f987d7832eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
