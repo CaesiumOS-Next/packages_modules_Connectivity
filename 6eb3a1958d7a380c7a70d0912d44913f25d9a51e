@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0ef2e0c_14c491c5",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-09-29T17:21:01Z",
+      "side": 1,
+      "message": "This currently seems to work, though the programs do overlap as Lorenzo noted. From what I\u0027ve seen, these are always loaded in the order defined, and the first one with the given name (minus id after `$`) will be used.\n\nIf we wanted to give these proper mutual exclusivity, I think we\u0027d want the 4.19 one to end at 5.8, and split the 5.8 one into two:\n1. One with tracing disabled that goes up to BPFLOADER_IGNORED_ON_VERSION.\n2. One with tracing enabled from BPFLOADER_IGNORED_ON_VERSION onward.\n\n(BPFLOADER_IGNORED_ON_VERSION is really just a stand-in for Android U though, since we no longer utilize IGNORE_ON_* anymore).\n\nWhat do you think?",
+      "range": {
+        "startLine": 506,
+        "startChar": 0,
+        "endLine": 512,
+        "endChar": 1
+      },
+      "revId": "6eb3a1958d7a380c7a70d0912d44913f25d9a51e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
