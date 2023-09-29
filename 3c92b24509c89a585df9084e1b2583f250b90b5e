@@ -16,6 +16,24 @@
       "message": "you need to update\npackages/modules/Connectivity/tests/mts/bpf_existence_test.cpp",
       "revId": "3c92b24509c89a585df9084e1b2583f250b90b5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6010336_119864e2",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-29T22:52:40Z",
+      "side": 1,
+      "message": "basically just add a MAINLINE_FOR_U_PLUS and MAINLINE_FOR_U_5_10_PLUS\n\n(5.8 is 5.10 for all intents and purposes - there is no 5.8/5.9 LTS)",
+      "parentUuid": "a38ac3ed_c983bc81",
+      "revId": "3c92b24509c89a585df9084e1b2583f250b90b5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
