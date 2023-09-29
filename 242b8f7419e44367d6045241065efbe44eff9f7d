@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "735a79ff_cd037da8",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfMap.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-29T00:37:36Z",
+      "side": 1,
+      "message": "Actually this likely works due to default move assignment operator in subclass.",
+      "parentUuid": "72f2b6bb_f7c2ad7e",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 76
+      },
+      "revId": "242b8f7419e44367d6045241065efbe44eff9f7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98c7aee6_01878054",
@@ -84,6 +108,24 @@
       "writtenOn": "2023-09-28T18:33:14Z",
       "side": 1,
       "message": "these iterate are ugly... long term should probably move them out of the class?",
+      "revId": "242b8f7419e44367d6045241065efbe44eff9f7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "127135a5_c654e920",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfMap.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-29T00:37:36Z",
+      "side": 1,
+      "message": "(will do so as part of adding bulk iterate/consume support)",
+      "parentUuid": "19a0e042_d1554d6d",
       "revId": "242b8f7419e44367d6045241065efbe44eff9f7d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
