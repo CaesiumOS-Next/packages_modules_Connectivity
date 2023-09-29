@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18b529d7_f552847e",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T09:37:28Z",
+      "side": 1,
+      "message": "Nit : Won\u0027t this fit on the previous line ?",
+      "range": {
+        "startLine": 135,
+        "startChar": 33,
+        "endLine": 135,
+        "endChar": 34
+      },
+      "revId": "780a8006cc0ed935a8991e74bdf81881e2896535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9a9b7a1_e972d034",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T09:37:28Z",
+      "side": 1,
+      "message": "Hmmm sorry to only notice now but this class is called DnsRecordBuilder so a build() method should build a DnsRecord. Can you rename this to buildByteArray() or toByteArray() ?",
+      "range": {
+        "startLine": 162,
+        "startChar": 15,
+        "endLine": 162,
+        "endChar": 20
+      },
+      "revId": "780a8006cc0ed935a8991e74bdf81881e2896535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c49fd130_795fcf6d",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T09:37:28Z",
+      "side": 1,
+      "message": "outputting",
+      "range": {
+        "startLine": 165,
+        "startChar": 50,
+        "endLine": 165,
+        "endChar": 56
+      },
+      "revId": "780a8006cc0ed935a8991e74bdf81881e2896535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53359c90_2dd58f19",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T09:37:28Z",
+      "side": 1,
+      "message": "\u003e They don\u0027t have get value for now, so their content can be tested by toString() only.\n\nThen please assert that the string contains X Y and Z, instead of forcing a very specific order and spacing\n\n\u003e In addition, as the spec also defines the representation format of a SVCB packet.\n\nIf that\u0027s the case, then yes – you should immediately call it something else than toString(), which is for human consumption, and test that instead. It could be called \u0027asRFCXXXString()\u0027 or similar. It\u0027s fine if toString() calls that method.",
+      "range": {
+        "startLine": 237,
+        "startChar": 8,
+        "endLine": 237,
+        "endChar": 20
+      },
+      "revId": "780a8006cc0ed935a8991e74bdf81881e2896535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
