@@ -93,6 +93,30 @@
       },
       "revId": "953417d4e1e519ab9714c79b2fc6f4c6ddfeb290",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3834992f_76c75ff2",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-29T22:54:46Z",
+      "side": 1,
+      "message": "I think you meant to ask are there \u003cU devices with \u003e\u003d5.8 kernels\n\nYes there are.\n\nYou\u0027d need to explicitly add another case to cover it.\n\nNot worth it.",
+      "parentUuid": "9718ffde_b1ddd151",
+      "range": {
+        "startLine": 515,
+        "startChar": 73,
+        "endLine": 515,
+        "endChar": 81
+      },
+      "revId": "953417d4e1e519ab9714c79b2fc6f4c6ddfeb290",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
