@@ -22,6 +22,30 @@
       },
       "revId": "6eb3a1958d7a380c7a70d0912d44913f25d9a51e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f7973c3_3544e93d",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-29T21:20:26Z",
+      "side": 1,
+      "message": "This is fine, maybe just add some comment that this only loads on U+ 5.8+.\n\nWould we want this to be marked optional for safety?\nSo we could fall back?",
+      "parentUuid": "c0ef2e0c_14c491c5",
+      "range": {
+        "startLine": 506,
+        "startChar": 0,
+        "endLine": 512,
+        "endChar": 1
+      },
+      "revId": "6eb3a1958d7a380c7a70d0912d44913f25d9a51e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
