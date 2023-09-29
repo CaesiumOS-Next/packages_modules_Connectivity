@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7d4092a_9bab0f25",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T08:46:31Z",
+      "side": 1,
+      "message": "supernit : you could annotate with @NonNull",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 11
+      },
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2536e172_c5a8d58d",
         "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
         "patchSetId": 3
@@ -49,6 +72,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c5c6e6c_4c3852f6",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T08:46:31Z",
+      "side": 1,
+      "message": "Java usually calls this getTargetName (when calling from Kotlin, you can automatically call `.targetName`).\nI think DnsRecord follows this convention too (getRR(), getBytes()) ; alternatively you could rename `mTargetName` to `targetName` and make it public.\n\nSame comment for other getters below.",
+      "range": {
+        "startLine": 141,
+        "startChar": 18,
+        "endLine": 141,
+        "endChar": 28
+      },
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5d40783_df1f57a9",
         "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
         "patchSetId": 3
@@ -60,6 +106,24 @@
       "writtenOn": "2023-09-28T08:35:36Z",
       "side": 1,
       "message": "It is strange to me that you don\u0027t have getValue here.\nIIUC at least you could have:\nabstract Object getValue();",
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "705de9c8_6acd0d46",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T08:46:31Z",
+      "side": 1,
+      "message": "No that would be `SvcParam\u003cT\u003e` and `abstract T getValue();`",
+      "parentUuid": "c5d40783_df1f57a9",
       "revId": "e6b2de658385961b04c66148268b8042959ef863",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -82,6 +146,29 @@
         "startChar": 71,
         "endLine": 249,
         "endChar": 87
+      },
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeff015f_581947f9",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T08:46:31Z",
+      "side": 1,
+      "message": "Question : do you actually need this ? If you just left this as a SvcParamGeneric it would work the same, and you can still add this class when you need it to do more than what the generic already does. Right now this is unspecified anyway so you can\u0027t do anything with it.\n\nNo strong opinion though, since this is indeed already reserved.",
+      "range": {
+        "startLine": 371,
+        "startChar": 25,
+        "endLine": 371,
+        "endChar": 36
       },
       "revId": "e6b2de658385961b04c66148268b8042959ef863",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -112,6 +199,69 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "647107bf_d63aec82",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T08:46:31Z",
+      "side": 1,
+      "message": "I don\u0027t think you need to call slice() again ? The first call to slice() already creates a view of the buffer that starts at pos, and limit() will only affect that new buffer and return it, so I don\u0027t think you need another view of it.",
+      "range": {
+        "startLine": 451,
+        "startChar": 72,
+        "endLine": 451,
+        "endChar": 77
+      },
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57e27d19_3384f80a",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T08:46:31Z",
+      "side": 1,
+      "message": "Should we pass the charset ? Granted, on Android the default is always UTF-8, but maybe it\u0027s more readable to specify it explicitly.",
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfc2215d_7e5443cd",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T08:46:31Z",
+      "side": 1,
+      "message": "of mandatory what ? Word missing here maybe ?",
+      "range": {
+        "startLine": 476,
+        "startChar": 83,
+        "endLine": 476,
+        "endChar": 96
+      },
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83da48cf_d80ba776",
         "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsPacketTest.java",
         "patchSetId": 3
@@ -123,6 +273,30 @@
       "writtenOn": "2023-09-28T08:35:36Z",
       "side": 1,
       "message": "Please fix this WARNING reported by AndroidLint: This method should only be accessed from tests or within private scope\n\nAnalyzer Description: Reports AndroidLint warnings.\nOwner: colefaust@google.com\n\nThis method should only be accessed from tests or within private scope\n\n            assertTrue(DnsPacket.DnsRecord.parse(DnsPacket.QDSECTION,\n                                           ~~~~~\n\nWith the `@VisibleForTesting` annotation you can specify an `otherwise\u003d` attribute which specifies the intended visibility if the method had not been made more widely visible for the tests.\n\nThis check looks for accesses from production code (e.g. not tests) where the access would not have been allowed with the intended production visibility.\n\nLocal repro steps at go/ayeaye-android-lint\n\nFor common FAQs about the @VisibleForTesting warning, see go/ayeaye-android-lint#visiblefortesting-faqs\n\nThis warning was found on the git_main branch",
+      "range": {
+        "startLine": 211,
+        "startChar": 40,
+        "endLine": 211,
+        "endChar": 65
+      },
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd0caa60_ee84a7fc",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsPacketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T08:46:31Z",
+      "side": 1,
+      "message": "How is Mike supposed to fix this ? This is accessed from tests, so there doesn\u0027t seem to be anything wrong here.",
+      "parentUuid": "83da48cf_d80ba776",
       "range": {
         "startLine": 211,
         "startChar": 40,
