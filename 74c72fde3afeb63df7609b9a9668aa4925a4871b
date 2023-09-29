@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4ec317a_ada1f9c4",
+        "filename": "service-t/src/com/android/server/NetworkStatsServiceInitializer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-29T04:36:29Z",
+      "side": 1,
+      "message": "Especially if we\u0027re considering getting this into the November release, this should use a flag.\n\nYou can define a constant like ENABLE_NETWORK_TRACING (or similar), and call DeviceConfigUtils.isTetheringFeatureEnabled(context, ENABLE_NETWORK_TRACING)\n\nYou can test it with `adb shell cmd device_config set_sync_disabled_for_tests persistent \u0026\u0026 adb shell device_config put tethering enable_network_tracing 1 \u0026\u0026 adb reboot`\n\n(assuming \"enable_network_tracing\" is the value of your constant)",
+      "range": {
+        "startLine": 52,
+        "startChar": 33,
+        "endLine": 52,
+        "endChar": 34
+      },
+      "revId": "74c72fde3afeb63df7609b9a9668aa4925a4871b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
