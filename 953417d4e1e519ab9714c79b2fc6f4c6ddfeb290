@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "088d5182_cfd08947",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-09-29T21:57:47Z",
+      "side": 1,
+      "message": "I don\u0027t recall any dependencies that wouldn\u0027t be satisfied by T... however I don\u0027t know if I\u0027ve ever tried that. Perhaps for now we leave this U+?",
+      "parentUuid": "bde2a6ae_157e6d07",
+      "range": {
+        "startLine": 508,
+        "startChar": 20,
+        "endLine": 508,
+        "endChar": 48
+      },
+      "revId": "953417d4e1e519ab9714c79b2fc6f4c6ddfeb290",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb5425b9_32b427ed",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-29T21:20:26Z",
       "side": 1,
       "message": "should this be 5,8 now?",
+      "range": {
+        "startLine": 515,
+        "startChar": 73,
+        "endLine": 515,
+        "endChar": 81
+      },
+      "revId": "953417d4e1e519ab9714c79b2fc6f4c6ddfeb290",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9718ffde_b1ddd151",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-09-29T21:57:47Z",
+      "side": 1,
+      "message": "Are there U devices with \u003c5.8 kernels? If so, there would be a gap between the above and this.",
+      "parentUuid": "cb5425b9_32b427ed",
       "range": {
         "startLine": 515,
         "startChar": 73,
