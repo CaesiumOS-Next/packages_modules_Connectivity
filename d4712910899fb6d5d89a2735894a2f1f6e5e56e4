@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a816b6bb_a448c4ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-29T04:44:40Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "d4712910899fb6d5d89a2735894a2f1f6e5e56e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5ebbdc7_e048b9f6",
@@ -43,6 +60,29 @@
         "startChar": 7,
         "endLine": 1876,
         "endChar": 75
+      },
+      "revId": "d4712910899fb6d5d89a2735894a2f1f6e5e56e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f67db667_a3c66b0f",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDefaultNetworkTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-09-29T04:44:40Z",
+      "side": 1,
+      "message": "This is strange and confusing. What it does is \"keep one network up - the best - at all times\". But it only keeps up *one* such network. If what you\u0027re trying to do here is keep all the networks up, then this won\u0027t do it. So basically this works because of the ordering of events in the test?\n\nIf what you want here is to keep up all the networks in this test, then file a separate request for each network that the test uses? (Or, if keepNetworksUpCb is only needed for for the slice to remain connected, not the nonslice, then just use a keep-up request that matches the slice).",
+      "range": {
+        "startLine": 32,
+        "startChar": 26,
+        "endLine": 32,
+        "endChar": 57
       },
       "revId": "d4712910899fb6d5d89a2735894a2f1f6e5e56e4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
