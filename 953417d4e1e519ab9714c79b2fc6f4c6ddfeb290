@@ -117,6 +117,30 @@
       },
       "revId": "953417d4e1e519ab9714c79b2fc6f4c6ddfeb290",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ad58012_960b5fbc",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-09-29T23:15:43Z",
+      "side": 1,
+      "message": "Yes, that\u0027s what I meant. Sounds good, I\u0027ll leave as-is.",
+      "parentUuid": "3834992f_76c75ff2",
+      "range": {
+        "startLine": 515,
+        "startChar": 73,
+        "endLine": 515,
+        "endChar": 81
+      },
+      "revId": "953417d4e1e519ab9714c79b2fc6f4c6ddfeb290",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
