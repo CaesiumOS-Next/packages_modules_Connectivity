@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3014f8a_b5440091",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T07:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c586f729_3b0c7ea5",
+      "revId": "6052585453591e9ace9f6d366ecc24f013b1c80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e8b68b9_22b92db8",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-09-25T02:31:00Z",
       "side": 1,
       "message": "Nit: Besides (to mean apart from)",
+      "range": {
+        "startLine": 1419,
+        "startChar": 37,
+        "endLine": 1419,
+        "endChar": 43
+      },
+      "revId": "6052585453591e9ace9f6d366ecc24f013b1c80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11cea3fb_8df2f64e",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1419,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T07:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e8b68b9_22b92db8",
       "range": {
         "startLine": 1419,
         "startChar": 37,
@@ -58,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3babd0a7_4ec76fbc",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T07:52:11Z",
+      "side": 1,
+      "message": "Removed the target and used the XML configuration instead, so this is now moot.",
+      "parentUuid": "98a2a597_57c5f35f",
+      "revId": "6052585453591e9ace9f6d366ecc24f013b1c80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39c98453_2d76c96a",
@@ -71,6 +131,24 @@
       "writtenOn": "2023-09-25T02:31:00Z",
       "side": 1,
       "message": "Do you want this in MTS too ? Or is it not useful there ?",
+      "revId": "6052585453591e9ace9f6d366ecc24f013b1c80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89d9f95d_ef94f30a",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T07:52:11Z",
+      "side": 1,
+      "message": "MTS is useful, but now that this runs directly in CtsNetTestCases it\u0027s in MTS for free.",
+      "parentUuid": "39c98453_2d76c96a",
       "revId": "6052585453591e9ace9f6d366ecc24f013b1c80a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -92,6 +170,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f22c1bb_939aecbb",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T07:52:11Z",
+      "side": 1,
+      "message": "The test lives in NetworkAgentTest, which is in CtsNetTestCases.",
+      "parentUuid": "316597b2_eb70908e",
+      "revId": "6052585453591e9ace9f6d366ecc24f013b1c80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c0fd109c_a73958f9",
@@ -109,6 +205,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69580ce3_1245f7e3",
+        "filename": "tests/cts/net/AndroidCarrierServiceTest.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T07:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0fd109c_a73958f9",
+      "revId": "6052585453591e9ace9f6d366ecc24f013b1c80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c878d5a0_2dddb7b9",
@@ -122,6 +236,24 @@
       "writtenOn": "2023-09-25T02:31:00Z",
       "side": 1,
       "message": "Does the test break with the service/src change if you don\u0027t remove this transport ? In that case, is this breaking T/U CTS ? Ideally you should first fix the test in CTS 13 R2 before making breaking changes (with proper presubmit breaking the test in android13-tests-dev wouldn\u0027t be allowed).",
+      "revId": "6052585453591e9ace9f6d366ecc24f013b1c80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7184692c_25bc11fc",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-09-29T07:52:11Z",
+      "side": 1,
+      "message": "Done by splitting this change into a preliminary change that we can cherry-pick on android11-tests-dev.",
+      "parentUuid": "c878d5a0_2dddb7b9",
       "revId": "6052585453591e9ace9f6d366ecc24f013b1c80a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
