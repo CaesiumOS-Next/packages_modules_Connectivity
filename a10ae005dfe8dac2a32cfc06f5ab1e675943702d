@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d96ea57_44487a5e",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-29T06:43:10Z",
+      "side": 1,
+      "message": "Nit: when at least one test is parameterized",
+      "range": {
+        "startLine": 45,
+        "startChar": 76,
+        "endLine": 45,
+        "endChar": 77
+      },
+      "revId": "a10ae005dfe8dac2a32cfc06f5ab1e675943702d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4f66897_23c7e8be",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-09-29T06:43:10Z",
+      "side": 1,
+      "message": "Nit: it if (not if it)",
+      "range": {
+        "startLine": 72,
+        "startChar": 37,
+        "endLine": 72,
+        "endChar": 42
+      },
+      "revId": "a10ae005dfe8dac2a32cfc06f5ab1e675943702d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
