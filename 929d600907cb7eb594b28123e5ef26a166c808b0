@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07d64dbf_802916d3",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-29T12:13:30Z",
+      "side": 1,
+      "message": "Why adding `typeSubtype.second !\u003d null` check here? I think we need to include subTypes comming from both place. Just like you did for discovery logic.",
+      "range": {
+        "startLine": 955,
+        "startChar": 28,
+        "endLine": 955,
+        "endChar": 61
+      },
+      "revId": "929d600907cb7eb594b28123e5ef26a166c808b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "815d7357_0de19fef",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-29T12:13:30Z",
+      "side": 1,
+      "message": "any reason why we included this refactor in this CL? Maybe it is better to put the refactor in a separate CL?",
+      "range": {
+        "startLine": 453,
+        "startChar": 12,
+        "endLine": 456,
+        "endChar": 45
+      },
+      "revId": "929d600907cb7eb594b28123e5ef26a166c808b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

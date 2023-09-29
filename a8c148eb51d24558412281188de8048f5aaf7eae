@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d39c143_12bc516b",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 1285,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-29T12:13:30Z",
+      "side": 1,
+      "message": "same here, we will need to make this API a system API later. I can handle that part.",
+      "range": {
+        "startLine": 1285,
+        "startChar": 7,
+        "endLine": 1285,
+        "endChar": 62
+      },
+      "revId": "a8c148eb51d24558412281188de8048f5aaf7eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7c47d17_ca63dab5",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-29T12:13:30Z",
+      "side": 1,
+      "message": "Is there any reason why we want to make the subTypes ordered, instead of using an ArraySet?",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 87
+      },
+      "revId": "a8c148eb51d24558412281188de8048f5aaf7eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "864abf5c_753c34dd",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-29T12:13:30Z",
+      "side": 1,
+      "message": "Looks like this API can be used by other client as well (e.g. media shell). We will need to make this API a proper system API later. \n\nNo need to do it in this CL.",
+      "range": {
+        "startLine": 416,
+        "startChar": 7,
+        "endLine": 416,
+        "endChar": 62
+      },
+      "revId": "a8c148eb51d24558412281188de8048f5aaf7eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a30fc3e1_942fdbe5",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-09-29T12:13:30Z",
+      "side": 1,
+      "message": "We should limit the number of subTypes can be added here. Not sure about max number of subTypes that thread will use. \n\nWe know the media shell use case we need support max 100 subtypes. If 100 is sufficient for thread could you please add a check to the size of Set to be less than 100?",
+      "range": {
+        "startLine": 418,
+        "startChar": 37,
+        "endLine": 418,
+        "endChar": 57
+      },
+      "revId": "a8c148eb51d24558412281188de8048f5aaf7eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
