@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3da14e16_e88118e3",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-09-30T14:32:56Z",
+      "side": 0,
+      "message": "btw. AFAICT this value was \u0027wrong\u0027 (in the sense of arbitrary) to begin with...\n\nA max size IPv4 packet is 65535 bytes (16-bit pkt length field), after conversion to/from ipv6 it increases by MTU_DELTA of 28 (- 20 bytes of ipv4 header + 40 bytes of ipv6 header + potential extra 8 byte ipv6 fragmentation header).\n\nThus the \u0027max\u0027 ipv6 L3 mtu (which is the one this is measuring) is actually 65535 + 28 \u003d 65563\n\nThe maximum non jumbogram ipv6 packet is 40 + 65535 \u003d 65575 bytes,\nso 65563 is smaller than that.\n\nThus 65563 is the value this *probably* should have been before,\nassuming the intent was to actually support the max possible size.\n\nHowever, none of this makes real sense, see commit message of this change.",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 42
+      },
+      "revId": "868859d4ef6cc42c20430190f5e5af2feecab4fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
