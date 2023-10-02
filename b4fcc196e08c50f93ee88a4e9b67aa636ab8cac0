@@ -191,6 +191,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddeed674_3ce50106",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-02T06:32:06Z",
+      "side": 1,
+      "message": "I was talking about the HostsideVpnTests. Those are currently disabled on watches.\n\nModified the commit message to mention them.",
+      "parentUuid": "2a585063_198ccba3",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 67
+      },
+      "revId": "b4fcc196e08c50f93ee88a4e9b67aa636ab8cac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c049b51_84f19cc2",
