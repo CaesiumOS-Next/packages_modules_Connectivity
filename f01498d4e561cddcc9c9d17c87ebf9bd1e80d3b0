@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f23c05e_efcf1985",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-10-02T07:47:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81737cf6_84555cbe",
+      "range": {
+        "startLine": 64,
+        "startChar": 25,
+        "endLine": 64,
+        "endChar": 38
+      },
+      "revId": "f01498d4e561cddcc9c9d17c87ebf9bd1e80d3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f208a31b_0c898af7",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-25T07:13:02Z",
       "side": 1,
       "message": "Leaf",
+      "range": {
+        "startLine": 105,
+        "startChar": 21,
+        "endLine": 105,
+        "endChar": 26
+      },
+      "revId": "f01498d4e561cddcc9c9d17c87ebf9bd1e80d3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72537178_20a7cc22",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-10-02T07:47:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f208a31b_0c898af7",
       "range": {
         "startLine": 105,
         "startChar": 21,
