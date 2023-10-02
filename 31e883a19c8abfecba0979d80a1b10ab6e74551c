@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbbf1ede_ef03ddea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-02T03:13:40Z",
+      "side": 1,
+      "message": "Should the test changes belong in the same CL that changes DnsManager and DnsManagerTest?",
+      "revId": "31e883a19c8abfecba0979d80a1b10ab6e74551c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab77ded0_b2d1a96a",
+        "filename": "tests/unit/java/com/android/server/connectivity/DnsManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-02T03:13:40Z",
+      "side": 1,
+      "message": "Do we actually need this? Can we instead use @JavaDerive to autogenerate the code?",
+      "range": {
+        "startLine": 125,
+        "startChar": 17,
+        "endLine": 125,
+        "endChar": 38
+      },
+      "revId": "31e883a19c8abfecba0979d80a1b10ab6e74551c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
