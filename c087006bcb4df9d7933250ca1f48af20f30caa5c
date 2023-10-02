@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22545d3e_c3ccdec0",
+        "filename": "staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-02T10:20:10Z",
+      "side": 1,
+      "message": "Nit: that\u0027s a bit long and will force callers to break lines every time; maybe \"isTrunkStableFeatureEnabled\" would be enough, since it\u0027s already in p/m/Connectivity ? Or some other short alternative ?",
+      "range": {
+        "startLine": 431,
+        "startChar": 26,
+        "endLine": 431,
+        "endChar": 67
+      },
+      "revId": "c087006bcb4df9d7933250ca1f48af20f30caa5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
