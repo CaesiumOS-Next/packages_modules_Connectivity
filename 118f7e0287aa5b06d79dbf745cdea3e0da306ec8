@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f4103c26_204ef2d6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-10-02T08:51:45Z",
+      "side": 1,
+      "message": "Having two constructors (one for SyncSM, one for AsyncSM) means the IpServer also need to provide tow constructors then IpServer have 30+ duplicate codes (l.314 ~ 351) to initial final variable in both constructor. Do you think this is better?\n\n    public IpServer(...) {\n        super(name, looper)\n        ...\n        init final variables.\n        ...\n    }\n\n    public IpServer(...) {\n        super(name, thread)\n        ...\n        [duplicated] init final variables.\n        ...\n    }",
+      "parentUuid": "1500fce7_492044d8",
+      "range": {
+        "startLine": 34,
+        "startChar": 47,
+        "endLine": 34,
+        "endChar": 87
+      },
+      "revId": "118f7e0287aa5b06d79dbf745cdea3e0da306ec8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "00baf037_c36443b7",
         "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
         "patchSetId": 23
