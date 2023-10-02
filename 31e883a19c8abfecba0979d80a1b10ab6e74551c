@@ -39,6 +39,30 @@
       },
       "revId": "31e883a19c8abfecba0979d80a1b10ab6e74551c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b9ef712_137e36a9",
+        "filename": "tests/unit/java/com/android/server/connectivity/DnsManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-02T13:43:33Z",
+      "side": 1,
+      "message": "Done.\n\nAdded JavaDerive annotation in DohParamsParcel.aidl.",
+      "parentUuid": "ab77ded0_b2d1a96a",
+      "range": {
+        "startLine": 125,
+        "startChar": 17,
+        "endLine": 125,
+        "endChar": 38
+      },
+      "revId": "31e883a19c8abfecba0979d80a1b10ab6e74551c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
