@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b966e372_166b0886",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-02T10:00:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7d4092a_9bab0f25",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 11
+      },
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2536e172_c5a8d58d",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-28T08:35:36Z",
       "side": 1,
       "message": "Should we assert getRR() is null?",
+      "range": {
+        "startLine": 100,
+        "startChar": 25,
+        "endLine": 100,
+        "endChar": 61
+      },
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61a00304_786358b2",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-02T10:00:26Z",
+      "side": 1,
+      "message": "It\u0027s probably not necessary because getRR() always returns null if rType is QDSECTION. \n\n```\n        private DnsRecord(@RecordType int rType, @NonNull ByteBuffer buf)\n                throws BufferUnderflowException, ParseException {\n            ...\n\n            if (rType !\u003d QDSECTION) {\n                ttl \u003d Integer.toUnsignedLong(buf.getInt());\n                final int length \u003d Short.toUnsignedInt(buf.getShort());\n                mRdata \u003d new byte[length];\n                buf.get(mRdata);\n            } else {\n                ttl \u003d 0;\n                mRdata \u003d null;\n            }\n        }\n```",
+      "parentUuid": "2536e172_c5a8d58d",
       "range": {
         "startLine": 100,
         "startChar": 25,
@@ -93,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e915817_74cca2c4",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-02T10:00:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c5c6e6c_4c3852f6",
+      "range": {
+        "startLine": 141,
+        "startChar": 18,
+        "endLine": 141,
+        "endChar": 28
+      },
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5d40783_df1f57a9",
@@ -128,6 +200,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7fe6d4e_9684e241",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-02T10:00:26Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "705de9c8_6acd0d46",
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b81f054f_112fc3b9",
@@ -141,6 +231,30 @@
       "writtenOn": "2023-09-28T08:35:36Z",
       "side": 1,
       "message": "Maybe make sliceAndAdvance return object.asReadOnlyBuffer()",
+      "range": {
+        "startLine": 249,
+        "startChar": 71,
+        "endLine": 249,
+        "endChar": 87
+      },
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47581d17_7d931264",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-02T10:00:26Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "b81f054f_112fc3b9",
       "range": {
         "startLine": 249,
         "startChar": 71,
@@ -174,6 +288,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5ba39e9_1290c490",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-02T10:00:26Z",
+      "side": 1,
+      "message": "I think this SvcParam is not actually needed for now since I haven\u0027t seen that public DoH providers are using this one for DDR.\n\nIf it\u0027s usually preferred to remain irrelevant stuff unimplemented. I can have a follow-up to remove this one (and others possibly irrelevant, such as SvcParamNoDefaultAlpn)",
+      "parentUuid": "eeff015f_581947f9",
+      "range": {
+        "startLine": 371,
+        "startChar": 25,
+        "endLine": 371,
+        "endChar": 36
+      },
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa51c68f_ec28ff06",
@@ -187,6 +325,30 @@
       "writtenOn": "2023-09-28T08:35:36Z",
       "side": 1,
       "message": "Maybe test this?",
+      "range": {
+        "startLine": 443,
+        "startChar": 29,
+        "endLine": 443,
+        "endChar": 44
+      },
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2eb00024_a9382ffd",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-02T10:00:26Z",
+      "side": 1,
+      "message": "The test is added in aosp/2752417.",
+      "parentUuid": "fa51c68f_ec28ff06",
       "range": {
         "startLine": 443,
         "startChar": 29,
@@ -220,6 +382,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61d2713e_2d42075b",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-02T10:00:26Z",
+      "side": 1,
+      "message": "The second slice() is used to set the capacity of the ByteBuffer, as the function description says \"Returns a ByteBuffer (with position \u003d 0, limit \u003d `length`, and capacity \u003d `length`)\". It prevents the possibility that callers who get this new ByteBuffer call ByteBuffer.limit(val), where val is greater than length, to see/alter the content that is not supposed be to visible to the ByteBuffer.",
+      "parentUuid": "647107bf_d63aec82",
+      "range": {
+        "startLine": 451,
+        "startChar": 72,
+        "endLine": 451,
+        "endChar": 77
+      },
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57e27d19_3384f80a",
@@ -237,6 +423,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b341aa0b_7ac3c606",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-02T10:00:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57e27d19_3384f80a",
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dfc2215d_7e5443cd",
@@ -250,6 +454,30 @@
       "writtenOn": "2023-09-29T08:46:31Z",
       "side": 1,
       "message": "of mandatory what ? Word missing here maybe ?",
+      "range": {
+        "startLine": 476,
+        "startChar": 83,
+        "endLine": 476,
+        "endChar": 96
+      },
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2766229_b4ad3887",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-02T10:00:26Z",
+      "side": 1,
+      "message": "Sorry for confusion. The word \"mandatory\" means \"SvcParamKey mandatory\".",
+      "parentUuid": "dfc2215d_7e5443cd",
       "range": {
         "startLine": 476,
         "startChar": 83,
@@ -307,6 +535,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f505b74_7311a660",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsPacketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-02T10:00:26Z",
+      "side": 1,
+      "message": "Perhaps the reason of this warning is that AndroidLint doesn\u0027t consider the code in this file as \"test code\" because the naming doesn\u0027t satisfies *_test.",
+      "parentUuid": "cd0caa60_ee84a7fc",
+      "range": {
+        "startLine": 211,
+        "startChar": 40,
+        "endLine": 211,
+        "endChar": 65
+      },
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7b9db4b_be2cc849",
@@ -320,6 +572,54 @@
       "writtenOn": "2023-09-28T08:35:36Z",
       "side": 1,
       "message": "Maybe add one more test that is not QDSECTION?",
+      "range": {
+        "startLine": 215,
+        "startChar": 5,
+        "endLine": 215,
+        "endChar": 6
+      },
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59e515f7_e3e34bc5",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsPacketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-02T10:00:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7b9db4b_be2cc849",
+      "range": {
+        "startLine": 215,
+        "startChar": 5,
+        "endLine": 215,
+        "endChar": 6
+      },
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7aec34b_aa276670",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsPacketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-02T10:00:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7b9db4b_be2cc849",
       "range": {
         "startLine": 215,
         "startChar": 5,
