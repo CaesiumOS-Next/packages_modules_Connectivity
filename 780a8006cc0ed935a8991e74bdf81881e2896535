@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "034353dd_32fafd10",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-02T10:01:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9a9b7a1_e972d034",
+      "range": {
+        "startLine": 162,
+        "startChar": 15,
+        "endLine": 162,
+        "endChar": 20
+      },
+      "revId": "780a8006cc0ed935a8991e74bdf81881e2896535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c49fd130_795fcf6d",
@@ -70,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b20925ee_ae4c2c93",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-02T10:01:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c49fd130_795fcf6d",
+      "range": {
+        "startLine": 165,
+        "startChar": 50,
+        "endLine": 165,
+        "endChar": 56
+      },
+      "revId": "780a8006cc0ed935a8991e74bdf81881e2896535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53359c90_2dd58f19",
@@ -83,6 +131,30 @@
       "writtenOn": "2023-09-29T09:37:28Z",
       "side": 1,
       "message": "\u003e They don\u0027t have get value for now, so their content can be tested by toString() only.\n\nThen please assert that the string contains X Y and Z, instead of forcing a very specific order and spacing\n\n\u003e In addition, as the spec also defines the representation format of a SVCB packet.\n\nIf that\u0027s the case, then yes – you should immediately call it something else than toString(), which is for human consumption, and test that instead. It could be called \u0027asRFCXXXString()\u0027 or similar. It\u0027s fine if toString() calls that method.",
+      "range": {
+        "startLine": 237,
+        "startChar": 8,
+        "endLine": 237,
+        "endChar": 20
+      },
+      "revId": "780a8006cc0ed935a8991e74bdf81881e2896535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1336fde_4eab3d38",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-02T10:01:09Z",
+      "side": 1,
+      "message": "I removed test code that checks toString(), except for these SvcParams: mandatory, no-default-alpn, ech, and genericSvcParam because I haven\u0027t implemented the getter funtion for them.",
+      "parentUuid": "53359c90_2dd58f19",
       "range": {
         "startLine": 237,
         "startChar": 8,
