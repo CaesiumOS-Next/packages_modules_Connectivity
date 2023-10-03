@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf3f9401_f0add68a",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-03T05:51:18Z",
+      "side": 1,
+      "message": "Maybe _WITH_VALUE?",
+      "range": {
+        "startLine": 104,
+        "startChar": 54,
+        "endLine": 104,
+        "endChar": 55
+      },
+      "revId": "95c662b8f9676a8f7c50145e2a2e9de12fd31b06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76cd88df_2bfda896",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-03T05:51:18Z",
+      "side": 1,
+      "message": "1. IIUC it is better to modify DnsHeader(int id, int flags, int qdcount, int ancount) to support additional parameters. \nGenerally speaking, things built from byte buffer are harder to maintain.\nAnd use new DnsHeader(....).getBytes() for the callers.\n\n2. But you could still use this function if it is convience for you.\nIf so, maybe name this more specifically:\nmakeTestDnsHeaderBytes(int ...) {\n  return new DnsHeader(....).getBytes();",
+      "range": {
+        "startLine": 113,
+        "startChar": 26,
+        "endLine": 113,
+        "endChar": 39
+      },
+      "revId": "95c662b8f9676a8f7c50145e2a2e9de12fd31b06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b49c5ba4_2e2950b4",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-03T05:51:18Z",
+      "side": 1,
+      "message": "Maybe define constant, e.g. TEST_TRANSATION_ID\nAlso for below.",
+      "range": {
+        "startLine": 115,
+        "startChar": 32,
+        "endLine": 115,
+        "endChar": 37
+      },
+      "revId": "95c662b8f9676a8f7c50145e2a2e9de12fd31b06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89a3df42_1f607aed",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-03T05:51:18Z",
+      "side": 1,
+      "message": "makeDnsSvcbRecordFromBytes?",
+      "range": {
+        "startLine": 124,
+        "startChar": 33,
+        "endLine": 124,
+        "endChar": 50
+      },
+      "revId": "95c662b8f9676a8f7c50145e2a2e9de12fd31b06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d09e9ac_ec1fa41f",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-03T05:51:18Z",
+      "side": 1,
+      "message": "Maybe name it SvcbRecordBuilder if this is only for Svcb?\nAlternatively, maybe rename it to a TestDnsRecordBuilder and put into a standalone file?",
+      "revId": "95c662b8f9676a8f7c50145e2a2e9de12fd31b06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e358d98c_631a7034",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-03T05:51:18Z",
+      "side": 1,
+      "message": "IIUC this is not a correct builder pattern since we will have more and more combinations of cases which will increase number of newBuilderForXyzMethods.\nIIUC this is for generating byte arrays instead of a real DnsRecord object.\n\nIf so, maybe we should name it more specifically, e.g.:\nclass TestDnsRecordBytesBuilder {\n   TestDnsRecordBytesBuilder(int type);\n   bytes[] build();\n   TestDnsRecordBytesBuilder addRdata(byte[] rdata);\n   TestDnsRecordBytesBuilder setNameCompression(boolean enable);\n   ....\n}\n\nNote all set/add methods should be allowed to call in any order.",
+      "range": {
+        "startLine": 174,
+        "startChar": 7,
+        "endLine": 184,
+        "endChar": 9
+      },
+      "revId": "95c662b8f9676a8f7c50145e2a2e9de12fd31b06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
