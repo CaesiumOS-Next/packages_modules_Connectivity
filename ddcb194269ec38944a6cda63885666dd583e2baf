@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9bdf5be_e756b54d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-03T06:08:46Z",
+      "side": 1,
+      "message": "Removing myself from the reviewer list to avoid being spammed by presubmit notifications :-)",
+      "revId": "ddcb194269ec38944a6cda63885666dd583e2baf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
