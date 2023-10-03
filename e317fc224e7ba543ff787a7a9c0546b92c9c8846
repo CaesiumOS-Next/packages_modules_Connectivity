@@ -39,6 +39,30 @@
       },
       "revId": "e317fc224e7ba543ff787a7a9c0546b92c9c8846",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fa0c18f_afdf9d0a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDefaultNetworkTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-03T12:39:17Z",
+      "side": 1,
+      "message": "ConnectivityService is recreated for every test anyway. So it would really be academic.\n\nOne thing we could do is have this subclass of ConnectivityManager keep track of requests and release everything in tearDown() (either by overloading all registerer methods, or by offering some form of access to ConnectivityManager.sCallbacks to children classes). If we ever have performance issues with these tests and decide to not recreate CS every time, this may be a good way to do this. But immediately it\u0027s probably just as well if we just do nothing and let them be GC\u0027d.",
+      "parentUuid": "81b3c4c8_b7ded601",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 25
+      },
+      "revId": "e317fc224e7ba543ff787a7a9c0546b92c9c8846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
