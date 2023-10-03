@@ -33,6 +33,24 @@
       "message": "Could you upload a change to add the method to @TestApi ?",
       "revId": "e72c5a396cfa79593c6be747ac3c9739ec7254b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87e08ee1_73da3b2e",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-03T06:23:46Z",
+      "side": 1,
+      "message": "+1. I\u0027d guess that per API council guidelines the actual API should be something like \n\n    Builder setRestrictedToTestNetworks(boolean restrictedToTestNetworks) {\n\nand you\u0027d also need to add @TestApi to the corresponding isRestrictedToTestNetworks method.\n\nThis test can then do something like:\n\n\n    if (SdkLevel.isAtLeastV()) {\n        // @TestApi since V.\n        builder.setRestrictedToTestNetworks(true);\n    } else {\n        // Legacy hidden API.\n        builder.restrictToTestNetworks();\n    }",
+      "parentUuid": "f783b0aa_35979878",
+      "revId": "e72c5a396cfa79593c6be747ac3c9739ec7254b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
