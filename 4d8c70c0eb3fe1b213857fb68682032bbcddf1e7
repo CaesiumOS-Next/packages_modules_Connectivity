@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f5ec507_ceb44383",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3639,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-03T08:51:13Z",
+      "side": 1,
+      "message": "Is this test necessary ? I think it\u0027s a no-op if targetUid \u003d\u003d myUid.\n\nNo strong opinion.",
+      "range": {
+        "startLine": 3639,
+        "startChar": 21,
+        "endLine": 3639,
+        "endChar": 45
+      },
+      "revId": "4d8c70c0eb3fe1b213857fb68682032bbcddf1e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
