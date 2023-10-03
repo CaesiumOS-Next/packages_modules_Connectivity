@@ -17,6 +17,7 @@
 package com.android.server.connectivity.mdns;
 
 import android.annotation.Nullable;
+import android.net.DnsResolver;
 
 import com.android.internal.annotations.VisibleForTesting;
 
@@ -58,6 +59,11 @@ public class MdnsInetAddressRecord extends MdnsRecord {
             boolean isQuestion)
             throws IOException {
         super(name, type, reader, isQuestion);
+    }
+
+    public MdnsInetAddressRecord(String[] name, int type, boolean unicast) {
+        super(name, type, DnsResolver.CLASS_IN /* cls */,
+                0L /* receiptTimeMillis */, unicast /* cacheFlush */, 0L /* ttlMillis */);
     }
 
     public MdnsInetAddressRecord(String[] name, long receiptTimeMillis, boolean cacheFlush,

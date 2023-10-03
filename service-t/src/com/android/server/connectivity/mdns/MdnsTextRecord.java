@@ -17,6 +17,7 @@
 package com.android.server.connectivity.mdns;
 
 import android.annotation.Nullable;
+import android.net.DnsResolver;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.connectivity.mdns.MdnsServiceInfo.TextEntry;
@@ -39,6 +40,11 @@ public class MdnsTextRecord extends MdnsRecord {
     public MdnsTextRecord(String[] name, MdnsPacketReader reader, boolean isQuestion)
             throws IOException {
         super(name, TYPE_TXT, reader, isQuestion);
+    }
+
+    public MdnsTextRecord(String[] name, boolean unicast) {
+        super(name, TYPE_TXT, DnsResolver.CLASS_IN /* cls */,
+                0L /* receiptTimeMillis */, unicast /* cacheFlush */, 0L /* ttlMillis */);
     }
 
     public MdnsTextRecord(String[] name, long receiptTimeMillis, boolean cacheFlush, long ttlMillis,

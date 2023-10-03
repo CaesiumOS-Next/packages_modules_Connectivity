@@ -186,14 +186,70 @@ public class MdnsServiceTypeClient {
     }
 
     public class QueryInfo implements MdnsPacketRepeater.Request {
+        private final MdnsQueryScheduler.ScheduledQueryTaskArgs taskArgs;
+
+        public QueryInfo(@NonNull MdnsQueryScheduler.ScheduledQueryTaskArgs taskArgs) {
+            this.taskArgs = taskArgs;
+        }
+
         @NonNull
         @Override
         public MdnsPacket getPacket(int index) {
-            // TODO: Implement query packet
+            final List<MdnsRecord> questions = new ArrayList<>();
+            final List<MdnsResponse> servicesToResolve = makeResponsesForResolve(socketKey);
+            final boolean sendDiscoveryQueries = servicesToResolve.size() < listeners.size();
+            final boolean unicast = taskArgs.config.expectUnicastResponse;
+
+            if (sendDiscoveryQueries) {
+                // Base service type
+                questions.add(new MdnsPointerRecord(serviceTypeLabels, unicast));
+                if (!taskArgs.config.subtypes.isEmpty()) {
+                    for (String subtype : taskArgs.config.subtypes) {
+                        String[] labels = new String[serviceTypeLabels.length + 2];
+                        labels[0] = MdnsConstants.SUBTYPE_PREFIX + subtype;
+                        labels[1] = MdnsConstants.SUBTYPE_LABEL;
+                        System.arraycopy(serviceTypeLabels, 0, labels, 2, serviceTypeLabels.length);
+                        questions.add(new MdnsPointerRecord(labels, unicast));
+                    }
+                }
+            }
+
+            // List of (name, type) to query
+            final long now = clock.elapsedRealtime();
+            for (MdnsResponse response : servicesToResolve) {
+                final String[] serviceName = response.getServiceName();
+                if (serviceName == null) continue;
+                boolean renewTxt = !response.hasTextRecord() || MdnsUtils.isRecordRenewalNeeded(
+                        response.getTextRecord(), now);
+                boolean renewSrv = !response.hasServiceRecord() || MdnsUtils.isRecordRenewalNeeded(
+                        response.getServiceRecord(), now);
+                if (renewSrv && renewTxt) {
+                    questions.add(new MdnsAnyRecord(serviceName, unicast));
+                } else {
+                    if (renewTxt) {
+                        questions.add(new MdnsTextRecord(serviceName, unicast));
+                    }
+                    if (renewSrv) {
+                        questions.add(new MdnsServiceRecord(serviceName, unicast));
+                        // The hostname is not yet known, so queries for address records will be
+                        // sent the next time the EnqueueMdnsQueryCallable is enqueued if the reply
+                        // does not contain them. In practice, advertisers should include the
+                        // address records when queried for SRV, although it's not a MUST
+                        // requirement (RFC6763 12.2).
+                    } else if (!response.hasInet4AddressRecord()
+                            && !response.hasInet6AddressRecord()) {
+                        final String[] host = response.getServiceRecord().getServiceHost();
+                        questions.add(new MdnsInetAddressRecord(host, MdnsRecord.TYPE_A, unicast));
+                        questions.add(new MdnsInetAddressRecord(
+                                host, MdnsRecord.TYPE_AAAA, unicast));
+                    }
+                }
+            }
+
             final MdnsPacket mdnsPacket = new MdnsPacket(
-                    0, /* transactionId */
+                    taskArgs.config.transactionId,
                     MdnsConstants.FLAGS_QUERY,
-                    Collections.emptyList(), /* questions */
+                    questions,
                     Collections.emptyList(), /* answers */
                     Collections.emptyList(), /* authorityRecords */
                     Collections.emptyList() /* additionalRecords */);
@@ -202,8 +258,18 @@ public class MdnsServiceTypeClient {
 
         @Override
         public long getDelayMs(int nextIndex) {
-            // TODO: Implement query time
-            return 0L;
+            final long now = clock.elapsedRealtime();
+            lastSentTime = now;
+            final long minRemainingTtl = getMinRemainingTtl(now);
+            MdnsQueryScheduler.ScheduledQueryTaskArgs args =
+                    mdnsQueryScheduler.scheduleNextRun(
+                            taskArgs.config,
+                            minRemainingTtl,
+                            now,
+                            lastSentTime,
+                            taskArgs.sessionId
+                    );
+            return calculateTimeToNextTask(args, now, sharedLog);
         }
 
         @Override

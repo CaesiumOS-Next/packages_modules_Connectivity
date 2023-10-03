@@ -17,6 +17,7 @@
 package com.android.server.connectivity.mdns;
 
 import android.annotation.Nullable;
+import android.net.DnsResolver;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
@@ -48,6 +49,10 @@ public class MdnsServiceRecord extends MdnsRecord {
         super(name, TYPE_SRV, reader, isQuestion);
     }
 
+    public MdnsServiceRecord(String[] name, boolean unicast) {
+        super(name, TYPE_SRV, DnsResolver.CLASS_IN /* cls */,
+                0L /* receiptTimeMillis */, unicast /* cacheFlush */, 0L /* ttlMillis */);
+    }
     public MdnsServiceRecord(String[] name, long receiptTimeMillis, boolean cacheFlush,
                     long ttlMillis, int servicePriority, int serviceWeight, int servicePort,
                     String[] serviceHost) {
