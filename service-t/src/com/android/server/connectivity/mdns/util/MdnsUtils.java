@@ -21,6 +21,7 @@ import android.annotation.Nullable;
 import android.net.Network;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.util.ArraySet;
 
@@ -140,9 +141,25 @@ public class MdnsUtils {
         }
     }
 
+    /*** Ensure that current running thread is same as given looper thread */
+    public static void ensureRunningOnLooperThread(@NonNull Looper looper) {
+        if (!isRunningOnLooperThread(looper)) {
+            throw new IllegalStateException(
+                    "Not running on Looper thread: " + Thread.currentThread().getName());
+        }
+    }
+
     /*** Check that current running thread is same as given handler thread */
     public static boolean isRunningOnHandlerThread(@NonNull Handler handler) {
         if (handler.getLooper().getThread() == Thread.currentThread()) {
+            return true;
+        }
+        return false;
+    }
+
+    /*** Check that current running thread is same as given looper thread */
+    public static boolean isRunningOnLooperThread(@NonNull Looper looper) {
+        if (looper.getThread() == Thread.currentThread()) {
             return true;
         }
         return false;
