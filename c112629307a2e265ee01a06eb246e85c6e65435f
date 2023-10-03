@@ -16,6 +16,29 @@
       "message": "(I need to re-check this is 100% correct)",
       "revId": "c112629307a2e265ee01a06eb246e85c6e65435f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5a3821f_b7280555",
+        "filename": "bpf_progs/bpf_net_helpers.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-10-03T16:46:34Z",
+      "side": 1,
+      "message": "I am starting to wonder if it wouldn\u0027t be useful for these booleans to be\n```\ntypdef struct {\n    bool v;\n} typesafe_bool;\n```",
+      "range": {
+        "startLine": 91,
+        "startChar": 13,
+        "endLine": 91,
+        "endChar": 17
+      },
+      "revId": "c112629307a2e265ee01a06eb246e85c6e65435f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
