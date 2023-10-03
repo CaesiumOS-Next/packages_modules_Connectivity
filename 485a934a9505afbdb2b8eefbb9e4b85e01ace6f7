@@ -16,6 +16,52 @@
       "message": "LGTM assuming the remaining 2 comments will be addressed.",
       "revId": "485a934a9505afbdb2b8eefbb9e4b85e01ace6f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51e65bbd_ea92dc49",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-03T02:50:07Z",
+      "side": 1,
+      "message": "Maybe also add comment of ietf draft link of these definitions?",
+      "range": {
+        "startLine": 48,
+        "startChar": 61,
+        "endLine": 48,
+        "endChar": 62
+      },
+      "revId": "485a934a9505afbdb2b8eefbb9e4b85e01ace6f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "733aa286_c223f448",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-03T02:50:07Z",
+      "side": 1,
+      "message": "This is more like KEY_ALPNS?",
+      "range": {
+        "startLine": 154,
+        "startChar": 65,
+        "endLine": 154,
+        "endChar": 73
+      },
+      "revId": "485a934a9505afbdb2b8eefbb9e4b85e01ace6f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
