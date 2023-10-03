@@ -181,6 +181,30 @@ inline int runProgram(const BPF_FD_TYPE prog_fd, const void* data,
                              });
 }
 
+inline int cgroupProgQuery(const BPF_FD_TYPE cg_fd,
+                           enum bpf_attach_type attach_type,
+                           __u32 query_flags = 0,
+                           __u32 attach_flags = 0) {
+    int prog = 0;
+    /* __u32 target_fd, attach_type, query_flags, attach_flags
+       __aligned_u64 prog_ids
+       __u32 prog_cnt, (reserved)
+       output only:
+       __aligned_u64 prog_attach_flags, link_ids, link_attach_flags
+       __u64 revision
+    */
+    int v = bpf(BPF_PROG_QUERY, { .query = {
+                                       .target_fd = BPF_FD_TO_U32(cg_fd),
+                                       .attach_type = attach_type,
+                                       .query_flags = query_flags,
+                                       .attach_flags = attach_flags,
+                                       .prog_ids = ptr_to_u64(&prog),
+                                       .prog_cnt = 1,
+                                }});
+    if (v) return v;
+    return prog;
+}
+
 // BPF_OBJ_GET_INFO_BY_FD requires 4.14+ kernel
 //
 // Note: some fields are only defined in newer kernels (ie. the map_info struct grows
