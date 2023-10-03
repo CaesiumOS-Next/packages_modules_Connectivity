@@ -26,6 +26,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd269842_4f5b13ef",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsEventLogger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-03T07:35:05Z",
+      "side": 1,
+      "message": "NETWORK_STATUS_CHANGED ?",
+      "range": {
+        "startLine": 36,
+        "startChar": 33,
+        "endLine": 36,
+        "endChar": 47
+      },
+      "revId": "49f7627218f8340a09eca609424745a8c3e29541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91bc65fe_4ac19d09",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsEventLogger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-03T07:35:05Z",
+      "side": 1,
+      "message": "maybe BROADCAST_NETWORK_STATS_POLL or something ? Who sends this and when does this happen ?",
+      "range": {
+        "startLine": 43,
+        "startChar": 33,
+        "endLine": 43,
+        "endChar": 58
+      },
+      "revId": "49f7627218f8340a09eca609424745a8c3e29541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8076d705_4cb6660e",
         "filename": "service-t/src/com/android/server/net/NetworkStatsEventLogger.java",
         "patchSetId": 2
@@ -88,6 +134,52 @@
         "startChar": 29,
         "endLine": 71,
         "endChar": 64
+      },
+      "revId": "49f7627218f8340a09eca609424745a8c3e29541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86f6b886_d6426803",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsEventLogger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-03T07:35:05Z",
+      "side": 1,
+      "message": "Can you do a little bit more readable ? This is really difficult to parse ; you certainly can\u0027t understand it at all without looking at the code at the same time.",
+      "range": {
+        "startLine": 82,
+        "startChar": 26,
+        "endLine": 82,
+        "endChar": 34
+      },
+      "revId": "49f7627218f8340a09eca609424745a8c3e29541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d43e1b5_7297ed54",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsEventLogger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-03T07:35:05Z",
+      "side": 1,
+      "message": "How useful is this really ? It\u0027s just a glorified int. IIUC, what you\u0027re after with this is just the timestamps in LocalLog but what about just using Integer then ?",
+      "range": {
+        "startLine": 93,
+        "startChar": 24,
+        "endLine": 93,
+        "endChar": 33
       },
       "revId": "49f7627218f8340a09eca609424745a8c3e29541",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -164,6 +256,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d004012e_4a20c512",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsEventLoggerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-03T07:35:05Z",
+      "side": 1,
+      "message": "Let\u0027s import this",
+      "range": {
+        "startLine": 34,
+        "startChar": 18,
+        "endLine": 34,
+        "endChar": 28
+      },
+      "revId": "49f7627218f8340a09eca609424745a8c3e29541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c90c9c7_33df2911",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsEventLoggerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-03T07:35:05Z",
+      "side": 1,
+      "message": "Is this needed ? I think if you use DevSdkIgnoreRunner, you don\u0027t need this.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 39
+      },
+      "revId": "49f7627218f8340a09eca609424745a8c3e29541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2d78dab_616e1bf5",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsEventLoggerTest.kt",
         "patchSetId": 2
@@ -198,6 +336,30 @@
       "writtenOn": "2023-10-03T05:57:09Z",
       "side": 1,
       "message": "Could you try to add every supported reason inside? also verify unsupported reason see if we get the expected exception",
+      "range": {
+        "startLine": 48,
+        "startChar": 24,
+        "endLine": 48,
+        "endChar": 33
+      },
+      "revId": "49f7627218f8340a09eca609424745a8c3e29541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb70ac91_c62193ab",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsEventLoggerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-03T07:35:05Z",
+      "side": 1,
+      "message": "Maybe \"every\" reason is overkill, but certainly more than one.\n\nYou want to test the counts, and you want to test what happens above 50 logs.",
+      "parentUuid": "c587deaf_88a02ac1",
       "range": {
         "startLine": 48,
         "startChar": 24,

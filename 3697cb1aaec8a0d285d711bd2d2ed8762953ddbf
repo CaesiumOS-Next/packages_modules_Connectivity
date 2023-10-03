@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7662df6_4d27789b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsEventLogger.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-03T07:35:05Z",
+      "side": 1,
+      "message": "My intuition is that this is going to be very insufficient to use this for battery. By definition the goal here is to figure out why there are hundreds of polls ; is a log of 50 sufficient to figure that out ?\n\nI am especially concerned as the bugreports probably come in at the end of the day when battery has been very bad, which means the polls hours earlier and have probably rolled over since.\n\nOr do you think mPollEventCounts is what matters and the last events don\u0027t count that much ?",
+      "range": {
+        "startLine": 64,
+        "startChar": 47,
+        "endLine": 64,
+        "endChar": 49
+      },
+      "revId": "3697cb1aaec8a0d285d711bd2d2ed8762953ddbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
