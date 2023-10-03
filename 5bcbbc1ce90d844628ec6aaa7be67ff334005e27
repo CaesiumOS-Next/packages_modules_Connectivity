@@ -34,6 +34,24 @@
       "parentUuid": "a9a30562_6d4c30a7",
       "revId": "5bcbbc1ce90d844628ec6aaa7be67ff334005e27",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "163348c4_c7f0002c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-03T22:47:26Z",
+      "side": 1,
+      "message": "The reason is that something in Ike2VpnTest results in\n  networkSetProtectAllow(CTS UID)\nwhich then breaks the assumptions of VpnServiceTest.\n\ntestProtect_Socket() is a bogus test - it doesn\u0027t actually create a socket...\n\ntestProtect_int() fails due to the previous Ike2VpnTests networkSetProtectAllow(CTS UID)\n\ntestPrepare() appears to restore things\n\ntestProtect_DatagramSocket() succeeds because now things are restored.",
+      "parentUuid": "0f85259a_31e98a6c",
+      "revId": "5bcbbc1ce90d844628ec6aaa7be67ff334005e27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
