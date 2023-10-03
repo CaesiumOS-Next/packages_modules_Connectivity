@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4f97206_60617118",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2023-10-03T17:33:06Z",
+      "side": 1,
+      "message": "Thanks for fixing!",
+      "revId": "ec0149f1ba48f8539824ae8b8ee38343b54cabe0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8fb3e8b_ec15a624",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2023-10-03T17:33:06Z",
+      "side": 1,
+      "message": "Could you clarify why we are creating a new `lock` variable instead of using `mLock` directly?",
+      "range": {
+        "startLine": 201,
+        "startChar": 8,
+        "endLine": 201,
+        "endChar": 49
+      },
+      "revId": "ec0149f1ba48f8539824ae8b8ee38343b54cabe0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
