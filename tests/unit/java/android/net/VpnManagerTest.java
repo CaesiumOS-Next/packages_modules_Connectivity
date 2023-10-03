@@ -19,7 +19,6 @@ package android.net;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assume.assumeFalse;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
@@ -28,13 +27,11 @@ import static org.mockito.Mockito.when;
 
 import android.content.ComponentName;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.test.mock.MockContext;
 import android.util.SparseArray;
 
 import androidx.test.filters.SmallTest;
-import androidx.test.InstrumentationRegistry;
 
 import com.android.internal.net.VpnProfile;
 import com.android.internal.util.MessageUtils;
@@ -50,7 +47,6 @@ import org.junit.runner.RunWith;
 @RunWith(DevSdkIgnoreRunner.class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 public class VpnManagerTest {
-
     private static final String PKG_NAME = "fooPackage";
 
     private static final String SESSION_NAME_STRING = "testSession";
@@ -70,9 +66,6 @@ public class VpnManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        assumeFalse("Skipping test because watches don't support VPN",
-            InstrumentationRegistry.getContext().getPackageManager().hasSystemFeature(
-                PackageManager.FEATURE_WATCH));
         mMockService = mock(IVpnManager.class);
         mVpnManager = new VpnManager(mMockContext, mMockService);
     }
