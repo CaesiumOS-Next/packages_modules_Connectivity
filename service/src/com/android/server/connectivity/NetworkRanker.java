@@ -229,11 +229,11 @@ public class NetworkRanker {
      */
     private boolean hasPrioritizedCapability(@NonNull final Scoreable nai) {
         final NetworkCapabilities caps = nai.getCapsNoCopy();
-        final long anyPrioritizeCapability =
-                (1L << NET_CAPABILITY_PRIORITIZE_LATENCY)
-                | (1L << NET_CAPABILITY_PRIORITIZE_BANDWIDTH);
-        return 0 != (caps.getCapabilitiesInternal() & anyPrioritizeCapability);
+        return 0 != (caps.getCapabilitiesInternal() & ANY_PRIORITIZE_CAPABILITY);
     }
+    private static final long ANY_PRIORITIZE_CAPABILITY =
+            (1L << NET_CAPABILITY_PRIORITIZE_LATENCY)
+                    | (1L << NET_CAPABILITY_PRIORITIZE_BANDWIDTH);
 
     /**
      * Get the best network among a list of candidates according to policy.
