@@ -21,6 +21,7 @@ import android.annotation.Nullable;
 import android.net.Network;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.util.ArraySet;
 
@@ -141,9 +142,25 @@ public class MdnsUtils {
         }
     }
 
+    /*** Ensure that current running thread is same as given looper thread */
+    public static void ensureRunningOnLooperThread(@NonNull Looper looper) {
+        if (!isRunningOnLooperThread(looper)) {
+            throw new IllegalStateException(
+                    "Not running on Looper thread: " + Thread.currentThread().getName());
+        }
+    }
+
     /*** Check that current running thread is same as given handler thread */
     public static boolean isRunningOnHandlerThread(@NonNull Handler handler) {
-        if (handler.getLooper().getThread() == Thread.currentThread()) {
+        if (isRunningOnLooperThread(handler.getLooper())) {
+            return true;
+        }
+        return false;
+    }
+
+    /*** Check that current running thread is same as given looper thread */
+    private static boolean isRunningOnLooperThread(@NonNull Looper looper) {
+        if (looper.getThread() == Thread.currentThread()) {
             return true;
         }
         return false;
@@ -183,13 +200,10 @@ public class MdnsUtils {
     }
 
     /**
-     * Create a raw DNS packet.
+     * Write the mdns packet from given MdnsPacket.
      */
-    public static byte[] createRawDnsPacket(@NonNull byte[] packetCreationBuffer,
-            @NonNull MdnsPacket packet) throws IOException {
-        // TODO: support packets over size (send in multiple packets with TC bit set)
-        final MdnsPacketWriter writer = new MdnsPacketWriter(packetCreationBuffer);
-
+    public static void writeMdnsPacket(@NonNull MdnsPacketWriter writer, @NonNull MdnsPacket packet)
+            throws IOException {
         writer.writeUInt16(packet.transactionId); // Transaction ID (advertisement: 0)
         writer.writeUInt16(packet.flags); // Response, authoritative (rfc6762 18.4)
         writer.writeUInt16(packet.questions.size()); // questions count
@@ -210,6 +224,16 @@ public class MdnsUtils {
         for (MdnsRecord record : packet.additionalRecords) {
             record.write(writer, 0L);
         }
+    }
+
+    /**
+     * Create a raw DNS packet.
+     */
+    public static byte[] createRawDnsPacket(@NonNull byte[] packetCreationBuffer,
+            @NonNull MdnsPacket packet) throws IOException {
+        // TODO: support packets over size (send in multiple packets with TC bit set)
+        final MdnsPacketWriter writer = new MdnsPacketWriter(packetCreationBuffer);
+        writeMdnsPacket(writer, packet);
 
         final int len = writer.getWritePosition();
         return Arrays.copyOfRange(packetCreationBuffer, 0, len);
