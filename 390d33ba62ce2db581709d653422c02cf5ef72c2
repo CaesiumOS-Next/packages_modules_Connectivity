@@ -38,6 +38,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d8ee6e04_11dc57cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-03T23:36:13Z",
+      "side": 1,
+      "message": "Looks like this can also be fixed by\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2768572",
+      "revId": "390d33ba62ce2db581709d653422c02cf5ef72c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6d88673e_29e192d0",
         "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
         "patchSetId": 1
