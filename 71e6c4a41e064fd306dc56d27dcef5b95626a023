@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4375f161_8812c7db",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 10301,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-03T09:32:00Z",
+      "side": 1,
+      "message": "Simulate",
+      "range": {
+        "startLine": 10301,
+        "startChar": 11,
+        "endLine": 10301,
+        "endChar": 19
+      },
+      "revId": "71e6c4a41e064fd306dc56d27dcef5b95626a023",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
