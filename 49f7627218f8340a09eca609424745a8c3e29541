@@ -185,6 +185,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e2dff8f_00cdfff7",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsEventLogger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-03T08:58:25Z",
+      "side": 1,
+      "message": "Gived an example in the reply above.\nSee if it works for you.",
+      "parentUuid": "4d43e1b5_7297ed54",
+      "range": {
+        "startLine": 93,
+        "startChar": 24,
+        "endLine": 93,
+        "endChar": 33
+      },
+      "revId": "49f7627218f8340a09eca609424745a8c3e29541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29ff6de8_9e3d296e",

@@ -22,6 +22,30 @@
       },
       "revId": "3697cb1aaec8a0d285d711bd2d2ed8762953ddbf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3950cce0_2e530153",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsEventLogger.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-03T08:58:25Z",
+      "side": 1,
+      "message": "Yes and no.\nLast events can\u0027t save us from b/301141955.\nAnd probably mPollEventCounts is not enough too.\nBut they are good in general issue clarification I think.\n\nFor b/301141955, in a subsequent CL, the plan is to add uid, and callstack for system uids.\nSo we can do something like:\nforceUpdate() {\n  final PollEvent event;\n  if (uid \u003d\u003d SYSTEM_UID) {\n    event \u003d new PollEvent(POLL_REASON_FORCE_UPDATE, uid, getCallStack());\n  } else {\n    event \u003d new PollEvent(POLL_REASON_FORCE_UPDATE, uid);\n  }\n  performPoll(flag, event);\n}  \n\nThus, in NetworkStatsEventLogger, we can check if these fields are filled and\nstore such info into something like:\n\n  // String[] is the file name list strip from getCallStrackTrace()\n  HashMap\u003cString[], Int\u003e mCountPerSystemCallers;\n  \n  logPollEvent(...) {\n     ...\n     if (event.uid \u003d\u003d SYSTEM_UID \u0026\u0026 event.callstack !\u003d null) {\n       mCountPerSystemCallers.put(event.callstack, /* previous count +1 */);\n     }\n  } \n  \nIf so, we can dump poll counts per system caller like:\n\n  dump(..) {\n       ....\n       pw.println(\"Poll counts per system caller:\");\n       ...\n  }\n  \nI think this might be a way out for b/301141955.\nWDYT?",
+      "parentUuid": "b7662df6_4d27789b",
+      "range": {
+        "startLine": 64,
+        "startChar": 47,
+        "endLine": 64,
+        "endChar": 49
+      },
+      "revId": "3697cb1aaec8a0d285d711bd2d2ed8762953ddbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
