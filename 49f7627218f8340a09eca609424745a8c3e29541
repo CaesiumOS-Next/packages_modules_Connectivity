@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cff507e_d650eb06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-03T05:57:09Z",
+      "side": 1,
+      "message": "Could you provide some sample output in the commit message?",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 12
+      },
+      "revId": "49f7627218f8340a09eca609424745a8c3e29541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8076d705_4cb6660e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsEventLogger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-03T05:57:09Z",
+      "side": 1,
+      "message": "Do you want to sort them at alphabet order for this initial input?",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 50
+      },
+      "revId": "49f7627218f8340a09eca609424745a8c3e29541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bd37fa3_da9160e0",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsEventLogger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-03T05:57:09Z",
+      "side": 1,
+      "message": "Do you want to define `prefix`? `prefix \u003d { \"POLL_REASON_\" }`",
+      "range": {
+        "startLine": 47,
+        "startChar": 12,
+        "endLine": 47,
+        "endChar": 13
+      },
+      "revId": "49f7627218f8340a09eca609424745a8c3e29541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d96ffe19_2aa44ef6",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsEventLogger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-03T05:57:09Z",
+      "side": 1,
+      "message": "Could you add doc to explain what the parameters are?",
+      "range": {
+        "startLine": 71,
+        "startChar": 29,
+        "endLine": 71,
+        "endChar": 64
+      },
+      "revId": "49f7627218f8340a09eca609424745a8c3e29541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29ff6de8_9e3d296e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-03T05:57:09Z",
+      "side": 1,
+      "message": "Please address the error prone errors.",
+      "range": {
+        "startLine": 533,
+        "startChar": 64,
+        "endLine": 533,
+        "endChar": 90
+      },
+      "revId": "49f7627218f8340a09eca609424745a8c3e29541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41a2b67b_4e7e3ef1",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3239,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-03T05:57:09Z",
+      "side": 1,
+      "message": "Not sure if we should add flag on this design now...",
+      "range": {
+        "startLine": 3239,
+        "startChar": 42,
+        "endLine": 3239,
+        "endChar": 54
+      },
+      "revId": "49f7627218f8340a09eca609424745a8c3e29541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dd7e464_f45d6949",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsEventLoggerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-03T05:57:09Z",
+      "side": 1,
+      "message": "Which part is not supported before U?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 66
+      },
+      "revId": "49f7627218f8340a09eca609424745a8c3e29541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2d78dab_616e1bf5",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsEventLoggerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-03T05:57:09Z",
+      "side": 1,
+      "message": "Could you also verify this(Calling NSS#dump()) in NSSTest?",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 16
+      },
+      "revId": "49f7627218f8340a09eca609424745a8c3e29541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c587deaf_88a02ac1",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsEventLoggerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-03T05:57:09Z",
+      "side": 1,
+      "message": "Could you try to add every supported reason inside? also verify unsupported reason see if we get the expected exception",
+      "range": {
+        "startLine": 48,
+        "startChar": 24,
+        "endLine": 48,
+        "endChar": 33
+      },
+      "revId": "49f7627218f8340a09eca609424745a8c3e29541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
