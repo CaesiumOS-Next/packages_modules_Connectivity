@@ -160,6 +160,27 @@ inline int detachProgram(bpf_attach_type type, const BPF_FD_TYPE cg_fd) {
                                 });
 }
 
+inline int queryProgram(const BPF_FD_TYPE cg_fd,
+                        enum bpf_attach_type attach_type,
+                        __u32 query_flags = 0,
+                        __u32 attach_flags = 0) {
+    int prog = -1;  // equivalent to an array of one integer.
+    bpf_attr arg = {
+            .query = {
+                    .target_fd = BPF_FD_TO_U32(cg_fd),
+                    .attach_type = attach_type,
+                    .query_flags = query_flags,
+                    .attach_flags = attach_flags,
+                    .prog_ids = ptr_to_u64(&prog),  // pointer to output array
+                    .prog_cnt = 1,  // in: space - nr of ints in the array, out: used
+            }
+    };
+    int v = bpf(BPF_PROG_QUERY, arg);
+    if (v) return v;  // error case
+    if (!arg.query.prog_cnt) return 0;  // no program, return id 0, believe this is invalid
+    return prog;  // return actual id
+}
+
 inline int detachSingleProgram(bpf_attach_type type, const BPF_FD_TYPE prog_fd,
                                const BPF_FD_TYPE cg_fd) {
     return bpf(BPF_PROG_DETACH, {
