@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "864cb7cb_289074fa",
+        "filename": "service/src/com/android/server/connectivity/DnsManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-03T06:13:05Z",
+      "side": 1,
+      "message": "Is it possible to make a contructor for this to fill the fields?\nOr refactor to a method like:\nmakeDohParamsParcel(PrivateDnsCfg cfg);",
+      "range": {
+        "startLine": 388,
+        "startChar": 37,
+        "endLine": 388,
+        "endChar": 52
+      },
+      "revId": "fe32314042674f7e5f3ff28c1ea5dca8d92f6c2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e92c88d_5efeef02",
         "filename": "service/src/com/android/server/connectivity/DnsManager.java",
         "patchSetId": 10
