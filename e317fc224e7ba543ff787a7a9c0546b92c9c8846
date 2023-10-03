@@ -16,6 +16,29 @@
       "message": "Removing myself from the reviewer list to avoid being spammed by presubmit notifications.",
       "revId": "e317fc224e7ba543ff787a7a9c0546b92c9c8846",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81b3c4c8_b7ded601",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDefaultNetworkTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-03T10:04:56Z",
+      "side": 1,
+      "message": "Do we need to release these requests? Or does it not matter because ConnectivityService will be recreated anyway?",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 25
+      },
+      "revId": "e317fc224e7ba543ff787a7a9c0546b92c9c8846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
