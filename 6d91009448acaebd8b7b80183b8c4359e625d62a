@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68479198_92ae6bda",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-03T09:58:11Z",
+      "side": 1,
+      "message": "Nit: suggest making this a static class constant.",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 62
+      },
+      "revId": "6d91009448acaebd8b7b80183b8c4359e625d62a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
