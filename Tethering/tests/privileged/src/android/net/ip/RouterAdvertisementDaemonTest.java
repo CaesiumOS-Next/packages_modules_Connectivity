@@ -80,7 +80,6 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.util.HashSet;
-import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
@@ -333,9 +332,8 @@ public final class RouterAdvertisementDaemonTest {
         // send the unicast RA out due to the ENETUNREACH error(No route to the peer's link-local
         // address is present).
         final String iface = mTetheredParams.name;
-        final RouteInfo linkLocalRoute =
-                new RouteInfo(new IpPrefix("fe80::/64"), null, iface, RTN_UNICAST);
-        NetdUtils.addRoutesToLocalNetwork(sNetd, iface, List.of(linkLocalRoute));
+        NetdUtils.modifyRoute(sNetd, NetdUtils.ModifyOperation.ADD, INetd.LOCAL_NET_ID,
+                new RouteInfo(new IpPrefix("fe80::/64"), null, iface, RTN_UNICAST));
 
         final ByteBuffer rs = createRsPacket("fe80::1122:3344:5566:7788");
         mTetheredPacketReader.sendResponse(rs);
