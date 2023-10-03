@@ -16,6 +16,29 @@
       "message": "btw. I *think* the reason this fixes/deflakes the test is because changing it restores alphabetical test ordering, which puts testPrepare() before testSocket...\n\nAfter this revert:\n[1/28] android.net.cts.VpnServiceTest#testEstablish: PASSED (1ms)\n[2/28] android.net.cts.VpnServiceTest#testPrepare: PASSED (26ms)\n[3/28] android.net.cts.VpnServiceTest#testProtect_DatagramSocket: PASSED (1ms)\n[4/28] android.net.cts.VpnServiceTest#testProtect_Socket: PASSED (1ms)\n[5/28] android.net.cts.VpnServiceTest#testProtect_int: PASSED (0ms)\n[6/28] android.net.cts.VpnServiceTest#testTunDevice: PASSED (1ms)\n\nBefore this revert:\ntestProtect_int is before testPrepare,\nleaving it susceptible to garbage left over vpn state from ike test.\n\nie. the fix is likely the move away from junit4 for VpnServiceTest...",
       "revId": "390d33ba62ce2db581709d653422c02cf5ef72c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d88673e_29e192d0",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-03T23:05:06Z",
+      "side": 1,
+      "message": "I wonder if the real problem isn\u0027t here, with this not actually being the pre-test default?",
+      "range": {
+        "startLine": 211,
+        "startChar": 8,
+        "endLine": 212,
+        "endChar": 64
+      },
+      "revId": "390d33ba62ce2db581709d653422c02cf5ef72c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
