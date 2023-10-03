@@ -16,6 +16,24 @@
       "message": "This appears to break tests.\n\na_test android.net.cts.{Ikev2VpnTest,VpnServiceTest} --iterations 2\n\n[2/28] android.net.cts.VpnServiceTest#testProtect_int: FAILED (30ms)\n\nSTACKTRACE:\njava.lang.AssertionError\n        at org.junit.Assert.fail(Assert.java:87)\n        at org.junit.Assert.assertTrue(Assert.java:42)\n        at org.junit.Assert.assertFalse(Assert.java:65)\n        at org.junit.Assert.assertFalse(Assert.java:75)\n        at android.net.cts.VpnServiceTest.testProtect_int(VpnServiceTest.java:131)",
       "revId": "5bcbbc1ce90d844628ec6aaa7be67ff334005e27",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f85259a_31e98a6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-03T22:45:26Z",
+      "side": 1,
+      "message": "x86 CtsNetTestCasesLatestSdk\n----------------------------\nandroid.net.cts (28 Tests)\n[1/28] android.net.cts.VpnServiceTest#testProtect_Socket: PASSED (1ms)\n[2/28] android.net.cts.VpnServiceTest#testProtect_int: PASSED (2ms)\n[3/28] android.net.cts.VpnServiceTest#testPrepare: PASSED (1ms)\n[4/28] android.net.cts.VpnServiceTest#testEstablish: PASSED (1ms)\n[5/28] android.net.cts.VpnServiceTest#testTunDevice: PASSED (1ms)\n[6/28] android.net.cts.VpnServiceTest#testProtect_DatagramSocket: PASSED (0ms)\n[7/28] android.net.cts.Ikev2VpnTest#...\n{all PASSED}\n\nx86 CtsNetTestCasesLatestSdk\n----------------------------\nandroid.net.cts (28 Tests)\n[1/28] android.net.cts.VpnServiceTest#testProtect_Socket: PASSED (1ms)\n[2/28] android.net.cts.VpnServiceTest#testProtect_int: FAILED (4ms)\n\nSTACKTRACE:\njava.lang.AssertionError\n        at org.junit.Assert.fail(Assert.java:87)\n        at org.junit.Assert.assertTrue(Assert.java:42)\n        at org.junit.Assert.assertFalse(Assert.java:65)\n        at org.junit.Assert.assertFalse(Assert.java:75)\n        at android.net.cts.VpnServiceTest.testProtect_int(VpnServiceTest.java:131)\n\n[3/28] android.net.cts.VpnServiceTest#testPrepare: PASSED (1ms)\n[4/28] android.net.cts.VpnServiceTest#testEstablish: PASSED (1ms)\n[5/28] android.net.cts.VpnServiceTest#testTunDevice: PASSED (1ms)\n[6/28] android.net.cts.VpnServiceTest#testProtect_DatagramSocket: PASSED (1ms)\n[7/28] android.net.cts.Ikev2VpnTest#...\n{rest all PASSED}",
+      "parentUuid": "a9a30562_6d4c30a7",
+      "revId": "5bcbbc1ce90d844628ec6aaa7be67ff334005e27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
