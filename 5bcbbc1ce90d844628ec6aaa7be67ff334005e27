@@ -52,6 +52,24 @@
       "parentUuid": "0f85259a_31e98a6c",
       "revId": "5bcbbc1ce90d844628ec6aaa7be67ff334005e27",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a70a3a60_f8f7d7a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-03T22:50:13Z",
+      "side": 1,
+      "message": "only the first iteration suceeds, all future ones fail:\n\nITERATION 1\nx86 CtsNetTestCases: Passed: 6, Failed: 0, Ignored: 0, Assumption Failed: 0,    \nx86 CtsNetTestCasesLatestSdk: Passed: 28, Failed: 0, Ignored: 0, Assumption Failed: 0,    \nITERATION 2\nx86 CtsNetTestCases: Passed: 6, Failed: 0, Ignored: 0, Assumption Failed: 0,    \nx86 CtsNetTestCasesLatestSdk: Passed: 27, Failed: 1, Ignored: 0, Assumption Failed: 0,    \nITERATION 3\nx86 CtsNetTestCases: Passed: 6, Failed: 0, Ignored: 0, Assumption Failed: 0,    \nx86 CtsNetTestCasesLatestSdk: Passed: 27, Failed: 1, Ignored: 0, Assumption Failed: 0,    \nITERATION 4\nx86 CtsNetTestCases: Passed: 6, Failed: 0, Ignored: 0, Assumption Failed: 0,    \nx86 CtsNetTestCasesLatestSdk: Passed: 27, Failed: 1, Ignored: 0, Assumption Failed: 0,    \nITERATION 5\nx86 CtsNetTestCases: Passed: 6, Failed: 0, Ignored: 0, Assumption Failed: 0,    \nx86 CtsNetTestCasesLatestSdk: Passed: 27, Failed: 1, Ignored: 0, Assumption Failed: 0,    \n-------\nITERATIONS RESULT\nx86 CtsNetTestCases: Passed: 30, Failed: 0, Ignored: 0, Assumption_failed: 0\nx86 CtsNetTestCasesLatestSdk: Passed: 136, Failed: 4, Ignored: 0, Assumption_failed: 0",
+      "parentUuid": "163348c4_c7f0002c",
+      "revId": "5bcbbc1ce90d844628ec6aaa7be67ff334005e27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
