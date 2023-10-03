@@ -44,7 +44,7 @@ public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
     };
 
     @NonNull
-    private final MdnsReplySender mReplySender;
+    private final MdnsSender mSender;
     @NonNull
     protected final Handler mHandler;
     @Nullable
@@ -120,7 +120,7 @@ public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
             int sentPacketCount = 0;
             for (InetSocketAddress destination : ALL_ADDRS) {
                 try {
-                    sentPacketCount += mReplySender.sendNow(packet, destination);
+                    sentPacketCount += mSender.sendNow(packet, destination);
                 } catch (IOException e) {
                     mSharedLog.e("Error sending packet to " + destination, e);
                 }
@@ -144,10 +144,10 @@ public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
         }
     }
 
-    protected MdnsPacketRepeater(@NonNull Looper looper, @NonNull MdnsReplySender replySender,
+    protected MdnsPacketRepeater(@NonNull Looper looper, @NonNull MdnsSender sender,
             @Nullable PacketRepeaterCallback<T> cb, @NonNull SharedLog sharedLog) {
         mHandler = new ProbeHandler(looper);
-        mReplySender = replySender;
+        mSender = sender;
         mCb = cb;
         mSharedLog = sharedLog;
     }

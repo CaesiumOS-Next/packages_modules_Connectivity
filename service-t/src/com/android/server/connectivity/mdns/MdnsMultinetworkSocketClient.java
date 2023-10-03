@@ -46,6 +46,11 @@ import java.util.List;
 public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
     private static final String TAG = MdnsMultinetworkSocketClient.class.getSimpleName();
     private static final boolean DBG = MdnsDiscoveryManager.DBG;
+    // Max-sized buffers to be used as temporary buffer to read/build packets. May be used by
+    // multiple components, but only for self-contained operations in the looper thread, so not
+    // concurrently.
+    // TODO: set according to MTU. 1300 should fit for ethernet MTU 1500 with some overhead.
+    private final byte[] mPacketCreationBuffer = new byte[1300];
 
     @NonNull private final Handler mHandler;
     @NonNull private final MdnsSocketProvider mSocketProvider;
@@ -54,6 +59,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
     private final ArrayMap<MdnsServiceBrowserListener, InterfaceSocketCallback> mSocketRequests =
             new ArrayMap<>();
     private final ArrayMap<SocketKey, ReadPacketHandler> mSocketPacketHandlers = new ArrayMap<>();
+    private final ArrayMap<SocketKey, MdnsPacketSender> mSocketPacketSenders = new ArrayMap<>();
     private MdnsSocketClientBase.Callback mCallback = null;
     private int mReceivedPacketNumber = 0;
 
@@ -79,7 +85,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         public void onSocketCreated(@NonNull SocketKey socketKey,
                 @NonNull MdnsInterfaceSocket socket, @NonNull List<LinkAddress> addresses) {
             // The socket may be already created by other request before, try to get the stored
-            // ReadPacketHandler.
+            // ReadPacketHandler and MdnsPacketSender.
             ReadPacketHandler handler = mSocketPacketHandlers.get(socketKey);
             if (handler == null) {
                 // First request to create this socket. Initial a ReadPacketHandler for this socket.
@@ -87,15 +93,23 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
                 mSocketPacketHandlers.put(socketKey, handler);
             }
             socket.addPacketHandler(handler);
+
+            MdnsPacketSender sender = mSocketPacketSenders.get(socketKey);
+            if (sender == null) {
+                // First request to create this socket. Initial a MdnsPacketSender for this socket.
+                sender = new MdnsPacketSender(
+                        mHandler.getLooper(), socket, mPacketCreationBuffer, mSharedLog);
+                mSocketPacketSenders.put(socketKey, sender);
+            }
             mActiveSockets.put(socketKey, socket);
-            mSocketCreationCallback.onSocketCreated(socketKey);
+            mSocketCreationCallback.onSocketCreated(socketKey, sender);
         }
 
         @Override
         public void onInterfaceDestroyed(@NonNull SocketKey socketKey,
                 @NonNull MdnsInterfaceSocket socket) {
             notifySocketDestroyed(socketKey);
-            maybeCleanupPacketHandler(socketKey);
+            maybeCleanupPacketHandlerAndSender(socketKey);
         }
 
         private void notifySocketDestroyed(@NonNull SocketKey socketKey) {
@@ -110,7 +124,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
                 // Iterate from the end so the socket can be removed
                 final SocketKey socketKey = mActiveSockets.keyAt(i);
                 notifySocketDestroyed(socketKey);
-                maybeCleanupPacketHandler(socketKey);
+                maybeCleanupPacketHandlerAndSender(socketKey);
             }
         }
     }
@@ -137,9 +151,10 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         return null;
     }
 
-    private void maybeCleanupPacketHandler(@NonNull SocketKey socketKey) {
+    private void maybeCleanupPacketHandlerAndSender(@NonNull SocketKey socketKey) {
         if (isSocketActive(socketKey)) return;
         mSocketPacketHandlers.remove(socketKey);
+        mSocketPacketSenders.remove(socketKey);
     }
 
     private class ReadPacketHandler implements MulticastPacketReader.PacketHandler {

@@ -120,6 +120,8 @@ public class MdnsServiceTypeClientTests {
     private SharedLog mockSharedLog;
     @Mock
     private MdnsServiceTypeClient.Dependencies mockDeps;
+    @Mock
+    private MdnsPacketSender mockSender;
     @Captor
     private ArgumentCaptor<MdnsServiceInfo> serviceInfoCaptor;
 
@@ -218,7 +220,7 @@ public class MdnsServiceTypeClientTests {
         client =
                 new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                         mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                        serviceCache) {
+                        serviceCache, mockSender) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -917,7 +919,7 @@ public class MdnsServiceTypeClientTests {
         client =
                 new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                         mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                        serviceCache) {
+                        serviceCache, mockSender) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -963,7 +965,7 @@ public class MdnsServiceTypeClientTests {
         client =
                 new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                         mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                        serviceCache) {
+                        serviceCache, mockSender) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -997,7 +999,7 @@ public class MdnsServiceTypeClientTests {
         client =
                 new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                         mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                        serviceCache) {
+                        serviceCache, mockSender) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -1119,7 +1121,7 @@ public class MdnsServiceTypeClientTests {
     public void testProcessResponse_Resolve() throws Exception {
         client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                 mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
+                serviceCache, mockSender);
 
         final String instanceName = "service-instance";
         final String[] hostname = new String[] { "testhost "};
@@ -1214,7 +1216,7 @@ public class MdnsServiceTypeClientTests {
     public void testRenewTxtSrvInResolve() throws Exception {
         client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                 mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
+                serviceCache, mockSender);
 
         final String instanceName = "service-instance";
         final String[] hostname = new String[] { "testhost "};
@@ -1330,7 +1332,7 @@ public class MdnsServiceTypeClientTests {
     public void testProcessResponse_ResolveExcludesOtherServices() {
         client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                 mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
+                serviceCache, mockSender);
 
         final String requestedInstance = "instance1";
         final String otherInstance = "instance2";
@@ -1400,7 +1402,7 @@ public class MdnsServiceTypeClientTests {
     public void testProcessResponse_SubtypeDiscoveryLimitedToSubtype() {
         client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                 mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
+                serviceCache, mockSender);
 
         final String matchingInstance = "instance1";
         final String subtype = "_subtype";
@@ -1490,7 +1492,7 @@ public class MdnsServiceTypeClientTests {
     public void testNotifySocketDestroyed() throws Exception {
         client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                 mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
+                serviceCache, mockSender);
 
         final String requestedInstance = "instance1";
         final String otherInstance = "instance2";

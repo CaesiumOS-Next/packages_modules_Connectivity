@@ -105,6 +105,16 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
     private AtomicInteger packetsCount;
     @Nullable private Timer checkMulticastResponseTimer;
     private final SharedLog sharedLog;
+    @Nullable private MdnsSocketClientSender sender;
+
+    private class MdnsSocketClientSender implements MdnsSender {
+        @Override
+        public int sendNow(@NonNull MdnsPacket packet, @NonNull InetSocketAddress destination)
+                throws IOException {
+            // TODO: Implement sending packets
+            return PACKET_SENT;
+        }
+    }
 
     public MdnsSocketClient(@NonNull Context context, @NonNull MulticastLock multicastLock,
             SharedLog sharedLog) {
@@ -161,6 +171,7 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
         }
         createAndStartSendThread();
         createAndStartReceiverThreads();
+        sender = new MdnsSocketClientSender();
     }
 
     @RequiresPermission(permission.CHANGE_WIFI_MULTICAST_STATE)
@@ -189,6 +200,7 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
         synchronized (socketLock) {
             multicastSocket = null;
             unicastSocket = null;
+            sender = null;
         }
 
         synchronized (timerObject) {
@@ -224,7 +236,8 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
             throw new IllegalArgumentException("This socket client does not support requesting "
                     + "specific networks");
         }
-        socketCreationCallback.onSocketCreated(new SocketKey(multicastSocket.getInterfaceIndex()));
+        socketCreationCallback.onSocketCreated(
+                new SocketKey(multicastSocket.getInterfaceIndex()), sender);
     }
 
     @Override

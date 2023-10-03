@@ -71,6 +71,7 @@ public class MdnsServiceTypeClient {
      * The service caches for each socket. It should be accessed from looper thread only.
      */
     @NonNull private final MdnsServiceCache serviceCache;
+    @NonNull private final MdnsQuerier mdnsQuerier;
     private final ArrayMap<MdnsServiceBrowserListener, MdnsSearchOptions> listeners =
             new ArrayMap<>();
     private final boolean removeServiceAfterTtlExpires =
@@ -184,6 +185,49 @@ public class MdnsServiceTypeClient {
         }
     }
 
+    public class QueryInfo implements MdnsPacketRepeater.Request {
+        @NonNull
+        @Override
+        public MdnsPacket getPacket(int index) {
+            // TODO: Implement query packet
+            final MdnsPacket mdnsPacket = new MdnsPacket(
+                    0, /* transactionId */
+                    MdnsConstants.FLAGS_QUERY,
+                    Collections.emptyList(), /* questions */
+                    Collections.emptyList(), /* answers */
+                    Collections.emptyList(), /* authorityRecords */
+                    Collections.emptyList() /* additionalRecords */);
+            return mdnsPacket;
+        }
+
+        @Override
+        public long getDelayMs(int nextIndex) {
+            // TODO: Implement query time
+            return 0L;
+        }
+
+        @Override
+        public int getNumSends() {
+            return Integer.MAX_VALUE;
+        }
+    }
+
+    private class QueryingCallback implements MdnsPacketRepeater.PacketRepeaterCallback<QueryInfo> {
+        @Override
+        public void onSent(int index, @NonNull QueryInfo info, int sentPacketCount) {
+            // TODO: Implement packet sent
+        }
+    }
+
+    private class MdnsQuerier extends MdnsPacketRepeater<QueryInfo> {
+        MdnsQuerier(@NonNull Looper looper,
+                @NonNull MdnsSender sender,
+                @Nullable PacketRepeaterCallback<QueryInfo> cb,
+                @NonNull SharedLog sharedLog) {
+            super(looper, sender, cb, sharedLog);
+        }
+    }
+
     /**
      * Constructor of {@link MdnsServiceTypeClient}.
      *
@@ -197,9 +241,10 @@ public class MdnsServiceTypeClient {
             @NonNull SocketKey socketKey,
             @NonNull SharedLog sharedLog,
             @NonNull Looper looper,
-            @NonNull MdnsServiceCache serviceCache) {
+            @NonNull MdnsServiceCache serviceCache,
+            @NonNull MdnsSender sender) {
         this(serviceType, socketClient, executor, new Clock(), socketKey, sharedLog, looper,
-                new Dependencies(), serviceCache);
+                new Dependencies(), serviceCache, sender);
     }
 
     @VisibleForTesting
@@ -212,7 +257,8 @@ public class MdnsServiceTypeClient {
             @NonNull SharedLog sharedLog,
             @NonNull Looper looper,
             @NonNull Dependencies dependencies,
-            @NonNull MdnsServiceCache serviceCache) {
+            @NonNull MdnsServiceCache serviceCache,
+            @NonNull MdnsSender sender) {
         this.serviceType = serviceType;
         this.socketClient = socketClient;
         this.executor = executor;
@@ -225,6 +271,7 @@ public class MdnsServiceTypeClient {
         this.dependencies = dependencies;
         this.serviceCache = serviceCache;
         this.mdnsQueryScheduler = new MdnsQueryScheduler();
+        this.mdnsQuerier = new MdnsQuerier(looper, sender, new QueryingCallback(), sharedLog);
     }
 
     private static MdnsServiceInfo buildMdnsServiceInfoFromResponse(
