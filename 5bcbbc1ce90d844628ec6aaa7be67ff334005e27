@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9a30562_6d4c30a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-03T22:41:45Z",
+      "side": 1,
+      "message": "This appears to break tests.\n\na_test android.net.cts.{Ikev2VpnTest,VpnServiceTest} --iterations 2\n\n[2/28] android.net.cts.VpnServiceTest#testProtect_int: FAILED (30ms)\n\nSTACKTRACE:\njava.lang.AssertionError\n        at org.junit.Assert.fail(Assert.java:87)\n        at org.junit.Assert.assertTrue(Assert.java:42)\n        at org.junit.Assert.assertFalse(Assert.java:65)\n        at org.junit.Assert.assertFalse(Assert.java:75)\n        at android.net.cts.VpnServiceTest.testProtect_int(VpnServiceTest.java:131)",
+      "revId": "5bcbbc1ce90d844628ec6aaa7be67ff334005e27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
