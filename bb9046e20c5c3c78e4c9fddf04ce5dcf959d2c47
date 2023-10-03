@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e83cb56d_c16714ac",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbPacket.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-03T03:21:02Z",
+      "side": 1,
+      "message": "IIUC this is not possible.",
+      "range": {
+        "startLine": 107,
+        "startChar": 11,
+        "endLine": 107,
+        "endChar": 23
+      },
+      "revId": "bb9046e20c5c3c78e4c9fddf04ce5dcf959d2c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66c6eb1b_688c5ad9",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbPacket.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-03T03:21:02Z",
+      "side": 1,
+      "message": "1. Is this documented somewhere in ietf draft, where which types are allowed/not allowed in the section?\nIf so maybe put it here as comment.\n\n2. If this is also unexpected, maybe Log.w as the exception handling below.",
+      "range": {
+        "startLine": 150,
+        "startChar": 27,
+        "endLine": 150,
+        "endChar": 71
+      },
+      "revId": "bb9046e20c5c3c78e4c9fddf04ce5dcf959d2c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88e6d38f_157ab200",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbPacket.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-03T03:21:02Z",
+      "side": 1,
+      "message": "It seems to me this is not specific to DnsSvcbPacket and should be done in DnsPacket?",
+      "range": {
+        "startLine": 162,
+        "startChar": 3,
+        "endLine": 170,
+        "endChar": 5
+      },
+      "revId": "bb9046e20c5c3c78e4c9fddf04ce5dcf959d2c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

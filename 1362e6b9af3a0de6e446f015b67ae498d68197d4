@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e71b720_4be53a32",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbPacket.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-03T03:21:02Z",
+      "side": 1,
+      "message": "nit: @NonNull",
+      "range": {
+        "startLine": 47,
+        "startChar": 25,
+        "endLine": 47,
+        "endChar": 26
+      },
+      "revId": "1362e6b9af3a0de6e446f015b67ae498d68197d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
