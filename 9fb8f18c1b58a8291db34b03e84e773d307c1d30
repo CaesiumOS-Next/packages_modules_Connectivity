@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b75b9778_32d1837a",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-03T04:23:52Z",
+      "side": 1,
+      "message": "As far as I can tell, these values correspond to IGNORE_ON_ENG, LOAD_ON_USER, IGNORE_ON_USERDEBUG. Two comments here:\n\nFirst: can we use the named constants instead of \"true, false true\"? That\u0027s much easier to read.\n\nSecond: why have two program entries, one for user builds and one for userdebug/eng? In general we want to minimize differences between userdebug and user, to ensure that most of our testing (which is on userdebug) is representative of user builds as well.\n\nSo, why not just one program called \"cgroupskb/ingress/stats$trace\" which has LOAD_ON_ENG, LOAD_ON_USER, LOAD_ON_USERDEBUG? In\n\nIs it because we\u0027re worried that this program might fail to load? But if so:\n  - How would we detect that the first (optional) program fails to load?\n  - Do we have a plan to upgrade the second (mandatory) program run on user builds as well in a future mainline update? I don\u0027t think we should keep two programs forever. If we don\u0027t converge on one program in this CL and this release because we\u0027re concerned that it\u0027s not safe, then how will we know if it\u0027s safe to converge on one program in a future release?\n  \nWe don\u0027t necessarily need to address this in this CL, but I think we should have a path for removing the second program and converging on one mandatory program. Perhaps our plan is to do a super-conservative change here because it\u0027s a respin, but then make it mandatory in a future mainline release that goes through the full OEM testing cycle?",
+      "range": {
+        "startLine": 510,
+        "startChar": 48,
+        "endLine": 510,
+        "endChar": 65
+      },
+      "revId": "9fb8f18c1b58a8291db34b03e84e773d307c1d30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
