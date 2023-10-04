@@ -120,6 +120,9 @@ static Status initPrograms(const char* cg2_path) {
     RETURN_IF_NOT_OK(attachProgramToCgroup(BPF_EGRESS_PROG_PATH, cg_fd, BPF_CGROUP_INET_EGRESS));
     RETURN_IF_NOT_OK(attachProgramToCgroup(BPF_INGRESS_PROG_PATH, cg_fd, BPF_CGROUP_INET_INGRESS));
 
+    if (queryProgram(cg_fd, BPF_CGROUP_INET_EGRESS) <= 0) abort();
+    if (queryProgram(cg_fd, BPF_CGROUP_INET_INGRESS) <= 0) abort();
+
     // For the devices that support cgroup socket filter, the socket filter
     // should be loaded successfully by bpfloader. So we attach the filter to
     // cgroup if the program is pinned properly.
@@ -128,6 +131,7 @@ static Status initPrograms(const char* cg2_path) {
     if (bpf::isAtLeastKernelVersion(4, 14, 0)) {
         RETURN_IF_NOT_OK(
                 attachProgramToCgroup(CGROUP_SOCKET_PROG_PATH, cg_fd, BPF_CGROUP_INET_SOCK_CREATE));
+        if (queryProgram(cg_fd, BPF_CGROUP_INET_SOCK_CREATE) <= 0) abort();
     }
     return netdutils::status::ok;
 }
