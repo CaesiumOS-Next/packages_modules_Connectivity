@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93018ef9_5e5c4e92",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-10-04T21:56:43Z",
+      "side": 1,
+      "message": "A consequence of this change is that now the ConnectivityNativeService constructor does not throw an exception, so we end up publishing a binder service for it, even though the programs themselves aren\u0027t loaded.\n\nI think we / you determined that this is safe. (can we add this comment to the CL description?).",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 69
+      },
+      "revId": "963f9099fbac440d49a66a4df7699972b13710f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
