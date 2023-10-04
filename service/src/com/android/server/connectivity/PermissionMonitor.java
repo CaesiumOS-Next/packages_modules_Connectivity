@@ -75,6 +75,8 @@ import com.android.net.module.util.SharedLog;
 import com.android.networkstack.apishim.ProcessShimImpl;
 import com.android.networkstack.apishim.common.ProcessShim;
 import com.android.server.BpfNetMaps;
+import com.android.server.BpfNetPermMaps;
+import com.android.server.IBpfNetPermMaps;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -100,6 +102,7 @@ public class PermissionMonitor {
     private final Dependencies mDeps;
     private final Context mContext;
     private final BpfNetMaps mBpfNetMaps;
+    private final IBpfNetPermMaps mBpfNetPermMaps;
     private final HandlerThread mThread;
 
     private static final ProcessShim sProcessShim = ProcessShimImpl.newInstance();
@@ -278,6 +281,7 @@ public class PermissionMonitor {
         mDeps = deps;
         mContext = context;
         mBpfNetMaps = bpfNetMaps;
+        mBpfNetPermMaps = SdkLevel.isAtLeastT() ? bpfNetMaps : new BpfNetPermMaps(netd);
         mThread = thread;
     }
 
@@ -1109,9 +1113,9 @@ public class PermissionMonitor {
         }
         try {
             if (add) {
-                mBpfNetMaps.addUidInterfaceRules(iface, toIntArray(uids));
+                mBpfNetPermMaps.addUidInterfaceRules(iface, toIntArray(uids));
             } else {
-                mBpfNetMaps.removeUidInterfaceRules(toIntArray(uids));
+                mBpfNetPermMaps.removeUidInterfaceRules(toIntArray(uids));
             }
         } catch (RemoteException | ServiceSpecificException e) {
             loge("Exception when updating permissions: ", e);
@@ -1187,24 +1191,24 @@ public class PermissionMonitor {
         try {
             // TODO: add a lock inside netd to protect IPC trafficSetNetPermForUids()
             if (allPermissionAppIds.size() != 0) {
-                mBpfNetMaps.setNetPermForUids(
+                mBpfNetPermMaps.setNetPermForUids(
                         PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS,
                         toIntArray(allPermissionAppIds));
             }
             if (internetPermissionAppIds.size() != 0) {
-                mBpfNetMaps.setNetPermForUids(PERMISSION_INTERNET,
+                mBpfNetPermMaps.setNetPermForUids(PERMISSION_INTERNET,
                         toIntArray(internetPermissionAppIds));
             }
             if (updateStatsPermissionAppIds.size() != 0) {
-                mBpfNetMaps.setNetPermForUids(PERMISSION_UPDATE_DEVICE_STATS,
+                mBpfNetPermMaps.setNetPermForUids(PERMISSION_UPDATE_DEVICE_STATS,
                         toIntArray(updateStatsPermissionAppIds));
             }
             if (noPermissionAppIds.size() != 0) {
-                mBpfNetMaps.setNetPermForUids(PERMISSION_NONE,
+                mBpfNetPermMaps.setNetPermForUids(PERMISSION_NONE,
                         toIntArray(noPermissionAppIds));
             }
             if (uninstalledAppIds.size() != 0) {
-                mBpfNetMaps.setNetPermForUids(PERMISSION_UNINSTALLED,
+                mBpfNetPermMaps.setNetPermForUids(PERMISSION_UNINSTALLED,
                         toIntArray(uninstalledAppIds));
             }
         } catch (RemoteException | ServiceSpecificException e) {
