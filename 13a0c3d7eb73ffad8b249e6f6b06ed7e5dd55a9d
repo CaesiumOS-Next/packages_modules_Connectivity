@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5be8d0c7_9fe51a0d",
+        "filename": "staticlibs/native/bpfutiljni/com_android_net_module_util_BpfUtils.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-04T19:15:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de2ed117_9fd919d0",
+      "range": {
+        "startLine": 114,
+        "startChar": 8,
+        "endLine": 114,
+        "endChar": 15
+      },
+      "revId": "13a0c3d7eb73ffad8b249e6f6b06ed7e5dd55a9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd1bd70a_c4834609",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-10-04T16:18:17Z",
       "side": 1,
       "message": "is your plan to return 0 without an exception, and let the java code special-case it?",
+      "range": {
+        "startLine": 132,
+        "startChar": 11,
+        "endLine": 132,
+        "endChar": 13
+      },
+      "revId": "13a0c3d7eb73ffad8b249e6f6b06ed7e5dd55a9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6fd2804_1f56685c",
+        "filename": "staticlibs/native/bpfutiljni/com_android_net_module_util_BpfUtils.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-04T19:15:31Z",
+      "side": 1,
+      "message": "added a comment.",
+      "parentUuid": "bd1bd70a_c4834609",
       "range": {
         "startLine": 132,
         "startChar": 11,
