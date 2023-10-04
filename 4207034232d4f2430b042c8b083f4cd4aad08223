@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be0e1dc3_8dd90157",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1497,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-10-04T09:20:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc8dd9a2_8d24225e",
+      "range": {
+        "startLine": 1497,
+        "startChar": 24,
+        "endLine": 1497,
+        "endChar": 35
+      },
+      "revId": "4207034232d4f2430b042c8b083f4cd4aad08223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0924065b_da0891d7",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-27T05:33:38Z",
       "side": 1,
       "message": "Nit: I think we do not need to specify them all in the test codes. Just go to default case for non-legacy type unless we have tests to verify IKEV2 VPN type will fail here. But I think it\u0027s not something we need to verify in the CSTest.",
+      "range": {
+        "startLine": 1667,
+        "startChar": 16,
+        "endLine": 1672,
+        "endChar": 26
+      },
+      "revId": "4207034232d4f2430b042c8b083f4cd4aad08223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "004d40cc_291d9a9e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1672,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-10-04T09:20:05Z",
+      "side": 1,
+      "message": "Done. Note: this is still added in the next cl aosp/2727556.",
+      "parentUuid": "0924065b_da0891d7",
       "range": {
         "startLine": 1667,
         "startChar": 16,
