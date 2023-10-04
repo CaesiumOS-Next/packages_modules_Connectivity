@@ -126,8 +126,15 @@ static Status initPrograms(const char* cg2_path) {
     // TODO: delete the if statement once all devices should support cgroup
     // socket filter (ie. the minimum kernel version required is 4.14).
     if (bpf::isAtLeastKernelVersion(4, 14, 0)) {
-        RETURN_IF_NOT_OK(
-                attachProgramToCgroup(CGROUP_SOCKET_PROG_PATH, cg_fd, BPF_CGROUP_INET_SOCK_CREATE));
+        RETURN_IF_NOT_OK(attachProgramToCgroup(
+                CGROUP_SOCKET_PROG_PATH,
+                cg_fd, BPF_CGROUP_INET_SOCK_CREATE));
+        RETURN_IF_NOT_OK(attachProgramToCgroup(
+                "/sys/fs/bpf/net_shared/prog_block_bind4_block_port",
+                cg_fd, BPF_CGROUP_INET4_BIND));
+        RETURN_IF_NOT_OK(attachProgramToCgroup(
+                "/sys/fs/bpf/net_shared/prog_block_bind6_block_port",
+                cg_fd, BPF_CGROUP_INET6_BIND));
     }
 
     // This should trivially pass, since we just attached up above,
@@ -136,16 +143,6 @@ static Status initPrograms(const char* cg2_path) {
         if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET_EGRESS) <= 0) abort();
         if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET_INGRESS) <= 0) abort();
         if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET_SOCK_CREATE) <= 0) abort();
-    }
-
-
-    if (bpf::isAtLeastKernelVersion(5, 4, 0)) {
-        RETURN_IF_NOT_OK(attachProgramToCgroup(
-                "/sys/fs/bpf/net_shared/prog_block_bind4_block_port",
-                cg_fd, BPF_CGROUP_INET4_BIND));
-        RETURN_IF_NOT_OK(attachProgramToCgroup(
-                "/sys/fs/bpf/net_shared/prog_block_bind6_block_port",
-                cg_fd, BPF_CGROUP_INET6_BIND));
         if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET4_BIND) <= 0) abort();
         if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET6_BIND) <= 0) abort();
     }
