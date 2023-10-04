@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10d31b2f_69715cd1",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T07:03:19Z",
+      "side": 1,
+      "message": "As per discussion: could you set the whole class as @RequiresApi(T) instead, and just move the calls to netd to another class ? This would make it less error-prone when working in BpfNetMaps (making sure that it\u0027s really a T+ class, instead of mixing netd and non-netd code paths)",
+      "revId": "2c6515e261fe765b6094ff65dde56ccfc76f6d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2e6b3e3_6c876106",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1802,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T07:03:19Z",
+      "side": 1,
+      "message": "It\u0027s really unfortunate that this is needed; is that still the case if you add `@ChecksSdkIntAtLeast(api \u003d 34 /* VERSION_CODES.UpsideDownCake */, codename \u003d \"UpsideDownCake\")` to Dependencies.isAtLeastU() ?\n\nIf yes, can you file a bug ? Maybe pedroql@ can help redirect, he helped with b/293971841 in the past",
+      "revId": "2c6515e261fe765b6094ff65dde56ccfc76f6d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04b89bda_4e9b74bf",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T07:03:19Z",
+      "side": 1,
+      "message": "Would it work to add @TargetApi(S) (not RequiresApi) to the class itself, saying that service-connectivity is only loaded on S+ ?",
+      "revId": "2c6515e261fe765b6094ff65dde56ccfc76f6d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
