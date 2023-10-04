@@ -209,7 +209,7 @@ class ConnectivityServiceIntegrationTest {
         doReturn(mock(ProxyTracker::class.java)).`when`(deps).makeProxyTracker(any(), any())
         doReturn(mock(MockableSystemProperties::class.java)).`when`(deps).systemProperties
         doReturn(TestNetIdManager()).`when`(deps).makeNetIdManager()
-        doReturn(mock(BpfNetMaps::class.java)).`when`(deps).getBpfNetMaps(any(), any())
+        doReturn(mock(BpfNetMaps::class.java)).`when`(deps).getBpfNetMaps(any())
         doAnswer { inv ->
             MultinetworkPolicyTracker(inv.getArgument(0),
                     inv.getArgument(1),

@@ -46,12 +46,12 @@ import com.android.server.connectivity.MultinetworkPolicyTrackerTestDependencies
 import com.android.server.connectivity.ProxyTracker
 import com.android.testutils.visibleOnHandlerThread
 import com.android.testutils.waitForIdle
+import java.util.concurrent.Executors
+import kotlin.test.fail
 import org.mockito.AdditionalAnswers.delegatesTo
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
-import java.util.concurrent.Executors
-import kotlin.test.fail
 
 internal const val HANDLER_TIMEOUT_MS = 2_000
 internal const val TEST_PACKAGE_NAME = "com.android.test.package"
@@ -128,7 +128,7 @@ open class CSTest {
 
     inner class CSDeps : ConnectivityService.Dependencies() {
         override fun getResources(ctx: Context) = connResources
-        override fun getBpfNetMaps(context: Context, netd: INetd) = this@CSTest.bpfNetMaps
+        override fun getBpfNetMaps(context: Context) = this@CSTest.bpfNetMaps
         override fun getClatCoordinator(netd: INetd?) = this@CSTest.clatCoordinator
         override fun getNetworkStack() = this@CSTest.networkStack
 
