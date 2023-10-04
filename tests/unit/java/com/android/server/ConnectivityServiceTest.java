@@ -627,6 +627,7 @@ public class ConnectivityServiceTest {
     @Mock ClatCoordinator mClatCoordinator;
     @Mock PacProxyManager mPacProxyManager;
     @Mock BpfNetMaps mBpfNetMaps;
+    @Mock BpfNetPermMaps mBpfNetPermMaps;
     @Mock CarrierPrivilegeAuthenticator mCarrierPrivilegeAuthenticator;
     @Mock TetheringManager mTetheringManager;
     @Mock BroadcastOptionsShim mBroadcastOptionsShim;
@@ -2223,8 +2224,13 @@ public class ConnectivityServiceTest {
         }
 
         @Override
-        public BpfNetMaps getBpfNetMaps(Context context, INetd netd) {
+        public BpfNetMaps getBpfNetMaps(Context context) {
             return mBpfNetMaps;
+        }
+
+        @Override
+        public BpfNetPermMaps getBpfNetPermMaps(INetd netd) {
+            return mBpfNetPermMaps;
         }
 
         @Override
@@ -10457,8 +10463,9 @@ public class ConnectivityServiceTest {
         verify(mBpfNetMaps).updateUidLockdownRule(VPN_UID, false /* add */);
 
         // Interface rules are not changed by Lockdown mode enable/disable
-        verify(mBpfNetMaps, never()).addUidInterfaceRules(any(), any());
-        verify(mBpfNetMaps, never()).removeUidInterfaceRules(any());
+        final IBpfNetPermMaps bpfNetPermMaps = mDeps.isAtLeastT() ? mBpfNetMaps : mBpfNetPermMaps;
+        verify(bpfNetPermMaps, never()).addUidInterfaceRules(any(), any());
+        verify(bpfNetPermMaps, never()).removeUidInterfaceRules(any());
     }
 
     private void doTestSetUidFirewallRule(final int chain, final int defaultRule) {
@@ -11923,7 +11930,8 @@ public class ConnectivityServiceTest {
         // A connected VPN should have interface rules set up. There are two expected invocations,
         // one during the VPN initial connection, one during the VPN LinkProperties update.
         ArgumentCaptor<int[]> uidCaptor = ArgumentCaptor.forClass(int[].class);
-        verify(mBpfNetMaps, times(2)).addUidInterfaceRules(eq("tun0"), uidCaptor.capture());
+        final IBpfNetPermMaps bpfNetPermMaps = mDeps.isAtLeastT() ? mBpfNetMaps : mBpfNetPermMaps;
+        verify(bpfNetPermMaps, times(2)).addUidInterfaceRules(eq("tun0"), uidCaptor.capture());
         assertContainsExactly(uidCaptor.getAllValues().get(0), APP1_UID, APP2_UID);
         assertContainsExactly(uidCaptor.getAllValues().get(1), APP1_UID, APP2_UID);
 
@@ -11931,7 +11939,7 @@ public class ConnectivityServiceTest {
         waitForIdle();
 
         // Disconnected VPN should have interface rules removed
-        verify(mBpfNetMaps).removeUidInterfaceRules(uidCaptor.capture());
+        verify(bpfNetPermMaps).removeUidInterfaceRules(uidCaptor.capture());
         assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
     }
 
@@ -11942,13 +11950,14 @@ public class ConnectivityServiceTest {
         mMockVpn.establish(lp, uid, vpnRange);
         assertVpnUidRangesUpdated(true, vpnRange, uid);
 
+        final IBpfNetPermMaps bpfNetPermMaps = mDeps.isAtLeastT() ? mBpfNetMaps : mBpfNetPermMaps;
         if (mDeps.isAtLeastT()) {
             // On T and above, VPN should have rules for null interface. Null Interface is a
             // wildcard and this accepts traffic from all the interfaces.
             // There are two expected invocations, one during the VPN initial
             // connection, one during the VPN LinkProperties update.
             ArgumentCaptor<int[]> uidCaptor = ArgumentCaptor.forClass(int[].class);
-            verify(mBpfNetMaps, times(2)).addUidInterfaceRules(
+            verify(bpfNetPermMaps, times(2)).addUidInterfaceRules(
                     eq(null) /* iface */, uidCaptor.capture());
             if (uid == VPN_UID) {
                 assertContainsExactly(uidCaptor.getAllValues().get(0), APP1_UID, APP2_UID);
@@ -11962,7 +11971,7 @@ public class ConnectivityServiceTest {
             waitForIdle();
 
             // Disconnected VPN should have interface rules removed
-            verify(mBpfNetMaps).removeUidInterfaceRules(uidCaptor.capture());
+            verify(bpfNetPermMaps).removeUidInterfaceRules(uidCaptor.capture());
             if (uid == VPN_UID) {
                 assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
             } else {
@@ -11970,7 +11979,7 @@ public class ConnectivityServiceTest {
             }
         } else {
             // Before T, rules are not configured for null interface.
-            verify(mBpfNetMaps, never()).addUidInterfaceRules(any(), any());
+            verify(bpfNetPermMaps, never()).addUidInterfaceRules(any(), any());
         }
     }
 
@@ -12006,36 +12015,38 @@ public class ConnectivityServiceTest {
         mMockVpn.establish(lp, VPN_UID, vpnRange);
         assertVpnUidRangesUpdated(true, vpnRange, VPN_UID);
 
+        final IBpfNetPermMaps bpfNetPermMaps = mDeps.isAtLeastT() ? mBpfNetMaps : mBpfNetPermMaps;
+
         // Connected VPN should have interface rules set up. There are two expected invocations,
         // one during VPN uid update, one during VPN LinkProperties update
         ArgumentCaptor<int[]> uidCaptor = ArgumentCaptor.forClass(int[].class);
-        verify(mBpfNetMaps, times(2)).addUidInterfaceRules(eq("tun0"), uidCaptor.capture());
+        verify(bpfNetPermMaps, times(2)).addUidInterfaceRules(eq("tun0"), uidCaptor.capture());
         assertContainsExactly(uidCaptor.getAllValues().get(0), APP1_UID, APP2_UID);
         assertContainsExactly(uidCaptor.getAllValues().get(1), APP1_UID, APP2_UID);
 
-        reset(mBpfNetMaps);
-        InOrder inOrder = inOrder(mBpfNetMaps);
+        reset(bpfNetPermMaps);
+        InOrder inOrder = inOrder(bpfNetPermMaps);
         lp.setInterfaceName("tun1");
         mMockVpn.sendLinkProperties(lp);
         waitForIdle();
         // VPN handover (switch to a new interface) should result in rules being updated (old rules
         // removed first, then new rules added)
-        inOrder.verify(mBpfNetMaps).removeUidInterfaceRules(uidCaptor.capture());
+        inOrder.verify(bpfNetPermMaps).removeUidInterfaceRules(uidCaptor.capture());
         assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
-        inOrder.verify(mBpfNetMaps).addUidInterfaceRules(eq("tun1"), uidCaptor.capture());
+        inOrder.verify(bpfNetPermMaps).addUidInterfaceRules(eq("tun1"), uidCaptor.capture());
         assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
 
-        reset(mBpfNetMaps);
+        reset(bpfNetPermMaps);
         lp = new LinkProperties();
         lp.setInterfaceName("tun1");
         lp.addRoute(new RouteInfo(new IpPrefix("192.0.2.0/24"), null, "tun1"));
         mMockVpn.sendLinkProperties(lp);
         waitForIdle();
         // VPN not routing everything should no longer have interface filtering rules
-        verify(mBpfNetMaps).removeUidInterfaceRules(uidCaptor.capture());
+        verify(bpfNetPermMaps).removeUidInterfaceRules(uidCaptor.capture());
         assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
 
-        reset(mBpfNetMaps);
+        reset(bpfNetPermMaps);
         lp = new LinkProperties();
         lp.setInterfaceName("tun1");
         lp.addRoute(new RouteInfo(new IpPrefix(Inet4Address.ANY, 0), RTN_UNREACHABLE));
@@ -12043,7 +12054,7 @@ public class ConnectivityServiceTest {
         mMockVpn.sendLinkProperties(lp);
         waitForIdle();
         // Back to routing all IPv6 traffic should have filtering rules
-        verify(mBpfNetMaps).addUidInterfaceRules(eq("tun1"), uidCaptor.capture());
+        verify(bpfNetPermMaps).addUidInterfaceRules(eq("tun1"), uidCaptor.capture());
         assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
     }
 
@@ -12059,8 +12070,9 @@ public class ConnectivityServiceTest {
         mMockVpn.establish(lp, VPN_UID, vpnRanges);
         assertVpnUidRangesUpdated(true, vpnRanges, VPN_UID);
 
-        reset(mBpfNetMaps);
-        InOrder inOrder = inOrder(mBpfNetMaps);
+        final IBpfNetPermMaps bpfNetPermMaps = mDeps.isAtLeastT() ? mBpfNetMaps : mBpfNetPermMaps;
+        reset(bpfNetPermMaps);
+        InOrder inOrder = inOrder(bpfNetPermMaps);
 
         // Update to new range which is old range minus APP1, i.e. only APP2
         final Set<UidRange> newRanges = new HashSet<>(asList(
@@ -12071,9 +12083,9 @@ public class ConnectivityServiceTest {
 
         ArgumentCaptor<int[]> uidCaptor = ArgumentCaptor.forClass(int[].class);
         // Verify old rules are removed before new rules are added
-        inOrder.verify(mBpfNetMaps).removeUidInterfaceRules(uidCaptor.capture());
+        inOrder.verify(bpfNetPermMaps).removeUidInterfaceRules(uidCaptor.capture());
         assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
-        inOrder.verify(mBpfNetMaps).addUidInterfaceRules(eq("tun0"), uidCaptor.capture());
+        inOrder.verify(bpfNetPermMaps).addUidInterfaceRules(eq("tun0"), uidCaptor.capture());
         assertContainsExactly(uidCaptor.getValue(), APP2_UID);
     }
 

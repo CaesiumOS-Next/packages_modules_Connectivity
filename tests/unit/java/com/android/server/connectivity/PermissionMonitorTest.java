@@ -96,6 +96,7 @@ import com.android.net.module.util.CollectionUtils;
 import com.android.networkstack.apishim.ProcessShimImpl;
 import com.android.networkstack.apishim.common.ProcessShim;
 import com.android.server.BpfNetMaps;
+import com.android.server.IBpfNetPermMaps;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
@@ -168,6 +169,7 @@ public class PermissionMonitorTest {
     @Mock private PermissionMonitor.Dependencies mDeps;
     @Mock private SystemConfigManager mSystemConfigManager;
     @Mock private BpfNetMaps mBpfNetMaps;
+    @Mock private IBpfNetPermMaps mBpfNetPermMaps;
 
     private PermissionMonitor mPermissionMonitor;
     private NetdMonitor mNetdMonitor;
@@ -204,7 +206,7 @@ public class PermissionMonitorTest {
 
         mHandlerThread = new HandlerThread("PermissionMonitorTest");
         mPermissionMonitor = new PermissionMonitor(
-                mContext, mNetdService, mBpfNetMaps, mDeps, mHandlerThread);
+                mContext, mNetdService, mBpfNetMaps, mBpfNetPermMaps, mDeps, mHandlerThread);
         mNetdMonitor = new NetdMonitor(mNetdService);
         mBpfMapMonitor = new BpfMapMonitor(mBpfNetMaps);
 
@@ -1236,7 +1238,7 @@ public class PermissionMonitorTest {
         // necessary permission.
         final Context realContext = InstrumentationRegistry.getContext();
         final PermissionMonitor monitor = new PermissionMonitor(
-                realContext, mNetdService, mBpfNetMaps, mHandlerThread);
+                realContext, mNetdService, mBpfNetMaps, mBpfNetPermMaps, mHandlerThread);
         final PackageManager manager = realContext.getPackageManager();
         final PackageInfo systemInfo = manager.getPackageInfo(REAL_SYSTEM_PACKAGE_NAME,
                 GET_PERMISSIONS | MATCH_ANY_USER);

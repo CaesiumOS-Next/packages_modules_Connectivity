@@ -55,7 +55,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeFalse;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -65,7 +64,6 @@ import static org.mockito.Mockito.verify;
 import android.app.StatsManager;
 import android.content.Context;
 import android.net.BpfNetMapsUtils;
-import android.net.INetd;
 import android.os.Build;
 import android.os.ServiceSpecificException;
 import android.system.ErrnoException;
@@ -74,7 +72,6 @@ import android.util.IndentingPrintWriter;
 
 import androidx.test.filters.SmallTest;
 
-import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.Struct.S32;
 import com.android.net.module.util.Struct.U32;
@@ -82,13 +79,10 @@ import com.android.net.module.util.Struct.U8;
 import com.android.net.module.util.bpf.CookieTagMapKey;
 import com.android.net.module.util.bpf.CookieTagMapValue;
 import com.android.testutils.DevSdkIgnoreRule;
-import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
-import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.TestBpfMap;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -101,12 +95,9 @@ import java.util.List;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
-@DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
+@DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
 public final class BpfNetMapsTest {
     private static final String TAG = "BpfNetMapsTest";
-
-    @Rule
-    public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
 
     private static final int TEST_UID = 10086;
     private static final int[] TEST_UIDS = {10002, 10003};
@@ -131,7 +122,6 @@ public final class BpfNetMapsTest {
 
     private BpfNetMaps mBpfNetMaps;
 
-    @Mock INetd mNetd;
     @Mock BpfNetMaps.Dependencies mDeps;
     @Mock Context mContext;
     private final IBpfMap<S32, U32> mConfigurationMap = new TestBpfMap<>(S32.class, U32.class);
@@ -154,18 +144,7 @@ public final class BpfNetMapsTest {
         BpfNetMaps.setUidOwnerMapForTest(mUidOwnerMap);
         BpfNetMaps.setUidPermissionMapForTest(mUidPermissionMap);
         BpfNetMaps.setCookieTagMapForTest(mCookieTagMap);
-        mBpfNetMaps = new BpfNetMaps(mContext, mNetd, mDeps);
-    }
-
-    @Test
-    public void testBpfNetMapsBeforeT() throws Exception {
-        assumeFalse(SdkLevel.isAtLeastT());
-        mBpfNetMaps.addUidInterfaceRules(TEST_IF_NAME, TEST_UIDS);
-        verify(mNetd).firewallAddUidInterfaceRules(TEST_IF_NAME, TEST_UIDS);
-        mBpfNetMaps.removeUidInterfaceRules(TEST_UIDS);
-        verify(mNetd).firewallRemoveUidInterfaceRules(TEST_UIDS);
-        mBpfNetMaps.setNetPermForUids(PERMISSION_INTERNET, TEST_UIDS);
-        verify(mNetd).trafficSetNetPermForUids(PERMISSION_INTERNET, TEST_UIDS);
+        mBpfNetMaps = new BpfNetMaps(mContext, mDeps);
     }
 
     private long getMatch(final List<Integer> chains) {
@@ -196,7 +175,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testIsChainEnabled() throws Exception {
         doTestIsChainEnabled(FIREWALL_CHAIN_DOZABLE);
         doTestIsChainEnabled(FIREWALL_CHAIN_STANDBY);
@@ -209,7 +187,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testIsChainEnabledMultipleChainEnabled() throws Exception {
         doTestIsChainEnabled(List.of(
                 FIREWALL_CHAIN_DOZABLE,
@@ -223,18 +200,10 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testIsChainEnabledInvalidChain() {
         final Class<ServiceSpecificException> expected = ServiceSpecificException.class;
         assertThrows(expected, () -> mBpfNetMaps.isChainEnabled(-1 /* childChain */));
         assertThrows(expected, () -> mBpfNetMaps.isChainEnabled(1000 /* childChain */));
-    }
-
-    @Test
-    @IgnoreAfter(Build.VERSION_CODES.S_V2)
-    public void testIsChainEnabledBeforeT() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> mBpfNetMaps.isChainEnabled(FIREWALL_CHAIN_DOZABLE));
     }
 
     private void doTestSetChildChain(final List<Integer> testChains) throws Exception {
@@ -261,7 +230,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSetChildChain() throws Exception {
         mConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY, new U32(0));
         doTestSetChildChain(FIREWALL_CHAIN_DOZABLE);
@@ -275,7 +243,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSetChildChainMultipleChain() throws Exception {
         mConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY, new U32(0));
         doTestSetChildChain(List.of(
@@ -290,20 +257,12 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSetChildChainInvalidChain() {
         final Class<ServiceSpecificException> expected = ServiceSpecificException.class;
         assertThrows(expected,
                 () -> mBpfNetMaps.setChildChain(-1 /* childChain */, true /* enable */));
         assertThrows(expected,
                 () -> mBpfNetMaps.setChildChain(1000 /* childChain */, true /* enable */));
-    }
-
-    @Test
-    @IgnoreAfter(Build.VERSION_CODES.S_V2)
-    public void testSetChildChainBeforeT() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> mBpfNetMaps.setChildChain(FIREWALL_CHAIN_DOZABLE, true /* enable */));
     }
 
     private void checkUidOwnerValue(final int uid, final int expectedIif,
@@ -326,7 +285,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testRemoveNaughtyApp() throws Exception {
         doTestRemoveNaughtyApp(NO_IIF, PENALTY_BOX_MATCH);
 
@@ -341,17 +299,9 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testRemoveNaughtyAppMissingUid() {
         // UidOwnerMap does not have entry for TEST_UID
         assertThrows(ServiceSpecificException.class,
-                () -> mBpfNetMaps.removeNaughtyApp(TEST_UID));
-    }
-
-    @Test
-    @IgnoreAfter(Build.VERSION_CODES.S_V2)
-    public void testRemoveNaughtyAppBeforeT() {
-        assertThrows(UnsupportedOperationException.class,
                 () -> mBpfNetMaps.removeNaughtyApp(TEST_UID));
     }
 
@@ -366,7 +316,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testAddNaughtyApp() throws Exception {
         doTestAddNaughtyApp(NO_IIF, NO_MATCH);
 
@@ -380,13 +329,6 @@ public final class BpfNetMapsTest {
         doTestAddNaughtyApp(NO_IIF, PENALTY_BOX_MATCH | DOZABLE_MATCH);
     }
 
-    @Test
-    @IgnoreAfter(Build.VERSION_CODES.S_V2)
-    public void testAddNaughtyAppBeforeT() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> mBpfNetMaps.addNaughtyApp(TEST_UID));
-    }
-
     private void doTestRemoveNiceApp(final int iif, final long match) throws Exception {
         mUidOwnerMap.updateEntry(new S32(TEST_UID), new UidOwnerValue(iif, match));
 
@@ -396,7 +338,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testRemoveNiceApp() throws Exception {
         doTestRemoveNiceApp(NO_IIF, HAPPY_BOX_MATCH);
 
@@ -411,17 +352,9 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testRemoveNiceAppMissingUid() {
         // UidOwnerMap does not have entry for TEST_UID
         assertThrows(ServiceSpecificException.class,
-                () -> mBpfNetMaps.removeNiceApp(TEST_UID));
-    }
-
-    @Test
-    @IgnoreAfter(Build.VERSION_CODES.S_V2)
-    public void testRemoveNiceAppBeforeT() {
-        assertThrows(UnsupportedOperationException.class,
                 () -> mBpfNetMaps.removeNiceApp(TEST_UID));
     }
 
@@ -436,7 +369,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testAddNiceApp() throws Exception {
         doTestAddNiceApp(NO_IIF, NO_MATCH);
 
@@ -448,13 +380,6 @@ public final class BpfNetMapsTest {
 
         // HAPPY_BOX_MATCH is already enabled
         doTestAddNiceApp(NO_IIF, HAPPY_BOX_MATCH | DOZABLE_MATCH);
-    }
-
-    @Test
-    @IgnoreAfter(Build.VERSION_CODES.S_V2)
-    public void testAddNiceAppBeforeT() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> mBpfNetMaps.addNiceApp(TEST_UID));
     }
 
     private void doTestUpdateUidLockdownRule(final int iif, final long match, final boolean add)
@@ -473,7 +398,6 @@ public final class BpfNetMapsTest {
     private static final boolean REMOVE = false;
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testUpdateUidLockdownRuleAddLockdown() throws Exception {
         doTestUpdateUidLockdownRule(NO_IIF, NO_MATCH, ADD);
 
@@ -489,7 +413,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testUpdateUidLockdownRuleRemoveLockdown() throws Exception {
         doTestUpdateUidLockdownRule(NO_IIF, LOCKDOWN_VPN_MATCH, REMOVE);
 
@@ -504,15 +427,8 @@ public final class BpfNetMapsTest {
         doTestUpdateUidLockdownRule(NO_IIF, POWERSAVE_MATCH | RESTRICTED_MATCH, REMOVE);
     }
 
-    @Test
-    @IgnoreAfter(Build.VERSION_CODES.S_V2)
-    public void testUpdateUidLockdownRuleBeforeT() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> mBpfNetMaps.updateUidLockdownRule(TEST_UID, true /* add */));
-    }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testAddUidInterfaceRules() throws Exception {
         final int uid0 = TEST_UIDS[0];
         final int uid1 = TEST_UIDS[1];
@@ -524,7 +440,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testAddUidInterfaceRulesWithOtherMatch() throws Exception {
         final int uid0 = TEST_UIDS[0];
         final int uid1 = TEST_UIDS[1];
@@ -540,7 +455,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testAddUidInterfaceRulesWithExistingIifMatch() throws Exception {
         final int uid0 = TEST_UIDS[0];
         final int uid1 = TEST_UIDS[1];
@@ -556,7 +470,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testAddUidInterfaceRulesGetIfIndexFail() {
         doReturn(0).when(mDeps).getIfIndex(TEST_IF_NAME);
         assertThrows(ServiceSpecificException.class,
@@ -564,7 +477,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testAddUidInterfaceRulesWithNullInterface() throws Exception {
         final int uid0 = TEST_UIDS[0];
         final int uid1 = TEST_UIDS[1];
@@ -593,7 +505,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testRemoveUidInterfaceRules() throws Exception {
         doTestRemoveUidInterfaceRules(TEST_IF_INDEX, IIF_MATCH, NULL_IIF, IIF_MATCH);
 
@@ -631,7 +542,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSetUidRule() throws Exception {
         doTestSetUidRule(FIREWALL_CHAIN_DOZABLE);
         doTestSetUidRule(FIREWALL_CHAIN_STANDBY);
@@ -644,7 +554,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSetUidRuleMultipleChain() throws Exception {
         doTestSetUidRule(List.of(
                 FIREWALL_CHAIN_DOZABLE,
@@ -658,7 +567,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSetUidRuleRemoveRuleFromUidWithNoRule() {
         final Class<ServiceSpecificException> expected = ServiceSpecificException.class;
         assertThrows(expected,
@@ -666,7 +574,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSetUidRuleInvalidChain() {
         final Class<ServiceSpecificException> expected = ServiceSpecificException.class;
         assertThrows(expected,
@@ -676,20 +583,12 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSetUidRuleInvalidRule() {
         final Class<ServiceSpecificException> expected = ServiceSpecificException.class;
         assertThrows(expected, () ->
                 mBpfNetMaps.setUidRule(FIREWALL_CHAIN_DOZABLE, TEST_UID, -1 /* firewallRule */));
         assertThrows(expected, () ->
                 mBpfNetMaps.setUidRule(FIREWALL_CHAIN_DOZABLE, TEST_UID, 1000 /* firewallRule */));
-    }
-
-    @Test
-    @IgnoreAfter(Build.VERSION_CODES.S_V2)
-    public void testSetUidRuleBeforeT() {
-        assertThrows(UnsupportedOperationException.class, () ->
-                mBpfNetMaps.setUidRule(FIREWALL_CHAIN_DOZABLE, TEST_UID, FIREWALL_RULE_ALLOW));
     }
 
     private void doTestGetUidRule(final List<Integer> enableChains) throws Exception {
@@ -714,7 +613,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testGetUidRule() throws Exception {
         doTestGetUidRule(FIREWALL_CHAIN_DOZABLE);
         doTestGetUidRule(FIREWALL_CHAIN_STANDBY);
@@ -727,7 +625,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testGetUidRuleMultipleChainEnabled() throws Exception {
         doTestGetUidRule(List.of(
                 FIREWALL_CHAIN_DOZABLE,
@@ -741,7 +638,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testGetUidRuleNoEntry() throws Exception {
         mUidOwnerMap.clear();
         for (final int chain: FIREWALL_CHAINS) {
@@ -752,7 +648,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testGetUidRuleInvalidChain() {
         final Class<ServiceSpecificException> expected = ServiceSpecificException.class;
         assertThrows(expected, () -> mBpfNetMaps.getUidRule(-1 /* childChain */, TEST_UID));
@@ -760,14 +655,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreAfter(Build.VERSION_CODES.S_V2)
-    public void testGetUidRuleBeforeT() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> mBpfNetMaps.getUidRule(FIREWALL_CHAIN_DOZABLE, TEST_UID));
-    }
-
-    @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testReplaceUidChain() throws Exception {
         final int uid0 = TEST_UIDS[0];
         final int uid1 = TEST_UIDS[1];
@@ -779,7 +666,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testReplaceUidChainWithOtherMatch() throws Exception {
         final int uid0 = TEST_UIDS[0];
         final int uid1 = TEST_UIDS[1];
@@ -795,7 +681,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testReplaceUidChainWithExistingIifMatch() throws Exception {
         final int uid0 = TEST_UIDS[0];
         final int uid1 = TEST_UIDS[1];
@@ -811,7 +696,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testReplaceUidChainRemoveExistingMatch() throws Exception {
         final int uid0 = TEST_UIDS[0];
         final int uid1 = TEST_UIDS[1];
@@ -827,7 +711,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testReplaceUidChainInvalidChain() {
         final Class<IllegalArgumentException> expected = IllegalArgumentException.class;
         assertThrows(expected, () -> mBpfNetMaps.replaceUidChain(-1 /* chain */, TEST_UIDS));
@@ -835,14 +718,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreAfter(Build.VERSION_CODES.S_V2)
-    public void testReplaceUidChainBeforeT() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> mBpfNetMaps.replaceUidChain(FIREWALL_CHAIN_DOZABLE, TEST_UIDS));
-    }
-
-    @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSetNetPermForUidsGrantInternetPermission() throws Exception {
         mBpfNetMaps.setNetPermForUids(PERMISSION_INTERNET, TEST_UIDS);
 
@@ -850,7 +725,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSetNetPermForUidsGrantUpdateStatsPermission() throws Exception {
         mBpfNetMaps.setNetPermForUids(PERMISSION_UPDATE_DEVICE_STATS, TEST_UIDS);
 
@@ -861,7 +735,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSetNetPermForUidsGrantMultiplePermissions() throws Exception {
         final int permission = PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS;
         mBpfNetMaps.setNetPermForUids(permission, TEST_UIDS);
@@ -873,7 +746,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSetNetPermForUidsRevokeInternetPermission() throws Exception {
         final int uid0 = TEST_UIDS[0];
         final int uid1 = TEST_UIDS[1];
@@ -885,7 +757,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSetNetPermForUidsRevokeUpdateDeviceStatsPermission() throws Exception {
         final int uid0 = TEST_UIDS[0];
         final int uid1 = TEST_UIDS[1];
@@ -897,7 +768,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSetNetPermForUidsRevokeMultiplePermissions() throws Exception {
         final int uid0 = TEST_UIDS[0];
         final int uid1 = TEST_UIDS[1];
@@ -910,7 +780,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSetNetPermForUidsPermissionUninstalled() throws Exception {
         final int uid0 = TEST_UIDS[0];
         final int uid1 = TEST_UIDS[1];
@@ -923,7 +792,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSetNetPermForUidsDuplicatedRequestSilentlyIgnored() throws Exception {
         final int uid0 = TEST_UIDS[0];
         final int uid1 = TEST_UIDS[1];
@@ -955,7 +823,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSwapActiveStatsMap() throws Exception {
         mConfigurationMap.updateEntry(
                 CURRENT_STATS_MAP_CONFIGURATION_KEY, new U32(STATS_SELECT_MAP_A));
@@ -970,7 +837,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testSwapActiveStatsMapSynchronizeKernelRCUFail() throws Exception {
         doReturn(EPERM).when(mDeps).synchronizeKernelRCU();
         mConfigurationMap.updateEntry(
@@ -980,7 +846,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testPullBpfMapInfo() throws Exception {
         // mCookieTagMap has 1 entry
         mCookieTagMap.updateEntry(new CookieTagMapKey(0), new CookieTagMapValue(0, 0));
@@ -1001,7 +866,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testPullBpfMapInfoGetMapSizeFailure() throws Exception {
         doThrow(new ErrnoException("", EINVAL)).when(mCookieTagMap).forEach(any());
         final int ret = mBpfNetMaps.pullBpfMapInfoAtom(NETWORK_BPF_MAP_INFO, new ArrayList<>());
@@ -1009,7 +873,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testPullBpfMapInfoUnexpectedAtomTag() {
         final int ret = mBpfNetMaps.pullBpfMapInfoAtom(-1 /* atomTag */, new ArrayList<>());
         assertEquals(StatsManager.PULL_SKIP, ret);
@@ -1033,7 +896,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testDumpUidPermissionMap() throws Exception {
         doTestDumpUidPermissionMap(PERMISSION_NONE, "PERMISSION_NONE");
         doTestDumpUidPermissionMap(PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS,
@@ -1041,7 +903,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testDumpUidPermissionMapInvalidPermission() throws Exception {
         doTestDumpUidPermissionMap(PERMISSION_UNINSTALLED, "PERMISSION_UNINSTALLED error!");
         doTestDumpUidPermissionMap(PERMISSION_INTERNET | 1 << 6,
@@ -1059,7 +920,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testDumpUidOwnerMap() throws Exception {
         doTestDumpUidOwnerMap(HAPPY_BOX_MATCH, "HAPPY_BOX_MATCH");
         doTestDumpUidOwnerMap(PENALTY_BOX_MATCH, "PENALTY_BOX_MATCH");
@@ -1080,7 +940,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testDumpUidOwnerMapWithIifMatch() throws Exception {
         doTestDumpUidOwnerMap(TEST_IF_INDEX, IIF_MATCH, "IIF_MATCH " + TEST_IF_INDEX);
         doTestDumpUidOwnerMap(TEST_IF_INDEX,
@@ -1089,7 +948,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testDumpUidOwnerMapWithInvalidMatch() throws Exception {
         final long invalid_match = 1L << 31;
         doTestDumpUidOwnerMap(invalid_match, "UNKNOWN_MATCH(" + invalid_match + ")");
@@ -1098,7 +956,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testDumpCurrentStatsMapConfig() throws Exception {
         mConfigurationMap.updateEntry(
                 CURRENT_STATS_MAP_CONFIGURATION_KEY, new U32(STATS_SELECT_MAP_A));
@@ -1117,7 +974,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testDumpUidOwnerMapConfig() throws Exception {
         doTestDumpOwnerMatchConfig(HAPPY_BOX_MATCH, "HAPPY_BOX_MATCH");
         doTestDumpOwnerMatchConfig(PENALTY_BOX_MATCH, "PENALTY_BOX_MATCH");
@@ -1139,7 +995,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testDumpUidOwnerMapConfigWithInvalidMatch() throws Exception {
         final long invalid_match = 1L << 31;
         doTestDumpOwnerMatchConfig(invalid_match, "UNKNOWN_MATCH(" + invalid_match + ")");
@@ -1148,7 +1003,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testDumpCookieTagMap() throws Exception {
         mCookieTagMap.updateEntry(new CookieTagMapKey(123), new CookieTagMapValue(456, 0x789));
         assertDumpContains(getDump(), "cookie=123 tag=0x789 uid=456");
