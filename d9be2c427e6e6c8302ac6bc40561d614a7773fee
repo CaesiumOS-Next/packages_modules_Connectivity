@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c7e9979_05107bf6",
+        "filename": "service/src/com/android/server/connectivity/DnsManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-04T13:43:19Z",
+      "side": 1,
+      "message": "This is handled in PrivateDnsDiscoveryTracker.\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/NetworkStack/+/2453209/21..22/src/com/android/server/connectivity/PrivateDnsDiscoveryTracker.java#286",
+      "parentUuid": "f7fb74c3_c4ada616",
+      "range": {
+        "startLine": 389,
+        "startChar": 61,
+        "endLine": 389,
+        "endChar": 68
+      },
+      "revId": "d9be2c427e6e6c8302ac6bc40561d614a7773fee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb906308_e99c4416",
@@ -71,6 +95,30 @@
       "writtenOn": "2023-10-02T03:09:04Z",
       "side": 1,
       "message": "Looks identical to line 381. Can you refactor out to a function? Something like reachableAddressesToStrings?",
+      "range": {
+        "startLine": 391,
+        "startChar": 25,
+        "endLine": 394,
+        "endChar": 60
+      },
+      "revId": "d9be2c427e6e6c8302ac6bc40561d614a7773fee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4061cbbc_40518462",
+        "filename": "service/src/com/android/server/connectivity/DnsManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-04T13:43:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb906308_e99c4416",
       "range": {
         "startLine": 391,
         "startChar": 25,
