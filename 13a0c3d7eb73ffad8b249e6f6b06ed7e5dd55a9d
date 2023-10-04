@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db81adcc_a8f94874",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-04T03:35:39Z",
+      "side": 1,
+      "message": "AFAIK, problematic BPF programs in android.net.NetworkStatsIntegrationTest#test464XlatTcpStats are interface based data accounting (XT_BPF_EGRESS_PROG_PATH/XT_BPF_INGRESS_PROG_PATH on netfilter), not UID based data accounting (BPF_EGRESS_PROG_PATH/BPF_INGRESS_PROG_PATH on cgroup).",
+      "revId": "13a0c3d7eb73ffad8b249e6f6b06ed7e5dd55a9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
