@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b23b5b4e_e505db78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T09:04:46Z",
+      "side": 1,
+      "message": "I\u0027m not too sure why this change is necessary; it seems to be you could use the current class directly ?",
+      "revId": "2f39bb89a1d83ca9c86110d28c9b5858fdb98ef4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c2866f1_e7bda8e6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsPacketSender.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T09:04:46Z",
+      "side": 1,
+      "message": "I\u0027m not sure why this class is necessary: why not use MdnsReplySender directly ?\n\nSee also: aosp/2760326, which is making MdnsReplySender build without depending on the advertising code",
+      "revId": "2f39bb89a1d83ca9c86110d28c9b5858fdb98ef4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "738b40b6_0f85f257",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsPacketSender.java",
         "patchSetId": 1
@@ -19,6 +53,53 @@
         "startChar": 0,
         "endLine": 39,
         "endChar": 42
+      },
+      "revId": "2f39bb89a1d83ca9c86110d28c9b5858fdb98ef4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47e094ce_acc98812",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsPacketSender.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T09:04:46Z",
+      "side": 1,
+      "message": "+1; actually I think it\u0027s also 21 at least (21 is Lollipop, 22 Lollipop MR1)",
+      "parentUuid": "738b40b6_0f85f257",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "2f39bb89a1d83ca9c86110d28c9b5858fdb98ef4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24b2aa1c_bafc4d35",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsPacketSender.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T09:04:46Z",
+      "side": 1,
+      "message": "If this is used for both advertising and discovery, DBG can be passed as argument (but it\u0027s unused here ?)",
+      "range": {
+        "startLine": 41,
+        "startChar": 31,
+        "endLine": 41,
+        "endChar": 45
       },
       "revId": "2f39bb89a1d83ca9c86110d28c9b5858fdb98ef4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -43,6 +124,23 @@
         "endLine": 29,
         "endChar": 27
       },
+      "revId": "2f39bb89a1d83ca9c86110d28c9b5858fdb98ef4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67ab49eb_60176046",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T09:04:46Z",
+      "side": 1,
+      "message": "Can this use isRunningOnLooperThread ?",
       "revId": "2f39bb89a1d83ca9c86110d28c9b5858fdb98ef4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
