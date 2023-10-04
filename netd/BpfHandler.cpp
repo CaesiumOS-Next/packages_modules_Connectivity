@@ -138,6 +138,18 @@ static Status initPrograms(const char* cg2_path) {
         if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET_SOCK_CREATE) <= 0) abort();
     }
 
+
+    if (bpf::isAtLeastKernelVersion(5, 4, 0)) {
+        RETURN_IF_NOT_OK(attachProgramToCgroup(
+                "/sys/fs/bpf/netd_readonly/prog_block_bind4_block_port",
+                cg_fd, BPF_CGROUP_INET4_BIND));
+        RETURN_IF_NOT_OK(attachProgramToCgroup(
+                "/sys/fs/bpf/netd_readonly/prog_block_bind6_block_port",
+                cg_fd, BPF_CGROUP_INET6_BIND));
+        if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET4_BIND) <= 0) abort();
+        if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET6_BIND) <= 0) abort();
+    }
+
     return netdutils::status::ok;
 }
 
