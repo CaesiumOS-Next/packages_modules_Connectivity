@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74e4d66b_ec696399",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 10351,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-10-04T09:23:13Z",
+      "side": 1,
+      "message": "Attempt made, see if it works for you.",
+      "parentUuid": "62e45156_45fe557c",
+      "range": {
+        "startLine": 10351,
+        "startChar": 16,
+        "endLine": 10351,
+        "endChar": 31
+      },
+      "revId": "cd7749e39d1a2bbbb6a8848bdb54259a91e6b699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51fe9451_c23e71f1",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-27T06:44:09Z",
       "side": 1,
       "message": "Nit: Can\u0027t this be final? We can use another ExpectedBroadcast variable for l.10405\n\nDitto for b2",
+      "range": {
+        "startLine": 10381,
+        "startChar": 26,
+        "endLine": 10381,
+        "endChar": 28
+      },
+      "revId": "cd7749e39d1a2bbbb6a8848bdb54259a91e6b699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4769f6a3_021a21ea",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 10381,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-10-04T09:23:13Z",
+      "side": 1,
+      "message": "Done in another cl.",
+      "parentUuid": "51fe9451_c23e71f1",
       "range": {
         "startLine": 10381,
         "startChar": 26,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13f24ec4_4b3e28c0",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 10390,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-10-04T09:23:13Z",
+      "side": 1,
+      "message": "Sorry that this comment was misleading, it is actually waiting for setVpnDefaultForUids(). There is no dependency on Vpn implementation or IkeV2VpnRunner here. \n\nSee MockVpn#startPlatformVpn() as the way setVpnDefaultForUids() is being called().",
+      "parentUuid": "ff067eed_1d8b7606",
+      "range": {
+        "startLine": 10390,
+        "startChar": 20,
+        "endLine": 10390,
+        "endChar": 43
+      },
+      "revId": "cd7749e39d1a2bbbb6a8848bdb54259a91e6b699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a3bf2fe_20780f2f",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-09-27T06:44:09Z",
       "side": 1,
       "message": "Nit: final\n\nTry to use another variable if you need another NC.",
+      "range": {
+        "startLine": 10410,
+        "startChar": 8,
+        "endLine": 10410,
+        "endChar": 9
+      },
+      "revId": "cd7749e39d1a2bbbb6a8848bdb54259a91e6b699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34415336_3c0a1a62",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 10410,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-10-04T09:23:13Z",
+      "side": 1,
+      "message": "Done in another cl.",
+      "parentUuid": "7a3bf2fe_20780f2f",
       "range": {
         "startLine": 10410,
         "startChar": 8,

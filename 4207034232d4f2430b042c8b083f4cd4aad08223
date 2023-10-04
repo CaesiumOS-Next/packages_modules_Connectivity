@@ -22,6 +22,30 @@
       },
       "revId": "4207034232d4f2430b042c8b083f4cd4aad08223",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbad39eb_9ba5d859",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 10162,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-10-04T09:23:13Z",
+      "side": 0,
+      "message": "You are right, those two concepts got mixed up. \nRenamed the tests to `testLockdownVpn_LegacyVpnRunner` and `testLockdownVpn_Ikev2VpnRunner`. And kept the `legacy` in this method.",
+      "parentUuid": "5049a5e3_18b2666d",
+      "range": {
+        "startLine": 10162,
+        "startChar": 26,
+        "endLine": 10162,
+        "endChar": 32
+      },
+      "revId": "4207034232d4f2430b042c8b083f4cd4aad08223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
