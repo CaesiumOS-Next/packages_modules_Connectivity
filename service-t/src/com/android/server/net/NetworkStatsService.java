@@ -62,7 +62,6 @@ import static android.text.format.DateUtils.DAY_IN_MILLIS;
 import static android.text.format.DateUtils.HOUR_IN_MILLIS;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
-
 import static com.android.internal.annotations.VisibleForTesting.Visibility.PRIVATE;
 import static com.android.net.module.util.NetworkCapabilitiesUtils.getDisplayTransport;
 import static com.android.net.module.util.NetworkStatsUtils.LIMIT_GLOBAL_ALERT;
@@ -519,9 +518,10 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                 case MSG_NOTIFY_NETWORK_STATUS: {
                     // If no cached states, ignore.
                     if (mLastNetworkStateSnapshots == null) break;
-                    // TODO (b/181642673): Protect mDefaultNetworks from concurrent accessing.
-                    handleNotifyNetworkStatus(
-                            mDefaultNetworks, mLastNetworkStateSnapshots, mActiveIface);
+                    synchronized (mStatsLock) {
+                        handleNotifyNetworkStatus(
+                                mDefaultNetworks, mLastNetworkStateSnapshots, mActiveIface);
+                    }
                     break;
                 }
                 case MSG_PERFORM_POLL_REGISTER_ALERT: {
