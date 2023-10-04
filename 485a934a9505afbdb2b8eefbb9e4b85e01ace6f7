@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4a4fdc3_d3909dcf",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-04T13:39:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51e65bbd_ea92dc49",
+      "range": {
+        "startLine": 48,
+        "startChar": 61,
+        "endLine": 48,
+        "endChar": 62
+      },
+      "revId": "485a934a9505afbdb2b8eefbb9e4b85e01ace6f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "733aa286_c223f448",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-10-03T02:50:07Z",
       "side": 1,
       "message": "This is more like KEY_ALPNS?",
+      "range": {
+        "startLine": 154,
+        "startChar": 65,
+        "endLine": 154,
+        "endChar": 73
+      },
+      "revId": "485a934a9505afbdb2b8eefbb9e4b85e01ace6f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b8a2a63_68388bca",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-04T13:39:43Z",
+      "side": 1,
+      "message": "The naming is based on the following link.\n\nhttps://www.iana.org/assignments/dns-svcb/dns-svcb.xhtml",
+      "parentUuid": "733aa286_c223f448",
       "range": {
         "startLine": 154,
         "startChar": 65,

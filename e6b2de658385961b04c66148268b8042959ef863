@@ -236,6 +236,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b004100_c7686a1b",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-04T13:39:43Z",
+      "side": 1,
+      "message": "There\u0027s no need to add getValue() for now because I already cast base type to the actual implementing type. For example, cast SvcParam to SvcParamPort in getPort().\n\n```\n    public int getPort() {\n        final SvcParamPort sp \u003d (SvcParamPort) mAllSvcParams.get(KEY_PORT);\n        return (sp !\u003d null) ? sp.getValue() : -1;\n    }\n```",
+      "parentUuid": "2e13e078_27a9ddc9",
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b81f054f_112fc3b9",
