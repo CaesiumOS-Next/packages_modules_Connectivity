@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b3281bf_96ed24ee",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbPacket.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-04T13:40:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e83cb56d_c16714ac",
+      "range": {
+        "startLine": 107,
+        "startChar": 11,
+        "endLine": 107,
+        "endChar": 23
+      },
+      "revId": "bb9046e20c5c3c78e4c9fddf04ce5dcf959d2c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66c6eb1b_688c5ad9",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b04bce8_63d57526",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbPacket.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-04T13:40:25Z",
+      "side": 1,
+      "message": "I didn\u0027t see a documenting saying that it\u0027s not allowed to contain a type other than A/AAAA in additinal section, so I just log it. Maybe \"unexpected type\" doesn\u0027t seem that appropriate.",
+      "parentUuid": "66c6eb1b_688c5ad9",
+      "range": {
+        "startLine": 150,
+        "startChar": 27,
+        "endLine": 150,
+        "endChar": 71
+      },
+      "revId": "bb9046e20c5c3c78e4c9fddf04ce5dcf959d2c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88e6d38f_157ab200",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-10-03T03:21:02Z",
       "side": 1,
       "message": "It seems to me this is not specific to DnsSvcbPacket and should be done in DnsPacket?",
+      "range": {
+        "startLine": 162,
+        "startChar": 3,
+        "endLine": 170,
+        "endChar": 5
+      },
+      "revId": "bb9046e20c5c3c78e4c9fddf04ce5dcf959d2c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86a6de65_e2c8e01e",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbPacket.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-04T13:40:25Z",
+      "side": 1,
+      "message": "DnsPacket has its own toString() implementation that I am not going to change it.",
+      "parentUuid": "88e6d38f_157ab200",
       "range": {
         "startLine": 162,
         "startChar": 3,
