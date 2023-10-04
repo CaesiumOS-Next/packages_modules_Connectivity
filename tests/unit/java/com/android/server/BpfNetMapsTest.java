@@ -55,7 +55,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeFalse;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -65,7 +64,6 @@ import static org.mockito.Mockito.verify;
 import android.app.StatsManager;
 import android.content.Context;
 import android.net.BpfNetMapsUtils;
-import android.net.INetd;
 import android.os.Build;
 import android.os.ServiceSpecificException;
 import android.system.ErrnoException;
@@ -74,7 +72,6 @@ import android.util.IndentingPrintWriter;
 
 import androidx.test.filters.SmallTest;
 
-import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.Struct.S32;
 import com.android.net.module.util.Struct.U32;
@@ -131,7 +128,6 @@ public final class BpfNetMapsTest {
 
     private BpfNetMaps mBpfNetMaps;
 
-    @Mock INetd mNetd;
     @Mock BpfNetMaps.Dependencies mDeps;
     @Mock Context mContext;
     private final IBpfMap<S32, U32> mConfigurationMap = new TestBpfMap<>(S32.class, U32.class);
@@ -154,18 +150,7 @@ public final class BpfNetMapsTest {
         BpfNetMaps.setUidOwnerMapForTest(mUidOwnerMap);
         BpfNetMaps.setUidPermissionMapForTest(mUidPermissionMap);
         BpfNetMaps.setCookieTagMapForTest(mCookieTagMap);
-        mBpfNetMaps = new BpfNetMaps(mContext, mNetd, mDeps);
-    }
-
-    @Test
-    public void testBpfNetMapsBeforeT() throws Exception {
-        assumeFalse(SdkLevel.isAtLeastT());
-        mBpfNetMaps.addUidInterfaceRules(TEST_IF_NAME, TEST_UIDS);
-        verify(mNetd).firewallAddUidInterfaceRules(TEST_IF_NAME, TEST_UIDS);
-        mBpfNetMaps.removeUidInterfaceRules(TEST_UIDS);
-        verify(mNetd).firewallRemoveUidInterfaceRules(TEST_UIDS);
-        mBpfNetMaps.setNetPermForUids(PERMISSION_INTERNET, TEST_UIDS);
-        verify(mNetd).trafficSetNetPermForUids(PERMISSION_INTERNET, TEST_UIDS);
+        mBpfNetMaps = new BpfNetMaps(mContext, mDeps);
     }
 
     private long getMatch(final List<Integer> chains) {

@@ -97,12 +97,14 @@ import static android.os.Process.VPN_UID;
 import static android.system.OsConstants.ETH_P_ALL;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
+
 import static com.android.net.module.util.NetworkMonitorUtils.isPrivateDnsValidationRequired;
 import static com.android.net.module.util.PermissionUtils.checkAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermission;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermissionOr;
 import static com.android.server.ConnectivityStatsLog.CONNECTIVITY_STATE_SAMPLE;
+
 import static java.util.Map.Entry;
 
 import android.Manifest;
@@ -1445,8 +1447,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
          * @param netd a netd binder
          * @return BpfNetMaps implementation.
          */
-        public BpfNetMaps getBpfNetMaps(Context context, INetd netd) {
-            return new BpfNetMaps(context, netd);
+        public BpfNetMaps getBpfNetMaps(Context context) {
+            return new BpfNetMaps(context);
         }
 
         /**
@@ -1659,7 +1661,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mWakeUpMask = mask;
 
         mNetd = netd;
-        mBpfNetMaps = mDeps.getBpfNetMaps(mContext, netd);
+        mBpfNetMaps = mDeps.isAtLeastT() ? mDeps.getBpfNetMaps(mContext) : null;
         mHandlerThread = mDeps.makeHandlerThread();
         mPermissionMonitor =
                 new PermissionMonitor(mContext, mNetd, mBpfNetMaps, mHandlerThread);
@@ -4004,10 +4006,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void dumpTrafficController(IndentingPrintWriter pw, final FileDescriptor fd,
             boolean verbose) {
+        if (!mDeps.isAtLeastT()) {
+            pw.println("dumpsys connectivity trafficcontroller dump not available on pre-T"
+                    + " devices, use dumpsys netd trafficcontroller instead.");
+            return;
+        }
         try {
             mBpfNetMaps.dump(pw, fd, verbose);
-        } catch (ServiceSpecificException e) {
-            pw.println(e.getMessage());
         } catch (IOException e) {
             loge("Dump BPF maps failed, " + e);
         }
