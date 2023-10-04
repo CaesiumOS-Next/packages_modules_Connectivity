@@ -128,7 +128,6 @@ static Status initPrograms(const char* cg2_path) {
     if (bpf::isAtLeastKernelVersion(4, 14, 0)) {
         RETURN_IF_NOT_OK(
                 attachProgramToCgroup(CGROUP_SOCKET_PROG_PATH, cg_fd, BPF_CGROUP_INET_SOCK_CREATE));
-    }
 
     // This should trivially pass, since we just attached up above,
     // but BPF_PROG_QUERY is only implemented on 4.19+ kernels.
@@ -136,6 +135,18 @@ static Status initPrograms(const char* cg2_path) {
         if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET_EGRESS) <= 0) abort();
         if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET_INGRESS) <= 0) abort();
         if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET_SOCK_CREATE) <= 0) abort();
+    }
+
+#define CGROUP_BIND4_PROG_PATH "/sys/fs/bpf/net_shared/prog_block_bind4_block_port"
+#define CGROUP_BIND6_PROG_PATH "/sys/fs/bpf/net_shared/prog_block_bind6_block_port"
+
+    if (bpf::isAtLeastKernelVersion(5, 4, 0)) {
+        RETURN_IF_NOT_OK(
+                attachProgramToCgroup(CGROUP_BIND4_PROG_PATH, cg_fd, BPF_CGROUP_INET4_BIND));
+        RETURN_IF_NOT_OK(
+                attachProgramToCgroup(CGROUP_BIND6_PROG_PATH, cg_fd, BPF_CGROUP_INET6_BIND));
+        if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET4_BIND) <= 0) abort();
+        if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET6_BIND) <= 0) abort();
     }
 
     return netdutils::status::ok;
