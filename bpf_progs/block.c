@@ -58,13 +58,13 @@ static inline __always_inline int block_port(struct bpf_sock_addr *ctx) {
 }
 
 DEFINE_BPF_PROG_KVER("bind4/block_port", AID_ROOT, AID_SYSTEM,
-                     bind4_block_port, KVER(5, 4, 0))
+                     bind4_block_port, KVER(4, 14, 0))
 (struct bpf_sock_addr *ctx) {
     return block_port(ctx);
 }
 
 DEFINE_BPF_PROG_KVER("bind6/block_port", AID_ROOT, AID_SYSTEM,
-                     bind6_block_port, KVER(5, 4, 0))
+                     bind6_block_port, KVER(4, 14, 0))
 (struct bpf_sock_addr *ctx) {
     return block_port(ctx);
 }
