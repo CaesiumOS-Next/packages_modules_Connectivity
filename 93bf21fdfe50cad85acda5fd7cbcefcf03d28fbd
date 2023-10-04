@@ -1,0 +1,210 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61b2a720_8dc02687",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T08:41:25Z",
+      "side": 1,
+      "message": "There will be exactly one callback per ServiceTypeClient right ?\n\nAnd there is exactly one ServiceTypeClient per (SocketKey, serviceType) ?\n\nIn that case, could this be a Map\u003cCacheKey, ServiceExpiredCallback\u003e ? I think it would make some methods simpler (like notifyServiceExpired).",
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2477242_76da32ce",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T08:41:25Z",
+      "side": 1,
+      "message": "This is new behavior that should be flagged off; can you add a flag for this ?\n\nBasically all calls to maybeRemoveExpiredServices / removeExpiredServices and notifyServiceExpired should be flagged",
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3905f8c_5a096c31",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T08:41:25Z",
+      "side": 1,
+      "message": "How about using maybeRemoveExpiredServices ? In practice there should be a scheduled job to expire services at mNextExpirationTime (so callbacks can be sent at the right time), so maybeRemoveExpiredServices would almost always do nothing, since the services should be kept up-to-date.\n\nThat should be implemented in a followup though (and you\u0027d need to use something like com.android.internal.util.WakeupMessage to make sure messages are on time, as Handler.sendMessageDelayed excludes time spent sleeping)",
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9455179_97d989c9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T08:41:25Z",
+      "side": 1,
+      "message": "extra and ?",
+      "range": {
+        "startLine": 198,
+        "startChar": 35,
+        "endLine": 198,
+        "endChar": 38
+      },
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cd57da1_8c7d9e3e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T08:41:25Z",
+      "side": 1,
+      "message": "If there\u0027s no cached service, this would be a negative value (overflow when adding Long.MAX_VALUE).\n\nMaybe you could return Long.MAX_VALUE when minRemainingTtl is still EXPIRATION_NEVER after the loop, or when mCachedServices is empty ?",
+      "range": {
+        "startLine": 250,
+        "startChar": 15,
+        "endLine": 250,
+        "endChar": 36
+      },
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55d97997_88fea255",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T08:41:25Z",
+      "side": 1,
+      "message": "Could you pass in a CacheKey instead, which would be kept (final member) in the ServiceTypeClient ?\n\nThen the same key can be used to unregister",
+      "range": {
+        "startLine": 263,
+        "startChar": 47,
+        "endLine": 264,
+        "endChar": 40
+      },
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c08ce10_3b6260e1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T08:41:25Z",
+      "side": 1,
+      "message": "Nit: can you make this static with \"responses\" as argument, instead of cacheKey ? And move mCachedServices.remove to the caller ?\n\nSo you\u0027d do:\n\n    for (int i \u003d ... i--) {\n      final List\u003cMdnsResponse\u003e responses \u003d mCachedServices.valueAt(i);\n      for (response : removeExpiredServices(responses, now)) {\n          ...\n      }\n      if (responses.isEmpty()) { mCachedServices.removeAt(i); }\n    }\n\nThis would make it easier to follow when looking at the caller, as it\u0027s not very clear that removeExpiredServices is modifying the mCachedServices member that is being iterated on.",
+      "range": {
+        "startLine": 291,
+        "startChar": 31,
+        "endLine": 291,
+        "endChar": 52
+      },
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c78a729a_9d522c66",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T08:41:25Z",
+      "side": 1,
+      "message": "Nit: you could skip this if there was no expired service (no call to notifyServiceExpired). This avoids iterating records.",
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf3e20f3_2799d924",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T08:41:25Z",
+      "side": 1,
+      "message": "Nit: why is this added here but not for SERVICE_NAME_1 ? Maybe it would be simpler to have just \"default_ttl\", \"default_ttl+20\", \"default_ttl+10\" ?",
+      "range": {
+        "startLine": 207,
+        "startChar": 38,
+        "endLine": 207,
+        "endChar": 62
+      },
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dc48ff2_fd7297f2",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T08:41:25Z",
+      "side": 1,
+      "message": "Should it be just DEFAULT_TTL_TIME_MS + TEST_ELAPSED_REALTIME_MS + 11L ? Not sure why there\u0027s *2",
+      "range": {
+        "startLine": 230,
+        "startChar": 63,
+        "endLine": 230,
+        "endChar": 68
+      },
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

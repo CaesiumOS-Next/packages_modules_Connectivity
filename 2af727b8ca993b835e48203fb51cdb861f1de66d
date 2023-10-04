@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eb4a7af_f26c8466",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-04T08:41:25Z",
+      "side": 0,
+      "message": "With the flagging, you\u0027ll need to keep this code, but only run it when flagged off.\n\nYou can probably refactor the part about sending the notifications to directly call serviceExpiredCallback.onServiceRecordExpired",
+      "revId": "2af727b8ca993b835e48203fb51cdb861f1de66d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
