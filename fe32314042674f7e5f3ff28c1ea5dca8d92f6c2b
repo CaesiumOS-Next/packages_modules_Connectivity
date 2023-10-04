@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "25cf93db_bba3bfd5",
+        "filename": "service/src/com/android/server/connectivity/DnsManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-04T05:36:00Z",
+      "side": 1,
+      "message": "I think adding a constructor requires marking the parcel @JavaOnlyImmutable. That means Java code can\u0027t change it. That seems like a good idea though...",
+      "parentUuid": "864cb7cb_289074fa",
+      "range": {
+        "startLine": 388,
+        "startChar": 37,
+        "endLine": 388,
+        "endChar": 52
+      },
+      "revId": "fe32314042674f7e5f3ff28c1ea5dca8d92f6c2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e92c88d_5efeef02",
         "filename": "service/src/com/android/server/connectivity/DnsManager.java",
         "patchSetId": 10
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-03T06:10:48Z",
       "side": 1,
       "message": "IIUC This is hard to maintain.\nCould we do something like: \"sendDnsConfigurationForNetwork(\" + paramsParcel.toString() + \")\"?",
+      "range": {
+        "startLine": 411,
+        "startChar": 34,
+        "endLine": 411,
+        "endChar": 64
+      },
+      "revId": "fe32314042674f7e5f3ff28c1ea5dca8d92f6c2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86dd15bd_f1b958b7",
+        "filename": "service/src/com/android/server/connectivity/DnsManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-04T05:36:00Z",
+      "side": 1,
+      "message": "+1. I think that requires adding:\n\n@JavaDerive(toString \u003d true)\n\nto the parcel. That\u0027s a change to the AIDL API, so maybe you can add that to aosp/2452366 ? While you\u0027re at it it\u0027s probably a good idea to derive equals as well, so we can use it in unit tests.",
+      "parentUuid": "3e92c88d_5efeef02",
       "range": {
         "startLine": 411,
         "startChar": 34,
