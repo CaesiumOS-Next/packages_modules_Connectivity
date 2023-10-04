@@ -45,6 +45,29 @@
       },
       "revId": "9343a57d2745937667243190b4e716f938b19d0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "828f3b50_0f14d017",
+        "filename": "staticlibs/native/bpf_syscall_wrappers/include/BpfSyscallWrappers.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-10-04T16:11:39Z",
+      "side": 1,
+      "message": "Well, you got me. I dove down this rabbit hole. The id is allocated here: https://source.corp.google.com/h/prodkernel/kernel/upstream/torvalds/linux-2.6/+/master:kernel/bpf/syscall.c;l\u003d2070 and indeed starts at 1. Remove \"believe\".",
+      "range": {
+        "startLine": 185,
+        "startChar": 68,
+        "endLine": 185,
+        "endChar": 75
+      },
+      "revId": "9343a57d2745937667243190b4e716f938b19d0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
