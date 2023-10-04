@@ -2223,7 +2223,7 @@ public class ConnectivityServiceTest {
         }
 
         @Override
-        public BpfNetMaps getBpfNetMaps(Context context, INetd netd) {
+        public BpfNetMaps getBpfNetMaps(Context context) {
             return mBpfNetMaps;
         }
 
