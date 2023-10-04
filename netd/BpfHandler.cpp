@@ -128,6 +128,12 @@ static Status initPrograms(const char* cg2_path) {
     if (bpf::isAtLeastKernelVersion(4, 14, 0)) {
         RETURN_IF_NOT_OK(
                 attachProgramToCgroup(CGROUP_SOCKET_PROG_PATH, cg_fd, BPF_CGROUP_INET_SOCK_CREATE));
+        RETURN_IF_NOT_OK(
+                attachProgramToCgroup(CGROUP_)
+        );
+        RETURN_IF_NOT_OK(
+                attachProgramToCgroup(CGROUP_)
+        );
     }
 
     // This should trivially pass, since we just attached up above,
