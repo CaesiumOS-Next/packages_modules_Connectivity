@@ -45,15 +45,12 @@ import static android.net.INetd.PERMISSION_UPDATE_DEVICE_STATS;
 import static android.system.OsConstants.EINVAL;
 import static android.system.OsConstants.ENODEV;
 import static android.system.OsConstants.ENOENT;
-import static android.system.OsConstants.EOPNOTSUPP;
 
 import static com.android.server.ConnectivityStatsLog.NETWORK_BPF_MAP_INFO;
 
 import android.app.StatsManager;
 import android.content.Context;
-import android.net.INetd;
 import android.os.Build;
-import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.system.ErrnoException;
 import android.system.Os;
@@ -87,20 +84,16 @@ import java.util.Set;
 import java.util.StringJoiner;
 
 /**
- * BpfNetMaps is responsible for providing traffic controller relevant functionality.
+ * BpfNetMaps is responsible for providing traffic controller relevant functionality on T+ devices.
  *
  * {@hide}
  */
-public class BpfNetMaps {
-    private static final boolean PRE_T = !SdkLevel.isAtLeastT();
+public class BpfNetMaps implements IBpfNetPermMaps {
     static {
-        if (!PRE_T) {
-            System.loadLibrary("service-connectivity");
-        }
+        System.loadLibrary("service-connectivity");
     }
 
     private static final String TAG = "BpfNetMaps";
-    private final INetd mNetd;
     private final Dependencies mDeps;
     // Use legacy netd for releases before T.
     private static boolean sInitialized = false;
@@ -300,20 +293,11 @@ public class BpfNetMaps {
     /** Constructor used after T that doesn't need to use netd anymore. */
     public BpfNetMaps(final Context context) {
         this(context, null);
-
-        if (PRE_T) throw new IllegalArgumentException("BpfNetMaps need to use netd before T");
-    }
-
-    public BpfNetMaps(final Context context, final INetd netd) {
-        this(context, netd, new Dependencies());
     }
 
     @VisibleForTesting
-    public BpfNetMaps(final Context context, final INetd netd, final Dependencies deps) {
-        if (!PRE_T) {
-            ensureInitialized(context);
-        }
-        mNetd = netd;
+    public BpfNetMaps(final Context context, final Dependencies deps) {
+        ensureInitialized(context);
         mDeps = deps;
     }
 
@@ -343,12 +327,6 @@ public class BpfNetMaps {
     private void maybeThrow(final int err, final String msg) {
         if (err != 0) {
             throw new ServiceSpecificException(err, msg + ": " + Os.strerror(err));
-        }
-    }
-
-    private void throwIfPreT(final String msg) {
-        if (PRE_T) {
-            throw new UnsupportedOperationException(msg);
         }
     }
 
@@ -421,8 +399,6 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void addNaughtyApp(final int uid) {
-        throwIfPreT("addNaughtyApp is not available on pre-T devices");
-
         if (sEnableJavaBpfMap) {
             addRule(uid, PENALTY_BOX_MATCH, "addNaughtyApp");
         } else {
@@ -439,8 +415,6 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void removeNaughtyApp(final int uid) {
-        throwIfPreT("removeNaughtyApp is not available on pre-T devices");
-
         if (sEnableJavaBpfMap) {
             removeRule(uid, PENALTY_BOX_MATCH, "removeNaughtyApp");
         } else {
@@ -457,8 +431,6 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void addNiceApp(final int uid) {
-        throwIfPreT("addNiceApp is not available on pre-T devices");
-
         if (sEnableJavaBpfMap) {
             addRule(uid, HAPPY_BOX_MATCH, "addNiceApp");
         } else {
@@ -475,8 +447,6 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void removeNiceApp(final int uid) {
-        throwIfPreT("removeNiceApp is not available on pre-T devices");
-
         if (sEnableJavaBpfMap) {
             removeRule(uid, HAPPY_BOX_MATCH, "removeNiceApp");
         } else {
@@ -495,8 +465,6 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void setChildChain(final int childChain, final boolean enable) {
-        throwIfPreT("setChildChain is not available on pre-T devices");
-
         if (sEnableJavaBpfMap) {
             final long match = getMatchByFirewallChain(childChain);
             try {
@@ -525,8 +493,6 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public boolean isChainEnabled(final int childChain) {
-        throwIfPreT("isChainEnabled is not available on pre-T devices");
-
         final long match = getMatchByFirewallChain(childChain);
         try {
             final U32 config = sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY);
@@ -555,8 +521,6 @@ public class BpfNetMaps {
      * @throws IllegalArgumentException if {@code chain} is not a valid chain.
      */
     public void replaceUidChain(final int chain, final int[] uids) {
-        throwIfPreT("replaceUidChain is not available on pre-T devices");
-
         if (sEnableJavaBpfMap) {
             final long match;
             try {
@@ -639,8 +603,6 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void setUidRule(final int childChain, final int uid, final int firewallRule) {
-        throwIfPreT("setUidRule is not available on pre-T devices");
-
         if (sEnableJavaBpfMap) {
             final long match = getMatchByFirewallChain(childChain);
             final boolean isAllowList = isFirewallAllowList(childChain);
@@ -669,8 +631,6 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public int getUidRule(final int childChain, final int uid) {
-        throwIfPreT("isUidChainEnabled is not available on pre-T devices");
-
         final long match = getMatchByFirewallChain(childChain);
         final boolean isAllowList = isFirewallAllowList(childChain);
         try {
@@ -755,16 +715,10 @@ public class BpfNetMaps {
      * @param ifName the name of the interface on which the filtering rules will allow packets to
      *               be received.
      * @param uids   an array of UIDs which the filtering rules will be set
-     * @throws RemoteException when netd has crashed.
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
-    public void addUidInterfaceRules(final String ifName, final int[] uids) throws RemoteException {
-        if (PRE_T) {
-            mNetd.firewallAddUidInterfaceRules(ifName, uids);
-            return;
-        }
-
+    public void addUidInterfaceRules(final String ifName, final int[] uids) {
         if (sEnableJavaBpfMap) {
             // Null ifName is a wildcard to allow apps to receive packets on all interfaces and
             // ifIndex is set to 0.
@@ -798,16 +752,10 @@ public class BpfNetMaps {
      * by addUidInterfaceRules(). Ignore any uid which does not have filtering rule.
      *
      * @param uids an array of UIDs from which the filtering rules will be removed
-     * @throws RemoteException when netd has crashed.
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
-    public void removeUidInterfaceRules(final int[] uids) throws RemoteException {
-        if (PRE_T) {
-            mNetd.firewallRemoveUidInterfaceRules(uids);
-            return;
-        }
-
+    public void removeUidInterfaceRules(final int[] uids) {
         if (sEnableJavaBpfMap) {
             for (final int uid : uids) {
                 try {
@@ -831,8 +779,6 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void updateUidLockdownRule(final int uid, final boolean add) {
-        throwIfPreT("updateUidLockdownRule is not available on pre-T devices");
-
         if (sEnableJavaBpfMap) {
             if (add) {
                 addRule(uid, LOCKDOWN_VPN_MATCH, "updateUidLockdownRule");
@@ -853,8 +799,6 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void swapActiveStatsMap() {
-        throwIfPreT("swapActiveStatsMap is not available on pre-T devices");
-
         if (sEnableJavaBpfMap) {
             try {
                 synchronized (sCurrentStatsMapConfigLock) {
@@ -892,14 +836,8 @@ public class BpfNetMaps {
      *                    PERMISSION_UPDATE_DEVICE_STATS. If the permission is NO_PERMISSIONS, then
      *                    revoke all permissions for the uids.
      * @param uids        uid of users to grant permission
-     * @throws RemoteException when netd has crashed.
      */
-    public void setNetPermForUids(final int permissions, final int[] uids) throws RemoteException {
-        if (PRE_T) {
-            mNetd.trafficSetNetPermForUids(permissions, uids);
-            return;
-        }
-
+    public void setNetPermForUids(final int permissions, final int[] uids) {
         if (sEnableJavaBpfMap) {
             // Remove the entry if package is uninstalled or uid has only INTERNET permission.
             if (permissions == PERMISSION_UNINSTALLED || permissions == PERMISSION_INTERNET) {
@@ -928,8 +866,6 @@ public class BpfNetMaps {
 
     /** Register callback for statsd to pull atom. */
     public void setPullAtomCallback(final Context context) {
-        throwIfPreT("setPullAtomCallback is not available on pre-T devices");
-
         final StatsManager statsManager = context.getSystemService(StatsManager.class);
         statsManager.setPullAtomCallback(NETWORK_BPF_MAP_INFO, null /* metadata */,
                 BackgroundThread.getExecutor(), this::pullBpfMapInfoAtom);
@@ -1017,13 +953,7 @@ public class BpfNetMaps {
      * @throws ServiceSpecificException when the method is called on an unsupported device.
      */
     public void dump(final IndentingPrintWriter pw, final FileDescriptor fd, boolean verbose)
-            throws IOException, ServiceSpecificException {
-        if (PRE_T) {
-            throw new ServiceSpecificException(
-                    EOPNOTSUPP, "dumpsys connectivity trafficcontroller dump not available on pre-T"
-                    + " devices, use dumpsys netd trafficcontroller instead.");
-        }
-
+            throws IOException {
         pw.println("TrafficController");  // required by CTS testDumpBpfNetMaps
 
         pw.println();
