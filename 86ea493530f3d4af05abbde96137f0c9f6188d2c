@@ -41,6 +41,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a79d80c8_26a1717c",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-04T09:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a4de975_b78a6310",
+      "range": {
+        "startLine": 82,
+        "startChar": 63,
+        "endLine": 82,
+        "endChar": 78
+      },
+      "revId": "86ea493530f3d4af05abbde96137f0c9f6188d2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "023dfa77_4b6ec57d",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-04T09:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1eca5f69_f0be5783",
+      "revId": "86ea493530f3d4af05abbde96137f0c9f6188d2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "080824a8_2a0eef64",
@@ -54,6 +96,24 @@
       "writtenOn": "2023-09-21T08:05:33Z",
       "side": 1,
       "message": "Are directories guaranteed to happen earlier than any file in the zip ? Or would you not depend on that ? E.g.\n\n    if (entry.isDirectory) mkdirs()\n    else {\n      File(dirname(entry.name)).mkdirs()\n      FileOuptputStream().use { ... }\n    }",
+      "revId": "86ea493530f3d4af05abbde96137f0c9f6188d2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e74d3955_d770864d",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-04T09:26:33Z",
+      "side": 1,
+      "message": "Done.\nDid some search on the internet.\nThere is no guarantee anywhere.",
+      "parentUuid": "080824a8_2a0eef64",
       "revId": "86ea493530f3d4af05abbde96137f0c9f6188d2c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
