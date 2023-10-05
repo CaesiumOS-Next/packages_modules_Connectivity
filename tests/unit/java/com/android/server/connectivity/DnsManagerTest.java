@@ -28,8 +28,6 @@ import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALIDATION_RESULT_FAILURE;
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALIDATION_RESULT_SUCCESS;
 
-import static com.android.testutils.MiscAsserts.assertContainsExactly;
-import static com.android.testutils.MiscAsserts.assertContainsStringsExactly;
 import static com.android.testutils.MiscAsserts.assertFieldCountEquals;
 
 import static org.junit.Assert.assertEquals;
@@ -42,8 +40,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import android.annotation.NonNull;
-import android.annotation.Nullable;
 import android.content.Context;
 import android.net.ConnectivitySettingsManager;
 import android.net.IDnsResolver;
@@ -106,43 +102,6 @@ public class DnsManagerTest {
 
     @Mock Context mCtx;
     @Mock IDnsResolver mMockDnsResolver;
-
-    private void assertResolverOptionsEquals(
-            @Nullable ResolverOptionsParcel actual,
-            @Nullable ResolverOptionsParcel expected) {
-        if (actual == null) {
-            assertNull(expected);
-            return;
-        } else {
-            assertNotNull(expected);
-        }
-        assertEquals(actual.hosts, expected.hosts);
-        assertEquals(actual.tcMode, expected.tcMode);
-        assertEquals(actual.enforceDnsUid, expected.enforceDnsUid);
-        assertFieldCountEquals(3, ResolverOptionsParcel.class);
-    }
-
-    private void assertResolverParamsEquals(@NonNull ResolverParamsParcel actual,
-            @NonNull ResolverParamsParcel expected) {
-        assertEquals(actual.netId, expected.netId);
-        assertEquals(actual.sampleValiditySeconds, expected.sampleValiditySeconds);
-        assertEquals(actual.successThreshold, expected.successThreshold);
-        assertEquals(actual.minSamples, expected.minSamples);
-        assertEquals(actual.maxSamples, expected.maxSamples);
-        assertEquals(actual.baseTimeoutMsec, expected.baseTimeoutMsec);
-        assertEquals(actual.retryCount, expected.retryCount);
-        assertContainsStringsExactly(actual.servers, expected.servers);
-        assertContainsStringsExactly(actual.domains, expected.domains);
-        assertEquals(actual.tlsName, expected.tlsName);
-        assertContainsStringsExactly(actual.tlsServers, expected.tlsServers);
-        assertContainsStringsExactly(actual.tlsFingerprints, expected.tlsFingerprints);
-        assertEquals(actual.caCertificate, expected.caCertificate);
-        assertEquals(actual.tlsConnectTimeoutMs, expected.tlsConnectTimeoutMs);
-        assertResolverOptionsEquals(actual.resolverOptions, expected.resolverOptions);
-        assertContainsExactly(actual.transportTypes, expected.transportTypes);
-        assertEquals(actual.dohParams, expected.dohParams);
-        assertFieldCountEquals(17, ResolverParamsParcel.class);
-    }
 
     @Before
     public void setUp() throws Exception {
@@ -388,7 +347,9 @@ public class DnsManagerTest {
                 .setDohpath("/some-path{?dns}")
                 .setPort(5353)
                 .build();
-        assertResolverParamsEquals(actualParams, expectedParams);
+        assertEquals(actualParams, expectedParams);
+        assertFieldCountEquals(17, ResolverParamsParcel.class);
+        assertFieldCountEquals(3, ResolverOptionsParcel.class);
     }
 
     @Test
