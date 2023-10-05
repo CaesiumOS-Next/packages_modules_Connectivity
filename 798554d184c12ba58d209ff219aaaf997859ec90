@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5141a514_02afb337",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3257,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-05T10:49:33Z",
+      "side": 1,
+      "message": "should also handle CGROUP_INET_SOCK_CREATE",
+      "range": {
+        "startLine": 3257,
+        "startChar": 0,
+        "endLine": 3257,
+        "endChar": 33
+      },
+      "revId": "798554d184c12ba58d209ff219aaaf997859ec90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6feeba75_73b4ede4",
+        "filename": "staticlibs/device/com/android/net/module/util/BpfUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-05T10:49:33Z",
+      "side": 1,
+      "message": "technically this is only guaranteed to be correct path on U+\nthough I think in practice it\u0027s nearly required / the case on T too",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 62
+      },
+      "revId": "798554d184c12ba58d209ff219aaaf997859ec90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f37d3459_d8cfc486",
+        "filename": "staticlibs/device/com/android/net/module/util/BpfUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-05T10:49:33Z",
+      "side": 1,
+      "message": "may want to comment that this requires a 4.19 kernel which is only guaranteed on V+",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 7
+      },
+      "revId": "798554d184c12ba58d209ff219aaaf997859ec90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
