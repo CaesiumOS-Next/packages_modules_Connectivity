@@ -18,6 +18,7 @@ package com.android.server.connectivity;
 
 import static com.android.net.module.util.BpfUtils.BPF_CGROUP_INET4_BIND;
 import static com.android.net.module.util.BpfUtils.BPF_CGROUP_INET6_BIND;
+import static com.android.net.module.util.BpfUtils.CGROUP_PATH;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -45,7 +46,6 @@ public class ConnectivityNativeService extends ConnectivityNative.Stub {
     public static final String SERVICE_NAME = "connectivity_native";
 
     private static final String TAG = ConnectivityNativeService.class.getSimpleName();
-    private static final String CGROUP_PATH = "/sys/fs/cgroup";
     private static final String V4_PROG_PATH =
             "/sys/fs/bpf/net_shared/prog_block_bind4_block_port";
     private static final String V6_PROG_PATH =
