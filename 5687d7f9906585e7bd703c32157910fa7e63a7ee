@@ -16,6 +16,64 @@
       "message": "This is actually this CL https://r.android.com/2406156, however, as the file has moved repos since I originally pushed it up, I wasn\u0027t able to preserve the original commit. I am also going to migrate Jean\u0027s comments from the original CL.",
       "revId": "5687d7f9906585e7bd703c32157910fa7e63a7ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cad22b4_11937e32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-05T21:47:48Z",
+      "side": 1,
+      "message": "Original comments from https://r.android.com/2775073 have been migrated.",
+      "revId": "5687d7f9906585e7bd703c32157910fa7e63a7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff9ece0a_eaf882de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-05T21:47:48Z",
+      "side": 1,
+      "message": "Actually, it is this CL: https://r.android.com/2434972",
+      "parentUuid": "4f0b6676_53f6dcc2",
+      "revId": "5687d7f9906585e7bd703c32157910fa7e63a7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "494136e0_951c196b",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestableNetworkCallback.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-05T21:47:48Z",
+      "side": 1,
+      "message": "originally from jchalard@ at https://r.android.com/2434972:\n\nHere too, I think this is less readable than the code it replaces.",
+      "range": {
+        "startLine": 539,
+        "startChar": 8,
+        "endLine": 539,
+        "endChar": 51
+      },
+      "revId": "5687d7f9906585e7bd703c32157910fa7e63a7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
