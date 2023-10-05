@@ -54,10 +54,15 @@ public class BpfUtils {
     }
 
     /**
-     * Query BPF program Id from CGROUP
+     * Get BPF program Id from CGROUP.
+     *
+     * @param attachType Bpf attach type. See bpf_attach_type in include/uapi/linux/bpf.h.
+     * @param cgroupPath Path of cgroup.
+     * @return Positive integer for a Program Id. 0 if no program is attached.
+     * @throws IOException if failed to open the cgroup directory or query bpf program.
      */
-    public static int queryProgram(int type, @NonNull String cgroupPath) throws IOException {
-        return native_getProgramIdFromCgroup(type, cgroupPath);
+    public static int getProgramId(int attachType, @NonNull String cgroupPath) throws IOException {
+        return native_getProgramIdFromCgroup(attachType, cgroupPath);
     }
 
     /**
