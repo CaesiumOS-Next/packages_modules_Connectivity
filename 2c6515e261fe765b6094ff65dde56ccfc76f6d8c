@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "317ea98a_319b8747",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1802,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-05T03:56:00Z",
+      "side": 1,
+      "message": "Adding ChecksSdkIntAtLeast does not work.\nFiled b/303549797 (b/303382209)",
+      "parentUuid": "e2e6b3e3_6c876106",
+      "revId": "2c6515e261fe765b6094ff65dde56ccfc76f6d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04b89bda_4e9b74bf",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-10-04T07:03:19Z",
       "side": 1,
       "message": "Would it work to add @TargetApi(S) (not RequiresApi) to the class itself, saying that service-connectivity is only loaded on S+ ?",
+      "revId": "2c6515e261fe765b6094ff65dde56ccfc76f6d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39eeb182_37f1af0d",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-05T03:56:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04b89bda_4e9b74bf",
       "revId": "2c6515e261fe765b6094ff65dde56ccfc76f6d8c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
