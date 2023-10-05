@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff870c10_7617b0aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-05T07:58:34Z",
+      "side": 1,
+      "message": "I think this is correct, but a better way to do this is probably to remove getSatisfier and replace it with two methods :\n• getSatisfierOrNoService\n• getSatisfierOrNull\n\nAnd audit all calls and use the right one in each place. This way, we can make sure we don\u0027t have this problem again.",
+      "revId": "36ff261419991ca0723f6eadfcc4ddd5f28db39f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
