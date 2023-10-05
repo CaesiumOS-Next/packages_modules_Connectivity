@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53d8e611_dd8e76e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-05T07:20:21Z",
+      "side": 1,
+      "message": "+2 on the assumption that we add the coverage back in LockdownVpnTrackerTest in aosp/2764767",
+      "revId": "acb52055580ee3ee75e8a51017e806b2a3a38a14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
