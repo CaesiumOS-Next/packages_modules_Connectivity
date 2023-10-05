@@ -62,11 +62,15 @@ public class MdnsPacketSender implements MdnsSender {
      *
      * Must be called on the looper thread used by the {@link MdnsPacketSender}.
      */
-    public int sendNow(@NonNull MdnsPacket packet, @NonNull InetSocketAddress destination)
+    public int sendNow(@NonNull MdnsPacket packet, @NonNull InetSocketAddress destination,
+            boolean onlyUseIpv6OnIpv6OnlyNetworks, boolean expectUnicastResponse)
             throws IOException {
         ensureRunningOnLooperThread(mLooper);
-        if (!((destination.getAddress() instanceof Inet6Address && mSocket.hasJoinedIpv6())
-                || (destination.getAddress() instanceof Inet4Address && mSocket.hasJoinedIpv4()))) {
+        final boolean isIpv6 = destination.getAddress() instanceof Inet6Address;
+        final boolean isIpv4 = destination.getAddress() instanceof Inet4Address;
+        final boolean shouldQueryIpv6 = !onlyUseIpv6OnIpv6OnlyNetworks || !mSocket.hasJoinedIpv4();
+        if (!((isIpv6 && mSocket.hasJoinedIpv6() && shouldQueryIpv6)
+                || (isIpv4 && mSocket.hasJoinedIpv4()))) {
             // Skip sending if the socket has not joined the v4/v6 group (there was no address)
             return PACKET_NOT_SENT;
         }

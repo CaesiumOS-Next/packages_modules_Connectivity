@@ -90,7 +90,8 @@ public class MdnsReplySender extends MdnsPacketSender {
                     replyInfo.additionalAnswers);
 
             try {
-                sendNow(packet, replyInfo.destination);
+                sendNow(packet, replyInfo.destination, false /* onlyUseIpv6OnIpv6OnlyNetworks */,
+                        false /* expectUnicastResponse */);
             } catch (IOException e) {
                 mSharedLog.e("Error sending MDNS response", e);
             }
