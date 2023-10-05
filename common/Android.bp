@@ -19,6 +19,16 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+// This does not exist on branches where aconfig soong targets are not supported.
+aconfig_declarations {
+    name: "com.android.net.flags-aconfig",
+    package: "com.android.net.flags",
+    srcs: ["flags.aconfig"],
+}
+// This is a placeholder comment to avoid merge conflicts
+// as the above target may have different "enabled" values
+// depending on the branch
+
 java_library {
     name: "connectivity-net-module-utils-bpf",
     srcs: [
