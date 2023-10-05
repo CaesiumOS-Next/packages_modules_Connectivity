@@ -143,6 +143,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9352c984_8c48124d",
+        "filename": "service/src/com/android/server/connectivity/DnsManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-05T11:18:23Z",
+      "side": 1,
+      "message": "Done in aosp/2773827.",
+      "parentUuid": "cf42137c_95686a4e",
+      "range": {
+        "startLine": 411,
+        "startChar": 34,
+        "endLine": 411,
+        "endChar": 64
+      },
+      "revId": "fe32314042674f7e5f3ff28c1ea5dca8d92f6c2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "771a109d_c47a29d2",
