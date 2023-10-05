@@ -401,17 +401,7 @@ public class DnsManager {
         } else {
             mPrivateDnsValidationMap.remove(netId);
         }
-
-        Log.d(TAG, String.format("sendDnsConfigurationForNetwork(%d, %s, %s, %d, %d, %d, %d, "
-                + "%d, %d, %s, %s, %s, %b, %s, %s, %s, %d)", paramsParcel.netId,
-                Arrays.toString(paramsParcel.servers), Arrays.toString(paramsParcel.domains),
-                paramsParcel.sampleValiditySeconds, paramsParcel.successThreshold,
-                paramsParcel.minSamples, paramsParcel.maxSamples, paramsParcel.baseTimeoutMsec,
-                paramsParcel.retryCount, paramsParcel.tlsName,
-                Arrays.toString(paramsParcel.tlsServers),
-                Arrays.toString(paramsParcel.transportTypes), paramsParcel.meteredNetwork,
-                paramsParcel.dohParams.name, Arrays.toString(paramsParcel.dohParams.ips),
-                paramsParcel.dohParams.dohpath, paramsParcel.dohParams.port));
+        Log.d(TAG, String.format("sendDnsConfigurationForNetwork(" + paramsParcel + ")"));
 
         try {
             mDnsResolver.setResolverConfiguration(paramsParcel);
