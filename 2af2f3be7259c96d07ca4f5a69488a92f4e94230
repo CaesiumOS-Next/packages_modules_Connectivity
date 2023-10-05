@@ -206,6 +206,30 @@
       },
       "revId": "2af2f3be7259c96d07ca4f5a69488a92f4e94230",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0070ca9a_095f76c8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 18571,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2023-10-05T09:05:37Z",
+      "side": 1,
+      "message": "We are not able to run the test case ,getting following error\n\n1) initializationError(android.net.connectivity.com.android.server.ConnectivityServiceTest)\njava.lang.NoSuchMethodError: No static method isAtMost(Ljava/lang/String;)Z in class Landroid/net/connectivity/com/android/modules/utils/build/UnboundedSdkLevel; or its super classes (declaration of \u0027android.net.connectivity.com.android.modules.utils.build.UnboundedSdkLevel\u0027 appears in /apex/com.android.tethering/javalib/framework-connectivity.jar)\nat com.android.testutils.DevSdkIgnoreRuleKt.isDevSdkInRange(DevSdkIgnoreRule.kt:35)\nat com.android.testutils.DevSdkIgnoreRuleKt.isDevSdkInRange(DevSdkIgnoreRule.kt:55)\nat com.android.testutils.DevSdkIgnoreRunner.\u003cinit\u003e(DevSdkIgnoreRunner.kt:55)\n\nI have updated the test case with INTERNET capability for the cellAgent network,\nCan you please try to run the latest test code and let me know if this works.",
+      "parentUuid": "2ce3f169_a7aaaa5c",
+      "range": {
+        "startLine": 18571,
+        "startChar": 37,
+        "endLine": 18571,
+        "endChar": 63
+      },
+      "revId": "2af2f3be7259c96d07ca4f5a69488a92f4e94230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
