@@ -39,6 +39,30 @@
       },
       "revId": "ec0149f1ba48f8539824ae8b8ee38343b54cabe0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "169da190_4a9e029a",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-05T02:44:53Z",
+      "side": 1,
+      "message": "Because mLock is not final, so you can never know that it\u0027s going to be mutated between the null check and the isHeld() or release() call. It\u0027s just a common best practice.",
+      "parentUuid": "e8fb3e8b_ec15a624",
+      "range": {
+        "startLine": 201,
+        "startChar": 8,
+        "endLine": 201,
+        "endChar": 49
+      },
+      "revId": "ec0149f1ba48f8539824ae8b8ee38343b54cabe0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
