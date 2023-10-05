@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "551331fd_a6540f09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-05T07:51:11Z",
+      "side": 1,
+      "message": "As per offload conversation, it is more correct to have getActiveNetworkInfo return the info for the VPN when the VPN is actually the default network for an app. So we should probably simply remove the code calling this in getDefaultNetworkCapabilitiesForUser and getNetworkInfo, and always get the correct one.",
+      "revId": "8bc71ed1db645634250febde4bf9485df8188184",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
