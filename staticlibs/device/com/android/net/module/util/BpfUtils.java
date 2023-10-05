@@ -35,6 +35,7 @@ public class BpfUtils {
     public static final int BPF_CGROUP_INET4_BIND = 8;
     public static final int BPF_CGROUP_INET6_BIND = 9;
 
+    public static final String CGROUP_PATH = "/sys/fs/cgroup";
 
     /**
      * Attach BPF program to CGROUP
@@ -50,6 +51,13 @@ public class BpfUtils {
     public static void detachProgram(int type, @NonNull String cgroupPath)
             throws IOException {
         native_detachProgramFromCgroup(type, cgroupPath);
+    }
+
+    /**
+     * Query BPF program Id from CGROUP
+     */
+    public static int queryProgram(int type, @NonNull String cgroupPath) throws IOException {
+        return native_getProgramIdFromCgroup(type, cgroupPath);
     }
 
     /**
