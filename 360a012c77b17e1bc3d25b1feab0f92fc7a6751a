@@ -39,6 +39,48 @@
       "message": "Instead of doing instanceof / cast again, could you have 2 arguments, for MdnsServiceRecord and for List\u003cMdnsInetAddressRecord\u003e ?",
       "revId": "360a012c77b17e1bc3d25b1feab0f92fc7a6751a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01625f60_80959e30",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-05T06:17:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63b00e29_f848b8ae",
+      "revId": "360a012c77b17e1bc3d25b1feab0f92fc7a6751a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba7f6450_a7084a9c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-05T06:17:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb61fbd1_91cdc5ea",
+      "range": {
+        "startLine": 365,
+        "startChar": 35,
+        "endLine": 365,
+        "endChar": 58
+      },
+      "revId": "360a012c77b17e1bc3d25b1feab0f92fc7a6751a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
