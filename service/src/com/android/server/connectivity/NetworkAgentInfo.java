@@ -17,6 +17,7 @@
 package com.android.server.connectivity;
 
 import static android.net.ConnectivityDiagnosticsManager.ConnectivityReport;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
@@ -1239,6 +1240,11 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     /** Whether this network is a VPN. */
     public boolean isVPN() {
         return networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
+    }
+
+    /** Whether this network is a local network */
+    public boolean isLocalNetwork() {
+        return networkCapabilities.hasCapability(NET_CAPABILITY_LOCAL_NETWORK);
     }
 
     /**
