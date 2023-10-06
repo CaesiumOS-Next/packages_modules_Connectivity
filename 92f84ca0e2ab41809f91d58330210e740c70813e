@@ -16,6 +16,24 @@
       "message": "You should not change the commit here, otherwise the comment is not avoiding merge conflicts 😊",
       "revId": "92f84ca0e2ab41809f91d58330210e740c70813e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c60dc49_957344a1",
+        "filename": "common/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-06T11:11:54Z",
+      "side": 1,
+      "message": "Good catch, thanks😊",
+      "parentUuid": "b3f0d3aa_a1c03e80",
+      "revId": "92f84ca0e2ab41809f91d58330210e740c70813e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
