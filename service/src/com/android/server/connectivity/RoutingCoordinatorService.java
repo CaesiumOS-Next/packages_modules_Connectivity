@@ -35,11 +35,9 @@ import com.android.net.module.util.CollectionUtils;
 import java.util.Objects;
 
 public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
-    private final Context mContext;
     private final INetd mNetd;
 
-    public RoutingCoordinatorService(Context context, @NonNull INetd netd) {
-        mContext = context;
+    public RoutingCoordinatorService(@NonNull INetd netd) {
         mNetd = netd;
     }
 
