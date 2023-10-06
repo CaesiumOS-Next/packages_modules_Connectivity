@@ -105,6 +105,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff2821d8_710ac70e",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestableNetworkCallback.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-06T21:26:42Z",
+      "side": 1,
+      "message": "Done. I\u0027m going to abandon this CL based on the comments.",
+      "parentUuid": "5bc938eb_8cef3a67",
+      "range": {
+        "startLine": 493,
+        "startChar": 8,
+        "endLine": 493,
+        "endChar": 45
+      },
+      "revId": "901650e0e0bc6be25131e3d11fede95da50e13be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d96d3c01_5e93f618",
@@ -118,6 +142,30 @@
       "writtenOn": "2023-10-05T21:42:54Z",
       "side": 1,
       "message": "originally from jchalard@ at https://r.android.com/2406156:\n\nLikewise",
+      "range": {
+        "startLine": 555,
+        "startChar": 8,
+        "endLine": 555,
+        "endChar": 55
+      },
+      "revId": "901650e0e0bc6be25131e3d11fede95da50e13be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c53505ce_d9c3128d",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestableNetworkCallback.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-06T21:26:42Z",
+      "side": 1,
+      "message": "CL is going to be abandoned.",
+      "parentUuid": "d96d3c01_5e93f618",
       "range": {
         "startLine": 555,
         "startChar": 8,
