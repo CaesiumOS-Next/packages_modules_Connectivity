@@ -25,6 +25,7 @@ import android.net.RouteInfo;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.util.ArraySet;
+import android.util.Log;
 
 import com.android.internal.annotations.GuardedBy;
 
@@ -41,6 +42,8 @@ import java.util.Objects;
  * synchronization.
  */
 public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
+    private static final String TAG = RoutingCoordinatorService.class.getSimpleName();
+
     private final INetd mNetd;
 
     public RoutingCoordinatorService(@NonNull INetd netd) {
@@ -162,6 +165,7 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
             throws ServiceSpecificException, RemoteException {
         Objects.requireNonNull(fromIface);
         Objects.requireNonNull(toIface);
+        Log.i(TAG, "Adding iface forward " + fromIface + " → " + toIface);
         synchronized (mIfacesLock) {
             if (mForwardedInterfaces.size() == 0) {
                 mNetd.ipfwdEnableForwarding("RoutingCoordinator");
@@ -190,11 +194,20 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
             throws ServiceSpecificException, RemoteException {
         Objects.requireNonNull(fromIface);
         Objects.requireNonNull(toIface);
+        Log.i(TAG, "Removing iface forward " + fromIface + " → " + toIface);
         synchronized (mIfacesLock) {
             final ForwardingPair fwp = new ForwardingPair(fromIface, toIface);
             if (!mForwardedInterfaces.contains(fwp)) {
-                throw new IllegalStateException("No forward set up between interfaces "
-                        + fromIface + " → " + toIface);
+                // This can happen when an upstream was unregisteredAfterReplacement. The forward
+                // is removed immediately when the upstream is destroyed, but later when the
+                // network actually disconnects CS does not know that and it asks for removal
+                // again.
+                // This can also happen if the network was destroyed before being set as an
+                // upstream, because then CS does not set up the forward rules seeing how the
+                // interface was removed anyway.
+                // Either way, this is benign.
+                Log.i(TAG, "No forward set up between interfaces " + fromIface + " → " + toIface);
+                return;
             }
             mForwardedInterfaces.remove(fwp);
             mNetd.ipfwdRemoveInterfaceForward(fromIface, toIface);
