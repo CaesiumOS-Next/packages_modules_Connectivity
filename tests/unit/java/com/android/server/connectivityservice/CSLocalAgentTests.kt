@@ -21,18 +21,22 @@ import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.LocalNetworkConfig
 import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.NET_CAPABILITY_DUN
+import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
 import android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED
+import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkRequest
+import android.net.NetworkScore
+import android.net.NetworkScore.KEEP_CONNECTED_FOR_TEST
 import android.net.RouteInfo
 import android.os.Build
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
-import com.android.testutils.RecorderCallback
 import com.android.testutils.RecorderCallback.CallbackEntry.Available
 import com.android.testutils.RecorderCallback.CallbackEntry.BlockedStatus
 import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
@@ -41,14 +45,15 @@ import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.TestableNetworkCallback
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.concurrent.CompletableFuture
-import java.util.concurrent.TimeUnit
-import kotlin.test.assertContains
+import org.mockito.Mockito.clearInvocations
+import org.mockito.Mockito.inOrder
+import org.mockito.Mockito.never
+import org.mockito.Mockito.verify
+import org.mockito.Mockito.verifyNoMoreInteractions
 import kotlin.test.assertFailsWith
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 private const val TIMEOUT_MS = 200L
+private const val LONG_TIMEOUT_MS = 30_000
 
 private fun nc(transport: Int, vararg caps: Int) = NetworkCapabilities.Builder().apply {
     addTransportType(transport)
@@ -67,6 +72,12 @@ private fun lp(iface: String) = LinkProperties().apply {
     addLinkAddress(LinkAddress(LOCAL_IPV4_ADDRESS, 32))
     addRoute(RouteInfo(IpPrefix("0.0.0.0/0"), null, null))
 }
+
+// This allows keeping all the networks connected without having to file individual requests
+// for them.
+private fun keepScore() = FromS(
+        NetworkScore.Builder().setKeepConnectedReason(KEEP_CONNECTED_FOR_TEST).build()
+)
 
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
@@ -129,7 +140,8 @@ class CSLocalAgentTests : CSTest() {
                 cb)
 
         // Set up a local agent that should forward its traffic to the best DUN upstream.
-        val localAgent = Agent(nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_LOCAL_NETWORK),
+        val localAgent = Agent(
+                nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_LOCAL_NETWORK),
                 lp = lp("local0"),
                 lnc = LocalNetworkConfig.Builder().build(),
         )
@@ -148,5 +160,137 @@ class CSLocalAgentTests : CSTest() {
         localAgent.sendLocalNetworkConfig(newLnc)
 
         localAgent.disconnect()
+    }
+
+    @Test
+    fun testUnregisterUpstreamAfterReplacement_SameIfaceName() {
+        doTestUnregisterUpstreamAfterReplacement(true)
+    }
+
+    @Test
+    fun testUnregisterUpstreamAfterReplacement_DifferentIfaceName() {
+        doTestUnregisterUpstreamAfterReplacement(false)
+    }
+
+    fun doTestUnregisterUpstreamAfterReplacement(sameIfaceName: Boolean) {
+        deps.setBuildSdk(VERSION_V)
+        val cb = TestableNetworkCallback()
+        cm.registerNetworkCallback(NetworkRequest.Builder().clearCapabilities().build(), cb)
+
+        // Set up a local agent that should forward its traffic to the best wifi upstream.
+        val localAgent = Agent(nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_LOCAL_NETWORK),
+                lp = lp("local0"),
+                lnc = LocalNetworkConfig.Builder()
+                .setUpstreamSelector(NetworkRequest.Builder()
+                        .addTransportType(TRANSPORT_WIFI)
+                        .build())
+                .build(),
+                score = FromS(NetworkScore.Builder()
+                        .setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_DOWNSTREAM_NETWORK)
+                        .build())
+        )
+        localAgent.connect()
+
+        cb.expect<Available>(localAgent.network)
+        cb.expect<CapabilitiesChanged>(localAgent.network)
+        cb.expect<LinkPropertiesChanged>(localAgent.network)
+        cb.expect<BlockedStatus>(localAgent.network)
+
+        val wifiAgent = Agent(lp = lp("wifi0"),
+                nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_INTERNET))
+        wifiAgent.connect()
+
+        cb.expectAvailableCallbacksUnvalidated(wifiAgent)
+
+        clearInvocations(netd)
+        wifiAgent.unregisterAfterReplacement(LONG_TIMEOUT_MS)
+        waitForIdle()
+        verify(netd).networkDestroy(wifiAgent.network.netId)
+        verifyNoMoreInteractions(netd)
+
+        val wifiAgent2 = Agent(lp = lp(if (sameIfaceName) "wifi0" else "wifi1"),
+                nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_INTERNET))
+        wifiAgent2.connect()
+
+        cb.expectAvailableCallbacksUnvalidated(wifiAgent2)
+        cb.expect<Lost> { it.network == wifiAgent.network }
+
+        if (sameIfaceName) {
+            verify(netd, never()).ipfwdAddInterfaceForward(any(), any())
+            verify(netd, never()).ipfwdRemoveInterfaceForward(any(), any())
+        } else {
+            verify(netd).ipfwdAddInterfaceForward("local0", "wifi1")
+            verify(netd).ipfwdRemoveInterfaceForward("local0", "wifi0")
+        }
+    }
+
+    @Test
+    fun testUnregisterLocalAgentAfterReplacement() {
+    }
+
+    @Test
+    fun testForwardingRules() {
+        deps.setBuildSdk(VERSION_V)
+        // Set up a local agent that should forward its traffic to the best DUN upstream.
+        val lnc = LocalNetworkConfig.Builder()
+                .setUpstreamSelector(NetworkRequest.Builder()
+                        .addCapability(NET_CAPABILITY_DUN)
+                        .build())
+                .build()
+        val localAgent = Agent(nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_LOCAL_NETWORK),
+                lp = lp("local0"),
+                lnc = lnc,
+                score = FromS(NetworkScore.Builder()
+                        .setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_DOWNSTREAM_NETWORK)
+                        .build())
+        )
+        localAgent.connect()
+
+        val wifiAgent = Agent(score = keepScore(), lp = lp("wifi0"),
+                nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_INTERNET))
+        val cellAgentDun = Agent(score = keepScore(), lp = lp("cell0"),
+                nc = nc(TRANSPORT_CELLULAR, NET_CAPABILITY_INTERNET, NET_CAPABILITY_DUN))
+        val wifiAgentDun = Agent(score = keepScore(), lp = lp("wifi1"),
+                nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_INTERNET, NET_CAPABILITY_DUN))
+
+        val inOrder = inOrder(netd)
+        inOrder.verify(netd, never()).ipfwdAddInterfaceForward(any(), any())
+
+        wifiAgent.connect()
+        inOrder.verify(netd, never()).ipfwdAddInterfaceForward(any(), any())
+
+        cellAgentDun.connect()
+        inOrder.verify(netd).ipfwdEnableForwarding(any())
+        inOrder.verify(netd).ipfwdAddInterfaceForward("local0", "cell0")
+
+        wifiAgentDun.connect()
+        inOrder.verify(netd).ipfwdRemoveInterfaceForward("local0", "cell0")
+        inOrder.verify(netd).ipfwdAddInterfaceForward("local0", "wifi1")
+
+        // Make sure sending the same config again doesn't do anything
+        repeat(5) {
+            localAgent.sendLocalNetworkConfig(lnc)
+        }
+        inOrder.verifyNoMoreInteractions()
+
+        wifiAgentDun.disconnect()
+        // This is a disconnection, so the "remove" will precede the "add" because the forward
+        // is removed as part of the disconnection and the add as part of the rematch that follows.
+        inOrder.verify(netd).ipfwdRemoveInterfaceForward("local0", "wifi1")
+        inOrder.verify(netd).ipfwdAddInterfaceForward("local0", "cell0")
+
+        cellAgentDun.disconnect()
+        inOrder.verify(netd).ipfwdRemoveInterfaceForward("local0", "cell0")
+        inOrder.verify(netd).ipfwdDisableForwarding(any())
+
+        val wifiAgentDun2 = Agent(score = keepScore(), lp = lp("wifi2"),
+                nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_INTERNET, NET_CAPABILITY_DUN))
+        wifiAgentDun2.connect()
+        inOrder.verify(netd).ipfwdEnableForwarding(any())
+        inOrder.verify(netd).ipfwdAddInterfaceForward("local0", "wifi2")
+
+        localAgent.disconnect()
+        inOrder.verify(netd).ipfwdRemoveInterfaceForward("local0", "wifi2")
+        inOrder.verify(netd).ipfwdDisableForwarding(any())
     }
 }
