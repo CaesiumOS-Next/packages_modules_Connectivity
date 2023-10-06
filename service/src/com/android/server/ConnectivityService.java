@@ -8926,7 +8926,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // This network might have been underlying another network. Propagate its capabilities.
         propagateUnderlyingNetworkCapabilities(nai.network);
 
-        if (!newNc.equalsTransportTypes(prevNc)) {
+        if (meteredChanged || !newNc.equalsTransportTypes(prevNc)) {
             mDnsManager.updateTransportsForNetwork(nai.network.getNetId(), newNc);
         }
 
