@@ -79,4 +79,21 @@ public class RoutingCoordinatorManager {
             throw e.rethrowFromSystemServer();
         }
     }
+
+    public void addInterfaceForward(final String fromIface, final String toIface,
+            final boolean enableNat) {
+        try {
+            mService.addInterfaceForward(fromIface, toIface, enableNat);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    public void removeInterfaceForward(final String fromIface, final String toIface) {
+        try {
+            mService.removeInterfaceForward(fromIface, toIface);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
 }
