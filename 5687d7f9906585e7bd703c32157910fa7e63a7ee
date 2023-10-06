@@ -74,6 +74,30 @@
       },
       "revId": "5687d7f9906585e7bd703c32157910fa7e63a7ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84d9e799_a4093595",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestableNetworkCallback.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-06T21:26:35Z",
+      "side": 1,
+      "message": "Done. I\u0027m going to abandon the CL based on the comments.",
+      "parentUuid": "494136e0_951c196b",
+      "range": {
+        "startLine": 539,
+        "startChar": 8,
+        "endLine": 539,
+        "endChar": 51
+      },
+      "revId": "5687d7f9906585e7bd703c32157910fa7e63a7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
