@@ -32,8 +32,7 @@ import kotlin.test.assertFailsWith
 @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class RoutingCoordinatorServiceTest {
     val mNetd = mock(INetd::class.java)
-    val mService = RoutingCoordinatorService(
-            InstrumentationRegistry.getInstrumentation().context, mNetd)
+    val mService = RoutingCoordinatorService(mNetd)
 
     @Test
     fun testInterfaceForward() {

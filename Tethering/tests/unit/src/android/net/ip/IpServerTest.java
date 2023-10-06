@@ -80,6 +80,7 @@ import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.MacAddress;
 import android.net.RouteInfo;
+import android.net.RoutingCoordinatorManager;
 import android.net.TetherOffloadRuleParcel;
 import android.net.TetherStatsParcel;
 import android.net.dhcp.DhcpServerCallbacks;
@@ -193,6 +194,7 @@ public class IpServerTest {
     @Mock private IpNeighborMonitor mIpNeighborMonitor;
     @Mock private IpServer.Dependencies mDependencies;
     @Mock private PrivateAddressCoordinator mAddressCoordinator;
+    @Mock private RoutingCoordinatorManager mRoutingCoordinatorManager;
     @Mock private NetworkStatsManager mStatsManager;
     @Mock private TetheringConfiguration mTetherConfig;
     @Mock private ConntrackMonitor mConntrackMonitor;
@@ -249,7 +251,8 @@ public class IpServerTest {
         mBpfCoordinator = spy(new BpfCoordinator(mBpfDeps));
         mIpServer = new IpServer(
                 IFACE_NAME, mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,
-                mCallback, mTetherConfig, mAddressCoordinator, mTetheringMetrics, mDependencies);
+                mRoutingCoordinatorManager, mCallback, mTetherConfig, mAddressCoordinator,
+                mTetheringMetrics, mDependencies);
         mIpServer.start();
         mNeighborEventConsumer = neighborCaptor.getValue();
 
@@ -313,6 +316,22 @@ public class IpServerTest {
                 anyBoolean())).thenReturn(mTestAddress);
         when(mTetherConfig.isBpfOffloadEnabled()).thenReturn(DEFAULT_USING_BPF_OFFLOAD);
         when(mTetherConfig.useLegacyDhcpServer()).thenReturn(false /* default value */);
+
+        // Simulate the behavior of RoutingCoordinator
+        doAnswer(it -> {
+            final String fromIface = (String) it.getArguments()[0];
+            final String toIface = (String) it.getArguments()[1];
+            mNetd.tetherAddForward(fromIface, toIface);
+            mNetd.ipfwdAddInterfaceForward(fromIface, toIface);
+            return null;
+        }).when(mRoutingCoordinatorManager).addInterfaceForward(any(), any(), eq(true));
+        doAnswer(it -> {
+            final String fromIface = (String) it.getArguments()[0];
+            final String toIface = (String) it.getArguments()[1];
+            mNetd.ipfwdRemoveInterfaceForward(fromIface, toIface);
+            mNetd.tetherRemoveForward(fromIface, toIface);
+            return null;
+        }).when(mRoutingCoordinatorManager).removeInterfaceForward(any(), any());
 
         mBpfDeps = new BpfCoordinator.Dependencies() {
                     @NonNull
@@ -396,8 +415,8 @@ public class IpServerTest {
         when(mDependencies.getIpNeighborMonitor(any(), any(), any()))
                 .thenReturn(mIpNeighborMonitor);
         mIpServer = new IpServer(IFACE_NAME, mLooper.getLooper(), TETHERING_BLUETOOTH, mSharedLog,
-                mNetd, mBpfCoordinator, mCallback, mTetherConfig, mAddressCoordinator,
-                mTetheringMetrics, mDependencies);
+                mNetd, mBpfCoordinator, mRoutingCoordinatorManager, mCallback, mTetherConfig,
+                mAddressCoordinator, mTetheringMetrics, mDependencies);
         mIpServer.start();
         mLooper.dispatchAll();
         verify(mCallback).updateInterfaceState(
