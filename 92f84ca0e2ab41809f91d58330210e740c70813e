@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3f0d3aa_a1c03e80",
+        "filename": "common/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-06T11:05:37Z",
+      "side": 1,
+      "message": "You should not change the commit here, otherwise the comment is not avoiding merge conflicts 😊",
+      "revId": "92f84ca0e2ab41809f91d58330210e740c70813e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
