@@ -1325,14 +1325,9 @@ public class IpServer extends StateMachine {
             // Just do the best we can.
             mBpfCoordinator.maybeDetachProgram(mIfaceName, upstreamIface);
             try {
-                mNetd.ipfwdRemoveInterfaceForward(mIfaceName, upstreamIface);
-            } catch (RemoteException | ServiceSpecificException e) {
-                mLog.e("Exception in ipfwdRemoveInterfaceForward: " + e.toString());
-            }
-            try {
-                mNetd.tetherRemoveForward(mIfaceName, upstreamIface);
-            } catch (RemoteException | ServiceSpecificException e) {
-                mLog.e("Exception in disableNat: " + e.toString());
+                mRoutingCoordinator.removeInterfaceForward(mIfaceName, upstreamIface);
+            } catch (ServiceSpecificException e) {
+                mLog.e("Exception in removeInterfaceForward", e);
             }
         }
 
@@ -1389,10 +1384,10 @@ public class IpServer extends StateMachine {
 
                         mBpfCoordinator.maybeAttachProgram(mIfaceName, ifname);
                         try {
-                            mNetd.tetherAddForward(mIfaceName, ifname);
-                            mNetd.ipfwdAddInterfaceForward(mIfaceName, ifname);
-                        } catch (RemoteException | ServiceSpecificException e) {
-                            mLog.e("Exception enabling NAT: " + e.toString());
+                            mRoutingCoordinator.addInterfaceForward(mIfaceName, ifname,
+                                    true /* enableNat */);
+                        } catch (ServiceSpecificException e) {
+                            mLog.e("Exception enabling iface forward", e);
                             cleanupUpstream();
                             mLastError = TETHER_ERROR_ENABLE_FORWARDING_ERROR;
                             transitionTo(mInitialState);

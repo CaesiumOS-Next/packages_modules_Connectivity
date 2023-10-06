@@ -122,4 +122,38 @@ public class RoutingCoordinatorManager {
             throw e.rethrowFromSystemServer();
         }
     }
+
+    /**
+     * Add forwarding ip rule
+     *
+     * @param fromIface interface name to add forwarding ip rule
+     * @param toIface interface name to add forwarding ip rule
+     * @param enableNat whether to enable NAT between these two interfaces
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *         cause of the failure.
+     */
+    public void addInterfaceForward(final String fromIface, final String toIface,
+            final boolean enableNat) {
+        try {
+            mService.addInterfaceForward(fromIface, toIface, enableNat);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Remove forwarding ip rule
+     *
+     * @param fromIface interface name to remove forwarding ip rule
+     * @param toIface interface name to remove forwarding ip rule
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *         cause of the failure.
+     */
+    public void removeInterfaceForward(final String fromIface, final String toIface) {
+        try {
+            mService.removeInterfaceForward(fromIface, toIface);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
 }
