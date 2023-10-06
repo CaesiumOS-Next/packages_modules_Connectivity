@@ -26,6 +26,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.util.ArraySet;
+import android.util.Log;
 
 import static com.android.net.module.util.NetdUtils.toRouteInfoParcel;
 
@@ -117,7 +118,7 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
                 mNetd.ipfwdEnableForwarding("RoutingCoordinator");
             }
             final ForwardingPair fwp = new ForwardingPair(fromIface, toIface, enableNat);
-            // enableNat is ignored by FowardingPair#equals and #hashcode.
+            // enableNat is ignored by ForwardingPair#equals and #hashcode.
             if (forwardedInterfaces.contains(fwp)) {
                 throw new IllegalStateException("Forward already exists between ifaces "
                         + fromIface + " → " + toIface);
