@@ -5005,8 +5005,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             mNetd.networkCreate(config);
             mDnsResolver.createNetworkCache(nai.network.getNetId());
-            mDnsManager.updateTransportsForNetwork(nai.network.getNetId(),
-                    nai.networkCapabilities.getTransportTypes());
+            mDnsManager.updateTransportsForNetwork(nai.network.getNetId(), nai.networkCapabilities);
             return true;
         } catch (RemoteException | ServiceSpecificException e) {
             loge("Error creating network " + nai.toShortString() + ": " + e.getMessage());
@@ -8828,8 +8827,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         propagateUnderlyingNetworkCapabilities(nai.network);
 
         if (!newNc.equalsTransportTypes(prevNc)) {
-            mDnsManager.updateTransportsForNetwork(
-                    nai.network.getNetId(), newNc.getTransportTypes());
+            mDnsManager.updateTransportsForNetwork(nai.network.getNetId(), newNc);
         }
 
         maybeSendProxyBroadcast(nai, prevNc, newNc);
