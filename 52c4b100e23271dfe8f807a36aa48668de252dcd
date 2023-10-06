@@ -16,6 +16,24 @@
       "message": "As we discussed, how about including another file, like `build \u003d [\"TrunkStable.bp\"]`, so it can be edited more easily from main ?",
       "revId": "52c4b100e23271dfe8f807a36aa48668de252dcd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdc7e965_5a78a455",
+        "filename": "common/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-06T04:23:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "baed2f02_d086bfa2",
+      "revId": "52c4b100e23271dfe8f807a36aa48668de252dcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
