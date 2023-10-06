@@ -90,6 +90,7 @@ import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkInfo;
+import android.net.RoutingCoordinatorManager;
 import android.net.TetherStatesParcel;
 import android.net.TetheredClient;
 import android.net.TetheringCallbackStartedParcel;
@@ -250,6 +251,8 @@ public class Tethering {
     private final Handler mHandler;
     private final INetd mNetd;
     private final NetdCallback mNetdCallback;
+    // Null if the connectivity module is unsupported, as the routing coordinator is not available.
+    @Nullable private final RoutingCoordinatorManager mRoutingCoordinator;
     private final UserRestrictionActionListener mTetheringRestriction;
     private final ActiveDataSubIdListener mActiveDataSubIdListener;
     private final ConnectedClientsTracker mConnectedClientsTracker;
@@ -296,6 +299,7 @@ public class Tethering {
         mDeps = deps;
         mContext = mDeps.getContext();
         mNetd = mDeps.getINetd(mContext);
+        mRoutingCoordinator = mDeps.getRoutingCoordinator(mContext);
         mLooper = mDeps.getTetheringLooper();
         mNotificationUpdater = mDeps.getNotificationUpdater(mContext, mLooper);
         mTetheringMetrics = mDeps.getTetheringMetrics();
@@ -2834,9 +2838,10 @@ public class Tethering {
 
         mLog.i("adding IpServer for: " + iface);
         final TetherState tetherState = new TetherState(
-                new IpServer(iface, mLooper, interfaceType, mLog, mNetd, mBpfCoordinator,
-                             makeControlCallback(), mConfig, mPrivateAddressCoordinator,
-                             mTetheringMetrics, mDeps.getIpServerDependencies()), isNcm);
+                new IpServer(mContext, iface, mLooper, interfaceType, mLog, mNetd, mBpfCoordinator,
+                        mRoutingCoordinator, makeControlCallback(), mConfig,
+                        mPrivateAddressCoordinator, mTetheringMetrics,
+                        mDeps.getIpServerDependencies()), isNcm);
         mTetherStates.put(iface, tetherState);
         tetherState.ipServer.start();
     }
