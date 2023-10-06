@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46da76e7_95d09e7e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-06T02:33:50Z",
+      "side": 1,
+      "message": "I\u0027m not sure we should merge this if it is actually not usable for us in our development branches. What is the expected usage for this ? Can you add more details on why it\u0027s OK to not have it in udc-mainline-prod, and how this would be used considering that ?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 40
+      },
+      "revId": "02601c1642fc1151824cb6104ea9c5f4f91af8f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
