@@ -22,6 +22,8 @@ import android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkRequest
 import android.net.NetworkScore
+import android.net.NetworkScore.KEEP_CONNECTED_DOWNSTREAM_NETWORK
+import android.net.NetworkScore.KEEP_CONNECTED_FOR_TEST
 import android.os.Build
 import androidx.test.filters.SmallTest
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
@@ -43,22 +45,34 @@ class CSKeepConnectedTest : CSTest() {
                 .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
                 .build()
         val keepConnectedAgent = Agent(nc = nc, score = FromS(NetworkScore.Builder()
-                .setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_DOWNSTREAM_NETWORK)
+                .setKeepConnectedReason(KEEP_CONNECTED_DOWNSTREAM_NETWORK)
                 .build()),
                 lni = LocalNetworkInfo.Builder().build())
         val dontKeepConnectedAgent = Agent(nc = nc, lni = LocalNetworkInfo.Builder().build())
+        doTestKeepConnected(keepConnectedAgent, dontKeepConnectedAgent)
+    }
 
+    @Test
+    fun testKeepConnectedForTest() {
+        val keepAgent = Agent(score = FromS(NetworkScore.Builder()
+                .setKeepConnectedReason(KEEP_CONNECTED_FOR_TEST).
+                build()))
+        val dontKeepAgent = Agent()
+        doTestKeepConnected(keepAgent, dontKeepAgent)
+    }
+
+    fun doTestKeepConnected(keepAgent: CSAgentWrapper, dontKeepAgent: CSAgentWrapper) {
         val cb = TestableNetworkCallback()
         cm.registerNetworkCallback(NetworkRequest.Builder().clearCapabilities().build(), cb)
 
-        keepConnectedAgent.connect()
-        dontKeepConnectedAgent.connect()
+        keepAgent.connect()
+        dontKeepAgent.connect()
 
-        cb.expectAvailableCallbacks(keepConnectedAgent.network, validated = false)
-        cb.expectAvailableCallbacks(dontKeepConnectedAgent.network, validated = false)
+        cb.expectAvailableCallbacks(keepAgent.network, validated = false)
+        cb.expectAvailableCallbacks(dontKeepAgent.network, validated = false)
 
         // After the nascent timer, the agent without keep connected gets lost.
-        cb.expect<Lost>(dontKeepConnectedAgent.network)
+        cb.expect<Lost>(dontKeepAgent.network)
         cb.assertNoCallback()
     }
 }
