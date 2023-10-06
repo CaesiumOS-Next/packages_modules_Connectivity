@@ -1329,15 +1329,23 @@ public class IpServer extends StateMachine {
             // to remove their rules, which generates errors.
             // Just do the best we can.
             mBpfCoordinator.maybeDetachProgram(mIfaceName, upstreamIface);
-            try {
-                mNetd.ipfwdRemoveInterfaceForward(mIfaceName, upstreamIface);
-            } catch (RemoteException | ServiceSpecificException e) {
-                mLog.e("Exception in ipfwdRemoveInterfaceForward: " + e.toString());
-            }
-            try {
-                mNetd.tetherRemoveForward(mIfaceName, upstreamIface);
-            } catch (RemoteException | ServiceSpecificException e) {
-                mLog.e("Exception in disableNat: " + e.toString());
+            if (null != mRoutingCoordinator) {
+                try {
+                    mRoutingCoordinator.removeInterfaceForward(mIfaceName, upstreamIface);
+                } catch (ServiceSpecificException e) {
+                    mLog.e("Exception in removeInterfaceForward", e);
+                }
+            } else {
+                try {
+                    mNetd.ipfwdRemoveInterfaceForward(mIfaceName, upstreamIface);
+                } catch (RemoteException | ServiceSpecificException e) {
+                    mLog.e("Exception in ipfwdRemoveInterfaceForward", e);
+                }
+                try {
+                    mNetd.tetherRemoveForward(mIfaceName, upstreamIface);
+                } catch (RemoteException | ServiceSpecificException e) {
+                    mLog.e("Exception in disableNat", e);
+                }
             }
         }
 
@@ -1394,10 +1402,15 @@ public class IpServer extends StateMachine {
 
                         mBpfCoordinator.maybeAttachProgram(mIfaceName, ifname);
                         try {
-                            mNetd.tetherAddForward(mIfaceName, ifname);
-                            mNetd.ipfwdAddInterfaceForward(mIfaceName, ifname);
+                            if (null != mRoutingCoordinator) {
+                                mRoutingCoordinator.addInterfaceForward(mIfaceName, ifname,
+                                        true /* enableNat */);
+                            } else {
+                                mNetd.tetherAddForward(mIfaceName, ifname);
+                                mNetd.ipfwdAddInterfaceForward(mIfaceName, ifname);
+                            }
                         } catch (RemoteException | ServiceSpecificException e) {
-                            mLog.e("Exception enabling NAT: " + e.toString());
+                            mLog.e("Exception enabling iface forward", e);
                             cleanupUpstream();
                             mLastError = TETHER_ERROR_ENABLE_FORWARDING_ERROR;
                             transitionTo(mInitialState);
