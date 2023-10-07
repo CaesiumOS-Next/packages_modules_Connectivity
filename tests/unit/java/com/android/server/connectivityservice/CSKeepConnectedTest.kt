@@ -30,6 +30,7 @@ import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.TestableNetworkCallback
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -37,6 +38,9 @@ import org.junit.runner.RunWith
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class CSKeepConnectedTest : CSTest() {
+    // TODO : reinstate when LocalNetworkInfo is API. Until then, expectAvailableCallbacks
+    // will fail for local networks because it won't expect the LocalNetworkInfo call.
+    @Ignore
     @Test
     fun testKeepConnectedLocalAgent() {
         deps.setBuildSdk(VERSION_V)
