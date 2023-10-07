@@ -737,9 +737,9 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
 
         Log.i(TAG, "Setting Doze Mode to " + enabled);
         if (enabled) {
+            executeShellCommand("dumpsys deviceidle force-idle deep");
             turnBatteryOn();
             turnScreenOff();
-            executeShellCommand("dumpsys deviceidle force-idle deep");
         } else {
             turnScreenOn();
             turnBatteryOff();
