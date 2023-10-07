@@ -9084,7 +9084,8 @@ public class ConnectivityServiceTest {
         assertUidRangesUpdatedForMyUid(true);
 
         vpnNetworkCallback.expectAvailableCallbacks(mMockVpn.getNetwork(),
-                false /* suspended */, false /* validated */, false /* blocked */, TIMEOUT_MS);
+                false /* suspended */, false /* validated */, false /* blocked */,
+                null /* upstream */, TIMEOUT_MS);
         vpnNetworkCallback.expectCaps(mMockVpn.getNetwork(), TIMEOUT_MS,
                 c -> c.hasCapability(NET_CAPABILITY_VALIDATED));
 
