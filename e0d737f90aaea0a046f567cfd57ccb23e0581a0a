@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1dfd962_ffa65e64",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-07T05:29:54Z",
+      "side": 1,
+      "message": "Yeah it\u0027s probably easier to read. Done.",
+      "parentUuid": "332b1d55_9b0948d6",
+      "range": {
+        "startLine": 85,
+        "startChar": 59,
+        "endLine": 85,
+        "endChar": 72
+      },
+      "revId": "e0d737f90aaea0a046f567cfd57ccb23e0581a0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49f1af7c_2616a5b4",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-18T10:11:16Z",
       "side": 1,
       "message": "Maybe just pass sdk version here?\nWe don\u0027t have to iterate through all sdk versions if it is not needed.",
+      "range": {
+        "startLine": 100,
+        "startChar": 25,
+        "endLine": 100,
+        "endChar": 66
+      },
+      "revId": "e0d737f90aaea0a046f567cfd57ccb23e0581a0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "027225b4_679590b5",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-07T05:29:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49f1af7c_2616a5b4",
       "range": {
         "startLine": 100,
         "startChar": 25,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06b65f69_3f12e1f9",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-07T05:29:54Z",
+      "side": 1,
+      "message": "I prefer not to use lastAvailableNetwork because it\u0027s a hack and I\u0027d like to remove it eventually, but I can easily do expect\u003cAvailable\u003e().network. Dunno why I didn\u0027t think of that.",
+      "parentUuid": "067386bc_27de6433",
+      "range": {
+        "startLine": 102,
+        "startChar": 28,
+        "endLine": 102,
+        "endChar": 75
+      },
+      "revId": "e0d737f90aaea0a046f567cfd57ccb23e0581a0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4775b68d_6ac43abb",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-09-18T10:11:16Z",
       "side": 1,
       "message": "nit: allNetworksRequest now looks ambiguous to me,\ngiven that we don\u0027t want the caller see local agents by default when they listen to \"all networks\".\nAlso if in the future we add another forbidden cap by default but not adding it here, it would be more confusing.\nMaybe name it more specifically, e.g. networksIncludeLocalRequest.\n\nNo strong opinion.\nFeel free to ignore if no better idea here.",
+      "range": {
+        "startLine": 107,
+        "startChar": 12,
+        "endLine": 107,
+        "endChar": 30
+      },
+      "revId": "e0d737f90aaea0a046f567cfd57ccb23e0581a0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ae9df7c_2b7b0b9e",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-07T05:29:54Z",
+      "side": 1,
+      "message": "Just called it `request`. After all, it\u0027s a vanilla request and it\u0027s tailored to the needs of this test, so I think there is no ambiguity with `request`",
+      "parentUuid": "4775b68d_6ac43abb",
       "range": {
         "startLine": 107,
         "startChar": 12,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c03e17ef_34566362",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-07T05:29:54Z",
+      "side": 1,
+      "message": "Made it `localAgent`. The fact that it happens to be wifi is rather irrelevant.",
+      "parentUuid": "23874ca7_9c811fb9",
+      "range": {
+        "startLine": 116,
+        "startChar": 12,
+        "endLine": 116,
+        "endChar": 21
+      },
+      "revId": "e0d737f90aaea0a046f567cfd57ccb23e0581a0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6c804ee_2de3c83c",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28f4361f_82464959",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-07T05:29:54Z",
+      "side": 1,
+      "message": "It\u0027s better.",
+      "parentUuid": "e6c804ee_2de3c83c",
+      "range": {
+        "startLine": 178,
+        "startChar": 20,
+        "endLine": 178,
+        "endChar": 31
+      },
+      "revId": "e0d737f90aaea0a046f567cfd57ccb23e0581a0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8704d17_f0591419",
@@ -152,6 +296,30 @@
       "writtenOn": "2023-09-18T10:11:16Z",
       "side": 1,
       "message": "Stupid question: Where is this defined?",
+      "range": {
+        "startLine": 79,
+        "startChar": 30,
+        "endLine": 79,
+        "endChar": 35
+      },
+      "revId": "e0d737f90aaea0a046f567cfd57ccb23e0581a0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cb9a55d_5f9aef11",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTestHelpers.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-07T05:29:54Z",
+      "side": 1,
+      "message": "In CSTest.kt:69",
+      "parentUuid": "c8704d17_f0591419",
       "range": {
         "startLine": 79,
         "startChar": 30,
