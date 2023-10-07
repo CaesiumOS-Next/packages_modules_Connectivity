@@ -241,7 +241,8 @@ public class ConnectivityManagerTest {
         // callback triggers
         captor.getValue().send(makeMessage(request, ConnectivityManager.CALLBACK_AVAILABLE));
         verify(callback, timeout(TIMEOUT_MS).times(1)).onAvailable(any(Network.class),
-                any(NetworkCapabilities.class), any(LinkProperties.class), anyBoolean());
+                any(NetworkCapabilities.class), any(LinkProperties.class),
+                any(LocalNetworkInfo.class), anyBoolean());
 
         // unregister callback
         manager.unregisterNetworkCallback(callback);
@@ -270,7 +271,8 @@ public class ConnectivityManagerTest {
         // callback triggers
         captor.getValue().send(makeMessage(req1, ConnectivityManager.CALLBACK_AVAILABLE));
         verify(callback, timeout(TIMEOUT_MS).times(1)).onAvailable(any(Network.class),
-                any(NetworkCapabilities.class), any(LinkProperties.class), anyBoolean());
+                any(NetworkCapabilities.class), any(LinkProperties.class),
+                any(LocalNetworkInfo.class), anyBoolean());
 
         // unregister callback
         manager.unregisterNetworkCallback(callback);
