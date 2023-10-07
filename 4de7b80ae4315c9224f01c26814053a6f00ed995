@@ -64,6 +64,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c023bda_feec9144",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 8556,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-07T00:04:44Z",
+      "side": 1,
+      "message": "I removed usage of `getAllowedUidsNoCopy()` and moved code into `mixInCapabilities()`.",
+      "parentUuid": "0e729fc4_a5d78782",
+      "range": {
+        "startLine": 8556,
+        "startChar": 14,
+        "endLine": 8556,
+        "endChar": 43
+      },
+      "revId": "4de7b80ae4315c9224f01c26814053a6f00ed995",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7e3b48a_8d82a66c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 8556,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-07T00:04:44Z",
+      "side": 1,
+      "message": "Yep, that\u0027s it. I moved the code into `mixInCapabilities()` as you suggested.",
+      "parentUuid": "10a1fc98_b4db335c",
+      "range": {
+        "startLine": 8556,
+        "startChar": 37,
+        "endLine": 8556,
+        "endChar": 43
+      },
+      "revId": "4de7b80ae4315c9224f01c26814053a6f00ed995",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "964e7a36_b9203917",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-09-19T07:35:39Z",
       "side": 1,
       "message": "I think you can make the method return a Set\u003c\u003e and just put this first\n\n    if (null \u003d\u003d nc) return Collections.emptySet();\n\nand avoid the allocation.",
+      "range": {
+        "startLine": 8866,
+        "startChar": 8,
+        "endLine": 8866,
+        "endChar": 25
+      },
+      "revId": "4de7b80ae4315c9224f01c26814053a6f00ed995",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0b03265_818e7b18",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 8866,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-07T00:04:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "964e7a36_b9203917",
       "range": {
         "startLine": 8866,
         "startChar": 8,
@@ -112,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f75b9111_e6fc9718",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 8870,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-07T00:04:44Z",
+      "side": 1,
+      "message": "IIRC, this was to account for those apps whose access to a restricted network can change dynamically (i.e. PANS, Enterprise slicing, etc.)\n\nWe actually did speak on this a bit i believe in the design phase. Let me reopen on the comment thread there, and we can continue the discussion with the added context.",
+      "parentUuid": "7170dbb5_39958b78",
+      "range": {
+        "startLine": 8870,
+        "startChar": 20,
+        "endLine": 8870,
+        "endChar": 35
+      },
+      "revId": "4de7b80ae4315c9224f01c26814053a6f00ed995",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6e253b1_9abbb75f",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 4
@@ -123,6 +219,30 @@
       "writtenOn": "2023-09-19T07:35:39Z",
       "side": 1,
       "message": "This mutates the network capabilities in the middle of rematch. We should never do that, because it makes the state impossible to deduce. In fact there is already an instance of this, where the rematch affects the FOREGROUND capability ; we have dozens of lines of very delicate code to handle this difficulty and deeply regret this.\n\nHere, observe how mutating the allowedUids in 9519 immediately makes the reassignment computed in 9518 obsolete. This seems very dangerous ; if allowedUids is used in any way at all in computing the reassignment (which I think it might actually be already), this becomes completely unfixable. It is especially dangerous as this is done right in the middle of the reassignment, after it\u0027s been computed but before it\u0027s applied.\n\nI mean, in a sense enabling this sort of thing is partly why I split computing the reassignment from applying it so I\u0027m not 100% positive this is really wrong (especially as this is following the rules – it\u0027s deducing stuff from the changes and not from state). But at the very least it needs to be certain that this will never mutate anything that will ever be used in computing the reassignment – and I\u0027m not sure there is a way to do that.",
+      "range": {
+        "startLine": 9519,
+        "startChar": 8,
+        "endLine": 9519,
+        "endChar": 36
+      },
+      "revId": "4de7b80ae4315c9224f01c26814053a6f00ed995",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcc976a4_8199e734",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9519,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-07T00:04:44Z",
+      "side": 1,
+      "message": "This looks to be something we actually accounted for in the design. I\u0027ve reopened the comment thread on the design doc and we can use the added context from that and continue discussions there.",
+      "parentUuid": "e6e253b1_9abbb75f",
       "range": {
         "startLine": 9519,
         "startChar": 8,
@@ -238,6 +358,30 @@
       "writtenOn": "2023-09-19T07:35:39Z",
       "side": 1,
       "message": "Do you need this ? If there are no requests, the loop below does 0 iterations",
+      "range": {
+        "startLine": 1158,
+        "startChar": 0,
+        "endLine": 1160,
+        "endChar": 9
+      },
+      "revId": "4de7b80ae4315c9224f01c26814053a6f00ed995",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee693b55_eef61d0c",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-07T00:04:44Z",
+      "side": 1,
+      "message": "Good catch. Updated.",
+      "parentUuid": "5b92bfbb_7739b3bc",
       "range": {
         "startLine": 1158,
         "startChar": 0,
