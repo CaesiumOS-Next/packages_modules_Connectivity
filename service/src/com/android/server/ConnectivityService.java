@@ -8942,8 +8942,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 // No new request, so send an update that there is no longer an upstream.
                 // If there is a new request, the rematch will handle this.
                 removeLocalNetworkUpstream(nai, oldSatisfier);
+                nai.localNetworkConfig = configBuilder.build();
                 notifyNetworkCallbacks(nai,
                         ConnectivityManager.CALLBACK_LOCAL_NETWORK_INFO_CHANGED);
+                return;
             }
         }
         final NetworkRequestInfo nri;
@@ -8963,13 +8965,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 // changes
                 nri.setSatisfier(oldSatisfier, nr);
             }
-        } else {
-            nri = null;
-        }
-
-        nai.localNetworkConfig = configBuilder.build();
-
-        if (null != nri) {
+            nai.localNetworkConfig = configBuilder.build();
             // handleRegisterNetworkRequest causes a rematch. The rematch must happen after
             // nai.localNetworkConfig is set, since it will base its callbacks on the old
             // satisfier and the new request.

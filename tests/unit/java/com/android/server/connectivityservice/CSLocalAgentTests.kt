@@ -20,6 +20,8 @@ import android.net.IpPrefix
 import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.LocalNetworkConfig
+import android.net.LocalNetworkInfo
+import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_DUN
 import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
@@ -35,13 +37,14 @@ import android.net.NetworkScore
 import android.net.NetworkScore.KEEP_CONNECTED_FOR_TEST
 import android.net.RouteInfo
 import android.os.Build
+import android.util.Log
+import com.android.server.TestNetworkCallback.LocalInfoChanged
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.RecorderCallback.CallbackEntry.Available
 import com.android.testutils.RecorderCallback.CallbackEntry.BlockedStatus
 import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
-import com.android.testutils.RecorderCallback.CallbackEntry.LocalInfoChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.TestableNetworkCallback
 import org.junit.Test
@@ -49,6 +52,25 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.inOrder
 import org.mockito.Mockito.never
 import kotlin.test.assertFailsWith
+import com.android.testutils.TestableNetworkCallback as BaseTestableNetworkCallback
+
+// Stopgap solution to see LocalNetworkInfo in the testable network callbacks.
+// When LocalNetworkInfo is public, remove this class and reinstate the code commented out
+// in the original TestableNetworkCallback
+private class TestNetworkCallback() : BaseTestableNetworkCallback() {
+    private val TAG = this::class.simpleName
+
+    data class LocalInfoChanged(
+            override val network: Network,
+            val info: LocalNetworkInfo)
+        : CallbackEntry()
+
+    override fun onLocalNetworkInfoChanged(network: Network, info: LocalNetworkInfo) {
+        super.onLocalNetworkInfoChanged(network, info)
+        Log.d(TAG, "onLocalNetworkInfoChanged $network ${info.upstreamNetwork}")
+        history.add(LocalInfoChanged(network, info))
+    }
+}
 
 private fun nc(transport: Int, vararg caps: Int) = NetworkCapabilities.Builder().apply {
     addTransportType(transport)
@@ -95,7 +117,7 @@ class CSLocalAgentTests : CSTest() {
     fun testUpdateLocalAgentConfig() {
         deps.setBuildSdk(VERSION_V)
 
-        val cb = TestableNetworkCallback()
+        val cb = TestNetworkCallback()
         cm.requestNetwork(NetworkRequest.Builder()
                 .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
                 .build(),
@@ -130,6 +152,14 @@ class CSLocalAgentTests : CSTest() {
             it.info.upstreamNetwork == wifiAgent.network
         }
 
+        localAgent.sendLocalNetworkConfig(LocalNetworkConfig.Builder().build())
+        cb.expect<LocalInfoChanged>(localAgent.network) { it.info.upstreamNetwork == null }
+
+        localAgent.sendLocalNetworkConfig(newLnc)
+        cb.expect<LocalInfoChanged>(localAgent.network) {
+            it.info.upstreamNetwork == wifiAgent.network
+        }
+
         wifiAgent.disconnect()
         cb.expect<LocalInfoChanged>(localAgent.network) { it.info.upstreamNetwork == null }
 
@@ -160,7 +190,7 @@ class CSLocalAgentTests : CSTest() {
         val wifiAgentDun = Agent(score = keepScore(), lp = lp("wifi1"),
                 nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_INTERNET, NET_CAPABILITY_DUN))
 
-        val cb = TestableNetworkCallback()
+        val cb = TestNetworkCallback()
         cm.registerNetworkCallback(NetworkRequest.Builder()
                 .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
                 .build(),
@@ -193,6 +223,11 @@ class CSLocalAgentTests : CSTest() {
             it.info.upstreamNetwork == wifiAgentDun.network
         }
 
+        // Make sure sending the same config again doesn't do anything
+        repeat(5) {
+            localAgent.sendLocalNetworkConfig(lnc)
+        }
+
         wifiAgentDun.disconnect()
         // This is a disconnection, so the "remove" will precede the "add" because the forward
         // is removed as part of the disconnection and the add as part of the rematch that follows.
@@ -217,8 +252,22 @@ class CSLocalAgentTests : CSTest() {
             it.info.upstreamNetwork == wifiAgentDun2.network
         }
 
-        localAgent.disconnect()
+        wifiAgentDun2.disconnect()
         inOrder.verify(netd).ipfwdRemoveInterfaceForward("local0", "wifi2")
+        inOrder.verify(netd).ipfwdDisableForwarding(any())
+        cb.expect<LocalInfoChanged>(localAgent.network) { it.info.upstreamNetwork == null }
+
+        val wifiAgentDun3 = Agent(score = keepScore(), lp = lp("wifi3"),
+                nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_INTERNET, NET_CAPABILITY_DUN))
+        wifiAgentDun3.connect()
+        inOrder.verify(netd).ipfwdEnableForwarding(any())
+        inOrder.verify(netd).ipfwdAddInterfaceForward("local0", "wifi3")
+        cb.expect<LocalInfoChanged>(localAgent.network) {
+            it.info.upstreamNetwork == wifiAgentDun3.network
+        }
+
+        localAgent.disconnect()
+        inOrder.verify(netd).ipfwdRemoveInterfaceForward("local0", "wifi3")
         inOrder.verify(netd).ipfwdDisableForwarding(any())
         cb.expect<Lost>(localAgent.network)
         cb.assertNoCallback()
