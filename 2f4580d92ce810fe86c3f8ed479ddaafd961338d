@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17ea23d7_ad8b636a",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-08T07:07:12Z",
+      "side": 1,
+      "message": "You\u0027re correct but this field is the other way around ; it\u0027s on the local network that has this, and it can only be forwarded to a single upstream. Multiple local networks can have the same upstream but they all have their own field.\n\nAnyway, removed this and moved into LocalNetworkInfo in a followup",
+      "parentUuid": "19a95152_7afe696d",
+      "revId": "2f4580d92ce810fe86c3f8ed479ddaafd961338d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aef41bea_abd7718f",
@@ -64,6 +82,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5322f90_1c13a735",
+        "filename": "framework/src/android/net/MulticastRoutingConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-08T07:07:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "696984fd_1744f643",
+      "range": {
+        "startLine": 165,
+        "startChar": 39,
+        "endLine": 165,
+        "endChar": 58
+      },
+      "revId": "2f4580d92ce810fe86c3f8ed479ddaafd961338d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba602dfc_8bf1c08b",
@@ -87,6 +129,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db497509_e2b1cd54",
+        "filename": "framework/src/android/net/MulticastRoutingConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-08T07:07:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba602dfc_8bf1c08b",
+      "range": {
+        "startLine": 240,
+        "startChar": 58,
+        "endLine": 240,
+        "endChar": 61
+      },
+      "revId": "2f4580d92ce810fe86c3f8ed479ddaafd961338d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e341d6e_081bae6b",
@@ -100,6 +166,30 @@
       "writtenOn": "2023-09-21T02:59:26Z",
       "side": 1,
       "message": "nits: \"Must not be null\"? and \"NET_CAPABILITY_LOCAL_NETWORK\"?",
+      "range": {
+        "startLine": 540,
+        "startChar": 39,
+        "endLine": 540,
+        "endChar": 95
+      },
+      "revId": "2f4580d92ce810fe86c3f8ed479ddaafd961338d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cdf6006_18c898d4",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-08T07:07:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e341d6e_081bae6b",
       "range": {
         "startLine": 540,
         "startChar": 39,
