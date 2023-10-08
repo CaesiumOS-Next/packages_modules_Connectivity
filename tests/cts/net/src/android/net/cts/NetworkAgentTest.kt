@@ -26,6 +26,7 @@ import android.net.InetAddresses
 import android.net.IpPrefix
 import android.net.LinkAddress
 import android.net.LinkProperties
+import android.net.LocalNetworkConfig
 import android.net.NattKeepalivePacketData
 import android.net.Network
 import android.net.NetworkAgent
@@ -34,6 +35,7 @@ import android.net.NetworkAgent.VALID_NETWORK
 import android.net.NetworkAgentConfig
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
+import android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED
@@ -45,6 +47,7 @@ import android.net.NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED
 import android.net.NetworkCapabilities.NET_CAPABILITY_TRUSTED
 import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
+import android.net.NetworkCapabilities.TRANSPORT_ETHERNET
 import android.net.NetworkCapabilities.TRANSPORT_TEST
 import android.net.NetworkCapabilities.TRANSPORT_VPN
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
@@ -61,6 +64,7 @@ import android.net.QosSessionAttributes
 import android.net.QosSocketInfo
 import android.net.RouteInfo
 import android.net.SocketKeepalive
+import android.net.StringNetworkSpecifier
 import android.net.TestNetworkInterface
 import android.net.TestNetworkManager
 import android.net.Uri
@@ -82,6 +86,7 @@ import android.telephony.TelephonyManager
 import android.telephony.data.EpsBearerQosSessionAttributes
 import android.util.DebugUtils.valueToString
 import androidx.test.InstrumentationRegistry
+import com.android.compatibility.common.util.SystemUtil.callWithShellPermissionIdentity
 import com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity
 import com.android.compatibility.common.util.ThrowingSupplier
 import com.android.modules.utils.build.SdkLevel
@@ -112,6 +117,18 @@ import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnUnregisterQosC
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnValidationStatus
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.assertThrows
+import com.android.testutils.initTestNetwork
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.argThat
+import org.mockito.ArgumentMatchers.eq
+import org.mockito.Mockito.doReturn
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.timeout
+import org.mockito.Mockito.verify
 import java.io.Closeable
 import java.io.IOException
 import java.net.DatagramSocket
@@ -129,17 +146,6 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import kotlin.test.fail
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.any
-import org.mockito.ArgumentMatchers.argThat
-import org.mockito.ArgumentMatchers.eq
-import org.mockito.Mockito.doReturn
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.timeout
-import org.mockito.Mockito.verify
 
 // This test doesn't really have a constraint on how fast the methods should return. If it's
 // going to fail, it will simply wait forever, so setting a high timeout lowers the flake ratio
@@ -300,6 +306,7 @@ class NetworkAgentTest {
         specifier: String? = null,
         initialNc: NetworkCapabilities? = null,
         initialLp: LinkProperties? = null,
+        initialLnc: LocalNetworkConfig? = null,
         initialConfig: NetworkAgentConfig? = null
     ): TestableNetworkAgent {
         val nc = initialNc ?: makeTestNetworkCapabilities(specifier)
@@ -307,8 +314,9 @@ class NetworkAgentTest {
             addLinkAddress(LinkAddress(LOCAL_IPV4_ADDRESS, 32))
             addRoute(RouteInfo(IpPrefix("0.0.0.0/0"), null, null))
         }
+        val lnc = initialLnc
         val config = initialConfig ?: NetworkAgentConfig.Builder().build()
-        return TestableNetworkAgent(context, mHandlerThread.looper, nc, lp, config).also {
+        return TestableNetworkAgent(context, mHandlerThread.looper, nc, lp, lnc, config).also {
             agentsToCleanUp.add(it)
         }
     }
@@ -1494,5 +1502,58 @@ class NetworkAgentTest {
     fun testNativeNetworkCreation_Vpn() {
         // VPN networks are always created as soon as the agent is registered.
         doTestNativeNetworkCreation(expectCreatedImmediately = true, intArrayOf(TRANSPORT_VPN))
+    }
+
+    @Test
+    fun testLocalAgentAdvertisesOnAil() {
+        val linkAddr = LinkAddress(InetAddresses.parseNumericAddress("2001:db8::8"), 64)
+        val tnt = callWithShellPermissionIdentity {
+            initTestNetwork(realContext, linkAddr, DEFAULT_TIMEOUT_MS)
+        }
+
+        val ailSpecifier = StringNetworkSpecifier(UUID.randomUUID().toString())
+        val ailAgent = createConnectedNetworkAgent(
+                transports = intArrayOf(TRANSPORT_ETHERNET, TRANSPORT_TEST),
+                specifier = ailSpecifier.specifier).first
+
+        val onLinkPrefix = IpPrefix(InetAddresses.parseNumericAddress("fc00::9"), 64)
+        val localSpecifier = StringNetworkSpecifier(UUID.randomUUID().toString())
+        val localAgent = createNetworkAgent(
+                initialNc = NetworkCapabilities.Builder()
+                        .addTransportType(TRANSPORT_WIFI)
+                        .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                        .addCapability(NET_CAPABILITY_NOT_SUSPENDED)
+                        .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                        .addCapability(NET_CAPABILITY_NOT_ROAMING)
+                        .addCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                        .setNetworkSpecifier(localSpecifier)
+                        .build(),
+                initialLp = tnt.lp,
+                initialLnc = LocalNetworkConfig.Builder()
+                        .setUpstreamSelector(NetworkRequest.Builder()
+                                .addTransportType(TRANSPORT_ETHERNET)
+                                .addTransportType(TRANSPORT_TEST)
+                                .setNetworkSpecifier(ailSpecifier)
+                                .build())
+                        .addAilPrefix(onLinkPrefix)
+                        .build())
+        localAgent.markConnected()
+
+        val cb = TestableNetworkCallback()
+        mCM.registerNetworkCallback(NetworkRequest.Builder()
+                .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                .setNetworkSpecifier(localSpecifier)
+                .build(),
+                cb)
+        cb.expect<Available>(localAgent.network!!)
+        cb.expect<CapabilitiesChanged>(localAgent.network!!)
+        cb.expect<LinkPropertiesChanged>(localAgent.network!!)
+        cb.expect<LocalInfoChanged>(localAgent.network!!) {
+            it.info.upstreamNetwork == ailAgent.network
+        }
+        cb.expect<BlockedStatus>(localAgent.network!!)
+
+        // Now to test that the router advertising daemon has been started, send an RS
+        // on the interface tnt.testIface, and check that an RA is received.
     }
 }

@@ -23,7 +23,11 @@ import android.annotation.Nullable;
 import android.content.Context;
 import android.net.INetd;
 import android.net.IRoutingCoordinator;
+import android.net.IpPrefix;
+import android.net.LinkProperties;
 import android.net.RouteInfo;
+import android.net.ip.RouterAdvertisementDaemon;
+import android.net.ip.RouterAdvertisementDaemon.RaParams;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
@@ -31,10 +35,14 @@ import android.util.ArraySet;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.net.module.util.CollectionUtils;
+import com.android.net.module.util.InterfaceParams;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
+    private static final ArraySet<IpPrefix> sEmptySet = new ArraySet<>(0);
+
     private final Context mContext;
     private final INetd mNetd;
 
@@ -124,14 +132,16 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
         @NonNull public final String fromIface;
         @NonNull public final String toIface;
         public boolean enableNat;
+        @Nullable public final RouterAdvertisementDaemon raDaemon;
         ForwardingPair(@NonNull final String fromIface, @NonNull final String toIface,
-                final boolean enableNat) {
+                final boolean enableNat, @Nullable final RouterAdvertisementDaemon raDaemon) {
             this.fromIface = fromIface;
             this.toIface = toIface;
             this.enableNat = enableNat;
+            this.raDaemon = raDaemon;
         }
 
-        // Note that equals() and hashcode() only use fromIface and toIface, not enableNat.
+        // Note that equals() and hashcode() only use fromIface and toIface.
         @Override
         public boolean equals(final Object o) {
             if (this == o) return true;
@@ -165,14 +175,51 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
      */
     public void addInterfaceForward(final String fromIface, final String toIface,
             final boolean enableNat) throws ServiceSpecificException, RemoteException {
+        addInterfaceForward(fromIface, toIface, 0 /* mtu */, sEmptySet, enableNat);
+    }
+
+    /**
+     * Add forwarding ip rule
+     *
+     * @param fromIface interface name to add forwarding ip rule
+     * @param toLp link properties of the network to add forwarding ip rule
+     * @param ailPrefixes list of prefixes to advertise of the AIL
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *         cause of the failure.
+     */
+    public void addInterfaceForward(final String fromIface, final LinkProperties toLp,
+            final Set<IpPrefix> ailPrefixes) throws ServiceSpecificException, RemoteException {
+        addInterfaceForward(fromIface, toLp.getInterfaceName(), toLp.getMtu(), ailPrefixes,
+                false /* enableNat */);
+    }
+
+    private void addInterfaceForward(final String fromIface, final String toIface, final int toMtu,
+            final Set<IpPrefix> ailPrefixes, final boolean enableNat)
+            throws ServiceSpecificException, RemoteException {
         Objects.requireNonNull(fromIface);
         Objects.requireNonNull(toIface);
         synchronized (mIfacesLock) {
             if (mForwardedInterfaces.size() == 0) {
                 mNetd.ipfwdEnableForwarding("RoutingCoordinator");
             }
-            final ForwardingPair fwp = new ForwardingPair(fromIface, toIface, enableNat);
-            // enableNat is ignored by ForwardingPair#equals and #hashcode.
+            final RouterAdvertisementDaemon raDaemon;
+            if (ailPrefixes.isEmpty()) {
+                raDaemon = null;
+            } else {
+                final InterfaceParams ifaceParams = InterfaceParams.getByName(toIface);
+                if (null == ifaceParams) {
+                    raDaemon = null;
+                } else {
+                    raDaemon = new RouterAdvertisementDaemon(ifaceParams);
+                    final RaParams raParams = new RaParams();
+                    raParams.prefixes.addAll(ailPrefixes);
+                    raParams.mtu = toMtu;
+                    raDaemon.buildNewRa(null /* deprecatedParams */, raParams);
+                    raDaemon.start();
+                }
+            }
+            final ForwardingPair fwp = new ForwardingPair(fromIface, toIface, enableNat, raDaemon);
+            // Only from and to are considered by ForwardingPair#equals and #hashcode.
             if (mForwardedInterfaces.contains(fwp)) {
                 throw new IllegalStateException("Forward already exists between ifaces "
                         + fromIface + " → " + toIface);
@@ -204,6 +251,9 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
             }
             mForwardedInterfaces.remove(fwp);
             mNetd.ipfwdRemoveInterfaceForward(fromIface, toIface);
+            if (null != fwp.raDaemon) {
+                fwp.raDaemon.stop();
+            }
             if (fwp.enableNat) mNetd.tetherRemoveForward(fromIface, toIface);
             if (mForwardedInterfaces.size() == 0) {
                 mNetd.ipfwdDisableForwarding("RoutingCoordinator");

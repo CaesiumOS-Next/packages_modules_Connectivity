@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package com.android.testutils;
+package com.android.testutils
 
 import android.content.Context
 import android.net.KeepalivePacketData
 import android.net.LinkProperties
+import android.net.LocalNetworkConfig
 import android.net.NetworkAgent
 import android.net.NetworkAgentConfig
 import android.net.NetworkCapabilities
 import android.net.NetworkProvider
+import android.net.NetworkScore
 import android.net.QosFilter
 import android.net.Uri
 import android.os.Looper
@@ -62,9 +64,11 @@ public open class TestableNetworkAgent(
     looper: Looper,
     val nc: NetworkCapabilities,
     val lp: LinkProperties,
+    val lnc: LocalNetworkConfig? = null,
     conf: NetworkAgentConfig
 ) : NetworkAgent(context, looper, TestableNetworkAgent::class.java.simpleName /* tag */,
-        nc, lp, TEST_NETWORK_SCORE, conf, Provider(context, looper)) {
+        nc, lp, lnc, NetworkScore.Builder().setLegacyInt(TEST_NETWORK_SCORE).build(),
+        conf, Provider(context, looper)) {
 
     val DEFAULT_TIMEOUT_MS = 5000L
 

@@ -9919,8 +9919,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             try {
                 if (null != change.mNewNetwork) {
                     mRoutingCoordinatorService.addInterfaceForward(fromIface,
-                            change.mNewNetwork.linkProperties.getInterfaceName(),
-                            false /* enableNat */);
+                            change.mNewNetwork.linkProperties,
+                            nai.localNetworkConfig.getAilPrefixes());
                     notifyCallback = true;
                 }
                 if (null != change.mOldNetwork) {
