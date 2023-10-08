@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ef87e0e_756fbcd5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-08T08:13:55Z",
+      "side": 1,
+      "message": "Happy with this when the comment on line #133 is addressed",
+      "revId": "6088b53f6d235b3b37a5453a03ed2982608f2ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c94173db_1ea3455f",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsEventLoggerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-08T08:13:55Z",
+      "side": 1,
+      "message": "IIUC your code only works because this is always 0. If there was any events dumped in l.120, then this would be non-zero, and lineCountAfterTest would be exactly MAX_EVENT_LOGS, and this would fail.",
+      "range": {
+        "startLine": 133,
+        "startChar": 33,
+        "endLine": 133,
+        "endChar": 50
+      },
+      "revId": "6088b53f6d235b3b37a5453a03ed2982608f2ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f59eabd_6d24f4c8",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsEventLoggerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-08T08:13:55Z",
+      "side": 1,
+      "message": "s/split(\"\\n\")/lines()/",
+      "range": {
+        "startLine": 148,
+        "startChar": 72,
+        "endLine": 148,
+        "endChar": 83
+      },
+      "revId": "6088b53f6d235b3b37a5453a03ed2982608f2ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de800dc2_a60772cf",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsEventLoggerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-08T08:13:55Z",
+      "side": 1,
+      "message": "I had a little bit of trouble understanding what you\u0027re doing here, maybe having an example string as a comment just above would help. I think the scheme is fine.\n\n(you may want to consider `\\D+` instead of `[^0-9]+` but it\u0027s not really important)",
+      "range": {
+        "startLine": 162,
+        "startChar": 54,
+        "endLine": 162,
+        "endChar": 61
+      },
+      "revId": "6088b53f6d235b3b37a5453a03ed2982608f2ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87d0cec7_4da5b43b",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsEventLoggerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-08T08:13:55Z",
+      "side": 1,
+      "message": "While your impl is fine you could also have written\n\n    fun getOutputAndClear() \u003d toString().also { buffer.setLength(0) }\n\n...but only if you find it more readable",
+      "range": {
+        "startLine": 171,
+        "startChar": 12,
+        "endLine": 171,
+        "endChar": 29
+      },
+      "revId": "6088b53f6d235b3b37a5453a03ed2982608f2ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
