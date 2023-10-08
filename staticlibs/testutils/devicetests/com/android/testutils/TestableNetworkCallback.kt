@@ -18,8 +18,7 @@ package com.android.testutils
 
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.LinkProperties
-// TODO : uncomment everything about LocalNetworkInfo when it's API
-//import android.net.LocalNetworkInfo
+import android.net.LocalNetworkInfo
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
@@ -30,6 +29,7 @@ import com.android.testutils.RecorderCallback.CallbackEntry.BlockedStatus
 import com.android.testutils.RecorderCallback.CallbackEntry.BlockedStatusInt
 import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
+import com.android.testutils.RecorderCallback.CallbackEntry.LocalInfoChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.Losing
 import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.RecorderCallback.CallbackEntry.Resumed
@@ -52,9 +52,7 @@ open class RecorderCallback private constructor(
 
     private val TAG = this::class.simpleName
 
-    // TODO : make sealed again when LocalNetworkInfo is public
-    // sealed
-    abstract class CallbackEntry {
+    sealed class CallbackEntry {
         // To get equals(), hashcode(), componentN() etc for free, the child classes of
         // this class are data classes. But while data classes can inherit from other classes,
         // they may only have visible members in the constructors, so they couldn't declare
@@ -72,11 +70,10 @@ open class RecorderCallback private constructor(
             override val network: Network,
             val lp: LinkProperties
         ) : CallbackEntry()
-//        TODO : don't forget to make CallbackEntry sealed again when reinstating this code
-//        data class LocalInfoChanged(
-//            override val network: Network,
-//            val info: LocalNetworkInfo
-//        ) : CallbackEntry()
+        data class LocalInfoChanged(
+            override val network: Network,
+            val info: LocalNetworkInfo
+        ) : CallbackEntry()
         data class Suspended(override val network: Network) : CallbackEntry()
         data class Resumed(override val network: Network) : CallbackEntry()
         data class Losing(override val network: Network, val maxMsToLive: Int) : CallbackEntry()
@@ -102,8 +99,8 @@ open class RecorderCallback private constructor(
             val NETWORK_CAPS_UPDATED = CapabilitiesChanged::class
             @JvmField
             val LINK_PROPERTIES_CHANGED = LinkPropertiesChanged::class
-//            @JvmField
-//            val LOCAL_INFO_CHANGED = LocalInfoChanged::class
+            @JvmField
+            val LOCAL_INFO_CHANGED = LocalInfoChanged::class
             @JvmField
             val SUSPENDED = Suspended::class
             @JvmField
@@ -142,10 +139,10 @@ open class RecorderCallback private constructor(
         history.add(LinkPropertiesChanged(network, lp))
     }
 
-//    override fun onLocalNetworkInfoChanged(network: Network, info: LocalNetworkInfo) {
-//        Log.d(TAG, "onLocalNetworkInfoChanged $network $info")
-//        history.add(LocalInfoChanged(network, info))
-//    }
+    override fun onLocalNetworkInfoChanged(network: Network, info: LocalNetworkInfo) {
+        Log.d(TAG, "onLocalNetworkInfoChanged $network $info")
+        history.add(LocalInfoChanged(network, info))
+    }
 
     override fun onBlockedStatusChanged(network: Network, blocked: Boolean) {
         Log.d(TAG, "onBlockedStatusChanged $network $blocked")
