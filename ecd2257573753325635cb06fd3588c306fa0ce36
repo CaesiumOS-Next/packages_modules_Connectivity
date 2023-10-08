@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cfb7d52_9979609a",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-08T09:06:21Z",
+      "side": 1,
+      "message": "mInitialConfiguration is set to null in register(), so calling sendLocalNetworkConfig after register() triggers null pointer exception.",
+      "range": {
+        "startLine": 1145,
+        "startChar": 13,
+        "endLine": 1145,
+        "endChar": 34
+      },
+      "revId": "ecd2257573753325635cb06fd3588c306fa0ce36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
