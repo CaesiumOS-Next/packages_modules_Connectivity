@@ -21,6 +21,7 @@ import android.net.LinkProperties
 import android.net.LocalNetworkInfo
 import android.net.Network
 import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK
 import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
 import android.util.Log
 import com.android.net.module.util.ArrayTrackRecord
@@ -52,7 +53,7 @@ open class RecorderCallback private constructor(
 
     private val TAG = this::class.simpleName
 
-    abstract sealed class CallbackEntry {
+    sealed class CallbackEntry {
         // To get equals(), hashcode(), componentN() etc for free, the child classes of
         // this class are data classes. But while data classes can inherit from other classes,
         // they may only have visible members in the constructors, so they couldn't declare
