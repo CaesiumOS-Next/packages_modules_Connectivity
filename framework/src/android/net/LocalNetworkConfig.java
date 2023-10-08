@@ -20,6 +20,13 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.ArraySet;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 /**
  * A class to communicate configuration info about a local network through {@link NetworkAgent}.
@@ -31,15 +38,20 @@ public final class LocalNetworkConfig implements Parcelable {
     private final NetworkRequest mUpstreamSelector;
 
     @NonNull
+    private final Set<IpPrefix> mAilPrefixes;
+
+    @NonNull
     private final MulticastRoutingConfig mUpstreamMulticastRoutingConfig;
 
     @NonNull
     private final MulticastRoutingConfig mDownstreamMulticastRoutingConfig;
 
     private LocalNetworkConfig(@Nullable final NetworkRequest upstreamSelector,
+            @NonNull final Set<IpPrefix> ailPrefixes,
             @Nullable final MulticastRoutingConfig upstreamConfig,
             @Nullable final MulticastRoutingConfig downstreamConfig) {
         mUpstreamSelector = upstreamSelector;
+        mAilPrefixes = Collections.unmodifiableSet(new ArraySet<>(ailPrefixes));
         if (null != upstreamConfig) {
             mUpstreamMulticastRoutingConfig = upstreamConfig;
         } else {
@@ -62,6 +74,11 @@ public final class LocalNetworkConfig implements Parcelable {
         return mUpstreamSelector;
     }
 
+    @NonNull
+    public Set<IpPrefix> getAilPrefixes() {
+        return mAilPrefixes;
+    }
+
     public @NonNull MulticastRoutingConfig getUpstreamConfig() {
         return mUpstreamMulticastRoutingConfig;
     }
@@ -78,6 +95,10 @@ public final class LocalNetworkConfig implements Parcelable {
     @Override
     public void writeToParcel(@NonNull final Parcel dest, final int flags) {
         dest.writeParcelable(mUpstreamSelector, flags);
+        dest.writeInt(mAilPrefixes.size());
+        for (final IpPrefix prefix : mAilPrefixes) {
+            dest.writeParcelable(prefix, flags);
+        }
         dest.writeParcelable(mUpstreamMulticastRoutingConfig, flags);
         dest.writeParcelable(mDownstreamMulticastRoutingConfig, flags);
     }
@@ -85,10 +106,15 @@ public final class LocalNetworkConfig implements Parcelable {
     public static final @NonNull Creator<LocalNetworkConfig> CREATOR = new Creator<>() {
         public LocalNetworkConfig createFromParcel(Parcel in) {
             final NetworkRequest upstreamSelector = in.readParcelable(null);
+            final int ailPrefixSize = in.readInt();
+            final ArraySet<IpPrefix> ailPrefixes = new ArraySet<>(ailPrefixSize);
+            for (int i = ailPrefixSize - 1; i > 0; --i) {
+                ailPrefixes.add(in.readParcelable(null));
+            }
             final MulticastRoutingConfig upstreamConfig = in.readParcelable(null);
             final MulticastRoutingConfig downstreamConfig = in.readParcelable(null);
             return new LocalNetworkConfig(
-                    upstreamSelector, upstreamConfig, downstreamConfig);
+                    upstreamSelector, ailPrefixes, upstreamConfig, downstreamConfig);
         }
 
         @Override
@@ -99,8 +125,13 @@ public final class LocalNetworkConfig implements Parcelable {
 
 
     public static final class Builder {
+        private static final String TAG = "LocalNetworkConfig.Builder";
+
         @Nullable
         NetworkRequest mUpstreamSelector;
+
+        @NonNull
+        final ArraySet<IpPrefix> mAilPrefixes;
 
         @Nullable
         MulticastRoutingConfig mUpstreamMulticastRoutingConfig;
@@ -112,6 +143,7 @@ public final class LocalNetworkConfig implements Parcelable {
          * Create a Builder
          */
         public Builder() {
+            mAilPrefixes = new ArraySet<>();
         }
 
         /**
@@ -128,6 +160,32 @@ public final class LocalNetworkConfig implements Parcelable {
         @NonNull
         public Builder setUpstreamSelector(@Nullable NetworkRequest upstreamSelector) {
             mUpstreamSelector = upstreamSelector;
+            return this;
+        }
+
+        /**
+         * Add a prefix to advertise on the infrastructure link (the selected upstream)
+         *
+         * This is a no-op if the prefix was already added.
+         */
+        @NonNull
+        public Builder addAilPrefix(@NonNull final IpPrefix prefix) {
+            if (!mAilPrefixes.add(prefix)) {
+                Log.i(TAG, "Already added prefix : " + prefix);
+            }
+            return this;
+        }
+
+        /**
+         * Remove a prefix to advertise on the infrastructure link (the selected upstream)
+         *
+         * This is a no-op if the prefix wasn't added or was already removed.
+         */
+        @NonNull
+        public Builder removeAilPrefix(@NonNull final IpPrefix prefix) {
+            if (!mAilPrefixes.remove(prefix)) {
+                Log.i(TAG, "Removal of an absent prefix : " + prefix);
+            }
             return this;
         }
 
@@ -161,6 +219,7 @@ public final class LocalNetworkConfig implements Parcelable {
         @NonNull
         public LocalNetworkConfig build() {
             return new LocalNetworkConfig(mUpstreamSelector,
+                    mAilPrefixes,
                     mUpstreamMulticastRoutingConfig,
                     mDownstreamMulticastRoutingConfig);
         }
