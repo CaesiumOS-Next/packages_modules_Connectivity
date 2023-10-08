@@ -149,6 +149,7 @@ package android.net {
     method public void onBlockedStatusChanged(@NonNull android.net.Network, boolean);
     method public void onCapabilitiesChanged(@NonNull android.net.Network, @NonNull android.net.NetworkCapabilities);
     method public void onLinkPropertiesChanged(@NonNull android.net.Network, @NonNull android.net.LinkProperties);
+    method public void onLocalNetworkInfoChanged(@NonNull android.net.Network, @NonNull android.net.LocalNetworkInfo);
     method public void onLosing(@NonNull android.net.Network, int);
     method public void onLost(@NonNull android.net.Network);
     method public void onUnavailable();
@@ -268,6 +269,19 @@ package android.net {
     method public void setNat64Prefix(@Nullable android.net.IpPrefix);
     method public void writeToParcel(android.os.Parcel, int);
     field @NonNull public static final android.os.Parcelable.Creator<android.net.LinkProperties> CREATOR;
+  }
+
+  public final class LocalNetworkInfo implements android.os.Parcelable {
+    method public int describeContents();
+    method @Nullable public android.net.Network getUpstreamNetwork();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.LocalNetworkInfo> CREATOR;
+  }
+
+  public static final class LocalNetworkInfo.Builder {
+    ctor public LocalNetworkInfo.Builder();
+    method @NonNull public android.net.LocalNetworkInfo build();
+    method @NonNull public android.net.LocalNetworkInfo.Builder setUpstreamNetwork(@Nullable android.net.Network);
   }
 
   public final class MacAddress implements android.os.Parcelable {
