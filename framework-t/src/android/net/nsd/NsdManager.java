@@ -257,6 +257,13 @@ public final class NsdManager {
     /** @hide */
     public static final int UNREGISTER_OFFLOAD_ENGINE               = 34;
 
+    /**
+     * Only update the cache without sending the goodbye and announcement packet.
+     *
+     * @hide
+     */
+    public static final int ADVERTISING_CONFIG_ONLY_UPDATE_CACHE = 1;
+
     /** Dns based service discovery protocol */
     public static final int PROTOCOL_DNS_SD = 0x0001;
 
@@ -1150,6 +1157,31 @@ public final class NsdManager {
      */
     public void registerService(@NonNull NsdServiceInfo serviceInfo, int protocolType,
             @NonNull Executor executor, @NonNull RegistrationListener listener) {
+        registerService(serviceInfo, protocolType, executor, listener, 0 /* advertisingConfig */);
+    }
+
+    /**
+     * Register a service to be discovered by other services.
+     *
+     * <p> The function call immediately returns after sending a request to register service
+     * to the framework. The application is notified of a successful registration
+     * through the callback {@link RegistrationListener#onServiceRegistered} or a failure
+     * through {@link RegistrationListener#onRegistrationFailed}.
+     *
+     * <p> The application should call {@link #unregisterService} when the service
+     * registration is no longer required, and/or whenever the application is stopped.
+     * @param serviceInfo The service being registered
+     * @param protocolType The service discovery protocol
+     * @param executor Executor to run listener callbacks with
+     * @param listener The listener notifies of a successful registration and is used to
+     * unregister this service through a call on {@link #unregisterService}. Cannot be null.
+     * @param advertisingConfig the config bitmap to control the advertising behavior
+     *
+     * @hide
+     */
+    public void registerService(@NonNull NsdServiceInfo serviceInfo, int protocolType,
+            @NonNull Executor executor, @NonNull RegistrationListener listener,
+            long advertisingConfig) {
         if (serviceInfo.getPort() <= 0) {
             throw new IllegalArgumentException("Invalid port number");
         }
@@ -1157,7 +1189,7 @@ public final class NsdManager {
         checkProtocol(protocolType);
         int key = putListener(listener, executor, serviceInfo);
         try {
-            mService.registerService(key, serviceInfo);
+            mService.registerService(key, serviceInfo, advertisingConfig);
         } catch (RemoteException e) {
             e.rethrowFromSystemServer();
         }
@@ -1449,10 +1481,38 @@ public final class NsdManager {
      */
     public void registerServiceInfoCallback(@NonNull NsdServiceInfo serviceInfo,
             @NonNull Executor executor, @NonNull ServiceInfoCallback listener) {
+        registerServiceInfoCallback(serviceInfo, executor, listener, 0 /* advertisingConfig */);
+    }
+
+    /**
+     * Register a callback to listen for updates to a service.
+     *
+     * An application can listen to a service to continuously monitor availability of given service.
+     * The callback methods will be called on the passed executor. And service updates are sent with
+     * continuous calls to {@link ServiceInfoCallback#onServiceUpdated}.
+     *
+     * This is different from {@link #resolveService} which provides one shot service information.
+     *
+     * <p> An application can listen to a service once a time. It needs to cancel the registration
+     * before registering other callbacks. Upon failure to register a callback for example if
+     * it's a duplicated registration, the application is notified through
+     * {@link ServiceInfoCallback#onServiceInfoCallbackRegistrationFailed} with
+     * {@link #FAILURE_BAD_PARAMETERS}.
+     *
+     * @param serviceInfo the service to receive updates for
+     * @param executor Executor to run callbacks with
+     * @param listener to receive callback upon service update
+     * @param advertisingConfig the config bitmap to control the advertising behavior
+     *
+     * @hide
+     */
+    public void registerServiceInfoCallback(@NonNull NsdServiceInfo serviceInfo,
+            @NonNull Executor executor, @NonNull ServiceInfoCallback listener,
+            long advertisingConfig) {
         checkServiceInfo(serviceInfo);
         int key = putListener(listener, executor, serviceInfo);
         try {
-            mService.registerServiceInfoCallback(key, serviceInfo);
+            mService.registerServiceInfoCallback(key, serviceInfo, advertisingConfig);
         } catch (RemoteException e) {
             e.rethrowFromSystemServer();
         }

@@ -2002,19 +2002,29 @@ public class NsdService extends INsdManager.Stub {
     private static class ListenerArgs {
         public final NsdServiceConnector connector;
         public final NsdServiceInfo serviceInfo;
+        public final long advertisingConfig;
         ListenerArgs(NsdServiceConnector connector, NsdServiceInfo serviceInfo) {
             this.connector = connector;
             this.serviceInfo = serviceInfo;
+            this.advertisingConfig = 0;
+        }
+
+        ListenerArgs(NsdServiceConnector connector, NsdServiceInfo serviceInfo,
+                long advertisingConfig) {
+            this.connector = connector;
+            this.serviceInfo = serviceInfo;
+            this.advertisingConfig = advertisingConfig;
         }
     }
 
     private class NsdServiceConnector extends INsdServiceConnector.Stub
             implements IBinder.DeathRecipient  {
         @Override
-        public void registerService(int listenerKey, NsdServiceInfo serviceInfo) {
+        public void registerService(int listenerKey, NsdServiceInfo serviceInfo,
+                long advertisingConfig) {
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
                     NsdManager.REGISTER_SERVICE, 0, listenerKey,
-                    new ListenerArgs(this, serviceInfo)));
+                    new ListenerArgs(this, serviceInfo, advertisingConfig)));
         }
 
         @Override
@@ -2051,10 +2061,11 @@ public class NsdService extends INsdManager.Stub {
         }
 
         @Override
-        public void registerServiceInfoCallback(int listenerKey, NsdServiceInfo serviceInfo) {
+        public void registerServiceInfoCallback(int listenerKey, NsdServiceInfo serviceInfo,
+                long advertisingConfig) {
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
                     NsdManager.REGISTER_SERVICE_CALLBACK, 0, listenerKey,
-                    new ListenerArgs(this, serviceInfo)));
+                    new ListenerArgs(this, serviceInfo, advertisingConfig)));
         }
 
         @Override

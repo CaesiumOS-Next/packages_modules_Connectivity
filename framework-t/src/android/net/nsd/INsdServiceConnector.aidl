@@ -27,14 +27,14 @@ import android.os.Messenger;
  * {@hide}
  */
 interface INsdServiceConnector {
-    void registerService(int listenerKey, in NsdServiceInfo serviceInfo);
+    void registerService(int listenerKey, in NsdServiceInfo serviceInfo, long advertisingConfig);
     void unregisterService(int listenerKey);
     void discoverServices(int listenerKey, in NsdServiceInfo serviceInfo);
     void stopDiscovery(int listenerKey);
     void resolveService(int listenerKey, in NsdServiceInfo serviceInfo);
     void startDaemon();
     void stopResolution(int listenerKey);
-    void registerServiceInfoCallback(int listenerKey, in NsdServiceInfo serviceInfo);
+    void registerServiceInfoCallback(int listenerKey, in NsdServiceInfo serviceInfo, long advertisingConfig);
     void unregisterServiceInfoCallback(int listenerKey);
     void registerOffloadEngine(String ifaceName, in IOffloadEngine cb, long offloadCapabilities, long offloadType);
     void unregisterOffloadEngine(in IOffloadEngine cb);
