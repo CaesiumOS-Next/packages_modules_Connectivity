@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4d5a243_dc3740ac",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-08T12:01:02Z",
+      "side": 1,
+      "message": "Made it nullable, since this needs to continue working on devices that don\u0027t have the routing coordinator.",
+      "parentUuid": "6d81f2a2_30d28c46",
+      "range": {
+        "startLine": 307,
+        "startChar": 21,
+        "endLine": 307,
+        "endChar": 46
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4f1b760_bb38126d",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "150eddb6_d8b5c19b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-08T12:01:02Z",
+      "side": 1,
+      "message": "No – `getRoutingCoordinator` will just return null where unsupported.",
+      "parentUuid": "d4f1b760_bb38126d",
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc35a882_d9fe4aa2",
@@ -54,6 +96,24 @@
       "writtenOn": "2023-08-30T07:18:16Z",
       "side": 1,
       "message": "@RequiresApi(V), otherwise errorprone *should* break",
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52db200d_8841dcb4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-08T12:01:02Z",
+      "side": 1,
+      "message": "Disagree – this should return null when the API level is incorrect. Done.",
+      "parentUuid": "cc35a882_d9fe4aa2",
       "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -153,6 +213,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "532c6f30_85791b18",
+        "filename": "framework/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-08T12:01:02Z",
+      "side": 1,
+      "message": "I don\u0027t think it would be any less confusing. I think it would be exactly as confusing.",
+      "parentUuid": "070c93f3_50cc01bb",
+      "range": {
+        "startLine": 285,
+        "startChar": 25,
+        "endLine": 285,
+        "endChar": 50
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5335af0c_a32f0fef",
@@ -176,6 +260,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eeb3021_81d5315d",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6172,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-08T12:01:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5335af0c_a32f0fef",
+      "range": {
+        "startLine": 6172,
+        "startChar": 19,
+        "endLine": 6172,
+        "endChar": 45
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e4c9a18_b9da3c34",
@@ -189,6 +297,24 @@
       "writtenOn": "2023-08-30T07:18:16Z",
       "side": 1,
       "message": "I\u0027d suggest moving this to a specific subpackage, so it\u0027s clearer why some classes are visible from Tethering and not others, and easier to setup jarjar excludes",
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fadb539_56ee920e",
+        "filename": "framework/src/android/net/RoutingCoordinatorManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-08T12:01:02Z",
+      "side": 1,
+      "message": "I don\u0027t think so. It\u0027s a public manager class that\u0027s completely core to networking so `android.net` is really best. I don\u0027t see why we\u0027d have `android.net.routing` with a single class in it forever, and I think it\u0027d be more annoying to deal with because of the poor java cross-package visibility rules and not help with jarjar where you\u0027d have exactly one line in either case.",
+      "parentUuid": "7e4c9a18_b9da3c34",
       "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -349,6 +475,30 @@
       "side": 1,
       "message": "Looking at your first comment again I don\u0027t think you should see that neither ConnectivityManager nor RoutingCoordinatorManager can import IRoutingCoordinator; actually I would expect ConnectivityManager to be able to import IRoutingCoordinator fine, since it\u0027s in the sources just as IConnectivityManager.\n\nSo I think the missing piece was that connectivity-internal-api-util didn\u0027t see hidden, non-unsupportedappusage classes of framework-connectivity. So after making the change, a comment explaining that connectivity-internal-api-util depends on framework-connectivity-pre-jarjar and framework-connectivity-tiramisu-pre-jarjar so that it has access to all hidden classes, as opposed to framework-connectivity.impl which only allows reliably importing API classes, would probably be useful ? You can probably advise better on what kind of information would have been useful to unblock you yesterday though.\n\nGenerally when getting this kind of \"can\u0027t find class X\" errors, as a last resort it\u0027s helpful to find the lib that you expect contains the class in the out/ directory, and unzip it to see if the class is there. You\u0027d see it\u0027s jarjared, and then you\u0027re a bit closer to the answer. I\u0027ll put some doc on the team site for advice around that.",
       "parentUuid": "5cf787e7_fe46ef34",
+      "range": {
+        "startLine": 38,
+        "startChar": 27,
+        "endLine": 38,
+        "endChar": 46
+      },
+      "revId": "4b05e94f706a28b10451c4cef5f55e809878ee22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "849a8e16_263aec36",
+        "filename": "framework/src/android/net/RoutingCoordinatorManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-08T12:01:02Z",
+      "side": 1,
+      "message": "Done, but I don\u0027t think the comment in the build file is useful.\n\nThe fundamental problem here is that\n- It\u0027s expensive to even figure out what rule is trying to build this, not to mention why it\u0027s built or what its dependencies are\n- The dependencies are completely splintered and it\u0027s impossible to deduce from their name what they contain, or from the path of a file in what target(s) it\u0027s contained and under what form (full/stub)\n- It\u0027s nearly impossible to understand what the difference between `X-pre-jarjar` and `X.impl`\n- Any change in the build file mean a multiple-minute wait at next build\n\nMy complaint is about how expensive it is to figure out. I know and understand the unzip way. I\u0027m trying to avoid people having to do this ; I spent 4 hours of work on this and timed out before I resorted to that. If you\u0027re so deep in this that you\u0027re looking inside the jars, you have figured out all the dependency graph already and have an understanding of what *should* be where. It takes hours just to get there. I want to find ways to stop wasting developers\u0027 time this way.\n\nNote that no – someone who doesn\u0027t understand why a solution works is in no place to help write what kind of info would have helped. I wrote a comment, you gave me an idea in response, I tried it, it worked, I didn\u0027t know why. This gives me a fish ; I don\u0027t want to learn to fish, I want to post dead simple instructions next to the fishing spot so other people don\u0027t have to come to you to learn how to fish. I am no closer to know how to do that.",
+      "parentUuid": "f2f95f07_413c7a9f",
       "range": {
         "startLine": 38,
         "startChar": 27,
