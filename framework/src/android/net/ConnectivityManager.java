@@ -4105,7 +4105,6 @@ public class ConnectivityManager {
          *
          * @param network the {@link Network} whose local network info has changed.
          * @param localNetworkInfo the new {@link LocalNetworkInfo} for this network.
-         * @hide
          */
         public void onLocalNetworkInfoChanged(@NonNull Network network,
                 @NonNull LocalNetworkInfo localNetworkInfo) {}
