@@ -724,7 +724,6 @@ public final class NetworkCapabilities implements Parcelable {
      * this forbidden capability with {@link NetworkRequest.Builder#removeForbiddenCapability},
      * or by clearing all capabilites with {@link NetworkRequest.Builder#clearCapabilities()}.
      * </p>
-     * @hide
      */
     public static final int NET_CAPABILITY_LOCAL_NETWORK = 36;
 

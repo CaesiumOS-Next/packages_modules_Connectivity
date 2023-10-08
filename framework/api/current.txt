@@ -149,6 +149,7 @@ package android.net {
     method public void onBlockedStatusChanged(@NonNull android.net.Network, boolean);
     method public void onCapabilitiesChanged(@NonNull android.net.Network, @NonNull android.net.NetworkCapabilities);
     method public void onLinkPropertiesChanged(@NonNull android.net.Network, @NonNull android.net.LinkProperties);
+    method public void onLocalNetworkInfoChanged(@NonNull android.net.Network, @NonNull android.net.LocalNetworkInfo);
     method public void onLosing(@NonNull android.net.Network, int);
     method public void onLost(@NonNull android.net.Network);
     method public void onUnavailable();
@@ -270,6 +271,19 @@ package android.net {
     field @NonNull public static final android.os.Parcelable.Creator<android.net.LinkProperties> CREATOR;
   }
 
+  public final class LocalNetworkInfo implements android.os.Parcelable {
+    method public int describeContents();
+    method @Nullable public android.net.Network getUpstreamNetwork();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.LocalNetworkInfo> CREATOR;
+  }
+
+  public static final class LocalNetworkInfo.Builder {
+    ctor public LocalNetworkInfo.Builder();
+    method @NonNull public android.net.LocalNetworkInfo build();
+    method @NonNull public android.net.LocalNetworkInfo.Builder setUpstreamNetwork(@Nullable android.net.Network);
+  }
+
   public final class MacAddress implements android.os.Parcelable {
     method public int describeContents();
     method @NonNull public static android.net.MacAddress fromBytes(@NonNull byte[]);
@@ -332,6 +346,7 @@ package android.net {
     field public static final int NET_CAPABILITY_IA = 7; // 0x7
     field public static final int NET_CAPABILITY_IMS = 4; // 0x4
     field public static final int NET_CAPABILITY_INTERNET = 12; // 0xc
+    field public static final int NET_CAPABILITY_LOCAL_NETWORK = 36; // 0x24
     field public static final int NET_CAPABILITY_MCX = 23; // 0x17
     field public static final int NET_CAPABILITY_MMS = 0; // 0x0
     field public static final int NET_CAPABILITY_MMTEL = 33; // 0x21
