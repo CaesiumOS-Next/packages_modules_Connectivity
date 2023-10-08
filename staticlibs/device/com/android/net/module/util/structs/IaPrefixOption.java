@@ -83,7 +83,7 @@ public class IaPrefixOption extends Struct {
     /**
      * Check whether or not IA Prefix option in IA_PD option is valid per RFC8415#section-21.22.
      */
-    public boolean isValid(int t2) {
+    public boolean isValid(int t2, int minPrefixLifetime) {
         if (preferred < 0 || valid < 0) {
             Log.w(TAG, "IA_PD option with invalid lifetime, preferred lifetime " + preferred
                     + ", valid lifetime " + valid);
@@ -102,6 +102,11 @@ public class IaPrefixOption extends Struct {
         // Either preferred lifetime or t2 might be 0 which is valid, then ignore it.
         if (preferred != 0 && t2 != 0 && preferred < t2) {
             Log.w(TAG, "preferred lifetime " + preferred + " is smaller than T2 " + t2);
+            return false;
+        }
+        // Ignore delegate prefix lifetime that's too short to prevent battery drain.
+        if (valid < minPrefixLifetime) {
+            Log.w(TAG, "prefix valid lifetime is too short, ignoring");
             return false;
         }
         return true;
