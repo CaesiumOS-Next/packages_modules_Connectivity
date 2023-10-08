@@ -178,6 +178,7 @@ java_library {
         "unsupportedappusage",
         "ServiceConnectivityResources",
         "framework-statsd",
+        "tethering-internal-api-util",
     ],
     static_libs: [
         // Do not add libs here if they are already included

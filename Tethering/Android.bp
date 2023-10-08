@@ -187,6 +187,26 @@ java_defaults {
     lint: { strict_updatability_linting: true },
 }
 
+java_library {
+    name: "tethering-internal-api-util",
+    sdk_version: "module_current",
+    libs: [
+        "framework-annotations-lib",
+        "framework-connectivity.stubs.module_lib",
+        "framework-connectivity-t.stubs.module_lib",
+    ],
+    static_libs: [
+        "net-utils-framework-common",
+        "net-utils-device-common-struct",
+    ],
+    srcs: [
+        "src/android/net/ip/RouterAdvertisementDaemon.java",
+    ],
+    visibility: [
+        "//packages/modules/Connectivity:__subpackages__"
+    ]
+}
+
 // Updatable tethering packaged for finalized API
 android_app {
     name: "Tethering",

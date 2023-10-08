@@ -17,7 +17,6 @@ package com.android.networkstack.tethering.util;
 
 import android.net.TetherStatsParcel;
 import android.net.TetheringRequestParcel;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -25,10 +24,7 @@ import com.android.net.module.util.JniUtil;
 import com.android.net.module.util.bpf.TetherStatsValue;
 
 import java.io.FileDescriptor;
-import java.net.Inet6Address;
 import java.net.SocketException;
-import java.net.UnknownHostException;
-import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -40,10 +36,6 @@ public class TetheringUtils {
     static {
         System.loadLibrary(getTetheringJniLibraryName());
     }
-
-    public static final byte[] ALL_NODES = new byte[] {
-        (byte) 0xff, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
-    };
 
     /** The name should be com_android_networkstack_tethering_util_jni. */
     public static String getTetheringJniLibraryName() {
@@ -170,16 +162,5 @@ public class TetheringUtils {
                 && request.exemptFromEntitlementCheck == otherRequest.exemptFromEntitlementCheck
                 && request.showProvisioningUi == otherRequest.showProvisioningUi
                 && request.connectivityScope == otherRequest.connectivityScope;
-    }
-
-    /** Get inet6 address for all nodes given scope ID. */
-    public static Inet6Address getAllNodesForScopeId(int scopeId) {
-        try {
-            return Inet6Address.getByAddress("ff02::1", ALL_NODES, scopeId);
-        } catch (UnknownHostException uhe) {
-            Log.wtf("TetheringUtils", "Failed to construct Inet6Address from "
-                    + Arrays.toString(ALL_NODES) + " and scopedId " + scopeId);
-            return null;
-        }
     }
 }

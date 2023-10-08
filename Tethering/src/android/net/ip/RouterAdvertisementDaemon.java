@@ -31,7 +31,6 @@ import static com.android.net.module.util.NetworkStackConstants.PIO_FLAG_AUTONOM
 import static com.android.net.module.util.NetworkStackConstants.PIO_FLAG_ON_LINK;
 import static com.android.net.module.util.NetworkStackConstants.RFC7421_PREFIX_LENGTH;
 import static com.android.net.module.util.NetworkStackConstants.TAG_SYSTEM_NEIGHBOR;
-import static com.android.networkstack.tethering.util.TetheringUtils.getAllNodesForScopeId;
 
 import android.net.IpPrefix;
 import android.net.LinkAddress;
@@ -51,7 +50,6 @@ import com.android.net.module.util.structs.MtuOption;
 import com.android.net.module.util.structs.PrefixInformationOption;
 import com.android.net.module.util.structs.RaHeader;
 import com.android.net.module.util.structs.RdnssOption;
-import com.android.networkstack.tethering.util.TetheringUtils;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -59,9 +57,11 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -248,6 +248,21 @@ public class RouterAdvertisementDaemon {
         mInterface = ifParams;
         mAllNodes = new InetSocketAddress(getAllNodesForScopeId(mInterface.index), 0);
         mDeprecatedInfoTracker = new DeprecatedInfoTracker();
+    }
+
+    private static final byte[] ALL_NODES = new byte[] {
+            (byte) 0xff, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+    };
+
+    /** Get inet6 address for all nodes given scope ID. */
+    private static Inet6Address getAllNodesForScopeId(int scopeId) {
+        try {
+            return Inet6Address.getByAddress("ff02::1", ALL_NODES, scopeId);
+        } catch (UnknownHostException uhe) {
+            Log.wtf(TAG, "Failed to construct Inet6Address from "
+                    + Arrays.toString(ALL_NODES) + " and scopedId " + scopeId);
+            return null;
+        }
     }
 
     /** Build new RA.*/
@@ -508,8 +523,8 @@ public class RouterAdvertisementDaemon {
             Os.setsockoptTimeval(
                     mSocket, SOL_SOCKET, SO_SNDTIMEO, StructTimeval.fromMillis(send_timout_ms));
             SocketUtils.bindSocketToInterface(mSocket, mInterface.name);
-            TetheringUtils.setupRaSocket(mSocket, mInterface.index);
-        } catch (ErrnoException | IOException e) {
+            //TetheringUtils.setupRaSocket(mSocket, mInterface.index);
+        } catch (ErrnoException /*| IOException */e) {
             Log.e(TAG, "Failed to create RA daemon socket: " + e);
             return false;
         } finally {
