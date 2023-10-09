@@ -56,17 +56,28 @@ public final class LocalNetworkConfig implements Parcelable {
      * Get the request choosing which network traffic from this network is forwarded to and from.
      *
      * This may be null if the local network doesn't forward the traffic anywhere.
+     * @hide
      */
     @Nullable
     public NetworkRequest getUpstreamSelector() {
         return mUpstreamSelector;
     }
 
-    public @NonNull MulticastRoutingConfig getUpstreamMulticastRoutingConfig() {
+    /**
+     * Get the upstream multicast routing config
+     * @hide
+     */
+    @NonNull
+    public MulticastRoutingConfig getUpstreamMulticastRoutingConfig() {
         return mUpstreamMulticastRoutingConfig;
     }
 
-    public @NonNull MulticastRoutingConfig getDownstreamMulticastRoutingConfig() {
+    /**
+     * Get the downstream multicast routing config
+     * @hide
+     */
+    @NonNull
+    public MulticastRoutingConfig getDownstreamMulticastRoutingConfig() {
         return mDownstreamMulticastRoutingConfig;
     }
 
@@ -109,13 +120,13 @@ public final class LocalNetworkConfig implements Parcelable {
 
     public static final class Builder {
         @Nullable
-        NetworkRequest mUpstreamSelector;
+        private NetworkRequest mUpstreamSelector;
 
         @Nullable
-        MulticastRoutingConfig mUpstreamMulticastRoutingConfig;
+        private MulticastRoutingConfig mUpstreamMulticastRoutingConfig;
 
         @Nullable
-        MulticastRoutingConfig mDownstreamMulticastRoutingConfig;
+        private MulticastRoutingConfig mDownstreamMulticastRoutingConfig;
 
         /**
          * Create a Builder
@@ -133,6 +144,7 @@ public final class LocalNetworkConfig implements Parcelable {
          * this network with the {@link android.net.LinkProperties#getForwardedNetwork()} getter.
          *
          * Set this to null if the local network shouldn't be forwarded. Default is null.
+         * @hide
          */
         @NonNull
         public Builder setUpstreamSelector(@Nullable NetworkRequest upstreamSelector) {
@@ -145,6 +157,7 @@ public final class LocalNetworkConfig implements Parcelable {
          *
          * If null, don't route multicast packets upstream. This is equivalent to a
          * MulticastRoutingConfig in mode FORWARD_NONE. The default is null.
+         * @hide
          */
         @NonNull
         public Builder setUpstreamMulticastRoutingConfig(@Nullable MulticastRoutingConfig cfg) {
@@ -157,6 +170,7 @@ public final class LocalNetworkConfig implements Parcelable {
          *
          * If null, don't route multicast packets downstream. This is equivalent to a
          * MulticastRoutingConfig in mode FORWARD_NONE. The default is null.
+         * @hide
          */
         @NonNull
         public Builder setDownstreamMulticastRoutingConfig(@Nullable MulticastRoutingConfig cfg) {
