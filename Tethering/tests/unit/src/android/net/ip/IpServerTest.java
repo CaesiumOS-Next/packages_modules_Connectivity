@@ -221,6 +221,8 @@ public class IpServerTest {
         when(mBpfCoordinator.isUsingBpfOffload()).thenReturn(usingBpfOffload);
         mIpServer = createIpServer(interfaceType);
         verify(mIpNeighborMonitor).start();
+        // Recreate mBpfCoordinator again here because mTetherConfig has changed
+        mBpfCoordinator = spy(new BpfCoordinator(mBpfDeps));
         mIpServer.start();
 
         // Starting the state machine always puts us in a consistent state and notifies
@@ -306,7 +308,82 @@ public class IpServerTest {
     private IpServer createIpServer(final int interfaceType) {
         mLooper = new TestLooper();
         mHandler = new Handler(mLooper.getLooper());
-        return new IpServer(IFACE_NAME, mHandler, interfaceType, mSharedLog, mNetd, mBpfCoordinator,
+        mBpfDeps = new BpfCoordinator.Dependencies() {
+                    @NonNull
+                    public Handler getHandler() {
+                        return mHandler;
+                    }
+
+                    @NonNull
+                    public INetd getNetd() {
+                        return mNetd;
+                    }
+
+                    @NonNull
+                    public NetworkStatsManager getNetworkStatsManager() {
+                        return mStatsManager;
+                    }
+
+                    @NonNull
+                    public SharedLog getSharedLog() {
+                        return mSharedLog;
+                    }
+
+                    @Nullable
+                    public TetheringConfiguration getTetherConfig() {
+                        return mTetherConfig;
+                    }
+
+                    @NonNull
+                    public ConntrackMonitor getConntrackMonitor(
+                            ConntrackMonitor.ConntrackEventConsumer consumer) {
+                        return mConntrackMonitor;
+                    }
+
+                    @Nullable
+                    public BpfMap<Tether4Key, Tether4Value> getBpfDownstream4Map() {
+                        return mBpfDownstream4Map;
+                    }
+
+                    @Nullable
+                    public BpfMap<Tether4Key, Tether4Value> getBpfUpstream4Map() {
+                        return mBpfUpstream4Map;
+                    }
+
+                    @Nullable
+                    public BpfMap<TetherDownstream6Key, Tether6Value> getBpfDownstream6Map() {
+                        return mBpfDownstream6Map;
+                    }
+
+                    @Nullable
+                    public BpfMap<TetherUpstream6Key, Tether6Value> getBpfUpstream6Map() {
+                        return mBpfUpstream6Map;
+                    }
+
+                    @Nullable
+                    public BpfMap<TetherStatsKey, TetherStatsValue> getBpfStatsMap() {
+                        return mBpfStatsMap;
+                    }
+
+                    @Nullable
+                    public BpfMap<TetherLimitKey, TetherLimitValue> getBpfLimitMap() {
+                        return mBpfLimitMap;
+                    }
+
+                    @Nullable
+                    public BpfMap<TetherDevKey, TetherDevValue> getBpfDevMap() {
+                        return mBpfDevMap;
+                    }
+
+                    @Nullable
+                    public BpfMap<S32, S32> getBpfErrorMap() {
+                        return mBpfErrorMap;
+                    }
+                };
+
+        mBpfCoordinator = spy(new BpfCoordinator(mBpfDeps));
+        return new IpServer(InstrumentationRegistry.getContext(),
+                IFACE_NAME, mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,
                 mRoutingCoordinatorManager, mCallback, mTetherConfig, mAddressCoordinator,
                 mTetheringMetrics, mDependencies);
 
