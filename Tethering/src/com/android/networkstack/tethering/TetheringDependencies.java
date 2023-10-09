@@ -131,7 +131,6 @@ public abstract class TetheringDependencies {
     @Nullable
     public RoutingCoordinatorManager getRoutingCoordinator(Context context) {
         if (!SdkLevel.isAtLeastS()) return null;
-        // TODO : should return null on devices that don't support flattened apex ?
         return TiramisuConnectivityInternalApiUtil.getRoutingCoordinatorManager(context);
     }
 

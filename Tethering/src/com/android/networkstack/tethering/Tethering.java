@@ -251,7 +251,7 @@ public class Tethering {
     private final Handler mHandler;
     private final INetd mNetd;
     private final NetdCallback mNetdCallback;
-    // Null if the connectivity module is unsupportedd, as the routing coordinator is not available.
+    // Null if the connectivity module is unsupported, as the routing coordinator is not available.
     @Nullable private final RoutingCoordinatorManager mRoutingCoordinator;
     private final UserRestrictionActionListener mTetheringRestriction;
     private final ActiveDataSubIdListener mActiveDataSubIdListener;
@@ -2838,7 +2838,7 @@ public class Tethering {
 
         mLog.i("adding IpServer for: " + iface);
         final TetherState tetherState = new TetherState(
-                new IpServer(iface, mLooper, interfaceType, mLog, mNetd, mBpfCoordinator,
+                new IpServer(mContext, iface, mLooper, interfaceType, mLog, mNetd, mBpfCoordinator,
                         mRoutingCoordinator, makeControlCallback(), mConfig,
                         mPrivateAddressCoordinator, mTetheringMetrics,
                         mDeps.getIpServerDependencies()), isNcm);

@@ -26,13 +26,13 @@ import androidx.annotation.RequiresApi;
 /**
  * A manager class for talking to the routing coordinator service.
  *
- * This can be used by the connectivity and tethering module, but not
+ * This can be used by the connectivity and tethering module, but not by anything else.
  * @hide
  */
 @RequiresApi(Build.VERSION_CODES.S)
 public class RoutingCoordinatorManager {
-    final Context mContext;
-    final IRoutingCoordinator mService;
+    @NonNull final Context mContext;
+    @NonNull final IRoutingCoordinator mService;
 
     public RoutingCoordinatorManager(@NonNull final Context context,
             @NonNull final IRoutingCoordinator service) {

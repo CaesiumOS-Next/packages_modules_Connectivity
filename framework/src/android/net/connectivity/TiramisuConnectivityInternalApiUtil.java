@@ -35,8 +35,8 @@ import androidx.annotation.RequiresApi;
  * linter).
  * @hide
  */
-// TODO : rename this so that it doesn't reference "Tiramisu" since it can be used for other
-// SDK levels.
+// TODO : rename this so that it doesn't reference "Tiramisu" since it can be used in S.
+@RequiresApi(Build.VERSION_CODES.S)
 public class TiramisuConnectivityInternalApiUtil {
 
     /**
