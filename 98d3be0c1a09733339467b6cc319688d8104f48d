@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae80ddd1_885a96c7",
+        "filename": "netbpfload/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-10-09T17:13:44Z",
+      "side": 1,
+      "message": "add a TODO with a release blocking bug if you don\u0027t want this to be released accidentally. It might make sense to set this to target to enabled: false?",
+      "range": {
+        "startLine": 18,
+        "startChar": 11,
+        "endLine": 18,
+        "endChar": 20
+      },
+      "revId": "98d3be0c1a09733339467b6cc319688d8104f48d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
