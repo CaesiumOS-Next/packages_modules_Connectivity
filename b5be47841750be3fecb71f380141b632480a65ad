@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3b4033b_8204a50f",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/IaPrefixOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-10-09T18:20:21Z",
+      "side": 1,
+      "message": "As opposed to SLAAC, battery-drain in DHCPv6 is mostly driven by AlarmTimer wakeups. We should similarly ignore the entire IA if t1 or t2 are less than some configurable value. I am not sure what it should be called. This is further complicated by the fact that renew and rebind timers are based off of preferred-lifetime if t1 and / or t2 are 0.\n\nWhat do we currently do for DHCPv4?",
+      "range": {
+        "startLine": 107,
+        "startChar": 11,
+        "endLine": 107,
+        "endChar": 84
+      },
+      "revId": "b5be47841750be3fecb71f380141b632480a65ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
