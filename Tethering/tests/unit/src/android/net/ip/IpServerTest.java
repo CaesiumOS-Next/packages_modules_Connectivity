@@ -247,7 +247,7 @@ public class IpServerTest {
         when(mTetherConfig.getP2pLeasesSubnetPrefixLength()).thenReturn(P2P_SUBNET_PREFIX_LENGTH);
         // Recreate mBpfCoordinator again here because mTetherConfig has changed
         mBpfCoordinator = spy(new BpfCoordinator(mBpfDeps));
-        mIpServer = new IpServer(
+        mIpServer = new IpServer(InstrumentationRegistry.getContext(),
                 IFACE_NAME, mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,
                 mCallback, mTetherConfig, mAddressCoordinator, mTetheringMetrics, mDependencies);
         mIpServer.start();
@@ -395,7 +395,8 @@ public class IpServerTest {
     public void startsOutAvailable() {
         when(mDependencies.getIpNeighborMonitor(any(), any(), any()))
                 .thenReturn(mIpNeighborMonitor);
-        mIpServer = new IpServer(IFACE_NAME, mLooper.getLooper(), TETHERING_BLUETOOTH, mSharedLog,
+        mIpServer = new IpServer(InstrumentationRegistry.getContext(),
+                IFACE_NAME, mLooper.getLooper(), TETHERING_BLUETOOTH, mSharedLog,
                 mNetd, mBpfCoordinator, mCallback, mTetherConfig, mAddressCoordinator,
                 mTetheringMetrics, mDependencies);
         mIpServer.start();

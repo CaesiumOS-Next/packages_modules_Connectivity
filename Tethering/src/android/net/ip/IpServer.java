@@ -17,6 +17,7 @@
 package android.net.ip;
 
 import static android.net.RouteInfo.RTN_UNICAST;
+import static android.net.NetworkScore.KEEP_CONNECTED_DOWNSTREAM_NETWORK;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.TETHER_ERROR_DHCPSERVER_ERROR;
@@ -37,12 +38,19 @@ import static com.android.networkstack.tethering.UpstreamNetworkState.isVcnInter
 import static com.android.networkstack.tethering.util.PrefixUtils.asIpPrefix;
 import static com.android.networkstack.tethering.util.TetheringMessageBase.BASE_IPSERVER;
 
+import android.content.Context;
 import android.net.INetd;
 import android.net.INetworkStackStatusCallback;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
+import android.net.LocalNetworkConfig;
 import android.net.MacAddress;
+import android.net.NetworkAgent;
+import android.net.NetworkAgentConfig;
+import android.net.NetworkCapabilities;
+import android.net.NetworkProvider;
+import android.net.NetworkScore;
 import android.net.RouteInfo;
 import android.net.RoutingCoordinatorManager;
 import android.net.TetheredClient;
@@ -56,6 +64,7 @@ import android.net.dhcp.IDhcpEventCallbacks;
 import android.net.dhcp.IDhcpServer;
 import android.net.ip.RouterAdvertisementDaemon.RaParams;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 import android.os.RemoteException;
@@ -205,6 +214,25 @@ public class IpServer extends StateMachine {
                 DhcpServerCallbacks cb);
     }
 
+    private class DownstreamNetworkAgent extends NetworkAgent {
+        boolean mIsConnected = false;
+
+        DownstreamNetworkAgent(@NonNull final Context context, @NonNull final Looper looper,
+                @NonNull final String logTag, @NonNull final NetworkCapabilities nc,
+                @NonNull final LinkProperties lp, @NonNull final LocalNetworkConfig lnc,
+                @NonNull final NetworkScore score, @NonNull final NetworkAgentConfig config,
+                @Nullable final NetworkProvider provider) {
+            super(context, looper, logTag, nc, lp, lnc, score, config, provider);
+        }
+
+        @Override
+        public void markConnected() {
+            mIsConnected = true;
+            super.markConnected();
+        }
+    }
+
+
     // request from the user that it wants to tether
     public static final int CMD_TETHER_REQUESTED            = BASE_IPSERVER + 1;
     // request from the user that it wants to untether
@@ -242,6 +270,7 @@ public class IpServer extends StateMachine {
     private final State mUnavailableState;
     private final State mWaitingForRestartState;
 
+    private final Context mContext;
     private final SharedLog mLog;
     private final INetd mNetd;
     @NonNull
@@ -281,6 +310,10 @@ public class IpServer extends StateMachine {
     private RouterAdvertisementDaemon mRaDaemon;
     private DadProxy mDadProxy;
 
+    // This member is null while the network agent is not register.
+    @Nullable
+    private DownstreamNetworkAgent mNetworkAgent = null;
+
     // To be accessed only on the handler thread
     private int mDhcpServerStartIndex = 0;
     private IDhcpServer mDhcpServer;
@@ -309,13 +342,14 @@ public class IpServer extends StateMachine {
 
     // TODO: Add a dependency object to pass the data members or variables from the tethering
     // object. It helps to reduce the arguments of the constructor.
-    public IpServer(
+    public IpServer(@NonNull final Context context,
             String ifaceName, Looper looper, int interfaceType, SharedLog log,
             INetd netd, @NonNull BpfCoordinator bpfCoordinator,
             @Nullable RoutingCoordinatorManager routingCoordinator, Callback callback,
             TetheringConfiguration config, PrivateAddressCoordinator addressCoordinator,
             TetheringMetrics tetheringMetrics, Dependencies deps) {
         super(ifaceName, looper);
+        mContext = context;
         mLog = log.forSubComponent(ifaceName);
         mNetd = netd;
         mBpfCoordinator = bpfCoordinator;
@@ -419,6 +453,25 @@ public class IpServer extends StateMachine {
 
     private boolean startIPv4(int scope) {
         return configureIPv4(true, scope);
+    }
+
+
+    private int getTransportType(final int interfaceType) {
+        switch (interfaceType) {
+            case TetheringManager.TETHERING_WIFI:
+            case TetheringManager.TETHERING_WIFI_P2P:
+            case TetheringManager.TETHERING_WIGIG:
+                return NetworkCapabilities.TRANSPORT_WIFI;
+            case TetheringManager.TETHERING_USB:
+            case TetheringManager.TETHERING_NCM:
+                return NetworkCapabilities.TRANSPORT_USB;
+            case TetheringManager.TETHERING_BLUETOOTH:
+                return NetworkCapabilities.TRANSPORT_BLUETOOTH;
+            case TetheringManager.TETHERING_ETHERNET:
+                return NetworkCapabilities.TRANSPORT_ETHERNET;
+            default:
+                throw new IllegalArgumentException("Unknown interface type");
+        }
     }
 
     /**
@@ -1022,7 +1075,12 @@ public class IpServer extends StateMachine {
     }
 
     private void sendLinkProperties() {
-        mCallback.updateLinkProperties(this, new LinkProperties(mLinkProperties));
+        final LinkProperties lpCopy = new LinkProperties(mLinkProperties);
+        final NetworkAgent agent = mNetworkAgent;
+        if (null != agent) {
+            agent.sendLinkProperties(lpCopy);
+        }
+        mCallback.updateLinkProperties(this, lpCopy);
     }
 
     private void resetLinkProperties() {
@@ -1135,10 +1193,46 @@ public class IpServer extends StateMachine {
                 // TODO: Make this a fatal error once Bluetooth IPv6 is sorted.
                 return;
             }
+
+            final NetworkAgentConfig config = new NetworkAgentConfig.Builder().build();
+            final NetworkCapabilities.Builder ncBuilder = new NetworkCapabilities.Builder()
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK)
+                    .addTransportType(getTransportType(mInterfaceType));
+            if (TetheringManager.TETHERING_WIFI_P2P == mInterfaceType) {
+                ncBuilder.addCapability(NetworkCapabilities.NET_CAPABILITY_WIFI_P2P)
+                    // TODO : set the following attributes
+                    // .setNetworkSpecifier()
+                    // .setRequestorPackageName()
+                    // .setRequestorUid();
+                ;
+            }
+            // TODO : if (wifi) ncBuilder.setSsid();
+            final HandlerThread h = new HandlerThread("Tethering agent " + mIfaceName);
+            h.start();
+            mNetworkAgent = new DownstreamNetworkAgent(mContext, h.getLooper(),
+                    "Downstream NetworkAgent for " + mIfaceName, ncBuilder.build(),
+                    new LinkProperties(mLinkProperties),
+                    // TODO : set the upstream selector, listen to callbacks and
+                    // remove the complex UpstreamSelector class.
+                    new LocalNetworkConfig.Builder().build(),
+                    new NetworkScore.Builder()
+                            .setKeepConnectedReason(KEEP_CONNECTED_DOWNSTREAM_NETWORK)
+                            .build(),
+                    config, new NetworkProvider(mContext, h.getLooper(),
+                            "Downstream NetworkAgent for " + mIfaceName + "NetworkProvider"));
+            mNetworkAgent.register();
+            mNetworkAgent.markConnected();
         }
 
         @Override
         public void exit() {
+            mNetworkAgent.unregister();
+            mNetworkAgent = null;
+
             // Note that at this point, we're leaving the tethered state.  We can fail any
             // of these operations, but it doesn't really change that we have to try them
             // all in sequence.
@@ -1262,8 +1356,7 @@ public class IpServer extends StateMachine {
     // Handling errors in BaseServingState.enter() by transitioning is
     // problematic because transitioning during a multi-state jump yields
     // a Log.wtf(). Ultimately, there should be only one ServingState,
-    // and forwarding and NAT rules should be handled by a coordinating
-    // functional element outside of IpServer.
+    // and forwarding and NAT rules should be handled by RoutingCoordinatorManager.
     class LocalHotspotState extends BaseServingState {
         LocalHotspotState() {
             super(STATE_LOCAL_ONLY);
@@ -1291,8 +1384,7 @@ public class IpServer extends StateMachine {
     // Handling errors in BaseServingState.enter() by transitioning is
     // problematic because transitioning during a multi-state jump yields
     // a Log.wtf(). Ultimately, there should be only one ServingState,
-    // and forwarding and NAT rules should be handled by a coordinating
-    // functional element outside of IpServer.
+    // and forwarding and NAT rules should be handled by RoutingCoordinatorManager.
     class TetheredState extends BaseServingState {
         TetheredState() {
             super(STATE_TETHERED);
