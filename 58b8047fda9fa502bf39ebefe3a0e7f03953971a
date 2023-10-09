@@ -16,6 +16,24 @@
       "message": "I\u0027ll merge these after some other pending stuff makes it in.",
       "revId": "58b8047fda9fa502bf39ebefe3a0e7f03953971a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c7905f8_8da999a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-09T23:28:15Z",
+      "side": 1,
+      "message": "Also we may no longer need cutils in Android.bp.  I\u0027ll see.",
+      "parentUuid": "bf591f71_db31f775",
+      "revId": "58b8047fda9fa502bf39ebefe3a0e7f03953971a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
