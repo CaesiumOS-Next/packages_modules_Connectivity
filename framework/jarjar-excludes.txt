@@ -14,8 +14,12 @@ android\.net\.INetworkAgentRegistry(\$.+)?
 # TODO: move files to android.net.connectivity.visiblefortesting
 android\.net\.IConnectivityDiagnosticsCallback(\$.+)?
 
-# Used by tethering as a hidden API, so it can't be jarjared. It's unlikely
-# anybody else declares a hidden class with this name ?
+# Classes used by tethering as a hidden API are compiled as a lib in target
+# connectivity-internal-api-util. Because it's used by tethering, it can't
+# be jarjared. Classes in android.net.connectivity are exempt from being
+# listed here because they are already in the target package and as such
+# are already not jarjared.
+# It's unlikely anybody else declares a hidden class with this name ?
 android\.net\.RoutingCoordinatorManager(\$.+)?
 
 # KeepaliveUtils is used by ConnectivityManager CTS
