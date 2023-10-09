@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4947ca5_51565b4a",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/IaPrefixOption.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-10-09T18:07:23Z",
+      "side": 1,
+      "message": "I am starting to think this entire statement should be removed. The RFC makes no such claims. (And in the presence of multiple prefixes, it might even be reasonable for preferred to be less than t2 in some scenarios).",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 9
+      },
+      "revId": "fac8a337637e5f691044e934d28e04681368a5db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
