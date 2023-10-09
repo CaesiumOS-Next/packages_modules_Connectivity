@@ -68,7 +68,6 @@ public final class NetworkScore implements Parcelable {
     /**
      * Keep this network connected even if there is no outstanding request for it, because
      * it is a downstream network.
-     * @hide
      */
     public static final int KEEP_CONNECTED_DOWNSTREAM_NETWORK = 3;
 

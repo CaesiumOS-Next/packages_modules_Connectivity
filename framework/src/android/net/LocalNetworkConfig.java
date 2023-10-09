@@ -16,8 +16,11 @@
 
 package android.net;
 
+import static android.annotation.SystemApi.Client.MODULE_LIBRARIES;
+
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.SystemApi;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -25,7 +28,7 @@ import android.os.Parcelable;
  * A class to communicate configuration info about a local network through {@link NetworkAgent}.
  * @hide
  */
-// TODO : @SystemApi
+@SystemApi(client = MODULE_LIBRARIES)
 public final class LocalNetworkConfig implements Parcelable {
     @Nullable
     private final NetworkRequest mUpstreamSelector;
@@ -62,11 +65,13 @@ public final class LocalNetworkConfig implements Parcelable {
         return mUpstreamSelector;
     }
 
-    public @NonNull MulticastRoutingConfig getUpstreamMulticastRoutingConfig() {
+    @NonNull
+    public MulticastRoutingConfig getUpstreamMulticastRoutingConfig() {
         return mUpstreamMulticastRoutingConfig;
     }
 
-    public @NonNull MulticastRoutingConfig getDownstreamMulticastRoutingConfig() {
+    @NonNull
+    public MulticastRoutingConfig getDownstreamMulticastRoutingConfig() {
         return mDownstreamMulticastRoutingConfig;
     }
 
@@ -82,7 +87,8 @@ public final class LocalNetworkConfig implements Parcelable {
         dest.writeParcelable(mDownstreamMulticastRoutingConfig, flags);
     }
 
-    public static final @NonNull Creator<LocalNetworkConfig> CREATOR = new Creator<>() {
+    @NonNull
+    public static final Creator<LocalNetworkConfig> CREATOR = new Creator<>() {
         public LocalNetworkConfig createFromParcel(Parcel in) {
             final NetworkRequest upstreamSelector = in.readParcelable(null);
             final MulticastRoutingConfig upstreamConfig = in.readParcelable(null);
@@ -100,13 +106,13 @@ public final class LocalNetworkConfig implements Parcelable {
 
     public static final class Builder {
         @Nullable
-        NetworkRequest mUpstreamSelector;
+        private NetworkRequest mUpstreamSelector;
 
         @Nullable
-        MulticastRoutingConfig mUpstreamMulticastRoutingConfig;
+        private MulticastRoutingConfig mUpstreamMulticastRoutingConfig;
 
         @Nullable
-        MulticastRoutingConfig mDownstreamMulticastRoutingConfig;
+        private MulticastRoutingConfig mDownstreamMulticastRoutingConfig;
 
         /**
          * Create a Builder
