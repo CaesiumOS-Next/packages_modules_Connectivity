@@ -271,6 +271,8 @@ public class IpServerTest {
         when(mTetherConfig.useLegacyDhcpServer()).thenReturn(usingLegacyDhcp);
         when(mTetherConfig.getP2pLeasesSubnetPrefixLength()).thenReturn(P2P_SUBNET_PREFIX_LENGTH);
         mIpServer = createIpServer(interfaceType);
+        // Recreate mBpfCoordinator again here because mTetherConfig has changed
+        mBpfCoordinator = spy(new BpfCoordinator(mBpfDeps));
         mIpServer.start();
         mNeighborEventConsumer = neighborCaptor.getValue();
 
@@ -437,7 +439,8 @@ public class IpServerTest {
                 };
 
         mBpfCoordinator = spy(new BpfCoordinator(mBpfDeps));
-        return new IpServer(IFACE_NAME, mHandler, interfaceType, mSharedLog, mNetd, mBpfCoordinator,
+        return new IpServer(InstrumentationRegistry.getContext(),
+                IFACE_NAME, mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,
                 mRoutingCoordinatorManager, mCallback, mTetherConfig, mAddressCoordinator,
                 mTetheringMetrics, mDependencies);
 
