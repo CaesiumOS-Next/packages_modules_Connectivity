@@ -17,7 +17,7 @@
 on load_bpf_programs
     exec_start netbpfload
 
-service netbpfload /system/bin/netbpfload
+service netbpfload /system/bin/btfloader
     capabilities CHOWN SYS_ADMIN NET_ADMIN
     # The following group memberships are a workaround for lack of DAC_OVERRIDE
     # and allow us to open (among other things) files that we created and are
