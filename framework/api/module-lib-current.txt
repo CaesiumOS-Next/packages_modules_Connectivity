@@ -135,6 +135,49 @@ package android.net {
     field @NonNull public static final android.os.Parcelable.Creator<android.net.DhcpOption> CREATOR;
   }
 
+  public final class LocalNetworkConfig implements android.os.Parcelable {
+    method public int describeContents();
+    method @NonNull public android.net.MulticastRoutingConfig getDownstreamMulticastRoutingConfig();
+    method @NonNull public android.net.MulticastRoutingConfig getUpstreamMulticastRoutingConfig();
+    method @Nullable public android.net.NetworkRequest getUpstreamSelector();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.LocalNetworkConfig> CREATOR;
+  }
+
+  public static final class LocalNetworkConfig.Builder {
+    ctor public LocalNetworkConfig.Builder();
+    method @NonNull public android.net.LocalNetworkConfig build();
+    method @NonNull public android.net.LocalNetworkConfig.Builder setDownstreamMulticastRoutingConfig(@Nullable android.net.MulticastRoutingConfig);
+    method @NonNull public android.net.LocalNetworkConfig.Builder setUpstreamMulticastRoutingConfig(@Nullable android.net.MulticastRoutingConfig);
+    method @NonNull public android.net.LocalNetworkConfig.Builder setUpstreamSelector(@Nullable android.net.NetworkRequest);
+  }
+
+  public final class MulticastRoutingConfig implements android.os.Parcelable {
+    method public int describeContents();
+    method public int getForwardingMode();
+    method @NonNull public java.util.Set<java.net.Inet6Address> getListeningAddresses();
+    method public int getMinimumScope();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.MulticastRoutingConfig> CREATOR;
+    field public static final int FORWARD_NONE = 0; // 0x0
+    field public static final int FORWARD_SELECTED = 1; // 0x1
+    field public static final int FORWARD_WITH_MIN_SCOPE = 2; // 0x2
+    field public static final int MULTICAST_SCOPE_NONE = -1; // 0xffffffff
+  }
+
+  public static final class MulticastRoutingConfig.Builder {
+    ctor public MulticastRoutingConfig.Builder(int);
+    ctor public MulticastRoutingConfig.Builder(int, int);
+    method @NonNull public android.net.MulticastRoutingConfig.Builder addListeningAddress(@NonNull java.net.Inet6Address);
+    method @NonNull public android.net.MulticastRoutingConfig build();
+    method @NonNull public android.net.MulticastRoutingConfig.Builder clearListeningAddress(@NonNull java.net.Inet6Address);
+    method @NonNull public android.net.MulticastRoutingConfig.Builder setMinimumScope(int);
+  }
+
+  public abstract class NetworkAgent {
+    ctor public NetworkAgent(@NonNull android.content.Context, @NonNull android.os.Looper, @NonNull String, @NonNull android.net.NetworkCapabilities, @NonNull android.net.LinkProperties, @Nullable android.net.LocalNetworkConfig, @NonNull android.net.NetworkScore, @NonNull android.net.NetworkAgentConfig, @Nullable android.net.NetworkProvider);
+  }
+
   public final class NetworkAgentConfig implements android.os.Parcelable {
     method @Nullable public String getSubscriberId();
     method public boolean isBypassableVpn();

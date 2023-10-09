@@ -16,6 +16,8 @@
 
 package android.net;
 
+import static android.annotation.SystemApi.Client.MODULE_LIBRARIES;
+
 import android.annotation.IntDef;
 import android.annotation.IntRange;
 import android.annotation.NonNull;
@@ -545,7 +547,7 @@ public abstract class NetworkAgent {
      * @param provider the {@link NetworkProvider} managing this agent.
      * @hide
      */
-    // TODO : expose
+    @SystemApi(client = MODULE_LIBRARIES)
     public NetworkAgent(@NonNull Context context, @NonNull Looper looper, @NonNull String logTag,
             @NonNull NetworkCapabilities nc, @NonNull LinkProperties lp,
             @Nullable LocalNetworkConfig localNetworkConfig, @NonNull NetworkScore score,
