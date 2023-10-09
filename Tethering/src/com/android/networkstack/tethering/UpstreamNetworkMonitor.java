@@ -24,6 +24,7 @@ import static android.net.ConnectivityManager.TYPE_MOBILE_HIPRI;
 import static android.net.ConnectivityManager.TYPE_WIFI;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
@@ -171,7 +172,9 @@ public class UpstreamNetworkMonitor {
         stop();
 
         final NetworkRequest listenAllRequest = new NetworkRequest.Builder()
-                .clearCapabilities().build();
+                .clearCapabilities()
+                .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                .build();
         mListenAllCallback = new UpstreamNetworkCallback(CALLBACK_LISTEN_ALL);
         cm().registerNetworkCallback(listenAllRequest, mListenAllCallback, mHandler);
     }
