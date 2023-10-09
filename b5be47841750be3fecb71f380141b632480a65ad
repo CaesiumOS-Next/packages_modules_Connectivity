@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6706cbe2_64717c10",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/IaPrefixOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-10-09T18:34:33Z",
+      "side": 1,
+      "message": "valid \u003c minPrefixLifetime is a stricter check than valid \u003c 0, so this should be removed.",
+      "range": {
+        "startLine": 87,
+        "startChar": 29,
+        "endLine": 87,
+        "endChar": 38
+      },
+      "revId": "b5be47841750be3fecb71f380141b632480a65ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b3b4033b_8204a50f",
         "filename": "staticlibs/device/com/android/net/module/util/structs/IaPrefixOption.java",
         "patchSetId": 1
@@ -19,6 +42,29 @@
         "startChar": 11,
         "endLine": 107,
         "endChar": 84
+      },
+      "revId": "b5be47841750be3fecb71f380141b632480a65ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcea8d5a_e66332db",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/IaPrefixOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-10-09T18:34:33Z",
+      "side": 1,
+      "message": "If the server is unable to\n   extend the lifetime of an address or delegated prefix, it indicates\n   this by returning the address or delegated prefix with lifetimes of\n   0.\n\nIt\u0027s an interesting question whether isValid() should return prefixes that have been expired or not. We might want to have a isExpired() that checks this explicitly as it might be useful to have both getValidPrefixes() and getExpiredPrefixes(). Not sure -- just something to think about / keep in mind.",
+      "range": {
+        "startLine": 108,
+        "startChar": 12,
+        "endLine": 108,
+        "endChar": 37
       },
       "revId": "b5be47841750be3fecb71f380141b632480a65ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
