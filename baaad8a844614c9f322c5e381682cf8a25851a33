@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdbdaa7e_9cb3a4f5",
+        "filename": "framework/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-10T12:12:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6412f9be_0429ab64",
+      "revId": "baaad8a844614c9f322c5e381682cf8a25851a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59a1c2bb_e9f39eee",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "038ad199_119ec626",
+        "filename": "framework/connectivity_flags.aconfig",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-10T12:12:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59a1c2bb_e9f39eee",
+      "revId": "baaad8a844614c9f322c5e381682cf8a25851a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d00323b_0fae72e0",
@@ -48,6 +84,30 @@
       "writtenOn": "2023-10-10T05:48:23Z",
       "side": 1,
       "message": "Could you use `com.android.net.flags.forbidden_capability`?\nSorry that it\u0027s not ready but cl/571238013 will add the instruction for this.",
+      "range": {
+        "startLine": 131,
+        "startChar": 57,
+        "endLine": 131,
+        "endChar": 74
+      },
+      "revId": "baaad8a844614c9f322c5e381682cf8a25851a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8e79deb_8d123f8e",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-10T12:12:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d00323b_0fae72e0",
       "range": {
         "startLine": 131,
         "startChar": 57,
