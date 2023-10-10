@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee7dedb6_294fb34f",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/IaPrefixOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-10-10T10:15:29Z",
+      "side": 1,
+      "message": "exactly, driven by AlarmTimer wakeups. valid should be the maximum value among of t1, t2 and preferred (we don\u0027t consider that server gives us 0 t1/t2 or 0 preferred/valid lifetime, to be honest, I thought it\u0027s better not to support these concern cases at the initial implementation, it\u0027s super hard to make it work correctly).\n\nlet\u0027s say valid \u003e\u003d preferred \u003e\u003d t2 \u003e\u003d t1, if even valid is less than minPrefixLifetime, which means we will get a smaller preferred and t1/t2, which also forces device wake up frequently to renew the prefix.\n\nDhcpClient did some tricky stuff :), it defines the minimal lease as 60s, and replaces any lease duration that\u0027s less than 60s. Instead of ignoring the short lease duration, force to use 60s. Maybe we can do the similar thing here.",
+      "parentUuid": "b3b4033b_8204a50f",
+      "range": {
+        "startLine": 107,
+        "startChar": 11,
+        "endLine": 107,
+        "endChar": 84
+      },
+      "revId": "b5be47841750be3fecb71f380141b632480a65ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bcea8d5a_e66332db",
         "filename": "staticlibs/device/com/android/net/module/util/structs/IaPrefixOption.java",
         "patchSetId": 1
