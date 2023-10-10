@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "320586da_1d6da08d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-10-10T04:34:46Z",
+      "side": 1,
+      "message": "Hi Jean,\n\nHere are my local changes for today\u0027s discussion. \n\nRegards,\nHanda",
+      "revId": "95c17c8e1b3e6b84603d417ab4901918eea897e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
