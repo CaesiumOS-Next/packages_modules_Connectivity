@@ -22,6 +22,30 @@
       },
       "revId": "a09c2bbe49ba494b9acf8b271abc49eff030ec54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84c8010b_219b80f9",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-10T04:36:00Z",
+      "side": 1,
+      "message": "we\u0027d have to\n  #define constexpr static const\n:-)\n\nas unfortunately constexpr isn\u0027t valid C (it\u0027s C++)",
+      "parentUuid": "fe5f71c9_94c3af8a",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 12
+      },
+      "revId": "a09c2bbe49ba494b9acf8b271abc49eff030ec54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
