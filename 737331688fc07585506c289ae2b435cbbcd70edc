@@ -16,6 +16,29 @@
       "message": "Lint check unrelated",
       "revId": "737331688fc07585506c289ae2b435cbbcd70edc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c22d3f2_9b806224",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:54:47Z",
+      "side": 1,
+      "message": "This suggests that something is setup incorrectly, but while counterintuitive, I think it\u0027s purposedly setup that way, so explaining the actual setup would provide better background.\n\nBasically, before the U SDK is pushed to aosp/main, V development has already started, so aosp/main contains a complete T SDK (so its SDK_VERSION advertised to apps is T), and some bits of U and V (so ro.build.version.codename is V, and ro.build.version.all_codenames is U, V)",
+      "range": {
+        "startLine": 200,
+        "startChar": 20,
+        "endLine": 201,
+        "endChar": 18
+      },
+      "revId": "737331688fc07585506c289ae2b435cbbcd70edc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
