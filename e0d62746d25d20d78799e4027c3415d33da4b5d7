@@ -75,6 +75,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33edd49a_9cef6ce8",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-10T11:42:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d967781f_6952021f",
+      "range": {
+        "startLine": 249,
+        "startChar": 42,
+        "endLine": 249,
+        "endChar": 54
+      },
+      "revId": "e0d62746d25d20d78799e4027c3415d33da4b5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6eefaa7_7a585a2d",
@@ -92,6 +116,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12414fb4_9dc2ba77",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-10T11:42:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6eefaa7_7a585a2d",
+      "revId": "e0d62746d25d20d78799e4027c3415d33da4b5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ce6be3a_57d5f978",
@@ -105,6 +147,24 @@
       "writtenOn": "2023-10-10T06:52:46Z",
       "side": 1,
       "message": "Do you mean on devices that only support flattened APEX (i.e. don\u0027t support updatable APEX) ?\n\nI don\u0027t think so, because flattened APEX ends up being the same at runtime, it just never receives updates ?",
+      "revId": "e0d62746d25d20d78799e4027c3415d33da4b5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "141f2f93_ea852196",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-10T11:42:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ce6be3a_57d5f978",
       "revId": "e0d62746d25d20d78799e4027c3415d33da4b5d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -144,6 +204,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36a4cd04_fa1a3fda",
+        "filename": "framework/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-10T11:42:27Z",
+      "side": 1,
+      "message": "Per offline discussion : it would probably be slightly better to have 2 copies but in the interest of expediency we\u0027ll keep this as it will work.",
+      "parentUuid": "96a6e9dc_264dcd94",
+      "revId": "e0d62746d25d20d78799e4027c3415d33da4b5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef2b5c6c_0f40fab7",
@@ -161,6 +239,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a6fa480_88e4783c",
+        "filename": "framework/jarjar-excludes.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-10T11:42:27Z",
+      "side": 1,
+      "message": "Per offline discussion, add a comment about how this matches xxx build rule",
+      "parentUuid": "ef2b5c6c_0f40fab7",
+      "revId": "e0d62746d25d20d78799e4027c3415d33da4b5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7022cbb8_5e8b9956",
@@ -174,6 +270,30 @@
       "writtenOn": "2023-10-10T06:52:46Z",
       "side": 1,
       "message": "but not ? :-)",
+      "range": {
+        "startLine": 29,
+        "startChar": 66,
+        "endLine": 29,
+        "endChar": 69
+      },
+      "revId": "e0d62746d25d20d78799e4027c3415d33da4b5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ab9aa1b_96b5e33c",
+        "filename": "framework/src/android/net/RoutingCoordinatorManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-10T11:42:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7022cbb8_5e8b9956",
       "range": {
         "startLine": 29,
         "startChar": 66,
@@ -207,6 +327,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2af6ebef_b6583c34",
+        "filename": "framework/src/android/net/RoutingCoordinatorManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-10T11:42:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a0897d3_c711caf9",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 9
+      },
+      "revId": "e0d62746d25d20d78799e4027c3415d33da4b5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfc036df_338c3eca",
@@ -220,6 +364,30 @@
       "writtenOn": "2023-10-10T06:52:46Z",
       "side": 1,
       "message": "Nit: not true anymore\n\nAlthough it may be safer to just keep the @RequiresApi on the class in any case ? That would also match the requirement in the build rule \"Files listed here MUST all be annotated with @RequiresApi\". I think it\u0027s OK to have methods that make the restriction stricter by overriding what the class says (but having even static methods making it *less* strict is not OK since the class still gets loaded)",
+      "range": {
+        "startLine": 34,
+        "startChar": 9,
+        "endLine": 34,
+        "endChar": 17
+      },
+      "revId": "e0d62746d25d20d78799e4027c3415d33da4b5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9e17697_088f3466",
+        "filename": "framework/src/android/net/connectivity/TiramisuConnectivityInternalApiUtil.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-10T11:42:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfc036df_338c3eca",
       "range": {
         "startLine": 34,
         "startChar": 9,
