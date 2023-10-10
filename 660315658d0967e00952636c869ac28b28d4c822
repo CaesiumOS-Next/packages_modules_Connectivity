@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d74f13f_48d24bd9",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-10T11:36:01Z",
+      "side": 1,
+      "message": "nits: I felt `fromIface.equals(that.fromIface) \u0026\u0026 toIface.equals(that.toIface)` is easier to understand.",
+      "range": {
+        "startLine": 143,
+        "startChar": 14,
+        "endLine": 143,
+        "endChar": 15
+      },
+      "revId": "660315658d0967e00952636c869ac28b28d4c822",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
