@@ -37,6 +37,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f2b5868_394948a8",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-10-10T05:30:11Z",
+      "side": 1,
+      "message": "Jean: Can we describe the request within a single networkrequest?\ne.g. do we have a demand: prefer wifi over ethernet?\n\nExample: A gopro exposes itself as the AP to connect to TV.\n\nWe may prefer Wifis with network capability internet (means whether it\u0027s configured to reach the internet).",
+      "revId": "95c17c8e1b3e6b84603d417ab4901918eea897e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0a563f5_cb9ac87a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-10-10T05:30:11Z",
+      "side": 1,
+      "message": "setKeepConnectedReason(KEEP_CONNECTED_LOCAL_NETWORK)",
+      "revId": "95c17c8e1b3e6b84603d417ab4901918eea897e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "371b4258_72d1180f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-10-10T05:30:11Z",
+      "side": 1,
+      "message": "setLegacyType(TYPE_WIFI) (Or introduce a new type)\n\nor the stack may crash",
+      "revId": "95c17c8e1b3e6b84603d417ab4901918eea897e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5944ecf7_2a314103",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 2
@@ -54,6 +105,23 @@
         "endLine": 313,
         "endChar": 42
       },
+      "revId": "95c17c8e1b3e6b84603d417ab4901918eea897e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7544df28_bb64d515",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-10-10T05:30:11Z",
+      "side": 1,
+      "message": "1. Should request before creating the network.\n2. Add keep connected reason so we don\u0027t need requestThreadNetwork.",
       "revId": "95c17c8e1b3e6b84603d417ab4901918eea897e2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
