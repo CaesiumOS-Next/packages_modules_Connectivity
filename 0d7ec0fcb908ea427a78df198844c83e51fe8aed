@@ -16,6 +16,24 @@
       "message": "You need a `break` statement here. Otherwise, the code will continues to executed.",
       "revId": "0d7ec0fcb908ea427a78df198844c83e51fe8aed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e5ca8d5_91ea6c04",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-10T04:32:00Z",
+      "side": 1,
+      "message": "Oh, thanks for catching this! Updated",
+      "parentUuid": "ae06490b_db88c28b",
+      "revId": "0d7ec0fcb908ea427a78df198844c83e51fe8aed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
