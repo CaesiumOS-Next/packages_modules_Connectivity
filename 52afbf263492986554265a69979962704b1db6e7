@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba475b67_32f2cb94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-10T04:16:45Z",
+      "side": 1,
+      "message": "Lint is flagging something that is obviously unrelated to this comment-only change.",
+      "revId": "52afbf263492986554265a69979962704b1db6e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
