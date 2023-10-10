@@ -29,3 +29,26 @@ filegroup {
         "//packages/modules/Connectivity:__subpackages__",
     ],
 }
+
+java_sdk_library {
+    name: "framework-thread-sdk",
+    srcs: [":framework-thread-sources"],
+    sdk_version: "module_current",
+    api_packages: [
+        "android.net.thread",
+    ],
+    libs: [
+        "framework-annotations-lib",
+        "framework-connectivity",
+    ],
+    static_libs: [
+        "modules-utils-preconditions",
+        "net-utils-framework-common",
+    ],
+    aidl: {
+        include_dirs: ["packages/modules/Connectivity/framework/aidl-export"],
+    },
+    unsafe_ignore_missing_latest_api: true,
+    installable: false,
+    visibility: ["//visibility:private"],
+}
