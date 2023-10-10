@@ -35,6 +35,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dd8a51b_1daeb0d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T07:11:42Z",
+      "side": 1,
+      "message": "Change LGTM, you can elect to only address the easy comments if you prefer and that would still be fine.",
+      "revId": "e0d62746d25d20d78799e4027c3415d33da4b5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d967781f_6952021f",
@@ -105,6 +122,24 @@
       "writtenOn": "2023-10-10T06:52:46Z",
       "side": 1,
       "message": "The difference between framework-connectivity.impl and -pre-jarjar is only on the jarjared symbols. By building against pre-jarjar, you\u0027re saying \"I\u0027ll build against pre-jarjar symbols, and then I\u0027m using matching jarjar rules so that the names still match at runtime\".\n\nBut Tethering uses different, manually maintained jarjar rules, generally using the \"com.android.networkstack.tethering\" prefix (not android.net.connectivity), so I think the names won\u0027t match at runtime. If I\u0027m reading this correctly this means RoutingCoordinatorManager would fail to find IRoutingCoordinator at runtime with the current change, probably ? So I think you\u0027ll need to exclude it from jarjar as well. See suggestion on the jarjar-rules.txt to use a dedicated package for that, so you could add it to that package.\n\nI think framework-connectivity.impl is better here, but a comment would definitely be useful to explain why it\u0027s this and not pre-jarjar or stubs.",
+      "revId": "e0d62746d25d20d78799e4027c3415d33da4b5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96a6e9dc_264dcd94",
+        "filename": "framework/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T07:11:42Z",
+      "side": 1,
+      "message": "Sorry I\u0027m in fact not reading this right, because RoutingCoordinatorManager is using IRoutingCoordinator from its own jar (not built into Tethering), so it won\u0027t have any runtime problem.\n\nWhat I\u0027m thinking though is you probably don\u0027t need to have RoutingCoordinatorManager in the bootclasspath here (so included for any app), it could be just in a static lib that\u0027s included by both service-connectivity and Tethering.apk, if you make getRoutingCoordinatorManager return IBinder (and just take in in the RoutingCoordinatorManager constructor)\n\nBut the current state should work OK, so you can do this in another change if you think it makes sense.",
+      "parentUuid": "19360cf8_c6baea09",
       "revId": "e0d62746d25d20d78799e4027c3415d33da4b5d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
