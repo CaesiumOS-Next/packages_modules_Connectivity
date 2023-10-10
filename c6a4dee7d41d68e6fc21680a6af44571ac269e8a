@@ -16,6 +16,23 @@
       "message": "LGTM but @reminv should also take a look.",
       "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a311406_8ea6984f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-10-10T07:40:48Z",
+      "side": 1,
+      "message": "stream() is not generally recommend in the framework code. Due to it will caluse a lot of GC",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
