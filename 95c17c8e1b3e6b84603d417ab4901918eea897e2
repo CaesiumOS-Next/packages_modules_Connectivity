@@ -16,6 +16,46 @@
       "message": "Hi Jean,\n\nHere are my local changes for today\u0027s discussion. \n\nRegards,\nHanda",
       "revId": "95c17c8e1b3e6b84603d417ab4901918eea897e2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0644f635_e2835756",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-10-10T04:36:11Z",
+      "side": 1,
+      "message": "Here\u0027s how I listen to the AIL, not using the LocalNetworkInfo API yet.",
+      "revId": "95c17c8e1b3e6b84603d417ab4901918eea897e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5944ecf7_2a314103",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-10-10T04:36:11Z",
+      "side": 1,
+      "message": "Here\u0027s how I created the NetworkAgent.",
+      "range": {
+        "startLine": 297,
+        "startChar": 0,
+        "endLine": 313,
+        "endChar": 42
+      },
+      "revId": "95c17c8e1b3e6b84603d417ab4901918eea897e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
