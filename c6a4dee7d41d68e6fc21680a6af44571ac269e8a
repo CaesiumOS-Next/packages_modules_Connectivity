@@ -18,6 +18,212 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb2fc38d_b32fecaa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:19:23Z",
+      "side": 1,
+      "message": "Generally LGTM but see comments",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba1bd2a3_57786117",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 1287,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:19:23Z",
+      "side": 1,
+      "message": "We also have a use-case for discovering with flags; so now we\u0027d need another method that also takes flags, this is getting a bit out of control\n\nCan you add a data class that describes the request ? Something like a DiscoveryRequest, which would have a builder, so this method would have only 2 arguments (DiscoveryRequest and DiscoveryListener)",
+      "range": {
+        "startLine": 1287,
+        "startChar": 16,
+        "endLine": 1287,
+        "endChar": 32
+      },
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cebe90b_b9adc55c",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:19:23Z",
+      "side": 1,
+      "message": "Note this is not completely correct: the actual ordering should follow ordering of toDnsLowerCase as implemented here: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java;drc\u003d6df06daaec6c53b43da7029d92a957318cca1693;l\u003d55\n\nYou could use just a normal set here and generate the actual list in the service, at the same time as checking for the string length (see comment below). This would make sure NsdService can work with known input, since it\u0027s still possible to call the service via raw binder calls otherwise.",
+      "range": {
+        "startLine": 72,
+        "startChar": 63,
+        "endLine": 72,
+        "endChar": 85
+      },
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cdf85e4_c59d32ba",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:19:23Z",
+      "side": 1,
+      "message": "Right now service type format is checked in NsdService, this should be done there for subtypes too I think, otherwise it\u0027s still possible to send bad data to NsdService (through raw binder calls for example)",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e07e1435_a100b517",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:19:23Z",
+      "side": 1,
+      "message": "Just use dest.writeStringList",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa5d8822_f54535b4",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:19:23Z",
+      "side": 1,
+      "message": "I think this can use in.readStringList",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba2458bb_7887579b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:19:23Z",
+      "side": 1,
+      "message": "There was no checking/parsing in the \"addSubtype\" below, so substring(1) may crash if it is an empty string (which is possible if it is sent via a raw binder call, and would crash the system server).\n\nThere should be a check that it\u0027s non-empty and starts with an underscore, because the current code only supports discovering services that start with an underscore.\n\nActually the RFC says that subtypes don\u0027t necessarily start with underscores (https://datatracker.ietf.org/doc/html/rfc6763#page-23), but since this is currently required by MdnsDiscoveryManager, it should be enforced until support is added.",
+      "range": {
+        "startLine": 848,
+        "startChar": 35,
+        "endLine": 848,
+        "endChar": 89
+      },
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01f74e81_5555c615",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 1466,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:19:23Z",
+      "side": 1,
+      "message": "That doesn\u0027t seem necessary, since the NsdServiceInfo setter doesn\u0027t keep a reference to the original set",
+      "range": {
+        "startLine": 1466,
+        "startChar": 41,
+        "endLine": 1466,
+        "endChar": 47
+      },
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91316f25_909e0ae9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:19:23Z",
+      "side": 1,
+      "message": "Nit: you could also log service.getSubtypes()",
+      "range": {
+        "startLine": 638,
+        "startChar": 67,
+        "endLine": 638,
+        "endChar": 68
+      },
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e937c16_eab94248",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:19:23Z",
+      "side": 1,
+      "message": "Nit: you could say `new ArrayList\u003c\u003e(serviceInfo.getSubtypes().size() + 1)` to directly allocate the right size",
+      "range": {
+        "startLine": 199,
+        "startChar": 54,
+        "endLine": 199,
+        "endChar": 55
+      },
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a311406_8ea6984f",
@@ -31,6 +237,137 @@
       "writtenOn": "2023-10-10T07:40:48Z",
       "side": 1,
       "message": "stream() is not generally recommend in the framework code. Due to it will caluse a lot of GC",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d79e382b_a4553b62",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:19:23Z",
+      "side": 1,
+      "message": "Streams are generally discouraged in system server code, because they are not well optimized to limit allocations (they often allocate a lot of objects and do a lot of boxing, which adds work for the GC). Latest (but old) guidance: http://g/android-chatty-eng/JMlZzm__iFs/qqlCZx3aAgAJ\n\nHere you should be able to use com.android.net.module.util.CollectionUtils.map",
+      "range": {
+        "startLine": 205,
+        "startChar": 34,
+        "endLine": 205,
+        "endChar": 42
+      },
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ef5f374_01928e04",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:19:23Z",
+      "side": 1,
+      "message": "That\u0027s a lot of duplicated code, which is generally OK in tests, but I\u0027d say it feels a bit too much at this point.\n\nCould you factor these 3 tests to use something like:\n\n    runSubtypeAdvertisingAndDiscoveryTest(si: NsdServiceInfo, expectedSubtypes: List\u003cString\u003e)\n\n?",
+      "range": {
+        "startLine": 993,
+        "startChar": 8,
+        "endLine": 993,
+        "endChar": 61
+      },
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1c1f6d8_085237d1",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:19:23Z",
+      "side": 1,
+      "message": "Also include a test for checking registering empty subtypes\n\nFor subtypes with no leading underscore, we might want to change it in the future, so better not add it to this CTS test (unit test would be enough)",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8569b88d_c8db95d7",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:19:23Z",
+      "side": 1,
+      "message": "This should get some coverage for input verification logic once added",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87c3f502_7cd96016",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:19:23Z",
+      "side": 1,
+      "message": "Can you add a test that verifies the exit announcement with multiple subtypes ? Could be the same test, just using 2 instead of 1",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b91a56b3_6621e53d",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:19:23Z",
+      "side": 1,
+      "message": "Also the announcement packet should be checked for multiple subtypes",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1885eb9_cb6eb894",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-10-10T10:19:23Z",
+      "side": 1,
+      "message": "Could you add multiple here ? The reply should still be the same I think (so it checks that extra subtypes don\u0027t end up in the reply)",
       "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
