@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "941af548_5f2578d9",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-10-10T04:16:55Z",
+      "side": 1,
+      "message": "Got it, I think it might be better to document clearly in the comment about the purpose of using TreeMap is to make it case insensitive. (better also with an example)",
+      "parentUuid": "f73ba354_4972d251",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 87
+      },
+      "revId": "a8c148eb51d24558412281188de8048f5aaf7eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "864abf5c_753c34dd",
         "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
         "patchSetId": 23
