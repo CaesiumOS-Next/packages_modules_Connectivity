@@ -39,6 +39,30 @@
       },
       "revId": "737331688fc07585506c289ae2b435cbbcd70edc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "069ed34c_84f839fa",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-10T11:15:04Z",
+      "side": 1,
+      "message": "I understand why it\u0027s done this way, but the fact remains that you can\u0027t distinguish between the two versions and we need to. That\u0027s why this scheme is needed.\n\nReworded to more neutral language in a followup change, as this is already TH-approved.",
+      "parentUuid": "3c22d3f2_9b806224",
+      "range": {
+        "startLine": 200,
+        "startChar": 20,
+        "endLine": 201,
+        "endChar": 18
+      },
+      "revId": "737331688fc07585506c289ae2b435cbbcd70edc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
