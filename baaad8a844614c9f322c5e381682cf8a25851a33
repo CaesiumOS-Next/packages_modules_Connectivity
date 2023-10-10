@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6412f9be_0429ab64",
+        "filename": "framework/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-10T05:48:23Z",
+      "side": 1,
+      "message": "We can remove this or move to `common/TrunkStable.bp` which is included on branches except udc-mainline-prod.",
+      "revId": "baaad8a844614c9f322c5e381682cf8a25851a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59a1c2bb_e9f39eee",
+        "filename": "framework/connectivity_flags.aconfig",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-10T05:48:23Z",
+      "side": 1,
+      "message": "Could you add flag to `Connectivity/common/flags.aconfig`?",
+      "revId": "baaad8a844614c9f322c5e381682cf8a25851a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d00323b_0fae72e0",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-10T05:48:23Z",
+      "side": 1,
+      "message": "Could you use `com.android.net.flags.forbidden_capability`?\nSorry that it\u0027s not ready but cl/571238013 will add the instruction for this.",
+      "range": {
+        "startLine": 131,
+        "startChar": 57,
+        "endLine": 131,
+        "endChar": 74
+      },
+      "revId": "baaad8a844614c9f322c5e381682cf8a25851a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
