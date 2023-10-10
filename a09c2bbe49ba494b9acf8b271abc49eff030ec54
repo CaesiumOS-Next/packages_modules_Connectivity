@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe5f71c9_94c3af8a",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-10T04:29:52Z",
+      "side": 1,
+      "message": "Should this be \"constexpr\" instead of \"static const\" so we can rely on it being defined at compile time?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 12
+      },
+      "revId": "a09c2bbe49ba494b9acf8b271abc49eff030ec54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
