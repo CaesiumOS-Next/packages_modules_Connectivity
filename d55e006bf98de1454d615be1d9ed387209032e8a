@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d824e58c_84d8fce9",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-11T23:02:46Z",
+      "side": 1,
+      "message": "Took a look and I think I know what\u0027s happening. Added the fix in this patch.",
+      "parentUuid": "25b35e68_3c52ea16",
+      "range": {
+        "startLine": 0,
+        "startChar": 0,
+        "endLine": 0,
+        "endChar": 0
+      },
+      "revId": "d55e006bf98de1454d615be1d9ed387209032e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bc06fe3_c7ea4d30",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e964246_da9259da",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-11T23:02:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bc06fe3_c7ea4d30",
+      "range": {
+        "startLine": 158,
+        "startChar": 40,
+        "endLine": 158,
+        "endChar": 56
+      },
+      "revId": "d55e006bf98de1454d615be1d9ed387209032e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b66f2cce_62767636",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-10-11T02:54:15Z",
       "side": 1,
       "message": "How is this number choosed, maybe add short comment?",
+      "range": {
+        "startLine": 111,
+        "startChar": 36,
+        "endLine": 111,
+        "endChar": 44
+      },
+      "revId": "d55e006bf98de1454d615be1d9ed387209032e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d63a9031_1e6ca318",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTestHelpers.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-11T23:02:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b66f2cce_62767636",
       "range": {
         "startLine": 111,
         "startChar": 36,
