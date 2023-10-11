@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67351f9e_b520cab6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-11T03:40:16Z",
+      "side": 1,
+      "message": "LGTM with nits that can be ignored.",
+      "revId": "b3141cc6fbaca484a137c50d4f11d3a72926b4c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24d9eaaa_eb7929d0",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-11T03:40:16Z",
+      "side": 1,
+      "message": "nit: I can expect we\u0027ll have more Flags coming, e.g. aosp/2745215.\nDoes it work if we put it in a standalone file under android/net folder?",
+      "range": {
+        "startLine": 130,
+        "startChar": 24,
+        "endLine": 130,
+        "endChar": 29
+      },
+      "revId": "b3141cc6fbaca484a137c50d4f11d3a72926b4c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb8cc506_77f83b35",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-11T03:40:16Z",
+      "side": 1,
+      "message": "Question: Just dobule confirm, we want this to be publicApi instead of systemApi, right?\nIf yes, do we want to expose hasForbiddenCapability as public API given that hasCapability is already public?",
+      "range": {
+        "startLine": 919,
+        "startChar": 7,
+        "endLine": 919,
+        "endChar": 11
+      },
+      "revId": "b3141cc6fbaca484a137c50d4f11d3a72926b4c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "096cbdff_4adb31aa",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-11T03:40:16Z",
+      "side": 1,
+      "message": "nit: not for this CL but it seems this can be in common folder?",
+      "range": {
+        "startLine": 71,
+        "startChar": 13,
+        "endLine": 71,
+        "endChar": 31
+      },
+      "revId": "b3141cc6fbaca484a137c50d4f11d3a72926b4c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
