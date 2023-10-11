@@ -414,6 +414,29 @@
       },
       "revId": "e0d62746d25d20d78799e4027c3415d33da4b5d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ebc85ac_3e59ef30",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 8543,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-11T07:56:17Z",
+      "side": 1,
+      "message": "nits: updateRoute",
+      "range": {
+        "startLine": 8543,
+        "startChar": 35,
+        "endLine": 8543,
+        "endChar": 59
+      },
+      "revId": "e0d62746d25d20d78799e4027c3415d33da4b5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
