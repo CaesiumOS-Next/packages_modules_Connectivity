@@ -91,7 +91,7 @@ java_library {
 java_library {
     name: "service-connectivity-mdns-standalone-build-test",
     sdk_version: "core_platform",
-    min_sdk_version: "21",
+    min_sdk_version: "30",
     lint: {
         error_checks: ["NewApi"],
     },
