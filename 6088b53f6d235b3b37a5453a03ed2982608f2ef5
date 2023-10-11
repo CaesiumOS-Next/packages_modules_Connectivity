@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecfd876a_274fa1ce",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsEventLoggerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-11T09:57:29Z",
+      "side": 1,
+      "message": "No it is actually 3, which includes header and 2 empty lines.",
+      "parentUuid": "c94173db_1ea3455f",
+      "range": {
+        "startLine": 133,
+        "startChar": 33,
+        "endLine": 133,
+        "endChar": 50
+      },
+      "revId": "6088b53f6d235b3b37a5453a03ed2982608f2ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f59eabd_6d24f4c8",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-10-08T08:13:55Z",
       "side": 1,
       "message": "s/split(\"\\n\")/lines()/",
+      "range": {
+        "startLine": 148,
+        "startChar": 72,
+        "endLine": 148,
+        "endChar": 83
+      },
+      "revId": "6088b53f6d235b3b37a5453a03ed2982608f2ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1061556_5303c27f",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsEventLoggerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-11T09:57:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f59eabd_6d24f4c8",
       "range": {
         "startLine": 148,
         "startChar": 72,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3550005_0f78264e",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsEventLoggerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-11T09:57:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de800dc2_a60772cf",
+      "range": {
+        "startLine": 162,
+        "startChar": 54,
+        "endLine": 162,
+        "endChar": 61
+      },
+      "revId": "6088b53f6d235b3b37a5453a03ed2982608f2ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87d0cec7_4da5b43b",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-10-08T08:13:55Z",
       "side": 1,
       "message": "While your impl is fine you could also have written\n\n    fun getOutputAndClear() \u003d toString().also { buffer.setLength(0) }\n\n...but only if you find it more readable",
+      "range": {
+        "startLine": 171,
+        "startChar": 12,
+        "endLine": 171,
+        "endChar": 29
+      },
+      "revId": "6088b53f6d235b3b37a5453a03ed2982608f2ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e79d32ac_2433f9c8",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsEventLoggerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-11T09:57:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87d0cec7_4da5b43b",
       "range": {
         "startLine": 171,
         "startChar": 12,
