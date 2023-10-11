@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39f08f20_90f7f8e7",
+        "filename": "framework/src/android/net/NetworkScore.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-11T03:02:42Z",
+      "side": 1,
+      "message": "Not sure how this is going to be used in later CLs but ok.",
+      "range": {
+        "startLine": 63,
+        "startChar": 29,
+        "endLine": 63,
+        "endChar": 88
+      },
+      "revId": "34a91691695a0a4e754c592e43e5c252fce271aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
