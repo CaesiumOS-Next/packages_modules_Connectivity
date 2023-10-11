@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63e21457_4f13f587",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-10-11T23:24:30Z",
+      "side": 1,
+      "message": "I disagree with this change. I want to release the APF RA filter changes behind an experiment in January. Until then, I would like to get this onto droidfood devices, so I can collect early feedback without having to wait ~6 months. Can we add this back?",
+      "revId": "2359e7b554652f1be84242682953716bfcadc619",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
