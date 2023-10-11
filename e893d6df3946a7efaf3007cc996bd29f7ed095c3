@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ba0e743_149eeb78",
+        "filename": "framework/src/android/net/NetworkRequest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-11T04:19:41Z",
+      "side": 1,
+      "message": "mismatch?\nIt seems we don\u0027t remove forbiddenCaps when calling withoutDefaultCapabilities?\nDo I missed something?",
+      "range": {
+        "startLine": 315,
+        "startChar": 62,
+        "endLine": 315,
+        "endChar": 84
+      },
+      "revId": "e893d6df3946a7efaf3007cc996bd29f7ed095c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
