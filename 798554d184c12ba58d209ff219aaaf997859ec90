@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a933966f_d03ea7bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-11T10:48:06Z",
+      "side": 1,
+      "message": "This is blocked by b/303348620 where dumpsys connectivity is always broken.",
+      "revId": "798554d184c12ba58d209ff219aaaf997859ec90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5141a514_02afb337",
