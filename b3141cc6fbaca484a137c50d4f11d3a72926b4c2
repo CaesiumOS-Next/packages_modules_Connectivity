@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8252d79_7580a268",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-11T23:03:14Z",
+      "side": 1,
+      "message": "It works but really we\u0027ll have this generated from the aconfig file and the file will be android.net.flags.Flags. You can see the explanation in l.34.\n\nThis is really an emergency stopgap to palliate the tools that are not ready yet, so I don\u0027t think we should build something big that mimics the end state, just the closest and easiest to clean up thing.",
+      "parentUuid": "24d9eaaa_eb7929d0",
+      "range": {
+        "startLine": 130,
+        "startChar": 24,
+        "endLine": 130,
+        "endChar": 29
+      },
+      "revId": "b3141cc6fbaca484a137c50d4f11d3a72926b4c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb8cc506_77f83b35",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8302c36_b1f1fba3",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-11T23:03:14Z",
+      "side": 1,
+      "message": "Correct, isn\u0027t that what l.1035 does ?",
+      "parentUuid": "eb8cc506_77f83b35",
+      "range": {
+        "startLine": 919,
+        "startChar": 7,
+        "endLine": 919,
+        "endChar": 11
+      },
+      "revId": "b3141cc6fbaca484a137c50d4f11d3a72926b4c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "096cbdff_4adb31aa",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-10-11T03:40:16Z",
       "side": 1,
       "message": "nit: not for this CL but it seems this can be in common folder?",
+      "range": {
+        "startLine": 71,
+        "startChar": 13,
+        "endLine": 71,
+        "endChar": 31
+      },
+      "revId": "b3141cc6fbaca484a137c50d4f11d3a72926b4c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8aaf2d68_a37067a6",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-11T23:03:14Z",
+      "side": 1,
+      "message": "I\u0027m not sure where you mean – can you specify ? Do you mean this could be executed on the host because it only depends on data classes with some encapsulated logic ?",
+      "parentUuid": "096cbdff_4adb31aa",
       "range": {
         "startLine": 71,
         "startChar": 13,
