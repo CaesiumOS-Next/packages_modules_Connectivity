@@ -39,6 +39,7 @@ package android.net {
 
   public final class ConnectivityFrameworkInitializerTiramisu {
     method public static void registerServiceWrappers();
+    method @FlaggedApi("com.android.net.thread.flags.thread_enabled") public static void setThreadDaemonServiceSupplier(@NonNull java.util.function.Supplier<android.os.IBinder>);
   }
 
   public class EthernetManager {
