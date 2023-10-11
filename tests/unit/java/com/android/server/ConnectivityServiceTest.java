@@ -643,6 +643,8 @@ public class ConnectivityServiceTest {
     private ArgumentCaptor<ResolverParamsParcel> mResolverParamsParcelCaptor =
             ArgumentCaptor.forClass(ResolverParamsParcel.class);
 
+    private List<TestNetworkAgentWrapper> mCreatedNetworkAgents = new ArrayList<>();
+
     // This class exists to test bindProcessToNetwork and getBoundNetworkForProcess. These methods
     // do not go through ConnectivityService but talk to netd directly, so they don't automatically
     // reflect the state of our test ConnectivityService.
@@ -1668,6 +1670,12 @@ public class ConnectivityServiceTest {
             mInterface = null;
         }
 
+        public void destroy() throws Exception {
+            if (mMockNetworkAgent != null) {
+                mMockNetworkAgent.destroy();
+            }
+        }
+
         @Override
         public void startLegacyVpnRunner() {
             mStartLegacyVpnCv.open();
@@ -2378,16 +2386,20 @@ public class ConnectivityServiceTest {
         unregisterDefaultNetworkCallbacks();
         maybeTearDownEnterpriseNetwork();
         setAlwaysOnNetworks(false);
+        destroyAllCreatedNetworkAgent();
         if (mCellAgent != null) {
             mCellAgent.disconnect();
+            mCellAgent.destroy();
             mCellAgent = null;
         }
         if (mWiFiAgent != null) {
             mWiFiAgent.disconnect();
+            mWiFiAgent.destroy();
             mWiFiAgent = null;
         }
         if (mEthernetAgent != null) {
             mEthernetAgent.disconnect();
+            mEthernetAgent.destroy();
             mEthernetAgent = null;
         }
 
@@ -2396,6 +2408,7 @@ public class ConnectivityServiceTest {
             mQosCallbackMockHelper = null;
         }
         mMockVpn.disconnect();
+        mMockVpn.destroy();
         waitForIdle();
 
         FakeSettingsProvider.clearSettingsProvider();
@@ -2996,14 +3009,14 @@ public class ConnectivityServiceTest {
         mCm.registerDefaultNetworkCallback(defaultCb);
 
         // Bring up net agent 1
-        final TestNetworkAgentWrapper net1 = new TestNetworkAgentWrapper(transport);
+        final TestNetworkAgentWrapper net1 = createNetworkAgent(transport);
         net1.connect(true);
         // Make sure the default request is on net 1
         generalCb.expectAvailableThenValidatedCallbacks(net1);
         defaultCb.expectAvailableThenValidatedCallbacks(net1);
 
         // Bring up net 2 with primary and mms
-        final TestNetworkAgentWrapper net2 = new TestNetworkAgentWrapper(transport);
+        final TestNetworkAgentWrapper net2 = createNetworkAgent(transport);
         net2.addCapability(NET_CAPABILITY_MMS);
         net2.setScore(new NetworkScore.Builder().setTransportPrimary(true).build());
         net2.connect(true);
@@ -3039,7 +3052,7 @@ public class ConnectivityServiceTest {
         mmsCallback.expectAvailableCallbacksValidated(net2);
 
         // Bring up net 3 with primary but without MMS
-        final TestNetworkAgentWrapper net3 = new TestNetworkAgentWrapper(transport);
+        final TestNetworkAgentWrapper net3 = createNetworkAgent(transport);
         net3.setScore(new NetworkScore.Builder().setTransportPrimary(true).build());
         net3.connect(true);
 
@@ -4224,7 +4237,7 @@ public class ConnectivityServiceTest {
         assertTrue(testFactory.getMyStartRequested());
 
         // Now bring in a higher scored network.
-        TestNetworkAgentWrapper testAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        TestNetworkAgentWrapper testAgent = createNetworkAgent(TRANSPORT_CELLULAR);
         // When testAgent connects, because of its score (50 legacy int / cell transport)
         // it will beat or equal the testFactory's offer, so the request will be removed.
         // Note the agent as validated only if the capability is INTERNET, as it's the only case
@@ -4499,8 +4512,7 @@ public class ConnectivityServiceTest {
         mCm.requestNetwork(builder.build(), networkCallback);
 
         // Test bringing up MMS cellular network
-        TestNetworkAgentWrapper
-                mmsNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        TestNetworkAgentWrapper mmsNetworkAgent = createNetworkAgent(TRANSPORT_CELLULAR);
         mmsNetworkAgent.addCapability(NET_CAPABILITY_MMS);
         mmsNetworkAgent.connectWithoutInternet();
         networkCallback.expectAvailableCallbacksUnvalidated(mmsNetworkAgent);
@@ -4891,7 +4903,7 @@ public class ConnectivityServiceTest {
         // then set captive portal.
         mockHasSystemFeature(PackageManager.FEATURE_WATCH, true);
         setCaptivePortalMode(ConnectivitySettingsManager.CAPTIVE_PORTAL_MODE_AVOID);
-        TestNetworkAgentWrapper btAgent = new TestNetworkAgentWrapper(TRANSPORT_BLUETOOTH);
+        TestNetworkAgentWrapper btAgent = createNetworkAgent(TRANSPORT_BLUETOOTH);
         final String firstRedirectUrl = "http://example.com/firstPath";
 
         btAgent.connectWithCaptivePortal(firstRedirectUrl, false /* privateDnsProbeSent */);
@@ -4904,7 +4916,7 @@ public class ConnectivityServiceTest {
         // then set captive portal.
         mockHasSystemFeature(PackageManager.FEATURE_WATCH, false);
         setCaptivePortalMode(ConnectivitySettingsManager.CAPTIVE_PORTAL_MODE_AVOID);
-        TestNetworkAgentWrapper btAgent = new TestNetworkAgentWrapper(TRANSPORT_BLUETOOTH);
+        TestNetworkAgentWrapper btAgent = createNetworkAgent(TRANSPORT_BLUETOOTH);
         final String firstRedirectUrl = "http://example.com/firstPath";
 
         btAgent.connectWithCaptivePortal(firstRedirectUrl, false /* privateDnsProbeSent */);
@@ -7680,7 +7692,7 @@ public class ConnectivityServiceTest {
         ExpectedBroadcast b = expectConnectivityAction(1);
 
         verifyNoNetwork();
-        TestNetworkAgentWrapper wifiAware = new TestNetworkAgentWrapper(TRANSPORT_WIFI_AWARE);
+        TestNetworkAgentWrapper wifiAware = createNetworkAgent(TRANSPORT_WIFI_AWARE);
         assertNull(mCm.getActiveNetworkInfo());
 
         Network[] allNetworks = mCm.getAllNetworks();
@@ -7751,7 +7763,7 @@ public class ConnectivityServiceTest {
 
         // Verify direct routes are added when network agent is first registered in
         // ConnectivityService.
-        TestNetworkAgentWrapper networkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, lp);
+        TestNetworkAgentWrapper networkAgent = createNetworkAgent(TRANSPORT_WIFI, lp);
         networkAgent.connect(true);
         networkCallback.expect(AVAILABLE, networkAgent);
         networkCallback.expect(NETWORK_CAPS_UPDATED, networkAgent);
@@ -8118,7 +8130,7 @@ public class ConnectivityServiceTest {
         final String vcnIface = "ipsec42";
         final LinkProperties lp = new LinkProperties();
         lp.setInterfaceName(vcnIface);
-        final TestNetworkAgentWrapper vcn = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, lp, nc);
+        final TestNetworkAgentWrapper vcn = createNetworkAgent(TRANSPORT_CELLULAR, lp, nc);
         vcn.setUnderlyingNetworks(List.of(mWiFiAgent.getNetwork()));
         vcn.connect(false /* validated */);
 
@@ -11350,7 +11362,7 @@ public class ConnectivityServiceTest {
         final int legacyType = transportToLegacyType(transportType);
         final LinkProperties lp = new LinkProperties();
         lp.setInterfaceName(transportToTestIfaceName(transportType));
-        final TestNetworkAgentWrapper agent = new TestNetworkAgentWrapper(transportType, lp);
+        final TestNetworkAgentWrapper agent = createNetworkAgent(transportType, lp);
 
         final ConditionVariable onNetworkActiveCv = new ConditionVariable();
         final ConnectivityManager.OnNetworkActiveListener listener = onNetworkActiveCv::open;
@@ -11401,7 +11413,7 @@ public class ConnectivityServiceTest {
 
         final LinkProperties lp = new LinkProperties();
         lp.setInterfaceName(transportToTestIfaceName(transportType));
-        final TestNetworkAgentWrapper agent = new TestNetworkAgentWrapper(transportType, lp);
+        final TestNetworkAgentWrapper agent = createNetworkAgent(transportType, lp);
 
         testAndCleanup(() -> {
             mCm.addDefaultNetworkActiveListener(listener);
@@ -15232,7 +15244,7 @@ public class ConnectivityServiceTest {
         final NetworkCapabilities oemPaidNc = new NetworkCapabilities();
         oemPaidNc.addCapability(NET_CAPABILITY_OEM_PAID);
         oemPaidNc.removeCapability(NET_CAPABILITY_NOT_RESTRICTED);
-        final TestNetworkAgentWrapper oemPaidAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR,
+        final TestNetworkAgentWrapper oemPaidAgent = createNetworkAgent(TRANSPORT_CELLULAR,
                 new LinkProperties(), oemPaidNc);
         oemPaidAgent.connect(true);
 
@@ -15749,7 +15761,7 @@ public class ConnectivityServiceTest {
         final NetworkCapabilities workNc = new NetworkCapabilities();
         workNc.addCapability(NET_CAPABILITY_ENTERPRISE);
         workNc.removeCapability(NET_CAPABILITY_NOT_RESTRICTED);
-        return new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, new LinkProperties(), workNc);
+        return createNetworkAgent(TRANSPORT_CELLULAR, new LinkProperties(), workNc);
     }
 
     private TestNetworkAgentWrapper makeEnterpriseNetworkAgent(int enterpriseId) throws Exception {
@@ -15757,7 +15769,7 @@ public class ConnectivityServiceTest {
         workNc.addCapability(NET_CAPABILITY_ENTERPRISE);
         workNc.removeCapability(NET_CAPABILITY_NOT_RESTRICTED);
         workNc.addEnterpriseId(enterpriseId);
-        return new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, new LinkProperties(), workNc);
+        return createNetworkAgent(TRANSPORT_CELLULAR, new LinkProperties(), workNc);
     }
 
     private TestNetworkCallback mEnterpriseCallback;
@@ -17233,7 +17245,7 @@ public class ConnectivityServiceTest {
                 .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
                 .setAllowedUids(uids)
                 .build();
-        final TestNetworkAgentWrapper agent = new TestNetworkAgentWrapper(TRANSPORT_TEST,
+        final TestNetworkAgentWrapper agent = createNetworkAgent(TRANSPORT_TEST,
                 new LinkProperties(), nc);
         agent.connect(true);
         cb.expectAvailableThenValidatedCallbacks(agent);
@@ -18668,7 +18680,7 @@ public class ConnectivityServiceTest {
         final TestNetworkCallback defaultCallback = new TestNetworkCallback();
         final LinkProperties lp = new LinkProperties();
         lp.setInterfaceName(transportToTestIfaceName(transportType));
-        final TestNetworkAgentWrapper agent = new TestNetworkAgentWrapper(transportType, lp);
+        final TestNetworkAgentWrapper agent = createNetworkAgent(transportType, lp);
         testAndCleanup(() -> {
             final UidFrozenStateChangedCallback uidFrozenStateChangedCallback =
                     getUidFrozenStateChangedCallback().get();
@@ -18848,6 +18860,30 @@ public class ConnectivityServiceTest {
         waitForIdle();
 
         verifyClatdStop(null /* inOrder */, MOBILE_IFNAME);
+    }
+
+    private void destroyAllCreatedNetworkAgent() throws Exception {
+        for (TestNetworkAgentWrapper agent : mCreatedNetworkAgents) {
+            agent.disconnect();
+            agent.destroy();
+        }
+    }
+
+    private TestNetworkAgentWrapper createNetworkAgent(int transport) throws Exception {
+        return createNetworkAgent(transport, new LinkProperties(), null /* ncTemplate */);
+    }
+
+    private TestNetworkAgentWrapper createNetworkAgent(int transport, LinkProperties linkProperties)
+            throws Exception {
+        return createNetworkAgent(transport, linkProperties, null /* ncTemplate */);
+    }
+
+    private TestNetworkAgentWrapper createNetworkAgent(int transport, LinkProperties linkProperties,
+            NetworkCapabilities ncTemplate) throws Exception {
+        final TestNetworkAgentWrapper agent =
+                new TestNetworkAgentWrapper(transport, linkProperties, ncTemplate);
+        mCreatedNetworkAgents.add(agent);
+        return agent;
     }
 
     // Note : adding tests is ConnectivityServiceTest is deprecated, as it is too big for
