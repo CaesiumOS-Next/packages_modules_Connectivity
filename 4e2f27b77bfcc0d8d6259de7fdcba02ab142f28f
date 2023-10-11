@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3482e99f_8fc7aeb8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-11T04:22:42Z",
+      "side": 1,
+      "message": "Carry-forward +2 since no change from last review.",
+      "revId": "4e2f27b77bfcc0d8d6259de7fdcba02ab142f28f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
