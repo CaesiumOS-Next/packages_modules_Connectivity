@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c995f03_2a5d1b3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-11T02:54:15Z",
+      "side": 1,
+      "message": "LGTM assuming TH is happy.",
+      "revId": "d55e006bf98de1454d615be1d9ed387209032e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25b35e68_3c52ea16",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-11T02:54:15Z",
+      "side": 1,
+      "message": "Not sure if it is a real problem, but you might want to have a look at this lint error.\n\nPlease fix this ERROR reported by Crash Detector: * JAVA_CRASH in `com.android.connectivity.tests.coverage`, [link to test invocation](http://ab/I99700010206108073) [(Silence Crash)](https://b.corp.google.com/issues/new?component\u003d184315\u0026title\u003dAdd%20crash%20cluster%20to%20ignorelist\u0026type\u003dPR...\n\nAnalyzer Description: Detect crashes introduced by the CL.\nOwner: android-realtime-stability-team@google.com\n\n* JAVA_CRASH in `com.android.connectivity.tests.coverage`, [link to test invocation](http://ab/I99700010206108073) [(Silence Crash)](https://b.corp.google.com/issues/new?component\u003d184315\u0026title\u003dAdd%20crash%20cluster%20to%20ignorelist\u0026type\u003dPROCESS\u0026priority\u003dP0\u0026severity\u003dS0\u0026assignee\u003dkevcheng@google.com\u0026format\u003dMARKDOWN\u0026description\u003dPlease%20add%20this%20crash%20to%20the%20ignorelist:%0A*%20crash%20cluster:%209646711430778903450%0A*%20cluster%20version:%204%0A*%20process%20name:%20com.android.connectivity.tests.coverage%0A*%20change%20numbers:%202361720,2539630,2775660,2777669,2777670%0A*%20hostname:%20android)\n  * Trace [link to artifact](https://android-build.googleplex.com/builds/bug_tool?url\u003dhttps%3A%2F%2Fandroid-build.googleplex.com%2Fbuilds%2FI99700010206108073%2Fgit_main%2FP63797877%2Ftest-mapping-mainline-presubmit%2Finv_15510703980071665832%2Fsandbox-android.net.connectivity.com.android.server.CSLocalAgentCreationTests%2523testLocalAgents%5B2%5D-127.0.0.1%3A38735-logcat-on-failure_6842323610222753022.txt):\n\n```\nFATAL EXCEPTION: pool-2-thread-1\nProcess: com.android.connectivity.tests.coverage, PID: 4078\nWanted but not invoked:\niNetworkMonitor.notifyNetworkConnected(\n    \u003cany\u003e,\n    \u003cany\u003e\n);\n-\u003e at android.net.connectivity.com.android.server.CSAgentWrapper.onValidationRequested(CSAgentWrapper.kt:115)\n\nHowever, there were exactly 4 interactions with this mock:\niNetworkMonitor.start();\n-\u003e at android.net.connectivity.com.android.server.ConnectivityService.handleRegisterNetworkAgent(ConnectivityService.java:8172)\n\niNetworkMonitor.notifyNetworkCapabilitiesChanged(\n    [ Transports: WIFI Capabilities: NOT_RESTRICTED\u0026TRUSTED\u0026NOT_VPN\u0026NOT_ROAMING\u0026FOREGROUND\u0026NOT_SUSPENDED\u0026LOCAL_NETWORK UnderlyingNetworks: Null]\n);\n-\u003e at android.net.connectivity.android.net.NetworkMonitorManager.notifyNetworkCapabilitiesChanged(NetworkMonitorManager.java:208)\n\niNetworkMonitor.notifyLinkPropertiesChanged(\n    {LinkAddresses: [ 192.0.2.1/32 ] DnsAddresses: [ ] Domains: null MTU: 0 Routes: [ 0.0.0.0/0 -\u003e 0.0.0.0 mtu 0,192.0.2.1/32 -\u003e 0.0.0.0 mtu 0 ]}\n);\n-\u003e at android.net.connectivity.android.net.NetworkMonitorManager.notifyLinkPropertiesChanged(NetworkMonitorManager.java:195)\n\niNetworkMonitor.notifyNetworkConnectedParcel(\n    NetworkMonitorParameters{networkAgentConfig: NetworkAgentConfig { allowBypass \u003d false, explicitlySelected \u003d false, acceptUnvalidated \u003d false, acceptPartialConnectivity \u003d false, provisioningNotificationDisabled \u003d false, subscriberId \u003d \u0027null\u0027, skip464xlat \u003d false, legacyType \u003d 1, legacySubType \u003d -1, hasShownBroken \u003d false, legacyTypeName \u003d \u0027\u0027, legacySubTypeName \u003d \u0027\u0027, legacyExtraInfo \u003d \u0027\u0027, excludeLocalRouteVpn \u003d \u0027false\u0027, vpnRequiresValidation \u003d \u0027false\u0027}, networkCapabilities: [ Transports: WIFI Capabilities: NOT_RESTRICTED\u0026TRUSTED\u0026NOT_VPN\u0026NOT_ROAMING\u0026FOREGROUND\u0026NOT_SUSPENDED\u0026LOCAL_NETWORK UnderlyingNetworks: Null], linkProperties: {LinkAddresses: [ 192.0.2.1/32 ] DnsAddresses: [ ] Domains: null MTU: 0 Routes: [ 0.0.0.0/0 -\u003e 0.0.0.0 mtu 0,192.0.2.1/32 -\u003e 0.0.0.0 mtu 0 ]}}\n);\n-\u003e at android.net.connectivity.android.net.NetworkMonitorManager.notifyNetworkConnected(NetworkMonitorManager.java:169)\n\n\n\tat android.net.connectivity.com.android.server.CSAgentWrapper.onValidationRequested(CSAgentWrapper.kt:115)\n\tat android.net.connectivity.com.android.server.CSAgentWrapper.access$onValidationRequested(CSAgentWrapper.kt:62)\n\tat android.net.connectivity.com.android.server.CSAgentWrapper$validateAnswer$1$1.run(CSAgentWrapper.kt:84)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)\n\tat java.lang.Thread.run(Thread.java:920)\n...\n```",
+      "range": {
+        "startLine": 0,
+        "startChar": 0,
+        "endLine": 0,
+        "endChar": 0
+      },
+      "revId": "d55e006bf98de1454d615be1d9ed387209032e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bc06fe3_c7ea4d30",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-11T02:54:15Z",
+      "side": 1,
+      "message": "nit: do we want to define timeout constant somewhere?\nor use existing timeout?",
+      "range": {
+        "startLine": 158,
+        "startChar": 40,
+        "endLine": 158,
+        "endChar": 56
+      },
+      "revId": "d55e006bf98de1454d615be1d9ed387209032e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b66f2cce_62767636",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTestHelpers.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-11T02:54:15Z",
+      "side": 1,
+      "message": "How is this number choosed, maybe add short comment?",
+      "range": {
+        "startLine": 111,
+        "startChar": 36,
+        "endLine": 111,
+        "endChar": 44
+      },
+      "revId": "d55e006bf98de1454d615be1d9ed387209032e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
