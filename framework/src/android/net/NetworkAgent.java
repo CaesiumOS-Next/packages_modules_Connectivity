@@ -763,7 +763,7 @@ public abstract class NetworkAgent {
                     mInitialConfiguration.properties, mInitialConfiguration.capabilities,
                     mInitialConfiguration.localNetworkConfig, mInitialConfiguration.score,
                     mInitialConfiguration.config, providerId);
-            mInitialConfiguration = null; // All this memory can now be GC'd
+            //mInitialConfiguration = null; // All this memory can now be GC'd
         }
         return mNetwork;
     }

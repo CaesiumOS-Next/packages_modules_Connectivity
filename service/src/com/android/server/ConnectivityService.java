@@ -8428,7 +8428,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         mKeepaliveTracker.handleCheckKeepalivesStillValid(networkAgent);
 
-        updateStubNetworkInfo(newLp, oldLp);
+        //updateStubNetworkInfo(newLp, oldLp);
     }
 
     private void applyInitialLinkProperties(@NonNull NetworkAgentInfo nai) {

@@ -104,6 +104,11 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
     private final List<ScheduleMigrationOperation> mOngoingMigrationOperations = new LinkedList<>();
     private final List<OutcomeReceiver<Void, ThreadNetworkException>> mOngoingDetachReceivers =
             new LinkedList<>();
+    private final NetworkRequest mNetworkRequest =
+            new NetworkRequest.Builder()
+                              //.removeForbiddenCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK)
+                              .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                              .build();
     private IOtDaemon mOtDaemon;
     private NetworkAgent mNetworkAgent;
     private volatile Network mNetwork;
@@ -150,6 +155,7 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
     private static NetworkCapabilities newNetworkCapabilities() {
         return new NetworkCapabilities.Builder()
                 .addTransportType(NetworkCapabilities.TRANSPORT_THREAD)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK)
                 .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
                 .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
                 .build();
@@ -338,8 +344,8 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
                                 mOtDaemon
                                         .onInfraInterfaceStateChanged(infraIfName, true, sockFd);
                                 Log.i(TAG, "444444444444444444");
-                                mLinkProperties.setStubNetworkInfo(
-                                        new StubNetworkInfo(infraIfName));
+                                //mLinkProperties.setStubNetworkInfo(
+                                //        new StubNetworkInfo(infraIfName));
                                 if (mNetworkAgent != null) {
                                     mNetworkAgent.sendLinkProperties(mLinkProperties);
                                 }
@@ -355,6 +361,7 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
     private void requestThreadNetwork() {
         NetworkRequest request =
                 new NetworkRequest.Builder()
+                        .removeForbiddenCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK)
                         .addTransportType(NetworkCapabilities.TRANSPORT_THREAD)
                         .build();
         mConnectivityManager.requestNetwork(request, new ConnectivityManager.NetworkCallback());
@@ -372,6 +379,9 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
                         TAG,
                         netCaps,
                         mLinkProperties,
+                        new LocalNetworkConfig.Builder()
+                                 .setUpstreamSelector(mNetworkRequest)
+                                .build(),
                         new NetworkScore.Builder().build(),
                         new NetworkAgentConfig.Builder().build(),
                         mNetworkProvider);
@@ -413,6 +423,13 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
     private void updateNetworkLinkProperties(LinkAddress linkAddress, boolean isAdded) {
         if (isAdded) {
             mLinkProperties.addLinkAddress(linkAddress);
+            mLinkProperties.addRoute(
+                    new RouteInfo(
+                            new IpPrefix(linkAddress.getAddress(), 64),
+                            null,
+                            "thread-wpan",
+                            RouteInfo.RTN_UNICAST,
+                            1500));
         } else {
             mLinkProperties.removeLinkAddress(linkAddress);
         }
@@ -769,10 +786,11 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
             @NonNull String logTag,
             @NonNull NetworkCapabilities nc,
             @NonNull LinkProperties lp,
+            @NonNull LocalNetworkConfig lnc,
             @NonNull NetworkScore score,
             @NonNull NetworkAgentConfig config,
             @Nullable NetworkProvider provider) {
-        return new NetworkAgent(context, looper, logTag, nc, lp, score, config, provider) {
+        return new NetworkAgent(context, looper, logTag, nc, lp, lnc, score, config, provider) {
             @Override
             public void onNetworkUnwanted() {
                 if (mNetworkAgent == null) {
