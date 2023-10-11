@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0fbf8aa_709e8725",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-11T23:03:25Z",
+      "side": 1,
+      "message": "Indeed.",
+      "parentUuid": "3e210db9_878d89e9",
+      "range": {
+        "startLine": 135,
+        "startChar": 87,
+        "endLine": 135,
+        "endChar": 89
+      },
+      "revId": "11b7635013d98d27d70f6538c612b3ef0514b20c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5d32699_11e11050",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d57b2abb_ccd673a3",
+        "filename": "framework/src/android/net/RoutingCoordinatorManager.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-11T23:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5d32699_11e11050",
+      "range": {
+        "startLine": 29,
+        "startChar": 62,
+        "endLine": 29,
+        "endChar": 69
+      },
+      "revId": "11b7635013d98d27d70f6538c612b3ef0514b20c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1c8ef8c_77961f2f",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-10-11T07:56:17Z",
       "side": 1,
       "message": "nits: from this comment, I thought netd arg is used only from the tests but it seems ConnectivityService call this constructor with non-null netd, which is a only caller of this constructor.\nIf we always pass non-null netd, I felt it\u0027s better to update annotation and comment.",
+      "range": {
+        "startLine": 34,
+        "startChar": 56,
+        "endLine": 35,
+        "endChar": 28
+      },
+      "revId": "11b7635013d98d27d70f6538c612b3ef0514b20c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ec49d2a_0c87c1d2",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-11T23:03:25Z",
+      "side": 1,
+      "message": "Makes sense. Done.",
+      "parentUuid": "b1c8ef8c_77961f2f",
       "range": {
         "startLine": 34,
         "startChar": 56,
