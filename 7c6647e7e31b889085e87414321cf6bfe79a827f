@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5c6b7c4_9d61d0e6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 4893,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-11T10:33:18Z",
+      "side": 1,
+      "message": "nits: It would helpful if the comment also mention that `maybeDisableForwardRulesForDisconnectingNai` also disable forwarding if this was a upstream of other local networks.",
+      "range": {
+        "startLine": 4893,
+        "startChar": 65,
+        "endLine": 4893,
+        "endChar": 66
+      },
+      "revId": "7c6647e7e31b889085e87414321cf6bfe79a827f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93bb8280_2e2b5b79",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 4894,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-11T10:33:18Z",
+      "side": 1,
+      "message": "Don\u0027t we need to remove networkRequest for upstreamSelector after this if nai is for local network?",
+      "range": {
+        "startLine": 4894,
+        "startChar": 56,
+        "endLine": 4894,
+        "endChar": 57
+      },
+      "revId": "7c6647e7e31b889085e87414321cf6bfe79a827f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9cf00f9_7ff89fb3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 5037,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-11T10:33:18Z",
+      "side": 1,
+      "message": "nits: this log could be confusing since upstream network (not the local network) might be the disconnecting network.",
+      "range": {
+        "startLine": 5037,
+        "startChar": 75,
+        "endLine": 5037,
+        "endChar": 97
+      },
+      "revId": "7c6647e7e31b889085e87414321cf6bfe79a827f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

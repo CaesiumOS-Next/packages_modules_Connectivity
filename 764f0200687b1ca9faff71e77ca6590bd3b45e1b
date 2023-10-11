@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6609bd90_4abf98a6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 8927,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-11T10:33:18Z",
+      "side": 1,
+      "message": "I think `NetworkRequest.Type.NONE \u003d\u003d newRequest.type` corresponds to `or if it\u0027s the first time this local info is updated and the request has not been filed yet.`\n\nBut how do we guarantee that the type of upstreamSelector in newRequest is NONE when the this local info is updated for the first time and the type is not NONE after that?",
+      "range": {
+        "startLine": 8927,
+        "startChar": 53,
+        "endLine": 8927,
+        "endChar": 96
+      },
+      "revId": "764f0200687b1ca9faff71e77ca6590bd3b45e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b7c7ce7_0a169f2b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 8946,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-11T10:33:18Z",
+      "side": 1,
+      "message": "If newCaps and oldCaps is the same and request type is not None, `if (null !\u003d newRequest \u0026\u0026 ...)` block is skipped and upstreamSelector in the configBuilder will be null.\nDon\u0027t we have this case?",
+      "range": {
+        "startLine": 8946,
+        "startChar": 33,
+        "endLine": 8946,
+        "endChar": 55
+      },
+      "revId": "764f0200687b1ca9faff71e77ca6590bd3b45e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
