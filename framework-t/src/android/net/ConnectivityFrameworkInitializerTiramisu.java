@@ -16,6 +16,10 @@
 
 package android.net;
 
+import static java.util.Objects.requireNonNull;
+
+import android.annotation.FlaggedApi;
+import android.annotation.NonNull;
 import android.annotation.SystemApi;
 import android.app.SystemServiceRegistry;
 import android.app.usage.NetworkStatsManager;
@@ -25,7 +29,13 @@ import android.net.nsd.INsdManager;
 import android.net.nsd.MDnsManager;
 import android.net.nsd.NsdManager;
 import android.net.thread.IThreadNetworkManager;
+import android.net.thread.ThreadNetworkFlags;
 import android.net.thread.ThreadNetworkManager;
+import android.os.IBinder;
+
+import com.android.internal.util.Preconditions;
+
+import java.util.function.Supplier;
 
 /**
  * Class for performing registration for Connectivity services which are exposed via updatable APIs
@@ -36,6 +46,30 @@ import android.net.thread.ThreadNetworkManager;
 @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
 public final class ConnectivityFrameworkInitializerTiramisu {
     private ConnectivityFrameworkInitializerTiramisu() {}
+
+    private static Supplier<IBinder> sThreadDaemonServiceSupplier;
+
+    /**
+     * Sets a {@link Supplier} of the Thread daemon binder service (i.e. "ot_daemon").
+     */
+    @FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_ENABLED)
+    public static void setThreadDaemonServiceSupplier(
+            @NonNull Supplier<IBinder> threadDaemonServiceSupplier) {
+        Preconditions.checkState(sThreadDaemonServiceSupplier == null,
+                "setThreadDaemonServiceSupplier called twice!");
+        sThreadDaemonServiceSupplier = requireNonNull(threadDaemonServiceSupplier);
+    }
+
+    /**
+     * Returns the {@link Supplier} for retrieving the Thread daemon binder service.
+     *
+     * This should only be called by the ThreadNetworkService.
+     *
+     * @hide
+     */
+    public static Supplier<IBinder> getThreadDaemonServiceSupplier() {
+        return sThreadDaemonServiceSupplier;
+    }
 
     /**
      * Called by {@link SystemServiceRegistry}'s static initializer and registers NetworkStats, nsd,
