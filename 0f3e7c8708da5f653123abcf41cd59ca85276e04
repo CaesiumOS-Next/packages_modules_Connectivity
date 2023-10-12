@@ -16,6 +16,24 @@
       "message": "it looks like selector !\u003d null doesn\u0027t necessarily mean it can be found in mNetworkRequests.\n\nI saw the selector could initially have `type \u003d NONE, requestId \u003d 0, legacyType \u003d -1`, which caused crash of `NetworkRequestInfo.getSatisfier()\u0027 on a null object reference`.",
       "revId": "0f3e7c8708da5f653123abcf41cd59ca85276e04",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffa57753_b91f8718",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 9317,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-12T14:43:03Z",
+      "side": 1,
+      "message": "This should be because of the bug that Motomu detected in l.8957. If you can find other cases where you get a crash please let me know how to trigger it.\n\nThe selector should never have type \u003d NONE when coming here because localNetworkConfig is never assigned directly from what is sent by the agent (see handleUpdateLocalNetworkConfig – it will always be reworked into a LISTEN_FOR_BEST.",
+      "parentUuid": "40e84b67_7029308b",
+      "revId": "0f3e7c8708da5f653123abcf41cd59ca85276e04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
