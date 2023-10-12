@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca58f1ba_639c233b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-12T07:48:38Z",
+      "side": 1,
+      "message": "LGTM assuming comments are addressed",
+      "revId": "f7f6b6f41cd7717823b6b19d53f4a43b53bd6cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4e88637_378261fd",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 9384,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-12T07:48:38Z",
+      "side": 1,
+      "message": "Please don\u0027t just comment out. Either remove the code, or if you want to leave this as documentation you can say `This is equivalent to mMockVpn.onUserAdded(...)`",
+      "range": {
+        "startLine": 9384,
+        "startChar": 9,
+        "endLine": 9384,
+        "endChar": 10
+      },
+      "revId": "f7f6b6f41cd7717823b6b19d53f4a43b53bd6cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e438247_664dc450",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 9413,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-12T07:48:38Z",
+      "side": 1,
+      "message": "likewise",
+      "range": {
+        "startLine": 9413,
+        "startChar": 9,
+        "endLine": 9413,
+        "endChar": 10
+      },
+      "revId": "f7f6b6f41cd7717823b6b19d53f4a43b53bd6cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "763b5f3e_3be24dfe",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 9482,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-12T07:48:38Z",
+      "side": 1,
+      "message": "Outdated",
+      "range": {
+        "startLine": 9482,
+        "startChar": 11,
+        "endLine": 9482,
+        "endChar": 40
+      },
+      "revId": "f7f6b6f41cd7717823b6b19d53f4a43b53bd6cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f248880b_48558e84",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 9483,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-12T07:48:38Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 9483,
+        "startChar": 11,
+        "endLine": 9483,
+        "endChar": 18
+      },
+      "revId": "f7f6b6f41cd7717823b6b19d53f4a43b53bd6cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
