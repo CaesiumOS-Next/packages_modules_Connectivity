@@ -16,6 +16,24 @@
       "message": "I talked with Patrick. \nThis revert was created since we wanted to pass isAtleastV() as a default argument to enable feature on V devices.\nBut it seems `isAtleastV() || isFeatureEnabled()` is enough for us.\nThis loses the ability to force disable the feature on V but this should be fine for now.",
       "revId": "c88fb4e90b73948ade4fd7e4093bf3de0b364224",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36b2586b_eaf89ce9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-12T05:20:22Z",
+      "side": 1,
+      "message": "Hmm, I\u0027m not sure that\u0027s enough...\nisAtLeastV() is likely true in aosp/main,\nbut it\u0027s probably false on ZP1A and/or in goog/main?\nafter all goog/main is heading to 24Q1 which is *not* V...\nI wonder...",
+      "parentUuid": "833567c5_a7ff0a9e",
+      "revId": "c88fb4e90b73948ade4fd7e4093bf3de0b364224",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
