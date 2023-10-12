@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "833567c5_a7ff0a9e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-12T03:39:14Z",
+      "side": 1,
+      "message": "I talked with Patrick. \nThis revert was created since we wanted to pass isAtleastV() as a default argument to enable feature on V devices.\nBut it seems `isAtleastV() || isFeatureEnabled()` is enough for us.\nThis loses the ability to force disable the feature on V but this should be fine for now.",
+      "revId": "c88fb4e90b73948ade4fd7e4093bf3de0b364224",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
