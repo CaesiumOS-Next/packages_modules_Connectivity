@@ -187,6 +187,10 @@ java_sdk_library {
         "//packages/modules/NetworkStack/tests:__subpackages__",
         "//packages/modules/Wifi/service/tests/wifitests",
     ],
+    droiddoc_options: [
+        "--hide MissingNullability",
+        "--hide NoClone",
+    ],
 }
 
 // This rule is not used anymore(b/268440216).
