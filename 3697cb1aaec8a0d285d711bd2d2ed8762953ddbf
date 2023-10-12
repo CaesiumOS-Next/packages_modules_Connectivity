@@ -46,6 +46,30 @@
       },
       "revId": "3697cb1aaec8a0d285d711bd2d2ed8762953ddbf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0a2a604_03db4e36",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsEventLogger.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-12T09:59:38Z",
+      "side": 1,
+      "message": "Assumes there is no more concern for this.\nClose since this is addressed.\nFeel free to open if any idea.",
+      "parentUuid": "3950cce0_2e530153",
+      "range": {
+        "startLine": 64,
+        "startChar": 47,
+        "endLine": 64,
+        "endChar": 49
+      },
+      "revId": "3697cb1aaec8a0d285d711bd2d2ed8762953ddbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
