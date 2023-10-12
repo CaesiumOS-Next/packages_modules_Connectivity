@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e50f9a7a_d3b9911b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-12T02:57:05Z",
+      "side": 1,
+      "message": "Could you add more comments here why this should move to NetworkStatsEventLogger?",
+      "range": {
+        "startLine": 463,
+        "startChar": 6,
+        "endLine": 463,
+        "endChar": 45
+      },
+      "revId": "21a955672180c7f7539bfa48ea9484ec3c1eab88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "762fcffa_ac6c1fbf",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-12T02:57:05Z",
+      "side": 1,
+      "message": "If this is an invalid event number, this constructor will throw and crash the system. But this is not protected by flag, i.e. Disable the flag will not help here.\n\nYou may need another helper method or extra check here to ensure the arg is an valid number.",
+      "range": {
+        "startLine": 536,
+        "startChar": 64,
+        "endLine": 536,
+        "endChar": 72
+      },
+      "revId": "21a955672180c7f7539bfa48ea9484ec3c1eab88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
