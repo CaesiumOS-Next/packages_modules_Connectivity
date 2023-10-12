@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f0160d1_2cf428bb",
+        "filename": "framework/src/android/net/LocalNetworkConfig.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-10-12T09:07:57Z",
+      "side": 1,
+      "message": "Is `NetworkRequest` able to represent the following demand?\n\n\nThe AIL needs to be multicast capable so it should be a non-cellular default network. For example, if the default network is cellular but there is also local-only Wi-Fi network, the AIL should be the Wi-Fi network.",
+      "revId": "ed1230f51ea84bc24e76a8821d69d8a69733c23e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
