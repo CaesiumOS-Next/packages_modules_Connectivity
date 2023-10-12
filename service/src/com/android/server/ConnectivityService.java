@@ -303,6 +303,7 @@ import com.android.server.connectivity.DnsManager;
 import com.android.server.connectivity.DnsManager.PrivateDnsValidationUpdate;
 import com.android.server.connectivity.DscpPolicyTracker;
 import com.android.server.connectivity.FullScore;
+import com.android.server.connectivity.HandlerUtils;
 import com.android.server.connectivity.InvalidTagException;
 import com.android.server.connectivity.KeepaliveResourceUtil;
 import com.android.server.connectivity.KeepaliveTracker;
@@ -1255,16 +1256,21 @@ public class ConnectivityService extends IConnectivityManager.Stub
         private static final String PRIORITY_ARG = "--dump-priority";
         private static final String PRIORITY_ARG_HIGH = "HIGH";
         private static final String PRIORITY_ARG_NORMAL = "NORMAL";
+        private static final int DUMPSYS_DEFAULT_TIMEOUT_MS = 10_000;
 
         LocalPriorityDump() {}
 
         private void dumpHigh(FileDescriptor fd, PrintWriter pw) {
-            doDump(fd, pw, new String[] {DIAG_ARG});
-            doDump(fd, pw, new String[] {SHORT_ARG});
+            HandlerUtils.runWithScissors(mHandler, () -> {
+                doDump(fd, pw, new String[] {DIAG_ARG});
+                doDump(fd, pw, new String[] {SHORT_ARG});
+            }, DUMPSYS_DEFAULT_TIMEOUT_MS);
+
         }
 
         private void dumpNormal(FileDescriptor fd, PrintWriter pw, String[] args) {
-            doDump(fd, pw, args);
+            HandlerUtils.runWithScissors(mHandler, () -> doDump(fd, pw, args),
+                    DUMPSYS_DEFAULT_TIMEOUT_MS);
         }
 
         public void dump(FileDescriptor fd, PrintWriter pw, String[] args) {
