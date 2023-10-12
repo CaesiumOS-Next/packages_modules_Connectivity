@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffe0adfd_d9548e9f",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-12T11:35:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b41ef04_7476fedd",
+      "range": {
+        "startLine": 157,
+        "startChar": 25,
+        "endLine": 157,
+        "endChar": 41
+      },
+      "revId": "bbb4db4213cab0d3f804ddc6422db57b977c2431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86793e11_937a2e24",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-12T07:52:31Z",
       "side": 1,
       "message": "@NonNull ?",
+      "range": {
+        "startLine": 180,
+        "startChar": 39,
+        "endLine": 180,
+        "endChar": 45
+      },
+      "revId": "bbb4db4213cab0d3f804ddc6422db57b977c2431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "139401a5_8b912a24",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-12T11:35:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86793e11_937a2e24",
       "range": {
         "startLine": 180,
         "startChar": 39,
@@ -93,6 +141,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27c3d363_85853825",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-12T11:35:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22d9c001_42cec92a",
+      "range": {
+        "startLine": 182,
+        "startChar": 12,
+        "endLine": 182,
+        "endChar": 21
+      },
+      "revId": "bbb4db4213cab0d3f804ddc6422db57b977c2431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33dd7b34_c6126dff",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-12T11:35:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d37e2492_392c65b3",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 89
+      },
+      "revId": "bbb4db4213cab0d3f804ddc6422db57b977c2431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb596a12_f74c523a",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-10-12T07:52:31Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 194,
+        "startChar": 12,
+        "endLine": 194,
+        "endChar": 21
+      },
+      "revId": "bbb4db4213cab0d3f804ddc6422db57b977c2431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02c3c566_0085fa92",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-12T11:35:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb596a12_f74c523a",
       "range": {
         "startLine": 194,
         "startChar": 12,
