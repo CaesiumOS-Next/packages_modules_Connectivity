@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bbc31a8_d8726b29",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2135,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-12T09:16:44Z",
+      "side": 1,
+      "message": "This should be nullable?",
+      "range": {
+        "startLine": 2135,
+        "startChar": 56,
+        "endLine": 2135,
+        "endChar": 63
+      },
+      "revId": "8ca23411a0af2fb4b2256f5fb84b071229985bc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
