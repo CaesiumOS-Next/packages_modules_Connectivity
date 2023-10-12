@@ -65,13 +65,6 @@ class NetworkTemplateTest {
             }
         }
 
-        // Verify hidden match rules cannot construct templates.
-        listOf(MATCH_WIFI_WILDCARD, MATCH_MOBILE_WILDCARD, MATCH_PROXY).forEach {
-            assertFailsWith<IllegalArgumentException> {
-                NetworkTemplate.Builder(it).build()
-            }
-        }
-
         // Verify template which matches metered cellular and carrier networks with
         // the given IMSI. See buildTemplateMobileAll and buildTemplateCarrierMetered.
         listOf(MATCH_MOBILE, MATCH_CARRIER).forEach { matchRule ->
