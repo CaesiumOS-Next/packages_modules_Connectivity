@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d6fda9b_e947abb4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1664,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-10-12T10:51:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d5fc699_974a3915",
+      "range": {
+        "startLine": 1664,
+        "startChar": 34,
+        "endLine": 1664,
+        "endChar": 50
+      },
+      "revId": "2bee7c03c895b7933dc89d16d3ffe80df3a54ead",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63b77e54_7f9b53ba",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-05T07:44:38Z",
       "side": 1,
       "message": "No this is actually the correct behavior, but the doc for getActiveNetworkInfo dates from a time when a technical limitation made this impossible.\n\nInstead of changing this, we should correct the documentation for getActiveNetworkInfo. Please take care when you update the documentation to explain the difference in behavior in T- and U+. You could say something like\n\n    In case the default network is a VPN, the system will try to send the correct\n    NetworkInfo, but technical limitations prevent this from working in all cases\n    for legacy technologies. This will always work for more modern VPNs, but for\n    legacy VPNs this may return the NetworkInfo for an underlying network instead.",
+      "range": {
+        "startLine": 10253,
+        "startChar": 21,
+        "endLine": 10253,
+        "endChar": 96
+      },
+      "revId": "2bee7c03c895b7933dc89d16d3ffe80df3a54ead",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2502aa23_1c941666",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 10253,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-10-12T10:51:52Z",
+      "side": 1,
+      "message": "Removed the TODO. Will update the doc in a separate cl.",
+      "parentUuid": "63b77e54_7f9b53ba",
       "range": {
         "startLine": 10253,
         "startChar": 21,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5118b7a9_4831b0ed",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 10256,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-10-12T10:51:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9bcc3d3_11b917ba",
+      "range": {
+        "startLine": 10256,
+        "startChar": 12,
+        "endLine": 10256,
+        "endChar": 35
+      },
+      "revId": "2bee7c03c895b7933dc89d16d3ffe80df3a54ead",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6317cd89_055c0279",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-10-05T07:44:38Z",
       "side": 1,
       "message": "Let\u0027s also explain that the default callback doesn\u0027t get a call to AVAILABLE with the system-wide default, because it under the VpnDefault preference, meaning it doesn\u0027t have a default network when the VPN is disconnected.",
+      "range": {
+        "startLine": 10301,
+        "startChar": 51,
+        "endLine": 10301,
+        "endChar": 52
+      },
+      "revId": "2bee7c03c895b7933dc89d16d3ffe80df3a54ead",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8621ea63_7bcfcef7",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 10301,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-10-12T10:51:52Z",
+      "side": 1,
+      "message": "Done. \nIt does get the AVAILABLE callbacks after the vpn default preference is cleared when vpn was stopped and disconnected. \nAdded a comment for this.",
+      "parentUuid": "6317cd89_055c0279",
       "range": {
         "startLine": 10301,
         "startChar": 51,
