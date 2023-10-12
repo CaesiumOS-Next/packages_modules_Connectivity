@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d533ed4_53800cc2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 8927,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-12T14:03:30Z",
+      "side": 1,
+      "message": "Because the request is filed with type LISTEN_FOR_BEST as you can see in l.8934. I think you were confused by the TYPE_NONE in l.8933.\n\nI updated the comment to clarify, and qualified TYPE_NONE as `ConnectivityManager.TYPE_NONE` to try and make more ovbious that these are two different things.",
+      "parentUuid": "6609bd90_4abf98a6",
+      "range": {
+        "startLine": 8927,
+        "startChar": 53,
+        "endLine": 8927,
+        "endChar": 96
+      },
+      "revId": "764f0200687b1ca9faff71e77ca6590bd3b45e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b7c7ce7_0a169f2b",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-11T10:33:18Z",
       "side": 1,
       "message": "If newCaps and oldCaps is the same and request type is not None, `if (null !\u003d newRequest \u0026\u0026 ...)` block is skipped and upstreamSelector in the configBuilder will be null.\nDon\u0027t we have this case?",
+      "range": {
+        "startLine": 8946,
+        "startChar": 33,
+        "endLine": 8946,
+        "endChar": 55
+      },
+      "revId": "764f0200687b1ca9faff71e77ca6590bd3b45e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f04a1eb3_230a8c1b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 8946,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-12T14:03:30Z",
+      "side": 1,
+      "message": "Yes, you are absolutely right. Done.\n\nAlso added the test that would have caught it.",
+      "parentUuid": "6b7c7ce7_0a169f2b",
       "range": {
         "startLine": 8946,
         "startChar": 33,
