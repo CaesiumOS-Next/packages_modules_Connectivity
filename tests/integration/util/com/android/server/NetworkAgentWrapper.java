@@ -359,6 +359,11 @@ public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
         mNetworkAgent.unregister();
     }
 
+    public void destroy() throws Exception {
+        mHandlerThread.quitSafely();
+        mHandlerThread.join();
+    }
+
     @Override
     public Network getNetwork() {
         return mNetworkAgent.getNetwork();
