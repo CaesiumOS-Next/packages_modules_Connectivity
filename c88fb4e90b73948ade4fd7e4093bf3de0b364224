@@ -34,6 +34,24 @@
       "parentUuid": "833567c5_a7ff0a9e",
       "revId": "c88fb4e90b73948ade4fd7e4093bf3de0b364224",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a4876cc_3a6ca305",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-12T06:25:50Z",
+      "side": 1,
+      "message": "I\u0027m not sure which condition you will use for defaultEnabled argument.\nBut if you are thinking to use `enabled\u003disFeatureEnabled(someCondition() /* defaultEnabled */)`.\nI think we can do\n`enabled\u003dsomeCondition() || isFeatureEnabled()`\nOr \n`enabled\u003dsomeCondition() ? isFeatureNotChickenedOut() : isFeatureEnabled()`\nSo I don\u0027t think we need this revert CL.",
+      "parentUuid": "36b2586b_eaf89ce9",
+      "revId": "c88fb4e90b73948ade4fd7e4093bf3de0b364224",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
