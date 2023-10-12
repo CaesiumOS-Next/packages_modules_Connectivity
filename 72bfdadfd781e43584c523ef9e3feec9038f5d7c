@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dbd0415_d98028b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-12T08:04:25Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed",
+      "revId": "72bfdadfd781e43584c523ef9e3feec9038f5d7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aca6fc73_bf52448a",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-12T08:04:25Z",
+      "side": 1,
+      "message": "nit : instead of reset(), you can use the lesser hammer `resetInvocations` or better, use `inOrder`.",
+      "range": {
+        "startLine": 810,
+        "startChar": 8,
+        "endLine": 810,
+        "endChar": 13
+      },
+      "revId": "72bfdadfd781e43584c523ef9e3feec9038f5d7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a75ec42b_93e18ce9",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-12T08:04:25Z",
+      "side": 1,
+      "message": "Simpler : `CollectionUtils.map(it -\u003e user.getUid(it))`",
+      "range": {
+        "startLine": 859,
+        "startChar": 58,
+        "endLine": 859,
+        "endChar": 64
+      },
+      "revId": "72bfdadfd781e43584c523ef9e3feec9038f5d7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f59e2f93_03460936",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-12T08:04:25Z",
+      "side": 1,
+      "message": "/* argument name */",
+      "range": {
+        "startLine": 872,
+        "startChar": 57,
+        "endLine": 872,
+        "endChar": 61
+      },
+      "revId": "72bfdadfd781e43584c523ef9e3feec9038f5d7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
