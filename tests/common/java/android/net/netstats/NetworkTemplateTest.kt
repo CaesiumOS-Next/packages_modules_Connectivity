@@ -62,11 +62,6 @@ class NetworkTemplateTest {
             }
         }
 
-        // Verify hidden match rules cannot construct templates.
-        assertFailsWith<IllegalArgumentException> {
-            NetworkTemplate.Builder(MATCH_PROXY).build()
-        }
-
         // Verify template which matches metered cellular and carrier networks with
         // the given IMSI. See buildTemplateMobileAll and buildTemplateCarrierMetered.
         listOf(MATCH_MOBILE, MATCH_CARRIER).forEach { matchRule ->
@@ -180,6 +175,16 @@ class NetworkTemplateTest {
                         OEM_MANAGED_ALL)
                 assertEquals(expectedTemplate, it)
             }
+        }
+
+        // Verify template which matches proxy networks.
+        // See buildTemplateProxy.
+        NetworkTemplate.Builder(MATCH_PROXY).build().let {
+            val expectedTemplate = NetworkTemplate(MATCH_PROXY,
+                    emptyArray<String>() /*subscriberIds*/, emptyArray<String>(),
+                    METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL,
+                    OEM_MANAGED_ALL)
+            assertEquals(expectedTemplate, it)
         }
     }
 

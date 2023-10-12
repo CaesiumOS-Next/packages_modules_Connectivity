@@ -21,6 +21,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkStats.METERED_YES;
 import static android.net.NetworkTemplate.MATCH_MOBILE;
+import static android.net.NetworkTemplate.MATCH_PROXY;
 import static android.net.NetworkTemplate.MATCH_WIFI;
 
 import android.Manifest;
@@ -960,6 +961,8 @@ public class NetworkStatsManager {
             switch (template.getMatchRule()) {
                 case NetworkTemplate.MATCH_MOBILE:
                     return ConnectivityManager.TYPE_MOBILE;
+                case NetworkTemplate.MATCH_PROXY:
+                    return ConnectivityManager.TYPE_PROXY;
                 case NetworkTemplate.MATCH_WIFI:
                     return ConnectivityManager.TYPE_WIFI;
                 default:
@@ -1028,6 +1031,12 @@ public class NetworkStatsManager {
                                 .setMeteredness(METERED_YES).build()
                         : new NetworkTemplate.Builder(MATCH_MOBILE)
                                 .setMeteredness(METERED_YES)
+                                .setSubscriberIds(Set.of(subscriberId)).build();
+                break;
+            case ConnectivityManager.TYPE_PROXY:
+                template = TextUtils.isEmpty(subscriberId)
+                        ? new NetworkTemplate.Builder(MATCH_PROXY).build()
+                        : new  NetworkTemplate.Builder(MATCH_PROXY)
                                 .setSubscriberIds(Set.of(subscriberId)).build();
                 break;
             case ConnectivityManager.TYPE_WIFI:
