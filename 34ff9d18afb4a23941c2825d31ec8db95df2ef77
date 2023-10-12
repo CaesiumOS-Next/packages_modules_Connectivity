@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e85ec0f_51b119fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1096830
+      },
+      "writtenOn": "2023-10-12T20:58:12Z",
+      "side": 1,
+      "message": "It looks like you are re-running presubmit over and over with a script, even though these presubmit failures are real.",
+      "revId": "34ff9d18afb4a23941c2825d31ec8db95df2ef77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
