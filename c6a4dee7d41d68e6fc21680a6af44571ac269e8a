@@ -81,6 +81,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3c6aae3_843e9c54",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-12T01:47:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cebe90b_b9adc55c",
+      "range": {
+        "startLine": 72,
+        "startChar": 63,
+        "endLine": 72,
+        "endChar": 85
+      },
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8cdf85e4_c59d32ba",
@@ -94,6 +118,24 @@
       "writtenOn": "2023-10-10T10:19:23Z",
       "side": 1,
       "message": "Right now service type format is checked in NsdService, this should be done there for subtypes too I think, otherwise it\u0027s still possible to send bad data to NsdService (through raw binder calls for example)",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bbe22e0_fef36c98",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-12T01:47:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cdf85e4_c59d32ba",
       "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -115,6 +157,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db3bfd99_00f3a079",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-12T01:47:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e07e1435_a100b517",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa5d8822_f54535b4",
@@ -132,6 +192,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20e46d64_16c601f9",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-12T01:47:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa5d8822_f54535b4",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba2458bb_7887579b",
@@ -145,6 +223,30 @@
       "writtenOn": "2023-10-10T10:19:23Z",
       "side": 1,
       "message": "There was no checking/parsing in the \"addSubtype\" below, so substring(1) may crash if it is an empty string (which is possible if it is sent via a raw binder call, and would crash the system server).\n\nThere should be a check that it\u0027s non-empty and starts with an underscore, because the current code only supports discovering services that start with an underscore.\n\nActually the RFC says that subtypes don\u0027t necessarily start with underscores (https://datatracker.ietf.org/doc/html/rfc6763#page-23), but since this is currently required by MdnsDiscoveryManager, it should be enforced until support is added.",
+      "range": {
+        "startLine": 848,
+        "startChar": 35,
+        "endLine": 848,
+        "endChar": 89
+      },
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bef163a_92274e61",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-12T01:47:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba2458bb_7887579b",
       "range": {
         "startLine": 848,
         "startChar": 35,
@@ -178,6 +280,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40a21052_6e385d64",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 1466,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-12T01:47:36Z",
+      "side": 1,
+      "message": "It was a convert from List to Set, but I changed to use List in NsdServiceInfo as well.",
+      "parentUuid": "01f74e81_5555c615",
+      "range": {
+        "startLine": 1466,
+        "startChar": 41,
+        "endLine": 1466,
+        "endChar": 47
+      },
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91316f25_909e0ae9",
@@ -201,6 +327,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed50e1f5_07130f83",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-12T01:47:36Z",
+      "side": 1,
+      "message": "The subtype is already included in `NsdServiceInfo#toString()`",
+      "parentUuid": "91316f25_909e0ae9",
+      "range": {
+        "startLine": 638,
+        "startChar": 67,
+        "endLine": 638,
+        "endChar": 68
+      },
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e937c16_eab94248",
@@ -214,6 +364,30 @@
       "writtenOn": "2023-10-10T10:19:23Z",
       "side": 1,
       "message": "Nit: you could say `new ArrayList\u003c\u003e(serviceInfo.getSubtypes().size() + 1)` to directly allocate the right size",
+      "range": {
+        "startLine": 199,
+        "startChar": 54,
+        "endLine": 199,
+        "endChar": 55
+      },
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da2ca890_889ecd59",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-12T01:47:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e937c16_eab94248",
       "range": {
         "startLine": 199,
         "startChar": 54,
@@ -264,6 +438,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0555cf6_31a550dc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-12T01:47:36Z",
+      "side": 1,
+      "message": "Reverted to use for loop",
+      "parentUuid": "5a311406_8ea6984f",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "083ff00c_857ce035",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-12T01:47:36Z",
+      "side": 1,
+      "message": "Reverted to use simply forloop",
+      "parentUuid": "d79e382b_a4553b62",
+      "range": {
+        "startLine": 205,
+        "startChar": 34,
+        "endLine": 205,
+        "endChar": 42
+      },
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ef5f374_01928e04",
@@ -304,6 +520,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce1c57c2_fcecad62",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-12T01:47:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1c1f6d8_085237d1",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8569b88d_c8db95d7",
@@ -338,6 +572,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b0f2be8_5a7cbff0",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-12T01:47:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87c3f502_7cd96016",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b91a56b3_6621e53d",
@@ -355,6 +607,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "262f262f_f4deab5e",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-12T01:47:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b91a56b3_6621e53d",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1885eb9_cb6eb894",
@@ -368,6 +638,24 @@
       "writtenOn": "2023-10-10T10:19:23Z",
       "side": 1,
       "message": "Could you add multiple here ? The reply should still be the same I think (so it checks that extra subtypes don\u0027t end up in the reply)",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6980555_991526ba",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-12T01:47:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1885eb9_cb6eb894",
       "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
