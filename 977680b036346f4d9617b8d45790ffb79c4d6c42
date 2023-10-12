@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc6c8b43_ebbc1702",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-12T10:53:22Z",
+      "side": 1,
+      "message": "this code\n\n(\"code\" in uncountable)",
+      "range": {
+        "startLine": 14,
+        "startChar": 9,
+        "endLine": 14,
+        "endChar": 20
+      },
+      "revId": "977680b036346f4d9617b8d45790ffb79c4d6c42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80ea65ac_1b54686c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-12T10:53:22Z",
+      "side": 1,
+      "message": "updatable",
+      "range": {
+        "startLine": 15,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 16
+      },
+      "revId": "977680b036346f4d9617b8d45790ffb79c4d6c42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0706f5be_78dc49c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-12T10:53:22Z",
+      "side": 1,
+      "message": "Unit tests ?",
+      "revId": "977680b036346f4d9617b8d45790ffb79c4d6c42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e3e9bae_49704c5c",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5960,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-12T10:53:22Z",
+      "side": 1,
+      "message": "Who is your client ? Could this be SYSTEM_SERVER ?",
+      "range": {
+        "startLine": 5960,
+        "startChar": 24,
+        "endLine": 5960,
+        "endChar": 40
+      },
+      "revId": "977680b036346f4d9617b8d45790ffb79c4d6c42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80c380f9_1e2ab670",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 12475,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-12T10:53:22Z",
+      "side": 1,
+      "message": "Where are your permission checks ?",
+      "range": {
+        "startLine": 12475,
+        "startChar": 8,
+        "endLine": 12475,
+        "endChar": 11
+      },
+      "revId": "977680b036346f4d9617b8d45790ffb79c4d6c42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
