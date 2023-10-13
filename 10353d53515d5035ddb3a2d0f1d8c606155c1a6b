@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82ec1993_ee88453f",
+        "filename": "framework-t/src/android/net/EthernetNetworkSpecifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-10-13T17:52:14Z",
+      "side": 0,
+      "message": "It feels like pointing to where this is used is useful for our documentation and to point OEMs in the right direction. Is there a better way to do so?",
+      "range": {
+        "startLine": 30,
+        "startChar": 3,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "10353d53515d5035ddb3a2d0f1d8c606155c1a6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
