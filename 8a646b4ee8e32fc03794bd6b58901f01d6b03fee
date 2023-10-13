@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b6c1117_f63c101a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-13T07:49:18Z",
+      "side": 1,
+      "message": "The TODO item is at line.210.",
+      "parentUuid": "f19de2b8_7981476d",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 18
+      },
+      "revId": "8a646b4ee8e32fc03794bd6b58901f01d6b03fee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "108250cb_f97cf437",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-13T05:41:21Z",
       "side": 1,
       "message": "Nit: will this be used in the subsequent change? Otherwise, it does not look useful in current patch. MdnsServiceTypeClient does not use it at all.",
+      "range": {
+        "startLine": 207,
+        "startChar": 16,
+        "endLine": 207,
+        "endChar": 50
+      },
+      "revId": "8a646b4ee8e32fc03794bd6b58901f01d6b03fee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4744f948_8d1d3967",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-13T07:49:18Z",
+      "side": 1,
+      "message": "Per offline discussion, this can use on future changes like address record exipred. Please refer to here for more details.\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2440004/comment/331cd647_92a6ab61/",
+      "parentUuid": "108250cb_f97cf437",
       "range": {
         "startLine": 207,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db63ee33_a71add93",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-13T07:49:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87035a78_c7d7086d",
+      "range": {
+        "startLine": 622,
+        "startChar": 8,
+        "endLine": 622,
+        "endChar": 9
+      },
+      "revId": "8a646b4ee8e32fc03794bd6b58901f01d6b03fee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0f244e8_2ff681c8",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-10-13T05:41:21Z",
       "side": 1,
       "message": "I am not sure if I understand the design clearly. But I think a class won\u0027t call a callback method to do self notification. I would expect the callback should be triggered from serviceCache class so that it\u0027s meaningful that this client class register the callback to serviceCache. If we have multiple clients, current design means that only self we be notified. Is this expected?",
+      "range": {
+        "startLine": 629,
+        "startChar": 16,
+        "endLine": 630,
+        "endChar": 66
+      },
+      "revId": "8a646b4ee8e32fc03794bd6b58901f01d6b03fee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f412696d_404d9934",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-13T07:49:18Z",
+      "side": 1,
+      "message": "Per offline discussion, create a new method instead.",
+      "parentUuid": "e0f244e8_2ff681c8",
       "range": {
         "startLine": 629,
         "startChar": 16,
