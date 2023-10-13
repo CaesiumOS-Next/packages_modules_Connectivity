@@ -34,6 +34,24 @@
       "parentUuid": "40e84b67_7029308b",
       "revId": "0f3e7c8708da5f653123abcf41cd59ca85276e04",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d392ad5_7e872760",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 9317,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-13T10:03:41Z",
+      "side": 1,
+      "message": "When networkAgent.register() is called, the selector has `type \u003d NONE` until the end of the `handleUpdateLocalNetworkConfig` function where the selector is updated to LISTEN_FOR_BEST. For example calling `localNetworkInfoForNai` to check for upstream network in the beginning of `handleUpdateLocalNetworkConfig` can cause the crash.",
+      "parentUuid": "ffa57753_b91f8718",
+      "revId": "0f3e7c8708da5f653123abcf41cd59ca85276e04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
