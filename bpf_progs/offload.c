@@ -124,12 +124,8 @@ DEFINE_BPF_MAP_GRW(tether_downstream64_map, HASH, TetherDownstream64Key, TetherD
 DEFINE_BPF_MAP_GRW(tether_upstream6_map, HASH, TetherUpstream6Key, Tether6Value, 64,
                    TETHERING_GID)
 
-static inline __always_inline int do_forward6(struct __sk_buff* skb,
-                                              const struct rawip_bool rawip,
-                                              const bool downstream,
-                                              const struct kver_uint kver) {
-    const bool is_ethernet = !rawip.rawip;
-
+static inline __always_inline int do_forward6(struct __sk_buff* skb, const bool is_ethernet,
+        const bool downstream, const struct kver_uint kver) {
     // Must be meta-ethernet IPv6 frame
     if (skb->protocol != htons(ETH_P_IPV6)) return TC_ACT_PIPE;
 
@@ -360,10 +356,9 @@ DEFINE_BPF_MAP_GRW(tether_upstream4_map, HASH, Tether4Key, Tether4Value, 1024, T
 
 static inline __always_inline int do_forward4_bottom(struct __sk_buff* skb,
         const int l2_header_size, void* data, const void* data_end,
-        struct ethhdr* eth, struct iphdr* ip, const struct rawip_bool rawip,
+        struct ethhdr* eth, struct iphdr* ip, const bool is_ethernet,
         const bool downstream, const bool updatetime, const bool is_tcp,
         const struct kver_uint kver) {
-    const bool is_ethernet = !rawip.rawip;
     struct tcphdr* tcph = is_tcp ? (void*)(ip + 1) : NULL;
     struct udphdr* udph = is_tcp ? NULL : (void*)(ip + 1);
 
@@ -552,13 +547,8 @@ static inline __always_inline int do_forward4_bottom(struct __sk_buff* skb,
     return bpf_redirect(v->oif, 0 /* this is effectively BPF_F_EGRESS */);
 }
 
-static inline __always_inline int do_forward4(struct __sk_buff* skb,
-                                              const struct rawip_bool rawip,
-                                              const bool downstream,
-                                              const bool updatetime,
-                                              const struct kver_uint kver) {
-    const bool is_ethernet = !rawip.rawip;
-
+static inline __always_inline int do_forward4(struct __sk_buff* skb, const bool is_ethernet,
+        const bool downstream, const bool updatetime, const struct kver_uint kver) {
     // Require ethernet dst mac address to be our unicast address.
     if (is_ethernet && (skb->pkt_type != PACKET_HOST)) return TC_ACT_PIPE;
 
@@ -646,10 +636,10 @@ static inline __always_inline int do_forward4(struct __sk_buff* skb,
     // if the underlying requisite kernel support (bpf_ktime_get_boot_ns) was backported.
     if (is_tcp) {
       return do_forward4_bottom(skb, l2_header_size, data, data_end, eth, ip,
-                                rawip, downstream, updatetime, /* is_tcp */ true, kver);
+                                is_ethernet, downstream, updatetime, /* is_tcp */ true, kver);
     } else {
       return do_forward4_bottom(skb, l2_header_size, data, data_end, eth, ip,
-                                rawip, downstream, updatetime, /* is_tcp */ false, kver);
+                                is_ethernet, downstream, updatetime, /* is_tcp */ false, kver);
     }
 }
 
@@ -807,12 +797,12 @@ DEFINE_BPF_PROG_KVER_RANGE("schedcls/tether_upstream4_ether$stub", TETHERING_UID
 
 DEFINE_BPF_MAP_GRW(tether_dev_map, DEVMAP_HASH, uint32_t, uint32_t, 64, TETHERING_GID)
 
-static inline __always_inline int do_xdp_forward6(struct xdp_md *ctx, const struct rawip_bool rawip,
+static inline __always_inline int do_xdp_forward6(struct xdp_md *ctx, const bool is_ethernet,
         const bool downstream) {
     return XDP_PASS;
 }
 
-static inline __always_inline int do_xdp_forward4(struct xdp_md *ctx, const struct rawip_bool rawip,
+static inline __always_inline int do_xdp_forward4(struct xdp_md *ctx, const bool is_ethernet,
         const bool downstream) {
     return XDP_PASS;
 }
