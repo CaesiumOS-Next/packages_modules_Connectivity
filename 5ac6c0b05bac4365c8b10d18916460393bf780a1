@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e904a6a_06cb1cde",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-13T17:49:05Z",
+      "side": 1,
+      "message": "(perhaps just remove the @ sign?)",
+      "revId": "5ac6c0b05bac4365c8b10d18916460393bf780a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
