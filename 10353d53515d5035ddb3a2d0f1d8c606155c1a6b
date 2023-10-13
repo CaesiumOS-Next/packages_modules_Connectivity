@@ -46,6 +46,30 @@
       },
       "revId": "10353d53515d5035ddb3a2d0f1d8c606155c1a6b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c004de2_c9ef90d0",
+        "filename": "framework-t/src/android/net/EthernetNetworkSpecifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-10-13T19:30:39Z",
+      "side": 0,
+      "message": "Yes, of course, thanks for the feedback! :) Let\u0027s submit.",
+      "parentUuid": "d3a17d92_8c76c894",
+      "range": {
+        "startLine": 30,
+        "startChar": 3,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "10353d53515d5035ddb3a2d0f1d8c606155c1a6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
