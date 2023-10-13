@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da441cbe_aebfc537",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 8938,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-13T05:33:33Z",
+      "side": 1,
+      "message": "This could be always true since newRequest is coming form the app.",
+      "range": {
+        "startLine": 8938,
+        "startChar": 53,
+        "endLine": 8938,
+        "endChar": 96
+      },
+      "revId": "b7803164fe1702f6ca02b032d328e11c70ba4e0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

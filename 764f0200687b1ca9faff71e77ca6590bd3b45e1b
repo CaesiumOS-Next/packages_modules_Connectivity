@@ -93,6 +93,30 @@
       },
       "revId": "764f0200687b1ca9faff71e77ca6590bd3b45e1b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb985c11_1275b5b8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 8946,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-13T05:33:33Z",
+      "side": 1,
+      "message": "I think nai.localNetworkConfig still loses upstreamSelector if the users send the same config twice after the issue in L8938 is fixed.\nconfigBuilder.setUpstreamSelector is called only in the if block at L8938",
+      "parentUuid": "f04a1eb3_230a8c1b",
+      "range": {
+        "startLine": 8946,
+        "startChar": 33,
+        "endLine": 8946,
+        "endChar": 55
+      },
+      "revId": "764f0200687b1ca9faff71e77ca6590bd3b45e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
