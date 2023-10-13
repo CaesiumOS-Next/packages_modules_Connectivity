@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e1b0ca9_394ba872",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-13T08:04:52Z",
+      "side": 1,
+      "message": "Nit: If you expected clients to implement it, maybe `default` is not necessary here. In current implementation, it looks that users should always override it.",
+      "range": {
+        "startLine": 206,
+        "startChar": 8,
+        "endLine": 206,
+        "endChar": 16
+      },
+      "revId": "7ed4da866e186360b8d99e5a331d92dc63f0bccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0fb1caa_8b6cc621",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-13T08:04:52Z",
+      "side": 1,
+      "message": "Nit: @NonNull  \n\nin case someone takes a null in the future by mistake.",
+      "range": {
+        "startLine": 481,
+        "startChar": 49,
+        "endLine": 481,
+        "endChar": 50
+      },
+      "revId": "7ed4da866e186360b8d99e5a331d92dc63f0bccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cb91b0f_372fc344",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-13T08:04:52Z",
+      "side": 1,
+      "message": "Should this also provided by `ensureRunningOnHandlerThread(handler)`?",
+      "range": {
+        "startLine": 482,
+        "startChar": 8,
+        "endLine": 482,
+        "endChar": 9
+      },
+      "revId": "7ed4da866e186360b8d99e5a331d92dc63f0bccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
