@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f19de2b8_7981476d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-13T05:41:21Z",
+      "side": 1,
+      "message": "Nit: Suggest to add a TODO for the notification code. Otherwise, it\u0027s weird that there is no usage for on this.",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 18
+      },
+      "revId": "8a646b4ee8e32fc03794bd6b58901f01d6b03fee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "108250cb_f97cf437",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-13T05:41:21Z",
+      "side": 1,
+      "message": "Nit: will this be used in the subsequent change? Otherwise, it does not look useful in current patch. MdnsServiceTypeClient does not use it at all.",
+      "range": {
+        "startLine": 207,
+        "startChar": 16,
+        "endLine": 207,
+        "endChar": 50
+      },
+      "revId": "8a646b4ee8e32fc03794bd6b58901f01d6b03fee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87035a78_c7d7086d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-13T05:41:21Z",
+      "side": 1,
+      "message": "Nit: Since you\u0027re working on it, add final on it?",
+      "range": {
+        "startLine": 622,
+        "startChar": 8,
+        "endLine": 622,
+        "endChar": 9
+      },
+      "revId": "8a646b4ee8e32fc03794bd6b58901f01d6b03fee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0f244e8_2ff681c8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-13T05:41:21Z",
+      "side": 1,
+      "message": "I am not sure if I understand the design clearly. But I think a class won\u0027t call a callback method to do self notification. I would expect the callback should be triggered from serviceCache class so that it\u0027s meaningful that this client class register the callback to serviceCache. If we have multiple clients, current design means that only self we be notified. Is this expected?",
+      "range": {
+        "startLine": 629,
+        "startChar": 16,
+        "endLine": 630,
+        "endChar": 66
+      },
+      "revId": "8a646b4ee8e32fc03794bd6b58901f01d6b03fee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
