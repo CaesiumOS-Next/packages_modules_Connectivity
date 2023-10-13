@@ -22,6 +22,30 @@
       },
       "revId": "10353d53515d5035ddb3a2d0f1d8c606155c1a6b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3a17d92_8c76c894",
+        "filename": "framework-t/src/android/net/EthernetNetworkSpecifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060959
+      },
+      "writtenOn": "2023-10-13T18:31:31Z",
+      "side": 0,
+      "message": "There isn\u0027t a way to provide \"conditional\" javadoc (so that it doesn\u0027t show up in the public javadoc but does elsewhere). It is possible to rewrite this like `See {@code android.net.EthernetManager}` if desired. Perhaps you could land that change separately if so? This is part of a bigger cleanup I\u0027m making, so I want to make rapid progress. :)",
+      "parentUuid": "82ec1993_ee88453f",
+      "range": {
+        "startLine": 30,
+        "startChar": 3,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "10353d53515d5035ddb3a2d0f1d8c606155c1a6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
