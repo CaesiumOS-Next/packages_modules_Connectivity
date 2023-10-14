@@ -208,6 +208,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df1937cf_0bd0b3d0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 8870,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-14T22:48:47Z",
+      "side": 1,
+      "message": "Yes, so revisiting the design, this is to account for per-app defaults, which can change on rematch. I\u0027ve also updated the comments to reflect that. Let me know your thoughts. Thanks.",
+      "parentUuid": "f75b9111_e6fc9718",
+      "range": {
+        "startLine": 8870,
+        "startChar": 20,
+        "endLine": 8870,
+        "endChar": 35
+      },
+      "revId": "4de7b80ae4315c9224f01c26814053a6f00ed995",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6e253b1_9abbb75f",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 4
@@ -243,6 +267,30 @@
       "side": 1,
       "message": "This looks to be something we actually accounted for in the design. I\u0027ve reopened the comment thread on the design doc and we can use the added context from that and continue discussions there.",
       "parentUuid": "e6e253b1_9abbb75f",
+      "range": {
+        "startLine": 9519,
+        "startChar": 8,
+        "endLine": 9519,
+        "endChar": 36
+      },
+      "revId": "4de7b80ae4315c9224f01c26814053a6f00ed995",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d001b1fa_4fd64c61",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9519,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-14T22:48:47Z",
+      "side": 1,
+      "message": "To paraphase the comment thread in the design doc, it looks like we determined it was ok to mutate the network capabilities on rematch, which is similar to how applyBackgroundChangeForRematch works. Feel free to discuss more here, however there is also more historical context in the design doc comment thread which I reopened. Thanks.",
+      "parentUuid": "fcc976a4_8199e734",
       "range": {
         "startLine": 9519,
         "startChar": 8,
@@ -299,6 +347,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d010124f_af673be9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9548,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-14T22:48:47Z",
+      "side": 1,
+      "message": "Done. I\u0027ve also included more info on why the UIDs are being updated on rematch, which in turn should hopefully add some context as related to other open comments on this CL.",
+      "parentUuid": "b80df9e3_f01f3e69",
+      "range": {
+        "startLine": 9548,
+        "startChar": 60,
+        "endLine": 9548,
+        "endChar": 94
+      },
+      "revId": "4de7b80ae4315c9224f01c26814053a6f00ed995",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c74030bb_2d1ba95d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9548,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-14T22:48:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51149ed2_07fc2ccb",
+      "range": {
+        "startLine": 9548,
+        "startChar": 4,
+        "endLine": 9548,
+        "endChar": 11
+      },
+      "revId": "4de7b80ae4315c9224f01c26814053a6f00ed995",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76aa84f7_2cfaedf7",
@@ -324,6 +420,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "60dd6f16_6a52ced5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9555,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-14T22:48:47Z",
+      "side": 1,
+      "message": "This is intended, as the existing NetworkCapabilities need to stay as-is, minus the inclusion of allowed UIDs as determined for per-app defaults after rematch. I also left a comment in the code better explaining this in the latest patch. Let me know what you think, or if there is a better way to do this. Thanks.",
+      "parentUuid": "76aa84f7_2cfaedf7",
+      "range": {
+        "startLine": 9555,
+        "startChar": 54,
+        "endLine": 9555,
+        "endChar": 82
+      },
+      "revId": "4de7b80ae4315c9224f01c26814053a6f00ed995",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1875ea65_199c1447",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 4
@@ -335,6 +455,30 @@
       "writtenOn": "2023-09-19T07:35:39Z",
       "side": 1,
       "message": "Likewise : comments, and static, and comment that it must stay static",
+      "range": {
+        "startLine": 9564,
+        "startChar": 4,
+        "endLine": 9564,
+        "endChar": 11
+      },
+      "revId": "4de7b80ae4315c9224f01c26814053a6f00ed995",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b14d059_4c5d9d8e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9564,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-14T22:48:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1875ea65_199c1447",
       "range": {
         "startLine": 9564,
         "startChar": 4,
