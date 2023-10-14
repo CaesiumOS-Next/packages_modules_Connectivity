@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fee9e84_0bb96d93",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-10-14T03:55:13Z",
+      "side": 1,
+      "message": "It might be better to move those check helper function to packages/modules/Connectivity/service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java\n\nit will could make the test those function easier",
+      "revId": "b54f7d31d8fbc5a8c457b79d4a56049b72a1d36a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a6085d8_e9d69740",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-10-14T03:55:13Z",
+      "side": 1,
+      "message": "Please use `private static final SharedLog LOGGER \u003d new SharedLog(\"serviceDiscovery\");` for logging, it will make the log appears in the dumpsys and can make the debug easier.",
+      "range": {
+        "startLine": 804,
+        "startChar": 24,
+        "endLine": 804,
+        "endChar": 97
+      },
+      "revId": "b54f7d31d8fbc5a8c457b79d4a56049b72a1d36a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b3e5f40_fcc2df0e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-10-14T03:55:13Z",
+      "side": 1,
+      "message": "It might be better to make the function as follows\n\n```\nprivate List\u003cString\u003e void dedupSubtypeLabels(List\u003cString\u003e subtypes)\n```\n\nand create the new list to store the deduped subTypes and returns it.\n\nModifying the parameter directly could potentially cause unpredictable side effect in long term.",
+      "range": {
+        "startLine": 811,
+        "startChar": 11,
+        "endLine": 811,
+        "endChar": 75
+      },
+      "revId": "b54f7d31d8fbc5a8c457b79d4a56049b72a1d36a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
