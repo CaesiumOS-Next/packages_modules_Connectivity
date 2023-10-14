@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "036196fc_ff559a9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-14T22:47:02Z",
+      "side": 1,
+      "message": "Done, but had to use this wording due to the character limit:\n\n    Have onBlockedStatusChanged consider allowedUids",
+      "parentUuid": "e6458731_d3e5e6bd",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 7
+      },
+      "revId": "0482484eab111992c11ef9f90f3418367a68e308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a98f14f5_386475a6",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 8
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7e53750_94d23fde",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-14T22:47:02Z",
+      "side": 1,
+      "message": "Agreed and done.",
+      "parentUuid": "0eff3f45_c01fd7a6",
+      "range": {
+        "startLine": 889,
+        "startChar": 57,
+        "endLine": 889,
+        "endChar": 100
+      },
+      "revId": "0482484eab111992c11ef9f90f3418367a68e308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8dc397fb_fe538deb",
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7340b55_facd96e3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 6391,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-14T22:47:02Z",
+      "side": 1,
+      "message": "Done and good to know.",
+      "parentUuid": "8dc397fb_fe538deb",
+      "range": {
+        "startLine": 6391,
+        "startChar": 35,
+        "endLine": 6391,
+        "endChar": 66
+      },
+      "revId": "0482484eab111992c11ef9f90f3418367a68e308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc10f3af_0a4eb187",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-09-19T07:35:37Z",
       "side": 1,
       "message": "Sorry to impose but can you rename this to mixInBlockedState ? Since this is taking a shared-responsibility bit register coming from NPMS and mixing in the bits that CS is responsible for – and we use \"mixIn\" for this use case.",
+      "range": {
+        "startLine": 10031,
+        "startChar": 23,
+        "endLine": 10031,
+        "endChar": 38
+      },
+      "revId": "0482484eab111992c11ef9f90f3418367a68e308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50ccea07_42f8fea9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 10031,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-14T22:47:02Z",
+      "side": 1,
+      "message": "Sure, and not imposing at all!",
+      "parentUuid": "bc10f3af_0a4eb187",
       "range": {
         "startLine": 10031,
         "startChar": 23,

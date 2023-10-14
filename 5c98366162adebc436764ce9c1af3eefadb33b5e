@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78b0540a_1e6e8ed0",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2023-10-14T22:47:02Z",
+      "side": 1,
+      "message": "I had to move this comment block to the bottom of the import list due to a presubmit linter error:\n\n    Extra separation in import group before \u0027android.os.Build\u0027",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 34
+      },
+      "revId": "5c98366162adebc436764ce9c1af3eefadb33b5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
