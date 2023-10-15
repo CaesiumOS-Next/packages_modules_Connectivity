@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "92b88f40_8cb85693",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-15T09:06:38Z",
+      "side": 1,
+      "message": "@jonhui@google.com @xyk@google.com Dou you know have any use cases in mind that we need this API to be public? Note that this can be private API to support parsing Active Operational Dataset read from ot-daemon of this device.",
+      "parentUuid": "dc32bb4e_e836708d",
+      "range": {
+        "startLine": 204,
+        "startChar": 4,
+        "endLine": 204,
+        "endChar": 10
+      },
+      "revId": "a6a7d4cbf3b80bcfde01378d02d91fa46ad9eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81b8b92a_d3df6758",
         "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
         "patchSetId": 27
@@ -54,6 +78,30 @@
       "writtenOn": "2023-10-13T07:02:20Z",
       "side": 1,
       "message": "nit : if the constructor with an old object is invoked this is thrown away ; you could initialize it only once in both constructors",
+      "range": {
+        "startLine": 692,
+        "startChar": 55,
+        "endLine": 692,
+        "endChar": 66
+      },
+      "revId": "a6a7d4cbf3b80bcfde01378d02d91fa46ad9eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f904d807_b2a5c256",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-15T09:06:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81b8b92a_d3df6758",
       "range": {
         "startLine": 692,
         "startChar": 55,
@@ -77,6 +125,30 @@
       "writtenOn": "2023-10-13T07:02:20Z",
       "side": 1,
       "message": "This is not correct IIUC ? We should read the nanoseconds out of the instant, and of course have a test for a non-integer second value",
+      "range": {
+        "startLine": 56,
+        "startChar": 42,
+        "endLine": 56,
+        "endChar": 56
+      },
+      "revId": "a6a7d4cbf3b80bcfde01378d02d91fa46ad9eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e6d2b61_17d243b2",
+        "filename": "thread/framework/java/android/net/thread/OperationalDatasetTimestamp.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-15T09:06:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0602022_4f950e67",
       "range": {
         "startLine": 56,
         "startChar": 42,
@@ -133,6 +205,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6900e863_2c4c59c8",
+        "filename": "thread/framework/java/android/net/thread/PendingOperationalDataset.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-15T09:06:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38c9d41e_4a502f2a",
+      "range": {
+        "startLine": 35,
+        "startChar": 67,
+        "endLine": 35,
+        "endChar": 68
+      },
+      "revId": "a6a7d4cbf3b80bcfde01378d02d91fa46ad9eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e570a6f2_28f93eb0",
@@ -156,6 +252,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce2a1608_5d53fda9",
+        "filename": "thread/framework/java/android/net/thread/PendingOperationalDataset.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-15T09:06:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e570a6f2_28f93eb0",
+      "range": {
+        "startLine": 41,
+        "startChar": 29,
+        "endLine": 41,
+        "endChar": 51
+      },
+      "revId": "a6a7d4cbf3b80bcfde01378d02d91fa46ad9eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2ce0193_23aa99ad",
@@ -169,6 +289,30 @@
       "writtenOn": "2023-10-13T07:02:20Z",
       "side": 1,
       "message": "Add the unit ?",
+      "range": {
+        "startLine": 43,
+        "startChar": 29,
+        "endLine": 43,
+        "endChar": 47
+      },
+      "revId": "a6a7d4cbf3b80bcfde01378d02d91fa46ad9eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f76733d_e936e753",
+        "filename": "thread/framework/java/android/net/thread/PendingOperationalDataset.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-15T09:06:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2ce0193_23aa99ad",
       "range": {
         "startLine": 43,
         "startChar": 29,
@@ -225,6 +369,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66dc1e3f_ca60e19c",
+        "filename": "thread/framework/java/android/net/thread/PendingOperationalDataset.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-15T09:06:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "454d588b_362a47a6",
+      "range": {
+        "startLine": 109,
+        "startChar": 51,
+        "endLine": 109,
+        "endChar": 71
+      },
+      "revId": "a6a7d4cbf3b80bcfde01378d02d91fa46ad9eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5319b665_f1a4219b",
@@ -238,6 +406,30 @@
       "writtenOn": "2023-10-13T07:02:20Z",
       "side": 1,
       "message": "I think you could use dataset.write(mDelayTimer.toMillis()) ?",
+      "range": {
+        "startLine": 168,
+        "startChar": 8,
+        "endLine": 170,
+        "endChar": 46
+      },
+      "revId": "a6a7d4cbf3b80bcfde01378d02d91fa46ad9eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "103cf167_f5f43874",
+        "filename": "thread/framework/java/android/net/thread/PendingOperationalDataset.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-15T09:06:38Z",
+      "side": 1,
+      "message": "`dataset.write(int b)` writes a single byte, but not 4 bytes. https://developer.android.com/reference/java/io/ByteArrayOutputStream#write(int)",
+      "parentUuid": "5319b665_f1a4219b",
       "range": {
         "startLine": 168,
         "startChar": 8,
@@ -265,6 +457,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6900f6ab_57524886",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ActiveOperationalDatasetTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-15T09:06:38Z",
+      "side": 1,
+      "message": "We have a test case \"fromThreadTlvs_prematureEndOfData_throwsIllegalArgument\" for this.",
+      "parentUuid": "f2db376d_d0aedd48",
+      "revId": "a6a7d4cbf3b80bcfde01378d02d91fa46ad9eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cbee3f4_4b80aaef",
@@ -288,6 +498,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eca1c80a_73091547",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ActiveOperationalDatasetTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-15T09:06:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cbee3f4_4b80aaef",
+      "range": {
+        "startLine": 87,
+        "startChar": 13,
+        "endLine": 87,
+        "endChar": 67
+      },
+      "revId": "a6a7d4cbf3b80bcfde01378d02d91fa46ad9eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65ba8741_afa4be73",
@@ -301,6 +535,30 @@
       "writtenOn": "2023-10-13T07:02:20Z",
       "side": 1,
       "message": "Let\u0027s have a comment to explain why this is invalid",
+      "range": {
+        "startLine": 117,
+        "startChar": 31,
+        "endLine": 117,
+        "endChar": 35
+      },
+      "revId": "a6a7d4cbf3b80bcfde01378d02d91fa46ad9eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c5d38bf_69119766",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ActiveOperationalDatasetTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-15T09:06:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65ba8741_afa4be73",
       "range": {
         "startLine": 117,
         "startChar": 31,
@@ -347,6 +605,30 @@
       "writtenOn": "2023-10-13T07:02:20Z",
       "side": 1,
       "message": "Would be nice to have a small comment explaining why it\u0027s invalid",
+      "range": {
+        "startLine": 642,
+        "startChar": 70,
+        "endLine": 642,
+        "endChar": 72
+      },
+      "revId": "a6a7d4cbf3b80bcfde01378d02d91fa46ad9eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7912ed3e_4520122c",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ActiveOperationalDatasetTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-15T09:06:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afc39f81_1cc17e76",
       "range": {
         "startLine": 642,
         "startChar": 70,
