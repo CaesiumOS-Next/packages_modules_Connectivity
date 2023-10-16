@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38c7ad8b_e0d31d7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2057955
+      },
+      "writtenOn": "2023-10-16T06:21:32Z",
+      "side": 1,
+      "message": "dieselmecanica142@gmail.com",
+      "revId": "1ee788aa5cd7122aa54c832b54bb882166268107",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
