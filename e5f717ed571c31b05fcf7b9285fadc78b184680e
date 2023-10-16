@@ -16,6 +16,29 @@
       "message": "missing description of the localInfo param",
       "revId": "e5f717ed571c31b05fcf7b9285fadc78b184680e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "397d3814_ab742acc",
+        "filename": "framework/src/android/net/LocalNetworkInfo.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-10-16T06:43:35Z",
+      "side": 1,
+      "message": "Say that I\u0027m setting up Thread on Android. I need to know which interface (by name/index) is chosen as the upstream network.\n\nSo after registering the Thread\u0027s `NetworkAgent`, I need to register a `NetworkCallback` on Thread network to receive the `LocalNetworkInfo` to get the upstream network.\n\nThere\u0027s no interface name or interface index in `Network` object so I need to register a `NetworkCallback` for the `Network` in `LocalNetworkInfo`. But the problem is, I don\u0027t know how to construct a `NetworkRequest` that exactly matches this upstream network. I may still need to register the callback using the same `NetworkRequest` used as the upstream selector in `LocalNetworkConfig`. So I don\u0027t see how the returned upstream network can help in this case.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 0
+      },
+      "revId": "e5f717ed571c31b05fcf7b9285fadc78b184680e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
