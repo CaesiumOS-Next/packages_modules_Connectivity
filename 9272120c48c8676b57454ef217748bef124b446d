@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34bec423_c0becc66",
+        "filename": "tests/benchmark/src/android/net/netstats/benchmarktests/NetworkStatsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-10-16T03:28:13Z",
+      "side": 1,
+      "message": "nit: better do the null handling explicitly.",
+      "range": {
+        "startLine": 56,
+        "startChar": 70,
+        "endLine": 56,
+        "endChar": 72
+      },
+      "revId": "9272120c48c8676b57454ef217748bef124b446d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
