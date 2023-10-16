@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b6c7f3c_dc716880",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-16T03:43:23Z",
+      "side": 1,
+      "message": "The other public functions `addRoute/removeRoute/updateRoute/addInterfaceToNetwork` seem untested, or are they tested somewhere else?",
+      "revId": "621c42fb7d4bfae5d7816ff400795f20ef6166c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
