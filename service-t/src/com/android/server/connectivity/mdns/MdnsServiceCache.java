@@ -80,9 +80,12 @@ public class MdnsServiceCache {
     private final ArrayMap<CacheKey, ServiceExpiredCallback> mCallbacks = new ArrayMap<>();
     @NonNull
     private final Handler mHandler;
+    @NonNull
+    private final MdnsFeatureFlags mMdnsFeatureFlags;
 
-    public MdnsServiceCache(@NonNull Looper looper) {
+    public MdnsServiceCache(@NonNull Looper looper, @NonNull MdnsFeatureFlags mdnsFeatureFlags) {
         mHandler = new Handler(looper);
+        mMdnsFeatureFlags = mdnsFeatureFlags;
     }
 
     /**
@@ -165,6 +168,7 @@ public class MdnsServiceCache {
             return null;
         }
         final Iterator<MdnsResponse> iterator = responses.iterator();
+        MdnsResponse removedResponse = null;
         while (iterator.hasNext()) {
             final MdnsResponse response = iterator.next();
             if (equalsIgnoreDnsCase(serviceName, response.getServiceInstanceName())) {

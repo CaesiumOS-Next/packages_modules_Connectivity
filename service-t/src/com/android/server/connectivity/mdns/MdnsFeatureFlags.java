@@ -20,18 +20,29 @@ package com.android.server.connectivity.mdns;
  */
 public class MdnsFeatureFlags {
     /**
-     * The feature flag for control whether the  mDNS offload is enabled or not.
+     * A feature flag to control whether the mDNS offload is enabled or not.
      */
     public static final String NSD_FORCE_DISABLE_MDNS_OFFLOAD = "nsd_force_disable_mdns_offload";
+
+    /**
+     * A feature flag to control whether expired services removal should be enabled.
+     */
+    public static final String NSD_EXPIRED_SERVICES_REMOVAL_ENABLED =
+            "nsd_expired_services_removal_enabled";
 
     // Flag for offload feature
     public final boolean mIsMdnsOffloadFeatureEnabled;
 
+    // Flag for expired services removal
+    public final boolean mIsExpiredServicesRemovalEnabled;
+
     /**
      * The constructor for {@link MdnsFeatureFlags}.
      */
-    public MdnsFeatureFlags(boolean isOffloadFeatureEnabled) {
+    public MdnsFeatureFlags(boolean isOffloadFeatureEnabled,
+            boolean isExpiredServicesRemovalEnabled) {
         mIsMdnsOffloadFeatureEnabled = isOffloadFeatureEnabled;
+        mIsExpiredServicesRemovalEnabled = isExpiredServicesRemovalEnabled;
     }
 
 
@@ -44,16 +55,20 @@ public class MdnsFeatureFlags {
     public static final class Builder {
 
         private boolean mIsMdnsOffloadFeatureEnabled;
+        private boolean mIsExpiredServicesRemovalEnabled;
 
         /**
          * The constructor for {@link Builder}.
          */
         public Builder() {
             mIsMdnsOffloadFeatureEnabled = false;
+            mIsExpiredServicesRemovalEnabled = false;
         }
 
         /**
-         * Set if the mDNS offload  feature is enabled.
+         * Set whether the mDNS offload feature is enabled.
+         *
+         * @see #NSD_FORCE_DISABLE_MDNS_OFFLOAD
          */
         public Builder setIsMdnsOffloadFeatureEnabled(boolean isMdnsOffloadFeatureEnabled) {
             mIsMdnsOffloadFeatureEnabled = isMdnsOffloadFeatureEnabled;
@@ -61,10 +76,21 @@ public class MdnsFeatureFlags {
         }
 
         /**
+         * Set whether the expired services removal is enabled.
+         *
+         * @see #NSD_EXPIRED_SERVICES_REMOVAL_ENABLED
+         */
+        public Builder setIsExpiredServicesRemovalEnabled(boolean isExpiredServicesRemovalEnabled) {
+            mIsExpiredServicesRemovalEnabled = isExpiredServicesRemovalEnabled;
+            return this;
+        }
+
+        /**
          * Builds a {@link MdnsFeatureFlags} with the arguments supplied to this builder.
          */
         public MdnsFeatureFlags build() {
-            return new MdnsFeatureFlags(mIsMdnsOffloadFeatureEnabled);
+            return new MdnsFeatureFlags(
+                    mIsMdnsOffloadFeatureEnabled, mIsExpiredServicesRemovalEnabled);
         }
 
     }
