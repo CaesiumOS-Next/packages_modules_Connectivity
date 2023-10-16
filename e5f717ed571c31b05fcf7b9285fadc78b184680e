@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e606ae50_49684d74",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 3944,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-16T05:46:14Z",
+      "side": 1,
+      "message": "missing description of the localInfo param",
+      "revId": "e5f717ed571c31b05fcf7b9285fadc78b184680e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
