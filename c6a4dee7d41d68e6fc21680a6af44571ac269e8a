@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6057b97_b4b85726",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 1287,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-16T09:19:13Z",
+      "side": 1,
+      "message": "it makes sense to me, but it\u0027s a non-trivial refactor (see WIP aosp/2786166). I filed b/305618029 to track this in a separate CL",
+      "parentUuid": "ba1bd2a3_57786117",
+      "range": {
+        "startLine": 1287,
+        "startChar": 16,
+        "endLine": 1287,
+        "endChar": 32
+      },
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4cebe90b_b9adc55c",
@@ -493,6 +517,30 @@
       "writtenOn": "2023-10-10T10:19:23Z",
       "side": 1,
       "message": "That\u0027s a lot of duplicated code, which is generally OK in tests, but I\u0027d say it feels a bit too much at this point.\n\nCould you factor these 3 tests to use something like:\n\n    runSubtypeAdvertisingAndDiscoveryTest(si: NsdServiceInfo, expectedSubtypes: List\u003cString\u003e)\n\n?",
+      "range": {
+        "startLine": 993,
+        "startChar": 8,
+        "endLine": 993,
+        "endChar": 61
+      },
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d76ad27a_4b6f5dc4",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-16T09:19:13Z",
+      "side": 1,
+      "message": "I refactored the two new subtypes test cases to use `runSubtypeAdvertisingAndDiscoveryTest` but keep the existing legacy format test case as it is because it advertise a single subtype label and it\u0027s much more complex to support variable subtype numbers (it\u0027s harder to understand the test case if rewrite with for-loops).",
+      "parentUuid": "1ef5f374_01928e04",
       "range": {
         "startLine": 993,
         "startChar": 8,
