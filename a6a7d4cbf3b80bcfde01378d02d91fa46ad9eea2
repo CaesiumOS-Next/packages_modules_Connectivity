@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f24f9586_6c2a4051",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2023-10-16T01:07:26Z",
+      "side": 1,
+      "message": "If GMS Core wants to call attach(), I think it needs to convert the credentials to Android platform API\u0027s ActiveOperationalDataset. Without this API, do we have other APIs to do the converision?",
+      "parentUuid": "92b88f40_8cb85693",
+      "range": {
+        "startLine": 204,
+        "startChar": 4,
+        "endLine": 204,
+        "endChar": 10
+      },
+      "revId": "a6a7d4cbf3b80bcfde01378d02d91fa46ad9eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81b8b92a_d3df6758",
         "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
         "patchSetId": 27
