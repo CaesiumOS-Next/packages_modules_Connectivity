@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ee88639_fb5e76fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-16T09:39:12Z",
+      "side": 1,
+      "message": "This change is split from aosp/2440004, which attempts to merge the expired services removal design for b/304649384.",
+      "revId": "5268bb2211344e94caad3f8745fca79c16dd7a4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
