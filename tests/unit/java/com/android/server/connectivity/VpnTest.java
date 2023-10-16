@@ -586,6 +586,7 @@ public class VpnTest extends VpnTestBase {
         final int userStop = user.getUpper();
         // Set always-on without lockdown.
         assertTrue(vpn.setAlwaysOnPackage(PKGS[1], false, null));
+        verify(mConnectivityManager, never()).setRequireVpnForUids(anyBoolean(), any());
 
         // Set always-on with lockdown.
         assertTrue(vpn.setAlwaysOnPackage(PKGS[1], true, null));
