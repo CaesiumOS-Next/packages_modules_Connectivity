@@ -1703,15 +1703,18 @@ public class NsdService extends INsdManager.Stub {
         am.addOnUidImportanceListener(new UidImportanceListener(handler),
                 mRunningAppActiveImportanceCutoff);
 
+        MdnsFeatureFlags flags = new MdnsFeatureFlags.Builder()
+                .setIsMdnsOffloadFeatureEnabled(mDeps.isTetheringFeatureNotChickenedOut(
+                        mContext, MdnsFeatureFlags.NSD_FORCE_DISABLE_MDNS_OFFLOAD))
+                .setIsExpiredServicesRemovalEnabled(mDeps.isTrunkStableFeatureEnabled(
+                        MdnsFeatureFlags.NSD_FORCE_DISABLE_MDNS_OFFLOAD))
+                .build();
         mMdnsSocketClient =
                 new MdnsMultinetworkSocketClient(handler.getLooper(), mMdnsSocketProvider,
                         LOGGER.forSubComponent("MdnsMultinetworkSocketClient"));
         mMdnsDiscoveryManager = deps.makeMdnsDiscoveryManager(new ExecutorProvider(),
-                mMdnsSocketClient, LOGGER.forSubComponent("MdnsDiscoveryManager"));
+                mMdnsSocketClient, LOGGER.forSubComponent("MdnsDiscoveryManager"), flags);
         handler.post(() -> mMdnsSocketClient.setCallback(mMdnsDiscoveryManager));
-        MdnsFeatureFlags flags = new MdnsFeatureFlags.Builder().setIsMdnsOffloadFeatureEnabled(
-                mDeps.isTetheringFeatureNotChickenedOut(mContext,
-                        MdnsFeatureFlags.NSD_FORCE_DISABLE_MDNS_OFFLOAD)).build();
         mAdvertiser = deps.makeMdnsAdvertiser(handler.getLooper(), mMdnsSocketProvider,
                 new AdvertiserCallback(), LOGGER.forSubComponent("MdnsAdvertiser"), flags);
         mClock = deps.makeClock();
@@ -1769,12 +1772,21 @@ public class NsdService extends INsdManager.Stub {
         }
 
         /**
+         * @see DeviceConfigUtils#isTrunkStableFeatureEnabled
+         */
+        public boolean isTrunkStableFeatureEnabled(String feature) {
+            return DeviceConfigUtils.isTrunkStableFeatureEnabled(feature);
+        }
+
+        /**
          * @see MdnsDiscoveryManager
          */
         public MdnsDiscoveryManager makeMdnsDiscoveryManager(
                 @NonNull ExecutorProvider executorProvider,
-                @NonNull MdnsMultinetworkSocketClient socketClient, @NonNull SharedLog sharedLog) {
-            return new MdnsDiscoveryManager(executorProvider, socketClient, sharedLog);
+                @NonNull MdnsMultinetworkSocketClient socketClient, @NonNull SharedLog sharedLog,
+                @NonNull MdnsFeatureFlags featureFlags) {
+            return new MdnsDiscoveryManager(
+                    executorProvider, socketClient, sharedLog, featureFlags);
         }
 
         /**

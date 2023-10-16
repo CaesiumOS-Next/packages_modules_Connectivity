@@ -312,8 +312,8 @@ public class MdnsServiceTypeClient {
         this.searchOptions = searchOptions;
         boolean hadReply = false;
         if (listeners.put(listener, searchOptions) == null) {
-            for (MdnsResponse existingResponse :
-                    serviceCache.getCachedServices(cacheKey)) {
+            for (MdnsResponse existingResponse : serviceCache.getCachedServices(
+                    cacheKey, clock.elapsedRealtime())) {
                 if (!responseMatchesOptions(existingResponse, searchOptions)) continue;
                 final MdnsServiceInfo info =
                         buildMdnsServiceInfoFromResponse(existingResponse, serviceTypeLabels);
@@ -425,7 +425,8 @@ public class MdnsServiceTypeClient {
         ensureRunningOnHandlerThread(handler);
         // Augment the list of current known responses, and generated responses for resolve
         // requests if there is no known response
-        final List<MdnsResponse> cachedList = serviceCache.getCachedServices(cacheKey);
+        final List<MdnsResponse> cachedList = serviceCache.getCachedServices(
+                cacheKey, clock.elapsedRealtime());
         final List<MdnsResponse> currentList = new ArrayList<>(cachedList);
         List<MdnsResponse> additionalResponses = makeResponsesForResolve(socketKey);
         for (MdnsResponse additionalResponse : additionalResponses) {
@@ -452,7 +453,7 @@ public class MdnsServiceTypeClient {
             } else if (findMatchedResponse(cachedList, serviceInstanceName) != null) {
                 // If the response is not modified and already in the cache. The cache will
                 // need to be updated to refresh the last receipt time.
-                serviceCache.addOrUpdateService(cacheKey, response);
+                serviceCache.addOrUpdateService(cacheKey, response, clock.elapsedRealtime());
             }
         }
         if (dependencies.hasMessages(handler, EVENT_START_QUERYTASK)) {
@@ -499,7 +500,8 @@ public class MdnsServiceTypeClient {
     /** Notify all services are removed because the socket is destroyed. */
     public void notifySocketDestroyed() {
         ensureRunningOnHandlerThread(handler);
-        for (MdnsResponse response : serviceCache.getCachedServices(cacheKey)) {
+        for (MdnsResponse response : serviceCache.getCachedServices(
+                cacheKey, clock.elapsedRealtime())) {
             final String name = response.getServiceInstanceName();
             if (name == null) continue;
             notifyRemovedServiceToListeners(response, "Socket destroyed");
@@ -509,19 +511,19 @@ public class MdnsServiceTypeClient {
 
     private void onResponseModified(@NonNull MdnsResponse response) {
         final String serviceInstanceName = response.getServiceInstanceName();
-        final MdnsResponse currentResponse =
-                serviceCache.getCachedService(serviceInstanceName, cacheKey);
+        final MdnsResponse currentResponse = serviceCache.getCachedService(
+                serviceInstanceName, cacheKey, clock.elapsedRealtime());
 
         boolean newServiceFound = false;
         boolean serviceBecomesComplete = false;
         if (currentResponse == null) {
             newServiceFound = true;
             if (serviceInstanceName != null) {
-                serviceCache.addOrUpdateService(cacheKey, response);
+                serviceCache.addOrUpdateService(cacheKey, response, clock.elapsedRealtime());
             }
         } else {
             boolean before = currentResponse.isComplete();
-            serviceCache.addOrUpdateService(cacheKey, response);
+            serviceCache.addOrUpdateService(cacheKey, response, clock.elapsedRealtime());
             boolean after = response.isComplete();
             serviceBecomesComplete = !before && after;
         }
@@ -581,8 +583,8 @@ public class MdnsServiceTypeClient {
             if (resolveName == null) {
                 continue;
             }
-            MdnsResponse knownResponse =
-                    serviceCache.getCachedService(resolveName, cacheKey);
+            MdnsResponse knownResponse = serviceCache.getCachedService(
+                    resolveName, cacheKey, clock.elapsedRealtime());
             if (knownResponse == null) {
                 final ArrayList<String> instanceFullName = new ArrayList<>(
                         serviceTypeLabels.length + 1);
@@ -600,7 +602,8 @@ public class MdnsServiceTypeClient {
     private void tryRemoveServiceAfterTtlExpires() {
         if (!shouldRemoveServiceAfterTtlExpires()) return;
 
-        final Iterator<MdnsResponse> iter = serviceCache.getCachedServices(cacheKey).iterator();
+        final Iterator<MdnsResponse> iter = serviceCache.getCachedServices(
+                cacheKey, clock.elapsedRealtime()).iterator();
         while (iter.hasNext()) {
             MdnsResponse existingResponse = iter.next();
             if (existingResponse.hasServiceRecord()
@@ -669,7 +672,8 @@ public class MdnsServiceTypeClient {
 
     private long getMinRemainingTtl(long now) {
         long minRemainingTtl = Long.MAX_VALUE;
-        for (MdnsResponse response : serviceCache.getCachedServices(cacheKey)) {
+        for (MdnsResponse response : serviceCache.getCachedServices(
+                cacheKey, clock.elapsedRealtime())) {
             if (!response.isComplete()) {
                 continue;
             }

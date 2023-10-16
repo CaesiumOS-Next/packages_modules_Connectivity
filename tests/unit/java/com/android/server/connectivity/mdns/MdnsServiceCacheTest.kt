@@ -35,10 +35,12 @@ import org.junit.runner.RunWith
 
 private const val SERVICE_NAME_1 = "service-instance-1"
 private const val SERVICE_NAME_2 = "service-instance-2"
+private const val SERVICE_NAME_3 = "service-instance-3"
 private const val SERVICE_TYPE_1 = "_test1._tcp.local"
 private const val SERVICE_TYPE_2 = "_test2._tcp.local"
 private const val INTERFACE_INDEX = 999
 private const val DEFAULT_TIMEOUT_MS = 2000L
+private const val TEST_ELAPSED_REALTIME_MS = 123L
 
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
@@ -49,9 +51,6 @@ class MdnsServiceCacheTest {
     private val thread = HandlerThread(MdnsServiceCacheTest::class.simpleName)
     private val handler by lazy {
         Handler(thread.looper)
-    }
-    private val serviceCache by lazy {
-        MdnsServiceCache(thread.looper)
     }
 
     @Before
@@ -64,6 +63,11 @@ class MdnsServiceCacheTest {
         thread.quitSafely()
     }
 
+    private fun makeFlags(isExpiredServicesRemovalEnabled: Boolean = true) =
+            MdnsFeatureFlags.Builder()
+                    .setIsExpiredServicesRemovalEnabled(isExpiredServicesRemovalEnabled)
+                    .build()
+
     private fun <T> runningOnHandlerAndReturn(functor: (() -> T)): T {
         val future = CompletableFuture<T>()
         handler.post {
@@ -72,36 +76,56 @@ class MdnsServiceCacheTest {
         return future.get(DEFAULT_TIMEOUT_MS, TimeUnit.MILLISECONDS)
     }
 
-    private fun addOrUpdateService(cacheKey: CacheKey, service: MdnsResponse): Unit =
-        runningOnHandlerAndReturn { serviceCache.addOrUpdateService(cacheKey, service) }
+    private fun addOrUpdateService(
+            serviceCache: MdnsServiceCache,
+            cacheKey: CacheKey,
+            service: MdnsResponse,
+            now: Long = TEST_ELAPSED_REALTIME_MS
+    ): Unit = runningOnHandlerAndReturn { serviceCache.addOrUpdateService(cacheKey, service, now) }
 
-    private fun removeService(serviceName: String, cacheKey: CacheKey): Unit =
-        runningOnHandlerAndReturn { serviceCache.removeService(serviceName, cacheKey) }
+    private fun removeService(
+            serviceCache: MdnsServiceCache,
+            serviceName: String,
+            cacheKey: CacheKey
+    ): Unit = runningOnHandlerAndReturn { serviceCache.removeService(serviceName, cacheKey) }
 
-    private fun getService(serviceName: String, cacheKey: CacheKey): MdnsResponse? =
-        runningOnHandlerAndReturn { serviceCache.getCachedService(serviceName, cacheKey) }
+    private fun getService(
+            serviceCache: MdnsServiceCache,
+            serviceName: String,
+            cacheKey: CacheKey,
+            now: Long = TEST_ELAPSED_REALTIME_MS
+    ): MdnsResponse? = runningOnHandlerAndReturn {
+        serviceCache.getCachedService(serviceName, cacheKey, now)
+    }
 
-    private fun getServices(cacheKey: CacheKey): List<MdnsResponse> =
-        runningOnHandlerAndReturn { serviceCache.getCachedServices(cacheKey) }
+    private fun getServices(
+            serviceCache: MdnsServiceCache,
+            cacheKey: CacheKey,
+            now: Long = TEST_ELAPSED_REALTIME_MS
+    ): List<MdnsResponse> = runningOnHandlerAndReturn {
+        serviceCache.getCachedServices(cacheKey, now)
+    }
 
     @Test
     fun testAddAndRemoveService() {
-        addOrUpdateService(cacheKey1, createResponse(SERVICE_NAME_1, SERVICE_TYPE_1))
-        var response = getService(SERVICE_NAME_1, cacheKey1)
+        val serviceCache = MdnsServiceCache(thread.looper, makeFlags())
+        addOrUpdateService(serviceCache, cacheKey1, createResponse(SERVICE_NAME_1, SERVICE_TYPE_1))
+        var response = getService(serviceCache, SERVICE_NAME_1, cacheKey1)
         assertNotNull(response)
         assertEquals(SERVICE_NAME_1, response.serviceInstanceName)
-        removeService(SERVICE_NAME_1, cacheKey1)
-        response = getService(SERVICE_NAME_1, cacheKey1)
+        removeService(serviceCache, SERVICE_NAME_1, cacheKey1)
+        response = getService(serviceCache, SERVICE_NAME_1, cacheKey1)
         assertNull(response)
     }
 
     @Test
     fun testGetCachedServices_multipleServiceTypes() {
-        addOrUpdateService(cacheKey1, createResponse(SERVICE_NAME_1, SERVICE_TYPE_1))
-        addOrUpdateService(cacheKey1, createResponse(SERVICE_NAME_2, SERVICE_TYPE_1))
-        addOrUpdateService(cacheKey2, createResponse(SERVICE_NAME_2, SERVICE_TYPE_2))
+        val serviceCache = MdnsServiceCache(thread.looper, makeFlags())
+        addOrUpdateService(serviceCache, cacheKey1, createResponse(SERVICE_NAME_1, SERVICE_TYPE_1))
+        addOrUpdateService(serviceCache, cacheKey1, createResponse(SERVICE_NAME_2, SERVICE_TYPE_1))
+        addOrUpdateService(serviceCache, cacheKey2, createResponse(SERVICE_NAME_2, SERVICE_TYPE_2))
 
-        val responses1 = getServices(cacheKey1)
+        val responses1 = getServices(serviceCache, cacheKey1)
         assertEquals(2, responses1.size)
         assertTrue(responses1.stream().anyMatch { response ->
             response.serviceInstanceName == SERVICE_NAME_1
@@ -109,26 +133,100 @@ class MdnsServiceCacheTest {
         assertTrue(responses1.any { response ->
             response.serviceInstanceName == SERVICE_NAME_2
         })
-        val responses2 = getServices(cacheKey2)
+        val responses2 = getServices(serviceCache, cacheKey2)
         assertEquals(1, responses2.size)
         assertTrue(responses2.any { response ->
             response.serviceInstanceName == SERVICE_NAME_2
         })
 
-        removeService(SERVICE_NAME_2, cacheKey1)
-        val responses3 = getServices(cacheKey1)
+        removeService(serviceCache, SERVICE_NAME_2, cacheKey1)
+        val responses3 = getServices(serviceCache, cacheKey1)
         assertEquals(1, responses3.size)
         assertTrue(responses3.any { response ->
             response.serviceInstanceName == SERVICE_NAME_1
         })
-        val responses4 = getServices(cacheKey2)
+        val responses4 = getServices(serviceCache, cacheKey2)
         assertEquals(1, responses4.size)
         assertTrue(responses4.any { response ->
             response.serviceInstanceName == SERVICE_NAME_2
         })
     }
 
-    private fun createResponse(serviceInstanceName: String, serviceType: String) = MdnsResponse(
-        0 /* now */, "$serviceInstanceName.$serviceType".split(".").toTypedArray(),
-            socketKey.interfaceIndex, socketKey.network)
+    @Test
+    fun testRemoveExpiredServiceWhenGetting() {
+        val serviceCache = MdnsServiceCache(
+                thread.looper, makeFlags(isExpiredServicesRemovalEnabled = true))
+
+        addOrUpdateService(serviceCache, cacheKey1,
+                createResponse(SERVICE_NAME_1, SERVICE_TYPE_1, 1 /* ttlTime */))
+        assertNull(getService(serviceCache, SERVICE_NAME_1, cacheKey1,
+                TEST_ELAPSED_REALTIME_MS + 2))
+
+        addOrUpdateService(serviceCache, cacheKey2,
+                createResponse(SERVICE_NAME_2, SERVICE_TYPE_2, 3 /* ttlTime */))
+        assertEquals(0, getServices(serviceCache, cacheKey2, TEST_ELAPSED_REALTIME_MS + 4).size)
+    }
+
+    @Test
+    fun testInsertResponseAndSortList() {
+        val responses = ArrayList<MdnsResponse>()
+        val response1 = createResponse(SERVICE_NAME_1, SERVICE_TYPE_1, 100L /* ttlTime */)
+        MdnsServiceCache.insertResponseAndSortList(responses, response1, TEST_ELAPSED_REALTIME_MS)
+        assertEquals(1, responses.size)
+        assertEquals(response1, responses[0])
+
+        val response2 = createResponse(SERVICE_NAME_2, SERVICE_TYPE_1, 50L /* ttlTime */)
+        MdnsServiceCache.insertResponseAndSortList(responses, response2, TEST_ELAPSED_REALTIME_MS)
+        assertEquals(2, responses.size)
+        assertEquals(response2, responses[0])
+        assertEquals(response1, responses[1])
+
+        val response3 = createResponse(SERVICE_NAME_3, SERVICE_TYPE_1, 75L /* ttlTime */)
+        MdnsServiceCache.insertResponseAndSortList(responses, response3, TEST_ELAPSED_REALTIME_MS)
+        assertEquals(3, responses.size)
+        assertEquals(response2, responses[0])
+        assertEquals(response3, responses[1])
+        assertEquals(response1, responses[2])
+
+        val response4 = createResponse("service-instance-4", SERVICE_TYPE_1, 125L /* ttlTime */)
+        MdnsServiceCache.insertResponseAndSortList(responses, response4, TEST_ELAPSED_REALTIME_MS)
+        assertEquals(4, responses.size)
+        assertEquals(response2, responses[0])
+        assertEquals(response3, responses[1])
+        assertEquals(response1, responses[2])
+        assertEquals(response4, responses[3])
+    }
+
+    private fun createResponse(
+            serviceInstanceName: String,
+            serviceType: String,
+            ttlTime: Long = 120000L
+    ): MdnsResponse {
+        val serviceName = "$serviceInstanceName.$serviceType".split(".").toTypedArray()
+        val response = MdnsResponse(
+                0 /* now */, "$serviceInstanceName.$serviceType".split(".").toTypedArray(),
+                socketKey.interfaceIndex, socketKey.network)
+
+        // Set PTR record
+        val pointerRecord = MdnsPointerRecord(
+                serviceType.split(".").toTypedArray(),
+                TEST_ELAPSED_REALTIME_MS /* receiptTimeMillis */,
+                false /* cacheFlush */,
+                ttlTime /* ttlMillis */,
+                serviceName)
+        response.addPointerRecord(pointerRecord)
+
+        // Set SRV record.
+        val serviceRecord = MdnsServiceRecord(
+                serviceName,
+                TEST_ELAPSED_REALTIME_MS /* receiptTimeMillis */,
+                false /* cacheFlush */,
+                ttlTime /* ttlMillis */,
+                0 /* servicePriority */,
+                0 /* serviceWeight */,
+                12345 /* port */,
+                arrayOf("hostname"))
+        response.serviceRecord = serviceRecord
+        return response
+    }
 }
