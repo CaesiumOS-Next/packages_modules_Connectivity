@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8017c2e6_863d852e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-16T13:55:32Z",
+      "side": 1,
+      "message": "Thanks for catching this, it\u0027s a typo. I updated the description to add links to the discovery \u0026 advertising proxy RFC/draft",
+      "parentUuid": "43a542d8_96c9734d",
+      "range": {
+        "startLine": 9,
+        "startChar": 42,
+        "endLine": 10,
+        "endChar": 50
+      },
+      "revId": "5b875658516d4327f0d73029a29727e57dd5c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ae73b5f_9d968325",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-14T09:08:50Z",
       "side": 1,
       "message": "I think it is also better to document this mTtlSeconds will only affect the ttl on the srv/txt records.",
+      "range": {
+        "startLine": 72,
+        "startChar": 16,
+        "endLine": 72,
+        "endChar": 27
+      },
+      "revId": "5b875658516d4327f0d73029a29727e57dd5c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0d15fe1_06344272",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-16T13:55:32Z",
+      "side": 1,
+      "message": "It\u0027s not, it affects the TTL of the A/AAAA records too. The use case of SRP is that an end device register a DNS-SD service to the registrar via unicast DNS update (i.e. SRP) and it requires TTL of all RRs to be the same value. See https://datatracker.ietf.org/doc/html/draft-ietf-dnssd-srp#name-ttl-consistency for background",
+      "parentUuid": "0ae73b5f_9d968325",
       "range": {
         "startLine": 72,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6bf86ea_1e45cca4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-16T13:55:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d42b53e_e3c8f6be",
+      "range": {
+        "startLine": 199,
+        "startChar": 63,
+        "endLine": 199,
+        "endChar": 90
+      },
+      "revId": "5b875658516d4327f0d73029a29727e57dd5c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77da0717_04a6ada7",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-10-14T09:08:50Z",
       "side": 1,
       "message": "`DEFAULT_NAME_RECORDS_TTL_MILLIS`",
+      "range": {
+        "startLine": 201,
+        "startChar": 63,
+        "endLine": 201,
+        "endChar": 86
+      },
+      "revId": "5b875658516d4327f0d73029a29727e57dd5c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2346916_dc51c694",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-16T13:55:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77da0717_04a6ada7",
       "range": {
         "startLine": 201,
         "startChar": 63,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bb6433d_2c55f171",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-16T13:55:32Z",
+      "side": 1,
+      "message": "The min TTL is passed to a MdnsServiceInfo instance in MdnsServiceTypeClient.java",
+      "parentUuid": "ec9e3fc5_2e9e2d93",
+      "range": {
+        "startLine": 93,
+        "startChar": 22,
+        "endLine": 93,
+        "endChar": 32
+      },
+      "revId": "5b875658516d4327f0d73029a29727e57dd5c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aaf53d85_fbdfe57f",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-10-14T09:08:50Z",
       "side": 1,
       "message": "I think it is not valid to set ttL to negative number? Its better to add a check in the NsdServiceInfo() to make sure the number is always \u003e 0?",
+      "range": {
+        "startLine": 207,
+        "startChar": 8,
+        "endLine": 207,
+        "endChar": 31
+      },
+      "revId": "5b875658516d4327f0d73029a29727e57dd5c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ca05eaf_3f88a855",
+        "filename": "tests/common/java/android/net/nsd/NsdServiceInfoTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-16T13:55:32Z",
+      "side": 1,
+      "message": "The check is added in NsdService.java when the service is being registered.",
+      "parentUuid": "aaf53d85_fbdfe57f",
       "range": {
         "startLine": 207,
         "startChar": 8,
