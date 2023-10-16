@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d19187e_a5c10e2c",
+        "filename": "framework/src/android/net/LocalNetworkInfo.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-16T07:13:58Z",
+      "side": 1,
+      "message": "Can we add the upstream network\u0027s linkProperties to LocalNetworkInfo for easier access?\n\nDiscussed this a bit in meeting, adding a comment here for tracking.",
+      "revId": "e5f717ed571c31b05fcf7b9285fadc78b184680e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "397d3814_ab742acc",
         "filename": "framework/src/android/net/LocalNetworkInfo.java",
         "patchSetId": 15
