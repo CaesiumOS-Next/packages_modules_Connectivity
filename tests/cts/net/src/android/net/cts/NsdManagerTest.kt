@@ -54,6 +54,7 @@ import android.net.cts.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.Ser
 import android.net.cts.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.UnregisterCallbackSucceeded
 import android.net.cts.util.CtsNetUtils
 import android.net.nsd.NsdManager
+import android.net.nsd.NsdManager.DiscoveryRequest
 import android.net.nsd.NsdServiceInfo
 import android.net.nsd.OffloadEngine
 import android.net.nsd.OffloadServiceInfo
@@ -90,6 +91,7 @@ import com.android.testutils.TestableNetworkAgent
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnNetworkCreated
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.assertEmpty
+import com.android.testutils.assertParcelingIsLossless
 import com.android.testutils.filters.CtsNetTestCasesMaxTargetSdk30
 import com.android.testutils.filters.CtsNetTestCasesMaxTargetSdk33
 import com.android.testutils.runAsShell
@@ -108,6 +110,7 @@ import java.util.concurrent.Executor
 import kotlin.math.min
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.fail
@@ -1318,6 +1321,52 @@ class NsdManagerTest {
         assertEquals(
                 setOf(parseNumericAddress("192.0.2.123"), parseNumericAddress("2001:db8::123")),
                 serviceResolved.serviceInfo.hostAddresses.toSet())
+    }
+
+    @Test
+    fun testDiscoveryRequest_parcelingIsLossLess() {
+        val requestWithNullFields =
+                DiscoveryRequest.Builder("_ipps._tcp", NsdManager.PROTOCOL_DNS_SD).build()
+        val requestWithAllFields =
+                DiscoveryRequest.Builder("_ipps._tcp", NsdManager.PROTOCOL_DNS_SD)
+                                .setSubtype("_xyz")
+                                .setNetwork(Network(1))
+                                .build()
+
+        assertParcelingIsLossless(requestWithNullFields)
+        assertParcelingIsLossless(requestWithAllFields)
+    }
+
+    @Test
+    fun testDiscoveryRequest_createWithBuilder() {
+        val request = DiscoveryRequest.Builder("_ipps._tcp", NsdManager.PROTOCOL_DNS_SD)
+                                      .setSubtype("_xyz")
+                                      .setNetwork(Network(1))
+                                      .build()
+
+        assertEquals("_ipps._tcp", request.serviceType)
+        assertEquals(NsdManager.PROTOCOL_DNS_SD, request.protocolType)
+        assertEquals("_xyz", request.subtype)
+        assertEquals(Network(1), request.network)
+    }
+
+    @Test
+    fun testDiscoveryRequest_equals() {
+        val request1 = DiscoveryRequest.Builder("_ipps._tcp", NsdManager.PROTOCOL_DNS_SD).build()
+        val request2 = DiscoveryRequest.Builder("_ipps._tcp", NsdManager.PROTOCOL_DNS_SD).build()
+        val request3 = DiscoveryRequest.Builder("_ipps._tcp", NsdManager.PROTOCOL_DNS_SD)
+                                       .setSubtype("_xyz")
+                                       .setNetwork(Network(1))
+                                       .build()
+        val request4 = DiscoveryRequest.Builder("_ipps._tcp", NsdManager.PROTOCOL_DNS_SD)
+                                       .setSubtype("_xyz")
+                                       .setNetwork(Network(1))
+                                       .build()
+
+        assertEquals(request1, request2)
+        assertEquals(request3, request4)
+        assertNotEquals(request1, request3)
+        assertNotEquals(request2, request4)
     }
 
     private fun buildConflictingAnnouncement(): ByteBuffer {
