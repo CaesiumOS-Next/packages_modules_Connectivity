@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50e152bd_94c166b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-17T10:08:15Z",
+      "side": 1,
+      "message": "Revoke Autosubmit+1 since we want to verify this by looking at TH result.",
+      "revId": "86298be5f875d30ba2f0567804ccf634fda6f3f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30d607a1_cc125591",
