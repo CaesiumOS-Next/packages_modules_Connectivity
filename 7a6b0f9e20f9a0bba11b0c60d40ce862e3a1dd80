@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d6c954d_5b5bbdae",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-10-17T05:52:02Z",
+      "side": 1,
+      "message": "Could you please document clearly, `mTtlSeconds` is expected to affect all the RRs?",
+      "range": {
+        "startLine": 73,
+        "startChar": 17,
+        "endLine": 73,
+        "endChar": 28
+      },
+      "revId": "7a6b0f9e20f9a0bba11b0c60d40ce862e3a1dd80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -219,6 +219,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84381817_3fec4b86",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-10-17T05:52:02Z",
+      "side": 1,
+      "message": "I think the suggestion here is to add a safeguard for the value can be set here. We should add a check for the `mTtlSeconds` in NsdService info before we pass it down.\n\nFor example,\n1. if the caller is non privileged app : min(non priviledge) \u003c mTtlSeconds \u003cmax(uint32)\n2. if the caller is priviledged app: min(priviledge) \u003c mTtlSeconds \u003cmax(uint32)\n\nWe can set min(non priviledge) \u003d 30\nand   min(priviledge) \u003d min(30, min ttl that thread needs to use)",
+      "parentUuid": "4758b4b4_607e86cd",
+      "revId": "85ddc02816fc96fdad88ee4019d52e287923f354",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3180923b_1c13df5f",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
         "patchSetId": 27

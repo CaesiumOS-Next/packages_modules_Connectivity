@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "72f33cb7_690bdd90",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-10-17T05:52:02Z",
+      "side": 1,
+      "message": "If it is expected to let it affect A/AAAA records, then I guess you will need to update the A/AAAA records in mGeneralRecords properly? Maybe revDns record is also affected? Please note the mGeneralRecords is used to answer ALL serviceRegistration, there will be some refractory required to make it cusomizeable per serviceRegistration.\n\nAlso if it is expected to have all RRs to be the same value, why the PTR record is still using the DEFAULT_NON_NAME_RECORDS_TTL_MILLIS?",
+      "parentUuid": "c0d15fe1_06344272",
+      "range": {
+        "startLine": 72,
+        "startChar": 16,
+        "endLine": 72,
+        "endChar": 27
+      },
+      "revId": "5b875658516d4327f0d73029a29727e57dd5c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6d42b53e_e3c8f6be",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
         "patchSetId": 29
