@@ -255,6 +255,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "96db8a0f_9337f5f5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-10-17T06:19:25Z",
+      "side": 1,
+      "message": "yes, we should update the document.",
+      "parentUuid": "d2360063_71790357",
+      "revId": "85ddc02816fc96fdad88ee4019d52e287923f354",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3180923b_1c13df5f",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
         "patchSetId": 27
