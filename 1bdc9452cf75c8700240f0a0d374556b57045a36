@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "073cc820_bb9fa496",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 1287,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-10-17T07:40:41Z",
+      "side": 1,
+      "message": "Because this change is effectively adding new API. We will need to go through API review. However, we should present to API council the final version of the API. We can not get half finalized API merged.\n\nCould you split the API and CTS part to a separate CL and apply the commit remi suggested?",
+      "range": {
+        "startLine": 1287,
+        "startChar": 7,
+        "endLine": 1287,
+        "endChar": 82
+      },
+      "revId": "1bdc9452cf75c8700240f0a0d374556b57045a36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
