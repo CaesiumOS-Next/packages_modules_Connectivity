@@ -22,6 +22,30 @@
       },
       "revId": "ece725e914d844e7ffc1569b85d798bcc96de08c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8856e9c9_4eafcbbf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1980271
+      },
+      "writtenOn": "2023-10-17T03:35:06Z",
+      "side": 1,
+      "message": "When \"dumpsys deviceidle force-idle deep\" is executed, it sends the \"android.os.action.DEVICE_IDLE_MODE_CHANGED\" broadcast, and when \"turnScreenOff()\" is called, it sends the \"android.intent.action.SCREEN_OFF\" broadcast.\n\nOn typical devices like \"ohm,\" in LowPowerStandbyController.java, the DEVICE_IDLE_MODE_CHANGED broadcast is received before the SCREEN_OFF broadcast. However, during testing on low-performance devices like ”planck“, we observed that LowPowerStandbyController.java receives the SCREEN_OFF broadcast first and then the DEVICE_IDLE_MODE_CHANGED broadcast. This results in the \"newActive\" value being set to true, ultimately triggering the LowPowerStandby mode. This mode restricts app network access, even when they are in the foreground, leading to test failures.\n\nWe found that swapping the execution order of \"executeShellCommand(\"dumpsys deviceidle force-idle deep\")\" and \"turnScreenOff()\" allows low-performance devices to pass the test, while not affecting other normal devices.",
+      "parentUuid": "ac47e7d8_17261804",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 70
+      },
+      "revId": "ece725e914d844e7ffc1569b85d798bcc96de08c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
