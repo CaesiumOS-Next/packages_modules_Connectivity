@@ -16,6 +16,52 @@
       "message": "It looks like you are re-running presubmit over and over with a script, even though these presubmit failures are real.",
       "revId": "34ff9d18afb4a23941c2825d31ec8db95df2ef77",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0fb2267_49c33f3a",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-10-17T01:11:30Z",
+      "side": 1,
+      "message": "FYI: Alternatively, you could get this from (and is populated for both Wifi and Cell) is NetworkCapabilities#getSubscriptionIds(). IIRC, this was limited to a single id for network objects, and can be more than one for the network requests.",
+      "range": {
+        "startLine": 285,
+        "startChar": 0,
+        "endLine": 287,
+        "endChar": 9
+      },
+      "revId": "34ff9d18afb4a23941c2825d31ec8db95df2ef77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "971d04a4_a6c7f121",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1555,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-10-17T01:11:30Z",
+      "side": 1,
+      "message": "Is this named incorrectly? Should this be \"isCarrierServiceFor...\"",
+      "range": {
+        "startLine": 1555,
+        "startChar": 50,
+        "endLine": 1555,
+        "endChar": 91
+      },
+      "revId": "34ff9d18afb4a23941c2825d31ec8db95df2ef77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
