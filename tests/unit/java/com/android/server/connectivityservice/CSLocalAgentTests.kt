@@ -29,6 +29,7 @@ import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
+import android.net.NetworkCapabilities.TRANSPORT_THREAD
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkRequest
 import android.net.NetworkScore
@@ -251,5 +252,61 @@ class CSLocalAgentTests : CSTest() {
         inOrder.verify(netd).ipfwdDisableForwarding(any())
         cb.expect<Lost>(localAgent.network)
         cb.assertNoCallback()
+    }
+
+    @Test
+    fun testLocalNetworkUnwanted_withUpstream() {
+        doTestLocalNetworkUnwanted(true)
+    }
+
+    @Test
+    fun testLocalNetworkUnwanted_withoutUpstream() {
+        doTestLocalNetworkUnwanted(false)
+    }
+
+    fun doTestLocalNetworkUnwanted(haveUpstream: Boolean) {
+        deps.setBuildSdk(VERSION_V)
+
+        val nr = NetworkRequest.Builder().addCapability(NET_CAPABILITY_LOCAL_NETWORK).build()
+        val requestCb = TestableNetworkCallback()
+        cm.requestNetwork(nr, requestCb)
+        val listenCb = TestableNetworkCallback()
+        cm.registerNetworkCallback(nr, listenCb)
+
+        val upstream = if (haveUpstream) {
+            Agent(score = keepScore(), lp = lp("wifi0"),
+                    nc = nc(TRANSPORT_WIFI)).also { it.connect() }
+        } else {
+            null
+        }
+
+        // Set up a local agent.
+        val lnc = LocalNetworkConfig.Builder().apply {
+            if (haveUpstream) {
+                setUpstreamSelector(NetworkRequest.Builder()
+                        .addTransportType(TRANSPORT_WIFI)
+                        .build())
+            }
+        }.build()
+        val localAgent = Agent(nc = nc(TRANSPORT_THREAD, NET_CAPABILITY_LOCAL_NETWORK),
+                lp = lp("local0"),
+                lnc = lnc,
+                score = FromS(NetworkScore.Builder().build())
+        )
+        localAgent.connect()
+
+        listOf(requestCb, listenCb).forEach { cb ->
+            cb.expect<Available>(localAgent.network)
+            cb.expect<CapabilitiesChanged>(localAgent.network)
+            cb.expect<LinkPropertiesChanged>(localAgent.network)
+            cb.expect<LocalInfoChanged>(localAgent.network) {
+                it.info.upstreamNetwork == upstream?.network
+            }
+            cb.expect<BlockedStatus>(localAgent.network)
+        }
+
+        cm.unregisterNetworkCallback(requestCb)
+
+        listenCb.expect<Lost>()
     }
 }

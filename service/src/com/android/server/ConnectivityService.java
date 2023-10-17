@@ -8929,6 +8929,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return;
         }
 
+        if (VDBG) {
+            Log.v(TAG, "Update local network config " + nai.network.netId + " : " + declaredConfig);
+        }
         final LocalNetworkConfig.Builder configBuilder = new LocalNetworkConfig.Builder();
         // TODO : apply the diff for multicast routing.
         configBuilder.setUpstreamMulticastRoutingConfig(
