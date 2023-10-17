@@ -52,6 +52,24 @@
       "parentUuid": "ffa57753_b91f8718",
       "revId": "0f3e7c8708da5f653123abcf41cd59ca85276e04",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "867000df_274f54e3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 9317,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-17T14:31:33Z",
+      "side": 1,
+      "message": "You are right – the selector is type NONE until the network config is updated at least once. But the scenario you describe is hypothetical – we do not call `localNetworkInfoForNai` at the beginning of `handleUpdateLocalNetworkConfig`, and in fact that\u0027s forbidden. There isn\u0027t a rule that this method can be called at any time from anywhere.\n\nIn particular, note how this mirrors what we do for NetworkCapabilities and LinkProperties – they are stored in the NetworkAgentInfo until `handleRegisterNetworkAgent`. Most methods in the code won\u0027t see the agent at all until that runs because it\u0027s not put in the list of agents before that code runs. In fact you can see we even have AutodestructReference to guarantee that the NAI is not referenced twice before it goes in the map.\n\nTo make things clearer, I\u0027ve moved the call to `handleUpdateLocalNetworkConfig` above `mNetworkAgentInfos.add` in `handleRegisterNetworkAgent`. If you feel strongly, I can add a check at the beginning of `localNetworkInfoForNai` that returns if the NAI is not in `mNetworkAgentInfos`, which would prevent the particular mistake you describe. I don\u0027t think it is very necessary though. WDYT ?",
+      "parentUuid": "7d392ad5_7e872760",
+      "revId": "0f3e7c8708da5f653123abcf41cd59ca85276e04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9708b300_5c912395",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 3944,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-17T14:31:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e606ae50_49684d74",
+      "revId": "e5f717ed571c31b05fcf7b9285fadc78b184680e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d19187e_a5c10e2c",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-10-16T07:13:58Z",
       "side": 1,
       "message": "Can we add the upstream network\u0027s linkProperties to LocalNetworkInfo for easier access?\n\nDiscussed this a bit in meeting, adding a comment here for tracking.",
+      "revId": "e5f717ed571c31b05fcf7b9285fadc78b184680e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce4ee118_2b19661f",
+        "filename": "framework/src/android/net/LocalNetworkInfo.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-17T14:31:33Z",
+      "side": 1,
+      "message": "Please look at my reply to Handa below. I understand this is a little bit of legwork, but in the end it\u0027s 10~15 lines of code ; there is a strong stance in Android against providing \"convenience\" APIs (that\u0027s the job of Jetpack), and here it sounds very ad-hoc (e.g. why only the LinkProperties and not the NetworkCapabilities ?) and expensive if not used (LinkProperties are pretty expensive to marshall).\n\nPlease first look at the code I wrote below – I don\u0027t think doing the below is all that much to ask for this use case. Then let\u0027s discuss more in our next meeting and see whether we think this is still necessary, or if we can find other alternatives. If we really think we should send the LP it shouldn\u0027t be too hard to do.",
+      "parentUuid": "2d19187e_a5c10e2c",
       "revId": "e5f717ed571c31b05fcf7b9285fadc78b184680e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -58,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6d42f8f_2b401f48",
+        "filename": "framework/src/android/net/LocalNetworkInfo.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-17T14:31:33Z",
+      "side": 1,
+      "message": "The idea here is to do something like the following (simplified of course, but that\u0027s the idea)\n\n    val networkToIface \u003d mutableMapOf\u003cNetwork, String\u003e()\n\n    val cb \u003d NetworkCallback() {\n      override onLinkPropertiesChanged(net: Network, lp: LinkProperties) {\n        networkToIface.put(net, lp.getInterfaceName())\n      }\n      override onLost(net: Network) {\n        networkToIface.remove(net)\n      }\n    }\n    val nr \u003d NetworkRequest.Builder().addCapability(LOCAL_NETWORK).build()\n    connectivityManager.registerNetworkCallback(nr, cb)\n\n    fun getUpstreamIface(lni: LocalNetworkInfo) \u003d networkToIface[getUpstreamNetwork()];\n\nDoes this make sense ?",
+      "parentUuid": "397d3814_ab742acc",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 0
+      },
+      "revId": "e5f717ed571c31b05fcf7b9285fadc78b184680e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ab9579b_0f72a222",
@@ -71,6 +131,24 @@
       "writtenOn": "2023-10-16T08:14:53Z",
       "side": 1,
       "message": "I cherry-picked the CLs in the chain until this one (included). However, I didn\u0027t see `onLocalNetworkInfoChanged` getting called if I register a callback on Thread network. On the other hand, `onAvailable` was called so I guess there\u0027s an issue about `onLocalNetworkInfoChanged`.",
+      "revId": "e5f717ed571c31b05fcf7b9285fadc78b184680e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52585c9e_02af3911",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 4133,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-17T14:31:33Z",
+      "side": 1,
+      "message": "Can you share the code that exhibits this ? I looked at your aosp/2780467 but that doesn\u0027t actually listen to onLocalNetworkInfoChanged at all, so I can\u0027t see if there is anything wrong on your side.\n\nOn my side, there are tests in this patch that show it is called as expected. Of course I may have missed something important, but if you have a case where it\u0027s not called it will help me debug. Maybe we can have another 1:1 debug session if you want.",
+      "parentUuid": "1ab9579b_0f72a222",
       "revId": "e5f717ed571c31b05fcf7b9285fadc78b184680e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
