@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f76ac87f_d5665ab9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1255,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-17T09:23:17Z",
+      "side": 1,
+      "message": "From discussion with Jean this do fail but rarely.\nI don\u0027t really know the answer.\n+jchalard@ to input.",
+      "parentUuid": "6fe96939_ba370164",
+      "range": {
+        "startLine": 1255,
+        "startChar": 36,
+        "endLine": 1255,
+        "endChar": 37
+      },
+      "revId": "a75bd55bb32ea269c95cc53315a880536f4ff328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e5a044d_19d37216",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-17T09:03:54Z",
       "side": 1,
       "message": "nits:\n`runWithScissors` returns false if it times out.\nIt might be helpful to write error message to pw so that we can know the dump timed out.",
+      "range": {
+        "startLine": 1264,
+        "startChar": 25,
+        "endLine": 1264,
+        "endChar": 40
+      },
+      "revId": "a75bd55bb32ea269c95cc53315a880536f4ff328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7784f843_a15b58ab",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1264,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-17T09:23:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e5a044d_19d37216",
       "range": {
         "startLine": 1264,
         "startChar": 25,
@@ -60,6 +108,30 @@
       "writtenOn": "2023-10-17T09:03:54Z",
       "side": 1,
       "message": "It seems we should have `handlerThread.join()` after quitSafely (aosp/2485661)",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 5
+      },
+      "revId": "a75bd55bb32ea269c95cc53315a880536f4ff328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28a82553_c24f5a49",
+        "filename": "tests/unit/java/com/android/server/HandlerUtilsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-17T09:23:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53a5041d_2c2f499c",
       "range": {
         "startLine": 56,
         "startChar": 4,
