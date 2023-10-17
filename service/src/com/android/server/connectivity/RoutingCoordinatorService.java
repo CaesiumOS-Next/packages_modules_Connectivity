@@ -27,6 +27,7 @@ import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.util.ArrayMap;
 import android.util.ArraySet;
+import android.util.Log;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.net.module.util.CollectionUtils;
@@ -44,6 +45,8 @@ import java.util.Objects;
  * synchronization.
  */
 public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
+    private static final String TAG = RoutingCoordinatorService.class.getSimpleName();
+
     private final INetd mNetd;
 
     public RoutingCoordinatorService(@NonNull INetd netd) {
@@ -166,6 +169,7 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
             final boolean enableNat) throws ServiceSpecificException, RemoteException {
         Objects.requireNonNull(fromIface);
         Objects.requireNonNull(toIface);
+        Log.i(TAG, "Add iface forward " + fromIface + " → " + toIface);
         synchronized (mIfacesLock) {
             if (mForwardedInterfaces.size() == 0) {
                 mNetd.ipfwdEnableForwarding("RoutingCoordinator");
@@ -193,6 +197,7 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
             throws ServiceSpecificException, RemoteException {
         Objects.requireNonNull(fromIface);
         Objects.requireNonNull(toIface);
+        Log.i(TAG, "Remove iface forward " + fromIface + " → " + toIface);
         synchronized (mIfacesLock) {
             final ForwardingPair fwp = new ForwardingPair(fromIface, toIface);
             final Boolean enableNat = mForwardedInterfaces.get(fwp);
