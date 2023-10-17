@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54d7848e_4fbd616b",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 5968,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-17T10:32:22Z",
+      "side": 1,
+      "message": "NetworkManagementService#setDataSaverModeEnabled maintains the current dataSaverMode and skips to call netd#bandwidthEnableDataSaver.\nIs it safe to call netd without checking the current dataSaverMode?\n\nAlso, NetworkManagementService#setDataSaverModeEnabled return if state is changed or not.\nAnd NetworkManagementService#setRestrictBackgroundUL checks the return value to maintains `mRestrictBackground` for the current state.\nDon\u0027t we need to return boolean to keep the current behavior?",
+      "range": {
+        "startLine": 5968,
+        "startChar": 48,
+        "endLine": 5968,
+        "endChar": 49
+      },
+      "revId": "01ac287b5c5620a902cce8818a382d7113ec22bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
