@@ -16,6 +16,24 @@
       "message": "The other public functions `addRoute/removeRoute/updateRoute/addInterfaceToNetwork` seem untested, or are they tested somewhere else?",
       "revId": "621c42fb7d4bfae5d7816ff400795f20ef6166c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b5c6710_88e883ef",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-17T08:53:59Z",
+      "side": 1,
+      "message": "They\u0027re not tested but they are one-liners on top of the netd methods that do have tests. I can write tests for them (in fact I might have to to keep up the coverage numbers up) but frankly I think these tests provide negative value : when we change the impl, we\u0027ll have to change the tests whatever we do. So it\u0027s work now for testing a one-liner, and more work later to update the tests, for no benefit.",
+      "parentUuid": "3b6c7f3c_dc716880",
+      "revId": "621c42fb7d4bfae5d7816ff400795f20ef6166c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
