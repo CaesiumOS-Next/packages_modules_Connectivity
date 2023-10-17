@@ -54,6 +54,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34e6097a_e6d1501d",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-17T12:35:44Z",
+      "side": 1,
+      "message": "\u003e I think we should avoid using @VisibleForTesting for whenever we can. The @VisibleForTesting is not actually change the accessibility of the method and should be the last resort only when there is no other way to test the logic.\n\nYes, I mean making the test easier isn\u0027t a good reason to move the short methods to MdnsUtils.java and make them public methods - @VisibleForTesting is better than making a private method public for just testing.\n\n\u003e But if the two method is in NsdService.java, we should try to write test in NsdManagerTest.java to test those two methods indirectly without marking them to be @VisibleForTesting.\n\nYes, for sure. They are tested over java public APIs (And I am adding more test cases).",
+      "parentUuid": "299c417a_d94291f3",
+      "revId": "b54f7d31d8fbc5a8c457b79d4a56049b72a1d36a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a6085d8_e9d69740",
