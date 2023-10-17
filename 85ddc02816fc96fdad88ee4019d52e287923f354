@@ -237,6 +237,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d2360063_71790357",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-17T06:15:54Z",
+      "side": 1,
+      "message": "Thanks Yuyang, I got the point now.\nShould we also communicate the 30s limitation in the API documentation? Otherwise,developers may struggle by themselves to find out why their registration failed",
+      "parentUuid": "84381817_3fec4b86",
+      "revId": "85ddc02816fc96fdad88ee4019d52e287923f354",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3180923b_1c13df5f",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
         "patchSetId": 27
