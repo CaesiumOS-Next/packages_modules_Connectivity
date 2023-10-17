@@ -22,6 +22,30 @@
       },
       "revId": "8f49c4d1f296ade073dd8b3ba6857b5889e152e4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fa45311_daebe74d",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-17T01:43:28Z",
+      "side": 1,
+      "message": "Then we will need an extra scan on mRdata to know how many bytes it stores. I am not sure if it\u0027s better.",
+      "parentUuid": "031f469a_ae8aa5cf",
+      "range": {
+        "startLine": 194,
+        "startChar": 12,
+        "endLine": 194,
+        "endChar": 21
+      },
+      "revId": "8f49c4d1f296ade073dd8b3ba6857b5889e152e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
