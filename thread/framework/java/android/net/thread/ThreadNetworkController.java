@@ -32,7 +32,7 @@ import java.lang.annotation.RetentionPolicy;
  * @hide
  */
 @SystemApi
-public class ThreadNetworkController {
+public final class ThreadNetworkController {
 
     /** Thread standard version 1.3. */
     public static final int THREAD_VERSION_1_3 = 4;
