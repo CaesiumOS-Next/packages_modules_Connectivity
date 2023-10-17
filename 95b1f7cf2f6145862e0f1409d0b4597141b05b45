@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52217375_912ee261",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-17T07:14:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8b12db0_36ad4e72",
+      "range": {
+        "startLine": 521,
+        "startChar": 24,
+        "endLine": 521,
+        "endChar": 50
+      },
+      "revId": "95b1f7cf2f6145862e0f1409d0b4597141b05b45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88651c27_0459e035",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-17T05:06:56Z",
       "side": 1,
       "message": "Usually, we use Handler to prevent multi-threading issue, i.e. I think we do not usually use synchronized on handler? From the design in NSS, should we remove the protect of mStatsLock and noted that mDefaultNetworks/mLastNetworkStateSnapshots/mActiveIface should only be accessed in handler thread?(actually, I think they\u0027re handled in the handler thread, doesn\u0027t it?)",
+      "range": {
+        "startLine": 522,
+        "startChar": 20,
+        "endLine": 522,
+        "endChar": 47
+      },
+      "revId": "95b1f7cf2f6145862e0f1409d0b4597141b05b45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf76c6fe_82bf0805",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-17T07:14:18Z",
+      "side": 1,
+      "message": "Yes and no.\nNSS#notifyNetworkStatus has to be a synchronize call from CS.\nThis is to stop CS/Netd from changing any network related information before NSS can collect the numbers.\nIn other words, these variable has to be accessed both from binder thread (CS-\u003enotifyNetworkStatus) and the handler thread (MSG_NOTIFY_NETWORK_STATUS) for now.\nThus, the lock cannot be removed.\n\nIn long-term, there is a plan to remove the need of synchonization between CS \u003c-\u003e NSS, which is documented here:\nhttps://docs.google.com/document/d/1zbVZZkS26JtbnQ2srn3BzKo1lF6uVoyFQwFGYIiiKpU/edit?resourcekey\u003d0-MQ5SR8e9trJegBMn6u6aag#heading\u003dh.l855nuu3svpz\nAfter the plan is done, we might be able to remove some of the locks.\nReopen if any idea.",
+      "parentUuid": "88651c27_0459e035",
       "range": {
         "startLine": 522,
         "startChar": 20,
