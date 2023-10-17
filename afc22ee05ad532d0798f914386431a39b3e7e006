@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27be11c0_0ffc6dbe",
+        "filename": "thread/framework/java/android/net/thread/OperationalDatasetTimestamp.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-17T08:02:35Z",
+      "side": 1,
+      "message": "There is `ofEpochSecond(long epochSecond, long nanoAdjustment)`",
+      "range": {
+        "startLine": 139,
+        "startChar": 34,
+        "endLine": 139,
+        "endChar": 47
+      },
+      "revId": "afc22ee05ad532d0798f914386431a39b3e7e006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e47a2b72_f06f51fc",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/OperationalDatasetTimestampTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-17T08:02:35Z",
+      "side": 1,
+      "message": "IIUC this is not true – ticks should be 0 in that case and the second should be one more. I think ticks must never exceed 2**15-1 ?",
+      "range": {
+        "startLine": 53,
+        "startChar": 57,
+        "endLine": 53,
+        "endChar": 76
+      },
+      "revId": "afc22ee05ad532d0798f914386431a39b3e7e006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0a404ba_ad19627b",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/PendingOperationalDatasetTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-17T08:02:35Z",
+      "side": 1,
+      "message": "Maybe let\u0027s use some non-1 non-0 values that are unlikely to be the default somewhere deep in the code by mistake",
+      "range": {
+        "startLine": 54,
+        "startChar": 57,
+        "endLine": 54,
+        "endChar": 60
+      },
+      "revId": "afc22ee05ad532d0798f914386431a39b3e7e006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d731e6fc_3860d186",
+        "filename": "thread/tests/unit/src/android/net/thread/ActiveOperationalDatasetTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-17T08:02:35Z",
+      "side": 1,
+      "message": "Nit : this may be a little bit overspecified in that it depends on what specific methods of Random the `createRandomDataset` method exactly calls for what\n\nOne idea might be to call the creating methods you need and then you\u0027d assert that Random.xxx was called and SecureRandom.xxx wasn\u0027t called, and the other way around. That would let you guarantee that the correct random was called without mandating what specific methods in what specific place.",
+      "range": {
+        "startLine": 101,
+        "startChar": 16,
+        "endLine": 101,
+        "endChar": 55
+      },
+      "revId": "afc22ee05ad532d0798f914386431a39b3e7e006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ea59c34_696d8e87",
+        "filename": "thread/tests/unit/src/android/net/thread/ActiveOperationalDatasetTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-17T08:02:35Z",
+      "side": 1,
+      "message": "didn\u0027t you make a constant for this ? If it\u0027s not visible to the test then your current code is fine",
+      "range": {
+        "startLine": 196,
+        "startChar": 52,
+        "endLine": 196,
+        "endChar": 55
+      },
+      "revId": "afc22ee05ad532d0798f914386431a39b3e7e006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ec0a5c6_31c712b7",
+        "filename": "thread/tests/unit/src/android/net/thread/OperationalDatasetTimestampTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-17T08:02:35Z",
+      "side": 1,
+      "message": "This looks like an invalid value of the ticks, maybe this is more readable written as\n\n    // 0x9989 is 0x4CC4 \u003c\u003c 1 + 1\n    assertThat(...).isEqualTo(0x4CC4)",
+      "range": {
+        "startLine": 47,
+        "startChar": 53,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "afc22ee05ad532d0798f914386431a39b3e7e006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
