@@ -65,6 +65,12 @@ public final class LocalNetworkInfo implements Parcelable {
         }
     };
 
+    @Override
+    public String toString() {
+        return "LocalNetworkInfo { upstream="
+                + ((null == upstreamNetwork) ? "null" : upstreamNetwork.netId) + " }";
+    }
+
     /**
      * Builder for LocalNetworkInfo
      */
