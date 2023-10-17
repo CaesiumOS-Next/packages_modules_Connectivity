@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3efe428b_630d27d5",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-17T02:35:06Z",
+      "side": 1,
+      "message": "Without this API, GMS Core will need to parse the TLVs and set the parameters one by one. The problem is that, either it will loss an unrecognized TLV (added in later versions) or we need to expose `ActiveOperationalDataset.Builder.setUnknownTlvs()`.",
+      "parentUuid": "f24f9586_6c2a4051",
+      "range": {
+        "startLine": 204,
+        "startChar": 4,
+        "endLine": 204,
+        "endChar": 10
+      },
+      "revId": "a6a7d4cbf3b80bcfde01378d02d91fa46ad9eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81b8b92a_d3df6758",
         "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
         "patchSetId": 27
