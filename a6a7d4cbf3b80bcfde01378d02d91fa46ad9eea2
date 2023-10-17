@@ -139,6 +139,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa67de38_772619fb",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-17T06:10:22Z",
+      "side": 1,
+      "message": "@jchalard@google.com\n\n\u003e This is only necessary if a client of this API reads from the wire\n\nThe immediate use case is that an Android-based Matter-over-Thread device need to support the binary blob Thread Operational Dataset sent by a Matter controller device / program, per the Matter spec [11.8.7.4. AddOrUpdateThreadNetwork Command](https://spang.users.x20web.corp.google.com/www/connectedhomeip-spec/index.html#ref_AddOrUpdateThreadNetwork) (The link is an internal dup of the spec because the Matter spec is private for Matter members).",
+      "parentUuid": "c284f145_8c3ff231",
+      "range": {
+        "startLine": 204,
+        "startChar": 4,
+        "endLine": 204,
+        "endChar": 10
+      },
+      "revId": "a6a7d4cbf3b80bcfde01378d02d91fa46ad9eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81b8b92a_d3df6758",
         "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
         "patchSetId": 27
@@ -408,6 +432,30 @@
       "writtenOn": "2023-10-13T07:02:20Z",
       "side": 1,
       "message": "Are you sure this needs to be public ?",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 10
+      },
+      "revId": "a6a7d4cbf3b80bcfde01378d02d91fa46ad9eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4740c49a_1a86fc14",
+        "filename": "thread/framework/java/android/net/thread/PendingOperationalDataset.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-17T06:10:22Z",
+      "side": 1,
+      "message": "See https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2733453/comment/dc32bb4e_e836708d/",
+      "parentUuid": "1152c5c2_7a4a651f",
       "range": {
         "startLine": 87,
         "startChar": 4,
