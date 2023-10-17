@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c284f145_8c3ff231",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2023-10-17T05:49:58Z",
+      "side": 1,
+      "message": "Not just GMS Core, but some vendor implemented Thread network manager in future, without this API, they have to write code to parse operational dataset if they don\u0027t want to depends on GMS Core. Besides, the ActiveOperationalDataset should be self contained to provide API to convert between binary blob and the object.",
+      "parentUuid": "3efe428b_630d27d5",
+      "range": {
+        "startLine": 204,
+        "startChar": 4,
+        "endLine": 204,
+        "endChar": 10
+      },
+      "revId": "a6a7d4cbf3b80bcfde01378d02d91fa46ad9eea2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81b8b92a_d3df6758",
         "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
         "patchSetId": 27
