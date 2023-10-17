@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fe96939_ba370164",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1255,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-17T09:03:54Z",
+      "side": 1,
+      "message": "Do you know why ConnectivityServiceTest#testDumpDoesNotCrash did not fail?\nIf it\u0027s easy to update testDumpDoesNotCrash to fail without this fix, that would be helpful to avoid the similar issue in future.",
+      "range": {
+        "startLine": 1255,
+        "startChar": 36,
+        "endLine": 1255,
+        "endChar": 37
+      },
+      "revId": "a75bd55bb32ea269c95cc53315a880536f4ff328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e5a044d_19d37216",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1264,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-17T09:03:54Z",
+      "side": 1,
+      "message": "nits:\n`runWithScissors` returns false if it times out.\nIt might be helpful to write error message to pw so that we can know the dump timed out.",
+      "range": {
+        "startLine": 1264,
+        "startChar": 25,
+        "endLine": 1264,
+        "endChar": 40
+      },
+      "revId": "a75bd55bb32ea269c95cc53315a880536f4ff328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53a5041d_2c2f499c",
+        "filename": "tests/unit/java/com/android/server/HandlerUtilsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-17T09:03:54Z",
+      "side": 1,
+      "message": "It seems we should have `handlerThread.join()` after quitSafely (aosp/2485661)",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 5
+      },
+      "revId": "a75bd55bb32ea269c95cc53315a880536f4ff328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
