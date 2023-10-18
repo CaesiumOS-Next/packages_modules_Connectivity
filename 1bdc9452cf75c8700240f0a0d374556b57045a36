@@ -46,6 +46,305 @@
       },
       "revId": "1bdc9452cf75c8700240f0a0d374556b57045a36",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f68e22a_1eda345b",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-18T02:47:40Z",
+      "side": 1,
+      "message": "You\u0027re modifying the underlying list in `setSubtypes`. Please make a copy in `getSubtypes`, or make the field mutable and make a copy in `setSubtypes`. Details are here: https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2369709/comment/3aead158_d9ccdaa4/",
+      "range": {
+        "startLine": 431,
+        "startChar": 15,
+        "endLine": 431,
+        "endChar": 43
+      },
+      "revId": "1bdc9452cf75c8700240f0a0d374556b57045a36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6aea37d5_0a84d4a1",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-18T02:47:40Z",
+      "side": 1,
+      "message": "Should the subtype size also be limited to 100, in keeping with the consistent design used for service registration?",
+      "range": {
+        "startLine": 869,
+        "startChar": 28,
+        "endLine": 869,
+        "endChar": 29
+      },
+      "revId": "1bdc9452cf75c8700240f0a0d374556b57045a36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d7d2c4e_b05f0b98",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-18T02:47:40Z",
+      "side": 1,
+      "message": "I think that using the FAILURE_MAX_LIMIT error code is not appropriate in this case because apps may not be able to determine the cause of the error (i.e., too many requests or too many subtypes) when they receive it. Using the FAILURE_BAD_PARAMETERS error code would be more informative, or a new error code could be added, such as FAILURE_MAX_SUBTYPE_LIMIT.",
+      "range": {
+        "startLine": 1003,
+        "startChar": 47,
+        "endLine": 1003,
+        "endChar": 64
+      },
+      "revId": "1bdc9452cf75c8700240f0a0d374556b57045a36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95f73c52_e2898b8b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-18T02:47:40Z",
+      "side": 1,
+      "message": "If you make a copy of the list in `getSubtypes()`, as I suggested in NsdServiceInfo, you will not need to make a copy here.",
+      "range": {
+        "startLine": 733,
+        "startChar": 16,
+        "endLine": 733,
+        "endChar": 61
+      },
+      "revId": "1bdc9452cf75c8700240f0a0d374556b57045a36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08fd8474_f4c516d6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-18T02:47:40Z",
+      "side": 1,
+      "message": "Unused import?",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 35
+      },
+      "revId": "1bdc9452cf75c8700240f0a0d374556b57045a36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec2588d4_f48e10d2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-18T02:47:40Z",
+      "side": 1,
+      "message": "This is no longer used because we are all use MdnsConstants.SUBTYPE_LABEL instead. Please delete this.",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 79,
+        "endChar": 59
+      },
+      "revId": "1bdc9452cf75c8700240f0a0d374556b57045a36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc482f9a_a2946e33",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-18T02:47:40Z",
+      "side": 1,
+      "message": "I\u0027m not sure why you changed this. Is there a problem with using the previous logic?",
+      "range": {
+        "startLine": 560,
+        "startChar": 39,
+        "endLine": 560,
+        "endChar": 71
+      },
+      "revId": "1bdc9452cf75c8700240f0a0d374556b57045a36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8637a975_73510860",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-18T02:47:40Z",
+      "side": 1,
+      "message": "Could you move this method to MdnsUtils? Since EnqueueMdnsQueryCallable also has similar code, we should use a common utility method to construct subtypes.\n\nhttps://source.corp.google.com/h/android/platform/superproject/+/master:packages/modules/Connectivity/service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java;l\u003d190-193",
+      "range": {
+        "startLine": 941,
+        "startChar": 4,
+        "endLine": 947,
+        "endChar": 5
+      },
+      "revId": "1bdc9452cf75c8700240f0a0d374556b57045a36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3f0524b_aa16d2eb",
+        "filename": "tests/common/java/android/net/nsd/NsdServiceInfoTest.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-18T02:47:40Z",
+      "side": 1,
+      "message": "Nit: you can use `assertEquals()` instead of `assertThat()` to compare `List.of(\"_thread\", \"_matter\")` and `info.getSubtypes()`",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 200,
+        "endChar": 18
+      },
+      "revId": "1bdc9452cf75c8700240f0a0d374556b57045a36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b84befb6_2cf00e4b",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 35
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-18T02:47:40Z",
+      "side": 1,
+      "message": "Could you also check that the subtypes are in the NsdServiceInfo?",
+      "range": {
+        "startLine": 1039,
+        "startChar": 12,
+        "endLine": 1042,
+        "endChar": 67
+      },
+      "revId": "1bdc9452cf75c8700240f0a0d374556b57045a36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6715a608_5247e2fd",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 35
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-18T02:47:40Z",
+      "side": 1,
+      "message": "More than 100 characters.",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 108
+      },
+      "revId": "1bdc9452cf75c8700240f0a0d374556b57045a36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5bf260c_b0b5e292",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 35
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-18T02:47:40Z",
+      "side": 1,
+      "message": "Since you are using ALL_NETWORKS_SERVICE_SUBTYPE, should this test rename to `AllNetworksWithSubType`?",
+      "range": {
+        "startLine": 254,
+        "startChar": 8,
+        "endLine": 254,
+        "endChar": 34
+      },
+      "revId": "1bdc9452cf75c8700240f0a0d374556b57045a36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b751ad47_847fa01c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 35
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-18T02:47:40Z",
+      "side": 1,
+      "message": "Could you test getReply() with two subtype PTR record in the questions?\n\n```\nval subtypeName1 \u003d arrayOf(TEST_SUBTYPE, \"_sub\", \"_testservice\", \"_tcp\", \"local\")\nval subtypeName2 \u003d arrayOf(TEST_SUBTYPE2, \"_sub\", \"_testservice\", \"_tcp\", \"local\")\n\nval questions \u003d listOf(\n        MdnsPointerRecord(subtypeName1,\n                0L /* receiptTimeMillis */,\n                false /* cacheFlush */,\n                // TTL and data is empty for a question\n                0L /* ttlMillis */,\n                null /* pointer */),\n        MdnsPointerRecord(subtypeName2,\n                0L /* receiptTimeMillis */,\n                false /* cacheFlush */,\n                // TTL and data is empty for a question\n                0L /* ttlMillis */,\n                null /* pointer */))\n```",
+      "range": {
+        "startLine": 483,
+        "startChar": 12,
+        "endLine": 483,
+        "endChar": 23
+      },
+      "revId": "1bdc9452cf75c8700240f0a0d374556b57045a36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
