@@ -14,6 +14,10 @@
 
 package com.android.server.thread;
 
+import static android.net.MulticastRoutingConfig.CONFIG_FORWARD_NONE;
+import static android.net.MulticastRoutingConfig.FORWARD_NONE;
+import static android.net.MulticastRoutingConfig.FORWARD_SELECTED;
+import static android.net.MulticastRoutingConfig.FORWARD_WITH_MIN_SCOPE;
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_CHILD;
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_DETACHED;
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_DISABLED;
@@ -31,8 +35,11 @@ import android.annotation.Nullable;
 import android.content.Context;
 import android.net.ConnectivityFrameworkInitializerTiramisu;
 import android.net.ConnectivityManager;
+import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
+import android.net.LocalNetworkConfig;
+import android.net.MulticastRoutingConfig;
 import android.net.Network;
 import android.net.NetworkAgent;
 import android.net.NetworkAgentConfig;
@@ -71,6 +78,7 @@ import com.android.server.thread.openthread.IOtStatusReceiver;
 import com.android.server.thread.openthread.Ipv6AddressInfo;
 
 import java.io.IOException;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.Inet6Address;
 import java.net.UnknownHostException;
@@ -106,11 +114,10 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
     private final List<ScheduleMigrationOperation> mOngoingMigrationOperations = new LinkedList<>();
     private final List<OutcomeReceiver<Void, ThreadNetworkException>> mOngoingDetachReceivers =
             new LinkedList<>();
-    private final NetworkRequest mNetworkRequest =
+    private final NetworkRequest mUpstreamNetworkRequest =
             new NetworkRequest.Builder()
-                              //.removeForbiddenCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK)
-                              .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-                              .build();
+                    .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                    .build();
     private IOtDaemon mOtDaemon;
     private NetworkAgent mNetworkAgent;
     private volatile Network mNetwork;
@@ -119,6 +126,9 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
     private volatile ActiveOperationalDataset mActiveOpDataset;
     private volatile PendingOperationalDataset mPendingOpDataset;
     private volatile int mDeviceRole;
+
+    private MulticastRoutingConfig mUpstreamMulticastRoutingConfig = CONFIG_FORWARD_NONE;
+    private MulticastRoutingConfig mDownstreamMulticastRoutingConfig = CONFIG_FORWARD_NONE;
 
     @VisibleForTesting
     ThreadNetworkControllerService(
@@ -163,13 +173,17 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
                 .build();
     }
 
-    private static InetAddress addressInfoToInetAddress(Ipv6AddressInfo addressInfo) {
+    private static Inet6Address bytesToInet6Address(byte[] addressBytes) {
         try {
-            return InetAddress.getByAddress(addressInfo.address);
+            return (Inet6Address) Inet6Address.getByAddress(addressBytes);
         } catch (UnknownHostException e) {
             // This is unlikely to happen unless the Thread daemon is critically broken
             return null;
         }
+    }
+
+    private static InetAddress addressInfoToInetAddress(Ipv6AddressInfo addressInfo) {
+        return bytesToInet6Address(addressInfo.address);
     }
 
     private final Runnable mOtDaemonDeathRecipient =
@@ -311,11 +325,10 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
                     public void onLost(@NonNull Network network) {
                         Log.i(TAG, "AIL is lost");
                         try {
-                            mOtDaemon
-                                    .onInfraInterfaceStateChanged(
-                                            mInfraIfController.getInterfaceName(),
-                                            false,
-                                            ParcelFileDescriptor.adoptFd(-1));
+                            mOtDaemon.onInfraInterfaceStateChanged(
+                                    mInfraIfController.getInterfaceName(),
+                                    false,
+                                    ParcelFileDescriptor.adoptFd(-1));
                             if (mInfraIfController != null) {
                                 mInfraIfController.destroyInfraInterfaceSocket();
                                 mInfraIfController = null;
@@ -382,7 +395,7 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
                         netCaps,
                         mLinkProperties,
                         new LocalNetworkConfig.Builder()
-                                 .setUpstreamSelector(mNetworkRequest)
+                                .setUpstreamSelector(mUpstreamNetworkRequest)
                                 .build(),
                         new NetworkScore.Builder().build(),
                         new NetworkAgentConfig.Builder().build(),
@@ -440,7 +453,6 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
             mNetworkAgent.sendLinkProperties(mLinkProperties);
         }
     }
-
 
     @Override
     public int getThreadVersion() {
@@ -971,6 +983,98 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
         updateNetworkLinkProperties(linkAddress, isAdded);
     }
 
+    private boolean isMulticastForwardingEnabled() {
+        return !(mUpstreamMulticastRoutingConfig.getForwardingMode() == FORWARD_NONE
+                && mDownstreamMulticastRoutingConfig.getForwardingMode() == FORWARD_NONE);
+    }
+
+    private void sendUpdatedLocalNetworkConfig() {
+        if (mNetworkAgent != null) {
+            final LocalNetworkConfig.Builder configBuilder = new LocalNetworkConfig.Builder();
+            LocalNetworkConfig localNetworkConfig =
+                    configBuilder
+                            .setUpstreamMulticastRoutingConfig(mUpstreamMulticastRoutingConfig)
+                            .setDownstreamMulticastRoutingConfig(mDownstreamMulticastRoutingConfig)
+                            .setUpstreamSelector(mUpstreamNetworkRequest)
+                            .build();
+            mNetworkAgent.sendLocalNetworkConfig(localNetworkConfig);
+            Log.d(
+                    TAG,
+                    "Sent localNetworkConfig with upstreamConfig "
+                            + mUpstreamMulticastRoutingConfig.toString()
+                            + " downstreamConfig"
+                            + mDownstreamMulticastRoutingConfig.toString());
+        }
+    }
+
+    private void handleMulticastForwardingStateChanged(boolean isEnabled) {
+
+        if (isMulticastForwardingEnabled() != isEnabled) {
+
+            if (isEnabled) {
+                // When multicast forwarding is enabled, setup upstream forwarding to any address
+                // with minimal scope 4
+                // setup downstream forwarding with addresses subscribed from Thread network
+                mUpstreamMulticastRoutingConfig =
+                        new MulticastRoutingConfig.Builder(FORWARD_WITH_MIN_SCOPE, 4).build();
+                mDownstreamMulticastRoutingConfig =
+                        new MulticastRoutingConfig.Builder(FORWARD_SELECTED).build();
+            } else {
+                // When multicast forwarding is disabled, set both upstream and downstream
+                // forwarding config to FORWARD_NONE.
+                mUpstreamMulticastRoutingConfig = CONFIG_FORWARD_NONE;
+                mDownstreamMulticastRoutingConfig = CONFIG_FORWARD_NONE;
+            }
+
+            sendUpdatedLocalNetworkConfig();
+            Log.d(
+                    TAG,
+                    "Sent updated localNetworkConfig with multicast forwarding "
+                            + (isEnabled ? "enabled" : "disabled"));
+        }
+    }
+
+    private void handleMulticastForwardingAddressChanged(byte[] addressBytes, boolean isAdded) {
+
+        Inet6Address address = bytesToInet6Address(addressBytes);
+        MulticastRoutingConfig newDownstreamConfig;
+        MulticastRoutingConfig.Builder builder;
+
+        if (mDownstreamMulticastRoutingConfig.getForwardingMode() !=
+                MulticastRoutingConfig.FORWARD_SELECTED) {
+            Log.e(
+                    TAG,
+                    "Ignor multicast listening address updates when downstream multicast "
+                            + "forwarding mode is not FORWARD_SELECTED");
+            // Don't update the address set if downstream multicast forwarding is disabled.
+            return;
+        }
+
+        builder = new MulticastRoutingConfig.Builder(FORWARD_SELECTED);
+        for (Inet6Address listeningAddress :
+                mDownstreamMulticastRoutingConfig.getListeningAddresses()) {
+            builder.addListeningAddress(listeningAddress);
+        }
+
+        if (isAdded) {
+            builder.addListeningAddress(address);
+        } else {
+            builder.clearListeningAddress(address);
+        }
+
+        newDownstreamConfig = builder.build();
+        if (!newDownstreamConfig.equals(mDownstreamMulticastRoutingConfig)) {
+            Log.d(
+                    TAG,
+                    "Multicast listening address "
+                            + address.getHostAddress()
+                            + " is "
+                            + (isAdded ? "added" : "removed"));
+            mDownstreamMulticastRoutingConfig = newDownstreamConfig;
+            sendUpdatedLocalNetworkConfig();
+        }
+    }
+
     private final class OtDaemonCallbackProxy extends IOtDaemonCallback.Stub {
         @GuardedBy("this")
         private final Map<IStateCallback, IBinder.DeathRecipient> mStateCallbacks = new HashMap<>();
@@ -1141,6 +1245,16 @@ public final class ThreadNetworkControllerService extends IThreadNetworkControll
         public void onAddressChanged(Ipv6AddressInfo addressInfo, boolean isAdded)
                 throws RemoteException {
             mHandler.post(() -> handleAddressChanged(addressInfo, isAdded));
+        }
+
+        @Override
+        public void onMulticastForwardingStateChanged(boolean isEnabled) {
+            mHandler.post(() -> handleMulticastForwardingStateChanged(isEnabled));
+        }
+
+        @Override
+        public void onMulticastForwardingAddressChanged(byte[] address, boolean isAdded) {
+            mHandler.post(() -> handleMulticastForwardingAddressChanged(address, isAdded));
         }
     }
 }
