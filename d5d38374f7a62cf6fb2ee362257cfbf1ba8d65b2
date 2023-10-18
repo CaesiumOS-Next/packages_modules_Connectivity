@@ -70,6 +70,30 @@
       },
       "revId": "d5d38374f7a62cf6fb2ee362257cfbf1ba8d65b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "226d10be_80f330ac",
+        "filename": "staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-18T05:32:11Z",
+      "side": 1,
+      "message": "I could see some experiment configuration specifies that.\nIt seems we can push the flag only for non debuggable devices.\nIf we update the experiment to run only on non debuggable devices, this change should be fine.",
+      "parentUuid": "f0f26ccc_435781a6",
+      "range": {
+        "startLine": 184,
+        "startChar": 22,
+        "endLine": 184,
+        "endChar": 36
+      },
+      "revId": "d5d38374f7a62cf6fb2ee362257cfbf1ba8d65b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
