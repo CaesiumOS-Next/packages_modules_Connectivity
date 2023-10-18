@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff0926c7_64f15313",
+        "filename": "framework/src/android/net/LocalNetworkInfo.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-18T04:06:13Z",
+      "side": 1,
+      "message": "registerNetworkCallback will send you callbacks about all networks that match the request. You can\u0027t pin it to only one network, but you\u0027re guaranteed to see all that match the request, so if the request is the same you\u0027re guaranteed to see the upstream.\n\nNetwork IDs are not recycled.\n\nYes, you do need to be prepared for both orders. This is relatively easy to do as you can simply have a single function that is called in `onLinkPropertiesChanged` and `onLost` for this callback as well as `onLocalNetworkInfoChanged` for the local network. You need to do this regardless because in principle the iface name for the upstream can change dynamically.",
+      "parentUuid": "7acf31e0_88f8cf47",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 0
+      },
+      "revId": "e5f717ed571c31b05fcf7b9285fadc78b184680e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ab9579b_0f72a222",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 15
