@@ -30,6 +30,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
+import android.os.Build;
 import android.provider.DeviceConfig;
 import android.util.Log;
 
@@ -76,6 +77,8 @@ public final class DeviceConfigUtils {
 
     private static final int FORCE_ENABLE_FEATURE_FLAG_VALUE = 1;
     private static final int FORCE_DISABLE_FEATURE_FLAG_VALUE = -1;
+
+    private static final boolean IS_USERDEBUG = Build.TYPE.equals("userdebug");
 
     private static volatile long sPackageVersion = -1;
     private static long getPackageVersion(@NonNull final Context context) {
@@ -179,7 +182,9 @@ public final class DeviceConfigUtils {
      */
     public static boolean isNetworkStackFeatureEnabled(@NonNull Context context,
             @NonNull String name) {
-        return isFeatureEnabled(NAMESPACE_CONNECTIVITY, name, false /* defaultEnabled */,
+        // The feature is default enabled on all userdebug builds to get droidfood coverage before
+        // the flag rollout.
+        return isFeatureEnabled(NAMESPACE_CONNECTIVITY, name, IS_USERDEBUG /* defaultEnabled */,
                 () -> getPackageVersion(context));
     }
 
@@ -202,7 +207,9 @@ public final class DeviceConfigUtils {
      */
     public static boolean isTetheringFeatureEnabled(@NonNull Context context,
             @NonNull String name) {
-        return isFeatureEnabled(NAMESPACE_TETHERING, name, false /* defaultEnabled */,
+        // The feature is default enabled on all userdebug builds to get droidfood coverage before
+        // the flag rollout.
+        return isFeatureEnabled(NAMESPACE_TETHERING, name, IS_USERDEBUG /* defaultEnabled */,
                 () -> getTetheringModuleVersion(context));
     }
 
