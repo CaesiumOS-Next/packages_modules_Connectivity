@@ -251,6 +251,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d245fb6_529b6648",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5960,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-18T04:56:38Z",
+      "side": 1,
+      "message": "IIUC CM is in BOOTCLASSPATH, so our use case doesn\u0027t match it?\n\n\"Use this to expose APIs from code loaded by the system server process \u003cem\u003ebut\u003c/em\u003e\n * not in \u003cpre\u003eBOOTCLASSPATH\u003c/pre\u003e.\"",
+      "parentUuid": "9c72f232_56c8697f",
+      "range": {
+        "startLine": 5960,
+        "startChar": 24,
+        "endLine": 5960,
+        "endChar": 40
+      },
+      "revId": "977680b036346f4d9617b8d45790ffb79c4d6c42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80c380f9_1e2ab670",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 6
