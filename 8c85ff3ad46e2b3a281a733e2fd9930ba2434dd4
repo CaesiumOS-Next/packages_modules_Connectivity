@@ -108,6 +108,30 @@
       },
       "revId": "8c85ff3ad46e2b3a281a733e2fd9930ba2434dd4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "092ba800_b01a347b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1712,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-10-18T06:55:46Z",
+      "side": 1,
+      "message": "Nice catch! I think it is an type.... Remove +2 as it need to be fixed",
+      "parentUuid": "2cc6c487_71c29946",
+      "range": {
+        "startLine": 1712,
+        "startChar": 41,
+        "endLine": 1712,
+        "endChar": 71
+      },
+      "revId": "8c85ff3ad46e2b3a281a733e2fd9930ba2434dd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
