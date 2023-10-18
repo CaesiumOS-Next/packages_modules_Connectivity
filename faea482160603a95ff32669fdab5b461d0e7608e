@@ -164,6 +164,30 @@
       },
       "revId": "faea482160603a95ff32669fdab5b461d0e7608e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "513da263_730a550b",
+        "filename": "staticlibs/device/com/android/net/module/util/BpfUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-18T08:11:42Z",
+      "side": 1,
+      "message": "Actually you\u0027ve run it and it prints sane output, so it works.  :-)",
+      "parentUuid": "daebb56f_de3f8a5c",
+      "range": {
+        "startLine": 39,
+        "startChar": 60,
+        "endLine": 39,
+        "endChar": 61
+      },
+      "revId": "faea482160603a95ff32669fdab5b461d0e7608e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
