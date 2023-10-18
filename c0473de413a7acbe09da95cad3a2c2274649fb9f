@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95f3c664_eed5f0dd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 8963,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-18T04:29:00Z",
+      "side": 1,
+      "message": "nits: We don\u0027t need to declare nri outside of if block now. This can be moved to L8974.",
+      "range": {
+        "startLine": 8963,
+        "startChar": 8,
+        "endLine": 8963,
+        "endChar": 37
+      },
+      "revId": "c0473de413a7acbe09da95cad3a2c2274649fb9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
