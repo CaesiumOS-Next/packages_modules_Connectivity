@@ -194,7 +194,8 @@ public class MdnsServiceTypeClientTests {
         thread.start();
         handler = new Handler(thread.getLooper());
         serviceCache = new MdnsServiceCache(
-                thread.getLooper(), MdnsFeatureFlags.newBuilder().build());
+                thread.getLooper(),
+                MdnsFeatureFlags.newBuilder().setIsExpiredServicesRemovalEnabled(true).build());
 
         doAnswer(inv -> {
             latestDelayMs = 0;
