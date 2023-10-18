@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e16fb4d1_01818db7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-18T07:05:02Z",
+      "side": 1,
+      "message": "I wonder if \": \" instead of \"\u003d\" would be prettier",
+      "range": {
+        "startLine": 11,
+        "startChar": 21,
+        "endLine": 11,
+        "endChar": 22
+      },
+      "revId": "faea482160603a95ff32669fdab5b461d0e7608e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd529a64_86cd2b21",
+        "filename": "staticlibs/device/com/android/net/module/util/BpfUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-18T07:05:02Z",
+      "side": 1,
+      "message": "the value of this path constant is indeed guaranteed on U+,\nbut it\u0027s only somewhat guaranteed on T\n(I think it is on Pixel and on any hardware that wants to use the inet bind port blocking feature set)\n\nI don\u0027t think this is worth worrying about...\nso long as we only use this for debugging,\nbut it is worth commenting about.",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 10
+      },
+      "revId": "faea482160603a95ff32669fdab5b461d0e7608e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4faed396_875766d6",
+        "filename": "staticlibs/device/com/android/net/module/util/BpfUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-18T07:05:02Z",
+      "side": 1,
+      "message": "I assume you\u0027ve tested that this final / does not break things",
+      "range": {
+        "startLine": 39,
+        "startChar": 60,
+        "endLine": 39,
+        "endChar": 61
+      },
+      "revId": "faea482160603a95ff32669fdab5b461d0e7608e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
