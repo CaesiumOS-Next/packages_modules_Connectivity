@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "628545ea_292eddef",
+        "filename": "staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-18T02:43:51Z",
+      "side": 1,
+      "message": "In the experiment, we use flag\u003d0 for control group.\nAnd isFeatureEnabled returns default value if the flag\u003d0.\nSo, if we have the debuggable devices in control groups, we can not compare the metrics between control groups and treatment groups.\n\nTemplate we are using rollout the feature via teamfood, droidfood, beta, and public.\nDo we know how much debuggable devices we have in beta or public?\nIf we don\u0027t have many debuggable devices in beta or public stage, this is maybe fine since we don\u0027t have many devices in teamfood or droidfood and we can not compare the metrics in these stages.\n\n@xiaom@google.com, Do you check the metrics in teamfood or droidfood?",
+      "range": {
+        "startLine": 184,
+        "startChar": 22,
+        "endLine": 184,
+        "endChar": 36
+      },
+      "revId": "d5d38374f7a62cf6fb2ee362257cfbf1ba8d65b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
