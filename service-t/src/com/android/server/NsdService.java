@@ -1645,8 +1645,8 @@ public class NsdService extends INsdManager.Stub {
                         mContext, MdnsFeatureFlags.NSD_FORCE_DISABLE_MDNS_OFFLOAD))
                 .setIncludeInetAddressRecordsInProbing(mDeps.isFeatureEnabled(
                         mContext, MdnsFeatureFlags.INCLUDE_INET_ADDRESS_RECORDS_IN_PROBING))
-                .setIsExpiredServicesRemovalEnabled(mDeps.isTrunkStableFeatureEnabled(
-                        MdnsFeatureFlags.NSD_EXPIRED_SERVICES_REMOVAL))
+                .setIsExpiredServicesRemovalEnabled(mDeps.isTetheringFeatureNotChickenedOut(
+                        mContext, MdnsFeatureFlags.NSD_EXPIRED_SERVICES_REMOVAL))
                 .build();
         mMdnsSocketClient =
                 new MdnsMultinetworkSocketClient(handler.getLooper(), mMdnsSocketProvider,
