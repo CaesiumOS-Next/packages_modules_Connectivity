@@ -22,6 +22,30 @@
       },
       "revId": "d5d38374f7a62cf6fb2ee362257cfbf1ba8d65b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "663f0d12_54024d1f",
+        "filename": "staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-10-18T03:53:27Z",
+      "side": 1,
+      "message": "\u003e In the experiment, we use flag\u003d0 for control group.\n\nIs this a feature of how *we* run experiments, or how experiments generally work? How did this work when we passed in defaultEnabled \u003d isAtLeastU() (which was mostly true on droidfood)?",
+      "parentUuid": "628545ea_292eddef",
+      "range": {
+        "startLine": 184,
+        "startChar": 22,
+        "endLine": 184,
+        "endChar": 36
+      },
+      "revId": "d5d38374f7a62cf6fb2ee362257cfbf1ba8d65b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
