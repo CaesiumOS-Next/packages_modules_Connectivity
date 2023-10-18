@@ -30,6 +30,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
+import android.os.Build;
 import android.provider.DeviceConfig;
 import android.util.Log;
 
@@ -179,8 +180,10 @@ public final class DeviceConfigUtils {
      */
     public static boolean isNetworkStackFeatureEnabled(@NonNull Context context,
             @NonNull String name) {
-        return isFeatureEnabled(NAMESPACE_CONNECTIVITY, name, false /* defaultEnabled */,
-                () -> getPackageVersion(context));
+        // The feature is default enabled on all userdebug builds to get droidfood coverage before
+        // the flag rollout.
+        return isFeatureEnabled(NAMESPACE_CONNECTIVITY, name,
+                Build.isDebuggable() /*defaultEnabled*/, () -> getPackageVersion(context));
     }
 
     /**
@@ -202,8 +205,10 @@ public final class DeviceConfigUtils {
      */
     public static boolean isTetheringFeatureEnabled(@NonNull Context context,
             @NonNull String name) {
-        return isFeatureEnabled(NAMESPACE_TETHERING, name, false /* defaultEnabled */,
-                () -> getTetheringModuleVersion(context));
+        // The feature is default enabled on all userdebug builds to get droidfood coverage before
+        // the flag rollout.
+        return isFeatureEnabled(NAMESPACE_TETHERING, name,
+                Build.isDebuggable() /*defaultEnabled*/, () -> getTetheringModuleVersion(context));
     }
 
     private static boolean isFeatureEnabled(@NonNull String namespace,
