@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b6cb5562_c1f4b000",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-18T09:51:13Z",
+      "side": 1,
+      "message": "In fact, there are two issues for this feature. I add another bug in the commit message.",
+      "parentUuid": "1120bf78_f042273d",
+      "range": {
+        "startLine": 17,
+        "startChar": 5,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "8c85ff3ad46e2b3a281a733e2fd9930ba2434dd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "400ec606_96376c33",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05baf8ab_644f82f4",
+        "filename": "common/flags.aconfig",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-18T09:51:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fa7b930_593e4572",
+      "range": {
+        "startLine": 18,
+        "startChar": 37,
+        "endLine": 18,
+        "endChar": 45
+      },
+      "revId": "8c85ff3ad46e2b3a281a733e2fd9930ba2434dd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ae45571_e2ca5d5c",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-10-18T06:47:01Z",
       "side": 1,
       "message": "Nit: final",
+      "range": {
+        "startLine": 1706,
+        "startChar": 8,
+        "endLine": 1706,
+        "endChar": 9
+      },
+      "revId": "8c85ff3ad46e2b3a281a733e2fd9930ba2434dd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "838bf09a_5482d1df",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1706,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-18T09:51:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ae45571_e2ca5d5c",
       "range": {
         "startLine": 1706,
         "startChar": 8,
@@ -124,6 +196,30 @@
       "side": 1,
       "message": "Nice catch! I think it is an type.... Remove +2 as it need to be fixed",
       "parentUuid": "2cc6c487_71c29946",
+      "range": {
+        "startLine": 1712,
+        "startChar": 41,
+        "endLine": 1712,
+        "endChar": 71
+      },
+      "revId": "8c85ff3ad46e2b3a281a733e2fd9930ba2434dd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89b7a735_9f7d737e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1712,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-18T09:51:13Z",
+      "side": 1,
+      "message": "Oops. Correct this to NSD_EXPIRED_SERVICES_REMOVAL_ENABLED.",
+      "parentUuid": "092ba800_b01a347b",
       "range": {
         "startLine": 1712,
         "startChar": 41,
