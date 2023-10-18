@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1120bf78_f042273d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-18T06:47:01Z",
+      "side": 1,
+      "message": "Why this is different from the bug linked in the flag? should it use the same one? or why they\u0027re different?",
+      "range": {
+        "startLine": 17,
+        "startChar": 5,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "8c85ff3ad46e2b3a281a733e2fd9930ba2434dd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "400ec606_96376c33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-18T06:47:01Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed",
+      "revId": "8c85ff3ad46e2b3a281a733e2fd9930ba2434dd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fa7b930_593e4572",
+        "filename": "common/flags.aconfig",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-18T06:47:01Z",
+      "side": 1,
+      "message": "Nit: not sure if `_enabled` is needed or not. I think the flag here generally implies enable. From current existing flags, do we usually name it with feature name? I.e. remove `_enable`?",
+      "range": {
+        "startLine": 18,
+        "startChar": 37,
+        "endLine": 18,
+        "endChar": 45
+      },
+      "revId": "8c85ff3ad46e2b3a281a733e2fd9930ba2434dd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ae45571_e2ca5d5c",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1706,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-18T06:47:01Z",
+      "side": 1,
+      "message": "Nit: final",
+      "range": {
+        "startLine": 1706,
+        "startChar": 8,
+        "endLine": 1706,
+        "endChar": 9
+      },
+      "revId": "8c85ff3ad46e2b3a281a733e2fd9930ba2434dd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cc6c487_71c29946",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1712,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-18T06:47:01Z",
+      "side": 1,
+      "message": "typo?",
+      "range": {
+        "startLine": 1712,
+        "startChar": 41,
+        "endLine": 1712,
+        "endChar": 71
+      },
+      "revId": "8c85ff3ad46e2b3a281a733e2fd9930ba2434dd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
