@@ -70,6 +70,24 @@
       "parentUuid": "7d392ad5_7e872760",
       "revId": "0f3e7c8708da5f653123abcf41cd59ca85276e04",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fe2adef_8b774172",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 9317,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-18T02:02:13Z",
+      "side": 1,
+      "message": "At the place of `// TODO : apply the diff for multicast routing.` I\u0027d need to know if there is an upstream network for the local network to apply the multicast routing config. If the localNetworkInfo is not ready because the networkAgent is still being registered, I think it should return null instead of crash. So adding a check that returns null if the NAI is not in mNetworkAgentInfos sounds good to me.",
+      "parentUuid": "867000df_274f54e3",
+      "revId": "0f3e7c8708da5f653123abcf41cd59ca85276e04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
