@@ -120,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7acf31e0_88f8cf47",
+        "filename": "framework/src/android/net/LocalNetworkInfo.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-10-18T02:33:24Z",
+      "side": 1,
+      "message": "It looks good overall except two concerns:\n\n- Is the `registerNetworkCallback` guaranteed to return the same network as the upstream selector does given the same NetworkRequest?\n- It seems Networks are equal iff net IDs are equal. I wonder if Ethernet/WiFi\u0027s net ID would be recycled? If so it could be tricky to maintain the mapping.\n\nAlso, some order handling is required from our side: besides the above code we need to handle the case where the network callback comes later than `onLocalNetworkInfoChanged`.",
+      "parentUuid": "e6d42f8f_2b401f48",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 0
+      },
+      "revId": "e5f717ed571c31b05fcf7b9285fadc78b184680e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ab9579b_0f72a222",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 15
