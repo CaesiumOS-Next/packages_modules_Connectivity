@@ -190,6 +190,30 @@
       },
       "revId": "d5d38374f7a62cf6fb2ee362257cfbf1ba8d65b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f305e51_539ee23e",
+        "filename": "staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-10-19T04:15:14Z",
+      "side": 1,
+      "message": "FWIU, I think there are really three options:\n1) use force disable (-1) as a default in all experiments and continue with this change.\n2) Exclude debuggable build from all experiments using propagation experiment.\n3) Exclude debuggable builds from just the APF experiment and do something like Motomu suggests `isDebuggable() || isFeatureEnabled()`.\n\n\u003e If we have many debuggable devices in droidfood\n\nI would imagine the droidfood population to be almost exclusively debuggable builds (it requires dev-keys to participate). (Not sure if the build server provides dev-keys signed -user builds? Probably? Though that is probably not super helpful when droidfooding.)",
+      "parentUuid": "1234f87e_70f8292f",
+      "range": {
+        "startLine": 184,
+        "startChar": 22,
+        "endLine": 184,
+        "endChar": 36
+      },
+      "revId": "d5d38374f7a62cf6fb2ee362257cfbf1ba8d65b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
