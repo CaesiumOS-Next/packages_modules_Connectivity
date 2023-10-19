@@ -45,6 +45,30 @@
       },
       "revId": "016024cb9d0997d46006d5511f2206d6865981b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6113e8d_da132a47",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2727,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-19T03:15:41Z",
+      "side": 1,
+      "message": "It seems shell has the permission, and unit test mock the method, so I think it is fine.\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:frameworks/base/packages/Shell/AndroidManifest.xml;l\u003d150?q\u003df:%20packages%20%2F%20Shell%20%2F%20AndroidManifest.xml\u0026ss\u003dandroid\n\nBut make it even safer by caching this value in the constructor, given that there is no point of supporting dynamically change config.",
+      "parentUuid": "555b0b62_f9d504bd",
+      "range": {
+        "startLine": 2727,
+        "startChar": 22,
+        "endLine": 2727,
+        "endChar": 46
+      },
+      "revId": "016024cb9d0997d46006d5511f2206d6865981b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
