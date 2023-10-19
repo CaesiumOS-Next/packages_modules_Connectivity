@@ -214,6 +214,30 @@
       },
       "revId": "d5d38374f7a62cf6fb2ee362257cfbf1ba8d65b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23bbbf80_61e9a3a4",
+        "filename": "staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-19T06:03:12Z",
+      "side": 1,
+      "message": "I prefer solution3 since this change will be applied only to APF experiment and we don’t need to worry about other experiments.\nIf we really need a way to disable the feature on droidfood, I think we can use\n```\nenabled \u003d isDebuggable() ? isFeatureNotChickenedOut() : isFeatureEnabled().\n```\n\n\u003e 1) use force disable (-1) as a default in all experiments and continue with this change.\n\nThe process we currently follow to launch the feature is 1) run launch with isFeatureEnabled 2) replace isFeatureEnabled by isFeatureNotChickenedOut to rollout feature to OEM devices.\nIf we push -1 to devices as default at step1, we need to update the default value to 0 at step2.\nThis should be fine but I don’t want to change the behavior by default value change if we can avoid.\n\n\u003e 2) Exclude debuggable build from all experiments using propagation experiment.\n\nWith this change, we can not compare the metrics in droidfood.\nI’m not sure if this is fine for all the experiment.",
+      "parentUuid": "2f305e51_539ee23e",
+      "range": {
+        "startLine": 184,
+        "startChar": 22,
+        "endLine": 184,
+        "endChar": 36
+      },
+      "revId": "d5d38374f7a62cf6fb2ee362257cfbf1ba8d65b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
