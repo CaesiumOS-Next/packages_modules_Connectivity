@@ -111,6 +111,7 @@ cc_library_shared {
     srcs: [
         ":services.connectivity-netstats-jni-sources",
         "jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "jni/com_android_server_RoutingCoordinator.cpp",
         "jni/com_android_server_ServiceManagerWrapper.cpp",
         "jni/com_android_server_TestNetworkService.cpp",
         "jni/onload.cpp",
