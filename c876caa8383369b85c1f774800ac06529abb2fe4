@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a78f50d_04021583",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-10-19T12:06:25Z",
+      "side": 1,
+      "message": "It is actually needed in this cl. The linter complaint is from a following patch aosp/2760608 where the usage of this is removed.\n\nThis method is now removed in that cl (aosp/2760608).",
+      "parentUuid": "951a8106_c9cfe6a8",
+      "range": {
+        "startLine": 935,
+        "startChar": 4,
+        "endLine": 938,
+        "endChar": 5
+      },
+      "revId": "c876caa8383369b85c1f774800ac06529abb2fe4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45acf31a_b20d3598",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-19T06:46:09Z",
       "side": 1,
       "message": "Nit: We have a similar method in VpnTest(https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/tests/unit/java/com/android/server/connectivity/VpnTest.java;l\u003d1029?q\u003dVpnTest). This seems to be useful to move this method to a common place to share between CSTest and VpnTest to reduce the code redundancy.\n\ne.g. Create a UidRangeUtils in packages/modules/Connectivity/staticlibs",
+      "range": {
+        "startLine": 950,
+        "startChar": 40,
+        "endLine": 950,
+        "endChar": 62
+      },
+      "revId": "c876caa8383369b85c1f774800ac06529abb2fe4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48e3fb3f_209ccbd2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-10-19T12:06:25Z",
+      "side": 1,
+      "message": "Done in aosp/2795215",
+      "parentUuid": "45acf31a_b20d3598",
       "range": {
         "startLine": 950,
         "startChar": 40,
