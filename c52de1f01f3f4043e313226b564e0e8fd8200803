@@ -1,0 +1,320 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "018e6c04_358903a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 41
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-19T07:59:51Z",
+      "side": 1,
+      "message": "Reviewed up to ThreadNetworkException.java",
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d85b53fa_70c5e875",
+        "filename": "thread/framework/java/android/net/thread/IThreadNetworkController.aidl",
+        "patchSetId": 41
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-19T07:59:51Z",
+      "side": 1,
+      "message": "N",
+      "range": {
+        "startLine": 42,
+        "startChar": 5,
+        "endLine": 42,
+        "endChar": 6
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a851127_6658a979",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-19T07:59:51Z",
+      "side": 1,
+      "message": "This means you can call register multiple times but the 2nd call and further are ignored.\n\n    registerStateCallback(executor1, cb);\n    registerStateCallback(executor2, cb);\n    unregisterStateCallback(cb);\n    unregisterStateCallback(cb);\n\nIf you do this, executor2 is ignored (probably unintended) and the second call to unregister does nothing (because of l.198~199)\n\nIt might be nicer to your callers to either refcount or to reject registering the same callback multiple times (it\u0027s fine if it was unregistered in the mean time).",
+      "range": {
+        "startLine": 181,
+        "startChar": 42,
+        "endLine": 181,
+        "endChar": 57
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cef059ff_05c4be19",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-19T07:59:51Z",
+      "side": 1,
+      "message": "See above, it\u0027s probably more helpful to the user if you throw here because that must be a programming error.",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 13
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41a88f08_1b91d5dc",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-19T07:59:51Z",
+      "side": 1,
+      "message": "go/avoidwe",
+      "range": {
+        "startLine": 308,
+        "startChar": 38,
+        "endLine": 308,
+        "endChar": 40
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7868b8d1_5b3c52d2",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-19T07:59:51Z",
+      "side": 1,
+      "message": "Maybe you should send the ActiveOperationalDataset here",
+      "range": {
+        "startLine": 340,
+        "startChar": 37,
+        "endLine": 340,
+        "endChar": 41
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb2a52c9_2dba7db6",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-19T07:59:51Z",
+      "side": 1,
+      "message": "Consider having more detail to explain the rejection reason if possible",
+      "range": {
+        "startLine": 383,
+        "startChar": 53,
+        "endLine": 383,
+        "endChar": 61
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93f6ead0_0033df1b",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-19T07:59:51Z",
+      "side": 1,
+      "message": "FAILED_PRECONDITION",
+      "range": {
+        "startLine": 387,
+        "startChar": 47,
+        "endLine": 387,
+        "endChar": 66
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4202261b_095e086b",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-19T07:59:51Z",
+      "side": 1,
+      "message": "go/avoidwe",
+      "range": {
+        "startLine": 400,
+        "startChar": 49,
+        "endLine": 400,
+        "endChar": 51
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd27c9ea_fa98994c",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-19T07:59:51Z",
+      "side": 1,
+      "message": "Grammar unclear ?",
+      "range": {
+        "startLine": 402,
+        "startChar": 7,
+        "endLine": 402,
+        "endChar": 21
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a68174c8_d4d36d74",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-19T07:59:51Z",
+      "side": 1,
+      "message": "migrate",
+      "range": {
+        "startLine": 416,
+        "startChar": 57,
+        "endLine": 416,
+        "endChar": 66
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4eda784c_f7e4ad1c",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-19T07:59:51Z",
+      "side": 1,
+      "message": "between when",
+      "range": {
+        "startLine": 422,
+        "startChar": 88,
+        "endLine": 422,
+        "endChar": 95
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68ba106c_0033ec01",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkException.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-19T07:59:51Z",
+      "side": 1,
+      "message": "Let\u0027s give an example",
+      "range": {
+        "startLine": 62,
+        "startChar": 77,
+        "endLine": 62,
+        "endChar": 80
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a530595_04b0c6e6",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-19T07:59:51Z",
+      "side": 1,
+      "message": "See b/229103088 where a client can register many callbacks and exhaust system memory ; you may have to implement a limit to how many callbacks you accept per app, similar to what is suggested in b/251371649.",
+      "range": {
+        "startLine": 353,
+        "startChar": 16,
+        "endLine": 353,
+        "endChar": 37
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
