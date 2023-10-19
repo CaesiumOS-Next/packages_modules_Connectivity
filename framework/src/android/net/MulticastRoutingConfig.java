@@ -33,6 +33,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.net.Inet6Address;
 import java.net.UnknownHostException;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
 
@@ -286,6 +287,25 @@ public final class MulticastRoutingConfig implements Parcelable {
             case FORWARD_WITH_MIN_SCOPE: return "FORWARD_WITH_MIN_SCOPE";
             default: return "unknown";
         }
+    }
+
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        else if (!(other instanceof MulticastRoutingConfig)) {
+            return false;
+        }
+        else {
+            MulticastRoutingConfig otherConfig = (MulticastRoutingConfig) other;
+            return mForwardingMode == otherConfig.mForwardingMode
+                && mMinScope == otherConfig.mMinScope
+                && mListeningAddresses.equals(otherConfig.mListeningAddresses);
+        }
+    }
+
+    public int hashCode() {
+        return Objects.hash(mForwardingMode, mMinScope, mListeningAddresses);
     }
 
     public String toString() {
