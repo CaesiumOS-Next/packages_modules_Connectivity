@@ -16,6 +16,23 @@
       "message": "This is failing with\n\npackages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java:10780: error: cannot find symbol\nfinal int ret \u003d BpfUtils.getProgramId(type, BpfUtils.CGROUP_PATH);\n^\nsymbol:   variable BpfUtils\nlocation: class ConnectivityService.ShellCmd\npackages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java:10780: error: cannot find symbol\nfinal int ret \u003d BpfUtils.getProgramId(type, BpfUtils.CGROUP_PATH);\n^\nsymbol:   variable BpfUtils\nlocation: class ConnectivityService.ShellCmd\n2 errors\n\nwhich is in\npackages/modules/Connectivity/staticlibs/device/com/android/net/module/util/BpfUtils.java\n\n// Note: This is only guaranteed to be accurate on U+ devices. It is likely to be accurate\n    // on T+ devices as well, but this is not guaranteed.\n    public static final String CGROUP_PATH \u003d \"/sys/fs/cgroup/\";\n    \n--\n \nAs such I expect this is an automerge/treehugger retry until it works failure.",
       "revId": "452e464ee9506f2e8b4cd66cbd3e56c443534210",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d45a3804_0c12fa0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-19T22:33:31Z",
+      "side": 1,
+      "message": "It doesn\u0027t look like any of the TH failures can actually be in any way attributed to this change.  Especially since the newly added code is obviously not yet ever executed...",
+      "revId": "452e464ee9506f2e8b4cd66cbd3e56c443534210",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
