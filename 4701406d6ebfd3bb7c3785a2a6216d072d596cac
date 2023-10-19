@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9a4a1f0_a9f8970d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-19T03:28:52Z",
+      "side": 1,
+      "message": "This means the flag is not allowed to change until rebooting. Could you make a comment here to explain the behavior?",
+      "range": {
+        "startLine": 630,
+        "startChar": 8,
+        "endLine": 630,
+        "endChar": 27
+      },
+      "revId": "4701406d6ebfd3bb7c3785a2a6216d072d596cac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8f0af9e_4d51dc8b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 3262,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-19T03:28:52Z",
+      "side": 1,
+      "message": "Should this never be created if the flag is disabled? It\u0027s by default reserved some memories for the event logging? They should be unnecessary if the flag change is not allowed before rebooting.",
+      "range": {
+        "startLine": 3262,
+        "startChar": 4,
+        "endLine": 3262,
+        "endChar": 87
+      },
+      "revId": "4701406d6ebfd3bb7c3785a2a6216d072d596cac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
