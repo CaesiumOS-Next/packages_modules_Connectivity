@@ -58,7 +58,8 @@ class NetworkTracePoller {
   // in the runner and poll duration to prevent a hard requirement on the lock
   // and thus a deadlock while resetting the TaskRunner. The runner pointer is
   // always valid within tasks run by that runner.
-  void PollAndSchedule(perfetto::base::TaskRunner* runner, uint32_t poll_ms);
+  void PollAndSchedule(perfetto::base::TaskRunner* runner, uint32_t poll_ms)
+      EXCLUDES(mMutex);
   bool ConsumeAllLocked() REQUIRES(mMutex);
 
   std::mutex mMutex;

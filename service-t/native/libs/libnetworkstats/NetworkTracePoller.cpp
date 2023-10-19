@@ -81,7 +81,9 @@ bool NetworkTracePoller::Start(uint32_t pollMs) {
   // Start a task runner to run ConsumeAll every mPollMs milliseconds.
   mTaskRunner = perfetto::Platform::GetDefaultPlatform()->CreateTaskRunner({});
   mPollMs = pollMs;
-  PollAndSchedule(mTaskRunner.get(), mPollMs);
+  mTaskRunner->PostDelayedTask([runner = mTaskRunner.get(),
+                                pollMs, this]() { PollAndSchedule(runner, pollMs); },
+                               pollMs);
 
   mSessionCount++;
   return true;
