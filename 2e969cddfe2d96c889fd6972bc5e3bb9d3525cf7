@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bddb0a8b_ceb55dcf",
+        "filename": "DnsResolver/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-19T06:26:17Z",
+      "side": 1,
+      "message": "libmodules-utils-build: android-modules-utils/sdk_level.h for getting platform version.\nlibbase: android-base/logging.h for logging.\nlibnetdutils: netdutils/Status.h for returning a wrapped result. (removed)",
+      "parentUuid": "ae017ab6_b0bb7499",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 6
+      },
+      "revId": "2e969cddfe2d96c889fd6972bc5e3bb9d3525cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ccb8163_371475eb",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-21T10:39:15Z",
       "side": 1,
       "message": "bool",
+      "range": {
+        "startLine": 34,
+        "startChar": 7,
+        "endLine": 34,
+        "endChar": 10
+      },
+      "revId": "2e969cddfe2d96c889fd6972bc5e3bb9d3525cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae2ac3e8_122d8f8a",
+        "filename": "DnsResolver/BpfReader.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-19T06:26:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ccb8163_371475eb",
       "range": {
         "startLine": 34,
         "startChar": 7,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6881ef00_e953804f",
+        "filename": "DnsResolver/BpfReader.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-19T06:26:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04693a24_72525e8c",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 6
+      },
+      "revId": "2e969cddfe2d96c889fd6972bc5e3bb9d3525cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6fcb388_012fd43f",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-09-21T10:39:15Z",
       "side": 1,
       "message": "perhaps this should be less generic?\n\nDnsBpfReader?\nDnsBpfHelper?\nDnsBpfReadHelper?\nDnsBpfReaderHelper?",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 15
+      },
+      "revId": "2e969cddfe2d96c889fd6972bc5e3bb9d3525cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "556d3d7b_97751c83",
+        "filename": "DnsResolver/BpfReader.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-19T06:26:17Z",
+      "side": 1,
+      "message": "DnsBpfHelper sounds good. It also doesn’t have too many characters",
+      "parentUuid": "f6fcb388_012fd43f",
       "range": {
         "startLine": 27,
         "startChar": 6,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f0b8735_6ea2241c",
+        "filename": "DnsResolver/BpfReader.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-19T06:26:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14dd6cdb_c639af88",
+      "range": {
+        "startLine": 33,
+        "startChar": 20,
+        "endLine": 33,
+        "endChar": 28
+      },
+      "revId": "2e969cddfe2d96c889fd6972bc5e3bb9d3525cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ba873d0_3eae749b",
@@ -133,6 +253,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a66d2c2_e9d94b61",
+        "filename": "DnsResolver/BpfReader.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-19T06:26:17Z",
+      "side": 1,
+      "message": "It\u0027s for unit test. With this class, we can replace the target map by a fake one. Then, we can write any value into the fake map and let the code under test (which is this class itself) read it out.\n\n```\nclass BpfReaderTest : public ::testing::Test {\n  BpfReader mBr;\n  \n  void SetUp() {\n    mBr.mConfigurationMap \u003d mFakeConfigurationMap;\n  }\n  \n  EXPECT_TRUE(mBr.isUidNetworkingBlocked(...));\n```",
+      "parentUuid": "0ba873d0_3eae749b",
+      "revId": "2e969cddfe2d96c889fd6972bc5e3bb9d3525cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bab37f61_23ad0678",
@@ -146,6 +284,24 @@
       "writtenOn": "2023-09-21T10:39:15Z",
       "side": 1,
       "message": "we should have an explicit library init function\n\ncalled when we dlopen and do the resolve\n\ngives us ability to for example treat the library open as failed if init() fails",
+      "revId": "2e969cddfe2d96c889fd6972bc5e3bb9d3525cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa63f8ec_a5bde542",
+        "filename": "DnsResolver/ForDnsResolver.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-19T06:26:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bab37f61_23ad0678",
       "revId": "2e969cddfe2d96c889fd6972bc5e3bb9d3525cf7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
