@@ -27,6 +27,7 @@ import android.util.Pair;
 import com.android.net.module.util.Inet4AddressUtils;
 
 import java.io.FileDescriptor;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
@@ -35,6 +36,8 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Locale;
 import java.util.TreeSet;
+
+import javax.net.SocketFactory;
 
 /**
  * Native methods for managing network interfaces.
@@ -425,5 +428,8 @@ public class NetworkUtils {
         }
         return routedIPCount;
     }
+
+    public static native void setsockoptBytes(FileDescriptor fd, int level, int option,
+            byte[] value) throws IOException;
 
 }
