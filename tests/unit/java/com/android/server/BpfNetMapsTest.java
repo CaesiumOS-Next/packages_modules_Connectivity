@@ -66,6 +66,7 @@ import android.app.StatsManager;
 import android.content.Context;
 import android.net.BpfNetMapsUtils;
 import android.net.INetd;
+import android.net.InetAddresses;
 import android.os.Build;
 import android.os.ServiceSpecificException;
 import android.system.ErrnoException;
@@ -76,11 +77,14 @@ import androidx.test.filters.SmallTest;
 
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.IBpfMap;
+import com.android.net.module.util.InetAddressUtils;
 import com.android.net.module.util.Struct.S32;
 import com.android.net.module.util.Struct.U32;
 import com.android.net.module.util.Struct.U8;
 import com.android.net.module.util.bpf.CookieTagMapKey;
 import com.android.net.module.util.bpf.CookieTagMapValue;
+import com.android.net.module.util.bpf.IngressDiscardKey;
+import com.android.net.module.util.bpf.IngressDiscardValue;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
@@ -96,6 +100,8 @@ import org.mockito.MockitoAnnotations;
 
 import java.io.FileDescriptor;
 import java.io.StringWriter;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,6 +120,10 @@ public final class BpfNetMapsTest {
     private static final int TEST_IF_INDEX = 7;
     private static final int NO_IIF = 0;
     private static final int NULL_IIF = 0;
+    private static final Inet4Address TEST_V4_ADDRESS =
+            (Inet4Address) InetAddresses.parseNumericAddress("192.0.2.1");
+    private static final Inet6Address TEST_V6_ADDRESS =
+            (Inet6Address) InetAddresses.parseNumericAddress("2001:db8::1");
     private static final String CHAINNAME = "fw_dozable";
     private static final List<Integer> FIREWALL_CHAINS = List.of(
             FIREWALL_CHAIN_DOZABLE,
@@ -141,6 +151,9 @@ public final class BpfNetMapsTest {
     private final IBpfMap<CookieTagMapKey, CookieTagMapValue> mCookieTagMap =
             spy(new TestBpfMap<>(CookieTagMapKey.class, CookieTagMapValue.class));
 
+    private final IBpfMap<IngressDiscardKey, IngressDiscardValue> mIngressDiscardMap =
+            new TestBpfMap<>(IngressDiscardKey.class, IngressDiscardValue.class);
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
@@ -154,6 +167,7 @@ public final class BpfNetMapsTest {
         BpfNetMaps.setUidOwnerMapForTest(mUidOwnerMap);
         BpfNetMaps.setUidPermissionMapForTest(mUidPermissionMap);
         BpfNetMaps.setCookieTagMapForTest(mCookieTagMap);
+        BpfNetMaps.setIngressDiscardMapForTest(mIngressDiscardMap);
         mBpfNetMaps = new BpfNetMaps(mContext, mNetd, mDeps);
     }
 
@@ -1181,5 +1195,42 @@ public final class BpfNetMapsTest {
                 () -> mBpfNetMaps.getUidsWithDenyRuleOnDenyListChain(FIREWALL_CHAIN_DOZABLE));
         assertThrows(expected,
                 () -> mBpfNetMaps.getUidsWithAllowRuleOnAllowListChain(FIREWALL_CHAIN_OEM_DENY_1));
+    }
+
+    @Test
+    public void testSetIngressDiscardRule_V4address() throws Exception {
+        mBpfNetMaps.setIngressDiscardRule(TEST_V4_ADDRESS, TEST_IF_NAME);
+        final IngressDiscardValue val = mIngressDiscardMap.getValue(new IngressDiscardKey(
+                InetAddressUtils.getv4MappedV6Address(TEST_V4_ADDRESS)));
+        assertEquals(TEST_IF_INDEX, val.iif0);
+        assertEquals(0, val.iif1);
+    }
+
+    @Test
+    public void testSetIngressDiscardRule_V6address() throws Exception {
+        mBpfNetMaps.setIngressDiscardRule(TEST_V6_ADDRESS, TEST_IF_NAME);
+        final IngressDiscardValue val =
+                mIngressDiscardMap.getValue(new IngressDiscardKey(TEST_V6_ADDRESS));
+        assertEquals(TEST_IF_INDEX, val.iif0);
+        assertEquals(0, val.iif1);
+    }
+
+    @Test
+    public void testRemoveIngressDiscardRule() throws Exception {
+        mBpfNetMaps.setIngressDiscardRule(TEST_V4_ADDRESS, TEST_IF_NAME);
+        mBpfNetMaps.setIngressDiscardRule(TEST_V6_ADDRESS, TEST_IF_NAME);
+        final IngressDiscardKey v4Key = new IngressDiscardKey(
+                InetAddressUtils.getv4MappedV6Address(TEST_V4_ADDRESS));
+        final IngressDiscardKey v6Key = new IngressDiscardKey(TEST_V6_ADDRESS);
+        assertTrue(mIngressDiscardMap.containsKey(v4Key));
+        assertTrue(mIngressDiscardMap.containsKey(v6Key));
+
+        mBpfNetMaps.removeIngressDiscardRule(TEST_V4_ADDRESS);
+        assertFalse(mIngressDiscardMap.containsKey(v4Key));
+        assertTrue(mIngressDiscardMap.containsKey(v6Key));
+
+        mBpfNetMaps.removeIngressDiscardRule(TEST_V6_ADDRESS);
+        assertFalse(mIngressDiscardMap.containsKey(v4Key));
+        assertFalse(mIngressDiscardMap.containsKey(v6Key));
     }
 }
