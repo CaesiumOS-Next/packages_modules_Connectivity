@@ -96,6 +96,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3dd4086_691beba4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-19T08:07:37Z",
+      "side": 1,
+      "message": "Okay fair enough, then please document it and check that `(null \u003d\u003d looper) !\u003d (null \u003d\u003d thread)`",
+      "parentUuid": "f4103c26_204ef2d6",
+      "range": {
+        "startLine": 34,
+        "startChar": 47,
+        "endLine": 34,
+        "endChar": 87
+      },
+      "revId": "118f7e0287aa5b06d79dbf745cdea3e0da306ec8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00baf037_c36443b7",
