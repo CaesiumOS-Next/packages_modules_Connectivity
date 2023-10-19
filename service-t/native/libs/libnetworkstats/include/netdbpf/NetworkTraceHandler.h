@@ -16,16 +16,20 @@
 
 #pragma once
 
-#include <perfetto/base/task_runner.h>
-#include <perfetto/tracing.h>
-
+#include <cstdint>
+#include <optional>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 #include "netdbpf/NetworkTracePoller.h"
 
 // For PacketTrace struct definition
 #include "netd.h"
+
+struct PerfettoDsTracerIterator;
+struct perfetto_protos_NetworkPacketEvent;
+struct perfetto_protos_TracePacket;
 
 namespace android {
 namespace bpf {
@@ -71,16 +75,10 @@ struct NetworkTraceState {
   std::unordered_map<BundleKey, uint64_t, BundleHash, BundleEq> iids;
 };
 
-// Inject our custom incremental state type using type traits.
-struct NetworkTraceTraits : public perfetto::DefaultDataSourceTraits {
-  using IncrementalStateType = NetworkTraceState;
-};
-
 // NetworkTraceHandler implements the android.network_packets data source. This
 // class is registered with Perfetto and is instantiated when tracing starts and
 // destroyed when tracing ends. There is one instance per trace session.
-class NetworkTraceHandler
-    : public perfetto::DataSource<NetworkTraceHandler, NetworkTraceTraits> {
+class NetworkTraceHandler {
  public:
   // Registers this DataSource as "android.network_packets". When isTest is
   // true, skips non-hermetic code and names the data source
@@ -101,36 +99,35 @@ class NetworkTraceHandler
   // When isTest is true, skip non-hermetic code.
   NetworkTraceHandler(bool isTest) : mIsTest(isTest) {}
 
-  // perfetto::DataSource overrides:
-  void OnSetup(const SetupArgs& args) override;
-  void OnStart(const StartArgs&) override;
-  void OnStop(const StopArgs&) override;
+  void OnSetup(void* ds_config, size_t ds_config_size);
+  void OnStart();
+  void OnStop();
 
  private:
+  struct BundleDetails;
   // Writes the packets as Perfetto TracePackets on `ctx`.
   void Write(const std::vector<PacketTrace>& packets,
-             NetworkTraceHandler::TraceContext& ctx);
+             PerfettoDsTracerIterator& ctx);
 
   // Fills in contextual information from a bundle without interning.
-  void Fill(const BundleKey& src,
-            ::perfetto::protos::pbzero::NetworkPacketEvent* event);
+  void Fill(const BundleKey& src, perfetto_protos_NetworkPacketEvent* event);
 
   // Fills in contextual information either inline or via interning.
-  ::perfetto::protos::pbzero::NetworkPacketBundle* FillWithInterning(
-      NetworkTraceState* state, const BundleKey& src,
-      ::perfetto::protos::pbzero::TracePacket* dst);
+  void FillWithInterning(NetworkTraceState* state, const BundleKey& src,
+                         const BundleDetails& details,
+                         perfetto_protos_TracePacket* dst);
 
   static internal::NetworkTracePoller sPoller;
   bool mStarted;
   bool mIsTest;
 
   // Values from config, see proto for details.
-  uint32_t mPollMs;
-  uint32_t mInternLimit;
-  uint32_t mAggregationThreshold;
-  bool mDropLocalPort;
-  bool mDropRemotePort;
-  bool mDropTcpFlags;
+  uint32_t mPollMs = 0;
+  uint32_t mInternLimit = 0;
+  uint32_t mAggregationThreshold = 0;
+  bool mDropLocalPort = false;
+  bool mDropRemotePort = false;
+  bool mDropTcpFlags = false;
 };
 
 }  // namespace bpf

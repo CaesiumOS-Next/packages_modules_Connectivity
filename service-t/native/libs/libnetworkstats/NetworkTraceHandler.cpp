@@ -22,24 +22,22 @@
 #include <arpa/inet.h>
 #include <bpf/BpfUtils.h>
 #include <log/log.h>
-#include <perfetto/config/android/network_trace_config.pbzero.h>
-#include <perfetto/trace/android/network_trace.pbzero.h>
-#include <perfetto/trace/profiling/profile_packet.pbzero.h>
-#include <perfetto/tracing/platform.h>
-#include <perfetto/tracing/tracing.h>
+#include <perfetto/public/data_source.h>
+#include <perfetto/public/pb_decoder.h>
+#include <perfetto/public/producer.h>
+#include <perfetto/public/protos/config/data_source_config.pzc.h>
+#include <perfetto/public/protos/trace/interned_data/interned_data.pzc.h>
 
-// Note: this is initializing state for a templated Perfetto type that resides
-// in the `perfetto` namespace. This must be defined in the global scope.
-PERFETTO_DEFINE_DATA_SOURCE_STATIC_MEMBERS(android::bpf::NetworkTraceHandler);
+#include "perfetto/public/protos/config/android/network_trace_config.pzc.h"
+#include "perfetto/public/protos/trace/android/network_trace.pzc.h"
 
 namespace android {
 namespace bpf {
+namespace {
+
 using ::android::bpf::internal::NetworkTracePoller;
-using ::perfetto::protos::pbzero::NetworkPacketBundle;
-using ::perfetto::protos::pbzero::NetworkPacketEvent;
-using ::perfetto::protos::pbzero::NetworkPacketTraceConfig;
-using ::perfetto::protos::pbzero::TracePacket;
-using ::perfetto::protos::pbzero::TrafficDirection;
+
+struct PerfettoDs g_data_source = PERFETTO_DS_INIT();
 
 // Bundling takes groups of packets with similar contextual fields (generally,
 // all fields except timestamp and length) and summarises them in a single trace
@@ -68,8 +66,10 @@ void HashCombine(std::size_t& seed, const T& val, const Rest&... rest) {
   (HashCombine(seed, rest), ...);
 }
 
+}  // namespace
+
 // Details summarises the timestamp and lengths of packets in a bundle.
-struct BundleDetails {
+struct NetworkTraceHandler::BundleDetails {
   std::vector<std::pair<uint64_t, uint32_t>> time_and_len;
   uint64_t minTs = std::numeric_limits<uint64_t>::max();
   uint64_t maxTs = std::numeric_limits<uint64_t>::min();
@@ -119,26 +119,59 @@ bool BundleEq::operator()(const BundleKey& a, const BundleKey& b) const {
 // static
 void NetworkTraceHandler::RegisterDataSource(bool isTest) {
   ALOGD("Registering Perfetto data source");
-  perfetto::DataSourceDescriptor dsd;
-  if (!isTest) {
-    dsd.set_name("android.network_packets");
-  } else {
-    dsd.set_name("test.network_packets");
+  static bool registered = false;
+  if (!registered) {
+    struct PerfettoDsParams params = PerfettoDsParamsDefault();
+    params.user_arg = reinterpret_cast<void*>(isTest);
+    params.on_setup_cb = [](struct PerfettoDsImpl*, PerfettoDsInstanceIndex,
+                            void* ds_config, size_t ds_config_size,
+                            void* user_arg,
+                            struct PerfettoDsOnSetupArgs*) -> void* {
+      auto* handler = new NetworkTraceHandler(static_cast<bool>(user_arg));
+      handler->OnSetup(ds_config, ds_config_size);
+      return static_cast<void*>(handler);
+    };
+    params.on_start_cb = [](struct PerfettoDsImpl*, PerfettoDsInstanceIndex,
+                            void*, void* inst_ctx,
+                            struct PerfettoDsOnStartArgs*) {
+      auto* handler = static_cast<NetworkTraceHandler*>(inst_ctx);
+      handler->OnStart();
+    };
+    params.on_stop_cb = [](struct PerfettoDsImpl*, PerfettoDsInstanceIndex,
+                           void*, void* inst_ctx,
+                           struct PerfettoDsOnStopArgs*) {
+      auto* handler = static_cast<NetworkTraceHandler*>(inst_ctx);
+      handler->OnStop();
+    };
+    params.on_destroy_cb = [](struct PerfettoDsImpl*, void*, void* inst_ctx) {
+      auto* handler = static_cast<NetworkTraceHandler*>(inst_ctx);
+      delete handler;
+    };
+    params.on_create_incr_cb =
+        [](struct PerfettoDsImpl*, PerfettoDsInstanceIndex,
+           struct PerfettoDsTracerImpl*,
+           void*) -> void* { return new NetworkTraceState(); };
+    params.on_delete_incr_cb = [](void* obj) {
+      delete static_cast<NetworkTraceState*>(obj);
+    };
+
+    const char* name;
+    if (!isTest) {
+      name = "android.network_packets";
+    } else {
+      name = "test.network_packets";
+    }
+    PerfettoDsRegister(&g_data_source, name, params);
+    registered = true;
   }
-  NetworkTraceHandler::Register(dsd, isTest);
 }
 
 // static
 void NetworkTraceHandler::InitPerfettoTracing() {
-  perfetto::TracingInitArgs args = {};
-  args.backends |= perfetto::kSystemBackend;
-  // The following line disables the Perfetto system consumer. Perfetto inlines
-  // the call to `Initialize` which allows the compiler to see that the branch
-  // with the SystemConsumerTracingBackend is not used. With LTO enabled, this
-  // strips the Perfetto consumer code and reduces the size of this binary by
-  // around 270KB total. Be careful when changing this value.
-  args.enable_system_consumer = false;
-  perfetto::Tracing::Initialize(args);
+  struct PerfettoProducerInitArgs args = PERFETTO_PRODUCER_INIT_ARGS_INIT();
+  args.backends = PERFETTO_BACKEND_SYSTEM;
+  PerfettoProducerInit(args);
+
   NetworkTraceHandler::RegisterDataSource();
 }
 
@@ -146,83 +179,102 @@ NetworkTracePoller NetworkTraceHandler::sPoller(NetworkTraceHandler::DoTrace);
 
 // static
 void NetworkTraceHandler::DoTrace(const std::vector<PacketTrace>& packets) {
-  // Trace calls the provided callback for each active session. The context
+  // PERFETTO_DS_TRACE executes the block for each active session. The context
   // gets a reference to the NetworkTraceHandler instance associated with
   // the session and delegates writing. The corresponding handler will write
   // with the setting specified in the trace config.
-  NetworkTraceHandler::Trace([&](NetworkTraceHandler::TraceContext ctx) {
-    perfetto::LockedHandle<NetworkTraceHandler> handle =
-        ctx.GetDataSourceLocked();
+  PERFETTO_DS_TRACE(g_data_source, ctx) {
+    void* handle =
+        PerfettoDsImplGetInstanceLocked(g_data_source.impl, ctx.impl.inst_id);
     // The underlying handle can be invalidated between when Trace starts
-    // and GetDataSourceLocked is called, but not while the LockedHandle
-    // exists and holds the lock. Check validity prior to use.
-    if (handle.valid()) {
-      handle->Write(packets, ctx);
+    // and GetDataSourceLocked is called, but not while the instance is
+    // locked. Check validity prior to use.
+    if (!handle) {
+      continue;
     }
-  });
+    reinterpret_cast<NetworkTraceHandler*>(handle)->Write(packets, ctx);
+    PerfettoDsImplReleaseInstanceLocked(g_data_source.impl, ctx.impl.inst_id);
+  }
 }
 
 // static
 void NetworkTraceHandler::DoFlush() {
-  // Trace calls the provided callback for each active session. The context
-  // gets a reference to the NetworkTraceHandler instance associated with
-  // the session and delegates writing. The corresponding handler will write
-  // with the setting specified in the trace config.
-  NetworkTraceHandler::Trace([&](NetworkTraceHandler::TraceContext ctx) {
-    ctx.Flush();
-  });
+  // PERFETTO_DS_TRACE executes the block for each active session.
+  PERFETTO_DS_TRACE(g_data_source, ctx) {
+    PerfettoDsTracerFlush(&ctx, nullptr, nullptr);
+  }
 }
 
-void NetworkTraceHandler::OnSetup(const SetupArgs& args) {
-  const std::string& raw = args.config->network_packet_trace_config_raw();
-  NetworkPacketTraceConfig::Decoder config(raw);
+void NetworkTraceHandler::OnSetup(void* ds_config, size_t ds_config_size) {
+  for (auto it = PerfettoPbDecoderIterateBegin(ds_config, ds_config_size);
+       it.field.status == PERFETTO_PB_DECODER_OK;
+       PerfettoPbDecoderIterateNext(&it)) {
+    switch (it.field.id) {
+      case perfetto_protos_DataSourceConfig_network_packet_trace_config_field_number:
+        if (it.field.wire_type != PERFETTO_PB_WIRE_TYPE_DELIMITED) {
+          continue;
+        }
+        for (auto it2 =
+                 PerfettoPbDecoderIterateNestedBegin(it.field.value.delimited);
+             it2.field.status == PERFETTO_PB_DECODER_OK;
+             PerfettoPbDecoderIterateNext(&it2)) {
+          switch (it2.field.id) {
+            case perfetto_protos_NetworkPacketTraceConfig_poll_ms_field_number:
+              PerfettoPbDecoderFieldGetUint32(&it2.field, &mPollMs);
+              break;
+            case perfetto_protos_NetworkPacketTraceConfig_aggregation_threshold_field_number:
+              PerfettoPbDecoderFieldGetUint32(&it2.field,
+                                              &mAggregationThreshold);
+              break;
+            case perfetto_protos_NetworkPacketTraceConfig_intern_limit_field_number:
+              PerfettoPbDecoderFieldGetUint32(&it2.field, &mInternLimit);
+              break;
+            case perfetto_protos_NetworkPacketTraceConfig_drop_local_port_field_number:
+              PerfettoPbDecoderFieldGetBool(&it2.field, &mDropLocalPort);
+              break;
+            case perfetto_protos_NetworkPacketTraceConfig_drop_remote_port_field_number:
+              PerfettoPbDecoderFieldGetBool(&it2.field, &mDropRemotePort);
+              break;
+            case perfetto_protos_NetworkPacketTraceConfig_drop_tcp_flags_field_number:
+              PerfettoPbDecoderFieldGetBool(&it2.field, &mDropTcpFlags);
+              break;
+          }
+        }
+        break;
+    }
+  }
 
-  mPollMs = config.poll_ms();
   if (mPollMs < 100) {
     ALOGI("poll_ms is missing or below the 100ms minimum. Increasing to 100ms");
     mPollMs = 100;
   }
-
-  mInternLimit = config.intern_limit();
-  mAggregationThreshold = config.aggregation_threshold();
-  mDropLocalPort = config.drop_local_port();
-  mDropRemotePort = config.drop_remote_port();
-  mDropTcpFlags = config.drop_tcp_flags();
 }
 
-void NetworkTraceHandler::OnStart(const StartArgs&) {
+void NetworkTraceHandler::OnStart() {
   if (mIsTest) return;  // Don't touch non-hermetic bpf in test.
   mStarted = sPoller.Start(mPollMs);
 }
 
-void NetworkTraceHandler::OnStop(const StopArgs&) {
+void NetworkTraceHandler::OnStop() {
   if (mIsTest) return;  // Don't touch non-hermetic bpf in test.
   if (mStarted) sPoller.Stop();
   mStarted = false;
-
-  // Although this shouldn't be required, there seems to be some cases when we
-  // don't fill enough of a Perfetto Chunk for Perfetto to automatically commit
-  // the traced data. This manually flushes OnStop so we commit at least once.
-  NetworkTraceHandler::Trace([&](NetworkTraceHandler::TraceContext ctx) {
-    perfetto::LockedHandle<NetworkTraceHandler> handle =
-        ctx.GetDataSourceLocked();
-    // Trace is called for all active handlers, only flush our context. Since
-    // handle doesn't have a `.get()`, use `*` and `&` to get what it points to.
-    if (&(*handle) != this) return;
-    ctx.Flush();
-  });
 }
 
 void NetworkTraceHandler::Write(const std::vector<PacketTrace>& packets,
-                                NetworkTraceHandler::TraceContext& ctx) {
+                                PerfettoDsTracerIterator& ctx) {
   // TODO: remove this fallback once Perfetto stable has support for bundles.
   if (!mInternLimit && !mAggregationThreshold) {
     for (const PacketTrace& pkt : packets) {
-      auto dst = ctx.NewTracePacket();
-      dst->set_timestamp(pkt.timestampNs);
-      auto* event = dst->set_network_packet();
-      event->set_length(pkt.length);
-      Fill(BundleKey(pkt), event);
+      struct PerfettoDsRootTracePacket dst;
+      PerfettoDsTracerPacketBegin(&ctx, &dst);
+      perfetto_protos_TracePacket_set_timestamp(&dst.msg, pkt.timestampNs);
+      struct perfetto_protos_NetworkPacketEvent event;
+      perfetto_protos_TracePacket_begin_network_packet(&dst.msg, &event);
+      perfetto_protos_NetworkPacketEvent_set_length(&event, pkt.length);
+      Fill(BundleKey(pkt), &event);
+      perfetto_protos_TracePacket_end_network_packet(&dst.msg, &event);
+      PerfettoDsTracerPacketEnd(&ctx, &dst);
     }
     return;
   }
@@ -247,71 +299,70 @@ void NetworkTraceHandler::Write(const std::vector<PacketTrace>& packets,
     bundle.bytes += pkt.length;
   }
 
-  NetworkTraceState* incr_state = ctx.GetIncrementalState();
+  auto* incr_state = static_cast<NetworkTraceState*>(
+      PerfettoDsGetIncrementalState(&g_data_source, &ctx));
+
   for (const auto& kv : bundles) {
     const BundleKey& key = kv.first;
     const BundleDetails& details = kv.second;
 
-    auto dst = ctx.NewTracePacket();
-    dst->set_timestamp(details.minTs);
+    struct PerfettoDsRootTracePacket dst;
+    PerfettoDsTracerPacketBegin(&ctx, &dst);
+    perfetto_protos_TracePacket_set_timestamp(&dst.msg, details.minTs);
 
     // Incremental state is only used when interning. Set the flag based on
     // whether state was cleared. Leave the flag empty in non-intern configs.
     if (mInternLimit > 0) {
       if (incr_state->cleared) {
-        dst->set_sequence_flags(TracePacket::SEQ_INCREMENTAL_STATE_CLEARED);
+        perfetto_protos_TracePacket_set_sequence_flags(
+            &dst.msg,
+            perfetto_protos_TracePacket_SEQ_INCREMENTAL_STATE_CLEARED);
         incr_state->cleared = false;
       } else {
-        dst->set_sequence_flags(TracePacket::SEQ_NEEDS_INCREMENTAL_STATE);
+        perfetto_protos_TracePacket_set_sequence_flags(
+            &dst.msg, perfetto_protos_TracePacket_SEQ_NEEDS_INCREMENTAL_STATE);
       }
     }
 
-    auto* event = FillWithInterning(incr_state, key, dst.get());
+    FillWithInterning(incr_state, key, details, &dst.msg);
 
-    int count = details.time_and_len.size();
-    if (!mAggregationThreshold || count < mAggregationThreshold) {
-      protozero::PackedVarInt offsets;
-      protozero::PackedVarInt lengths;
-      for (const auto& kv : details.time_and_len) {
-        offsets.Append(kv.first - details.minTs);
-        lengths.Append(kv.second);
-      }
-
-      event->set_packet_timestamps(offsets);
-      event->set_packet_lengths(lengths);
-    } else {
-      event->set_total_duration(details.maxTs - details.minTs);
-      event->set_total_length(details.bytes);
-      event->set_total_packets(count);
-    }
+    PerfettoDsTracerPacketEnd(&ctx, &dst);
   }
 }
 
 void NetworkTraceHandler::Fill(const BundleKey& src,
-                               NetworkPacketEvent* event) {
-  event->set_direction(src.egress ? TrafficDirection::DIR_EGRESS
-                                  : TrafficDirection::DIR_INGRESS);
-  event->set_uid(src.uid);
-  event->set_tag(src.tag);
+                               perfetto_protos_NetworkPacketEvent* event) {
+  perfetto_protos_NetworkPacketEvent_set_direction(
+      event,
+      src.egress ? perfetto_protos_DIR_EGRESS : perfetto_protos_DIR_INGRESS);
+  perfetto_protos_NetworkPacketEvent_set_uid(event, src.uid);
+  perfetto_protos_NetworkPacketEvent_set_tag(event, src.tag);
 
-  if (src.tcpFlags.has_value()) event->set_tcp_flags(*src.tcpFlags);
-  if (src.localPort.has_value()) event->set_local_port(*src.localPort);
-  if (src.remotePort.has_value()) event->set_remote_port(*src.remotePort);
-  if (src.icmpType.has_value()) event->set_icmp_type(*src.icmpType);
-  if (src.icmpCode.has_value()) event->set_icmp_code(*src.icmpCode);
+  if (src.tcpFlags.has_value())
+    perfetto_protos_NetworkPacketEvent_set_tcp_flags(event, *src.tcpFlags);
+  if (src.localPort.has_value())
+    perfetto_protos_NetworkPacketEvent_set_local_port(event, *src.localPort);
+  if (src.remotePort.has_value())
+    perfetto_protos_NetworkPacketEvent_set_remote_port(event, *src.remotePort);
+  if (src.icmpType.has_value())
+    perfetto_protos_NetworkPacketEvent_set_icmp_type(event, *src.icmpType);
+  if (src.icmpCode.has_value())
+    perfetto_protos_NetworkPacketEvent_set_icmp_code(event, *src.icmpCode);
 
-  event->set_ip_proto(src.ipProto);
+  perfetto_protos_NetworkPacketEvent_set_ip_proto(event, src.ipProto);
 
   char ifname[IF_NAMESIZE] = {};
   if (if_indextoname(src.ifindex, ifname) == ifname) {
-    event->set_interface(std::string(ifname));
+    perfetto_protos_NetworkPacketEvent_set_cstr_interface(event, ifname);
   } else {
-    event->set_interface("error");
+    perfetto_protos_NetworkPacketEvent_set_cstr_interface(event, "error");
   }
 }
 
-NetworkPacketBundle* NetworkTraceHandler::FillWithInterning(
-    NetworkTraceState* state, const BundleKey& key, TracePacket* dst) {
+void NetworkTraceHandler::FillWithInterning(NetworkTraceState* state,
+                                            const BundleKey& key,
+                                            const BundleDetails& details,
+                                            perfetto_protos_TracePacket* dst) {
   uint64_t iid = 0;
   bool found = false;
 
@@ -321,10 +372,20 @@ NetworkPacketBundle* NetworkTraceHandler::FillWithInterning(
     found = true;
 
     if (success) {
-      // If we successfully empaced, record the newly interned data.
-      auto* packet_context = dst->set_interned_data()->add_packet_context();
-      Fill(key, packet_context->set_ctx());
-      packet_context->set_iid(iid);
+      // If we successfully emplaced, record the newly interned data.
+      perfetto_protos_InternedData interned_data;
+      perfetto_protos_TracePacket_begin_interned_data(dst, &interned_data);
+      perfetto_protos_NetworkPacketContext packet_context;
+      perfetto_protos_InternedData_begin_packet_context(&interned_data,
+                                                        &packet_context);
+      perfetto_protos_NetworkPacketEvent event;
+      perfetto_protos_NetworkPacketContext_begin_ctx(&packet_context, &event);
+      Fill(key, &event);
+      perfetto_protos_NetworkPacketContext_end_ctx(&packet_context, &event);
+      perfetto_protos_NetworkPacketContext_set_iid(&packet_context, iid);
+      perfetto_protos_InternedData_end_packet_context(&interned_data,
+                                                      &packet_context);
+      perfetto_protos_TracePacket_end_interned_data(dst, &interned_data);
     }
   } else {
     auto iter = state->iids.find(key);
@@ -334,14 +395,41 @@ NetworkPacketBundle* NetworkTraceHandler::FillWithInterning(
     }
   }
 
-  auto* event = dst->set_network_packet_bundle();
+  perfetto_protos_NetworkPacketBundle bundle;
+  perfetto_protos_TracePacket_begin_network_packet_bundle(dst, &bundle);
   if (found) {
-    event->set_iid(iid);
+    perfetto_protos_NetworkPacketBundle_set_iid(&bundle, iid);
   } else {
-    Fill(key, event->set_ctx());
+    perfetto_protos_NetworkPacketEvent event;
+    perfetto_protos_NetworkPacketBundle_begin_ctx(&bundle, &event);
+    Fill(key, &event);
+    perfetto_protos_NetworkPacketBundle_end_ctx(&bundle, &event);
   }
 
-  return event;
+  int count = details.time_and_len.size();
+  if (!mAggregationThreshold || count < mAggregationThreshold) {
+    PerfettoPbPackedMsgUint64 offsets;
+    perfetto_protos_NetworkPacketBundle_begin_packet_timestamps(&bundle,
+                                                                &offsets);
+    for (const auto& [time, length] : details.time_and_len) {
+      PerfettoPbPackedMsgUint64Append(&offsets, time - details.minTs);
+    }
+    perfetto_protos_NetworkPacketBundle_end_packet_timestamps(&bundle,
+                                                              &offsets);
+    PerfettoPbPackedMsgUint32 lengths;
+    perfetto_protos_NetworkPacketBundle_begin_packet_lengths(&bundle, &lengths);
+    for (const auto& [time, length] : details.time_and_len) {
+      PerfettoPbPackedMsgUint32Append(&lengths, length);
+    }
+    perfetto_protos_NetworkPacketBundle_end_packet_lengths(&bundle, &lengths);
+  } else {
+    perfetto_protos_NetworkPacketBundle_set_total_duration(
+        &bundle, details.maxTs - details.minTs);
+    perfetto_protos_NetworkPacketBundle_set_total_length(&bundle,
+                                                         details.bytes);
+    perfetto_protos_NetworkPacketBundle_set_total_packets(&bundle, count);
+  }
+  perfetto_protos_TracePacket_end_network_packet_bundle(dst, &bundle);
 }
 
 }  // namespace bpf

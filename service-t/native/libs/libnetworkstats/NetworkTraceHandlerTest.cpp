@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
-
 #include <vector>
 
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+#include <perfetto/public/producer.h>
+#include <perfetto/public/tracing_session.h>
+
 #include "netdbpf/NetworkTraceHandler.h"
-#include "protos/perfetto/config/android/network_trace_config.gen.h"
+#include "protos/perfetto/config/android/network_trace_config.pb.h"
+#include "protos/perfetto/config/trace_config.pb.h"
 #include "protos/perfetto/trace/android/network_trace.pb.h"
 #include "protos/perfetto/trace/trace.pb.h"
 #include "protos/perfetto/trace/trace_packet.pb.h"
@@ -33,36 +36,59 @@ using ::perfetto::protos::Trace;
 using ::perfetto::protos::TracePacket;
 using ::perfetto::protos::TrafficDirection;
 
+struct PerfettoTracingSessionDestroyFunctor {
+  void operator()(struct PerfettoTracingSessionImpl* obj) {
+    PerfettoTracingSessionDestroy(obj);
+  }
+};
+
 class NetworkTraceHandlerTest : public testing::Test {
  protected:
   // Starts a tracing session with the handler under test.
-  std::unique_ptr<perfetto::TracingSession> StartTracing(
-      NetworkPacketTraceConfig settings) {
-    perfetto::TracingInitArgs args;
-    args.backends = perfetto::kInProcessBackend;
-    perfetto::Tracing::Initialize(args);
+  std::unique_ptr<PerfettoTracingSessionImpl,
+                  PerfettoTracingSessionDestroyFunctor>
+  StartTracing(NetworkPacketTraceConfig settings) {
+    struct PerfettoProducerInitArgs args = PERFETTO_PRODUCER_INIT_ARGS_INIT();
+    args.backends = PERFETTO_BACKEND_IN_PROCESS;
+    PerfettoProducerInit(args);
 
     NetworkTraceHandler::RegisterDataSource(/*isTest=*/true);
 
-    perfetto::TraceConfig cfg;
+    perfetto::protos::TraceConfig cfg;
     cfg.add_buffers()->set_size_kb(1024);
     auto* config = cfg.add_data_sources()->mutable_config();
     config->set_name("test.network_packets");
-    config->set_network_packet_trace_config_raw(settings.SerializeAsString());
+    *config->mutable_network_packet_trace_config() = settings;
+    std::string serialized_cfg = cfg.SerializeAsString();
 
-    auto session = perfetto::Tracing::NewTrace(perfetto::kInProcessBackend);
-    session->Setup(cfg);
-    session->StartBlocking();
-    return session;
+    std::unique_ptr<PerfettoTracingSessionImpl,
+                    PerfettoTracingSessionDestroyFunctor>
+        ts(PerfettoTracingSessionCreate(PERFETTO_BACKEND_IN_PROCESS));
+    PerfettoTracingSessionSetup(ts.get(), serialized_cfg.data(),
+                                serialized_cfg.size());
+
+    PerfettoTracingSessionStartBlocking(ts.get());
+
+    return ts;
   }
 
   // Stops the trace session and reports all relevant trace packets.
-  bool StopTracing(perfetto::TracingSession* session,
+  bool StopTracing(PerfettoTracingSessionImpl* session,
                    std::vector<TracePacket>* output) {
-    session->StopBlocking();
+    PerfettoTracingSessionStopBlocking(session);
 
     Trace trace;
-    std::vector<char> raw_trace = session->ReadTraceBlocking();
+    std::vector<char> raw_trace;
+    PerfettoTracingSessionReadTraceBlocking(
+        session,
+        [](struct PerfettoTracingSessionImpl*, const void* trace_data,
+           size_t size, bool, void* user_arg) {
+          auto& dst = *static_cast<std::vector<char>*>(user_arg);
+          auto* src = static_cast<const char*>(trace_data);
+          dst.insert(dst.end(), src, src + size);
+        },
+        &raw_trace);
+
     if (!trace.ParseFromArray(raw_trace.data(), raw_trace.size())) {
       ADD_FAILURE() << "trace.ParseFromArray failed";
       return false;
