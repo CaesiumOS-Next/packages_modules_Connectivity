@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9cd9fac_afd8c420",
+        "filename": "thread/framework/java/android/net/thread/OperationalDatasetTimestamp.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-19T07:23:20Z",
+      "side": 1,
+      "message": "That works but you could do the same thing much faster with\n\n    mInstant.getNano() \u003e 32767 * 1_000_000_000L / 32768 ? 1 : 0;",
+      "range": {
+        "startLine": 172,
+        "startChar": 43,
+        "endLine": 172,
+        "endChar": 98
+      },
+      "revId": "da6fe54f4f8277a9c8203b42d15b138d557ae972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
