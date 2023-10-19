@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8153418f_1f61ea2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-19T14:59:25Z",
+      "side": 1,
+      "message": "wifi CTS crash completely unrelated to this patch",
+      "revId": "f9d0e3e94fc447f6d29d5c7e606d9b9708a71a25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
