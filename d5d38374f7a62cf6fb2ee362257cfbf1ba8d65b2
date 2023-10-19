@@ -94,6 +94,30 @@
       },
       "revId": "d5d38374f7a62cf6fb2ee362257cfbf1ba8d65b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70683ce5_6921ef46",
+        "filename": "staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-10-19T03:17:07Z",
+      "side": 1,
+      "message": "\u003e Do we know how much debuggable devices we have in beta or public?\n\nWe don\u0027t know the userdebug and eng builds in beta or public for now, but we should be able to query that from raw data table. Assume that we have this change, then the control group (default value is 0) will enable the feature on debuggable devices as well, not sure if that will bring the imbalance of device count between control and treatment groups. However, if there are not too many debuggable devices, then it should be fine.\n\n\u003e Do you check the metrics in teamfood or droidfood?\n\nYes, usually I check droidfood 50% for A/B before we can ramp up to public(e.g. we have to file an exception for public).\n\nBtw, think about this(maybe a different topic), do we have any way to enable the feature only on U and above with isFeatureNotChickenedOut()? So far the workflow of enabling a feature is:\n- use launch_through_droidfood_beta_and_public or to_public_mainline templates for experiment rollout, but these templates has only Pixel device restriction.\n- after experiment launch, we change the production code and call isFeatureNotChickenedOut to enable the feature on all platforms, and rollout the feature via binary push to OEMs\u0027 devices.\n\nWhat if we would like to enable the feature only on U and above devices? In this case, which API should we call in the production code?",
+      "parentUuid": "226d10be_80f330ac",
+      "range": {
+        "startLine": 184,
+        "startChar": 22,
+        "endLine": 184,
+        "endChar": 36
+      },
+      "revId": "d5d38374f7a62cf6fb2ee362257cfbf1ba8d65b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
