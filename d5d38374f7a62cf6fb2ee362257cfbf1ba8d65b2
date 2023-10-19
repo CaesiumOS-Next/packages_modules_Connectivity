@@ -118,6 +118,30 @@
       },
       "revId": "d5d38374f7a62cf6fb2ee362257cfbf1ba8d65b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5164be16_ab8f95e1",
+        "filename": "staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-19T03:37:34Z",
+      "side": 1,
+      "message": "\u003e  not sure if that will bring the imbalance of device count between control and treatment groups.\n\nMy concern was we can not easily compare the metrics between control group and treatment group on Rasta by this change.\nIt seems this could be solved by adding non-debuggable to the PropagationCriteria in study.\nIf we have many debuggable devices in droidfood, this change reduces the number of devices in droidfood and makes it difficult to compare the metrics.\nThough I\u0027m not sure metrics in droidfood is usefull since they already don\u0027t have many devices.\n\n\u003e What if we would like to enable the feature only on U and above devices? In this case, which API should we call in the production code?\n\nWe can have check in the caller side, I think.\nAlso we need to add isAtleastU to the PropagationCriteria of the study so that we can compare the metrics.\n```\nenabled \u003d isAtleastU() || isFeatureEnabled();\nof\nenabled \u003d isAtleastU() || isFeatureNotChickenedOut();\n```",
+      "parentUuid": "70683ce5_6921ef46",
+      "range": {
+        "startLine": 184,
+        "startChar": 22,
+        "endLine": 184,
+        "endChar": 36
+      },
+      "revId": "d5d38374f7a62cf6fb2ee362257cfbf1ba8d65b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
