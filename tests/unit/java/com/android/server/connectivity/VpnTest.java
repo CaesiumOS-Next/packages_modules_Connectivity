@@ -1847,9 +1847,8 @@ public class VpnTest extends VpnTestBase {
                 new IpPrefix(Inet6Address.ANY, 0), null, EGRESS_IFACE);
         lp.addRoute(defaultRoute);
 
-        // IllegalStateException thrown since legacy VPN only supports IPv4.
-        assertThrows(IllegalStateException.class,
-                () -> vpn.startLegacyVpn(mVpnProfile, EGRESS_NETWORK, lp));
+        // mVpnProfile is of type TYPE_IKEV2_IPSEC_PSK, expect no error.
+        vpn.startLegacyVpn(mVpnProfile, EGRESS_NETWORK, lp);
     }
 
     private Vpn startLegacyVpn(final Vpn vpn, final VpnProfile vpnProfile) throws Exception {
