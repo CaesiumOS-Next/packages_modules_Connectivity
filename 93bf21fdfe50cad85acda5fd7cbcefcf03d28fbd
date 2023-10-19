@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22ede8c5_eade0b79",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-19T08:41:55Z",
+      "side": 1,
+      "message": "Done in aosp/2787872.",
+      "parentUuid": "61b2a720_8dc02687",
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2477242_76da32ce",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-10-04T08:41:25Z",
       "side": 1,
       "message": "This is new behavior that should be flagged off; can you add a flag for this ?\n\nBasically all calls to maybeRemoveExpiredServices / removeExpiredServices and notifyServiceExpired should be flagged",
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9cd41dd_1e310332",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-19T08:41:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2477242_76da32ce",
       "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31f886f1_17ca76ad",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-19T08:41:55Z",
+      "side": 1,
+      "message": "Done and left a TODO for scheduling a expiration check job.",
+      "parentUuid": "f3905f8c_5a096c31",
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9455179_97d989c9",
@@ -65,6 +119,30 @@
       "writtenOn": "2023-10-04T08:41:25Z",
       "side": 1,
       "message": "extra and ?",
+      "range": {
+        "startLine": 198,
+        "startChar": 35,
+        "endLine": 198,
+        "endChar": 38
+      },
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3bc9922_cf95b47d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-19T08:41:55Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "b9455179_97d989c9",
       "range": {
         "startLine": 198,
         "startChar": 35,
@@ -98,6 +176,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dcc5390_33ee6cf6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-19T08:41:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cd57da1_8c7d9e3e",
+      "range": {
+        "startLine": 250,
+        "startChar": 15,
+        "endLine": 250,
+        "endChar": 36
+      },
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55d97997_88fea255",
@@ -111,6 +213,30 @@
       "writtenOn": "2023-10-04T08:41:25Z",
       "side": 1,
       "message": "Could you pass in a CacheKey instead, which would be kept (final member) in the ServiceTypeClient ?\n\nThen the same key can be used to unregister",
+      "range": {
+        "startLine": 263,
+        "startChar": 47,
+        "endLine": 264,
+        "endChar": 40
+      },
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23cc9b34_93330008",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-19T08:41:55Z",
+      "side": 1,
+      "message": "Done in aosp/2787872.",
+      "parentUuid": "55d97997_88fea255",
       "range": {
         "startLine": 263,
         "startChar": 47,
@@ -144,6 +270,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "178d8142_28898fa3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-19T08:41:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c08ce10_3b6260e1",
+      "range": {
+        "startLine": 291,
+        "startChar": 31,
+        "endLine": 291,
+        "endChar": 52
+      },
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c78a729a_9d522c66",
@@ -157,6 +307,24 @@
       "writtenOn": "2023-10-04T08:41:25Z",
       "side": 1,
       "message": "Nit: you could skip this if there was no expired service (no call to notifyServiceExpired). This avoids iterating records.",
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a913d3f_382e5efd",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-19T08:41:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c78a729a_9d522c66",
       "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -184,6 +352,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9993533_26d02a65",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-19T08:41:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf3e20f3_2799d924",
+      "range": {
+        "startLine": 207,
+        "startChar": 38,
+        "endLine": 207,
+        "endChar": 62
+      },
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dc48ff2_fd7297f2",
@@ -197,6 +389,30 @@
       "writtenOn": "2023-10-04T08:41:25Z",
       "side": 1,
       "message": "Should it be just DEFAULT_TTL_TIME_MS + TEST_ELAPSED_REALTIME_MS + 11L ? Not sure why there\u0027s *2",
+      "range": {
+        "startLine": 230,
+        "startChar": 63,
+        "endLine": 230,
+        "endChar": 68
+      },
+      "revId": "93bf21fdfe50cad85acda5fd7cbcefcf03d28fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "295987d4_ccc84ee5",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-19T08:41:55Z",
+      "side": 1,
+      "message": "You are right. Correct it accordingly.",
+      "parentUuid": "5dc48ff2_fd7297f2",
       "range": {
         "startLine": 230,
         "startChar": 63,
