@@ -142,6 +142,30 @@
       },
       "revId": "d5d38374f7a62cf6fb2ee362257cfbf1ba8d65b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1234f87e_70f8292f",
+        "filename": "staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-10-19T03:41:45Z",
+      "side": 1,
+      "message": "\u003e What if we would like to enable the feature only on U and above devices?\n\nUnfortunately, with trunk stable basing this off of SDK level may not work as expected. U has released, so it includes user devices. And FWIU, trunk stable droidfood is also running U (QPR2).",
+      "parentUuid": "70683ce5_6921ef46",
+      "range": {
+        "startLine": 184,
+        "startChar": 22,
+        "endLine": 184,
+        "endChar": 36
+      },
+      "revId": "d5d38374f7a62cf6fb2ee362257cfbf1ba8d65b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
