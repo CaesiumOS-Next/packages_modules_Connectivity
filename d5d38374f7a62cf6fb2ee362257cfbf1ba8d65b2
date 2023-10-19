@@ -166,6 +166,30 @@
       },
       "revId": "d5d38374f7a62cf6fb2ee362257cfbf1ba8d65b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da904c2b_b58bb346",
+        "filename": "staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-19T03:57:07Z",
+      "side": 1,
+      "message": "That\u0027s true.\nWe have some discussion with trunk stable team but we don\u0027t have a way to distinguish QPRs for now.\nPossibly we will be able to use aconfig flag for some situations.",
+      "parentUuid": "1234f87e_70f8292f",
+      "range": {
+        "startLine": 184,
+        "startChar": 22,
+        "endLine": 184,
+        "endChar": 36
+      },
+      "revId": "d5d38374f7a62cf6fb2ee362257cfbf1ba8d65b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
