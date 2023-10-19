@@ -199,6 +199,24 @@
       "parentUuid": "1ab9579b_0f72a222",
       "revId": "e5f717ed571c31b05fcf7b9285fadc78b184680e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9d764c8_fb3e8807",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 4133,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-10-19T05:18:02Z",
+      "side": 1,
+      "message": "I patched the latest CL chain and was able to receive the `onLocalNetworkInfoChanged` callbacks. It seems the issue has been fixed. Thanks!",
+      "parentUuid": "52585c9e_02af3911",
+      "revId": "e5f717ed571c31b05fcf7b9285fadc78b184680e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
