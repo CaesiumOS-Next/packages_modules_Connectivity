@@ -34,6 +34,23 @@
       "parentUuid": "5c63d5e8_599f5cf4",
       "revId": "08a4a873b81640dd9295665fd8b53e6d95bb6cfb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c702ded6_f1af3b9d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-19T06:56:41Z",
+      "side": 1,
+      "message": "The TH shows that the NetworkStatsHistoryTest#testFuzzing test is excluded from ConnectivityCoverageTests.",
+      "revId": "08a4a873b81640dd9295665fd8b53e6d95bb6cfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
