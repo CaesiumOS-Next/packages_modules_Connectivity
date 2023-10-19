@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "951a8106_c9cfe6a8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-19T06:46:09Z",
+      "side": 1,
+      "message": "This method seems never be used as linter complained. Is this needed?",
+      "range": {
+        "startLine": 935,
+        "startChar": 4,
+        "endLine": 938,
+        "endChar": 5
+      },
+      "revId": "c876caa8383369b85c1f774800ac06529abb2fe4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45acf31a_b20d3598",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-19T06:46:09Z",
+      "side": 1,
+      "message": "Nit: We have a similar method in VpnTest(https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/tests/unit/java/com/android/server/connectivity/VpnTest.java;l\u003d1029?q\u003dVpnTest). This seems to be useful to move this method to a common place to share between CSTest and VpnTest to reduce the code redundancy.\n\ne.g. Create a UidRangeUtils in packages/modules/Connectivity/staticlibs",
+      "range": {
+        "startLine": 950,
+        "startChar": 40,
+        "endLine": 950,
+        "endChar": 62
+      },
+      "revId": "c876caa8383369b85c1f774800ac06529abb2fe4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
