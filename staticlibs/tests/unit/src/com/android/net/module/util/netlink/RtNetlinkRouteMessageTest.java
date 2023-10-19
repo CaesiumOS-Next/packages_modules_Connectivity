@@ -218,11 +218,14 @@ public class RtNetlinkRouteMessageTest {
                 + "Rtmsg{"
                 + "family: 10, dstLen: 64, srcLen: 0, tos: 0, table: 252, protocol: 2, "
                 + "scope: 0, type: 1, flags: 0}, "
+                + "source{::}, "
                 + "destination{2001:db8:1::}, "
                 + "gateway{fe80::1}, "
-                + "ifindex{735}, "
+                + "iifindex{0}, "
+                + "oifindex{735}, "
                 + "rta_cacheinfo{clntref: 0, lastuse: 0, expires: 59998, error: 0, used: 0, "
                 + "id: 0, ts: 0, tsage: 0} "
+                + "expires{0}"
                 + "}";
         assertEquals(expected, routeMsg.toString());
     }
