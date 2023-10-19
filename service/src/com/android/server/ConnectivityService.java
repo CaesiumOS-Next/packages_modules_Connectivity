@@ -8156,6 +8156,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         NetworkInfo networkInfo = nai.networkInfo;
         updateNetworkInfo(nai, networkInfo);
         updateVpnUids(nai, null, nai.networkCapabilities);
+        maybeUpdateIngressDiscardRule(nai.linkProperties, null, nai);
     }
 
     private class NetworkOfferInfo implements IBinder.DeathRecipient {
@@ -8266,6 +8267,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // update filtering rules, need to happen after the interface update so netd knows about the
         // new interface (the interface name -> index map becomes initialized)
         updateVpnFiltering(newLp, oldLp, networkAgent);
+
+        maybeUpdateIngressDiscardRule(newLp, oldLp, networkAgent);
 
         updateMtu(newLp, oldLp);
         // TODO - figure out what to do for clat
@@ -8587,6 +8590,54 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         if (needsFiltering) {
             mPermissionMonitor.onVpnUidRangesAdded(newIface, ranges, vpnAppUid);
+        }
+    }
+
+    private void maybeUpdateIngressDiscardRule(@NonNull LinkProperties newLp,
+            @Nullable LinkProperties oldLp, @NonNull NetworkAgentInfo nai) {
+
+        if (!nai.isVPN()) {
+            // All the addresses in non VPN interface should not be in the ingress discard rule.
+            if (newLp != null) {
+                for (InetAddress addr : newLp.getAddresses()) {
+                    mBpfNetMaps.removeIngressDiscardRule(addr);
+                }
+            }
+            return;
+        }
+
+        if (oldLp != null) {
+            // All the addresses not in the newLp should not be in the ingress discard rule.
+            final Set<InetAddress> newAddrs = new ArraySet<>();
+            if (newLp != null) {
+                newAddrs.addAll(newLp.getAllAddresses());
+            }
+            for (InetAddress addr: oldLp.getAddresses()) {
+                if (!newAddrs.contains(addr)) {
+                    mBpfNetMaps.removeIngressDiscardRule(addr);
+                }
+            }
+        }
+
+        if (newLp == null) {
+            return;
+        }
+
+        Set<InetAddress> otherNetworkAddress = new ArraySet<>();
+        for (final NetworkAgentInfo agent : mNetworkAgentInfos) {
+            if (!nai.network.equals(agent.network)) {
+                otherNetworkAddress.addAll(agent.linkProperties.getAddresses());
+            }
+        }
+
+        for (InetAddress address: newLp.getAddresses()) {
+            if (otherNetworkAddress.contains(address)) {
+                // If other interfaces have this address, remove the rule
+                mBpfNetMaps.removeIngressDiscardRule(address);
+            } else {
+                // If only the VPN has this address, set rule to drop
+                mBpfNetMaps.setIngressDiscardRule(address, newLp.getInterfaceName());
+            }
         }
     }
 
@@ -10241,6 +10292,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             networkAgent.disconnect();
             if (networkAgent.isVPN()) {
                 updateVpnUids(networkAgent, networkAgent.networkCapabilities, null);
+                maybeUpdateIngressDiscardRule(null, networkAgent.linkProperties, networkAgent);
             }
             disconnectAndDestroyNetwork(networkAgent);
             if (networkAgent.isVPN()) {

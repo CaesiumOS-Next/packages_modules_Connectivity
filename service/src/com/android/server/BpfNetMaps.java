@@ -21,6 +21,7 @@ import static android.net.BpfNetMapsConstants.COOKIE_TAG_MAP_PATH;
 import static android.net.BpfNetMapsConstants.CURRENT_STATS_MAP_CONFIGURATION_KEY;
 import static android.net.BpfNetMapsConstants.HAPPY_BOX_MATCH;
 import static android.net.BpfNetMapsConstants.IIF_MATCH;
+import static android.net.BpfNetMapsConstants.INGRESS_DISCARD_MAP_PATH;
 import static android.net.BpfNetMapsConstants.LOCKDOWN_VPN_MATCH;
 import static android.net.BpfNetMapsConstants.PENALTY_BOX_MATCH;
 import static android.net.BpfNetMapsConstants.UID_OWNER_MAP_PATH;
@@ -72,15 +73,21 @@ import com.android.net.module.util.BpfDump;
 import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.IBpfMap;
+import com.android.net.module.util.InetAddressUtils;
 import com.android.net.module.util.Struct;
 import com.android.net.module.util.Struct.S32;
 import com.android.net.module.util.Struct.U32;
 import com.android.net.module.util.Struct.U8;
 import com.android.net.module.util.bpf.CookieTagMapKey;
 import com.android.net.module.util.bpf.CookieTagMapValue;
+import com.android.net.module.util.bpf.IngressDiscardKey;
+import com.android.net.module.util.bpf.IngressDiscardValue;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
+import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -93,6 +100,7 @@ import java.util.StringJoiner;
  */
 public class BpfNetMaps {
     private static final boolean PRE_T = !SdkLevel.isAtLeastT();
+
     static {
         if (!PRE_T) {
             System.loadLibrary("service-connectivity");
@@ -128,6 +136,7 @@ public class BpfNetMaps {
     private static IBpfMap<S32, UidOwnerValue> sUidOwnerMap = null;
     private static IBpfMap<S32, U8> sUidPermissionMap = null;
     private static IBpfMap<CookieTagMapKey, CookieTagMapValue> sCookieTagMap = null;
+    private static IBpfMap<IngressDiscardKey, IngressDiscardValue> sIngressDiscardMap = null;
 
     private static final List<Pair<Integer, String>> PERMISSION_LIST = Arrays.asList(
             Pair.create(PERMISSION_INTERNET, "PERMISSION_INTERNET"),
@@ -175,6 +184,15 @@ public class BpfNetMaps {
         sCookieTagMap = cookieTagMap;
     }
 
+    /**
+     * Set cookieTagMap for test.
+     */
+    @VisibleForTesting
+    public static void setIngressDiscardMapForTest(
+            IBpfMap<IngressDiscardKey, IngressDiscardValue> ingressDiscardMap) {
+        sIngressDiscardMap = ingressDiscardMap;
+    }
+
     private static IBpfMap<S32, U32> getConfigurationMap() {
         try {
             return new BpfMap<>(
@@ -211,6 +229,15 @@ public class BpfNetMaps {
         }
     }
 
+    private static IBpfMap<IngressDiscardKey, IngressDiscardValue> getIngressDiscardMap() {
+        try {
+            return new BpfMap<>(INGRESS_DISCARD_MAP_PATH, BpfMap.BPF_F_RDWR,
+                    IngressDiscardKey.class, IngressDiscardValue.class);
+        } catch (ErrnoException e) {
+            throw new IllegalStateException("Cannot open ingress discard map", e);
+        }
+    }
+
     private static void initBpfMaps() {
         if (sConfigurationMap == null) {
             sConfigurationMap = getConfigurationMap();
@@ -243,6 +270,15 @@ public class BpfNetMaps {
 
         if (sCookieTagMap == null) {
             sCookieTagMap = getCookieTagMap();
+        }
+
+        if (sIngressDiscardMap == null) {
+            sIngressDiscardMap = getIngressDiscardMap();
+        }
+        try {
+            sIngressDiscardMap.clear();
+        } catch (ErrnoException e) {
+            throw new IllegalStateException("Failed to initialize ingress discard map", e);
         }
     }
 
@@ -491,8 +527,8 @@ public class BpfNetMaps {
      * @param childChain target chain to enable
      * @param enable     whether to enable or disable child chain.
      * @throws UnsupportedOperationException if called on pre-T devices.
-     * @throws ServiceSpecificException in case of failure, with an error code indicating the
-     *                                  cause of the failure.
+     * @throws ServiceSpecificException      in case of failure, with an error code indicating the
+     *                                       cause of the failure.
      */
     public void setChildChain(final int childChain, final boolean enable) {
         throwIfPreT("setChildChain is not available on pre-T devices");
@@ -521,8 +557,8 @@ public class BpfNetMaps {
      * @param childChain target chain
      * @return {@code true} if chain is enabled, {@code false} if chain is not enabled.
      * @throws UnsupportedOperationException if called on pre-T devices.
-     * @throws ServiceSpecificException in case of failure, with an error code indicating the
-     *                                  cause of the failure.
+     * @throws ServiceSpecificException      in case of failure, with an error code indicating the
+     *                                       cause of the failure.
      */
     public boolean isChainEnabled(final int childChain) {
         throwIfPreT("isChainEnabled is not available on pre-T devices");
@@ -539,7 +575,7 @@ public class BpfNetMaps {
 
     private Set<Integer> asSet(final int[] uids) {
         final Set<Integer> uidSet = new ArraySet<>();
-        for (final int uid: uids) {
+        for (final int uid : uids) {
             uidSet.add(uid);
         }
         return uidSet;
@@ -549,10 +585,10 @@ public class BpfNetMaps {
      * Replaces the contents of the specified UID-based firewall chain.
      * Enables the chain for specified uids and disables the chain for non-specified uids.
      *
-     * @param chain       Target chain.
-     * @param uids        The list of UIDs to allow/deny.
+     * @param chain Target chain.
+     * @param uids  The list of UIDs to allow/deny.
      * @throws UnsupportedOperationException if called on pre-T devices.
-     * @throws IllegalArgumentException if {@code chain} is not a valid chain.
+     * @throws IllegalArgumentException      if {@code chain} is not a valid chain.
      */
     public void replaceUidChain(final int chain, final int[] uids) {
         throwIfPreT("replaceUidChain is not available on pre-T devices");
@@ -665,8 +701,8 @@ public class BpfNetMaps {
      * @param uid        target uid
      * @return either FIREWALL_RULE_ALLOW or FIREWALL_RULE_DENY
      * @throws UnsupportedOperationException if called on pre-T devices.
-     * @throws ServiceSpecificException in case of failure, with an error code indicating the
-     *                                  cause of the failure.
+     * @throws ServiceSpecificException      in case of failure, with an error code indicating the
+     *                                       cause of the failure.
      */
     public int getUidRule(final int childChain, final int uid) {
         throwIfPreT("isUidChainEnabled is not available on pre-T devices");
@@ -755,7 +791,7 @@ public class BpfNetMaps {
      * @param ifName the name of the interface on which the filtering rules will allow packets to
      *               be received.
      * @param uids   an array of UIDs which the filtering rules will be set
-     * @throws RemoteException when netd has crashed.
+     * @throws RemoteException          when netd has crashed.
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
@@ -798,7 +834,7 @@ public class BpfNetMaps {
      * by addUidInterfaceRules(). Ignore any uid which does not have filtering rule.
      *
      * @param uids an array of UIDs from which the filtering rules will be removed
-     * @throws RemoteException when netd has crashed.
+     * @throws RemoteException          when netd has crashed.
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
@@ -825,8 +861,8 @@ public class BpfNetMaps {
     /**
      * Update lockdown rule for uid
      *
-     * @param  uid          target uid to add/remove the rule
-     * @param  add          {@code true} to add the rule, {@code false} to remove the rule.
+     * @param uid target uid to add/remove the rule
+     * @param add {@code true} to add the rule, {@code false} to remove the rule.
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
@@ -849,8 +885,8 @@ public class BpfNetMaps {
      * Request netd to change the current active network stats map.
      *
      * @throws UnsupportedOperationException if called on pre-T devices.
-     * @throws ServiceSpecificException in case of failure, with an error code indicating the
-     *                                  cause of the failure.
+     * @throws ServiceSpecificException      in case of failure, with an error code indicating the
+     *                                       cause of the failure.
      */
     public void swapActiveStatsMap() {
         throwIfPreT("swapActiveStatsMap is not available on pre-T devices");
@@ -923,6 +959,43 @@ public class BpfNetMaps {
             }
         } else {
             native_setPermissionForUids(permissions, uids);
+        }
+    }
+
+    /**
+     * Set ingress discard rule
+     *
+     * @param address
+     * @param iface
+     */
+    public void setIngressDiscardRule(final InetAddress address, final String iface) {
+        final Inet6Address v6Addr = (address instanceof Inet4Address)
+                ? InetAddressUtils.getv4MappedV6Address((Inet4Address) address)
+                : (Inet6Address) address;
+        final int ifIndex = mDeps.getIfIndex(iface);
+        try {
+            sIngressDiscardMap.updateEntry(new IngressDiscardKey(v6Addr),
+                    new IngressDiscardValue(ifIndex, ifIndex));
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to update ingress discard rule for addr=" + address + " iface="
+                    + iface);
+        }
+    }
+
+    /**
+     * Remove ingress discard rule
+     *
+     * @param address
+     */
+    public void removeIngressDiscardRule(final InetAddress address) {
+        final Inet6Address v6Addr = (address instanceof Inet4Address)
+                ? InetAddressUtils.getv4MappedV6Address((Inet4Address) address)
+                : (Inet6Address) address;
+
+        try {
+            sIngressDiscardMap.deleteEntry(new IngressDiscardKey(v6Addr));
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to remove ingress discard rule for addr=" + address);
         }
     }
 
@@ -1056,6 +1129,8 @@ public class BpfNetMaps {
                     });
             BpfDump.dumpMap(sUidPermissionMap, pw, "sUidPermissionMap",
                     (uid, permission) -> uid.val + " " + permissionToString(permission.val));
+            BpfDump.dumpMap(sIngressDiscardMap, pw, "sIngressDiscardMap",
+                    (key, value) -> key + ": " + value);
             pw.decreaseIndent();
         }
     }
