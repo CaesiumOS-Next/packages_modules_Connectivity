@@ -16,6 +16,24 @@
       "message": "Please ensure that the NetworkStatsHistoryTest#testFuzzing test is ignored on all test mapping targets that would run ConnectivityCoverageTests.",
       "revId": "08a4a873b81640dd9295665fd8b53e6d95bb6cfb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ece66b06_7e33709b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-19T06:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c63d5e8_599f5cf4",
+      "revId": "08a4a873b81640dd9295665fd8b53e6d95bb6cfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
