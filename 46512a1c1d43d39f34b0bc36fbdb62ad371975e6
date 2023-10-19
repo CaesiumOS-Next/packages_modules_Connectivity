@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39553c44_d555d8be",
+        "filename": "DnsResolver/BpfReaderTest.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-19T06:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bb4a3f5_686f2dac",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 15
+      },
+      "revId": "46512a1c1d43d39f34b0bc36fbdb62ad371975e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b64ff90_dbb74e71",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-21T10:29:02Z",
       "side": 1,
       "message": "recommend newline before uid - should be easier to read",
+      "range": {
+        "startLine": 64,
+        "startChar": 73,
+        "endLine": 64,
+        "endChar": 76
+      },
+      "revId": "46512a1c1d43d39f34b0bc36fbdb62ad371975e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e82441e_487e402a",
+        "filename": "DnsResolver/BpfReaderTest.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-19T06:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b64ff90_dbb74e71",
       "range": {
         "startLine": 64,
         "startChar": 73,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7100aec8_c97dba31",
+        "filename": "DnsResolver/BpfReaderTest.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-19T06:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0918d3b4_ff04a151",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 8
+      },
+      "revId": "46512a1c1d43d39f34b0bc36fbdb62ad371975e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0baebdd4_ed4d9cc7",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-09-21T10:29:02Z",
       "side": 1,
       "message": "add a row with column names\n\n// uid     enabledRules    uidRules   expectedResult",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 19
+      },
+      "revId": "46512a1c1d43d39f34b0bc36fbdb62ad371975e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c95151b8_75fc7b7f",
+        "filename": "DnsResolver/BpfReaderTest.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-19T06:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0baebdd4_ed4d9cc7",
       "range": {
         "startLine": 69,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5029330e_6cec77c1",
+        "filename": "DnsResolver/BpfReaderTest.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-19T06:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fb19bf9_de452bd6",
+      "range": {
+        "startLine": 73,
+        "startChar": 13,
+        "endLine": 73,
+        "endChar": 14
+      },
+      "revId": "46512a1c1d43d39f34b0bc36fbdb62ad371975e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c261e66d_f50c76d6",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9df19631_e3af4530",
+        "filename": "DnsResolver/BpfReaderTest.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-19T06:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c261e66d_f50c76d6",
+      "range": {
+        "startLine": 86,
+        "startChar": 28,
+        "endLine": 86,
+        "endChar": 35
+      },
+      "revId": "46512a1c1d43d39f34b0bc36fbdb62ad371975e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b204b3f_f6c426d5",
@@ -152,6 +296,30 @@
       "writtenOn": "2023-09-21T10:29:02Z",
       "side": 1,
       "message": "while I know this is possible currently, it\u0027s something I\u0027m trying to fix...\n\nyou shouldn\u0027t be able to write to a RO map...\n\nbut maybe this is unavoidable until I fix the mistake that is BpfMapRO being a child of BpfMap",
+      "range": {
+        "startLine": 115,
+        "startChar": 43,
+        "endLine": 115,
+        "endChar": 53
+      },
+      "revId": "46512a1c1d43d39f34b0bc36fbdb62ad371975e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d92a1655_587cad5c",
+        "filename": "DnsResolver/BpfReaderTest.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-19T06:26:27Z",
+      "side": 1,
+      "message": "Hmm, there is no any restriction on BpfMapRO\u0027s constructor. So it just behaves as BpfMap.\n```\ntemplate \u003cclass Key, class Value\u003e\nclass BpfMapRO : public BpfMap\u003cKey, Value\u003e {\n  public:\n    BpfMapRO\u003cKey, Value\u003e() {};\n```",
+      "parentUuid": "8b204b3f_f6c426d5",
       "range": {
         "startLine": 115,
         "startChar": 43,
