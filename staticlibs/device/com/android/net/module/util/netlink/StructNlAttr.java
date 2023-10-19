@@ -298,6 +298,17 @@ public class StructNlAttr {
     }
 
     /**
+     * Get attribute value as Long, or null if malformed (e.g., length is not 8 bytes).
+     */
+    public Long getValueAsLong() {
+        final ByteBuffer byteBuffer = getValueAsByteBuffer();
+        if (byteBuffer == null || byteBuffer.remaining() != Long.BYTES) {
+            return null;
+        }
+        return byteBuffer.getLong();
+    }
+
+    /**
      * Get attribute value as Int, default value if malformed.
      */
     public int getValueAsInt(int defaultValue) {

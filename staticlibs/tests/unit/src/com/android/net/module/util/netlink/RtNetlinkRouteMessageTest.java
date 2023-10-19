@@ -223,6 +223,7 @@ public class RtNetlinkRouteMessageTest {
                 + "ifindex{735}, "
                 + "rta_cacheinfo{clntref: 0, lastuse: 0, expires: 59998, error: 0, used: 0, "
                 + "id: 0, ts: 0, tsage: 0} "
+                + "expires{0}"
                 + "}";
         assertEquals(expected, routeMsg.toString());
     }
