@@ -24,6 +24,7 @@ import static com.android.net.module.util.NetworkStackConstants.IPV6_ADDR_ANY;
 
 import android.annotation.SuppressLint;
 import android.net.IpPrefix;
+import android.net.RouteInfo;
 import android.system.OsConstants;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,10 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+import java.util.Arrays;
+
+import android.util.Log;
 
 /**
  * A NetlinkMessage subclass for rtnetlink route messages.
@@ -49,31 +54,46 @@ import java.nio.ByteBuffer;
  */
 public class RtNetlinkRouteMessage extends NetlinkMessage {
     public static final short RTA_DST           = 1;
+    public static final short RTA_SRC           = 2;
+    public static final short RTA_IIF           = 3;
     public static final short RTA_OIF           = 4;
     public static final short RTA_GATEWAY       = 5;
     public static final short RTA_CACHEINFO     = 12;
+    public static final short RTA_EXPIRES       = 23;
 
-    private int mIfindex;
+    public static final short RTNL_FAMILY_IP6MR = 129;
+    public static final String TAG = "NetlinkMulticastRoute";
+
+    private int mIifIndex;
+    private int mOifIndex;
     @NonNull
     private StructRtMsg mRtmsg;
     @NonNull
     private IpPrefix mDestination;
+    @NonNull
+    private IpPrefix mSource;
     @Nullable
     private InetAddress mGateway;
     @Nullable
     private StructRtaCacheInfo mRtaCacheInfo;
+    private long mExpires;
 
     private RtNetlinkRouteMessage(StructNlMsgHdr header) {
         super(header);
         mRtmsg = null;
         mDestination = null;
         mGateway = null;
-        mIfindex = 0;
+        mIifIndex = 0;
+        mOifIndex = 0;
         mRtaCacheInfo = null;
     }
 
+    public int getIifIndex() {
+        return mIifIndex;
+    }
+
     public int getInterfaceIndex() {
-        return mIfindex;
+        return mOifIndex;
     }
 
     @NonNull
@@ -86,6 +106,11 @@ public class RtNetlinkRouteMessage extends NetlinkMessage {
         return mDestination;
     }
 
+    @NonNull
+    public IpPrefix getSource() {
+        return mSource;
+    }
+
     @Nullable
     public InetAddress getGateway() {
         return mGateway;
@@ -94,6 +119,11 @@ public class RtNetlinkRouteMessage extends NetlinkMessage {
     @Nullable
     public StructRtaCacheInfo getRtaCacheInfo() {
         return mRtaCacheInfo;
+    }
+
+    @NonNull
+    public long getExpires() {
+        return mExpires;
     }
 
     /**
@@ -107,7 +137,8 @@ public class RtNetlinkRouteMessage extends NetlinkMessage {
     private static boolean matchRouteAddressFamily(@NonNull final InetAddress address,
             int family) {
         return ((address instanceof Inet4Address) && (family == AF_INET))
-                || ((address instanceof Inet6Address) && (family == AF_INET6));
+                || ((address instanceof Inet6Address) &&
+                        (family == AF_INET6 || family == RTNL_FAMILY_IP6MR));
     }
 
     /**
@@ -139,8 +170,26 @@ public class RtNetlinkRouteMessage extends NetlinkMessage {
             routeMsg.mDestination = new IpPrefix(destination, routeMsg.mRtmsg.dstLen);
         } else if (rtmFamily == AF_INET) {
             routeMsg.mDestination = new IpPrefix(IPV4_ADDR_ANY, 0);
-        } else if (rtmFamily == AF_INET6) {
+        } else if (rtmFamily == AF_INET6 || rtmFamily == RTNL_FAMILY_IP6MR) {
             routeMsg.mDestination = new IpPrefix(IPV6_ADDR_ANY, 0);
+        } else {
+            return null;
+        }
+
+        // RTA_SRC
+        byteBuffer.position(baseOffset);
+        nlAttr = StructNlAttr.findNextAttrOfType(RTA_SRC, byteBuffer);
+        if (nlAttr != null) {
+            final InetAddress source = nlAttr.getValueAsInetAddress();
+            // If the RTA_DST attribute is malformed, return null.
+            if (source == null) return null;
+            // If the address family of destination doesn't match rtm_family, return null.
+            if (!matchRouteAddressFamily(source, rtmFamily)) return null;
+            routeMsg.mSource = new IpPrefix(source, routeMsg.mRtmsg.srcLen);
+        } else if (rtmFamily == AF_INET) {
+            routeMsg.mSource = new IpPrefix(IPV4_ADDR_ANY, 0);
+        } else if (rtmFamily == AF_INET6 || rtmFamily == RTNL_FAMILY_IP6MR) {
+            routeMsg.mSource = new IpPrefix(IPV6_ADDR_ANY, 0);
         } else {
             return null;
         }
@@ -156,6 +205,13 @@ public class RtNetlinkRouteMessage extends NetlinkMessage {
             if (!matchRouteAddressFamily(routeMsg.mGateway, rtmFamily)) return null;
         }
 
+        // RTA_IIF
+        byteBuffer.position(baseOffset);
+        nlAttr = StructNlAttr.findNextAttrOfType(RTA_IIF, byteBuffer);
+        if (nlAttr != null) {
+            routeMsg.mIifIndex = nlAttr.getValueAsInt(0 /* 0 isn't a valid ifindex */);
+        }
+
         // RTA_OIF
         byteBuffer.position(baseOffset);
         nlAttr = StructNlAttr.findNextAttrOfType(RTA_OIF, byteBuffer);
@@ -164,7 +220,7 @@ public class RtNetlinkRouteMessage extends NetlinkMessage {
             // the interface index to a name themselves. This may not succeed or may be
             // incorrect, because the interface might have been deleted, or even deleted
             // and re-added with a different index, since the netlink message was sent.
-            routeMsg.mIfindex = nlAttr.getValueAsInt(0 /* 0 isn't a valid ifindex */);
+            routeMsg.mOifIndex = nlAttr.getValueAsInt(0 /* 0 isn't a valid ifindex */);
         }
 
         // RTA_CACHEINFO
@@ -172,6 +228,13 @@ public class RtNetlinkRouteMessage extends NetlinkMessage {
         nlAttr = StructNlAttr.findNextAttrOfType(RTA_CACHEINFO, byteBuffer);
         if (nlAttr != null) {
             routeMsg.mRtaCacheInfo = StructRtaCacheInfo.parse(nlAttr.getValueAsByteBuffer());
+        }
+
+        // RTA_EXPIRES
+        byteBuffer.position(baseOffset);
+        nlAttr = StructNlAttr.findNextAttrOfType(RTA_EXPIRES, byteBuffer);
+        if (nlAttr != null) {
+            routeMsg.mExpires = nlAttr.getValueAsLong();
         }
 
         return routeMsg;
@@ -192,8 +255,8 @@ public class RtNetlinkRouteMessage extends NetlinkMessage {
             final StructNlAttr gateway = new StructNlAttr(RTA_GATEWAY, mGateway.getAddress());
             gateway.pack(byteBuffer);
         }
-        if (mIfindex != 0) {
-            final StructNlAttr ifindex = new StructNlAttr(RTA_OIF, mIfindex);
+        if (mOifIndex != 0) {
+            final StructNlAttr ifindex = new StructNlAttr(RTA_OIF, mOifIndex);
             ifindex.pack(byteBuffer);
         }
         if (mRtaCacheInfo != null) {
@@ -208,10 +271,13 @@ public class RtNetlinkRouteMessage extends NetlinkMessage {
         return "RtNetlinkRouteMessage{ "
                 + "nlmsghdr{" + mHeader.toString(OsConstants.NETLINK_ROUTE) + "}, "
                 + "Rtmsg{" + mRtmsg.toString() + "}, "
+                + "source{" + mSource.getAddress().getHostAddress() + "}, "
                 + "destination{" + mDestination.getAddress().getHostAddress() + "}, "
                 + "gateway{" + (mGateway == null ? "" : mGateway.getHostAddress()) + "}, "
-                + "ifindex{" + mIfindex + "}, "
+                + "iifindex{" + mIifIndex + "}, "
+                + "oifindex{" + mOifIndex + "}, "
                 + "rta_cacheinfo{" + (mRtaCacheInfo == null ? "" : mRtaCacheInfo.toString()) + "} "
+                + "expires{" + mExpires + "}"
                 + "}";
     }
 }
