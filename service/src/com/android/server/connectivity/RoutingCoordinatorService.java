@@ -16,6 +16,10 @@
 
 package com.android.server.connectivity;
 
+import static android.net.MulticastRoutingConfig.FORWARD_NONE;
+import static android.net.MulticastRoutingConfig.FORWARD_SELECTED;
+import static android.net.MulticastRoutingConfig.FORWARD_WITH_MIN_SCOPE;
+
 import static com.android.net.module.util.NetdUtils.toRouteInfoParcel;
 
 import android.annotation.NonNull;
@@ -23,27 +27,151 @@ import android.annotation.Nullable;
 import android.content.Context;
 import android.net.INetd;
 import android.net.IRoutingCoordinator;
+import android.net.MulticastRoutingConfig;
 import android.net.RouteInfo;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
+import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.util.ArraySet;
+import android.util.Log;
 
 import com.android.internal.annotations.GuardedBy;
+import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.CollectionUtils;
+import com.android.net.module.util.LinkPropertiesUtils.CompareResult;
+import com.android.net.module.util.PacketReader;
+import com.android.net.module.util.Struct;
 
+import java.io.FileDescriptor;
+import java.io.IOException;
+import java.net.Inet6Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.StringJoiner;
 
 public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
+
+    private static final String TAG = RoutingCoordinatorService.class.getSimpleName();
+
     private final Context mContext;
     private final INetd mNetd;
+    private final Dependencies mDependencies;
+
+    private ParcelFileDescriptor mMulticastRoutingFD;
+    private final HandlerThread mHandlerThread;
+    private final HandlerThread mListenerThread;
+    private final Handler mListenerHandler;
+    private final Handler mHandler;
+    private final MulticastNocacheUpcallListener mMulticastNocacheUpcallListener;
+
+    private final int DYNAMIC_MFC_TIMEOUT_MS = 1000;
+    private final int STATIC_MFC_TIMEOUT_MS = 300000;
+
+    private Map<String, Byte> mVirtualInterfaceIndexMap = new HashMap<String, Byte>();
+    private Map<Byte, String> mInterfaceNameMap = new HashMap<>();
+    private byte nextVifIdx = 1;
+
+    private Map<String, MulticastRoutingConfigIif> mMulticastRoutingConfigs =
+            new HashMap<String, MulticastRoutingConfigIif>();
+
+    private byte getVirtualInterfaceIndex(String ifName) {
+        if (mVirtualInterfaceIndexMap.get(ifName) == null) {
+            try {
+                mVirtualInterfaceIndexMap.put(ifName, nextVifIdx);
+                mInterfaceNameMap.put(nextVifIdx, ifName);
+                int ifIndex = mDependencies.getInterfaceIndex(ifName);
+                mDependencies.addMulticastInterface(
+                        mMulticastRoutingFD.getFileDescriptor(), nextVifIdx, ifIndex);
+                nextVifIdx++;
+            } catch (IOException e) {
+                Log.e(TAG, "failed to add multicast virtual interface", e);
+                return -1;
+            }
+        }
+        return mVirtualInterfaceIndexMap.get(ifName);
+    }
+
+    private String getIfName(byte vifIdx) {
+        return mInterfaceNameMap.get(vifIdx);
+    }
+
+    private static final class MulticastRoutingConfigIif {
+        // mapping of oif name to MulticastRoutingConfig
+        Map<String, MulticastRoutingConfig> oifConfig =
+                new HashMap<String, MulticastRoutingConfig>();
+    }
+
+    private MulticastRoutingConfigIif getMulticastRoutingConfigsForIif(String iifName) {
+        return mMulticastRoutingConfigs.get(iifName);
+    }
+
+    private MulticastRoutingConfig getMulticastRoutingConfig(String iifName, String oifName) {
+        MulticastRoutingConfigIif configs = getMulticastRoutingConfigsForIif(iifName);
+        final MulticastRoutingConfig defaultConfig = MulticastRoutingConfig.CONFIG_FORWARD_NONE;
+        if (configs == null) {
+            return defaultConfig;
+        } else {
+            return configs.oifConfig.getOrDefault(oifName, defaultConfig);
+        }
+    }
+
+    private void setMulticastRoutingConfig(
+            final String iifName, final String oifName, final MulticastRoutingConfig config) {
+        MulticastRoutingConfigIif iifConfigs = getMulticastRoutingConfigsForIif(iifName);
+        if (iifConfigs == null) {
+            iifConfigs = new MulticastRoutingConfigIif();
+            mMulticastRoutingConfigs.put(iifName, iifConfigs);
+        }
+        iifConfigs.oifConfig.put(oifName, config);
+    }
+
+    private void removeInterfaceFromConfigs(final String ifName) {
+        // remove as iif
+        mMulticastRoutingConfigs.remove(ifName);
+        // remove as oif
+        for (Map.Entry<String, MulticastRoutingConfigIif> entry :
+                mMulticastRoutingConfigs.entrySet()) {
+            entry.getValue().oifConfig.remove(ifName);
+        }
+    }
 
     // If netd is null, will fetch it from the context. The argument is here for
     // dependency injection.
     public RoutingCoordinatorService(Context context, @Nullable INetd netd) {
+        this(context, netd, new Dependencies());
+    }
+
+    @VisibleForTesting
+    public RoutingCoordinatorService(
+            Context context, @Nullable INetd netd, Dependencies dependencies) {
         mContext = context;
         mNetd = null != netd ? netd
-                : INetd.Stub.asInterface((IBinder) context.getSystemService(Context.NETD_SERVICE));
+                        : INetd.Stub.asInterface((IBinder) context.getSystemService(Context.NETD_SERVICE));
+        mDependencies = dependencies;
+        mHandlerThread = new HandlerThread("HandlerThread");
+        mListenerThread = new HandlerThread("ListenerThread");
+        mHandlerThread.start();
+        mListenerThread.start();
+        mHandler = new Handler(mHandlerThread.getLooper());
+        mMulticastRoutingFD = initMulticastSocket();
+        mListenerHandler = new Handler(mListenerThread.getLooper());
+        mMulticastNocacheUpcallListener =
+                new MulticastNocacheUpcallListener(mListenerHandler, mMulticastRoutingFD.getFileDescriptor());
+        mListenerHandler.post(() -> mMulticastNocacheUpcallListener.start());
     }
 
     /**
@@ -209,4 +337,533 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
             }
         }
     }
+
+    private void RemoveObsoleteMfcs() {
+        Iterator<Map.Entry<MfcKey, MfcValue>> it = mMfcs.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<MfcKey, MfcValue> mfcEntry = it.next();
+            MfcKey key = mfcEntry.getKey();
+            MfcValue value = mfcEntry.getValue();
+            byte[] oifs = value.getOifIndexes();
+            byte[] dst = key.getDstAddress();
+            int iifIdx = key.getIifIndex();
+            Inet6Address destination;
+            try {
+                destination = (Inet6Address) Inet6Address.getByAddress(dst);
+            } catch (UnknownHostException e) {
+                // should not happen
+                Log.wtf(TAG, "Can't read inet6address : " + dst);
+                return;
+            }
+            for (byte oif : oifs) {
+                MulticastRoutingConfig config =
+                        getMulticastRoutingConfig(getIfName((byte) iifIdx), getIfName(oif));
+                int forwardingMode = config.getForwardingMode();
+                Set<Inet6Address> addresses = config.getListeningAddresses();
+                int minScope = config.getMinimumScope();
+                int dstScope = getGroupAddressScope(destination);
+                if (forwardingMode == FORWARD_NONE
+                        || (forwardingMode == FORWARD_SELECTED && !addresses.contains(destination))
+                        || (forwardingMode == FORWARD_WITH_MIN_SCOPE && dstScope < minScope)) {
+                    removeOif(oif, mfcEntry, it);
+                }
+            }
+        }
+    }
+
+    private void joinGroup(FileDescriptor fd, int ifIndex, byte[] address) {
+        try {
+            mDependencies.joinGroup(fd, ifIndex, address);
+        } catch (IOException e) {
+            Log.e(TAG, "failed to join group: " + e);
+        }
+    }
+
+    private void leaveGroup(FileDescriptor fd, int ifIndex, byte[] address) {
+        try {
+            mDependencies.leaveGroup(fd, ifIndex, address);
+        } catch (IOException e) {
+            Log.e(TAG, "failed to leave group: " + e);
+        }
+    }
+
+    private void doApplyMulticastRoutingConfig(
+            final String iifName, final String oifName, final MulticastRoutingConfig newConfig) {
+
+        // Make sure if and oif have multicast virtual indexes;
+        byte iifVirtualIdx = getVirtualInterfaceIndex(iifName);
+        byte oifVirtualIdx = getVirtualInterfaceIndex(oifName);
+
+        final MulticastRoutingConfig oldConfig = getMulticastRoutingConfig(iifName, oifName);
+
+        if (oldConfig.equals(newConfig)) return;
+
+        Log.d(
+                TAG,
+                "Applying multicast routing config for iif "
+                        + iifName
+                        + " to oif "
+                        + oifName
+                        + " with Config "
+                        + newConfig.toString());
+
+        int oldMode = oldConfig.getForwardingMode();
+        int newMode = newConfig.getForwardingMode();
+        byte[] anyAddr = new byte[16];
+        byte[] oifs = new byte[1];
+        oifs[0] = getVirtualInterfaceIndex(oifName);
+        int iifIndex = mDependencies.getInterfaceIndex(iifName);
+
+        if (oldMode != newMode) {
+            if (newMode == FORWARD_SELECTED) {
+                ArrayList<Inet6Address> listeningAddresses =
+                        new ArrayList<>(newConfig.getListeningAddresses());
+                for (int x = 0; x < listeningAddresses.size(); x++) {
+                    byte[] groupAddressBytes = listeningAddresses.get(x).getAddress();
+                    addMfc(getVirtualInterfaceIndex(iifName), oifs, anyAddr, groupAddressBytes, Instant.MAX, true);
+                    joinGroup(mMulticastRoutingFD.getFileDescriptor(), iifIndex, groupAddressBytes);
+                }
+            } else if (oldMode == FORWARD_SELECTED) {
+                ArrayList<Inet6Address> listeningAddresses =
+                        new ArrayList<>(oldConfig.getListeningAddresses());
+                for (int x = 0; x < listeningAddresses.size(); x++) {
+                    leaveGroup(
+                            mMulticastRoutingFD.getFileDescriptor(),
+                            iifIndex,
+                            listeningAddresses.get(x).getAddress());
+                }
+            }
+        } else if (newMode == FORWARD_SELECTED) {
+            final CompareResult<Inet6Address> addressDiff =
+                    new CompareResult<>(
+                            oldConfig.getListeningAddresses(), newConfig.getListeningAddresses());
+            for (final Inet6Address added : addressDiff.added) {
+                addMfc(getVirtualInterfaceIndex(iifName), oifs, anyAddr, added.getAddress(), Instant.MAX, true);
+                joinGroup(mMulticastRoutingFD.getFileDescriptor(), iifIndex, added.getAddress());
+            }
+            for (final Inet6Address removed : addressDiff.removed) {
+                leaveGroup(mMulticastRoutingFD.getFileDescriptor(), iifIndex, removed.getAddress());
+            }
+        }
+
+        setMulticastRoutingConfig(iifName, oifName, newConfig);
+
+        RemoveObsoleteMfcs();
+    }
+    /**
+     * Apply multicast routing configuration
+     *
+     * @param iifName interface name of the incoming interface
+     * @param oifName interface name of the outgoing interface
+     * @param newConfig the multicast routing configuration to be applied from iif to oif
+     */
+    public void applyMulticastRoutingConfig(
+            final String iifName, final String oifName, final MulticastRoutingConfig newConfig) {
+        mHandler.post(() -> doApplyMulticastRoutingConfig(iifName, oifName, newConfig));
+    }
+
+    /**
+     * Removes an network interface from multicast routing.
+     *
+     * <p>Remove the network interface from multicast configs and remove it from the list of
+     * multicast routing interfaces in the kernel
+     *
+     * @param ifName name of the interface that should be removed
+     */
+    public void removeInterfaceFromMulticastRouting(final String ifName) {
+        removeInterfaceFromConfigs(ifName);
+        RemoveObsoleteMfcs();
+        // mDependencies.removeMulticastInterface(mMulticastRoutingFD.getFileDescriptor(), ifName);
+        // remove ifName from the virtualIndex mapping
+    }
+
+    private class MfcKey {
+        private int mIifVirtualIdx;
+        private byte[] mSrcAddr;
+        private byte[] mDstAddr;
+        private boolean mIsStatic;
+
+        public MfcKey(int iif, byte[] src, byte[] dst, boolean isStatic) {
+            mIifVirtualIdx = iif;
+            mSrcAddr = src;
+            mDstAddr = dst;
+            mIsStatic = isStatic;
+        }
+
+        public boolean equals(Object other) {
+            if (other == this) {
+                return true;
+            } else if (!(other instanceof MfcKey)) {
+                return false;
+            } else {
+                MfcKey otherKey = (MfcKey) other;
+                return mIifVirtualIdx == otherKey.mIifVirtualIdx
+                        && mSrcAddr == otherKey.mSrcAddr
+                        && mDstAddr == otherKey.mDstAddr
+                        && mIsStatic == otherKey.mIsStatic;
+            }
+        }
+
+        public int hashCode() {
+            return Objects.hash(mIifVirtualIdx, mSrcAddr, mDstAddr, mIsStatic);
+        }
+
+        public int getIifIndex() {
+            return mIifVirtualIdx;
+        }
+
+        public byte[] getSrcAddress() {
+            return mSrcAddr;
+        }
+
+        public byte[] getDstAddress() {
+            return mDstAddr;
+        }
+
+        public boolean getIsStatic() {
+            return mIsStatic;
+        }
+
+        public String toString() {
+            final StringJoiner resultJoiner = new StringJoiner(" ", "{", "}");
+            InetAddress source;
+            InetAddress destination;
+
+            try {
+                source = InetAddress.getByAddress(mSrcAddr);
+                destination = InetAddress.getByAddress(mDstAddr);
+            } catch (UnknownHostException e) {
+                Log.wtf(TAG, "Can't read inet6address");
+                return null;
+            }
+
+            resultJoiner.add("iifVirtualIndex:");
+            resultJoiner.add(Integer.toString(mIifVirtualIdx));
+
+            resultJoiner.add("sourceAddress:");
+            resultJoiner.add(source.toString());
+
+            resultJoiner.add("destinationAddress:");
+            resultJoiner.add(destination.toString());
+
+            resultJoiner.add("isStatic:");
+            resultJoiner.add((mIsStatic ? "true" : "false"));
+
+            return resultJoiner.toString();
+        }
+    }
+
+    private class MfcValue {
+        private byte[] mOifVirtualIdxes;
+        private Instant mExpiresAt;
+
+        public MfcValue(byte oif, Instant expire) {
+            byte[] oifs = new byte[] {oif};
+            mOifVirtualIdxes = oifs;
+            mExpiresAt = expire;
+        }
+
+        public MfcValue(byte[] oifs, Instant expire) {
+            mOifVirtualIdxes = oifs;
+            mExpiresAt = expire;
+        }
+
+        public boolean containsOifIdx(byte idx) {
+            for (byte b : mOifVirtualIdxes) {
+                if (b == idx) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void addOif(byte idx) {
+            if (!containsOifIdx(idx)) {
+                byte[] oifs = Arrays.copyOf(mOifVirtualIdxes, mOifVirtualIdxes.length + 1);
+                oifs[mOifVirtualIdxes.length] = idx;
+                mOifVirtualIdxes = oifs;
+            }
+        }
+
+        public void removeOif(byte idx) {
+            if (containsOifIdx(idx)) {
+                byte[] updatedOifs = new byte[mOifVirtualIdxes.length - 1];
+                for (int i = 0, k = 0; i < mOifVirtualIdxes.length; i++) {
+                    if (mOifVirtualIdxes[i] == idx) {
+                        continue;
+                    }
+                    updatedOifs[k++] = mOifVirtualIdxes[i];
+                }
+                mOifVirtualIdxes = updatedOifs;
+            }
+        }
+
+        public byte[] getOifIndexes() {
+            return mOifVirtualIdxes;
+        }
+
+        public Instant getExpiryTime() {
+            return mExpiresAt;
+        }
+
+        public void setExpiryTime(Instant expiresAt) {
+            mExpiresAt = expiresAt;
+        }
+    }
+
+    // The mMfcs map keeps track of the MFCs added to kernel.
+    private HashMap<MfcKey, MfcValue> mMfcs = new HashMap<>();
+
+    private void addMfc(
+            int iif, byte[] oifs, byte[] src, byte[] dst, Instant expiresAt, boolean isStatic) {
+        final MfcKey key = new MfcKey(iif, src, dst, isStatic);
+        MfcValue value = mMfcs.get(key);
+        MfcValue updatedValue;
+
+        if (value == null) {
+            updatedValue = new MfcValue(oifs, expiresAt);
+        } else {
+            boolean updated = false;
+            updatedValue = new MfcValue(value.getOifIndexes(), value.getExpiryTime());
+            for (byte oif : oifs) {
+                if (!updatedValue.containsOifIdx(oif)) {
+                    updatedValue.addOif(oif);
+                    updatedValue.setExpiryTime(expiresAt);
+                    updated = true;
+                }
+            }
+            if (!updated) {
+                // all oifs are already included in existing MFC
+                return;
+            }
+        }
+        try {
+            mDependencies.addMulticastForwardingCache(
+                    mMulticastRoutingFD.getFileDescriptor(),
+                    key.getIifIndex(),
+                    updatedValue.getOifIndexes(),
+                    key.getSrcAddress(),
+                    key.getDstAddress(),
+                    key.getIsStatic());
+        } catch (IOException e) {
+            Log.e(TAG, "failed to add MFC: " + e);
+            return;
+        }
+        mMfcs.put(key, updatedValue);
+        Log.d(TAG, "Added MFC " + key.toString());
+    }
+
+    private void removeOif(
+            byte oif,
+            Map.Entry<MfcKey, MfcValue> mfcEntry,
+            Iterator<Map.Entry<MfcKey, MfcValue>> it) {
+        MfcKey key = mfcEntry.getKey();
+        MfcValue value = mfcEntry.getValue();
+        byte[] oifs = value.getOifIndexes();
+        if (oifs.length == 1 && oifs[0] == oif) {
+            // only oif is included, just remove the MFC
+            removeMfc(mfcEntry, it);
+            Log.d(TAG, "Removed MFC " + key.toString());
+        } else if (value.containsOifIdx(oif)) {
+            MfcValue updatedValue = new MfcValue(value.getOifIndexes(), value.getExpiryTime());
+            updatedValue.removeOif(oif);
+            try {
+                // oif is included together with other oifs, remove it from the list and update the
+                // MFC in kernel
+                mDependencies.addMulticastForwardingCache(
+                        mMulticastRoutingFD.getFileDescriptor(),
+                        key.getIifIndex(),
+                        value.getOifIndexes(),
+                        key.getSrcAddress(),
+                        key.getDstAddress(),
+                        key.getIsStatic());
+            } catch (IOException e) {
+                Log.e(TAG, "failed to update MFC: " + e);
+                return;
+            }
+            mMfcs.put(key, updatedValue);
+            Log.d(TAG, "Updated MFC " + key.toString() + " to remove oif " + oif);
+        }
+    }
+
+    private void removeMfc(
+            Map.Entry<MfcKey, MfcValue> mfcEntry, Iterator<Map.Entry<MfcKey, MfcValue>> it) {
+        MfcKey key = mfcEntry.getKey();
+        try {
+            mDependencies.removeMulticastForwardingCache(
+                    mMulticastRoutingFD.getFileDescriptor(),
+                    key.getIifIndex(),
+                    key.getSrcAddress(),
+                    key.getDstAddress(),
+                    key.getIsStatic());
+        } catch (IOException e) {
+            Log.e(TAG, "failed to remove MFC: " + e);
+            return;
+        }
+        it.remove();
+    }
+
+    private void cleanupExpiredMfcs() {
+        Iterator<Map.Entry<MfcKey, MfcValue>> it = mMfcs.entrySet().iterator();
+        Instant now = Instant.now();
+        while (it.hasNext()) {
+            Map.Entry<MfcKey, MfcValue> mfcEntry = it.next();
+            if (mfcEntry.getValue().getExpiryTime().isBefore(now)) {
+                removeMfc(mfcEntry, it);
+            }
+        }
+    }
+
+    private ParcelFileDescriptor initMulticastSocket() {
+        ParcelFileDescriptor pfd;
+        try {
+            pfd = mDependencies.createMulticastRoutingSocket();
+            Log.i(TAG, "socket created for multicast routing: " + pfd.getFd());
+        } catch (IOException e) {
+            Log.e(TAG, "failed to create multicast socket: " + e);
+            pfd = null;
+        }
+        return pfd;
+    }
+
+    private int getGroupAddressScope(Inet6Address address) {
+        return address.getAddress()[1] & 0xf;
+    }
+
+    private void handleMulticastNocacheUpcall(final StructMrt6Msg mrt6Msg) {
+        final int dstScope = getGroupAddressScope(mrt6Msg.mDst);
+        final int iifVid = mrt6Msg.mMif;
+        MulticastRoutingConfigIif iinfo =
+                getMulticastRoutingConfigsForIif(getIfName((byte) iifVid));
+
+        if (iinfo == null) return;
+
+        ArrayList<Byte> forwardingOifs = new ArrayList<Byte>();
+        for (Map.Entry<String, MulticastRoutingConfig> config : iinfo.oifConfig.entrySet()) {
+            if (config.getValue().getForwardingMode() == FORWARD_WITH_MIN_SCOPE
+                    && config.getValue().getMinimumScope() <= dstScope) {
+                forwardingOifs.add(getVirtualInterfaceIndex(config.getKey()));
+            }
+        }
+        if (forwardingOifs.size() > 0) {
+            byte[] oifs = new byte[forwardingOifs.size()];
+            for (int j = 0; j < forwardingOifs.size(); j++) {
+                oifs[j] = (byte) forwardingOifs.get(j);
+            }
+            byte[] anyAddr = new byte[16];
+            // add dynamic MFC to forward the packet
+            addMfc(
+                    iifVid,
+                    oifs,
+                    mrt6Msg.mSrc.getAddress(),
+                    mrt6Msg.mDst.getAddress(),
+                    Instant.now().plusMillis(DYNAMIC_MFC_TIMEOUT_MS),
+                    false);
+            mHandler.postDelayed(() -> cleanupExpiredMfcs(), DYNAMIC_MFC_TIMEOUT_MS);
+            // add static MFC to forward upcoming packets to the same group address
+            addMfc(
+                    iifVid,
+                    oifs,
+                    anyAddr,
+                    mrt6Msg.mDst.getAddress(),
+                    Instant.now().plusMillis(STATIC_MFC_TIMEOUT_MS),
+                    true);
+            mHandler.postDelayed(() -> cleanupExpiredMfcs(), STATIC_MFC_TIMEOUT_MS);
+        }
+    }
+
+    private final class MulticastNocacheUpcallListener extends PacketReader {
+        private final FileDescriptor mFd;
+
+        public MulticastNocacheUpcallListener(Handler h, FileDescriptor fd) {
+            super(h);
+            mFd = fd;
+        }
+
+        @Override
+        protected FileDescriptor createFd() {
+            return mFd;
+        }
+
+        @Override
+        protected void handlePacket(byte[] recvbuf, int length) {
+
+            final ByteBuffer buf = ByteBuffer.wrap(recvbuf);
+            final StructMrt6Msg mrt6Msg = Struct.parse(StructMrt6Msg.class, buf);
+
+            Log.d(TAG, "Got nocache upcall in packetreader " + mrt6Msg.toString());
+
+            mHandler.post(() -> handleMulticastNocacheUpcall(mrt6Msg));
+        }
+    }
+
+    @VisibleForTesting
+    public static class Dependencies {
+        // uses library 'service-connectivity' for native functions
+
+        public ParcelFileDescriptor createMulticastRoutingSocket() throws IOException {
+            return ParcelFileDescriptor.adoptFd(nativeCreateMulticastSocket());
+        }
+
+        public void addMulticastInterface(FileDescriptor fd, int virtualIfIndex, int ifIndex)
+                throws IOException {
+            nativeAddMif(fd, virtualIfIndex, ifIndex);
+        }
+
+        public void removeMulticastInterface(FileDescriptor fd, int virtualIfIndex)
+                throws IOException {
+            nativeRemoveMif(fd, virtualIfIndex);
+        }
+
+        public void addMulticastForwardingCache(
+                FileDescriptor fd, int iif, byte[] oifs, byte[] src, byte[] dst, boolean isStatic)
+                throws IOException {
+            nativeAddMfc(fd, iif, oifs, src, dst, isStatic);
+        }
+
+        public void removeMulticastForwardingCache(
+                FileDescriptor fd, int iif, byte[] src, byte[] dst, boolean isStatic)
+                throws IOException {
+            nativeRemoveMfc(fd, iif, src, dst, isStatic);
+        }
+
+        public void joinGroup(FileDescriptor fd, int ifIndex, byte[] addr) throws IOException {
+            nativeJoinGroup(fd, ifIndex, addr);
+        }
+
+        public void leaveGroup(FileDescriptor fd, int ifIndex, byte[] addr) throws IOException {
+            nativeLeaveGroup(fd, ifIndex, addr);
+        }
+
+        public Integer getInterfaceIndex(String ifName) {
+            try {
+                NetworkInterface ni = NetworkInterface.getByName(ifName);
+                return ni.getIndex();
+            } catch (NullPointerException | SocketException e) {
+                return null;
+            }
+        }
+    }
+
+    private static native int nativeCreateMulticastSocket() throws IOException;
+
+    private static native void nativeAddMif(FileDescriptor fd, int virtualIfIndex, int ifIndex)
+            throws IOException;
+
+    private static native void nativeRemoveMif(FileDescriptor fd, int virtualIfIndex)
+            throws IOException;
+
+    private static native void nativeAddMfc(
+            FileDescriptor fd, int iif, byte[] oifs, byte[] src, byte[] dst, boolean isStatic)
+            throws IOException;
+
+    private static native void nativeRemoveMfc(
+            FileDescriptor fd, int iif, byte[] src, byte[] dst, boolean isStatic)
+            throws IOException;
+
+    private static native void nativeJoinGroup(FileDescriptor fd, int ifIndex, byte[] addr)
+            throws IOException;
+
+    private static native void nativeLeaveGroup(FileDescriptor fd, int ifIndex, byte[] addr)
+            throws IOException;
 }
