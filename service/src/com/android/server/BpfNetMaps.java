@@ -19,6 +19,9 @@ package com.android.server;
 import static android.net.BpfNetMapsConstants.CONFIGURATION_MAP_PATH;
 import static android.net.BpfNetMapsConstants.COOKIE_TAG_MAP_PATH;
 import static android.net.BpfNetMapsConstants.CURRENT_STATS_MAP_CONFIGURATION_KEY;
+import static android.net.BpfNetMapsConstants.DATA_SAVER_CONFIGURATION_KEY;
+import static android.net.BpfNetMapsConstants.DATA_SAVER_DISABLED;
+import static android.net.BpfNetMapsConstants.DATA_SAVER_ENABLED;
 import static android.net.BpfNetMapsConstants.HAPPY_BOX_MATCH;
 import static android.net.BpfNetMapsConstants.IIF_MATCH;
 import static android.net.BpfNetMapsConstants.LOCKDOWN_VPN_MATCH;
@@ -118,6 +121,11 @@ public class BpfNetMaps {
     // BpfNetMaps acquires this lock while sequence of read, modify, and write.
     // BpfNetMaps is an only writer of this entry.
     private static final Object sCurrentStatsMapConfigLock = new Object();
+
+    // Lock for sConfigurationMap entry for DATA_SAVER_CONFIGURATION_KEY.
+    // BpfNetMaps acquires this lock while sequence of read, modify, and write.
+    // BpfNetMaps is an only writer of this entry.
+    private static final Object sDataSaverConfigLock = new Object();
 
     private static final long UID_RULES_DEFAULT_CONFIGURATION = 0;
     private static final long STATS_SELECT_MAP_A = 0;
@@ -226,6 +234,12 @@ public class BpfNetMaps {
                     new U32(STATS_SELECT_MAP_A));
         } catch (ErrnoException e) {
             throw new IllegalStateException("Failed to initialize current stats configuration", e);
+        }
+        try {
+            sConfigurationMap.updateEntry(DATA_SAVER_CONFIGURATION_KEY,
+                    new U32(DATA_SAVER_DISABLED));
+        } catch (ErrnoException e) {
+            throw new IllegalStateException("Failed to initialize data saver configuration", e);
         }
 
         if (sUidOwnerMap == null) {
@@ -926,6 +940,28 @@ public class BpfNetMaps {
         }
     }
 
+    /**
+     * Set Data Saver enabled or disabled
+     *
+     * @param enable     whether Data Saver is enabled or disabled.
+     * @throws UnsupportedOperationException if called on pre-T devices.
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
+    public void setDataSaverEnabled(boolean enable) {
+        throwIfPreT("setDataSaverEnabled is not available on pre-T devices");
+
+        try {
+            synchronized (sDataSaverConfigLock) {
+                final long newConfig = enable ? DATA_SAVER_ENABLED : DATA_SAVER_DISABLED;
+                sConfigurationMap.updateEntry(DATA_SAVER_CONFIGURATION_KEY, new U32(newConfig));
+            }
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to set data saver configuration: " + Os.strerror(e.errno));
+        }
+    }
+
     /** Register callback for statsd to pull atom. */
     public void setPullAtomCallback(final Context context) {
         throwIfPreT("setPullAtomCallback is not available on pre-T devices");
@@ -1007,6 +1043,22 @@ public class BpfNetMaps {
         }
     }
 
+    private void dumpDataSaverConfig(final IndentingPrintWriter pw) {
+        try {
+            final long config = sConfigurationMap.getValue(DATA_SAVER_CONFIGURATION_KEY).val;
+            String str;
+            if (config == DATA_SAVER_DISABLED) {
+                str = "Disabled";
+            } else if (config == DATA_SAVER_ENABLED) {
+                str = "Enabled";
+            } else {
+                str = "Unknown";
+            }
+            pw.println("current data saver configuration: " + config + " " + str);
+        } catch (ErrnoException e) {
+            pw.println("Failed to read data saver configuration: " + e);
+        }
+    }
     /**
      * Dump BPF maps
      *
@@ -1035,6 +1087,7 @@ public class BpfNetMaps {
 
             dumpOwnerMatchConfig(pw);
             dumpCurrentStatsMapConfig(pw);
+            dumpDataSaverConfig(pw);
             pw.println();
 
             // TODO: Remove CookieTagMap content dump
