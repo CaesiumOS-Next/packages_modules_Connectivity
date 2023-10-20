@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02023286_1366fc77",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-20T00:45:21Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "5e98a8deac970ed9fae027f59dbf1d5c9959a477",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b91f6ca_66d3569c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 9517,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-20T00:45:21Z",
+      "side": 1,
+      "message": "This is probably no longer necessary since we no longer listen to the broadcast.",
+      "range": {
+        "startLine": 9517,
+        "startChar": 8,
+        "endLine": 9517,
+        "endChar": 79
+      },
+      "revId": "5e98a8deac970ed9fae027f59dbf1d5c9959a477",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
