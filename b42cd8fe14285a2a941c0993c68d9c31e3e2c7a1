@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "997b6205_88b9a61b",
+        "filename": "DnsResolver/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-20T18:30:52Z",
+      "side": 1,
+      "message": "There is a compile check stop me to add any other string like //apex_available:platform in apex_available.\n```\nerror: packages/modules/Connectivity/DnsResolver/Android.bp:52:19: module \"lib4dns_resolver\" variant \"android_arm64_armv8-a_static_cfi\": apex_available: Stub libraries should have a single apex_available (test apexes excluded). Got [//apex_available:platform com.android.tethering]\n```\n\ngo/android.bp mentions something special for stubs library. But I can\u0027t link from the description to why it can only belong to one apex.\n\n```\n**apex_available** list of string, Availability of this module in APEXes. Only the \nlisted APEXes can contain this module. If the module has stubs then other APEXes \nand the platform may access it through them (subject to visibility). \n\"//apex_available:anyapex\" is a pseudo APEX name that matches to any APEX. \n\"//apex_available:platform\" refers to non-APEX partitions like \"system.img\". \n\"com.android.gki.*\" matches any APEX module name with the prefix \n\"com.android.gki.\". Default is [\"//apex_available:platform\"].\n```",
+      "parentUuid": "36083d20_23fc058b",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 46
+      },
+      "revId": "b42cd8fe14285a2a941c0993c68d9c31e3e2c7a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42b5c36a_98b8903d",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-19T19:19:44Z",
       "side": 1,
       "message": "feels like this should return base::Result\u003cbool\u003e to match init()\n\nthen you also don\u0027t need the UNBLOCKED/BLOCKED constants.\n\nisUidNetworkingBlocked() return true/false is self documenting.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 3
+      },
+      "revId": "b42cd8fe14285a2a941c0993c68d9c31e3e2c7a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09e74aa8_053177ef",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-20T18:30:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42b5c36a_98b8903d",
       "range": {
         "startLine": 39,
         "startChar": 0,
@@ -83,6 +131,54 @@
       "writtenOn": "2023-10-19T19:19:44Z",
       "side": 1,
       "message": "Perform any required initialization - including opening any required BPF maps.",
+      "range": {
+        "startLine": 25,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 13
+      },
+      "revId": "b42cd8fe14285a2a941c0993c68d9c31e3e2c7a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cc60cd3_e9b9ba6e",
+        "filename": "DnsResolver/include/ForDnsResolverPublic.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-20T18:30:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa9783a7_15641c6b",
+      "range": {
+        "startLine": 25,
+        "startChar": 47,
+        "endLine": 25,
+        "endChar": 51
+      },
+      "revId": "b42cd8fe14285a2a941c0993c68d9c31e3e2c7a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8266ad6d_e2f02c2e",
+        "filename": "DnsResolver/include/ForDnsResolverPublic.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-20T18:30:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c3672f5_6e0f10f7",
       "range": {
         "startLine": 25,
         "startChar": 3,
@@ -162,6 +258,78 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6feeddb6_815746cc",
+        "filename": "DnsResolver/include/ForDnsResolverPublic.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-20T18:30:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a262493_2cf3bc2f",
+      "range": {
+        "startLine": 33,
+        "startChar": 34,
+        "endLine": 33,
+        "endChar": 40
+      },
+      "revId": "b42cd8fe14285a2a941c0993c68d9c31e3e2c7a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d422ea76_55b396f7",
+        "filename": "DnsResolver/include/ForDnsResolverPublic.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-20T18:30:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "289cc714_54ab8ab2",
+      "range": {
+        "startLine": 33,
+        "startChar": 16,
+        "endLine": 33,
+        "endChar": 20
+      },
+      "revId": "b42cd8fe14285a2a941c0993c68d9c31e3e2c7a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54df05fd_9c45fa1a",
+        "filename": "DnsResolver/include/ForDnsResolverPublic.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-20T18:30:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9715e13d_22df9b42",
+      "range": {
+        "startLine": 33,
+        "startChar": 63,
+        "endLine": 33,
+        "endChar": 84
+      },
+      "revId": "b42cd8fe14285a2a941c0993c68d9c31e3e2c7a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e44aaaa_41da9e20",
@@ -175,6 +343,30 @@
       "writtenOn": "2023-10-19T19:19:44Z",
       "side": 1,
       "message": "clarify whether this is an app uid or a unix uid.\n\n(app uid \u003d\u003d unix uid % some value)",
+      "range": {
+        "startLine": 36,
+        "startChar": 18,
+        "endLine": 36,
+        "endChar": 22
+      },
+      "revId": "b42cd8fe14285a2a941c0993c68d9c31e3e2c7a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f8ca8f2_4a9f8a87",
+        "filename": "DnsResolver/include/ForDnsResolverPublic.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-20T18:30:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e44aaaa_41da9e20",
       "range": {
         "startLine": 36,
         "startChar": 18,
