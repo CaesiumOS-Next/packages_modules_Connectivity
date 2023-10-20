@@ -17,6 +17,7 @@
 package com.android.server;
 
 import static android.net.BpfNetMapsConstants.CURRENT_STATS_MAP_CONFIGURATION_KEY;
+import static android.net.BpfNetMapsConstants.DATA_SAVER_MATCH;
 import static android.net.BpfNetMapsConstants.DOZABLE_MATCH;
 import static android.net.BpfNetMapsConstants.HAPPY_BOX_MATCH;
 import static android.net.BpfNetMapsConstants.IIF_MATCH;
@@ -1181,5 +1182,24 @@ public final class BpfNetMapsTest {
                 () -> mBpfNetMaps.getUidsWithDenyRuleOnDenyListChain(FIREWALL_CHAIN_DOZABLE));
         assertThrows(expected,
                 () -> mBpfNetMaps.getUidsWithAllowRuleOnAllowListChain(FIREWALL_CHAIN_OEM_DENY_1));
+    }
+
+    @Test
+    @IgnoreAfter(Build.VERSION_CODES.S_V2)
+    public void testSetDataSaverEnabledBeforeT() {
+        for (boolean enable : new boolean[] {true, false}) {
+            assertThrows(UnsupportedOperationException.class,
+                    () -> mBpfNetMaps.setDataSaverEnabled(enable));
+        }
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testSetDataSaverEnabled() throws Exception {
+        for (boolean enable : new boolean[] {true, false}) {
+            mBpfNetMaps.setDataSaverEnabled(enable);
+            assertEquals(enable ? DATA_SAVER_MATCH : 0,
+                         mConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY).val);
+        }
     }
 }
