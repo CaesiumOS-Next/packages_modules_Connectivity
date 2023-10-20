@@ -60,6 +60,7 @@ public class BpfNetMapsConstants {
     public static final long OEM_DENY_1_MATCH = (1 << 9);
     public static final long OEM_DENY_2_MATCH = (1 << 10);
     public static final long OEM_DENY_3_MATCH = (1 << 11);
+    public static final long DATA_SAVER_MATCH = (1 << 12);
     // LINT.ThenChange(/packages/modules/Connectivity/bpf_progs/netd.h)
 
     public static final List<Pair<Long, String>> MATCH_LIST = Arrays.asList(
@@ -74,6 +75,7 @@ public class BpfNetMapsConstants {
             Pair.create(LOCKDOWN_VPN_MATCH, "LOCKDOWN_VPN_MATCH"),
             Pair.create(OEM_DENY_1_MATCH, "OEM_DENY_1_MATCH"),
             Pair.create(OEM_DENY_2_MATCH, "OEM_DENY_2_MATCH"),
-            Pair.create(OEM_DENY_3_MATCH, "OEM_DENY_3_MATCH")
+            Pair.create(OEM_DENY_3_MATCH, "OEM_DENY_3_MATCH"),
+            Pair.create(DATA_SAVER_MATCH, "DATA_SAVER_MATCH")
     );
 }
