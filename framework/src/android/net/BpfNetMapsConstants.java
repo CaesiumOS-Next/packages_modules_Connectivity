@@ -45,6 +45,10 @@ public class BpfNetMapsConstants {
             "/sys/fs/bpf/netd_shared/map_netd_cookie_tag_map";
     public static final Struct.S32 UID_RULES_CONFIGURATION_KEY = new Struct.S32(0);
     public static final Struct.S32 CURRENT_STATS_MAP_CONFIGURATION_KEY = new Struct.S32(1);
+    public static final Struct.S32 DATA_SAVER_CONFIGURATION_KEY = new Struct.S32(2);
+
+    public static final long DATA_SAVER_DISABLED = 0;
+    public static final long DATA_SAVER_ENABLED = 1;
 
     // LINT.IfChange(match_type)
     public static final long NO_MATCH = 0;
