@@ -280,6 +280,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c36eb997_9be19845",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-20T05:12:59Z",
+      "side": 1,
+      "message": "I still think it would be useful, to have the compiler guarantee that the child class has the same name for this method as others and that it returns the correct type.",
+      "parentUuid": "1b004100_c7686a1b",
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b81f054f_112fc3b9",
         "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
         "patchSetId": 3

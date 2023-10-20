@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f13f54c2_bf37b84b",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-20T05:12:59Z",
+      "side": 1,
+      "message": "Is this correct ? Shouldn\u0027t it be UTF-8 ? Unless the RFC explicitly forbids chars out of ASCII, it\u0027s usually counter-productive to limit to ASCII.",
+      "range": {
+        "startLine": 475,
+        "startChar": 58,
+        "endLine": 475,
+        "endChar": 66
+      },
+      "revId": "c1999668efe9ed276fb9838e6eeba149f387b7ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
