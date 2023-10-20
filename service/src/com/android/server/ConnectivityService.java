@@ -12598,6 +12598,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // Lack of permission or binder errors.
             throw new IllegalStateException(e);
         }
+
+        try {
+            mBpfNetMaps.setDataSaverEnabled(enable);
+        } catch (ServiceSpecificException | UnsupportedOperationException e) {
+            Log.e(TAG, "Failed to set data saver " + enable + " : " + e);
+        }
     }
 
     @Override
