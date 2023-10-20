@@ -19,6 +19,7 @@ package com.android.server;
 import static android.net.BpfNetMapsConstants.CONFIGURATION_MAP_PATH;
 import static android.net.BpfNetMapsConstants.COOKIE_TAG_MAP_PATH;
 import static android.net.BpfNetMapsConstants.CURRENT_STATS_MAP_CONFIGURATION_KEY;
+import static android.net.BpfNetMapsConstants.DATA_SAVER_MATCH;
 import static android.net.BpfNetMapsConstants.HAPPY_BOX_MATCH;
 import static android.net.BpfNetMapsConstants.IIF_MATCH;
 import static android.net.BpfNetMapsConstants.LOCKDOWN_VPN_MATCH;
@@ -923,6 +924,30 @@ public class BpfNetMaps {
             }
         } else {
             native_setPermissionForUids(permissions, uids);
+        }
+    }
+
+    /**
+     * Set Data Saver enabled or disabled
+     *
+     * @param enable     whether Data Saver is enabled or disabled.
+     * @throws UnsupportedOperationException if called on pre-T devices.
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
+    public void setDataSaverEnabled(boolean enable) {
+        throwIfPreT("setDataSaverEnabled is not available on pre-T devices");
+
+        try {
+            synchronized (sUidRulesConfigBpfMapLock) {
+                final long config = sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY).val;
+                final long newConfig = enable ? (config | DATA_SAVER_MATCH)
+                                                : (config & ~DATA_SAVER_MATCH);
+                sConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY, new U32(newConfig));
+            }
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to set data saver match: " + Os.strerror(e.errno));
         }
     }
 
