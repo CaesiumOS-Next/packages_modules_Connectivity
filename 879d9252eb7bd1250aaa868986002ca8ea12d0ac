@@ -16,6 +16,121 @@
       "message": "LGTM but not sure if Jean would like to also take a look",
       "revId": "879d9252eb7bd1250aaa868986002ca8ea12d0ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deaf4490_965facc9",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsEventLogger.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-20T03:31:58Z",
+      "side": 1,
+      "message": "I think logPollEvent can take `PollReason` int as a second argument and we don\u0027t need maybeCreatePollEvent in NetworkStatsService since `mEventLogger.logPollEvent` is already guarded by flag.\nAlso, maybe we don\u0027t need `PollEvent`, we can just have `pollReasonNameOf`\n\nI felt this makes a code simpler.",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 28
+      },
+      "revId": "879d9252eb7bd1250aaa868986002ca8ea12d0ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6ec696a_f9316bd8",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsEventLogger.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-20T03:31:58Z",
+      "side": 1,
+      "message": "nits: Do we want to use reverseDump? I saw other code in Connectivity use reverseDump.",
+      "range": {
+        "startLine": 104,
+        "startChar": 22,
+        "endLine": 104,
+        "endChar": 31
+      },
+      "revId": "879d9252eb7bd1250aaa868986002ca8ea12d0ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19419f67_3bdbc7e8",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1938,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-20T03:31:58Z",
+      "side": 1,
+      "message": "Why we need this?\n`obtainMessage(MSG_PERFORM_POLL,POLL_REASON_REG_CALLBACK)` does not work?",
+      "range": {
+        "startLine": 1938,
+        "startChar": 42,
+        "endLine": 1938,
+        "endChar": 43
+      },
+      "revId": "879d9252eb7bd1250aaa868986002ca8ea12d0ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40a383fc_8219f7e7",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2385,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-20T03:31:58Z",
+      "side": 1,
+      "message": "nits: It seems old comment.",
+      "range": {
+        "startLine": 2385,
+        "startChar": 53,
+        "endLine": 2385,
+        "endChar": 54
+      },
+      "revId": "879d9252eb7bd1250aaa868986002ca8ea12d0ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec89ccde_2ef5f2f7",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsEventLoggerTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-20T03:31:58Z",
+      "side": 1,
+      "message": "nits: adding want to error message help debugging.",
+      "range": {
+        "startLine": 151,
+        "startChar": 64,
+        "endLine": 151,
+        "endChar": 65
+      },
+      "revId": "879d9252eb7bd1250aaa868986002ca8ea12d0ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
