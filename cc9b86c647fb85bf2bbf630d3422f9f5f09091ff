@@ -22,6 +22,30 @@
       },
       "revId": "cc9b86c647fb85bf2bbf630d3422f9f5f09091ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee5d68aa_a1618452",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/IaPrefixOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-10-20T02:53:31Z",
+      "side": 1,
+      "message": "ah, yes, this method is used in this topic: https://android-review.git.corp.google.com/c/platform/packages/modules/NetworkStack/+/2691415/6/src/android/net/dhcp6/Dhcp6Client.java#673\n\nWe call this method to check if a delegated prefix has 0 preferred/valid lifetime, which means DHCP server thinks this prefix is not appropriate for this link, and client should stop using it immediately.\n\nGiven the topic depends on this CL, otherwise, the build with the topic will fail. I\u0027m thinking if we can check-in this CL first to make TH pass.",
+      "parentUuid": "66e67552_44b749f9",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 115,
+        "endChar": 5
+      },
+      "revId": "cc9b86c647fb85bf2bbf630d3422f9f5f09091ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
