@@ -164,6 +164,30 @@
       },
       "revId": "bb9046e20c5c3c78e4c9fddf04ce5dcf959d2c47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63b3c3bd_440f49f7",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbPacket.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-20T05:15:24Z",
+      "side": 1,
+      "message": "I agree with Junyu. I don\u0027t understand why this is different from DnsPacket ; if we think the impl in DnsPacket is better we should remove this, but if we think this implementation is better it should be better for DnsPacket and therefore it should be written in DnsPacket.",
+      "parentUuid": "950c763a_f6993884",
+      "range": {
+        "startLine": 162,
+        "startChar": 3,
+        "endLine": 170,
+        "endChar": 5
+      },
+      "revId": "bb9046e20c5c3c78e4c9fddf04ce5dcf959d2c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
