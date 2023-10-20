@@ -189,6 +189,7 @@ enum UidOwnerMatchType {
     OEM_DENY_1_MATCH = (1 << 9),
     OEM_DENY_2_MATCH = (1 << 10),
     OEM_DENY_3_MATCH = (1 << 11),
+    DATA_SAVER_MATCH = (1 << 12),
 };
 // LINT.ThenChange(packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java)
 
