@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4af8a819_f1319724",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-20T00:52:50Z",
+      "side": 1,
+      "message": "To make sure we don\u0027t lose any coverage, let\u0027s add a test for calling setAlwaysOnPackage(null) and ther never().setRequireVpnForUids",
+      "range": {
+        "startLine": 614,
+        "startChar": 4,
+        "endLine": 614,
+        "endChar": 5
+      },
+      "revId": "bda9d73fdb0d5185328c1b290b02c7f7f1621b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
