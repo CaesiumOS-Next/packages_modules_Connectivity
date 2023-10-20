@@ -17,6 +17,9 @@
 package com.android.server;
 
 import static android.net.BpfNetMapsConstants.CURRENT_STATS_MAP_CONFIGURATION_KEY;
+import static android.net.BpfNetMapsConstants.DATA_SAVER_CONFIGURATION_KEY;
+import static android.net.BpfNetMapsConstants.DATA_SAVER_DISABLED;
+import static android.net.BpfNetMapsConstants.DATA_SAVER_ENABLED;
 import static android.net.BpfNetMapsConstants.DOZABLE_MATCH;
 import static android.net.BpfNetMapsConstants.HAPPY_BOX_MATCH;
 import static android.net.BpfNetMapsConstants.IIF_MATCH;
@@ -151,6 +154,7 @@ public final class BpfNetMapsTest {
         mConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY, new U32(0));
         mConfigurationMap.updateEntry(
                 CURRENT_STATS_MAP_CONFIGURATION_KEY, new U32(STATS_SELECT_MAP_A));
+        mConfigurationMap.updateEntry(DATA_SAVER_CONFIGURATION_KEY, new U32(DATA_SAVER_DISABLED));
         BpfNetMaps.setUidOwnerMapForTest(mUidOwnerMap);
         BpfNetMaps.setUidPermissionMapForTest(mUidPermissionMap);
         BpfNetMaps.setCookieTagMapForTest(mCookieTagMap);
@@ -1154,6 +1158,23 @@ public final class BpfNetMapsTest {
         assertDumpContains(getDump(), "cookie=123 tag=0x789 uid=456");
     }
 
+    private void doTestDumpDataSaverConfig(final long value, final String expectedStr)
+            throws Exception {
+        mConfigurationMap.updateEntry(DATA_SAVER_CONFIGURATION_KEY, new U32(value));
+        assertDumpContains(getDump(),
+                "current data saver configuration: " + value + " " + expectedStr);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testDumpDataSaverConfig() throws Exception {
+        doTestDumpDataSaverConfig(-1, "Unknown");
+        doTestDumpDataSaverConfig(DATA_SAVER_DISABLED, "Disabled");
+        doTestDumpDataSaverConfig(DATA_SAVER_ENABLED, "Enabled");
+        doTestDumpDataSaverConfig(2, "Unknown");
+
+    }
+
     @Test
     public void testGetUids() throws ErrnoException {
         final int uid0 = TEST_UIDS[0];
@@ -1181,5 +1202,24 @@ public final class BpfNetMapsTest {
                 () -> mBpfNetMaps.getUidsWithDenyRuleOnDenyListChain(FIREWALL_CHAIN_DOZABLE));
         assertThrows(expected,
                 () -> mBpfNetMaps.getUidsWithAllowRuleOnAllowListChain(FIREWALL_CHAIN_OEM_DENY_1));
+    }
+
+    @Test
+    @IgnoreAfter(Build.VERSION_CODES.S_V2)
+    public void testSetDataSaverEnabledBeforeT() {
+        for (boolean enable : new boolean[] {true, false}) {
+            assertThrows(UnsupportedOperationException.class,
+                    () -> mBpfNetMaps.setDataSaverEnabled(enable));
+        }
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testSetDataSaverEnabled() throws Exception {
+        for (boolean enable : new boolean[] {true, false}) {
+            mBpfNetMaps.setDataSaverEnabled(enable);
+            assertEquals(enable ? DATA_SAVER_ENABLED : DATA_SAVER_DISABLED,
+                         mConfigurationMap.getValue(DATA_SAVER_CONFIGURATION_KEY).val);
+        }
     }
 }
