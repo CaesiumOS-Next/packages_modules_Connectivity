@@ -121,7 +121,7 @@ static const int APP_STATS_MAP_SIZE = 10000;
 static const int STATS_MAP_SIZE = 5000;
 static const int IFACE_INDEX_NAME_MAP_SIZE = 1000;
 static const int IFACE_STATS_MAP_SIZE = 1000;
-static const int CONFIGURATION_MAP_SIZE = 2;
+static const int CONFIGURATION_MAP_SIZE = 3;
 static const int UID_OWNER_MAP_SIZE = 4000;
 static const int INGRESS_DISCARD_MAP_SIZE = 100;
 static const int PACKET_TRACE_BUF_SIZE = 32 * 1024;
@@ -204,6 +204,11 @@ enum StatsMapType {
     SELECT_MAP_B,
 };
 
+enum DataSaverSettingType {
+    DATA_SAVER_DISABLED,
+    DATA_SAVER_ENABLED,
+};
+
 // TODO: change the configuration object from a bitmask to an object with clearer
 // semantics, like a struct.
 typedef uint32_t BpfConfig;
@@ -233,6 +238,8 @@ STRUCT_SIZE(IngressDiscardValue, 2 * 4);  // 8
 #define UID_RULES_CONFIGURATION_KEY 0
 // Entry in the configuration map that stores which stats map is currently in use.
 #define CURRENT_STATS_MAP_CONFIGURATION_KEY 1
+// Entry in the configuration map that stores whether data saver is enabled or not.
+#define DATA_SAVER_CONFIGURATION_KEY 2
 
 #undef STRUCT_SIZE
 
