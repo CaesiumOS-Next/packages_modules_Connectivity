@@ -73,6 +73,7 @@ interface IIpSecService
             in String callingPackage);
 
     void deleteTransform(int transformId);
+    void dumpTransform(int transformId);
 
     void applyTransportModeTransform(
             in ParcelFileDescriptor socket, int direction, int transformId);

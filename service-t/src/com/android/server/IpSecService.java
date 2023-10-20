@@ -698,6 +698,23 @@ public class IpSecService extends IIpSecService.Stub {
             getResourceTracker().give();
         }
 
+        public void dumpSaState() {
+            int spi = mSpi.getSpi();
+            Log.i(TAG, "dumpTransform " + spi);
+            try {
+                mNetd.ipSecDumpSecurityAssociation(
+                        mUid,
+                        mConfig.getSourceAddress(),
+                        mConfig.getDestinationAddress(),
+                        spi,
+                        mConfig.getMarkValue(),
+                        mConfig.getMarkMask(),
+                        mConfig.getXfrmInterfaceId());
+            } catch (RemoteException | ServiceSpecificException e) {
+                Log.e(TAG, "Failed to Dump SA with ID: " + mResourceId, e);
+            }
+        }
+
         @Override
         public void invalidate() throws RemoteException {
             getUserRecord().removeTransformRecord(mResourceId);
@@ -1861,6 +1878,15 @@ public class IpSecService extends IIpSecService.Stub {
         UserRecord userRecord = mUserResourceTracker.getUserRecord(Binder.getCallingUid());
         releaseResource(userRecord.mTransformRecords, resourceId);
     }
+
+    @Override
+    public synchronized void dumpTransform(int transformId) throws RemoteException {
+        UserRecord userRecord = mUserResourceTracker.getUserRecord(Binder.getCallingUid());
+        TransformRecord transformInfo =
+                userRecord.mTransformRecords.getResourceOrThrow(transformId);
+        transformInfo.dumpSaState();
+    }
+
 
     /**
      * Apply an active transport mode transform to a socket, which will apply the IPsec security

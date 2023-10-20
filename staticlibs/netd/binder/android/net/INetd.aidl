@@ -1435,4 +1435,13 @@ interface INetd {
     *                               - subPriority: unused
     */
     void setNetworkAllowlist(in NativeUidRangeConfig[] allowedNetworks);
+
+    void ipSecDumpSecurityAssociation(
+            int transformId,
+            in @utf8InCpp String sourceAddress,
+            in @utf8InCpp String destinationAddress,
+            int spi,
+            int markValue,
+            int markMask,
+            int interfaceId);
 }

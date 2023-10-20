@@ -386,6 +386,10 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                                 socket.mSocket, IpSecManager.DIRECTION_OUT, outTransportTransform);
                     }
 
+                    // android.util.Log.i("TEST", "OutputIpSecTunnelTestRunnableFactory before send");
+                    // mISM.dumpTransform(inTunnelTransform);
+                    // mISM.dumpTransform(outTunnelTransform);
+
                     socket.sendTo(TEST_DATA, remoteInner, socket.getPort());
 
                     // Verify that an encrypted packet is sent. As of right now, checking encrypted
@@ -400,6 +404,11 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                     tunUtils.awaitEspPacketNoPlaintext(
                             spi, TEST_DATA, useEncap, expectedPacketSize);
                     socket.close();
+
+                    android.util.Log.i("TEST", "OutputIpSecTunnelTestRunnableFactory ready to dump");
+                    // Thread.currentThread().sleep(4000L);
+                    mISM.dumpTransform(inTunnelTransform);
+                    mISM.dumpTransform(outTunnelTransform);
 
                     return innerSocketPort;
                 }
@@ -447,6 +456,11 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
 
                     // Receive packet from socket, and validate that the payload is correct
                     receiveAndValidatePacket(socket);
+
+                    android.util.Log.i("TEST", "Ready to Dump");
+                    Thread.currentThread().sleep(2000L);
+                    mISM.dumpTransform(inTunnelTransform);
+                    mISM.dumpTransform(outTunnelTransform);
 
                     socket.close();
 
@@ -515,12 +529,23 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                                         localOuter,
                                         socket.getPort(),
                                         encapSocket != null ? encapSocket.getPort() : 0,
-                                        seqNum);
+                                        5);
                     }
+
+                    android.util.Log.i("TEST", "Dump SA before inject packet");
+                    Thread.currentThread().sleep(2000L);
+                    mISM.dumpTransform(inTunnelTransform);
+                    mISM.dumpTransform(outTunnelTransform);
+
                     tunUtils.injectPacket(pkt);
 
                     // Receive packet from socket, and validate
                     receiveAndValidatePacket(socket);
+
+                    android.util.Log.i("TEST", "Dump SA after inject packet");
+                    Thread.currentThread().sleep(2000L);
+                    mISM.dumpTransform(inTunnelTransform);
+                    mISM.dumpTransform(outTunnelTransform);
 
                     socket.close();
 

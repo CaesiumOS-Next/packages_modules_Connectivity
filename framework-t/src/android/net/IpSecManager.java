@@ -1085,6 +1085,17 @@ public class IpSecManager {
     }
 
     /**
+     * @hide
+     */
+    public void dumpTransform(IpSecTransform transform) {
+        try {
+            mService.dumpTransform(transform.getResourceId());
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
      * Construct an instance of IpSecManager within an application context.
      *
      * @param context the application context for this manager
