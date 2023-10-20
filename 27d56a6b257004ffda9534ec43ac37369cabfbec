@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "805295f2_25540c51",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-20T01:00:23Z",
+      "side": 1,
+      "message": "Naming : please make sure that UIDs are called uid and app IDs are called appId or applicationId. Here it\u0027s kind of the opposite",
+      "range": {
+        "startLine": 1165,
+        "startChar": 22,
+        "endLine": 1165,
+        "endChar": 36
+      },
+      "revId": "27d56a6b257004ffda9534ec43ac37369cabfbec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e72f65a_f39132c9",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-20T01:00:23Z",
+      "side": 1,
+      "message": "Can you please check the callers of this method ?\n\nThere are two ways to refer to apps : one is per app ID and one per UID. Here it looks like |excludedList| are UIDs and not app IDs, but this code is treating them as app IDs. We should\n• Make sure that all callers are consistently calling this with either UIDs or appIDs but not a mix\n• Make sure that this is documented and respected in the impl",
+      "range": {
+        "startLine": 1165,
+        "startChar": 0,
+        "endLine": 1166,
+        "endChar": 37
+      },
+      "revId": "27d56a6b257004ffda9534ec43ac37369cabfbec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
