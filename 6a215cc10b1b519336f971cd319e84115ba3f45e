@@ -22,6 +22,30 @@
       },
       "revId": "6a215cc10b1b519336f971cd319e84115ba3f45e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7196326_a885beca",
+        "filename": "bpf_progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-21T02:13:31Z",
+      "side": 1,
+      "message": "Thanks for the suggestion. I wrote a design doc for this feature a few days ago. If you don\u0027t mind, could you comment on the doc for me?\n\nhttps://docs.google.com/document/d/18V_rsiYKRJtJgz93NdXxjd5CxTk56UVCtQcRgNsSlJo/edit?usp\u003dsharing",
+      "parentUuid": "a8e5913e_2135f54a",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 33
+      },
+      "revId": "6a215cc10b1b519336f971cd319e84115ba3f45e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
