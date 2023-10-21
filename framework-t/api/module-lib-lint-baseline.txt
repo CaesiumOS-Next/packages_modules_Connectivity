@@ -5,3 +5,7 @@ BannedThrow: android.app.usage.NetworkStatsManager#querySummary(android.net.Netw
     Methods must not mention RuntimeException subclasses in throws clauses (was `java.lang.SecurityException`)
 BannedThrow: android.app.usage.NetworkStatsManager#queryTaggedSummary(android.net.NetworkTemplate, long, long):
     Methods must not mention RuntimeException subclasses in throws clauses (was `java.lang.SecurityException`)
+
+
+MissingFeature: android.net.IpSecManager#startTunnelModeTransformMigration(android.net.IpSecTransform, java.net.InetAddress, java.net.InetAddress):
+    Feature field FEATURE_IPSEC_TUNNEL_MIGRATION is hidden or removed

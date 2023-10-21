@@ -5,3 +5,7 @@ BuilderSetStyle: android.net.IpSecTransform.Builder#buildTunnelModeTransform(jav
 
 GenericException: android.net.IpSecManager.IpSecTunnelInterface#finalize():
     Methods must not throw generic exceptions (`java.lang.Throwable`)
+
+
+MissingFeature: android.net.IpSecManager#startTunnelModeTransformMigration(android.net.IpSecTransform, java.net.InetAddress, java.net.InetAddress):
+    Feature field FEATURE_IPSEC_TUNNEL_MIGRATION is hidden or removed
