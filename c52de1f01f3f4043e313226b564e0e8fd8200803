@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9453562_97cb2d9e",
+        "filename": "thread/framework/java/android/net/thread/IThreadNetworkController.aidl",
+        "patchSetId": 41
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-22T16:18:48Z",
+      "side": 1,
+      "message": "Actually, this is AIDL and it should be \"@nullable\". See https://source.android.com/docs/core/architecture/aidl/aidl-annotations",
+      "parentUuid": "d85b53fa_70c5e875",
+      "range": {
+        "startLine": 42,
+        "startChar": 5,
+        "endLine": 42,
+        "endChar": 6
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a851127_6658a979",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-10-19T07:59:51Z",
       "side": 1,
       "message": "This means you can call register multiple times but the 2nd call and further are ignored.\n\n    registerStateCallback(executor1, cb);\n    registerStateCallback(executor2, cb);\n    unregisterStateCallback(cb);\n    unregisterStateCallback(cb);\n\nIf you do this, executor2 is ignored (probably unintended) and the second call to unregister does nothing (because of l.198~199)\n\nIt might be nicer to your callers to either refcount or to reject registering the same callback multiple times (it\u0027s fine if it was unregistered in the mean time).",
+      "range": {
+        "startLine": 181,
+        "startChar": 42,
+        "endLine": 181,
+        "endChar": 57
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "595aa26b_3069e854",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-22T16:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a851127_6658a979",
       "range": {
         "startLine": 181,
         "startChar": 42,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9e90f18_6050df91",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-22T16:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cef059ff_05c4be19",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 13
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41a88f08_1b91d5dc",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-10-19T07:59:51Z",
       "side": 1,
       "message": "go/avoidwe",
+      "range": {
+        "startLine": 308,
+        "startChar": 38,
+        "endLine": 308,
+        "endChar": 40
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bd553e4_c9ba6993",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-22T16:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41a88f08_1b91d5dc",
       "range": {
         "startLine": 308,
         "startChar": 38,
@@ -202,6 +298,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccd728f9_7acfd07e",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-22T16:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4202261b_095e086b",
+      "range": {
+        "startLine": 400,
+        "startChar": 49,
+        "endLine": 400,
+        "endChar": 51
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd27c9ea_fa98994c",
@@ -248,6 +368,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e662b0a_be2b4257",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-22T16:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a68174c8_d4d36d74",
+      "range": {
+        "startLine": 416,
+        "startChar": 57,
+        "endLine": 416,
+        "endChar": 66
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4eda784c_f7e4ad1c",
@@ -271,6 +415,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b9940d9_323b08cc",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-22T16:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4eda784c_f7e4ad1c",
+      "range": {
+        "startLine": 422,
+        "startChar": 88,
+        "endLine": 422,
+        "endChar": 95
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68ba106c_0033ec01",
@@ -284,6 +452,30 @@
       "writtenOn": "2023-10-19T07:59:51Z",
       "side": 1,
       "message": "Let\u0027s give an example",
+      "range": {
+        "startLine": 62,
+        "startChar": 77,
+        "endLine": 62,
+        "endChar": 80
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30e40444_a9711762",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkException.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-22T16:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68ba106c_0033ec01",
       "range": {
         "startLine": 62,
         "startChar": 77,
