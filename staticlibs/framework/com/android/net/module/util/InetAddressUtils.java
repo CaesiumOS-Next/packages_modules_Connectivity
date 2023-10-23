@@ -21,6 +21,7 @@ import android.os.Parcel;
 import android.util.Log;
 
 
+import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -32,6 +33,7 @@ import java.net.UnknownHostException;
 public class InetAddressUtils {
 
     private static final String TAG = InetAddressUtils.class.getSimpleName();
+    private static final int INET4_ADDR_LENGTH = 4;
     private static final int INET6_ADDR_LENGTH = 16;
 
     /**
@@ -89,6 +91,27 @@ public class InetAddressUtils {
         } catch (UnknownHostException impossible) {
             Log.wtf(TAG, "Cannot construct scoped Inet6Address with Inet6Address.getAddress("
                     + addr.getHostAddress() + "): ", impossible);
+            return null;
+        }
+    }
+
+    /**
+     *
+     * @param addr Inet4Address this method creates v4-mapped v6 address from
+     * @return v4-mapped v6 address
+     */
+    public static Inet6Address getv4MappedV6Address(@NonNull final Inet4Address addr) {
+        final byte[] addrByte = new byte[INET6_ADDR_LENGTH];
+        addrByte[10] = (byte) 0xFF;
+        addrByte[11] = (byte) 0xFF;
+        System.arraycopy(addr.getAddress(), 0 /* srcPos */, addrByte, 12 /* dstPos */,
+                INET4_ADDR_LENGTH);
+        try {
+            // Using Inet6Address.getByAddress to avoid getting Inet4Address for v4-mapped v6
+            // address.
+            return Inet6Address.getByAddress(null /* host */, addrByte, -1 /* scope_id */);
+        } catch (UnknownHostException e) {
+            Log.wtf(TAG, "Failed to parse address: " + e);
             return null;
         }
     }
