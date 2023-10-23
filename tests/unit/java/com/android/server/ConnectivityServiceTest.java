@@ -171,6 +171,7 @@ import static com.android.server.ConnectivityService.makeNflogPrefix;
 import static com.android.server.ConnectivityServiceTestUtils.transportToLegacyType;
 import static com.android.server.NetworkAgentWrapper.CallbackType.OnQosCallbackRegister;
 import static com.android.server.NetworkAgentWrapper.CallbackType.OnQosCallbackUnregister;
+import static com.android.server.connectivity.ConnectivityFlags.INGRESS_TO_VPN_ADDRESS_FILTERING;
 import static com.android.testutils.Cleanup.testAndCleanup;
 import static com.android.testutils.ConcurrentUtils.await;
 import static com.android.testutils.ConcurrentUtils.durationOf;
@@ -2156,6 +2157,8 @@ public class ConnectivityServiceTest {
         public boolean isFeatureNotChickenedOut(Context context, String name) {
             switch (name) {
                 case ALLOW_SYSUI_CONNECTIVITY_REPORTS:
+                    return true;
+                case INGRESS_TO_VPN_ADDRESS_FILTERING:
                     return true;
                 default:
                     return super.isFeatureNotChickenedOut(context, name);
