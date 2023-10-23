@@ -70,6 +70,30 @@
       },
       "revId": "c279f1830ee6e1ca79ee86a707d5cc796a806667",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e25d48b_96958af0",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 5960,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T10:04:06Z",
+      "side": 1,
+      "message": "Surprising. Did you try rebuilding the entire framework ? SYSTEM_SERVER can only make sense between mainline modules, though maybe it can only be used inside the framework. I can indeed find no uses of them in modules, only in the framework.\n\nIf this is really impossible, then okay check this in. But please double check.",
+      "parentUuid": "abc2af5f_24860bba",
+      "range": {
+        "startLine": 5960,
+        "startChar": 24,
+        "endLine": 5960,
+        "endChar": 40
+      },
+      "revId": "c279f1830ee6e1ca79ee86a707d5cc796a806667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
