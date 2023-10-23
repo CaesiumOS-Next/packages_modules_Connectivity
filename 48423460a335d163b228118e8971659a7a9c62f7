@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dee7e82d_b10fcc12",
+        "filename": "framework/src/android/net/LocalNetworkInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-23T10:56:21Z",
+      "side": 1,
+      "message": "nits: I think we can write `\"LocalNetworkInfo { upstream\u003d\" + upstreamNetwork + \" }\"` for the same output since Network#toString returns `Integer.toString(netId)`.",
+      "range": {
+        "startLine": 71,
+        "startChar": 85,
+        "endLine": 71,
+        "endChar": 86
+      },
+      "revId": "48423460a335d163b228118e8971659a7a9c62f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6326b7a5_27401241",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 8979,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-23T10:56:21Z",
+      "side": 1,
+      "message": "nits: It seems LocalNetworkConfig does not override toString method.",
+      "range": {
+        "startLine": 8979,
+        "startChar": 84,
+        "endLine": 8979,
+        "endChar": 98
+      },
+      "revId": "48423460a335d163b228118e8971659a7a9c62f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
