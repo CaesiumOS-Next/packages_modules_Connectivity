@@ -22,6 +22,30 @@
       },
       "revId": "c279f1830ee6e1ca79ee86a707d5cc796a806667",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86a02ec7_802d54fc",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 5960,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-23T07:51:37Z",
+      "side": 1,
+      "message": "1. From the documentation:\n\"Use this to expose APIs from code loaded by the system server process \u003cem\u003ebut\u003c/em\u003e\nnot in \u003cpre\u003eBOOTCLASSPATH\u003c/pre\u003e.\"\nSo IIUC we are not in the scope of it.\nRef: https://osscs.corp.google.com/android/platform/superproject/+/master:frameworks/libs/modules-utils/java/android/annotation/SystemApi.java;l\u003d61?ss\u003dandroid\u0026q\u003d%22Use%20this%20to%20expose%20APIs%20from%20code%20loaded%20by%20the%20system%20server%20process%22\n\n2. From, @SystemApi (client\u003dMODULE_LIBRARIES) ...\nBasically for JAR files in BOOTCLASSPATH.\n\n3. Also, using SYSTEM_SERVER won\u0027t get build pass though.\nStll not sure why.\n\nReopen if disagreed.",
+      "parentUuid": "01b6bb5c_345c98c6",
+      "range": {
+        "startLine": 5960,
+        "startChar": 24,
+        "endLine": 5960,
+        "endChar": 40
+      },
+      "revId": "c279f1830ee6e1ca79ee86a707d5cc796a806667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
