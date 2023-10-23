@@ -16,6 +16,24 @@
       "message": "I don\u0027t know Kotlin at all, so huge apologies if this is me misreading things.\n\nBut I\u0027m assuming that `$pkg` is the name of our package, `$allow` is our boolean, and the arguments are passed in that order to the command.\n\nFrom my command line testing, with `adb root`, on an internal reference device, I see:\n\n```\n$ adb shell cmd connectivity set-package-networking-enabled com.google.android.gms false\nConnectivity service commands:\n  help\n    Print this help text.\n  airplane-mode [enable|disable]\n    Turn airplane mode on or off.\n  airplane-mode\n    Get airplane mode.\n  set-chain3-enabled [true|false]\n    Enable or disable FIREWALL_CHAIN_OEM_DENY_3 for debugging.\n  get-chain3-enabled\n    Returns whether FIREWALL_CHAIN_OEM_DENY_3 is enabled.\n  set-package-networking-enabled [true|false] [package name]\n    Set the deny bit in FIREWALL_CHAIN_OEM_DENY_3 to package. This has\n    no effect if the chain is disabled.\n  get-package-networking-enabled [package name]\n    Get the deny bit in FIREWALL_CHAIN_OEM_DENY_3 for package.\n    \n$ adb shell cmd connectivity set-package-networking-enabled false com.google.android.gms\nDisabled networking for com.google.android.gms, appId 10080\n```\n\nThis is all a long-winded way of me saying, do we want to swap the order of the `$pkg` and `$allow` arguments here?",
       "revId": "3a6544fb1fba0de7d6d50530d0ba621c6ba40195",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98f6f274_5e791913",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T08:28:11Z",
+      "side": 1,
+      "message": "Lol yes, you are absolutely right. Fixed in aosp/2799134",
+      "parentUuid": "96894cb0_32298816",
+      "revId": "3a6544fb1fba0de7d6d50530d0ba621c6ba40195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
