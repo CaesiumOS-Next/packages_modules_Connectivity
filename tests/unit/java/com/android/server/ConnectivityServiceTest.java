@@ -161,6 +161,7 @@ import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_LOW;
 import static com.android.server.ConnectivityService.DELAY_DESTROY_FROZEN_SOCKETS_VERSION;
 import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
 import static com.android.server.ConnectivityService.ALLOW_SYSUI_CONNECTIVITY_REPORTS;
+import static com.android.server.ConnectivityService.INGRESS_TO_VPN_ADDRESS_FILTERING;
 import static com.android.server.ConnectivityService.KEY_DESTROY_FROZEN_SOCKETS_VERSION;
 import static com.android.server.ConnectivityService.MAX_NETWORK_REQUESTS_PER_SYSTEM_UID;
 import static com.android.server.ConnectivityService.PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED;
@@ -2158,6 +2159,8 @@ public class ConnectivityServiceTest {
         public boolean isFeatureNotChickenedOut(Context context, String name) {
             switch (name) {
                 case ALLOW_SYSUI_CONNECTIVITY_REPORTS:
+                    return true;
+                case INGRESS_TO_VPN_ADDRESS_FILTERING:
                     return true;
                 default:
                     return super.isFeatureNotChickenedOut(context, name);
