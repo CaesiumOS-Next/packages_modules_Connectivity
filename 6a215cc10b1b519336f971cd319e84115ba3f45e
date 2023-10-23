@@ -46,6 +46,30 @@
       },
       "revId": "6a215cc10b1b519336f971cd319e84115ba3f45e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b072559_cfb96410",
+        "filename": "bpf_progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-23T03:21:45Z",
+      "side": 1,
+      "message": "It\u0027s a global boolean.\n\nDo you mean by adding a new BPF map with 1 element for data saver setting? Or reusing the third element of configuration_map? Something like this\n```\n  enum StatsMapType {\n      SELECT_MAP_A,\n      SELECT_MAP_B,\n  };\n+\n+ enum DataSaverSettingType {\n+     DATA_SAVER_DISABLED,\n+     DATA_SAVER_ENABLED,\n+ };\n\n  // Entry in the configuration map that stores which UID rules are enabled.\n  #define UID_RULES_CONFIGURATION_KEY 0\n  // Entry in the configuration map that stores which stats map is currently in use.\n  #define CURRENT_STATS_MAP_CONFIGURATION_KEY 1\n+ // Entry in the configuration map that stores whether data saver is enabled or not.\n+ #define DATA_SAVER_CONFIGURATION_KEY 2\n```",
+      "parentUuid": "f7196326_a885beca",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 33
+      },
+      "revId": "6a215cc10b1b519336f971cd319e84115ba3f45e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
