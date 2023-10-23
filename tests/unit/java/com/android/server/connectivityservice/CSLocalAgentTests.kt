@@ -46,7 +46,6 @@ import com.android.testutils.RecorderCallback.CallbackEntry.BlockedStatus
 import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.Lost
-import com.android.testutils.TestableNetworkCallback
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.inOrder
@@ -179,7 +178,7 @@ class CSLocalAgentTests : CSTest() {
                 lp = lp("local0"),
                 lnc = lnc,
                 score = FromS(NetworkScore.Builder()
-                        .setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_DOWNSTREAM_NETWORK)
+                        .setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_LOCAL_NETWORK)
                         .build())
         )
         localAgent.connect()
