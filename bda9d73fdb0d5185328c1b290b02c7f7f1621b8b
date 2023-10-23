@@ -22,6 +22,30 @@
       },
       "revId": "bda9d73fdb0d5185328c1b290b02c7f7f1621b8b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f303fc64_cbb3d72b",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-10-23T09:44:57Z",
+      "side": 1,
+      "message": "Done in new test `testAlwaysOnWithoutLockdown`",
+      "parentUuid": "4af8a819_f1319724",
+      "range": {
+        "startLine": 614,
+        "startChar": 4,
+        "endLine": 614,
+        "endChar": 5
+      },
+      "revId": "bda9d73fdb0d5185328c1b290b02c7f7f1621b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
