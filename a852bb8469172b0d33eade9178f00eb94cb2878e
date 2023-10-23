@@ -39,6 +39,30 @@
       },
       "revId": "a852bb8469172b0d33eade9178f00eb94cb2878e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb6fef31_73f3c575",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 2620,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T09:59:14Z",
+      "side": 1,
+      "message": "Good point about system server. Fixed.\n\nAs for the admins, I see little reason to let them see this. Your point about carrier privileged apps is a good point against letting them see it.",
+      "parentUuid": "d46417b6_e3d86304",
+      "range": {
+        "startLine": 2620,
+        "startChar": 25,
+        "endLine": 2620,
+        "endChar": 36
+      },
+      "revId": "a852bb8469172b0d33eade9178f00eb94cb2878e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
