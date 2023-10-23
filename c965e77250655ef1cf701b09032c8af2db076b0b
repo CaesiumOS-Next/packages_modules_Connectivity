@@ -20,6 +20,144 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14324d9e_0e5c4d71",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-23T06:54:38Z",
+      "side": 1,
+      "message": "This needs an ID. This could be the MAC address returned by getExtendedMacAddress, but that could create privacy issues due to the presence of persistent identifiers. A simpler option would be a \"small integer\" - 1, 2, 3, etc (whether these numbers can be reused or not depends on the exact API - I\u0027d guess both are possible).",
+      "range": {
+        "startLine": 507,
+        "startChar": 15,
+        "endLine": 507,
+        "endChar": 38
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35edd0af_8f489e6e",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-23T06:54:38Z",
+      "side": 1,
+      "message": "Why this OutcomeReceiver? Presumably this information will also be passed to the app via a StateCallback?",
+      "range": {
+        "startLine": 509,
+        "startChar": 165,
+        "endLine": 509,
+        "endChar": 180
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c696c63_4abe6707",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-23T06:54:38Z",
+      "side": 1,
+      "message": "What is \"extended\" about this address? If it\u0027s just an EUI-64 address, then it should be called that, not MacAddress. (On Android, the MacAddress class only supports 48-bit addresses.)",
+      "range": {
+        "startLine": 510,
+        "startChar": 104,
+        "endLine": 510,
+        "endChar": 125
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6da6141c_e4e81061",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-23T06:54:38Z",
+      "side": 1,
+      "message": "If this MAC address constitutes a persistent identifier of the device, ACCESS_NETWORK_STATE is not appropriate. For reference, the wifi MAC address is protected by LOCAL_MAC_ADDRESS.",
+      "range": {
+        "startLine": 510,
+        "startChar": 68,
+        "endLine": 510,
+        "endChar": 88
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07a0a7b0_7f8c7e71",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-23T06:54:38Z",
+      "side": 1,
+      "message": "Generally it\u0027s not good practice to have synchronous accessors that take or return Network objects. This information can really only be correctly determined from the ConnectivityManager callback thread. So this probably shouldn\u0027t be here. Instead I think we need a TransportInfo object on Thread networks that contains the controller ID.",
+      "range": {
+        "startLine": 511,
+        "startChar": 48,
+        "endLine": 511,
+        "endChar": 58
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b78cd15_735a8eac",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-23T06:54:38Z",
+      "side": 1,
+      "message": "This needs to work across processes, right? Because it\u0027s used by ScheduleMigrationReceiver? Doesn\u0027t this need to implement Parcelable?",
+      "range": {
+        "startLine": 543,
+        "startChar": 38,
+        "endLine": 543,
+        "endChar": 65
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc63655e_83031cb2",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
         "patchSetId": 43
