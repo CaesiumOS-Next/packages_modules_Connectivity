@@ -28,31 +28,38 @@
 
 #include <chrono>
 #include <thread>
+#include <unordered_set>
 #include <vector>
 
 #include "netdbpf/NetworkTracePoller.h"
 
 using ::testing::AllOf;
-using ::testing::AnyOf;
 using ::testing::Each;
+using ::testing::ElementsAre;
 using ::testing::Eq;
 using ::testing::Field;
-using ::testing::Test;
+using ::testing::Truly;
 
 namespace android {
 namespace bpf {
 namespace internal {
+
 // Use uint32 max to cause the handler to never Loop. Instead, the tests will
 // manually drive things by calling ConsumeAll explicitly.
 constexpr uint32_t kNeverPoll = std::numeric_limits<uint32_t>::max();
 
-__be16 bindAndListen(int s) {
+__be16 bindSocket(int s) {
   sockaddr_in sin = {.sin_family = AF_INET};
   socklen_t len = sizeof(sin);
   if (bind(s, (sockaddr*)&sin, sizeof(sin))) return 0;
-  if (listen(s, 1)) return 0;
   if (getsockname(s, (sockaddr*)&sin, &len)) return 0;
   return sin.sin_port;
+}
+
+__be16 bindAndListen(int s) {
+  __be16 ret = bindSocket(s);
+  if (listen(s, 1)) return 0;
+  return ret;
 }
 
 // This takes tcp flag constants from the standard library and makes them usable
@@ -62,6 +69,69 @@ __be16 bindAndListen(int s) {
 constexpr inline uint8_t FlagToHost(__be32 be_unix_flags) {
   return ntohl(be_unix_flags) >> 16;
 }
+
+class UdpSockets {
+ public:
+  UdpSockets(size_t num) {
+    for (size_t i = 0 ; i < num; i++) {
+      sockets_.push_back({});
+      Socket& sock = sockets_.back();
+      sock.fd.reset(socket(AF_INET, SOCK_DGRAM, 0));
+      EXPECT_NE(-1, sock.fd) << "Failed to open server socket";
+      sock.port = bindSocket(sock.fd);
+      EXPECT_NE(0, sock.port) << "Can't bind to server port";
+      sock.addr = {.sin_family = AF_INET, .sin_port = sock.port};
+    }
+  }
+
+  __be16 port(size_t i) const {
+    return sockets_[i].port;
+  }
+
+  size_t size() const {
+    return sockets_.size();
+  }
+
+  // Sends a packet from the socket at port `port(src)` to the socket ad port
+  // `port(dst)`. Returns true if successful.
+  [[nodiscard]] bool SendPacket(size_t src, size_t dst) {
+    if (!IsSocketValid(src) || !IsSocketValid(dst)) {
+      return false;
+    }
+    const char data[] = "abcdefghijklmnopqrstuvwxyz";
+    ssize_t sent_len =
+        sendto(sockets_[src].fd, data, sizeof data, 0,
+               (sockaddr*)&sockets_[dst].addr, sizeof sockets_[dst].addr);
+    if (sent_len != sizeof data) {
+      return false;
+    }
+
+    sockaddr_in recv_addr;
+    socklen_t recv_addr_len;
+    recv_addr_len = sizeof recv_addr;
+    char buff[100];
+
+    ssize_t recv_len = recvfrom(sockets_[dst].fd, buff, sizeof buff, 0,
+                                (sockaddr*)&recv_addr, &recv_addr_len);
+    if (recv_len != sizeof data) {
+      return false;
+    }
+    return true;
+  }
+
+ private:
+  bool IsSocketValid(size_t i) {
+    return i < sockets_.size() && sockets_[i].fd != -1 && sockets_[i].port != 0;
+  }
+
+  struct Socket {
+    android::base::unique_fd fd;
+    sockaddr_in addr;
+    __be16 port;
+  };
+
+  std::vector<Socket> sockets_;
+};
 
 // Pretty prints all fields for a list of packets (useful for debugging).
 struct PacketPrinter {
@@ -101,10 +171,10 @@ class NetworkTracePollerTest : public testing::Test {
   }
 };
 
-TEST_F(NetworkTracePollerTest, PollWhileInactive) {
+TEST_F(NetworkTracePollerTest, ConsumerAllWhileInactive) {
   NetworkTracePoller handler([&](const std::vector<PacketTrace>& pkt) {});
 
-  // One succeed after start and before stop.
+  // Only succeed after start and before stop.
   EXPECT_FALSE(handler.ConsumeAll());
   ASSERT_TRUE(handler.Start(kNeverPoll));
   EXPECT_TRUE(handler.ConsumeAll());
@@ -112,7 +182,7 @@ TEST_F(NetworkTracePollerTest, PollWhileInactive) {
   EXPECT_FALSE(handler.ConsumeAll());
 }
 
-TEST_F(NetworkTracePollerTest, ConcurrentSessions) {
+TEST_F(NetworkTracePollerTest, ConsumeAllConcurrentSessions) {
   // Simulate two concurrent sessions (two starts followed by two stops). Check
   // that tracing is stopped only after both sessions finish.
   NetworkTracePoller handler([&](const std::vector<PacketTrace>& pkt) {});
@@ -130,7 +200,7 @@ TEST_F(NetworkTracePollerTest, ConcurrentSessions) {
   EXPECT_FALSE(handler.ConsumeAll());
 }
 
-TEST_F(NetworkTracePollerTest, TraceTcpSession) {
+TEST_F(NetworkTracePollerTest, ConsumeAllTraceTcpSession) {
   __be16 server_port = 0;
   std::vector<PacketTrace> packets, unmatched;
 
@@ -233,6 +303,67 @@ TEST_F(NetworkTracePollerTest, TraceTcpSession) {
   EXPECT_EQ(packets[3].egress, 0) << PacketPrinter{packets};
   EXPECT_EQ(packets[3].sport, server_port) << PacketPrinter{packets};
   EXPECT_EQ(packets[3].tcpFlags, FlagToHost(TCP_FLAG_SYN | TCP_FLAG_ACK))
+      << PacketPrinter{packets};
+}
+
+TEST_F(NetworkTracePollerTest, PeriodicConcurrentAndRestart) {
+  std::mutex mu;
+  std::condition_variable cond /*GUARDED_BY(mu)*/;
+  std::vector<PacketTrace> packets /*GUARDED_BY(mu)*/;
+
+  UdpSockets sockets(3);
+  std::unordered_set<__be16> interesting_ports;
+  for (size_t i = 0; i < sockets.size(); i++) {
+    interesting_ports.insert(sockets.port(i));
+  }
+
+  // Record all packets with the bound addresses and current uid.
+  NetworkTracePoller handler([&](const std::vector<PacketTrace>& pkts) {
+    std::scoped_lock<std::mutex> lock(mu);
+    cond.notify_all();
+    for (const PacketTrace& pkt : pkts) {
+      if (pkt.uid == getuid() && pkt.ipProto == IPPROTO_UDP &&
+          interesting_ports.count(pkt.sport) == 1 &&
+          interesting_ports.count(pkt.dport) == 1) {
+        packets.push_back(pkt);
+      }
+    }
+  });
+
+  ASSERT_TRUE(sockets.SendPacket(0, 1));
+  ASSERT_TRUE(handler.Start(/*pollMs=*/5));
+  ASSERT_TRUE(sockets.SendPacket(0, 2));
+  ASSERT_TRUE(handler.Start(/*pollMs=*/5));
+  ASSERT_TRUE(sockets.SendPacket(1, 0));
+  ASSERT_TRUE(handler.Stop());
+  ASSERT_TRUE(sockets.SendPacket(1, 2));
+  ASSERT_TRUE(handler.Stop());
+  ASSERT_TRUE(sockets.SendPacket(2, 0));
+  // Make sure we can restart the handler after it has been stopped.
+  ASSERT_TRUE(handler.Start(/*pollMs=*/5));
+  ASSERT_TRUE(sockets.SendPacket(2, 1));
+  ASSERT_TRUE(handler.Stop());
+
+  {
+    std::unique_lock<std::mutex> lock(mu);
+    cond.wait_for(lock, std::chrono::milliseconds(100),
+                  [&packets] { return packets.size() >= 8; });
+  }
+
+  std::scoped_lock<std::mutex> lock(mu);
+
+  auto packet = [&sockets](bool egress, size_t src_socket, size_t dst_socket) {
+    return AllOf(
+        Truly([egress](const PacketTrace& p) { return p.egress == egress; }),
+        Field(&PacketTrace::sport, sockets.port(src_socket)),
+        Field(&PacketTrace::dport, sockets.port(dst_socket)));
+  };
+  // packet(0, 1) is sent before the first start, so it should not be seen.
+  // packet(2, 0) is sent after the second stop, so it should not be seen.
+  EXPECT_THAT(packets, ElementsAre(packet(true, 0, 2), packet(false, 0, 2),
+                                   packet(true, 1, 0), packet(false, 1, 0),
+                                   packet(true, 1, 2), packet(false, 1, 2),
+                                   packet(true, 2, 1), packet(false, 2, 1)))
       << PacketPrinter{packets};
 }
 
