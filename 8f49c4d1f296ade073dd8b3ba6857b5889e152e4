@@ -73,6 +73,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7cbaaf89_dd380f62",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-23T08:29:53Z",
+      "side": 1,
+      "message": "Fixed in aosp/2796001.",
+      "parentUuid": "971caf53_786c0568",
+      "range": {
+        "startLine": 210,
+        "startChar": 16,
+        "endLine": 210,
+        "endChar": 32
+      },
+      "revId": "8f49c4d1f296ade073dd8b3ba6857b5889e152e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1ad4f6ad_65b5c5db",
         "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
         "patchSetId": 9
@@ -84,6 +108,30 @@
       "writtenOn": "2023-10-20T05:59:35Z",
       "side": 1,
       "message": "optional : it would be slightly better if this didn\u0027t enforce the order I think ?\n\n    final String recordString \u003d record.toString();\n    assertTrue(recordString.contains(\"mandatory\u003dipv4hint\");\n    assertTrue(recordString.contains(\"alpn\"));\n    assertTrue(recordString.contains(\"key333\"));\n\nIf the order of these is mandated by the contents of the record, then checking the order is appropriate and please ignore this",
+      "range": {
+        "startLine": 254,
+        "startChar": 47,
+        "endLine": 254,
+        "endChar": 65
+      },
+      "revId": "8f49c4d1f296ade073dd8b3ba6857b5889e152e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30f90712_f37f8484",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsSvcbPacketTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-23T08:29:53Z",
+      "side": 1,
+      "message": "Done in aosp/2796001.",
+      "parentUuid": "1ad4f6ad_65b5c5db",
       "range": {
         "startLine": 254,
         "startChar": 47,
