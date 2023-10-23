@@ -975,6 +975,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // Uids that ConnectivityService is pending to close sockets of.
     private final Set<Integer> mPendingFrozenUids = new ArraySet<>();
 
+    // Flag to drop packets to VPN address from non-VPN interfaces.
+    private final boolean mIngressToVpnAddressFiltering;
+    @VisibleForTesting
+    public static final String INGRESS_TO_VPN_ADDRESS_FILTERING =
+            "ingress_to_vpn_address_filtering";
+
     /**
      * Implements support for the legacy "one network per network type" model.
      *
@@ -1876,6 +1882,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             activityManager.registerUidFrozenStateChangedCallback(
                     (Runnable r) -> r.run(), frozenStateChangedCallback);
         }
+
+        mIngressToVpnAddressFiltering = mDeps.isAtLeastT()
+                && mDeps.isFeatureNotChickenedOut(mContext, INGRESS_TO_VPN_ADDRESS_FILTERING);
     }
 
     /**
@@ -4998,6 +5007,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 handleRemoveNetworkRequest(mNetworkRequests.get(selector));
             }
         }
+        updateIngressToVpnAddressFiltering(null, nai.linkProperties, nai);
         // TODO - we shouldn't send CALLBACK_LOST to requests that can be satisfied
         // by other networks that are already connected. Perhaps that can be done by
         // sending all CALLBACK_LOST messages (for requests, not listens) at the end
@@ -8486,6 +8496,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // new interface (the interface name -> index map becomes initialized)
         updateVpnFiltering(newLp, oldLp, networkAgent);
 
+        updateIngressToVpnAddressFiltering(newLp, oldLp, networkAgent);
+
         updateMtu(newLp, oldLp);
         // TODO - figure out what to do for clat
 //        for (LinkProperties lp : newLp.getStackedLinks()) {
@@ -8774,6 +8786,68 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         if (needsFiltering) {
             mPermissionMonitor.onVpnUidRangesAdded(newIface, ranges, vpnAppUid);
+        }
+    }
+
+    private Set<Pair<InetAddress, String>> generateIngressDiscardRules(
+            @NonNull NetworkAgentInfo nai, @Nullable LinkProperties lp) {
+        Set<Pair<InetAddress, String>> ingressDiscardRules = new ArraySet<>();
+        Map<InetAddress, Integer> addressOwnerCounts = new ArrayMap<>();
+
+        for (final NetworkAgentInfo agent : mNetworkAgentInfos) {
+            final LinkProperties agentLp = nai.network.equals(agent.network)
+                    ? lp : agent.linkProperties;
+            if (agentLp == null) {
+                continue;
+            }
+            for (InetAddress addr: agentLp.getAddresses()) {
+                addressOwnerCounts.put(addr, addressOwnerCounts.getOrDefault(addr, 0) + 1);
+            }
+        }
+
+        for (final NetworkAgentInfo agent : mNetworkAgentInfos) {
+            if (!agent.isVPN()) {
+                continue;
+            }
+            final LinkProperties agentLp = nai.network.equals(agent.network)
+                    ? lp : agent.linkProperties;
+            if (agentLp == null) {
+                continue;
+            }
+
+            for (InetAddress addr: agentLp.getAddresses()) {
+                if (addressOwnerCounts.getOrDefault(addr, 0) == 1
+                        && !addr.isLinkLocalAddress()
+                        && agentLp.getInterfaceName() != null) {
+                    ingressDiscardRules.add(new Pair<>(addr, agentLp.getInterfaceName()));
+                }
+            }
+        }
+        return ingressDiscardRules;
+    }
+
+    private void updateIngressToVpnAddressFiltering(@Nullable LinkProperties newLp,
+            @Nullable LinkProperties oldLp, @NonNull NetworkAgentInfo nai) {
+        if (!mIngressToVpnAddressFiltering) {
+            return;
+        }
+        final Set<Pair<InetAddress, String>> prevIngressDiscardRules =
+                generateIngressDiscardRules(nai, oldLp);
+        final Set<Pair<InetAddress, String>> newIngressDiscardRules =
+                generateIngressDiscardRules(nai, newLp);
+        final Set<Pair<InetAddress, String>> prevIngressDiscardRulesCopy =
+                new ArraySet<>(prevIngressDiscardRules);
+
+        prevIngressDiscardRules.removeAll(newIngressDiscardRules);
+        newIngressDiscardRules.removeAll(prevIngressDiscardRulesCopy);
+
+        // Remove can be done before add since rule to be removed is not used anymore and there is
+        // no need to drop the packet for this address
+        for (Pair<InetAddress, String> rule: prevIngressDiscardRules) {
+            mBpfNetMaps.removeIngressDiscardRule(rule.first);
+        }
+        for (Pair<InetAddress, String> rule: newIngressDiscardRules) {
+            mBpfNetMaps.setIngressDiscardRule(rule.first, rule.second);
         }
     }
 
