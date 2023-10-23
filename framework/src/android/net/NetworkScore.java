@@ -46,7 +46,7 @@ public final class NetworkScore implements Parcelable {
             KEEP_CONNECTED_NONE,
             KEEP_CONNECTED_FOR_HANDOVER,
             KEEP_CONNECTED_FOR_TEST,
-            KEEP_CONNECTED_DOWNSTREAM_NETWORK
+            KEEP_CONNECTED_LOCAL_NETWORK
     })
     public @interface KeepConnectedReason { }
 
@@ -70,7 +70,7 @@ public final class NetworkScore implements Parcelable {
      * it is a downstream network.
      * @hide
      */
-    public static final int KEEP_CONNECTED_DOWNSTREAM_NETWORK = 3;
+    public static final int KEEP_CONNECTED_LOCAL_NETWORK = 3;
 
     // Agent-managed policies
     // This network should lose to a wifi that has ever been validated
