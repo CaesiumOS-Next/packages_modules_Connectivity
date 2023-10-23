@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7832227_e2aee8c2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-10-23T07:38:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d1caed6_ac80ad47",
+      "range": {
+        "startLine": 67,
+        "startChar": 37,
+        "endLine": 67,
+        "endChar": 69
+      },
+      "revId": "1012972d6e8efacabb07cab4bb1bbbf0132f9ea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85836dc2_a98c8e65",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-10-19T08:18:20Z",
       "side": 1,
       "message": "I don\u0027t think it\u0027s very readable to have a method called `processMessage` to verify that the messages were processed. Can we leave it to the caller to call verifyMessageProcessedBy ? Then they can do it in any order they want, and you can remove the confusing vararg argument.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 55
+      },
+      "revId": "1012972d6e8efacabb07cab4bb1bbbf0132f9ea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "718390b2_c7f707d5",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-10-23T07:38:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85836dc2_a98c8e65",
       "range": {
         "startLine": 86,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "769aabf6_24edb7ab",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-10-23T07:38:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c0ec09e_8842718a",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 37
+      },
+      "revId": "1012972d6e8efacabb07cab4bb1bbbf0132f9ea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58389d42_7f8cfc51",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-10-19T08:18:20Z",
       "side": 1,
       "message": "Let\u0027s name this `state` because by the time the reader reads this they have forgotten what `it` is",
+      "range": {
+        "startLine": 99,
+        "startChar": 25,
+        "endLine": 99,
+        "endChar": 27
+      },
+      "revId": "1012972d6e8efacabb07cab4bb1bbbf0132f9ea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72397bd0_4b45b68e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SyncStateMachineTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-10-23T07:38:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58389d42_7f8cfc51",
       "range": {
         "startLine": 99,
         "startChar": 25,
