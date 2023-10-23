@@ -36,6 +36,10 @@ public final class ConnectivityFlags {
     public static final String CARRIER_SERVICE_CHANGED_USE_CALLBACK =
             "carrier_service_changed_use_callback_version";
 
+    @VisibleForTesting
+    public static final String INGRESS_TO_VPN_ADDRESS_FILTERING =
+            "ingress_to_vpn_address_filtering";
+
     private boolean mNoRematchAllRequestsOnRegister;
 
     /**
