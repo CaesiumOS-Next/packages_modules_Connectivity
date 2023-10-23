@@ -37,6 +37,9 @@ import android.os.HandlerThread
 import com.android.testutils.RecorderCallback.CallbackEntry.Available
 import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.TestableNetworkCallback
+import java.util.concurrent.atomic.AtomicInteger
+import kotlin.test.assertEquals
+import kotlin.test.fail
 import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyInt
@@ -44,9 +47,6 @@ import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doNothing
 import org.mockito.Mockito.verify
 import org.mockito.stubbing.Answer
-import java.util.concurrent.atomic.AtomicInteger
-import kotlin.test.assertEquals
-import kotlin.test.fail
 
 const val SHORT_TIMEOUT_MS = 200L
 
@@ -171,4 +171,5 @@ class CSAgentWrapper(
 
     fun sendLocalNetworkConfig(lnc: LocalNetworkConfig) = agent.sendLocalNetworkConfig(lnc)
     fun sendNetworkCapabilities(nc: NetworkCapabilities) = agent.sendNetworkCapabilities(nc)
+    fun sendLinkProperties(lp: LinkProperties) = agent.sendLinkProperties(lp)
 }
