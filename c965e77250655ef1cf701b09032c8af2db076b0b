@@ -1,0 +1,504 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cf40555_3e053f50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 43
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "Reviewed up to ThreadNetworkControllerService:attachInternal",
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc63655e_83031cb2",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "This should be @hide",
+      "range": {
+        "startLine": 70,
+        "startChar": 5,
+        "endLine": 70,
+        "endChar": 7
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a66a06e_f036063c",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "as",
+      "range": {
+        "startLine": 71,
+        "startChar": 40,
+        "endLine": 71,
+        "endChar": 42
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb589c56_11adad0a",
+        "filename": "thread/service/Android.bp",
+        "patchSetId": 43
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "Do you in fact need this in this target ?",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 46
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d4b2e75_a91d06f6",
+        "filename": "thread/service/java/com/android/server/thread/AttachOperation.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "Likely the problem is the same as always : read java spec section 17.5\n\nIf the member is read on another thread, the JVM has no obligation to have the other thread see the assignment, unless the field is final.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 39
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ee26561_92c24d6b",
+        "filename": "thread/service/java/com/android/server/thread/ScheduleMigrationOperation.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "Keep in mind this is subject to the same problem as mReceiver in the previous file. `false` is the default value for a boolean, so you will always see mIsScheduled initialized to false. However, if `onScheduled` is called on one thread and `isScheduled` is called on another thread, you have no synchronization and there is no guarantee that this will return the latest value.\n\nHow you solve this is up to you, but it should be documented. Options are : add synchronization, make sure this is always running on the same thread (either enforce it or leave it to the client and document it)",
+      "range": {
+        "startLine": 42,
+        "startChar": 15,
+        "endLine": 42,
+        "endChar": 27
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8034157f_bbaf02dc",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "How did you measure this ? Can you please document where this number comes from ?",
+      "range": {
+        "startLine": 89,
+        "startChar": 7,
+        "endLine": 89,
+        "endChar": 68
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5eb654b7_e016337d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "go/avoidwe",
+      "range": {
+        "startLine": 94,
+        "startChar": 63,
+        "endLine": 94,
+        "endChar": 65
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b48ed9b9_216d8579",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "s/s//",
+      "range": {
+        "startLine": 98,
+        "startChar": 36,
+        "endLine": 98,
+        "endChar": 37
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "808893e4_11cd2bcc",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "500ms for IPC is probably a little bit short. On a fast device it\u0027s plenty, but on a smaller device that is busy you will see peaks exceeding this.",
+      "range": {
+        "startLine": 99,
+        "startChar": 58,
+        "endLine": 99,
+        "endChar": 61
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9d3bc19_350a7e52",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "Please explain the threading model for access to these mutable fields in comments",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 39
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "279daf4e_c9a486fb",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "Is this still used ?",
+      "range": {
+        "startLine": 158,
+        "startChar": 26,
+        "endLine": 158,
+        "endChar": 58
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0854c43e_09873228",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "NOT_RESTRICTED ?",
+      "range": {
+        "startLine": 166,
+        "startChar": 16,
+        "endLine": 166,
+        "endChar": 17
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fde50cf_32189821",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "This is impossible if it\u0027s a byte array",
+      "range": {
+        "startLine": 173,
+        "startChar": 23,
+        "endLine": 173,
+        "endChar": 31
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9797b7e_3cbe9cac",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "Does this build ? If it builds on all branches I have no issues with this",
+      "range": {
+        "startLine": 243,
+        "startChar": 13,
+        "endLine": 243,
+        "endChar": 16
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "995a6a58_c15fa592",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "method name looks strange because this *calls* the supplier and returns the binder",
+      "range": {
+        "startLine": 262,
+        "startChar": 29,
+        "endLine": 262,
+        "endChar": 45
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46c7dd73_b59c642b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "If the request is only to keep this network connected, you can replace it with `.setKeepConnectedReason(KEEP_CONNECTED_DOWNSTREAM_NETWORK)` here",
+      "range": {
+        "startLine": 309,
+        "startChar": 51,
+        "endLine": 309,
+        "endChar": 59
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3206629f_e342231f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "Please request first",
+      "range": {
+        "startLine": 314,
+        "startChar": 8,
+        "endLine": 314,
+        "endChar": 28
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5181a868_e1bd4fe2",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "How can this happen ?\n• If everything is always on one thread, this should never happen\n• Conversely, if this can happen you have race conditions\n\nTrying to be defensive here will mask bugs if any. Better to either let the system crash, or at the very least use Log.wtf so that you know this happens sometimes.",
+      "range": {
+        "startLine": 319,
+        "startChar": 7,
+        "endLine": 322,
+        "endChar": 0
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa6e09b7_d5c25db4",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "Can this happen ?\n\nMaybe it\u0027s expected (e.g. if you have to update the properties before the agent is connected) and then it\u0027s fine. But if it\u0027s defensive, then same argument as above",
+      "range": {
+        "startLine": 354,
+        "startChar": 12,
+        "endLine": 354,
+        "endChar": 32
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ae8e4cd_f7dd6e98",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "Maybe `enforceAll...` to explain that you need all and not just any of the permissions",
+      "range": {
+        "startLine": 364,
+        "startChar": 17,
+        "endLine": 364,
+        "endChar": 49
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "218e0cbc_19b7d82f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "I would suggest you enforce running on the expected thread for this. It\u0027s very common that developers use a getter (or something named like one) on any thread without paying much attention, but here if you\u0027re not on the correct thread this blows up randomly, so let\u0027s have it always blow up if the thread is not the correct one.",
+      "range": {
+        "startLine": 400,
+        "startChar": 20,
+        "endLine": 400,
+        "endChar": 31
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

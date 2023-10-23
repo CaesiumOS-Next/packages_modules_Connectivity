@@ -275,6 +275,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaea8024_34d46606",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T03:31:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93f6ead0_0033df1b",
+      "range": {
+        "startLine": 387,
+        "startChar": 47,
+        "endLine": 387,
+        "endChar": 66
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4202261b_095e086b",
