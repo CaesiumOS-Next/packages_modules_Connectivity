@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a76c5eb1_86f6c1c1",
+        "filename": "framework/src/android/net/NetworkScore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-23T12:51:49Z",
+      "side": 1,
+      "message": "-\u003e \"local\"",
+      "range": {
+        "startLine": 70,
+        "startChar": 15,
+        "endLine": 70,
+        "endChar": 25
+      },
+      "revId": "d87a08b22cbe429a11a22b51e9dc4ccc9e12f04a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
