@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "de163ebb_db7a7011",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-23T09:17:30Z",
+      "side": 1,
+      "message": "Do we need an ID for a controller or for a Thread network?\n\nTwo Thread network controllers can present in the same Thread network. If the app just needs to know which network it participated in, it can get a controller by the configured ActiveOperationalDataset and it doesn\u0027t matter which exact controller is returned.\n\nOur current use case is that GMS Core may want to change the network parameters for a currently connected/formed Thread network, so it needs to get a controller by an `Network` object. For this case, we can simply use the `ExtendedPanId` of the ActiveOperationalDataset (we can have `ExtendedPanId` in the `TransportInfo` for example).\n\n@xyk@google.com @jonhui@google.com Any cases we need to distinguish two Thread controllers / radios?",
+      "parentUuid": "14324d9e_0e5c4d71",
+      "range": {
+        "startLine": 507,
+        "startChar": 15,
+        "endLine": 507,
+        "endChar": 38
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35edd0af_8f489e6e",
         "filename": "framework-t/api/system-current.txt",
         "patchSetId": 43
@@ -54,6 +78,30 @@
       "writtenOn": "2023-10-23T06:54:38Z",
       "side": 1,
       "message": "Why this OutcomeReceiver? Presumably this information will also be passed to the app via a StateCallback?",
+      "range": {
+        "startLine": 509,
+        "startChar": 165,
+        "endLine": 509,
+        "endChar": 180
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75ff8d05_3d76c381",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-23T09:17:30Z",
+      "side": 1,
+      "message": "But the app can\u0027t get the failing reasons with StateCallback. This applies to the `attachOrForm()` method too, the attached state can be passed via the StateCallback and OperationalDatasetCallback, but then the app can\u0027t know what\u0027s wrong when it failed.\n\nthe registerStateCallback and registerOperationalDatasetCallback are also required as the state and operational dataset can be changed after the network is connected or formed.",
+      "parentUuid": "35edd0af_8f489e6e",
       "range": {
         "startLine": 509,
         "startChar": 165,
@@ -110,6 +158,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f83db9bd_d529f192",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-23T09:17:30Z",
+      "side": 1,
+      "message": "Thanks, it makes sense. I updated to use `LOCAL_MAC_ADDRESS` but also hided it for now, given it\u0027s not currently required by the Android U TV device.",
+      "parentUuid": "6da6141c_e4e81061",
+      "range": {
+        "startLine": 510,
+        "startChar": 68,
+        "endLine": 510,
+        "endChar": 88
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb36582d_4f1afa94",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-23T09:17:30Z",
+      "side": 1,
+      "message": "Yes \"extends\" means this address is 64 bits",
+      "parentUuid": "2c696c63_4abe6707",
+      "range": {
+        "startLine": 510,
+        "startChar": 104,
+        "endLine": 510,
+        "endChar": 125
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07a0a7b0_7f8c7e71",
@@ -146,6 +242,30 @@
       "writtenOn": "2023-10-23T06:54:38Z",
       "side": 1,
       "message": "This needs to work across processes, right? Because it\u0027s used by ScheduleMigrationReceiver? Doesn\u0027t this need to implement Parcelable?",
+      "range": {
+        "startLine": 543,
+        "startChar": 38,
+        "endLine": 543,
+        "endChar": 65
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f16bde8b_354e8b30",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-23T09:17:30Z",
+      "side": 1,
+      "message": "No, there is a `IScheduleMigrationReceiver` API which needs to work across processes, and `ThreadNetworkException` is not used by `IScheduleMigrationReceiver`. Instead, we pass the error code and message directly.\n\nI may not be a good idea to make an exception class parcelable as it\u0027s base class is not parcelanle.",
+      "parentUuid": "5b78cd15_735a8eac",
       "range": {
         "startLine": 543,
         "startChar": 38,
