@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0980db6b_ae6fa259",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-23T12:13:36Z",
+      "side": 1,
+      "message": "Done, see if it works for you.",
+      "parentUuid": "58569146_e4afd98d",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 41
+      },
+      "revId": "cc1cdd7ffd8adecbcb0618c5b593598de068e87a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0771fee6_dcc4ca56",

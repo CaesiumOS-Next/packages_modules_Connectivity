@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc1adf6b_124fb1c6",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-23T12:13:36Z",
+      "side": 1,
+      "message": "Yes, it is still accessed from com.android.server.BpfNetMaps in this CL as well.\nThus I think the current signature is proper?\n\nIn BpfNetMaps, a TODO is added to make callers migrate to use non-static version of  BpfNetMapsReader#isChainEnabled. And it will be done in the follow-ups.\nAt that time the renaming should be more resonable?\n\nIs this work for you?",
+      "parentUuid": "7f1ce186_edcf1068",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 10
+      },
+      "revId": "9c5c979a2dd1bfa4791f2df56c514ec973609131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c78c180_749014d5",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-23T08:10:23Z",
       "side": 1,
       "message": "You don\u0027t need this, the class is annotated with this already",
+      "range": {
+        "startLine": 165,
+        "startChar": 37,
+        "endLine": 165,
+        "endChar": 45
+      },
+      "revId": "9c5c979a2dd1bfa4791f2df56c514ec973609131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07a07624_7d11589c",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-23T12:13:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c78c180_749014d5",
       "range": {
         "startLine": 165,
         "startChar": 37,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "791c6d0a_ccea2214",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-23T12:13:36Z",
+      "side": 1,
+      "message": "Done.\nThings like addUidInterfaceRules supports preT.\nSo added per method annotations.\nAlso for other methods with throwIfpreT().",
+      "parentUuid": "98666d94_e0b60f36",
+      "range": {
+        "startLine": 533,
+        "startChar": 32,
+        "endLine": 533,
+        "endChar": 46
+      },
+      "revId": "9c5c979a2dd1bfa4791f2df56c514ec973609131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "248173ae_94606afa",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-10-23T08:10:23Z",
       "side": 1,
       "message": "nit : extra space",
+      "range": {
+        "startLine": 184,
+        "startChar": 7,
+        "endLine": 184,
+        "endChar": 8
+      },
+      "revId": "9c5c979a2dd1bfa4791f2df56c514ec973609131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "632304bc_33b5b392",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-23T12:13:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "248173ae_94606afa",
       "range": {
         "startLine": 184,
         "startChar": 7,
