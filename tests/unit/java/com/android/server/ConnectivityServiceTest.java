@@ -18871,6 +18871,182 @@ public class ConnectivityServiceTest {
         verifyClatdStop(null /* inOrder */, MOBILE_IFNAME);
     }
 
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testVpnIngressDiscardRule_UpdateVpnAddress() throws Exception {
+        final LinkProperties lp = new LinkProperties();
+        lp.setInterfaceName(VPN_IFNAME);
+        final InetAddress addr = InetAddresses.parseNumericAddress("2001:db8:1::1");
+        final InetAddress linkLocalAddr = InetAddresses.parseNumericAddress("fe80::1234");
+        lp.addLinkAddress(new LinkAddress(addr, 64));
+        lp.addLinkAddress(new LinkAddress(linkLocalAddr, 64));
+
+        // IngressDiscardRule is added for VPN address
+        mMockVpn.establishForMyUid(lp);
+        verify(mBpfNetMaps).setIngressDiscardRule(addr, VPN_IFNAME);
+        verify(mBpfNetMaps, never()).setIngressDiscardRule(linkLocalAddr, VPN_IFNAME);
+
+        final LinkProperties newLp = new LinkProperties();
+        final InetAddress newAddr = InetAddresses.parseNumericAddress("2001:db8:2::1");
+        newLp.setInterfaceName(VPN_IFNAME);
+        newLp.addLinkAddress(new LinkAddress(newAddr, 64));
+        newLp.addLinkAddress(new LinkAddress(linkLocalAddr, 64));
+        mMockVpn.sendLinkProperties(newLp);
+        waitForIdle();
+
+        // IngressDiscardRule is removed from old VPN address and added to new VPN address
+        verify(mBpfNetMaps).removeIngressDiscardRule(addr);
+        verify(mBpfNetMaps).setIngressDiscardRule(newAddr, VPN_IFNAME);
+        verify(mBpfNetMaps, never()).setIngressDiscardRule(linkLocalAddr, VPN_IFNAME);
+
+        mMockVpn.disconnect();
+        waitForIdle();
+
+        // IngressDiscardRule is removed since the VPN is disconnected
+        verify(mBpfNetMaps).removeIngressDiscardRule(newAddr);
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testVpnIngressDiscardRule_UpdateInterfaceName() throws Exception {
+        final LinkProperties lp = new LinkProperties();
+        lp.setInterfaceName(VPN_IFNAME);
+        final InetAddress addr = InetAddresses.parseNumericAddress("2001:db8:1::1");
+        final InetAddress linkLocalAddr = InetAddresses.parseNumericAddress("fe80::1234");
+        lp.addLinkAddress(new LinkAddress(addr, 64));
+        lp.addLinkAddress(new LinkAddress(linkLocalAddr, 64));
+
+        // IngressDiscardRule is added for VPN address
+        mMockVpn.establishForMyUid(lp);
+        verify(mBpfNetMaps).setIngressDiscardRule(addr, VPN_IFNAME);
+        verify(mBpfNetMaps, never()).setIngressDiscardRule(linkLocalAddr, VPN_IFNAME);
+
+        final LinkProperties newLp = new LinkProperties();
+        newLp.setInterfaceName("newif");
+        newLp.addLinkAddress(new LinkAddress(addr, 64));
+        newLp.addLinkAddress(new LinkAddress(linkLocalAddr, 64));
+        mMockVpn.sendLinkProperties(newLp);
+        waitForIdle();
+
+        // IngressDiscardRule is removed and added with new interface name
+        verify(mBpfNetMaps).removeIngressDiscardRule(addr);
+        verify(mBpfNetMaps).setIngressDiscardRule(addr, "newif");
+        clearInvocations(mBpfNetMaps);
+
+        mMockVpn.disconnect();
+        waitForIdle();
+
+        // IngressDiscardRule is removed since the VPN is disconnected
+        verify(mBpfNetMaps).removeIngressDiscardRule(addr);
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testVpnIngressDiscardRule_UpdateNonVpnAddress_DuplicatedIpAddress()
+            throws Exception {
+        final InetAddress addr = InetAddresses.parseNumericAddress("2001:db8:1::1");
+        final InetAddress linkLocalAddr = InetAddresses.parseNumericAddress("fe80::1234");
+        final LinkProperties vpnLp = new LinkProperties();
+        vpnLp.setInterfaceName(VPN_IFNAME);
+        vpnLp.addLinkAddress(new LinkAddress(addr, 64));
+        vpnLp.addLinkAddress(new LinkAddress(linkLocalAddr, 64));
+
+        // IngressDiscardRule is added for VPN address
+        mMockVpn.establishForMyUid(vpnLp);
+        waitForIdle();
+        verify(mBpfNetMaps).setIngressDiscardRule(addr, VPN_IFNAME);
+
+        final LinkProperties wifiLp = new LinkProperties();
+        wifiLp.setInterfaceName(WIFI_IFNAME);
+        wifiLp.addLinkAddress(new LinkAddress(addr, 64));
+        wifiLp.addLinkAddress(new LinkAddress(linkLocalAddr, 64));
+        mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp);
+
+        // IngressDiscardRule is removed since WiFi address is the same with VPN address
+        mWiFiAgent.connect(true /* validated */);
+        verify(mBpfNetMaps).removeIngressDiscardRule(addr);
+        clearInvocations(mBpfNetMaps);
+
+        final LinkProperties newWifiLp = new LinkProperties();
+        final InetAddress newAddr = InetAddresses.parseNumericAddress("2001:db8:2::1");
+        newWifiLp.setInterfaceName(WIFI_IFNAME);
+        newWifiLp.addLinkAddress(new LinkAddress(newAddr, 64));
+        newWifiLp.addLinkAddress(new LinkAddress(linkLocalAddr, 64));
+
+        // IngressDiscardRule is not added to VPN address since WiFi address is changed to different
+        // address
+        mWiFiAgent.sendLinkProperties(newWifiLp);
+        waitForIdle();
+        verify(mBpfNetMaps).setIngressDiscardRule(addr, VPN_IFNAME);
+        verify(mBpfNetMaps, never()).setIngressDiscardRule(eq(newAddr), any());
+
+        // IngressDiscardRule is removed from VPN address since WiFi address is changed to the same
+        // address
+        mWiFiAgent.sendLinkProperties(wifiLp);
+        waitForIdle();
+        verify(mBpfNetMaps).removeIngressDiscardRule(addr);
+        clearInvocations(mBpfNetMaps);
+
+        // IngressDiscardRule is added for VPN addr since wifi is disconnected
+        mWiFiAgent.disconnect();
+        waitForIdle();
+        verify(mBpfNetMaps).setIngressDiscardRule(addr, VPN_IFNAME);
+
+        // IngressDiscardRule is removed since the VPN is disconnected
+        mMockVpn.disconnect();
+        waitForIdle();
+        verify(mBpfNetMaps).removeIngressDiscardRule(addr);
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testVpnIngressDiscardRule_UpdateVpnAddress_DuplicatedIpAddress() throws Exception {
+        final InetAddress addr = InetAddresses.parseNumericAddress("2001:db8:1::1");
+        final InetAddress linkLocalAddr = InetAddresses.parseNumericAddress("fe80::1234");
+        final LinkProperties wifiLp = new LinkProperties();
+        wifiLp.setInterfaceName(WIFI_IFNAME);
+        wifiLp.addLinkAddress(new LinkAddress(addr, 64));
+        wifiLp.addLinkAddress(new LinkAddress(linkLocalAddr, 64));
+        mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp);
+        mWiFiAgent.connect(true /* validated */);
+
+        // IngressDiscardRule is not added for non-VPN interface
+        verify(mBpfNetMaps, never()).setIngressDiscardRule(any(), any());
+
+        final LinkProperties vpnLp = new LinkProperties();
+        vpnLp.setInterfaceName(VPN_IFNAME);
+        vpnLp.addLinkAddress(new LinkAddress(addr, 64));
+        vpnLp.addLinkAddress(new LinkAddress(linkLocalAddr, 64));
+        mMockVpn.establishForMyUid(vpnLp);
+        waitForIdle();
+
+        // IngressDiscardRule is not added since VPN address is duplicated with WiFi address
+        verify(mBpfNetMaps, never()).setIngressDiscardRule(any(), any());
+
+        final LinkProperties newVpnLp = new LinkProperties();
+        final InetAddress newAddr = InetAddresses.parseNumericAddress("2001:db8:2::1");
+        newVpnLp.setInterfaceName(VPN_IFNAME);
+        newVpnLp.addLinkAddress(new LinkAddress(newAddr, 64));
+        newVpnLp.addLinkAddress(new LinkAddress(linkLocalAddr, 64));
+        mMockVpn.sendLinkProperties(newVpnLp);
+        waitForIdle();
+
+        // IngressDiscardRule is added to VPN address since VPN address is changed to the different
+        // address from WiFi address
+        verify(mBpfNetMaps).setIngressDiscardRule(newAddr, VPN_IFNAME);
+
+        mMockVpn.sendLinkProperties(vpnLp);
+        waitForIdle();
+
+        // IngressDiscardRule is removed from VPN address since VPN address is changed to the same
+        // address with WiFi address
+        verify(mBpfNetMaps).removeIngressDiscardRule(newAddr);
+        verify(mBpfNetMaps, never()).setIngressDiscardRule(eq(addr), any());
+        clearInvocations(mBpfNetMaps);
+
+        mMockVpn.disconnect();
+        waitForIdle();
+
+        verify(mBpfNetMaps, never()).removeIngressDiscardRule(any());
+        verify(mBpfNetMaps, never()).setIngressDiscardRule(any(), any());
+    }
+
     // Note : adding tests is ConnectivityServiceTest is deprecated, as it is too big for
     // maintenance. Please consider adding new tests in subclasses of CSTest instead.
 }
