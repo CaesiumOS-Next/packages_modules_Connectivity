@@ -296,6 +296,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "412ebc09_0f4a2860",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-23T08:29:23Z",
+      "side": 1,
+      "message": "Done in aosp/2796003.",
+      "parentUuid": "c36eb997_9be19845",
+      "revId": "e6b2de658385961b04c66148268b8042959ef863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b81f054f_112fc3b9",
