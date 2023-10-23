@@ -174,6 +174,7 @@ import static com.android.server.ConnectivityServiceTestUtils.transportToLegacyT
 import static com.android.server.NetworkAgentWrapper.CallbackType.OnQosCallbackRegister;
 import static com.android.server.NetworkAgentWrapper.CallbackType.OnQosCallbackUnregister;
 import static com.android.server.connectivity.CarrierPrivilegeAuthenticator.CarrierPrivilegesLostListener;
+import static com.android.server.connectivity.ConnectivityFlags.INGRESS_TO_VPN_ADDRESS_FILTERING;
 import static com.android.testutils.Cleanup.testAndCleanup;
 import static com.android.testutils.ConcurrentUtils.await;
 import static com.android.testutils.ConcurrentUtils.durationOf;
@@ -2180,6 +2181,8 @@ public class ConnectivityServiceTest {
                 case LOG_BPF_RC:
                     return true;
                 case ALLOW_SATALLITE_NETWORK_FALLBACK:
+                    return true;
+                case INGRESS_TO_VPN_ADDRESS_FILTERING:
                     return true;
                 default:
                     return super.isFeatureNotChickenedOut(context, name);
