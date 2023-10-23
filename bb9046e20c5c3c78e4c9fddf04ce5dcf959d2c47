@@ -188,6 +188,30 @@
       },
       "revId": "bb9046e20c5c3c78e4c9fddf04ce5dcf959d2c47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81b30e85_58153193",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsSvcbPacket.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2023-10-23T08:29:38Z",
+      "side": 1,
+      "message": "I simply removed this override method and used `DnsPacket.toString()` instead in aosp/2796002 , as all important SVCB information can be printed DnsPacket.toString().\n\nDnsSvcbPacket.toString():\n```\nQUERY: [_dns.resolver.arpa IN SVCB] ANSWER: [_dns.resolver.arpa 86400 IN SVCB 1 dns64.dns.google alpn\u003ddot, _dns.resolver.arpa 86400 IN SVCB 2 dns64.dns.google alpn\u003dh2,h3 dohpath\u003d/dns-query{?dns}] AUTHORITY: [] ADDITIONAL: [DnsRecord{rType\u003d3, dName\u003d\u0027dns.google\u0027, nsType\u003d28, nsClass\u003d1, ttl\u003d86400, mRdata\u003d[32, 1, 72, 96, 72, 96, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100]}, DnsRecord{rType\u003d3, dName\u003d\u0027dns.google\u0027, nsType\u003d28, nsClass\u003d1, ttl\u003d86400, mRdata\u003d[32, 1, 72, 96, 72, 96, 0, 0, 0, 0, 0, 0, 0, 0, 100, 100]}]\n```\nDnsPacket.toString():\n```\nDnsPacket{header\u003dDnsHeader{id\u003d46948, flags\u003d34176, recordCounts\u003d[1, 2, 0, 2]}, records\u003d\u0027[[_dns.resolver.arpa IN SVCB], [_dns.resolver.arpa 86400 IN SVCB 1 dns64.dns.google alpn\u003ddot, _dns.resolver.arpa 86400 IN SVCB 2 dns64.dns.google alpn\u003dh2,h3 dohpath\u003d/dns-query{?dns}], [], [DnsRecord{rType\u003d3, dName\u003d\u0027dns.google\u0027, nsType\u003d28, nsClass\u003d1, ttl\u003d86400, mRdata\u003d[32, 1, 72, 96, 72, 96, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100]}, DnsRecord{rType\u003d3, dName\u003d\u0027dns.google\u0027, nsType\u003d28, nsClass\u003d1, ttl\u003d86400, mRdata\u003d[32, 1, 72, 96, 72, 96, 0, 0, 0, 0, 0, 0, 0, 0, 100, 100]}]]}\n```",
+      "parentUuid": "63b3c3bd_440f49f7",
+      "range": {
+        "startLine": 162,
+        "startChar": 3,
+        "endLine": 170,
+        "endChar": 5
+      },
+      "revId": "bb9046e20c5c3c78e4c9fddf04ce5dcf959d2c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
