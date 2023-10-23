@@ -46,6 +46,30 @@
       },
       "revId": "c279f1830ee6e1ca79ee86a707d5cc796a806667",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abc2af5f_24860bba",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 5960,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-23T08:01:20Z",
+      "side": 1,
+      "message": "if using SYSTEM_SERVER, there will be no .txt modification generated under APIs.\nMy guess is this might be blocked by build rules.",
+      "parentUuid": "86a02ec7_802d54fc",
+      "range": {
+        "startLine": 5960,
+        "startChar": 24,
+        "endLine": 5960,
+        "endChar": 40
+      },
+      "revId": "c279f1830ee6e1ca79ee86a707d5cc796a806667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
