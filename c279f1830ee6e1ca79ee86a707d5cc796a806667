@@ -94,6 +94,30 @@
       },
       "revId": "c279f1830ee6e1ca79ee86a707d5cc796a806667",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "250be144_46fbf7c5",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 5960,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-23T11:20:51Z",
+      "side": 1,
+      "message": "Yes confirmed.\nThere is no .txt modification generated under api folder.\nHence the caller always cannot see the symbol.",
+      "parentUuid": "4e25d48b_96958af0",
+      "range": {
+        "startLine": 5960,
+        "startChar": 24,
+        "endLine": 5960,
+        "endChar": 40
+      },
+      "revId": "c279f1830ee6e1ca79ee86a707d5cc796a806667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
