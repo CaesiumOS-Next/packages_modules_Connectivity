@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f1ce186_edcf1068",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T08:10:23Z",
+      "side": 1,
+      "message": "Does this need to be public ? I think it should be private and isChainEnabledInternal.",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 10
+      },
+      "revId": "9c5c979a2dd1bfa4791f2df56c514ec973609131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c78c180_749014d5",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T08:10:23Z",
+      "side": 1,
+      "message": "You don\u0027t need this, the class is annotated with this already",
+      "range": {
+        "startLine": 165,
+        "startChar": 37,
+        "endLine": 165,
+        "endChar": 45
+      },
+      "revId": "9c5c979a2dd1bfa4791f2df56c514ec973609131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98666d94_e0b60f36",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T08:10:23Z",
+      "side": 1,
+      "message": "This is @RequiresApi(T). Does this all class @RequireApi ? Or just this method ? You need annotations.",
+      "range": {
+        "startLine": 533,
+        "startChar": 32,
+        "endLine": 533,
+        "endChar": 46
+      },
+      "revId": "9c5c979a2dd1bfa4791f2df56c514ec973609131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "248173ae_94606afa",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T08:10:23Z",
+      "side": 1,
+      "message": "nit : extra space",
+      "range": {
+        "startLine": 184,
+        "startChar": 7,
+        "endLine": 184,
+        "endChar": 8
+      },
+      "revId": "9c5c979a2dd1bfa4791f2df56c514ec973609131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "58569146_e4afd98d",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T08:10:23Z",
+      "side": 1,
+      "message": "I\u0027m happy with your new comments and this being in a lib that contains essentially everything that gets built in some artefact, but in some defaults I think it makes absolutely no sense. This is way too error-prone and self-contradictory.",
+      "parentUuid": "2e19003c_8add58a3",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 41
+      },
+      "revId": "cc1cdd7ffd8adecbcb0618c5b593598de068e87a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0771fee6_dcc4ca56",
         "filename": "common/Android.bp",
         "patchSetId": 12
