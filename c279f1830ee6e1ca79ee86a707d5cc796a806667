@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01b6bb5c_345c98c6",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 5960,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-23T07:18:14Z",
+      "side": 1,
+      "message": "SYSTEM_SERVER ? I don\u0027t think we need it outside of there. Or that it should be available outside of there.",
+      "range": {
+        "startLine": 5960,
+        "startChar": 24,
+        "endLine": 5960,
+        "endChar": 40
+      },
+      "revId": "c279f1830ee6e1ca79ee86a707d5cc796a806667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
