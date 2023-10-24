@@ -22,6 +22,30 @@
       },
       "revId": "5603361dfb9a6206c70e98384222601713cfe5ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b058a6b8_45d6c6ce",
+        "filename": "service/src/com/android/server/connectivity/DnsManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-24T09:50:06Z",
+      "side": 1,
+      "message": "Rename the function.\n\nI would like to separate the refactoring and logic change into 2 CLs. It\u0027s easy to review.",
+      "parentUuid": "6394b526_bd199983",
+      "range": {
+        "startLine": 334,
+        "startChar": 16,
+        "endLine": 334,
+        "endChar": 42
+      },
+      "revId": "5603361dfb9a6206c70e98384222601713cfe5ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
