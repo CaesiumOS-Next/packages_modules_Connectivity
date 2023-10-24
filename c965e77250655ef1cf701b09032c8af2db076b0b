@@ -1004,6 +1004,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2543209_de803ef9",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T14:25:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46c7dd73_b59c642b",
+      "range": {
+        "startLine": 309,
+        "startChar": 51,
+        "endLine": 309,
+        "endChar": 59
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3206629f_e342231f",
@@ -1017,6 +1041,30 @@
       "writtenOn": "2023-10-23T03:31:46Z",
       "side": 1,
       "message": "Please request first",
+      "range": {
+        "startLine": 314,
+        "startChar": 8,
+        "endLine": 314,
+        "endChar": 28
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a4b3bbc_8b6d90ad",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T14:25:31Z",
+      "side": 1,
+      "message": "Replaced with `KEEP_CONNECTED_DOWNSTREAM_NETWORK`",
+      "parentUuid": "3206629f_e342231f",
       "range": {
         "startLine": 314,
         "startChar": 8,
