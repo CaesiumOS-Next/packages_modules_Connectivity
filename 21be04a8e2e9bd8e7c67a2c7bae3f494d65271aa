@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a42f0c7a_40deda7a",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-24T02:50:30Z",
+      "side": 1,
+      "message": "Todo: use sparseArray instead\nrename to virtualIfIndex",
+      "revId": "21be04a8e2e9bd8e7c67a2c7bae3f494d65271aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

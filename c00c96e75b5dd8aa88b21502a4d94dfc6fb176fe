@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c08bd40_a22b0972",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-24T02:50:30Z",
+      "side": 1,
+      "message": "private function",
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cfef793_158a81a4",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-24T02:50:30Z",
+      "side": 1,
+      "message": "private function",
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbf5e7c5_b92ab43b",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-24T02:50:30Z",
+      "side": 1,
+      "message": "To do",
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99b9c3a9_fe8fdcf5",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-24T02:50:30Z",
+      "side": 1,
+      "message": "To do: add comment to explain MFC",
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7439cab1_6bdbe765",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-24T02:50:30Z",
+      "side": 1,
+      "message": "visableForTest",
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad89c675_c8b2c70d",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-24T02:50:30Z",
+      "side": 1,
+      "message": "To Do: Add more test cases\n* with \u003e 2 forwarding interfaces\n* check added MFC\n* check MFC removal after timeout",
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
