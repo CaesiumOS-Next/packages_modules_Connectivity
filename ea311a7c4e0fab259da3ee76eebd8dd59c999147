@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c4d219d_ab751ed6",
+        "filename": "framework/aidl-export/android/net/LocalNetworkInfo.aidl",
+        "patchSetId": 20
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T13:02:08Z",
+      "side": 1,
+      "message": "Do we need this? I thought it was just for structured AIDL interfaces (the ones that autogenerate their parcelables). For unstable aidl, maybe just \"Parcelable\" is enough?",
+      "range": {
+        "startLine": 20,
+        "startChar": 1,
+        "endLine": 20,
+        "endChar": 25
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8301662a_3875fcdd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 5076,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T13:02:08Z",
+      "side": 1,
+      "message": "\"correctly contains null correctly\" -\u003e \"correctly contains null\"",
+      "range": {
+        "startLine": 5076,
+        "startChar": 15,
+        "endLine": 5076,
+        "endChar": 48
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4804c219_eddd2ac4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 9001,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T13:02:08Z",
+      "side": 1,
+      "message": "I don\u0027t understand this comment. This code is in a block where there is no new request. So why say \"if there is a new request...\"?",
+      "range": {
+        "startLine": 9001,
+        "startChar": 19,
+        "endLine": 9001,
+        "endChar": 44
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "630c2502_0e56622e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 9030,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T13:02:08Z",
+      "side": 1,
+      "message": "Will this work even if the old satisfier doesn\u0027t satisfy the new request?",
+      "range": {
+        "startLine": 9029,
+        "startChar": 46,
+        "endLine": 9030,
+        "endChar": 44
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2e45202_e380462d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 9376,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T13:02:08Z",
+      "side": 1,
+      "message": "Put this in parentheses for readability.",
+      "range": {
+        "startLine": 9376,
+        "startChar": 23,
+        "endLine": 9376,
+        "endChar": 40
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97361ef0_35e1ddcd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 9416,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T13:02:08Z",
+      "side": 1,
+      "message": "Nit: you could use that method behind a null check. Might not be better than what you have though.",
+      "range": {
+        "startLine": 9416,
+        "startChar": 57,
+        "endLine": 9416,
+        "endChar": 69
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91236a8c_8b4dd2c5",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSKeepConnectedTest.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T13:02:08Z",
+      "side": 1,
+      "message": "Why does it matter whether this is an API or not?",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 53
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b6cba9f_2e8862cb",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T13:02:08Z",
+      "side": 1,
+      "message": "Do we also have a testcase where a local network registers with a non-null request that matches an already-connected network, and check that it immediately gets a callback? If not, we should probably have one.",
+      "range": {
+        "startLine": 202,
+        "startChar": 8,
+        "endLine": 202,
+        "endChar": 91
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7896c50_af1a983a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T13:02:08Z",
+      "side": 1,
+      "message": "Would suggest adding a testcase where wifi is the upstream and it calls unregisterAfterReplacement and then reconnects with the same interface.",
+      "range": {
+        "startLine": 225,
+        "startChar": 8,
+        "endLine": 225,
+        "endChar": 9
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
