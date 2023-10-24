@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a703f9a_77566a24",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-24T13:13:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50976848_6160ea32",
+      "range": {
+        "startLine": 823,
+        "startChar": 0,
+        "endLine": 829,
+        "endChar": 13
+      },
+      "revId": "004fd426f8d97a3fae75b144595ee97a4be0104a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdd6e41f_7bc88621",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-10-24T10:39:43Z",
       "side": 1,
       "message": "Might want to explain why this is safe on R, where tethering is mainline but RoutingCoordinatorManager does not exist. Does this rely on the linter? (Or maybe you have another comment elsewhere.)",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 43
+      },
+      "revId": "004fd426f8d97a3fae75b144595ee97a4be0104a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3416e8f_08ccc1e7",
+        "filename": "framework/jarjar-excludes.txt",
+        "patchSetId": 28
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-24T13:13:58Z",
+      "side": 1,
+      "message": "Done.\n\nIt\u0027s only safe if there is an SDK check. In tests it\u0027s worse, because of the widespread use of reflection. The linter will report uses for methods annotated.",
+      "parentUuid": "cdd6e41f_7bc88621",
       "range": {
         "startLine": 17,
         "startChar": 2,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91d1df98_76d7b54c",
+        "filename": "framework/src/android/net/RoutingCoordinatorManager.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-24T13:13:58Z",
+      "side": 1,
+      "message": "It can be used from any code that sees the class. In practice build rules let only the connectivity and tethering modules see this class, but if you change them you\u0027d be able to use it. You\u0027d still have to hold a IRoutingCoordinator reference to pass it though, which also is limited to the module classes.\n\nReworded.",
+      "parentUuid": "975e700e_6777545e",
+      "range": {
+        "startLine": 29,
+        "startChar": 86,
+        "endLine": 29,
+        "endChar": 87
+      },
+      "revId": "004fd426f8d97a3fae75b144595ee97a4be0104a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e60a0820_8c177186",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-10-24T10:39:43Z",
       "side": 1,
       "message": "Is this hard? If not, can you upload a CL to do it?",
+      "range": {
+        "startLine": 38,
+        "startChar": 10,
+        "endLine": 38,
+        "endChar": 16
+      },
+      "revId": "004fd426f8d97a3fae75b144595ee97a4be0104a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "722a8fd5_d1520d51",
+        "filename": "framework/src/android/net/connectivity/TiramisuConnectivityInternalApiUtil.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-24T13:13:58Z",
+      "side": 1,
+      "message": "aosp/2801573",
+      "parentUuid": "e60a0820_8c177186",
       "range": {
         "startLine": 38,
         "startChar": 10,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "370ec7b1_5cc9dbf4",
+        "filename": "framework/src/android/net/connectivity/TiramisuConnectivityInternalApiUtil.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-24T13:13:58Z",
+      "side": 1,
+      "message": "For this method it could be argued that it\u0027s unnecessary because the class is already annotated with this. But the linter puts the same warning on the class and the previous methods for which this doesn\u0027t apply. For those, I think the linter is confused.\n\nWe could remove this annotation on grounds that the class already has it but I think it\u0027s more readable with it",
+      "parentUuid": "48a8dca7_62828196",
+      "range": {
+        "startLine": 57,
+        "startChar": 5,
+        "endLine": 57,
+        "endChar": 39
+      },
+      "revId": "004fd426f8d97a3fae75b144595ee97a4be0104a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de4262d6_9d5140c1",
@@ -146,6 +266,30 @@
       "writtenOn": "2023-10-24T10:39:43Z",
       "side": 1,
       "message": "Can you add a brief javadoc here? Would be good to at least mention that this is currently mostly a wrapper for netd, and mention the threading/locking model (none!).\n\nAlso, what about security? Does anyone with access to this service get permissions to talk to netd as if they were the system server, or are the original calling identity and permissions preserved?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 12
+      },
+      "revId": "004fd426f8d97a3fae75b144595ee97a4be0104a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52b8172b_0df3235e",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-24T13:13:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de4262d6_9d5140c1",
       "range": {
         "startLine": 29,
         "startChar": 0,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57c0cd9a_3594f919",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-24T13:13:58Z",
+      "side": 1,
+      "message": "Done.\nSomehow I thought I\u0027d needed this, then removed it in a later patch and didn\u0027t notice.",
+      "parentUuid": "8af54e3e_c8d5026b",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 35
+      },
+      "revId": "004fd426f8d97a3fae75b144595ee97a4be0104a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bfafdc1_cb34d199",
@@ -192,6 +360,30 @@
       "writtenOn": "2023-10-24T10:39:43Z",
       "side": 1,
       "message": "Would be good to explain what this allows us to do and what problems it avoids.",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 18
+      },
+      "revId": "004fd426f8d97a3fae75b144595ee97a4be0104a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b492f840_4d354749",
+        "filename": "staticlibs/framework/com/android/net/module/util/SdkUtil.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-24T13:13:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bfafdc1_cb34d199",
       "range": {
         "startLine": 28,
         "startChar": 17,

@@ -22,6 +22,30 @@
       },
       "revId": "1ecb91be56ea9e92c516f68f98d818fcfd587fe6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "983bf4de_187c5e93",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 6183,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-24T13:13:58Z",
+      "side": 1,
+      "message": "Done. I was trying to avoid adding one more useless object, and it doesn\u0027t really matter practically",
+      "parentUuid": "f8b40a9f_dac1df38",
+      "range": {
+        "startLine": 6183,
+        "startChar": 26,
+        "endLine": 6183,
+        "endChar": 36
+      },
+      "revId": "1ecb91be56ea9e92c516f68f98d818fcfd587fe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
