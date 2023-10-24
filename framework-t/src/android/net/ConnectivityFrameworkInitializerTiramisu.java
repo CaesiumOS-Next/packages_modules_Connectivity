@@ -134,5 +134,11 @@ public final class ConnectivityFrameworkInitializerTiramisu {
                             IThreadNetworkManager.Stub.asInterface(serviceBinder);
                     return new ThreadNetworkManager(context, managerService);
                 });
+
+        SystemServiceRegistry.registerStaticService(
+                ThreadDaemonServiceManager.THREAD_DAEMON_SERVICE,
+                ThreadDaemonServiceManager.class,
+                serviceBinder -> new ThreadDaemonServiceManager(serviceBinder)
+        );
     }
 }
