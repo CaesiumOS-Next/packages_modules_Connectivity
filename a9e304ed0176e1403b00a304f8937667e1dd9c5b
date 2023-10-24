@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7e02bad_51e1ea17",
+        "filename": "service/src/com/android/server/connectivity/DnsManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-24T06:56:30Z",
+      "side": 1,
+      "message": "Maybe add todo to print sendDnsConfigurationForNetwork with paramsParcel.toString().",
+      "revId": "a9e304ed0176e1403b00a304f8937667e1dd9c5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
