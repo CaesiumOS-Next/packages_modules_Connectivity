@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49807556_c3c7f09f",
+        "filename": "common/src/com/android/net/module/util/bpf/IngressDiscardKey.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-10-24T02:18:24Z",
+      "side": 1,
+      "message": "Maybe define this simple struct which only contains one type in Struct.java directly ?\n\nJust like we already have U8, S32, U32 and S64 simple Struct in Struct.java.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 47
+      },
+      "revId": "d7ffbc3cc4c80e2fee11f5d6d09255baa6c0b99c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
