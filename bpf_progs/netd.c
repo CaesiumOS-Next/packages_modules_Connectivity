@@ -106,6 +106,12 @@ DEFINE_BPF_MAP_EXT(packet_trace_enabled_map, ARRAY, uint32_t, bool, 1,
                    BPFLOADER_IGNORED_ON_VERSION, BPFLOADER_MAX_VER, LOAD_ON_ENG,
                    LOAD_ON_USER, LOAD_ON_USERDEBUG)
 
+// A single-element array, indicating how many bytes of data overran the ring buffer.
+DEFINE_BPF_MAP_EXT(packet_trace_overrun_bytes, ARRAY, uint32_t, uint64_t, 1,
+                   AID_ROOT, AID_SYSTEM, 0060, "fs_bpf_net_shared", "", PRIVATE,
+                   BPFLOADER_IGNORED_ON_VERSION, BPFLOADER_MAX_VER, LOAD_ON_ENG,
+                   LOAD_ON_USER, LOAD_ON_USERDEBUG)
+
 // A ring buffer on which packet information is pushed.
 DEFINE_BPF_RINGBUF_EXT(packet_trace_ringbuf, PacketTrace, PACKET_TRACE_BUF_SIZE,
                        AID_ROOT, AID_SYSTEM, 0060, "fs_bpf_net_shared", "", PRIVATE,
@@ -253,7 +259,11 @@ static __always_inline inline void do_packet_tracing(
     if (*traceConfig == false) return;
 
     PacketTrace* pkt = bpf_packet_trace_ringbuf_reserve();
-    if (pkt == NULL) return;
+    if (pkt == NULL) {
+        uint64_t* overrun = bpf_packet_trace_overrun_bytes_lookup_elem(&mapKey);
+        if (overrun != NULL) __sync_fetch_and_add(overrun, skb->len);
+        return;
+    }
 
     // Errors from bpf_skb_load_bytes_net are ignored to favor returning something
     // over returning nothing. In the event of an error, the kernel will fill in

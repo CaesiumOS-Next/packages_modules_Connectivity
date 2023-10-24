@@ -64,6 +64,13 @@ bool NetworkTracePoller::Start(uint32_t pollMs) {
     return false;
   }
 
+  status = mBufferOverrunMap.init(PACKET_TRACE_OVERRUN_BYTES_PATH);
+  if (!status.ok()) {
+    ALOGW("Failed to bind buffer overrun map: %s",
+          status.error().message().c_str());
+    return false;
+  }
+
   auto rb = BpfRingbuf<PacketTrace>::Create(PACKET_TRACE_RINGBUF_PATH);
   if (!rb.ok()) {
     ALOGW("Failed to create ringbuf: %s", rb.error().message().c_str());
@@ -135,7 +142,14 @@ bool NetworkTracePoller::ConsumeAllLocked() {
     return false;
   }
 
+  base::Result<uint64_t> overrun = mBufferOverrunMap.readValue(0);
+  if (!overrun.ok()) {
+    ALOGW("Failed to query overrun: %s", overrun.error().message().c_str());
+    return false;
+  }
+
   ATRACE_INT("NetworkTracePackets", packets.size());
+  ATRACE_INT64("NetworkTraceOverrun", overrun.value());
 
   mCallback(packets);
 
