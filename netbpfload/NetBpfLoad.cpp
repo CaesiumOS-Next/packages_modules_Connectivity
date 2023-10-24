@@ -173,11 +173,65 @@ int main(int argc, char** argv, char * const envp[]) {
     (void)argc;
     android::base::InitLogging(argv, &android::base::KernelLogger);
 
-    const int device_api_level = android_get_device_api_level();
-    const bool isAtLeastU = (device_api_level >= __ANDROID_API_U__);
+    ALOGI("NetBpfLoad '%s' starting...", argv[0]);
 
-    if (!android::bpf::isAtLeastKernelVersion(4, 19, 0)) {
-        ALOGE("Android U QPR2 requires kernel 4.19.");
+    // true iff we are running from the module
+    const bool is_mainline = !strcmp(argv[0], "/apex/com.android.tethering/bin/netbpfload");
+
+    // true iff we are running from the platform, applies to U QPR2/QPR3 but not V+
+    const bool is_platform = !strcmp(argv[0], "/system/bin/netbpfload");
+
+    // first in U QPR2
+    const bool has_platform_netbpfload = exists("/system/bin/netbpfload");
+
+    // last in U QPR2 beta1
+    const bool has_platform_bpfloader_rc = exists("/system/etc/init/bpfloader.rc");
+
+    // first in U QPR2 beta~2
+    const bool has_platform_netbpfload_rc = exists("/system/etc/init/netbpfload.rc");
+
+    const int device_api_level = android_get_device_api_level();
+    const bool isAtLeastT = (device_api_level >= __ANDROID_API_T__);
+    const bool isAtLeastU = (device_api_level >= __ANDROID_API_U__);
+    const bool isAtLeastUQPR2 = isAtLeastU && (has_platform_netbpfload || has_platform_netbpfload_rc);
+    const bool isAtLeastV = (device_api_level >= __ANDROID_API_V__);
+
+    ALOGI("NetBpfLoad api:%d/%d kver:%07x platform:%d mainline:%d has_platform_*:%d/%d/%d",
+          android_get_application_target_sdk_version(), device_api_level, android::bpf::kernelVersion(),
+          is_platform, is_mainline,
+          has_platform_netbpfload, has_platform_bpfloader_rc, has_platform_netbpfload_rc);
+
+    if (is_platform) {
+        // This code is being merged after U QPR2 beta1 branched from goog/main.
+        // As such U QPR2+ should be guaranteed.
+        // Once the move to mainline is complete, we should be able to simply unconditionally abort() here.
+        if (!has_platform_netbpfload) abort();  // but note: scheduled to be removed
+        if (!isAtLeastUQPR2) abort();
+    } else if (is_mainline) {
+        if (has_platform_netbpfload && !isAtLeastU) abort(); // wasn't present in anything before U
+    } else {
+        ALOGE("Unable to determine if we're platform or mainline netbpfload.");
+        return 1;
+    }
+
+    if (isAtLeastT && !android::bpf::isAtLeastKernelVersion(4, 9, 0)) {
+        ALOGE("Android T requires kernel 4.9.");
+        return 1;
+    }
+
+    if (isAtLeastU && !android::bpf::isAtLeastKernelVersion(4, 14, 0)) {
+        ALOGE("Android U requires kernel 4.14.");
+        return 1;
+    }
+
+    // TODO: make up our minds whether 4.19+ is U QPR2+ or V+
+    if (is_platform && !android::bpf::isAtLeastKernelVersion(4, 19, 0)) {
+        ALOGE("Android U QPR2 platform requires kernel 4.19.");
+        return 1;
+    }
+
+    if (isAtLeastV && !android::bpf::isAtLeastKernelVersion(4, 19, 0)) {
+        ALOGE("Android V requires kernel 4.19.");
         return 1;
     }
 
