@@ -22,6 +22,30 @@
       },
       "revId": "85f049e59ffdf43a7aa73f9cd2938ae6d89f1294",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00abded2_36f6e234",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-10-24T09:16:49Z",
+      "side": 1,
+      "message": "Thanks for catching this. Rather than canceled all of outstanding message from queue that all IpServers, mainSM and tethering handler sharing the same queue, I think we can simply send this message at front of the queue for asyncSM.",
+      "parentUuid": "ad03ee39_ac32fa03",
+      "range": {
+        "startLine": 1101,
+        "startChar": 0,
+        "endLine": 1101,
+        "endChar": 16
+      },
+      "revId": "85f049e59ffdf43a7aa73f9cd2938ae6d89f1294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
