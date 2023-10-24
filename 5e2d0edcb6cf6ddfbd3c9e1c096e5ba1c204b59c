@@ -22,6 +22,30 @@
       },
       "revId": "5e2d0edcb6cf6ddfbd3c9e1c096e5ba1c204b59c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e23d33e_a00c0ccc",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkFlags.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T14:26:48Z",
+      "side": 1,
+      "message": "Okay, anyway, I updated to remove the reference to udc-mainline-prod~",
+      "parentUuid": "e4183bf8_98c09111",
+      "range": {
+        "startLine": 23,
+        "startChar": 3,
+        "endLine": 23,
+        "endChar": 62
+      },
+      "revId": "5e2d0edcb6cf6ddfbd3c9e1c096e5ba1c204b59c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
