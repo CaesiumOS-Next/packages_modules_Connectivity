@@ -16,6 +16,24 @@
       "message": "Maybe add todo to print sendDnsConfigurationForNetwork with paramsParcel.toString().",
       "revId": "a9e304ed0176e1403b00a304f8937667e1dd9c5b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9112e30f_342f0257",
+        "filename": "service/src/com/android/server/connectivity/DnsManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-24T09:55:36Z",
+      "side": 1,
+      "message": "I suppose it will be done in aops/2773827.",
+      "parentUuid": "a7e02bad_51e1ea17",
+      "revId": "a9e304ed0176e1403b00a304f8937667e1dd9c5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
