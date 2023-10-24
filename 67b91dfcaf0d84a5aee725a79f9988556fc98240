@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a5cd419_7f81c8e8",
+        "filename": "tests/unit/java/android/net/MulticastRoutingConfigTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:04:57Z",
+      "side": 1,
+      "message": "Should this be \"S\"?\n\nThe documentation of `IgnoreUpTo` is:\n\n\u003e Ignore the test for any development SDK that lower than or equal to [value].",
+      "range": {
+        "startLine": 34,
+        "startChar": 32,
+        "endLine": 34,
+        "endChar": 40
+      },
+      "revId": "67b91dfcaf0d84a5aee725a79f9988556fc98240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
