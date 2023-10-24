@@ -49,3 +49,15 @@ cc_binary {
     init_rc: ["netbpfload.rc"],
     required: ["bpfloader"],
 }
+
+// Versioned netbpfload init rc: init system will process it on api 99+ devices
+// (effectively disabled for now: to enable reduce to V/U/T/S=35/34/33/31)
+//
+// For details of versioned rc files see:
+// https://android.googlesource.com/platform/system/core/+/HEAD/init/README.md#versioned-rc-files-within-apexs
+prebuilt_etc {
+    name: "netbpfload.mainline.rc",
+    src: "netbpfload.mainline.rc",
+    filename: "netbpfload.99rc",
+    installable: false,
+}
