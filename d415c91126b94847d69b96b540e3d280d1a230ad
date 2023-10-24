@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44189dc5_89196be8",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 44
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2023-10-24T14:29:02Z",
+      "side": 1,
+      "message": "As we discussed, join would be better name. And we need a form API to create a Thread network.",
+      "revId": "d415c91126b94847d69b96b540e3d280d1a230ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bada055_f7b7605f",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 44
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2023-10-24T14:29:02Z",
+      "side": 1,
+      "message": "Better to make it leave, as we\u0027ll erase the Thread credentials in OpenThread settings after this operation.",
+      "revId": "d415c91126b94847d69b96b540e3d280d1a230ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
