@@ -18,6 +18,7 @@ package android.net.thread;
 
 import static java.util.Objects.requireNonNull;
 
+import android.annotation.FlaggedApi;
 import android.annotation.NonNull;
 import android.annotation.SystemApi;
 import android.annotation.SystemService;
@@ -34,6 +35,7 @@ import java.util.List;
  *
  * @hide
  */
+@FlaggedApi("com.android.net.thread.flags.thread_enabled")
 @SystemApi
 @SystemService(ThreadNetworkManager.SERVICE_NAME)
 public class ThreadNetworkManager {
