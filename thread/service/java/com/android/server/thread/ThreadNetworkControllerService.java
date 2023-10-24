@@ -43,6 +43,7 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkProvider;
 import android.net.NetworkRequest;
 import android.net.NetworkScore;
+import android.net.ThreadDaemonServiceManager;
 import android.net.thread.ActiveOperationalDataset;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.IOperationalDatasetCallback;
@@ -161,7 +162,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 context,
                 handlerThread,
                 networkProvider,
-                ServiceManagerWrapper::waitForThreadDaemonService,
+                () -> ThreadNetworkControllerService.waitForOtDaemon(context),
                 context.getSystemService(ConnectivityManager.class),
                 new TunInterfaceController(TUN_IF_NAME));
     }
@@ -266,13 +267,16 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mOtDaemon = null;
     }
 
-    private static IOtDaemon waitForOtDaemon() {
-        IBinder binder =
-                ConnectivityFrameworkInitializerTiramisu.getThreadDaemonServiceSupplier().get();
-        if (binder == null) {
+    private static IOtDaemon waitForOtDaemon(Context context) {
+        //IBinder binder =
+        //        ConnectivityFrameworkInitializerTiramisu.getThreadDaemonServiceSupplier().get();
+        ThreadDaemonServiceManager threadDaemon = context.getSystemService(
+            ThreadDaemonServiceManager.class);
+        if (threadDaemon == null) {
+            Log.e(TAG, "Can't get the ot-daemon service");
             return null;
         }
-        return IOtDaemon.Stub.asInterface(binder);
+        return IOtDaemon.Stub.asInterface(threadDaemon.getService());
     }
 
     public void initialize() {
