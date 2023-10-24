@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f61af9e1_6bf471d3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-10-24T09:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2118175f_dd34d6a5",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 57,
+        "endChar": 19
+      },
+      "revId": "3fb0e80066c37c14b04216e270c56077c737dae8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2e94be7_b97c8d27",
@@ -84,6 +108,30 @@
       "writtenOn": "2023-09-25T07:21:14Z",
       "side": 1,
       "message": "No use for the explicit type\n\n    override fun makeAsyncStateMachine(name: String, looper: Looper) \u003d mAsyncSM",
+      "range": {
+        "startLine": 46,
+        "startChar": 16,
+        "endLine": 46,
+        "endChar": 33
+      },
+      "revId": "3fb0e80066c37c14b04216e270c56077c737dae8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5b6fa4f_2f0b1668",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/StateMachineShimTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-10-24T09:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2e94be7_b97c8d27",
       "range": {
         "startLine": 46,
         "startChar": 16,

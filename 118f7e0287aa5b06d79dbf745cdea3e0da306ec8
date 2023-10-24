@@ -120,6 +120,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e242b2ef_92e308dd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-10-24T09:12:59Z",
+      "side": 1,
+      "message": "I just remove Thread parameter from this constructor because it will not be used in near future before we replace mainSM with StateMachineShim.",
+      "parentUuid": "e3dd4086_691beba4",
+      "range": {
+        "startLine": 34,
+        "startChar": 47,
+        "endLine": 34,
+        "endChar": 87
+      },
+      "revId": "118f7e0287aa5b06d79dbf745cdea3e0da306ec8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00baf037_c36443b7",
