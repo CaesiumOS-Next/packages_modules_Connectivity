@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9b4a3db_5fa131c3",
+        "filename": "thread/flags/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-24T08:05:51Z",
+      "side": 1,
+      "message": "aconfig soong targets (`aconfig_declarations` and `java_aconfig_library`) is not available on udc-mainline-prod branch.\nMaybe we can remove them since we don\u0027t use them for now.",
+      "revId": "93efaf8bffb3a09a84e55b7abffd2f9826442520",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
