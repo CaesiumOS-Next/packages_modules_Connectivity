@@ -26,6 +26,322 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f69ea4a9_986c645f",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "This file name should be \"com_android_server_RoutingCoordinatorService.cpp\" given your java methods (e.g. `nativeXxxx()`) are in RoutingCoordinatorService.java.\n\nNote that it\u0027s not technically required to have such JNI file names, but is simply a practice many code follows",
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8077846b_57b551ad",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "Ditto: there is no MulticastRoutingCoordinator",
+      "range": {
+        "startLine": 16,
+        "startChar": 17,
+        "endLine": 16,
+        "endChar": 47
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59e2324d_4981c9bf",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Check Contents: Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nLines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 102
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d9b3300_03c9390c",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "```suggestion\n            jniThrowExceptionFmt(env, \"java/io/IOException\", \"%s (%s)\", msg, strerror(aValue));                           \\\n            return -1;                       \\\n```\n\nPoints:\n1. Include the error information in the Exception message\n2. You need to explicitly `return` to break from the method (`jniThrowExceptionFmt` doesn\u0027t throw an exception from your c++ code immediately)",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 72
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cad74df5_7c7abaed",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "You need to close the socket before exiting this method",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 124
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0328f7a5_235bb352",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Check Contents: Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nLines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 124
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6a84209_73d22eb3",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Check Contents: Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nLines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 101
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "935c0c80_787e3251",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "ditto: need to close socket before exiting",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 18
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cff2ae29_df42eaf0",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Check Contents: Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nLines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 102
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "853c1478_15a700ab",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "```suggestion\n    private Map\u003cByte, String\u003e mInterfaceNameMap \u003d new HashMap\u003c\u003e();\n```",
+      "range": {
+        "startLine": 84,
+        "startChar": 30,
+        "endLine": 84,
+        "endChar": 44
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f81f6e6_36ae0d54",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "Shouldn\u0027t the interface index be an `integer` or even `long`?",
+      "range": {
+        "startLine": 85,
+        "startChar": 12,
+        "endLine": 85,
+        "endChar": 16
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ba88fc5_8b74a583",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "```suggestion\n                Log.e(TAG, \"failed to add multicast virtual interface\", e);\n```",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 97,
+        "endChar": 78
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "212ede05_22833b66",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "```suggestion\n    private static final class MulticastRoutingConfigIif {\n```",
+      "range": {
+        "startLine": 111,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 43
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8719650_776ef787",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "Should member fields be moved to the head of the class?",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 61
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2c08bd40_a22b0972",
         "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
         "patchSetId": 4
@@ -94,6 +410,144 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f10e979_751fb178",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "Narrow down the try-catch clause so that it\u0027s clearer which line is failing when an exception is thrown\n\n```suggestion\n        \n            if (value \u003d\u003d null) {\n                value \u003d new MfcValue(oifs, expiresAt);\n                mMfcs.put(key, value);\n            } else {\n                boolean added \u003d false;\n                for (byte oif : oifs) {\n                    if (!value.containsOifIdx(oif)) {\n                        value.addOif(oif);\n                        value.setExpiryTime(expiresAt);\n                        added \u003d true;\n                    }\n                }\n                if (!added) {\n                    // all oifs are already included in existing MFC\n                    return;\n                }\n            }\n        try {\n            mDependencies.addMulticastForwardingCache(\n                    mMulticastRoutingFD.getFileDescriptor(),\n                    key.getIifIndex(),\n                    value.getOifIndexes(),\n                    key.getSrcAddress(),\n                    key.getDstAddress(),\n                    key.getIsStatic());\n            Log.d(TAG, \"Added MFC \" + key.toString());\n        } catch (IOException e) {\n            Log.e(TAG, \"failed to add MFC: \" + e);\n        }\n```",
+      "range": {
+        "startLine": 628,
+        "startChar": 0,
+        "endLine": 657,
+        "endChar": 9
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a994d26a_b56f0b79",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "ditto: narrow down try-catch",
+      "range": {
+        "startLine": 672,
+        "startChar": 12,
+        "endLine": 676,
+        "endChar": 58
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fda1be65_6dc0b882",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "You don\u0027t need to define this. You can use `mPacketListener::start` for where `startListener` is required",
+      "range": {
+        "startLine": 717,
+        "startChar": 0,
+        "endLine": 722,
+        "endChar": 14
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f30c7e96_5a05073e",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "This is a duplicated logging, the same message is logged in the JNI code already.\n\nYou probably want to remove the logging message in the JNI code",
+      "range": {
+        "startLine": 728,
+        "startChar": 12,
+        "endLine": 728,
+        "endChar": 79
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdb6012e_9a5f241d",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "Rename this class to \"MulticastNocacheUpcallListener\"?",
+      "range": {
+        "startLine": 782,
+        "startChar": 24,
+        "endLine": 782,
+        "endChar": 38
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9ac8f10_c231443e",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "Rename \"handleMessage\" to \"handleMulticastNocacheUpcall\"?",
+      "range": {
+        "startLine": 803,
+        "startChar": 32,
+        "endLine": 803,
+        "endChar": 45
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7439cab1_6bdbe765",
         "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
         "patchSetId": 4
@@ -105,6 +559,29 @@
       "writtenOn": "2023-10-24T02:50:30Z",
       "side": 1,
       "message": "visableForTest",
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bdde503_2d34ca9f",
+        "filename": "service/src/com/android/server/connectivity/StructMrt6Msg.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T03:50:44Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Check Contents: Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nLines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 145
+      },
       "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
