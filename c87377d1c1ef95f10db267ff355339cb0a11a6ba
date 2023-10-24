@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23a101e5_455886b5",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-24T05:29:15Z",
+      "side": 1,
+      "message": "Is the first NsdManager.REGISTER_SERVICE handled in the DefaultState before your patch? If yes, will not not have any problem that the flow is not run(e.g. onDiscoverServicesFailedImmediately)?\n\nSimilar question for REGISTER_SERVICE_CALLBACK case",
+      "range": {
+        "startLine": 809,
+        "startChar": 36,
+        "endLine": 809,
+        "endChar": 52
+      },
+      "revId": "c87377d1c1ef95f10db267ff355339cb0a11a6ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca929f4c_1e9d032d",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-24T05:29:15Z",
+      "side": 1,
+      "message": "I am not sure about the design but this looks to start related daemon. NsdService is default on EnabledState now. If legacy client sends this, will it be impacted by something like sendNsdStateChangeBroadcast() that is done in the EnabledState#enter()? I.e. Is it safe to remove DefaultState?",
+      "range": {
+        "startLine": 1143,
+        "startChar": 25,
+        "endLine": 1143,
+        "endChar": 50
+      },
+      "revId": "c87377d1c1ef95f10db267ff355339cb0a11a6ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23c6d68f_0ec461b4",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-24T05:29:15Z",
+      "side": 1,
+      "message": "optional: If you have only one State now and expect this state to handle everything, should here use wtf if we receive unexpected message?",
+      "range": {
+        "startLine": 1153,
+        "startChar": 28,
+        "endLine": 1153,
+        "endChar": 29
+      },
+      "revId": "c87377d1c1ef95f10db267ff355339cb0a11a6ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

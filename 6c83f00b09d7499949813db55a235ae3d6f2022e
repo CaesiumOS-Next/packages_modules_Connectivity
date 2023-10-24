@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "067dc651_ec77cf6b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-24T05:29:15Z",
+      "side": 0,
+      "message": "Maybe not for this commit. But it looks to me that current design does not require to use StateMachine now. A better clean up maybe remove this design to prevent extra cost on using StateMachine.",
+      "range": {
+        "startLine": 522,
+        "startChar": 42,
+        "endLine": 522,
+        "endChar": 54
+      },
+      "revId": "6c83f00b09d7499949813db55a235ae3d6f2022e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bb2243f_afc8d4d4",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-10-24T05:29:15Z",
+      "side": 0,
+      "message": "Nit: I wonder why is not EnabledState being removed since all the behavior is handled as a `default` case.",
+      "range": {
+        "startLine": 524,
+        "startChar": 55,
+        "endLine": 524,
+        "endChar": 67
+      },
+      "revId": "6c83f00b09d7499949813db55a235ae3d6f2022e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
