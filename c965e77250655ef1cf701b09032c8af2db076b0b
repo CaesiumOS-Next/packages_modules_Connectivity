@@ -231,6 +231,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a93475a_dda976e5",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "This is implemented as the return value of `NetworkAgent#register()`. Can this value be guaranteed correct?\n\nThere is also `WifiManager#getCurrentNetwork`, but maybe it\u0027s again legacy pattern that we should not follow?",
+      "parentUuid": "07a0a7b0_7f8c7e71",
+      "range": {
+        "startLine": 511,
+        "startChar": 48,
+        "endLine": 511,
+        "endChar": 58
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b78cd15_735a8eac",
         "filename": "framework-t/api/system-current.txt",
         "patchSetId": 43
@@ -299,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5d85f0a_398b4cff",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc63655e_83031cb2",
+      "range": {
+        "startLine": 70,
+        "startChar": 5,
+        "endLine": 70,
+        "endChar": 7
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a66a06e_f036063c",
@@ -312,6 +360,30 @@
       "writtenOn": "2023-10-23T03:31:46Z",
       "side": 1,
       "message": "as",
+      "range": {
+        "startLine": 71,
+        "startChar": 40,
+        "endLine": 71,
+        "endChar": 42
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dc88510_bf334cbd",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a66a06e_f036063c",
       "range": {
         "startLine": 71,
         "startChar": 40,
@@ -345,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "008cd478_89fccc3f",
+        "filename": "thread/service/Android.bp",
+        "patchSetId": 43
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "It won\u0027t build if this is removed.",
+      "parentUuid": "fb589c56_11adad0a",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 46
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d4b2e75_a91d06f6",
@@ -358,6 +454,30 @@
       "writtenOn": "2023-10-23T03:31:46Z",
       "side": 1,
       "message": "Likely the problem is the same as always : read java spec section 17.5\n\nIf the member is read on another thread, the JVM has no obligation to have the other thread see the assignment, unless the field is final.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 39
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3c51b4d_127cd29c",
+        "filename": "thread/service/java/com/android/server/thread/AttachOperation.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "Thanks!! This issue disappears after changing the `mReceiver` to `final`",
+      "parentUuid": "1d4b2e75_a91d06f6",
       "range": {
         "startLine": 39,
         "startChar": 0,
@@ -391,6 +511,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfc3385e_6dea63ce",
+        "filename": "thread/service/java/com/android/server/thread/ScheduleMigrationOperation.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "This class should be accessed from only the `ThreadNetworkControllerService` class and all methods is designed to be called on the same thread in ThreadNetworkControllerService.\n\nDocumentation for this class and `AttachOperation` is added.",
+      "parentUuid": "3ee26561_92c24d6b",
+      "range": {
+        "startLine": 42,
+        "startChar": 15,
+        "endLine": 42,
+        "endChar": 27
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8034157f_bbaf02dc",
@@ -404,6 +548,30 @@
       "writtenOn": "2023-10-23T03:31:46Z",
       "side": 1,
       "message": "How did you measure this ? Can you please document where this number comes from ?",
+      "range": {
+        "startLine": 89,
+        "startChar": 7,
+        "endLine": 89,
+        "endChar": 68
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ace564f2_9615ed6d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8034157f_bbaf02dc",
       "range": {
         "startLine": 89,
         "startChar": 7,
@@ -437,6 +605,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f91ff057_bcdc3c0f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5eb654b7_e016337d",
+      "range": {
+        "startLine": 94,
+        "startChar": 63,
+        "endLine": 94,
+        "endChar": 65
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b48ed9b9_216d8579",
@@ -450,6 +642,30 @@
       "writtenOn": "2023-10-23T03:31:46Z",
       "side": 1,
       "message": "s/s//",
+      "range": {
+        "startLine": 98,
+        "startChar": 36,
+        "endLine": 98,
+        "endChar": 37
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bade5daf_76ce047e",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b48ed9b9_216d8579",
       "range": {
         "startLine": 98,
         "startChar": 36,
@@ -483,6 +699,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5bbc9f7_c61f0e06",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "updated the total timeout value to 2 seconds",
+      "parentUuid": "808893e4_11cd2bcc",
+      "range": {
+        "startLine": 99,
+        "startChar": 58,
+        "endLine": 99,
+        "endChar": 61
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9d3bc19_350a7e52",
@@ -496,6 +736,30 @@
       "writtenOn": "2023-10-23T03:31:46Z",
       "side": 1,
       "message": "Please explain the threading model for access to these mutable fields in comments",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 39
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc5caa20_10d6812c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9d3bc19_350a7e52",
       "range": {
         "startLine": 116,
         "startChar": 0,
@@ -529,6 +793,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a77f738a_54e80e2c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "279daf4e_c9a486fb",
+      "range": {
+        "startLine": 158,
+        "startChar": 26,
+        "endLine": 158,
+        "endChar": 58
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0854c43e_09873228",
@@ -552,6 +840,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d322286_bde32da2",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "Removed `.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)`",
+      "parentUuid": "0854c43e_09873228",
+      "range": {
+        "startLine": 166,
+        "startChar": 16,
+        "endLine": 166,
+        "endChar": 17
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fde50cf_32189821",
@@ -565,6 +877,30 @@
       "writtenOn": "2023-10-23T03:31:46Z",
       "side": 1,
       "message": "This is impossible if it\u0027s a byte array",
+      "range": {
+        "startLine": 173,
+        "startChar": 23,
+        "endLine": 173,
+        "endChar": 31
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8666768d_52f00465",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fde50cf_32189821",
       "range": {
         "startLine": 173,
         "startChar": 23,
@@ -611,6 +947,30 @@
       "writtenOn": "2023-10-23T03:31:46Z",
       "side": 1,
       "message": "method name looks strange because this *calls* the supplier and returns the binder",
+      "range": {
+        "startLine": 262,
+        "startChar": 29,
+        "endLine": 262,
+        "endChar": 45
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05ae0305_5148bfeb",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "Renamed to \"waitForOtDaemon\"",
+      "parentUuid": "995a6a58_c15fa592",
       "range": {
         "startLine": 262,
         "startChar": 29,
@@ -692,6 +1052,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "da489b2f_2ceda070",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "This is called every time this device becomes detached. If we don\u0027t add the check here, we need to add the check outside of unregisterThreadNetwork:\n```\nif (mNetworkAgent !\u003d null) {\n    unregisterThreadNetwork();\n}\n```",
+      "parentUuid": "5181a868_e1bd4fe2",
+      "range": {
+        "startLine": 319,
+        "startChar": 7,
+        "endLine": 322,
+        "endChar": 0
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa6e09b7_d5c25db4",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 43
@@ -703,6 +1087,30 @@
       "writtenOn": "2023-10-23T03:31:46Z",
       "side": 1,
       "message": "Can this happen ?\n\nMaybe it\u0027s expected (e.g. if you have to update the properties before the agent is connected) and then it\u0027s fine. But if it\u0027s defensive, then same argument as above",
+      "range": {
+        "startLine": 354,
+        "startChar": 12,
+        "endLine": 354,
+        "endChar": 32
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ab37baf_72db582f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "Yes, it\u0027s expected to receive link properties update from ot-daemon before registering the network agent",
+      "parentUuid": "fa6e09b7_d5c25db4",
       "range": {
         "startLine": 354,
         "startChar": 12,
@@ -736,6 +1144,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcf27654_c5540770",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ae8e4cd_f7dd6e98",
+      "range": {
+        "startLine": 364,
+        "startChar": 17,
+        "endLine": 364,
+        "endChar": 49
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "218e0cbc_19b7d82f",
@@ -749,6 +1181,30 @@
       "writtenOn": "2023-10-23T03:31:46Z",
       "side": 1,
       "message": "I would suggest you enforce running on the expected thread for this. It\u0027s very common that developers use a getter (or something named like one) on any thread without paying much attention, but here if you\u0027re not on the correct thread this blows up randomly, so let\u0027s have it always blow up if the thread is not the correct one.",
+      "range": {
+        "startLine": 400,
+        "startChar": 20,
+        "endLine": 400,
+        "endChar": 31
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7998b81b_1c773177",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-24T11:33:30Z",
+      "side": 1,
+      "message": "The threading model of this class is that all methods should be called on the `mHandlerThread` except for the binder API overrides. Do you think it\u0027s too much overhead to check in all private methods?\n\n// Comments have been added for the fields like mOngoingDetachReceivers",
+      "parentUuid": "218e0cbc_19b7d82f",
       "range": {
         "startLine": 400,
         "startChar": 20,
