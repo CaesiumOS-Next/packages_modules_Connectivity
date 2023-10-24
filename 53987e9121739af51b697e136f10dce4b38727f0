@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1dec4b5b_43d6248b",
+        "filename": "framework/src/android/net/IRoutingCoordinator.aidl",
+        "patchSetId": 20
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-24T13:43:50Z",
+      "side": 1,
+      "message": "I\u0027ll have to check : if this is false, it doesn\u0027t call TetherController::enableNat in netd. I expect this means it forwards v4 packets without NAT, but I\u0027ll need to check",
+      "parentUuid": "50c11d25_e6f4155f",
+      "revId": "53987e9121739af51b697e136f10dce4b38727f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "19383d69_b017bf0a",
         "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
         "patchSetId": 20
@@ -31,6 +49,30 @@
       "writtenOn": "2023-10-24T10:48:42Z",
       "side": 1,
       "message": "Is it wise to have fine-grained locking in this class? It seems confusing that some methods don\u0027t take any locks but some do. Things would be much simpler if there was only one class lock that covers all the methods. Is there a reason we can\u0027t do that?",
+      "range": {
+        "startLine": 117,
+        "startChar": 25,
+        "endLine": 117,
+        "endChar": 36
+      },
+      "revId": "53987e9121739af51b697e136f10dce4b38727f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cef3be98_0ebe0e29",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-24T13:43:50Z",
+      "side": 1,
+      "message": "We can but it doesn\u0027t buy us anything. This is to protect the mForwardedInterfaces object to guarantee that it\u0027s always consistent ; taking the lock in e.g. addInterfaceToNetwork gives no guarantee of consistency of adding or removing the interface.",
+      "parentUuid": "19383d69_b017bf0a",
       "range": {
         "startLine": 117,
         "startChar": 25,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f84a549_b7b40e15",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-24T13:43:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adf83c0f_0ff7624f",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 34
+      },
+      "revId": "53987e9121739af51b697e136f10dce4b38727f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "692d7167_22e7d5c5",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-10-24T10:48:42Z",
       "side": 1,
       "message": "It seems really confusing to have an object that contains three fields but only two are meaningful. It suggests that this isn\u0027t the right design.\n\nMaybe instead of a list [{fromIface, toIface, enableNat}] we should have a map {fromIface, toIface} -\u003e enableNat?",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 91
+      },
+      "revId": "53987e9121739af51b697e136f10dce4b38727f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d80aa7db_c7da7db7",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-24T13:43:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "692d7167_22e7d5c5",
       "range": {
         "startLine": 129,
         "startChar": 8,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "036f6063_606ef5c5",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-24T13:43:50Z",
+      "side": 1,
+      "message": "Done, though this is a pretty hotly debated point, which has advantages and drawbacks. This means equals() is no longer symmetric between subclasses, which is why some actors instead advise against instanceof and for getClass(). Personally I don\u0027t care too much especially here, and I made the class final which means there is no difference anyway.",
+      "parentUuid": "7dce9ef1_59cb04c6",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 47
+      },
+      "revId": "53987e9121739af51b697e136f10dce4b38727f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5348df20_7d736eab",
@@ -123,6 +237,30 @@
       "writtenOn": "2023-10-24T10:48:42Z",
       "side": 1,
       "message": "This would be simpler if the forwardingpair was only fromIface and toIface and instead of a list we had a map from forwardingpair to boolean.",
+      "range": {
+        "startLine": 170,
+        "startChar": 37,
+        "endLine": 170,
+        "endChar": 45
+      },
+      "revId": "53987e9121739af51b697e136f10dce4b38727f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c28f0a6c_43c97b1a",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-24T13:43:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5348df20_7d736eab",
       "range": {
         "startLine": 170,
         "startChar": 37,
