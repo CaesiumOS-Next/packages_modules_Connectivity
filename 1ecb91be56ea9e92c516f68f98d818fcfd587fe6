@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8b40a9f_dac1df38",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 6183,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T10:39:43Z",
+      "side": 1,
+      "message": "Nit: would it be better to synchronize on another object? This doesn\u0027t seem related to callbacks.",
+      "range": {
+        "startLine": 6183,
+        "startChar": 26,
+        "endLine": 6183,
+        "endChar": 36
+      },
+      "revId": "1ecb91be56ea9e92c516f68f98d818fcfd587fe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

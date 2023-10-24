@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50976848_6160ea32",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T10:39:43Z",
+      "side": 1,
+      "message": "Nit: would suggest refactoring this out to a method to reduce indentation and cognitive overhead.",
+      "range": {
+        "startLine": 823,
+        "startChar": 0,
+        "endLine": 829,
+        "endChar": 13
+      },
+      "revId": "004fd426f8d97a3fae75b144595ee97a4be0104a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdd6e41f_7bc88621",
+        "filename": "framework/jarjar-excludes.txt",
+        "patchSetId": 28
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T10:39:43Z",
+      "side": 1,
+      "message": "Might want to explain why this is safe on R, where tethering is mainline but RoutingCoordinatorManager does not exist. Does this rely on the linter? (Or maybe you have another comment elsewhere.)",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 43
+      },
+      "revId": "004fd426f8d97a3fae75b144595ee97a4be0104a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "975e700e_6777545e",
+        "filename": "framework/src/android/net/RoutingCoordinatorManager.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T10:39:43Z",
+      "side": 1,
+      "message": "From which processes and UIDs can it be used? Anywhere? Or just the networkstack and system_server processes? Maybe you can say that getting an insteance of one of these requires the NETWORK_STACK permission.",
+      "range": {
+        "startLine": 29,
+        "startChar": 86,
+        "endLine": 29,
+        "endChar": 87
+      },
+      "revId": "004fd426f8d97a3fae75b144595ee97a4be0104a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e60a0820_8c177186",
+        "filename": "framework/src/android/net/connectivity/TiramisuConnectivityInternalApiUtil.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T10:39:43Z",
+      "side": 1,
+      "message": "Is this hard? If not, can you upload a CL to do it?",
+      "range": {
+        "startLine": 38,
+        "startChar": 10,
+        "endLine": 38,
+        "endChar": 16
+      },
+      "revId": "004fd426f8d97a3fae75b144595ee97a4be0104a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48a8dca7_62828196",
+        "filename": "framework/src/android/net/connectivity/TiramisuConnectivityInternalApiUtil.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T10:39:43Z",
+      "side": 1,
+      "message": "Do you know why the linter says this is unnecessary? Is it used in an upcoming CL? Or is the linter just confused?\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nUnnecessary; SDK_INT is always \u003e\u003d 31\n\n        @RequiresApi(Build.VERSION_CODES.S)\n        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThis check flags version checks that are not necessary, because the `minSdkVersion` (or surrounding known API level) is already at least as high as the version checked for.\n\nSimilarly, it also looks for resources in `-vNN` folders, such as `values-v14` where the version qualifier is less than or equal to the `minSdkVersion`, where the contents should be merged into the best folder.\n\nLocal repro steps at go/ayeaye-android-lint\n\nThis warning was found on the git_main branch",
+      "range": {
+        "startLine": 57,
+        "startChar": 5,
+        "endLine": 57,
+        "endChar": 39
+      },
+      "revId": "004fd426f8d97a3fae75b144595ee97a4be0104a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de4262d6_9d5140c1",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T10:39:43Z",
+      "side": 1,
+      "message": "Can you add a brief javadoc here? Would be good to at least mention that this is currently mostly a wrapper for netd, and mention the threading/locking model (none!).\n\nAlso, what about security? Does anyone with access to this service get permissions to talk to netd as if they were the system server, or are the original calling identity and permissions preserved?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 12
+      },
+      "revId": "004fd426f8d97a3fae75b144595ee97a4be0104a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8af54e3e_c8d5026b",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T10:39:43Z",
+      "side": 1,
+      "message": "The linter says this is unused:\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n[UnusedVariable] The field \u0027mContext\u0027 is never read.\n\nAnalyzer Description: Warnings generated by errorprone.\nOwner: farivar@google.com\n\n    [UnusedVariable] The field \u0027mContext\u0027 is never read.\n        private final Context mContext;\n                              ^\n        (see https://errorprone.info/bugpattern/UnusedVariable)\n      Did you mean to remove this line?\n\nUse `m RUN_ERROR_PRONE\u003dtrue MyModule` to reproduce locally.\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P64395464/targets/errorprone-trunk_staging, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 35
+      },
+      "revId": "004fd426f8d97a3fae75b144595ee97a4be0104a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bfafdc1_cb34d199",
+        "filename": "staticlibs/framework/com/android/net/module/util/SdkUtil.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T10:39:43Z",
+      "side": 1,
+      "message": "Would be good to explain what this allows us to do and what problems it avoids.",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 18
+      },
+      "revId": "004fd426f8d97a3fae75b144595ee97a4be0104a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
