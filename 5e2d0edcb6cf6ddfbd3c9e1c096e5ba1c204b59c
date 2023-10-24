@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4183bf8_98c09111",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkFlags.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-24T11:33:40Z",
+      "side": 1,
+      "message": "It will never be, the branch will be abandoned instead 😊\n\nIt doesn\u0027t matter",
+      "range": {
+        "startLine": 23,
+        "startChar": 3,
+        "endLine": 23,
+        "endChar": 62
+      },
+      "revId": "5e2d0edcb6cf6ddfbd3c9e1c096e5ba1c204b59c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
