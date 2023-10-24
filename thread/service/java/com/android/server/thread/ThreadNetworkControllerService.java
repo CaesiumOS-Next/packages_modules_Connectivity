@@ -173,6 +173,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                         .clearCapabilities()
                         .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
                         .addTransportType(NetworkCapabilities.TRANSPORT_ETHERNET)
+                        .addTransportType(NetworkCapabilities.TRANSPORT_TEST)
                         .build();
         mLocalNetworkConfig =
                 new LocalNetworkConfig.Builder()
