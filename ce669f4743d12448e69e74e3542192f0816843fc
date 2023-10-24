@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bde48dee_79079e67",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/IaPrefixOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-10-24T18:52:02Z",
+      "side": 1,
+      "message": "@Xiao we should add a getter as well and use it inside BoundState.",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 37
+      },
+      "revId": "ce669f4743d12448e69e74e3542192f0816843fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
