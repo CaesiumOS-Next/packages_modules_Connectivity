@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2509fd5f_9423323c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-24T18:27:34Z",
+      "side": 1,
+      "message": "build failure will likely be fixed by udc-mainline-prod cherrypick\nhttps://googleplex-android-review.git.corp.google.com/c/platform/system/bpf/+/25167020\n\nbut I wonder if there isn\u0027t something more deeply wrong with dependencies, since I think this shouldn\u0027t even be building in that branch...",
+      "revId": "566ac87ab023c6fc276bcd17b3a6701242bc3040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
