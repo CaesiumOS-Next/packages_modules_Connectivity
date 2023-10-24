@@ -21,6 +21,7 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.ArraySet;
 import android.util.Log;
 
@@ -30,7 +31,9 @@ import java.net.Inet6Address;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
+import java.util.StringJoiner;
 
 /**
  * A class representing a configuration for multicast routing.
@@ -260,5 +263,42 @@ public class MulticastRoutingConfig implements Parcelable {
             case FORWARD_WITH_MIN_SCOPE: return "FORWARD_WITH_MIN_SCOPE";
             default: return "unknown multicast routing mode " + mode;
         }
+    }
+
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        else if (!(other instanceof MulticastRoutingConfig)) {
+            return false;
+        }
+        else {
+            MulticastRoutingConfig otherConfig = (MulticastRoutingConfig) other;
+            return mForwardingMode == otherConfig.mForwardingMode
+                && mMinScope == otherConfig.mMinScope
+                && mListeningAddresses.equals(otherConfig.mListeningAddresses);
+        }
+    }
+
+    public int hashCode() {
+        return Objects.hash(mForwardingMode, mMinScope, mListeningAddresses);
+    }
+
+    public String toString() {
+        final StringJoiner resultJoiner = new StringJoiner(" ", "{", "}");
+
+        resultJoiner.add("ForwardingMode:");
+        resultJoiner.add(modeToString(mForwardingMode));
+
+        resultJoiner.add("MinScope:");
+        resultJoiner.add(Integer.toString(mMinScope));
+
+        resultJoiner.add("ListeningAddresses: [");
+        if (!mListeningAddresses.isEmpty()) {
+            resultJoiner.add(TextUtils.join(",", mListeningAddresses));
+        }
+        resultJoiner.add("]");
+
+        return resultJoiner.toString();
     }
 }
