@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46a9439d_802e6383",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 4941,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T12:15:00Z",
+      "side": 1,
+      "message": "I wonder if this is the right place for this? Our teardown logic is very complex, especially with unregisterAfterReplacement and delayed teardown.\n\nIn particular, when unregisterAfterReplacement is used, destroyNetwork is called much before this code runs. It seems like maybe we should call maybeDisableForwardRulesForDisconnectingNai in destroyNetwork instead of here?\n\nNot sure though what would happen if then that network is selected by some other local network\u0027s upstream. Maybe the forwarding rule code should check whether the upstream isDestroyed() and if so do nothing?",
+      "range": {
+        "startLine": 4941,
+        "startChar": 8,
+        "endLine": 4941,
+        "endChar": 51
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98f244ac_5bc772c2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 8823,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T12:15:00Z",
+      "side": 1,
+      "message": "For this new LOCAL_NETWORK capability, can we be totally opinionated and simply just ignore any attempt to change its value on an existing network? I think the lesson from the code above is that the WTF doesn\u0027t really prevent this from happening, and many callers of this code believe that changing immutable capabilities is supported.",
+      "range": {
+        "startLine": 8823,
+        "startChar": 8,
+        "endLine": 8823,
+        "endChar": 9
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c719f2fa_f862d28f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 8985,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T12:15:00Z",
+      "side": 1,
+      "message": "I think you could make this code easier to read by removing the registerAgent boolean and having the caller pass in nai, oldConfig, and newConfig.\n\nhandleRegisterNetworkAgent would do:\n\n    updateLocalNetworkConfig(nai, null, nai.localNetworkConfig);\n\nand EVENT_LOCAL_NETWORK_CONFIG_CHANGED would do:\n\n    updateLocalNetworkConfig(nai, nai.localNetworkConfig, config);\n\nI think it would not only be easier to read but consistent with what we do in other methods such as updateLinkProperties.",
+      "range": {
+        "startLine": 8985,
+        "startChar": 8,
+        "endLine": 8985,
+        "endChar": 70
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fc5e7c8_31f3b4c0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 8987,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T12:15:00Z",
+      "side": 1,
+      "message": "What if the request changed in some other way than by changing the capabilities?",
+      "range": {
+        "startLine": 8987,
+        "startChar": 34,
+        "endLine": 8987,
+        "endChar": 48
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec599a7f_b02bc674",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 8990,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T12:15:00Z",
+      "side": 1,
+      "message": "I can\u0027t parse this. Did you mean \"use only one\" or \"match only one\"? Or...?",
+      "range": {
+        "startLine": 8990,
+        "startChar": 80,
+        "endLine": 8990,
+        "endChar": 92
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a3d5a15_28b496b4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 8998,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T12:15:00Z",
+      "side": 1,
+      "message": "I see that this bypasses the limit for max number of requests per UID. Maybe this is OK since code shouldn\u0027t register lots of agents, and if it did, we\u0027d have bigger problems?",
+      "range": {
+        "startLine": 8998,
+        "startChar": 12,
+        "endLine": 8998,
+        "endChar": 40
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "946e5275_aa7f119a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 9948,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T12:15:00Z",
+      "side": 1,
+      "message": "// Update forwarding rules for the upstreams of local networks.",
+      "range": {
+        "startLine": 9948,
+        "startChar": 8,
+        "endLine": 9948,
+        "endChar": 63
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7f50ffc_a5c666b5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 9958,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T12:15:00Z",
+      "side": 1,
+      "message": "Does adding the new rule before removing the old rule work here? Some of our netd code supports this (ip rules in particular), but some of it doesn\u0027t (adding new configuration returns EEXIST, or it overwrites the old config, and then removing the old one removes the new one instead). Unless there is precedent for adding the new forward before removing the old forward, and we know this works well, it seems safer to do the remove before the add.",
+      "range": {
+        "startLine": 9958,
+        "startChar": 47,
+        "endLine": 9958,
+        "endChar": 66
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efae467c_c4eeb17f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 9960,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T12:15:00Z",
+      "side": 1,
+      "message": "Per comment on other CL, we probably want to remove this...",
+      "range": {
+        "startLine": 9960,
+        "startChar": 28,
+        "endLine": 9960,
+        "endChar": 49
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28ec134a_d18dce90",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-24T12:15:00Z",
+      "side": 1,
+      "message": "We should probably have a test that exercises unregisterAfterReplacement as well.",
+      "range": {
+        "startLine": 126,
+        "startChar": 8,
+        "endLine": 126,
+        "endChar": 27
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
