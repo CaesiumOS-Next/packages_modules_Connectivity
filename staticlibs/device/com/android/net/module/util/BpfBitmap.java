@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
  * array type with key->int and value->uint64_t defined in the bpf program.
  *
  */
+@RequiresApi()
 public class BpfBitmap {
     private BpfMap<Struct.S32, Struct.S64> mBpfMap;
 
