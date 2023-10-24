@@ -19,11 +19,11 @@
 
 #include "netdbpf/NetworkTracePoller.h"
 
+#include <chrono>
+
 #include <bpf/BpfUtils.h>
 #include <cutils/trace.h>
 #include <log/log.h>
-#include <perfetto/tracing/platform.h>
-#include <perfetto/tracing/tracing.h>
 
 namespace android {
 namespace bpf {
@@ -37,15 +37,18 @@ NetworkTracePoller::~NetworkTracePoller() {
   }
 }
 
-void NetworkTracePoller::PollAndSchedule(perfetto::base::TaskRunner* runner,
-                                         uint32_t poll_ms) {
-  // Always schedule another run of ourselves to recursively poll periodically.
-  // The task runner is sequential so these can't run on top of each other.
-  runner->PostDelayedTask([=]() { PollAndSchedule(runner, poll_ms); }, poll_ms);
+void NetworkTracePoller::ThreadMain(uint32_t poll_ms) {
+  for (;;) {
+    std::unique_lock<std::mutex> lock(mCollectionMutex);
+    android::base::ScopedLockAssertion lock_assertion(mCollectionMutex);
+    bool quit =
+        mStopCond.wait_for(lock, std::chrono::milliseconds(poll_ms),
+                           [&]() REQUIRES(mCollectionMutex) { return mStop; });
+    if (quit) {
+      return;
+    }
 
-  if (mMutex.try_lock()) {
     ConsumeAllLocked();
-    mMutex.unlock();
   }
 }
 
@@ -74,6 +77,9 @@ bool NetworkTracePoller::Start(uint32_t pollMs) {
 }
 
 bool NetworkTracePoller::DoStart(uint32_t pollMs) {
+  std::scoped_lock<std::mutex> collection_lock(mCollectionMutex);
+  mStop = false;
+
   auto status = mConfigurationMap.init(PACKET_TRACE_ENABLED_MAP_PATH);
   if (!status.ok()) {
     ALOGW("Failed to bind config map: %s", status.error().message().c_str());
@@ -94,12 +100,14 @@ bool NetworkTracePoller::DoStart(uint32_t pollMs) {
 
   mRingBuffer = std::move(*rb);
 
-  // Start a task runner to run ConsumeAll every mPollMs milliseconds.
-  mTaskRunner = perfetto::Platform::GetDefaultPlatform()->CreateTaskRunner({});
   mPollMs = pollMs;
-  mTaskRunner->PostDelayedTask([runner = mTaskRunner.get(),
-                                pollMs, this]() { PollAndSchedule(runner, pollMs); },
-                               pollMs);
+
+  // Start a task runner to run ConsumeAll every pollMs milliseconds.
+  mThread.emplace([this, pollMs]() {
+    ThreadMain(pollMs);
+  });
+
+  mSessionCount++;
   return true;
 }
 
@@ -116,6 +124,17 @@ bool NetworkTracePoller::Stop() {
 }
 
 bool NetworkTracePoller::DoStop() {
+  {
+    std::scoped_lock<std::mutex> collection_lock(mCollectionMutex);
+    mStop = true;
+    mStopCond.notify_all();
+  }
+
+  mThread->join();
+  mThread.reset();
+
+  std::scoped_lock<std::mutex> collection_lock(mCollectionMutex);
+
   auto res = mConfigurationMap.writeValue(0, false, BPF_ANY);
   if (!res.ok()) {
     ALOGW("Failed to disable tracing: %s", res.error().message().c_str());
@@ -132,7 +151,6 @@ bool NetworkTracePoller::DoStop() {
   // the last batch of events to Perfetto.
   ConsumeAllLocked();
 
-  mTaskRunner.reset();
   mRingBuffer.reset();
 
   return res.ok();
@@ -140,6 +158,7 @@ bool NetworkTracePoller::DoStop() {
 
 bool NetworkTracePoller::ConsumeAll() {
   std::scoped_lock<std::mutex> lock(mMutex);
+  std::scoped_lock<std::mutex> collection_lock(mCollectionMutex);
   return ConsumeAllLocked();
 }
 

@@ -16,10 +16,9 @@
 
 #pragma once
 
-#include <perfetto/base/task_runner.h>
-#include <perfetto/tracing.h>
-
+#include <condition_variable>
 #include <string>
+#include <thread>
 #include <unordered_map>
 
 #include "android-base/thread_annotations.h"
@@ -52,19 +51,13 @@ class NetworkTracePoller {
   bool Stop() EXCLUDES(mMutex);
 
   // Consumes all available events from the ringbuffer.
-  bool ConsumeAll() EXCLUDES(mMutex);
+  bool ConsumeAll() EXCLUDES(mMutex) EXCLUDES(mMutex) EXCLUDES(mCollectionMutex);
 
  private:
-  // Poll the ring buffer for new data and schedule another run of ourselves
-  // after poll_ms (essentially polling periodically until stopped). This takes
-  // in the runner and poll duration to prevent a hard requirement on the lock
-  // and thus a deadlock while resetting the TaskRunner. The runner pointer is
-  // always valid within tasks run by that runner.
-  void PollAndSchedule(perfetto::base::TaskRunner* runner, uint32_t poll_ms)
-      EXCLUDES(mMutex);
-  bool ConsumeAllLocked() REQUIRES(mMutex);
-  bool DoStart(uint32_t pollMs) REQUIRES(mMutex);
-  bool DoStop() REQUIRES(mMutex);
+  void ThreadMain(uint32_t poll_ms) EXCLUDES(mCollectionMutex);
+  bool ConsumeAllLocked() REQUIRES(mCollectionMutex);
+  bool DoStart(uint32_t pollMs) REQUIRES(mMutex) EXCLUDES(mCollectionMutex);
+  bool DoStop() REQUIRES(mMutex) EXCLUDES(mCollectionMutex);
 
   std::mutex mMutex;
 
@@ -77,16 +70,21 @@ class NetworkTracePoller {
   // How often to poll the ring buffer, defined by the trace config.
   uint32_t mPollMs GUARDED_BY(mMutex);
 
+  std::mutex mCollectionMutex ACQUIRED_AFTER(mMutex);
+
   // The function to process PacketTrace, typically a Perfetto sink.
-  EventSink mCallback GUARDED_BY(mMutex);
+  EventSink mCallback GUARDED_BY(mCollectionMutex);
 
   // The BPF ring buffer handle.
-  std::unique_ptr<BpfRingbuf<PacketTrace>> mRingBuffer GUARDED_BY(mMutex);
+  std::unique_ptr<BpfRingbuf<PacketTrace>> mRingBuffer GUARDED_BY(mCollectionMutex);
 
   // The packet tracing config map (really a 1-element array).
-  BpfMap<uint32_t, bool> mConfigurationMap GUARDED_BY(mMutex);
+  BpfMap<uint32_t, bool> mConfigurationMap GUARDED_BY(mCollectionMutex);
 
-  std::unique_ptr<perfetto::base::TaskRunner> mTaskRunner GUARDED_BY(mMutex);
+  std::condition_variable mStopCond GUARDED_BY(mCollectionMutex);
+  bool mStop GUARDED_BY(mCollectionMutex) = true;
+
+  std::optional<std::thread> mThread GUARDED_BY(mMutex);
 };
 
 }  // namespace internal
