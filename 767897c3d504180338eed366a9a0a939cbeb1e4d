@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abcf4ebd_3d1c25eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-10-24T06:10:25Z",
+      "side": 1,
+      "message": "Could you make the commit message more elaborate? e.g. what is the issue and how it get fixed.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 119
+      },
+      "revId": "767897c3d504180338eed366a9a0a939cbeb1e4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
