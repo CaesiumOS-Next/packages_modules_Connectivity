@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d93efe0a_437b23bc",
+        "filename": "staticlibs/device/com/android/net/module/util/IBpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-10-25T21:38:52Z",
+      "side": 1,
+      "message": "can these be removed from TestBpfMap now?",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 88
+      },
+      "revId": "74641d82c4cf3ef60b483ce0b9c968fed1c7e2c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
