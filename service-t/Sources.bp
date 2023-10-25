@@ -36,3 +36,22 @@ filegroup {
     ],
 }
 
+filegroup {
+    name: "services.connectivity-servicemanagerwrapper-jni-sources",
+    srcs: [
+        "jni/com_android_server_net_ServiceManagerWrapper.cpp",
+    ],
+    visibility: [
+        "//packages/modules/Connectivity:__subpackages__",
+    ],
+}
+
+filegroup {
+    name: "services.connectivity-servicemanagerwrapper-java-sources",
+    srcs: [
+        "src/com/android/server/net/ServiceManagerWrapper.java",
+    ],
+    visibility: [
+        "//packages/modules/Connectivity/thread:__subpackages__",
+    ],
+}
