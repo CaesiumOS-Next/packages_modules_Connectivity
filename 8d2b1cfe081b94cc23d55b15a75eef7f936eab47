@@ -16,6 +16,24 @@
       "message": "```suggestion\n            @NonNull final LocalNetworkConfig newConfig) {\n```\nnit: to be consistent with other methods",
       "revId": "8d2b1cfe081b94cc23d55b15a75eef7f936eab47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7080f3f_3889ae67",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 8951,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9695bafa_fc6dce4e",
+      "revId": "8d2b1cfe081b94cc23d55b15a75eef7f936eab47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

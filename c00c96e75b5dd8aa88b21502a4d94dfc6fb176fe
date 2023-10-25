@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5dca723_62e1d842",
+        "filename": "framework/src/android/net/MulticastRoutingConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62494869_621c176e",
+      "range": {
+        "startLine": 292,
+        "startChar": 1,
+        "endLine": 309,
+        "endChar": 5
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f69ea4a9_986c645f",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25cd9b68_387dd7ed",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f69ea4a9_986c645f",
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8077846b_57b551ad",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-10-24T03:50:44Z",
       "side": 1,
       "message": "Ditto: there is no MulticastRoutingCoordinator",
+      "range": {
+        "startLine": 16,
+        "startChar": 17,
+        "endLine": 16,
+        "endChar": 47
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c74cf2f1_06cbb9f8",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8077846b_57b551ad",
       "range": {
         "startLine": 16,
         "startChar": 17,
@@ -87,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c469021b_536f94b4",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59e2324d_4981c9bf",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 102
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d9b3300_03c9390c",
@@ -100,6 +190,30 @@
       "writtenOn": "2023-10-24T03:50:44Z",
       "side": 1,
       "message": "```suggestion\n            jniThrowExceptionFmt(env, \"java/io/IOException\", \"%s (%s)\", msg, strerror(aValue));                           \\\n            return -1;                       \\\n```\n\nPoints:\n1. Include the error information in the Exception message\n2. You need to explicitly `return` to break from the method (`jniThrowExceptionFmt` doesn\u0027t throw an exception from your c++ code immediately)",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 72
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b62fb131_b33c9b75",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d9b3300_03c9390c",
       "range": {
         "startLine": 42,
         "startChar": 0,
@@ -156,6 +270,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86d9aa11_9a6bf8f4",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cad74df5_7c7abaed",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 124
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2b13ec1_9a037162",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0328f7a5_235bb352",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 124
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6a84209_73d22eb3",
@@ -202,6 +364,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eeb55c6_724c6db5",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6a84209_73d22eb3",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 101
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a089fb8e_cfa895e0",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "935c0c80_787e3251",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 18
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cff2ae29_df42eaf0",
@@ -225,6 +435,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "621ccc55_bab6e388",
+        "filename": "service/jni/com_android_server_MulticastRoutingCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cff2ae29_df42eaf0",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 102
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "853c1478_15a700ab",
@@ -238,6 +472,30 @@
       "writtenOn": "2023-10-24T03:50:44Z",
       "side": 1,
       "message": "```suggestion\n    private Map\u003cByte, String\u003e mInterfaceNameMap \u003d new HashMap\u003c\u003e();\n```",
+      "range": {
+        "startLine": 84,
+        "startChar": 30,
+        "endLine": 84,
+        "endChar": 44
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dae3a6c_c5fcb7da",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "853c1478_15a700ab",
       "range": {
         "startLine": 84,
         "startChar": 30,
@@ -294,6 +552,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7f90a54_d5819daf",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ba88fc5_8b74a583",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 97,
+        "endChar": 78
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "212ede05_22833b66",
@@ -307,6 +589,30 @@
       "writtenOn": "2023-10-24T03:50:44Z",
       "side": 1,
       "message": "```suggestion\n    private static final class MulticastRoutingConfigIif {\n```",
+      "range": {
+        "startLine": 111,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 43
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad406ad0_485b26de",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "212ede05_22833b66",
       "range": {
         "startLine": 111,
         "startChar": 4,
@@ -340,6 +646,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d8a4e8a_852612d8",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8719650_776ef787",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 61
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c08bd40_a22b0972",
@@ -357,6 +687,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37f6cfd8_6745b9a2",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c08bd40_a22b0972",
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0cfef793_158a81a4",
@@ -370,6 +718,24 @@
       "writtenOn": "2023-10-24T02:50:30Z",
       "side": 1,
       "message": "private function",
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e4ad8d4_5fd76a8b",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cfef793_158a81a4",
       "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -431,6 +797,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2ea73b2_a6e079df",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f10e979_751fb178",
+      "range": {
+        "startLine": 628,
+        "startChar": 0,
+        "endLine": 657,
+        "endChar": 9
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a994d26a_b56f0b79",
@@ -444,6 +834,30 @@
       "writtenOn": "2023-10-24T03:50:44Z",
       "side": 1,
       "message": "ditto: narrow down try-catch",
+      "range": {
+        "startLine": 672,
+        "startChar": 12,
+        "endLine": 676,
+        "endChar": 58
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf55ceb2_8640caa9",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a994d26a_b56f0b79",
       "range": {
         "startLine": 672,
         "startChar": 12,
@@ -477,6 +891,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "588dd277_3c60755f",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fda1be65_6dc0b882",
+      "range": {
+        "startLine": 717,
+        "startChar": 0,
+        "endLine": 722,
+        "endChar": 14
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f30c7e96_5a05073e",
@@ -490,6 +928,30 @@
       "writtenOn": "2023-10-24T03:50:44Z",
       "side": 1,
       "message": "This is a duplicated logging, the same message is logged in the JNI code already.\n\nYou probably want to remove the logging message in the JNI code",
+      "range": {
+        "startLine": 728,
+        "startChar": 12,
+        "endLine": 728,
+        "endChar": 79
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10df39af_3fd9aa1b",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f30c7e96_5a05073e",
       "range": {
         "startLine": 728,
         "startChar": 12,
@@ -523,6 +985,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c99e5d0c_e7ee8d26",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdb6012e_9a5f241d",
+      "range": {
+        "startLine": 782,
+        "startChar": 24,
+        "endLine": 782,
+        "endChar": 38
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9ac8f10_c231443e",
@@ -536,6 +1022,30 @@
       "writtenOn": "2023-10-24T03:50:44Z",
       "side": 1,
       "message": "Rename \"handleMessage\" to \"handleMulticastNocacheUpcall\"?",
+      "range": {
+        "startLine": 803,
+        "startChar": 32,
+        "endLine": 803,
+        "endChar": 45
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa153dac_14a3e864",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9ac8f10_c231443e",
       "range": {
         "startLine": 803,
         "startChar": 32,
@@ -563,6 +1073,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c399e6c5_10b65691",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7439cab1_6bdbe765",
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bdde503_2d34ca9f",
@@ -576,6 +1104,30 @@
       "writtenOn": "2023-10-24T03:50:44Z",
       "side": 1,
       "message": "Please fix this WARNING reported by Check Contents: Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nLines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 145
+      },
+      "revId": "c00c96e75b5dd8aa88b21502a4d94dfc6fb176fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f2e6e9d_dfdfcd18",
+        "filename": "service/src/com/android/server/connectivity/StructMrt6Msg.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:03:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bdde503_2d34ca9f",
       "range": {
         "startLine": 23,
         "startChar": 0,
