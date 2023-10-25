@@ -50,6 +50,11 @@ cc_library_shared {
     cflags: [
         "-Wall",
         "-Werror",
+
+        // AServiceManager_waitForService is available on only 31+, but it's still safe because the
+        // Thread system service will be enabled on only 34+
+        "-Wno-unguarded-availability",
+
         "-Wno-unused-parameter",
         "-Wthread-safety",
     ],
@@ -58,6 +63,7 @@ cc_library_shared {
     ],
     shared_libs: [
         "libbase",
+        "libbinder_ndk",
         "libcutils",
         "liblog",
         "libnativehelper",
