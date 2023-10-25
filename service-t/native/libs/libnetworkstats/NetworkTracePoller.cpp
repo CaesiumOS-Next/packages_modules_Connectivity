@@ -29,6 +29,14 @@ namespace android {
 namespace bpf {
 namespace internal {
 
+NetworkTracePoller::~NetworkTracePoller() {
+  std::scoped_lock<std::mutex> lock(mMutex);
+
+  if (mSessionCount > 0) {
+    DoStop();
+  }
+}
+
 void NetworkTracePoller::PollAndSchedule(perfetto::base::TaskRunner* runner,
                                          uint32_t poll_ms) {
   // Always schedule another run of ourselves to recursively poll periodically.
@@ -58,6 +66,14 @@ bool NetworkTracePoller::Start(uint32_t pollMs) {
     return true;
   }
 
+  bool res = DoStart(pollMs);
+  if (res) {
+    mSessionCount = 1;
+  }
+  return res;
+}
+
+bool NetworkTracePoller::DoStart(uint32_t pollMs) {
   auto status = mConfigurationMap.init(PACKET_TRACE_ENABLED_MAP_PATH);
   if (!status.ok()) {
     ALOGW("Failed to bind config map: %s", status.error().message().c_str());
@@ -70,13 +86,13 @@ bool NetworkTracePoller::Start(uint32_t pollMs) {
     return false;
   }
 
-  mRingBuffer = std::move(*rb);
-
   auto res = mConfigurationMap.writeValue(0, true, BPF_ANY);
   if (!res.ok()) {
     ALOGW("Failed to enable tracing: %s", res.error().message().c_str());
     return false;
   }
+
+  mRingBuffer = std::move(*rb);
 
   // Start a task runner to run ConsumeAll every mPollMs milliseconds.
   mTaskRunner = perfetto::Platform::GetDefaultPlatform()->CreateTaskRunner({});
@@ -84,8 +100,6 @@ bool NetworkTracePoller::Start(uint32_t pollMs) {
   mTaskRunner->PostDelayedTask([runner = mTaskRunner.get(),
                                 pollMs, this]() { PollAndSchedule(runner, pollMs); },
                                pollMs);
-
-  mSessionCount++;
   return true;
 }
 
@@ -98,6 +112,10 @@ bool NetworkTracePoller::Stop() {
   // If this isn't the last session, don't clean up yet.
   if (--mSessionCount > 0) return true;
 
+  return DoStop();
+}
+
+bool NetworkTracePoller::DoStop() {
   auto res = mConfigurationMap.writeValue(0, false, BPF_ANY);
   if (!res.ok()) {
     ALOGW("Failed to disable tracing: %s", res.error().message().c_str());

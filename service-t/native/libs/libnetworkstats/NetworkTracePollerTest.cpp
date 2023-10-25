@@ -306,6 +306,56 @@ TEST_F(NetworkTracePollerTest, ConsumeAllTraceTcpSession) {
       << PacketPrinter{packets};
 }
 
+TEST_F(NetworkTracePollerTest, StartAndDestruct) {
+  std::mutex mu;
+  std::condition_variable cond /*GUARDED_BY(mu)*/;
+  std::vector<PacketTrace> packets /*GUARDED_BY(mu)*/;
+
+  UdpSockets sockets(2);
+  std::unordered_set<__be16> interesting_ports;
+  for (size_t i = 0; i < sockets.size(); i++) {
+    interesting_ports.insert(sockets.port(i));
+  }
+
+  // Record all packets with the bound addresses and current uid.
+  auto record_cb = [&](const std::vector<PacketTrace>& pkts) {
+    std::scoped_lock<std::mutex> lock(mu);
+    cond.notify_all();
+    for (const PacketTrace& pkt : pkts) {
+      if (pkt.uid == getuid() && pkt.ipProto == IPPROTO_UDP &&
+          interesting_ports.count(pkt.sport) == 1 &&
+          interesting_ports.count(pkt.dport) == 1) {
+        packets.push_back(pkt);
+      }
+    }
+  };
+
+  {
+    NetworkTracePoller handler(record_cb);
+
+    ASSERT_TRUE(handler.Start(/*pollMs=*/5));
+    // Destruct handler without calling Stop().
+  }
+
+  {
+    std::scoped_lock<std::mutex> lock(mu);
+    packets.clear();
+  }
+
+  // This packet should not be seen.
+  ASSERT_TRUE(sockets.SendPacket(0, 1));
+
+  NetworkTracePoller handler(record_cb);
+
+  ASSERT_TRUE(handler.Start(/*pollMs=*/5));
+  ASSERT_TRUE(handler.Stop());
+
+  std::scoped_lock<std::mutex> lock(mu);
+
+  // The above packet should not be there.
+  EXPECT_TRUE(packets.empty());
+}
+
 TEST_F(NetworkTracePollerTest, PeriodicConcurrentAndRestart) {
   std::mutex mu;
   std::condition_variable cond /*GUARDED_BY(mu)*/;
