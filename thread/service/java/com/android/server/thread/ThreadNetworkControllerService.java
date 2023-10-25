@@ -23,6 +23,9 @@ import android.net.thread.ThreadNetworkController;
 
 /** Implementation of the {@link ThreadNetworkController} API. */
 public final class ThreadNetworkControllerService extends IThreadNetworkController.Stub {
+    static {
+        System.loadLibrary("service-connectivity");
+    }
 
     @Override
     public int getThreadVersion() {
