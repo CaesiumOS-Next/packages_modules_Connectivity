@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3c8a281_e4575da3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-10-25T07:41:36Z",
+      "side": 1,
+      "message": "We already have MTS test which cover triggering tethering restart by address conflict. The test keep pass before and after this change.\n\nTetheringModuleTest#testSwitchBasePrefixRangeWhenConflict\n\nTetheringModuleTest#testSwitchPrefixRangeWhenConflict\n\nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/master/+/master:packages/modules/Connectivity/Tethering/tests/mts/src/android/tethering/mts/TetheringModuleTest.java;l\u003d68?q\u003dtetheringmoduletest",
+      "parentUuid": "8b71e074_ea5aaf7c",
+      "revId": "36a30af3d3b26db4f1af4f18017d772edabeb990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c48a58c0_56c6d04b",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-09-25T10:22:18Z",
       "side": 1,
       "message": "You don\u0027t need to call this, it will be unboxed for you.",
+      "range": {
+        "startLine": 2187,
+        "startChar": 71,
+        "endLine": 2187,
+        "endChar": 83
+      },
+      "revId": "36a30af3d3b26db4f1af4f18017d772edabeb990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e39f062d_dd470637",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2187,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-10-25T07:41:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c48a58c0_56c6d04b",
       "range": {
         "startLine": 2187,
         "startChar": 71,
