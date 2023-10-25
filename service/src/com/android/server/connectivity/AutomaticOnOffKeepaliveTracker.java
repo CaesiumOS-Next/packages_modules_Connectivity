@@ -712,6 +712,9 @@ public class AutomaticOnOffKeepaliveTracker {
         pw.increaseIndent();
         mEventLog.reverseDump(pw);
         pw.decreaseIndent();
+
+        pw.println();
+        mKeepaliveStatsTracker.dump(pw);
     }
 
     /**
