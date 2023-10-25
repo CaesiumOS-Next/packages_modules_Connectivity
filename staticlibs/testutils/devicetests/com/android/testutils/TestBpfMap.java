@@ -50,15 +50,6 @@ public class TestBpfMap<K extends Struct, V extends Struct> implements IBpfMap<K
     }
 
     @Override
-    public void forEach(ThrowingBiConsumer<K, V> action) throws ErrnoException {
-        // TODO: consider using mocked #getFirstKey and #getNextKey to iterate. It helps to
-        // implement the entry deletion in the iteration if required.
-        for (Map.Entry<K, V> entry : mMap.entrySet()) {
-            action.accept(entry.getKey(), entry.getValue());
-        }
-    }
-
-    @Override
     public void updateEntry(K key, V value) throws ErrnoException {
         mMap.put(key, value);
     }
@@ -93,11 +84,6 @@ public class TestBpfMap<K extends Struct, V extends Struct> implements IBpfMap<K
     }
 
     @Override
-    public boolean isEmpty() throws ErrnoException {
-        return mMap.isEmpty();
-    }
-
-    @Override
     public K getNextKey(@NonNull K key) {
         // Expensive, but since this is only for tests...
         Iterator<K> it = mMap.keySet().iterator();
@@ -127,15 +113,5 @@ public class TestBpfMap<K extends Struct, V extends Struct> implements IBpfMap<K
         // Return value for a given key. Otherwise, return null without an error ENOENT.
         // BpfMap#getValue treats that the entry is not found as no error.
         return mMap.get(key);
-    }
-
-    @Override
-    public void clear() throws ErrnoException {
-        // TODO: consider using mocked #getFirstKey and #deleteEntry to implement.
-        mMap.clear();
-    }
-
-    @Override
-    public void close() throws IOException {
     }
 }
