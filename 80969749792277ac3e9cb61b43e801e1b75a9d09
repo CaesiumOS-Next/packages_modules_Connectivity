@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "723d9b4d_ae2b1264",
+        "filename": "tests/unit/java/android/net/MulticastRoutingConfigTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-10-25T01:45:51Z",
+      "side": 1,
+      "message": "I wonder if there should also be test cases where two configs don\u0027t equal?",
+      "revId": "80969749792277ac3e9cb61b43e801e1b75a9d09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
