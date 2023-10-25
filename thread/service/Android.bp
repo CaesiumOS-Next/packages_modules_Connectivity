@@ -20,7 +20,10 @@ package {
 
 filegroup {
     name: "service-thread-sources",
-    srcs: ["java/**/*.java"],
+    srcs: [
+        ":services.connectivity-servicemanagerwrapper-java-sources",
+        "java/**/*.java",
+    ],
 }
 
 java_library {
