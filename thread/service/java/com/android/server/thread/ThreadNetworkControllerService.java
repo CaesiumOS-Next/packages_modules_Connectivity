@@ -160,7 +160,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 context,
                 handlerThread,
                 networkProvider,
-                ThreadNetworkControllerService::waitForOtDaemon,
+                ServiceManagerWrapper::waitForThreadDaemonService,
                 context.getSystemService(ConnectivityManager.class),
                 new TunInterfaceController(TUN_IF_NAME));
     }
