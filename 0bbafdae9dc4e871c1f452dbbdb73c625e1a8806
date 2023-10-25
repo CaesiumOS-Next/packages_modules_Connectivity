@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0d06a8c_eaf9aa9e",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1017,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-25T14:36:47Z",
+      "side": 1,
+      "message": "It\u0027s strange to keep a builder as a member field. Usually, builders are used in-place to construct the data object.\n\nHow about we have `mUpstreamMulticastRoutingConfig` and `mDownstreamMulticastRoutingConfig` or just `mLocalNetworkConfig`? Everytime changes are detected, we build a new localNetworkConfig from the new state and send it to ConnectivityService.",
+      "range": {
+        "startLine": 1016,
+        "startChar": 2,
+        "endLine": 1017,
+        "endChar": 90
+      },
+      "revId": "0bbafdae9dc4e871c1f452dbbdb73c625e1a8806",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
