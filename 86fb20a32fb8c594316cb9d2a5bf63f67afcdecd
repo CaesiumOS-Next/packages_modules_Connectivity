@@ -46,6 +46,30 @@
       },
       "revId": "86fb20a32fb8c594316cb9d2a5bf63f67afcdecd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42a05b59_f680f383",
+        "filename": "service/src/com/android/server/connectivity/DnsManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-25T06:10:52Z",
+      "side": 1,
+      "message": "you missed the tile.\n/**\n * Update {@link NetworkCapabilities} stored in this instance.\n *\n * .....",
+      "parentUuid": "268f6265_74a84216",
+      "range": {
+        "startLine": 329,
+        "startChar": 77,
+        "endLine": 329,
+        "endChar": 84
+      },
+      "revId": "86fb20a32fb8c594316cb9d2a5bf63f67afcdecd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
