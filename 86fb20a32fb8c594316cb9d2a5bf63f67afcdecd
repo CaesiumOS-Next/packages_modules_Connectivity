@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7352073_261447bb",
+        "filename": "service/src/com/android/server/connectivity/DnsManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-25T04:35:43Z",
+      "side": 1,
+      "message": "1. capability\n\n2. maybe:\nUpdate {@link NetworkCapabilities} stored in this instance.\n\nIn order to ensure that the resolver has access to necessary information when other events occur, capabilities are always saved to a hashMap before updating the DNS configuration whenever a new network is created, transport types are modified, or metered capabilities are altered for a network. When a network is destroyed, the corresponding entry is removed from the hashMap. To prevent concurrency issues, the hashMap should always be accessed from the same thread.",
+      "range": {
+        "startLine": 329,
+        "startChar": 77,
+        "endLine": 329,
+        "endChar": 84
+      },
+      "revId": "86fb20a32fb8c594316cb9d2a5bf63f67afcdecd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
