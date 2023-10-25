@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7def8139_d4951398",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:37:02Z",
+      "side": 1,
+      "message": "Q: I wonder what does legacyType mean in networkAgentConfig and why is it WIFI for thread?",
+      "revId": "358c03f25d7630bf8545d397e12d492e7e3e78a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb76d148_9a074230",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-25T04:37:02Z",
+      "side": 1,
+      "message": "what about disabling BR when AIL is lost?",
+      "revId": "358c03f25d7630bf8545d397e12d492e7e3e78a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
