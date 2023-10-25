@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9d6c339_e109a664",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsEventLogger.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-25T11:25:04Z",
+      "side": 1,
+      "message": "Removed.\nPOLL_REASON_UNKNOWN was for uninitialized object.\nBut it is structurely not possible now.",
+      "parentUuid": "8b212307_e40da57c",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 9
+      },
+      "revId": "a8f64c806306d477399c9f8f7481490a10592eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "def5e1b9_ff995c26",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93d96427_6f7776c9",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 2110,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-25T11:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "def5e1b9_ff995c26",
+      "range": {
+        "startLine": 2110,
+        "startChar": 48,
+        "endLine": 2110,
+        "endChar": 50
+      },
+      "revId": "a8f64c806306d477399c9f8f7481490a10592eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5aee249_7ea00c67",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-10-23T06:02:24Z",
       "side": 1,
       "message": "nits: This lock is already acquired at L2663",
+      "range": {
+        "startLine": 2791,
+        "startChar": 16,
+        "endLine": 2791,
+        "endChar": 43
+      },
+      "revId": "a8f64c806306d477399c9f8f7481490a10592eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bb2514b_3f36f77d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 2791,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-25T11:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5aee249_7ea00c67",
       "range": {
         "startLine": 2791,
         "startChar": 16,
