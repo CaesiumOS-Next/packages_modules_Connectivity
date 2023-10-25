@@ -35,4 +35,3 @@ filegroup {
         "//packages/modules/Connectivity:__subpackages__",
     ],
 }
-
