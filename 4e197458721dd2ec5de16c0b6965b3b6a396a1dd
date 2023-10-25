@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1769bfdc_711f3b0e",
+        "filename": "framework/src/android/net/DataSaverStatusTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-25T10:53:20Z",
+      "side": 1,
+      "message": "More context for the design.\n\nhttps://docs.google.com/document/d/1pm2pWxrtX9hOJCmehaoDBp2UnW7ooZ1-UWMh_AIAuAc/edit?disco\u003dAAAA33ZoEZk",
+      "range": {
+        "startLine": 42,
+        "startChar": 13,
+        "endLine": 42,
+        "endChar": 35
+      },
+      "revId": "4e197458721dd2ec5de16c0b6965b3b6a396a1dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
