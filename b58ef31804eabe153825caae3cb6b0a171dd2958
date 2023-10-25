@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e5d2585_3d3e34de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-25T10:42:09Z",
+      "side": 1,
+      "message": "LGTM except please check that this is not a behaviour change on R.\n\nSee https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2600306/24/Tethering/tests/unit/src/android/net/ip/IpServerTest.java#b645",
+      "revId": "b58ef31804eabe153825caae3cb6b0a171dd2958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bff5cd2_d2773452",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-25T10:42:09Z",
+      "side": 1,
+      "message": "Nit: might be better to use Set.of(). Then you can remove the if in line 296.",
+      "range": {
+        "startLine": 284,
+        "startChar": 63,
+        "endLine": 284,
+        "endChar": 67
+      },
+      "revId": "b58ef31804eabe153825caae3cb6b0a171dd2958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6030a55d_502f5b56",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1036,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-25T10:42:09Z",
+      "side": 1,
+      "message": "Nit: why not ArrayMap?",
+      "range": {
+        "startLine": 1036,
+        "startChar": 8,
+        "endLine": 1036,
+        "endChar": 15
+      },
+      "revId": "b58ef31804eabe153825caae3cb6b0a171dd2958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99d0e81e_90a7813f",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1064,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-25T10:42:09Z",
+      "side": 1,
+      "message": "Nit: ArraySet.",
+      "range": {
+        "startLine": 1064,
+        "startChar": 47,
+        "endLine": 1064,
+        "endChar": 54
+      },
+      "revId": "b58ef31804eabe153825caae3cb6b0a171dd2958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e633b77a_499c8ab9",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1075,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-25T10:42:09Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1075,
+        "startChar": 35,
+        "endLine": 1075,
+        "endChar": 42
+      },
+      "revId": "b58ef31804eabe153825caae3cb6b0a171dd2958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9c4312e_138c38c7",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1375,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-25T10:42:09Z",
+      "side": 1,
+      "message": "Nit: would add some addresses here, because that\u0027s more realistic.",
+      "range": {
+        "startLine": 1375,
+        "startChar": 65,
+        "endLine": 1375,
+        "endChar": 77
+      },
+      "revId": "b58ef31804eabe153825caae3cb6b0a171dd2958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ad5a66f_ec9112c4",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1658,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-25T10:42:09Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1658,
+        "startChar": 65,
+        "endLine": 1658,
+        "endChar": 77
+      },
+      "revId": "b58ef31804eabe153825caae3cb6b0a171dd2958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdf22cc1_91a9c132",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-25T10:42:09Z",
+      "side": 1,
+      "message": "ArrayMap?",
+      "range": {
+        "startLine": 691,
+        "startChar": 8,
+        "endLine": 691,
+        "endChar": 15
+      },
+      "revId": "b58ef31804eabe153825caae3cb6b0a171dd2958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e1186a8_5db94a00",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-25T10:42:09Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 703,
+        "startChar": 8,
+        "endLine": 703,
+        "endChar": 15
+      },
+      "revId": "b58ef31804eabe153825caae3cb6b0a171dd2958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1f9a997_346f69be",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-25T10:42:09Z",
+      "side": 1,
+      "message": "While you\u0027re at it, might want to check that the map size is the same as the expected.size()? This will ensure that there are no duplicates.",
+      "range": {
+        "startLine": 706,
+        "startChar": 8,
+        "endLine": 706,
+        "endChar": 9
+      },
+      "revId": "b58ef31804eabe153825caae3cb6b0a171dd2958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c119d74f_c2a8cc0a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-25T10:42:09Z",
+      "side": 1,
+      "message": "I think you could make this a list instead of a set, and use:\n\n    assertSameElements(expected, keyCaptor.getAllValues());\n\nYou could use a similar technique in verifyAddUpstreamRules as well. Not sure if it would make things simpler though.",
+      "range": {
+        "startLine": 743,
+        "startChar": 8,
+        "endLine": 743,
+        "endChar": 15
+      },
+      "revId": "b58ef31804eabe153825caae3cb6b0a171dd2958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

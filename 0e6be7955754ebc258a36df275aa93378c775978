@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "69029258_c87d8352",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1512,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-25T10:42:09Z",
+      "side": 1,
+      "message": "Would be good to change it, but no need to do it in this CL.",
+      "parentUuid": "15edd6fe_1c70849f",
+      "range": {
+        "startLine": 1512,
+        "startChar": 14,
+        "endLine": 1512,
+        "endChar": 21
+      },
+      "revId": "0e6be7955754ebc258a36df275aa93378c775978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "66d17bd8_03f0f6a6",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 13
@@ -109,6 +133,30 @@
       "side": 1,
       "message": "Changed to ArraySet now and use ArgumentCaptor to do inOrder verification for multiple elements of a Set.",
       "parentUuid": "8e047eaf_62a5a3ac",
+      "range": {
+        "startLine": 266,
+        "startChar": 35,
+        "endLine": 267,
+        "endChar": 24
+      },
+      "revId": "0e6be7955754ebc258a36df275aa93378c775978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02f1c6e1_c7abf28c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-25T10:42:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f3811d28_59b3987a",
       "range": {
         "startLine": 266,
         "startChar": 35,

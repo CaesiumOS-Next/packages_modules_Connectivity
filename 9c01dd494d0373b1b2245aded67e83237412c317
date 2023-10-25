@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cddc09a_2215bed6",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-25T10:42:09Z",
+      "side": 0,
+      "message": "Looks like this is a behaviour change. If I\u0027m reading the code correctly, it looks like we no longer get and clear stats on R if there are no upstream addresses. Does this matter in practice?",
+      "range": {
+        "startLine": 643,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 9
+      },
+      "revId": "9c01dd494d0373b1b2245aded67e83237412c317",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
