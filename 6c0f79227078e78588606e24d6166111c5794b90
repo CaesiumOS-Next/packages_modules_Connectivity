@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d25952a4_cb43febf",
+        "filename": "thread/service/java/com/android/server/thread/ServiceManagerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-26T05:54:17Z",
+      "side": 1,
+      "message": "Instead of making this Thread-specific (i.e.,  putting into the thread package, and making the method be called waitForThreadDaemonService) could we have a general \"com.android.net.util.ServiceManagerWrapper\" class that has an \"IBinder waitForService(String serviceName)?",
+      "range": {
+        "startLine": 17,
+        "startChar": 27,
+        "endLine": 17,
+        "endChar": 33
+      },
+      "revId": "6c0f79227078e78588606e24d6166111c5794b90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
