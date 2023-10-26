@@ -46,6 +46,30 @@
       },
       "revId": "6c0f79227078e78588606e24d6166111c5794b90",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0baae68_5647efe5",
+        "filename": "thread/service/java/com/android/server/thread/ServiceManagerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-26T06:39:37Z",
+      "side": 1,
+      "message": "I don\u0027t think we need to be so defensive?\n\n- Anything outside thread/ can simply copy+paste this code and call waitForThreadService().\n- Nothing outside the tethering apex will be able to call this code because it has apex_available: [\"com.android.tethering\"]\n- If the thread code can\u0027t trust the rest of the code in the com.android.tethering apex, I think we have much bigger problems.\n\nIf you want to limit the usage of this workaround, the best way to do that is to make it easy to do the right thing. We could\n- Add a registerLazyContextAwareService which is similar to registerContextAwareService but instead of calling getServiceOrThrow(serviceName) calls waitForService, and make that module-lib API in V\n- Use that API on V and above.\n- On pre-V, make the code in this CL generally available, but make it throw new UnsupportedOperationException(\"Use registerLazyContextAwareService instead\") if isAtLeastV() returns true.\n\nOnce that API is there nobody will use the workaround and we can make it available to whoever wants to use it. And anyone who needs this on pre-U devices can use it as long as they are careful with it.",
+      "parentUuid": "ff7f4289_6a071fbd",
+      "range": {
+        "startLine": 17,
+        "startChar": 27,
+        "endLine": 17,
+        "endChar": 33
+      },
+      "revId": "6c0f79227078e78588606e24d6166111c5794b90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
