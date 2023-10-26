@@ -40,7 +40,14 @@ import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChange
 import com.android.testutils.TestableNetworkCallback
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.TimeUnit
+import kotlin.test.assertContains
 import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
+
+private const val TIMEOUT_MS = 200L
 
 private fun nc(transport: Int, vararg caps: Int) = NetworkCapabilities.Builder().apply {
     addTransportType(transport)
@@ -75,6 +82,24 @@ class CSLocalAgentTests : CSTest() {
             Agent(nc = NetworkCapabilities.Builder().build(),
                     lnc = LocalNetworkConfig.Builder().build())
         }
+    }
+
+    @Test
+    fun testStructuralConstraintViolation() {
+        val exceptionFuture = CompletableFuture<Throwable>()
+        csHandlerThread.setUncaughtExceptionHandler { thread, throwable ->
+            exceptionFuture.complete(throwable)
+        }
+        val agent = Agent(nc = NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                .build(),
+                lnc = LocalNetworkConfig.Builder().build())
+        agent.connect()
+        assertFalse(exceptionFuture.isDone)
+        agent.sendNetworkCapabilities(NetworkCapabilities.Builder().build())
+        val exception = exceptionFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS)
+        assertTrue(exception is IllegalArgumentException)
+        assertContains(exception.message!!, "NET_CAPABILITY_LOCAL_NETWORK")
     }
 
     @Test
