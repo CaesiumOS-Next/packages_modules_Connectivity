@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c278081c_2e9f2d4c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-10-26T05:56:14Z",
+      "side": 1,
+      "message": "I wonder why renaming it from `OtDaemon` to `ThreadDaemon`?",
+      "revId": "a7ce73cc36b06a71c2ca949ca08176f1d87fc8bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
