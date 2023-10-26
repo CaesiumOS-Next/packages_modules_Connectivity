@@ -70,6 +70,7 @@ import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BinderUtils;
 import com.android.net.module.util.NetdUtils;
 import com.android.net.module.util.PermissionUtils;
+import com.android.net.module.util.netlink.IpSecNetlinkUtils;
 
 import libcore.io.IoUtils;
 
@@ -109,6 +110,8 @@ public class IpSecService extends IIpSecService.Stub {
     @VisibleForTesting static final int MAX_PORT_BIND_ATTEMPTS = 10;
 
     private final INetd mNetd;
+
+    private final IpSecNetlinkUtils mIpSecNetlinkUtils;
 
     static {
         try {
@@ -1116,6 +1119,8 @@ public class IpSecService extends IIpSecService.Stub {
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
+
+        mIpSecNetlinkUtils = new IpSecNetlinkUtils();
     }
 
     /**
@@ -1809,6 +1814,17 @@ public class IpSecService extends IIpSecService.Stub {
                         binder,
                         dependencies.toArray(new RefcountedResource[dependencies.size()])));
         return new IpSecTransformResponse(IpSecManager.Status.OK, resourceId);
+    }
+
+    @Override
+    public synchronized void dumpSa(int seqNo, String destAddress, int spi) {
+        try {
+            android.util.Log.i("IpSecService", "dumpSa");
+            InetAddress address = InetAddresses.parseNumericAddress(destAddress);
+            mIpSecNetlinkUtils.ipSecDumpSa(seqNo, address, spi);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
     /**
