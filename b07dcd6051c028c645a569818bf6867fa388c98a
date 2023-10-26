@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89120eef_f1065f9b",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1125,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T06:59:20Z",
+      "side": 1,
+      "message": "I think this needs some comments. Let\u0027s say at least something like\n\n    This will transition to InitialState right away, regardless of whether any\n    message is already waiting in the StateMachine queue (including maybe some\n    message to go to InitialState).\n    InitialState will then process any pending message (and generally ignores\n    them). It is difficult to know for sure whether this is correct in all\n    cases, but this is equivalent to what IpServer was doing in previous\n    versions of the mainline module.\n    TODO : remove this after migrating to the Sync StateMachine.",
+      "range": {
+        "startLine": 1125,
+        "startChar": 16,
+        "endLine": 1125,
+        "endChar": 50
+      },
+      "revId": "b07dcd6051c028c645a569818bf6867fa388c98a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
