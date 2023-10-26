@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b4f9b3d_4b0047ea",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-26T01:45:20Z",
+      "side": 1,
+      "message": "diabolic!",
+      "range": {
+        "startLine": 55,
+        "startChar": 45,
+        "endLine": 55,
+        "endChar": 52
+      },
+      "revId": "60544f5ccc8e0c9b63f17450d9163407540165f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7d036be_ebe9baa0",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-26T01:45:20Z",
+      "side": 1,
+      "message": "if !metered return false",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 16
+      },
+      "revId": "60544f5ccc8e0c9b63f17450d9163407540165f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d54a0463_4877f40b",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-26T01:45:20Z",
+      "side": 1,
+      "message": "could use comments about what/why",
+      "range": {
+        "startLine": 60,
+        "startChar": 1,
+        "endLine": 62,
+        "endChar": 0
+      },
+      "revId": "60544f5ccc8e0c9b63f17450d9163407540165f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
