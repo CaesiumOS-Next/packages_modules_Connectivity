@@ -139,5 +139,58 @@ TEST_F(DnsBpfHelperTest, IsUidNetworkingBlocked_uninitialized) {
   EXPECT_FALSE(result.value());
 }
 
+// Verify DataSaver on metered network.
+TEST_F(DnsBpfHelperTest, IsUidNetworkingBlocked_metered) {
+  struct TestConfig {
+    const uint32_t enabledRules;  // Settings in UID_RULES_CONFIGURATION_KEY.
+    const uint32_t dataSaver;     // Settings in DATA_SAVER_CONFIGURATION_KEY.
+    const uint32_t uidRules;      // Settings for each UID.
+    const int blocked;            // Whether the UID is expected to be networking blocked or not.
+    std::string asParameters() const {
+      return fmt::format(
+          ", enabledRules: {}, dataSaver: {},  uidRules: {}, expect blocked: {}",
+          enabledRules, dataSaver, uidRules, blocked);
+    }
+  } testConfigs[]{
+    // clang-format off
+    // enabledRules, dataSaver,          uidRules,                                        blocked
+    {NO_MATCH,      DATA_SAVER_DISABLED, NO_MATCH,                                        false},
+    {NO_MATCH,      DATA_SAVER_DISABLED, PENALTY_BOX_MATCH,                               true},
+    {NO_MATCH,      DATA_SAVER_DISABLED, HAPPY_BOX_MATCH,                                 false},
+    {NO_MATCH,      DATA_SAVER_DISABLED, PENALTY_BOX_MATCH|HAPPY_BOX_MATCH,               true},
+    {NO_MATCH,      DATA_SAVER_ENABLED,  NO_MATCH,                                        true},
+    {NO_MATCH,      DATA_SAVER_ENABLED,  PENALTY_BOX_MATCH,                               true},
+    {NO_MATCH,      DATA_SAVER_ENABLED,  HAPPY_BOX_MATCH,                                 false},
+    {NO_MATCH,      DATA_SAVER_ENABLED,  PENALTY_BOX_MATCH|HAPPY_BOX_MATCH,               true},
+    {STANDBY_MATCH, DATA_SAVER_DISABLED, STANDBY_MATCH,                                   true},
+    {STANDBY_MATCH, DATA_SAVER_DISABLED, STANDBY_MATCH|PENALTY_BOX_MATCH,                 true},
+    {STANDBY_MATCH, DATA_SAVER_DISABLED, STANDBY_MATCH|HAPPY_BOX_MATCH,                   true},
+    {STANDBY_MATCH, DATA_SAVER_DISABLED, STANDBY_MATCH|PENALTY_BOX_MATCH|HAPPY_BOX_MATCH, true},
+    {STANDBY_MATCH, DATA_SAVER_ENABLED,  STANDBY_MATCH,                                   true},
+    {STANDBY_MATCH, DATA_SAVER_ENABLED,  STANDBY_MATCH|PENALTY_BOX_MATCH,                 true},
+    {STANDBY_MATCH, DATA_SAVER_ENABLED,  STANDBY_MATCH|HAPPY_BOX_MATCH,                   true},
+    {STANDBY_MATCH, DATA_SAVER_ENABLED,  STANDBY_MATCH|PENALTY_BOX_MATCH|HAPPY_BOX_MATCH, true},
+    // clang-format on
+  };
+
+  for (const auto& config : testConfigs) {
+    SCOPED_TRACE(config.asParameters());
+
+    // Setup maps.
+    EXPECT_RESULT_OK(mFakeConfigurationMap.writeValue(UID_RULES_CONFIGURATION_KEY,
+                                                      config.enabledRules, BPF_EXIST));
+    EXPECT_RESULT_OK(mFakeConfigurationMap.writeValue(DATA_SAVER_CONFIGURATION_KEY,
+                                                      config.dataSaver, BPF_EXIST));
+    EXPECT_RESULT_OK(mFakeUidOwnerMap.writeValue(AID_APP_START, {.iif = 0, .rule = config.uidRules},
+                                                 BPF_ANY));
+
+    // Verify the function.
+    android::base::Result<bool> result =
+        mDBHelper.isUidNetworkingBlocked(AID_APP_START, /*metered=*/true);
+    EXPECT_TRUE(result.ok());
+    EXPECT_EQ(config.blocked, result.value());
+  }
+}
+
 }  // namespace net
 }  // namespace android
