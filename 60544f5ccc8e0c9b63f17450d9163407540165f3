@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "879f0d95_c1c4cd36",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-26T01:58:02Z",
+      "side": 1,
+      "message": "lol",
+      "parentUuid": "3b4f9b3d_4b0047ea",
+      "range": {
+        "startLine": 55,
+        "startChar": 45,
+        "endLine": 55,
+        "endChar": 52
+      },
+      "revId": "60544f5ccc8e0c9b63f17450d9163407540165f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7d036be_ebe9baa0",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3efd2980_c3c21843",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-26T01:58:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7d036be_ebe9baa0",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 16
+      },
+      "revId": "60544f5ccc8e0c9b63f17450d9163407540165f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d54a0463_4877f40b",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-10-26T01:45:20Z",
       "side": 1,
       "message": "could use comments about what/why",
+      "range": {
+        "startLine": 60,
+        "startChar": 1,
+        "endLine": 62,
+        "endChar": 0
+      },
+      "revId": "60544f5ccc8e0c9b63f17450d9163407540165f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa88b241_e656b22c",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-26T01:58:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d54a0463_4877f40b",
       "range": {
         "startLine": 60,
         "startChar": 1,
