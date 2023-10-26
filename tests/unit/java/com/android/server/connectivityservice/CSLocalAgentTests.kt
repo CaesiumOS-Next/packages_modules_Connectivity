@@ -37,10 +37,18 @@ import com.android.testutils.RecorderCallback.CallbackEntry.Available
 import com.android.testutils.RecorderCallback.CallbackEntry.BlockedStatus
 import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
+import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.TestableNetworkCallback
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.TimeUnit
+import kotlin.test.assertContains
 import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
+
+private const val TIMEOUT_MS = 200L
 
 private fun nc(transport: Int, vararg caps: Int) = NetworkCapabilities.Builder().apply {
     addTransportType(transport)
@@ -75,6 +83,39 @@ class CSLocalAgentTests : CSTest() {
             Agent(nc = NetworkCapabilities.Builder().build(),
                     lnc = LocalNetworkConfig.Builder().build())
         }
+    }
+
+    @Test
+    fun testStructuralConstraintViolation() {
+        val cb = TestableNetworkCallback()
+        cm.requestNetwork(NetworkRequest.Builder()
+                .clearCapabilities()
+                .build(),
+                cb)
+        val agent = Agent(nc = NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                .build(),
+                lnc = LocalNetworkConfig.Builder().build())
+        agent.connect()
+        cb.expect<Available>(agent.network)
+        cb.expect<CapabilitiesChanged>(agent.network)
+        cb.expect<LinkPropertiesChanged>(agent.network)
+        cb.expect<BlockedStatus>(agent.network)
+        agent.sendNetworkCapabilities(NetworkCapabilities.Builder().build())
+        cb.expect<Lost>(agent.network)
+
+        val agent2 = Agent(nc = NetworkCapabilities.Builder()
+                .build(),
+                lnc = null)
+        agent2.connect()
+        cb.expect<Available>(agent2.network)
+        cb.expect<CapabilitiesChanged>(agent2.network)
+        cb.expect<LinkPropertiesChanged>(agent2.network)
+        cb.expect<BlockedStatus>(agent2.network)
+        agent2.sendNetworkCapabilities(NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                .build())
+        cb.expect<Lost>(agent2.network)
     }
 
     @Test
