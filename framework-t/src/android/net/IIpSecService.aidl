@@ -72,6 +72,11 @@ interface IIpSecService
             in String newDestinationAddress,
             in String callingPackage);
 
+    void dumpSa(
+            int seqNo,
+            in String destAddress,
+            int spi);
+
     void deleteTransform(int transformId);
 
     void applyTransportModeTransform(

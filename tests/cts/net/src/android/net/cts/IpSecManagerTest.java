@@ -63,6 +63,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 
+import android.net.InetAddresses;
 import android.net.IpSecAlgorithm;
 import android.net.IpSecManager;
 import android.net.IpSecManager.SecurityParameterIndex;
@@ -1595,5 +1596,19 @@ public class IpSecManagerTest extends IpSecBaseTest {
         try (UdpEncapsulationSocket encapSocket = mISM.openUdpEncapsulationSocket()) {
             assertTrue("Returned invalid port", encapSocket.getPort() != 0);
         }
+    }
+
+    @Test
+    public void testIpSecDumpSa() throws Exception {
+        /*
+         * Create xfrm sa
+         * ip xfrm state add src 192.168.211.138 dst 192.168.211.203 proto esp spi 0x53fa0fdd mode transport reqid 16386 replay-window 32 auth "hmac(sha1)" 0x55f01ac07e15e437115dde0aedd18a822ba9f81e enc "cbc(aes)" 0x6aed4975adf006d65c76f63923a6265b sel src 0.0.0.0/0 dst 0.0.0.0/0
+         */
+        final InetAddress destAddress = InetAddresses.parseNumericAddress("192.168.211.203");
+        final int spi = 0x53fa0fdd;
+
+        final IpSecManager ipSecManager =
+                InstrumentationRegistry.getContext().getSystemService(IpSecManager.class);
+        ipSecManager.dumpSa(0, destAddress, spi);
     }
 }
