@@ -16,6 +16,24 @@
       "message": "Please, don\u0027t copy and paste this deprecated alias. Use the `\"truth\"` library. `\"truth-prebuilt\"` is an alias to `\"truth\"`, the prebuilts have been removed.",
       "revId": "7fea5fa6a2a863c356425ac6a036a8392b5d0259",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd70d883_d672f6da",
+        "filename": "thread/tests/unit/Android.bp",
+        "patchSetId": 40
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1307979
+      },
+      "writtenOn": "2023-10-26T07:14:19Z",
+      "side": 1,
+      "message": "aosp/2804893",
+      "parentUuid": "612cda45_16584552",
+      "revId": "7fea5fa6a2a863c356425ac6a036a8392b5d0259",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
