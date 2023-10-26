@@ -33,6 +33,24 @@
       "message": "It seems to be able to pass the SLO requirements:\n\n```\nTest module \"CtsThreadNetworkTestCases\" is being added to presubmit. It needs to meet SLO in postsubmit on all configured targets.\n\nBranch: main, Target: aosp_cf_x86_64_phone-trunk_staging-userdebug\nLatency (p90): 0s (target \u003c\u003d20m)\nFlakiness: 0.00% (target \u003c\u003d3.00%)\n\nSUCCESS: This test module is ready to be in presubmit.\n```",
       "revId": "706c234aebcde47c3abecd4e7c4756596636726d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0d01ffb_b1222dfe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-26T08:48:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f48d92f_debacd50",
+      "revId": "706c234aebcde47c3abecd4e7c4756596636726d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
