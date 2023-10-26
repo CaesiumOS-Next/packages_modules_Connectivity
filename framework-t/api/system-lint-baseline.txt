@@ -5,3 +5,59 @@ BuilderSetStyle: android.net.IpSecTransform.Builder#buildTunnelModeTransform(jav
 
 GenericException: android.net.IpSecManager.IpSecTunnelInterface#finalize():
     Methods must not throw generic exceptions (`java.lang.Throwable`)
+
+
+UnflaggedApi: android.net.nsd.NsdManager#registerOffloadEngine(String, long, long, java.util.concurrent.Executor, android.net.nsd.OffloadEngine):
+    New API must be flagged with @FlaggedApi: method android.net.nsd.NsdManager.registerOffloadEngine(String,long,long,java.util.concurrent.Executor,android.net.nsd.OffloadEngine)
+UnflaggedApi: android.net.nsd.NsdManager#unregisterOffloadEngine(android.net.nsd.OffloadEngine):
+    New API must be flagged with @FlaggedApi: method android.net.nsd.NsdManager.unregisterOffloadEngine(android.net.nsd.OffloadEngine)
+UnflaggedApi: android.net.nsd.OffloadEngine:
+    New API must be flagged with @FlaggedApi: class android.net.nsd.OffloadEngine
+UnflaggedApi: android.net.nsd.OffloadEngine#OFFLOAD_CAPABILITY_BYPASS_MULTICAST_LOCK:
+    New API must be flagged with @FlaggedApi: field android.net.nsd.OffloadEngine.OFFLOAD_CAPABILITY_BYPASS_MULTICAST_LOCK
+UnflaggedApi: android.net.nsd.OffloadEngine#OFFLOAD_TYPE_FILTER_QUERIES:
+    New API must be flagged with @FlaggedApi: field android.net.nsd.OffloadEngine.OFFLOAD_TYPE_FILTER_QUERIES
+UnflaggedApi: android.net.nsd.OffloadEngine#OFFLOAD_TYPE_FILTER_REPLIES:
+    New API must be flagged with @FlaggedApi: field android.net.nsd.OffloadEngine.OFFLOAD_TYPE_FILTER_REPLIES
+UnflaggedApi: android.net.nsd.OffloadEngine#OFFLOAD_TYPE_REPLY:
+    New API must be flagged with @FlaggedApi: field android.net.nsd.OffloadEngine.OFFLOAD_TYPE_REPLY
+UnflaggedApi: android.net.nsd.OffloadEngine#onOffloadServiceRemoved(android.net.nsd.OffloadServiceInfo):
+    New API must be flagged with @FlaggedApi: method android.net.nsd.OffloadEngine.onOffloadServiceRemoved(android.net.nsd.OffloadServiceInfo)
+UnflaggedApi: android.net.nsd.OffloadEngine#onOffloadServiceUpdated(android.net.nsd.OffloadServiceInfo):
+    New API must be flagged with @FlaggedApi: method android.net.nsd.OffloadEngine.onOffloadServiceUpdated(android.net.nsd.OffloadServiceInfo)
+UnflaggedApi: android.net.nsd.OffloadServiceInfo:
+    New API must be flagged with @FlaggedApi: class android.net.nsd.OffloadServiceInfo
+UnflaggedApi: android.net.nsd.OffloadServiceInfo#CREATOR:
+    New API must be flagged with @FlaggedApi: field android.net.nsd.OffloadServiceInfo.CREATOR
+UnflaggedApi: android.net.nsd.OffloadServiceInfo#OffloadServiceInfo(android.net.nsd.OffloadServiceInfo.Key, java.util.List<java.lang.String>, String, byte[], int, long):
+    New API must be flagged with @FlaggedApi: constructor android.net.nsd.OffloadServiceInfo(android.net.nsd.OffloadServiceInfo.Key,java.util.List<java.lang.String>,String,byte[],int,long)
+UnflaggedApi: android.net.nsd.OffloadServiceInfo#describeContents():
+    New API must be flagged with @FlaggedApi: method android.net.nsd.OffloadServiceInfo.describeContents()
+UnflaggedApi: android.net.nsd.OffloadServiceInfo#getHostname():
+    New API must be flagged with @FlaggedApi: method android.net.nsd.OffloadServiceInfo.getHostname()
+UnflaggedApi: android.net.nsd.OffloadServiceInfo#getKey():
+    New API must be flagged with @FlaggedApi: method android.net.nsd.OffloadServiceInfo.getKey()
+UnflaggedApi: android.net.nsd.OffloadServiceInfo#getOffloadPayload():
+    New API must be flagged with @FlaggedApi: method android.net.nsd.OffloadServiceInfo.getOffloadPayload()
+UnflaggedApi: android.net.nsd.OffloadServiceInfo#getOffloadType():
+    New API must be flagged with @FlaggedApi: method android.net.nsd.OffloadServiceInfo.getOffloadType()
+UnflaggedApi: android.net.nsd.OffloadServiceInfo#getPriority():
+    New API must be flagged with @FlaggedApi: method android.net.nsd.OffloadServiceInfo.getPriority()
+UnflaggedApi: android.net.nsd.OffloadServiceInfo#getSubtypes():
+    New API must be flagged with @FlaggedApi: method android.net.nsd.OffloadServiceInfo.getSubtypes()
+UnflaggedApi: android.net.nsd.OffloadServiceInfo#writeToParcel(android.os.Parcel, int):
+    New API must be flagged with @FlaggedApi: method android.net.nsd.OffloadServiceInfo.writeToParcel(android.os.Parcel,int)
+UnflaggedApi: android.net.nsd.OffloadServiceInfo.Key:
+    New API must be flagged with @FlaggedApi: class android.net.nsd.OffloadServiceInfo.Key
+UnflaggedApi: android.net.nsd.OffloadServiceInfo.Key#CREATOR:
+    New API must be flagged with @FlaggedApi: field android.net.nsd.OffloadServiceInfo.Key.CREATOR
+UnflaggedApi: android.net.nsd.OffloadServiceInfo.Key#Key(String, String):
+    New API must be flagged with @FlaggedApi: constructor android.net.nsd.OffloadServiceInfo.Key(String,String)
+UnflaggedApi: android.net.nsd.OffloadServiceInfo.Key#describeContents():
+    New API must be flagged with @FlaggedApi: method android.net.nsd.OffloadServiceInfo.Key.describeContents()
+UnflaggedApi: android.net.nsd.OffloadServiceInfo.Key#getServiceName():
+    New API must be flagged with @FlaggedApi: method android.net.nsd.OffloadServiceInfo.Key.getServiceName()
+UnflaggedApi: android.net.nsd.OffloadServiceInfo.Key#getServiceType():
+    New API must be flagged with @FlaggedApi: method android.net.nsd.OffloadServiceInfo.Key.getServiceType()
+UnflaggedApi: android.net.nsd.OffloadServiceInfo.Key#writeToParcel(android.os.Parcel, int):
+    New API must be flagged with @FlaggedApi: method android.net.nsd.OffloadServiceInfo.Key.writeToParcel(android.os.Parcel,int)
