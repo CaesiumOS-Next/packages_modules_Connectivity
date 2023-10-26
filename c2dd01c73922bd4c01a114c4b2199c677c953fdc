@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bab51b88_8a206c9f",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-26T05:42:11Z",
+      "side": 1,
+      "message": "Nit: why S? The code above will have abort()ed unless the OS is at least T.",
+      "range": {
+        "startLine": 82,
+        "startChar": 7,
+        "endLine": 82,
+        "endChar": 8
+      },
+      "revId": "c2dd01c73922bd4c01a114c4b2199c677c953fdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
