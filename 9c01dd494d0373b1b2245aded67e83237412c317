@@ -22,6 +22,30 @@
       },
       "revId": "9c01dd494d0373b1b2245aded67e83237412c317",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72012aea_b8aff5a9",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-10-26T13:55:36Z",
+      "side": 0,
+      "message": "This verification was added in previous commit:\naosp/2711576 (Decouple Ipv6UpstreamRule with Ipv6DownstreamRule)\nIt was added there because the CL has behavior change. Before the CL, if there are no downstream rules, no upstream rules will be added. After the CL, it will add a zero prefix upstream rule. So after unrequest tethering, it will clear the only upstream rule then clearing the limit map.\n\nIn this CL, when the upstream has no prefixes, we won\u0027t add any upstream rule, so the verification doesn\u0027t need anymore.",
+      "parentUuid": "3cddc09a_2215bed6",
+      "range": {
+        "startLine": 643,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 9
+      },
+      "revId": "9c01dd494d0373b1b2245aded67e83237412c317",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
