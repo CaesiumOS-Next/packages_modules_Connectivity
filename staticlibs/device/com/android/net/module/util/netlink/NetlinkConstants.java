@@ -143,6 +143,10 @@ public class NetlinkConstants {
     public static final short SOCK_DIAG_BY_FAMILY = 20;
     public static final short SOCK_DESTROY = 21;
 
+    /* see include/uapi/linux/xfrm.h */
+    public static final short XFRM_MSG_NEWSA = 16;
+    public static final short XFRM_MSG_GETSA = 18;
+
     // Netlink groups.
     public static final int RTMGRP_LINK = 1;
     public static final int RTMGRP_IPV4_IFADDR = 0x10;

@@ -1007,6 +1007,14 @@ public class IpSecManager {
         }
     }
 
+    public void dumpSa(int seqNo, @NonNull InetAddress destAddress, int spi) {
+        try {
+            mService.dumpSa(seqNo, destAddress.getHostAddress(), spi);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
+
     /**
      * Migrate an active Tunnel Mode IPsec Transform to new source/destination addresses.
      *
