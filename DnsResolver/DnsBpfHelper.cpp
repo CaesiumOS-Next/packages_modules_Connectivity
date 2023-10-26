@@ -33,7 +33,7 @@ base::Result<void> DnsBpfHelper::init() {
   return mUidOwnerMap.init(UID_OWNER_MAP_PATH);
 }
 
-base::Result<bool> DnsBpfHelper::isUidNetworkingBlocked(uid_t uid, bool) {
+base::Result<bool> DnsBpfHelper::isUidNetworkingBlocked(uid_t uid, bool metered) {
   if (isSystemUid(uid)) return false;
   if (!mConfigurationMap.isValid() || !mUidOwnerMap.isValid()) {
     LOG(ERROR) << __func__
@@ -52,10 +52,23 @@ base::Result<bool> DnsBpfHelper::isUidNetworkingBlocked(uid_t uid, bool) {
   auto value = mUidOwnerMap.readValue(uid);
   uint32_t uidRules = value.ok() ? value.value().rule : 0;
 
+  // For doze mode, battery saver, low power satanby.
   if (isBlockedByUidRules(enabledRules.value(), uidRules)) return true;
 
-  // TODO: Read data saver settings from bpf maps. For metered network, check penalty box, happy box
-  // and data saver settings.
+  // For data saver.
+  if (metered) {
+    if ((uidRules & PENALTY_BOX_MATCH) != 0) return true;
+    if ((uidRules & HAPPY_BOX_MATCH) != 0) return false;
+
+    auto dataSaverSetting = mConfigurationMap.readValue(DATA_SAVER_CONFIGURATION_KEY);
+    if (!dataSaverSetting.ok()) {
+      LOG(ERROR) << __func__
+                 << ": Failed to read data saver setting from configuration_map: "
+                 << strerror(dataSaverSetting.error().code());
+      return base::Error(dataSaverSetting.error().code());
+    }
+    if (dataSaverSetting.value() == DATA_SAVER_ENABLED) return true;
+  }
 
   return false;
 }
