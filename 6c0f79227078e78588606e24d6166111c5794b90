@@ -22,6 +22,30 @@
       },
       "revId": "6c0f79227078e78588606e24d6166111c5794b90",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff7f4289_6a071fbd",
+        "filename": "thread/service/java/com/android/server/thread/ServiceManagerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-26T06:25:20Z",
+      "side": 1,
+      "message": "I am trying to narrow down the availability of this JNI workaround as this is not the good practice that general use cases should follow (from my understanding). And I don\u0027t want any code outside of the thread/ to access the ot-daemon binder service with `waitForService(\"ot_daemon\")`.\n\nI need to write JNI code in the Thread system service anyway (for creating the tun interface), so no additional JNI library is added here.",
+      "parentUuid": "d25952a4_cb43febf",
+      "range": {
+        "startLine": 17,
+        "startChar": 27,
+        "endLine": 17,
+        "endChar": 33
+      },
+      "revId": "6c0f79227078e78588606e24d6166111c5794b90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
