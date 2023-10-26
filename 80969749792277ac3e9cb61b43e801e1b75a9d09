@@ -3,6 +3,98 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5b22e13_c1acd1f7",
+        "filename": "framework/src/android/net/MulticastRoutingConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T03:35:09Z",
+      "side": 1,
+      "message": "I think checkstyle should tell you this is not accepted style ; did you bypass it ?",
+      "range": {
+        "startLine": 271,
+        "startChar": 8,
+        "endLine": 272,
+        "endChar": 13
+      },
+      "revId": "80969749792277ac3e9cb61b43e801e1b75a9d09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fddd21d3_e5d74f8e",
+        "filename": "framework/src/android/net/MulticastRoutingConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T03:35:09Z",
+      "side": 1,
+      "message": "final please",
+      "range": {
+        "startLine": 276,
+        "startChar": 12,
+        "endLine": 276,
+        "endChar": 34
+      },
+      "revId": "80969749792277ac3e9cb61b43e801e1b75a9d09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48649525_035f0269",
+        "filename": "framework/src/android/net/MulticastRoutingConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T03:35:09Z",
+      "side": 1,
+      "message": "Nit for terseness of logs :\n\nYou may want to only show this if the forwarding mode is MIN_SCOPE\n\nLikewise you may want to only show ListeningAddresses below if it\u0027s not empty (as opposed to the current `ListeningAdresses: []`)",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 0
+      },
+      "revId": "80969749792277ac3e9cb61b43e801e1b75a9d09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed70b928_ecdd50fc",
+        "filename": "tests/unit/java/android/net/MulticastRoutingConfigTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T03:35:09Z",
+      "side": 1,
+      "message": "lateinit is strongly discouraged generally. In our code, we generally ask for comments providing strong justification why it\u0027s better than the alternatives before any use of lateinit.\n\nHere you seem to just have this to avoid writing \"val\" in the test, which really isn\u0027t good justification. Please remove these members and use locals or inline values.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 12
+      },
+      "revId": "80969749792277ac3e9cb61b43e801e1b75a9d09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "723d9b4d_ae2b1264",
         "filename": "tests/unit/java/android/net/MulticastRoutingConfigTest.kt",
         "patchSetId": 3
@@ -14,6 +106,70 @@
       "writtenOn": "2023-10-25T01:45:51Z",
       "side": 1,
       "message": "I wonder if there should also be test cases where two configs don\u0027t equal?",
+      "revId": "80969749792277ac3e9cb61b43e801e1b75a9d09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83778950_5cf3a3c9",
+        "filename": "tests/unit/java/android/net/MulticastRoutingConfigTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T03:35:09Z",
+      "side": 1,
+      "message": "Yes please",
+      "parentUuid": "723d9b4d_ae2b1264",
+      "revId": "80969749792277ac3e9cb61b43e801e1b75a9d09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e7880bb_10a7fe66",
+        "filename": "tests/unit/java/android/net/MulticastRoutingConfigTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T03:35:09Z",
+      "side": 1,
+      "message": "Please don\u0027t reuse names for something else. Declare a new local, or use inline values.\n\nIf you want to make things terser, you could declare helper functions, e.g.\n\n    private fun configForward() \u003d Builder(FORWARD_SELECTED).build()\n    private fun configMinScope(scope: Int) \u003d Builder(FORWARD_WITH_MIN_SCOPE, scope).build()\n\nYou can have them top-level or even as a local function of your test.",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 15
+      },
+      "revId": "80969749792277ac3e9cb61b43e801e1b75a9d09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5066e51_eda3254a",
+        "filename": "tests/unit/java/android/net/MulticastRoutingConfigTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T03:35:09Z",
+      "side": 1,
+      "message": "Also a test for different strings",
+      "range": {
+        "startLine": 65,
+        "startChar": 37,
+        "endLine": 65,
+        "endChar": 42
+      },
       "revId": "80969749792277ac3e9cb61b43e801e1b75a9d09",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
