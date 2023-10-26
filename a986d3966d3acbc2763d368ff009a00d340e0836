@@ -22,6 +22,30 @@
       },
       "revId": "a986d3966d3acbc2763d368ff009a00d340e0836",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0c9573c_703f0d50",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/StateMachineShim.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-10-26T09:25:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "217bb6dc_4343894f",
+      "range": {
+        "startLine": 35,
+        "startChar": 11,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "a986d3966d3acbc2763d368ff009a00d340e0836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
