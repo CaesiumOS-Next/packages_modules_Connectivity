@@ -98,6 +98,7 @@ package android.net {
     method public void applyTransportModeTransform(@NonNull java.net.Socket, int, @NonNull android.net.IpSecTransform) throws java.io.IOException;
     method public void applyTransportModeTransform(@NonNull java.net.DatagramSocket, int, @NonNull android.net.IpSecTransform) throws java.io.IOException;
     method public void applyTransportModeTransform(@NonNull java.io.FileDescriptor, int, @NonNull android.net.IpSecTransform) throws java.io.IOException;
+    method public void dumpSa(int, @NonNull java.net.InetAddress, int);
     method @NonNull public android.net.IpSecManager.UdpEncapsulationSocket openUdpEncapsulationSocket(int) throws java.io.IOException, android.net.IpSecManager.ResourceUnavailableException;
     method @NonNull public android.net.IpSecManager.UdpEncapsulationSocket openUdpEncapsulationSocket() throws java.io.IOException, android.net.IpSecManager.ResourceUnavailableException;
     method public void removeTransportModeTransforms(@NonNull java.net.Socket) throws java.io.IOException;
