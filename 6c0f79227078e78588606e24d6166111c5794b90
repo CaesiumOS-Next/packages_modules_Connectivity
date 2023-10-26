@@ -70,6 +70,30 @@
       },
       "revId": "6c0f79227078e78588606e24d6166111c5794b90",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bf20358_f2a3da15",
+        "filename": "thread/service/java/com/android/server/thread/ServiceManagerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-26T07:01:00Z",
+      "side": 1,
+      "message": "Are there certain benefits of moving this outside of Thread/? You know there will be similar needs soon in the Tethering module? Keeping this in the Thread JNI library is the simplest for me as we don\u0027t need to depend on `libservice-connectivity`.\n\n\u003e Add a registerLazyContextAwareService which is similar to registerContextAwareService but instead of calling getServiceOrThrow(serviceName) calls waitForService, and make that module-lib API in V\n\nI think you don\u0027t want us to depend on new non-uptable platform API, right?",
+      "parentUuid": "d0baae68_5647efe5",
+      "range": {
+        "startLine": 17,
+        "startChar": 27,
+        "endLine": 17,
+        "endChar": 33
+      },
+      "revId": "6c0f79227078e78588606e24d6166111c5794b90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
