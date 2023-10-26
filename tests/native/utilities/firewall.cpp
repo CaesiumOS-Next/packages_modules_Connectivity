@@ -116,3 +116,21 @@ Result<void> Firewall::removeUidInterfaceRules(const std::vector<int32_t>& uids)
     }
     return {};
 }
+
+Result<bool> Firewall::getDataSaverSetting() {
+    std::lock_guard guard(mMutex);
+    auto dataSaverSetting = mConfigurationMap.readValue(DATA_SAVER_CONFIGURATION_KEY);
+    if (!dataSaverSetting.ok()) {
+        return Errorf("Cannot read the data saver setting: {}", dataSaverSetting.error().message());
+    }
+    return dataSaverSetting;
+}
+
+Result<bool> Firewall::setDataSaver(bool enabled) {
+    std::lock_guard guard(mMutex);
+    BpfConfig config = enabled ? DATA_SAVER_ENABLED : DATA_SAVER_DISABLED;
+    auto res = mConfigurationMap.writeValue(DATA_SAVER_CONFIGURATION_KEY, config, BPF_EXIST);
+    if (!res.ok()) return Errorf("Failed to set data saver: {}", res.error().message());
+
+    return {};
+}
