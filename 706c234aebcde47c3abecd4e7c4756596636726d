@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f48d92f_debacd50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-10-26T08:41:44Z",
+      "side": 1,
+      "message": "Could you also attach a link proving the SLO is met?",
+      "revId": "706c234aebcde47c3abecd4e7c4756596636726d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
