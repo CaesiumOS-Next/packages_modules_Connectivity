@@ -82,26 +82,35 @@ struct NetworkTraceTraits : public perfetto::DefaultDataSourceTraits {
 class NetworkTraceHandler
     : public perfetto::DataSource<NetworkTraceHandler, NetworkTraceTraits> {
  public:
-  // Registers this DataSource.
-  static void RegisterDataSource();
+  // Registers this DataSource as "android.network_packets". When isTest is
+  // true, skips non-hermetic code and names the data source
+  // "test.network_packets" instead.
+  static void RegisterDataSource(bool isTest = false);
 
   // Connects to the system Perfetto daemon and registers the trace handler.
   static void InitPerfettoTracing();
 
+  // Emits `packets` on all the data source instances. This is called internally
+  // by `sPoller` and exposed for testing.
+  static void DoTrace(const std::vector<PacketTrace>& packets);
+
+  // Makes sure that all the packets passed to DoTrace (on the current thread)
+  // are visible to perfetto.
+  static void DoFlush();
+
   // When isTest is true, skip non-hermetic code.
-  NetworkTraceHandler(bool isTest = false) : mIsTest(isTest) {}
+  NetworkTraceHandler(bool isTest) : mIsTest(isTest) {}
 
   // perfetto::DataSource overrides:
   void OnSetup(const SetupArgs& args) override;
   void OnStart(const StartArgs&) override;
   void OnStop(const StopArgs&) override;
 
-  // Writes the packets as Perfetto TracePackets, creating packets as needed
-  // using the provided callback (which allows easy testing).
+ private:
+  // Writes the packets as Perfetto TracePackets on `ctx`.
   void Write(const std::vector<PacketTrace>& packets,
              NetworkTraceHandler::TraceContext& ctx);
 
- private:
   // Fills in contextual information from a bundle without interning.
   void Fill(const BundleKey& src,
             ::perfetto::protos::pbzero::NetworkPacketEvent* event);

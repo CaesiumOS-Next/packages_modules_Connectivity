@@ -42,9 +42,7 @@ class NetworkTraceHandlerTest : public testing::Test {
     args.backends = perfetto::kInProcessBackend;
     perfetto::Tracing::Initialize(args);
 
-    perfetto::DataSourceDescriptor dsd;
-    dsd.set_name("test.network_packets");
-    NetworkTraceHandler::Register(dsd, /*isTest=*/true);
+    NetworkTraceHandler::RegisterDataSource(/*isTest=*/true);
 
     perfetto::TraceConfig cfg;
     cfg.add_buffers()->set_size_kb(1024);
@@ -86,10 +84,8 @@ class NetworkTraceHandlerTest : public testing::Test {
                            std::vector<TracePacket>* output,
                            NetworkPacketTraceConfig config = {}) {
     auto session = StartTracing(config);
-    NetworkTraceHandler::Trace([&](NetworkTraceHandler::TraceContext ctx) {
-      ctx.GetDataSourceLocked()->Write(input, ctx);
-      ctx.Flush();
-    });
+    NetworkTraceHandler::DoTrace(input);
+    NetworkTraceHandler::DoFlush();
 
     if (!StopTracing(session.get(), output)) {
       return false;
@@ -402,13 +398,11 @@ TEST_F(NetworkTraceHandlerTest, Interning) {
 
   auto session = StartTracing(config);
 
-  NetworkTraceHandler::Trace([&](NetworkTraceHandler::TraceContext ctx) {
-    ctx.GetDataSourceLocked()->Write(inputs[0], ctx);
-    ctx.GetDataSourceLocked()->Write(inputs[1], ctx);
-    ctx.GetDataSourceLocked()->Write(inputs[2], ctx);
-    ctx.GetDataSourceLocked()->Write(inputs[3], ctx);
-    ctx.Flush();
-  });
+  NetworkTraceHandler::DoTrace(inputs[0]);
+  NetworkTraceHandler::DoTrace(inputs[1]);
+  NetworkTraceHandler::DoTrace(inputs[2]);
+  NetworkTraceHandler::DoTrace(inputs[3]);
+  NetworkTraceHandler::DoFlush();
 
   std::vector<TracePacket> events;
   ASSERT_TRUE(StopTracing(session.get(), &events));

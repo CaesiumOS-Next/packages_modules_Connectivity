@@ -117,11 +117,15 @@ bool BundleEq::operator()(const BundleKey& a, const BundleKey& b) const {
 }
 
 // static
-void NetworkTraceHandler::RegisterDataSource() {
+void NetworkTraceHandler::RegisterDataSource(bool isTest) {
   ALOGD("Registering Perfetto data source");
   perfetto::DataSourceDescriptor dsd;
-  dsd.set_name("android.network_packets");
-  NetworkTraceHandler::Register(dsd);
+  if (!isTest) {
+    dsd.set_name("android.network_packets");
+  } else {
+    dsd.set_name("test.network_packets");
+  }
+  NetworkTraceHandler::Register(dsd, isTest);
 }
 
 // static
@@ -138,24 +142,36 @@ void NetworkTraceHandler::InitPerfettoTracing() {
   NetworkTraceHandler::RegisterDataSource();
 }
 
+NetworkTracePoller NetworkTraceHandler::sPoller(NetworkTraceHandler::DoTrace);
+
 // static
-NetworkTracePoller NetworkTraceHandler::sPoller(
-    [](const std::vector<PacketTrace>& packets) {
-      // Trace calls the provided callback for each active session. The context
-      // gets a reference to the NetworkTraceHandler instance associated with
-      // the session and delegates writing. The corresponding handler will write
-      // with the setting specified in the trace config.
-      NetworkTraceHandler::Trace([&](NetworkTraceHandler::TraceContext ctx) {
-        perfetto::LockedHandle<NetworkTraceHandler> handle =
-            ctx.GetDataSourceLocked();
-        // The underlying handle can be invalidated between when Trace starts
-        // and GetDataSourceLocked is called, but not while the LockedHandle
-        // exists and holds the lock. Check validity prior to use.
-        if (handle.valid()) {
-          handle->Write(packets, ctx);
-        }
-      });
-    });
+void NetworkTraceHandler::DoTrace(const std::vector<PacketTrace>& packets) {
+  // Trace calls the provided callback for each active session. The context
+  // gets a reference to the NetworkTraceHandler instance associated with
+  // the session and delegates writing. The corresponding handler will write
+  // with the setting specified in the trace config.
+  NetworkTraceHandler::Trace([&](NetworkTraceHandler::TraceContext ctx) {
+    perfetto::LockedHandle<NetworkTraceHandler> handle =
+        ctx.GetDataSourceLocked();
+    // The underlying handle can be invalidated between when Trace starts
+    // and GetDataSourceLocked is called, but not while the LockedHandle
+    // exists and holds the lock. Check validity prior to use.
+    if (handle.valid()) {
+      handle->Write(packets, ctx);
+    }
+  });
+}
+
+// static
+void NetworkTraceHandler::DoFlush() {
+  // Trace calls the provided callback for each active session. The context
+  // gets a reference to the NetworkTraceHandler instance associated with
+  // the session and delegates writing. The corresponding handler will write
+  // with the setting specified in the trace config.
+  NetworkTraceHandler::Trace([&](NetworkTraceHandler::TraceContext ctx) {
+    ctx.Flush();
+  });
+}
 
 void NetworkTraceHandler::OnSetup(const SetupArgs& args) {
   const std::string& raw = args.config->network_packet_trace_config_raw();
