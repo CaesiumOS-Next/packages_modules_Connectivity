@@ -1122,6 +1122,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ae4fbb3_4315a13c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "da489b2f_2ceda070",
+      "range": {
+        "startLine": 319,
+        "startChar": 7,
+        "endLine": 322,
+        "endChar": 0
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa6e09b7_d5c25db4",
@@ -1253,6 +1277,30 @@
       "side": 1,
       "message": "The threading model of this class is that all methods should be called on the `mHandlerThread` except for the binder API overrides. Do you think it\u0027s too much overhead to check in all private methods?\n\n// Comments have been added for the fields like mOngoingDetachReceivers",
       "parentUuid": "218e0cbc_19b7d82f",
+      "range": {
+        "startLine": 400,
+        "startChar": 20,
+        "endLine": 400,
+        "endChar": 31
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f507b9fc_068ac218",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "Checking in all methods is probably overkill, but I was thinking this is particularly likely to be called carelessly by somebody because it\u0027s a getter with an innocuous name.\n\nMaybe we can check only the entry points in this class ? i.e. not here because it\u0027s private but in the public methods ?",
+      "parentUuid": "7998b81b_1c773177",
       "range": {
         "startLine": 400,
         "startChar": 20,

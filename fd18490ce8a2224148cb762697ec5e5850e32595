@@ -1,0 +1,458 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c50ff14b_393e0417",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 59
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "Reviewed up to handlePendingOperationalDatasetChanged",
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70fea172_a8198215",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "What is special about creation of this instance ?\n\nDevelopers often assume it\u0027s fine to initialize mutable stuff in the constructor and use it on another thread. This is explicitly NOT fine according to the java spec. `final` is the modifier that makes this okay.\n\nIn this patch, you don\u0027t have this problem, but I am worried that the comment will make developers think this is fine. In fact, I think attention should be drawn instead on the fact that it\u0027s not okay to rely on this. I\u0027ll add more comments on this later on in this patch ; for now let\u0027s remove the \"after the creation...\" in this sentence.",
+      "range": {
+        "startLine": 90,
+        "startChar": 3,
+        "endLine": 90,
+        "endChar": 39
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cffa07e8_d1068949",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "Let\u0027s add this to draw attention to the constructor :\n\n    In particular, the constructor does not run on the handler thread, so it\n    must not touch any of the non-final fields, nor must it mutate any\n    of the non-final fields inside these objects.",
+      "range": {
+        "startLine": 115,
+        "startChar": 89,
+        "endLine": 115,
+        "endChar": 90
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b2a715d_9a14781d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "j",
+      "range": {
+        "startLine": 255,
+        "startChar": 27,
+        "endLine": 255,
+        "endChar": 28
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d9edbb4_4b1471e8",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "You still need to call register",
+      "range": {
+        "startLine": 314,
+        "startChar": 22,
+        "endLine": 314,
+        "endChar": 35
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "474703ba_52c78dce",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "Please add comments for when this happens",
+      "range": {
+        "startLine": 320,
+        "startChar": 12,
+        "endLine": 320,
+        "endChar": 18
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2aa2692_2f868545",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "Same as above : it\u0027s fine if it\u0027s expected but please document in what cases this is expected with a few comments",
+      "range": {
+        "startLine": 354,
+        "startChar": 26,
+        "endLine": 354,
+        "endChar": 44
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c816ef9_da522879",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "So if I call leave() and immediately scheduleMigration(). Presumably, when the control comes in l.492 the old network is still attached, so the device will leave the network, and then we try to schedule, which can\u0027t succeed. So IIUC the only thing that can happen in this case is that the OT daemon sends you an error. So you\u0027re going to send ERROR_INTERNAL_ERROR, but that\u0027s not correct because you know what happened.",
+      "range": {
+        "startLine": 509,
+        "startChar": 36,
+        "endLine": 509,
+        "endChar": 43
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9c9487f_97ffa883",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "j",
+      "range": {
+        "startLine": 544,
+        "startChar": 39,
+        "endLine": 544,
+        "endChar": 40
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abd40807_24f8f309",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "Both for join and schedule, while this code here is fine, it\u0027s also possible that the leave operation is in progress when a join or migration is started, so in both cases you might end up leaving the network and still have one of these in either of the queues. Therefore clearing it here is not actually enough",
+      "range": {
+        "startLine": 549,
+        "startChar": 25,
+        "endLine": 549,
+        "endChar": 51
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae745890_25dca763",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "This can never happen because you always have a keep connected reason on this agent, so CS will never call unwanted() on it.",
+      "range": {
+        "startLine": 638,
+        "startChar": 20,
+        "endLine": 638,
+        "endChar": 26
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a21c1894_a91a9c96",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "go/avoidwe",
+      "range": {
+        "startLine": 640,
+        "startChar": 50,
+        "endLine": 640,
+        "endChar": 52
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6c9a2a0_1b248797",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "nit : maybe use TextUtils.simpleFormat for 6x performance improvement",
+      "range": {
+        "startLine": 671,
+        "startChar": 23,
+        "endLine": 671,
+        "endChar": 29
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2582595_ddf299aa",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "j",
+      "range": {
+        "startLine": 677,
+        "startChar": 31,
+        "endLine": 677,
+        "endChar": 33
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bbb6cc8_d8785e46",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "we",
+      "range": {
+        "startLine": 678,
+        "startChar": 19,
+        "endLine": 678,
+        "endChar": 21
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a2a77e5_0e4d5c4d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "What do you mean \"probably\" here ? I\u0027m not sure whether this is because you (as the author of the code) are not sure, or whether there are some unknowns in the network. Please specify.\n\nIf it\u0027s because you\u0027re not sure, please make sure and then remove this.",
+      "range": {
+        "startLine": 678,
+        "startChar": 22,
+        "endLine": 678,
+        "endChar": 30
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db3260e3_89da0e82",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "Per offline discussion : we probably only want to do this when the state is \"disabled\" (being attached ⇒ detached is not a \"leave\")",
+      "range": {
+        "startLine": 694,
+        "startChar": 16,
+        "endLine": 694,
+        "endChar": 46
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3a0727d_4adf7d24",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "to",
+      "range": {
+        "startLine": 700,
+        "startChar": 33,
+        "endLine": 700,
+        "endChar": 37
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7897bc71_7aac84a9",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "j",
+      "range": {
+        "startLine": 727,
+        "startChar": 26,
+        "endLine": 727,
+        "endChar": 28
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0515df40_c0be5f65",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-26T08:07:55Z",
+      "side": 1,
+      "message": "as above",
+      "range": {
+        "startLine": 728,
+        "startChar": 14,
+        "endLine": 728,
+        "endChar": 26
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
