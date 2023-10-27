@@ -22,6 +22,30 @@
       },
       "revId": "0bbafdae9dc4e871c1f452dbbdb73c625e1a8806",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3f42a5b_b72ee063",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1017,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-10-27T05:23:37Z",
+      "side": 1,
+      "message": "Done, looks better using the configs instead of the builders.",
+      "parentUuid": "d0d06a8c_eaf9aa9e",
+      "range": {
+        "startLine": 1016,
+        "startChar": 2,
+        "endLine": 1017,
+        "endChar": 90
+      },
+      "revId": "0bbafdae9dc4e871c1f452dbbdb73c625e1a8806",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
