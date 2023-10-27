@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edf70d3f_04431443",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 91
+      },
+      "lineNbr": 3223,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T08:13:36Z",
+      "side": 1,
+      "message": "I think this is not supposed to be possible ever, as you\u0027re on the handler thread here.",
+      "range": {
+        "startLine": 3223,
+        "startChar": 36,
+        "endLine": 3223,
+        "endChar": 47
+      },
+      "revId": "5645dcec13f8e6be08d56bab265763892cb7c851",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9a784e4_c7829b37",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 91
+      },
+      "lineNbr": 11463,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T08:13:36Z",
+      "side": 1,
+      "message": "I think this looks bizarre architecturally. I would expect one of two options :\n• Always fill both the netId and the transport type, and at the use site choose the correct one for the label\n• Have a single label, and choose the correct one here\n\nBut here, you choose the correct one and store a useless value in the other, meaning that not only you always store useless data but also you need to have logic both here to determine the right label AND you need to have logic at the use site to use the right label.",
+      "range": {
+        "startLine": 11460,
+        "startChar": 0,
+        "endLine": 11463,
+        "endChar": 70
+      },
+      "revId": "5645dcec13f8e6be08d56bab265763892cb7c851",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba9a20bc_480c4bb2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 91
+      },
+      "lineNbr": 11487,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T08:13:36Z",
+      "side": 1,
+      "message": "The lack of final on this member means the handler thread is not guaranteed to see the value you set on the constructor. Java spec 17.5\n\nPlease make this final if it\u0027s only meant to ever change for testing. For testing you have many other options than making this mutable like having a dependencies method or so.",
+      "range": {
+        "startLine": 11487,
+        "startChar": 4,
+        "endLine": 11487,
+        "endChar": 49
+      },
+      "revId": "5645dcec13f8e6be08d56bab265763892cb7c851",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bd2f20a_6387e1c1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 91
+      },
+      "lineNbr": 11520,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T08:13:36Z",
+      "side": 1,
+      "message": "Here too, this must be final or you\u0027ll have race conditions.",
+      "revId": "5645dcec13f8e6be08d56bab265763892cb7c851",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d1e43c6_cfecd3c6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 91
+      },
+      "lineNbr": 11574,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T08:13:36Z",
+      "side": 1,
+      "message": "If I\u0027m reading the code correctly this is always TRANSPORT_UNKNOWN, because you only execute this code if mTrackMultiNetworkActivities is true, and l.11463 always stores TRANSPORT_UNKNOWN here",
+      "range": {
+        "startLine": 11574,
+        "startChar": 57,
+        "endLine": 11574,
+        "endChar": 70
+      },
+      "revId": "5645dcec13f8e6be08d56bab265763892cb7c851",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06cb4a23_7d7b83d7",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 91
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T08:13:36Z",
+      "side": 1,
+      "message": "You have no test that exercises your new code. You have the old test that exercises cell and wifi at the same time, and it\u0027s based only on what is the default network.\n\nI think you\u0027re therefore lacking coverage for two essential new functionalities :\n- Two wifi at the same time\n- Network becoming active when it\u0027s not the default",
+      "revId": "5645dcec13f8e6be08d56bab265763892cb7c851",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3f3b082_5b8dd92d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 91
+      },
+      "lineNbr": 10837,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T08:13:36Z",
+      "side": 1,
+      "message": "To avoid duplication, would it work to make the CS method @VisibleForTesting ?",
+      "range": {
+        "startLine": 10834,
+        "startChar": 0,
+        "endLine": 10837,
+        "endChar": 5
+      },
+      "revId": "5645dcec13f8e6be08d56bab265763892cb7c851",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c71b9a8_5ff2b9a3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 91
+      },
+      "lineNbr": 11085,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T08:13:36Z",
+      "side": 1,
+      "message": "In the context of this test, you know this is always TRANSPORT_CELLULAR right ? Because `getIdleTimerLabel` calls `mDeps.isTrackMultiNetworkActivitiesEnabled`, which references a boolean that is initialized to false and nobody touches",
+      "range": {
+        "startLine": 11085,
+        "startChar": 36,
+        "endLine": 11085,
+        "endChar": 53
+      },
+      "revId": "5645dcec13f8e6be08d56bab265763892cb7c851",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

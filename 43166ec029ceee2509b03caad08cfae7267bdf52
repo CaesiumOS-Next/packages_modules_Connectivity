@@ -163,6 +163,30 @@
       },
       "revId": "43166ec029ceee2509b03caad08cfae7267bdf52",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59e03754_4e808c30",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 63
+      },
+      "lineNbr": 11359,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T08:13:36Z",
+      "side": 1,
+      "message": "I this this is historical – the code for removing the data activity tracking predates wasDefault I think\n\nIt could be changed.",
+      "parentUuid": "b1faa817_9c59d1bd",
+      "range": {
+        "startLine": 11359,
+        "startChar": 16,
+        "endLine": 11359,
+        "endChar": 39
+      },
+      "revId": "43166ec029ceee2509b03caad08cfae7267bdf52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
