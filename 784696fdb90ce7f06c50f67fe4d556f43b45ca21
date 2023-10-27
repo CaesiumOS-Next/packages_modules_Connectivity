@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f3d4f6d_552a0c55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T18:53:05Z",
+      "side": 1,
+      "message": "this function is small enough that we probably don\u0027t need these complexities...\n\nbut we will see proof via \u0027does it boot\u0027 ;-)",
+      "range": {
+        "startLine": 11,
+        "startChar": 11,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "784696fdb90ce7f06c50f67fe4d556f43b45ca21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
