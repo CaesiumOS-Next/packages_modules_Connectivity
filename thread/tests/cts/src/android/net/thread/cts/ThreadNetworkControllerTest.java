@@ -126,6 +126,13 @@ public class ThreadNetworkControllerTest {
         getInstrumentation().getUiAutomation().dropShellPermissionIdentity();
     }
 
+    private static ActiveOperationalDataset newRandomizedDataset(
+            String networkName, ThreadNetworkController controller) throws Exception {
+        SettableFuture<ActiveOperationalDataset> future = SettableFuture.create();
+        controller.createRandomizedDataset(networkName, directExecutor(), future::set);
+        return future.get(CALLBACK_TIMEOUT_SECONDS, SECONDS);
+    }
+
     private static boolean isAttached(ThreadNetworkController controller) throws Exception {
         SettableFuture<Integer> future = SettableFuture.create();
         StateCallback callback = future::set;
@@ -281,7 +288,7 @@ public class ThreadNetworkControllerTest {
         grantPermissions(permission.ACCESS_NETWORK_STATE, PERMISSION_THREAD_NETWORK_PRIVILEGED);
 
         for (ThreadNetworkController controller : getAllControllers()) {
-            ActiveOperationalDataset activeDataset = ActiveOperationalDataset.createRandomDataset();
+            ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", controller);
             SettableFuture<ActiveOperationalDataset> joinFuture = SettableFuture.create();
 
             controller.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
@@ -293,11 +300,11 @@ public class ThreadNetworkControllerTest {
     }
 
     @Test
-    public void join_withoutPrivilegedPermission_throwsSecurityException() {
+    public void join_withoutPrivilegedPermission_throwsSecurityException() throws Exception {
         dropPermissions();
 
         for (ThreadNetworkController controller : getAllControllers()) {
-            ActiveOperationalDataset activeDataset = ActiveOperationalDataset.createRandomDataset();
+            ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", controller);
 
             assertThrows(
                     SecurityException.class,
@@ -310,7 +317,7 @@ public class ThreadNetworkControllerTest {
         grantPermissions(permission.ACCESS_NETWORK_STATE, PERMISSION_THREAD_NETWORK_PRIVILEGED);
 
         for (ThreadNetworkController controller : getAllControllers()) {
-            ActiveOperationalDataset activeDataset = ActiveOperationalDataset.createRandomDataset();
+            ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", controller);
             SettableFuture<ActiveOperationalDataset> joinFuture1 = SettableFuture.create();
             SettableFuture<ActiveOperationalDataset> joinFuture2 = SettableFuture.create();
 
@@ -331,7 +338,7 @@ public class ThreadNetworkControllerTest {
         for (ThreadNetworkController controller : getAllControllers()) {
             ActiveOperationalDataset activeDataset1 =
                     new ActiveOperationalDataset.Builder(
-                                    ActiveOperationalDataset.createRandomDataset())
+                                    newRandomizedDataset("TestNet", controller))
                             .setNetworkKey(
                                     new byte[] {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1})
                             .build();
@@ -361,7 +368,7 @@ public class ThreadNetworkControllerTest {
         grantPermissions(PERMISSION_THREAD_NETWORK_PRIVILEGED);
 
         for (ThreadNetworkController controller : getAllControllers()) {
-            ActiveOperationalDataset activeDataset = ActiveOperationalDataset.createRandomDataset();
+            ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", controller);
             SettableFuture<ActiveOperationalDataset> joinFuture = SettableFuture.create();
             SettableFuture<Void> leaveFuture = SettableFuture.create();
 
@@ -389,7 +396,7 @@ public class ThreadNetworkControllerTest {
         grantPermissions(PERMISSION_THREAD_NETWORK_PRIVILEGED);
 
         for (ThreadNetworkController controller : getAllControllers()) {
-            ActiveOperationalDataset activeDataset = ActiveOperationalDataset.createRandomDataset();
+            ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", controller);
             SettableFuture<ActiveOperationalDataset> joinFuture = SettableFuture.create();
             SettableFuture<Void> leaveFuture1 = SettableFuture.create();
             SettableFuture<Void> leaveFuture2 = SettableFuture.create();
@@ -436,7 +443,7 @@ public class ThreadNetworkControllerTest {
         for (ThreadNetworkController controller : getAllControllers()) {
             ActiveOperationalDataset activeDataset1 =
                     new ActiveOperationalDataset.Builder(
-                                    ActiveOperationalDataset.createRandomDataset())
+                                    newRandomizedDataset("TestNet", controller))
                             .setActiveTimestamp(new OperationalDatasetTimestamp(1L, 0, false))
                             .setExtendedPanId(new byte[] {1, 1, 1, 1, 1, 1, 1, 1})
                             .build();
@@ -513,9 +520,6 @@ public class ThreadNetworkControllerTest {
             ActiveOperationalDataset activeDataset2 =
                     new ActiveOperationalDataset.Builder(activeDataset1)
                             .setActiveTimestamp(new OperationalDatasetTimestamp(2L, 0, false))
-                            .setNetworkName("ThreadNet2")
-                            .build();
-            PendingOperationalDataset pendingDataset2 =
                     new PendingOperationalDataset(
                             activeDataset2,
                             OperationalDatasetTimestamp.fromInstant(Instant.now()),
@@ -652,4 +656,32 @@ public class ThreadNetworkControllerTest {
             assertThat(thrown.getErrorCode()).isEqualTo(ERROR_TIMEOUT);
         }
     }
-}
+
+    public void createRandomizedDataset_wrongNetworkNameLength_throwsIllegalArgumentException() {
+        for (ThreadNetworkController controller : getAllControllers()) {
+            assertThrows(
+                    IllegalArgumentException.class,
+                    () -> controller.createRandomizedDataset("", mExecutor, dataset -> {}));
+
+            assertThrows(
+                    IllegalArgumentException.class,
+                    () ->
+                            controller.createRandomizedDataset(
+                                    "ANetNameIs17Bytes", mExecutor, dataset -> {}));
+        }
+    }
+
+    public void createRandomizedDataset_validNetworkName_success() throws Exception {
+        for (ThreadNetworkController controller : getAllControllers()) {
+            ActiveOperationalDataset dataset = newRandomizedDataset("validName", controller);
+
+            assertThat(dataset.getNetworkName()).isEqualTo("validName");
+            assertThat(dataset.getPanId()).isLessThan(0xffff);
+            assertThat(dataset.getChannelMask().size()).isAtLeast(1);
+            assertThat(dataset.getExtendedPanId()).hasLength(8);
+            assertThat(dataset.getNetworkKey()).hasLength(16);
+            assertThat(dataset.getPskc()).hasLength(16);
+            assertThat(dataset.getMeshLocalPrefix().getPrefixLength()).isEqualTo(64);
+            assertThat(dataset.getMeshLocalPrefix().getRawAddress()[0]).isEqualTo((byte)0xfd);
+        }
+    }
