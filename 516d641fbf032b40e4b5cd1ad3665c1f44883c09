@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "700ce82b_e23dfb0e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 82
+      },
+      "lineNbr": 11571,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T08:47:37Z",
+      "side": 1,
+      "message": "nit : 2 space",
+      "range": {
+        "startLine": 11571,
+        "startChar": 47,
+        "endLine": 11571,
+        "endChar": 49
+      },
+      "revId": "516d641fbf032b40e4b5cd1ad3665c1f44883c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec280ccf_d3f1b85f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 82
+      },
+      "lineNbr": 11572,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T08:47:37Z",
+      "side": 1,
+      "message": "This reads like ethernet networks are active cellular networks. What about a network that has both cell and wifi as transports ?\n\nIIUC this depends on l.11730~11744 ; a network with both cell and wifi is cell, and a network with neither is not tracked. If this is true, you need comments to explain this.",
+      "revId": "516d641fbf032b40e4b5cd1ad3665c1f44883c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd2bba95_e0d89055",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 82
+      },
+      "lineNbr": 11608,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T08:47:37Z",
+      "side": 1,
+      "message": "I said this on a previous change but IIRC this is always UNKNOWN if tracking multiple networks",
+      "range": {
+        "startLine": 11608,
+        "startChar": 54,
+        "endLine": 11608,
+        "endChar": 67
+      },
+      "revId": "516d641fbf032b40e4b5cd1ad3665c1f44883c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2aaaa8e_291f18c8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 82
+      },
+      "lineNbr": 11699,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T08:47:37Z",
+      "side": 1,
+      "message": "transportType",
+      "range": {
+        "startLine": 11699,
+        "startChar": 58,
+        "endLine": 11699,
+        "endChar": 62
+      },
+      "revId": "516d641fbf032b40e4b5cd1ad3665c1f44883c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7effd13c_c015ffb0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 82
+      },
+      "lineNbr": 11706,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T08:47:37Z",
+      "side": 1,
+      "message": ", e",
+      "range": {
+        "startLine": 11706,
+        "startChar": 53,
+        "endLine": 11706,
+        "endChar": 56
+      },
+      "revId": "516d641fbf032b40e4b5cd1ad3665c1f44883c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
