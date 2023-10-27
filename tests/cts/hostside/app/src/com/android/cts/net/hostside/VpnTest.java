@@ -91,6 +91,7 @@ import android.net.VpnTransportInfo;
 import android.net.cts.util.CtsNetUtils;
 import android.net.util.KeepaliveUtils;
 import android.net.wifi.WifiManager;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -1951,6 +1952,56 @@ public class VpnTest {
                         NETWORK_CALLBACK_TIMEOUT_MS,
                         entry -> defaultNetwork.equals(entry.getNetwork()));
             });
+    }
+
+    /**
+     * This test creates test tun interface and VPN interface with the same address and checks if
+     * packet to this address is dropped or not.
+     * If the network agent for tun interface is not registered, ConnectivityService sets the
+     * ingress discard bpf map rule and drops the packets to the VPN address from non-VPN interface.
+     * If the network agent for tun interface is registered, ConnectivityService does not set the
+     * rule to avoid dropping the packets which should not be dropped.
+     */
+    private void doTestDropPacketToVpnAddress(final boolean hasDuplicatedAddressNetworkAgent)
+            throws Exception {
+        final FileDescriptor tunFd = runWithShellPermissionIdentity(() -> {
+            final TestNetworkManager tnm = mTestContext.getSystemService(TestNetworkManager.class);
+            final TestNetworkInterface iface = tnm.createTunInterface(List.of(
+                    TEST_IP4_DST_ADDR, TEST_IP6_DST_ADDR));
+            if (hasDuplicatedAddressNetworkAgent) {
+                // setupTestNetwork registers networkAgent for test network which has duplicated
+                // addresses with VPN interface
+                tnm.setupTestNetwork(iface.getInterfaceName(), new Binder());
+            }
+            return iface.getFileDescriptor().getFileDescriptor();
+        }, MANAGE_TEST_NETWORKS);
+
+        final DatagramSocket recvSock = new DatagramSocket();
+
+        checkBlockIncomingPacket(tunFd, recvSock.getFileDescriptor$(), EXPECT_PASS);
+
+        // Start VPN which has the same address with test interface
+        startVpn(new String[] {TEST_IP4_DST_ADDR.toString(), TEST_IP6_DST_ADDR.toString()},
+                new String[] {"0.0.0.0/0", "::/0"},
+                "", "", null, null /* underlyingNetworks */, false /* isAlwaysMetered */);
+
+        // If there is no networkAgent who has the same address with VPN interface,
+        // ConnectivityService sets the ingress discard bpf map rule and drop the packet to the
+        // VPN address from non-VPN interface.
+        checkBlockIncomingPacket(tunFd, recvSock.getFileDescriptor$(),
+                hasDuplicatedAddressNetworkAgent ? EXPECT_PASS : EXPECT_BLOCK);
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testDropPacketToVpnAddress_WithoutDuplicatedAddress() throws Exception {
+        assumeTrue(supportedHardware());
+        doTestDropPacketToVpnAddress(false /* duplicatedAddress */);
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testDropPacketToVpnAddress_WithDuplicatedAddress() throws Exception {
+        assumeTrue(supportedHardware());
+        doTestDropPacketToVpnAddress(true /* duplicatedAddress */);
     }
 
     private ByteBuffer buildIpv4UdpPacket(final Inet4Address dstAddr, final Inet4Address srcAddr,
