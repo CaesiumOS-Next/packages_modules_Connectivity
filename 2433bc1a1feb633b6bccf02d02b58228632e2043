@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3506391_65471e20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T00:46:36Z",
+      "side": 1,
+      "message": "LGTM assuming comment addressed",
+      "revId": "2433bc1a1feb633b6bccf02d02b58228632e2043",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b0ca726_fa2c607a",
+        "filename": "tests/unit/java/com/android/server/connectivity/UidRangeUtilsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T00:46:36Z",
+      "side": 1,
+      "message": "Please also test excluding the first UID and the last UID, which have special handling",
+      "range": {
+        "startLine": 466,
+        "startChar": 16,
+        "endLine": 466,
+        "endChar": 51
+      },
+      "revId": "2433bc1a1feb633b6bccf02d02b58228632e2043",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
