@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edf77b43_fa77c8ac",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 13283,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T00:57:54Z",
+      "side": 1,
+      "message": "I think you could just have inlined this\n\nIt doesn\u0027t matter",
+      "range": {
+        "startLine": 13283,
+        "startChar": 32,
+        "endLine": 13283,
+        "endChar": 43
+      },
+      "revId": "49f7ab9eeb30371c0d8cbcc3f4c8cac7780afd28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
