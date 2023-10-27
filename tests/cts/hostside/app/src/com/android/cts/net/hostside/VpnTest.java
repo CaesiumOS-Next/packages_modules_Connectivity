@@ -72,6 +72,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
+import android.net.InetAddresses;
 import android.net.IpSecManager;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
@@ -91,6 +92,7 @@ import android.net.VpnTransportInfo;
 import android.net.cts.util.CtsNetUtils;
 import android.net.util.KeepaliveUtils;
 import android.net.wifi.WifiManager;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -1953,6 +1955,69 @@ public class VpnTest {
             });
     }
 
+    /**
+     * Check if the packet to VPN interface from non-VPN test interface is dropped or not.
+     * If the test interface has the same address with VPN interface, packet must not be dropped.
+     * If the test interface has the different address, packet must be dropped.
+     *
+     * @param duplicatedAddress true to bring up the test interface with the same address with VPN
+     *                          interface
+     */
+    private void doTestDropPacketToVpnAddress(final boolean duplicatedAddress)
+            throws Exception {
+        final FileDescriptor srcFd = runWithShellPermissionIdentity(() -> {
+            final TestNetworkManager tnm = mTestContext.getSystemService(TestNetworkManager.class);
+            // if duplicatedAddress is true, addresses of a test interface are the same with
+            // addresses of a VPN interface.
+            List<LinkAddress> linkAddresses = duplicatedAddress
+                    ? List.of(new LinkAddress("192.0.2.2/24"),
+                            new LinkAddress("2001:db8:1:2::ffe/64")) :
+                    List.of(new LinkAddress("192.0.3.2/24"),
+                            new LinkAddress("2001:db8:1:3::ffe/64"));
+            final TestNetworkInterface iface = tnm.createTunInterface(linkAddresses);
+            tnm.setupTestNetwork(iface.getInterfaceName(), new Binder());
+            return iface.getFileDescriptor().getFileDescriptor();
+        }, MANAGE_TEST_NETWORKS);
+
+        final DatagramSocket dstSock = new DatagramSocket();
+
+        testAndCleanup(() -> {
+            startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"} /* addresses */,
+                    new String[]{"0.0.0.0/0", "::/0"},
+                    "" /* allowedApplications */, "" /* disallowedApplications */,
+                    null /* proxyInfo */, null /* underlyingNetworks */,
+                    false /* isAlwaysMetered */);
+
+            final FileDescriptor dstFd = dstSock.getFileDescriptor$();
+            checkBlockUdp(srcFd, dstFd,
+                    InetAddresses.parseNumericAddress("192.0.2.2") /* dstAddr */,
+                    InetAddresses.parseNumericAddress("192.0.2.1") /* srcAddr */,
+                    duplicatedAddress ? EXPECT_PASS : EXPECT_BLOCK);
+            checkBlockUdp(srcFd, dstFd,
+                    InetAddresses.parseNumericAddress("2001:db8:1:2::ffe") /* dstAddr */,
+                    InetAddresses.parseNumericAddress("2001:db8:1:2::ffa") /* srcAddr */,
+                    duplicatedAddress ? EXPECT_PASS : EXPECT_BLOCK);
+
+            // Traffic on VPN should not be affected
+            checkTrafficOnVpn();
+        }, /* cleanup */ () -> {
+            Os.close(srcFd);
+            dstSock.close();
+        });
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testDropPacketToVpnAddress_WithoutDuplicatedAddress() throws Exception {
+        assumeTrue(supportedHardware());
+        doTestDropPacketToVpnAddress(false /* duplicatedAddress */);
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testDropPacketToVpnAddress_WithDuplicatedAddress() throws Exception {
+        assumeTrue(supportedHardware());
+        doTestDropPacketToVpnAddress(true /* duplicatedAddress */);
+    }
+
     private ByteBuffer buildIpv4UdpPacket(final Inet4Address dstAddr, final Inet4Address srcAddr,
             final short dstPort, final short srcPort, final byte[] payload) throws IOException {
 
@@ -1996,7 +2061,8 @@ public class VpnTest {
     private void checkBlockUdp(
             final FileDescriptor srcTunFd,
             final FileDescriptor dstUdpFd,
-            final boolean ipv6,
+            final InetAddress dstAddress,
+            final InetAddress srcAddress,
             final boolean expectBlock) throws Exception {
         final Random random = new Random();
         final byte[] sendData = new byte[100];
@@ -2004,15 +2070,15 @@ public class VpnTest {
         final short dstPort = (short) ((InetSocketAddress) Os.getsockname(dstUdpFd)).getPort();
 
         ByteBuffer buf;
-        if (ipv6) {
+        if (dstAddress instanceof Inet6Address) {
             buf = buildIpv6UdpPacket(
-                    (Inet6Address) TEST_IP6_DST_ADDR.getAddress(),
-                    (Inet6Address) TEST_IP6_SRC_ADDR.getAddress(),
+                    (Inet6Address) dstAddress,
+                    (Inet6Address) srcAddress,
                     dstPort, TEST_SRC_PORT, sendData);
         } else {
             buf = buildIpv4UdpPacket(
-                    (Inet4Address) TEST_IP4_DST_ADDR.getAddress(),
-                    (Inet4Address) TEST_IP4_SRC_ADDR.getAddress(),
+                    (Inet4Address) dstAddress,
+                    (Inet4Address) srcAddress,
                     dstPort, TEST_SRC_PORT, sendData);
         }
 
@@ -2038,8 +2104,10 @@ public class VpnTest {
             final FileDescriptor srcTunFd,
             final FileDescriptor dstUdpFd,
             final boolean expectBlock) throws Exception {
-        checkBlockUdp(srcTunFd, dstUdpFd, false /* ipv6 */, expectBlock);
-        checkBlockUdp(srcTunFd, dstUdpFd, true /* ipv6 */, expectBlock);
+        checkBlockUdp(srcTunFd, dstUdpFd, TEST_IP4_DST_ADDR.getAddress(),
+                TEST_IP4_SRC_ADDR.getAddress(), expectBlock);
+        checkBlockUdp(srcTunFd, dstUdpFd, TEST_IP6_DST_ADDR.getAddress(),
+                TEST_IP6_SRC_ADDR.getAddress(), expectBlock);
     }
 
     private class DetailedBlockedStatusCallback extends TestableNetworkCallback {
