@@ -18,7 +18,10 @@ package com.android.cts.net.hostside;
 
 import static android.app.job.JobScheduler.RESULT_SUCCESS;
 import static android.net.ConnectivityManager.ACTION_RESTRICT_BACKGROUND_CHANGED;
-import static android.os.BatteryManager.BATTERY_PLUGGED_ANY;
+import static android.os.BatteryManager.BATTERY_PLUGGED_AC;
+import static android.os.BatteryManager.BATTERY_PLUGGED_DOCK;
+import static android.os.BatteryManager.BATTERY_PLUGGED_USB;
+import static android.os.BatteryManager.BATTERY_PLUGGED_WIRELESS;
 
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.executeShellCommand;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.forceRunJob;
@@ -118,6 +121,11 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
     protected static final String NOTIFICATION_TYPE_ACTION = "ACTION";
     protected static final String NOTIFICATION_TYPE_ACTION_BUNDLE = "ACTION_BUNDLE";
     protected static final String NOTIFICATION_TYPE_ACTION_REMOTE_INPUT = "ACTION_REMOTE_INPUT";
+
+    // TODO: Update BatteryManager.BATTERY_PLUGGED_ANY as @TestApi instead of hardcoding
+    // the constant here.
+    private static final int BATTERY_PLUGGED_ANY = BATTERY_PLUGGED_AC
+            | BATTERY_PLUGGED_USB | BATTERY_PLUGGED_WIRELESS | BATTERY_PLUGGED_DOCK;
 
     private static final String NETWORK_STATUS_SEPARATOR = "\\|";
     private static final int SECOND_IN_MS = 1000;
