@@ -330,6 +330,7 @@ import com.android.server.connectivity.ProfileNetworkPreferenceInfo;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
 import com.android.server.connectivity.RoutingCoordinatorService;
+import com.android.server.connectivity.TetheringFlags;
 import com.android.server.connectivity.UidRangeUtils;
 import com.android.server.connectivity.VpnNetworkPreferenceInfo;
 import com.android.server.connectivity.wear.CompanionDeviceManagerProxyService;
@@ -3456,6 +3457,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return checkAnyPermissionOf(mContext, pid, uid,
                 android.Manifest.permission.NETWORK_STACK,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+    }
+
+    private boolean checkSystemBarServicePermission(int pid, int uid) {
+        return checkAnyPermissionOf(mContext, pid, uid,
+                android.Manifest.permission.STATUS_BAR_SERVICE);
     }
 
     private boolean checkNetworkSignalStrengthWakeupPermission(int pid, int uid) {
@@ -11359,6 +11365,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     boolean checkConnectivityDiagnosticsPermissions(
             int callbackPid, int callbackUid, NetworkAgentInfo nai, String callbackPackageName) {
         if (checkNetworkStackPermission(callbackPid, callbackUid)) {
+            return true;
+        }
+        if (DeviceConfigUtils.isNetworkStackFeatureNotChickenedOut(mContext,
+                TetheringFlags.ALLOW_SYSUI_CONNECTIVITY_REPORTS)
+                && checkSystemBarServicePermission(callbackPid, callbackUid)) {
             return true;
         }
 
