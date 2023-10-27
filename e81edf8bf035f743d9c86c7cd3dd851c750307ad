@@ -95,6 +95,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f85c6071_0f136771",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-27T09:31:41Z",
+      "side": 1,
+      "message": "We don\u0027t have a issue by concurrent access even if we don\u0027t use singleton, right?",
+      "range": {
+        "startLine": 93,
+        "startChar": 83,
+        "endLine": 94,
+        "endChar": 26
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4395b3f2_903fb0e0",
         "filename": "framework/src/android/net/BpfNetMapsReader.java",
         "patchSetId": 15
@@ -157,6 +180,29 @@
         "startChar": 19,
         "endLine": 246,
         "endChar": 33
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04c545cc_da3dc09d",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 6202,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-27T09:31:41Z",
+      "side": 1,
+      "message": "nits: It seems condition is removed from args?",
+      "range": {
+        "startLine": 6202,
+        "startChar": 63,
+        "endLine": 6202,
+        "endChar": 77
       },
       "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -244,6 +290,23 @@
         "endLine": 6217,
         "endChar": 74
       },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35faa889_c1f828eb",
+        "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-27T09:31:41Z",
+      "side": 1,
+      "message": "nits: \nIt was a bit hard to follow the chain and rule changes.\nI prefer to have multiple tests for each cases.\nOr have helper function to test each cases after setup the chain and rule.",
       "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
