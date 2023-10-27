@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4133bf70_900ab67b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-27T09:15:52Z",
+      "side": 1,
+      "message": "No, that code in DefaultState will never be reached. That\u0027s why we merge the DefaultState into EnableState.",
+      "parentUuid": "23a101e5_455886b5",
+      "range": {
+        "startLine": 809,
+        "startChar": 36,
+        "endLine": 809,
+        "endChar": 52
+      },
+      "revId": "c87377d1c1ef95f10db267ff355339cb0a11a6ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca929f4c_1e9d032d",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bedbd970_4f5ed19d",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-27T09:15:52Z",
+      "side": 1,
+      "message": "This event will only be sent if the target SDK \u003c S. However, the NSD has been mainlined since Android T. In theory, this event will not be sent with the latest module. Additionally, sendNsdStateChangeBroadcast is always called when NsdService is up, so it does not have any impact.",
+      "parentUuid": "ca929f4c_1e9d032d",
+      "range": {
+        "startLine": 1143,
+        "startChar": 25,
+        "endLine": 1143,
+        "endChar": 50
+      },
+      "revId": "c87377d1c1ef95f10db267ff355339cb0a11a6ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23c6d68f_0ec461b4",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-10-24T05:29:15Z",
       "side": 1,
       "message": "optional: If you have only one State now and expect this state to handle everything, should here use wtf if we receive unexpected message?",
+      "range": {
+        "startLine": 1153,
+        "startChar": 28,
+        "endLine": 1153,
+        "endChar": 29
+      },
+      "revId": "c87377d1c1ef95f10db267ff355339cb0a11a6ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c1f45de_a748bdd9",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-27T09:15:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "23c6d68f_0ec461b4",
       "range": {
         "startLine": 1153,
         "startChar": 28,

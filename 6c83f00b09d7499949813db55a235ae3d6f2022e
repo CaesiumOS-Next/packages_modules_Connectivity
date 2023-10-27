@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16f8ccb1_dec57c69",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-27T09:15:52Z",
+      "side": 0,
+      "message": "Good point! Add a TODO to change the StateMachine to a Handler in the future.",
+      "parentUuid": "067dc651_ec77cf6b",
+      "range": {
+        "startLine": 522,
+        "startChar": 42,
+        "endLine": 522,
+        "endChar": 54
+      },
+      "revId": "6c83f00b09d7499949813db55a235ae3d6f2022e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bb2243f_afc8d4d4",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-24T05:29:15Z",
       "side": 0,
       "message": "Nit: I wonder why is not EnabledState being removed since all the behavior is handled as a `default` case.",
+      "range": {
+        "startLine": 524,
+        "startChar": 55,
+        "endLine": 524,
+        "endChar": 67
+      },
+      "revId": "6c83f00b09d7499949813db55a235ae3d6f2022e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71fed884_867bc627",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-10-27T09:15:52Z",
+      "side": 0,
+      "message": "As discussed offline, most behaviors are handled in the EnabledState, which is the initial state. Therefore, keeping the EnabledState is a more correct design.",
+      "parentUuid": "5bb2243f_afc8d4d4",
       "range": {
         "startLine": 524,
         "startChar": 55,
