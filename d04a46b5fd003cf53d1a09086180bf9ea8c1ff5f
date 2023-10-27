@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46e96133_4236fadb",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1515,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T00:38:04Z",
+      "side": 1,
+      "message": "Please add comments here that explains this mimics the defaults of VPN and that any user needs to override them",
+      "range": {
+        "startLine": 1515,
+        "startChar": 35,
+        "endLine": 1515,
+        "endChar": 48
+      },
+      "revId": "d04a46b5fd003cf53d1a09086180bf9ea8c1ff5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
