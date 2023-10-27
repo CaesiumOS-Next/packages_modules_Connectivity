@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2866e0bc_8d1e313b",
+        "filename": "DnsResolver/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-27T18:49:42Z",
+      "side": 1,
+      "message": "There is a compile check stop me to add any other string like //apex_available:platform in apex_available.\n```\nerror: packages/modules/Connectivity/DnsResolver/Android.bp:52:19: module \n\"lib4dns_resolver\" variant \"android_arm64_armv8-a_static_cfi\": apex_available: Stub \nlibraries should have a single apex_available (test apexes excluded). Got \n[//apex_available:platform com.android.tethering]\n```",
+      "parentUuid": "f7fa67da_d763f6e3",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 46
+      },
+      "revId": "843d2e7690333d85db538dd233ddba1d0fd9a396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1461fb2e_a47ccae9",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-26T20:36:55Z",
       "side": 1,
       "message": "perhaps move\n\npackages/modules/Connectivity/bpf_progs/netd.c\n\nstatic __always_inline int is_system_uid(uint32_t uid) {\n    // MIN_SYSTEM_UID is AID_ROOT \u003d\u003d 0, so uint32_t is *always* \u003e\u003d 0\n    // MAX_SYSTEM_UID is AID_NOBODY \u003d\u003d 9999, while AID_APP_START \u003d\u003d 10000\n    return (uid \u003c AID_APP_START);\n}\n\ninto netd.h as well?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 69
+      },
+      "revId": "843d2e7690333d85db538dd233ddba1d0fd9a396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51c99210_c4f16baa",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-27T18:49:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1461fb2e_a47ccae9",
       "range": {
         "startLine": 27,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b981f7c_b7dd54b8",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-27T18:49:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80987568_22a113e9",
+      "range": {
+        "startLine": 41,
+        "startChar": 23,
+        "endLine": 41,
+        "endChar": 29
+      },
+      "revId": "843d2e7690333d85db538dd233ddba1d0fd9a396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47bae75f_a0a7c7b5",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-10-26T20:36:55Z",
       "side": 1,
       "message": "can this just:\n  return enabledRules.error()",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 43
+      },
+      "revId": "843d2e7690333d85db538dd233ddba1d0fd9a396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caaf79e2_8ac10591",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-27T18:49:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47bae75f_a0a7c7b5",
       "range": {
         "startLine": 49,
         "startChar": 4,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bd239e8_ac160109",
+        "filename": "DnsResolver/DnsBpfHelper.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-27T18:49:42Z",
+      "side": 1,
+      "message": "It\u0027s required by UidOwnerValue on L.38.\n\n```\npackages/modules/Connectivity/DnsResolver/DnsBpfHelper.h:37:36: error: use of undeclared identifier \u0027UidOwnerValue\u0027\n  android::bpf::BpfMapRO\u003cuint32_t, UidOwnerValue\u003e mUidOwnerMap;\n\n```",
+      "parentUuid": "7fa92d64_6b0927f3",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 17
+      },
+      "revId": "843d2e7690333d85db538dd233ddba1d0fd9a396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1577b1d_f17bfcb6",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-10-26T20:36:55Z",
       "side": 1,
       "message": "auto?",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "843d2e7690333d85db538dd233ddba1d0fd9a396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15381061_3f97d10c",
+        "filename": "DnsResolver/ForDnsResolver.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-27T18:49:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1577b1d_f17bfcb6",
       "range": {
         "startLine": 32,
         "startChar": 2,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92da04f0_5d53a563",
+        "filename": "DnsResolver/ForDnsResolver.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-27T18:49:42Z",
+      "side": 1,
+      "message": "Done\n\nMoved logs to DnsBpfHelper.cpp.",
+      "parentUuid": "09a9c370_c0819b24",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 53
+      },
+      "revId": "843d2e7690333d85db538dd233ddba1d0fd9a396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b710639_07aa0e7e",
@@ -175,6 +343,30 @@
       "writtenOn": "2023-10-26T20:36:55Z",
       "side": 1,
       "message": "auto?  maybe not? your call",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 29
+      },
+      "revId": "843d2e7690333d85db538dd233ddba1d0fd9a396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab64d818_2f453fca",
+        "filename": "DnsResolver/ForDnsResolver.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-27T18:49:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b710639_07aa0e7e",
       "range": {
         "startLine": 42,
         "startChar": 2,
@@ -231,6 +423,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f305ed41_516ea671",
+        "filename": "DnsResolver/include/ForDnsResolverPublic.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-27T18:49:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a18a8143_f8be5925",
+      "range": {
+        "startLine": 36,
+        "startChar": 46,
+        "endLine": 36,
+        "endChar": 61
+      },
+      "revId": "843d2e7690333d85db538dd233ddba1d0fd9a396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "687eac83_d70f20c0",
+        "filename": "DnsResolver/include/ForDnsResolverPublic.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-27T18:49:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c14a523_460e6f7f",
+      "range": {
+        "startLine": 36,
+        "startChar": 19,
+        "endLine": 36,
+        "endChar": 26
+      },
+      "revId": "843d2e7690333d85db538dd233ddba1d0fd9a396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e864fd9a_dd729982",
@@ -244,6 +484,30 @@
       "writtenOn": "2023-10-26T20:36:55Z",
       "side": 1,
       "message": "either without \u0027The\u0027 or \"The metered argument ...\"",
+      "range": {
+        "startLine": 37,
+        "startChar": 3,
+        "endLine": 37,
+        "endChar": 7
+      },
+      "revId": "843d2e7690333d85db538dd233ddba1d0fd9a396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "641cfdb4_355166f5",
+        "filename": "DnsResolver/include/ForDnsResolverPublic.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-27T18:49:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e864fd9a_dd729982",
       "range": {
         "startLine": 37,
         "startChar": 3,
