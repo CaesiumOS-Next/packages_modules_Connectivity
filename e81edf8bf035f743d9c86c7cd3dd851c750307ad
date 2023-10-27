@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83c4e9e2_54a57831",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T09:21:16Z",
+      "side": 1,
+      "message": "uses",
+      "range": {
+        "startLine": 93,
+        "startChar": 33,
+        "endLine": 93,
+        "endChar": 36
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "170f28e1_f45a6d08",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T09:21:16Z",
+      "side": 1,
+      "message": "needs",
+      "range": {
+        "startLine": 94,
+        "startChar": 36,
+        "endLine": 94,
+        "endChar": 40
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01c0d468_df661caf",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T09:21:16Z",
+      "side": 1,
+      "message": "s/-//",
+      "range": {
+        "startLine": 94,
+        "startChar": 10,
+        "endLine": 94,
+        "endChar": 11
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3c6857e_bc58a80e",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T09:21:16Z",
+      "side": 1,
+      "message": "a non-",
+      "range": {
+        "startLine": 94,
+        "startChar": 48,
+        "endLine": 94,
+        "endChar": 51
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4395b3f2_903fb0e0",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T09:21:16Z",
+      "side": 1,
+      "message": "@RequiresApi(T) ?",
+      "range": {
+        "startLine": 97,
+        "startChar": 11,
+        "endLine": 97,
+        "endChar": 27
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c92866a_69be946e",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T09:21:16Z",
+      "side": 1,
+      "message": "@RequiresApi(T) ?",
+      "range": {
+        "startLine": 222,
+        "startChar": 19,
+        "endLine": 222,
+        "endChar": 47
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad053c52_2cae7fbb",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T09:21:16Z",
+      "side": 1,
+      "message": "While I think this is correct, I don\u0027t think this is the most readable form for computing this. In particular, `maskShouldDrop` will have 1s for all bits that are not part of any chain, which is pretty confusing (it\u0027s removed by the \u0026 with maskEnabledChain below, so it\u0027s still correct).\n\nI think the following would be easier to follow.\n\n    final boolean denied \u003d 0 !\u003d uidRuleConfig \u0026 ~uidMatch \u0026 sMaskDropIfUnset;\n    final boolean allowed \u003d 0 !\u003d uidRuleConfig \u0026 uidMatch \u0026 sMaskDropIfSet;\n    return allowed \u0026\u0026 !denied;\n\nThis is like 1 more binary operation, which is completely negligible compared to the allocation in l.229.",
+      "range": {
+        "startLine": 246,
+        "startChar": 19,
+        "endLine": 246,
+        "endChar": 33
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "135f959e_7ab99ef9",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 6205,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T09:21:16Z",
+      "side": 1,
+      "message": "..and therefore considerably faster.",
+      "range": {
+        "startLine": 6205,
+        "startChar": 11,
+        "endLine": 6205,
+        "endChar": 13
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44ad8116_26135274",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 6208,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T09:21:16Z",
+      "side": 1,
+      "message": "s/the network/all networking/\n\n...otherwise you\u0027ll wonder which network this is",
+      "range": {
+        "startLine": 6208,
+        "startChar": 23,
+        "endLine": 6208,
+        "endChar": 34
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81c4f9ac_bad08da1",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 6217,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T09:21:16Z",
+      "side": 1,
+      "message": "netd can\u0027t call this though",
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1837d1ca_3f7baaa4",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 6217,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T09:21:16Z",
+      "side": 1,
+      "message": "s/the //",
+      "range": {
+        "startLine": 6217,
+        "startChar": 71,
+        "endLine": 6217,
+        "endChar": 74
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
