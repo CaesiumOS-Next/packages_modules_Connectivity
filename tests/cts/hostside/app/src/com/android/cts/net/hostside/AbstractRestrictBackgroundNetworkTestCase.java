@@ -753,11 +753,7 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
     }
 
     protected void setAppIdle(boolean enabled) throws Exception {
-        if (!isAppStandbySupported()) {
-            return;
-        }
-        Log.i(TAG, "Setting app idle to " + enabled);
-        executeSilentShellCommand("am set-inactive " + TEST_APP2_PKG + " " + enabled );
+        setAppIdleNoAssert(enabled);
         assertAppIdle(enabled);
     }
 
@@ -766,7 +762,8 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
             return;
         }
         Log.i(TAG, "Setting app idle to " + enabled);
-        executeSilentShellCommand("am set-inactive " + TEST_APP2_PKG + " " + enabled );
+        final String bucketName = enabled ? "rare" : "active";
+        executeSilentShellCommand("am set-standby-bucket " + TEST_APP2_PKG + " " + bucketName);
     }
 
     protected void assertAppIdle(boolean enabled) throws Exception {
