@@ -33,6 +33,24 @@
       "message": "btw. I feel the right spot to fix this is straight in Struct.java\n\nWhen it tries to write the struct out...\n\nie. around:\nhttps://source.corp.google.com/h/android/platform/superproject/+/master:packages/modules/Connectivity/staticlibs/device/com/android/net/module/util/Struct.java;drc\u003d3b2c559149923c6e9fb5a99aeac1333d063d7116;l\u003d422\n\nif that doesn\u0027t already handle things correctly, isn\u0027t that a bug there?\n\nBut do note the complexities of InetAddress vs Inet4Address vs Inet6Address confuse me.",
       "revId": "42d37bad8d69e53e166384eb6573efc48bd55aca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7042d81e_3720c64a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T19:21:40Z",
+      "side": 1,
+      "message": "Basically what I\u0027m saying is that IMHO you should be able to store an Inet4address straight into the struct field, and it should just work...",
+      "parentUuid": "1dbc1624_647e9b63",
+      "revId": "42d37bad8d69e53e166384eb6573efc48bd55aca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
