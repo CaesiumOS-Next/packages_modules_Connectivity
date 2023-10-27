@@ -91,6 +91,7 @@ import android.net.VpnTransportInfo;
 import android.net.cts.util.CtsNetUtils;
 import android.net.util.KeepaliveUtils;
 import android.net.wifi.WifiManager;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -1953,6 +1954,51 @@ public class VpnTest {
             });
     }
 
+    /**
+     * Check if the packet to VPN interface from non-VPN test interface is dropped or not.
+     * If the test interface has the same address with VPN interface, packet must not be dropped.
+     * If the test interface has the different address, packet must be dropped.
+     *
+     * @param duplicatedAddress true to bring up the test interface with the same address with VPN
+     *                          interface
+     */
+    private void doTestDropPacketToVpnAddress(final boolean duplicatedAddress)
+            throws Exception {
+        final FileDescriptor tunFd = runWithShellPermissionIdentity(() -> {
+            final TestNetworkManager tnm = mTestContext.getSystemService(TestNetworkManager.class);
+            // if duplicatedAddress is true, addresses of test interface are the same with the
+            // addresses of VPN interface.
+            List<LinkAddress> linkAddresses = duplicatedAddress
+                    ? List.of(TEST_IP4_DST_ADDR, TEST_IP6_DST_ADDR) :
+                    List.of(new LinkAddress("192.0.3.2/24"),
+                            new LinkAddress("2001:db8:1:3::ffe/64"));
+            final TestNetworkInterface iface = tnm.createTunInterface(linkAddresses);
+            tnm.setupTestNetwork(iface.getInterfaceName(), new Binder());
+            return iface.getFileDescriptor().getFileDescriptor();
+        }, MANAGE_TEST_NETWORKS);
+
+        final DatagramSocket recvSock = new DatagramSocket();
+
+        startVpn(new String[] {TEST_IP4_DST_ADDR.toString(), TEST_IP6_DST_ADDR.toString()},
+                new String[] {"0.0.0.0/0", "::/0"},
+                "", "", null, null /* underlyingNetworks */, false /* isAlwaysMetered */);
+
+        checkBlockIncomingPacket(tunFd, recvSock.getFileDescriptor$(),
+                duplicatedAddress ? EXPECT_PASS : EXPECT_BLOCK);
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testDropPacketToVpnAddress_WithoutDuplicatedAddress() throws Exception {
+        assumeTrue(supportedHardware());
+        doTestDropPacketToVpnAddress(false /* duplicatedAddress */);
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testDropPacketToVpnAddress_WithDuplicatedAddress() throws Exception {
+        assumeTrue(supportedHardware());
+        doTestDropPacketToVpnAddress(true /* duplicatedAddress */);
+    }
+
     private ByteBuffer buildIpv4UdpPacket(final Inet4Address dstAddr, final Inet4Address srcAddr,
             final short dstPort, final short srcPort, final byte[] payload) throws IOException {
 
@@ -2034,6 +2080,10 @@ public class VpnTest {
         }
     }
 
+    /**
+     * Send packet from TEST_IP6_SRC_ADDR to TEST_IP6_DST_ADDR via srcTunFd and check if dstUdpFd
+     * can receive this packet or not.
+     */
     private void checkBlockIncomingPacket(
             final FileDescriptor srcTunFd,
             final FileDescriptor dstUdpFd,
