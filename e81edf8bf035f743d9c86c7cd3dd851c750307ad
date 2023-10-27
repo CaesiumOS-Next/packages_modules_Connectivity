@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "060a4cb5_5bede3a8",
+        "filename": "framework/src/android/net/BpfNetMapsConstants.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T18:29:25Z",
+      "side": 1,
+      "message": "maybe this line should be moved down? past the MATCH_LIST and the FIREWALL_CHAINS?",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 52
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99e5c841_1c04d812",
+        "filename": "framework/src/android/net/BpfNetMapsConstants.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T18:29:25Z",
+      "side": 1,
+      "message": "probably needs something\nLINT.IfChange(match_type)\nLINT.ThenChange(../../../../bpf_progs/netd.h)\n\nto match the C defines in netd.h",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 4
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28575ae6_405c0e22",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T18:29:25Z",
+      "side": 1,
+      "message": "this implies that every bit is either one or the other.\n\nif this is true (not sure), there should be a test for this somewhere I think,\nso we don\u0027t add a bit that is neither...\n\nI\u0027m not sure that it is...\n\npackages/modules/Connectivity/bpf_progs/netd.h\n\nenum UidOwnerMatchType {\n    NO_MATCH \u003d 0,\n    HAPPY_BOX_MATCH \u003d (1 \u003c\u003c 0),\n    PENALTY_BOX_MATCH \u003d (1 \u003c\u003c 1),\n    DOZABLE_MATCH \u003d (1 \u003c\u003c 2),             -\n    STANDBY_MATCH \u003d (1 \u003c\u003c 3),             +\n    POWERSAVE_MATCH \u003d (1 \u003c\u003c 4),           -\n    RESTRICTED_MATCH \u003d (1 \u003c\u003c 5),          -\n    LOW_POWER_STANDBY_MATCH \u003d (1 \u003c\u003c 6),   -\n    IIF_MATCH \u003d (1 \u003c\u003c 7),\n    LOCKDOWN_VPN_MATCH \u003d (1 \u003c\u003c 8),\n    OEM_DENY_1_MATCH \u003d (1 \u003c\u003c 9),          +\n    OEM_DENY_2_MATCH \u003d (1 \u003c\u003c 10),         +\n    OEM_DENY_3_MATCH \u003d (1 \u003c\u003c 11),         +\n};\n\n#define DROP_IF_SET (STANDBY_MATCH | OEM_DENY_1_MATCH | OEM_DENY_2_MATCH | OEM_DENY_3_MATCH)\n#define DROP_IF_UNSET (DOZABLE_MATCH | POWERSAVE_MATCH | RESTRICTED_MATCH | LOW_POWER_STANDBY_MATCH)\n\nSo there are bits that are neither...\nBut maybe there\u0027s only 8 firewall chains...?\n(which does seem to be the case)\n\nMaybe this needs LINT annotations if change this change that...\n\nWould it make sense to get this stuff in via jni functions that just return the #defined constants?",
+      "range": {
+        "startLine": 70,
+        "startChar": 11,
+        "endLine": 74,
+        "endChar": 13
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83c4e9e2_54a57831",
         "filename": "framework/src/android/net/BpfNetMapsReader.java",
         "patchSetId": 15
@@ -180,6 +249,53 @@
         "startChar": 19,
         "endLine": 246,
         "endChar": 33
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f240424_71dc48f1",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T18:29:25Z",
+      "side": 1,
+      "message": "also consider whether this shouldn\u0027t just be a jni call to the C code from netd.h?",
+      "parentUuid": "ad053c52_2cae7fbb",
+      "range": {
+        "startLine": 246,
+        "startChar": 19,
+        "endLine": 246,
+        "endChar": 33
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf889382_306f93cd",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T18:29:25Z",
+      "side": 1,
+      "message": "feels like another spot that needs lint if change annotation?",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 4
       },
       "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
