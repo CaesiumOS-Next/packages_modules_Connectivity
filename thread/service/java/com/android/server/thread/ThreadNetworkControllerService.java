@@ -14,6 +14,13 @@
 
 package com.android.server.thread;
 
+import static android.net.thread.ActiveOperationalDataset.CHANNEL_PAGE_24_GHZ;
+import static android.net.thread.ActiveOperationalDataset.LENGTH_EXTENDED_PAN_ID;
+import static android.net.thread.ActiveOperationalDataset.LENGTH_MESH_LOCAL_PREFIX_BITS;
+import static android.net.thread.ActiveOperationalDataset.LENGTH_NETWORK_KEY;
+import static android.net.thread.ActiveOperationalDataset.LENGTH_PSKC;
+import static android.net.thread.ActiveOperationalDataset.MESH_LOCAL_PREFIX_FIRST_BYTE;
+import static android.net.thread.ActiveOperationalDataset.SecurityPolicy.DEFAULT_ROTATION_TIME_HOURS;
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_DETACHED;
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_STOPPED;
 import static android.net.thread.ThreadNetworkController.THREAD_VERSION_1_3;
@@ -53,10 +60,13 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkProvider;
 import android.net.NetworkScore;
 import android.net.thread.ActiveOperationalDataset;
+import android.net.thread.ActiveOperationalDataset.SecurityPolicy;
+import android.net.thread.IActiveOperationalDatasetReceiver;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.IOperationalDatasetCallback;
 import android.net.thread.IStateCallback;
 import android.net.thread.IThreadNetworkController;
+import android.net.thread.OperationalDatasetTimestamp;
 import android.net.thread.PendingOperationalDataset;
 import android.net.thread.ThreadNetworkController;
 import android.net.thread.ThreadNetworkController.DeviceRole;
@@ -67,6 +77,7 @@ import android.os.Looper;
 import android.os.RemoteException;
 import android.os.SystemClock;
 import android.util.Log;
+import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.thread.openthread.IOtDaemon;
@@ -78,10 +89,15 @@ import com.android.server.thread.openthread.OtDaemonState;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.security.SecureRandom;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
+import java.util.Random;
 
 /**
  * Implementation of the {@link ThreadNetworkController} API.
@@ -111,6 +127,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final TunInterfaceController mTunIfController;
     private final LinkProperties mLinkProperties = new LinkProperties();
     private final OtDaemonCallbackProxy mOtDaemonCallbackProxy = new OtDaemonCallbackProxy();
+
+    // TODO(b/308310823): read supported channel from Thread dameon
+    private final int mSupportedChannelMask = 0x07FFF800; // from channel 11 to 26
 
     private IOtDaemon mOtDaemon;
     private NetworkAgent mNetworkAgent;
@@ -302,6 +321,82 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     @Override
     public int getThreadVersion() {
         return THREAD_VERSION_1_3;
+    }
+
+    @Override
+    public void createRandomizedDataset(
+            String networkName, IActiveOperationalDatasetReceiver receiver) {
+        mHandler.post(() -> {
+            ActiveOperationalDataset dataset =
+                    createRandomizedDatasetInternal(
+                            networkName,
+                            mSupportedChannelMask,
+                            Instant.now(),
+                            new Random(),
+                            new SecureRandom());
+            try {
+                receiver.onSuccess(dataset);
+            } catch (RemoteException e) {
+                // The client is dead, do nothing
+            }
+        });
+    }
+
+    private static ActiveOperationalDataset createRandomizedDatasetInternal(
+            String networkName,
+            int supportedChannelMask,
+            Instant now,
+            Random random,
+            SecureRandom secureRandom) {
+        int panId = random.nextInt(/* bound= */ 0xffff);
+        final byte[] meshLocalPrefix = newRandomBytes(random, LENGTH_MESH_LOCAL_PREFIX_BITS / 8);
+        meshLocalPrefix[0] = MESH_LOCAL_PREFIX_FIRST_BYTE;
+
+        final SparseArray<byte[]> channelMask = new SparseArray<>(1);
+        channelMask.put(CHANNEL_PAGE_24_GHZ, intToByteArray(supportedChannelMask));
+
+        final byte[] securityFlags = new byte[] {(byte) 0xff, (byte) 0xf8};
+
+        return new ActiveOperationalDataset.Builder()
+                .setActiveTimestamp(
+                        new OperationalDatasetTimestamp(
+                                now.getEpochSecond() & 0xffffffffffffL, 0, false))
+                .setExtendedPanId(newRandomBytes(random, LENGTH_EXTENDED_PAN_ID))
+                .setPanId(panId)
+                .setNetworkName(networkName)
+                .setChannel(CHANNEL_PAGE_24_GHZ, selectRandomChannel(supportedChannelMask, random))
+                .setChannelMask(channelMask)
+                .setPskc(newRandomBytes(secureRandom, LENGTH_PSKC))
+                .setNetworkKey(newRandomBytes(secureRandom, LENGTH_NETWORK_KEY))
+                .setMeshLocalPrefix(meshLocalPrefix)
+                .setSecurityPolicy(new SecurityPolicy(DEFAULT_ROTATION_TIME_HOURS, securityFlags))
+                .build();
+    }
+
+    private static byte[] newRandomBytes(Random random, int length) {
+        byte[] result = new byte[length];
+        random.nextBytes(result);
+        return result;
+    }
+
+    private static byte[] intToByteArray(int value) {
+        return new byte[] {
+                (byte)(value >>> 24),
+                (byte)(value >>> 16),
+                (byte)(value >>> 8),
+                (byte)value
+        };
+    }
+
+    private static int selectRandomChannel(int supportedChannelMask, Random random) {
+        int index = random.nextInt(Integer.bitCount(supportedChannelMask));
+        for (int i = 0; i < 32; i++) {
+            if ((supportedChannelMask & 1) == 1 && (index--) == 0) {
+                return i;
+            }
+            supportedChannelMask = supportedChannelMask >> 1;
+        }
+        return -1;
     }
 
     private void enforceAllCallingPermissionsGranted(String... permissions) {
