@@ -44,6 +44,7 @@ import android.net.NetworkProvider;
 import android.net.NetworkRequest;
 import android.net.NetworkScore;
 import android.net.thread.ActiveOperationalDataset;
+import android.net.thread.ICreateRandomizedDatasetReceiver;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.IOperationalDatasetCallback;
 import android.net.thread.IScheduleMigrationReceiver;
@@ -359,6 +360,11 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     @Override
     public int getThreadVersion() {
         return THREAD_VERSION_1_3;
+    }
+
+    @Override
+    public void createRandomizedDataset(String networkName, ICreateRandomizedDatasetReceiver receiver) {
+        // TODO:
     }
 
     private void enforceAllCallingPermissionsGranted(String... permissions) {

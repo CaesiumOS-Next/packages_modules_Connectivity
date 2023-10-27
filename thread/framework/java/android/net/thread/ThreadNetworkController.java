@@ -116,6 +116,40 @@ public final class ThreadNetworkController {
         }
     }
 
+    /**
+     * Creates a new Active Operational Dataset with randomized parameters.
+     *
+     * <p>This method is the recommended way to create a randomized dataset which can be used with
+     * {@link #join} to securely join this device to the specified network . It's highly
+     * discouraged to change the randomly generated Extended PAN ID, Network Key or PSKc, as it
+     * will compromise the security of a Thread network.
+     */
+    public void createRandomizedDataset(
+            @NonNull String networkName,
+            @NonNull @CallbackExecutor Executor executor,
+            @NonNull OutcomeReceiver<ActiveOperationalDataset, ThreadNetworkException> receiver) {
+        try {
+            mControllerService.createRandomizedDataset(
+                networkName,
+                new ICreateRandomizedDatasetReceiver.Stub() {
+                    @Override
+                    public void onSuccess(ActiveOperationalDataset randomizedDataset) {
+                        executor.execute(() -> receiver.onResult(randomizedDataset));
+                    }
+
+                    @Override
+                    public void onError(int errorCode, String errorMessage) {
+                        executor.execute(
+                                () ->
+                                        receiver.onError(
+                                                new ThreadNetworkException(errorCode, errorMessage)));
+                    }
+                });
+        } catch (RemoteException e) {
+            e.rethrowFromSystemServer();
+        }
+    }
+
     /** Returns {@code true} if {@code deviceRole} indicates an attached state. */
     public static boolean isAttached(@DeviceRole int deviceRole) {
         return deviceRole == DEVICE_ROLE_CHILD
