@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7a06687_02a34f6c",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1850,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-27T00:53:33Z",
+      "side": 1,
+      "message": "This doesn\u0027t make sense ; the test is called `testStartLegacyVpnIpv6` but it\u0027s no longer a legacy VPN. The point of this test was to make sure that legacy VPNs throw.\n\nI think you should just remove this test.",
+      "range": {
+        "startLine": 1850,
+        "startChar": 23,
+        "endLine": 1850,
+        "endChar": 54
+      },
+      "revId": "a6724c38e304c266f6b995d44464dedd448d85af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
