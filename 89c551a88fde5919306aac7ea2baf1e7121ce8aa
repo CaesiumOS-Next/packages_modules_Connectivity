@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c925137_3864f3c5",
+        "filename": "DnsResolver/DnsBpfHelperTest.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T19:07:37Z",
+      "side": 1,
+      "message": "this name is unfortunate: DB \u003d Database.\nI think you should either just use mHelper or mDnsBpfHelper",
+      "range": {
+        "startLine": 34,
+        "startChar": 15,
+        "endLine": 34,
+        "endChar": 24
+      },
+      "revId": "89c551a88fde5919306aac7ea2baf1e7121ce8aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f750979c_18b7a0d6",
+        "filename": "DnsResolver/DnsBpfHelperTest.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T19:07:37Z",
+      "side": 1,
+      "message": "is this run for class startup? or before each test? I can\u0027t remember.",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 38,
+        "endChar": 12
+      },
+      "revId": "89c551a88fde5919306aac7ea2baf1e7121ce8aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc360b08_66deed93",
+        "filename": "DnsResolver/DnsBpfHelperTest.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T19:07:37Z",
+      "side": 1,
+      "message": "did you mean to ClearAllMaps() and .clear() instead?\n\n.reset() ifirc makes maps invalid",
+      "range": {
+        "startLine": 51,
+        "startChar": 7,
+        "endLine": 51,
+        "endChar": 19
+      },
+      "revId": "89c551a88fde5919306aac7ea2baf1e7121ce8aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67cb6403_ee83bdf0",
+        "filename": "DnsResolver/DnsBpfHelperTest.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T19:07:37Z",
+      "side": 1,
+      "message": "not toString() ?",
+      "range": {
+        "startLine": 63,
+        "startChar": 16,
+        "endLine": 63,
+        "endChar": 28
+      },
+      "revId": "89c551a88fde5919306aac7ea2baf1e7121ce8aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7218727_76ed849b",
+        "filename": "DnsResolver/DnsBpfHelperTest.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T19:07:37Z",
+      "side": 1,
+      "message": "shouldn\u0027t there be a \u003d here?",
+      "range": {
+        "startLine": 68,
+        "startChar": 17,
+        "endLine": 68,
+        "endChar": 18
+      },
+      "revId": "89c551a88fde5919306aac7ea2baf1e7121ce8aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a22b869_ef44f568",
+        "filename": "DnsResolver/DnsBpfHelperTest.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T19:07:37Z",
+      "side": 1,
+      "message": "probably just use auto here and in the next func",
+      "range": {
+        "startLine": 122,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 31
+      },
+      "revId": "89c551a88fde5919306aac7ea2baf1e7121ce8aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa5fd1ec_bffe1c8c",
+        "filename": "DnsResolver/DnsBpfHelperTest.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T19:07:37Z",
+      "side": 1,
+      "message": "oh you did mean to break the maps...\n\nthen probably better to just put the 2 lines here in the test rather than in a helper func",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 17
+      },
+      "revId": "89c551a88fde5919306aac7ea2baf1e7121ce8aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
