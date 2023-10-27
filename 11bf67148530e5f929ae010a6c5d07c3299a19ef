@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b174c143_72ae5578",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-27T10:38:37Z",
+      "side": 1,
+      "message": "I think we can just call the API without checking the trunk stable flag for FlaggedAPI from test.\nAlso,`DeviceConfigUtils.isTrunkStableFeatureEnabled` is not stable and needs to be updated to follow trunk stable flag change.\nSo using this from cts could be a issue later.",
+      "range": {
+        "startLine": 201,
+        "startChar": 30,
+        "endLine": 201,
+        "endChar": 31
+      },
+      "revId": "11bf67148530e5f929ae010a6c5d07c3299a19ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87184a8b_79e93fa8",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-27T10:38:37Z",
+      "side": 1,
+      "message": "I felt it\u0027s strange that we run cmd shell to network_stack for uid networking blocked status which is maintained by ConnectivityService.\nI\u0027m wondering if we can have hidden API in ConnectivityManager.",
+      "range": {
+        "startLine": 476,
+        "startChar": 8,
+        "endLine": 476,
+        "endChar": 9
+      },
+      "revId": "11bf67148530e5f929ae010a6c5d07c3299a19ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
