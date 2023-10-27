@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e48b042_5cf7de88",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T19:26:53Z",
+      "side": 1,
+      "message": "annotate api T+?",
+      "range": {
+        "startLine": 977,
+        "startChar": 4,
+        "endLine": 977,
+        "endChar": 10
+      },
+      "revId": "f760f43be59eac80cf699254c06a7cfa8aff0d62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dadb79d7_27291d91",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T19:26:53Z",
+      "side": 1,
+      "message": "annotate api T+",
+      "range": {
+        "startLine": 995,
+        "startChar": 4,
+        "endLine": 995,
+        "endChar": 10
+      },
+      "revId": "f760f43be59eac80cf699254c06a7cfa8aff0d62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3044ed5b_75c7075d",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T19:26:53Z",
+      "side": 1,
+      "message": "sure this is needed? sure this is useful??\n\ncheck with Lorenzo\n\nbtw. I may be confusing how similar stuff works in google3 C++ and/or java",
+      "range": {
+        "startLine": 1140,
+        "startChar": 28,
+        "endLine": 1144,
+        "endChar": 55
+      },
+      "revId": "f760f43be59eac80cf699254c06a7cfa8aff0d62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1f75634_81580157",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-27T19:26:53Z",
+      "side": 1,
+      "message": "should this be [] wrapped for better readability?\n\nshould we also be best effort trying to convert key to an actual interface name?\n\n5(eth0): [2000::1]",
+      "range": {
+        "startLine": 1149,
+        "startChar": 48,
+        "endLine": 1149,
+        "endChar": 53
+      },
+      "revId": "f760f43be59eac80cf699254c06a7cfa8aff0d62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
