@@ -27,6 +27,7 @@ import android.content.pm.PackageManager;
 import android.net.thread.ThreadNetworkController;
 import android.net.thread.ThreadNetworkManager;
 import android.os.Build;
+import android.platform.test.annotations.RequiresFlagsEnabled;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -46,6 +47,7 @@ import java.util.List;
 /** Tests for {@link ThreadNetworkManager}. */
 @SmallTest
 @RunWith(AndroidJUnit4.class)
+@RequiresFlagsEnabled("com.android.net.thread.flags.thread_enabled")
 public class ThreadNetworkManagerTest {
     @Rule public DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
 

@@ -28,6 +28,7 @@ import android.net.thread.ActiveOperationalDataset;
 import android.net.thread.ActiveOperationalDataset.SecurityPolicy;
 import android.net.thread.OperationalDatasetTimestamp;
 import android.net.thread.PendingOperationalDataset;
+import android.platform.test.annotations.RequiresFlagsEnabled;
 import android.util.SparseArray;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -45,6 +46,7 @@ import java.time.Duration;
 /** Tests for {@link PendingOperationalDataset}. */
 @SmallTest
 @RunWith(AndroidJUnit4.class)
+@RequiresFlagsEnabled("com.android.net.thread.flags.thread_enabled")
 public final class PendingOperationalDatasetTest {
     private static ActiveOperationalDataset createActiveDataset() throws Exception {
         SparseArray<byte[]> channelMask = new SparseArray<>(1);
