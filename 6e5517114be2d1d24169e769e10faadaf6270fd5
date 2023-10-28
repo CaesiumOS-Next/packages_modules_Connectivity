@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "436688bc_e27f99e9",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-28T08:33:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e03b8eb_9eefc327",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 47
+      },
+      "revId": "6e5517114be2d1d24169e769e10faadaf6270fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e35ca79_4295f3c8",
@@ -70,6 +94,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf6561b2_f3a99f16",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-28T08:33:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99830b47_6244b565",
+      "range": {
+        "startLine": 41,
+        "startChar": 45,
+        "endLine": 41,
+        "endChar": 60
+      },
+      "revId": "6e5517114be2d1d24169e769e10faadaf6270fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdce1b35_1a35d1e1",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-28T08:33:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e35ca79_4295f3c8",
+      "range": {
+        "startLine": 41,
+        "startChar": 82,
+        "endLine": 41,
+        "endChar": 93
+      },
+      "revId": "6e5517114be2d1d24169e769e10faadaf6270fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1788a44b_8f5a4c3c",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9feff0a8_fc729f34",
+        "filename": "DnsResolver/ForDnsResolver.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-28T08:33:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1788a44b_8f5a4c3c",
+      "range": {
+        "startLine": 27,
+        "startChar": 1,
+        "endLine": 30,
+        "endChar": 3
+      },
+      "revId": "6e5517114be2d1d24169e769e10faadaf6270fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0fe8e4f2_965eb6bd",
@@ -106,6 +202,24 @@
       "writtenOn": "2023-10-27T19:00:25Z",
       "side": 1,
       "message": "maybe comment that bool-\u003eint conversion happens",
+      "revId": "6e5517114be2d1d24169e769e10faadaf6270fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8e20a0d_3cefce0d",
+        "filename": "DnsResolver/ForDnsResolver.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-28T08:33:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fe8e4f2_965eb6bd",
       "revId": "6e5517114be2d1d24169e769e10faadaf6270fd5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
