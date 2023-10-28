@@ -27,6 +27,7 @@ import android.net.IpPrefix;
 import android.net.thread.ActiveOperationalDataset;
 import android.net.thread.OperationalDatasetTimestamp;
 import android.net.thread.PendingOperationalDataset;
+import android.platform.test.annotations.RequiresFlagsEnabled;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
@@ -42,6 +43,7 @@ import java.time.Duration;
 /** Tests for {@link PendingOperationalDataset}. */
 @SmallTest
 @RunWith(AndroidJUnit4.class)
+@RequiresFlagsEnabled("com.android.net.thread.flags.thread_enabled")
 public final class PendingOperationalDatasetTest {
     private static final ActiveOperationalDataset DEFAULT_ACTIVE_DATASET =
             ActiveOperationalDataset.createRandomDataset();

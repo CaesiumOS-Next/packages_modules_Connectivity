@@ -26,6 +26,7 @@ import android.content.Context;
 import android.net.thread.ThreadNetworkController;
 import android.net.thread.ThreadNetworkManager;
 import android.os.Build;
+import android.platform.test.annotations.RequiresFlagsEnabled;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.SmallTest;
@@ -45,6 +46,7 @@ import java.util.List;
 @SmallTest
 @RunWith(DevSdkIgnoreRunner.class)
 @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU) // Thread is available on only U+
+@RequiresFlagsEnabled("com.android.net.thread.flags.thread_enabled")
 public class ThreadNetworkControllerTest {
     @Rule public DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
 
