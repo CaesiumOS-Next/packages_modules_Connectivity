@@ -77,6 +77,7 @@ import java.util.concurrent.Executors;
 @LargeTest
 @RunWith(DevSdkIgnoreRunner.class)
 @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU) // Thread is available on only U+
+@RequiresFlagsEnabled("com.android.net.thread.flags.thread_enabled")
 public class ThreadNetworkControllerTest {
     private static final int CALLBACK_TIMEOUT_MILLIS = 1000;
     private static final String PERMISSION_THREAD_NETWORK_PRIVILEGED =

@@ -21,6 +21,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertThrows;
 
 import android.net.thread.OperationalDatasetTimestamp;
+import android.platform.test.annotations.RequiresFlagsEnabled;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
@@ -35,6 +36,7 @@ import java.time.Instant;
 /** Tests for {@link OperationalDatasetTimestamp}. */
 @SmallTest
 @RunWith(AndroidJUnit4.class)
+@RequiresFlagsEnabled("com.android.net.thread.flags.thread_enabled")
 public final class OperationalDatasetTimestampTest {
     @Test
     public void fromInstant_tooLargeInstant_throwsIllegalArgument() {
