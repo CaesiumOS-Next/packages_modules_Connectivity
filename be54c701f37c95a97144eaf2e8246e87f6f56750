@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fad78289_75b64597",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-29T20:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad800411_d7438e22",
+      "range": {
+        "startLine": 62,
+        "startChar": 43,
+        "endLine": 62,
+        "endChar": 52
+      },
+      "revId": "be54c701f37c95a97144eaf2e8246e87f6f56750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0abb32e3_88c53c20",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-26T20:48:33Z",
       "side": 1,
       "message": "return dataSaverSetting.error() would work no?",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 56
+      },
+      "revId": "be54c701f37c95a97144eaf2e8246e87f6f56750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "113850fa_b8010c81",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-29T20:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0abb32e3_88c53c20",
       "range": {
         "startLine": 71,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b39a391a_baf33af7",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-29T20:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2188f641_6fe4718a",
+      "range": {
+        "startLine": 73,
+        "startChar": 34,
+        "endLine": 73,
+        "endChar": 52
+      },
+      "revId": "be54c701f37c95a97144eaf2e8246e87f6f56750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d9a60f5_eb9804f6",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-10-26T20:48:33Z",
       "side": 1,
       "message": "return dataSaverSetting.value(); ?",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 15
+      },
+      "revId": "be54c701f37c95a97144eaf2e8246e87f6f56750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72084f32_5fa9ecb1",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-29T20:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d9a60f5_eb9804f6",
       "range": {
         "startLine": 73,
         "startChar": 0,
