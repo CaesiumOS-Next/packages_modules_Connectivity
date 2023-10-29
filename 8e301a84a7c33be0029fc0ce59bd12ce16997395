@@ -22,6 +22,30 @@
       },
       "revId": "8e301a84a7c33be0029fc0ce59bd12ce16997395",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e539be97_294baf6a",
+        "filename": "DnsResolver/ForDnsResolver.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-29T20:17:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b3bbf4c_b62e0915",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 33
+      },
+      "revId": "8e301a84a7c33be0029fc0ce59bd12ce16997395",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
