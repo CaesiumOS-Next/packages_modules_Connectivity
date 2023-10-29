@@ -229,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c867a39_cdf37c58",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-29T14:07:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7868b8d1_5b3c52d2",
+      "range": {
+        "startLine": 340,
+        "startChar": 37,
+        "endLine": 340,
+        "endChar": 41
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb2a52c9_2dba7db6",
@@ -359,6 +383,30 @@
       "writtenOn": "2023-10-19T07:59:51Z",
       "side": 1,
       "message": "Grammar unclear ?",
+      "range": {
+        "startLine": 402,
+        "startChar": 7,
+        "endLine": 402,
+        "endChar": 21
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c546a8e_83b2d941",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-29T14:07:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd27c9ea_fa98994c",
       "range": {
         "startLine": 402,
         "startChar": 7,

@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0bebe4b_d817cc66",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-29T14:07:25Z",
+      "side": 1,
+      "message": "Created b/308314424 to track this for ANdroid V. Not a blocker for the SDK extension release.",
+      "parentUuid": "de163ebb_db7a7011",
+      "range": {
+        "startLine": 507,
+        "startChar": 15,
+        "endLine": 507,
+        "endChar": 38
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35edd0af_8f489e6e",
@@ -243,6 +267,30 @@
       "side": 1,
       "message": "This is implemented as the return value of `NetworkAgent#register()`. Can this value be guaranteed correct?\n\nThere is also `WifiManager#getCurrentNetwork`, but maybe it\u0027s again legacy pattern that we should not follow?",
       "parentUuid": "07a0a7b0_7f8c7e71",
+      "range": {
+        "startLine": 511,
+        "startChar": 48,
+        "endLine": 511,
+        "endChar": 58
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c98a0a91_64772908",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-29T14:07:25Z",
+      "side": 1,
+      "message": "Remove `getNetwork()` for now as this is not needed for the SDK extension release. Tracking this ID work in b/308314424",
+      "parentUuid": "9a93475a_dda976e5",
       "range": {
         "startLine": 511,
         "startChar": 48,
@@ -1301,6 +1349,30 @@
       "side": 1,
       "message": "Checking in all methods is probably overkill, but I was thinking this is particularly likely to be called carelessly by somebody because it\u0027s a getter with an innocuous name.\n\nMaybe we can check only the entry points in this class ? i.e. not here because it\u0027s private but in the public methods ?",
       "parentUuid": "7998b81b_1c773177",
+      "range": {
+        "startLine": 400,
+        "startChar": 20,
+        "endLine": 400,
+        "endChar": 31
+      },
+      "revId": "c965e77250655ef1cf701b09032c8af2db076b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f19d57ab_cbb42ac0",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-29T14:07:25Z",
+      "side": 1,
+      "message": "added check in joinInternal, scheduleMigrationInternal and leaveInternal",
+      "parentUuid": "f507b9fc_068ac218",
       "range": {
         "startLine": 400,
         "startChar": 20,
