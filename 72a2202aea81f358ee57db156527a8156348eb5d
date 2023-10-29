@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bd82e51_f2a045d3",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-29T20:28:12Z",
+      "side": 1,
+      "message": "requiresapi t",
+      "range": {
+        "startLine": 969,
+        "startChar": 4,
+        "endLine": 969,
+        "endChar": 10
+      },
+      "revId": "72a2202aea81f358ee57db156527a8156348eb5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c164fcbd_a8b6bf62",
+        "filename": "tests/mts/bpf_existence_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-29T20:28:12Z",
+      "side": 1,
+      "message": "looks to be sorted - move it up?",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 43
+      },
+      "revId": "72a2202aea81f358ee57db156527a8156348eb5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
