@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d378d93c_510cf79b",
+        "filename": "tests/native/utilities/firewall.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-29T20:34:21Z",
+      "side": 1,
+      "message": "just fyi: this lock doesn\u0027t really accomplish anything here",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 34
+      },
+      "revId": "fe69318d30d8866146d7a4be0dc54ed662137544",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1824dec3_f4f28b1f",
+        "filename": "tests/native/utilities/firewall.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-29T20:34:21Z",
+      "side": 1,
+      "message": "void?",
+      "range": {
+        "startLine": 132,
+        "startChar": 7,
+        "endLine": 132,
+        "endChar": 11
+      },
+      "revId": "fe69318d30d8866146d7a4be0dc54ed662137544",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a14a6e0_d5773719",
+        "filename": "tests/native/utilities/firewall.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-29T20:34:21Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 34
+      },
+      "revId": "fe69318d30d8866146d7a4be0dc54ed662137544",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0dfd195_7cf56ed9",
+        "filename": "tests/native/utilities/firewall.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-29T20:34:21Z",
+      "side": 1,
+      "message": "void",
+      "range": {
+        "startLine": 37,
+        "startChar": 11,
+        "endLine": 37,
+        "endChar": 15
+      },
+      "revId": "fe69318d30d8866146d7a4be0dc54ed662137544",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
