@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4de70e61_da699b74",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-29T21:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44b69421_aaefccc6",
+      "range": {
+        "startLine": 31,
+        "startChar": 19,
+        "endLine": 31,
+        "endChar": 20
+      },
+      "revId": "6478ae53e7a14ab0b988b16d69cf708333fb00f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "177d1020_97a13911",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-29T20:32:00Z",
       "side": 1,
       "message": "you don\u0027t really need the ()!\u003d0",
+      "range": {
+        "startLine": 74,
+        "startChar": 36,
+        "endLine": 74,
+        "endChar": 41
+      },
+      "revId": "6478ae53e7a14ab0b988b16d69cf708333fb00f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5037c62c_63735eec",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-29T21:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "177d1020_97a13911",
       "range": {
         "startLine": 74,
         "startChar": 36,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "615cdd85_318f86ba",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-29T21:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a02be6f2_6a3fbdca",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 3
+      },
+      "revId": "6478ae53e7a14ab0b988b16d69cf708333fb00f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7644c1b_1c48df86",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-10-29T20:32:00Z",
       "side": 1,
       "message": "auto?",
+      "range": {
+        "startLine": 193,
+        "startChar": 4,
+        "endLine": 193,
+        "endChar": 31
+      },
+      "revId": "6478ae53e7a14ab0b988b16d69cf708333fb00f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2858c447_f187baaa",
+        "filename": "DnsResolver/DnsBpfHelperTest.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-29T21:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7644c1b_1c48df86",
       "range": {
         "startLine": 193,
         "startChar": 4,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1220f0bd_21b7a38b",
+        "filename": "DnsResolver/DnsBpfHelperTest.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-29T21:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af953b60_0d4b6dc8",
+      "range": {
+        "startLine": 195,
+        "startChar": 4,
+        "endLine": 195,
+        "endChar": 15
+      },
+      "revId": "6478ae53e7a14ab0b988b16d69cf708333fb00f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6756c9e1_d6430e42",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-10-29T20:32:00Z",
       "side": 1,
       "message": "considering this is simply a 1-elem array, not sure having a constant for this is useful",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 32
+      },
+      "revId": "6478ae53e7a14ab0b988b16d69cf708333fb00f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcac0e00_c50200cd",
+        "filename": "bpf_progs/netd.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-29T21:26:01Z",
+      "side": 1,
+      "message": "Right. But hardcode index 0 is also ugly....",
+      "parentUuid": "6756c9e1_d6430e42",
       "range": {
         "startLine": 240,
         "startChar": 0,
