@@ -51,6 +51,42 @@
       "parentUuid": "1dbc1624_647e9b63",
       "revId": "42d37bad8d69e53e166384eb6573efc48bd55aca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cbadd05_03a8b50b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-30T09:40:27Z",
+      "side": 1,
+      "message": "I talked with Lorenzo, there is the code which does the similar thing but I still need this method to generate v4-mapped v6 address from v4 address.\n\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/device/com/android/net/module/util/netlink/StructInetDiagSockId.java;l\u003d117-123",
+      "parentUuid": "1d1c43fe_eb24ca30",
+      "revId": "42d37bad8d69e53e166384eb6573efc48bd55aca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88f1cd5d_62de7882",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-30T09:40:27Z",
+      "side": 1,
+      "message": "Inet4Address and Inet6Address is a subclass of InetAddress.\nI don\u0027t think we have a single standard way to convert the v4 address to the v6 address.\nOne way is v4-mapped v6 address but another way is putting the v4 address to the first 4 bytes of the 16 bytes v6 address.\n\nSo If we want Struct to handle conversion from v4 address to v6 address, we need a new Struct Type to tell Struct about how to convert.\nAlso, it\u0027s not clear how to convert byteBuffer to Struct.\nIf we put the v4 address to the first 4 bytes of 16 bytes, we can not distinguish if this was a v4 address or v6 address.\nMaybe it\u0027s fine to assume the address was v4 address if last 12 bytes are zero but I\u0027m not sure.\n\nFor this CL, I feel it\u0027s simpler to do this on the caller side.",
+      "parentUuid": "7042d81e_3720c64a",
+      "revId": "42d37bad8d69e53e166384eb6573efc48bd55aca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
