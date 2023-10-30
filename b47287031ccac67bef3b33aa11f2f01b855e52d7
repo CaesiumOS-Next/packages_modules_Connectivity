@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99fd2b75_ddb2dd3a",
+        "filename": "DnsResolver/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2023-10-30T13:52:56Z",
+      "side": 1,
+      "message": "cc_shared_library or do you want to allow static usages, too? statically linking a library exporting a stable C API is a little odd, though",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "b47287031ccac67bef3b33aa11f2f01b855e52d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dca7daf2_8dab0c72",
+        "filename": "DnsResolver/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2023-10-30T13:52:56Z",
+      "side": 1,
+      "message": "go/android-ndk-api-guidelines#apex-naming",
+      "range": {
+        "startLine": 21,
+        "startChar": 11,
+        "endLine": 21,
+        "endChar": 27
+      },
+      "revId": "b47287031ccac67bef3b33aa11f2f01b855e52d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61c7dee9_52ff1dbc",
+        "filename": "DnsResolver/include/ForDnsResolverPublic.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2023-10-30T13:52:56Z",
+      "side": 1,
+      "message": "go/android-ndk-api-guidelines#naming\n\nShould probably be something like `ADnsResolver_init()` or is \"lib4dns\" a pre-existing meaningful term?",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 25
+      },
+      "revId": "b47287031ccac67bef3b33aa11f2f01b855e52d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13cb6e13_fbc16ea3",
+        "filename": "DnsResolver/lib4dns_resolver.map.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2023-10-30T13:52:56Z",
+      "side": 1,
+      "message": "should also mark these `introduced\u003dVanillaIceCream`",
+      "revId": "b47287031ccac67bef3b33aa11f2f01b855e52d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
