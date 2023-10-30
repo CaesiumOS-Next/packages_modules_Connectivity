@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1bc31a7_c8e42ae9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5277,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T11:34:39Z",
+      "side": 1,
+      "message": "This isn\u0027t very clear because the only reference to validation is at the bottom of the function. Wouldn\u0027t it be clearer to put the check for isDestroyed into getValidatedScoreable, which is where validation is considered?\n\nHaving this check be here at the beginning might suggest that destroyed networks can\u0027t satisfy anything, which isn\u0027t really the case - they satisfy plenty of requests.",
+      "range": {
+        "startLine": 5277,
+        "startChar": 73,
+        "endLine": 5277,
+        "endChar": 88
+      },
+      "revId": "32a75b0a8d6dfd8b41f248e7cc85e8cdaa490510",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8758db8f_32fe5cca",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5301,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T11:34:39Z",
+      "side": 1,
+      "message": "Per discussion, the code in this method doesn\u0027t actually implement this behaviour. If this network were the best network for a request, it wouldn\u0027t reach here (and if it did, it might get torn at line 5316 because if it was validated it wouldn\u0027t be able to beat the result of getValidatedScoreable called on itself).\n\nThis behaviour is what the system as a whole implements because:\n- This method is only called by unneeded.\n- If this network is the best for any request (not listen), then the \"if (numRequests \u003e 0)\" check in unneeded would return early and the code would not not get here.\n\nWe might want to clarify this in the comments?",
+      "range": {
+        "startLine": 5300,
+        "startChar": 0,
+        "endLine": 5301,
+        "endChar": 85
+      },
+      "revId": "32a75b0a8d6dfd8b41f248e7cc85e8cdaa490510",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a793f9ac_f81e26bb",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroyedNetworkTests.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T11:34:39Z",
+      "side": 1,
+      "message": "Urg. The API signature of unregisterAfterReplacement says the max delay is 5s, but the code doesn\u0027t seem to do anything if the value is \u003e 5s except log an error. :-\\\n\nWe might want to use 5s anyway.",
+      "range": {
+        "startLine": 26,
+        "startChar": 36,
+        "endLine": 26,
+        "endChar": 42
+      },
+      "revId": "32a75b0a8d6dfd8b41f248e7cc85e8cdaa490510",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a63f429_d2b03320",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroyedNetworkTests.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T11:34:39Z",
+      "side": 1,
+      "message": "How do we know that this lost is due to the network being outscored, and not to the timeout firing? Can we use an explicit timeout here, such make LONG_TIMEOUT_MS 5000 and give this particular expect call a timeout of 1s or something?",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 54,
+        "endChar": 31
+      },
+      "revId": "32a75b0a8d6dfd8b41f248e7cc85e8cdaa490510",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
