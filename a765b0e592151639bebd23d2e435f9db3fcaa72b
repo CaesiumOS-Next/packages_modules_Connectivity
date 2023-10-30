@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeaf11f6_e67c14a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T08:32:25Z",
+      "side": 1,
+      "message": "Per discussion, it\u0027s not sufficient to submit this CL to allow us to change the production code. If we add more restrictions to the production code, released versions of CTS will fail.\n\nIt doesn\u0027t seem particularly harmful to allow ETHERNET+TEST networks to allow certain UIDs to access them?\n\nFor the concern over consistency with cell data, we could say:\n- Networks that don\u0027t have subscription IDs like Ethernet can always set access UIDs when they have TRANSPORT_TEST. Networks with subscriptions (cell, wifi) can\u0027t\n- TRANSPORT_TEST networks are only allowed to be created by unprivileged apps.",
+      "revId": "a765b0e592151639bebd23d2e435f9db3fcaa72b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
