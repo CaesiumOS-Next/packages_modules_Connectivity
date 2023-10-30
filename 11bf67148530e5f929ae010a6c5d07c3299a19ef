@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "42823882_033b81d4",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-30T09:12:09Z",
+      "side": 1,
+      "message": "I think we should verify the APIs regardless of the trunk stable flag.\nOtherwise, test can not verify the feature before rolling out the feature.\n\nAlso, I don\u0027t think we can server push the flag to production devices to force disable the feature so we don\u0027t need to worry these cases.",
+      "parentUuid": "538392c4_707e7fe2",
+      "range": {
+        "startLine": 201,
+        "startChar": 30,
+        "endLine": 201,
+        "endChar": 31
+      },
+      "revId": "11bf67148530e5f929ae010a6c5d07c3299a19ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87184a8b_79e93fa8",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
         "patchSetId": 12
