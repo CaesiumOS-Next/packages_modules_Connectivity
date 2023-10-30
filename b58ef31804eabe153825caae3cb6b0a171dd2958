@@ -443,6 +443,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e8595305_5f7ae26e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T09:48:39Z",
+      "side": 1,
+      "message": "Yes, sorry. What I meant is - if the code adds the same rule more than once, then keys.size() and values.size() will be greater than captured.size(). But the assertEquals(expected, captured) will pass. So I guess you could do:\n\n    assertEquals(expected.size(), keys.size());  // Ensure no duplicate rules added.\n\nI agree this is unlikely :-)",
+      "parentUuid": "4e407494_7c7ba03f",
+      "range": {
+        "startLine": 706,
+        "startChar": 8,
+        "endLine": 706,
+        "endChar": 9
+      },
+      "revId": "b58ef31804eabe153825caae3cb6b0a171dd2958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c119d74f_c2a8cc0a",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
         "patchSetId": 24
@@ -478,6 +502,30 @@
       "side": 1,
       "message": "Done. But I think verifyAddUpstreamRules can\u0027t use the same technique, because even both keys/values lists are equal, their key-\u003evalue mapping relations can\u0027t be ensured.",
       "parentUuid": "c119d74f_c2a8cc0a",
+      "range": {
+        "startLine": 743,
+        "startChar": 8,
+        "endLine": 743,
+        "endChar": 15
+      },
+      "revId": "b58ef31804eabe153825caae3cb6b0a171dd2958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9331e9a9_c5f8838b",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T09:48:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "804b14c3_981c22b0",
       "range": {
         "startLine": 743,
         "startChar": 8,
