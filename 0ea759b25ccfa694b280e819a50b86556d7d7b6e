@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4d1ded8_4c67bca9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 12607,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-30T02:23:50Z",
+      "side": 1,
+      "message": "It seems to me we might need clear comments about what is the behavior with different combinations of framework \u0026 modules.",
+      "range": {
+        "startLine": 12607,
+        "startChar": 4,
+        "endLine": 12607,
+        "endChar": 5
+      },
+      "revId": "0ea759b25ccfa694b280e819a50b86556d7d7b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
