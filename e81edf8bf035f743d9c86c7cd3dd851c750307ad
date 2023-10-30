@@ -189,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9eabb00f_f630ba86",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-30T08:13:00Z",
+      "side": 1,
+      "message": "Per sync with cken@, using jni might be not feasible, see the other comment below.",
+      "parentUuid": "dc8a665d_76763e41",
+      "range": {
+        "startLine": 70,
+        "startChar": 11,
+        "endLine": 74,
+        "endChar": 13
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83c4e9e2_54a57831",
