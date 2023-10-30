@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4ca45ca_4f639440",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-30T02:31:23Z",
+      "side": 1,
+      "message": "LGTM with nits that can be done in follow-ups.",
+      "revId": "0ea759b25ccfa694b280e819a50b86556d7d7b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1053859_b9c29280",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-30T02:31:23Z",
+      "side": 1,
+      "message": "1. Is this needed?\nDoes bpfmap initialize itself with all 0s by default?\n\n2. If not, can we call setDataSaverEnabled below?",
+      "range": {
+        "startLine": 275,
+        "startChar": 33,
+        "endLine": 275,
+        "endChar": 44
+      },
+      "revId": "0ea759b25ccfa694b280e819a50b86556d7d7b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4d1ded8_4c67bca9",
