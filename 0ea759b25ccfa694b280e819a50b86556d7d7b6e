@@ -88,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd01ea2d_6715e822",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-30T12:41:29Z",
+      "side": 1,
+      "message": "For safety, we should initialize it explicitly, like what sConfigurationMap does above.",
+      "parentUuid": "b1053859_b9c29280",
+      "range": {
+        "startLine": 275,
+        "startChar": 33,
+        "endLine": 275,
+        "endChar": 44
+      },
+      "revId": "0ea759b25ccfa694b280e819a50b86556d7d7b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4d1ded8_4c67bca9",
@@ -101,6 +125,30 @@
       "writtenOn": "2023-10-30T02:23:50Z",
       "side": 1,
       "message": "It seems to me we might need clear comments about what is the behavior with different combinations of framework \u0026 modules.",
+      "range": {
+        "startLine": 12607,
+        "startChar": 4,
+        "endLine": 12607,
+        "endChar": 5
+      },
+      "revId": "0ea759b25ccfa694b280e819a50b86556d7d7b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c2ae79d_dde2cb41",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 12607,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-30T12:41:29Z",
+      "side": 1,
+      "message": "It doesn\u0027t matter so far because the path between CS and Netd (and BPF program) does not change. We just added an extra path for the lib4dns_resolver.so. They works in parelell.",
+      "parentUuid": "f4d1ded8_4c67bca9",
       "range": {
         "startLine": 12607,
         "startChar": 4,
