@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83458f73_4b8cf133",
+        "filename": "DnsResolver/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-30T21:37:53Z",
+      "side": 1,
+      "message": "This isn\u0027t actually NDK though.\nThis is requiring NDK review simply because it includes a map.txt file.\n\nSelinux makes this library totally unusable by any app (and most of the system too).",
+      "parentUuid": "dca7daf2_8dab0c72",
+      "range": {
+        "startLine": 21,
+        "startChar": 11,
+        "endLine": 21,
+        "endChar": 27
+      },
+      "revId": "b47287031ccac67bef3b33aa11f2f01b855e52d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "61c7dee9_52ff1dbc",
         "filename": "DnsResolver/include/ForDnsResolverPublic.h",
         "patchSetId": 13
@@ -72,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f973080e_a27f681d",
+        "filename": "DnsResolver/include/ForDnsResolverPublic.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-30T21:37:53Z",
+      "side": 1,
+      "message": "this is a library from the tethering apex \u0027for\u0027 the dns resolver.\n\nit is *NOT* the dns resolver.",
+      "parentUuid": "61c7dee9_52ff1dbc",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 25
+      },
+      "revId": "b47287031ccac67bef3b33aa11f2f01b855e52d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13cb6e13_fbc16ea3",
         "filename": "DnsResolver/lib4dns_resolver.map.txt",
         "patchSetId": 13
@@ -83,6 +131,24 @@
       "writtenOn": "2023-10-30T13:52:56Z",
       "side": 1,
       "message": "should also mark these `introduced\u003dVanillaIceCream`",
+      "revId": "b47287031ccac67bef3b33aa11f2f01b855e52d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43458c5b_04f33b9b",
+        "filename": "DnsResolver/lib4dns_resolver.map.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-30T21:37:53Z",
+      "side": 1,
+      "message": "that would be a lie - these will be used on T,\n\nas this for use from one apex by another apex (both of which ship in tandem)",
+      "parentUuid": "13cb6e13_fbc16ea3",
       "revId": "b47287031ccac67bef3b33aa11f2f01b855e52d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
