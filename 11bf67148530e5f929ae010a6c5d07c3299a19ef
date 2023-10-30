@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "538392c4_707e7fe2",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-30T08:53:20Z",
+      "side": 1,
+      "message": "Not sure about this.\nGiven that with flag disabled, the behavior is actually different.\nRun the same test for them would cause CTS failure though.\nCan you kindly elaborate why this is OK?",
+      "parentUuid": "b174c143_72ae5578",
+      "range": {
+        "startLine": 201,
+        "startChar": 30,
+        "endLine": 201,
+        "endChar": 31
+      },
+      "revId": "11bf67148530e5f929ae010a6c5d07c3299a19ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87184a8b_79e93fa8",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
         "patchSetId": 12
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-27T10:38:37Z",
       "side": 1,
       "message": "I felt it\u0027s strange that we run cmd shell to network_stack for uid networking blocked status which is maintained by ConnectivityService.\nI\u0027m wondering if we can have hidden API in ConnectivityManager.",
+      "range": {
+        "startLine": 476,
+        "startChar": 8,
+        "endLine": 476,
+        "endChar": 9
+      },
+      "revId": "11bf67148530e5f929ae010a6c5d07c3299a19ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "944590c8_8af6d542",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-30T08:53:20Z",
+      "side": 1,
+      "message": "Yes and no.\nTo be fair this code is in ConnectivityManager but it doesn\u0027t call into CS.\nIt is an API designed to be run in user process.\nSo the API is actually run in NetworkStack for our use case.\nThus, making shell command to run this from NetworkStack actually matches the behavior we do in the production.\n\nAnd it is not encourged to use hidden API in CTS, given that we want to test\nfrom user point of view to observe what is the framework behavior.\n\nThus, from these point of view, calling the api from NetworkStack seems strange but fair to me, compare to other solutions, e.g.:\n 1. handle shell command in CS --\u003e CS isn\u0027t involved in this solution at all, and calling CM from CS is kind of strange, too.\n 2. Making hidden API in CM --\u003e The API is already available in CTS though.\n   But it lacks of permission needed to access bpf. This is not controlled by android permission but actually linux permision and sepolicy instead.\n   \nWDYT?",
+      "parentUuid": "87184a8b_79e93fa8",
       "range": {
         "startLine": 476,
         "startChar": 8,
