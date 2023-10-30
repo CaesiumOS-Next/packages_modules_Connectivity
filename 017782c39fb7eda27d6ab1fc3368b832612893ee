@@ -1,0 +1,268 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54beb510_745fcc15",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T09:58:26Z",
+      "side": 1,
+      "message": "neighborEventCaptor?",
+      "range": {
+        "startLine": 591,
+        "startChar": 46,
+        "endLine": 591,
+        "endChar": 60
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15cba85a_e0385d70",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T09:58:26Z",
+      "side": 1,
+      "message": "Actually I believe we can fix this by just adding @JavaDerive(equals \u003d true) to  TetherOffloadRuleParcel. Maybe do that in a follow-up CL (you\u0027ll need AIDL API review which I can provide), and then delete this class?",
+      "range": {
+        "startLine": 1161,
+        "startChar": 59,
+        "endLine": 1162,
+        "endChar": 40
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fb566fe_981ebddb",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2307,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T09:58:26Z",
+      "side": 1,
+      "message": "If you\u0027re renaming this, rename to assertClientInfoExists.",
+      "range": {
+        "startLine": 2307,
+        "startChar": 17,
+        "endLine": 2307,
+        "endChar": 38
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09e74f7d_308feea3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2321,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T09:58:26Z",
+      "side": 1,
+      "message": "... and this to assertClientInfoDoesNotExist.",
+      "range": {
+        "startLine": 2321,
+        "startChar": 17,
+        "endLine": 2321,
+        "endChar": 41
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8b5c803_d90912f7",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2322,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T09:58:26Z",
+      "side": 1,
+      "message": "Pre-existing, but since you\u0027re changing this code... why have this method take a ClientInfo? Seems like it should just take an Inet4Address, since it doesn\u0027t look at the rest of the ClientInfo object anyway.",
+      "range": {
+        "startLine": 2322,
+        "startChar": 21,
+        "endLine": 2322,
+        "endChar": 42
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6271a901_fec587ce",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2761,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T09:58:26Z",
+      "side": 1,
+      "message": "resetNetdAndBpfMaps",
+      "range": {
+        "startLine": 2761,
+        "startChar": 17,
+        "endLine": 2761,
+        "endChar": 35
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e32075b3_bee8da71",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2816,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T09:58:26Z",
+      "side": 1,
+      "message": "Why ruleANull here and not ruleA? Is it because deletes do not need to specify the MAC address? If so, might want to say:\n\n    verifyRemoveDownstreamRule(inOrder, ruleANull);  // deleting rules doesn\u0027t specify the MAC\n\nor just use ruleA instead of ruleANull here. Also elsewhere.",
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0e2b525_dbe75e94",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2871,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T09:58:26Z",
+      "side": 1,
+      "message": "\"from BpfCoordinator\" -\u003e \"from the maps\".\n\nIs this still true BTW? I thought we added more cleanup code to IpServer recently.",
+      "range": {
+        "startLine": 2871,
+        "startChar": 60,
+        "endLine": 2871,
+        "endChar": 79
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55523557_14917065",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2898,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T09:58:26Z",
+      "side": 1,
+      "message": "As far as I can tell, the previous code:\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2784087/3/Tethering/tests/unit/src/android/net/ip/IpServerTest.java#b1276\n\nonly deleted the rule for B, not for A. Do you know why? Was it just a missing assert in the old code?",
+      "range": {
+        "startLine": 2898,
+        "startChar": 8,
+        "endLine": 2898,
+        "endChar": 52
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ee0b28b_0b1676de",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2940,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T09:58:26Z",
+      "side": 1,
+      "message": "Nit: would add an override for verifyAddDownstreamRule that takes just one parameter (the rule) and calls the current method with a null InOrder. That way this can just become:\n\n    verifyAddDownstreamRule(rule);",
+      "range": {
+        "startLine": 2940,
+        "startChar": 32,
+        "endLine": 2940,
+        "endChar": 36
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90971147_fa88246d",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3013,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T09:58:26Z",
+      "side": 1,
+      "message": "Nit: you could simplify the code later on by declaring this as an Inet4Address. Also consider simplifying using a helper method such as:\n\n    private static Inet4Address ipv4Address(String addr) {\n        return (Inet4Address) InetAddresses.parseNumericAddress(addr);\n    }",
+      "range": {
+        "startLine": 3013,
+        "startChar": 35,
+        "endLine": 3013,
+        "endChar": 48
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9de832ce_0825dd5f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3044,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-10-30T09:58:26Z",
+      "side": 1,
+      "message": "Perhaps not for this CL, but can we check what happens if an existing client changes MAC address?",
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
