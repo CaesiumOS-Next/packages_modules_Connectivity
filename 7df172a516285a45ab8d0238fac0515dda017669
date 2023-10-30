@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2b181c3_a788023c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 70
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-30T03:31:30Z",
+      "side": 1,
+      "message": "Per offline discussion : let\u0027s remove this todo",
+      "range": {
+        "startLine": 230,
+        "startChar": 11,
+        "endLine": 230,
+        "endChar": 15
+      },
+      "revId": "7df172a516285a45ab8d0238fac0515dda017669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2850ee4_43104af3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 70
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-30T03:31:30Z",
+      "side": 1,
+      "message": "This is useful information but I meant specifically describe when is mNetworkAgent null when this is called",
+      "range": {
+        "startLine": 337,
+        "startChar": 53,
+        "endLine": 337,
+        "endChar": 63
+      },
+      "revId": "7df172a516285a45ab8d0238fac0515dda017669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e529ae48_5602aeb6",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 70
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-30T03:31:30Z",
+      "side": 1,
+      "message": "Then you don\u0027t need to override it I think ?",
+      "range": {
+        "startLine": 667,
+        "startChar": 24,
+        "endLine": 667,
+        "endChar": 41
+      },
+      "revId": "7df172a516285a45ab8d0238fac0515dda017669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f45afcfd_f679fc5c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 70
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-30T03:31:30Z",
+      "side": 1,
+      "message": "s/nn/n",
+      "range": {
+        "startLine": 692,
+        "startChar": 78,
+        "endLine": 692,
+        "endChar": 80
+      },
+      "revId": "7df172a516285a45ab8d0238fac0515dda017669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c8d2c0a_9e5832f1",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 70
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-30T03:31:30Z",
+      "side": 1,
+      "message": "So for example, you are currently trying to attach, and this is called. So you have an active data set and a pending data set.\n\nThis means you need to join with the active set, but after joining you need to schedule the migration ?\n\nISTM you should either reject the migration when not attached (then you would clear `mPendingOpDataset` and send callbacks), or you should make sure it gets applied after the expected delay.\n\nPer discussion : we should make sure the migration gets applied when attached later.",
+      "range": {
+        "startLine": 780,
+        "startChar": 0,
+        "endLine": 782,
+        "endChar": 9
+      },
+      "revId": "7df172a516285a45ab8d0238fac0515dda017669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
