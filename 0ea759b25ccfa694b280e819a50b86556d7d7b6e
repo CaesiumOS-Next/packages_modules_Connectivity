@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "925f8db0_3e822817",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-30T03:33:54Z",
+      "side": 1,
+      "message": "The test passed with and without trunk flag.\n```\n$ adb shell device_config get android_core_networking com.android.net.flags.set_data_saver_via_cm\nnull\n\n$ atest CtsHostsideNetworkTests:com.android.cts.net.HostsideRestrictBackgroundNetworkTests\n...\nAll tests passed!\n\n$ adb shell device_config put android_core_networking com.android.net.flags.set_data_saver_via_cm true\n$ adb shell device_config get android_core_networking com.android.net.flags.set_data_saver_via_cm\ntrue\n\n$ atest CtsHostsideNetworkTests:com.android.cts.net.HostsideRestrictBackgroundNetworkTests\n...\nAll tests passed!\n```",
+      "parentUuid": "0eae70cc_0205d5e7",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 4
+      },
+      "revId": "0ea759b25ccfa694b280e819a50b86556d7d7b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b4ca45ca_4f639440",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 16
