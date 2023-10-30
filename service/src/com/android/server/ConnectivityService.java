@@ -5273,7 +5273,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private boolean isNetworkPotentialSatisfier(
             @NonNull final NetworkAgentInfo candidate, @NonNull final NetworkRequestInfo nri) {
-        // listen requests won't keep up a network satisfying it. If this is not a multilayer
+        // A destroyed network is never a potential satisfier, because it's never a good idea
+        // to keep a destroyed network in case it could beat another one if it validates (as it
+        // will not validate in the future). For example, declaring it a potential satisfier would
+        // keep an unvalidated destroyed candidate after it's been replaced by another
+        // unvalidated network.
+        if (candidate.isDestroyed()) return false;
+        // Listen requests won't keep up a network satisfying it. If this is not a multilayer
         // request, return immediately. For multilayer requests, check to see if any of the
         // multilayer requests may have a potential satisfier.
         if (!nri.isMultilayerRequest() && (nri.mRequests.get(0).isListen()
