@@ -467,6 +467,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e298b809_8a34e8a6",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-10-30T09:57:30Z",
+      "side": 1,
+      "message": "The ArgumentCaptor only capture expected.size() times, their size should be the same.\n```\nverifyWithOrder(inOrder, mBpfUpstream6Map, times(expected.size())).insertEntry(\n                keyCaptor.capture(), valueCaptor.capture());\n```",
+      "parentUuid": "e8595305_5f7ae26e",
+      "range": {
+        "startLine": 706,
+        "startChar": 8,
+        "endLine": 706,
+        "endChar": 9
+      },
+      "revId": "b58ef31804eabe153825caae3cb6b0a171dd2958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c119d74f_c2a8cc0a",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
         "patchSetId": 24
