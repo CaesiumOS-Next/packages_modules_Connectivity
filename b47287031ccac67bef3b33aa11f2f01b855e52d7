@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "598c167e_d8dd6d22",
+        "filename": "DnsResolver/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1043845
+      },
+      "writtenOn": "2023-10-30T21:40:28Z",
+      "side": 1,
+      "message": "That link points to the APEX naming guidelines, not the NDK naming guidelines.",
+      "parentUuid": "83458f73_4b8cf133",
+      "range": {
+        "startLine": 21,
+        "startChar": 11,
+        "endLine": 21,
+        "endChar": 27
+      },
+      "revId": "b47287031ccac67bef3b33aa11f2f01b855e52d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "61c7dee9_52ff1dbc",
         "filename": "DnsResolver/include/ForDnsResolverPublic.h",
         "patchSetId": 13
