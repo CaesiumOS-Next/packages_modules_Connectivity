@@ -16,6 +16,24 @@
       "message": "I wonder why renaming it from `OtDaemon` to `ThreadDaemon`?",
       "revId": "a7ce73cc36b06a71c2ca949ca08176f1d87fc8bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7215b9d_3b339f01",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-10-30T13:50:30Z",
+      "side": 1,
+      "message": "ThreadDaemon is more readable that otDaemon when this is outside of the ThreadNetworkControllerService.\n\nWe should consider renaming IOtDaemon.aidl to IThreadDaemon.aidl",
+      "parentUuid": "c278081c_2e9f2d4c",
+      "revId": "a7ce73cc36b06a71c2ca949ca08176f1d87fc8bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
