@@ -33,6 +33,24 @@
       "message": "what about disabling BR when AIL is lost?",
       "revId": "358c03f25d7630bf8545d397e12d492e7e3e78a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4602c20_395b682a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-10-30T03:17:27Z",
+      "side": 1,
+      "message": "When AIL is lost, ot-daemon itself will detect this event and stop the border routing.",
+      "parentUuid": "eb76d148_9a074230",
+      "revId": "358c03f25d7630bf8545d397e12d492e7e3e78a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
