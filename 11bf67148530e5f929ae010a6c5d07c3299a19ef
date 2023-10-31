@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "60fcb522_058a9c47",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-31T05:45:16Z",
+      "side": 1,
+      "message": "is-uid-networking-blocked should return the correct value regardless of the trunk stable flag, right?\nI\u0027m not following how the test would fail due to the flag.",
+      "parentUuid": "5425d9a8_9e9926fa",
+      "range": {
+        "startLine": 201,
+        "startChar": 30,
+        "endLine": 201,
+        "endChar": 31
+      },
+      "revId": "11bf67148530e5f929ae010a6c5d07c3299a19ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87184a8b_79e93fa8",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
         "patchSetId": 12
