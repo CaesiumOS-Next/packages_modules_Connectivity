@@ -39,6 +39,30 @@
       },
       "revId": "88dbb084e996e29813efcfe937be22469ad8894c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42e4b3f1_f21cc9ff",
+        "filename": "staticlibs/device/com/android/net/module/util/Struct.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-31T07:45:26Z",
+      "side": 1,
+      "message": "Inet4Address does not override getByAddress.\nSo Inet4Address.getByAddress calls InetAddress.getByAddress.\nIt seems we don\u0027t have getByAddress which returns Inet4Address instead of InetAddress.",
+      "parentUuid": "3af14e15_652cb9f9",
+      "range": {
+        "startLine": 431,
+        "startChar": 32,
+        "endLine": 431,
+        "endChar": 43
+      },
+      "revId": "88dbb084e996e29813efcfe937be22469ad8894c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
