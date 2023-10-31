@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9e6b3708_f5e139f7",
+        "filename": "DnsResolver/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2023-10-31T01:27:04Z",
+      "side": 1,
+      "message": "And you\u0027re adding this to a stable API surface, which is why it\u0027s subject to review.",
+      "parentUuid": "598c167e_d8dd6d22",
+      "range": {
+        "startLine": 21,
+        "startChar": 11,
+        "endLine": 21,
+        "endChar": 27
+      },
+      "revId": "b47287031ccac67bef3b33aa11f2f01b855e52d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "61c7dee9_52ff1dbc",
         "filename": "DnsResolver/include/ForDnsResolverPublic.h",
         "patchSetId": 13
