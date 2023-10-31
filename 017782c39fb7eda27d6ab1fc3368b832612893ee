@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fd9d2b5_1754492a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-10-31T05:40:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54beb510_745fcc15",
+      "range": {
+        "startLine": 591,
+        "startChar": 46,
+        "endLine": 591,
+        "endChar": 60
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15cba85a_e0385d70",
@@ -70,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f35544a6_bc0fbd87",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2307,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-10-31T05:40:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fb566fe_981ebddb",
+      "range": {
+        "startLine": 2307,
+        "startChar": 17,
+        "endLine": 2307,
+        "endChar": 38
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09e74f7d_308feea3",
@@ -83,6 +131,30 @@
       "writtenOn": "2023-10-30T09:58:26Z",
       "side": 1,
       "message": "... and this to assertClientInfoDoesNotExist.",
+      "range": {
+        "startLine": 2321,
+        "startChar": 17,
+        "endLine": 2321,
+        "endChar": 41
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d75f2314_60338305",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2321,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-10-31T05:40:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09e74f7d_308feea3",
       "range": {
         "startLine": 2321,
         "startChar": 17,
@@ -116,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f77d0cb_89438291",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2322,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-10-31T05:40:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8b5c803_d90912f7",
+      "range": {
+        "startLine": 2322,
+        "startChar": 21,
+        "endLine": 2322,
+        "endChar": 42
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6271a901_fec587ce",
@@ -129,6 +225,30 @@
       "writtenOn": "2023-10-30T09:58:26Z",
       "side": 1,
       "message": "resetNetdAndBpfMaps",
+      "range": {
+        "startLine": 2761,
+        "startChar": 17,
+        "endLine": 2761,
+        "endChar": 35
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a885d93_2262ac95",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2761,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-10-31T05:40:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6271a901_fec587ce",
       "range": {
         "startLine": 2761,
         "startChar": 17,
@@ -158,6 +278,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5691c2f_0c92191e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2816,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-10-31T05:40:57Z",
+      "side": 1,
+      "message": "The verification code needs to match all fields in rule for R where the MAC address in rule is a NULL MAC when deleting downstream rule.\n```\n    private void verifyRemoveDownstreamRule(@Nullable InOrder inOrder,\n            @NonNull final Ipv6DownstreamRule rule) throws Exception {\n        if (mDeps.isAtLeastS()) {\n            verifyWithOrder(inOrder, mBpfDownstream6Map).deleteEntry(\n                    rule.makeTetherDownstream6Key());\n        } else {\n            verifyWithOrder(inOrder, mNetd).tetherOffloadRuleRemove(matches(rule));\n        }\n    }\n```",
+      "parentUuid": "e32075b3_bee8da71",
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0e2b525_dbe75e94",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
         "patchSetId": 3
@@ -169,6 +307,30 @@
       "writtenOn": "2023-10-30T09:58:26Z",
       "side": 1,
       "message": "\"from BpfCoordinator\" -\u003e \"from the maps\".\n\nIs this still true BTW? I thought we added more cleanup code to IpServer recently.",
+      "range": {
+        "startLine": 2871,
+        "startChar": 60,
+        "endLine": 2871,
+        "endChar": 79
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "953f0f7f_245a8297",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2871,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-10-31T05:40:57Z",
+      "side": 1,
+      "message": "Done. Do you mean to delete all downstream entries when upstream lost and dump all neighbor entries when the upstream coming back? Haven\u0027t done it yet, will do it after the refactor.",
+      "parentUuid": "c0e2b525_dbe75e94",
       "range": {
         "startLine": 2871,
         "startChar": 60,
@@ -204,6 +366,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b1079b4_2d3278bf",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2898,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-10-31T05:40:57Z",
+      "side": 1,
+      "message": "The assert of deletion of rule A should be added in the following CL (since rule A will be added again after the upstream coming back)\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2711576/19/Tethering/tests/unit/src/android/net/ip/IpServerTest.java#1185",
+      "parentUuid": "55523557_14917065",
+      "range": {
+        "startLine": 2898,
+        "startChar": 8,
+        "endLine": 2898,
+        "endChar": 52
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2ee0b28b_0b1676de",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
         "patchSetId": 3
@@ -215,6 +401,30 @@
       "writtenOn": "2023-10-30T09:58:26Z",
       "side": 1,
       "message": "Nit: would add an override for verifyAddDownstreamRule that takes just one parameter (the rule) and calls the current method with a null InOrder. That way this can just become:\n\n    verifyAddDownstreamRule(rule);",
+      "range": {
+        "startLine": 2940,
+        "startChar": 32,
+        "endLine": 2940,
+        "endChar": 36
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ceeea2e_80813b50",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2940,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-10-31T05:40:57Z",
+      "side": 1,
+      "message": "Done. Also did the same thing to verifyRemoveDownstreamRule.",
+      "parentUuid": "2ee0b28b_0b1676de",
       "range": {
         "startLine": 2940,
         "startChar": 32,
