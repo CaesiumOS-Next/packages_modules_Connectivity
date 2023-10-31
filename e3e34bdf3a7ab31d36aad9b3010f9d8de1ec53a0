@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5e484e9_64e0a74c",
+        "filename": "staticlibs/device/com/android/net/module/util/Struct.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-31T18:55:41Z",
+      "side": 1,
+      "message": "I thought you\u0027d change this to also allow InetAddress.\nOr add a more generic annotation for ipv4/ipv6.",
+      "range": {
+        "startLine": 209,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 60
+      },
+      "revId": "e3e34bdf3a7ab31d36aad9b3010f9d8de1ec53a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
