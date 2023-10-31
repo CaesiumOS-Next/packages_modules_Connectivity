@@ -46,6 +46,30 @@
       },
       "revId": "a55f36152e285ff72f4f246d7a5b5ba5b44193c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc601c93_84ef44dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T09:17:05Z",
+      "side": 1,
+      "message": "Sorry I meant in the cover comment, not as a response to the comment.\n\nWhen I say `git log` I should see it\n\nOtherwise no issues with the log.\n\nAlso consider how big this might be. You might decide you limit the output to 1000 lines or something.",
+      "parentUuid": "f32dcbbe_6085d4e3",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "a55f36152e285ff72f4f246d7a5b5ba5b44193c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
