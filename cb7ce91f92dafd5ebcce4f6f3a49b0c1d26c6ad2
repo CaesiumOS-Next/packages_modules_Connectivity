@@ -16,6 +16,23 @@
       "message": "This needs to be refactored since the APIs to get uids are actually not usable here:\n1. The static `UserHandle.getUid(userId, appId)` is a @TestApi, so this fails to build.\n2. The method `user.getUid(appId)` has minSdklevel 31 but this class is minSdkLevel 30. AndroidLint: Call requires API level 31 (current min is 30): `android.os.UserHandle#getUid`",
       "revId": "cb7ce91f92dafd5ebcce4f6f3a49b0c1d26c6ad2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2058d686_efad06c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T09:03:12Z",
+      "side": 1,
+      "message": "Still LGTM",
+      "revId": "cb7ce91f92dafd5ebcce4f6f3a49b0c1d26c6ad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
