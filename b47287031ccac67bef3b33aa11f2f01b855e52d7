@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6871ca3e_e1aeaf90",
+        "filename": "DnsResolver/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-31T01:34:25Z",
+      "side": 1,
+      "message": "It\u0027s for its unit test.\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2749727/21/DnsResolver/Android.bp",
+      "parentUuid": "99fd2b75_ddb2dd3a",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "b47287031ccac67bef3b33aa11f2f01b855e52d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dca7daf2_8dab0c72",
@@ -119,6 +143,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cbd1b71_d8d4daa3",
+        "filename": "DnsResolver/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-31T01:34:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e6b3708_f5e139f7",
+      "range": {
+        "startLine": 21,
+        "startChar": 11,
+        "endLine": 21,
+        "endChar": 27
+      },
+      "revId": "b47287031ccac67bef3b33aa11f2f01b855e52d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61c7dee9_52ff1dbc",
@@ -166,6 +214,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ffa5708_02a05e44",
+        "filename": "DnsResolver/include/ForDnsResolverPublic.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-31T01:34:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f973080e_a27f681d",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 25
+      },
+      "revId": "b47287031ccac67bef3b33aa11f2f01b855e52d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13cb6e13_fbc16ea3",
@@ -197,6 +269,24 @@
       "side": 1,
       "message": "that would be a lie - these will be used on T,\n\nas this for use from one apex by another apex (both of which ship in tandem)",
       "parentUuid": "13cb6e13_fbc16ea3",
+      "revId": "b47287031ccac67bef3b33aa11f2f01b855e52d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9a93062_6c1b1cc3",
+        "filename": "DnsResolver/lib4dns_resolver.map.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-31T01:34:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43458c5b_04f33b9b",
       "revId": "b47287031ccac67bef3b33aa11f2f01b855e52d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
