@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c29fb54a_6997e2e1",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveStatsTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T09:23:36Z",
+      "side": 1,
+      "message": "Log can\u0027t actually write very very long lines of text. I don\u0027t remember what the exact limit is, but I don\u0027t think it\u0027s really big enough that we have enough data to see what is wrong.\n\nCan you please test what goes on Pitot if you actually log this ?",
+      "range": {
+        "startLine": 762,
+        "startChar": 57,
+        "endLine": 762,
+        "endChar": 94
+      },
+      "revId": "454233ca3b705561fd0c8fa6827091184488d2f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
