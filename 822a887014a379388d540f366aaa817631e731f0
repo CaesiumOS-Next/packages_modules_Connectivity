@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "514f256e_c12bedc8",
+        "filename": "DnsResolver/libcom.android.tethering.dns_helper.map.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2023-10-31T19:04:58Z",
+      "side": 1,
+      "message": "this wasn\u0027t available in all T releases. The \"most correct\" is introduced\u003dVanillaIceCream as that\u0027s when this was then guaranteed available, but otherwise it\u0027d be better to leave it off than be misleading.",
+      "range": {
+        "startLine": 23,
+        "startChar": 30,
+        "endLine": 23,
+        "endChar": 49
+      },
+      "revId": "822a887014a379388d540f366aaa817631e731f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
