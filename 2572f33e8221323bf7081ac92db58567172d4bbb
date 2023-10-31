@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ae75a73_dcb8c6c5",
+        "filename": "common/src/com/android/net/module/util/bpf/IngressDiscardKey.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-10-31T06:11:38Z",
+      "side": 1,
+      "message": "It seems you never use this constructor and the new added constructor can cover this constructor, do you still need this one ?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "2572f33e8221323bf7081ac92db58567172d4bbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7494ccb_04ceaabf",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-10-31T06:11:38Z",
+      "side": 1,
+      "message": "Usually we add dependencies for test injection but this function seems only use in dump instead of testing. Any reason you need add this to Dependencies ?",
+      "range": {
+        "startLine": 317,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 9
+      },
+      "revId": "2572f33e8221323bf7081ac92db58567172d4bbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
