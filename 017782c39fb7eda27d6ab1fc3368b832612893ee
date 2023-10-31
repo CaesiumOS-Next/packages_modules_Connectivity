@@ -296,6 +296,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c84a4f3f_72df2385",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2816,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-10-31T06:43:45Z",
+      "side": 1,
+      "message": "Just found presubmit failed in R. If the downstream rule was deleted by upstream change, it will use the original rule which has actual MAC address, but if it was deleted by neighbor entry lost, it will carry NULL(all zero) MAC address.\nUpdated the fix in patchset 9.",
+      "parentUuid": "e5691c2f_0c92191e",
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0e2b525_dbe75e94",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
         "patchSetId": 3
