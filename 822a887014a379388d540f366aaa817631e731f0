@@ -94,6 +94,30 @@
       },
       "revId": "822a887014a379388d540f366aaa817631e731f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87bae132_973f2d45",
+        "filename": "DnsResolver/libcom.android.tethering.dns_helper.map.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-10-31T22:25:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3e39957_06ad733a",
+      "range": {
+        "startLine": 23,
+        "startChar": 30,
+        "endLine": 23,
+        "endChar": 49
+      },
+      "revId": "822a887014a379388d540f366aaa817631e731f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
