@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b5812c0_810a35ee",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-31T10:58:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3c5a0fa_8ac39550",
+      "range": {
+        "startLine": 247,
+        "startChar": 30,
+        "endLine": 247,
+        "endChar": 31
+      },
+      "revId": "092a4d59b39aa4bf703130fe84b00d090517e745",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b2b20ef_264faa9c",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-31T08:06:59Z",
       "side": 1,
       "message": "Can this at least be an inner class of ConnectivityManager ? I know CM is already long but this is littering android.net",
+      "range": {
+        "startLine": 42,
+        "startChar": 13,
+        "endLine": 42,
+        "endChar": 35
+      },
+      "revId": "092a4d59b39aa4bf703130fe84b00d090517e745",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc04ebf7_66d7cb10",
+        "filename": "framework/src/android/net/DataSaverStatusTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-31T10:58:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b2b20ef_264faa9c",
       "range": {
         "startLine": 42,
         "startChar": 13,
@@ -94,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7495e904_8f190574",
+        "filename": "framework/src/android/net/DataSaverStatusTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-31T10:58:43Z",
+      "side": 1,
+      "message": "Done\nbut not sure if this is useful?\nIIRC you told me in application process anything can be hacked/bypassed.",
+      "parentUuid": "c57aa8b4_3737eb1c",
+      "range": {
+        "startLine": 53,
+        "startChar": 70,
+        "endLine": 53,
+        "endChar": 77
+      },
+      "revId": "092a4d59b39aa4bf703130fe84b00d090517e745",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "244f142e_a6e0ae8c",
@@ -117,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d8f8909_3594a7e2",
+        "filename": "framework/src/android/net/DataSaverStatusTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-31T10:58:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "244f142e_a6e0ae8c",
+      "range": {
+        "startLine": 94,
+        "startChar": 16,
+        "endLine": 94,
+        "endChar": 38
+      },
+      "revId": "092a4d59b39aa4bf703130fe84b00d090517e745",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce77d77c_43ac001b",
@@ -130,6 +226,30 @@
       "writtenOn": "2023-10-31T08:06:59Z",
       "side": 1,
       "message": "nit : you could have a helper function like\n\n\n    fun isUidNetworkingBlocked(uid: Int, metered: Boolean \u003d false, dataSaver: Boolean \u003d false) \u003d bpfNetMapsReader.isUidNetworkingBlocked(uid, metered, dataSaver)",
+      "range": {
+        "startLine": 139,
+        "startChar": 37,
+        "endLine": 139,
+        "endChar": 84
+      },
+      "revId": "092a4d59b39aa4bf703130fe84b00d090517e745",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dc540b1_d1baded3",
+        "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-31T10:58:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce77d77c_43ac001b",
       "range": {
         "startLine": 139,
         "startChar": 37,
