@@ -72,6 +72,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c57aa8b4_3737eb1c",
+        "filename": "framework/src/android/net/DataSaverStatusTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T08:07:55Z",
+      "side": 1,
+      "message": "Also please check that the caller is a privileged/persistent process",
+      "parentUuid": "85da98c1_ead3024d",
+      "range": {
+        "startLine": 53,
+        "startChar": 70,
+        "endLine": 53,
+        "endChar": 77
+      },
+      "revId": "092a4d59b39aa4bf703130fe84b00d090517e745",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "244f142e_a6e0ae8c",
         "filename": "framework/src/android/net/DataSaverStatusTracker.java",
         "patchSetId": 11
