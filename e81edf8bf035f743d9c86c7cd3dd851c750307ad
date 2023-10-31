@@ -613,6 +613,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e42527cc_3b235e46",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-31T21:06:16Z",
+      "side": 1,
+      "message": "it calls jni for bpf map reads, so I see no reason it couldn\u0027t jni for this too, we\u0027d avoid duplicate implementations.\n\nand since it\u0027s all in p/m/C there should be no version skew problems.\n\nad 3) no. that code path is actually critical, not only to run time but also to boot time and if statements are very hard on the bpf verifier.",
+      "parentUuid": "f1ca4b61_a32b8a82",
+      "range": {
+        "startLine": 246,
+        "startChar": 19,
+        "endLine": 246,
+        "endChar": 33
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf889382_306f93cd",
