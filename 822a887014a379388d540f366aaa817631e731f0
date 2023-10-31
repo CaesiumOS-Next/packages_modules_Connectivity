@@ -70,6 +70,30 @@
       },
       "revId": "822a887014a379388d540f366aaa817631e731f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3e39957_06ad733a",
+        "filename": "DnsResolver/libcom.android.tethering.dns_helper.map.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1043845
+      },
+      "writtenOn": "2023-10-31T19:13:33Z",
+      "side": 1,
+      "message": "Actually I checked and I was wrong, don\u0027t listen to me 😊 It is exclusively for NDK APIs, but `apex` does prevent this from being in the NDK.\n\nDo remove it though because it\u0027s misleading. It means nothing when used with `apex`.",
+      "parentUuid": "397f229e_659d9422",
+      "range": {
+        "startLine": 23,
+        "startChar": 30,
+        "endLine": 23,
+        "endChar": 49
+      },
+      "revId": "822a887014a379388d540f366aaa817631e731f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
