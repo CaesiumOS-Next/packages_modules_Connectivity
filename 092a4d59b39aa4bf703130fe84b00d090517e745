@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3c5a0fa_8ac39550",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T08:06:59Z",
+      "side": 1,
+      "message": "nit : I think it\u0027s slightly more readable to return-early :\n\n    if (!isNetworkMetered) return false;\n    ...",
+      "range": {
+        "startLine": 247,
+        "startChar": 30,
+        "endLine": 247,
+        "endChar": 31
+      },
+      "revId": "092a4d59b39aa4bf703130fe84b00d090517e745",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b2b20ef_264faa9c",
+        "filename": "framework/src/android/net/DataSaverStatusTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T08:06:59Z",
+      "side": 1,
+      "message": "Can this at least be an inner class of ConnectivityManager ? I know CM is already long but this is littering android.net",
+      "range": {
+        "startLine": 42,
+        "startChar": 13,
+        "endLine": 42,
+        "endChar": 35
+      },
+      "revId": "092a4d59b39aa4bf703130fe84b00d090517e745",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85da98c1_ead3024d",
+        "filename": "framework/src/android/net/DataSaverStatusTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T08:06:59Z",
+      "side": 1,
+      "message": "It is generally very bad practice to just take a random context and assume you can reuse it. This context may be removed (here you leak it), or it might change.\n\nAt the very least you need a very clear explanation of why all contexts are equivalent for this.\n...and by the way I don\u0027t think they are – this is going to vary per user right ?\n\nIf data saver is per-user, then you\u0027re using the wrong context and you\u0027re getting the wrong value.\n\nAlso, you probably want to take the application context out of the context if it\u0027s not already an application context, to avoid leaks.",
+      "range": {
+        "startLine": 53,
+        "startChar": 70,
+        "endLine": 53,
+        "endChar": 77
+      },
+      "revId": "092a4d59b39aa4bf703130fe84b00d090517e745",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "244f142e_a6e0ae8c",
+        "filename": "framework/src/android/net/DataSaverStatusTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T08:06:59Z",
+      "side": 1,
+      "message": "Let\u0027s make this a fixed UID to make things clearer. Process.SYSTEM_UID comes to mind.",
+      "range": {
+        "startLine": 94,
+        "startChar": 16,
+        "endLine": 94,
+        "endChar": 38
+      },
+      "revId": "092a4d59b39aa4bf703130fe84b00d090517e745",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce77d77c_43ac001b",
+        "filename": "tests/unit/java/android/net/BpfNetMapsReaderTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T08:06:59Z",
+      "side": 1,
+      "message": "nit : you could have a helper function like\n\n\n    fun isUidNetworkingBlocked(uid: Int, metered: Boolean \u003d false, dataSaver: Boolean \u003d false) \u003d bpfNetMapsReader.isUidNetworkingBlocked(uid, metered, dataSaver)",
+      "range": {
+        "startLine": 139,
+        "startChar": 37,
+        "endLine": 139,
+        "endChar": 84
+      },
+      "revId": "092a4d59b39aa4bf703130fe84b00d090517e745",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
