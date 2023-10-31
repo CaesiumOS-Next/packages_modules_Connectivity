@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "519fb20f_1f763372",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-31T05:38:10Z",
+      "side": 1,
+      "message": "if empty return?",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 25
+      },
+      "revId": "7a246d3eb801b2f4fa81489a18ce5e9bccc2f9c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aef2f8f5_4b27ba10",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-31T05:38:10Z",
+      "side": 1,
+      "message": "don\u0027t really need this map...",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 55
+      },
+      "revId": "7a246d3eb801b2f4fa81489a18ce5e9bccc2f9c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cafdac90_09116ace",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-31T05:38:10Z",
+      "side": 1,
+      "message": "!\u003d ... continue",
+      "range": {
+        "startLine": 134,
+        "startChar": 42,
+        "endLine": 134,
+        "endChar": 43
+      },
+      "revId": "7a246d3eb801b2f4fa81489a18ce5e9bccc2f9c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff83041b_f83739fc",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-31T05:38:10Z",
+      "side": 1,
+      "message": "since you could call atrace here right?",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 7
+      },
+      "revId": "7a246d3eb801b2f4fa81489a18ce5e9bccc2f9c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
