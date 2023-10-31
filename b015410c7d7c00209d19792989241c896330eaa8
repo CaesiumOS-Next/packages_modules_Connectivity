@@ -22,6 +22,30 @@
       },
       "revId": "b015410c7d7c00209d19792989241c896330eaa8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10842491_d520cde0",
+        "filename": "staticlibs/framework/com/android/net/module/util/InetAddressUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-31T07:45:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3fd0b62_433fcca2",
+      "range": {
+        "startLine": 105,
+        "startChar": 21,
+        "endLine": 105,
+        "endChar": 31
+      },
+      "revId": "b015410c7d7c00209d19792989241c896330eaa8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
