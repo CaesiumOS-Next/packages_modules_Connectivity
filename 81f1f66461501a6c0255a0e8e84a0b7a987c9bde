@@ -39,6 +39,30 @@
       },
       "revId": "81f1f66461501a6c0255a0e8e84a0b7a987c9bde",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e8d7806_c02b8af3",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2023-10-31T19:51:44Z",
+      "side": 1,
+      "message": "Good point, updated it.",
+      "parentUuid": "ef0e5f7f_f2703c3d",
+      "range": {
+        "startLine": 760,
+        "startChar": 46,
+        "endLine": 760,
+        "endChar": 53
+      },
+      "revId": "81f1f66461501a6c0255a0e8e84a0b7a987c9bde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
