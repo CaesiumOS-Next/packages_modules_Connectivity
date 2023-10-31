@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5425d9a8_9e9926fa",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-10-31T02:07:12Z",
+      "side": 1,
+      "message": "Can\u0027t pass TH though.\nKind of expected since the production code is wrapped by the flag?\nany idea?\n\nhttps://android-build.corp.google.com/test_investigate/?blocking\u003dblocking\u0026invocationId\u003dI13400010212137726\u0026status\u003dnone\u0026testResultId\u003dTR92629023121001166",
+      "parentUuid": "3b045aa6_b5413ee5",
+      "range": {
+        "startLine": 201,
+        "startChar": 30,
+        "endLine": 201,
+        "endChar": 31
+      },
+      "revId": "11bf67148530e5f929ae010a6c5d07c3299a19ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87184a8b_79e93fa8",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
         "patchSetId": 12
