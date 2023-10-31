@@ -22,6 +22,30 @@
       },
       "revId": "a6724c38e304c266f6b995d44464dedd448d85af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "670e3bad_fdafeb3c",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1850,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-10-31T07:44:07Z",
+      "side": 1,
+      "message": "Actually, the profile used here did not change. The point is to test the `startLegacyVpn()` method which currently is (unfortunately) also used for non legacy vpn types.\n\nThis is the way Settings starts Vpns (see `packages/app/Settings/.../ConfigDialogFragment#connect()`).\n\nI think this test should be kept until we move away from the startLegacyVpn method in Settings.",
+      "parentUuid": "d7a06687_02a34f6c",
+      "range": {
+        "startLine": 1850,
+        "startChar": 23,
+        "endLine": 1850,
+        "endChar": 54
+      },
+      "revId": "a6724c38e304c266f6b995d44464dedd448d85af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
