@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0ede87c_66fa69b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-31T23:26:52Z",
+      "side": 1,
+      "message": "The new names are terrible, but whatever.",
+      "revId": "ec0f7ac36f1a55e288931e9c37dd36a9fa5edcb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
