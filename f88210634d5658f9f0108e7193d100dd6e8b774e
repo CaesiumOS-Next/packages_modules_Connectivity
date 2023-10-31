@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0540135e_0003e5b7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 4941,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T12:19:31Z",
+      "side": 1,
+      "message": "Done. This still needs to be done here – in destroyNetwork(), it\u0027s too late if this wasn\u0027t unregisteredAfterReplacement because the requests will have been all unregistered and CS no longer knows what was the satisfier. But doing it in both places, combined with a test for isDestroyed() when setting up the forward and ignoring duplicate removes in RoutingCoordinatorManager makes for better behavior (e.g. not removing and adding back the same forward when replacing with the same interface name) and it\u0027s easier to use than to mandate always exact pairs of add/remove forwards.",
+      "parentUuid": "46a9439d_802e6383",
+      "range": {
+        "startLine": 4941,
+        "startChar": 8,
+        "endLine": 4941,
+        "endChar": 51
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98f244ac_5bc772c2",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98748403_5aa4cfdf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 8823,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T12:19:31Z",
+      "side": 1,
+      "message": "I think we should be even more opinionated than this, possibly going as far as crashing the system server for a bad agent.\n\nPer offline discussion, aosp/2805415 implements disconnecting the agent if it sends a bad update.",
+      "parentUuid": "98f244ac_5bc772c2",
+      "range": {
+        "startLine": 8823,
+        "startChar": 8,
+        "endLine": 8823,
+        "endChar": 9
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c719f2fa_f862d28f",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-10-24T12:15:00Z",
       "side": 1,
       "message": "I think you could make this code easier to read by removing the registerAgent boolean and having the caller pass in nai, oldConfig, and newConfig.\n\nhandleRegisterNetworkAgent would do:\n\n    updateLocalNetworkConfig(nai, null, nai.localNetworkConfig);\n\nand EVENT_LOCAL_NETWORK_CONFIG_CHANGED would do:\n\n    updateLocalNetworkConfig(nai, nai.localNetworkConfig, config);\n\nI think it would not only be easier to read but consistent with what we do in other methods such as updateLinkProperties.",
+      "range": {
+        "startLine": 8985,
+        "startChar": 8,
+        "endLine": 8985,
+        "endChar": 70
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e07dcb9_91e0a617",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 8985,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T12:19:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c719f2fa_f862d28f",
       "range": {
         "startLine": 8985,
         "startChar": 8,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ad7adb2_a925f93a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 8987,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T12:19:31Z",
+      "side": 1,
+      "message": "I\u0027m not sure what other way you mean ? A NetworkRequest only has a NetworkCapabilities object ; more than the numeric capabilites can change (e.g. the transport or bandwidth requirement) but these are included in `requestUpdated` since it\u0027s seeded with Object.equals(oldCaps, newCaps), not just the numeric capabilities.\n\nDid you have anything specific in mind that this code is failing to update for ?",
+      "parentUuid": "4fc5e7c8_31f3b4c0",
+      "range": {
+        "startLine": 8987,
+        "startChar": 34,
+        "endLine": 8987,
+        "endChar": 48
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec599a7f_b02bc674",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 21
@@ -106,6 +202,30 @@
       "writtenOn": "2023-10-24T12:15:00Z",
       "side": 1,
       "message": "I can\u0027t parse this. Did you mean \"use only one\" or \"match only one\"? Or...?",
+      "range": {
+        "startLine": 8990,
+        "startChar": 80,
+        "endLine": 8990,
+        "endChar": 92
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "087744ee_a8d33d09",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 8990,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T12:19:31Z",
+      "side": 1,
+      "message": "Oops. I just meant they have only one upstream. Changed to at most one, which is more accurate.",
+      "parentUuid": "ec599a7f_b02bc674",
       "range": {
         "startLine": 8990,
         "startChar": 80,
@@ -141,6 +261,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae1c61c6_5d2e559b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 8998,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T12:19:31Z",
+      "side": 1,
+      "message": "Does it actually bypass ? The counter is incremented in the constructor for NetworkRequestInfo in the line above (which is very counter-intuitive I know, but it\u0027s been this way forever).",
+      "parentUuid": "7a3d5a15_28b496b4",
+      "range": {
+        "startLine": 8998,
+        "startChar": 12,
+        "endLine": 8998,
+        "endChar": 40
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "946e5275_aa7f119a",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 21
@@ -152,6 +296,30 @@
       "writtenOn": "2023-10-24T12:15:00Z",
       "side": 1,
       "message": "// Update forwarding rules for the upstreams of local networks.",
+      "range": {
+        "startLine": 9948,
+        "startChar": 8,
+        "endLine": 9948,
+        "endChar": 63
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4728c6c_732050d4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 9948,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T12:19:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "946e5275_aa7f119a",
       "range": {
         "startLine": 9948,
         "startChar": 8,
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "811e37b1_fb014c68",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 9958,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T12:19:31Z",
+      "side": 1,
+      "message": "That\u0027s what I originally wrote, but then I thought it was better to make before break. It shouldn\u0027t change anything practically though, so you\u0027re likely right that it\u0027s safer. Done.",
+      "parentUuid": "c7f50ffc_a5c666b5",
+      "range": {
+        "startLine": 9958,
+        "startChar": 47,
+        "endLine": 9958,
+        "endChar": 66
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "efae467c_c4eeb17f",
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5b2ec4b_7d5be069",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 9960,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T12:19:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efae467c_c4eeb17f",
+      "range": {
+        "startLine": 9960,
+        "startChar": 28,
+        "endLine": 9960,
+        "endChar": 49
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28ec134a_d18dce90",
@@ -221,6 +437,30 @@
       "writtenOn": "2023-10-24T12:15:00Z",
       "side": 1,
       "message": "We should probably have a test that exercises unregisterAfterReplacement as well.",
+      "range": {
+        "startLine": 126,
+        "startChar": 8,
+        "endLine": 126,
+        "endChar": 27
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "632afff8_eacca777",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-10-31T12:19:31Z",
+      "side": 1,
+      "message": "Done, both for using it on the local agent itself and on the upstream.",
+      "parentUuid": "28ec134a_d18dce90",
       "range": {
         "startLine": 126,
         "startChar": 8,
