@@ -87,6 +87,24 @@
       "parentUuid": "7042d81e_3720c64a",
       "revId": "42d37bad8d69e53e166384eb6573efc48bd55aca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e63f68bd_02a2e5cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-31T21:11:54Z",
+      "side": 1,
+      "message": "There\u0027s only 3 valid ways to do it:\n\n4 bytes, then 12 zeroes \u003c-- but this confuses lots of stuff, so requires a separate flag to clarify whether you mean v4 or v6\n\n12 zeroes, then 4 bytes \u003c-- but this confuses ::1 vs 0.0.0.1, so requires a seperate flag to clarify whether you mean v4 or v6\n\nas such the only \u0027reliable and sane\u0027 way to do it is via ::ffff:1.2.3.4 encoding.\n\nWe should just allow Struct to take \u0027InetAddress\u0027 instead of Inet6Address either for the IPV6 annotation, or for a new IP annotation.\n\nIndeed I\u0027m pretty sure we already have code somewhere in the stack that uses IPv6 struct field to store IPv4.\n\nIndeed doesn\u0027t take long to find toIpv4MappedAddressBytes and discover there\u0027s ample room for improvement.",
+      "parentUuid": "88f1cd5d_62de7882",
+      "revId": "42d37bad8d69e53e166384eb6573efc48bd55aca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
