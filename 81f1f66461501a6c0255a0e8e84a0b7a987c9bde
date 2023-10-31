@@ -16,6 +16,29 @@
       "message": "@kwekua@google.com would you be able to look at this?",
       "revId": "81f1f66461501a6c0255a0e8e84a0b7a987c9bde",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef0e5f7f_f2703c3d",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1059872
+      },
+      "writtenOn": "2023-10-31T19:46:24Z",
+      "side": 1,
+      "message": "nit: the variable name is a little confusing (what does \"enabled\" mean for idle vs not-idle?). Perhaps isIdle would be better.",
+      "range": {
+        "startLine": 760,
+        "startChar": 46,
+        "endLine": 760,
+        "endChar": 53
+      },
+      "revId": "81f1f66461501a6c0255a0e8e84a0b7a987c9bde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
