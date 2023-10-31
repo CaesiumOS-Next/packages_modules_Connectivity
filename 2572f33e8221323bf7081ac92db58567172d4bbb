@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93488c3a_42b95bc8",
+        "filename": "common/src/com/android/net/module/util/bpf/IngressDiscardKey.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-31T08:12:15Z",
+      "side": 1,
+      "message": "This constructor is used in Struct#parse.\nWithout this, Struct#parse can not find the constructor which takes the Inet6Address.\n\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/device/com/android/net/module/util/Struct.java;l\u003d584-587?q\u003dStruct.java\u0026ss\u003dh%2Fandroid%2Fplatform%2Fsuperproject%2Fmain%2F%2B%2Fmain",
+      "parentUuid": "0ae75a73_dcb8c6c5",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "2572f33e8221323bf7081ac92db58567172d4bbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7494ccb_04ceaabf",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-31T06:11:38Z",
       "side": 1,
       "message": "Usually we add dependencies for test injection but this function seems only use in dump instead of testing. Any reason you need add this to Dependencies ?",
+      "range": {
+        "startLine": 317,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 9
+      },
+      "revId": "2572f33e8221323bf7081ac92db58567172d4bbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8fe611a_bfa248e3",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-31T08:12:15Z",
+      "side": 1,
+      "message": "I have added the test for dump IngressDiscardRule.",
+      "parentUuid": "e7494ccb_04ceaabf",
       "range": {
         "startLine": 317,
         "startChar": 0,
