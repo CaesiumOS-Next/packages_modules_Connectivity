@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2c6a56c_8eb94276",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-31T03:55:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e48b042_5cf7de88",
+      "range": {
+        "startLine": 977,
+        "startChar": 4,
+        "endLine": 977,
+        "endChar": 10
+      },
+      "revId": "f760f43be59eac80cf699254c06a7cfa8aff0d62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dadb79d7_27291d91",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-27T19:26:53Z",
       "side": 1,
       "message": "annotate api T+",
+      "range": {
+        "startLine": 995,
+        "startChar": 4,
+        "endLine": 995,
+        "endChar": 10
+      },
+      "revId": "f760f43be59eac80cf699254c06a7cfa8aff0d62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca6acea9_bc93dc42",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-31T03:55:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dadb79d7_27291d91",
       "range": {
         "startLine": 995,
         "startChar": 4,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21d410f5_73d19f98",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-31T03:55:04Z",
+      "side": 1,
+      "message": "Without this conversion, dump shows `::ffff:198.51.100.1` for v4 address and I tried to show `198.51.100.1`.\nBut I\u0027m now thinking showing v4-mapped v6 address is fine since that is in the bpf map.\nI updated code to remove conversion from v4-mapped v6 address to v4 address.",
+      "parentUuid": "3044ed5b_75c7075d",
+      "range": {
+        "startLine": 1140,
+        "startChar": 28,
+        "endLine": 1144,
+        "endChar": 55
+      },
+      "revId": "f760f43be59eac80cf699254c06a7cfa8aff0d62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1f75634_81580157",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-10-27T19:26:53Z",
       "side": 1,
       "message": "should this be [] wrapped for better readability?\n\nshould we also be best effort trying to convert key to an actual interface name?\n\n5(eth0): [2000::1]",
+      "range": {
+        "startLine": 1149,
+        "startChar": 48,
+        "endLine": 1149,
+        "endChar": 53
+      },
+      "revId": "f760f43be59eac80cf699254c06a7cfa8aff0d62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95d52d1c_83498515",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-31T03:55:04Z",
+      "side": 1,
+      "message": "Updated the format to\n```\n  sIngressDiscardMap:\n    [/2001:db8:1:3::1]: 26(tun0), 26(tun0)\n    [/::ffff:198.51.100.1]: 26(tun0), 26(tun0)\n```",
+      "parentUuid": "d1f75634_81580157",
       "range": {
         "startLine": 1149,
         "startChar": 48,
