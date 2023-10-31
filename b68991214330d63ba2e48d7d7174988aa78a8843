@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8b67ee1_ddfb40b8",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-31T08:37:36Z",
+      "side": 1,
+      "message": "Comment needs to be updated.",
+      "range": {
+        "startLine": 436,
+        "startChar": 16,
+        "endLine": 437,
+        "endChar": 68
+      },
+      "revId": "b68991214330d63ba2e48d7d7174988aa78a8843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f08ee848_f863f1fc",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-31T08:37:36Z",
+      "side": 1,
+      "message": "nits: It seems new imports above are not used.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 29
+      },
+      "revId": "b68991214330d63ba2e48d7d7174988aa78a8843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78091089_8ac56a6e",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-10-31T08:37:36Z",
+      "side": 1,
+      "message": "nits: this is not used.",
+      "range": {
+        "startLine": 51,
+        "startChar": 18,
+        "endLine": 51,
+        "endChar": 28
+      },
+      "revId": "b68991214330d63ba2e48d7d7174988aa78a8843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
