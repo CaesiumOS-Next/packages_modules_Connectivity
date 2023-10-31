@@ -22,6 +22,30 @@
       },
       "revId": "a55f36152e285ff72f4f246d7a5b5ba5b44193c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f32dcbbe_6085d4e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-10-31T06:33:17Z",
+      "side": 1,
+      "message": "The dump of AutomaticOnOffKeepaliveTracker now looks list this:\n```\nSupported Socket keepalives: [3, 0, 0, 3]\nReserved Privileged keepalives: 0\nAllowed Unprivileged keepalives per uid: 0\nSocket keepalives:\n   null\n      1: KeepaliveInfo [ type\u003d1 network\u003dnull startedState\u003dSTOPPING 192.0.0.129:12345-\u003e8.8.8.8:12345 interval\u003d10 uid\u003d10097 pid\u003d25569 privileged\u003dtrue packetData\u003d01 ]\n      2: KeepaliveInfo [ type\u003d1 network\u003dnull startedState\u003dSTARTED 192.0.0.129:12345-\u003e8.8.8.8:12345 interval\u003d10 uid\u003d10097 pid\u003d25569 privileged\u003dtrue packetData\u003d01 ]\nAutomaticOnOff enabled: true\n   AutomaticOnOffKeepalive [ KeepaliveInfo [ type\u003d1 network\u003dnull startedState\u003dSTOPPING 192.0.0.129:12345-\u003e8.8.8.8:12345 interval\u003d10 uid\u003d10097 pid\u003d25569 privileged\u003dtrue packetData\u003d01 ], state\u003dSTATE_SUSPENDED ]\n   AutomaticOnOffKeepalive [ KeepaliveInfo [ type\u003d1 network\u003dnull startedState\u003dSTARTED 192.0.0.129:12345-\u003e8.8.8.8:12345 interval\u003d10 uid\u003d10097 pid\u003d25569 privileged\u003dtrue packetData\u003d01 ], state\u003dSTATE_ENABLED ]\nEvents (most recent first):\n   2023-10-31T06:24:31.387246 - Suspend keepalive Mock for ISocketKeepaliveCallback, hashCode: 88712761 on mNai\n   2023-10-31T06:24:31.379611 - Start keepalive Mock for ISocketKeepaliveCallback, hashCode: 219507957 on 2693\n   2023-10-31T06:24:31.377260 - Start natt keepalive Mock for ISocketKeepaliveCallback, hashCode: 219507957 on null /192.0.0.129:12345 → /8.8.8.8:12345 auto\u003dAutomaticOnOffKeepalive [ KeepaliveInfo [ type\u003d1 network\u003dnull startedState\u003dNOT_STARTED 192.0.0.129:12345-\u003e8.8.8.8:12345 interval\u003d10 uid\u003d10097 pid\u003d25569 privileged\u003dtrue packetData\u003d01 ], state\u003dSTATE_ENABLED ] underpinned\u003dMock for Network, hashCode: 63978122\n   2023-10-31T06:24:31.373636 - Start keepalive Mock for ISocketKeepaliveCallback, hashCode: 88712761 on 2693\n   2023-10-31T06:24:31.370766 - Start natt keepalive Mock for ISocketKeepaliveCallback, hashCode: 88712761 on null /192.0.0.129:12345 → /8.8.8.8:12345 auto\u003dAutomaticOnOffKeepalive [ KeepaliveInfo [ type\u003d1 network\u003dnull startedState\u003dNOT_STARTED 192.0.0.129:12345-\u003e8.8.8.8:12345 interval\u003d10 uid\u003d10097 pid\u003d25569 privileged\u003dtrue packetData\u003d01 ], state\u003dSTATE_ENABLED ] underpinned\u003dMock for Network, hashCode: 169301118\n\nKeepaliveStatsTracker enabled: true\n   # android.net.connectivity.com.android.metrics.DailykeepaliveInfoReported@3293424e\n   automatic_keepalive_requests: 2\n   distinct_user_count: 1\n   duration_per_num_of_keepalive {\n     duration_for_num_of_keepalive {\n       keepalive_active_durations_msec: 36\n       keepalive_registered_durations_msec: 36\n       num_of_keepalive: 0\n     }\n     duration_for_num_of_keepalive {\n       keepalive_active_durations_msec: 9\n       keepalive_registered_durations_msec: 6\n       num_of_keepalive: 1\n     }\n     duration_for_num_of_keepalive {\n       keepalive_active_durations_msec: 7\n       keepalive_registered_durations_msec: 10\n       num_of_keepalive: 2\n     }\n   }\n   keepalive_lifetime_per_carrier {\n     keepalive_lifetime_for_carrier {\n       active_lifetime_msec: 23\n       carrier_id: -1\n       intervals_msec: 10000\n       lifetime_msec: 26\n       transport_types: 1\n     }\n   }\n   keepalive_requests: 2\n   uid: 10097\n\n```",
+      "parentUuid": "62201eac_a105b7ba",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "a55f36152e285ff72f4f246d7a5b5ba5b44193c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
