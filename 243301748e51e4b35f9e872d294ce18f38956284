@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1f12de8_bd229d4e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-10-31T21:32:07Z",
+      "side": 1,
+      "message": "side note: I feel like it should now be possible to actually make use of this boolean in the bpf code... and avoid the iptables mutations via netd binder calls???",
+      "revId": "243301748e51e4b35f9e872d294ce18f38956284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
