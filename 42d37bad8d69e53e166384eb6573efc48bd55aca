@@ -123,6 +123,24 @@
       "parentUuid": "e63f68bd_02a2e5cd",
       "revId": "42d37bad8d69e53e166384eb6573efc48bd55aca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35cb02ab_dc7854be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-01T06:20:38Z",
+      "side": 1,
+      "message": "I could use `type \u003d Type.ByteArray, arraysize \u003d 16` but this is not so different from `type \u003d Type.Ipv6Address` with Inet6Address field, right?\nIn both cases, caller need to convert v4 address to v6 address.\n\nIf we can assume v4-mapped v6 address is the only way and we can always convert v4-mapped v6 address to v4 address, I agree we should support something like,\n```\n    @Field(order \u003d 0, type \u003d Type.Inetv4Mapped6Address)\n    public final InetAddress dstAddr;\n```\nThis can be done by adding new Type to Struct or update current Ipv6Address type.",
+      "parentUuid": "7ffe8c37_ac0034b8",
+      "revId": "42d37bad8d69e53e166384eb6573efc48bd55aca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
