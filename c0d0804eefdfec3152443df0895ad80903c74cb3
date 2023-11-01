@@ -16,6 +16,75 @@
       "message": "Verified with no NetworkStatsObservers thread in the dump after running the tests.\n\n[DBG]{FinalizerDaemon\u003d1, Profile Saver\u003d1, Signal Catcher\u003d1, Jit thread pool worker thread 0\u003d1, Instr: androidx.test.runner.AndroidJUnitRunner\u003d1, ReferenceQueueDaemon\u003d1, main\u003d1, InstrumentationConnectionThread\u003d1, Time-limited test\u003d1, HandlerThread\u003d2, FinalizerWatchdogDaemon\u003d1, binder:20249_1\u003d1, binder:20249_2\u003d1, HeapTaskDaemon\u003d1, binder:20249_3\u003d1}",
       "revId": "c0d0804eefdfec3152443df0895ad80903c74cb3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b3d28d3_38ee4e7b",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-01T07:28:23Z",
+      "side": 1,
+      "message": "Nit: NetworkStatsServiceTest?",
+      "range": {
+        "startLine": 377,
+        "startChar": 52,
+        "endLine": 377,
+        "endChar": 65
+      },
+      "revId": "c0d0804eefdfec3152443df0895ad80903c74cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a96e470_9a1df56e",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-01T07:28:23Z",
+      "side": 1,
+      "message": "Nit: It\u0027s enough to use a local variable here, as it is only used once.",
+      "range": {
+        "startLine": 380,
+        "startChar": 8,
+        "endLine": 380,
+        "endChar": 23
+      },
+      "revId": "c0d0804eefdfec3152443df0895ad80903c74cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cda25ee_ce50861c",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-01T07:28:23Z",
+      "side": 1,
+      "message": "You should check that mObserverHandlerThread is not null, then you can do this.",
+      "range": {
+        "startLine": 566,
+        "startChar": 8,
+        "endLine": 567,
+        "endChar": 38
+      },
+      "revId": "c0d0804eefdfec3152443df0895ad80903c74cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
