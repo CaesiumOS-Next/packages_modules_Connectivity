@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d00a39d8_746aa640",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-01T07:35:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b3d28d3_38ee4e7b",
+      "range": {
+        "startLine": 377,
+        "startChar": 52,
+        "endLine": 377,
+        "endChar": 65
+      },
+      "revId": "c0d0804eefdfec3152443df0895ad80903c74cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a96e470_9a1df56e",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f0bd4ab_a44b0efd",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-01T07:35:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a96e470_9a1df56e",
+      "range": {
+        "startLine": 380,
+        "startChar": 8,
+        "endLine": 380,
+        "endChar": 23
+      },
+      "revId": "c0d0804eefdfec3152443df0895ad80903c74cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cda25ee_ce50861c",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-11-01T07:28:23Z",
       "side": 1,
       "message": "You should check that mObserverHandlerThread is not null, then you can do this.",
+      "range": {
+        "startLine": 566,
+        "startChar": 8,
+        "endLine": 567,
+        "endChar": 38
+      },
+      "revId": "c0d0804eefdfec3152443df0895ad80903c74cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbf9a15d_0c2b0dfc",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-01T07:35:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cda25ee_ce50861c",
       "range": {
         "startLine": 566,
         "startChar": 8,
