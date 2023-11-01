@@ -639,6 +639,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "17deee46_56380ba6",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-01T02:03:23Z",
+      "side": 1,
+      "message": "If so, I\u0027d keep this open and track it as follow-up if that works for you.",
+      "parentUuid": "e42527cc_3b235e46",
+      "range": {
+        "startLine": 246,
+        "startChar": 19,
+        "endLine": 246,
+        "endChar": 33
+      },
+      "revId": "e81edf8bf035f743d9c86c7cd3dd851c750307ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cf889382_306f93cd",
         "filename": "framework/src/android/net/BpfNetMapsUtils.java",
         "patchSetId": 15
