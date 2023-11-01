@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0829dbd_5e96994d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-01T11:15:58Z",
+      "side": 1,
+      "message": "Change LGTM but I\u0027m not familiar with this file.\nAdded Chiachang to the reviewers since Chiachang implemented this.",
+      "revId": "3ce3dca34cde7d098eb1c6afd3d61753c4866446",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbd65db6_20b9de07",
+        "filename": "staticlibs/device/com/android/net/module/util/FeatureVersions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-01T11:15:58Z",
+      "side": 1,
+      "message": "Does this mean NetworkStack call this API from networkStack if the tethering module is M-2024-Feb or later?\nAnd we use M-2024-Feb since we will release this API by M-2024-02 sdk extension?\nIf so you should check the sdk extension release schedule.\nI remember we don\u0027t have much time for API freeze for next sdk extension.",
+      "range": {
+        "startLine": 48,
+        "startChar": 70,
+        "endLine": 48,
+        "endChar": 80
+      },
+      "revId": "3ce3dca34cde7d098eb1c6afd3d61753c4866446",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c691e30f_58c957d8",
+        "filename": "staticlibs/device/com/android/net/module/util/FeatureVersions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-01T11:15:58Z",
+      "side": 1,
+      "message": "Is this 13? Since we don\u0027t have December train?\n```\n2023\nSep: 9\nOct: 10\nNov: 11\n2024\nJan: 12\nFeb: 13\n```\n\nI\u0027m not sure how this number is decided.",
+      "range": {
+        "startLine": 50,
+        "startChar": 40,
+        "endLine": 50,
+        "endChar": 42
+      },
+      "revId": "3ce3dca34cde7d098eb1c6afd3d61753c4866446",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
