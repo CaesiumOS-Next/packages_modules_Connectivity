@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8c1ea82_a2899a29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-01T08:58:33Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "86b8426e0eb0aa75aa05ea4d4f49a86ae62b092c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1f919ed_66684630",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-01T08:58:33Z",
+      "side": 1,
+      "message": "Nit: Also update the name here.",
+      "range": {
+        "startLine": 376,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 8
+      },
+      "revId": "86b8426e0eb0aa75aa05ea4d4f49a86ae62b092c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18c3baa9_26dba0c1",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-01T08:58:33Z",
+      "side": 1,
+      "message": "Nit: I think you can put \"handlerThread.start()\" in the `makeHandlerThread()` in NetworkStatsService constructor. Then you can use the same thread here. You can do it in a followup change.",
+      "range": {
+        "startLine": 376,
+        "startChar": 8,
+        "endLine": 376,
+        "endChar": 30
+      },
+      "revId": "86b8426e0eb0aa75aa05ea4d4f49a86ae62b092c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
