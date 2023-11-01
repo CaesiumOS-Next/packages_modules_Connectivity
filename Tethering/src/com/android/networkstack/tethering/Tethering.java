@@ -189,6 +189,8 @@ public class Tethering {
     // Keep in sync with NETID_UNSET in system/netd/include/netid_client.h
     private static final int NETID_UNSET = 0;
 
+    private static final String EXTRA_WIFI_P2P_CONNECTION_CHANGE_ID = "wifiP2pConnectionChangeId";
+
     private static class TetherState {
         public final IpServer ipServer;
         public int lastState;
@@ -1316,8 +1318,10 @@ public class Tethering {
                     (WifiP2pInfo) intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_INFO);
             final WifiP2pGroup group =
                     (WifiP2pGroup) intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_GROUP);
+            final int intentId = intent.getIntExtra(EXTRA_WIFI_P2P_CONNECTION_CHANGE_ID, -1);
 
-            mLog.i("WifiP2pAction: P2pInfo: " + p2pInfo + " Group: " + group);
+            mLog.i("WifiP2pAction received, Id: " + intentId + " P2pInfo: " + p2pInfo + " Group: "
+                    + group);
 
             // if no group is formed, bring it down if needed.
             if (p2pInfo == null || !p2pInfo.groupFormed) {
