@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ece4c20c_231a22b3",
+        "filename": "framework/src/android/net/DataSaverStatusTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-01T03:14:06Z",
+      "side": 1,
+      "message": "Check FLAG_SYSTEM instead. Given that isPrivilegedApp is U API.\nAnd we might want to keep T compatibility.\nNetworkStack is:\n    flags\u003d[ SYSTEM HAS_CODE PERSISTENT ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]\n    privateFlags\u003d[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE DEFAULT_TO_DEVICE_PROTECTED_STORAGE DIRECT_BOOT_AWARE PRIVILEGED PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]\n    \nSee if it works for you.\nAlternatively, we might want to check android permissions but it is still bypassable IIUC.",
+      "parentUuid": "7495e904_8f190574",
+      "range": {
+        "startLine": 53,
+        "startChar": 70,
+        "endLine": 53,
+        "endChar": 77
+      },
+      "revId": "092a4d59b39aa4bf703130fe84b00d090517e745",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "244f142e_a6e0ae8c",
