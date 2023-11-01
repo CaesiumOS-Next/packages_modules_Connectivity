@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5012fd1_49d04e54",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-11-01T02:00:47Z",
+      "side": 1,
+      "message": "Do you need to do `pw.decreaseIndent();` in l.718? i.e. is the indent correct in the section after that?",
+      "range": {
+        "startLine": 717,
+        "startChar": 39,
+        "endLine": 717,
+        "endChar": 40
+      },
+      "revId": "2791a82a4580ea5ae6ccbebd05a52e35cf7628ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b670ab0a_467fccf9",
+        "filename": "tests/unit/java/com/android/server/connectivity/AutomaticOnOffKeepaliveTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-11-01T02:00:47Z",
+      "side": 1,
+      "message": "Why do you need to do this? I think it\u0027s not true in common use case. The call stack will call from caller thread, instead of handler thread.",
+      "range": {
+        "startLine": 991,
+        "startChar": 8,
+        "endLine": 991,
+        "endChar": 30
+      },
+      "revId": "2791a82a4580ea5ae6ccbebd05a52e35cf7628ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
