@@ -16,6 +16,24 @@
       "message": "side note: I feel like it should now be possible to actually make use of this boolean in the bpf code... and avoid the iptables mutations via netd binder calls???",
       "revId": "243301748e51e4b35f9e872d294ce18f38956284",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbdc4793_f92a01be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-01T01:49:35Z",
+      "side": 1,
+      "message": "Exactly.\n\nDesign doc: https://docs.google.com/document/d/18V_rsiYKRJtJgz93NdXxjd5CxTk56UVCtQcRgNsSlJo/edit#bookmark\u003did.e15l1th3rn1e",
+      "parentUuid": "e1f12de8_bd229d4e",
+      "revId": "243301748e51e4b35f9e872d294ce18f38956284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
