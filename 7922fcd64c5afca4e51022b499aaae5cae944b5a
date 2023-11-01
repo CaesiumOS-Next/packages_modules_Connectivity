@@ -88,6 +88,24 @@
       "tag": "mailMessageId\u003d\u003cCANP3RGd72VerT7iPcgcYc2Qzn1dmp3AWOMuFaUEFW\u003dw13yj6Ag@mail.gmail.com\u003e",
       "revId": "7922fcd64c5afca4e51022b499aaae5cae944b5a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0462229_ae8a4378",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1930620
+      },
+      "writtenOn": "2023-11-01T21:59:58Z",
+      "side": 1,
+      "message": "You mean bypass presubmit here and then cherrypick whatever doesn\u0027t automerge to udc-mainline-prod to fix that branch?",
+      "parentUuid": "bead74e7_1e6ea7d2",
+      "revId": "7922fcd64c5afca4e51022b499aaae5cae944b5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
