@@ -70,6 +70,30 @@
       },
       "revId": "a55f36152e285ff72f4f246d7a5b5ba5b44193c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d59aff6b_56216702",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-11-01T07:38:48Z",
+      "side": 1,
+      "message": "Done.\nSince the number of hardware keepalives is limited, duration_per_num_of_keepalive should be very limited, recent metrics show a max of 4. \nThe output mostly would grow by the number of (carrier_id, intervals_msec, transport_types) combinations, but recent metrics shows it does not go above 10. \n\nOverall, it should not exceed 1000 lines. I don\u0027t think a limit needs to be set.",
+      "parentUuid": "dc601c93_84ef44dc",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "a55f36152e285ff72f4f246d7a5b5ba5b44193c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
