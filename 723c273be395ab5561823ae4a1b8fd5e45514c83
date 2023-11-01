@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d3ded378_14e19cff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-11-01T08:56:18Z",
+      "side": 1,
+      "message": "Done, passed locally.",
+      "parentUuid": "abb16cce_964eaf36",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 4
+      },
+      "revId": "723c273be395ab5561823ae4a1b8fd5e45514c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "cf052480_8b0044d1",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -54,6 +78,30 @@
       "writtenOn": "2023-11-01T07:50:26Z",
       "side": 1,
       "message": "Could you also add this into the doc of KeepaliveStatsTrracker#dump()?",
+      "range": {
+        "startLine": 695,
+        "startChar": 7,
+        "endLine": 695,
+        "endChar": 75
+      },
+      "revId": "723c273be395ab5561823ae4a1b8fd5e45514c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab91936a_d026f849",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-11-01T08:56:18Z",
+      "side": 1,
+      "message": "Acknowledged, the doc of KeepaliveStatsTracker already mentions all public methods need to be called in the handler thread\n\n```\n * ... It is also not thread-safe and all\n * public methods must be called by the same thread, namely the ConnectivityService handler thread.\n```",
+      "parentUuid": "c6a440fd_7cb29410",
       "range": {
         "startLine": 695,
         "startChar": 7,
