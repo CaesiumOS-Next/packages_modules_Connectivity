@@ -52,6 +52,24 @@
       "tag": "mailMessageId\u003d\u003cCANP3RGeRYTNSvV3E2n7-22gE8DdP\u003doRPsWBr\u003d\u003dC6v\u003dm79rvEZA@mail.gmail.com\u003e",
       "revId": "7922fcd64c5afca4e51022b499aaae5cae944b5a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8f27ad4_2fa7f07f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1930620
+      },
+      "writtenOn": "2023-11-01T21:18:28Z",
+      "side": 1,
+      "message": "Ok, this topic builds fine on internal git udc-mainline-prod, so I guess I\u0027ll submit it over there and bring it back to AOSP with merged-in.\n\nhttps://googleplex-android-review.git.corp.google.com/q/topic:%22cherrypicker-L48500030000038581:N74500030000796219%22",
+      "parentUuid": "12ea1d35_91e41088",
+      "revId": "7922fcd64c5afca4e51022b499aaae5cae944b5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
