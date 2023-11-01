@@ -62,6 +62,30 @@
       },
       "revId": "3ce3dca34cde7d098eb1c6afd3d61753c4866446",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7fb3037_9cb83481",
+        "filename": "staticlibs/device/com/android/net/module/util/FeatureVersions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1547664
+      },
+      "writtenOn": "2023-11-01T23:44:12Z",
+      "side": 1,
+      "message": "Feb is 14, we usually reserve 12 for Dec rollout even if it\u0027s skipped",
+      "parentUuid": "c691e30f_58c957d8",
+      "range": {
+        "startLine": 50,
+        "startChar": 40,
+        "endLine": 50,
+        "endChar": 42
+      },
+      "revId": "3ce3dca34cde7d098eb1c6afd3d61753c4866446",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
