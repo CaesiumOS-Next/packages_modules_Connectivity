@@ -1,0 +1,204 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0071784_ac1b7f21",
+        "filename": "service/jni/com_android_server_RoutingCoordinator.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-02T04:52:47Z",
+      "side": 1,
+      "message": "I wonder why there\u0027s an empty line at the beginning of every JNI function?",
+      "revId": "f89c16b2bab34bdf3037294a1656c2ef5b9f645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "501948a2_0685b82b",
+        "filename": "service/jni/com_android_server_RoutingCoordinator.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-02T04:52:47Z",
+      "side": 1,
+      "message": "`close` may set `errno`. It may be better to log before `close`.",
+      "range": {
+        "startLine": 53,
+        "startChar": 3,
+        "endLine": 56,
+        "endChar": 46
+      },
+      "revId": "f89c16b2bab34bdf3037294a1656c2ef5b9f645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09eab7c9_98fe3c3f",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-02T04:52:47Z",
+      "side": 1,
+      "message": "This seems to be the **virtual** interface mapping, right? May be better to make its name consistent with the `mVirtualInterfaceIndexMap`",
+      "revId": "f89c16b2bab34bdf3037294a1656c2ef5b9f645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb136e96_4847dbbc",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-02T04:52:47Z",
+      "side": 1,
+      "message": "Not sure if this and `getIfName()` are necessary. @wgtdkp@google.com any suggestions?",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 0
+      },
+      "revId": "f89c16b2bab34bdf3037294a1656c2ef5b9f645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d0a7a62_a7c4debe",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-02T04:52:47Z",
+      "side": 1,
+      "message": "I wonder the purpose of making the class static?",
+      "revId": "f89c16b2bab34bdf3037294a1656c2ef5b9f645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bfcf0fd_d7b414b3",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-02T04:52:47Z",
+      "side": 1,
+      "message": "Shall we call it something like `getOrDefault`?",
+      "revId": "f89c16b2bab34bdf3037294a1656c2ef5b9f645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d54c97d_216744b0",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-02T04:52:47Z",
+      "side": 1,
+      "message": "@wgtdkp@google.com I wonder if we are allowed to use `var` keyword?",
+      "revId": "f89c16b2bab34bdf3037294a1656c2ef5b9f645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db4c56be_fe8f7ddb",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-02T04:52:47Z",
+      "side": 1,
+      "message": "```suggestion\n     * @param iifName name of the incoming interface\n     * @param oifName name of the outgoing interface\n```",
+      "range": {
+        "startLine": 484,
+        "startChar": 0,
+        "endLine": 485,
+        "endChar": 62
+      },
+      "revId": "f89c16b2bab34bdf3037294a1656c2ef5b9f645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2296f4ea_b4cdc117",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-02T04:52:47Z",
+      "side": 1,
+      "message": "I think we should use `Arrays.equals() ` when comparing two byte[]s.",
+      "range": {
+        "startLine": 536,
+        "startChar": 21,
+        "endLine": 537,
+        "endChar": 56
+      },
+      "revId": "f89c16b2bab34bdf3037294a1656c2ef5b9f645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d45c53e5_7be587b2",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-02T04:52:47Z",
+      "side": 1,
+      "message": "Do we need `get` prefix when returning something named `is*`?",
+      "range": {
+        "startLine": 558,
+        "startChar": 5,
+        "endLine": 560,
+        "endChar": 9
+      },
+      "revId": "f89c16b2bab34bdf3037294a1656c2ef5b9f645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
