@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b2f34af_b896ff64",
+        "filename": "framework/aidl-export/android/net/LocalNetworkInfo.aidl",
+        "patchSetId": 20
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-02T16:28:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c4d219d_ab751ed6",
+      "range": {
+        "startLine": 20,
+        "startChar": 1,
+        "endLine": 20,
+        "endChar": 25
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8301662a_3875fcdd",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-24T13:02:08Z",
       "side": 1,
       "message": "\"correctly contains null correctly\" -\u003e \"correctly contains null\"",
+      "range": {
+        "startLine": 5076,
+        "startChar": 15,
+        "endLine": 5076,
+        "endChar": 48
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b1ab89b_669fc687",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 5076,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-02T16:28:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8301662a_3875fcdd",
       "range": {
         "startLine": 5076,
         "startChar": 15,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ad3eaa9_d430ce8e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 9001,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-02T16:28:05Z",
+      "side": 1,
+      "message": "It was to explain why we do this only when there is no new request. Reworded completely.",
+      "parentUuid": "4804c219_eddd2ac4",
+      "range": {
+        "startLine": 9001,
+        "startChar": 19,
+        "endLine": 9001,
+        "endChar": 44
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "630c2502_0e56622e",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-10-24T13:02:08Z",
       "side": 1,
       "message": "Will this work even if the old satisfier doesn\u0027t satisfy the new request?",
+      "range": {
+        "startLine": 9029,
+        "startChar": 46,
+        "endLine": 9030,
+        "endChar": 44
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c77e1bfb_92763ec3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 9030,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-02T16:28:05Z",
+      "side": 1,
+      "message": "Yes. This is a technique we\u0027re using also when copying requests. l.9052 sets the satisfier, which is just a field meant to remember what it used to be. The rematch will compare the old satisfier that was set in l.9052 to whatever is the new one. If it\u0027s not the same, it will send callbacks.",
+      "parentUuid": "630c2502_0e56622e",
       "range": {
         "startLine": 9029,
         "startChar": 46,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41973f0c_ccd97643",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 9376,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-02T16:28:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2e45202_e380462d",
+      "range": {
+        "startLine": 9376,
+        "startChar": 23,
+        "endLine": 9376,
+        "endChar": 40
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97361ef0_35e1ddcd",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-10-24T13:02:08Z",
       "side": 1,
       "message": "Nit: you could use that method behind a null check. Might not be better than what you have though.",
+      "range": {
+        "startLine": 9416,
+        "startChar": 57,
+        "endLine": 9416,
+        "endChar": 69
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d340394f_d7ae72e7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 9416,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-02T16:28:05Z",
+      "side": 1,
+      "message": "If I only do this if it\u0027s non-null the unparceling becomes significantly more complex. With this we always have a LocalNetworkInfo, even if it\u0027s null. I think this is simpler.",
+      "parentUuid": "97361ef0_35e1ddcd",
       "range": {
         "startLine": 9416,
         "startChar": 57,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ad32fd4_f61db4ae",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSKeepConnectedTest.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-02T16:28:05Z",
+      "side": 1,
+      "message": "The static lib doesn\u0027t compile against hidden APIs, and therefore TestableNetworkCallback can\u0027t compile against LocalNetworkInfo until it\u0027s API.\n\nIt seems dangerous to have the static lib compile against hidden API, as it would be very easy to use a static method that tries to access a hidden API in production code.\n\nOne solution would be to fragment our static lib even more than it already is between the parts that can only be used in tests and can link against hidden symbols, and the parts that can\u0027t. This would complexify substantially the already really complex build files.",
+      "parentUuid": "91236a8c_8b4dd2c5",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 53
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b6cba9f_2e8862cb",
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d1da4cd_e7c6156b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-02T16:28:05Z",
+      "side": 1,
+      "message": "Yes, testUnregisterLocalAgentAfterReplacement does this.",
+      "parentUuid": "6b6cba9f_2e8862cb",
+      "range": {
+        "startLine": 202,
+        "startChar": 8,
+        "endLine": 202,
+        "endChar": 91
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7896c50_af1a983a",
@@ -198,6 +390,30 @@
       "writtenOn": "2023-10-24T13:02:08Z",
       "side": 1,
       "message": "Would suggest adding a testcase where wifi is the upstream and it calls unregisterAfterReplacement and then reconnects with the same interface.",
+      "range": {
+        "startLine": 225,
+        "startChar": 8,
+        "endLine": 225,
+        "endChar": 9
+      },
+      "revId": "ea311a7c4e0fab259da3ee76eebd8dd59c999147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efadd787_a9282ca9",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-02T16:28:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7896c50_af1a983a",
       "range": {
         "startLine": 225,
         "startChar": 8,
