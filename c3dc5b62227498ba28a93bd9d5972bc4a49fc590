@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2fd263f_da1a5832",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 6259,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-02T06:41:26Z",
+      "side": 1,
+      "message": "If the system has FLAG_PERSISTENT you don\u0027t need this clause",
+      "range": {
+        "startLine": 6259,
+        "startChar": 20,
+        "endLine": 6259,
+        "endChar": 81
+      },
+      "revId": "c3dc5b62227498ba28a93bd9d5972bc4a49fc590",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
