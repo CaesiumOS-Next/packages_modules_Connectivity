@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5432f4b2_033a94bd",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-11-02T17:31:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "519fb20f_1f763372",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 25
+      },
+      "revId": "7a246d3eb801b2f4fa81489a18ce5e9bccc2f9c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aef2f8f5_4b27ba10",
@@ -71,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0c4bcbc_1ae1c679",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-11-02T17:31:51Z",
+      "side": 1,
+      "message": "I\u0027ve changed this to report a track per ifindex which gets around the above issues. If the interface is re-added and gets a new ifindex, it\u0027ll be a new track so we don\u0027t go backwards. This has marginally worse UX since you can have multiple tracks per interface, but I think should be rare enough to be okay and can be post-processed in Perfetto if need be.",
+      "parentUuid": "1bfaf7af_37db8080",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 55
+      },
+      "revId": "7a246d3eb801b2f4fa81489a18ce5e9bccc2f9c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cafdac90_09116ace",
@@ -94,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35cd81fb_ad722117",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-11-02T17:31:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cafdac90_09116ace",
+      "range": {
+        "startLine": 134,
+        "startChar": 42,
+        "endLine": 134,
+        "endChar": 43
+      },
+      "revId": "7a246d3eb801b2f4fa81489a18ce5e9bccc2f9c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff83041b_f83739fc",
@@ -107,6 +179,30 @@
       "writtenOn": "2023-10-31T05:38:10Z",
       "side": 1,
       "message": "since you could call atrace here right?",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 7
+      },
+      "revId": "7a246d3eb801b2f4fa81489a18ce5e9bccc2f9c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfbef543_a41e6084",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-11-02T17:31:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff83041b_f83739fc",
       "range": {
         "startLine": 139,
         "startChar": 0,
