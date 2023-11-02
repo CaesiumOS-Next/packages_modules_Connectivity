@@ -16,6 +16,24 @@
       "message": "According to the commit message and the bug report, this change is for debugging purposes. If this is for temporary debugging, can you add a comment saying what the purpose of this is and when it can be removed? If you want to keep this for the long term, please expose it as an API in the wifi side. Cross-module boundary communication should use APIs.",
       "revId": "ce8ea572ed20a246e34ccfcd4f2957c9fed43c0c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "373540f5_01aa859a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 2047253
+      },
+      "writtenOn": "2023-11-02T18:40:09Z",
+      "side": 1,
+      "message": "We can keep it for the build less than U. From build V, we will add callback mechanism (new system API).",
+      "parentUuid": "da57e514_3b2009c7",
+      "revId": "ce8ea572ed20a246e34ccfcd4f2957c9fed43c0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
