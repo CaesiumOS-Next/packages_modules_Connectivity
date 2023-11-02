@@ -1987,7 +1987,7 @@ public class ConnectivityServiceTest {
         }
 
         @Override
-        public HandlerThread makeHandlerThread() {
+        public HandlerThread makeHandlerThread(@NonNull final String tag) {
             return mCsHandlerThread;
         }
 

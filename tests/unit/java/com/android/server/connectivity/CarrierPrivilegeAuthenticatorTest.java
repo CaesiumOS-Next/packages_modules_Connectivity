@@ -45,6 +45,7 @@ import android.content.pm.PackageManager;
 import android.net.NetworkCapabilities;
 import android.net.TelephonyNetworkSpecifier;
 import android.os.Build;
+import android.os.HandlerThread;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 
@@ -56,6 +57,7 @@ import com.android.server.ConnectivityService;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRunner;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -86,6 +88,7 @@ public class CarrierPrivilegeAuthenticatorTest {
     private final int mCarrierConfigPkgUid = 12345;
     private final String mTestPkg = "com.android.server.connectivity.test";
     private final BroadcastReceiver mMultiSimBroadcastReceiver;
+    @NonNull private final HandlerThread mHandlerThread;
 
     public class TestCarrierPrivilegeAuthenticator extends CarrierPrivilegeAuthenticator {
         TestCarrierPrivilegeAuthenticator(@NonNull final Context c,
@@ -100,6 +103,11 @@ public class CarrierPrivilegeAuthenticatorTest {
         }
     }
 
+    @After
+    public void tearDown() {
+        mHandlerThread.quit();
+    }
+
     /** Parameters to test both using callbacks or the old broadcast */
     @Parameterized.Parameters
     public static Collection<Boolean> shouldUseCallbacks() {
@@ -111,9 +119,11 @@ public class CarrierPrivilegeAuthenticatorTest {
         mTelephonyManager = mock(TelephonyManager.class);
         mTelephonyManagerShim = mock(TelephonyManagerShimImpl.class);
         mPackageManager = mock(PackageManager.class);
+        mHandlerThread = new HandlerThread(CarrierPrivilegeAuthenticatorTest.class.getSimpleName());
         final ConnectivityService.Dependencies deps = mock(ConnectivityService.Dependencies.class);
         doReturn(useCallbacks).when(deps).isFeatureEnabled(any() /* context */,
                 eq(CARRIER_SERVICE_CHANGED_USE_CALLBACK));
+        doReturn(mHandlerThread).when(deps).makeHandlerThread(any());
         doReturn(SUBSCRIPTION_COUNT).when(mTelephonyManager).getActiveModemCount();
         doReturn(mTestPkg).when(mTelephonyManagerShim)
                 .getCarrierServicePackageNameForLogicalSlot(anyInt());
