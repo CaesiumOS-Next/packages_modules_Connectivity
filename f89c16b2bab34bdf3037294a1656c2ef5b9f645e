@@ -100,6 +100,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e144fc30_db234801",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-02T05:09:14Z",
+      "side": 1,
+      "message": "Nested classes should be default \"static final\" unless you have to make them non-static or non-final to work",
+      "parentUuid": "9d0a7a62_a7c4debe",
+      "revId": "f89c16b2bab34bdf3037294a1656c2ef5b9f645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8bfcf0fd_d7b414b3",
         "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
         "patchSetId": 10
@@ -111,6 +129,24 @@
       "writtenOn": "2023-11-02T04:52:47Z",
       "side": 1,
       "message": "Shall we call it something like `getOrDefault`?",
+      "revId": "f89c16b2bab34bdf3037294a1656c2ef5b9f645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ca19826_6402e3f0",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-02T05:09:14Z",
+      "side": 1,
+      "message": "`getOrDefault` works only when the default value is passed in as an argument (example: https://developer.android.com/reference/java/util/Map#getOrDefault(java.lang.Object,%20V)). Otherwise, the caller doesn\u0027t need to know whether the return value is a configured or default one.",
+      "parentUuid": "8bfcf0fd_d7b414b3",
       "revId": "f89c16b2bab34bdf3037294a1656c2ef5b9f645e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -198,6 +234,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4cdcde2b_0fd1e764",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-02T05:09:14Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "2296f4ea_b4cdc117",
+      "range": {
+        "startLine": 536,
+        "startChar": 21,
+        "endLine": 537,
+        "endChar": 56
+      },
+      "revId": "f89c16b2bab34bdf3037294a1656c2ef5b9f645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d45c53e5_7be587b2",
         "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
         "patchSetId": 10
@@ -209,6 +269,30 @@
       "writtenOn": "2023-11-02T04:52:47Z",
       "side": 1,
       "message": "Do we need `get` prefix when returning something named `is*`?",
+      "range": {
+        "startLine": 558,
+        "startChar": 5,
+        "endLine": 560,
+        "endChar": 9
+      },
+      "revId": "f89c16b2bab34bdf3037294a1656c2ef5b9f645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1a279db_f5f813fa",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-02T05:09:14Z",
+      "side": 1,
+      "message": "+1, it should be just `isXxxx()`",
+      "parentUuid": "d45c53e5_7be587b2",
       "range": {
         "startLine": 558,
         "startChar": 5,
