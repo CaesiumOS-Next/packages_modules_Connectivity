@@ -134,6 +134,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "02065da0_7ea95b3a",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-02T05:04:30Z",
+      "side": 1,
+      "message": "Try \"var\" and if treehugger doesn\u0027t complain, better use \"var\"",
+      "parentUuid": "3d54c97d_216744b0",
+      "revId": "f89c16b2bab34bdf3037294a1656c2ef5b9f645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "db4c56be_fe8f7ddb",
         "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
         "patchSetId": 10
