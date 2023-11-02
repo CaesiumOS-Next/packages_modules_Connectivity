@@ -305,7 +305,7 @@ public class MdnsRecordRepository {
     }
 
     /**
-     * Add a service to the repository.
+     * Add or update a service to the repository.
      *
      * This may remove/replace any existing service that used the name added but is exiting.
      * @param serviceId A unique service ID.
@@ -314,8 +314,22 @@ public class MdnsRecordRepository {
      *         ID of the replaced service.
      * @throws NameConflictException There is already a (non-exiting) service using the name.
      */
-    public int addService(int serviceId, NsdServiceInfo serviceInfo, @Nullable String subtype)
+    public int addOrUpdateService(int serviceId, NsdServiceInfo serviceInfo,
+            @Nullable String subtype, @NonNull MdnsAdvertisingOptions advertisingOptions)
             throws NameConflictException {
+        if (advertisingOptions.isOnlyUpdate()) {
+            final ServiceRegistration existingRegistration = mServices.get(serviceId);
+            if (existingRegistration == null) {
+                throw new IllegalArgumentException(
+                        "Service ID must already exist for an update request: " + serviceId);
+            }
+            final ServiceRegistration updatedRegistration = new ServiceRegistration(mDeviceHostname,
+                    serviceInfo, subtype, existingRegistration.repliedServiceCount,
+                    existingRegistration.sentPacketCount);
+            updatedRegistration.exiting = existingRegistration.exiting;
+            mServices.put(serviceId, updatedRegistration);
+            return serviceId;
+        }
         if (mServices.contains(serviceId)) {
             throw new IllegalArgumentException(
                     "Service ID must not be reused across registrations: " + serviceId);
