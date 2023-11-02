@@ -48,6 +48,7 @@ import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.eq
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.never
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 
@@ -59,6 +60,7 @@ private val TEST_BUFFER = ByteArray(1300)
 private val TEST_HOSTNAME = arrayOf("Android_test", "local")
 
 private const val TEST_SERVICE_ID_1 = 42
+private const val TEST_SERVICE_ID_DUPLICATE = 43
 private val TEST_SERVICE_1 = NsdServiceInfo().apply {
     serviceType = "_testservice._tcp"
     serviceName = "MyTestService"
@@ -117,7 +119,7 @@ class MdnsInterfaceAdvertiserTest {
             knownServices.add(inv.getArgument(0))
 
             -1
-        }.`when`(repository).addService(anyInt(), any(), any())
+        }.`when`(repository).addOrUpdateService(anyInt(), any(), any(), any())
         doAnswer { inv ->
             knownServices.remove(inv.getArgument(0))
             null
@@ -272,14 +274,42 @@ class MdnsInterfaceAdvertiserTest {
         verify(prober).restartForConflict(mockProbingInfo)
     }
 
+    @Test
+    fun testReplaceExitingService() {
+        doReturn(TEST_SERVICE_ID_DUPLICATE).`when`(repository)
+                .addOrUpdateService(eq(TEST_SERVICE_ID_DUPLICATE), any(), any(), any())
+        val advertisingOptions = MdnsAdvertisingOptions.getDefaultOptions()
+        val subType = "_tcp"
+        advertiser.addOrUpdateService(TEST_SERVICE_ID_DUPLICATE, TEST_SERVICE_1,
+                subType, advertisingOptions)
+        verify(repository).addOrUpdateService(eq(TEST_SERVICE_ID_DUPLICATE), any(), any(), any())
+        verify(announcer).stop(TEST_SERVICE_ID_DUPLICATE)
+        verify(prober).startProbing(any())
+    }
+
+    @Test
+    fun testUpdateExistingService() {
+        doReturn(TEST_SERVICE_ID_DUPLICATE).`when`(repository)
+                .addOrUpdateService(eq(TEST_SERVICE_ID_DUPLICATE), any(), any(), any())
+        val advertisingOptions = MdnsAdvertisingOptions.newBuilder().setIsOnlyUpdate(true).build()
+        val subType = "_tcp"
+        advertiser.addOrUpdateService(TEST_SERVICE_ID_DUPLICATE, TEST_SERVICE_1,
+                subType, advertisingOptions)
+        verify(repository).addOrUpdateService(eq(TEST_SERVICE_ID_DUPLICATE), any(), any(), any())
+        verify(announcer, never()).stop(TEST_SERVICE_ID_DUPLICATE)
+        verify(prober, never()).startProbing(any())
+    }
+
     private fun addServiceAndFinishProbing(serviceId: Int, serviceInfo: NsdServiceInfo):
             AnnouncementInfo {
         val testProbingInfo = mock(ProbingInfo::class.java)
         doReturn(serviceId).`when`(testProbingInfo).serviceId
         doReturn(testProbingInfo).`when`(repository).setServiceProbing(serviceId)
 
-        advertiser.addService(serviceId, serviceInfo, null /* subtype */)
-        verify(repository).addService(serviceId, serviceInfo, null /* subtype */)
+        advertiser.addOrUpdateService(serviceId, serviceInfo,
+                null /* subtype */, MdnsAdvertisingOptions.getDefaultOptions())
+        verify(repository).addOrUpdateService(serviceId, serviceInfo,
+                null /* subtype */, MdnsAdvertisingOptions.getDefaultOptions())
         verify(prober).startProbing(testProbingInfo)
 
         // Simulate probing success: continues to announcing

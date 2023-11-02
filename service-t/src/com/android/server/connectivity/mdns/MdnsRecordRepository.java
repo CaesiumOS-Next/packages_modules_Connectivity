@@ -167,7 +167,7 @@ public class MdnsRecordRepository {
         /**
          * Whether the service is sending exit announcements and will be destroyed soon.
          */
-        public boolean exiting = false;
+        public boolean exiting;
 
         /**
          * The replied query packet count of this service.
@@ -186,12 +186,10 @@ public class MdnsRecordRepository {
 
         /**
          * Create a ServiceRegistration for dns-sd service registration (RFC6763).
-         *
-         * @param deviceHostname Hostname of the device (for the interface used)
-         * @param serviceInfo Service to advertise
          */
         ServiceRegistration(@NonNull String[] deviceHostname, @NonNull NsdServiceInfo serviceInfo,
-                @Nullable String subtype, int repliedServiceCount, int sentPacketCount) {
+                @Nullable String subtype, int repliedServiceCount, int sentPacketCount,
+                boolean exiting, boolean isProbing) {
             this.serviceInfo = serviceInfo;
             this.subtype = subtype;
 
@@ -266,7 +264,20 @@ public class MdnsRecordRepository {
             this.allRecords = Collections.unmodifiableList(allRecords);
             this.repliedServiceCount = repliedServiceCount;
             this.sentPacketCount = sentPacketCount;
-            this.isProbing = true;
+            this.isProbing = isProbing;
+            this.exiting = exiting;
+        }
+
+        /**
+         * Create a ServiceRegistration for dns-sd service registration (RFC6763).
+         *
+         * @param deviceHostname Hostname of the device (for the interface used)
+         * @param serviceInfo Service to advertise
+         */
+        ServiceRegistration(@NonNull String[] deviceHostname, @NonNull NsdServiceInfo serviceInfo,
+                @Nullable String subtype, int repliedServiceCount, int sentPacketCount) {
+            this(deviceHostname, serviceInfo, subtype, repliedServiceCount, sentPacketCount,
+                    false /* exiting */, true /* isProbing */);
         }
 
         void setProbing(boolean probing) {
@@ -305,7 +316,7 @@ public class MdnsRecordRepository {
     }
 
     /**
-     * Add a service to the repository.
+     * Add or update a service to the repository.
      *
      * This may remove/replace any existing service that used the name added but is exiting.
      * @param serviceId A unique service ID.
@@ -314,8 +325,22 @@ public class MdnsRecordRepository {
      *         ID of the replaced service.
      * @throws NameConflictException There is already a (non-exiting) service using the name.
      */
-    public int addService(int serviceId, NsdServiceInfo serviceInfo, @Nullable String subtype)
+    public int addOrUpdateService(int serviceId, NsdServiceInfo serviceInfo,
+            @Nullable String subtype, @NonNull MdnsAdvertisingOptions advertisingOptions)
             throws NameConflictException {
+        if (advertisingOptions.isOnlyUpdate()) {
+            final ServiceRegistration existingRegistration = mServices.get(serviceId);
+            if (existingRegistration == null) {
+                throw new IllegalArgumentException(
+                        "Service ID must already exist for an update request: " + serviceId);
+            }
+            final ServiceRegistration updatedRegistration = new ServiceRegistration(mDeviceHostname,
+                    serviceInfo, subtype, existingRegistration.repliedServiceCount,
+                    existingRegistration.sentPacketCount, existingRegistration.exiting,
+                    existingRegistration.isProbing);
+            mServices.put(serviceId, updatedRegistration);
+            return serviceId;
+        }
         if (mServices.contains(serviceId)) {
             throw new IllegalArgumentException(
                     "Service ID must not be reused across registrations: " + serviceId);
