@@ -83,7 +83,7 @@ public class CarrierPrivilegeAuthenticator {
         mContext = c;
         mTelephonyManager = t;
         mTelephonyManagerShim = telephonyManagerShim;
-        final HandlerThread thread = new HandlerThread(TAG);
+        final HandlerThread thread = deps.makeHandlerThread(TAG);
         thread.start();
         mHandler = new Handler(thread.getLooper());
         mUseCallbacksForServiceChanged = deps.isFeatureEnabled(
