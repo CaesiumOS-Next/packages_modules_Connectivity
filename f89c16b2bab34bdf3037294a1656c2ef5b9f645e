@@ -118,6 +118,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fbeb9bb4_2fd3fb53",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-02T05:23:00Z",
+      "side": 1,
+      "message": "non-static allows you to access fields or methods of outer-class directly without an instance of the outer class",
+      "parentUuid": "e144fc30_db234801",
+      "revId": "f89c16b2bab34bdf3037294a1656c2ef5b9f645e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8bfcf0fd_d7b414b3",
         "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
         "patchSetId": 10
