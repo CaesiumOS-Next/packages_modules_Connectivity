@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5b809a3_2e7b78ec",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-02T06:47:25Z",
+      "side": 1,
+      "message": "nit : I think \"assert\" is better. Otherwise people wonder under what circumstances this asserts, and it\u0027s not very useful to have them wonder. And when the shell command isn\u0027t supported it\u0027s impossible to test anyway",
+      "range": {
+        "startLine": 443,
+        "startChar": 9,
+        "endLine": 443,
+        "endChar": 20
+      },
+      "revId": "2f144ba3ff551fb444b4c69401bb4d5897fba160",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16346aa6_2d3b36c5",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
         "patchSetId": 19
