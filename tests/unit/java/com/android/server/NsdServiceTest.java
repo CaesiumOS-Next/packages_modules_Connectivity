@@ -187,6 +187,7 @@ public class NsdServiceTest {
     HandlerThread mThread;
     TestHandler mHandler;
     NsdService mService;
+    private HandlerThread mManagerThread;
 
     private static class LinkToDeathRecorder extends Binder {
         IBinder.DeathRecipient mDr;
@@ -201,7 +202,9 @@ public class NsdServiceTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mThread = new HandlerThread("mock-service-handler");
+        mManagerThread = new HandlerThread("NsdServiceTest-Manager");
+        mManagerThread.start();
+        mThread = new HandlerThread("NsdServiceTest-Service");
         mThread.start();
         mHandler = new TestHandler(mThread.getLooper());
         when(mContext.getContentResolver()).thenReturn(mResolver);
@@ -249,6 +252,10 @@ public class NsdServiceTest {
         if (mThread != null) {
             mThread.quitSafely();
             mThread.join();
+        }
+        if (mManagerThread != null) {
+            mManagerThread.quitSafely();
+            mManagerThread.join();
         }
     }
 
@@ -1691,7 +1698,8 @@ public class NsdServiceTest {
             }
         };
 
-        assertThrows(IllegalArgumentException.class, () -> new NsdManager(mContext, service));
+        assertThrows(IllegalArgumentException.class,
+                () -> new NsdManager(mContext, service, makeDependencies()));
     }
 
     @Test
@@ -1748,8 +1756,17 @@ public class NsdServiceTest {
         return mCreatedCallbacks.remove();
     }
 
+    private NsdManager.Dependencies makeDependencies() {
+        return new NsdManager.Dependencies() {
+            @Override
+            public HandlerThread makeHandlerThread() {
+                return mManagerThread;
+            }
+        };
+    }
+
     NsdManager connectClient(NsdService service) {
-        final NsdManager nsdManager = new NsdManager(mContext, service);
+        final NsdManager nsdManager = new NsdManager(mContext, service, makeDependencies());
         // Wait for client registration done.
         waitForIdle();
         return nsdManager;

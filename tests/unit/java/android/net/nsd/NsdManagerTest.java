@@ -35,6 +35,7 @@ import android.compat.testing.PlatformCompatChangeRule;
 import android.content.Context;
 import android.net.connectivity.ConnectivityCompatChanges;
 import android.os.Build;
+import android.os.HandlerThread;
 
 import androidx.test.filters.SmallTest;
 
@@ -42,6 +43,7 @@ import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.FunctionalUtils.ThrowingConsumer;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -67,6 +69,7 @@ public class NsdManagerTest {
 
     NsdManager mManager;
     INsdManagerCallback mCallback;
+    private HandlerThread mHandlerThread;
 
     long mTimeoutMs = 200; // non-final so that tests can adjust the value.
 
@@ -75,11 +78,30 @@ public class NsdManagerTest {
         MockitoAnnotations.initMocks(this);
 
         doReturn(mServiceConn).when(mService).connect(any(), anyBoolean());
-        mManager = new NsdManager(mContext, mService);
+        mHandlerThread = new HandlerThread("NsdManagerTest");
+        mHandlerThread.start();
+        mManager = new NsdManager(mContext, mService, makeDependencies());
         final ArgumentCaptor<INsdManagerCallback> cbCaptor = ArgumentCaptor.forClass(
                 INsdManagerCallback.class);
         verify(mService).connect(cbCaptor.capture(), anyBoolean());
         mCallback = cbCaptor.getValue();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        if (mHandlerThread != null) {
+            mHandlerThread.quitSafely();
+            mHandlerThread.join();
+        }
+    }
+
+    private NsdManager.Dependencies makeDependencies() {
+        return new NsdManager.Dependencies() {
+            @Override
+            public HandlerThread makeHandlerThread() {
+                return mHandlerThread;
+            }
+        };
     }
 
     @Test

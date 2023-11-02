@@ -623,6 +623,22 @@ public final class NsdManager {
     }
 
     /**
+     * Dependencies of ConnectivityService, for injection in tests.
+     * @hide
+     */
+    @VisibleForTesting
+    public static class Dependencies {
+        /**
+         * Create a HandlerThread to use in NsdManager.
+         */
+        public HandlerThread makeHandlerThread() {
+            final HandlerThread thread = new HandlerThread("NsdManager");
+            thread.start();
+            return thread;
+        }
+    }
+
+    /**
      * Create a new Nsd instance. Applications use
      * {@link android.content.Context#getSystemService Context.getSystemService()} to retrieve
      * {@link android.content.Context#NSD_SERVICE Context.NSD_SERVICE}.
@@ -631,10 +647,19 @@ public final class NsdManager {
      * is a system private class.
      */
     public NsdManager(Context context, INsdManager service) {
+        this(context, service, new Dependencies());
+    }
+
+    /**
+     * Create a new Nsd instance
+     * @hide - hide this because it takes in a parameter of type INsdManager, which
+     * is a system private class.
+     */
+    @VisibleForTesting
+    public NsdManager(Context context, INsdManager service, Dependencies dependencies) {
         mContext = context;
 
-        HandlerThread t = new HandlerThread("NsdManager");
-        t.start();
+        final HandlerThread t = dependencies.makeHandlerThread();
         mHandler = new ServiceHandler(t.getLooper());
 
         try {
