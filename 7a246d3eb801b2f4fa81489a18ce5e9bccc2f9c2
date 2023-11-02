@@ -119,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dfeece2_89031568",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-02T17:40:14Z",
+      "side": 1,
+      "message": "It is not true multiple ifindex can map to the same name.\n\nThe mapping between ifinidex and names *at any given point in time* is unique.\n(and within the same network namespace, which detail we can ignore here, since this is all in one netns)\n\nYou can only have multiple ifindex -\u003e same name mappings if you include \u0027over time\u0027.\n\nBut since you\u0027re using if_indextoname() as your ifindex -\u003e name mapper, this by definition is only *now* (well for the duration of time the function runs, which is basically nearly 0 time)\n\n---\n\nas for the performance issues, I\u0027ve made some progress on fixing those (prep work merged), and hope to have those fixed later this year.  It\u0027s still a fair bit of work to do it correctly.",
+      "parentUuid": "f0c4bcbc_1ae1c679",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 55
+      },
+      "revId": "7a246d3eb801b2f4fa81489a18ce5e9bccc2f9c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cafdac90_09116ace",
