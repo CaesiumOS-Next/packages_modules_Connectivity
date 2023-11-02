@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1bfaf7af_37db8080",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2023-11-02T15:57:47Z",
+      "side": 1,
+      "message": "I think I do, since multiple ifindex can map to the same interface name. However, I now realize that even this won\u0027t work...\n\nLet\u0027s say `wlan` starts as ifindex \u003d 0 and later is re-added as ifindex \u003d 1, this will _only_ query the stats on ifindex \u003d 1 which could make it seem like the counter is going backwards (since we don\u0027t include what ifindex \u003d 0 accumulated).\n\nI think I need to do this by interface name as opposed to ifindex, and query all entries having that name. IIRC this is what TrafficStats was doing and ran into performance issues... let me think more.",
+      "parentUuid": "aef2f8f5_4b27ba10",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 55
+      },
+      "revId": "7a246d3eb801b2f4fa81489a18ce5e9bccc2f9c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cafdac90_09116ace",
         "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
         "patchSetId": 2
