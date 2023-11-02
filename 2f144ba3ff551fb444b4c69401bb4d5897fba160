@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16346aa6_2d3b36c5",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-02T05:25:58Z",
+      "side": 1,
+      "message": "Will this cts run against old networkStack?\nmaybe we can limit the exception by `if (!isAtleastV() \u0026\u0026 result.contins(..))`?\nI think NetworkStack in V release should have this command support.",
+      "range": {
+        "startLine": 449,
+        "startChar": 0,
+        "endLine": 449,
+        "endChar": 66
+      },
+      "revId": "2f144ba3ff551fb444b4c69401bb4d5897fba160",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
