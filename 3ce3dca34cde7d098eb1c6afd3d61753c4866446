@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6423e44_a6ff2801",
+        "filename": "staticlibs/device/com/android/net/module/util/FeatureVersions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-02T02:18:34Z",
+      "side": 1,
+      "message": "Yes the sdk extension API freeze is Nov/8.\nWe are 4 CLs away from that, which includes BR02, BR08, BR03.1, BR03.2.",
+      "parentUuid": "dbd65db6_20b9de07",
+      "range": {
+        "startLine": 48,
+        "startChar": 70,
+        "endLine": 48,
+        "endChar": 80
+      },
+      "revId": "3ce3dca34cde7d098eb1c6afd3d61753c4866446",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c691e30f_58c957d8",
@@ -78,6 +102,30 @@
       "side": 1,
       "message": "Feb is 14, we usually reserve 12 for Dec rollout even if it\u0027s skipped",
       "parentUuid": "c691e30f_58c957d8",
+      "range": {
+        "startLine": 50,
+        "startChar": 40,
+        "endLine": 50,
+        "endChar": 42
+      },
+      "revId": "3ce3dca34cde7d098eb1c6afd3d61753c4866446",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9501a230_da282ab5",
+        "filename": "staticlibs/device/com/android/net/module/util/FeatureVersions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-02T02:18:34Z",
+      "side": 1,
+      "message": "Thanks.\nIf so it seems to me we should keep it as is.",
+      "parentUuid": "e7fb3037_9cb83481",
       "range": {
         "startLine": 50,
         "startChar": 40,
