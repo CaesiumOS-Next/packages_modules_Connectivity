@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "204ce9f2_9384d7c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-02T04:27:59Z",
+      "side": 1,
+      "message": "https://android-build.corp.google.com/test_investigate/?blocking\u003dblocking\u0026invocationId\u003dI85900010213040979\u0026status\u003dnone\u0026testResultId\u003dTR77429027482956784\n\nInvocation: v2/mainline-engprod/apct/mainline/T/mainline_dnsresolver_gce_boot_test\n\nDetails\nBranch\ngit_udc-mainline-prod\n\nTarget\nmainline_modules_x86_64-userdebug\n\nBuild ID\nP64898636 \nBuilt at 2023-11-01 17:45 UTC-7\n\nModule\ncom.google.android.resolv \n\nExtra Builds (1)\nBranch\ngit_tm-qpr3-release\n\nTarget\ncf_x86_64_phone-userdebug\n\nBuild ID\n10753802 (TQ3A.230901.001.C3)  \nBuilt at 2023-09-01 18:58 UTC-7\n\n\nDeviceBootTest\n\nFailed to boot completely. Device failed to boot. Error from device leasing attempt: Timed out waiting for virtual device to start. [gce-device-12 unknown:unknown unknown]\n\nThis is *super* worrying.  Are you *sure* this was a flake?",
+      "revId": "5b144a10611350b3854a0806a5638b6cfa9b484a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
