@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a27285cf_b48bff15",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroyedNetworkTests.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-02T04:46:59Z",
+      "side": 1,
+      "message": "I think IgnoreUpTo(S) ignores S as well.\nShould this be `IgnoreUpTo(R)`?",
+      "range": {
+        "startLine": 35,
+        "startChar": 18,
+        "endLine": 35,
+        "endChar": 28
+      },
+      "revId": "c2eefd2b05169c12fdd93c5b3969a9082ec3a1b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
