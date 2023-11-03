@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0786ada5_e6a7831d",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-03T02:32:40Z",
+      "side": 1,
+      "message": "It is unclear what will happen when the expected error is null.\nMaybe add\n@param expectedUnavailableErr ...",
+      "range": {
+        "startLine": 290,
+        "startChar": 22,
+        "endLine": 290,
+        "endChar": 79
+      },
+      "revId": "e93234e8b9bd8c2287f20899746d5b0ae0e41d53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32f8ede7_946d8e33",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-03T02:32:40Z",
+      "side": 1,
+      "message": "@Nullable, also for others.",
+      "range": {
+        "startLine": 293,
+        "startChar": 12,
+        "endLine": 293,
+        "endChar": 17
+      },
+      "revId": "e93234e8b9bd8c2287f20899746d5b0ae0e41d53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32b50ea0_46d0d7be",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkCallbackTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-03T02:32:40Z",
+      "side": 1,
+      "message": "IIUC we\u0027ll need to use isFeatureSupported, which will be provided soon in the aosp/2738213.\nFrom offline disucssion with motomu@, there is no stable way for the caller in the module to read the flag.",
+      "range": {
+        "startLine": 275,
+        "startChar": 37,
+        "endLine": 275,
+        "endChar": 74
+      },
+      "revId": "e93234e8b9bd8c2287f20899746d5b0ae0e41d53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
