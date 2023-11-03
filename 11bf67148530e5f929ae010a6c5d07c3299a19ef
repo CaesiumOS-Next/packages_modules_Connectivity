@@ -237,6 +237,30 @@
       },
       "revId": "11bf67148530e5f929ae010a6c5d07c3299a19ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fce73443_f99b33f2",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-03T15:34:31Z",
+      "side": 1,
+      "message": "Yes and no.\nThe original idea was test this in GTS.\nBut given that we\u0027ll need to actually trigger power saver and data saver.\nAnd make the app really get blocked, which only happens on the app2 (which is a background app that can be blocked by NPMS) but not the test instrumentation (SystemApp which always pass bpf program check).\nThus, the existing CTS with app2 infra becomes a better solution to me.\nIt seems to me the GTS does not have test case with app2 yet.\nInstead of writing and maintaining app2 for gts, it seems to me writing a shell command is a better trade off. \nAdditionally, this also execrise NPMS code, instead of just running isUidNetworkingBlocked only.\n\nWDYT?",
+      "parentUuid": "29495c6d_49a0b1c0",
+      "range": {
+        "startLine": 476,
+        "startChar": 8,
+        "endLine": 476,
+        "endChar": 9
+      },
+      "revId": "11bf67148530e5f929ae010a6c5d07c3299a19ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
