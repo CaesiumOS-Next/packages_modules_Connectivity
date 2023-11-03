@@ -93,6 +93,30 @@
       },
       "revId": "2f144ba3ff551fb444b4c69401bb4d5897fba160",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff56c6fa_812b37f5",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-03T14:50:43Z",
+      "side": 1,
+      "message": "Split BR03.2 to wait for the API merge first.\nThus, since there is no NetworkStack to support the command.\nAnd !isAtleastV() is never true.\nIt seems to me we have to remove this check first.\nAnd add it back after merging BR03.2.\nSee if it work for you.",
+      "parentUuid": "5eff6502_26cbb508",
+      "range": {
+        "startLine": 449,
+        "startChar": 0,
+        "endLine": 449,
+        "endChar": 66
+      },
+      "revId": "2f144ba3ff551fb444b4c69401bb4d5897fba160",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
