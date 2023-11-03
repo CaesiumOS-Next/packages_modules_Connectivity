@@ -213,6 +213,30 @@
       },
       "revId": "11bf67148530e5f929ae010a6c5d07c3299a19ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29495c6d_49a0b1c0",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-03T15:08:29Z",
+      "side": 1,
+      "message": "FWIW, we could test this in GTS. Our GTS tests do have permission to call this API. And we already have GTS tests for ConnectivityManager APIs, see for example NetworkStackTest#testAvoidBadWifi.\n\nThe CTS tests that are currently in this CL have the advantage that they can plug into existing test case infrastructure. But on the other hand, they have the disadvantage that for as long as they exist, we will need to maintain the is-uid-networking-blocked dumpsys command. That doesn\u0027t seem great.",
+      "parentUuid": "944590c8_8af6d542",
+      "range": {
+        "startLine": 476,
+        "startChar": 8,
+        "endLine": 476,
+        "endChar": 9
+      },
+      "revId": "11bf67148530e5f929ae010a6c5d07c3299a19ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
