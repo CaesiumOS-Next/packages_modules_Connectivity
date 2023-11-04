@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d63cbfed_16f17925",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-04T11:35:57Z",
+      "side": 1,
+      "message": "This isn\u0027t a correct fix.\nI mean it\u0027s a correct *workaround* for this particular problem you\u0027re hitting now but not a correct fix.\n\nThe existence of this file [or rather more specifically the existance of the \u0027libconnectivity_native_test_utils\u0027 build target] is a bug.  The only user (via direct link) is resolver tests which are outside of this module.\n\nAnytime we change the path of these maps (or the size of structs, etc), this will blow up on us.\n\nIdeally this file (build target) would be deleted.\nOr the tests wouldn\u0027t be run in MTS if only 1 module is installed.\n\nOr ... maybe some better solution.\n\nOr this file is a dlopen\u0027ed lib from the tethering apex...\n\nI don\u0027t know how to fix this, but we can\u0027t simply have libconnectivity_native_test_utils linked into dnsresolvers mts tests.",
+      "revId": "90e009be6c9b959bd693bd1d1211316efcc80670",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
