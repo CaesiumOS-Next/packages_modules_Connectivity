@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd236059_b934df77",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-05T15:19:13Z",
+      "side": 1,
+      "message": "Yes, this a workaround. Considering this is a pure test issue and not a production code issue, should we take the workaround to unblock M-2024-01 train boarding?",
+      "parentUuid": "d63cbfed_16f17925",
+      "revId": "90e009be6c9b959bd693bd1d1211316efcc80670",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7572e285_9c1c3df0",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2af4bde7_f7d7c4ec",
+        "filename": "tests/native/utilities/firewall.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-05T15:19:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7572e285_9c1c3df0",
+      "range": {
+        "startLine": 25,
+        "startChar": 41,
+        "endLine": 25,
+        "endChar": 63
+      },
+      "revId": "90e009be6c9b959bd693bd1d1211316efcc80670",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fab2f92_76349fa1",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-11-04T11:38:22Z",
       "side": 1,
       "message": "why is test code writing directly into the system maps?\nand test code for a different module at that?",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 67
+      },
+      "revId": "90e009be6c9b959bd693bd1d1211316efcc80670",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4351a5fa_fc863191",
+        "filename": "tests/native/utilities/firewall.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-05T15:19:13Z",
+      "side": 1,
+      "message": "Because fake maps only work on unit tests. Some DNS resolver integration tests want to verify the behavior when DNS queries are blocked. But there is no NDK or Netd binder that can do that. So we have this utility. It\u0027s the caller\u0027s responsibility to restore the map after tests. We have a ScopeBlockedUIDRule class for this.\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/DnsResolver/tests/resolv_test_utils.h;l\u003d51;drc\u003d4d19502d63ca0c23e09e9ff4bd135ecf83e47839;bpv\u003d0;bpt\u003d1\n\nThe utility access BPF maps need to stay in tethering modules. But the test that uses this utility verifies the behavior of DNS resolver. So the test needs to be in the DNS resolver module.",
+      "parentUuid": "4fab2f92_76349fa1",
       "range": {
         "startLine": 74,
         "startChar": 0,
