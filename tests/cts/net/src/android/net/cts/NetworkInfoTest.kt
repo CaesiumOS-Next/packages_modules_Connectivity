@@ -21,14 +21,12 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.NetworkInfo.DetailedState
 import android.net.NetworkInfo.State
-import android.os.Build
 import android.telephony.TelephonyManager
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import com.android.modules.utils.build.SdkLevel
 import com.android.testutils.DevSdkIgnoreRule
-import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.NonNullTestUtils
 import kotlin.reflect.jvm.isAccessible
 import kotlin.test.assertFails
@@ -87,7 +85,7 @@ class NetworkInfoTest {
                 DetailedState.CONNECTED == netInfo.getDetailedState())
     }
 
-    @Test @IgnoreUpTo(Build.VERSION_CODES.Q)
+    @Test
     fun testConstructor() {
         val networkInfo = NetworkInfo(TYPE_MOBILE, TelephonyManager.NETWORK_TYPE_LTE,
                 MOBILE_TYPE_NAME, LTE_SUBTYPE_NAME)

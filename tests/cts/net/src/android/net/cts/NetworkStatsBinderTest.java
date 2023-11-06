@@ -26,21 +26,17 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.INetworkStatsService;
 import android.net.TrafficStats;
-import android.os.Build;
 import android.os.IBinder;
 import android.os.Process;
 import android.os.RemoteException;
-import android.test.AndroidTestCase;
 import android.util.SparseArray;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.internal.util.CollectionUtils;
-import com.android.testutils.DevSdkIgnoreRule;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -58,10 +54,6 @@ public class NetworkStatsBinderTest {
     private static final int TYPE_RX_PACKETS = 1;
     private static final int TYPE_TX_BYTES = 2;
     private static final int TYPE_TX_PACKETS = 3;
-
-    @Rule
-    public DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule(
-            Build.VERSION_CODES.Q /* ignoreClassUpTo */);
 
     private final SparseArray<Function<Integer, Long>> mUidStatsQueryOpArray = new SparseArray<>();
 

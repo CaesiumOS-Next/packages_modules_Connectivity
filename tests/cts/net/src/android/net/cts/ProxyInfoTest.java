@@ -24,12 +24,10 @@ import static org.junit.Assert.assertTrue;
 
 import android.net.ProxyInfo;
 import android.net.Uri;
-import android.os.Build;
 
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.testutils.DevSdkIgnoreRule;
-import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -82,7 +80,7 @@ public final class ProxyInfoTest {
         assertEquals(Uri.EMPTY, proxy2.getPacFileUrl());
     }
 
-    @Test @IgnoreUpTo(Build.VERSION_CODES.Q)
+    @Test
     public void testBuildPacProxy() {
         final ProxyInfo proxy1 = ProxyInfo.buildPacProxy(TEST_URI);
 

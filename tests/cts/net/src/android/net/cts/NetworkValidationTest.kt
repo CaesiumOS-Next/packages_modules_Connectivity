@@ -36,7 +36,6 @@ import android.net.dhcp.DhcpPacket.DHCP_MESSAGE_TYPE
 import android.net.dhcp.DhcpPacket.DHCP_MESSAGE_TYPE_DISCOVER
 import android.net.dhcp.DhcpPacket.DHCP_MESSAGE_TYPE_REQUEST
 import android.net.dhcp.DhcpRequestPacket
-import android.os.Build
 import android.os.HandlerThread
 import android.platform.test.annotations.AppModeFull
 import androidx.test.platform.app.InstrumentationRegistry
@@ -44,7 +43,6 @@ import androidx.test.runner.AndroidJUnit4
 import com.android.net.module.util.Inet4AddressUtils.getBroadcastAddress
 import com.android.net.module.util.Inet4AddressUtils.getPrefixMaskAsInet4Address
 import com.android.net.module.util.NetworkStackConstants.IPV4_ADDR_ANY
-import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DhcpClientPacketFilter
 import com.android.testutils.DhcpOptionFilter
 import com.android.testutils.RecorderCallback.CallbackEntry
@@ -53,17 +51,16 @@ import com.android.testutils.TestHttpServer
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.runAsShell
 import fi.iki.elonen.NanoHTTPD.Response.Status
-import org.junit.After
-import org.junit.Assume.assumeFalse
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
-import org.junit.runner.RunWith
 import java.net.Inet4Address
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 import kotlin.test.fail
+import org.junit.After
+import org.junit.Assume.assumeFalse
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
 
 private const val MAX_PACKET_LENGTH = 1500
 private const val TEST_TIMEOUT_MS = 10_000L
@@ -79,10 +76,6 @@ private const val TEST_MTU = 1500.toShort()
 @AppModeFull(reason = "Instant apps cannot create test networks")
 @RunWith(AndroidJUnit4::class)
 class NetworkValidationTest {
-    @JvmField
-    @Rule
-    val ignoreRule = DevSdkIgnoreRule(ignoreClassUpTo = Build.VERSION_CODES.Q)
-
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
     private val tnm by lazy { context.assertHasService(TestNetworkManager::class.java) }
     private val eth by lazy { context.assertHasService(EthernetManager::class.java) }
