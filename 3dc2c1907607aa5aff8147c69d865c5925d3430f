@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b9cbe43_97e7538f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-06T15:52:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f50159dc_e56d4ed9",
+      "range": {
+        "startLine": 302,
+        "startChar": 52,
+        "endLine": 302,
+        "endChar": 55
+      },
+      "revId": "3dc2c1907607aa5aff8147c69d865c5925d3430f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37e1be78_a8ac492c",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-06T10:04:02Z",
       "side": 1,
       "message": "{@code expectAvailable} ?",
+      "range": {
+        "startLine": 437,
+        "startChar": 60,
+        "endLine": 437,
+        "endChar": 73
+      },
+      "revId": "3dc2c1907607aa5aff8147c69d865c5925d3430f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "777461bf_7cfad7f1",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-06T15:52:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37e1be78_a8ac492c",
       "range": {
         "startLine": 437,
         "startChar": 60,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2f1b271_ef7d8f94",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-06T15:52:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e3095b3_e3eabe68",
+      "range": {
+        "startLine": 438,
+        "startChar": 10,
+        "endLine": 438,
+        "endChar": 11
+      },
+      "revId": "3dc2c1907607aa5aff8147c69d865c5925d3430f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91c23069_ab0f1ce8",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-11-06T10:04:02Z",
       "side": 1,
       "message": "It would create maintain efforts for these similar methods.\nMaybe just keep 1 method documented if they are all similar.",
+      "range": {
+        "startLine": 528,
+        "startChar": 7,
+        "endLine": 528,
+        "endChar": 13
+      },
+      "revId": "3dc2c1907607aa5aff8147c69d865c5925d3430f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fdefb33_6dc22c42",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-06T15:52:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91c23069_ab0f1ce8",
       "range": {
         "startLine": 528,
         "startChar": 7,
