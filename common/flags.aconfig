@@ -27,3 +27,10 @@ flag {
   description: "Set data saver through ConnectivityManager API"
   bug: "297836825"
 }
+
+flag {
+  name: "basic_background_restrictions_enabled"
+  namespace: "backstage_power"
+  description: "Block network access for apps in a low importance background state"
+  bug: "304347838"
+}
