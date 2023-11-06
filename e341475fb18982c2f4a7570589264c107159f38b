@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a327a791_f72f60c9",
+        "filename": "staticlibs/device/com/android/net/module/util/FeatureVersions.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-06T06:51:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c460a67_108f22ce",
+      "range": {
+        "startLine": 46,
+        "startChar": 7,
+        "endLine": 46,
+        "endChar": 55
+      },
+      "revId": "e341475fb18982c2f4a7570589264c107159f38b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dfb0700e_5be1293f",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-11-06T06:44:28Z",
       "side": 1,
       "message": "The doc should also be dated. \n\nIf you could not do it now, please revisit it when the feature commit is merged.",
+      "range": {
+        "startLine": 48,
+        "startChar": 80,
+        "endLine": 48,
+        "endChar": 81
+      },
+      "revId": "e341475fb18982c2f4a7570589264c107159f38b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09f9828f_8cf40cea",
+        "filename": "staticlibs/device/com/android/net/module/util/FeatureVersions.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-06T06:51:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfb0700e_5be1293f",
       "range": {
         "startLine": 48,
         "startChar": 80,
