@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed574ccd_59dae947",
+        "filename": "common/src/com/android/net/module/util/bpf/IngressDiscardKey.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-06T09:13:09Z",
+      "side": 1,
+      "message": "I know, just want to know what logic cause the problem. The code indicated by Motomu is checking hasBothMutableAndImmutableFields which only check whether all field is mutiable or non-mutable. If so, my suggestion should work.",
+      "parentUuid": "e370ffd5_6e9fbbee",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "2572f33e8221323bf7081ac92db58567172d4bbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7494ccb_04ceaabf",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 27
