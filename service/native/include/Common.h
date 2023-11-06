@@ -38,6 +38,7 @@ enum ChildChain {
     POWERSAVE = 3,
     RESTRICTED = 4,
     LOW_POWER_STANDBY = 5,
+    BACKGROUND = 6,
     OEM_DENY_1 = 7,
     OEM_DENY_2 = 8,
     OEM_DENY_3 = 9,
