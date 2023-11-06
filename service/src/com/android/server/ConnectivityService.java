@@ -12685,6 +12685,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             case ConnectivityManager.FIREWALL_CHAIN_POWERSAVE:
             case ConnectivityManager.FIREWALL_CHAIN_RESTRICTED:
             case ConnectivityManager.FIREWALL_CHAIN_LOW_POWER_STANDBY:
+            case ConnectivityManager.FIREWALL_CHAIN_BACKGROUND:
                 defaultRule = FIREWALL_RULE_DENY;
                 break;
             default:
