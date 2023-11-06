@@ -47,7 +47,7 @@ import java.util.concurrent.Executor;
  * migrate an existing network.
  *
  * @hide
-*/
+ */
 @FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_ENABLED)
 @SystemApi
 public final class ThreadNetworkController {
