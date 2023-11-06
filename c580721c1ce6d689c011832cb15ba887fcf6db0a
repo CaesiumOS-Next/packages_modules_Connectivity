@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad3e46b9_075c68a4",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-11-06T02:46:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "710ef5c2_1e02be92",
+      "range": {
+        "startLine": 247,
+        "startChar": 39,
+        "endLine": 247,
+        "endChar": 40
+      },
+      "revId": "c580721c1ce6d689c011832cb15ba887fcf6db0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62bb945f_e4ef27d4",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-11-06T02:42:33Z",
       "side": 1,
       "message": "Supper nit: fix for one line.",
+      "range": {
+        "startLine": 247,
+        "startChar": 4,
+        "endLine": 248,
+        "endChar": 52
+      },
+      "revId": "c580721c1ce6d689c011832cb15ba887fcf6db0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6eb72d1_418989ec",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-11-06T02:46:03Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "62bb945f_e4ef27d4",
       "range": {
         "startLine": 247,
         "startChar": 4,
