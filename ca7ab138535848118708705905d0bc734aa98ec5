@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd503735_f3a06a8e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 38
+      },
+      "lineNbr": 5353,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-06T08:54:55Z",
+      "side": 1,
+      "message": "nits: Duplicated with L5345?",
+      "range": {
+        "startLine": 5353,
+        "startChar": 49,
+        "endLine": 5353,
+        "endChar": 50
+      },
+      "revId": "ca7ab138535848118708705905d0bc734aa98ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c4abf5a_0e16f51f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 38
+      },
+      "lineNbr": 9019,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-06T08:54:55Z",
+      "side": 1,
+      "message": "nits: I think requestUpdated is true if `null !\u003d newRequest` \u0026\u0026 `null \u003d\u003d oldConfig` so we can just have `if (null !\u003d newRequest \u0026\u0026 requestUpdated)`",
+      "range": {
+        "startLine": 9019,
+        "startChar": 53,
+        "endLine": 9019,
+        "endChar": 70
+      },
+      "revId": "ca7ab138535848118708705905d0bc734aa98ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "810a4abb_d4da279a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 38
+      },
+      "lineNbr": 9998,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-06T08:54:55Z",
+      "side": 1,
+      "message": "As we discussed, if old network was unregisteredAfterReplacement, forwarding rule for mOldNetwork is removed by `destroyNativeNetwork`\nSo we need to setup forwarding rule for new network even if the interface name is the same.\nNext CL updates this code but it seems the issue is still there.",
+      "range": {
+        "startLine": 9998,
+        "startChar": 16,
+        "endLine": 9998,
+        "endChar": 23
+      },
+      "revId": "ca7ab138535848118708705905d0bc734aa98ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10105693_6d8cc3d1",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 38
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-06T08:54:55Z",
+      "side": 1,
+      "message": "ConnectivityService needs to set up the forwarding rule for new network since forwarding rule for old network was removed (l212).",
+      "range": {
+        "startLine": 229,
+        "startChar": 12,
+        "endLine": 229,
+        "endChar": 80
+      },
+      "revId": "ca7ab138535848118708705905d0bc734aa98ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
