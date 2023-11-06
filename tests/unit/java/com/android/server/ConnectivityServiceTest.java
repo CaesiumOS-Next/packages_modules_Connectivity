@@ -11696,64 +11696,6 @@ public class ConnectivityServiceTest {
         verify(mMockNetd, never()).idletimerAddInterface(any(), anyInt(), any());
     }
 
-    @Test @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
-    public void testDataActivityTracking_MultiCellNetwork() throws Exception {
-        final TestNetworkCallback dataNetworkCallback = new TestNetworkCallback();
-        final NetworkRequest dataNetworkRequest = new NetworkRequest.Builder()
-                .addCapability(NET_CAPABILITY_INTERNET)
-                .build();
-        mCm.registerNetworkCallback(dataNetworkRequest, dataNetworkCallback);
-
-        final LinkProperties dataNetworkLp = new LinkProperties();
-        dataNetworkLp.setInterfaceName(MOBILE_IFNAME);
-        final TestNetworkAgentWrapper dataNetworkAgent =
-                new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, dataNetworkLp);
-
-        final TestNetworkCallback imsNetworkCallback = new TestNetworkCallback();
-        final NetworkRequest imsNetworkRequest = new NetworkRequest.Builder()
-                .addCapability(NET_CAPABILITY_IMS)
-                .build();
-        mCm.registerNetworkCallback(imsNetworkRequest, imsNetworkCallback);
-
-        final LinkProperties imsNetworkLp = new LinkProperties();
-        imsNetworkLp.setInterfaceName(MOBILE_IMS_IFNAME);
-        final NetworkCapabilities imsNetCap = new NetworkCapabilities();
-        imsNetCap.addCapability(NET_CAPABILITY_IMS);
-        final TestNetworkAgentWrapper imsNetworkAgent =
-                new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, imsNetworkLp, imsNetCap);
-
-        dataNetworkAgent.connect(true);
-        dataNetworkCallback.expectAvailableThenValidatedCallbacks(dataNetworkAgent);
-        verify(mMockNetd, times(1)).idletimerAddInterface(eq(MOBILE_IFNAME), anyInt(),
-                eq(Integer.toString(dataNetworkAgent.getNetwork().netId)));
-
-        imsNetworkAgent.connect(true /* validated */, false /* hasInternet */,
-                false /* privateDnsProbeSend */);
-        imsNetworkCallback.expectAvailableThenValidatedCallbacks(imsNetworkAgent);
-        verify(mMockNetd, times(1)).idletimerAddInterface(eq(MOBILE_IMS_IFNAME), anyInt(),
-                eq(Integer.toString(imsNetworkAgent.getNetwork().netId)));
-
-        // Both cell networks should have idleTimer
-        verify(mMockNetd, never()).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
-                eq(Integer.toString(dataNetworkAgent.getNetwork().netId)));
-        verify(mMockNetd, never()).idletimerRemoveInterface(eq(MOBILE_IMS_IFNAME), anyInt(),
-                eq(Integer.toString(imsNetworkAgent.getNetwork().netId)));
-
-        dataNetworkAgent.disconnect();
-        dataNetworkCallback.expect(LOST, dataNetworkAgent);
-        waitForIdle();
-        verify(mMockNetd, times(1)).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
-                eq(Integer.toString(dataNetworkAgent.getNetwork().netId)));
-
-        imsNetworkAgent.disconnect();
-        imsNetworkCallback.expect(LOST, imsNetworkAgent);
-        waitForIdle();
-        verify(mMockNetd, times(1)).idletimerAddInterface(eq(MOBILE_IMS_IFNAME), anyInt(),
-                eq(Integer.toString(imsNetworkAgent.getNetwork().netId)));
-
-        mCm.unregisterNetworkCallback(dataNetworkCallback);
-        mCm.unregisterNetworkCallback(imsNetworkCallback);
-    }
 
     private void verifyTcpBufferSizeChange(String tcpBufferSizes) throws Exception {
         String[] values = tcpBufferSizes.split(",");

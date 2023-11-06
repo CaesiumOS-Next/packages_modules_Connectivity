@@ -11988,7 +11988,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if (timeout <= 0 || iface == null) return false;
             try {
                 final String label = Integer.toString(getIdleTimerLabel(
-                        mTrackMultiNetworkActivities, netId, type));
+                        mTrackMultiNetworkActivities, netId, transportType));
                 mNetd.idletimerAddInterface(iface, timeout, label);
                 mActiveIdleTimers.put(netId, new IdleTimerParams(timeout, transportType));
                 return true;
