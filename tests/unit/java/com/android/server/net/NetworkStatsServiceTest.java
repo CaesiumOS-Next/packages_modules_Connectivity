@@ -159,7 +159,9 @@ import com.android.testutils.TestableNetworkStatsProviderBinder;
 import libcore.testing.io.TestIoUtils;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -342,6 +344,36 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         parcel.txPackets = txPackets;
         parcel.ifIndex = ifIndex;
         return parcel;
+    }
+
+    private static Map<String, Integer> sThreadCountsBeforeTests;
+
+    /**
+     *  Setup method which run only once before any of the test methods in the class.
+     */
+    @BeforeClass
+    public static void setUpOnce() {
+        sThreadCountsBeforeTests = getAllThreadNameCounts();
+    }
+
+    /**
+     *  Teardown method which run only once after any of the test methods in the class.
+     */
+    @AfterClass
+    public static void teardownOnce() {
+        final Map<String, Integer> threadCountsAfterTests = getAllThreadNameCounts();
+        assertEquals(sThreadCountsBeforeTests, threadCountsAfterTests);
+    }
+
+    private static Map<String, Integer> getAllThreadNameCounts() {
+        final Map<Thread, StackTraceElement[]> tracesMap = Thread.getAllStackTraces();
+        final HashMap<String, Integer> threadNameCounts = new HashMap<>();
+        for (final Thread t : tracesMap.keySet()) {
+            final String threadName = t.getName();
+            final int count = threadNameCounts.getOrDefault(threadName, 0);
+            threadNameCounts.put(threadName, count + 1);
+        }
+        return threadNameCounts;
     }
 
     @Before
