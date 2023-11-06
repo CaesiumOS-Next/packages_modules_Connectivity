@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "643fe2a5_bcc5f7b8",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 70
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-06T06:47:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2b181c3_a788023c",
+      "range": {
+        "startLine": 230,
+        "startChar": 11,
+        "endLine": 230,
+        "endChar": 15
+      },
+      "revId": "7df172a516285a45ab8d0238fac0515dda017669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2850ee4_43104af3",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-30T03:31:30Z",
       "side": 1,
       "message": "This is useful information but I meant specifically describe when is mNetworkAgent null when this is called",
+      "range": {
+        "startLine": 337,
+        "startChar": 53,
+        "endLine": 337,
+        "endChar": 63
+      },
+      "revId": "7df172a516285a45ab8d0238fac0515dda017669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e22ae8e_29edb25d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 70
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-06T06:47:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2850ee4_43104af3",
       "range": {
         "startLine": 337,
         "startChar": 53,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "358a6ddc_13c06e98",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 70
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-06T06:47:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e529ae48_5602aeb6",
+      "range": {
+        "startLine": 667,
+        "startChar": 24,
+        "endLine": 667,
+        "endChar": 41
+      },
+      "revId": "7df172a516285a45ab8d0238fac0515dda017669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f45afcfd_f679fc5c",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-10-30T03:31:30Z",
       "side": 1,
       "message": "s/nn/n",
+      "range": {
+        "startLine": 692,
+        "startChar": 78,
+        "endLine": 692,
+        "endChar": 80
+      },
+      "revId": "7df172a516285a45ab8d0238fac0515dda017669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6feee724_8f4f6f5b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 70
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-06T06:47:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f45afcfd_f679fc5c",
       "range": {
         "startLine": 692,
         "startChar": 78,
