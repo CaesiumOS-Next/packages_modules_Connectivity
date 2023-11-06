@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "06561b1e_fc132cc7",
+        "filename": "common/src/com/android/net/module/util/bpf/IngressDiscardKey.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-06T09:17:38Z",
+      "side": 1,
+      "message": "Currently, Ipv6Address type is linked to Inet6Address and Struct.java tries to find the constructor with Inet6Address.\nSo, If we remove the constructor with Inet6Address, Struct#parse will fail.\n\nI\u0027m trying to add new type for v4-mapped v6 address in the separate CL.\nWith that CL, we can just have constructor with InetAddress.\n\nBut for now, we need the constructor with Inet6Address.",
+      "parentUuid": "b3c1e386_43d449a6",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "2572f33e8221323bf7081ac92db58567172d4bbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7494ccb_04ceaabf",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 27
