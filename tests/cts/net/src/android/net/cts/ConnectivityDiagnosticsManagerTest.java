@@ -64,7 +64,6 @@ import android.net.NetworkRequest;
 import android.net.TestNetworkInterface;
 import android.net.TestNetworkManager;
 import android.os.Binder;
-import android.os.Build;
 import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
 import android.os.PersistableBundle;
@@ -86,7 +85,6 @@ import com.android.internal.telephony.uicc.IccUtils;
 import com.android.internal.util.ArrayUtils;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.ArrayTrackRecord;
-import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRunner;
 
 import org.junit.After;
@@ -105,7 +103,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(DevSdkIgnoreRunner.class)
-@IgnoreUpTo(Build.VERSION_CODES.Q) // ConnectivityDiagnosticsManager did not exist in Q
 @AppModeFull(reason = "CHANGE_NETWORK_STATE, MANAGE_TEST_NETWORKS not grantable to instant apps")
 public class ConnectivityDiagnosticsManagerTest {
     private static final String TAG = ConnectivityDiagnosticsManagerTest.class.getSimpleName();

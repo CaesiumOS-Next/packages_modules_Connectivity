@@ -56,7 +56,6 @@ import android.net.NetworkStatsCollection;
 import android.net.NetworkStatsHistory;
 import android.net.TrafficStats;
 import android.net.netstats.NetworkStatsDataMigrationUtils;
-import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
@@ -78,7 +77,6 @@ import com.android.testutils.DevSdkIgnoreRule;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -99,9 +97,6 @@ import java.util.concurrent.TimeUnit;
 @AppModeFull(reason = "instant apps cannot be granted USAGE_STATS")
 @RunWith(AndroidJUnit4.class)
 public class NetworkStatsManagerTest {
-    @Rule
-    public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule(Build.VERSION_CODES.Q);
-
     private static final String LOG_TAG = "NetworkStatsManagerTest";
     private static final String APPOPS_SET_SHELL_COMMAND = "appops set {0} {1} {2}";
     private static final String APPOPS_GET_SHELL_COMMAND = "appops get {0} {1}";
