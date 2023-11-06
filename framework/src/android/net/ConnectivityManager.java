@@ -133,6 +133,8 @@ public class ConnectivityManager {
     public static class Flags {
         static final String SET_DATA_SAVER_VIA_CM =
                 "com.android.net.flags.set_data_saver_via_cm";
+        static final String BASIC_BACKGROUND_RESTRICTIONS_ENABLED =
+                "com.android.net.flags.basic_background_restrictions_enabled";
     }
 
     /**
@@ -906,6 +908,16 @@ public class ConnectivityManager {
     public static final int BLOCKED_REASON_LOW_POWER_STANDBY = 1 << 5;
 
     /**
+     * Flag to indicate that an app is subject to default background restrictions that would
+     * result in its network access being blocked.
+     *
+     * @hide
+     */
+    @FlaggedApi(Flags.BASIC_BACKGROUND_RESTRICTIONS_ENABLED)
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    public static final int BLOCKED_REASON_BACKGROUND = 1 << 6;
+
+    /**
      * Flag to indicate that an app is subject to Data saver restrictions that would
      * result in its metered network access being blocked.
      *
@@ -944,6 +956,7 @@ public class ConnectivityManager {
             BLOCKED_REASON_RESTRICTED_MODE,
             BLOCKED_REASON_LOCKDOWN_VPN,
             BLOCKED_REASON_LOW_POWER_STANDBY,
+            BLOCKED_REASON_BACKGROUND,
             BLOCKED_METERED_REASON_DATA_SAVER,
             BLOCKED_METERED_REASON_USER_RESTRICTED,
             BLOCKED_METERED_REASON_ADMIN_DISABLED,
@@ -1001,6 +1014,15 @@ public class ConnectivityManager {
      */
     @SystemApi(client = MODULE_LIBRARIES)
     public static final int FIREWALL_CHAIN_LOW_POWER_STANDBY = 5;
+
+    /**
+     * Firewall chain used for always-on default background restrictions.
+     * Allowlist of apps that have access while they are in the background.
+     * @hide
+     */
+    @FlaggedApi(Flags.BASIC_BACKGROUND_RESTRICTIONS_ENABLED)
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int FIREWALL_CHAIN_BACKGROUND = 6;
 
     /**
      * Firewall chain used for OEM-specific application restrictions.
@@ -1061,6 +1083,7 @@ public class ConnectivityManager {
         FIREWALL_CHAIN_POWERSAVE,
         FIREWALL_CHAIN_RESTRICTED,
         FIREWALL_CHAIN_LOW_POWER_STANDBY,
+        FIREWALL_CHAIN_BACKGROUND,
         FIREWALL_CHAIN_OEM_DENY_1,
         FIREWALL_CHAIN_OEM_DENY_2,
         FIREWALL_CHAIN_OEM_DENY_3
