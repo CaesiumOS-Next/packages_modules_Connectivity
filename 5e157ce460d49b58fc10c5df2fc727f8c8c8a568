@@ -16,6 +16,23 @@
       "message": "friendly ping?",
       "revId": "5e157ce460d49b58fc10c5df2fc727f8c8c8a568",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b824ecb6_7a8be4bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-06T13:30:28Z",
+      "side": 1,
+      "message": "When this CL is merged, can we also remove the bug component lines in other OWNERS files within this repository?",
+      "revId": "5e157ce460d49b58fc10c5df2fc727f8c8c8a568",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
