@@ -302,6 +302,7 @@ TEST_F(TrafficControllerTest, TestChangeUidOwnerRule) {
     checkUidOwnerRuleForChain(POWERSAVE, POWERSAVE_MATCH);
     checkUidOwnerRuleForChain(RESTRICTED, RESTRICTED_MATCH);
     checkUidOwnerRuleForChain(LOW_POWER_STANDBY, LOW_POWER_STANDBY_MATCH);
+    checkUidOwnerRuleForChain(BACKGROUND, BACKGROUND_MATCH);
     checkUidOwnerRuleForChain(OEM_DENY_1, OEM_DENY_1_MATCH);
     checkUidOwnerRuleForChain(OEM_DENY_2, OEM_DENY_2_MATCH);
     checkUidOwnerRuleForChain(OEM_DENY_3, OEM_DENY_3_MATCH);
@@ -316,6 +317,7 @@ TEST_F(TrafficControllerTest, TestReplaceUidOwnerMap) {
     checkUidMapReplace("fw_powersave", uids, POWERSAVE_MATCH);
     checkUidMapReplace("fw_restricted", uids, RESTRICTED_MATCH);
     checkUidMapReplace("fw_low_power_standby", uids, LOW_POWER_STANDBY_MATCH);
+    checkUidMapReplace("fw_background", uids, BACKGROUND_MATCH);
     checkUidMapReplace("fw_oem_deny_1", uids, OEM_DENY_1_MATCH);
     checkUidMapReplace("fw_oem_deny_2", uids, OEM_DENY_2_MATCH);
     checkUidMapReplace("fw_oem_deny_3", uids, OEM_DENY_3_MATCH);

@@ -35,6 +35,7 @@ import static android.net.BpfNetMapsUtils.PRE_T;
 import static android.net.BpfNetMapsUtils.getMatchByFirewallChain;
 import static android.net.BpfNetMapsUtils.isFirewallAllowList;
 import static android.net.BpfNetMapsUtils.matchToString;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_DOZABLE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_LOW_POWER_STANDBY;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_1;
@@ -663,6 +664,9 @@ public class BpfNetMaps {
                 case FIREWALL_CHAIN_LOW_POWER_STANDBY:
                     err = native_replaceUidChain(
                             "fw_low_power_standby", true /* isAllowList */, uids);
+                    break;
+                case FIREWALL_CHAIN_BACKGROUND:
+                    err = native_replaceUidChain("fw_backgroumd", true /* isAllowList */, uids);
                     break;
                 case FIREWALL_CHAIN_OEM_DENY_1:
                     err = native_replaceUidChain("fw_oem_deny_1", false /* isAllowList */, uids);
