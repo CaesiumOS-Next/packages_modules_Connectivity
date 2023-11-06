@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65011d1f_956dfdb5",
+        "filename": "bpf_progs/netd.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-06T17:29:20Z",
+      "side": 1,
+      "message": "The linter reports a line longer than 100 characters. Can you fix? This is C code so I think you can just use \\ for line continuation. But be consistent with the rest of the BPF code.",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 119
+      },
+      "revId": "cd7b35d56bd39027abb824cc799f7d354cf1c267",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0736172_3d2323f5",
+        "filename": "common/flags.aconfig",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-06T17:29:20Z",
+      "side": 1,
+      "message": "If the flags are called \"com.android.net.flags.FOO\", then should this namespace be android_core_networking?",
+      "range": {
+        "startLine": 33,
+        "startChar": 14,
+        "endLine": 33,
+        "endChar": 29
+      },
+      "revId": "cd7b35d56bd39027abb824cc799f7d354cf1c267",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23645da1_9cdaa639",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-06T17:29:20Z",
+      "side": 1,
+      "message": "BACKGROUND seems a bit vague. BLOCKED_REASON_BACKGROUND_APP? BLOCKED_REASON_NOT_IN_FOREGROUND? BLOCKED_REASON_FOREGROUND_ONLY? Assuming that\u0027s what this chain does?",
+      "range": {
+        "startLine": 48,
+        "startChar": 109,
+        "endLine": 48,
+        "endChar": 134
+      },
+      "revId": "cd7b35d56bd39027abb824cc799f7d354cf1c267",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed4c30d4_1597d3b4",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-06T17:29:20Z",
+      "side": 1,
+      "message": "Out of curiosity, why are these called \"default background restrictions\"? Is there a design doc somewhere?",
+      "range": {
+        "startLine": 911,
+        "startChar": 50,
+        "endLine": 911,
+        "endChar": 81
+      },
+      "revId": "cd7b35d56bd39027abb824cc799f7d354cf1c267",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a29491d_a0a72496",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-06T17:29:20Z",
+      "side": 1,
+      "message": "FWIW, I\u0027m not sure this file is used any more? Check with motomuman@.",
+      "revId": "cd7b35d56bd39027abb824cc799f7d354cf1c267",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74a54219_f7adfc24",
+        "filename": "service/native/include/Common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-06T17:29:20Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by If This Then That: Changes in the preceding block may need to be reflected in these files: /service/native/include/packages/modules/Connectivity/framework/src/android/net/ConnectivityManager.java If this does not apply, add \u0027NO_IFTTT\u003dsome reason...\u0027 to your c...\n\nAnalyzer Description: Reminders to change files when other files change\nOwner: ayeaye-team@google.com\n\nChanges in the preceding block may need to be reflected in these files: /service/native/include/packages/modules/Connectivity/framework/src/android/net/ConnectivityManager.java If this does not apply, add \u0027NO_IFTTT\u003dsome reason...\u0027 to your commit message",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 100
+      },
+      "revId": "cd7b35d56bd39027abb824cc799f7d354cf1c267",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
