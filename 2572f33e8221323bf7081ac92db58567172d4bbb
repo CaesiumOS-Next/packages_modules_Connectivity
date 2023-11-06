@@ -168,6 +168,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "676cd525_310d9d3e",
+        "filename": "common/src/com/android/net/module/util/bpf/IngressDiscardKey.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-06T09:19:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "06561b1e_fc132cc7",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "2572f33e8221323bf7081ac92db58567172d4bbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7494ccb_04ceaabf",
