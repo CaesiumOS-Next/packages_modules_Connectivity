@@ -70,6 +70,7 @@ const char* TrafficController::LOCAL_STANDBY = "fw_standby";
 const char* TrafficController::LOCAL_POWERSAVE = "fw_powersave";
 const char* TrafficController::LOCAL_RESTRICTED = "fw_restricted";
 const char* TrafficController::LOCAL_LOW_POWER_STANDBY = "fw_low_power_standby";
+const char* TrafficController::LOCAL_BACKGROUND = "fw_background";
 const char* TrafficController::LOCAL_OEM_DENY_1 = "fw_oem_deny_1";
 const char* TrafficController::LOCAL_OEM_DENY_2 = "fw_oem_deny_2";
 const char* TrafficController::LOCAL_OEM_DENY_3 = "fw_oem_deny_3";
@@ -101,6 +102,7 @@ const std::string uidMatchTypeToString(uint32_t match) {
     FLAG_MSG_TRANS(matchType, OEM_DENY_1_MATCH, match);
     FLAG_MSG_TRANS(matchType, OEM_DENY_2_MATCH, match);
     FLAG_MSG_TRANS(matchType, OEM_DENY_3_MATCH, match);
+    FLAG_MSG_TRANS(matchType, BACKGROUND_MATCH, match);
     if (match) {
         return StringPrintf("Unknown match: %u", match);
     }
@@ -301,6 +303,8 @@ FirewallType TrafficController::getFirewallType(ChildChain chain) {
             return ALLOWLIST;
         case LOW_POWER_STANDBY:
             return ALLOWLIST;
+        case BACKGROUND:
+            return ALLOWLIST;
         case OEM_DENY_1:
             return DENYLIST;
         case OEM_DENY_2:
@@ -331,6 +335,9 @@ int TrafficController::changeUidOwnerRule(ChildChain chain, uid_t uid, FirewallR
             break;
         case LOW_POWER_STANDBY:
             res = updateOwnerMapEntry(LOW_POWER_STANDBY_MATCH, uid, rule, type);
+            break;
+        case BACKGROUND:
+            res = updateOwnerMapEntry(BACKGROUND_MATCH, uid, rule, type);
             break;
         case OEM_DENY_1:
             res = updateOwnerMapEntry(OEM_DENY_1_MATCH, uid, rule, type);
@@ -430,6 +437,8 @@ int TrafficController::replaceUidOwnerMap(const std::string& name, bool isAllowl
         res = replaceRulesInMap(RESTRICTED_MATCH, uids);
     } else if (!name.compare(LOCAL_LOW_POWER_STANDBY)) {
         res = replaceRulesInMap(LOW_POWER_STANDBY_MATCH, uids);
+    } else if (!name.compare(LOCAL_BACKGROUND)) {
+        res = replaceRulesInMap(BACKGROUND_MATCH, uids);
     } else if (!name.compare(LOCAL_OEM_DENY_1)) {
         res = replaceRulesInMap(OEM_DENY_1_MATCH, uids);
     } else if (!name.compare(LOCAL_OEM_DENY_2)) {
@@ -472,6 +481,9 @@ int TrafficController::toggleUidOwnerMap(ChildChain chain, bool enable) {
             break;
         case LOW_POWER_STANDBY:
             match = LOW_POWER_STANDBY_MATCH;
+            break;
+        case BACKGROUND:
+            match = BACKGROUND_MATCH;
             break;
         case OEM_DENY_1:
             match = OEM_DENY_1_MATCH;
