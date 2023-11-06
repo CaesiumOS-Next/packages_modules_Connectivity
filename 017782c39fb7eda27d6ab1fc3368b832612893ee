@@ -312,6 +312,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb0d54b1_31218e49",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2816,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-06T17:04:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c84a4f3f_72df2385",
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c0e2b525_dbe75e94",
@@ -359,6 +377,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5841922d_c67c8851",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2871,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-06T17:04:19Z",
+      "side": 1,
+      "message": "No, I was confused. I was referring to the code we added to that removes forwarding entries when tethering stops. That has nothing to do with upstream loss.",
+      "parentUuid": "953f0f7f_245a8297",
+      "range": {
+        "startLine": 2871,
+        "startChar": 60,
+        "endLine": 2871,
+        "endChar": 79
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55523557_14917065",
@@ -396,6 +438,30 @@
       "side": 1,
       "message": "The assert of deletion of rule A should be added in the following CL (since rule A will be added again after the upstream coming back)\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2711576/19/Tethering/tests/unit/src/android/net/ip/IpServerTest.java#1185",
       "parentUuid": "55523557_14917065",
+      "range": {
+        "startLine": 2898,
+        "startChar": 8,
+        "endLine": 2898,
+        "endChar": 52
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a05964fa_1a046961",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2898,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-06T17:04:19Z",
+      "side": 1,
+      "message": "You mean an assert for the deletion of rule A *should have been added* in that CL, but wasn\u0027t added? If so, SGTM.",
+      "parentUuid": "9b1079b4_2d3278bf",
       "range": {
         "startLine": 2898,
         "startChar": 8,
