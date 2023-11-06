@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e370ffd5_6e9fbbee",
+        "filename": "common/src/com/android/net/module/util/bpf/IngressDiscardKey.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-06T09:08:18Z",
+      "side": 1,
+      "message": "This special logic belongs in Struct.java, not here.",
+      "parentUuid": "e2c83b8f_42b4d011",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "2572f33e8221323bf7081ac92db58567172d4bbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7494ccb_04ceaabf",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 27
