@@ -114,6 +114,30 @@
       },
       "revId": "3dc2c1907607aa5aff8147c69d865c5925d3430f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37ce75ce_ce9df652",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkCallbackTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-06T10:25:36Z",
+      "side": 1,
+      "message": "Checking the flag sounds reasonable.\nBut there is no stable way to read the flag value from the cts.\nRelated issues are explained in go/aconfig-in-mainline-problems.\n\nOne workaround I talked with @reminv@google.com was adding the hidden API to the platform NetworkStack.java which read the flag value with generated library and return the value.\nAnd this cts calls this platform API to know the flag status.",
+      "parentUuid": "08a248f2_fe857a34",
+      "range": {
+        "startLine": 241,
+        "startChar": 38,
+        "endLine": 241,
+        "endChar": 65
+      },
+      "revId": "3dc2c1907607aa5aff8147c69d865c5925d3430f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
