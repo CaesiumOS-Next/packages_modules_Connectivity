@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2208a349_2a48bc1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-06T08:40:33Z",
+      "side": 1,
+      "message": "I am not sure that this is a reliable thread leak check, as there is no guarantee that the system will not create new threads during the test. And it may cause the test to become flaky or unreliable.",
+      "revId": "3013b6262c36d04f6fa8c0a69af8918e819b5e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
