@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3c1e386_43d449a6",
+        "filename": "common/src/com/android/net/module/util/bpf/IngressDiscardKey.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-06T09:14:25Z",
+      "side": 1,
+      "message": "I mean only have one constructor\n\n    public IngressDiscardKey(final InetAddress dstAddr) {\n        this.dstAddr \u003d getInet6Address(dstAddr);\n    }",
+      "parentUuid": "ed574ccd_59dae947",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "2572f33e8221323bf7081ac92db58567172d4bbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7494ccb_04ceaabf",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 27
