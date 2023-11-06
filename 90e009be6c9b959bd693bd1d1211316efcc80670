@@ -36,6 +36,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "466aca80_e3b1d11f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-06T03:40:44Z",
+      "side": 1,
+      "message": "This is a +2 simply to get things unblocked (ie. tests passing).\n\nIt\u0027s not okay to be linking this code directly into the dnsresolver tests.\n\nEvery single bpf map access in here is a bug.\n(and that\u0027s all this file does)\n\nPlease take an AI (and *act* on it) to do something better here.\n\nI don\u0027t know what that something is...\n- delete tests?\n- disable tests if things are not in sync?\n- add binder or other sort of api?\n- add more functions to dnshelper.so lib that wrap these accesses? [*]\n\nI *think* my preference is likely on [*], ie. make this \u0027lib\u0027 linked from dns\ndlopen dnshelper.so which would have the \u0027real\u0027 implementations,\nperhaps by it including this code directly at build time.",
+      "revId": "90e009be6c9b959bd693bd1d1211316efcc80670",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7572e285_9c1c3df0",
