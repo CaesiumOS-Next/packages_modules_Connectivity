@@ -41,6 +41,8 @@ import java.io.ByteArrayOutputStream;
 import java.net.Inet6Address;
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.BitSet;
+import java.util.Random;
 
 /**
  * Data interface for managing a Thread Active Operational Dataset.
@@ -140,7 +142,7 @@ public final class ActiveOperationalDataset implements Parcelable {
     private final int mPanId;
     private final int mChannel;
     private final int mChannelPage;
-    private final SparseArray<byte[]> mChannelMask;
+    private final SparseArray<BitSet> mChannelMask;
     private final byte[] mPskc;
     private final byte[] mNetworkKey;
     private final IpPrefix mMeshLocalPrefix;
@@ -170,7 +172,7 @@ public final class ActiveOperationalDataset implements Parcelable {
             int panId,
             int channelPage,
             int channel,
-            SparseArray<byte[]> channelMask,
+            SparseArray<BitSet> channelMask,
             byte[] pskc,
             byte[] networkKey,
             IpPrefix meshLocalPrefix,
@@ -182,7 +184,7 @@ public final class ActiveOperationalDataset implements Parcelable {
         this.mPanId = panId;
         this.mChannel = channel;
         this.mChannelPage = channelPage;
-        this.mChannelMask = deepCloneSparseArray(channelMask);
+        this.mChannelMask = channelMask.clone();
         this.mPskc = pskc.clone();
         this.mNetworkKey = networkKey.clone();
         this.mMeshLocalPrefix = meshLocalPrefix;
@@ -300,8 +302,9 @@ public final class ActiveOperationalDataset implements Parcelable {
         }
     }
 
-    private static SparseArray<byte[]> decodeChannelMask(byte[] tlvValue) {
-        SparseArray<byte[]> channelMask = new SparseArray<>();
+    private static SparseArray<BitSet> decodeChannelMask(byte[] tlvValue) {
+        SparseArray<BitSet> channelMask =
+                new SparseArray<>(); // new BitSet(tlvValue.length * Byte.SIZE);
         int i = 0;
         while (i < tlvValue.length) {
             int channelPage = tlvValue[i++] & 0xff;
@@ -319,22 +322,52 @@ public final class ActiveOperationalDataset implements Parcelable {
                                 i, maskLength, tlvValue.length));
             }
 
-            channelMask.put(channelPage, Arrays.copyOfRange(tlvValue, i, i + maskLength));
+            channelMask.put(channelPage, decodeChannelMaskEntry(tlvValue, i, maskLength));
             i += maskLength;
         }
         return channelMask;
     }
 
+    private static BitSet decodeChannelMaskEntry(byte[] value, int begin, int length) {
+        final int nbits = length * 8;
+        BitSet result = new BitSet(nbits);
+
+        // Per Thread spec, a Channel Mask Entry is:
+        // A variable-length bit mask that identifies the channels within the channel page
+        // (1 = selected, 0 = unselected). The channels are represented in most significant bit
+        // order. For example, the most significant bit of the left-most byte indicates channel 0.
+        // If
+        // channel 0 and channel 10 are selected, the mask would be: 80 20 00 00. For IEEE
+        // 802.15.4-2006 2.4 GHz PHY, the ChannelMask is 27 bits and MaskLength is 4.
+        for (int i = 0; i < nbits; i++) {
+            result.set(i, (value[begin + i / 8] >> (7 - i % 8)) & 0x01);
+        }
+        return result;
+    }
+
+    private static byte[] encodeChannelMaskEntry(int page, BitSet mask) {
+        byte[] result = new byte[getMaskLength(page, mask)];
+        for (int i = mask.nextSetBit(0); i >= 0; i = mask.nextSetBit(i + 1)) {
+            result[i / 8] |= (0x01 << (7 - i % 8));
+        }
+        return result;
+    }
+
+    /** Returns the length of channel mask entry in bytes. */
+    private static int getMaskLength(int page, BitSet mask) {
+        return (page == CHANNEL_PAGE_24_GHZ) ? 4 : mask.size() + 7 / 8;
+    }
+
     private static void encodeChannelMask(
-            SparseArray<byte[]> channelMask, ByteArrayOutputStream outputStream) {
+            SparseArray<BitSet> channelMask, ByteArrayOutputStream outputStream) {
         ByteArrayOutputStream entryStream = new ByteArrayOutputStream();
 
         for (int i = 0; i < channelMask.size(); i++) {
-            int key = channelMask.keyAt(i);
-            byte[] value = channelMask.get(key);
-            entryStream.write(key);
-            entryStream.write(value.length);
-            entryStream.write(value, 0, value.length);
+            int page = channelMask.keyAt(i);
+            byte[] mask = encodeChannelMaskEntry(page, channelMask.get(page));
+            entryStream.write(page);
+            entryStream.write(mask.length);
+            entryStream.write(mask, 0, mask.length);
         }
 
         byte[] entries = entryStream.toByteArray();
@@ -485,8 +518,8 @@ public final class ActiveOperationalDataset implements Parcelable {
      */
     @NonNull
     @Size(min = 1)
-    public SparseArray<byte[]> getChannelMask() {
-        return deepCloneSparseArray(mChannelMask);
+    public SparseArray<BitSet> getChannelMask() {
+        return mChannelMask.clone();
     }
 
     private static SparseArray<byte[]> deepCloneSparseArray(SparseArray<byte[]> src) {
@@ -561,7 +594,7 @@ public final class ActiveOperationalDataset implements Parcelable {
                     && mPanId == otherDataset.mPanId
                     && mChannelPage == otherDataset.mChannelPage
                     && mChannel == otherDataset.mChannel
-                    && areByteSparseArraysEqual(mChannelMask, otherDataset.mChannelMask)
+                    && mChannelMask.equals(otherDataset.mChannelMask)
                     && Arrays.equals(mPskc, otherDataset.mPskc)
                     && Arrays.equals(mNetworkKey, otherDataset.mNetworkKey)
                     && mMeshLocalPrefix.equals(otherDataset.mMeshLocalPrefix)
@@ -625,7 +658,7 @@ public final class ActiveOperationalDataset implements Parcelable {
         private Integer mPanId;
         private Integer mChannel;
         private Integer mChannelPage;
-        private SparseArray<byte[]> mChannelMask;
+        private SparseArray<BitSet> mChannelMask;
         private byte[] mPskc;
         private byte[] mNetworkKey;
         private IpPrefix mMeshLocalPrefix;
@@ -645,7 +678,7 @@ public final class ActiveOperationalDataset implements Parcelable {
             this.mPanId = activeOpDataset.mPanId;
             this.mChannel = activeOpDataset.mChannel;
             this.mChannelPage = activeOpDataset.mChannelPage;
-            this.mChannelMask = deepCloneSparseArray(activeOpDataset.mChannelMask);
+            this.mChannelMask = activeOpDataset.mChannelMask.clone();
             this.mPskc = activeOpDataset.mPskc.clone();
             this.mNetworkKey = activeOpDataset.mNetworkKey.clone();
             this.mMeshLocalPrefix = activeOpDataset.mMeshLocalPrefix;
@@ -779,10 +812,10 @@ public final class ActiveOperationalDataset implements Parcelable {
          * @throws IllegalArgumentException if {@code channelMask} is empty
          */
         @NonNull
-        public Builder setChannelMask(@NonNull @Size(min = 1) SparseArray<byte[]> channelMask) {
+        public Builder setChannelMask(@NonNull @Size(min = 1) SparseArray<BitSet> channelMask) {
             requireNonNull(channelMask, "channelMask cannot be null");
             checkArgument(channelMask.size() > 0, "channelMask is empty");
-            this.mChannelMask = deepCloneSparseArray(channelMask);
+            this.mChannelMask = channelMask.clone();
             return this;
         }
 
@@ -954,7 +987,7 @@ public final class ActiveOperationalDataset implements Parcelable {
                             + mSecurityPolicy.toTlvValue().length;
 
             for (int i = 0; i < mChannelMask.size(); i++) {
-                length += 2 + mChannelMask.valueAt(i).length;
+                length += 2 + getMaskLength(mChannelMask.keyAt(i), mChannelMask.valueAt(i));
             }
 
             // For the type and length bytes of the Channel Mask TLV because the masks are encoded
