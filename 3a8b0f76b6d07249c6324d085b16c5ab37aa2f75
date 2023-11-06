@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "592d2023_a4ccfc93",
+        "filename": "tests/common/java/android/net/RouteInfoTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-06T09:20:27Z",
+      "side": 1,
+      "message": "What about \nhttps://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/tests/common/java/android/net/NetworkCapabilitiesTest.java;l\u003d381?q\u003disAtLeastR%20f:%20Connectivity\u0026ss\u003dandroid\nAnd\nhttps://osscs.corp.google.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/common/java/android/net/LinkPropertiesTest.java;l\u003d165?q\u003disAtLeastR%20f:%20Connectivity\u0026ss\u003dandroid\u0026start\u003d11",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 28
+      },
+      "revId": "3a8b0f76b6d07249c6324d085b16c5ab37aa2f75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
