@@ -16,4 +16,4 @@
 
 package android.net.thread;
 
-parcelable ActiveOperationalDataset;
+parcelable OperationalDataset;

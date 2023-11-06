@@ -16,7 +16,7 @@
 
 package android.net.thread;
 
-import static android.net.thread.ActiveOperationalDataset.SecurityPolicy.DEFAULT_ROTATION_TIME_HOURS;
+import static android.net.thread.OperationalDataset.SecurityPolicy.DEFAULT_ROTATION_TIME_HOURS;
 
 import static com.android.internal.util.Preconditions.checkArgument;
 import static com.android.internal.util.Preconditions.checkState;
@@ -41,40 +41,43 @@ import com.android.internal.annotations.VisibleForTesting;
 import java.io.ByteArrayOutputStream;
 import java.net.Inet6Address;
 import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
 import java.security.SecureRandom;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Objects;
 
 /**
- * Data interface for managing a Thread Active Operational Dataset.
+ * Data interface for managing a Thread Operational Dataset.
  *
- * <p>An example usage of creating an Active Operational Dataset with random parameters:
+ * <p>An example usage of creating an Operational Dataset with random parameters:
  *
  * <pre>{@code
- * ActiveOperationalDataset activeDataset = ActiveOperationalDataset.createRandomDataset();
+ * OperationalDataset activeDataset = OperationalDataset.createRandomDataset();
  * }</pre>
  *
  * <p>or random Dataset with customized Network Name:
  *
  * <pre>{@code
- * ActiveOperationalDataset activeDataset =
- *         new ActiveOperationalDataset.Builder(ActiveOperationalDataset.createRandomDataset())
+ * OperationalDataset activeDataset =
+ *         new OperationalDataset.Builder(OperationalDataset.createRandomDataset())
  *                 .setNetworkName("MyThreadNet").build();
  * }</pre>
  *
- * <p>If the Active Operational Dataset is already known as <a
- * href="https://www.threadgroup.org">Thread TLVs</a>, you can simply use:
+ * <p>If the Operational Dataset is already known as <a href="https://www.threadgroup.org">Thread
+ * TLVs</a>, you can simply use:
  *
  * <pre>{@code
- * ActiveOperationalDataset activeDataset = ActiveOperationalDataset.fromThreadTlvs(datasetTlvs);
+ * OperationalDataset activeDataset = OperationalDataset.fromThreadTlvs(datasetTlvs);
  * }</pre>
  *
  * @hide
  */
 @FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_ENABLED)
 @SystemApi
-public final class ActiveOperationalDataset implements Parcelable {
+public final class OperationalDataset implements Parcelable {
     /** The maximum length of the Active Operational Dataset TLV array in bytes. */
     public static final int LENGTH_MAX_DATASET_TLVS = 254;
     /** The length of Extended PAN ID in bytes. */
@@ -120,21 +123,28 @@ public final class ActiveOperationalDataset implements Parcelable {
     private static final int LENGTH_CHANNEL = 3;
     private static final int LENGTH_PAN_ID = 2;
 
+    // Value defined in Thread spec 8.10.1.16
+    private static final int TYPE_PENDING_TIMESTAMP = 51;
+
+    // Values defined in Thread spec 8.10.1.17
+    private static final int TYPE_DELAY_TIMER = 52;
+    private static final int LENGTH_DELAY_TIMER_BYTES = 4;
+
     @NonNull
-    public static final Creator<ActiveOperationalDataset> CREATOR =
+    public static final Creator<OperationalDataset> CREATOR =
             new Creator<>() {
                 @Override
-                public ActiveOperationalDataset createFromParcel(Parcel in) {
-                    return ActiveOperationalDataset.fromThreadTlvs(in.createByteArray());
+                public OperationalDataset createFromParcel(Parcel in) {
+                    return OperationalDataset.fromThreadTlvs(in.createByteArray());
                 }
 
                 @Override
-                public ActiveOperationalDataset[] newArray(int size) {
-                    return new ActiveOperationalDataset[size];
+                public OperationalDataset[] newArray(int size) {
+                    return new OperationalDataset[size];
                 }
             };
 
-    private final OperationalDatasetTimestamp mActiveTimestamp;
+    private final Timestamp mActiveTimestamp;
     private final String mNetworkName;
     private final byte[] mExtendedPanId;
     private final int mPanId;
@@ -145,9 +155,11 @@ public final class ActiveOperationalDataset implements Parcelable {
     private final byte[] mNetworkKey;
     private final IpPrefix mMeshLocalPrefix;
     private final SecurityPolicy mSecurityPolicy;
+    @Nullable private final Timestamp mPendingTimestamp;
+    @Nullable private final Duration mDelayTimer;
     private final SparseArray<byte[]> mUnknownTlvs;
 
-    private ActiveOperationalDataset(Builder builder) {
+    private OperationalDataset(Builder builder) {
         this(
                 requireNonNull(builder.mActiveTimestamp),
                 requireNonNull(builder.mNetworkName),
@@ -160,11 +172,13 @@ public final class ActiveOperationalDataset implements Parcelable {
                 requireNonNull(builder.mNetworkKey),
                 requireNonNull(builder.mMeshLocalPrefix),
                 requireNonNull(builder.mSecurityPolicy),
+                builder.mPendingTimestamp,
+                builder.mDelayTimer,
                 requireNonNull(builder.mUnknownTlvs));
     }
 
-    private ActiveOperationalDataset(
-            OperationalDatasetTimestamp activeTimestamp,
+    private OperationalDataset(
+            Timestamp activeTimestamp,
             String networkName,
             byte[] extendedPanId,
             int panId,
@@ -175,6 +189,8 @@ public final class ActiveOperationalDataset implements Parcelable {
             byte[] networkKey,
             IpPrefix meshLocalPrefix,
             SecurityPolicy securityPolicy,
+            @Nullable Timestamp pendingTimestamp,
+            @Nullable Duration delayTimer,
             SparseArray<byte[]> unknownTlvs) {
         this.mActiveTimestamp = activeTimestamp;
         this.mNetworkName = networkName;
@@ -187,11 +203,13 @@ public final class ActiveOperationalDataset implements Parcelable {
         this.mNetworkKey = networkKey.clone();
         this.mMeshLocalPrefix = meshLocalPrefix;
         this.mSecurityPolicy = securityPolicy;
+        this.mPendingTimestamp = pendingTimestamp;
+        this.mDelayTimer = delayTimer;
         this.mUnknownTlvs = deepCloneSparseArray(unknownTlvs);
     }
 
     /**
-     * Creates a new {@link ActiveOperationalDataset} object from a series of Thread TLVs.
+     * Creates a new {@link OperationalDataset} object from a series of Thread TLVs.
      *
      * <p>{@code tlvs} can be obtained from the value of a Thread Active Operational Dataset TLV
      * (see the <a href="https://www.threadgroup.org/support#specifications">Thread
@@ -203,7 +221,7 @@ public final class ActiveOperationalDataset implements Parcelable {
      *     {@link LENGTH_MAX_DATASET_TLVS}
      */
     @NonNull
-    public static ActiveOperationalDataset fromThreadTlvs(@NonNull byte[] tlvs) {
+    public static OperationalDataset fromThreadTlvs(@NonNull byte[] tlvs) {
         requireNonNull(tlvs, "tlvs cannot be null");
         if (tlvs.length > LENGTH_MAX_DATASET_TLVS) {
             throw new IllegalArgumentException(
@@ -238,8 +256,7 @@ public final class ActiveOperationalDataset implements Parcelable {
         try {
             return builder.build();
         } catch (IllegalStateException e) {
-            throw new IllegalArgumentException(
-                    "Failed to build the ActiveOperationalDataset object", e);
+            throw new IllegalArgumentException("Failed to build the OperationalDataset object", e);
         }
     }
 
@@ -289,10 +306,22 @@ public final class ActiveOperationalDataset implements Parcelable {
                 builder.setSecurityPolicy(SecurityPolicy.fromTlvValue(value));
                 break;
             case TYPE_ACTIVE_TIMESTAMP:
-                builder.setActiveTimestamp(OperationalDatasetTimestamp.fromTlvValue(value));
+                builder.setActiveTimestamp(Timestamp.fromTlvValue(value));
                 break;
             case TYPE_CHANNEL_MASK:
                 builder.setChannelMask(decodeChannelMask(value));
+                break;
+            case TYPE_PENDING_TIMESTAMP:
+                builder.setPendingTimestamp(Timestamp.fromTlvValue(value));
+                break;
+            case TYPE_DELAY_TIMER:
+                checkArgument(
+                        value.length == LENGTH_DELAY_TIMER_BYTES,
+                        "Invalid delay timer (length = %d, expectedLength = %d)",
+                        value.length,
+                        LENGTH_DELAY_TIMER_BYTES);
+                int millis = ByteBuffer.wrap(value).getInt();
+                builder.setDelayTimer(Duration.ofMillis(Integer.toUnsignedLong(millis)));
                 break;
             default:
                 builder.addUnknownTlv(type & 0xff, value);
@@ -345,12 +374,12 @@ public final class ActiveOperationalDataset implements Parcelable {
     }
 
     /**
-     * Creates a new {@link ActiveOperationalDataset} object with randomized or default parameters.
+     * Creates a new {@link OperationalDataset} object with randomized or default parameters.
      *
      * <p>The randomized (or default) value for each parameter:
      *
      * <ul>
-     *   <li>{@code Active Timestamp} defaults to {@code new OperationalDatasetTimestamp(1, 0,
+     *   <li>{@code Active Timestamp} defaults to {@code new Timestamp(1, 0,
      *       false)}
      *   <li>{@code Network Name} defaults to "THREAD-PAN-<PAN ID decimal>", for example
      *       "THREAD-PAN-12345"
@@ -373,21 +402,20 @@ public final class ActiveOperationalDataset implements Parcelable {
      * <p>This method is the recommended way to create a randomized operational dataset for a new
      * Thread network. It may be desired to change one or more of the generated value(s). For
      * example, to use a more meaningful Network Name. To do that, create a new {@link Builder}
-     * object from this dataset with {@link Builder#Builder(ActiveOperationalDataset)} and override
-     * the value with the setters of {@link Builder}.
+     * object from this dataset with {@link Builder#Builder(OperationalDataset)} and override the
+     * value with the setters of {@link Builder}.
      *
      * <p>Note that it's highly discouraged to change the randomly generated Extended PAN ID,
      * Network Key or PSKc, as it will compromise the security of a Thread network.
      */
     @NonNull
-    public static ActiveOperationalDataset createRandomDataset() {
+    public static OperationalDataset createRandomDataset() {
         return createRandomDataset(new Random(Instant.now().toEpochMilli()), new SecureRandom());
     }
 
     /** @hide */
     @VisibleForTesting
-    public static ActiveOperationalDataset createRandomDataset(
-            Random random, SecureRandom secureRandom) {
+    public static OperationalDataset createRandomDataset(Random random, SecureRandom secureRandom) {
         int panId = random.nextInt(/* bound= */ 0xffff);
         byte[] meshLocalPrefix = newRandomBytes(random, LENGTH_MESH_LOCAL_PREFIX_BITS / 8);
         meshLocalPrefix[0] = MESH_LOCAL_PREFIX_FIRST_BYTE;
@@ -397,7 +425,7 @@ public final class ActiveOperationalDataset implements Parcelable {
 
         return new Builder()
                 .setActiveTimestamp(
-                        new OperationalDatasetTimestamp(
+                        new Timestamp(
                                 /* seconds= */ 1,
                                 /* ticks= */ 0,
                                 /* isAuthoritativeSource= */ false))
@@ -456,12 +484,12 @@ public final class ActiveOperationalDataset implements Parcelable {
     }
 
     /**
-     * Converts this {@link ActiveOperationalDataset} object to a series of Thread TLVs.
+     * Converts this {@link OperationalDataset} object to a series of Thread TLVs.
      *
      * <p>See the <a href="https://www.threadgroup.org/support#specifications">Thread
      * specification</a> for the definition of the Thread TLV format.
      *
-     * @return a series of Thread TLVs which contain this Active Operational Dataset
+     * @return a series of Thread TLVs which contain this Operational Dataset
      */
     @NonNull
     public byte[] toThreadTlvs() {
@@ -511,6 +539,21 @@ public final class ActiveOperationalDataset implements Parcelable {
         dataset.write(securityPolicyBytes.length);
         dataset.write(securityPolicyBytes, 0, securityPolicyBytes.length);
 
+        if (mPendingTimestamp != null) {
+            dataset.write(TYPE_PENDING_TIMESTAMP);
+            byte[] pendingTimestampBytes = mPendingTimestamp.toTlvValue();
+            dataset.write(pendingTimestampBytes.length);
+            dataset.write(pendingTimestampBytes, 0, pendingTimestampBytes.length);
+        }
+
+        if (mDelayTimer != null) {
+            dataset.write(TYPE_DELAY_TIMER);
+            byte[] delayTimerBytes = new byte[LENGTH_DELAY_TIMER_BYTES];
+            ByteBuffer.wrap(delayTimerBytes).putInt((int) mDelayTimer.toMillis());
+            dataset.write(delayTimerBytes.length);
+            dataset.write(delayTimerBytes, 0, delayTimerBytes.length);
+        }
+
         for (int i = 0; i < mUnknownTlvs.size(); i++) {
             byte[] value = mUnknownTlvs.valueAt(i);
             dataset.write(mUnknownTlvs.keyAt(i));
@@ -523,8 +566,32 @@ public final class ActiveOperationalDataset implements Parcelable {
 
     /** Returns the Active Timestamp. */
     @NonNull
-    public OperationalDatasetTimestamp getActiveTimestamp() {
+    public Timestamp getActiveTimestamp() {
         return mActiveTimestamp;
+    }
+
+    /**
+     * Returns the Pending Timestamp or {@code null} if this is not a Pending Operational Dataset.
+     */
+    @Nullable
+    public Timestamp getPendingTimestamp() {
+        return mPendingTimestamp;
+    }
+
+    /** Returns {@code true} if this is a Pending Operational Dataset. */
+    public boolean isPendingDataset() {
+        return mPendingTimestamp != null;
+    }
+
+    /** Returns {@code true} if this is a Active Operational Dataset. */
+    public boolean isActiveDataset() {
+        return !isPendingDataset();
+    }
+
+    /** Returns the Delay Timer or {@code null} if it's not specified. */
+    @Nullable
+    public Duration getDelayTimer() {
+        return mDelayTimer;
     }
 
     /** Returns the Network Name. */
@@ -631,10 +698,10 @@ public final class ActiveOperationalDataset implements Parcelable {
     public boolean equals(Object other) {
         if (other == this) {
             return true;
-        } else if (!(other instanceof ActiveOperationalDataset)) {
+        } else if (!(other instanceof OperationalDataset)) {
             return false;
         } else {
-            ActiveOperationalDataset otherDataset = (ActiveOperationalDataset) other;
+            OperationalDataset otherDataset = (OperationalDataset) other;
             return mActiveTimestamp.equals(otherDataset.mActiveTimestamp)
                     && mNetworkName.equals(otherDataset.mNetworkName)
                     && Arrays.equals(mExtendedPanId, otherDataset.mExtendedPanId)
@@ -646,6 +713,8 @@ public final class ActiveOperationalDataset implements Parcelable {
                     && Arrays.equals(mNetworkKey, otherDataset.mNetworkKey)
                     && mMeshLocalPrefix.equals(otherDataset.mMeshLocalPrefix)
                     && mSecurityPolicy.equals(otherDataset.mSecurityPolicy)
+                    && Objects.equals(mPendingTimestamp, otherDataset.mPendingTimestamp)
+                    && Objects.equals(mDelayTimer, otherDataset.mDelayTimer)
                     && areByteSparseArraysEqual(mUnknownTlvs, otherDataset.mUnknownTlvs);
         }
     }
@@ -663,29 +732,38 @@ public final class ActiveOperationalDataset implements Parcelable {
                 mPskc,
                 mNetworkKey,
                 mMeshLocalPrefix,
-                mSecurityPolicy);
+                mSecurityPolicy,
+                mPendingTimestamp,
+                mDelayTimer,
+                mUnknownTlvs);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{networkName=")
-                .append(getNetworkName())
+                .append(mNetworkName)
                 .append(", extendedPanId=")
-                .append(dumpHexString(getExtendedPanId()))
+                .append(dumpHexString(mExtendedPanId))
                 .append(", panId=")
-                .append(getPanId())
+                .append(mPanId)
                 .append(", channel=")
-                .append(getChannel())
+                .append(mChannel)
                 .append(", activeTimestamp=")
-                .append(getActiveTimestamp())
-                .append("}");
+                .append(mActiveTimestamp);
+        if (mPendingTimestamp != null) {
+            sb.append(", pendingTimestamp=").append(mPendingTimestamp);
+        }
+        if (mDelayTimer != null) {
+            sb.append(", delayTimer=").append(mDelayTimer);
+        }
+        sb.append("}");
         return sb.toString();
     }
 
-    /** The builder for creating {@link ActiveOperationalDataset} objects. */
+    /** The builder for creating {@link OperationalDataset} objects. */
     public static final class Builder {
-        private OperationalDatasetTimestamp mActiveTimestamp;
+        private Timestamp mActiveTimestamp;
         private String mNetworkName;
         private byte[] mExtendedPanId;
         private Integer mPanId;
@@ -696,34 +774,39 @@ public final class ActiveOperationalDataset implements Parcelable {
         private byte[] mNetworkKey;
         private IpPrefix mMeshLocalPrefix;
         private SecurityPolicy mSecurityPolicy;
+        private Timestamp mPendingTimestamp;
+        private Duration mDelayTimer;
         private SparseArray<byte[]> mUnknownTlvs;
 
         /**
-         * Creates a {@link Builder} object with values from an {@link ActiveOperationalDataset}
-         * object.
+         * Creates a {@link Builder} object with values from an {@link OperationalDataset} object.
          */
-        public Builder(@NonNull ActiveOperationalDataset activeOpDataset) {
-            requireNonNull(activeOpDataset, "activeOpDataset cannot be null");
+        public Builder(@NonNull OperationalDataset dataset) {
+            requireNonNull(dataset, "dataset cannot be null");
 
-            this.mActiveTimestamp = activeOpDataset.mActiveTimestamp;
-            this.mNetworkName = activeOpDataset.mNetworkName;
-            this.mExtendedPanId = activeOpDataset.mExtendedPanId.clone();
-            this.mPanId = activeOpDataset.mPanId;
-            this.mChannel = activeOpDataset.mChannel;
-            this.mChannelPage = activeOpDataset.mChannelPage;
-            this.mChannelMask = deepCloneSparseArray(activeOpDataset.mChannelMask);
-            this.mPskc = activeOpDataset.mPskc.clone();
-            this.mNetworkKey = activeOpDataset.mNetworkKey.clone();
-            this.mMeshLocalPrefix = activeOpDataset.mMeshLocalPrefix;
-            this.mSecurityPolicy = activeOpDataset.mSecurityPolicy;
-            this.mUnknownTlvs = deepCloneSparseArray(activeOpDataset.mUnknownTlvs);
+            this.mActiveTimestamp = dataset.mActiveTimestamp;
+            this.mNetworkName = dataset.mNetworkName;
+            this.mExtendedPanId = dataset.mExtendedPanId.clone();
+            this.mPanId = dataset.mPanId;
+            this.mChannel = dataset.mChannel;
+            this.mChannelPage = dataset.mChannelPage;
+            this.mChannelMask = deepCloneSparseArray(dataset.mChannelMask);
+            this.mPskc = dataset.mPskc.clone();
+            this.mNetworkKey = dataset.mNetworkKey.clone();
+            this.mMeshLocalPrefix = dataset.mMeshLocalPrefix;
+            this.mSecurityPolicy = dataset.mSecurityPolicy;
+            this.mPendingTimestamp = dataset.mPendingTimestamp;
+            this.mDelayTimer = dataset.mDelayTimer;
+            this.mUnknownTlvs = deepCloneSparseArray(dataset.mUnknownTlvs);
         }
 
         /**
-         * Creates an empty {@link Builder} object.
+         * Creates an empty {@link Builder} object for building an Active Operational Dataset.
          *
-         * <p>An empty builder cannot build a new {@link ActiveOperationalDataset} object. The
-         * Active Operational Dataset parameters must be set with setters of this builder.
+         * <p>Use {@link #setPendingTimestamp} to build for a Pending Operational Dataset.
+         *
+         * <p>An empty builder cannot build a new {@link OperationalDataset} object. The Operational
+         * Dataset parameters must be set with setters of this builder.
          */
         public Builder() {
             mChannelMask = new SparseArray<>();
@@ -731,12 +814,41 @@ public final class ActiveOperationalDataset implements Parcelable {
         }
 
         /**
+         * Sets the Pending Timestamp.
+         *
+         * <p>A non-null {@code pendingTimestamp} effectively sets this to a builder for a Pending
+         * Operational Dataset (i.e. {@code builder.build().isPendingDataset()} returns {@code
+         * true})
+         *
+         * @param pendingTimestamp Pending Timestamp of the Operational Dataset
+         */
+        @NonNull
+        public Builder setPendingTimestamp(@Nullable Timestamp pendingTimestamp) {
+            this.mPendingTimestamp = pendingTimestamp;
+            return this;
+        }
+
+        /**
+         * Sets the Delay Timer of a Pending Operational Dataset.
+         *
+         * @param delayTimer specifies for how long the Pending Operational Dataset will be applied
+         *     to an Active Operational Dataset
+         */
+        @NonNull
+        public Builder setDelayTimer(@Nullable Duration delayTimer) {
+            this.mDelayTimer = delayTimer;
+            return this;
+        }
+
+        /**
          * Sets the Active Timestamp.
+         *
+         * <p>Note that Active Timestamp is also mandatory for a Pending Operational Dataset.
          *
          * @param activeTimestamp Active Timestamp of the Operational Dataset
          */
         @NonNull
-        public Builder setActiveTimestamp(@NonNull OperationalDatasetTimestamp activeTimestamp) {
+        public Builder setActiveTimestamp(@NonNull Timestamp activeTimestamp) {
             requireNonNull(activeTimestamp, "activeTimestamp cannot be null");
             this.mActiveTimestamp = activeTimestamp;
             return this;
@@ -776,7 +888,7 @@ public final class ActiveOperationalDataset implements Parcelable {
          *
          * <p>Use with caution. A randomly generated Extended PAN ID should be used for real Thread
          * networks. It's discouraged to call this method to override the default value created by
-         * {@link ActiveOperationalDataset#createRandomDataset} in production.
+         * {@link OperationalDataset#createRandomDataset} in production.
          *
          * @throws IllegalArgumentException if length of {@code extendedPanId} is not {@link
          *     #LENGTH_EXTENDED_PAN_ID}.
@@ -867,7 +979,7 @@ public final class ActiveOperationalDataset implements Parcelable {
          *
          * <p>Use with caution. A randomly generated PSKc should be used for real Thread networks.
          * It's discouraged to call this method to override the default value created by {@link
-         * ActiveOperationalDataset#createRandomDataset} in production.
+         * OperationalDataset#createRandomDataset} in production.
          *
          * @param pskc the key stretched version of the Commissioning Credential for the network
          * @throws IllegalArgumentException if length of {@code pskc} is not {@link #LENGTH_PSKC}
@@ -889,7 +1001,7 @@ public final class ActiveOperationalDataset implements Parcelable {
          *
          * <p>Use with caution, randomly generated Network Key should be used for real Thread
          * networks. It's discouraged to call this method to override the default value created by
-         * {@link ActiveOperationalDataset#createRandomDataset} in production.
+         * {@link OperationalDataset#createRandomDataset} in production.
          *
          * @param networkKey a 128-bit security key-derivation key for the Thread Network
          * @throws IllegalArgumentException if length of {@code networkKey} is not {@link
@@ -978,13 +1090,13 @@ public final class ActiveOperationalDataset implements Parcelable {
         }
 
         /**
-         * Creates a new {@link ActiveOperationalDataset} object.
+         * Creates a new {@link OperationalDataset} object.
          *
          * @throws IllegalStateException if any of the fields isn't set or the total length exceeds
          *     {@link #LENGTH_MAX_DATASET_TLVS} bytes
          */
         @NonNull
-        public ActiveOperationalDataset build() {
+        public OperationalDataset build() {
             checkState(mActiveTimestamp != null, "Active Timestamp is missing");
             checkState(mNetworkName != null, "Network Name is missing");
             checkState(mExtendedPanId != null, "Extended PAN ID is missing");
@@ -1005,13 +1117,13 @@ public final class ActiveOperationalDataset implements Parcelable {
                                 LENGTH_MAX_DATASET_TLVS, length));
             }
 
-            return new ActiveOperationalDataset(this);
+            return new OperationalDataset(this);
         }
 
         private int getTotalDatasetLength() {
             int length =
                     2 * 9 // 9 fields with 1 byte of type and 1 byte of length
-                            + OperationalDatasetTimestamp.LENGTH_TIMESTAMP
+                            + Timestamp.LENGTH_TIMESTAMP
                             + mNetworkName.getBytes(UTF_8).length
                             + LENGTH_EXTENDED_PAN_ID
                             + LENGTH_PAN_ID
@@ -1020,6 +1132,12 @@ public final class ActiveOperationalDataset implements Parcelable {
                             + LENGTH_NETWORK_KEY
                             + LENGTH_MESH_LOCAL_PREFIX_BITS / 8
                             + mSecurityPolicy.toTlvValue().length;
+            if (mPendingTimestamp != null) {
+                length += 2 + Timestamp.LENGTH_TIMESTAMP;
+            }
+            if (mDelayTimer != null) {
+                length += 2 + LENGTH_DELAY_TIMER_BYTES;
+            }
 
             for (int i = 0; i < mChannelMask.size(); i++) {
                 length += 2 + mChannelMask.valueAt(i).length;
@@ -1160,6 +1278,190 @@ public final class ActiveOperationalDataset implements Parcelable {
                     .append(dumpHexString(mFlags))
                     .append("}");
             return sb.toString();
+        }
+    }
+
+    /**
+     * The timestamp of Thread Operational Dataset.
+     *
+     * @see OperationalDataset
+     */
+    public static final class Timestamp {
+        /** @hide */
+        public static final int LENGTH_TIMESTAMP = Long.BYTES;
+
+        private static final long TICKS_UPPER_BOUND = 0x8000;
+
+        private final Instant mInstant;
+        private final boolean mIsAuthoritativeSource;
+
+        /**
+         * Creates a new {@link Timestamp} object from an {@link Instant}.
+         *
+         * <p>The {@code seconds} is set to {@code instant.getEpochSecond()}, {@code ticks} is set
+         * to {@link instant#getNano()} based on frequency of 32768 Hz, and {@code
+         * isAuthoritativeSource} is set to {@code true}.
+         *
+         * @throws IllegalArgumentException if {@code instant.getEpochSecond()} is larger than
+         *     {@code 0xffffffffffffL}
+         */
+        @NonNull
+        public static Timestamp fromInstant(@NonNull Instant instant) {
+            return new Timestamp(instant, /* isAuthoritativeSource= */ true);
+        }
+
+        /** Converts this {@link Timestamp} object to an {@link Instant}. */
+        @NonNull
+        public Instant toInstant() {
+            return mInstant;
+        }
+
+        /**
+         * Creates a new {@link Timestamp} object from the Timestamp TLV value.
+         *
+         * @hide
+         */
+        @NonNull
+        public static Timestamp fromTlvValue(@NonNull byte[] encodedTimestamp) {
+            requireNonNull(encodedTimestamp, "encodedTimestamp cannot be null");
+            checkArgument(
+                    encodedTimestamp.length == LENGTH_TIMESTAMP,
+                    "Invalid Thread Timestamp length (length = %d," + " expectedLength=%d)",
+                    encodedTimestamp.length,
+                    LENGTH_TIMESTAMP);
+            long longTimestamp = ByteBuffer.wrap(encodedTimestamp).getLong();
+            return new Timestamp(
+                    (longTimestamp >> 16) & 0x0000ffffffffffffL,
+                    (int) ((longTimestamp >> 1) & 0x7fffL),
+                    (longTimestamp & 0x01) != 0);
+        }
+
+        /**
+         * Converts this {@link Timestamp} object to Thread TLV value.
+         *
+         * @hide
+         */
+        @NonNull
+        public byte[] toTlvValue() {
+            byte[] tlv = new byte[LENGTH_TIMESTAMP];
+            ByteBuffer buffer = ByteBuffer.wrap(tlv);
+            long encodedValue =
+                    (mInstant.getEpochSecond() << 16)
+                            | ((mInstant.getNano() * TICKS_UPPER_BOUND / 1000000000L) << 1)
+                            | (mIsAuthoritativeSource ? 1 : 0);
+            buffer.putLong(encodedValue);
+            return tlv;
+        }
+
+        /**
+         * Creates a new {@link Timestamp} object.
+         *
+         * @param seconds the value encodes a Unix Time value. Must be in the range of
+         *     0x0-0xffffffffffffL
+         * @param ticks the value encodes the fractional Unix Time value in 32.768 kHz resolution.
+         *     Must be in the range of 0x0-0x7fff
+         * @param isAuthoritativeSource the flag indicates the time was obtained from an
+         *     authoritative source: either NTP (Network Time Protocol), GPS (Global Positioning
+         *     System), cell network, or other method
+         * @throws IllegalArgumentException if the {@code seconds} is not in range of
+         *     0x0-0xffffffffffffL or {@code ticks} is not in range of 0x0-0x7fff
+         */
+        public Timestamp(
+                @IntRange(from = 0x0, to = 0xffffffffffffL) long seconds,
+                @IntRange(from = 0x0, to = 0x7fff) int ticks,
+                boolean isAuthoritativeSource) {
+            this(makeInstant(seconds, ticks), isAuthoritativeSource);
+        }
+
+        private static Instant makeInstant(long seconds, int ticks) {
+            checkArgument(
+                    seconds >= 0 && seconds <= 0xffffffffffffL,
+                    "seconds exceeds allowed range (seconds = %d,"
+                            + " allowedRange = [0x0, 0xffffffffffffL])",
+                    seconds);
+            checkArgument(
+                    ticks >= 0 && ticks <= 0x7fff,
+                    "ticks exceeds allowed ranged (ticks = %d, allowedRange" + " = [0x0, 0x7fff])",
+                    ticks);
+            long nanos = Math.round((double) ticks * 1000000000L / TICKS_UPPER_BOUND);
+            return Instant.ofEpochSecond(seconds, nanos);
+        }
+
+        /**
+         * Creates new {@link Timestamp} object.
+         *
+         * @throws IllegalArgumentException if {@code instant.getEpochSecond()} is larger than
+         *     {@code 0xffffffffffffL}
+         */
+        private Timestamp(@NonNull Instant instant, boolean isAuthoritativeSource) {
+            requireNonNull(instant, "instant cannot be null");
+            long seconds = instant.getEpochSecond();
+            checkArgument(
+                    seconds >= 0 && seconds <= 0xffffffffffffL,
+                    "instant seconds exceeds allowed range (seconds = %d, allowedRange = [0x0,"
+                            + " 0xffffffffffffL])",
+                    seconds);
+            mInstant = instant;
+            mIsAuthoritativeSource = isAuthoritativeSource;
+        }
+
+        /**
+         * Returns the rounded ticks converted from the nano seconds.
+         *
+         * <p>Note that rhe return value can be as large as {@code TICKS_UPPER_BOUND}.
+         */
+        private static int getRoundedTicks(long nanos) {
+            return (int) Math.round((double) nanos * TICKS_UPPER_BOUND / 1000000000L);
+        }
+
+        /** Returns the seconds portion of the timestamp. */
+        public @IntRange(from = 0x0, to = 0xffffffffffffL) long getSeconds() {
+            return mInstant.getEpochSecond()
+                    + getRoundedTicks(mInstant.getNano()) / TICKS_UPPER_BOUND;
+        }
+
+        /** Returns the ticks portion of the timestamp. */
+        public @IntRange(from = 0x0, to = 0x7fff) int getTicks() {
+            // the rounded ticks can be 0x8000 if mInstant.getNano() >= 999984742
+            return (int) (getRoundedTicks(mInstant.getNano()) % TICKS_UPPER_BOUND);
+        }
+
+        /** Returns {@code true} if the timestamp comes from an authoritative source. */
+        public boolean isAuthoritativeSource() {
+            return mIsAuthoritativeSource;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("{seconds=")
+                    .append(getSeconds())
+                    .append(", ticks=")
+                    .append(getTicks())
+                    .append(", isAuthoritativeSource=")
+                    .append(isAuthoritativeSource())
+                    .append(", instant=")
+                    .append(toInstant())
+                    .append("}");
+            return sb.toString();
+        }
+
+        @Override
+        public boolean equals(@Nullable Object other) {
+            if (this == other) {
+                return true;
+            } else if (!(other instanceof Timestamp)) {
+                return false;
+            } else {
+                Timestamp otherTimestamp = (Timestamp) other;
+                return mInstant.equals(otherTimestamp.mInstant)
+                        && mIsAuthoritativeSource == otherTimestamp.mIsAuthoritativeSource;
+            }
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(mInstant, mIsAuthoritativeSource);
         }
     }
 }
