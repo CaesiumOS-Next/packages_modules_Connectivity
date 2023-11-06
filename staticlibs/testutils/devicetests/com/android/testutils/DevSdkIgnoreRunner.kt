@@ -19,6 +19,7 @@ package com.android.testutils
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
+import java.lang.IllegalStateException
 import java.lang.reflect.Modifier
 import org.junit.runner.Description
 import org.junit.runner.Runner
@@ -27,6 +28,7 @@ import org.junit.runner.manipulation.Filterable
 import org.junit.runner.manipulation.NoTestsRemainException
 import org.junit.runner.manipulation.Sortable
 import org.junit.runner.manipulation.Sorter
+import org.junit.runner.notification.Failure
 import org.junit.runner.notification.RunNotifier
 import org.junit.runners.Parameterized
 
@@ -52,6 +54,8 @@ import org.junit.runners.Parameterized
  *     class MyTestClass { ... }
  */
 class DevSdkIgnoreRunner(private val klass: Class<*>) : Runner(), Filterable, Sortable {
+    val leakMonitorDesc = Description.createTestDescription(klass, "ThreadLeakMonitor")
+
     // Inference correctly infers Runner & Filterable & Sortable for |baseRunner|, but the
     // Java bytecode doesn't have a way to express this. Give this type a name by wrapping it.
     private class RunnerWrapper<T>(private val wrapped: T) :
@@ -60,6 +64,10 @@ class DevSdkIgnoreRunner(private val klass: Class<*>) : Runner(), Filterable, So
         override fun getDescription(): Description = wrapped.description
         override fun run(notifier: RunNotifier?) = wrapped.run(notifier)
     }
+
+    // Annotation for test classes to indicate the test runner should monitor thread leak.
+    // TODO(b/307693729): Remove this annotation and monitor thread leak by default.
+    annotation class MonitorThreadLeak
 
     private val baseRunner: RunnerWrapper<*>? = klass.let {
         val ignoreAfter = it.getAnnotation(IgnoreAfter::class.java)
@@ -82,7 +90,26 @@ class DevSdkIgnoreRunner(private val klass: Class<*>) : Runner(), Filterable, So
 
     override fun run(notifier: RunNotifier) {
         if (baseRunner != null) {
+            // Dump threads as a baseline to monitor thread leaks.
+            val threadCountsBeforeTest = getAllThreadNameCounts()
+
             baseRunner.run(notifier)
+
+            notifier.fireTestStarted(leakMonitorDesc)
+            val threadCountsAfterTest = getAllThreadNameCounts()
+            if (threadCountsBeforeTest != threadCountsAfterTest) {
+                val shouldFailTest = klass.isAnnotationPresent(MonitorThreadLeak::class.java)
+                if (shouldFailTest) {
+                    notifier.fireTestFailure(Failure(leakMonitorDesc,
+                            IllegalStateException("Expected threads: $threadCountsBeforeTest " +
+                                    "but got: $threadCountsAfterTest")))
+                } else {
+                    notifier.fireTestAssumptionFailed(Failure(leakMonitorDesc,
+                            IllegalStateException("Expected threads: $threadCountsBeforeTest " +
+                                    "but got: $threadCountsAfterTest")))
+                }
+            }
+            notifier.fireTestFinished(leakMonitorDesc)
             return
         }
 
@@ -93,8 +120,26 @@ class DevSdkIgnoreRunner(private val klass: Class<*>) : Runner(), Filterable, So
                 Description.createTestDescription(klass, "skippedClassForDevSdkMismatch"))
     }
 
+    private fun getAllThreadNameCounts(): Map<String, Int> {
+        val currentThreadGroup = Thread.currentThread().threadGroup
+        val tracesMap = Thread.getAllStackTraces()
+        val threadNameCounts = HashMap<String, Int>()
+        for (t in tracesMap.keys) {
+            // Filter unrelated thread groups, e.g. system.
+            if (t.threadGroup.name != currentThreadGroup.name) {
+                continue
+            }
+            val threadName = t.name
+            val count = threadNameCounts.getOrDefault(threadName, 0)
+            threadNameCounts[threadName] = count + 1
+        }
+        return threadNameCounts
+    }
+
     override fun getDescription(): Description {
-        return baseRunner?.description ?: Description.createSuiteDescription(klass)
+        return (baseRunner?.description ?: Description.createSuiteDescription(klass)).also {
+            it.addChild(leakMonitorDesc)
+        }
     }
 
     /**
@@ -102,7 +147,12 @@ class DevSdkIgnoreRunner(private val klass: Class<*>) : Runner(), Filterable, So
      */
     override fun testCount(): Int {
         // When ignoring the tests, a skipped placeholder test is reported, so test count is 1.
-        return baseRunner?.testCount() ?: 1
+        return if (baseRunner != null) {
+            // Add 1 for thread leak monitor.
+            baseRunner.testCount() + 1
+        } else {
+            1
+        }
     }
 
     @Throws(NoTestsRemainException::class)
