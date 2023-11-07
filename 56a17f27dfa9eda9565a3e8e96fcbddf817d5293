@@ -64,6 +64,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d918270_927d101f",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 74
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T05:13:59Z",
+      "side": 1,
+      "message": "There is the same `ERROR_RESOURCE_EXHAUSTED` in nearby API, so maybe keep consistent name with the existing one.",
+      "parentUuid": "0dab92cd_15d017b6",
+      "range": {
+        "startLine": 531,
+        "startChar": 40,
+        "endLine": 531,
+        "endChar": 48
+      },
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c1686b0_3a5ee5ba",
@@ -77,6 +101,30 @@
       "writtenOn": "2023-11-07T04:18:57Z",
       "side": 1,
       "message": "REJECTED_BY_PEER ?",
+      "range": {
+        "startLine": 47,
+        "startChar": 10,
+        "endLine": 47,
+        "endChar": 31
+      },
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "280f44ca_e4976628",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkException.java",
+        "patchSetId": 74
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T05:13:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c1686b0_3a5ee5ba",
       "range": {
         "startLine": 47,
         "startChar": 10,
@@ -110,6 +158,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca6bf55e_c5b9fb49",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 74
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T05:13:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25117e47_e457a4dd",
+      "range": {
+        "startLine": 241,
+        "startChar": 76,
+        "endLine": 241,
+        "endChar": 86
+      },
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09d251f7_c4c61fe0",
@@ -123,6 +195,30 @@
       "writtenOn": "2023-11-07T04:18:57Z",
       "side": 1,
       "message": "Maybe reword",
+      "range": {
+        "startLine": 508,
+        "startChar": 53,
+        "endLine": 508,
+        "endChar": 80
+      },
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf48055b_8e7f946d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 74
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T05:13:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09d251f7_c4c61fe0",
       "range": {
         "startLine": 508,
         "startChar": 53,
@@ -156,6 +252,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6f66385_8ba91fb8",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 74
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T05:13:59Z",
+      "side": 1,
+      "message": "I think this is not going to happen as this method should be run on the handler thread and\n```\nif (!mStateCallbacks.containsKey(callback)) {\n    return;\n}\n```\nwill stops unlinkToDeath being called for twice.",
+      "parentUuid": "4e65a3e4_55885e88",
+      "range": {
+        "startLine": 546,
+        "startChar": 32,
+        "endLine": 546,
+        "endChar": 45
+      },
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d396c360_6388c461",
@@ -169,6 +289,30 @@
       "writtenOn": "2023-11-07T04:18:57Z",
       "side": 1,
       "message": "Same",
+      "range": {
+        "startLine": 577,
+        "startChar": 21,
+        "endLine": 577,
+        "endChar": 34
+      },
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96c38f31_695b3c59",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 74
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T05:13:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d396c360_6388c461",
       "range": {
         "startLine": 577,
         "startChar": 21,
@@ -202,6 +346,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd71378c_e4b9dd52",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 74
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T05:13:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13ff2362_62748694",
+      "range": {
+        "startLine": 590,
+        "startChar": 30,
+        "endLine": 590,
+        "endChar": 49
+      },
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eaf460b7_4fb5797e",
@@ -215,6 +383,30 @@
       "writtenOn": "2023-11-07T04:18:57Z",
       "side": 1,
       "message": "Can this be called outside of the handler thread ?\n\nIf not, this post() is not useful (and might cause races) (and also you\u0027re accessing mState above). If yes, then it\u0027s inconsistent with onDeviceRoleChanged below which assumes it\u0027s running on the handler.\n\nLet\u0027s add a check that it\u0027s running on the handler thread (likewise below)",
+      "range": {
+        "startLine": 645,
+        "startChar": 16,
+        "endLine": 645,
+        "endChar": 24
+      },
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6c8584c_d8a04526",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 74
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T05:13:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaf460b7_4fb5797e",
       "range": {
         "startLine": 645,
         "startChar": 16,
