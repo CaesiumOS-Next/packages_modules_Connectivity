@@ -37,6 +37,9 @@ public final class ConnectivityFlags {
     public static final String CARRIER_SERVICE_CHANGED_USE_CALLBACK =
             "carrier_service_changed_use_callback_version";
 
+    public static final String ALLOW_SYSUI_CONNECTIVITY_REPORTS =
+            "allow_sysui_connectivity_reports";
+
     private boolean mNoRematchAllRequestsOnRegister;
 
     /**

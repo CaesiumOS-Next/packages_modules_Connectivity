@@ -3459,6 +3459,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
     }
 
+    private boolean checkSystemBarServicePermission(int pid, int uid) {
+        return checkAnyPermissionOf(mContext, pid, uid,
+                android.Manifest.permission.STATUS_BAR_SERVICE);
+    }
+
     private boolean checkNetworkSignalStrengthWakeupPermission(int pid, int uid) {
         return checkAnyPermissionOf(mContext, pid, uid,
                 android.Manifest.permission.NETWORK_SIGNAL_STRENGTH_WAKEUP,
@@ -11530,6 +11535,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     boolean checkConnectivityDiagnosticsPermissions(
             int callbackPid, int callbackUid, NetworkAgentInfo nai, String callbackPackageName) {
         if (checkNetworkStackPermission(callbackPid, callbackUid)) {
+            return true;
+        }
+        if (DeviceConfigUtils.isNetworkStackFeatureNotChickenedOut(mContext,
+                ConnectivityFlags.ALLOW_SYSUI_CONNECTIVITY_REPORTS)
+                && checkSystemBarServicePermission(callbackPid, callbackUid)) {
             return true;
         }
 

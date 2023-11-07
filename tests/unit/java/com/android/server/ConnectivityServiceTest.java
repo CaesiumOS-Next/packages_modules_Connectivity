@@ -31,6 +31,7 @@ import static android.Manifest.permission.NETWORK_SETUP_WIZARD;
 import static android.Manifest.permission.NETWORK_STACK;
 import static android.Manifest.permission.PACKET_KEEPALIVE_OFFLOAD;
 import static android.Manifest.permission.READ_DEVICE_CONFIG;
+import static android.Manifest.permission.STATUS_BAR_SERVICE;
 import static android.app.ActivityManager.UidFrozenStateChangedCallback.UID_FROZEN_STATE_FROZEN;
 import static android.app.ActivityManager.UidFrozenStateChangedCallback.UID_FROZEN_STATE_UNFROZEN;
 import static android.app.PendingIntent.FLAG_IMMUTABLE;
@@ -2139,6 +2140,7 @@ public class ConnectivityServiceTest {
             switch (name) {
                 case ConnectivityFlags.NO_REMATCH_ALL_REQUESTS_ON_REGISTER:
                 case ConnectivityFlags.CARRIER_SERVICE_CHANGED_USE_CALLBACK:
+                case ConnectivityFlags.ALLOW_SYSUI_CONNECTIVITY_REPORTS:
                     return true;
                 case KEY_DESTROY_FROZEN_SOCKETS_VERSION:
                     return true;
@@ -12799,6 +12801,18 @@ public class ConnectivityServiceTest {
         mServiceContext.setPermission(NETWORK_STACK, PERMISSION_GRANTED);
         assertTrue(
                 "NetworkStack permission not applied",
+                mService.checkConnectivityDiagnosticsPermissions(
+                        Process.myPid(), Process.myUid(), naiWithoutUid,
+                        mContext.getOpPackageName()));
+    }
+
+    @Test
+    public void testCheckConnectivityDiagnosticsPermissionsSysUi() throws Exception {
+        final NetworkAgentInfo naiWithoutUid = fakeMobileNai(new NetworkCapabilities());
+
+        mServiceContext.setPermission(STATUS_BAR_SERVICE, PERMISSION_GRANTED);
+        assertTrue(
+                "SysUi permission (STATUS_BAR_SERVICE) not applied",
                 mService.checkConnectivityDiagnosticsPermissions(
                         Process.myPid(), Process.myUid(), naiWithoutUid,
                         mContext.getOpPackageName()));
