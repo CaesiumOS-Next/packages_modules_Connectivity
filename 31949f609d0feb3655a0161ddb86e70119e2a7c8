@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b9c7f56_dbe6d0c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-07T15:02:08Z",
+      "side": 1,
+      "message": "This CL shows the PoC of implementing a Thread Border Routing test case. PTAL and share your suggestions if any.",
+      "revId": "31949f609d0feb3655a0161ddb86e70119e2a7c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
