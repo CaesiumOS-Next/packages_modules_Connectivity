@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d938c525_d6204a54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2023-11-07T16:12:36Z",
+      "side": 1,
+      "message": "Build was temporarily broken due to b/309597926.",
+      "revId": "3c6fd396ddc41aa1cfd679820602599e52621717",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
