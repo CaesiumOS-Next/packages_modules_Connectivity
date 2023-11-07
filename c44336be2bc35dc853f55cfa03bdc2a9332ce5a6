@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca4f2984_5113647a",
+        "filename": "service-t/jni/com_android_server_net_ServiceManagerWrapper.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-07T09:24:18Z",
+      "side": 1,
+      "message": "Could you move this to service/jni/ instead (not service-t) ?\n\nIIUC AServiceManager_waitForService is S+, so there\u0027s no need to limit this to T, and I think we\u0027ve got a use-case for S too.\n\nAlso this removes the need for extra filegroups.",
+      "revId": "c44336be2bc35dc853f55cfa03bdc2a9332ce5a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e58c06fa_ad0f826b",
+        "filename": "service-t/src/com/android/server/net/ServiceManagerWrapper.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-07T09:24:18Z",
+      "side": 1,
+      "message": "Similarly, can you put this in service/src instead of service-t/src ?",
+      "revId": "c44336be2bc35dc853f55cfa03bdc2a9332ce5a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fef3dde_e0e3d949",
+        "filename": "service/Android.bp",
+        "patchSetId": 24
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-07T09:24:18Z",
+      "side": 1,
+      "message": "Is there a way to annotate the code to ignore this warning, rather than disable it for the whole library ?",
+      "revId": "c44336be2bc35dc853f55cfa03bdc2a9332ce5a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad6ee347_2141f906",
+        "filename": "service/jni/onload.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-07T09:24:18Z",
+      "side": 1,
+      "message": "After moving the classes to service/, you should be able to get this out above the if(isAtLeastT) block",
+      "revId": "c44336be2bc35dc853f55cfa03bdc2a9332ce5a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de2e91d1_94abd1a9",
+        "filename": "thread/service/Android.bp",
+        "patchSetId": 24
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-07T09:24:18Z",
+      "side": 1,
+      "message": "This is building the wrapper one more time and bundling another built copy in service-thread-pre-jarjar; what you\u0027d want instead is to build service-thread-pre-jarjar against service-connectivity-pre-jarjar\n\nCould you add service-connectivity-pre-jarjar to the \"libs\" of service-thread-pre-jarjar instead ? You\u0027ll need to add visibility in the service-connectivity-pre-jarjar build rule",
+      "revId": "c44336be2bc35dc853f55cfa03bdc2a9332ce5a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdeb8bfc_ac9e571e",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-07T09:24:18Z",
+      "side": 1,
+      "message": "Do you actually still need this ?",
+      "revId": "c44336be2bc35dc853f55cfa03bdc2a9332ce5a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
