@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "554dfe47_07ca9672",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 70
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2023-11-07T05:15:48Z",
+      "side": 1,
+      "message": "should we use DEVICE_ROLE_DISABLED to be consistent with OpenThread?",
+      "revId": "7df172a516285a45ab8d0238fac0515dda017669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2b181c3_a788023c",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 70
