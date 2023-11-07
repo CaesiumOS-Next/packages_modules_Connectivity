@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9be6dba_5c7bed78",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T08:04:52Z",
+      "side": 1,
+      "message": "You could just reverse the 4 lines below :)",
+      "range": {
+        "startLine": 388,
+        "startChar": 30,
+        "endLine": 388,
+        "endChar": 37
+      },
+      "revId": "b4e4f2238cbd002d2fed16381f8184c93c87412e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
