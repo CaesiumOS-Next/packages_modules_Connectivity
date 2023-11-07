@@ -26,7 +26,6 @@ import android.os.Parcelable;
  * Information about a local network.
  *
  * This is sent to ConnectivityManager.NetworkCallback.
- * @hide
  */
 // TODO : make public
 public final class LocalNetworkInfo implements Parcelable {
