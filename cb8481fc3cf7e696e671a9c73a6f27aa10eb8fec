@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29cf23ef_3f191db9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-07T06:40:30Z",
+      "side": 1,
+      "message": "I think BpfNetMapsUtils.java needs to be updated.\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/framework/src/android/net/BpfNetMapsUtils.java;drc\u003d9cbddee374ba7852ba84ea3440e733b6fc77b85f;l\u003d63",
+      "revId": "cb8481fc3cf7e696e671a9c73a6f27aa10eb8fec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8d2f7a44_9c618348",
         "filename": "common/flags.aconfig",
         "patchSetId": 5
