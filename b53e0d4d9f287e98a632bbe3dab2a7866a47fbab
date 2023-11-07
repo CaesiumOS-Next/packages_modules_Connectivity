@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7d2c117_e54d0daa",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 2654,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T08:10:06Z",
+      "side": 1,
+      "message": "Originally this was motivated by the test which needs the first test, but I realized that the owner UID should be able to see the allowed UIDs, as well as the system. If you prefer, I can move this to a different patch ?",
+      "parentUuid": "34350d4f_25f81e4a",
+      "range": {
+        "startLine": 2654,
+        "startChar": 50,
+        "endLine": 2654,
+        "endChar": 51
+      },
+      "revId": "b53e0d4d9f287e98a632bbe3dab2a7866a47fbab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e8004a67_d7d17b01",
         "filename": "tests/cts/net/Android.bp",
         "patchSetId": 16
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-25T10:38:26Z",
       "side": 1,
       "message": "It seems we don\u0027t have Hostside*.java or .kt under `Connectivity/tests/cts/net/src/`",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 49,
+        "endChar": 6
+      },
+      "revId": "b53e0d4d9f287e98a632bbe3dab2a7866a47fbab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "377b3ef9_fbb767cf",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 16
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T08:10:06Z",
+      "side": 1,
+      "message": "Ah yes. This is a remnant of an old architecture, it can be safely removed now, thanks.",
+      "parentUuid": "e8004a67_d7d17b01",
       "range": {
         "startLine": 49,
         "startChar": 5,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96bb2c66_c7e1dd49",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 16
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T08:10:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "610a5d76_015b0bae",
+      "range": {
+        "startLine": 172,
+        "startChar": 9,
+        "endLine": 172,
+        "endChar": 14
+      },
+      "revId": "b53e0d4d9f287e98a632bbe3dab2a7866a47fbab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab5f6153_8ddc7995",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8431f788_6529ec0b",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 16
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T08:10:06Z",
+      "side": 1,
+      "message": "Maybe we want to add mts-tethering to CtsNetTestCases, but I think it\u0027s beyond the scope of this patch. In any case, you are right that they should be aligned, so removed this.",
+      "parentUuid": "ab5f6153_8ddc7995",
+      "range": {
+        "startLine": 178,
+        "startChar": 23,
+        "endLine": 178,
+        "endChar": 24
+      },
+      "revId": "b53e0d4d9f287e98a632bbe3dab2a7866a47fbab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "114988ea_cb6b9493",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-10-25T10:38:26Z",
       "side": 1,
       "message": "It seems this xml is not used, can we remove this?",
+      "range": {
+        "startLine": 43,
+        "startChar": 15,
+        "endLine": 43,
+        "endChar": 16
+      },
+      "revId": "b53e0d4d9f287e98a632bbe3dab2a7866a47fbab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12a1061c_afb5f9be",
+        "filename": "tests/cts/net/AndroidCarrierServiceTest.xml",
+        "patchSetId": 16
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T08:10:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "114988ea_cb6b9493",
       "range": {
         "startLine": 43,
         "startChar": 15,
