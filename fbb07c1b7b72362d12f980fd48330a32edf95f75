@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3437354_f1d0fe2c",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-07T09:44:47Z",
+      "side": 1,
+      "message": "nits: I slightly prefer to throw IllegalArgument Exception in checkForAvailabilityInResultData if exceptAllowed is true and expectUnavailableError is not null instead of silent ignore so that caller can realize their mistake.\nBut this would be personal preference, feel free to ignore.",
+      "range": {
+        "startLine": 307,
+        "startChar": 62,
+        "endLine": 307,
+        "endChar": 63
+      },
+      "revId": "fbb07c1b7b72362d12f980fd48330a32edf95f75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57d99f99_a71fb603",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkCallbackTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-07T09:44:47Z",
+      "side": 1,
+      "message": "nits: on pre-T devices, mSetDataSaverViaCM can not be true.\nSo, for me, just `if(SdkLevel.isAtLeastT())` is clearer.",
+      "range": {
+        "startLine": 254,
+        "startChar": 37,
+        "endLine": 254,
+        "endChar": 55
+      },
+      "revId": "fbb07c1b7b72362d12f980fd48330a32edf95f75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
