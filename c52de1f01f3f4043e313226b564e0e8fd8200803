@@ -603,6 +603,30 @@
       },
       "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7c4ba21_1fe0ec33",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T07:52:14Z",
+      "side": 1,
+      "message": "Handled by having a single callback per app and the manager dispatch to all callbacks",
+      "parentUuid": "3a530595_04b0c6e6",
+      "range": {
+        "startLine": 353,
+        "startChar": 16,
+        "endLine": 353,
+        "endChar": 37
+      },
+      "revId": "c52de1f01f3f4043e313226b564e0e8fd8200803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "317dd995_b0ce1a9d",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 80
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T07:52:14Z",
+      "side": 1,
+      "message": "Maybe isAttachedStatus ? `isAttached` sounds like whether the device is attached right now\n\nAlso consider removing it. It\u0027s a convenience method which doesn\u0027t bring much for clients",
+      "range": {
+        "startLine": 497,
+        "startChar": 33,
+        "endLine": 497,
+        "endChar": 43
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af3fe063_ecf68355",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T07:52:14Z",
+      "side": 1,
+      "message": "You may want to have a quick comment saying that this is idempotent and can be called even if the device is already attached (e.g. going from child to router)",
+      "range": {
+        "startLine": 464,
+        "startChar": 12,
+        "endLine": 464,
+        "endChar": 33
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "feb92ef9_1d1b643e",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T07:52:14Z",
+      "side": 1,
+      "message": "This is never expected right ? If so you may want to either throw or at least Log.wtf",
+      "range": {
+        "startLine": 522,
+        "startChar": 0,
+        "endLine": 524,
+        "endChar": 13
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07738a3d_e16dba7d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T07:52:14Z",
+      "side": 1,
+      "message": "nit : remove() returns the object so you could do\n\n    val cb \u003d mStateCallbacks.remove(callback)\n    if (null \u003d\u003d cb) return\n    unlinkToDeath(cb)",
+      "range": {
+        "startLine": 546,
+        "startChar": 0,
+        "endLine": 548,
+        "endChar": 13
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca8c868a_8dd31502",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T07:52:14Z",
+      "side": 1,
+      "message": "Likewise, never expected I think ?",
+      "range": {
+        "startLine": 555,
+        "startChar": 16,
+        "endLine": 555,
+        "endChar": 22
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21aa74bc_452028dd",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T07:52:14Z",
+      "side": 1,
+      "message": "IIUC you want to restart eventually if it dies, so maybe add a TODO here ?",
+      "range": {
+        "startLine": 587,
+        "startChar": 16,
+        "endLine": 587,
+        "endChar": 22
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45cf4a95_67e753b0",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T07:52:14Z",
+      "side": 1,
+      "message": "wtf ?",
+      "range": {
+        "startLine": 630,
+        "startChar": 20,
+        "endLine": 630,
+        "endChar": 21
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2bc13e6_c5cea747",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T07:52:14Z",
+      "side": 1,
+      "message": "I think there is a race here. Here is the scenario :\n\n- A client registers listener id 3 and is enqueued\n- Almost at the same time there is a state change (e.g. DETACHED to CHILD), which enqueues\n- The client registration is sent to ot-daemon with id 3. ot-daemon calls back immediately with id 3 and this is enqueued\n- Then this method is called with id -1, which calls callback with id 3 and state child (because here `hasChange` is true)\n- And then this method is also called with id 3 and state CHILD (so `id \u003d\u003d listenerId`) so you end up calling it twice\n\nSame below\n\n(doesn\u0027t have to be fixed for this patch)",
+      "range": {
+        "startLine": 663,
+        "startChar": 20,
+        "endLine": 663,
+        "endChar": 75
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d65b9446_8a08117c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T07:52:14Z",
+      "side": 1,
+      "message": "Strictly speaking this returns an incorrect value because it\u0027s been called too early, and apps can see this\n\nMaybe using PHASE_DEVICE_SPECIFIC_SERVICES_READY or PHASE_ACTIVITY_MANAGER_READY are a better match for l.47 ; it should be as early as you can.\n\nAnother way is to block until it\u0027s ready, but it\u0027s pretty annoying to write and possibly dangerous because you don\u0027t really know what thread you are blocking",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 9
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb574653_08fde288",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T07:52:14Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 79,
+        "endChar": 10
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
