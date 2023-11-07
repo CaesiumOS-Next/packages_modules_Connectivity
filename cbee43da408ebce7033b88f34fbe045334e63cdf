@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7c14fe2_58869214",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-07T04:37:40Z",
+      "side": 1,
+      "message": "Updated patchset 11 due to aosp/2812074 change.",
+      "revId": "cbee43da408ebce7033b88f34fbe045334e63cdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
