@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81bfb062_d095416c",
+        "filename": "framework/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-07T07:23:28Z",
+      "side": 1,
+      "message": "Nit: `visibility: \"//visibility:private\"` would be nice",
+      "revId": "ada9e9877c0253f9b9ff19997b33a26849276dd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb2a2f2c_2c722944",
+        "filename": "framework/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-07T07:23:28Z",
+      "side": 1,
+      "message": "Nit: `visibility: \"//packages/modules/Connectivity:__subpackages__\"` would be best, as this should only be used internally",
+      "revId": "ada9e9877c0253f9b9ff19997b33a26849276dd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
