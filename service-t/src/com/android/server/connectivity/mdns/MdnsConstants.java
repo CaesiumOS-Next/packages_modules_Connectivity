@@ -39,6 +39,7 @@ public final class MdnsConstants {
     public static final int QCLASS_INTERNET = 0x0001;
     public static final int QCLASS_UNICAST = 0x8000;
     public static final int NO_PACKET = 0;
+    public static final int DEFAULT_MTU = 1500;
     public static final String SUBTYPE_LABEL = "_sub";
     public static final String SUBTYPE_PREFIX = "_";
     private static final String MDNS_IPV4_HOST_ADDRESS = "224.0.0.251";

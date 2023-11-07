@@ -203,6 +203,32 @@ public class MdnsServiceCache {
         mCallbacks.remove(cacheKey);
     }
 
+    /**
+     * Get the min remaining ttl from cache services which are queried from given CacheKey.
+     *
+     * @param cacheKey the target CacheKey.
+     * @param now      the current time.
+     * @return the set of services which matches the given service type.
+     */
+    public long getServiceMinRemainingTtl(@NonNull CacheKey cacheKey, long now) {
+        ensureRunningOnHandlerThread(mHandler);
+        long minRemainingTtl = Long.MAX_VALUE;
+        for (MdnsResponse response : getCachedServices(cacheKey)) {
+            if (!response.isComplete()) {
+                continue;
+            }
+            long remainingTtl = response.getServiceRecord().getRemainingTTL(now);
+            // remainingTtl is <= 0 means the service expired.
+            if (remainingTtl <= 0) {
+                return 0;
+            }
+            if (remainingTtl < minRemainingTtl) {
+                minRemainingTtl = remainingTtl;
+            }
+        }
+        return minRemainingTtl == Long.MAX_VALUE ? 0 : minRemainingTtl;
+    }
+
     /*** Callbacks for listening service expiration */
     public interface ServiceExpiredCallback {
         /*** Notify the service is expired */
