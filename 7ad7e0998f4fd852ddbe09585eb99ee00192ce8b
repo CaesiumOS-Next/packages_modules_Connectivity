@@ -26,6 +26,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3545dbee_bb20db72",
+        "filename": "thread/tests/unit/src/android/net/thread/OperationalDatasetTimestampTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-07T01:47:41Z",
+      "side": 1,
+      "message": "nit: also check the seconds?",
+      "revId": "7ad7e0998f4fd852ddbe09585eb99ee00192ce8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8aba05bb_45394673",
         "filename": "thread/tests/unit/src/android/net/thread/OperationalDatasetTimestampTest.java",
         "patchSetId": 2
