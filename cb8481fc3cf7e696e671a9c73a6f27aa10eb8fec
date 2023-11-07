@@ -105,6 +105,30 @@
       },
       "revId": "cb8481fc3cf7e696e671a9c73a6f27aa10eb8fec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6377d0fd_c08e6296",
+        "filename": "common/flags.aconfig",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2023-11-07T07:35:11Z",
+      "side": 1,
+      "message": "\u003e You mean that you need to rollout this flag, right?\n\nDo I need to roll this flag out at all if it is used only for the API annotation today?\n\n\u003e Can we have another flag in your namespace and check that flag before calling this API?\n\nYes, I think some combination of that + SdkExtensions.getExtensionVersion check will always work. Where can I find the SDK extension schedule - current version / upcoming version / finalization date?",
+      "parentUuid": "4ce6ef5c_edaab291",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 1
+      },
+      "revId": "cb8481fc3cf7e696e671a9c73a6f27aa10eb8fec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
