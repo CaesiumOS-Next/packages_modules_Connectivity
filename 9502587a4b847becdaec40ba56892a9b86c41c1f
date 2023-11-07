@@ -16,6 +16,24 @@
       "message": "I don\u0027t think having a separate JNI library is worth the cost, compared to just adding it to libservice-connectivity; Thread Java code is already in service-connectivity.jar, so it seems appropriate to have JNI in libservice-connectivity. Loading an additional JNI library likely is more costly (in memory and boot time) than adding a symbol to the existing one.\n\nSo +1 to Lorenzo\u0027s comments below about having a generic symbol in libservice-connectivity.",
       "revId": "9502587a4b847becdaec40ba56892a9b86c41c1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d3ee53d_f8859186",
+        "filename": "thread/service/Android.bp",
+        "patchSetId": 16
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T06:57:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a941f52a_c8898563",
+      "revId": "9502587a4b847becdaec40ba56892a9b86c41c1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

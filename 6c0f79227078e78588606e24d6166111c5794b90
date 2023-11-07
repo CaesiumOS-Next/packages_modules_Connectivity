@@ -94,6 +94,30 @@
       },
       "revId": "6c0f79227078e78588606e24d6166111c5794b90",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0515eec3_32035c33",
+        "filename": "thread/service/java/com/android/server/thread/ServiceManagerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T06:57:50Z",
+      "side": 1,
+      "message": "Done moved this to libservice-connectivity",
+      "parentUuid": "2bf20358_f2a3da15",
+      "range": {
+        "startLine": 17,
+        "startChar": 27,
+        "endLine": 17,
+        "endChar": 33
+      },
+      "revId": "6c0f79227078e78588606e24d6166111c5794b90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
