@@ -401,6 +401,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79e62248_632103f3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2871,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-07T02:04:44Z",
+      "side": 1,
+      "message": "Right, tethering stops will explicitly call BpfCoordinator#clearAllIpv6Rules to removes all forwarding rules, but the test here only removes the upstream interface (\u0027dispatchTetherConnectionChanged(ipServer, null, null, 0)\u0027).",
+      "parentUuid": "5841922d_c67c8851",
+      "range": {
+        "startLine": 2871,
+        "startChar": 60,
+        "endLine": 2871,
+        "endChar": 79
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55523557_14917065",
@@ -462,6 +486,30 @@
       "side": 1,
       "message": "You mean an assert for the deletion of rule A *should have been added* in that CL, but wasn\u0027t added? If so, SGTM.",
       "parentUuid": "9b1079b4_2d3278bf",
+      "range": {
+        "startLine": 2898,
+        "startChar": 8,
+        "endLine": 2898,
+        "endChar": 52
+      },
+      "revId": "017782c39fb7eda27d6ab1fc3368b832612893ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39b744e5_69579294",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2898,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-07T02:04:44Z",
+      "side": 1,
+      "message": "Right.",
+      "parentUuid": "a05964fa_1a046961",
       "range": {
         "startLine": 2898,
         "startChar": 8,
