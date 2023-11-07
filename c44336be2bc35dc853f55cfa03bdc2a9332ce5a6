@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e31e170_d96928f3",
+        "filename": "service-t/jni/com_android_server_net_ServiceManagerWrapper.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T12:28:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca4f2984_5113647a",
+      "revId": "c44336be2bc35dc853f55cfa03bdc2a9332ce5a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e58c06fa_ad0f826b",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-11-07T09:24:18Z",
       "side": 1,
       "message": "Similarly, can you put this in service/src instead of service-t/src ?",
+      "revId": "c44336be2bc35dc853f55cfa03bdc2a9332ce5a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdf6e7c6_f14e7d3d",
+        "filename": "service-t/src/com/android/server/net/ServiceManagerWrapper.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T12:28:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e58c06fa_ad0f826b",
       "revId": "c44336be2bc35dc853f55cfa03bdc2a9332ce5a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07c23bc8_6bdc6d15",
+        "filename": "service/Android.bp",
+        "patchSetId": 24
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T12:28:38Z",
+      "side": 1,
+      "message": "I didn\u0027t figure out an annotation that can work. Looks like there are already usages in Connectivity: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/framework/Android.bp;l\u003d217?q\u003d%22-Wno-unguarded-availability%22%20filepath:packages%2Fmodules%2F",
+      "parentUuid": "1fef3dde_e0e3d949",
+      "revId": "c44336be2bc35dc853f55cfa03bdc2a9332ce5a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad6ee347_2141f906",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-11-07T09:24:18Z",
       "side": 1,
       "message": "After moving the classes to service/, you should be able to get this out above the if(isAtLeastT) block",
+      "revId": "c44336be2bc35dc853f55cfa03bdc2a9332ce5a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11a0a648_5b8fe89b",
+        "filename": "service/jni/onload.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T12:28:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad6ee347_2141f906",
       "revId": "c44336be2bc35dc853f55cfa03bdc2a9332ce5a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -86,6 +158,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5e86362_85ca6234",
+        "filename": "thread/service/Android.bp",
+        "patchSetId": 24
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T12:28:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de2e91d1_94abd1a9",
+      "revId": "c44336be2bc35dc853f55cfa03bdc2a9332ce5a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdeb8bfc_ac9e571e",
@@ -99,6 +189,24 @@
       "writtenOn": "2023-11-07T09:24:18Z",
       "side": 1,
       "message": "Do you actually still need this ?",
+      "revId": "c44336be2bc35dc853f55cfa03bdc2a9332ce5a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b81700e_9ee846e8",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T12:28:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdeb8bfc_ac9e571e",
       "revId": "c44336be2bc35dc853f55cfa03bdc2a9332ce5a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
