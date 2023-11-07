@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d682d5b3_37b4969a",
+        "filename": "thread/service/java/com/android/server/thread/InfraInterfaceController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T04:08:56Z",
+      "side": 1,
+      "message": "No, I don\u0027t think the code here should depend on whether the TunInterfaceController is loaded or not. I believe it does no harm to the system to load the same library twice.\n\n\nNote that the `static {}` statement runs when this class is loaded at runtime, but the order of which class got loaded first is unclear and can change easily. So if you do have a dependency on a share library, load it explicitly.",
+      "parentUuid": "9794a84d_47d4bffc",
+      "revId": "358c03f25d7630bf8545d397e12d492e7e3e78a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7def8139_d4951398",
