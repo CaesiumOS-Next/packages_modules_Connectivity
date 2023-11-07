@@ -242,6 +242,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3e751b4_e55d9211",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2023-11-07T07:11:03Z",
+      "side": 1,
+      "message": "Ack. So let\u0027s keep this code here then.",
+      "parentUuid": "354e35e4_60daad60",
+      "revId": "cd7b35d56bd39027abb824cc799f7d354cf1c267",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74a54219_f7adfc24",
