@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20c02319_9df7983b",
+        "filename": "thread/framework/java/android/net/thread/OperationalDatasetTimestamp.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-07T01:27:13Z",
+      "side": 1,
+      "message": "lose",
+      "range": {
+        "startLine": 59,
+        "startChar": 40,
+        "endLine": 59,
+        "endChar": 44
+      },
+      "revId": "7ad7e0998f4fd852ddbe09585eb99ee00192ce8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8aba05bb_45394673",
+        "filename": "thread/tests/unit/src/android/net/thread/OperationalDatasetTimestampTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-07T01:27:13Z",
+      "side": 1,
+      "message": "add a test case for the case when nano \u003e 999984742 ?",
+      "revId": "7ad7e0998f4fd852ddbe09585eb99ee00192ce8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
