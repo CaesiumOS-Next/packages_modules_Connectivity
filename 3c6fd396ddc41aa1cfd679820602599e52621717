@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6a99b0e_414e088c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-07T22:04:12Z",
+      "side": 1,
+      "message": "Per discussion, let\u0027s see if we can remove this.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 8
+      },
+      "revId": "3c6fd396ddc41aa1cfd679820602599e52621717",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "d938c525_d6204a54",
@@ -14,6 +37,46 @@
       "writtenOn": "2023-11-07T16:12:36Z",
       "side": 1,
       "message": "Build was temporarily broken due to b/309597926.",
+      "revId": "3c6fd396ddc41aa1cfd679820602599e52621717",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b6e5018_2843a665",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-07T22:04:12Z",
+      "side": 1,
+      "message": "LGTM assuming Motomu is happy with the flagging and BPF code.\n\nYou\u0027ll need to rebase past Motomu\u0027s deletion of TrafficController.",
+      "revId": "3c6fd396ddc41aa1cfd679820602599e52621717",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a05bef9f_2b02d870",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-07T22:04:12Z",
+      "side": 1,
+      "message": "Is this correct? If this chain is on all the time, then it must contain all foreground appsas well? Maybe it should say \"Allowlist of apps that have access because they are in the foreground, or that have access even if they are in the background.\"\n\nSpeaking of which... we\u0027ll need some timeout here, right? An app won\u0027t lose access the moment it goes into the background, it will get some grace period. That will be implemented in NPMS, I assume?",
+      "range": {
+        "startLine": 1022,
+        "startChar": 7,
+        "endLine": 1022,
+        "endChar": 75
+      },
       "revId": "3c6fd396ddc41aa1cfd679820602599e52621717",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

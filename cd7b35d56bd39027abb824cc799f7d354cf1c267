@@ -189,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25820906_45c26f67",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-07T22:04:12Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ec2c56b1_89240574",
+      "range": {
+        "startLine": 911,
+        "startChar": 50,
+        "endLine": 911,
+        "endChar": 81
+      },
+      "revId": "cd7b35d56bd39027abb824cc799f7d354cf1c267",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a29491d_a0a72496",
@@ -262,6 +286,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab1338dc_de9ab7ac",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-07T22:04:12Z",
+      "side": 1,
+      "message": "Looks like TrafficController.cpp is gone:\n\naosp/2817123\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/native/TrafficController.cpp",
+      "parentUuid": "e3e751b4_e55d9211",
+      "revId": "cd7b35d56bd39027abb824cc799f7d354cf1c267",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74a54219_f7adfc24",
         "filename": "service/native/include/Common.h",
         "patchSetId": 2
@@ -297,6 +339,30 @@
       "side": 1,
       "message": "My evaluation is that I already made the necessary change. I am not sure how to make this quiet.\nAdding NO_IFTTT for now.",
       "parentUuid": "74a54219_f7adfc24",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 100
+      },
+      "revId": "cd7b35d56bd39027abb824cc799f7d354cf1c267",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6e44e14_e8e57c6a",
+        "filename": "service/native/include/Common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-07T22:04:12Z",
+      "side": 1,
+      "message": "The linter is looking at a file with the wrong path: /service/native/include/packages/modules/Connectivity/framework/src/android/net/ConnectivityManager.java . The documentation at says that paths from the project root start with / , so this should be:\n\n// LINT.ThenChange(/framework/src/android/net/ConnectivityManager.java)\n\nCould you try that, and if it works, remove the NO_IFTTT from the commit message?",
+      "parentUuid": "f2ecbcd8_3018b008",
       "range": {
         "startLine": 47,
         "startChar": 0,
