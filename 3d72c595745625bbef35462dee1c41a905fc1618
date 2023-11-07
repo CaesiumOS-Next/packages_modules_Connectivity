@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5679d74_7b031004",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-07T10:31:19Z",
+      "side": 1,
+      "message": "Make sense. Update accordingly.",
+      "parentUuid": "78290766_3404ee70",
+      "revId": "3d72c595745625bbef35462dee1c41a905fc1618",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea6f0909_1a19b438",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-11-07T09:34:21Z",
       "side": 1,
       "message": "It\u0027s probably safer to post this to the handler instead of calling the callbacks inline (so you may want to have notifyServicesExpired(cachedKey, removedResponses, null, handler) with all responses)\n\nOtherwise the callback will call into MdnsServiceTypeClient, which may call back into MdnsServiceCache, but you\u0027re not done updating internal state",
+      "revId": "3d72c595745625bbef35462dee1c41a905fc1618",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cfab87d_317d7e2c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-07T10:31:19Z",
+      "side": 1,
+      "message": "Indeed, your suggestion is correct. The callbacks should be posted to the handler. I had implemented that in a previous patch, but it was inadvertently deleted in the latest revision. ^^\"",
+      "parentUuid": "ea6f0909_1a19b438",
       "revId": "3d72c595745625bbef35462dee1c41a905fc1618",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
