@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "875b0e56_df120f99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 74
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T04:18:57Z",
+      "side": 1,
+      "message": "m",
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6241441c_b618c0a0",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 74
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T04:18:57Z",
+      "side": 1,
+      "message": "If you can think of anything to send that might be useful (e.g. the operational data set that was joined) and is not racy, I would suggest you replace it because Void by definition is never useful.\n\nIf you can\u0027t find useful information to send, you can keep this.",
+      "range": {
+        "startLine": 498,
+        "startChar": 236,
+        "endLine": 498,
+        "endChar": 240
+      },
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dab92cd_15d017b6",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 74
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T04:18:57Z",
+      "side": 1,
+      "message": "resources",
+      "range": {
+        "startLine": 531,
+        "startChar": 40,
+        "endLine": 531,
+        "endChar": 48
+      },
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c1686b0_3a5ee5ba",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkException.java",
+        "patchSetId": 74
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T04:18:57Z",
+      "side": 1,
+      "message": "REJECTED_BY_PEER ?",
+      "range": {
+        "startLine": 47,
+        "startChar": 10,
+        "endLine": 47,
+        "endChar": 31
+      },
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25117e47_e457a4dd",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 74
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T04:18:57Z",
+      "side": 1,
+      "message": "LOCAL",
+      "range": {
+        "startLine": 241,
+        "startChar": 76,
+        "endLine": 241,
+        "endChar": 86
+      },
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09d251f7_c4c61fe0",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 74
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T04:18:57Z",
+      "side": 1,
+      "message": "Maybe reword",
+      "range": {
+        "startLine": 508,
+        "startChar": 53,
+        "endLine": 508,
+        "endChar": 80
+      },
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e65a3e4_55885e88",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 74
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T04:18:57Z",
+      "side": 1,
+      "message": "This can throw. It\u0027s possible that the app calls `unregister` and immediately dies, and then you have 2 messages with unlinkToDeath enqueued. The second one will throw.",
+      "range": {
+        "startLine": 546,
+        "startChar": 32,
+        "endLine": 546,
+        "endChar": 45
+      },
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d396c360_6388c461",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 74
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T04:18:57Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 577,
+        "startChar": 21,
+        "endLine": 577,
+        "endChar": 34
+      },
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13ff2362_62748694",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 74
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T04:18:57Z",
+      "side": 1,
+      "message": "Does this mean we\u0027re going to send a second STOPPED callback, when the last callback was already STOPPED ? It\u0027s not the end of the world but it would be nice if we could avoid it",
+      "range": {
+        "startLine": 590,
+        "startChar": 30,
+        "endLine": 590,
+        "endChar": 49
+      },
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaf460b7_4fb5797e",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 74
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-07T04:18:57Z",
+      "side": 1,
+      "message": "Can this be called outside of the handler thread ?\n\nIf not, this post() is not useful (and might cause races) (and also you\u0027re accessing mState above). If yes, then it\u0027s inconsistent with onDeviceRoleChanged below which assumes it\u0027s running on the handler.\n\nLet\u0027s add a check that it\u0027s running on the handler thread (likewise below)",
+      "range": {
+        "startLine": 645,
+        "startChar": 16,
+        "endLine": 645,
+        "endChar": 24
+      },
+      "revId": "56a17f27dfa9eda9565a3e8e96fcbddf817d5293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
