@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d2f7a44_9c618348",
+        "filename": "common/flags.aconfig",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-07T06:39:20Z",
+      "side": 1,
+      "message": "This flag will be under `com.android.net.flags`.\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/common/TrunkStable.bp;l\u003d17?q\u003dTrunkStable.bp\n\nSo I prefer to have this flag under `android_core_networking` namespace.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 1
+      },
+      "revId": "cb8481fc3cf7e696e671a9c73a6f27aa10eb8fec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

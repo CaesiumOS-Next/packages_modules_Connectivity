@@ -226,6 +226,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "354e35e4_60daad60",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-07T06:39:20Z",
+      "side": 1,
+      "message": "Currently, code path in TrafficController.cpp is used only when \"bpf_net_maps_force_disable_java_bpf_map\" experiment flag is disabled.\n\nBut this code path should be removed this soon (this week)\nI\u0027m working on CL to remove most(possibly all) code in TrafficController and I will upload CL tomorrow.\n\nI want to merge CL that removes TrafficController first.",
+      "parentUuid": "0fea72e9_b26ee2b2",
+      "revId": "cd7b35d56bd39027abb824cc799f7d354cf1c267",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74a54219_f7adfc24",
         "filename": "service/native/include/Common.h",
         "patchSetId": 2
