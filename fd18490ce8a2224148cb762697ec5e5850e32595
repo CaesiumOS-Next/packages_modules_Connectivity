@@ -340,6 +340,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8755c30c_5476012e",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T03:14:10Z",
+      "side": 1,
+      "message": "In the new patch, this will return ERROR_ABORTED for the migrate operation",
+      "parentUuid": "5c816ef9_da522879",
+      "range": {
+        "startLine": 509,
+        "startChar": 36,
+        "endLine": 509,
+        "endChar": 43
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9c9487f_97ffa883",
@@ -400,6 +424,30 @@
       "writtenOn": "2023-10-26T08:07:55Z",
       "side": 1,
       "message": "Both for join and schedule, while this code here is fine, it\u0027s also possible that the leave operation is in progress when a join or migration is started, so in both cases you might end up leaving the network and still have one of these in either of the queues. Therefore clearing it here is not actually enough",
+      "range": {
+        "startLine": 549,
+        "startChar": 25,
+        "endLine": 549,
+        "endChar": 51
+      },
+      "revId": "fd18490ce8a2224148cb762697ec5e5850e32595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40a746f1_8d39dbdd",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T03:14:10Z",
+      "side": 1,
+      "message": "In the new patch, this will result in ERROR_ABORTED for join and migrate",
+      "parentUuid": "abd40807_24f8f309",
       "range": {
         "startLine": 549,
         "startChar": 25,
