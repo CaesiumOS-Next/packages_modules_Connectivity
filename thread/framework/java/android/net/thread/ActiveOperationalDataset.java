@@ -684,6 +684,7 @@ public final class ActiveOperationalDataset implements Parcelable {
     }
 
     /** The builder for creating {@link ActiveOperationalDataset} objects. */
+    @FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_ENABLED)
     public static final class Builder {
         private OperationalDatasetTimestamp mActiveTimestamp;
         private String mNetworkName;
@@ -1041,6 +1042,7 @@ public final class ActiveOperationalDataset implements Parcelable {
      * The Security Policy of Thread Operational Dataset which provides an administrator with a way
      * to enable or disable certain security related behaviors.
      */
+    @FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_ENABLED)
     public static final class SecurityPolicy {
         /** The default Rotation Time in hours. */
         public static final int DEFAULT_ROTATION_TIME_HOURS = 672;

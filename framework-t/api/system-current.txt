@@ -447,7 +447,7 @@ package android.net.thread {
     field public static final int LENGTH_PSKC = 16; // 0x10
   }
 
-  public static final class ActiveOperationalDataset.Builder {
+  @FlaggedApi("com.android.net.thread.flags.thread_enabled") public static final class ActiveOperationalDataset.Builder {
     ctor public ActiveOperationalDataset.Builder(@NonNull android.net.thread.ActiveOperationalDataset);
     ctor public ActiveOperationalDataset.Builder();
     method @NonNull public android.net.thread.ActiveOperationalDataset build();
@@ -463,7 +463,7 @@ package android.net.thread {
     method @NonNull public android.net.thread.ActiveOperationalDataset.Builder setSecurityPolicy(@NonNull android.net.thread.ActiveOperationalDataset.SecurityPolicy);
   }
 
-  public static final class ActiveOperationalDataset.SecurityPolicy {
+  @FlaggedApi("com.android.net.thread.flags.thread_enabled") public static final class ActiveOperationalDataset.SecurityPolicy {
     ctor public ActiveOperationalDataset.SecurityPolicy(@IntRange(from=1, to=65535) int, @NonNull @Size(min=android.net.thread.ActiveOperationalDataset.SecurityPolicy.LENGTH_MIN_SECURITY_POLICY_FLAGS) byte[]);
     method @NonNull @Size(min=android.net.thread.ActiveOperationalDataset.SecurityPolicy.LENGTH_MIN_SECURITY_POLICY_FLAGS) public byte[] getFlags();
     method @IntRange(from=1, to=65535) public int getRotationTimeHours();
