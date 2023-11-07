@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "266b9787_1376423c",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 70
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-07T05:32:19Z",
+      "side": 1,
+      "message": "I intentionally renamed it to STOPPED so that it won\u0027t confuse user with the `Controller#setThreadEnabled()` API. There will also be a `ERROR_THREAD_DISABLED` error code",
+      "parentUuid": "554dfe47_07ca9672",
+      "revId": "7df172a516285a45ab8d0238fac0515dda017669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2b181c3_a788023c",
