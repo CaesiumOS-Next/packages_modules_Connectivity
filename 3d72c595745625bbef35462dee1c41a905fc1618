@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78290766_3404ee70",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-07T09:34:21Z",
+      "side": 1,
+      "message": "It would be best to call this before mCachedServices.get, here the code is relying on maybeRemoveExpiredServices modifying (and not recreating) the List that was obtained earlier, that\u0027s a bit error-prone. It would be clearer to do the removes, and then do the getting.",
+      "revId": "3d72c595745625bbef35462dee1c41a905fc1618",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea6f0909_1a19b438",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-07T09:34:21Z",
+      "side": 1,
+      "message": "It\u0027s probably safer to post this to the handler instead of calling the callbacks inline (so you may want to have notifyServicesExpired(cachedKey, removedResponses, null, handler) with all responses)\n\nOtherwise the callback will call into MdnsServiceTypeClient, which may call back into MdnsServiceCache, but you\u0027re not done updating internal state",
+      "revId": "3d72c595745625bbef35462dee1c41a905fc1618",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
