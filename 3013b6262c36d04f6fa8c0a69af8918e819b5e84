@@ -16,6 +16,24 @@
       "message": "I am not sure that this is a reliable thread leak check, as there is no guarantee that the system will not create new threads during the test. And it may cause the test to become flaky or unreliable.",
       "revId": "3013b6262c36d04f6fa8c0a69af8918e819b5e84",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ecc251e_6690841a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-07T08:40:29Z",
+      "side": 1,
+      "message": "Limited to the same thread groups only.\nWhich exclude the threads that created by system (shown in https://paste.googleplex.com/4776075505696768).\nGiven that the threads are limited to the same process.\nIt seems to me the threads being monitored is not much.\nSo I think the impact is limited.\nAlso we can merge this and see how it goes,\ngiven that the tests need to explictedly annotated to fail the tests.\nWDYT?",
+      "parentUuid": "2208a349_2a48bc1d",
+      "revId": "3013b6262c36d04f6fa8c0a69af8918e819b5e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
