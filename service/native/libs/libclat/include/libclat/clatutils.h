@@ -16,6 +16,10 @@
 #include <netinet/in.h>
 #include <netinet/in6.h>
 
+#include <aidl/android/net/INetd.h>
+#include "clat_mark.h"
+static_assert(aidl::android::net::INetd::CLAT_MARK == CLAT_MARK, "must be 0xDEADC1A7");
+
 namespace android {
 namespace net {
 namespace clat {
