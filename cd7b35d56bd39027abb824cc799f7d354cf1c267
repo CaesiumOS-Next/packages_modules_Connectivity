@@ -304,6 +304,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8174f48_e47b4a2b",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-08T03:13:55Z",
+      "side": 1,
+      "message": "Yes, TrafficController is removed now.\nCould you rebase the CL?",
+      "parentUuid": "ab1338dc_de9ab7ac",
+      "revId": "cd7b35d56bd39027abb824cc799f7d354cf1c267",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74a54219_f7adfc24",
         "filename": "service/native/include/Common.h",
         "patchSetId": 2
