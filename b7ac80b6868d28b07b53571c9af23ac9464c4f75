@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7b4b05d_a771796f",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 32
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2023-11-08T06:18:40Z",
+      "side": 1,
+      "message": "Can we allow null, so that the framework can choose a network name automatically like: Android-1234?",
+      "revId": "b7ac80b6868d28b07b53571c9af23ac9464c4f75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "918d78a8_06d59eca",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2023-11-08T06:18:40Z",
+      "side": 1,
+      "message": "```suggestion\n * \u003cp\u003eor randomized Dataset with customized channel and active timestamp.\n```",
+      "revId": "b7ac80b6868d28b07b53571c9af23ac9464c4f75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07a6ab85_ed10ab08",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2023-11-08T06:18:40Z",
+      "side": 1,
+      "message": "typo: Thread daemon\n\n-\u003e read supported channel mask from OT daemon.",
+      "revId": "b7ac80b6868d28b07b53571c9af23ac9464c4f75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9e113d7_65ad9d8d",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/PendingOperationalDatasetTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2023-11-08T06:18:40Z",
+      "side": 1,
+      "message": "I think we should expose the setChannelMask(int) API to users for convenience.",
+      "revId": "b7ac80b6868d28b07b53571c9af23ac9464c4f75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
