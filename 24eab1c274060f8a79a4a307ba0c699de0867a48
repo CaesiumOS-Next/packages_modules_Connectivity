@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "620a1f96_9a91fe14",
+        "filename": "service/native/include/Common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-08T04:37:01Z",
+      "side": 0,
+      "message": "this entire file should probably be deleted, and this check moved into NetdConstants.h or somewhere Common.h is included now...",
+      "range": {
+        "startLine": 17,
+        "startChar": 12,
+        "endLine": 24,
+        "endChar": 67
+      },
+      "revId": "24eab1c274060f8a79a4a307ba0c699de0867a48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "729dd73a_94d248d8",
+        "filename": "service/native/include/Common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-08T04:37:01Z",
+      "side": 0,
+      "message": "is there a paired lint that needs to be updated?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 100
+      },
+      "revId": "24eab1c274060f8a79a4a307ba0c699de0867a48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
