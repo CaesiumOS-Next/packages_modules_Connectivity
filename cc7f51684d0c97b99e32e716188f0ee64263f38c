@@ -16,6 +16,40 @@
       "message": "LGTM for module structure / build files",
       "revId": "cc7f51684d0c97b99e32e716188f0ee64263f38c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b453050_b5bbe284",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 93
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-08T07:35:57Z",
+      "side": 1,
+      "message": "nit: define a constant for this",
+      "revId": "cc7f51684d0c97b99e32e716188f0ee64263f38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94168ecd_782e85d4",
+        "filename": "thread/service/jni/com_android_server_thread_TunInterfaceController.cpp",
+        "patchSetId": 93
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-08T07:35:57Z",
+      "side": 1,
+      "message": "nit: here and below, move `close()` below `jniThrowExceptionFmt` because `close()` could set `errno`.",
+      "revId": "cc7f51684d0c97b99e32e716188f0ee64263f38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
