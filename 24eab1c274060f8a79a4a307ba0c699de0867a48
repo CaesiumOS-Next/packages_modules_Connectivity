@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2047258d_2b88a2fd",
+        "filename": "service/native/include/Common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-08T06:59:57Z",
+      "side": 0,
+      "message": "It seem only the TrafficController.h included this Common.h\nNetdConstants.h is not under the packages/modules/Connectivity and not included by mainline code.\n\nHow about moving this to the clatutils.h?\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/native/libs/libclat/include/libclat/clatutils.h\n\nLet me do this change in aosp/2819760.",
+      "parentUuid": "620a1f96_9a91fe14",
+      "range": {
+        "startLine": 17,
+        "startChar": 12,
+        "endLine": 24,
+        "endChar": 67
+      },
+      "revId": "24eab1c274060f8a79a4a307ba0c699de0867a48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "729dd73a_94d248d8",
         "filename": "service/native/include/Common.h",
         "patchSetId": 2
