@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7b084a03_a85341da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2023-11-08T06:42:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6a99b0e_414e088c",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 8
+      },
+      "revId": "3c6fd396ddc41aa1cfd679820602599e52621717",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d938c525_d6204a54",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
@@ -88,6 +112,30 @@
       "writtenOn": "2023-11-07T22:04:12Z",
       "side": 1,
       "message": "Is this correct? If this chain is on all the time, then it must contain all foreground appsas well? Maybe it should say \"Allowlist of apps that have access because they are in the foreground, or that have access even if they are in the background.\"\n\nSpeaking of which... we\u0027ll need some timeout here, right? An app won\u0027t lose access the moment it goes into the background, it will get some grace period. That will be implemented in NPMS, I assume?",
+      "range": {
+        "startLine": 1022,
+        "startChar": 7,
+        "endLine": 1022,
+        "endChar": 75
+      },
+      "revId": "3c6fd396ddc41aa1cfd679820602599e52621717",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c7a69e3_e3087ce4",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2023-11-08T06:42:24Z",
+      "side": 1,
+      "message": "Updated comment.\nAnd yes regarding the timeout.",
+      "parentUuid": "a05bef9f_2b02d870",
       "range": {
         "startLine": 1022,
         "startChar": 7,
