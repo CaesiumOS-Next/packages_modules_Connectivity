@@ -149,6 +149,7 @@ public final class BpfNetMapsTest {
         MockitoAnnotations.initMocks(this);
         doReturn(TEST_IF_INDEX).when(mDeps).getIfIndex(TEST_IF_NAME);
         doReturn(0).when(mDeps).synchronizeKernelRCU();
+        BpfNetMaps.setEnableJavaBpfMapForTest(true /* enable */);
         BpfNetMaps.setConfigurationMapForTest(mConfigurationMap);
         mConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY, new U32(0));
         mConfigurationMap.updateEntry(
