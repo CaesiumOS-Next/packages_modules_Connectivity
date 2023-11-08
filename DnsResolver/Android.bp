@@ -81,3 +81,31 @@ cc_test {
         },
     },
 }
+
+// HACK: to fix build in udc-mainline-prod - target is required for apps_only
+cc_test {
+    name: "traffic_controller_unit_test",
+    defaults: ["netd_defaults"],
+    header_libs: [
+        "bpf_connectivity_headers",
+    ],
+    srcs: [
+        "DnsBpfHelperTest.cpp",
+    ],
+    static_libs: [
+        "libcom.android.tethering.dns_helper",
+    ],
+    shared_libs: [
+       "libbase",
+       "libcutils",
+    ],
+    compile_multilib: "both",
+    multilib: {
+        lib32: {
+            suffix: "32",
+        },
+        lib64: {
+            suffix: "64",
+        },
+    },
+}
