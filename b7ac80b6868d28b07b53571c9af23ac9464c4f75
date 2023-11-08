@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "25c43ee6_afd055a5",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-08T17:55:13Z",
+      "side": 1,
+      "message": "This is shared by only the ActiveOperationalDataset and ThreadNetworkController class, any reason that we should make this public and available for classes outside of this package?",
+      "parentUuid": "ac088e6d_88b33ea4",
+      "revId": "b7ac80b6868d28b07b53571c9af23ac9464c4f75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07a6ab85_ed10ab08",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 32
