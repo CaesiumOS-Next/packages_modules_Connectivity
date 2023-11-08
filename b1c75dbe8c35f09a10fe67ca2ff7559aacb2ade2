@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b304a3be_d1085dbc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 95
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-08T13:41:37Z",
+      "side": 1,
+      "message": "CTS tests are included, the lint tool is confused somehow",
+      "revId": "b1c75dbe8c35f09a10fe67ca2ff7559aacb2ade2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
