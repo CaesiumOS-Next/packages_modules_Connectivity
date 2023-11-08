@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2f1c971_633d6b3a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2657,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-08T17:59:33Z",
+      "side": 1,
+      "message": "It looks like this will prevent non-UID-1000 privileged processes from seeing the access UIDs. I think think would include things like telephony, which doesn\u0027t run as UID 1000, and where the owner UID of the network likely is *not* the phone UID.\n\nIs there a reason to do this? NETWORK_FACTORY is already a signature permission, and I don\u0027t think this data is that sensitive, is it?\n\nI\u0027m mostly worried about this change potentially breaking some use case that we haven\u0027t considered or OEM code that we can\u0027t see. I\u0027m not sure if that\u0027s something we can safely roll out in a mainline update - particularly in a CL which is primarily adding test coverage.",
+      "range": {
+        "startLine": 2657,
+        "startChar": 19,
+        "endLine": 2657,
+        "endChar": 51
+      },
+      "revId": "fb5b66f80aae9257f092488d7efa6b2b75c73a35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "614a5e3b_b9c809b8",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-08T17:59:33Z",
+      "side": 1,
+      "message": "Nit: these aren\u0027t constant, right? What happens if these change during the test? Seems like it would be better to fetch them just before you actually use them.",
+      "range": {
+        "startLine": 188,
+        "startChar": 1,
+        "endLine": 189,
+        "endChar": 79
+      },
+      "revId": "fb5b66f80aae9257f092488d7efa6b2b75c73a35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10d999ac_3fed59dc",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-08T17:59:33Z",
+      "side": 1,
+      "message": "I don\u0027t understand this code. Is it saying that if android.net.cts.carrierservicepackage is installed, the test is just skipped? If so, why?",
+      "range": {
+        "startLine": 732,
+        "startChar": 12,
+        "endLine": 732,
+        "endChar": 29
+      },
+      "revId": "fb5b66f80aae9257f092488d7efa6b2b75c73a35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
