@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c71a77ea_c37774de",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-08T11:22:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ce2a65a_a90e0616",
+      "range": {
+        "startLine": 636,
+        "startChar": 16,
+        "endLine": 636,
+        "endChar": 39
+      },
+      "revId": "12cd020d549089215a85e0dc8eeeb295e5b1054c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae38fbf2_4edb07cf",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-10-30T10:47:46Z",
       "side": 1,
       "message": "Instead of starting and stopping mIpNeighborMonitor based on what IpServers do, why not start / stop IpNeighborMonitor in BpfCoordinator#startPolling  / BpfCoordinator#stopPolling?\n\nAt the moment there doesn\u0027t seem to be a need to start monitoring for neighbours on individual interfaces, because IpServer it starts monitoring when it\u0027s constructed.\n\nThere might be a need to stop monitoring when an IpServer is totally finished (UnavailableState#enter) perhaps?\n\nBut see other comments about having a single register/unregister method for IpServer.",
+      "range": {
+        "startLine": 670,
+        "startChar": 31,
+        "endLine": 670,
+        "endChar": 36
+      },
+      "revId": "12cd020d549089215a85e0dc8eeeb295e5b1054c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df1215b6_803bf7cc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-08T11:22:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae38fbf2_4edb07cf",
       "range": {
         "startLine": 670,
         "startChar": 31,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2943165d_77f1bf14",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-08T11:22:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86dec925_309e7713",
+      "range": {
+        "startLine": 940,
+        "startChar": 16,
+        "endLine": 940,
+        "endChar": 34
+      },
+      "revId": "12cd020d549089215a85e0dc8eeeb295e5b1054c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e35f7473_124ae558",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-10-30T10:47:46Z",
       "side": 1,
       "message": "... and this could be in the unregister method.",
+      "range": {
+        "startLine": 949,
+        "startChar": 16,
+        "endLine": 949,
+        "endChar": 36
+      },
+      "revId": "12cd020d549089215a85e0dc8eeeb295e5b1054c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fffca6d_f75b76e7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-08T11:22:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e35f7473_124ae558",
       "range": {
         "startLine": 949,
         "startChar": 16,
