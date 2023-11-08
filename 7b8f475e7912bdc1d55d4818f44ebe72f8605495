@@ -16,6 +16,24 @@
       "message": "11-08 07:52:43.776  1469  1469 I auditd  : type\u003d1400 audit(0.0:4): avc:  denied  { getopt } for  comm\u003d\"system_server\" scontext\u003du:r:system_server:s0 tcontext\u003du:r:system_server:s0 tclass\u003dkey_socket permissive\u003d0\n11-08 07:52:44.360  1469  1469 I auditd  : type\u003d1400 audit(0.0:5): avc:  denied  { getopt } for  comm\u003d\"NetworkStats\" scontext\u003du:r:system_server:s0 tcontext\u003du:r:system_server:s0 tclass\u003dkey_socket permissive\u003d0\n11-08 07:52:44.508  1469  1469 I auditd  : type\u003d1400 audit(0.0:7): avc:  denied  { getopt } for  comm\u003d\"android.bg\" scontext\u003du:r:system_server:s0 tcontext\u003du:r:system_server:s0 tclass\u003dkey_socket permissive\u003d0\n\nI wonder if this is something specific to java.  Though it is interesting because there\u0027s already C++ and java code that does this.",
       "revId": "7b8f475e7912bdc1d55d4818f44ebe72f8605495",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0992cb50_87295062",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-08T08:23:35Z",
+      "side": 1,
+      "message": "Hmm\nsystem/sepolicy/private/network_stack.te\n\n# in order to invoke side effect of close() on such a socket calling synchronize_rcu()\n# TODO: Remove this permission when 4.9 kernel is deprecated.\nallow network_stack self:key_socket create;\n# Java\u0027s Os.close() in libcore/luni/src/main/java/libcore/io/BlockGuardOs.java;l\u003d100\n# calls if (fd.isSocket$()) if (isLingerSocket(fd)) ...\ndontaudit network_stack self:key_socket getopt;",
+      "parentUuid": "b9216dd6_3c4c16c4",
+      "revId": "7b8f475e7912bdc1d55d4818f44ebe72f8605495",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
