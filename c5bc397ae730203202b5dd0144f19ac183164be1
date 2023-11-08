@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2307fb15_bbb97c9d",
+        "filename": "service/native/libs/libclat/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-08T07:09:16Z",
+      "side": 1,
+      "message": "you should be able to remove this now\n\n(but I think you shouldn\u0027t change libclat at all, see next comment)",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 22
+      },
+      "revId": "c5bc397ae730203202b5dd0144f19ac183164be1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "875f6c9f_943b41a7",
+        "filename": "service/native/libs/libclat/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-08T07:09:16Z",
+      "side": 1,
+      "message": "this *probably* causes needless bloat of something in the apex...\n\nI think it\u0027s fine to have this only in the libclat_test",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 47
+      },
+      "revId": "c5bc397ae730203202b5dd0144f19ac183164be1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96dad8f4_b340fe5d",
+        "filename": "service/native/libs/libclat/include/libclat/clatutils.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-08T07:09:16Z",
+      "side": 1,
+      "message": "can we just put this straight in clatutils_test.cpp?\n\nit\u0027s a build test and that should be fine...",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 0
+      },
+      "revId": "c5bc397ae730203202b5dd0144f19ac183164be1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
