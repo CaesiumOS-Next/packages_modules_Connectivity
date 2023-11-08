@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ad6871ef_aef52eb6",
+        "filename": "service/Android.bp",
+        "patchSetId": 24
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-08T05:50:44Z",
+      "side": 1,
+      "message": "Would this work ?\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:external/python/cryptography/src/_cffi_src/openssl/src/osrandom_engine.c;drc\u003dc6ba99dd6153e7c10c4fc37dcc7af464fc76853b;l\u003d283\n\n```\n#pragma clang diagnostic push\n#pragma clang diagnostic ignored \"-Wunguarded-availability\"\n[... do the call ...]\n#pragma clang diagnostic pop\n```\n\nIt would be best to avoid disabling the check just for one symbol",
+      "parentUuid": "07c23bc8_6bdc6d15",
+      "revId": "c44336be2bc35dc853f55cfa03bdc2a9332ce5a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad6ee347_2141f906",
         "filename": "service/jni/onload.cpp",
         "patchSetId": 24
