@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb3a9d11_a742711a",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-08T06:13:13Z",
+      "side": 1,
+      "message": "Done.\nThe idea was to run this for all tests by default but not failing the test.\nUnless the test is explictedly marked as @MonitorThreadLeak.\nChanged to run this only when annotated.",
+      "parentUuid": "37c0eb1a_6bf975b9",
+      "range": {
+        "startLine": 101,
+        "startChar": 37,
+        "endLine": 101,
+        "endChar": 93
+      },
+      "revId": "45109e4a8de5ba58a00026c72fa7cf4e359ef8fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b586f16_af14e330",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-07T13:00:36Z",
       "side": 1,
       "message": "I don\u0027t really understand the reason for this. I think this will pretend there was a run of the monitor test but some assumption failed ? Doesn\u0027t that sound strange ?\n\nIf the reason you\u0027re doing this is to avoid marking a failing test as success just because it had the correct thread count, maybe you want to only ever call `fireTestStarted` if you\u0027re going to call `fireTestFailure` ?",
+      "range": {
+        "startLine": 107,
+        "startChar": 29,
+        "endLine": 107,
+        "endChar": 53
+      },
+      "revId": "45109e4a8de5ba58a00026c72fa7cf4e359ef8fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dd48632_cb6d5ebc",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-08T06:13:13Z",
+      "side": 1,
+      "message": "We have to report the test list in getDescription() before the tests are executed.\nSo we cannot show it only if it is failing.\n\nThe original behavior was:\n 1. Not annotated: PASS or ASSUMPTION_FAIL if leaks.\n 2. Annotated: PASS or FAIL if leaks,\n\nThus, the revised behavior becomes:\n 1. Not annotated: No ThreadLeakMonitor test.\n 2. Annotated: print PASS or FAIL if leaks.\n \nSee if it works for you.",
+      "parentUuid": "8b586f16_af14e330",
       "range": {
         "startLine": 107,
         "startChar": 29,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b370f21_2ecdffa1",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-08T06:13:13Z",
+      "side": 1,
+      "message": "Revised to match the comment.",
+      "parentUuid": "6cd79e66_b4036b09",
+      "range": {
+        "startLine": 128,
+        "startChar": 15,
+        "endLine": 128,
+        "endChar": 45
+      },
+      "revId": "45109e4a8de5ba58a00026c72fa7cf4e359ef8fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f09bc4e9_958ea7cb",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-11-07T13:00:36Z",
       "side": 1,
       "message": "This can NPE because a thread can have died between l.125 and this line.",
+      "range": {
+        "startLine": 129,
+        "startChar": 18,
+        "endLine": 129,
+        "endChar": 34
+      },
+      "revId": "45109e4a8de5ba58a00026c72fa7cf4e359ef8fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f33e872_6e8c9ffb",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-08T06:13:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f09bc4e9_958ea7cb",
       "range": {
         "startLine": 129,
         "startChar": 18,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df2d621f_075be3cc",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-08T06:13:13Z",
+      "side": 1,
+      "message": "Done. But no allStackTraces can be used.\nThanks for the idea.",
+      "parentUuid": "8296d12c_a7e4a049",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 9
+      },
+      "revId": "45109e4a8de5ba58a00026c72fa7cf4e359ef8fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b93d0d9_e6bfc1dc",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-11-07T13:00:36Z",
       "side": 1,
       "message": "How about\n\n    1 + (baseRunner?.testCount() ?: 0)\n\n...only if you find it more readable",
+      "range": {
+        "startLine": 150,
+        "startChar": 15,
+        "endLine": 155,
+        "endChar": 9
+      },
+      "revId": "45109e4a8de5ba58a00026c72fa7cf4e359ef8fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b614066_c55ddd73",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-08T06:13:13Z",
+      "side": 1,
+      "message": "Now it has 3 kind of values so probably not.",
+      "parentUuid": "4b93d0d9_e6bfc1dc",
       "range": {
         "startLine": 150,
         "startChar": 15,
