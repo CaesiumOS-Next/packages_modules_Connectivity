@@ -124,6 +124,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bffd4c90_0c9c5d86",
+        "filename": "service/Android.bp",
+        "patchSetId": 24
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-08T17:52:02Z",
+      "side": 1,
+      "message": "Thanks, Remi! this works in https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2822790",
+      "parentUuid": "ad6871ef_aef52eb6",
+      "revId": "c44336be2bc35dc853f55cfa03bdc2a9332ce5a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad6ee347_2141f906",
