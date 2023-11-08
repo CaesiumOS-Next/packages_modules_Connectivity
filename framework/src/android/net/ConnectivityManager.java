@@ -1399,6 +1399,19 @@ public class ConnectivityManager {
     }
 
     /**
+     * Test API to check presubmit behavior
+     */
+    @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
+    @Nullable
+    public Network getActiveNetwork2() {
+        try {
+            return mService.getActiveNetwork();
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
      * Returns a {@link Network} object corresponding to the currently active
      * default data network for a specific UID.  In the event that the default data
      * network disconnects, the returned {@code Network} object will no longer
