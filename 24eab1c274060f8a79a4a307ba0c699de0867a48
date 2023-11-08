@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e61a110_9f3c7fb3",
+        "filename": "service/native/include/Common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-08T09:04:05Z",
+      "side": 0,
+      "message": "Acknowledged",
+      "parentUuid": "2047258d_2b88a2fd",
+      "range": {
+        "startLine": 17,
+        "startChar": 12,
+        "endLine": 24,
+        "endChar": 67
+      },
+      "revId": "24eab1c274060f8a79a4a307ba0c699de0867a48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "729dd73a_94d248d8",
