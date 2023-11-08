@@ -389,6 +389,30 @@
       },
       "revId": "cd7b35d56bd39027abb824cc799f7d354cf1c267",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e6364d1_b10896ad",
+        "filename": "service/native/include/Common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-08T04:28:17Z",
+      "side": 1,
+      "message": "It seems these enums were used only by TrafficController.\nI have uploaded CL to remove these enums, aosp/2819759\nIf we can merge this, this CL does not need to touch Common.h.",
+      "parentUuid": "a6e44e14_e8e57c6a",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 100
+      },
+      "revId": "cd7b35d56bd39027abb824cc799f7d354cf1c267",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
