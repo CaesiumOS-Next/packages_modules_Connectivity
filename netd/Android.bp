@@ -88,3 +88,36 @@ cc_test {
         },
     },
 }
+
+// HACK: to fix build in udc-mainline-prod
+cc_test {
+    name: "traffic_controller_unit_test",
+    defaults: ["netd_defaults"],
+    require_root: true,  // required by setrlimitForTest()
+    header_libs: [
+        "bpf_connectivity_headers",
+    ],
+    srcs: [
+        "BpfHandlerTest.cpp",
+        "BpfBaseTest.cpp"
+    ],
+    static_libs: [
+        "libnetd_updatable",
+    ],
+    shared_libs: [
+        "libbase",
+        "libcutils",
+        "liblog",
+        "libnetdutils",
+        "libprocessgroup",
+    ],
+    compile_multilib: "both",
+    multilib: {
+        lib32: {
+            suffix: "32",
+        },
+        lib64: {
+            suffix: "64",
+        },
+    },
+}
