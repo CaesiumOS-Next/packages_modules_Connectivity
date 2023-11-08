@@ -55,6 +55,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ac088e6d_88b33ea4",
+        "filename": "thread/framework/java/android/net/thread/ActiveOperationalDataset.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-08T06:37:03Z",
+      "side": 1,
+      "message": "nit: add `public`",
+      "revId": "b7ac80b6868d28b07b53571c9af23ac9464c4f75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07a6ab85_ed10ab08",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 32
