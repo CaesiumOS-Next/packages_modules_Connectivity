@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "240cb3b1_fe1d7a8e",
+        "filename": "framework/src/android/net/LocalNetworkConfig.java",
+        "patchSetId": 39
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-08T09:05:59Z",
+      "side": 1,
+      "message": "If we will just add @SystemApi here, API would be the following.\n```\npublic final class LocalNetworkConfig implements android.os.Parcelable {\n  method public int describeContents();\n  method public void writeToParcel(@NonNull android.os.Parcel, int);\n  field @NonNull public static final android.os.Parcelable.Creator\u003candroid.net.LocalNetworkConfig\u003e CREATOR;\n}\n\npublic static final class LocalNetworkConfig.Builder {\n  ctor public LocalNetworkConfig.Builder();\n  method @NonNull public android.net.LocalNetworkConfig build();\n}\n``` \nI think we want to expose more methods. (e.g. setters in Builder)\nDo you expect we will remove the hide annotation from the methods when we add @SystemApi?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 20
+      },
+      "revId": "763fb0b0d898bb331fd114a0dc03c87daa1ded92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
