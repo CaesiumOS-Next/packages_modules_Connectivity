@@ -30,7 +30,6 @@ import static android.net.QosCallback.QosCallbackRegistrationException;
 import static com.android.internal.annotations.VisibleForTesting.Visibility.PRIVATE;
 
 import android.annotation.CallbackExecutor;
-import android.annotation.FlaggedApi;
 import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -5984,7 +5983,6 @@ public class ConnectivityManager {
      * @throws IllegalStateException if failed.
      * @hide
      */
-    @FlaggedApi(Flags.SET_DATA_SAVER_VIA_CM)
     @SystemApi(client = MODULE_LIBRARIES)
     @RequiresPermission(anyOf = {
             android.Manifest.permission.NETWORK_SETTINGS,
