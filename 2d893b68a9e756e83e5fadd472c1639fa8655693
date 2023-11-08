@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "440a9e04_75607630",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2023-11-08T14:06:13Z",
+      "side": 1,
+      "message": "The test failure is tracked in b/309688089. All other checks have passed.\n\nTH is in a strange stuck state. I have filed a bug for it at b/309767108",
+      "revId": "2d893b68a9e756e83e5fadd472c1639fa8655693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
