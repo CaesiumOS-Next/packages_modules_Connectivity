@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25837a6d_75232fb9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 93
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-08T05:56:16Z",
+      "side": 1,
+      "message": "LGTM for module structure / build files",
+      "revId": "cc7f51684d0c97b99e32e716188f0ee64263f38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
