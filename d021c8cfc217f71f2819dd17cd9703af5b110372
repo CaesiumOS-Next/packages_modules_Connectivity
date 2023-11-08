@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7781a047_c980031f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-08T18:40:59Z",
+      "side": 1,
+      "message": "I think this is a bug in the build configuration.\nI\u0027ll try to fix this without reverting, as I think this will break even more things.",
+      "revId": "d021c8cfc217f71f2819dd17cd9703af5b110372",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
