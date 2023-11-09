@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85c35df5_0d0e2fb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-09T00:58:02Z",
+      "side": 1,
+      "message": "The lint system is confused on the CTS tests coverage, there are new CTS tests for the API changes.",
+      "revId": "af4f1f576c22d982136a2894072cc8b0455a2a93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
