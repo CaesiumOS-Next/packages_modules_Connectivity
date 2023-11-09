@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "120635f2_62715031",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-09T03:32:48Z",
+      "side": 1,
+      "message": "LGTM, only a nit.",
+      "revId": "f72a2d3285f6695b687221f10d4972d33b084d6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f367b2bb_fdccd7b4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-09T03:32:48Z",
+      "side": 1,
+      "message": "Nit: IIUC, you don\u0027t need to pass `isProbing` to `addReplyFromService()`, you can modify the L.486 to `if (registration.exiting || registration.isProbing) continue;` instead.",
+      "range": {
+        "startLine": 489,
+        "startChar": 61,
+        "endLine": 489,
+        "endChar": 83
+      },
+      "revId": "f72a2d3285f6695b687221f10d4972d33b084d6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
