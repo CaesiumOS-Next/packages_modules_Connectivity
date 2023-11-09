@@ -22,6 +22,30 @@
       },
       "revId": "763fb0b0d898bb331fd114a0dc03c87daa1ded92",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c012e06_4af57075",
+        "filename": "framework/src/android/net/LocalNetworkConfig.java",
+        "patchSetId": 39
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-09T06:32:33Z",
+      "side": 1,
+      "message": "You are entirely right ; these @hide I added when we thought for each method that we didn\u0027t need it. Then we thought we didn\u0027t want to expose an empty class, hence this patch. But really if/when we make this @SystemApi then the setters on the builder and the getters on the objects should be there. There is no point exposing an empty object, so the @hides make no sense.\n\nDone.",
+      "parentUuid": "240cb3b1_fe1d7a8e",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 20
+      },
+      "revId": "763fb0b0d898bb331fd114a0dc03c87daa1ded92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
