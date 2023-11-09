@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37787bda_f24d53c2",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-09T02:32:29Z",
+      "side": 1,
+      "message": "Also remove this?",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 54
+      },
+      "revId": "96b6c39229df3a96388649b128840ed8202e5736",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
