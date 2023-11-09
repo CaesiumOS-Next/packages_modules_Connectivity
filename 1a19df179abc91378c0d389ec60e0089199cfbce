@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb819e83_ddd45223",
+        "filename": "framework/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-09T08:32:17Z",
+      "side": 1,
+      "message": "Actually I\u0027m thinking you probably *also* want show-for-stub-purposes for SystemApi(MODULE_LIBRARIES), because otherwise you can\u0027t have a FlaggedApi that depends on a module lib API",
+      "revId": "1a19df179abc91378c0d389ec60e0089199cfbce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
