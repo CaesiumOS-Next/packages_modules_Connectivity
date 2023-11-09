@@ -282,6 +282,30 @@
       },
       "revId": "3dc2c1907607aa5aff8147c69d865c5925d3430f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04d95a2b_497cd647",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkCallbackTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-09T05:36:50Z",
+      "side": 1,
+      "message": "What I thought was\n1. Submit only the platform change to aosp\n2. Cherry-pick to udc-mainline-prod\n3. Submit mainline CL to aosp\n\nDo we run this test agains old platform? (by MTS?)\nIf so, `NetworkStack.getDataSaverViaCmFlag` could fail with no method found?",
+      "parentUuid": "276b4be7_f7105f37",
+      "range": {
+        "startLine": 241,
+        "startChar": 38,
+        "endLine": 241,
+        "endChar": 65
+      },
+      "revId": "3dc2c1907607aa5aff8147c69d865c5925d3430f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
