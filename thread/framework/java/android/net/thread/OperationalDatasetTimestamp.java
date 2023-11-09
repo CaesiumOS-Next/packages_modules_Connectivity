@@ -20,7 +20,6 @@ import static com.android.internal.util.Preconditions.checkArgument;
 
 import static java.util.Objects.requireNonNull;
 
-import android.annotation.FlaggedApi;
 import android.annotation.IntRange;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -37,7 +36,6 @@ import java.util.Objects;
  * @see PendingOperationalDataset
  * @hide
  */
-@FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_ENABLED)
 @SystemApi
 public final class OperationalDatasetTimestamp {
     /** @hide */
