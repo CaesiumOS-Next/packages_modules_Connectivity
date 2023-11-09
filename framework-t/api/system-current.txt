@@ -417,7 +417,7 @@ package android.net.nsd {
 
 package android.net.thread {
 
-  @FlaggedApi("com.android.net.thread.flags.thread_enabled") public final class ActiveOperationalDataset implements android.os.Parcelable {
+  public final class ActiveOperationalDataset implements android.os.Parcelable {
     method @NonNull public static android.net.thread.ActiveOperationalDataset createRandomDataset();
     method public int describeContents();
     method @NonNull public static android.net.thread.ActiveOperationalDataset fromThreadTlvs(@NonNull byte[]);
@@ -471,7 +471,7 @@ package android.net.thread {
     field public static final int LENGTH_MIN_SECURITY_POLICY_FLAGS = 1; // 0x1
   }
 
-  @FlaggedApi("com.android.net.thread.flags.thread_enabled") public final class OperationalDatasetTimestamp {
+  public final class OperationalDatasetTimestamp {
     ctor public OperationalDatasetTimestamp(@IntRange(from=0, to=281474976710655L) long, @IntRange(from=0, to=32767) int, boolean);
     method @NonNull public static android.net.thread.OperationalDatasetTimestamp fromInstant(@NonNull java.time.Instant);
     method @IntRange(from=0, to=281474976710655L) public long getSeconds();
@@ -480,7 +480,7 @@ package android.net.thread {
     method @NonNull public java.time.Instant toInstant();
   }
 
-  @FlaggedApi("com.android.net.thread.flags.thread_enabled") public final class PendingOperationalDataset implements android.os.Parcelable {
+  public final class PendingOperationalDataset implements android.os.Parcelable {
     ctor public PendingOperationalDataset(@NonNull android.net.thread.ActiveOperationalDataset, @NonNull android.net.thread.OperationalDatasetTimestamp, @NonNull java.time.Duration);
     method public int describeContents();
     method @NonNull public static android.net.thread.PendingOperationalDataset fromThreadTlvs(@NonNull byte[]);
@@ -492,7 +492,7 @@ package android.net.thread {
     field @NonNull public static final android.os.Parcelable.Creator<android.net.thread.PendingOperationalDataset> CREATOR;
   }
 
-  @FlaggedApi("com.android.net.thread.flags.thread_enabled") public final class ThreadNetworkController {
+  public final class ThreadNetworkController {
     method public int getThreadVersion();
     method public static boolean isAttached(int);
     method @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED") public void join(@NonNull android.net.thread.ActiveOperationalDataset, @NonNull java.util.concurrent.Executor, @NonNull android.os.OutcomeReceiver<java.lang.Void,android.net.thread.ThreadNetworkException>);
@@ -535,7 +535,7 @@ package android.net.thread {
     field public static final int ERROR_UNSUPPORTED_CHANNEL = 7; // 0x7
   }
 
-  @FlaggedApi("com.android.net.thread.flags.thread_enabled") public final class ThreadNetworkManager {
+  public final class ThreadNetworkManager {
     method @NonNull public java.util.List<android.net.thread.ThreadNetworkController> getAllThreadNetworkControllers();
   }
 
