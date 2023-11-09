@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a5351b1_cc5f0305",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2657,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-09T06:49:31Z",
+      "side": 1,
+      "message": "I think you are reading this condition backward – l.2659~2660 are lines that clear the allowed UIDs. So anybody with NETWORK_FACTORY continues to see it, the difference now is that we also don\u0027t clear them if the caller is the owner of the network or the system. There isn\u0027t a process that used to see this and no longer does. Telephony still sees this because it has NETWORK_FACTORY and therefore the control doesn\u0027t enter this if() and doesn\u0027t clear the allowed UIDs.\n\nOr am I missing your point ?",
+      "parentUuid": "b2f1c971_633d6b3a",
+      "range": {
+        "startLine": 2657,
+        "startChar": 19,
+        "endLine": 2657,
+        "endChar": 51
+      },
+      "revId": "fb5b66f80aae9257f092488d7efa6b2b75c73a35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "614a5e3b_b9c809b8",
         "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
         "patchSetId": 17
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-08T17:59:33Z",
       "side": 1,
       "message": "Nit: these aren\u0027t constant, right? What happens if these change during the test? Seems like it would be better to fetch them just before you actually use them.",
+      "range": {
+        "startLine": 188,
+        "startChar": 1,
+        "endLine": 189,
+        "endChar": 79
+      },
+      "revId": "fb5b66f80aae9257f092488d7efa6b2b75c73a35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf12216f_589cb9c8",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-09T06:49:31Z",
+      "side": 1,
+      "message": "Done. If it changes during the test we\u0027ll have some trouble anyway, but at least the new patchset makes the critical section as short as possible.",
+      "parentUuid": "614a5e3b_b9c809b8",
       "range": {
         "startLine": 188,
         "startChar": 1,
@@ -60,6 +108,30 @@
       "writtenOn": "2023-11-08T17:59:33Z",
       "side": 1,
       "message": "I don\u0027t understand this code. Is it saying that if android.net.cts.carrierservicepackage is installed, the test is just skipped? If so, why?",
+      "range": {
+        "startLine": 732,
+        "startChar": 12,
+        "endLine": 732,
+        "endChar": 29
+      },
+      "revId": "fb5b66f80aae9257f092488d7efa6b2b75c73a35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62b78c0d_77ed6c95",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-09T06:49:31Z",
+      "side": 1,
+      "message": "Yes it\u0027s better to just fail the test. Done",
+      "parentUuid": "10d999ac_3fed59dc",
       "range": {
         "startLine": 732,
         "startChar": 12,
