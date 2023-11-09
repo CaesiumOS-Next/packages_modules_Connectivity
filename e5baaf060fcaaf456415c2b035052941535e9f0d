@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31f470e2_948f1518",
+        "filename": "tests/native/utilities/firewall.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-09T04:09:26Z",
+      "side": 1,
+      "message": "Can you help to add comment in commit message to explain why the static casting is required in 10.1.1, but not in before?\n\nAlso, the long line Lint should be resolved.",
+      "range": {
+        "startLine": 62,
+        "startChar": 78,
+        "endLine": 62,
+        "endChar": 94
+      },
+      "revId": "e5baaf060fcaaf456415c2b035052941535e9f0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
