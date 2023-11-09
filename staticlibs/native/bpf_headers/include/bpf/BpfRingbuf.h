@@ -19,6 +19,7 @@
 #include <android-base/result.h>
 #include <android-base/unique_fd.h>
 #include <linux/bpf.h>
+#include <poll.h>
 #include <sys/mman.h>
 #include <utils/Log.h>
 
@@ -40,6 +41,9 @@ class BpfRingbufBase {
   }
 
   bool isEmpty(void);
+
+  // returns !isEmpty()
+  bool wait(int timeout_ms = -1);
 
  protected:
   // Non-initializing constructor, used by Create.
@@ -200,10 +204,27 @@ inline base::Result<void> BpfRingbufBase::Init(const char* path) {
 }
 
 inline bool BpfRingbufBase::isEmpty(void) {
-  uint32_t prod_pos = mProducerPos->load(std::memory_order_acquire);
-  // Only userspace writes to mConsumerPos, so no need to use std::memory_order_acquire
+  uint32_t prod_pos = mProducerPos->load(std::memory_order_relaxed);
   uint64_t cons_pos = mConsumerPos->load(std::memory_order_relaxed);
   return (cons_pos & 0xFFFFFFFF) == prod_pos;
+}
+
+inline bool BpfRingbufBase::wait(int timeout_ms) {
+  // possible optimization: if (!isEmpty()) return true;
+  struct pollfd pfd = {  // 1-element array
+    .fd = mRingFd.get(),
+    .events = POLLIN,
+  };
+  int rv = poll(&pfd, 1, timeout_ms);
+  bool event = !!(pfd.revents & POLLIN);  // should be equivalent to: !isEmpty();
+  if (rv == 0) {
+    if (event) abort();
+  } else if (rv == 1) {
+    if (!event) abort();
+  } else {
+    abort();
+  }
+  return event;
 }
 
 inline base::Result<int> BpfRingbufBase::ConsumeAll(
