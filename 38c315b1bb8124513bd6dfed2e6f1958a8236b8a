@@ -93,6 +93,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bfba4d5_83005d84",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 110
+      },
+      "lineNbr": 11773,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-09T14:27:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10d289fb_8212bb48",
+      "range": {
+        "startLine": 11773,
+        "startChar": 45,
+        "endLine": 11773,
+        "endChar": 50
+      },
+      "revId": "38c315b1bb8124513bd6dfed2e6f1958a8236b8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfc3c36c_dd94e7ab",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 110
+      },
+      "lineNbr": 11773,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-09T14:27:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73b454fb_5f3a9487",
+      "range": {
+        "startLine": 11773,
+        "startChar": 18,
+        "endLine": 11773,
+        "endChar": 25
+      },
+      "revId": "38c315b1bb8124513bd6dfed2e6f1958a8236b8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "261b8e7c_67c11ee6",
@@ -106,6 +154,24 @@
       "writtenOn": "2023-10-27T08:31:52Z",
       "side": 1,
       "message": "Your new test is good but I think you may want more than just this.\n\n- Right now you don\u0027t have a test for 2 different networks of the same transport\n- You don\u0027t have a test showing VPNs are not tracked\n- You don\u0027t have a test showing that you don\u0027t send callbacks for non-default networks when the default network becomes active",
+      "revId": "38c315b1bb8124513bd6dfed2e6f1958a8236b8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61e93b58_7e169890",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 110
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-09T14:27:00Z",
+      "side": 1,
+      "message": "For the 1st case, I added testDataActivityTracking_MultiCellNetwork.\nFor the 2nd case, I added testDataActivityTracking_VpnNetwork\nFor the 3rd case, We don\u0027t have the callback for non default network. We have testInterfaceClassActivityChanged_NonDefaultNetwork which verifies non-default network activity change does not trigger default network activity change callback.",
+      "parentUuid": "261b8e7c_67c11ee6",
       "revId": "38c315b1bb8124513bd6dfed2e6f1958a8236b8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -133,6 +199,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f5f1966_fec73588",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 110
+      },
+      "lineNbr": 11496,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-09T14:27:00Z",
+      "side": 1,
+      "message": "I have moved some tests to CSNetworkActivityTest.",
+      "parentUuid": "73d7f2b1_50950240",
+      "range": {
+        "startLine": 11496,
+        "startChar": 16,
+        "endLine": 11496,
+        "endChar": 67
+      },
+      "revId": "38c315b1bb8124513bd6dfed2e6f1958a8236b8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2a5e9c8_c9f23da3",
@@ -146,6 +236,30 @@
       "writtenOn": "2023-10-27T08:31:52Z",
       "side": 1,
       "message": "This is correct but it could also be the netId (and the transport below in l.11619), which might be clearer",
+      "range": {
+        "startLine": 11614,
+        "startChar": 23,
+        "endLine": 11614,
+        "endChar": 41
+      },
+      "revId": "38c315b1bb8124513bd6dfed2e6f1958a8236b8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2a63df2_4b56ced8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 110
+      },
+      "lineNbr": 11614,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-09T14:27:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2a5e9c8_c9f23da3",
       "range": {
         "startLine": 11614,
         "startChar": 23,
