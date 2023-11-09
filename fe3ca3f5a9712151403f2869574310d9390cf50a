@@ -45,6 +45,29 @@
       },
       "revId": "fe3ca3f5a9712151403f2869574310d9390cf50a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d50c6407_d840a9e0",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkCallbackTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-09T03:09:36Z",
+      "side": 1,
+      "message": "I think this permission is not required now?",
+      "range": {
+        "startLine": 234,
+        "startChar": 11,
+        "endLine": 234,
+        "endChar": 29
+      },
+      "revId": "fe3ca3f5a9712151403f2869574310d9390cf50a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
