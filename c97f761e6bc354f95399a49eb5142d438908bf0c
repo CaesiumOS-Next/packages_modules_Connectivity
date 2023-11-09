@@ -16,6 +16,24 @@
       "message": "Treehugger complains about PERMISSION_THREAD_NETWORK_PRIVILEGED, so I need to use the string literal directly",
       "revId": "c97f761e6bc354f95399a49eb5142d438908bf0c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44597ea9_9f0cd11d",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 92
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-09T10:28:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bbfee79_40e16f3a",
+      "revId": "c97f761e6bc354f95399a49eb5142d438908bf0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

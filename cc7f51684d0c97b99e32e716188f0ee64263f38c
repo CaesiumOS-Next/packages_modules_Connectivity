@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49285a8c_1046dd0a",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 93
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-09T10:28:20Z",
+      "side": 1,
+      "message": "Done in aosp/2822791",
+      "parentUuid": "6b453050_b5bbe284",
+      "revId": "cc7f51684d0c97b99e32e716188f0ee64263f38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94168ecd_782e85d4",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-11-08T07:35:57Z",
       "side": 1,
       "message": "nit: here and below, move `close()` below `jniThrowExceptionFmt` because `close()` could set `errno`.",
+      "revId": "cc7f51684d0c97b99e32e716188f0ee64263f38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f68e2a76_d169255a",
+        "filename": "thread/service/jni/com_android_server_thread_TunInterfaceController.cpp",
+        "patchSetId": 93
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-09T10:28:20Z",
+      "side": 1,
+      "message": "Done in aosp/2822791",
+      "parentUuid": "94168ecd_782e85d4",
       "revId": "cc7f51684d0c97b99e32e716188f0ee64263f38c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

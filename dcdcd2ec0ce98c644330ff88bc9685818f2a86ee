@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b39b5d9_dfe403b2",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 80
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-09T10:28:20Z",
+      "side": 1,
+      "message": "As discussed offline, this is a static method so it should be less confusing. It\u0027s still useful to have such a method because it avoids the users to hard code check like `if (role \u003d\u003d CHILD || role \u003d\u003d ROUTER || role \u003d\u003d LEADER) {}` and it is forward compatible for more device roles.",
+      "parentUuid": "317dd995_b0ce1a9d",
+      "range": {
+        "startLine": 497,
+        "startChar": 33,
+        "endLine": 497,
+        "endChar": 43
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af3fe063_ecf68355",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c678f278_cf09d83c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-09T10:28:20Z",
+      "side": 1,
+      "message": "Done in aosp/2822791",
+      "parentUuid": "af3fe063_ecf68355",
+      "range": {
+        "startLine": 464,
+        "startChar": 12,
+        "endLine": 464,
+        "endChar": 33
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "feb92ef9_1d1b643e",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-11-07T07:52:14Z",
       "side": 1,
       "message": "This is never expected right ? If so you may want to either throw or at least Log.wtf",
+      "range": {
+        "startLine": 522,
+        "startChar": 0,
+        "endLine": 524,
+        "endChar": 13
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f9ce2c3_43ac2c23",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-09T10:28:20Z",
+      "side": 1,
+      "message": "Done in aosp/2822791",
+      "parentUuid": "feb92ef9_1d1b643e",
       "range": {
         "startLine": 522,
         "startChar": 0,
@@ -133,6 +205,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2480fc1_342fdd7e",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-09T10:28:20Z",
+      "side": 1,
+      "message": "Done in aosp/2822791",
+      "parentUuid": "ca8c868a_8dd31502",
+      "range": {
+        "startLine": 555,
+        "startChar": 16,
+        "endLine": 555,
+        "endChar": 22
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21aa74bc_452028dd",
@@ -156,6 +252,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df42025a_7142e715",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-09T10:28:20Z",
+      "side": 1,
+      "message": "Done in aosp/2822791",
+      "parentUuid": "21aa74bc_452028dd",
+      "range": {
+        "startLine": 587,
+        "startChar": 16,
+        "endLine": 587,
+        "endChar": 22
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45cf4a95_67e753b0",
@@ -169,6 +289,30 @@
       "writtenOn": "2023-11-07T07:52:14Z",
       "side": 1,
       "message": "wtf ?",
+      "range": {
+        "startLine": 630,
+        "startChar": 20,
+        "endLine": 630,
+        "endChar": 21
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5050575_2144fb63",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-09T10:28:20Z",
+      "side": 1,
+      "message": "Done in aosp/2822791",
+      "parentUuid": "45cf4a95_67e753b0",
       "range": {
         "startLine": 630,
         "startChar": 20,
@@ -238,6 +382,30 @@
       "writtenOn": "2023-11-07T07:52:14Z",
       "side": 1,
       "message": "@Nullable",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 79,
+        "endChar": 10
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e140422c_88b54813",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-09T10:28:20Z",
+      "side": 1,
+      "message": "Resolved in aosp/2822791",
+      "parentUuid": "fb574653_08fde288",
       "range": {
         "startLine": 79,
         "startChar": 4,
