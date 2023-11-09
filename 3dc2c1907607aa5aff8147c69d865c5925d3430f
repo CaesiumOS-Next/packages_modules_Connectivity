@@ -258,6 +258,30 @@
       },
       "revId": "3dc2c1907607aa5aff8147c69d865c5925d3430f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "276b4be7_f7105f37",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkCallbackTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-09T04:39:49Z",
+      "side": 1,
+      "message": "This approach has a problem is that NetworkStack.java is platform code, which will not automerge to udc-mainline-prod. \n\nhttps://android-build.corp.google.com/artifact/pending/P65188522/test_suites_x86_64/latest/view/logs%2Fbuild_error.log\n\n@motomuman@google.com and @reminv@google.com, do you have idea how to fix it? Can we (or should we) cherry-pick the NetworkStack.java CL to udc-mainline-prod and request a code review?",
+      "parentUuid": "3331a28c_1b59f065",
+      "range": {
+        "startLine": 241,
+        "startChar": 38,
+        "endLine": 241,
+        "endChar": 65
+      },
+      "revId": "3dc2c1907607aa5aff8147c69d865c5925d3430f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

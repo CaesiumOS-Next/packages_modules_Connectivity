@@ -68,6 +68,30 @@
       },
       "revId": "fe3ca3f5a9712151403f2869574310d9390cf50a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f4c4121_969f9d54",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkCallbackTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-09T04:39:49Z",
+      "side": 1,
+      "message": "It\u0027s still required.\n\n```\nSTACKTRACE:\njava.lang.AssertionError: on-device tests failed:\ncom.android.cts.net.hostside.NetworkCallbackTest#testOnBlockedStatusChanged_dataSaver:\njava.lang.SecurityException: Permission denial: reading from settings requires:android.permission.READ_DEVICE_CONFIG\n\tat android.provider.Settings$Config.enforceReadPermission(Settings.java:19300)\n\tat android.provider.Settings$NameValueCache.getStringsForPrefix(Settings.java:3448)\n\tat android.provider.Settings$Config.getStrings(Settings.java:19012)\n\tat android.provider.Settings$Config.getStrings(Settings.java:18989)\n\tat android.provider.DeviceConfig.getProperties(DeviceConfig.java:1064)\n\tat com.android.net.flags.FeatureFlagsImpl.getProperties(FeatureFlagsImpl.java:104)\n\tat com.android.net.flags.FeatureFlagsImpl.setDataSaverViaCm(FeatureFlagsImpl.java:53)\n\tat com.android.net.flags.Flags.setDataSaverViaCm(Flags.java:31)\n\tat android.net.NetworkStack.getDataSaverViaCmFlag(NetworkStack.java:114)\n\tat com.android.cts.net.hostside.NetworkCallbackTest.testOnBlockedStatusChanged_dataSaver(NetworkCallbackTest.java:269)\n\n```",
+      "parentUuid": "d50c6407_d840a9e0",
+      "range": {
+        "startLine": 234,
+        "startChar": 11,
+        "endLine": 234,
+        "endChar": 29
+      },
+      "revId": "fe3ca3f5a9712151403f2869574310d9390cf50a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
