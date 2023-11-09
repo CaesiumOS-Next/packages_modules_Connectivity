@@ -16,6 +16,24 @@
       "message": "```suggestion\n    private static final long INFINITE_LIFETIME \u003d 0xffffffffL;\n```",
       "revId": "582dad17f3a658d5030c8d8412de14165f04fdf8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cf85b7f_2e34a151",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-09T10:24:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c1f425a_a3139958",
+      "revId": "582dad17f3a658d5030c8d8412de14165f04fdf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
