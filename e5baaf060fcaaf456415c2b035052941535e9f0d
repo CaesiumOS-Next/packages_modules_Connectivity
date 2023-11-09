@@ -22,6 +22,30 @@
       },
       "revId": "e5baaf060fcaaf456415c2b035052941535e9f0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd2a8056_56706def",
+        "filename": "tests/native/utilities/firewall.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1884477
+      },
+      "writtenOn": "2023-11-09T17:02:13Z",
+      "side": 1,
+      "message": "Fixed the lint and updated the commit message; let me know if you need additional information.",
+      "parentUuid": "31f470e2_948f1518",
+      "range": {
+        "startLine": 62,
+        "startChar": 78,
+        "endLine": 62,
+        "endChar": 94
+      },
+      "revId": "e5baaf060fcaaf456415c2b035052941535e9f0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
