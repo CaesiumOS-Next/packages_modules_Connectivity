@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90330b2f_dd97d2bc",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-09T06:49:14Z",
+      "side": 1,
+      "message": "Your proposal definitely makes for better code (and importantly, more future-proof, in case some other transport has some subId later), but I\u0027m also worried whether all OEMs set the subIds in both telephony and wifi considering these are disjoint calls in practice. We know the subId is in the specifier at least for cell.\n\nTo gain confidence, I added aosp/2824210 on top of this that checks and log.wtf if it\u0027s different. This should let us know if it happens.",
+      "parentUuid": "b0fb2267_49c33f3a",
+      "range": {
+        "startLine": 285,
+        "startChar": 0,
+        "endLine": 287,
+        "endChar": 9
+      },
+      "revId": "34ff9d18afb4a23941c2825d31ec8db95df2ef77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "971d04a4_a6c7f121",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "879f3124_e98883cd",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1555,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-09T06:49:14Z",
+      "side": 1,
+      "message": "Yes, you are right. It\u0027s unrelated to this change, so I implemented it in aosp/2824211 on top of this",
+      "parentUuid": "971d04a4_a6c7f121",
+      "range": {
+        "startLine": 1555,
+        "startChar": 50,
+        "endLine": 1555,
+        "endChar": 91
+      },
+      "revId": "34ff9d18afb4a23941c2825d31ec8db95df2ef77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36f311fc_8e36f12f",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-10-26T01:21:33Z",
       "side": 1,
       "message": "nit",
+      "range": {
+        "startLine": 754,
+        "startChar": 44,
+        "endLine": 754,
+        "endChar": 56
+      },
+      "revId": "34ff9d18afb4a23941c2825d31ec8db95df2ef77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ff66a68_3473b25f",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-09T06:49:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36f311fc_8e36f12f",
       "range": {
         "startLine": 754,
         "startChar": 44,
