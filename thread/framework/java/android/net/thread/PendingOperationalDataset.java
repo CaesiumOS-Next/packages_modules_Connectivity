@@ -20,7 +20,6 @@ import static com.android.internal.util.Preconditions.checkArgument;
 
 import static java.util.Objects.requireNonNull;
 
-import android.annotation.FlaggedApi;
 import android.annotation.NonNull;
 import android.annotation.SystemApi;
 import android.os.Parcel;
@@ -41,7 +40,6 @@ import java.util.Objects;
  *
  * @hide
  */
-@FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_ENABLED)
 @SystemApi
 public final class PendingOperationalDataset implements Parcelable {
     // Value defined in Thread spec 8.10.1.16
