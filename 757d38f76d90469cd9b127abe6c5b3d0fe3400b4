@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec1bbd94_251663af",
+        "filename": "staticlibs/native/bpfmapjni/com_android_net_module_util_BpfMap.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-09T10:27:07Z",
+      "side": 1,
+      "message": "this line is longer than 100 chars.",
+      "range": {
+        "startLine": 122,
+        "startChar": 101,
+        "endLine": 122,
+        "endChar": 102
+      },
+      "revId": "757d38f76d90469cd9b127abe6c5b3d0fe3400b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
