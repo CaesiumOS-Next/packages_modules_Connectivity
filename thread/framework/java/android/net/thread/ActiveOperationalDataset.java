@@ -23,7 +23,6 @@ import static com.android.net.module.util.HexDump.dumpHexString;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Objects.requireNonNull;
 
-import android.annotation.FlaggedApi;
 import android.annotation.IntRange;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -69,7 +68,6 @@ import java.util.Arrays;
  *
  * @hide
  */
-@FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_ENABLED)
 @SystemApi
 public final class ActiveOperationalDataset implements Parcelable {
     /** The maximum length of the Active Operational Dataset TLV array in bytes. */

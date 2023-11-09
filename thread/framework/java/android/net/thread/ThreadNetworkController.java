@@ -19,8 +19,7 @@ package android.net.thread;
 import static java.util.Objects.requireNonNull;
 
 import android.Manifest.permission;
-import android.annotation.CallbackExecutor;
-import android.annotation.FlaggedApi;
+import android.annotation.CallbackExecutor;s
 import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -46,7 +45,6 @@ import java.util.concurrent.Executor;
  *
  * @hide
  */
-@FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_ENABLED)
 @SystemApi
 public final class ThreadNetworkController {
     private static final String TAG = "ThreadNetworkController";
