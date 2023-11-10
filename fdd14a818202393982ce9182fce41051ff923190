@@ -236,6 +236,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95fa5c39_6ec6972b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-10T06:38:50Z",
+      "side": 1,
+      "message": "Done. Removed.",
+      "parentUuid": "22682d5c_baae3ca0",
+      "range": {
+        "startLine": 174,
+        "startChar": 25,
+        "endLine": 174,
+        "endChar": 77
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2bf8f4f3_cdaefe70",
