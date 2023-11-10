@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82586430_68dd994a",
+        "filename": "thread/service/java/com/android/server/thread/InfraInterfaceController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-10T04:21:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b406c03_439da462",
+      "range": {
+        "startLine": 31,
+        "startChar": 39,
+        "endLine": 31,
+        "endChar": 65
+      },
+      "revId": "a0eff5286b50316e147e82ede21a7d92c5ca839b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd606a50_4f9dab65",
+        "filename": "thread/service/java/com/android/server/thread/InfraInterfaceController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-10T04:21:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "541bcd48_309f9cbd",
+      "range": {
+        "startLine": 31,
+        "startChar": 39,
+        "endLine": 31,
+        "endChar": 65
+      },
+      "revId": "a0eff5286b50316e147e82ede21a7d92c5ca839b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6b498fa_ad103e65",
@@ -93,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ae3bf4d_17f1f5cd",
+        "filename": "thread/service/jni/com_android_server_thread_InfraInterfaceController.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-10T04:21:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12b958b2_2bcd607f",
+      "range": {
+        "startLine": 83,
+        "startChar": 36,
+        "endLine": 83,
+        "endChar": 46
+      },
+      "revId": "a0eff5286b50316e147e82ede21a7d92c5ca839b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4e1bf18_f00082f8",
@@ -106,6 +178,30 @@
       "writtenOn": "2023-11-10T03:23:16Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 108,
+        "startChar": 26,
+        "endLine": 108,
+        "endChar": 54
+      },
+      "revId": "a0eff5286b50316e147e82ede21a7d92c5ca839b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "926a02af_e1b5b06e",
+        "filename": "thread/service/jni/com_android_server_thread_InfraInterfaceController.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-10T04:21:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4e1bf18_f00082f8",
       "range": {
         "startLine": 108,
         "startChar": 26,
