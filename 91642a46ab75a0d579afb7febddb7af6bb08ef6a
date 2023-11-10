@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d1c0be4_f9e64514",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-10T12:15:36Z",
+      "side": 1,
+      "message": "I have no idea why this addresses the problem, but it does.\n\nWhen the class is anonymous like in patchset 10, the compiled bytecode doesn\u0027t have an `onLocalNetworkInfoChanged` method.\nWhen the class is cut out like this instead of anonymous, it does have the method, and sure enough the method is called.\n\nTo me this looks like a compiler bug, but I don\u0027t know what\u0027s happening.\n\n\nIn any case. Cutting a class like this is probably good for code organization anyway, but you probably want to rename it 😊",
+      "range": {
+        "startLine": 312,
+        "startChar": 18,
+        "endLine": 312,
+        "endChar": 35
+      },
+      "revId": "91642a46ab75a0d579afb7febddb7af6bb08ef6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
