@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c8ede1a_e8bb5830",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-10T03:02:40Z",
+      "side": 1,
+      "message": "make this `final`",
+      "range": {
+        "startLine": 144,
+        "startChar": 27,
+        "endLine": 144,
+        "endChar": 50
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e9f1851_fb111cc1",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-10T03:02:40Z",
+      "side": 1,
+      "message": "make this `final`",
+      "range": {
+        "startLine": 145,
+        "startChar": 37,
+        "endLine": 145,
+        "endChar": 56
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ac67ca6_1ed308f5",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-10T03:02:40Z",
+      "side": 1,
+      "message": "make this `final`",
+      "range": {
+        "startLine": 146,
+        "startChar": 31,
+        "endLine": 146,
+        "endChar": 50
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c70eb665_7c91d3e1",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-10T03:02:40Z",
+      "side": 1,
+      "message": "No longer needed, your IDE should warn you this :)",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 30
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "447fa788_d289bee6",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-10T03:02:40Z",
+      "side": 1,
+      "message": "Should this be added for production code?\n\nFor testing, does it work by adding TRANSPORT_WIFI and TRANSPORT_ETHERNET to the test network?",
+      "range": {
+        "startLine": 174,
+        "startChar": 25,
+        "endLine": 174,
+        "endChar": 77
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bf8f4f3_cdaefe70",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-10T03:02:40Z",
+      "side": 1,
+      "message": "Not needed (this is included in the default `Builder()` method)",
+      "range": {
+        "startLine": 203,
+        "startChar": 51,
+        "endLine": 203,
+        "endChar": 73
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bab27624_5044aceb",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-10T03:02:40Z",
+      "side": 1,
+      "message": "The `Handler` version of this method should be used (https://developer.android.com/reference/android/net/ConnectivityManager#registerNetworkCallback(android.net.NetworkRequest,%20android.net.ConnectivityManager.NetworkCallback,%20android.os.Handler)) so that the callback is invoked on mHandler of the ThreadControllerService. Otherwise, the callbacks is invoked on the binder thread and it causes races",
+      "range": {
+        "startLine": 283,
+        "startChar": 41,
+        "endLine": 283,
+        "endChar": 64
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c359c09_93d38419",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-10T03:02:40Z",
+      "side": 1,
+      "message": "Consider having a short method for this registration to reduce indention depth",
+      "range": {
+        "startLine": 283,
+        "startChar": 20,
+        "endLine": 283,
+        "endChar": 65
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5004ea48_28783bed",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-10T03:02:40Z",
+      "side": 1,
+      "message": "No longer needed, we are using KEEP_CONNECTED_LOCAL_NETWORK",
+      "range": {
+        "startLine": 319,
+        "startChar": 17,
+        "endLine": 319,
+        "endChar": 37
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71de60be_7cb9561f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-10T03:02:40Z",
+      "side": 1,
+      "message": "Please revert as we don\u0027t need TYPE_NONE",
+      "range": {
+        "startLine": 370,
+        "startChar": 0,
+        "endLine": 373,
+        "endChar": 42
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "339b1d67_9d005075",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-10T03:02:40Z",
+      "side": 1,
+      "message": "Not needed",
+      "range": {
+        "startLine": 376,
+        "startChar": 8,
+        "endLine": 376,
+        "endChar": 28
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daa09d35_f36b7927",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-10T03:02:40Z",
+      "side": 1,
+      "message": "Not needed any more",
+      "range": {
+        "startLine": 671,
+        "startChar": 0,
+        "endLine": 691,
+        "endChar": 5
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e969130f_bf8fd15b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-10T03:02:40Z",
+      "side": 1,
+      "message": "Not necessary, they are the same as default value.",
+      "range": {
+        "startLine": 695,
+        "startChar": 8,
+        "endLine": 697,
+        "endChar": 60
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2de8ed96_2e364f6f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-10T03:02:40Z",
+      "side": 1,
+      "message": "Can we use simply `new IOtStatusReceiver.Stub() {}`?",
+      "range": {
+        "startLine": 715,
+        "startChar": 20,
+        "endLine": 715,
+        "endChar": 50
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b8c1fe7_71685321",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-10T03:02:40Z",
+      "side": 1,
+      "message": "Not necessary",
+      "range": {
+        "startLine": 722,
+        "startChar": 24,
+        "endLine": 725,
+        "endChar": 25
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
