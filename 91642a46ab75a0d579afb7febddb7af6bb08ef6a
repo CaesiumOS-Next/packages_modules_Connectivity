@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fe1c1119_a49292c2",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-10T13:03:07Z",
+      "side": 1,
+      "message": "network is added to the map the line above, if network.equals(mUpstreamNetwork) then does it mean mUpstreamNetwork is already in the map, do we need to check this here again?",
+      "revId": "91642a46ab75a0d579afb7febddb7af6bb08ef6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9d1c0be4_f9e64514",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 11
@@ -20,6 +37,23 @@
         "endLine": 312,
         "endChar": 35
       },
+      "revId": "91642a46ab75a0d579afb7febddb7af6bb08ef6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f407974c_67766d70",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-10T13:03:07Z",
+      "side": 1,
+      "message": "May remove mUpstreamNetwork from mNetworkToInterface here, as it becomes unmaintained",
       "revId": "91642a46ab75a0d579afb7febddb7af6bb08ef6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
