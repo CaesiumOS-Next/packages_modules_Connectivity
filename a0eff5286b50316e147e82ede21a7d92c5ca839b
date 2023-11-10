@@ -118,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1768c0ca_afbc0677",
+        "filename": "thread/service/jni/com_android_server_thread_InfraInterfaceController.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-10T04:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6b498fa_ad103e65",
+      "range": {
+        "startLine": 70,
+        "startChar": 6,
+        "endLine": 71,
+        "endChar": 10
+      },
+      "revId": "a0eff5286b50316e147e82ede21a7d92c5ca839b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12b958b2_2bcd607f",
