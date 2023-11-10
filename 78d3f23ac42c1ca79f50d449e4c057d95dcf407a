@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5172149_c2f529c2",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1499410
+      },
+      "writtenOn": "2023-11-10T19:01:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "485717bc_1b3e435c",
+      "range": {
+        "startLine": 215,
+        "startChar": 10,
+        "endLine": 215,
+        "endChar": 17
+      },
+      "revId": "78d3f23ac42c1ca79f50d449e4c057d95dcf407a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f641ad60_20ebbb37",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "we do return false\nif event is true we abort, if not it\u0027s false, and line 227 returns it\n\nthe abort() should IMHO not happen because it\u0027s a violation of the poll() api",
       "parentUuid": "f641ad60_20ebbb37",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 23
+      },
+      "revId": "78d3f23ac42c1ca79f50d449e4c057d95dcf407a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb01e248_807414bd",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1499410
+      },
+      "writtenOn": "2023-11-10T19:01:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b0ea298b_2a806666",
       "range": {
         "startLine": 220,
         "startChar": 0,
@@ -144,6 +192,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd6ba324_7c173cc6",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1499410
+      },
+      "writtenOn": "2023-11-10T19:01:36Z",
+      "side": 1,
+      "message": "IIUC this can happen with map_poll if the poll_wait returns but then there is nothing to consume:\n\nhttps://cs.android.com/android/kernel/superproject/+/common-android-mainline:common/kernel/bpf/ringbuf.c;l\u003d316-320\n\nI have seen the race when using multiple poll consumers on the same ring buffer.",
+      "parentUuid": "c24fe1e4_b2203ebf",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 24
+      },
+      "revId": "78d3f23ac42c1ca79f50d449e4c057d95dcf407a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6559866_1c311a8b",
         "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
         "patchSetId": 1
@@ -179,6 +251,30 @@
       "side": 1,
       "message": "right, again this would be a poll api violation, or poll returning an error... but not sure if it can...\n\nhttps://man7.org/linux/man-pages/man2/poll.2.html\nsuggests we probably have to handle EINTR...",
       "parentUuid": "c6559866_1c311a8b",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 226,
+        "endChar": 3
+      },
+      "revId": "78d3f23ac42c1ca79f50d449e4c057d95dcf407a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dddab4f_0351cd23",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1499410
+      },
+      "writtenOn": "2023-11-10T19:01:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "43b0cea8_cc87c920",
       "range": {
         "startLine": 224,
         "startChar": 0,
