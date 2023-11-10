@@ -400,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "828fbb94_b59b78fa",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-10T03:48:25Z",
+      "side": 1,
+      "message": "Oh, got it",
+      "parentUuid": "d89d1561_0002fa2d",
+      "range": {
+        "startLine": 319,
+        "startChar": 17,
+        "endLine": 319,
+        "endChar": 37
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71de60be_7cb9561f",
@@ -625,6 +649,30 @@
       "side": 1,
       "message": "It said I must implement `onSuccess()` and `onError()`.",
       "parentUuid": "2de8ed96_2e364f6f",
+      "range": {
+        "startLine": 715,
+        "startChar": 20,
+        "endLine": 715,
+        "endChar": 50
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "481c339c_5366045b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-10T03:48:25Z",
+      "side": 1,
+      "message": "Okay, maybe add a log in the callbacks?",
+      "parentUuid": "bcfb743f_497ff399",
       "range": {
         "startLine": 715,
         "startChar": 20,
