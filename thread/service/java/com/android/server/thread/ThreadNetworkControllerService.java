@@ -358,6 +358,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 new NetworkScore.Builder()
                         .setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_LOCAL_NETWORK)
                         .build();
+        requestThreadNetwork();
         mNetworkAgent =
                 newNetworkAgent(
                         mContext,
@@ -373,7 +374,6 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                         mNetworkProvider);
         mNetwork = mNetworkAgent.register();
         mNetworkAgent.markConnected();
-        requestThreadNetwork();
         Log.i(TAG, "Registered Thread network");
     }
 
