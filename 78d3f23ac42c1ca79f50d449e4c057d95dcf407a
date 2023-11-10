@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adf2aeef_7435d138",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1499410
+      },
+      "writtenOn": "2023-11-10T17:58:16Z",
+      "side": 1,
+      "message": "Can we have expose this `::getFd` similar to `ring_buffer__epoll_fd()` to be used in clients that already epoll/poll other fds?",
+      "range": {
+        "startLine": 215,
+        "startChar": 10,
+        "endLine": 215,
+        "endChar": 17
+      },
+      "revId": "78d3f23ac42c1ca79f50d449e4c057d95dcf407a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f641ad60_20ebbb37",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1499410
+      },
+      "writtenOn": "2023-11-10T17:58:16Z",
+      "side": 1,
+      "message": "This means we timed out before the event.. I think we can return false they can see this in the next wait (assuming the below doesn\u0027t happen)",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 23
+      },
+      "revId": "78d3f23ac42c1ca79f50d449e4c057d95dcf407a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7bff903_47d48b56",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1499410
+      },
+      "writtenOn": "2023-11-10T17:58:16Z",
+      "side": 1,
+      "message": "It means we raced with who someone consumed the record after we woke up but we got here. I think this is why the libbpf APIs only implement the consuming polls (those can also race though). Lets return false? since we didn\u0027t get the data.",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 24
+      },
+      "revId": "78d3f23ac42c1ca79f50d449e4c057d95dcf407a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6559866_1c311a8b",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1499410
+      },
+      "writtenOn": "2023-11-10T17:58:16Z",
+      "side": 1,
+      "message": "Can\u0027t happen? only one element in the pollfd array",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 226,
+        "endChar": 3
+      },
+      "revId": "78d3f23ac42c1ca79f50d449e4c057d95dcf407a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e286be61_9746ed34",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1499410
+      },
+      "writtenOn": "2023-11-10T17:58:16Z",
+      "side": 1,
+      "message": "I think we just return this (!isEmpty) is sufficient? The subsequent consume can still race with someone else but I think that\u0027s ok since the callback wouldn\u0027t be called.",
+      "range": {
+        "startLine": 227,
+        "startChar": 2,
+        "endLine": 227,
+        "endChar": 15
+      },
+      "revId": "78d3f23ac42c1ca79f50d449e4c057d95dcf407a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
