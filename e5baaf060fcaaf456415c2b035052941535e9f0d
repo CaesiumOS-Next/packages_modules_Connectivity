@@ -46,6 +46,30 @@
       },
       "revId": "e5baaf060fcaaf456415c2b035052941535e9f0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19ab406f_686c0b14",
+        "filename": "tests/native/utilities/firewall.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-10T01:04:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cd2a8056_56706def",
+      "range": {
+        "startLine": 62,
+        "startChar": 78,
+        "endLine": 62,
+        "endChar": 94
+      },
+      "revId": "e5baaf060fcaaf456415c2b035052941535e9f0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
