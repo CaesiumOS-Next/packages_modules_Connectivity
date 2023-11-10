@@ -21,6 +21,7 @@ import static com.android.net.module.util.netlink.NetlinkConstants.XFRM_MSG_GETS
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -35,6 +36,8 @@ public abstract class IpSecXfrmNetlinkMessage extends NetlinkMessage {
     public static final int IPPROTO_ESP = 50;
     // TODO: STOPSHIP: b/308011229 Remove it when OsConstants.NETLINK_XFRM is exposed
     public static final int NETLINK_XFRM = 6;
+
+    public static final BigInteger XFRM_INF = new BigInteger("FFFFFFFFFFFFFFFF", 16);
 
     public IpSecXfrmNetlinkMessage(@NonNull StructNlMsgHdr header) {
         super(header);
