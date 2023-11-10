@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "603bf83b_7b4d8135",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-10T16:50:10Z",
+      "side": 1,
+      "message": "Question - Should there be input enforcement on ConnectivityService to push it in this direction as well? SDK gated and whatnot probably.",
+      "range": {
+        "startLine": 213,
+        "startChar": 19,
+        "endLine": 213,
+        "endChar": 60
+      },
+      "revId": "75e9036a8b031dd4aecc5ea107fad934b1d8e849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5972abd_16bc8a7d",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-10T16:50:10Z",
+      "side": 1,
+      "message": "Generally I\u0027d suggest adding a extra line break to separate the logical chunks for readability, but consistency within the file is probably more important",
+      "range": {
+        "startLine": 223,
+        "startChar": 7,
+        "endLine": 223,
+        "endChar": 9
+      },
+      "revId": "75e9036a8b031dd4aecc5ea107fad934b1d8e849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
