@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0907356f_1f244954",
+        "filename": "thread/service/jni/com_android_server_thread_InfraInterfaceController.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-10T05:32:15Z",
+      "side": 1,
+      "message": "move up?",
+      "revId": "0f5a75252d1a6b26c154e4b607207823407fc75f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
