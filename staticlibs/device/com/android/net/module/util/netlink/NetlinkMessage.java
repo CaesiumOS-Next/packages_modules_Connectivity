@@ -16,10 +16,14 @@
 
 package com.android.net.module.util.netlink;
 
+import static com.android.net.module.util.netlink.ipsec.IpSecXfrmNetlinkMessageUtils.NETLINK_XFRM;
+
 import android.system.OsConstants;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.android.net.module.util.netlink.ipsec.IpSecXfrmNetlinkMessage;
 
 import java.nio.ByteBuffer;
 
@@ -75,6 +79,8 @@ public class NetlinkMessage {
             parsed = parseInetDiagMessage(nlmsghdr, byteBuffer);
         } else if (nlFamily == OsConstants.NETLINK_NETFILTER) {
             parsed = parseNfMessage(nlmsghdr, byteBuffer);
+        } else if (nlFamily == NETLINK_XFRM) {
+            parsed = parseXfrmMessage(nlmsghdr, byteBuffer);
         } else {
             parsed = null;
         }
@@ -167,5 +173,11 @@ public class NetlinkMessage {
                 return (NetlinkMessage) ConntrackMessage.parse(nlmsghdr, byteBuffer);
             default: return null;
         }
+    }
+
+    @Nullable
+    private static NetlinkMessage parseXfrmMessage(
+            @NonNull StructNlMsgHdr nlmsghdr, @NonNull ByteBuffer byteBuffer) {
+        return IpSecXfrmNetlinkMessage.parse(nlmsghdr, byteBuffer);
     }
 }

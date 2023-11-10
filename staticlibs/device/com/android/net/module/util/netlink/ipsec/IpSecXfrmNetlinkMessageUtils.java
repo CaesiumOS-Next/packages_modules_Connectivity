@@ -19,4 +19,6 @@ package com.android.net.module.util.netlink.ipsec;
 public class IpSecXfrmNetlinkMessageUtils {
     // TODO: b/308011229 Remove it when OsConstants.IPPROTO_ESP is exposed
     public static final int IPPROTO_ESP = 50;
+    // TODO: b/308011229 Remove it when OsConstants.NETLINK_XFRM is exposed
+    public static final int NETLINK_XFRM = 6;
 }
