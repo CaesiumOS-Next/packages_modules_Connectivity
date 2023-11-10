@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68a56e6a_4b00d037",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkCallbackTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2023-11-10T20:38:15Z",
+      "side": 1,
+      "message": "trunk",
+      "range": {
+        "startLine": 233,
+        "startChar": 11,
+        "endLine": 233,
+        "endChar": 16
+      },
+      "revId": "1bdf5afc2f343f0f2398e5d40bdc22e8db132ad8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "939c0d5d_35c9c8be",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkCallbackTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2023-11-10T20:38:15Z",
+      "side": 1,
+      "message": "Should we also run these tests without a private DNS or is that not necessary?",
+      "range": {
+        "startLine": 240,
+        "startChar": 11,
+        "endLine": 245,
+        "endChar": 53
+      },
+      "revId": "1bdf5afc2f343f0f2398e5d40bdc22e8db132ad8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f07d8dc2_d5441c99",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkCallbackTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2023-11-10T20:38:15Z",
+      "side": 1,
+      "message": "If setUp fails for any reason before initializing `mCtsNetUtils`, this would result in a NPE masking the actual failure. Could you check if it is initialized or not before invoking a method on it?",
+      "range": {
+        "startLine": 258,
+        "startChar": 12,
+        "endLine": 258,
+        "endChar": 28
+      },
+      "revId": "1bdf5afc2f343f0f2398e5d40bdc22e8db132ad8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
