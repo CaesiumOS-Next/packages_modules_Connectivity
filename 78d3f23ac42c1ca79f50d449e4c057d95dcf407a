@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "485717bc_1b3e435c",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-10T18:31:20Z",
+      "side": 1,
+      "message": "It\u0027s a protected field.\nIf you want it, subclass and add a public access method or public-ize the field.\n\n(it\u0027s like 3 lines of code ifirc)\n\nI don\u0027t think it should be public in this class itself, as it\u0027s easy to abuse such a field to break things  (I\u0027ve been trying to better hide fds in BpfMap itself for a while now).",
+      "parentUuid": "adf2aeef_7435d138",
+      "range": {
+        "startLine": 215,
+        "startChar": 10,
+        "endLine": 215,
+        "endChar": 17
+      },
+      "revId": "78d3f23ac42c1ca79f50d449e4c057d95dcf407a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f641ad60_20ebbb37",
         "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-10T17:58:16Z",
       "side": 1,
       "message": "This means we timed out before the event.. I think we can return false they can see this in the next wait (assuming the below doesn\u0027t happen)",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 23
+      },
+      "revId": "78d3f23ac42c1ca79f50d449e4c057d95dcf407a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0ea298b_2a806666",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-10T18:31:20Z",
+      "side": 1,
+      "message": "we do return false\nif event is true we abort, if not it\u0027s false, and line 227 returns it\n\nthe abort() should IMHO not happen because it\u0027s a violation of the poll() api",
+      "parentUuid": "f641ad60_20ebbb37",
       "range": {
         "startLine": 220,
         "startChar": 0,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c24fe1e4_b2203ebf",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-10T18:31:20Z",
+      "side": 1,
+      "message": "no, it doesn\u0027t.  this is again afaik a violation of the poll() api.\n\nnote this is not looking at isEmpty() - that *could* race.\n\nthis is looking at the return value vs struct from poll.\n\nthis should not be able to ever trigger.\n\n(mostly added this for testing really, we could just delete the aborts)",
+      "parentUuid": "e7bff903_47d48b56",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 24
+      },
+      "revId": "78d3f23ac42c1ca79f50d449e4c057d95dcf407a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6559866_1c311a8b",
         "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
         "patchSetId": 1
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "43b0cea8_cc87c920",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-10T18:31:20Z",
+      "side": 1,
+      "message": "right, again this would be a poll api violation, or poll returning an error... but not sure if it can...\n\nhttps://man7.org/linux/man-pages/man2/poll.2.html\nsuggests we probably have to handle EINTR...",
+      "parentUuid": "c6559866_1c311a8b",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 226,
+        "endChar": 3
+      },
+      "revId": "78d3f23ac42c1ca79f50d449e4c057d95dcf407a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e286be61_9746ed34",
         "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
         "patchSetId": 1
@@ -106,6 +202,30 @@
       "writtenOn": "2023-11-10T17:58:16Z",
       "side": 1,
       "message": "I think we just return this (!isEmpty) is sufficient? The subsequent consume can still race with someone else but I think that\u0027s ok since the callback wouldn\u0027t be called.",
+      "range": {
+        "startLine": 227,
+        "startChar": 2,
+        "endLine": 227,
+        "endChar": 15
+      },
+      "revId": "78d3f23ac42c1ca79f50d449e4c057d95dcf407a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f979c64_b248afde",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-10T18:31:20Z",
+      "side": 1,
+      "message": "yes, I wondered if the right thing to do is to simply totally ignore poll()\u0027s return value, and just always blindly return !isEmpty()\n\nAs I said, I\u0027m not too sure what\u0027s best from an API perspective.",
+      "parentUuid": "e286be61_9746ed34",
       "range": {
         "startLine": 227,
         "startChar": 2,
