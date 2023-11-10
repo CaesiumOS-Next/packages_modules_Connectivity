@@ -353,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b5953b4_ae9283eb",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-10T06:32:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c359c09_93d38419",
+      "range": {
+        "startLine": 283,
+        "startChar": 20,
+        "endLine": 283,
+        "endChar": 65
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5004ea48_28783bed",
@@ -673,6 +697,30 @@
       "side": 1,
       "message": "Okay, maybe add a log in the callbacks?",
       "parentUuid": "bcfb743f_497ff399",
+      "range": {
+        "startLine": 715,
+        "startChar": 20,
+        "endLine": 715,
+        "endChar": 50
+      },
+      "revId": "fdd14a818202393982ce9182fce41051ff923190",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7335cb0_8d253a35",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-10T06:32:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "481c339c_5366045b",
       "range": {
         "startLine": 715,
         "startChar": 20,
