@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28b06b22_9846eb26",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-10T01:17:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e7a6c12_5eefa7ca",
+      "range": {
+        "startLine": 305,
+        "startChar": 35,
+        "endLine": 305,
+        "endChar": 57
+      },
+      "revId": "fe3ca3f5a9712151403f2869574310d9390cf50a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23d91e98_3134c535",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-08T19:51:18Z",
       "side": 1,
       "message": "Can we add else-if statement to the conditional above instead of this?",
+      "range": {
+        "startLine": 554,
+        "startChar": 32,
+        "endLine": 554,
+        "endChar": 96
+      },
+      "revId": "fe3ca3f5a9712151403f2869574310d9390cf50a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7de42a21_de78330d",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-10T01:17:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23d91e98_3134c535",
       "range": {
         "startLine": 554,
         "startChar": 32,

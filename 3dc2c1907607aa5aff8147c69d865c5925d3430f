@@ -306,6 +306,30 @@
       },
       "revId": "3dc2c1907607aa5aff8147c69d865c5925d3430f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fb1878d_366db783",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkCallbackTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-10T01:17:27Z",
+      "side": 1,
+      "message": "Fortunately, it\u0027s not MTS.\n\n```\n// packages/modules/Connectivity/tests/cts/hostside/Android.bp\njava_test_host {\n    name: \"CtsHostsideNetworkTests\",\n    ...\n    test_suites: [\n        \"cts\",\n        \"general-tests\",\n        \"sts\"\n    ],\n```",
+      "parentUuid": "04d95a2b_497cd647",
+      "range": {
+        "startLine": 241,
+        "startChar": 38,
+        "endLine": 241,
+        "endChar": 65
+      },
+      "revId": "3dc2c1907607aa5aff8147c69d865c5925d3430f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
