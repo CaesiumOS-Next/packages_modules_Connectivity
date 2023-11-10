@@ -384,7 +384,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private static final boolean DBG = true;
     private static final boolean DDBG = Log.isLoggable(TAG, Log.DEBUG);
-    private static final boolean VDBG = Log.isLoggable(TAG, Log.VERBOSE);
+    private static final boolean VDBG = true; // Log.isLoggable(TAG, Log.VERBOSE);
 
     private static final boolean LOGD_BLOCKED_NETWORKINFO = true;
 
@@ -4947,6 +4947,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         notifyIfacesChangedForNetworkStats();
         // If this was a local network forwarded to some upstream, or if some local network was
         // forwarded to this nai, then disable forwarding rules now.
+        Log.i(TAG, "disconnectAndDestroyNetwork: 2222222222222");
         maybeDisableForwardRulesForDisconnectingNai(nai, true /* sendCallbacks */);
         // If this is a local network with an upstream selector, remove the associated network
         // request.
@@ -5085,7 +5086,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             removeLocalNetworkUpstream(local, disconnecting);
             // Set the satisfier to null immediately so that the LOCAL_NETWORK_CHANGED callback
             // correctly contains null as an upstream.
+            Log.i(TAG, "maybeDisableForwardRulesForDisconnectingNai: 3333333");
             if (sendCallbacks) {
+                Log.i(TAG, "maybeDisableForwardRulesForDisconnectingNai: 444444");
                 nri.setSatisfier(null, null);
                 notifyNetworkCallbacks(local,
                         ConnectivityManager.CALLBACK_LOCAL_NETWORK_INFO_CHANGED);
@@ -8330,6 +8333,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         if (nai.isLocalNetwork()) {
+            Log.i(TAG, "handleRegisterNetworkAgent: 55555555");
             handleUpdateLocalNetworkConfig(nai, null /* oldConfig */, nai.localNetworkConfig);
         }
         nai.notifyRegistered();
@@ -9043,7 +9047,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 return;
             }
         }
+        Log.i(TAG, "handleUpdateLocalNetworkConfig: 11111111111 " + newRequest + " " + requestUpdated);
         if (null != newRequest && requestUpdated) {
+
+            Log.i(TAG, "handleUpdateLocalNetworkConfig: !!!!!!!!!!!!");
             // File the new request if :
             //  - it has changed (requestUpdated), or
             //  - it's the first time this local info (null == oldConfig)
@@ -9060,6 +9067,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 // Set the old satisfier in the new NRI so that the rematch will see any changes
                 nri.setSatisfier(oldSatisfier, nr);
             }
+            Log.i(TAG, "handleUpdateLocalNetworkConfig: @@@@@@@@@@@@");
             nai.localNetworkConfig = configBuilder.build();
             // handleRegisterNetworkRequest causes a rematch. The rematch must happen after
             // nai.localNetworkConfig is set, since it will base its callbacks on the old
@@ -9401,6 +9409,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     @Nullable
     private LocalNetworkInfo localNetworkInfoForNai(@NonNull final NetworkAgentInfo nai) {
+        Log.i(TAG, "localNetworkInfoForNai: 6666666");
         if (!nai.isLocalNetwork()) return null;
         final Network upstream;
         final NetworkRequest selector = nai.localNetworkConfig.getUpstreamSelector();
@@ -9411,6 +9420,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             final NetworkAgentInfo satisfier = upstreamNri.getSatisfier();
             upstream = (null == satisfier) ? null : satisfier.network;
         }
+        Log.i(TAG, "localNetworkInfoForNai: upstream " + upstream + " " + nai);
+        Log.i(TAG, "localNetworkInfoForNai: 7777777");
         return new LocalNetworkInfo.Builder().setUpstreamNetwork(upstream).build();
     }
 
@@ -9451,6 +9462,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         networkAgent.linkProperties, nri.mPid, nri.mUid));
                 // The local network info is often null, so can't use the static putParcelable
                 // method here.
+                Log.i(TAG, "callCallbackForRequest: 888888888888");
                 bundle.putParcelable(LocalNetworkInfo.class.getSimpleName(),
                         localNetworkInfoForNai(networkAgent));
                 // For this notification, arg1 contains the blocked status.
@@ -9485,6 +9497,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 break;
             }
             case ConnectivityManager.CALLBACK_LOCAL_NETWORK_INFO_CHANGED: {
+                Log.i(TAG, "callCallbackForRequest: 99999999999999");
                 if (!networkAgent.isLocalNetwork()) {
                     Log.wtf(TAG, "Callback for local info for a non-local network");
                     return;
@@ -10125,6 +10138,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     loge("Can't update forwarding rules", e);
                 }
             }
+            Log.i(TAG, "applyNetworkReassignment: aaaaaaaaaaaaaaa");
             notifyNetworkCallbacks(nai, ConnectivityManager.CALLBACK_LOCAL_NETWORK_INFO_CHANGED);
         }
 
@@ -10704,6 +10718,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     protected void notifyNetworkCallbacks(NetworkAgentInfo networkAgent, int notifyType, int arg1) {
+        Log.i(TAG, "notifyNetworkCallbacks: ((((((((((");
+        Log.i(TAG, "notifyNetworkCallbacks: num requests " + networkAgent.numNetworkRequests());
         if (VDBG || DDBG) {
             String notification = ConnectivityManager.getCallbackName(notifyType);
             log("notifyType " + notification + " for " + networkAgent.toShortString());
@@ -10718,6 +10734,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 sendPendingIntentForRequest(nri, networkAgent, notifyType);
             }
         }
+        Log.i(TAG, "notifyNetworkCallbacks: ))))))))))");
     }
 
     protected void notifyNetworkCallbacks(NetworkAgentInfo networkAgent, int notifyType) {
