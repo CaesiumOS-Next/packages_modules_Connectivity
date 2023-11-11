@@ -216,6 +216,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab89a4be_55314058",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-11T00:52:56Z",
+      "side": 1,
+      "message": "interesting... but I still think that\u0027s not it.\n\nshouldn\u0027t rv be 0 then because there was no event?\n\nI guess maybe we could have an event, but not POLLIN...\nbut we\u0027re only waiting on POLLIN...\n\nI still don\u0027t see this happening...\n\n--\n\nHowever... perhaps it would be best to utterly just ignore poll()\u0027s return values, and just do:\n  (void)poll(...); return !isEmpty();\n\nwe could even just have \u0027void wait(int timeout_ms)\u0027 and not return a value at all (though that seems less useful).",
+      "parentUuid": "cd6ba324_7c173cc6",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 24
+      },
+      "revId": "78d3f23ac42c1ca79f50d449e4c057d95dcf407a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6559866_1c311a8b",
         "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
         "patchSetId": 1
