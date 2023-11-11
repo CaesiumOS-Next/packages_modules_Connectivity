@@ -34,6 +34,9 @@ public abstract class IpSecXfrmNetlinkMessage extends NetlinkMessage {
     // TODO: b/308011229 Remove it when OsConstants.NETLINK_XFRM is exposed
     public static final int NETLINK_XFRM = 6;
 
+    public static final int XFRM_MODE_TRANSPORT = 0;
+    public static final int XFRM_MODE_TUNNEL = 1;
+
     public static final BigInteger XFRM_INF = new BigInteger("FFFFFFFFFFFFFFFF", 16);
 
     public IpSecXfrmNetlinkMessage(@NonNull StructNlMsgHdr header) {
