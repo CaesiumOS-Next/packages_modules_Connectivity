@@ -47,6 +47,7 @@ interface INetd {
      * @param isAllowlist Whether this is an allowlist or denylist chain.
      * @param uids The list of UIDs to allow/deny.
      * @return true if the chain was successfully replaced, false otherwise.
+     * @deprecated do not use this.
      */
     boolean firewallReplaceUidChain(in @utf8InCpp String chainName,
                                     boolean isAllowlist,
@@ -556,6 +557,7 @@ interface INetd {
     * @return a string, the IPv6 address that will be used for 464xlat.
     * @throws ServiceSpecificException in case of failure, with an error code indicating the
     *         cause of the failure.
+    * @deprecated do not use this.
     */
     @utf8InCpp String clatdStart(in @utf8InCpp String ifName, in @utf8InCpp String nat64Prefix);
 
@@ -567,6 +569,7 @@ interface INetd {
     * @param ifName interface name to stop clatd
     * @throws ServiceSpecificException in case of failure, with an error code indicating the
     *         cause of the failure.
+    * @deprecated do not use this.
     */
     void clatdStop(in @utf8InCpp String ifName);
 
@@ -683,6 +686,7 @@ interface INetd {
     * @param uid uid of target app
     * @throws ServiceSpecificException in case of failure, with an error code indicating the
     *         cause of the failure.
+    * @deprecated do not use this.
     */
     void bandwidthAddNaughtyApp(int uid);
 
@@ -692,6 +696,7 @@ interface INetd {
     * @param uid uid of target app
     * @throws ServiceSpecificException in case of failure, with an error code indicating the
     *         cause of the failure.
+    * @deprecated do not use this.
     */
     void bandwidthRemoveNaughtyApp(int uid);
 
@@ -701,6 +706,7 @@ interface INetd {
     * @param uid uid of target app
     * @throws ServiceSpecificException in case of failure, with an error code indicating the
     *         cause of the failure.
+    * @deprecated do not use this.
     */
     void bandwidthAddNiceApp(int uid);
 
@@ -710,6 +716,7 @@ interface INetd {
     * @param uid uid of target app
     * @throws ServiceSpecificException in case of failure, with an error code indicating the
     *         cause of the failure.
+    * @deprecated do not use this.
     */
     void bandwidthRemoveNiceApp(int uid);
 
@@ -983,6 +990,7 @@ interface INetd {
     *                   PERMISSION_UPDATE_DEVICE_STATS. If the permission is NO_PERMISSIONS, then
     *                   revoke all permissions for the uids.
     * @param uids uid of users to grant permission
+    * @deprecated do not use this.
     */
     void trafficSetNetPermForUids(int permission, in int[] uids);
 
@@ -1071,6 +1079,7 @@ interface INetd {
     * @param firewallRule either FIREWALL_RULE_ALLOW or FIREWALL_RULE_DENY
     * @throws ServiceSpecificException in case of failure, with an error code indicating the
     *         cause of the failure.
+    * @deprecated do not use this.
     */
     void firewallSetUidRule(int childChain, int uid, int firewallRule);
 
@@ -1081,6 +1090,7 @@ interface INetd {
     * @param enable whether to enable or disable child chain.
     * @throws ServiceSpecificException in case of failure, with an error code indicating the
     *         cause of the failure.
+    * @deprecated do not use this.
     */
     void firewallEnableChildChain(int childChain, boolean enable);
 
@@ -1212,6 +1222,7 @@ interface INetd {
      * @param uids an array of UIDs which the filtering rules will be set
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *         cause of the failure.
+     * @deprecated do not use this.
      */
     void firewallAddUidInterfaceRules(in @utf8InCpp String ifName, in int[] uids);
 
@@ -1224,6 +1235,7 @@ interface INetd {
      * @param uids an array of UIDs from which the filtering rules will be removed
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *         cause of the failure.
+     * @deprecated do not use this.
      */
     void firewallRemoveUidInterfaceRules(in int[] uids);
 
@@ -1231,6 +1243,7 @@ interface INetd {
     * Request netd to change the current active network stats map.
     * @throws ServiceSpecificException in case of failure, with an error code indicating the
     *         cause of the failure.
+    * @deprecated do not use this.
     */
     void trafficSwapActiveStatsMap();
 
@@ -1298,6 +1311,7 @@ interface INetd {
      * @param rule The rule to add or update.
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
+     * @deprecated do not use this.
      */
     void tetherOffloadRuleAdd(in TetherOffloadRuleParcel rule);
 
@@ -1313,6 +1327,7 @@ interface INetd {
      * @param rule The rule to delete.
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
+     * @deprecated do not use this.
      */
     void tetherOffloadRuleRemove(in TetherOffloadRuleParcel rule);
 
@@ -1326,6 +1341,7 @@ interface INetd {
      *         There will only ever be one entry for a given interface index.
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *         cause of the failure.
+     * @deprecated do not use this.
      */
     TetherStatsParcel[] tetherOffloadGetStats();
 
@@ -1339,6 +1355,7 @@ interface INetd {
     *       from *now*. A value of QUOTA_UNLIMITED (-1) indicates there is no limit.
     * @throws ServiceSpecificException in case of failure, with an error code indicating the
     *         cause of the failure.
+    * @deprecated do not use this.
     */
     void tetherOffloadSetInterfaceQuota(int ifIndex, long quotaBytes);
 
@@ -1359,6 +1376,7 @@ interface INetd {
      *         tethering statistics since tethering was first started on that upstream interface.
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
+     * @deprecated do not use this.
      */
      TetherStatsParcel tetherOffloadGetAndClearStats(int ifIndex);
 
