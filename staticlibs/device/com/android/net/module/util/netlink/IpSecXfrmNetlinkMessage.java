@@ -39,6 +39,9 @@ public abstract class IpSecXfrmNetlinkMessage extends NetlinkMessage {
     /* see include/uapi/linux/xfrm.h */
     public static final short XFRM_MSG_GETSA = 18;
 
+    public static final int XFRM_MODE_TRANSPORT = 0;
+    public static final int XFRM_MODE_TUNNEL = 1;
+
     public static final BigInteger XFRM_INF = new BigInteger("FFFFFFFFFFFFFFFF", 16);
 
     public IpSecXfrmNetlinkMessage(@NonNull StructNlMsgHdr header) {
