@@ -29,3 +29,20 @@ filegroup {
         "//packages/modules/Connectivity:__subpackages__",
     ],
 }
+
+
+// Build of only framework-thread (not as part of connectivity) for unit tests
+java_library_static {
+    name: "framework-thread-static",
+    srcs: [":framework-thread-sources"],
+    sdk_version: "module_current",
+    libs: [
+        "framework-annotations-lib",
+        "framework-connectivity",
+    ],
+    static_libs: [
+        "net-utils-framework-common",
+        "modules-utils-preconditions",
+    ],
+    visibility: ["//packages/modules/Connectivity/thread/tests:__subpackages__"],
+}
