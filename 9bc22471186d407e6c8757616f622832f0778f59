@@ -62,6 +62,167 @@
       },
       "revId": "9bc22471186d407e6c8757616f622832f0778f59",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dd6cc56_f3788444",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-12T03:17:58Z",
+      "side": 1,
+      "message": "dup of 553",
+      "range": {
+        "startLine": 560,
+        "startChar": 0,
+        "endLine": 560,
+        "endChar": 34
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afbebac1_4b96233f",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-12T03:17:58Z",
+      "side": 1,
+      "message": "dup of 567",
+      "range": {
+        "startLine": 572,
+        "startChar": 0,
+        "endLine": 572,
+        "endChar": 34
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0a88812_8161a2da",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-12T03:17:58Z",
+      "side": 1,
+      "message": "dup of 1309",
+      "range": {
+        "startLine": 1314,
+        "startChar": 0,
+        "endLine": 1314,
+        "endChar": 35
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deea3205_131f30b7",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1330,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-12T03:17:58Z",
+      "side": 1,
+      "message": "dup of 1325",
+      "range": {
+        "startLine": 1330,
+        "startChar": 0,
+        "endLine": 1330,
+        "endChar": 35
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7de72be8_05e4530b",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1344,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-12T03:17:58Z",
+      "side": 1,
+      "message": "dup of 1337",
+      "range": {
+        "startLine": 1344,
+        "startChar": 0,
+        "endLine": 1344,
+        "endChar": 35
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29ac48d8_b3320e72",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1358,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-12T03:17:58Z",
+      "side": 1,
+      "message": "dup of 1351",
+      "range": {
+        "startLine": 1358,
+        "startChar": 0,
+        "endLine": 1358,
+        "endChar": 34
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c12b7268_027b76f7",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-12T03:17:58Z",
+      "side": 1,
+      "message": "dup of 1372",
+      "range": {
+        "startLine": 1379,
+        "startChar": 8,
+        "endLine": 1379,
+        "endChar": 18
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
