@@ -16,6 +16,52 @@
       "message": "```\n$ diff -U3 -ru -N staticlibs/netd/aidl_api/netd_aidl_interface/13/ staticlibs/netd/aidl_api/netd_aidl_interface/14/ | egrep -v ^[+-]/\ndiff \u0027--color\u003dauto\u0027 -U3 -ru -N staticlibs/netd/aidl_api/netd_aidl_interface/13/android/net/INetd.aidl staticlibs/netd/aidl_api/netd_aidl_interface/14/android/net/INetd.aidl\n--- staticlibs/netd/aidl_api/netd_aidl_interface/13/android/net/INetd.aidl\t2023-11-01 13:11:16.068791343 +0800\n+++ staticlibs/netd/aidl_api/netd_aidl_interface/14/android/net/INetd.aidl\t2023-11-12 00:52:33.635748838 +0800\n@@ -35,6 +35,9 @@\n /* @hide */\n interface INetd {\n   boolean isAlive();\n+  /**\n+   * @deprecated do not use this.\n+   */\n   boolean firewallReplaceUidChain(in @utf8InCpp String chainName, boolean isAllowlist, in int[] uids);\n   boolean bandwidthEnableDataSaver(boolean enable);\n   /**\n@@ -95,9 +98,21 @@\n   void bandwidthSetInterfaceAlert(in @utf8InCpp String ifName, long bytes);\n   void bandwidthRemoveInterfaceAlert(in @utf8InCpp String ifName);\n   void bandwidthSetGlobalAlert(long bytes);\n+  /**\n+   * @deprecated do not use this.\n+   */\n   void bandwidthAddNaughtyApp(int uid);\n+  /**\n+   * @deprecated do not use this.\n+   */\n   void bandwidthRemoveNaughtyApp(int uid);\n+  /**\n+   * @deprecated do not use this.\n+   */\n   void bandwidthAddNiceApp(int uid);\n+  /**\n+   * @deprecated do not use this.\n+   */\n   void bandwidthRemoveNiceApp(int uid);\n   void tetherStart(in @utf8InCpp String[] dhcpRanges);\n   void tetherStop();\n@@ -117,13 +132,22 @@\n   void networkSetPermissionForNetwork(int netId, int permission);\n   void networkSetPermissionForUser(int permission, in int[] uids);\n   void networkClearPermissionForUser(in int[] uids);\n+  /**\n+   * @deprecated do not use this.\n+   */\n   void trafficSetNetPermForUids(int permission, in int[] uids);\n   void networkSetProtectAllow(int uid);\n   void networkSetProtectDeny(int uid);\n   boolean networkCanProtect(int uid);\n   void firewallSetFirewallType(int firewalltype);\n   void firewallSetInterfaceRule(in @utf8InCpp String ifName, int firewallRule);\n+  /**\n+   * @deprecated do not use this.\n+   */\n   void firewallSetUidRule(int childChain, int uid, int firewallRule);\n+  /**\n+   * @deprecated do not use this.\n+   */\n   void firewallEnableChildChain(int childChain, boolean enable);\n   @utf8InCpp String[] interfaceGetList();\n   android.net.InterfaceConfigurationParcel interfaceGetCfg(in @utf8InCpp String ifName);\n@@ -136,8 +160,17 @@\n   void tetherRemoveForward(in @utf8InCpp String intIface, in @utf8InCpp String extIface);\n   void setTcpRWmemorySize(in @utf8InCpp String rmemValues, in @utf8InCpp String wmemValues);\n   void registerUnsolicitedEventListener(android.net.INetdUnsolicitedEventListener listener);\n+  /**\n+   * @deprecated do not use this.\n+   */\n   void firewallAddUidInterfaceRules(in @utf8InCpp String ifName, in int[] uids);\n+  /**\n+   * @deprecated do not use this.\n+   */\n   void firewallRemoveUidInterfaceRules(in int[] uids);\n+  /**\n+   * @deprecated do not use this.\n+   */\n   void trafficSwapActiveStatsMap();\n   IBinder getOemNetd();\n   void tetherStartWithConfiguration(in android.net.TetherConfigParcel config);\n@@ -196,7 +229,7 @@\n   const int NO_PERMISSIONS \u003d 0;\n   const int PERMISSION_INTERNET \u003d 4;\n   const int PERMISSION_UPDATE_DEVICE_STATS \u003d 8;\n-  const int PERMISSION_UNINSTALLED \u003d (-1);\n+  const int PERMISSION_UNINSTALLED \u003d (-1) /* -1 */;\n   /**\n    * @deprecated use FIREWALL_ALLOWLIST.\n    */\ndiff \u0027--color\u003dauto\u0027 -U3 -ru -N staticlibs/netd/aidl_api/netd_aidl_interface/13/.hash staticlibs/netd/aidl_api/netd_aidl_interface/14/.hash\n--- staticlibs/netd/aidl_api/netd_aidl_interface/13/.hash\t2023-11-01 13:11:16.068791343 +0800\n+++ staticlibs/netd/aidl_api/netd_aidl_interface/14/.hash\t2023-11-12 00:52:33.631748843 +0800\n@@ -1 +1 @@\n-38614f80a23b92603d4851177e57c460aec1b606\n+fc0523fa548cade7c85a4ecf3f3984bb7db10aa2\n```",
       "revId": "9bc22471186d407e6c8757616f622832f0778f59",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad015b26_c28c9eeb",
+        "filename": "staticlibs/netd/aidl_api/netd_aidl_interface/current/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-12T03:15:48Z",
+      "side": 1,
+      "message": "is that true on R? S? T? U? V?\n\ndoes this need to say\n  @deprecated do not use on T+\ninstead?",
+      "range": {
+        "startLine": 136,
+        "startChar": 17,
+        "endLine": 136,
+        "endChar": 32
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddcb8480_54fae9e5",
+        "filename": "staticlibs/netd/aidl_api/netd_aidl_interface/current/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-12T03:15:48Z",
+      "side": 1,
+      "message": "remove () too",
+      "range": {
+        "startLine": 232,
+        "startChar": 37,
+        "endLine": 232,
+        "endChar": 38
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
