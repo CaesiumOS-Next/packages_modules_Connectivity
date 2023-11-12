@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e1eacf6_bf5add43",
+        "filename": "staticlibs/netd/aidl_api/netd_aidl_interface/current/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-12T16:23:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad015b26_c28c9eeb",
+      "range": {
+        "startLine": 136,
+        "startChar": 17,
+        "endLine": 136,
+        "endChar": 32
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ddcb8480_54fae9e5",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-11-12T03:15:48Z",
       "side": 1,
       "message": "remove () too",
+      "range": {
+        "startLine": 232,
+        "startChar": 37,
+        "endLine": 232,
+        "endChar": 38
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f03f6cf_ac119db1",
+        "filename": "staticlibs/netd/aidl_api/netd_aidl_interface/current/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-12T16:23:40Z",
+      "side": 1,
+      "message": "This file is auto generated from staticlibs/netd/binder/android/net/INetd.aidl. There is no () in the source.",
+      "parentUuid": "ddcb8480_54fae9e5",
       "range": {
         "startLine": 232,
         "startChar": 37,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5a8c594_b2d7d1b6",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-12T16:23:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dd6cc56_f3788444",
+      "range": {
+        "startLine": 560,
+        "startChar": 0,
+        "endLine": 560,
+        "endChar": 34
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "afbebac1_4b96233f",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-11-12T03:17:58Z",
       "side": 1,
       "message": "dup of 567",
+      "range": {
+        "startLine": 572,
+        "startChar": 0,
+        "endLine": 572,
+        "endChar": 34
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f8e51ad_ecbadafe",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-12T16:23:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afbebac1_4b96233f",
       "range": {
         "startLine": 572,
         "startChar": 0,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8c5b291_4108e712",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-12T16:23:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0a88812_8161a2da",
+      "range": {
+        "startLine": 1314,
+        "startChar": 0,
+        "endLine": 1314,
+        "endChar": 35
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "deea3205_131f30b7",
@@ -146,6 +266,30 @@
       "writtenOn": "2023-11-12T03:17:58Z",
       "side": 1,
       "message": "dup of 1325",
+      "range": {
+        "startLine": 1330,
+        "startChar": 0,
+        "endLine": 1330,
+        "endChar": 35
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f48e0fb0_a195462a",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1330,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-12T16:23:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "deea3205_131f30b7",
       "range": {
         "startLine": 1330,
         "startChar": 0,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c64539ff_c8bd8f02",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1344,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-12T16:23:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7de72be8_05e4530b",
+      "range": {
+        "startLine": 1344,
+        "startChar": 0,
+        "endLine": 1344,
+        "endChar": 35
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29ac48d8_b3320e72",
@@ -202,6 +370,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "796aef26_cd947f9d",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1358,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-12T16:23:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29ac48d8_b3320e72",
+      "range": {
+        "startLine": 1358,
+        "startChar": 0,
+        "endLine": 1358,
+        "endChar": 34
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c12b7268_027b76f7",
@@ -215,6 +407,30 @@
       "writtenOn": "2023-11-12T03:17:58Z",
       "side": 1,
       "message": "dup of 1372",
+      "range": {
+        "startLine": 1379,
+        "startChar": 8,
+        "endLine": 1379,
+        "endChar": 18
+      },
+      "revId": "9bc22471186d407e6c8757616f622832f0778f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12091f87_c5d78578",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-12T16:23:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c12b7268_027b76f7",
       "range": {
         "startLine": 1379,
         "startChar": 8,
