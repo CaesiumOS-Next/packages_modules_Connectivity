@@ -35,6 +35,9 @@ package android.net;
 /* @hide */
 interface INetd {
   boolean isAlive();
+  /**
+   * @deprecated do not use this on T+.
+   */
   boolean firewallReplaceUidChain(in @utf8InCpp String chainName, boolean isAllowlist, in int[] uids);
   boolean bandwidthEnableDataSaver(boolean enable);
   /**
@@ -95,9 +98,21 @@ interface INetd {
   void bandwidthSetInterfaceAlert(in @utf8InCpp String ifName, long bytes);
   void bandwidthRemoveInterfaceAlert(in @utf8InCpp String ifName);
   void bandwidthSetGlobalAlert(long bytes);
+  /**
+   * @deprecated do not use this on T+.
+   */
   void bandwidthAddNaughtyApp(int uid);
+  /**
+   * @deprecated do not use this on T+.
+   */
   void bandwidthRemoveNaughtyApp(int uid);
+  /**
+   * @deprecated do not use this on T+.
+   */
   void bandwidthAddNiceApp(int uid);
+  /**
+   * @deprecated do not use this on T+.
+   */
   void bandwidthRemoveNiceApp(int uid);
   void tetherStart(in @utf8InCpp String[] dhcpRanges);
   void tetherStop();
@@ -117,13 +132,22 @@ interface INetd {
   void networkSetPermissionForNetwork(int netId, int permission);
   void networkSetPermissionForUser(int permission, in int[] uids);
   void networkClearPermissionForUser(in int[] uids);
+  /**
+   * @deprecated do not use this on T+.
+   */
   void trafficSetNetPermForUids(int permission, in int[] uids);
   void networkSetProtectAllow(int uid);
   void networkSetProtectDeny(int uid);
   boolean networkCanProtect(int uid);
   void firewallSetFirewallType(int firewalltype);
   void firewallSetInterfaceRule(in @utf8InCpp String ifName, int firewallRule);
+  /**
+   * @deprecated do not use this on T+.
+   */
   void firewallSetUidRule(int childChain, int uid, int firewallRule);
+  /**
+   * @deprecated do not use this on T+.
+   */
   void firewallEnableChildChain(int childChain, boolean enable);
   @utf8InCpp String[] interfaceGetList();
   android.net.InterfaceConfigurationParcel interfaceGetCfg(in @utf8InCpp String ifName);
@@ -136,8 +160,17 @@ interface INetd {
   void tetherRemoveForward(in @utf8InCpp String intIface, in @utf8InCpp String extIface);
   void setTcpRWmemorySize(in @utf8InCpp String rmemValues, in @utf8InCpp String wmemValues);
   void registerUnsolicitedEventListener(android.net.INetdUnsolicitedEventListener listener);
+  /**
+   * @deprecated do not use this on T+.
+   */
   void firewallAddUidInterfaceRules(in @utf8InCpp String ifName, in int[] uids);
+  /**
+   * @deprecated do not use this on T+.
+   */
   void firewallRemoveUidInterfaceRules(in int[] uids);
+  /**
+   * @deprecated do not use this on T+.
+   */
   void trafficSwapActiveStatsMap();
   IBinder getOemNetd();
   void tetherStartWithConfiguration(in android.net.TetherConfigParcel config);
@@ -196,7 +229,7 @@ interface INetd {
   const int NO_PERMISSIONS = 0;
   const int PERMISSION_INTERNET = 4;
   const int PERMISSION_UPDATE_DEVICE_STATS = 8;
-  const int PERMISSION_UNINSTALLED = (-1);
+  const int PERMISSION_UNINSTALLED = (-1) /* -1 */;
   /**
    * @deprecated use FIREWALL_ALLOWLIST.
    */
