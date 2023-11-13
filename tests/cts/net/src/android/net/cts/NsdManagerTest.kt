@@ -80,6 +80,7 @@ import com.android.net.module.util.HexDump
 import com.android.net.module.util.PacketBuilder
 import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.DevSdkIgnoreRule
+import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
@@ -843,6 +844,8 @@ class NsdManagerTest {
         checkConnectSocketToMdnsd(shouldFail = false)
     }
 
+    // NsdService no longer use native mdns powered by Netd after U.
+    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Test @CtsNetTestCasesMaxTargetSdk30("Socket is started with the service up to target SDK 30")
     fun testManagerCreatesLegacySocket() {
         nsdManager // Ensure the lazy-init member is initialized, so NsdManager is created
@@ -856,6 +859,8 @@ class NsdManagerTest {
 
     // The compat change is part of a connectivity module update that applies to T+
     @ConnectivityModuleTest @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    // NsdService no longer use native mdns powered by Netd after U.
+    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Test @CtsNetTestCasesMaxTargetSdk30("Socket is started with the service up to target SDK 30")
     fun testManagerCreatesLegacySocket_CompatChange() {
         // The socket may have been already created by some other app, or some other test, in which
