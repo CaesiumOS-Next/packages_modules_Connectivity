@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49f85b22_bdeece9b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2657,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-13T08:42:21Z",
+      "side": 1,
+      "message": "Ah, yes, sorry. To avoid people misreading it like I did, could you add a utility method? Something like shouldRedactAllowedUids or canAccessAllowedUids or...?",
+      "parentUuid": "4a5351b1_cc5f0305",
+      "range": {
+        "startLine": 2657,
+        "startChar": 19,
+        "endLine": 2657,
+        "endChar": 51
+      },
+      "revId": "fb5b66f80aae9257f092488d7efa6b2b75c73a35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "614a5e3b_b9c809b8",
         "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
         "patchSetId": 17
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Yes it\u0027s better to just fail the test. Done",
       "parentUuid": "10d999ac_3fed59dc",
+      "range": {
+        "startLine": 732,
+        "startChar": 12,
+        "endLine": 732,
+        "endChar": 29
+      },
+      "revId": "fb5b66f80aae9257f092488d7efa6b2b75c73a35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "655eec4d_4e70f5d4",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-13T08:42:21Z",
+      "side": 1,
+      "message": "Ah, I see.",
+      "parentUuid": "62b78c0d_77ed6c95",
       "range": {
         "startLine": 732,
         "startChar": 12,

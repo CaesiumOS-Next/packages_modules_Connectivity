@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9daea5a_5f5975e2",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-13T08:42:21Z",
+      "side": 1,
+      "message": "I fear this might be flaky. And also, I think it\u0027s longer than all the other test methods put together.\n\nIs there something we can do here? For example, if all we\u0027re doing is waiting for the CS handler thread, then we can just do something like file a request and release it...",
+      "range": {
+        "startLine": 764,
+        "startChar": 0,
+        "endLine": 765,
+        "endChar": 31
+      },
+      "revId": "dd03a5bc2865a58370cbd02310b6dacf4fb8dd0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
