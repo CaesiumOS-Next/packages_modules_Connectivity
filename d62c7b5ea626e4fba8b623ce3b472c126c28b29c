@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2896487_379276a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 96
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T08:53:44Z",
+      "side": 1,
+      "message": "LGTM assuming comments are addressed\n\nYou may want to write a little bit more extensive tests that check for multiple networks of multiple transports at the same time.",
+      "revId": "d62c7b5ea626e4fba8b623ce3b472c126c28b29c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac750e15_38e118dc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 96
+      },
+      "lineNbr": 11848,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T08:53:44Z",
+      "side": 1,
+      "message": "Possibly `maybeUpdateRadioPowerState` ? Or `updateRadioPowerStateIfChanged` ?\n\nWhat I find suboptimal in this naming is that it sounds like CS owns battery stats and updates them",
+      "range": {
+        "startLine": 11848,
+        "startChar": 32,
+        "endLine": 11848,
+        "endChar": 44
+      },
+      "revId": "d62c7b5ea626e4fba8b623ce3b472c126c28b29c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5c169d5_3251c9e5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 96
+      },
+      "lineNbr": 11895,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T08:53:44Z",
+      "side": 1,
+      "message": "nit : you\u0027re using this a few times in this function and it could make things more readable to put it in a local\n\n    final int netId \u003d activityParams.label",
+      "range": {
+        "startLine": 11895,
+        "startChar": 83,
+        "endLine": 11895,
+        "endChar": 88
+      },
+      "revId": "d62c7b5ea626e4fba8b623ce3b472c126c28b29c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b79dc08b_96b849e3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 96
+      },
+      "lineNbr": 11993,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T08:53:44Z",
+      "side": 1,
+      "message": "I don\u0027t think this lines needs to be in the try{} block",
+      "revId": "d62c7b5ea626e4fba8b623ce3b472c126c28b29c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6168b57_dfe52b05",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 96
+      },
+      "lineNbr": 12042,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T08:53:44Z",
+      "side": 1,
+      "message": "I had a lot of trouble squaring this with the test above. I think it\u0027s correct but it may help if you added a small comment about what happens if mTrackMultiNetworkActivities is false, e.g.\n\n    // If trackMultiNetwork is disabled, NetworkActivityTracker updates BatteryStats\n    // in all cases. If trackMultiNetwork is enabled, it updates BatteryStats\n    // only about a network that has an idletimer.",
+      "range": {
+        "startLine": 12041,
+        "startChar": 0,
+        "endLine": 12042,
+        "endChar": 62
+      },
+      "revId": "d62c7b5ea626e4fba8b623ce3b472c126c28b29c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "055a4d5c_fc78b4e9",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 96
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T08:53:44Z",
+      "side": 1,
+      "message": "I think it will help making the test stronger and easier to update if you create an `inOrder()` around `batteryStats` to test that the interactions happen in the right order. It will also help you if you need to test for the same call mutliple times",
+      "range": {
+        "startLine": 115,
+        "startChar": 29,
+        "endLine": 115,
+        "endChar": 52
+      },
+      "revId": "d62c7b5ea626e4fba8b623ce3b472c126c28b29c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddf57e99_c1cac5d3",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 96
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T08:53:44Z",
+      "side": 1,
+      "message": "This is another good reason to use `inOrder()`, it tends to make for clearer code than clearing invocations",
+      "range": {
+        "startLine": 208,
+        "startChar": 8,
+        "endLine": 208,
+        "endChar": 24
+      },
+      "revId": "d62c7b5ea626e4fba8b623ce3b472c126c28b29c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59187520_03cb803c",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 96
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T08:53:44Z",
+      "side": 1,
+      "message": "Can we replace these waitForIdle() calls with timeouts on the verify() calls ?",
+      "range": {
+        "startLine": 213,
+        "startChar": 8,
+        "endLine": 213,
+        "endChar": 19
+      },
+      "revId": "d62c7b5ea626e4fba8b623ce3b472c126c28b29c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
