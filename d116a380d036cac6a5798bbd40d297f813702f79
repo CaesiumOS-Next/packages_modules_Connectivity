@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d30f26c6_ae6e5981",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2023-11-13T21:31:13Z",
+      "side": 1,
+      "message": "The first line of the commit message should summarize what the change does. This should indicate that LowPowerStandby mode is being disabled.",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 53
+      },
+      "revId": "d116a380d036cac6a5798bbd40d297f813702f79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
