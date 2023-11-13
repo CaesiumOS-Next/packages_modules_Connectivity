@@ -70,6 +70,30 @@
       },
       "revId": "ece725e914d844e7ffc1569b85d798bcc96de08c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d87be591_0b373a1b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1980271
+      },
+      "writtenOn": "2023-11-13T07:22:49Z",
+      "side": 1,
+      "message": "Thank you for your response! \nWe will proceed with the CL you suggested and observe the test results.",
+      "parentUuid": "4fbdd857_c6e3191c",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 70
+      },
+      "revId": "ece725e914d844e7ffc1569b85d798bcc96de08c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
