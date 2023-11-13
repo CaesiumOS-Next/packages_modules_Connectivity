@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60fc9938_275d21eb",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-13T07:20:46Z",
+      "side": 1,
+      "message": "I think it is not necessary for this test as it verifies the CompatChanges value only.",
+      "range": {
+        "startLine": 863,
+        "startChar": 4,
+        "endLine": 863,
+        "endChar": 71
+      },
+      "revId": "31f3da9af53618a380465ce1536cf64fed944024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
