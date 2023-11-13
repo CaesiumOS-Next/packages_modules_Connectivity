@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94e9d6ce_918dd940",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 97
+      },
+      "lineNbr": 1764,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T05:34:41Z",
+      "side": 1,
+      "message": "s/the mainline module/mainline modules/\n\n(because there are several mainline modules on the device)",
+      "range": {
+        "startLine": 1764,
+        "startChar": 50,
+        "endLine": 1764,
+        "endChar": 69
+      },
+      "revId": "baa87dd6baac4999a6b567b13a3618fcf9598d92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb71247c_81ae02bc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 97
+      },
+      "lineNbr": 1764,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T05:34:41Z",
+      "side": 1,
+      "message": "flags",
+      "range": {
+        "startLine": 1764,
+        "startChar": 40,
+        "endLine": 1764,
+        "endChar": 44
+      },
+      "revId": "baa87dd6baac4999a6b567b13a3618fcf9598d92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2596c09_b1ff8fdb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 97
+      },
+      "lineNbr": 1767,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T05:34:41Z",
+      "side": 1,
+      "message": "\"might\" is very mild ; did you mean \"should\" ? Or if it doesn\u0027t matter you can just remove the comment.",
+      "range": {
+        "startLine": 1767,
+        "startChar": 31,
+        "endLine": 1767,
+        "endChar": 36
+      },
+      "revId": "baa87dd6baac4999a6b567b13a3618fcf9598d92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ebd0e27_3f939254",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 97
+      },
+      "lineNbr": 3247,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T05:34:41Z",
+      "side": 1,
+      "message": "s/the //\n\n(netd is the name of a component)",
+      "range": {
+        "startLine": 3247,
+        "startChar": 36,
+        "endLine": 3247,
+        "endChar": 39
+      },
+      "revId": "baa87dd6baac4999a6b567b13a3618fcf9598d92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74a6356b_9da462d8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 97
+      },
+      "lineNbr": 3247,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T05:34:41Z",
+      "side": 1,
+      "message": "s/the/a/\n\n(there are many netlink messages)",
+      "range": {
+        "startLine": 3247,
+        "startChar": 54,
+        "endLine": 3247,
+        "endChar": 57
+      },
+      "revId": "baa87dd6baac4999a6b567b13a3618fcf9598d92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a4bcd15_10c75c1b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 97
+      },
+      "lineNbr": 3247,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T05:34:41Z",
+      "side": 1,
+      "message": "calls\n\n(subject is netd, so 3rd person)",
+      "range": {
+        "startLine": 3247,
+        "startChar": 78,
+        "endLine": 3247,
+        "endChar": 82
+      },
+      "revId": "baa87dd6baac4999a6b567b13a3618fcf9598d92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4ed4064_559e92c1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 97
+      },
+      "lineNbr": 3248,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T05:34:41Z",
+      "side": 1,
+      "message": "s/ the//\n\n(ConnectivityService is the name of a component)",
+      "range": {
+        "startLine": 3248,
+        "startChar": 79,
+        "endLine": 3248,
+        "endChar": 82
+      },
+      "revId": "baa87dd6baac4999a6b567b13a3618fcf9598d92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27336492_3b3c0ba1",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 97
+      },
+      "lineNbr": 11341,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T05:34:41Z",
+      "side": 1,
+      "message": "So now that you don\u0027t pass the `trackMultiNetworks` boolean, IIUC you only test the old behavior on old devices and the new behavior on new devices.\n\nNote that you could improve this by just calling mDeps.setBuildSdk() in the test, which would let you test both behaviors on both old and new builds, for added safety.",
+      "range": {
+        "startLine": 11341,
+        "startChar": 76,
+        "endLine": 11341,
+        "endChar": 77
+      },
+      "revId": "baa87dd6baac4999a6b567b13a3618fcf9598d92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
