@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df558779_f1b39e0b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 123
+      },
+      "lineNbr": 11554,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T06:31:30Z",
+      "side": 1,
+      "message": "Is this necessary ? If yes, why was it not necessary before ?",
+      "range": {
+        "startLine": 11554,
+        "startChar": 8,
+        "endLine": 11554,
+        "endChar": 19
+      },
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16e70a4d_33f6ebf6",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T06:31:30Z",
+      "side": 1,
+      "message": "You could just import this",
+      "range": {
+        "startLine": 57,
+        "startChar": 18,
+        "endLine": 57,
+        "endChar": 28
+      },
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25289fd6_4fa58635",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T06:31:30Z",
+      "side": 1,
+      "message": "Is this necessary considering you have the annotation on the class ?",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 18
+      },
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f34181d_2ab88aaf",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T06:31:30Z",
+      "side": 1,
+      "message": "It\u0027s fine doing this, but nowadays you also have the option of creating the cell agent with a score where you set KEEP_CONNECTED_FOR_TEST as the keepConnectedReason, which probably results in simpler code.",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 55
+      },
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4039dff8_2ccb00c6",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T06:31:30Z",
+      "side": 1,
+      "message": "I think the following simpler syntax works :\n\n    cm.addDefaultNetworkActiveListener { onNetworkActiveCv.open() }",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 52
+      },
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "338bfbde_5e7648d3",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T06:31:30Z",
+      "side": 1,
+      "message": "Of course this is fine but in Kotlin you can say netId.toString()",
+      "range": {
+        "startLine": 154,
+        "startChar": 39,
+        "endLine": 154,
+        "endChar": 47
+      },
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ebad0b0_eff843f3",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T06:31:30Z",
+      "side": 1,
+      "message": "Is this necessary ? ISTM that sending Lost means the idletimer should have been removed. If that is not the case you could put a timeout on the verify() below, but ideally it would be done for sure by the time Lost is sent – and I think your current code always does it before Lost is sent.",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 19
+      },
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75171958_6a6d7a04",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T06:31:30Z",
+      "side": 1,
+      "message": "I think this method is a bit too use-case specific to be in CSTest.kt. I think it\u0027s okay if the `orderedBroadcastAsUserHistory` is protected, but then you\u0027d move this method in the file that wants to check this.",
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eec73482_f63a9e76",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-13T06:31:30Z",
+      "side": 1,
+      "message": "You shouldn\u0027t need to specify the type",
+      "range": {
+        "startLine": 299,
+        "startChar": 24,
+        "endLine": 299,
+        "endChar": 30
+      },
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
