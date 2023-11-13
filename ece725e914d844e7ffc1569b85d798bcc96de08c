@@ -46,6 +46,30 @@
       },
       "revId": "ece725e914d844e7ffc1569b85d798bcc96de08c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fbdd857_c6e3191c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2023-11-13T07:12:57Z",
+      "side": 1,
+      "message": "I don\u0027t think we should be changing the ordering of these commands. These commands are meant to simulate what happens on user devices. Screen needs to be off first before Doze gets triggered. When LowPowerStandby is enabled, the behavior these tests are trying to verify just won\u0027t hold true. We can turn off LowPowerStandby mode before running these tests. In the file `tests/cts/hostside/AndroidTest.xml`, could you add the following below https://android.googlesource.com/platform//packages/modules/Connectivity/+/refs/heads/main/tests/cts/hostside/AndroidTest.xml#38:\n```\n\u003coption name\u003d\"set-global-setting\" key\u003d\"low_power_standby_enabled\" value\u003d\"0\" /\u003e\n```",
+      "parentUuid": "8856e9c9_4eafcbbf",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 70
+      },
+      "revId": "ece725e914d844e7ffc1569b85d798bcc96de08c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
