@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74032f36_3e9b72a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-13T02:31:31Z",
+      "side": 1,
+      "message": "+zxy@ FYI for nearby (BTW how is the ongoing migration to AOSP doing for nearby ?)",
+      "revId": "f5fa3c6c727a136d84ea0a177b2d60b1c2a0b650",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
