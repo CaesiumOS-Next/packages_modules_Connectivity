@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2d78c94_3db5f997",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 126
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-14T08:15:36Z",
+      "side": 1,
+      "message": "private ?",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 8
+      },
+      "revId": "1f5ffa4273a98de4e9958adb9483fe48a226c811",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "415c9129_0dd1dfea",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 126
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-14T08:15:36Z",
+      "side": 1,
+      "message": "`protected` sounds like a better match than `internal`",
+      "range": {
+        "startLine": 290,
+        "startChar": 8,
+        "endLine": 290,
+        "endChar": 16
+      },
+      "revId": "1f5ffa4273a98de4e9958adb9483fe48a226c811",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
