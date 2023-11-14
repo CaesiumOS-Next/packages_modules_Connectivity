@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17a93937_c2e8d11e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-14T03:35:50Z",
+      "side": 1,
+      "message": "Maybe also mention that on update, the caller is expected to check that the service being updated doesn\u0027t change its name (so there\u0027s no conflict)\n\nBut as per comment in MdnsInterfaceAdvertiser, you could also split update to a separate method (considering that the NameConflictException also won\u0027t happen)",
+      "range": {
+        "startLine": 348,
+        "startChar": 96,
+        "endLine": 348,
+        "endChar": 97
+      },
+      "revId": "9e9d7c0a62d7f88658244153835c212b3c974ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9858386_a684fe18",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-14T03:35:50Z",
+      "side": 1,
+      "message": "That doesn\u0027t seem right: after the advertiser just got created, if the last advertisingOptions are isOnlyUpdate, this would fail because the service doesn\u0027t exist (was never added).\n\nConsidering the comments on MdnsRecordRepository and MdnsInterfaceAdvertiser, I\u0027m not sure you need to pass down the advertising options right now.",
+      "revId": "9e9d7c0a62d7f88658244153835c212b3c974ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "278ed5b0_e6e96a28",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-14T03:35:50Z",
+      "side": 1,
+      "message": "Nit: suggest moving this to a method in Registration (something like `boolean matches(NsdServiceInfo)`). It would make this method a bit easier to read, and having methods comparing data objects inside the objects themselves often makes it easier to notice that they need to be updated when members are added.\n\nAfter the change to move the subtypes to NsdServiceInfo, this could be renamed to \"matchesExceptSubtype\" or similar.",
+      "revId": "9e9d7c0a62d7f88658244153835c212b3c974ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f05784ee_fd91da52",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-14T03:35:50Z",
+      "side": 1,
+      "message": "Similarly to the comment in MdnsRecordRepository: if isOnlyUpdate you go through one flow; otherwise, you go through another one\n\nInstead of having one method that executes 2 independent code paths depending on a boolean argument, I think it\u0027s generally clearer to have 2 separate methods (addService and updateService). Another advantage is that NameConflictException can\u0027t be thrown when updating, so callers shouldn\u0027t have to care about it when updating.",
+      "revId": "9e9d7c0a62d7f88658244153835c212b3c974ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eab560eb_07722ddd",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-14T03:35:50Z",
+      "side": 1,
+      "message": "This ends up being completely separate logic (if the argument is true, only this block will be run and then it returns; if it\u0027s false, only the rest of the code is run). So it doesn\u0027t really help to be in the same method, it just complicates the control flow a bit.\n\nHow about having a separate method for \"updateService\" ?",
+      "revId": "9e9d7c0a62d7f88658244153835c212b3c974ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8157d68c_e276595e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-14T03:35:50Z",
+      "side": 1,
+      "message": "Nit: suggest having a method like:\n\n```\nServiceRegistration ServiceRegistration#withSubtype(String subtype)\n```\n\nThis makes ServiceRegistration a bit more self-contained (no need to update code paths outside of the class when adding more members to it).\n\nIf you take the serviceInfo as argument, you\u0027d need to check that the service name/type didn\u0027t change, or that there\u0027s no conflict if it changed. So for the current use-case it may be simpler to just support subtype.",
+      "range": {
+        "startLine": 337,
+        "startChar": 38,
+        "endLine": 337,
+        "endChar": 57
+      },
+      "revId": "9e9d7c0a62d7f88658244153835c212b3c974ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f65f53cb_12cbe2ef",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-14T03:35:50Z",
+      "side": 1,
+      "message": "Can you also check what happens when a socket is created after there was an update ? (it should start advertisements on a new advertiser with the updated info)",
+      "revId": "9e9d7c0a62d7f88658244153835c212b3c974ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf825733_4fc21031",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiserTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-14T03:35:50Z",
+      "side": 1,
+      "message": "Nit: that\u0027s a bit confusing since the service type often contains \"_tcp\", better use something else (\"_sub\" ? or ...?)",
+      "range": {
+        "startLine": 282,
+        "startChar": 23,
+        "endLine": 282,
+        "endChar": 27
+      },
+      "revId": "9e9d7c0a62d7f88658244153835c212b3c974ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
