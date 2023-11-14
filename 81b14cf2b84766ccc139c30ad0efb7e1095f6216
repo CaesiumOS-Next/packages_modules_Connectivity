@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7b0215a4_312f3a8a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-14T14:17:24Z",
+      "side": 1,
+      "message": "What about calling it `sendLocalNetworkConfig`? Is it specific to `Updated`?",
+      "revId": "81b14cf2b84766ccc139c30ad0efb7e1095f6216",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16213361_4a0f119e",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 10
@@ -86,6 +103,29 @@
       "range": {
         "startLine": 632,
         "startChar": 0,
+        "endLine": 633,
+        "endChar": 58
+      },
+      "revId": "81b14cf2b84766ccc139c30ad0efb7e1095f6216",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60913b98_8f9843bf",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-14T14:17:24Z",
+      "side": 1,
+      "message": "```suggestion\n    private void onMulticastForwardingStateChanged(boolean isEnabled) {\n        if (isMulticastForwardingEnabled() !\u003d isEnabled) {\n```\nnit",
+      "range": {
+        "startLine": 631,
+        "startChar": 2,
         "endLine": 633,
         "endChar": 58
       },
