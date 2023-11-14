@@ -4959,6 +4959,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final boolean wasDefault = isDefaultNetwork(nai);
         if (wasDefault) {
             mDefaultInetConditionPublished = 0;
+            mNetworkActivityTracker.updateDefaultNetwork(null /* newNetwork */, nai);
+            maybeClosePendingFrozenSockets(null /* newNetwork */, nai);
+            ensureNetworkTransitionWakelock(nai.toShortString());
         }
         notifyIfacesChangedForNetworkStats();
         // If this was a local network forwarded to some upstream, or if some local network was
@@ -4971,6 +4974,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if (null != selector) {
                 handleRemoveNetworkRequest(mNetworkRequests.get(selector));
             }
+        }
+        if (mTrackMultiNetworkActivities) {
+            // If trackMultiNetworkActivities is disabled, ActivityTracker removes idleTimer when
+            // the network becomes no longer the default network.
+            mNetworkActivityTracker.removeDataActivityTracking(nai);
         }
         // TODO - we shouldn't send CALLBACK_LOST to requests that can be satisfied
         // by other networks that are already connected. Perhaps that can be done by
@@ -5011,12 +5019,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 for (final NetworkOfferInfo noi : mNetworkOffers) {
                     informOffer(nri, noi.offer, mNetworkRanker);
                 }
-
-                if (mDefaultRequest == nri) {
-                    mNetworkActivityTracker.updateDefaultNetwork(null /* newNetwork */, nai);
-                    maybeClosePendingFrozenSockets(null /* newNetwork */, nai);
-                    ensureNetworkTransitionWakelock(nai.toShortString());
-                }
             }
         }
         nai.clearInactivityState();
@@ -5040,12 +5042,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // Strictly speaking this is not essential because having a proxy setting when
             // there is no network is harmless, but it's still counter-intuitive so reset to null.
             mProxyTracker.setDefaultProxy(null);
-        }
-
-        if (mTrackMultiNetworkActivities) {
-            // If trackMultiNetworkActivities is disabled, ActivityTracker removes idleTimer when
-            // the network becomes no longer the default network.
-            mNetworkActivityTracker.removeDataActivityTracking(nai);
         }
 
         // Immediate teardown.
