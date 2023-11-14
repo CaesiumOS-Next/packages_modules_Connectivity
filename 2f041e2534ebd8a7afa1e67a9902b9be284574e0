@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42902f24_b32300d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-14T08:22:56Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "2f041e2534ebd8a7afa1e67a9902b9be284574e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6b53eed_f924ceff",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 11556,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-14T08:22:56Z",
+      "side": 1,
+      "message": "We should check `mAllowSysUiConnectivityReports` instead of calling `isTetheringFeatureNotChickenedOut`?",
+      "range": {
+        "startLine": 11556,
+        "startChar": 12,
+        "endLine": 11556,
+        "endChar": 95
+      },
+      "revId": "2f041e2534ebd8a7afa1e67a9902b9be284574e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
