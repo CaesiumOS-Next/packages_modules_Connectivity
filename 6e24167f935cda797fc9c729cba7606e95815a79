@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca0d3448_9ec7edf7",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecXfrmNetlinkGetSaMessage.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-14T00:45:21Z",
+      "side": 1,
+      "message": "as in big-endian? IIRC, that\u0027s just \"network order\". Native order probably correlates closest to the \"host order\" that differs by hardware types, but i believe java always works in network order",
+      "range": {
+        "startLine": 70,
+        "startChar": 11,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "6e24167f935cda797fc9c729cba7606e95815a79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
