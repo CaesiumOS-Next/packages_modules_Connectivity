@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d049d47b_f8ed1af4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 123
+      },
+      "lineNbr": 11554,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-14T06:57:09Z",
+      "side": 1,
+      "message": "On V+, idleTimer was removed after sending DISCONNECTED broadcast.\nI have updated to remove the idleTimer before the LostCallback and DISCONNECTED broadcast.",
+      "parentUuid": "df558779_f1b39e0b",
+      "range": {
+        "startLine": 11554,
+        "startChar": 8,
+        "endLine": 11554,
+        "endChar": 19
+      },
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16e70a4d_33f6ebf6",
@@ -272,6 +296,30 @@
       "side": 1,
       "message": "Current code removes the idleTimer after sending the Lost callback.\nSo this was required.\nUploaded aosp/2829590 to remove idleTimer before the Lost callback and aosp/2829590 also removes waitForIdle.",
       "parentUuid": "4ebad0b0_eff843f3",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 19
+      },
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d3c1b30_4104005b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-14T06:57:09Z",
+      "side": 1,
+      "message": "I have updated this CL to remove the idleTimer before the LostCallback and DISCONNECTED broadcast.",
+      "parentUuid": "f82344a3_2c91b169",
       "range": {
         "startLine": 190,
         "startChar": 8,
