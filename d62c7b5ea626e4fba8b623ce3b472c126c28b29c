@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5827d683_265b8e15",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 96
+      },
+      "lineNbr": 11848,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-14T09:42:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac750e15_38e118dc",
+      "range": {
+        "startLine": 11848,
+        "startChar": 32,
+        "endLine": 11848,
+        "endChar": 44
+      },
+      "revId": "d62c7b5ea626e4fba8b623ce3b472c126c28b29c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5c169d5_3251c9e5",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-11-13T08:53:44Z",
       "side": 1,
       "message": "nit : you\u0027re using this a few times in this function and it could make things more readable to put it in a local\n\n    final int netId \u003d activityParams.label",
+      "range": {
+        "startLine": 11895,
+        "startChar": 83,
+        "endLine": 11895,
+        "endChar": 88
+      },
+      "revId": "d62c7b5ea626e4fba8b623ce3b472c126c28b29c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca80b392_6480e66a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 96
+      },
+      "lineNbr": 11895,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-14T09:42:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5c169d5_3251c9e5",
       "range": {
         "startLine": 11895,
         "startChar": 83,
@@ -104,6 +152,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "879955f4_92a84eb0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 96
+      },
+      "lineNbr": 12042,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-14T09:42:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6168b57_dfe52b05",
+      "range": {
+        "startLine": 12041,
+        "startChar": 0,
+        "endLine": 12042,
+        "endChar": 62
+      },
+      "revId": "d62c7b5ea626e4fba8b623ce3b472c126c28b29c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "055a4d5c_fc78b4e9",
@@ -117,6 +189,30 @@
       "writtenOn": "2023-11-13T08:53:44Z",
       "side": 1,
       "message": "I think it will help making the test stronger and easier to update if you create an `inOrder()` around `batteryStats` to test that the interactions happen in the right order. It will also help you if you need to test for the same call mutliple times",
+      "range": {
+        "startLine": 115,
+        "startChar": 29,
+        "endLine": 115,
+        "endChar": 52
+      },
+      "revId": "d62c7b5ea626e4fba8b623ce3b472c126c28b29c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22a75653_c0a9d4d6",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 96
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-14T09:42:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "055a4d5c_fc78b4e9",
       "range": {
         "startLine": 115,
         "startChar": 29,
@@ -150,6 +246,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b10ab26_02848763",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 96
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-14T09:42:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddf57e99_c1cac5d3",
+      "range": {
+        "startLine": 208,
+        "startChar": 8,
+        "endLine": 208,
+        "endChar": 24
+      },
+      "revId": "d62c7b5ea626e4fba8b623ce3b472c126c28b29c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59187520_03cb803c",
@@ -163,6 +283,30 @@
       "writtenOn": "2023-11-13T08:53:44Z",
       "side": 1,
       "message": "Can we replace these waitForIdle() calls with timeouts on the verify() calls ?",
+      "range": {
+        "startLine": 213,
+        "startChar": 8,
+        "endLine": 213,
+        "endChar": 19
+      },
+      "revId": "d62c7b5ea626e4fba8b623ce3b472c126c28b29c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4873b0f_9c514347",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 96
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-14T09:42:45Z",
+      "side": 1,
+      "message": "Done for the case where the test expect callback.",
+      "parentUuid": "59187520_03cb803c",
       "range": {
         "startLine": 213,
         "startChar": 8,
