@@ -22,6 +22,30 @@
       },
       "revId": "8e44412f7c9bb59c278a6b7f5f3d7dee49b7e5a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4241ce57_6f5046c8",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-14T05:38:22Z",
+      "side": 1,
+      "message": "This is trying to handle the cases that the privileged permission is revoked after it\u0027s granted. This can happen in the tests, as we have cases that verify it really throws SecurityException from `unregisterXxx()` APIs when the caller doesn\u0027t have the permission. If it throws for the first time, then it should not throw IllegalArgumentException for the second time as the first call is considered failed.",
+      "parentUuid": "ec15004d_e77754f3",
+      "range": {
+        "startLine": 239,
+        "startChar": 34,
+        "endLine": 239,
+        "endChar": 40
+      },
+      "revId": "8e44412f7c9bb59c278a6b7f5f3d7dee49b7e5a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
