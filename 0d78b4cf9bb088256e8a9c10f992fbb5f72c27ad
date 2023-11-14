@@ -16,6 +16,24 @@
       "message": "To be rebased on aosp/2801615",
       "revId": "0d78b4cf9bb088256e8a9c10f992fbb5f72c27ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b1eb16e_1e93e2f1",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-14T10:13:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1590eed7_b8d3e3ac",
+      "revId": "0d78b4cf9bb088256e8a9c10f992fbb5f72c27ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
