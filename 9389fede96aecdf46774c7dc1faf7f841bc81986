@@ -165,6 +165,54 @@
       },
       "revId": "9389fede96aecdf46774c7dc1faf7f841bc81986",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "113d1ab7_3992847b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 11370,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2023-11-14T06:47:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aeef647c_905569c7",
+      "range": {
+        "startLine": 11370,
+        "startChar": 30,
+        "endLine": 11370,
+        "endChar": 66
+      },
+      "revId": "9389fede96aecdf46774c7dc1faf7f841bc81986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b566934_750d10a0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 11370,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2023-11-14T06:47:27Z",
+      "side": 1,
+      "message": "Ack, added to ConnectivityService",
+      "parentUuid": "1a96883b_d8bfc773",
+      "range": {
+        "startLine": 11370,
+        "startChar": 30,
+        "endLine": 11370,
+        "endChar": 66
+      },
+      "revId": "9389fede96aecdf46774c7dc1faf7f841bc81986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
