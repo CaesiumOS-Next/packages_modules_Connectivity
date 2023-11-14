@@ -4959,6 +4959,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final boolean wasDefault = isDefaultNetwork(nai);
         if (wasDefault) {
             mDefaultInetConditionPublished = 0;
+            mNetworkActivityTracker.updateDefaultNetwork(null /* newNetwork */, nai);
         }
         if (mTrackMultiNetworkActivities) {
             // If trackMultiNetworkActivities is disabled, ActivityTracker removes idleTimer when
@@ -5018,7 +5019,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
 
                 if (mDefaultRequest == nri) {
-                    mNetworkActivityTracker.updateDefaultNetwork(null /* newNetwork */, nai);
                     maybeClosePendingFrozenSockets(null /* newNetwork */, nai);
                     ensureNetworkTransitionWakelock(nai.toShortString());
                 }
