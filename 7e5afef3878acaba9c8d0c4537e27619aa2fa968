@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edb884b2_ada37542",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-14T15:21:20Z",
+      "side": 1,
+      "message": "Will you modify the NetworkManagementService#setDataSaverModeEnabled from `Flags.setDataSaverViaCm()` to `isAtLeastV()` as well?\n\n```\n    public boolean setDataSaverModeEnabled(boolean enable) {\n    ...\n                if (Flags.setDataSaverViaCm()) {\n                    // setDataSaverEnabled throws if it fails to set data saver.\n                    mContext.getSystemService(ConnectivityManager.class)\n                            .setDataSaverEnabled(enable);\n```",
+      "range": {
+        "startLine": 281,
+        "startChar": 12,
+        "endLine": 281,
+        "endChar": 34
+      },
+      "revId": "7e5afef3878acaba9c8d0c4537e27619aa2fa968",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
