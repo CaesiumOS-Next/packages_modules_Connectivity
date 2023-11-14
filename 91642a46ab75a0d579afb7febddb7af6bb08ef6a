@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec85f3ec_b3504d60",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-14T13:58:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe1c1119_a49292c2",
+      "revId": "91642a46ab75a0d579afb7febddb7af6bb08ef6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d1c0be4_f9e64514",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-11-10T12:15:36Z",
       "side": 1,
       "message": "I have no idea why this addresses the problem, but it does.\n\nWhen the class is anonymous like in patchset 10, the compiled bytecode doesn\u0027t have an `onLocalNetworkInfoChanged` method.\nWhen the class is cut out like this instead of anonymous, it does have the method, and sure enough the method is called.\n\nTo me this looks like a compiler bug, but I don\u0027t know what\u0027s happening.\n\n\nIn any case. Cutting a class like this is probably good for code organization anyway, but you probably want to rename it 😊",
+      "range": {
+        "startLine": 312,
+        "startChar": 18,
+        "endLine": 312,
+        "endChar": 35
+      },
+      "revId": "91642a46ab75a0d579afb7febddb7af6bb08ef6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "026d79a7_37c017b9",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-14T13:58:13Z",
+      "side": 1,
+      "message": "Thanks for digging into the issue. However, I failed to reproduce your the result of your fix (the byte code still doesn\u0027t have `onLocalNetworkInfoChanged`). According to our offline discussion, this may be a tricky compiler issue (not sure what factor made the difference) so I\u0027d assume the fix will work and move forward with the CL. We can always fix the issue later if we find it doesn\u0027t work after the CL is merged.",
+      "parentUuid": "9d1c0be4_f9e64514",
       "range": {
         "startLine": 312,
         "startChar": 18,
@@ -72,6 +114,24 @@
       "side": 1,
       "message": "I\u0027m inclined to keeping that entry in the map to avoid potential issues e.g. the previous `mUpstreamNetworkCallback` became preferred upstream again but there wasn\u0027t another upstream callback triggered so we\u0027ll never know the interface name.\n\n\n-------\n\nBy the way, after reviewing this part of code I think it seems to be a mistake to unregister the upstream network callback. I\u0027ll update the code to avoid unregistering it.",
       "parentUuid": "f407974c_67766d70",
+      "revId": "91642a46ab75a0d579afb7febddb7af6bb08ef6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9552d52_f0d60b08",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-14T13:58:13Z",
+      "side": 1,
+      "message": "Mark as resolved. Feel free to reopen.",
+      "parentUuid": "fc091194_2608a41d",
       "revId": "91642a46ab75a0d579afb7febddb7af6bb08ef6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
