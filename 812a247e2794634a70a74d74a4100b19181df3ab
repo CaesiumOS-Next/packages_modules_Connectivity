@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a827dfc_fe0f972d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-14T02:07:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e3138be5_b368614d",
+      "range": {
+        "startLine": 196,
+        "startChar": 36,
+        "endLine": 196,
+        "endChar": 52
+      },
+      "revId": "812a247e2794634a70a74d74a4100b19181df3ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd7dc474_93321afb",
@@ -126,6 +150,24 @@
       "side": 1,
       "message": "I update the design that TTL check will be triggered every 120s. But I\u0027m not sure how to use the SparseArray\u003cMdnsResponse\u003e that you suggest. The key-expiration date is an int that can be duplicated, so it might lose some responses during saving. Besides, I look up and check ttl time on all responses now, I\u0027m not sure how to make it more efficient by using another array for checking.",
       "parentUuid": "cd7dc474_93321afb",
+      "revId": "812a247e2794634a70a74d74a4100b19181df3ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "582b6654_0f10186e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-14T02:07:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ce1da1f1_74e46ece",
       "revId": "812a247e2794634a70a74d74a4100b19181df3ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },

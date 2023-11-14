@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "789a73d3_651a3db8",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 1648,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-14T02:07:43Z",
+      "side": 1,
+      "message": "Better disable the feature by default here: mDeps.isFeatureEnabled (isTetheringFeatureNotChickenedOut should be for changes that are very safe and possibly urgent)",
+      "range": {
+        "startLine": 1648,
+        "startChar": 58,
+        "endLine": 1648,
+        "endChar": 91
+      },
+      "revId": "a0ddcc4f5414a63d06794f9f387fca6b0b65e181",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
