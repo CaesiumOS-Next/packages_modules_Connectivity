@@ -69,7 +69,7 @@ class CSAgentWrapper(
         nac: NetworkAgentConfig,
         val nc: NetworkCapabilities,
         val lp: LinkProperties,
-        val lnc: LocalNetworkConfig?,
+        val lnc: FromS<LocalNetworkConfig>?,
         val score: FromS<NetworkScore>,
         val provider: NetworkProvider?
 ) : TestableNetworkCallback.HasNetwork {
@@ -99,9 +99,12 @@ class CSAgentWrapper(
                 nmCbCaptor.capture())
 
         // Create the actual agent. NetworkAgent is abstract, so make an anonymous subclass.
-        if (deps.isAtLeastS()) {
+        if (deps.isAtLeastV()) {
             agent = object : NetworkAgent(context, csHandlerThread.looper, TAG,
-                    nc, lp, lnc, score.value, nac, provider) {}
+                    nc, lp, lnc?.value, score.value, nac, provider) {}
+        } else if (deps.isAtLeastS()) {
+            agent = object : NetworkAgent(context, csHandlerThread.looper, TAG,
+                    nc, lp, score.value, nac, provider) {}
         } else {
             agent = object : NetworkAgent(context, csHandlerThread.looper, TAG,
                     nc, lp, 50 /* score */, nac, provider) {}
