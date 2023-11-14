@@ -524,6 +524,7 @@ public class ConnectivityManagerTest {
                     + " attempts", ref.get());
     }
 
+    @DevSdkIgnoreRule.IgnoreAfter(VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Test
     public void testDataSaverStatusTracker() {
         mockService(NetworkPolicyManager.class, Context.NETWORK_POLICY_SERVICE, mNpm);

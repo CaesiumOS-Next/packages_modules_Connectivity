@@ -17,6 +17,9 @@
 package android.net;
 
 import static android.net.BpfNetMapsConstants.CONFIGURATION_MAP_PATH;
+import static android.net.BpfNetMapsConstants.DATA_SAVER_ENABLED;
+import static android.net.BpfNetMapsConstants.DATA_SAVER_ENABLED_KEY;
+import static android.net.BpfNetMapsConstants.DATA_SAVER_ENABLED_MAP_PATH;
 import static android.net.BpfNetMapsConstants.HAPPY_BOX_MATCH;
 import static android.net.BpfNetMapsConstants.PENALTY_BOX_MATCH;
 import static android.net.BpfNetMapsConstants.UID_OWNER_MAP_PATH;
@@ -57,6 +60,7 @@ public class BpfNetMapsReader {
     // Bpf map to store per uid traffic control configurations.
     // See {@link UidOwnerValue} for more detail.
     private final IBpfMap<S32, UidOwnerValue> mUidOwnerMap;
+    private final IBpfMap<S32, Struct.U8> mDataSaverEnabledMap;
     private final Dependencies mDeps;
 
     // Bitmaps for calculating whether a given uid is blocked by firewall chains.
@@ -104,6 +108,7 @@ public class BpfNetMapsReader {
         mDeps = deps;
         mConfigurationMap = mDeps.getConfigurationMap();
         mUidOwnerMap = mDeps.getUidOwnerMap();
+        mDataSaverEnabledMap = mDeps.getDataSaverEnabledMap();
     }
 
     /**
@@ -128,6 +133,16 @@ public class BpfNetMapsReader {
                         S32.class, UidOwnerValue.class);
             } catch (ErrnoException e) {
                 throw new IllegalStateException("Cannot open uid owner map", e);
+            }
+        }
+
+        /** Get the data saver enabled map. */
+        public  IBpfMap<S32, Struct.U8> getDataSaverEnabledMap() {
+            try {
+                return new BpfMap<>(DATA_SAVER_ENABLED_MAP_PATH, BpfMap.BPF_F_RDONLY, S32.class,
+                        Struct.U8.class);
+            } catch (ErrnoException e) {
+                throw new IllegalStateException("Cannot open data saver enabled map", e);
             }
         }
     }
@@ -248,5 +263,28 @@ public class BpfNetMapsReader {
         if ((uidMatch & PENALTY_BOX_MATCH) != 0) return true;
         if ((uidMatch & HAPPY_BOX_MATCH) != 0) return false;
         return isDataSaverEnabled;
+    }
+
+    /**
+     * Get Data Saver enabled or disabled
+     *
+     * @return whether Data Saver is enabled or disabled.
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
+    // TODO: Annotate with @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM) when all
+    //  downstream has this symbol.
+    public boolean getDataSaverEnabled() {
+        if (!SdkLevel.isAtLeastV()) {
+            throw new IllegalStateException(
+                    "getDataSaverEnabled is not available on pre-V devices");
+        }
+
+        try {
+            return mDataSaverEnabledMap.getValue(DATA_SAVER_ENABLED_KEY).val == DATA_SAVER_ENABLED;
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno, "Unable to get data saver: "
+                    + Os.strerror(e.errno));
+        }
     }
 }
