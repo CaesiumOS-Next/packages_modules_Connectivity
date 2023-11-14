@@ -11608,7 +11608,6 @@ public class ConnectivityServiceTest {
         ExpectedBroadcast b = expectConnectivityAction(TYPE_WIFI, DetailedState.DISCONNECTED);
         mWiFiAgent.disconnect();
         b.expectBroadcast();
-        waitForIdle();
         verify(mMockNetd, times(1)).idletimerRemoveInterface(eq(WIFI_IFNAME), anyInt(),
                 eq(wifiIdleTimerLabel));
 
