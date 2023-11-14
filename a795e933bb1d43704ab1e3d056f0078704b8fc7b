@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67a3d830_a42a8fff",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-14T00:03:56Z",
+      "side": 1,
+      "message": "Nit",
+      "range": {
+        "startLine": 32,
+        "startChar": 10,
+        "endLine": 32,
+        "endChar": 14
+      },
+      "revId": "a795e933bb1d43704ab1e3d056f0078704b8fc7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f14a99e0_9fdbe0ec",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-14T00:03:56Z",
+      "side": 1,
+      "message": "What happens if they add new info into one of these structs in future? Do we not parse what it knows, and drops the rest?\n\nSimilar question of backward compatibility - how does that work?",
+      "range": {
+        "startLine": 47,
+        "startChar": 28,
+        "endLine": 47,
+        "endChar": 39
+      },
+      "revId": "a795e933bb1d43704ab1e3d056f0078704b8fc7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57e65623_81ece087",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-14T00:03:56Z",
+      "side": 1,
+      "message": "a new message? Doesn\u0027t have to be outbound, can be used for loopback as testing",
+      "range": {
+        "startLine": 57,
+        "startChar": 28,
+        "endLine": 57,
+        "endChar": 39
+      },
+      "revId": "a795e933bb1d43704ab1e3d056f0078704b8fc7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
