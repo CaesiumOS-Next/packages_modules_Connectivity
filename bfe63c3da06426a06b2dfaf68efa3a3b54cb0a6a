@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9705e6eb_5143b9b4",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-14T05:57:52Z",
+      "side": 1,
+      "message": "Actually on U I think it doesn\u0027t use it either\n\nSo this should probably be IgnoreAfter(T) ? Does that match your observations ?",
+      "range": {
+        "startLine": 847,
+        "startChar": 60,
+        "endLine": 847,
+        "endChar": 67
+      },
+      "revId": "bfe63c3da06426a06b2dfaf68efa3a3b54cb0a6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
