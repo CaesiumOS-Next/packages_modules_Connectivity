@@ -242,12 +242,10 @@ class CSNetworkActivityTest : CSTest() {
 
         dataNetworkAgent.disconnect()
         dataNetworkCb.expect<Lost>(dataNetworkAgent.network)
-        waitForIdle()
         verify(netd).idletimerRemoveInterface(eq(DATA_CELL_IFNAME), anyInt(), eq(dataNetworkNetId))
 
         imsNetworkAgent.disconnect()
         imsNetworkCb.expect<Lost>(imsNetworkAgent.network)
-        waitForIdle()
         verify(netd).idletimerRemoveInterface(eq(IMS_CELL_IFNAME), anyInt(), eq(imsNetworkNetId))
 
         cm.unregisterNetworkCallback(dataNetworkCb)
