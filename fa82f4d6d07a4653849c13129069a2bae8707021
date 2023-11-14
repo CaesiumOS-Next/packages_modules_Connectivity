@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7806b4e_9db454bc",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-14T06:34:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16e70a4d_33f6ebf6",
+      "range": {
+        "startLine": 57,
+        "startChar": 18,
+        "endLine": 57,
+        "endChar": 28
+      },
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25289fd6_4fa58635",
@@ -60,6 +84,30 @@
       "writtenOn": "2023-11-13T06:31:30Z",
       "side": 1,
       "message": "Is this necessary considering you have the annotation on the class ?",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 18
+      },
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6983f78b_9d13c35f",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-14T06:34:32Z",
+      "side": 1,
+      "message": "You are right, this is not necessary.\nI forgot to remove this when I moved the IgnoreUpTo rule from methods to the class.",
+      "parentUuid": "25289fd6_4fa58635",
       "range": {
         "startLine": 60,
         "startChar": 8,
@@ -118,6 +166,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "890ba8aa_a830023e",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-14T06:34:32Z",
+      "side": 1,
+      "message": "I needed listener to remove the listner at the end of the test.\n`cm.removeDefaultNetworkActiveListener(listener)`",
+      "parentUuid": "4039dff8_2ccb00c6",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 52
+      },
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "338bfbde_5e7648d3",
         "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
         "patchSetId": 123
@@ -129,6 +201,30 @@
       "writtenOn": "2023-11-13T06:31:30Z",
       "side": 1,
       "message": "Of course this is fine but in Kotlin you can say netId.toString()",
+      "range": {
+        "startLine": 154,
+        "startChar": 39,
+        "endLine": 154,
+        "endChar": 47
+      },
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37cbe003_dd907e6e",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-14T06:34:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "338bfbde_5e7648d3",
       "range": {
         "startLine": 154,
         "startChar": 39,
@@ -164,6 +260,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f82344a3_2c91b169",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-14T06:34:32Z",
+      "side": 1,
+      "message": "Current code removes the idleTimer after sending the Lost callback.\nSo this was required.\nUploaded aosp/2829590 to remove idleTimer before the Lost callback and aosp/2829590 also removes waitForIdle.",
+      "parentUuid": "4ebad0b0_eff843f3",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 19
+      },
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75171958_6a6d7a04",
         "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
         "patchSetId": 123
@@ -175,6 +295,24 @@
       "writtenOn": "2023-11-13T06:31:30Z",
       "side": 1,
       "message": "I think this method is a bit too use-case specific to be in CSTest.kt. I think it\u0027s okay if the `orderedBroadcastAsUserHistory` is protected, but then you\u0027d move this method in the file that wants to check this.",
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f05f06e_fc63d7f2",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-14T06:34:32Z",
+      "side": 1,
+      "message": "I have moved this method to CSNetworkActivityTest.kt",
+      "parentUuid": "75171958_6a6d7a04",
       "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -192,6 +330,30 @@
       "writtenOn": "2023-11-13T06:31:30Z",
       "side": 1,
       "message": "You shouldn\u0027t need to specify the type",
+      "range": {
+        "startLine": 299,
+        "startChar": 24,
+        "endLine": 299,
+        "endChar": 30
+      },
+      "revId": "fa82f4d6d07a4653849c13129069a2bae8707021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4410ce69_845dd707",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-14T06:34:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eec73482_f63a9e76",
       "range": {
         "startLine": 299,
         "startChar": 24,
