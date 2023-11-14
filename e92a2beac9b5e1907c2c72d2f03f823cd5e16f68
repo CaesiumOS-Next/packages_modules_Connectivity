@@ -39,6 +39,30 @@
       },
       "revId": "e92a2beac9b5e1907c2c72d2f03f823cd5e16f68",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61818d23_82f6c87a",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-11-14T09:55:18Z",
+      "side": 1,
+      "message": "I do another investigation on this. b/297703895#comment6 can not help on this because Vpn in S will incorrectly use VPN network itself as underlying network. Disconnect other internet network will not help on this. I cannot think of other improvement we could make inside the test, so I think we still need this patch to reduce the flaky rate.",
+      "parentUuid": "0072ed1d_7d2d0067",
+      "range": {
+        "startLine": 620,
+        "startChar": 14,
+        "endLine": 620,
+        "endChar": 19
+      },
+      "revId": "e92a2beac9b5e1907c2c72d2f03f823cd5e16f68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
