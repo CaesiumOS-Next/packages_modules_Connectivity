@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c3ec077_91725e28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1980271
+      },
+      "writtenOn": "2023-11-14T02:58:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d30f26c6_ae6e5981",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 53
+      },
+      "revId": "d116a380d036cac6a5798bbd40d297f813702f79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80784107_a92781bc",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-13T21:34:21Z",
       "side": 1,
       "message": "Could you also add a \"Test:\" stanza before this to indicate how this has been tested?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 11
+      },
+      "revId": "d116a380d036cac6a5798bbd40d297f813702f79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b9106fd_8f26d008",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1980271
+      },
+      "writtenOn": "2023-11-14T02:58:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80784107_a92781bc",
       "range": {
         "startLine": 22,
         "startChar": 0,
