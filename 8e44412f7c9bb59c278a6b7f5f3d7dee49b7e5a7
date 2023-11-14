@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec15004d_e77754f3",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-14T05:30:31Z",
+      "side": 1,
+      "message": "It\u0027s probably largely irrelevant because if Service.unregister throws it\u0027s probably that the system is dead and the app will be killed anyway, but this means you can\u0027t free the memory if the system throws",
+      "range": {
+        "startLine": 239,
+        "startChar": 34,
+        "endLine": 239,
+        "endChar": 40
+      },
+      "revId": "8e44412f7c9bb59c278a6b7f5f3d7dee49b7e5a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
