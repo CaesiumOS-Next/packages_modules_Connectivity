@@ -45,6 +45,7 @@ public abstract class IpSecXfrmNetlinkMessage extends NetlinkMessage {
 
     // TODO: STOPSHIP: b/308011229 Move to NetlinkConstants
     /* see include/uapi/linux/xfrm.h */
+    public static final short XFRM_MSG_NEWSA = 16;
     public static final short XFRM_MSG_GETSA = 18;
 
     public static final int XFRM_MODE_TRANSPORT = 0;
