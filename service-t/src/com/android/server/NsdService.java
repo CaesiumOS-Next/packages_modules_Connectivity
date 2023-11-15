@@ -530,6 +530,11 @@ public class NsdService extends INsdManager.Stub {
         }
 
         private void maybeStartDaemon() {
+            if (SdkLevel.isAtLeastV()) {
+                Log.wtf(TAG, "maybeStartDaemon is not expected to be called on V devices");
+                return;
+            }
+
             if (mIsDaemonStarted) {
                 if (DBG) Log.d(TAG, "Daemon is already started.");
                 return;
@@ -542,6 +547,11 @@ public class NsdService extends INsdManager.Stub {
         }
 
         private void maybeStopDaemon() {
+            if (SdkLevel.isAtLeastV()) {
+                Log.wtf(TAG, "maybeStopDaemon is not expected to be called on V devices");
+                return;
+            }
+
             if (!mIsDaemonStarted) {
                 if (DBG) Log.d(TAG, "Daemon has not been started.");
                 return;
@@ -1618,7 +1628,9 @@ public class NsdService extends INsdManager.Stub {
         mContext = ctx;
         mNsdStateMachine = new NsdStateMachine(TAG, handler);
         mNsdStateMachine.start();
-        mMDnsManager = ctx.getSystemService(MDnsManager.class);
+        if (!SdkLevel.isAtLeastV()) {
+            mMDnsManager = ctx.getSystemService(MDnsManager.class);
+        }
         mMDnsEventCallback = new MDnsEventCallback(mNsdStateMachine);
         mDeps = deps;
 
@@ -2133,6 +2145,11 @@ public class NsdService extends INsdManager.Stub {
     }
 
     private boolean registerService(int transactionId, NsdServiceInfo service) {
+        if (SdkLevel.isAtLeastV()) {
+            Log.wtf(TAG, "registerService is not expected to be called on V devices");
+            return false;
+        }
+
         if (DBG) {
             Log.d(TAG, "registerService: " + transactionId + " " + service);
         }
@@ -2150,10 +2167,19 @@ public class NsdService extends INsdManager.Stub {
     }
 
     private boolean unregisterService(int transactionId) {
+        if (SdkLevel.isAtLeastV()) {
+            Log.wtf(TAG, "unregisterService is not expected to be called on V devices");
+            return false;
+        }
         return mMDnsManager.stopOperation(transactionId);
     }
 
     private boolean discoverServices(int transactionId, NsdServiceInfo serviceInfo) {
+        if (SdkLevel.isAtLeastV()) {
+            Log.wtf(TAG, "discoverServices is not expected to be called on V devices");
+            return false;
+        }
+
         final String type = serviceInfo.getServiceType();
         final int discoverInterface = getNetworkInterfaceIndex(serviceInfo);
         if (serviceInfo.getNetwork() != null && discoverInterface == IFACE_IDX_ANY) {
@@ -2164,10 +2190,18 @@ public class NsdService extends INsdManager.Stub {
     }
 
     private boolean stopServiceDiscovery(int transactionId) {
+        if (SdkLevel.isAtLeastV()) {
+            Log.wtf(TAG, "stopServiceDiscovery is not expected to be called on V devices");
+            return false;
+        }
         return mMDnsManager.stopOperation(transactionId);
     }
 
     private boolean resolveService(int transactionId, NsdServiceInfo service) {
+        if (SdkLevel.isAtLeastV()) {
+            Log.wtf(TAG, "resolveService is not expected to be called on V devices");
+            return false;
+        }
         final String name = service.getServiceName();
         final String type = service.getServiceType();
         final int resolveInterface = getNetworkInterfaceIndex(service);
@@ -2241,14 +2275,26 @@ public class NsdService extends INsdManager.Stub {
     }
 
     private boolean stopResolveService(int transactionId) {
+        if (SdkLevel.isAtLeastV()) {
+            Log.wtf(TAG, "stopResolveService is not expected to be called on V devices");
+            return false;
+        }
         return mMDnsManager.stopOperation(transactionId);
     }
 
     private boolean getAddrInfo(int transactionId, String hostname, int interfaceIdx) {
+        if (SdkLevel.isAtLeastV()) {
+            Log.wtf(TAG, "getAddrInfo is not expected to be called on V devices");
+            return false;
+        }
         return mMDnsManager.getServiceAddress(transactionId, hostname, interfaceIdx);
     }
 
     private boolean stopGetAddrInfo(int transactionId) {
+        if (SdkLevel.isAtLeastV()) {
+            Log.wtf(TAG, "stopGetAddrInfo is not expected to be called on V devices");
+            return false;
+        }
         return mMDnsManager.stopOperation(transactionId);
     }
 
