@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14e4d654_615c3a2d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-15T07:54:01Z",
+      "side": 1,
+      "message": "Unfortunately I still don\u0027t see the `onLocalNetworkInfoChanged` method is in the byte code built by cloud builder of this CL.\n\nPatchset 12: https://android-build.corp.google.com/build-details/P65505303/targets/aosp_cf_x86_64_phone-trunk_staging-userdebug \n\nI downloaded the `system_server.zip` and got the byte code of `service-connectivity.jar` but `ThreadNetworkCallback` doesn\u0027t have the method `onLocalNetworkInfoChanged`.",
+      "parentUuid": "026d79a7_37c017b9",
+      "range": {
+        "startLine": 312,
+        "startChar": 18,
+        "endLine": 312,
+        "endChar": 35
+      },
+      "revId": "91642a46ab75a0d579afb7febddb7af6bb08ef6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f407974c_67766d70",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 11
