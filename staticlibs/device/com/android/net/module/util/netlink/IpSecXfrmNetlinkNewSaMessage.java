@@ -102,4 +102,8 @@ public class IpSecXfrmNetlinkNewSaMessage extends IpSecXfrmNetlinkMessage {
     public IpSecStructXfrmReplayStateEsn getXfrmReplayStateEsn() {
         return mXfrmReplayStateEsn;
     }
+
+    public IpSecStructXfrmUsersaInfo getIpSecStructXfrmUsersaInfo() {
+        return mXfrmUsersaInfo;
+    }
 }
