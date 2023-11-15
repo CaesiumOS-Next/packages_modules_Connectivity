@@ -119,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07d934e8_80e4b90b",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-15T04:23:20Z",
+      "side": 1,
+      "message": "Ack.\nFrom API point of view it should be T+.\nBut it would be errorprone if people use it before V.\nThus, added Log.wtf if !isAtLeastV, see if it works for you.",
+      "parentUuid": "52440e5f_2aee16f2",
+      "range": {
+        "startLine": 275,
+        "startChar": 37,
+        "endLine": 275,
+        "endChar": 54
+      },
+      "revId": "1a996d988e29b5b8247c563f6372c45711f7ff4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4eb57356_0cf0faca",
