@@ -39,12 +39,18 @@ android_test {
         "guava-android-testlib",
         "mockito-target-minus-junit4",
         "net-tests-utils",
+        "ot-daemon-aidl-java",
+        "service-thread-pre-jarjar",
         "truth",
     ],
     libs: [
         "android.test.base",
         "android.test.runner",
     ],
+    jni_libs: [
+        "libservice-thread-jni",
+    ],
+    jni_uses_platform_apis: true,
     jarjar_rules: ":connectivity-jarjar-rules",
     // Test coverage system runs on different devices. Need to
     // compile for all architectures.
