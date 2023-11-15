@@ -1,0 +1,291 @@
+/*
+ * Copyright (C) 2023 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package android.net;
+
+import static com.android.internal.annotations.VisibleForTesting.Visibility;
+
+import android.annotation.FlaggedApi;
+import android.annotation.NonNull;
+import android.net.IpSecManager.Flags;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.os.PersistableBundle;
+
+import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.HexDump;
+
+import java.beans.Visibility;
+import java.math.BigInteger;
+import java.util.Objects;
+
+/**
+ * This class represents a snapshot of the state of an IPsec Security Association
+ *
+ * <p>This class provides the current state of an IpSecTransform, enabling traffic analysis by the
+ * caller. Examples include understanding transform usage, such as packet and byte counts, and
+ * observing out-of-order delivery by checking the bitmap. Additionally, callers can query
+ * IpSecTransformStats at two timestamps. By comparing the changes in packet counts and sequence
+ * numbers, callers can estimate IPsec data loss in the inbound direction.
+ *
+ * @hide
+ */
+@FlaggedApi(Flags.IPSEC_TRANSFORM_STATE)
+public final class IpSecTransformState implements Parcelable {
+    private static final String TIMESTAMP_KEY = "mTimeStamp";
+    private final long mTimeStamp;
+
+    private static final String TX_HIGHEST_SEQUENCE_NUMBER_KEY = "mTxHighestSequenceNumber";
+    private final long mTxHighestSequenceNumber;
+
+    private static final String RX_HIGHEST_SEQUENCE_NUMBER_KEY = "mRxHighestSequenceNumber";
+    private final long mRxHighestSequenceNumber;
+
+    private static final String PACKET_COUNT_KEY = "mPacketCount";
+    private final BigInteger mPacketCount;
+
+    private static final String BYTE_COUNT_KEY = "mByteCount";
+    private final BigInteger mByteCount;
+
+    private static final String REPLAY_BITMAP_KEY = "mReplayBitmap";
+    private final byte[] mReplayBitmap;
+
+    private IpSecTransformState(
+            long timestamp,
+            long txHighestSequenceNumber,
+            long rxHighestSequenceNumber,
+            BigInteger packetCount,
+            BigInteger byteCount,
+            byte[] replayBitmap) {
+        mTimeStamp = timestamp;
+        mTxHighestSequenceNumber = txHighestSequenceNumber;
+        mRxHighestSequenceNumber = rxHighestSequenceNumber;
+        mPacketCount = packetCount;
+        mByteCount = byteCount;
+
+        Objects.requireNonNull(replayBitmap, "replayBitmap is null");
+        mReplayBitmap = replayBitmap.clone();
+
+        validate();
+    }
+
+    private void validate() {
+        if (mPacketCount.signum() == -1) {
+            throw new IllegalArgumentException("mPacketCount is negative");
+        }
+
+        if (mByteCount.signum() == -1) {
+            throw new IllegalArgumentException("mByteCount is negative");
+        }
+
+        Objects.requireNonNull(mReplayBitmap, "mReplayBitmap is null");
+    }
+
+    /**
+     * Deserializes a IpSecTransformState from a PersistableBundle.
+     *
+     * @hide
+     */
+    @VisibleForTesting(visibility = Visibility.PRIVATE)
+    public IpSecTransformState(@NonNull PersistableBundle in) {
+        Objects.requireNonNull(in, "The input PersistableBundle is null");
+        mTimeStamp = in.getLong(TIMESTAMP_KEY);
+        mTxHighestSequenceNumber = in.getLong(TX_HIGHEST_SEQUENCE_NUMBER_KEY);
+        mRxHighestSequenceNumber = in.getLong(RX_HIGHEST_SEQUENCE_NUMBER_KEY);
+        mPacketCount = unsignedHexStringToBigInteger(in.getString(PACKET_COUNT_KEY));
+        mByteCount = unsignedHexStringToBigInteger(in.getString(BYTE_COUNT_KEY));
+        mReplayBitmap = HexDump.hexStringToByteArray(in.getString(REPLAY_BITMAP_KEY));
+
+        validate();
+    }
+
+    /**
+     * Serializes this object to a PersistableBundle.
+     *
+     * @hide
+     */
+    @NonNull
+    public PersistableBundle toPersistableBundle() {
+        final PersistableBundle bundle = new PersistableBundle();
+
+        bundle.putLong(TIMESTAMP_KEY, mTimeStamp);
+        bundle.putLong(TX_HIGHEST_SEQUENCE_NUMBER_KEY, mTxHighestSequenceNumber);
+        bundle.putLong(RX_HIGHEST_SEQUENCE_NUMBER_KEY, mRxHighestSequenceNumber);
+        bundle.putString(PACKET_COUNT_KEY, bigIntegerToUnsignedHexString(mPacketCount));
+        bundle.putString(BYTE_COUNT_KEY, bigIntegerToUnsignedHexString(mByteCount));
+        bundle.putString(REPLAY_BITMAP_KEY, HexDump.toHexString(mReplayBitmap));
+
+        return bundle;
+    }
+
+    // Parcelable methods
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel out, int flags) {
+        out.writeParcelable(toPersistableBundle(), flags);
+    }
+
+    @NonNull
+    public static final Parcelable.Creator<IpSecTransformState> CREATOR =
+            new Parcelable.Creator<IpSecTransformState>() {
+                @NonNull
+                public IpSecTransformState createFromParcel(Parcel in) {
+                    return new IpSecTransformState(
+                            (PersistableBundle)
+                                    in.readParcelable(null, android.os.PersistableBundle.class));
+                }
+
+                @NonNull
+                public IpSecTransformState[] newArray(int size) {
+                    return new IpSecTransformState[size];
+                }
+            };
+
+    /** Converts the unsigned Hex String to a positive BigInteger. */
+    private static BigInteger unsignedHexStringToBigInteger(String hexString) {
+        return new BigInteger(hexString, 16);
+    }
+
+    /** Converts a positive BigInteger to a unsigned Hex String. */
+    private static String bigIntegerToUnsignedHexString(BigInteger bigInteger) {
+        if (bigInteger.signum() == -1) {
+            throw new IllegalArgumentException("bigInteger is negative");
+        }
+        return bigInteger.toString(16);
+    }
+
+    /** Retrieve the epoch timestamp (milliseconds) for when this state was created */
+    public long getTimestamp() {
+        return mTimeStamp;
+    }
+
+    /** Retrieve the highest sequence number sent so far */
+    public long getTxHighestSequenceNumber() {
+        return mTxHighestSequenceNumber;
+    }
+
+    /** Retrieve the highest sequence number received so far */
+    public long getRxHighestSequenceNumber() {
+        return mRxHighestSequenceNumber;
+    }
+
+    /** Retrieve the number of packets received AND sent so far */
+    @NonNull
+    public BigInteger getPacketCount() {
+        return mPacketCount;
+    }
+
+    /** Retrieve the number of bytes received AND sent so far */
+    @NonNull
+    public BigInteger getByteCount() {
+        return mByteCount;
+    }
+
+    /**
+     * Retrieve the replay bitmap
+     *
+     * <p>This bitmap represents a replay window, allowing the caller to observe out-of-order
+     * delivery. The last bit represents the highest sequence number received so far and received
+     * sequence numbers within the window will be checked off.
+     *
+     * <p>The size of a replay bitmap is always the same for an IpSecTransform and will never
+     * change.
+     *
+     * <p>The replay bitmap is solely useful for inbound IpSecTransforms. For outbound
+     * IpSecTransforms, all bits will be unchecked.
+     */
+    @NonNull
+    public byte[] getReplayBitmap() {
+        return mReplayBitmap.clone();
+    }
+
+    /** Builder class for testing purposes */
+    @FlaggedApi(Flags.IPSEC_TRANSFORM_STATE)
+    public static final class Builder {
+        private long mTimeStamp;
+        private long mTxHighestSequenceNumber;
+        private long mRxHighestSequenceNumber;
+        private BigInteger mPacketCount;
+        private BigInteger mByteCount;
+        private byte[] mReplayBitmap;
+
+        public Builder() {
+            mTimeStamp = System.currentTimeMillis();
+        }
+
+        /** Set the epoch timestamp (milliseconds) for when this state was created */
+        @NonNull
+        public Builder setTimestamp(long timeStamp) {
+            mTimeStamp = timeStamp;
+            return this;
+        }
+
+        /** Set the highest sequence number sent so far */
+        @NonNull
+        public Builder setTxHighestSequenceNumber(long seqNum) {
+            mTxHighestSequenceNumber = seqNum;
+            return this;
+        }
+
+        /** Set the highest sequence number received so far */
+        @NonNull
+        public Builder setRxHighestSequenceNumber(long seqNum) {
+            mRxHighestSequenceNumber = seqNum;
+            return this;
+        }
+
+        /** Set the number of packets received AND sent so far */
+        @NonNull
+        public Builder setPacketCount(@NonNull BigInteger packetCount) {
+            mPacketCount = packetCount;
+            return this;
+        }
+
+        /** Set the number of bytes received AND sent so far */
+        @NonNull
+        public Builder setByteCount(@NonNull BigInteger byteCount) {
+            mByteCount = byteCount;
+            return this;
+        }
+
+        /** Set the replay bitmap */
+        @NonNull
+        public Builder setReplayBitmap(@NonNull byte[] bitMap) {
+            mReplayBitmap = bitMap.clone();
+            return this;
+        }
+
+        /**
+         * Build and validate the IpSecTransformState
+         *
+         * @return an immutable IpSecTransformState instance
+         */
+        @NonNull
+        public IpSecTransformState build() {
+            return new IpSecTransformState(
+                    mTimeStamp,
+                    mTxHighestSequenceNumber,
+                    mRxHighestSequenceNumber,
+                    mPacketCount,
+                    mByteCount,
+                    mReplayBitmap);
+        }
+    }
+}
