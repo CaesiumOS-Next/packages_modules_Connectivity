@@ -27,6 +27,8 @@ import android.net.nsd.NsdManager;
 import android.net.thread.IThreadNetworkManager;
 import android.net.thread.ThreadNetworkManager;
 
+import com.android.modules.utils.build.SdkLevel;
+
 /**
  * Class for performing registration for Connectivity services which are exposed via updatable APIs
  * since Android T.
@@ -83,14 +85,17 @@ public final class ConnectivityFrameworkInitializerTiramisu {
                 }
         );
 
-        SystemServiceRegistry.registerStaticService(
-                MDnsManager.MDNS_SERVICE,
-                MDnsManager.class,
-                (serviceBinder) -> {
-                    IMDns service = IMDns.Stub.asInterface(serviceBinder);
-                    return new MDnsManager(service);
-                }
-        );
+        // netd stops to support mdns from Android U.
+        if (!SdkLevel.isAtLeastU()) {
+            SystemServiceRegistry.registerStaticService(
+                    MDnsManager.MDNS_SERVICE,
+                    MDnsManager.class,
+                    (serviceBinder) -> {
+                        IMDns service = IMDns.Stub.asInterface(serviceBinder);
+                        return new MDnsManager(service);
+                    }
+            );
+        }
 
         SystemServiceRegistry.registerContextAwareService(
                 ThreadNetworkManager.SERVICE_NAME,
