@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "592fd13f_7dc754b2",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-15T02:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b0215a4_312f3a8a",
+      "revId": "81b14cf2b84766ccc139c30ad0efb7e1095f6216",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16213361_4a0f119e",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-11-14T13:15:58Z",
       "side": 1,
       "message": "nit: return early to reduce indention depth\n\n```suggestion\n        if (mNetworkAgent \u003d\u003d null) {\n            return;\n        }\n```",
+      "range": {
+        "startLine": 613,
+        "startChar": 8,
+        "endLine": 613,
+        "endChar": 36
+      },
+      "revId": "81b14cf2b84766ccc139c30ad0efb7e1095f6216",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ed97df4_77d13c68",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-15T02:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16213361_4a0f119e",
       "range": {
         "startLine": 613,
         "startChar": 8,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dadc454_8a6db7c7",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-15T02:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "813c7396_d2817c0a",
+      "range": {
+        "startLine": 625,
+        "startChar": 61,
+        "endLine": 625,
+        "endChar": 72
+      },
+      "revId": "81b14cf2b84766ccc139c30ad0efb7e1095f6216",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfdc80fd_ee2e63c6",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-11-14T13:15:58Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 627,
+        "startChar": 64,
+        "endLine": 627,
+        "endChar": 72
+      },
+      "revId": "81b14cf2b84766ccc139c30ad0efb7e1095f6216",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c788a2fd_65b33dc3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-15T02:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfdc80fd_ee2e63c6",
       "range": {
         "startLine": 627,
         "startChar": 64,
@@ -133,6 +223,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb72c447_c05c3a6c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-15T02:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60913b98_8f9843bf",
+      "range": {
+        "startLine": 631,
+        "startChar": 2,
+        "endLine": 633,
+        "endChar": 58
+      },
+      "revId": "81b14cf2b84766ccc139c30ad0efb7e1095f6216",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9385b12_f12b66cd",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-15T02:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab771be9_11beabc3",
+      "range": {
+        "startLine": 632,
+        "startChar": 0,
+        "endLine": 633,
+        "endChar": 58
+      },
+      "revId": "81b14cf2b84766ccc139c30ad0efb7e1095f6216",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0a37fc7_2cfde08f",
@@ -146,6 +284,30 @@
       "writtenOn": "2023-11-14T13:15:58Z",
       "side": 1,
       "message": "Should the listening addresses list be cleared when multicast routing is disabled?",
+      "range": {
+        "startLine": 644,
+        "startChar": 16,
+        "endLine": 645,
+        "endChar": 53
+      },
+      "revId": "81b14cf2b84766ccc139c30ad0efb7e1095f6216",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32d73481_df130c9c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-15T02:05:54Z",
+      "side": 1,
+      "message": "CONFIG_FORWARD_NONE has no listening addresses, so setting to CONFIG_FORWARD_NONE clears the listening address list.",
+      "parentUuid": "d0a37fc7_2cfde08f",
       "range": {
         "startLine": 644,
         "startChar": 16,
@@ -179,6 +341,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6edb2bc9_c532dc3b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-15T02:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "868caacc_1464a85e",
+      "range": {
+        "startLine": 668,
+        "startChar": 21,
+        "endLine": 668,
+        "endChar": 26
+      },
+      "revId": "81b14cf2b84766ccc139c30ad0efb7e1095f6216",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03acf58b_66595dd7",
@@ -202,6 +388,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fb1ce70_f447ed99",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-15T02:05:54Z",
+      "side": 1,
+      "message": "Good idea, done",
+      "parentUuid": "03acf58b_66595dd7",
+      "range": {
+        "startLine": 674,
+        "startChar": 8,
+        "endLine": 679,
+        "endChar": 0
+      },
+      "revId": "81b14cf2b84766ccc139c30ad0efb7e1095f6216",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0789577_b7c3a0c4",
@@ -215,6 +425,30 @@
       "writtenOn": "2023-11-14T13:15:58Z",
       "side": 1,
       "message": "nit: this is a method of the ThreadNetworkControllerService but not the OtDaemonCallbackProxy class. Consider following the existing pattern and make `onXxxChanged()` a method of OtDaemonCallbackProxy class.",
+      "range": {
+        "startLine": 829,
+        "startChar": 12,
+        "endLine": 829,
+        "endChar": 45
+      },
+      "revId": "81b14cf2b84766ccc139c30ad0efb7e1095f6216",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfb378d7_2958d479",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-15T02:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0789577_b7c3a0c4",
       "range": {
         "startLine": 829,
         "startChar": 12,
