@@ -150,6 +150,9 @@ import java.util.Queue;
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
 public class NsdServiceTest {
+    @Rule
+    public final DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
+
     static final int PROTOCOL = NsdManager.PROTOCOL_DNS_SD;
     private static final long CLEANUP_DELAY_MS = 500;
     private static final long TIMEOUT_MS = 500;
@@ -253,6 +256,8 @@ public class NsdServiceTest {
         }
     }
 
+    // Native mdns provided by Netd is removed after U.
+    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Test
     @DisableCompatChanges({
             RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER,
