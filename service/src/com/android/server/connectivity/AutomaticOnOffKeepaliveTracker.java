@@ -77,6 +77,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Manages automatic on/off socket keepalive requests.
@@ -373,26 +374,27 @@ public class AutomaticOnOffKeepaliveTracker {
      * Determine if any state transition is needed for the specific automatic keepalive.
      */
     public void handleMonitorAutomaticKeepalive(@NonNull final AutomaticOnOffKeepalive ki,
-            final int vpnNetId) {
+            final int vpnNetId, @NonNull Set<Integer> allowedUids) {
         // Might happen if the automatic keepalive was removed by the app just as the alarm fires.
         if (!mAutomaticOnOffKeepalives.contains(ki)) return;
         if (STATE_ALWAYS_ON == ki.mAutomaticOnOffState) {
             throw new IllegalStateException("Should not monitor non-auto keepalive");
         }
 
-        handleMonitorTcpConnections(ki, vpnNetId);
+        handleMonitorTcpConnections(ki, vpnNetId, allowedUids);
     }
 
     /**
      * Determine if disable or re-enable keepalive is needed or not based on TCP sockets status.
      */
-    private void handleMonitorTcpConnections(@NonNull AutomaticOnOffKeepalive ki, int vpnNetId) {
+    private void handleMonitorTcpConnections(@NonNull AutomaticOnOffKeepalive ki, int vpnNetId,
+            @NonNull Set<Integer> allowedUids) {
         // Might happen if the automatic keepalive was removed by the app just as the alarm fires.
         if (!mAutomaticOnOffKeepalives.contains(ki)) return;
         if (STATE_ALWAYS_ON == ki.mAutomaticOnOffState) {
             throw new IllegalStateException("Should not monitor non-auto keepalive");
         }
-        if (!isAnyTcpSocketConnected(vpnNetId)) {
+        if (!isAnyTcpSocketConnected(vpnNetId, allowedUids)) {
             // No TCP socket exists. Stop keepalive if ENABLED, and remain SUSPENDED if currently
             // SUSPENDED.
             if (ki.mAutomaticOnOffState == STATE_ENABLED) {
@@ -744,7 +746,7 @@ public class AutomaticOnOffKeepaliveTracker {
     }
 
     @VisibleForTesting
-    boolean isAnyTcpSocketConnected(int netId) {
+    boolean isAnyTcpSocketConnected(int netId, @NonNull Set<Integer> allowedUids) {
         FileDescriptor fd = null;
 
         try {
@@ -757,7 +759,8 @@ public class AutomaticOnOffKeepaliveTracker {
 
             // Send request for each IP family
             for (final int family : ADDRESS_FAMILIES) {
-                if (isAnyTcpSocketConnectedForFamily(fd, family, networkMark, networkMask)) {
+                if (isAnyTcpSocketConnectedForFamily(
+                        fd, family, networkMark, networkMask, allowedUids)) {
                     return true;
                 }
             }
@@ -771,7 +774,8 @@ public class AutomaticOnOffKeepaliveTracker {
     }
 
     private boolean isAnyTcpSocketConnectedForFamily(FileDescriptor fd, int family, int networkMark,
-            int networkMask) throws ErrnoException, InterruptedIOException {
+            int networkMask, @NonNull Set<Integer> allowedUids)
+            throws ErrnoException, InterruptedIOException {
         ensureRunningOnHandlerThread();
         // Build SocketDiag messages and cache it.
         if (mSockDiagMsg.get(family) == null) {
