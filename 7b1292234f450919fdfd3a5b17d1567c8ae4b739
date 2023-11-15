@@ -22,6 +22,30 @@
       },
       "revId": "7b1292234f450919fdfd3a5b17d1567c8ae4b739",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c0a2b62_8791f312",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-11-15T08:31:33Z",
+      "side": 1,
+      "message": "Oh! yes, I also found this issue while preparing the follow up changes.\nUpdated. Thanks for catching this.",
+      "parentUuid": "474ea36b_4086f936",
+      "range": {
+        "startLine": 7,
+        "startChar": 5,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "7b1292234f450919fdfd3a5b17d1567c8ae4b739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
