@@ -33,18 +33,26 @@ android_test {
     static_libs: [
         "androidx.test.ext.junit",
         "compatibility-device-util-axt",
+        "frameworks-base-testutils",
         "framework-connectivity-pre-jarjar",
         "framework-connectivity-t-pre-jarjar",
         "guava",
         "guava-android-testlib",
         "mockito-target-minus-junit4",
         "net-tests-utils",
+        "ot-daemon-aidl-java",
+        "ot-daemon-testing",
+        "service-thread-pre-jarjar",
         "truth",
     ],
     libs: [
         "android.test.base",
         "android.test.runner",
     ],
+    jni_libs: [
+        "libservice-thread-jni",
+    ],
+    jni_uses_platform_apis: true,
     jarjar_rules: ":connectivity-jarjar-rules",
     // Test coverage system runs on different devices. Need to
     // compile for all architectures.
