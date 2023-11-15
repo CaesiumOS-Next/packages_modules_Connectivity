@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e1bf15c_30f3685f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-15T07:13:41Z",
+      "side": 1,
+      "message": "Uploaded aosp/2830051 to make NewApi linter check to the error.\nOnce aosp/2830051 is merged, the presubmit for this CL with @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE) should fail.",
+      "revId": "052f0abe41071aea7d0958d1a709899c73a6d4b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
