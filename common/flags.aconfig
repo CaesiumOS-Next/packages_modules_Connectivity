@@ -41,3 +41,10 @@ flag {
   description: "Block network access for apps in a low importance background state"
   bug: "304347838"
 }
+
+flag {
+  name: "register_nsd_offload_engine_permission"
+  namespace: "android_core_networking"
+  description: "The flag controls the access for android.permission.REGISTER_NSD_OFFLOAD_ENGINE"
+  bug: "294777050"
+}
