@@ -127,6 +127,7 @@ package android.net {
 
   public final class IpSecTransform implements java.lang.AutoCloseable {
     method public void close();
+    method public void getIpSecTransformState(@NonNull java.util.concurrent.Executor, @NonNull android.os.OutcomeReceiver<android.net.IpSecTransformState,java.lang.RuntimeException>);
   }
 
   public static class IpSecTransform.Builder {
@@ -136,6 +137,29 @@ package android.net {
     method @NonNull public android.net.IpSecTransform.Builder setAuthentication(@NonNull android.net.IpSecAlgorithm);
     method @NonNull public android.net.IpSecTransform.Builder setEncryption(@NonNull android.net.IpSecAlgorithm);
     method @NonNull public android.net.IpSecTransform.Builder setIpv4Encapsulation(@NonNull android.net.IpSecManager.UdpEncapsulationSocket, int);
+  }
+
+  public final class IpSecTransformState implements android.os.Parcelable {
+    method public int describeContents();
+    method @NonNull public java.math.BigInteger getByteCount();
+    method @NonNull public java.math.BigInteger getPacketCount();
+    method @NonNull public byte[] getReplayBitmap();
+    method @NonNull public java.math.BigInteger getRxHighestSequenceNumber();
+    method public long getTimestamp();
+    method @NonNull public java.math.BigInteger getTxHighestSequenceNumber();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.IpSecTransformState> CREATOR;
+  }
+
+  public static final class IpSecTransformState.Builder {
+    ctor public IpSecTransformState.Builder();
+    method @NonNull public android.net.IpSecTransformState build();
+    method @NonNull public android.net.IpSecTransformState.Builder setByteCount(@NonNull java.math.BigInteger);
+    method @NonNull public android.net.IpSecTransformState.Builder setPacketCount(@NonNull java.math.BigInteger);
+    method @NonNull public android.net.IpSecTransformState.Builder setReplayBitmap(@NonNull byte[]);
+    method @NonNull public android.net.IpSecTransformState.Builder setRxHighestSequenceNumber(@NonNull java.math.BigInteger);
+    method @NonNull public android.net.IpSecTransformState.Builder setTimestamp(long);
+    method @NonNull public android.net.IpSecTransformState.Builder setTxHighestSequenceNumber(@NonNull java.math.BigInteger);
   }
 
   public class TrafficStats {
