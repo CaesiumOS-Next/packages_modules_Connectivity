@@ -108,6 +108,7 @@ import androidx.annotation.NonNull;
 import androidx.test.filters.SmallTest;
 
 import com.android.metrics.NetworkNsdReportedMetrics;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.server.NsdService.Dependencies;
 import com.android.server.connectivity.mdns.MdnsAdvertiser;
 import com.android.server.connectivity.mdns.MdnsDiscoveryManager;
@@ -258,28 +259,35 @@ public class NsdServiceTest {
             RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER,
             ENABLE_PLATFORM_MDNS_BACKEND})
     public void testPreSClients() throws Exception {
-        // Pre S client connected, the daemon should be started.
         connectClient(mService);
         final INsdManagerCallback cb1 = getCallback();
         final IBinder.DeathRecipient deathRecipient1 = verifyLinkToDeath(cb1);
-        verify(mMockMDnsM, times(1)).registerEventListener(any());
-        verify(mMockMDnsM, times(1)).startDaemon();
+        if (SdkLevel.isAtLeastV()) {
+            // mdns deamon is removed from V+ platform.
+            verify(mMockMDnsM, never()).registerEventListener(any());
+            verify(mMockMDnsM, never()).startDaemon();
+        } else {
+            // Pre S client connected on U- platform, the daemon should be started.
+            verify(mMockMDnsM, times(1)).registerEventListener(any());
+            verify(mMockMDnsM, times(1)).startDaemon();
 
-        connectClient(mService);
-        final INsdManagerCallback cb2 = getCallback();
-        final IBinder.DeathRecipient deathRecipient2 = verifyLinkToDeath(cb2);
-        // Daemon has been started, it should not try to start it again.
-        verify(mMockMDnsM, times(1)).registerEventListener(any());
-        verify(mMockMDnsM, times(1)).startDaemon();
+            connectClient(mService);
+            final INsdManagerCallback cb2 = getCallback();
+            final IBinder.DeathRecipient deathRecipient2 = verifyLinkToDeath(cb2);
 
-        deathRecipient1.binderDied();
-        // Still 1 client remains, daemon shouldn't be stopped.
-        waitForIdle();
-        verify(mMockMDnsM, never()).stopDaemon();
+            // Daemon has been started, it should not try to start it again.
+            verify(mMockMDnsM, times(1)).registerEventListener(any());
+            verify(mMockMDnsM, times(1)).startDaemon();
 
-        deathRecipient2.binderDied();
-        // All clients are disconnected, the daemon should be stopped.
-        verifyDelayMaybeStopDaemon(CLEANUP_DELAY_MS);
+            deathRecipient1.binderDied();
+            // Still 1 client remains, daemon shouldn't be stopped.
+            waitForIdle();
+            verify(mMockMDnsM, never()).stopDaemon();
+
+            deathRecipient2.binderDied();
+            // All clients are disconnected, the daemon should be stopped.
+            verifyDelayMaybeStopDaemon(CLEANUP_DELAY_MS);
+        }
     }
 
     @Test
