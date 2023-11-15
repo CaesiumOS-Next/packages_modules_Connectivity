@@ -27,6 +27,7 @@ import android.os.Looper;
 import android.util.ArrayMap;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -227,6 +228,37 @@ public class MdnsServiceCache {
             }
         }
         return minRemainingTtl == Long.MAX_VALUE ? 0 : minRemainingTtl;
+    }
+
+    /**
+     * Make responses for given instance names that needs to be resolved.
+     *
+     * @param resolveInstanceNames the instance name that needs to be resolved.
+     * @param cacheKey             the target CacheKey.
+     * @param serviceTypeLabels    the target service type labels.
+     * @return the list of responses which is generated from instance names.
+     */
+    public List<MdnsResponse> makeResponsesForResolve(@NonNull List<String> resolveInstanceNames,
+            @NonNull MdnsServiceCache.CacheKey cacheKey, String[] serviceTypeLabels) {
+        ensureRunningOnHandlerThread(mHandler);
+        final List<MdnsResponse> resolveResponses = new ArrayList<>();
+        for (String resolveName : resolveInstanceNames) {
+            if (resolveName == null) {
+                continue;
+            }
+            MdnsResponse knownResponse = getCachedService(resolveName, cacheKey);
+            if (knownResponse == null) {
+                final ArrayList<String> instanceFullName = new ArrayList<>(
+                        serviceTypeLabels.length + 1);
+                instanceFullName.add(resolveName);
+                instanceFullName.addAll(Arrays.asList(serviceTypeLabels));
+                knownResponse = new MdnsResponse(
+                        0L /* lastUpdateTime */, instanceFullName.toArray(new String[0]),
+                        cacheKey.mSocketKey.getInterfaceIndex(), cacheKey.mSocketKey.getNetwork());
+            }
+            resolveResponses.add(knownResponse);
+        }
+        return resolveResponses;
     }
 
     /*** Callbacks for listening service expiration */

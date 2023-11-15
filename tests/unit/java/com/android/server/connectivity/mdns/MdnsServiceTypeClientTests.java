@@ -16,7 +16,7 @@
 
 package com.android.server.connectivity.mdns;
 
-import static com.android.server.connectivity.mdns.MdnsServiceTypeClient.EVENT_START_QUERYTASK;
+import static com.android.server.connectivity.mdns.MdnsQuerier.EVENT_START_QUERYTASK;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -29,6 +29,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
@@ -120,7 +121,9 @@ public class MdnsServiceTypeClientTests {
     @Mock
     private SharedLog mockSharedLog;
     @Mock
-    private MdnsServiceTypeClient.Dependencies mockDeps;
+    private MdnsServiceTypeClient.Dependencies mockClientDeps;
+    @Mock
+    private MdnsQuerier.Dependencies mockDeps;
     @Captor
     private ArgumentCaptor<MdnsServiceInfo> serviceInfoCaptor;
 
@@ -218,8 +221,19 @@ public class MdnsServiceTypeClientTests {
         }).when(mockDeps).sendMessage(any(Handler.class), any(Message.class));
         doReturn(mockPacketWriter).when(mockDeps).createMdnsPacketWriter();
 
+        doAnswer(inv -> {
+            final MdnsServiceCache.CacheKey cacheKey =
+                    (MdnsServiceCache.CacheKey) inv.getArguments()[7];
+            final MdnsQuerier.QueryCallback callback =
+                    (MdnsQuerier.QueryCallback) inv.getArguments()[8];
+            return new MdnsQuerier(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
+                    mockDecoderClock, mockSharedLog, thread.getLooper(), serviceCache,
+                    cacheKey, callback, mockDeps);
+        }).when(mockClientDeps).makeMdnsQuerier(
+                anyString(), any(), any(), any(), any(), any(), any(), any(), any());
+
         client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
+                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockClientDeps,
                 serviceCache);
     }
 
@@ -1089,7 +1103,7 @@ public class MdnsServiceTypeClientTests {
     public void testProcessResponse_Resolve() throws Exception {
         doCallRealMethod().when(mockDeps).createMdnsPacketWriter();
         client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
+                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockClientDeps,
                 serviceCache);
 
         final String instanceName = "service-instance";
@@ -1185,7 +1199,7 @@ public class MdnsServiceTypeClientTests {
     public void testRenewTxtSrvInResolve() throws Exception {
         doCallRealMethod().when(mockDeps).createMdnsPacketWriter();
         client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
+                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockClientDeps,
                 serviceCache);
 
         final String instanceName = "service-instance";
