@@ -238,6 +238,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b23d39d_e84294e9",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-15T08:13:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab89a4be_55314058",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 24
+      },
+      "revId": "78d3f23ac42c1ca79f50d449e4c057d95dcf407a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6559866_1c311a8b",
@@ -346,6 +370,30 @@
       "side": 1,
       "message": "yes, I wondered if the right thing to do is to simply totally ignore poll()\u0027s return value, and just always blindly return !isEmpty()\n\nAs I said, I\u0027m not too sure what\u0027s best from an API perspective.",
       "parentUuid": "e286be61_9746ed34",
+      "range": {
+        "startLine": 227,
+        "startChar": 2,
+        "endLine": 227,
+        "endChar": 15
+      },
+      "revId": "78d3f23ac42c1ca79f50d449e4c057d95dcf407a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f704766_9e4806f4",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-15T08:13:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f979c64_b248afde",
       "range": {
         "startLine": 227,
         "startChar": 2,
