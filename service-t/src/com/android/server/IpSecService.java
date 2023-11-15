@@ -42,6 +42,7 @@ import android.net.IpSecMigrateInfoParcel;
 import android.net.IpSecSpiResponse;
 import android.net.IpSecTransform;
 import android.net.IpSecTransformResponse;
+import android.net.IpSecTransformState;
 import android.net.IpSecTunnelInterfaceResponse;
 import android.net.IpSecUdpEncapResponse;
 import android.net.LinkAddress;
@@ -1860,6 +1861,12 @@ public class IpSecService extends IIpSecService.Stub {
     public synchronized void deleteTransform(int resourceId) throws RemoteException {
         UserRecord userRecord = mUserResourceTracker.getUserRecord(Binder.getCallingUid());
         releaseResource(userRecord.mTransformRecords, resourceId);
+    }
+
+    @Override
+    public synchronized IpSecTransformState getTransformState(int transformId)
+            throws RemoteException {
+        // TODO;
     }
 
     /**
