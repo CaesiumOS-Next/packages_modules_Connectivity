@@ -19,12 +19,14 @@ package com.android.networkstack.tethering;
 import static com.android.networkstack.tethering.OffloadHardwareInterface.OFFLOAD_HAL_VERSION_AIDL;
 
 import android.annotation.NonNull;
+import android.annotation.TargetApi;
 import android.hardware.tetheroffload.ForwardedStats;
 import android.hardware.tetheroffload.IOffload;
 import android.hardware.tetheroffload.ITetheringOffloadCallback;
 import android.hardware.tetheroffload.NatTimeoutUpdate;
 import android.hardware.tetheroffload.NetworkProtocol;
 import android.hardware.tetheroffload.OffloadCallbackEvent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.NativeHandle;
 import android.os.ParcelFileDescriptor;
@@ -40,6 +42,7 @@ import java.util.ArrayList;
 /**
  * The implementation of IOffloadHal which based on Stable AIDL interface
  */
+@TargetApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 public class OffloadHalAidlImpl implements IOffloadHal {
     private static final String TAG = OffloadHalAidlImpl.class.getSimpleName();
     private static final String HAL_INSTANCE_NAME = IOffload.DESCRIPTOR + "/default";
