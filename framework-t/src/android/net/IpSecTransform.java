@@ -18,6 +18,7 @@ package android.net;
 import static android.net.IpSecManager.INVALID_RESOURCE_ID;
 
 import android.annotation.CallbackExecutor;
+import android.annotation.FlaggedApi;
 import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -26,6 +27,7 @@ import android.annotation.RequiresPermission;
 import android.annotation.SystemApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.IpSecManager.Flags;
 import android.os.Binder;
 import android.os.OutcomeReceiver;
 import android.os.RemoteException;
@@ -211,8 +213,8 @@ public final class IpSecTransform implements AutoCloseable {
      * @param callback Callback that's called after the transform state is ready or when an error
      *     occurs.
      * @see IpSecTransformState
-     * @hide
      */
+    @FlaggedApi(Flags.IPSEC_TRANSFORM_STATE)
     public void getIpSecTransformState(
             @CallbackExecutor @NonNull Executor executor,
             @NonNull OutcomeReceiver<IpSecTransformState, RuntimeException> callback) {
