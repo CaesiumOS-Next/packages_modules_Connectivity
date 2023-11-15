@@ -42,6 +42,7 @@ import android.net.IpSecMigrateInfoParcel;
 import android.net.IpSecSpiResponse;
 import android.net.IpSecTransform;
 import android.net.IpSecTransformResponse;
+import android.net.IpSecTransformState;
 import android.net.IpSecTunnelInterfaceResponse;
 import android.net.IpSecUdpEncapResponse;
 import android.net.LinkAddress;
@@ -70,16 +71,23 @@ import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BinderUtils;
 import com.android.net.module.util.NetdUtils;
 import com.android.net.module.util.PermissionUtils;
+import com.android.net.module.util.netlink.IpSecNetlinkUtils;
+import com.android.net.module.util.netlink.IpSecStructXfrmLifetimeCur;
+import com.android.net.module.util.netlink.IpSecStructXfrmReplayStateEsn;
+import com.android.net.module.util.netlink.IpSecXfrmNetlinkNewSaMessage;
 
 import libcore.io.IoUtils;
+import libcore.net.InetAddressUtils;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
@@ -1860,6 +1868,52 @@ public class IpSecService extends IIpSecService.Stub {
     public synchronized void deleteTransform(int resourceId) throws RemoteException {
         UserRecord userRecord = mUserResourceTracker.getUserRecord(Binder.getCallingUid());
         releaseResource(userRecord.mTransformRecords, resourceId);
+    }
+
+    @Override
+    public synchronized IpSecTransformState getTransformState(int transformId)
+            throws RemoteException {
+        UserRecord userRecord = mUserResourceTracker.getUserRecord(Binder.getCallingUid());
+        TransformRecord transformInfo =
+                userRecord.mTransformRecords.getResourceOrThrow(transformId);
+
+        final int spi = transformInfo.getSpiRecord().getSpi();
+        final InetAddress destAddress =
+                InetAddressUtils.parseNumericAddress(
+                        transformInfo.getConfig().getDestinationAddress());
+
+        final IpSecXfrmNetlinkNewSaMessage xfrmNewSaMsg;
+        try {
+            xfrmNewSaMsg = new IpSecNetlinkUtils().ipSecGetSa(destAddress, spi);
+        } catch (ErrnoException | SocketException | InterruptedIOException e) {
+            throw new RemoteException("Failed to get IpSecTransformState " + e.toString());
+        }
+
+        // Construct the response
+        final IpSecStructXfrmLifetimeCur xfrmLifetimeCur =
+                xfrmNewSaMsg.getIpSecStructXfrmUsersaInfo().getCurlft();
+
+        // It is safe to convert to long because packets and bytes are unsigned 64-bit long
+        final long packetCount = xfrmLifetimeCur.packets.longValue();
+        final long byteCount = xfrmLifetimeCur.bytes.longValue();
+
+        final IpSecStructXfrmReplayStateEsn xfrmReplayStateEsn =
+                xfrmNewSaMsg.getXfrmReplayStateEsn();
+
+        // TODO: Support reading oSeqHi and seqHi
+        final long txHighestSequenceNumber = xfrmReplayStateEsn.oSeq;
+        final long rxHighestSequenceNumber = xfrmReplayStateEsn.seq;
+        final byte[] replayBitmap = xfrmReplayStateEsn.bitmap.clone();
+
+        // TODO: Handle legacy replay protection
+
+        return new IpSecTransformState.Builder()
+                .setTxHighestSequenceNumber(txHighestSequenceNumber)
+                .setRxHighestSequenceNumber(rxHighestSequenceNumber)
+                .setPacketCount(packetCount)
+                .setByteCount(byteCount)
+                .setReplayBitmap(replayBitmap)
+                .build();
     }
 
     /**

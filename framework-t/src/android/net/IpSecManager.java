@@ -1084,6 +1084,11 @@ public class IpSecManager {
         }
     }
 
+    /** @hide */
+    public IpSecTransformState getTransformState(int transformId) throws RemoteException {
+        return mService.getTransformState(transformId);
+    }
+
     /**
      * Construct an instance of IpSecManager within an application context.
      *
