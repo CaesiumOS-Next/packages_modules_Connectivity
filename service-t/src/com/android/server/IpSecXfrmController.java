@@ -136,9 +136,7 @@ public class IpSecXfrmController {
     @GuardedBy("IpSecXfrmController.this")
     private NetlinkMessage sendRequestAndGetResponse(String methodTag, byte[] req)
             throws ErrnoException, InterruptedIOException, IOException {
-        if (mNetlinkSocket == null) {
-            throw new IOException("mNetlinkSocket not initialized. Please call #start");
-        }
+        openNetlinkSocketIfNeeded();
 
         logD(methodTag + ":  send request " + req.length + " bytes");
         logV(HexDump.dumpHexString(req));
