@@ -20,6 +20,7 @@ import static com.android.server.connectivity.mdns.MdnsServiceTypeClient.INVALID
 import static com.android.server.connectivity.mdns.util.MdnsUtils.Clock;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -28,8 +29,10 @@ import android.util.Pair;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.SharedLog;
+import com.android.server.connectivity.mdns.MdnsPacketRepeater.PacketRepeaterCallback;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -50,6 +53,7 @@ public class MdnsQuerier {
     @NonNull private final MdnsServiceCache.CacheKey mCacheKey;
     @NonNull private final List<String> mResolveInstanceNames = new ArrayList<>();
     @NonNull private final QueryCallback mQueryCallback;
+    @NonNull private final QueryRepeater mQueryRepeater;
 
     // The session ID increases when startSendAndReceive() is called where we schedule a
     // QueryTask for
@@ -158,16 +162,17 @@ public class MdnsQuerier {
             @NonNull ScheduledExecutorService executor, @NonNull Clock clock,
             @NonNull SharedLog sharedLog, @NonNull Looper looper,
             @NonNull MdnsServiceCache serviceCache, @NonNull MdnsServiceCache.CacheKey cacheKey,
-            @NonNull QueryCallback callback) {
+            @NonNull QueryCallback callback, @NonNull MdnsSender mdnsSender) {
         this(serviceType, socketClient, executor, clock, sharedLog, looper, serviceCache, cacheKey,
-                callback, new Dependencies());
+                callback, new Dependencies(), mdnsSender);
     }
 
     MdnsQuerier(@NonNull String serviceType, @NonNull MdnsSocketClientBase socketClient,
             @NonNull ScheduledExecutorService executor, @NonNull Clock clock,
             @NonNull SharedLog sharedLog, @NonNull Looper looper,
             @NonNull MdnsServiceCache serviceCache, @NonNull MdnsServiceCache.CacheKey cacheKey,
-            @NonNull QueryCallback callback, @NonNull Dependencies dependencies) {
+            @NonNull QueryCallback callback, @NonNull Dependencies dependencies,
+            @NonNull MdnsSender mdnsSender) {
         mSocketClient = socketClient;
         mServiceType = serviceType;
         mServiceTypeLabels = TextUtils.split(serviceType, "\\.");
@@ -180,6 +185,7 @@ public class MdnsQuerier {
         mCacheKey = cacheKey;
         mQueryCallback = callback;
         mDependencies = dependencies;
+        mQueryRepeater = new QueryRepeater(looper, mdnsSender, new QueryingCallback(), sharedLog);
     }
 
     private static class QuerySentArguments {
@@ -237,6 +243,49 @@ public class MdnsQuerier {
             mDependencies.sendMessage(
                     mHandler, mHandler.obtainMessage(EVENT_QUERY_RESULT,
                             new QuerySentArguments(result.first, result.second, mTaskArgs)));
+        }
+    }
+
+    private class QueryingCallback implements PacketRepeaterCallback<QueryRequest> {
+        @Override
+        public void onSent(int index, @NonNull QueryRequest request, int sentPacketCount) {
+            // TODO: Implement packet sent
+        }
+    }
+
+    private class QueryRepeater extends MdnsPacketRepeater<QueryRequest> {
+        QueryRepeater(@NonNull Looper looper,
+                @NonNull MdnsSender sender,
+                @Nullable PacketRepeaterCallback<QueryRequest> cb,
+                @NonNull SharedLog sharedLog) {
+            super(looper, sender, cb, sharedLog, MdnsDiscoveryManager.DBG);
+        }
+    }
+
+    private class QueryRequest implements MdnsPacketRepeater.Request {
+        @NonNull
+        @Override
+        public MdnsPacket getPacket(int index) {
+            // TODO: Implement query packet
+            final MdnsPacket mdnsPacket = new MdnsPacket(
+                    0, /* transactionId */
+                    MdnsConstants.FLAGS_QUERY,
+                    Collections.emptyList(), /* questions */
+                    Collections.emptyList(), /* answers */
+                    Collections.emptyList(), /* authorityRecords */
+                    Collections.emptyList() /* additionalRecords */);
+            return mdnsPacket;
+        }
+
+        @Override
+        public long getDelayMs(int nextIndex) {
+            // TODO: Implement query time
+            return 0L;
+        }
+
+        @Override
+        public int getNumSends() {
+            return Integer.MAX_VALUE;
         }
     }
 

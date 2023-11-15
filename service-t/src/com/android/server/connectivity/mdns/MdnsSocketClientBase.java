@@ -79,7 +79,7 @@ public interface MdnsSocketClientBase {
     /*** Callback for requested socket creation  */
     interface SocketCreationCallback {
         /*** Notify requested socket is created */
-        void onSocketCreated(@NonNull SocketKey socketKey);
+        void onSocketCreated(@NonNull SocketKey socketKey, @NonNull MdnsSender sender);
 
         /*** Notify requested socket is destroyed */
         void onSocketDestroyed(@NonNull SocketKey socketKey);

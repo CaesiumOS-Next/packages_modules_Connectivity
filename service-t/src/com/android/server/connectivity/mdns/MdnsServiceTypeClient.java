@@ -104,9 +104,9 @@ public class MdnsServiceTypeClient {
                 @NonNull ScheduledExecutorService executor, @NonNull Clock clock,
                 @NonNull SharedLog sharedLog, @NonNull Looper looper,
                 @NonNull MdnsServiceCache serviceCache, @NonNull MdnsServiceCache.CacheKey cacheKey,
-                @NonNull MdnsQuerier.QueryCallback callback) {
+                @NonNull MdnsQuerier.QueryCallback callback, @NonNull MdnsSender sender) {
             return new MdnsQuerier(serviceType, socketClient, executor, clock, sharedLog, looper,
-                    serviceCache, cacheKey, callback);
+                    serviceCache, cacheKey, callback, sender);
         }
     }
 
@@ -123,9 +123,10 @@ public class MdnsServiceTypeClient {
             @NonNull SocketKey socketKey,
             @NonNull SharedLog sharedLog,
             @NonNull Looper looper,
-            @NonNull MdnsServiceCache serviceCache) {
+            @NonNull MdnsServiceCache serviceCache,
+            @NonNull MdnsSender sender) {
         this(serviceType, socketClient, executor, new Clock(), socketKey, sharedLog, looper,
-                new Dependencies(), serviceCache);
+                new Dependencies(), serviceCache, sender);
     }
 
     @VisibleForTesting
@@ -138,7 +139,8 @@ public class MdnsServiceTypeClient {
             @NonNull SharedLog sharedLog,
             @NonNull Looper looper,
             @NonNull Dependencies dependencies,
-            @NonNull MdnsServiceCache serviceCache) {
+            @NonNull MdnsServiceCache serviceCache,
+            @NonNull MdnsSender sender) {
         this.serviceType = serviceType;
         this.socketClient = socketClient;
         this.executor = executor;
@@ -151,7 +153,7 @@ public class MdnsServiceTypeClient {
         this.serviceCache = serviceCache;
         this.cacheKey = new MdnsServiceCache.CacheKey(serviceType, socketKey);
         this.mdnsQuerier = dependencies.makeMdnsQuerier(serviceType, socketClient, executor, clock,
-                sharedLog, looper, serviceCache, cacheKey, queryCallback);
+                sharedLog, looper, serviceCache, cacheKey, queryCallback, sender);
     }
 
     /**
