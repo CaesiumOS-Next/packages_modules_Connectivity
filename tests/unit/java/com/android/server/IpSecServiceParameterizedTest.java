@@ -33,6 +33,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
@@ -74,6 +75,7 @@ import android.util.ArraySet;
 
 import androidx.test.filters.SmallTest;
 
+import com.android.net.module.util.netlink.xfrm.XfrmNetlinkNewSaMessage;
 import com.android.server.IpSecService.TunnelInterfaceRecord;
 import com.android.testutils.DevSdkIgnoreRule;
 
@@ -85,6 +87,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Arrays;
 import java.util.Collection;
@@ -202,11 +205,13 @@ public class IpSecServiceParameterizedTest {
     private IpSecService.Dependencies makeDependencies() throws RemoteException {
         final IpSecService.Dependencies deps = mock(IpSecService.Dependencies.class);
         when(deps.getNetdInstance(mTestContext)).thenReturn(mMockNetd);
+        when(deps.getIpSecXfrmController()).thenReturn(mMockXfrmCtrl);
         return deps;
     }
 
     INetd mMockNetd;
     PackageManager mMockPkgMgr;
+    IpSecXfrmController mMockXfrmCtrl;
     IpSecService.Dependencies mDeps;
     IpSecService mIpSecService;
     Network fakeNetwork = new Network(0xAB);
@@ -235,6 +240,7 @@ public class IpSecServiceParameterizedTest {
     @Before
     public void setUp() throws Exception {
         mMockNetd = mock(INetd.class);
+        mMockXfrmCtrl = mock(IpSecXfrmController.class);
         mMockPkgMgr = mock(PackageManager.class);
         mDeps = makeDependencies();
         mIpSecService = new IpSecService(mTestContext, mDeps);
@@ -503,6 +509,33 @@ public class IpSecServiceParameterizedTest {
                 fail("IpSecService should have thrown an error for reuse of SPI");
         } catch (IllegalStateException expected) {
         }
+    }
+
+    @Test
+    public void getTransformState() throws Exception {
+        XfrmNetlinkNewSaMessage mockXfrmNewSaMsg = mock(XfrmNetlinkNewSaMessage.class);
+        when(mockXfrmNewSaMsg.getBitmap()).thenReturn(new byte[512]);
+        when(mMockXfrmCtrl.ipSecGetSa(any(InetAddress.class), anyLong()))
+                .thenReturn(mockXfrmNewSaMsg);
+
+        // Create transform
+        IpSecConfig ipSecConfig = new IpSecConfig();
+        addDefaultSpisAndRemoteAddrToIpSecConfig(ipSecConfig);
+        addAuthAndCryptToIpSecConfig(ipSecConfig);
+
+        IpSecTransformResponse createTransformResp =
+                mIpSecService.createTransform(ipSecConfig, new Binder(), BLESSED_PACKAGE);
+        assertEquals(IpSecManager.Status.OK, createTransformResp.status);
+
+        // Get transform state
+        mIpSecService.getTransformState(createTransformResp.resourceId);
+
+        // Verifications
+        verify(mMockXfrmCtrl).openNetlinkSocketIfNeeded();
+        verify(mMockXfrmCtrl)
+                .ipSecGetSa(
+                        eq(InetAddresses.parseNumericAddress(mDestinationAddr)),
+                        eq(Integer.toUnsignedLong(TEST_SPI)));
     }
 
     @Test
