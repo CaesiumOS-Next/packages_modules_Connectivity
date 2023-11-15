@@ -17,6 +17,7 @@
 package com.android.net.module.util.netlink;
 
 import static com.android.net.module.util.netlink.NetlinkConstants.XFRM_MSG_GETSA;
+import static com.android.net.module.util.netlink.NetlinkConstants.XFRM_MSG_NEWSA;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,9 +38,11 @@ public abstract class IpSecXfrmNetlinkMessage extends NetlinkMessage {
     // TODO: STOPSHIP: b/308011229 Remove it when OsConstants.NETLINK_XFRM is exposed
     public static final int NETLINK_XFRM = 6;
 
-
     public static final int XFRM_MODE_TRANSPORT = 0;
     public static final int XFRM_MODE_TUNNEL = 1;
+
+    public static final short XFRMA_REPLAY_VAL = 10;
+    public static final short XFRMA_REPLAY_ESN_VAL = 23;
 
     public static final BigInteger XFRM_INF = new BigInteger("FFFFFFFFFFFFFFFF", 16);
 
@@ -58,6 +61,8 @@ public abstract class IpSecXfrmNetlinkMessage extends NetlinkMessage {
     public static IpSecXfrmNetlinkMessage parse(
             @NonNull StructNlMsgHdr nlmsghdr, @NonNull ByteBuffer byteBuffer) {
         switch (nlmsghdr.nlmsg_type) {
+            case XFRM_MSG_NEWSA:
+                return IpSecXfrmNetlinkNewSaMessage.parse(nlmsghdr, byteBuffer);
             case XFRM_MSG_GETSA:
                 return IpSecXfrmNetlinkGetSaMessage.parse(nlmsghdr, byteBuffer);
             default:
