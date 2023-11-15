@@ -59,8 +59,8 @@ import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.LocalNetworkConfig;
-import android.net.MulticastRoutingConfig;
 import android.net.LocalNetworkInfo;
+import android.net.MulticastRoutingConfig;
 import android.net.Network;
 import android.net.NetworkAgent;
 import android.net.NetworkAgentConfig;
@@ -91,12 +91,12 @@ import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.ServiceManagerWrapper;
+import com.android.server.thread.openthread.BorderRouterConfigurationParcel;
 import com.android.server.thread.openthread.IOtDaemon;
 import com.android.server.thread.openthread.IOtDaemonCallback;
 import com.android.server.thread.openthread.IOtStatusReceiver;
 import com.android.server.thread.openthread.Ipv6AddressInfo;
 import com.android.server.thread.openthread.OtDaemonState;
-import com.android.server.thread.openthread.BorderRouterConfigurationParcel;
 
 import java.io.IOException;
 import java.net.Inet6Address;
@@ -116,7 +116,7 @@ import java.util.function.Supplier;
  * <p>Threading model: This class is not Thread-safe and should only be accessed from the
  * ThreadNetworkService class. Additional attention should be paid to handle the threading code
  * correctly: 1. All member fields other than `mHandler` and `mContext` MUST be accessed from
- * `mHandlerThread` 2. In the @Override methods, the actual work MUST be dispatched to the
+ * `mHandlerLooper` 2. In the @Override methods, the actual work MUST be dispatched to the
  * HandlerThread except for arguments or permissions checking
  */
 final class ThreadNetworkControllerService extends IThreadNetworkController.Stub {
@@ -127,11 +127,11 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final Context mContext;
     private final Handler mHandler;
 
-    // Below member fields can only be accessed from the handler thread (`mHandlerThread`). In
+    // Below member fields can only be accessed from the handler thread (`mHandlerLooper`). In
     // particular, the constructor does not run on the handler thread, so it must not touch any of
     // the non-final fields, nor must it mutate any of the non-final fields inside these objects.
 
-    private final HandlerThread mHandlerThread;
+    private final Looper mHandlerLooper;
     private final NetworkProvider mNetworkProvider;
     private final Supplier<IOtDaemon> mOtDaemonSupplier;
     private final ConnectivityManager mConnectivityManager;
@@ -156,14 +156,14 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     @VisibleForTesting
     ThreadNetworkControllerService(
             Context context,
-            HandlerThread handlerThread,
+            Looper handlerLooper,
             NetworkProvider networkProvider,
             Supplier<IOtDaemon> otDaemonSupplier,
             ConnectivityManager connectivityManager,
             TunInterfaceController tunIfController) {
         mContext = context;
-        mHandlerThread = handlerThread;
-        mHandler = new Handler(handlerThread.getLooper());
+        mHandlerLooper = handlerLooper;
+        mHandler = new Handler(mHandlerLooper);
         mNetworkProvider = networkProvider;
         mOtDaemonSupplier = otDaemonSupplier;
         mConnectivityManager = connectivityManager;
@@ -190,7 +190,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
         return new ThreadNetworkControllerService(
                 context,
-                handlerThread,
+                handlerThread.getLooper(),
                 networkProvider,
                 () -> IOtDaemon.Stub.asInterface(ServiceManagerWrapper.waitForService("ot_daemon")),
                 context.getSystemService(ConnectivityManager.class),
@@ -246,6 +246,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     }
 
     private IOtDaemon getOtDaemon() throws RemoteException {
+        checkOnHandlerThread();
+
         if (mOtDaemon != null) {
             return mOtDaemon;
         }
@@ -254,9 +256,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         if (otDaemon == null) {
             throw new RemoteException("Internal error: failed to start OT daemon");
         }
-        otDaemon.asBinder().linkToDeath(() -> mHandler.post(this::onOtDaemonDied), 0);
         otDaemon.initialize(mTunIfController.getTunFd());
         otDaemon.registerStateCallback(mOtDaemonCallbackProxy, -1);
+        otDaemon.asBinder().linkToDeath(() -> mHandler.post(this::onOtDaemonDied), 0);
         mOtDaemon = otDaemon;
         return mOtDaemon;
     }
@@ -272,7 +274,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     public void initialize() {
         mHandler.post(
                 () -> {
-                    Log.d(TAG, "Initializing Thread system service...");
+                    Log.e(TAG, "Initializing Thread system service...");
                     try {
                         mTunIfController.createTunInterface();
                     } catch (IOException e) {
@@ -366,7 +368,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mNetworkAgent =
                 new NetworkAgent(
                         mContext,
-                        mHandlerThread.getLooper(),
+                        mHandlerLooper,
                         TAG,
                         netCaps,
                         mLinkProperties,
@@ -526,7 +528,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     private void enforceAllCallingPermissionsGranted(String... permissions) {
         for (String permission : permissions) {
-            mContext.enforceCallingPermission(
+            mContext.enforceCallingOrSelfPermission(
                     permission, "Permission " + permission + " is missing");
         }
     }
@@ -560,7 +562,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     }
 
     private void checkOnHandlerThread() {
-        if (Looper.myLooper() != mHandlerThread.getLooper()) {
+        if (Looper.myLooper() != mHandlerLooper) {
             Log.wtf(TAG, "Must be on the handler thread!");
         }
     }
@@ -619,6 +621,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             @NonNull ActiveOperationalDataset activeDataset,
             @NonNull OperationReceiverWrapper receiver) {
         checkOnHandlerThread();
+
+        Log.e(TAG, "joinInternal");
 
         try {
             // The otDaemon.join() will leave first if this device is currently attached
@@ -800,8 +804,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         MulticastRoutingConfig newDownstreamConfig;
         MulticastRoutingConfig.Builder builder;
 
-        if (mDownstreamMulticastRoutingConfig.getForwardingMode() !=
-                MulticastRoutingConfig.FORWARD_SELECTED) {
+        if (mDownstreamMulticastRoutingConfig.getForwardingMode()
+                != MulticastRoutingConfig.FORWARD_SELECTED) {
             Log.e(
                     TAG,
                     "Ignore multicast listening address updates when downstream multicast "
@@ -809,8 +813,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             // Don't update the address set if downstream multicast forwarding is disabled.
             return;
         }
-        if (isAdded ==
-                mDownstreamMulticastRoutingConfig.getListeningAddresses().contains(address)) {
+        if (isAdded
+                == mDownstreamMulticastRoutingConfig.getListeningAddresses().contains(address)) {
             return;
         }
 
@@ -862,7 +866,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     /**
      * Handles and forwards Thread daemon callbacks. This class must be accessed from the {@code
-     * mHandlerThread}.
+     * mHandlerLooper}.
      */
     private final class OtDaemonCallbackProxy extends IOtDaemonCallback.Stub {
         private final Map<IStateCallback, CallbackMetadata> mStateCallbacks = new HashMap<>();
