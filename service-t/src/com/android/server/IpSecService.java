@@ -42,6 +42,7 @@ import android.net.IpSecMigrateInfoParcel;
 import android.net.IpSecSpiResponse;
 import android.net.IpSecTransform;
 import android.net.IpSecTransformResponse;
+import android.net.IpSecTransformState;
 import android.net.IpSecTunnelInterfaceResponse;
 import android.net.IpSecUdpEncapResponse;
 import android.net.LinkAddress;
@@ -70,6 +71,7 @@ import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BinderUtils;
 import com.android.net.module.util.NetdUtils;
 import com.android.net.module.util.PermissionUtils;
+import com.android.net.module.util.netlink.xfrm.XfrmNetlinkNewSaMessage;
 
 import libcore.io.IoUtils;
 
@@ -109,6 +111,7 @@ public class IpSecService extends IIpSecService.Stub {
     @VisibleForTesting static final int MAX_PORT_BIND_ATTEMPTS = 10;
 
     private final INetd mNetd;
+    private final IpSecXfrmController mIpSecXfrmCtrl;
 
     static {
         try {
@@ -151,6 +154,11 @@ public class IpSecService extends IIpSecService.Stub {
                 throw new RemoteException("Failed to Get Netd Instance");
             }
             return netd;
+        }
+
+        /** Get a instance of IpSecXfrmController */
+        public IpSecXfrmController getIpSecXfrmController() {
+            return new IpSecXfrmController();
         }
     }
 
@@ -1111,6 +1119,7 @@ public class IpSecService extends IIpSecService.Stub {
         mContext = context;
         mDeps = Objects.requireNonNull(deps, "Missing dependencies.");
         mUidFdTagger = uidFdTagger;
+        mIpSecXfrmCtrl = mDeps.getIpSecXfrmController();
         try {
             mNetd = mDeps.getNetdInstance(mContext);
         } catch (RemoteException e) {
@@ -1860,6 +1869,46 @@ public class IpSecService extends IIpSecService.Stub {
     public synchronized void deleteTransform(int resourceId) throws RemoteException {
         UserRecord userRecord = mUserResourceTracker.getUserRecord(Binder.getCallingUid());
         releaseResource(userRecord.mTransformRecords, resourceId);
+    }
+
+    @Override
+    public synchronized IpSecTransformState getTransformState(int transformId)
+            throws IllegalStateException, RemoteException {
+        UserRecord userRecord = mUserResourceTracker.getUserRecord(Binder.getCallingUid());
+        TransformRecord transformInfo =
+                userRecord.mTransformRecords.getResourceOrThrow(transformId);
+
+        final int spi = transformInfo.getSpiRecord().getSpi();
+        final InetAddress destAddress =
+                InetAddresses.parseNumericAddress(
+                        transformInfo.getConfig().getDestinationAddress());
+        Log.d(TAG, "getTransformState for spi " + spi + " destAddress " + destAddress);
+
+        // Make netlink call
+        final XfrmNetlinkNewSaMessage xfrmNewSaMsg;
+        try {
+            mIpSecXfrmCtrl.startIfNeeded();
+            xfrmNewSaMsg = mIpSecXfrmCtrl.ipSecGetSa(destAddress, Integer.toUnsignedLong(spi));
+        } catch (ErrnoException | IOException e) {
+            Log.e(TAG, "getTransformState: failed to get IpSecTransformState" + e.toString());
+            throw new IllegalStateException("Failed to get IpSecTransformState " + e.toString());
+        }
+
+        // TODO: stop it when there is no more transform
+        mIpSecXfrmCtrl.stopIfNeeded();
+
+        if (xfrmNewSaMsg == null) {
+            Log.e(TAG, "getTransformState: failed to get IpSecTransformState xfrmNewSaMsg is null");
+            throw new IllegalStateException("Failed to get IpSecTransformState");
+        }
+
+        return new IpSecTransformState.Builder()
+                .setTxHighestSequenceNumber(xfrmNewSaMsg.getTxSequenceNumber())
+                .setRxHighestSequenceNumber(xfrmNewSaMsg.getRxSequenceNumber())
+                .setPacketCount(xfrmNewSaMsg.getPacketCount())
+                .setByteCount(xfrmNewSaMsg.getByteCount())
+                .setReplayBitmap(xfrmNewSaMsg.getBitmap())
+                .build();
     }
 
     /**
