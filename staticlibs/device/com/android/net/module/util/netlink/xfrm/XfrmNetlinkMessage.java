@@ -44,6 +44,9 @@ public abstract class XfrmNetlinkMessage extends NetlinkMessage {
     public static final int XFRM_MODE_TRANSPORT = 0;
     public static final int XFRM_MODE_TUNNEL = 1;
 
+    public static final short XFRMA_REPLAY_VAL = 10;
+    public static final short XFRMA_REPLAY_ESN_VAL = 23;
+
     public static final BigInteger XFRM_INF = new BigInteger("FFFFFFFFFFFFFFFF", 16);
 
     public XfrmNetlinkMessage(@NonNull final StructNlMsgHdr header) {
@@ -61,6 +64,8 @@ public abstract class XfrmNetlinkMessage extends NetlinkMessage {
     public static XfrmNetlinkMessage parse(
             @NonNull final StructNlMsgHdr nlmsghdr, @NonNull ByteBuffer byteBuffer) {
         switch (nlmsghdr.nlmsg_type) {
+            case XFRM_MSG_NEWSA:
+                return XfrmNetlinkNewSaMessage.parse(nlmsghdr, byteBuffer);
             case XFRM_MSG_GETSA:
                 return XfrmNetlinkGetSaMessage.parse(nlmsghdr, byteBuffer);
             default:
