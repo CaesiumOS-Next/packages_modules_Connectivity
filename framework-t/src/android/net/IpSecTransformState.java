@@ -35,8 +35,6 @@ import java.util.Objects;
  * observing out-of-order delivery by checking the bitmap. Additionally, callers can query
  * IpSecTransformStates at two timestamps. By comparing the changes in packet counts and sequence
  * numbers, callers can estimate IPsec data loss in the inbound direction.
- *
- * @hide
  */
 public final class IpSecTransformState implements Parcelable {
     private final long mTimeStamp;
@@ -142,7 +140,6 @@ public final class IpSecTransformState implements Parcelable {
     /**
      * Retrieve the epoch timestamp (milliseconds) for when this state was created
      *
-     * @hide
      */
     public long getTimestamp() {
         return mTimeStamp;
@@ -151,7 +148,6 @@ public final class IpSecTransformState implements Parcelable {
     /**
      * Retrieve the highest sequence number sent so far
      *
-     * @hide
      */
     @NonNull
     public BigInteger getTxHighestSequenceNumber() {
@@ -161,7 +157,6 @@ public final class IpSecTransformState implements Parcelable {
     /**
      * Retrieve the highest sequence number received so far
      *
-     * @hide
      */
     @NonNull
     public BigInteger getRxHighestSequenceNumber() {
@@ -171,7 +166,6 @@ public final class IpSecTransformState implements Parcelable {
     /**
      * Retrieve the number of packets received AND sent so far
      *
-     * @hide
      */
     @NonNull
     public BigInteger getPacketCount() {
@@ -181,7 +175,6 @@ public final class IpSecTransformState implements Parcelable {
     /**
      * Retrieve the number of bytes received AND sent so far
      *
-     * @hide
      */
     @NonNull
     public BigInteger getByteCount() {
@@ -200,7 +193,6 @@ public final class IpSecTransformState implements Parcelable {
      * <p>The replay bitmap is solely useful for inbound IpSecTransforms. For outbound
      * IpSecTransforms, all bits will be unchecked.
      *
-     * @hide
      */
     @NonNull
     public byte[] getReplayBitmap() {
@@ -209,8 +201,6 @@ public final class IpSecTransformState implements Parcelable {
 
     /**
      * Builder class for testing purposes
-     *
-     * @hide
      */
     public static final class Builder {
         private long mTimeStamp;
@@ -220,7 +210,6 @@ public final class IpSecTransformState implements Parcelable {
         private BigInteger mByteCount;
         private byte[] mReplayBitmap;
 
-        /** @hide */
         public Builder() {
             mTimeStamp = System.currentTimeMillis();
         }
@@ -228,7 +217,6 @@ public final class IpSecTransformState implements Parcelable {
         /**
          * Set the epoch timestamp (milliseconds) for when this state was created
          *
-         * @hide
          */
         @NonNull
         public Builder setTimestamp(long timeStamp) {
@@ -239,7 +227,6 @@ public final class IpSecTransformState implements Parcelable {
         /**
          * Set the highest sequence number sent so far
          *
-         * @hide
          */
         @NonNull
         public Builder setTxHighestSequenceNumber(@NonNull BigInteger seqNum) {
@@ -250,7 +237,6 @@ public final class IpSecTransformState implements Parcelable {
         /**
          * Set the highest sequence number received so far
          *
-         * @hide
          */
         @NonNull
         public Builder setRxHighestSequenceNumber(@NonNull BigInteger seqNum) {
@@ -261,7 +247,6 @@ public final class IpSecTransformState implements Parcelable {
         /**
          * Set the number of packets received AND sent so far
          *
-         * @hide
          */
         @NonNull
         public Builder setPacketCount(@NonNull BigInteger packetCount) {
@@ -272,7 +257,6 @@ public final class IpSecTransformState implements Parcelable {
         /**
          * Set the number of bytes received AND sent so far
          *
-         * @hide
          */
         @NonNull
         public Builder setByteCount(@NonNull BigInteger byteCount) {
@@ -283,7 +267,6 @@ public final class IpSecTransformState implements Parcelable {
         /**
          * Set the replay bitmap
          *
-         * @hide
          */
         @NonNull
         public Builder setReplayBitmap(@NonNull byte[] bitMap) {
@@ -295,7 +278,6 @@ public final class IpSecTransformState implements Parcelable {
          * Build and validate the IpSecTransformState
          *
          * @return an immutable IpSecTransformState instance
-         * @hide
          */
         @NonNull
         public IpSecTransformState build() {
