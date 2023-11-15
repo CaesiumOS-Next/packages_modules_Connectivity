@@ -254,6 +254,8 @@ public class NsdServiceTest {
     }
 
     @Test
+    // Native mdns probided by Netd is removed after U.
+    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @DisableCompatChanges({
             RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER,
             ENABLE_PLATFORM_MDNS_BACKEND})
