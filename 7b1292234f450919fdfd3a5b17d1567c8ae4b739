@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "474ea36b_4086f936",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2023-11-15T08:06:48Z",
+      "side": 1,
+      "message": "Is this supposed to be about passing allowedUids or the VPN uid range? \nI think VPN uid range would be mUids (getUids() or getUidRanges()) ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 5,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "7b1292234f450919fdfd3a5b17d1567c8ae4b739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
