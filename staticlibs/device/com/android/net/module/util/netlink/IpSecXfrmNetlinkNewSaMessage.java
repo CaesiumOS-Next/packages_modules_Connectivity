@@ -69,7 +69,7 @@ public class IpSecXfrmNetlinkNewSaMessage extends IpSecXfrmNetlinkMessage {
      *
      * @param nlmsghdr netlink message header.
      * @param byteBuffer the ByteBuffer instance that wraps the raw netlink message bytes. MUST be
-     *                   host order
+     *     host order
      */
     @Nullable
     public static IpSecXfrmNetlinkNewSaMessage parse(
