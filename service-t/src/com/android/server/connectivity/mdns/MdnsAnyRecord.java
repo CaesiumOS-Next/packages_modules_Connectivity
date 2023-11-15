@@ -29,7 +29,7 @@ public class MdnsAnyRecord extends MdnsRecord {
         super(name, TYPE_ANY, reader, true /* isQuestion */);
     }
 
-    protected MdnsAnyRecord(String[] name, boolean unicast) {
+    public MdnsAnyRecord(String[] name, boolean unicast) {
         super(name, TYPE_ANY, DnsResolver.CLASS_IN /* cls */,
                 0L /* receiptTimeMillis */, unicast /* cacheFlush */, 0L /* ttlMillis */);
     }

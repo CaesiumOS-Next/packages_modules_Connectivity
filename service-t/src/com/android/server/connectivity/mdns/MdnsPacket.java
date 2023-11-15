@@ -50,7 +50,7 @@ public class MdnsPacket {
         this(0, flags, questions, answers, authorityRecords, additionalRecords);
     }
 
-    MdnsPacket(int transactionId, int flags,
+    public MdnsPacket(int transactionId, int flags,
             @NonNull List<MdnsRecord> questions,
             @NonNull List<MdnsRecord> answers,
             @NonNull List<MdnsRecord> authorityRecords,

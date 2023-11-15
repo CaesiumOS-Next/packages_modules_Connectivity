@@ -32,7 +32,6 @@ import java.net.DatagramPacket;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -123,66 +122,13 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
                 return Pair.create(INVALID_TRANSACTION_ID, new ArrayList<>());
             }
 
-            final List<MdnsRecord> questions = new ArrayList<>();
-
-            if (sendDiscoveryQueries) {
-                // Base service type
-                questions.add(new MdnsPointerRecord(serviceTypeLabels, expectUnicastResponse));
-                for (String subtype : subtypes) {
-                    String[] labels = new String[serviceTypeLabels.length + 2];
-                    labels[0] = MdnsConstants.SUBTYPE_PREFIX + subtype;
-                    labels[1] = MdnsConstants.SUBTYPE_LABEL;
-                    System.arraycopy(serviceTypeLabels, 0, labels, 2, serviceTypeLabels.length);
-
-                    questions.add(new MdnsPointerRecord(labels, expectUnicastResponse));
-                }
-            }
-
-            // List of (name, type) to query
-            final long now = clock.elapsedRealtime();
-            for (MdnsResponse response : servicesToResolve) {
-                final String[] serviceName = response.getServiceName();
-                if (serviceName == null) continue;
-                boolean renewTxt = !response.hasTextRecord() || MdnsUtils.isRecordRenewalNeeded(
-                        response.getTextRecord(), now);
-                boolean renewSrv = !response.hasServiceRecord() || MdnsUtils.isRecordRenewalNeeded(
-                        response.getServiceRecord(), now);
-                if (renewSrv && renewTxt) {
-                    questions.add(new MdnsAnyRecord(serviceName, expectUnicastResponse));
-                } else {
-                    if (renewTxt) {
-                        questions.add(new MdnsTextRecord(serviceName, expectUnicastResponse));
-                    }
-                    if (renewSrv) {
-                        questions.add(new MdnsServiceRecord(serviceName, expectUnicastResponse));
-                        // The hostname is not yet known, so queries for address records will be
-                        // sent the next time the EnqueueMdnsQueryCallable is enqueued if the reply
-                        // does not contain them. In practice, advertisers should include the
-                        // address records when queried for SRV, although it's not a MUST
-                        // requirement (RFC6763 12.2).
-                    } else if (!response.hasInet4AddressRecord()
-                            && !response.hasInet6AddressRecord()) {
-                        final String[] host = response.getServiceRecord().getServiceHost();
-                        questions.add(new MdnsInetAddressRecord(
-                                host, MdnsRecord.TYPE_A, expectUnicastResponse));
-                        questions.add(new MdnsInetAddressRecord(
-                                host, MdnsRecord.TYPE_AAAA, expectUnicastResponse));
-                    }
-                }
-            }
-
-            if (questions.size() == 0) {
+            final MdnsPacket mdnsPacket = MdnsUtils.makeMdnsPacketForQuery(transactionId,
+                    sendDiscoveryQueries, serviceTypeLabels, subtypes, expectUnicastResponse,
+                    clock.elapsedRealtime(), servicesToResolve);
+            if (mdnsPacket.questions.size() == 0) {
                 // No query to send
                 return Pair.create(INVALID_TRANSACTION_ID, new ArrayList<>());
             }
-
-            final MdnsPacket mdnsPacket = new MdnsPacket(
-                    transactionId,
-                    MdnsConstants.FLAGS_QUERY,
-                    questions,
-                    Collections.emptyList(), /* answers */
-                    Collections.emptyList(), /* authorityRecords */
-                    Collections.emptyList() /* additionalRecords */);
 
             MdnsUtils.writeMdnsPacket(packetWriter, mdnsPacket);
             sendPacketToIpv4AndIpv6(requestSender, MdnsConstants.MDNS_PORT);

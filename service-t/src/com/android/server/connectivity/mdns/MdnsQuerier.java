@@ -18,6 +18,7 @@ package com.android.server.connectivity.mdns;
 
 import static com.android.server.connectivity.mdns.MdnsServiceTypeClient.INVALID_TRANSACTION_ID;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.Clock;
+import static com.android.server.connectivity.mdns.util.MdnsUtils.makeMdnsPacketForQuery;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -30,9 +31,9 @@ import android.util.Pair;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.SharedLog;
 import com.android.server.connectivity.mdns.MdnsPacketRepeater.PacketRepeaterCallback;
+import com.android.server.connectivity.mdns.MdnsQueryScheduler.ScheduledQueryTaskArgs;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -70,8 +71,7 @@ public class MdnsQuerier {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case EVENT_START_QUERYTASK: {
-                    final MdnsQueryScheduler.ScheduledQueryTaskArgs taskArgs =
-                            (MdnsQueryScheduler.ScheduledQueryTaskArgs) msg.obj;
+                    final ScheduledQueryTaskArgs taskArgs = (ScheduledQueryTaskArgs) msg.obj;
                     // QueryTask should be run immediately after being created (not be scheduled in
                     // advance). Because the result of "makeResponsesForResolve" depends on answers
                     // that were received before it is called, so to take into account all answers
@@ -97,7 +97,7 @@ public class MdnsQuerier {
                     mLastSentTime = now;
                     final long minRemainingTtl =
                             mServiceCache.getServiceMinRemainingTtl(mCacheKey, now);
-                    MdnsQueryScheduler.ScheduledQueryTaskArgs args =
+                    final ScheduledQueryTaskArgs args =
                             mScheduler.scheduleNextRun(
                                     sentResult.mTaskArgs.config,
                                     minRemainingTtl,
@@ -185,16 +185,17 @@ public class MdnsQuerier {
         mCacheKey = cacheKey;
         mQueryCallback = callback;
         mDependencies = dependencies;
-        mQueryRepeater = new QueryRepeater(looper, mdnsSender, new QueryingCallback(), sharedLog);
+        mQueryRepeater = new QueryRepeater(
+                looper, mdnsSender, new QueryRequestCallback(), sharedLog);
     }
 
     private static class QuerySentArguments {
         private final int mTransactionId;
         private final List<String> mSubTypes = new ArrayList<>();
-        private final MdnsQueryScheduler.ScheduledQueryTaskArgs mTaskArgs;
+        private final ScheduledQueryTaskArgs mTaskArgs;
 
         QuerySentArguments(int transactionId, @NonNull List<String> subTypes,
-                @NonNull MdnsQueryScheduler.ScheduledQueryTaskArgs taskArgs) {
+                @NonNull ScheduledQueryTaskArgs taskArgs) {
             mTransactionId = transactionId;
             mSubTypes.addAll(subTypes);
             mTaskArgs = taskArgs;
@@ -203,11 +204,11 @@ public class MdnsQuerier {
 
     // A FutureTask that enqueues a single query, and schedule a new FutureTask for the next task.
     private class QueryTask implements Runnable {
-        private final MdnsQueryScheduler.ScheduledQueryTaskArgs mTaskArgs;
+        private final ScheduledQueryTaskArgs mTaskArgs;
         private final List<MdnsResponse> mServicesToResolve = new ArrayList<>();
         private final boolean mSendDiscoveryQueries;
         private final MdnsPacketWriter mPacketWriter;
-        QueryTask(@NonNull MdnsQueryScheduler.ScheduledQueryTaskArgs taskArgs,
+        QueryTask(@NonNull ScheduledQueryTaskArgs taskArgs,
                 @NonNull List<MdnsResponse> servicesToResolve, boolean sendDiscoveryQueries,
                 @NonNull MdnsPacketWriter packetWriter) {
             mTaskArgs = taskArgs;
@@ -246,10 +247,15 @@ public class MdnsQuerier {
         }
     }
 
-    private class QueryingCallback implements PacketRepeaterCallback<QueryRequest> {
+    private class QueryRequestCallback implements PacketRepeaterCallback<QueryRequest> {
         @Override
         public void onSent(int index, @NonNull QueryRequest request, int sentPacketCount) {
-            // TODO: Implement packet sent
+            final ScheduledQueryTaskArgs taskArgs = request.mCurrentTaskArgs;
+            if (taskArgs.sessionId != mCurrentSessionId) {
+                return;
+            }
+
+            mQueryCallback.onQuerySent(taskArgs.config.transactionId, taskArgs.config.subtypes);
         }
     }
 
@@ -263,24 +269,39 @@ public class MdnsQuerier {
     }
 
     private class QueryRequest implements MdnsPacketRepeater.Request {
+        private ScheduledQueryTaskArgs mCurrentTaskArgs;
+        private ScheduledQueryTaskArgs mNextTaskArgs;
+
+        QueryRequest(@NonNull ScheduledQueryTaskArgs taskArgs) {
+            mNextTaskArgs = taskArgs;
+        }
+
         @NonNull
         @Override
         public MdnsPacket getPacket(int index) {
-            // TODO: Implement query packet
-            final MdnsPacket mdnsPacket = new MdnsPacket(
-                    0, /* transactionId */
-                    MdnsConstants.FLAGS_QUERY,
-                    Collections.emptyList(), /* questions */
-                    Collections.emptyList(), /* answers */
-                    Collections.emptyList(), /* authorityRecords */
-                    Collections.emptyList() /* additionalRecords */);
+            final List<MdnsResponse> servicesToResolve = mServiceCache.makeResponsesForResolve(
+                    mResolveInstanceNames, mCacheKey, mServiceTypeLabels);
+            final MdnsPacket mdnsPacket = makeMdnsPacketForQuery(
+                    mNextTaskArgs.config.transactionId,
+                    servicesToResolve.size() < mResolveInstanceNames.size(),
+                    mServiceTypeLabels,
+                    mNextTaskArgs.config.subtypes,
+                    mNextTaskArgs.config.expectUnicastResponse,
+                    mClock.elapsedRealtime(),
+                    servicesToResolve);
+            mCurrentTaskArgs = mNextTaskArgs;
             return mdnsPacket;
         }
 
         @Override
         public long getDelayMs(int nextIndex) {
-            // TODO: Implement query time
-            return 0L;
+            final long now = mClock.elapsedRealtime();
+            mLastSentTime = now;
+            final long minRemainingTtl = mServiceCache.getServiceMinRemainingTtl(mCacheKey, now);
+            final ScheduledQueryTaskArgs args = mScheduler.scheduleNextRun(mCurrentTaskArgs.config,
+                    minRemainingTtl, now, mLastSentTime, mCurrentTaskArgs.sessionId);
+            mNextTaskArgs = args;
+            return calculateTimeToNextTask(args, now, mSharedLog);
         }
 
         @Override
@@ -303,7 +324,7 @@ public class MdnsQuerier {
         }
         final long minRemainingTtl = mServiceCache.getServiceMinRemainingTtl(mCacheKey, now);
         if (hadReply) {
-            MdnsQueryScheduler.ScheduledQueryTaskArgs args =
+            final ScheduledQueryTaskArgs args =
                     mScheduler.scheduleNextRun(
                             taskConfig,
                             minRemainingTtl,
@@ -348,7 +369,7 @@ public class MdnsQuerier {
         if (mDependencies.hasMessages(mHandler, EVENT_START_QUERYTASK)) {
             final long now = mClock.elapsedRealtime();
             final long minRemainingTtl = mServiceCache.getServiceMinRemainingTtl(mCacheKey, now);
-            MdnsQueryScheduler.ScheduledQueryTaskArgs args =
+            final ScheduledQueryTaskArgs args =
                     mScheduler.maybeRescheduleCurrentRun(now, minRemainingTtl,
                             mLastSentTime, mCurrentSessionId + 1);
             if (args != null) {
@@ -361,8 +382,8 @@ public class MdnsQuerier {
         }
     }
 
-    private static long calculateTimeToNextTask(MdnsQueryScheduler.ScheduledQueryTaskArgs args,
-            long now, SharedLog sharedLog) {
+    private static long calculateTimeToNextTask(ScheduledQueryTaskArgs args, long now,
+            SharedLog sharedLog) {
         long timeToNextTasksWithBackoffInMs = Math.max(args.timeToRun - now, 0);
         sharedLog.log(String.format("Next run: sessionId: %d, in %d ms",
                 args.sessionId, timeToNextTasksWithBackoffInMs));

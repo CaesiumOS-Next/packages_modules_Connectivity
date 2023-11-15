@@ -25,10 +25,16 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.util.ArraySet;
 
+import com.android.server.connectivity.mdns.MdnsAnyRecord;
 import com.android.server.connectivity.mdns.MdnsConstants;
+import com.android.server.connectivity.mdns.MdnsInetAddressRecord;
 import com.android.server.connectivity.mdns.MdnsPacket;
 import com.android.server.connectivity.mdns.MdnsPacketWriter;
+import com.android.server.connectivity.mdns.MdnsPointerRecord;
 import com.android.server.connectivity.mdns.MdnsRecord;
+import com.android.server.connectivity.mdns.MdnsResponse;
+import com.android.server.connectivity.mdns.MdnsServiceRecord;
+import com.android.server.connectivity.mdns.MdnsTextRecord;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -36,8 +42,11 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -237,6 +246,68 @@ public class MdnsUtils {
 
         final int len = writer.getWritePosition();
         return Arrays.copyOfRange(packetCreationBuffer, 0, len);
+    }
+
+    /**
+     * Make a MdnsPacket for service discovery/resolution queries.
+     */
+    public static MdnsPacket makeMdnsPacketForQuery(int transactionId, boolean sendDiscoveryQueries,
+            String[] serviceTypeLabels, List<String> subtypes, boolean unicastResponse,
+            long now, List<MdnsResponse> servicesToResolve) {
+        final List<MdnsRecord> questions = new ArrayList<>();
+
+        if (sendDiscoveryQueries) {
+            // Base service type
+            questions.add(new MdnsPointerRecord(serviceTypeLabels, unicastResponse));
+            for (String subtype : subtypes) {
+                String[] labels = new String[serviceTypeLabels.length + 2];
+                labels[0] = MdnsConstants.SUBTYPE_PREFIX + subtype;
+                labels[1] = MdnsConstants.SUBTYPE_LABEL;
+                System.arraycopy(serviceTypeLabels, 0, labels, 2, serviceTypeLabels.length);
+
+                questions.add(new MdnsPointerRecord(labels, unicastResponse));
+            }
+        }
+
+        // List of (name, type) to query
+        for (MdnsResponse response : servicesToResolve) {
+            final String[] serviceName = response.getServiceName();
+            if (serviceName == null) continue;
+            boolean renewTxt = !response.hasTextRecord() || MdnsUtils.isRecordRenewalNeeded(
+                    response.getTextRecord(), now);
+            boolean renewSrv = !response.hasServiceRecord() || MdnsUtils.isRecordRenewalNeeded(
+                    response.getServiceRecord(), now);
+            if (renewSrv && renewTxt) {
+                questions.add(new MdnsAnyRecord(serviceName, unicastResponse));
+            } else {
+                if (renewTxt) {
+                    questions.add(new MdnsTextRecord(serviceName, unicastResponse));
+                }
+                if (renewSrv) {
+                    questions.add(new MdnsServiceRecord(serviceName, unicastResponse));
+                    // The hostname is not yet known, so queries for address records will be
+                    // sent the next time the EnqueueMdnsQueryCallable is enqueued if the reply
+                    // does not contain them. In practice, advertisers should include the
+                    // address records when queried for SRV, although it's not a MUST
+                    // requirement (RFC6763 12.2).
+                } else if (!response.hasInet4AddressRecord()
+                        && !response.hasInet6AddressRecord()) {
+                    final String[] host = response.getServiceRecord().getServiceHost();
+                    questions.add(new MdnsInetAddressRecord(
+                            host, MdnsRecord.TYPE_A, unicastResponse));
+                    questions.add(new MdnsInetAddressRecord(
+                            host, MdnsRecord.TYPE_AAAA, unicastResponse));
+                }
+            }
+        }
+
+        return new MdnsPacket(
+                transactionId,
+                MdnsConstants.FLAGS_QUERY,
+                questions,
+                Collections.emptyList(), /* answers */
+                Collections.emptyList(), /* authorityRecords */
+                Collections.emptyList() /* additionalRecords */);
     }
 
     /**
