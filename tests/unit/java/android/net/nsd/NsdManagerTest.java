@@ -38,6 +38,7 @@ import android.os.Build;
 
 import androidx.test.filters.SmallTest;
 
+import com.android.modules.utils.build.SdkLevel;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.FunctionalUtils.ThrowingConsumer;
@@ -92,7 +93,11 @@ public class NsdManagerTest {
     @Test
     @DisableCompatChanges(ConnectivityCompatChanges.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER)
     public void testResolveServicePreS() throws Exception {
-        verify(mServiceConn).startDaemon();
+        if (SdkLevel.isAtLeastV()) {
+            verify(mServiceConn, never()).startDaemon();
+        } else {
+            verify(mServiceConn).startDaemon();
+        }
         doTestResolveService();
     }
 
@@ -106,7 +111,11 @@ public class NsdManagerTest {
     @Test
     @DisableCompatChanges(ConnectivityCompatChanges.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER)
     public void testDiscoverServicePreS() throws Exception {
-        verify(mServiceConn).startDaemon();
+        if (SdkLevel.isAtLeastV()) {
+            verify(mServiceConn, never()).startDaemon();
+        } else {
+            verify(mServiceConn).startDaemon();
+        }
         doTestDiscoverService();
     }
 
@@ -120,7 +129,11 @@ public class NsdManagerTest {
     @Test
     @DisableCompatChanges(ConnectivityCompatChanges.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER)
     public void testParallelResolveServicePreS() throws Exception {
-        verify(mServiceConn).startDaemon();
+        if (SdkLevel.isAtLeastV()) {
+            verify(mServiceConn, never()).startDaemon();
+        } else {
+            verify(mServiceConn).startDaemon();
+        }
         doTestParallelResolveService();
     }
 
@@ -134,7 +147,11 @@ public class NsdManagerTest {
     @Test
     @DisableCompatChanges(ConnectivityCompatChanges.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER)
     public void testInvalidCallsPreS() throws Exception {
-        verify(mServiceConn).startDaemon();
+        if (SdkLevel.isAtLeastV()) {
+            verify(mServiceConn, never()).startDaemon();
+        } else {
+            verify(mServiceConn).startDaemon();
+        }
         doTestInvalidCalls();
     }
 
@@ -148,7 +165,11 @@ public class NsdManagerTest {
     @Test
     @DisableCompatChanges(ConnectivityCompatChanges.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER)
     public void testRegisterServicePreS() throws Exception {
-        verify(mServiceConn).startDaemon();
+        if (SdkLevel.isAtLeastV()) {
+            verify(mServiceConn, never()).startDaemon();
+        } else {
+            verify(mServiceConn).startDaemon();
+        }
         doTestRegisterService();
     }
 

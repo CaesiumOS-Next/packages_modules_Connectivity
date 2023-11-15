@@ -49,6 +49,7 @@ import android.util.SparseArray;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.CollectionUtils;
 
 import java.lang.annotation.Retention;
@@ -646,7 +647,8 @@ public final class NsdManager {
 
         // Only proactively start the daemon if the target SDK < S, otherwise the internal service
         // would automatically start/stop the native daemon as needed.
-        if (!CompatChanges.isChangeEnabled(RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER)) {
+        if (!CompatChanges.isChangeEnabled(RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER)
+                && !SdkLevel.isAtLeastV()) {
             try {
                 mService.startDaemon();
             } catch (RemoteException e) {
