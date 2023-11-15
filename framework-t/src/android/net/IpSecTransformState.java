@@ -39,8 +39,6 @@ import java.util.Objects;
  * observing out-of-order delivery by checking the bitmap. Additionally, callers can query
  * IpSecTransformStats at two timestamps. By comparing the changes in packet counts and sequence
  * numbers, callers can estimate IPsec data loss in the inbound direction.
- *
- * @hide
  */
 @FlaggedApi(Flags.IPSEC_TRANSFORM_STATE)
 public final class IpSecTransformState implements Parcelable {
