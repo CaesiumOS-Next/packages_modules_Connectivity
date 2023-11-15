@@ -208,4 +208,8 @@ public class IpSecStructXfrmUsersaInfo extends Struct {
     public long getSpi() {
         return mId.spi;
     }
+
+    public IpSecStructXfrmLifetimeCur getXfrmLifetimeCurrent() {
+        return mCurlft;
+    }
 }
