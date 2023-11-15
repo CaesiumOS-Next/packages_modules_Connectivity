@@ -1872,8 +1872,7 @@ public class IpSecService extends IIpSecService.Stub {
     }
 
     @Override
-    public synchronized IpSecTransformState getTransformState(int transformId)
-            throws RemoteException {
+    public synchronized IpSecTransformState getTransformState(int transformId) throws IOException {
         UserRecord userRecord = mUserResourceTracker.getUserRecord(Binder.getCallingUid());
         TransformRecord transformInfo =
                 userRecord.mTransformRecords.getResourceOrThrow(transformId);
@@ -1887,7 +1886,7 @@ public class IpSecService extends IIpSecService.Stub {
         try {
             xfrmNewSaMsg = new IpSecNetlinkUtils().ipSecGetSa(destAddress, spi);
         } catch (ErrnoException | SocketException | InterruptedIOException e) {
-            throw new RemoteException("Failed to get IpSecTransformState " + e.toString());
+            throw new IOException("Failed to get IpSecTransformState " + e.toString());
         }
 
         // Construct the response

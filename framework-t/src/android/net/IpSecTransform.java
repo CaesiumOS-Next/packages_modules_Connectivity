@@ -211,7 +211,6 @@ public final class IpSecTransform implements AutoCloseable {
      * @param callback Callback that's called after the transform state is ready or when an error
      *     occurs.
      * @see IpSecTransformState
-     * @hide
      */
     public void getIpSecTransformState(
             @CallbackExecutor @NonNull Executor executor,
