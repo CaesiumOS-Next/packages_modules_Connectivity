@@ -23,6 +23,7 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresFeature;
 import android.annotation.RequiresPermission;
+import android.annotation.SuppressLint;
 import android.annotation.SystemApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -211,8 +212,8 @@ public final class IpSecTransform implements AutoCloseable {
      * @param callback Callback that's called after the transform state is ready or when an error
      *     occurs.
      * @see IpSecTransformState
-     * @hide
      */
+    @SuppressLint("UnflaggedApi")
     public void getIpSecTransformState(
             @CallbackExecutor @NonNull Executor executor,
             @NonNull OutcomeReceiver<IpSecTransformState, RuntimeException> callback) {
