@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52f0de4d_538ef521",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-15T02:41:54Z",
+      "side": 1,
+      "message": "IIUC NetworkStats are already logging for TYPE_PROXY.\nIt seems to me this is more like\nAllow query NetworkStats for TYPE_PROXY ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 5
+      },
+      "revId": "8a1c729f0886e087a2c594a25da960d0ffa3794e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1670a24_b6d82772",
+        "filename": "framework-t/src/android/app/usage/NetworkStatsManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1036,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-15T02:41:54Z",
+      "side": 1,
+      "message": "Nah I don\u0027t think you need to change this file.\nIIUC you can use system APIs with a template in the parameters?",
+      "range": {
+        "startLine": 1036,
+        "startChar": 37,
+        "endLine": 1036,
+        "endChar": 47
+      },
+      "revId": "8a1c729f0886e087a2c594a25da960d0ffa3794e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81eef5a0_6ccf94b4",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-15T02:41:54Z",
+      "side": 1,
+      "message": "IIUC you can merge your test into this?",
+      "range": {
+        "startLine": 170,
+        "startChar": 8,
+        "endLine": 170,
+        "endChar": 14
+      },
+      "revId": "8a1c729f0886e087a2c594a25da960d0ffa3794e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
