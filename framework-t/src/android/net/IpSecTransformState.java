@@ -37,9 +37,9 @@ import java.util.Objects;
  * observing out-of-order delivery by checking the bitmap. Additionally, callers can query
  * IpSecTransformStates at two timestamps. By comparing the changes in packet counts and sequence
  * numbers, callers can estimate IPsec data loss in the inbound direction.
- *
- * @hide
  */
+// Suppressing the tool issue with @FlaggedApi
+@SuppressWarnings("UnhiddenSystemApi")
 @FlaggedApi(IPSEC_TRANSFORM_STATE)
 public final class IpSecTransformState implements Parcelable {
     private final long mTimeStamp;
@@ -123,45 +123,27 @@ public final class IpSecTransformState implements Parcelable {
 
     /**
      * Retrieve the epoch timestamp (milliseconds) for when this state was created
-     *
-     * @hide
      */
     public long getTimestamp() {
         return mTimeStamp;
     }
 
-    /**
-     * Retrieve the highest sequence number sent so far
-     *
-     * @hide
-     */
+    /** Retrieve the highest sequence number sent so far in unsigned long */
     public long getTxHighestSequenceNumber() {
         return mTxHighestSequenceNumber;
     }
 
-    /**
-     * Retrieve the highest sequence number received so far
-     *
-     * @hide
-     */
+    /** Retrieve the highest sequence number received so far in unsigned long */
     public long getRxHighestSequenceNumber() {
         return mRxHighestSequenceNumber;
     }
 
-    /**
-     * Retrieve the number of packets received AND sent so far
-     *
-     * @hide
-     */
+    /** Retrieve the number of packets received AND sent so far in unsigned long */
     public long getPacketCount() {
         return mPacketCount;
     }
 
-    /**
-     * Retrieve the number of bytes received AND sent so far
-     *
-     * @hide
-     */
+    /** Retrieve the number of bytes received AND sent so far in unsigned long */
     public long getByteCount() {
         return mByteCount;
     }
@@ -178,18 +160,15 @@ public final class IpSecTransformState implements Parcelable {
      * <p>The replay bitmap is solely useful for inbound IpSecTransforms. For outbound
      * IpSecTransforms, all bits will be unchecked.
      *
-     * @hide
      */
     @NonNull
     public byte[] getReplayBitmap() {
         return mReplayBitmap.clone();
     }
 
-    /**
-     * Builder class for testing purposes
-     *
-     * @hide
-     */
+    /** Builder class for testing purposes */
+    // Suppressing the tool issue with @FlaggedApi
+    @SuppressWarnings("UnhiddenSystemApi")
     @FlaggedApi(IPSEC_TRANSFORM_STATE)
     public static final class Builder {
         private long mTimeStamp;
@@ -199,15 +178,12 @@ public final class IpSecTransformState implements Parcelable {
         private long mByteCount;
         private byte[] mReplayBitmap;
 
-        /** @hide */
         public Builder() {
             mTimeStamp = System.currentTimeMillis();
         }
 
         /**
-         * Set the epoch timestamp (milliseconds) for when this state was created
-         *
-         * @hide
+         * Set the epoch timestamp (milliseconds) for when this state was created in unsigned long
          */
         @NonNull
         public Builder setTimestamp(long timeStamp) {
@@ -215,55 +191,35 @@ public final class IpSecTransformState implements Parcelable {
             return this;
         }
 
-        /**
-         * Set the highest sequence number sent so far
-         *
-         * @hide
-         */
+        /** Set the highest sequence number sent so far in unsigned long */
         @NonNull
         public Builder setTxHighestSequenceNumber(long seqNum) {
             mTxHighestSequenceNumber = seqNum;
             return this;
         }
 
-        /**
-         * Set the highest sequence number received so far
-         *
-         * @hide
-         */
+        /** Set the highest sequence number received so far in unsigned long */
         @NonNull
         public Builder setRxHighestSequenceNumber(long seqNum) {
             mRxHighestSequenceNumber = seqNum;
             return this;
         }
 
-        /**
-         * Set the number of packets received AND sent so far
-         *
-         * @hide
-         */
+        /** Set the number of packets received AND sent so far in unsigned long */
         @NonNull
         public Builder setPacketCount(long packetCount) {
             mPacketCount = packetCount;
             return this;
         }
 
-        /**
-         * Set the number of bytes received AND sent so far
-         *
-         * @hide
-         */
+        /** Set the number of bytes received AND sent so far in unsigned long */
         @NonNull
         public Builder setByteCount(long byteCount) {
             mByteCount = byteCount;
             return this;
         }
 
-        /**
-         * Set the replay bitmap
-         *
-         * @hide
-         */
+        /** Set the replay bitmap */
         @NonNull
         public Builder setReplayBitmap(@NonNull byte[] bitMap) {
             mReplayBitmap = bitMap.clone();
@@ -274,7 +230,6 @@ public final class IpSecTransformState implements Parcelable {
          * Build and validate the IpSecTransformState
          *
          * @return an immutable IpSecTransformState instance
-         * @hide
          */
         @NonNull
         public IpSecTransformState build() {

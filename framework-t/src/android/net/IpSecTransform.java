@@ -213,8 +213,9 @@ public final class IpSecTransform implements AutoCloseable {
      * @param callback Callback that's called after the transform state is ready or when an error
      *     occurs.
      * @see IpSecTransformState
-     * @hide
      */
+    // Suppressing the tool issue with @FlaggedApi
+    @SuppressWarnings("UnhiddenSystemApi")
     @FlaggedApi(IPSEC_TRANSFORM_STATE)
     public void getIpSecTransformState(
             @CallbackExecutor @NonNull Executor executor,
