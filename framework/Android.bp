@@ -197,6 +197,7 @@ java_sdk_library {
         "//packages/modules/NetworkStack/tests:__subpackages__",
         "//packages/modules/Wifi/service/tests/wifitests",
     ],
+    contribute_to_android_api: true,
 }
 
 platform_compat_config {
