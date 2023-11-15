@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fccb9f48_4b3b83b3",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-15T03:13:35Z",
+      "side": 1,
+      "message": "If the baseRunner is null, all tests are skipped so there should be no member; or actually there should be a single skippedClassForDevSdkMismatch method in the description ?",
+      "range": {
+        "startLine": 132,
+        "startChar": 19,
+        "endLine": 132,
+        "endChar": 27
+      },
+      "revId": "14393112fd4d3539eecaa6b542b843030dc2ea01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93d91c7e_f2f93993",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-15T03:13:35Z",
+      "side": 1,
+      "message": "If this is called, should shouldThreadLeakFailTest be set to false ?\n\nThe contract here is that tests that don\u0027t match the filter should be removed (https://junit.org/junit4/javadoc/4.8/org/junit/runner/manipulation/Filterable.html). And even if the filter matched \"ThreadLeakMonitor\", it wouldn\u0027t really be useful to run it by itself, so we could consider that it doesn\u0027t match any filter.\n\nOtherwise even when trying to run a single method, this would run that method + the thread leak test. That may confuse people trying to run a single method ? But it\u0027s possibly useful to find a leak caused by a single method ?",
+      "revId": "14393112fd4d3539eecaa6b542b843030dc2ea01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
