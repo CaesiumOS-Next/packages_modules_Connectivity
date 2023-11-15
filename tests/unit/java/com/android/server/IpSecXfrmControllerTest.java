@@ -48,7 +48,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.io.FileDescriptor;
-import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -102,7 +101,6 @@ public class IpSecXfrmControllerTest {
         final int expectedReqLen = 40;
         injectRxMessage(mMockDeps, XFRM_NEW_SA_HEX);
 
-        mXfrmController.openNetlinkSocketIfNeeded();
         final NetlinkMessage netlinkMessage = mXfrmController.ipSecGetSa(DEST_ADDRESS, SPI);
         final XfrmNetlinkNewSaMessage message = (XfrmNetlinkNewSaMessage) netlinkMessage;
 
@@ -117,16 +115,10 @@ public class IpSecXfrmControllerTest {
         verify(mMockDeps).recvMessage(eq(mDummyNetlinkSocket));
     }
 
-    @Test(expected = IOException.class)
-    public void testIpSecGetSa_XfrmCtrlNotStarted() throws Exception {
-        mXfrmController.ipSecGetSa(DEST_ADDRESS, SPI);
-    }
-
     @Test
     public void testIpSecGetSa_NlErrorMsg() throws Exception {
         injectRxMessage(mMockDeps, XFRM_ESRCH_HEX);
 
-        mXfrmController.openNetlinkSocketIfNeeded();
         try {
             mXfrmController.ipSecGetSa(DEST_ADDRESS, SPI);
             fail("Expected to fail with ESRCH ");
