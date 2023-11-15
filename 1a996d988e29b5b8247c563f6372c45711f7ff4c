@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "52440e5f_2aee16f2",
+        "filename": "framework/src/android/net/BpfNetMapsReader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-15T03:34:48Z",
+      "side": 1,
+      "message": "I think setter and getter can run correctly on T+ since the bpf map exists on the T+ devices.\ngetDataSaverEnabled does not return useful information on pre V devices but that\u0027s just because we don\u0027t have the caller currently.\nIn my understanding, we are fine to call setDataSaverEnabled and getDataSaverEnabled on T devices.\nSo, as the API, I\u0027m still feeling this should be T+.\n\nIf we want to make this V+, I think BpfNetMaps#setDataSaverEnabled also should be V+. But I feel both should be T+ as the API.\n\nWhat do you think?",
+      "parentUuid": "6534a7c2_eee00f00",
+      "range": {
+        "startLine": 275,
+        "startChar": 37,
+        "endLine": 275,
+        "endChar": 54
+      },
+      "revId": "1a996d988e29b5b8247c563f6372c45711f7ff4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4eb57356_0cf0faca",
         "filename": "framework/src/android/net/BpfNetMapsReader.java",
         "patchSetId": 2
