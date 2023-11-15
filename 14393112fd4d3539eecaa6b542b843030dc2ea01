@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87e0319f_4c67d114",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-15T03:15:48Z",
+      "side": 1,
+      "message": "LGTM apart from the getDescription comment\n\nIt feels a bit ad-hoc in DevSdkIgnoreRunner, but it doesn\u0027t feel right to have a separate runner for it. DevSdkIgnoreRunner should be renamed to have a more generic name instead ?",
+      "revId": "14393112fd4d3539eecaa6b542b843030dc2ea01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fccb9f48_4b3b83b3",
