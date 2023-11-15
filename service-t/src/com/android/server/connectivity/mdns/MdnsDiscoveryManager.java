@@ -304,6 +304,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
         return new MdnsServiceTypeClient(
                 serviceType, socketClient,
                 executorProvider.newServiceTypeClientSchedulerExecutor(), socketKey,
-                sharedLog.forSubComponent(tag), handler.getLooper(), serviceCache, sender);
+                sharedLog.forSubComponent(tag), handler.getLooper(), serviceCache, sender,
+                mdnsFeatureFlags);
     }
 }

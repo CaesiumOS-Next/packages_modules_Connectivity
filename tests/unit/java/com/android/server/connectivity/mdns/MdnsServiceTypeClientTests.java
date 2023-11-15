@@ -143,6 +143,7 @@ public class MdnsServiceTypeClientTests {
     private long latestDelayMs = 0;
     private Message delayMessage = null;
     private Handler realHandler = null;
+    private final MdnsFeatureFlags flags = MdnsFeatureFlags.newBuilder().build();
 
     @Before
     @SuppressWarnings("DoNotMock")
@@ -230,13 +231,13 @@ public class MdnsServiceTypeClientTests {
                     (MdnsQuerier.QueryCallback) inv.getArguments()[8];
             return new MdnsQuerier(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                     mockDecoderClock, mockSharedLog, thread.getLooper(), serviceCache,
-                    cacheKey, callback, mockDeps, mockSender);
+                    cacheKey, callback, mockDeps, mockSender, flags);
         }).when(mockClientDeps).makeMdnsQuerier(
-                anyString(), any(), any(), any(), any(), any(), any(), any(), any(), any());
+                anyString(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any());
 
         client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                 mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockClientDeps,
-                serviceCache, mockSender);
+                serviceCache, mockSender, flags);
     }
 
     @After
@@ -1106,7 +1107,7 @@ public class MdnsServiceTypeClientTests {
         doCallRealMethod().when(mockDeps).createMdnsPacketWriter();
         client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                 mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockClientDeps,
-                serviceCache, mockSender);
+                serviceCache, mockSender, flags);
 
         final String instanceName = "service-instance";
         final String[] hostname = new String[] { "testhost "};
@@ -1202,7 +1203,7 @@ public class MdnsServiceTypeClientTests {
         doCallRealMethod().when(mockDeps).createMdnsPacketWriter();
         client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                 mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockClientDeps,
-                serviceCache, mockSender);
+                serviceCache, mockSender, flags);
 
         final String instanceName = "service-instance";
         final String[] hostname = new String[] { "testhost "};

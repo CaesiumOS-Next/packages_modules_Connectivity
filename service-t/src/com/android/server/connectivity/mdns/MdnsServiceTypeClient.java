@@ -104,9 +104,10 @@ public class MdnsServiceTypeClient {
                 @NonNull ScheduledExecutorService executor, @NonNull Clock clock,
                 @NonNull SharedLog sharedLog, @NonNull Looper looper,
                 @NonNull MdnsServiceCache serviceCache, @NonNull MdnsServiceCache.CacheKey cacheKey,
-                @NonNull MdnsQuerier.QueryCallback callback, @NonNull MdnsSender sender) {
+                @NonNull MdnsQuerier.QueryCallback callback, @NonNull MdnsSender sender,
+                @NonNull MdnsFeatureFlags featureFlags) {
             return new MdnsQuerier(serviceType, socketClient, executor, clock, sharedLog, looper,
-                    serviceCache, cacheKey, callback, sender);
+                    serviceCache, cacheKey, callback, sender, featureFlags);
         }
     }
 
@@ -124,9 +125,10 @@ public class MdnsServiceTypeClient {
             @NonNull SharedLog sharedLog,
             @NonNull Looper looper,
             @NonNull MdnsServiceCache serviceCache,
-            @NonNull MdnsSender sender) {
+            @NonNull MdnsSender sender,
+            @NonNull MdnsFeatureFlags featureFlags) {
         this(serviceType, socketClient, executor, new Clock(), socketKey, sharedLog, looper,
-                new Dependencies(), serviceCache, sender);
+                new Dependencies(), serviceCache, sender, featureFlags);
     }
 
     @VisibleForTesting
@@ -140,7 +142,8 @@ public class MdnsServiceTypeClient {
             @NonNull Looper looper,
             @NonNull Dependencies dependencies,
             @NonNull MdnsServiceCache serviceCache,
-            @NonNull MdnsSender sender) {
+            @NonNull MdnsSender sender,
+            @NonNull MdnsFeatureFlags featureFlags) {
         this.serviceType = serviceType;
         this.socketClient = socketClient;
         this.executor = executor;
@@ -153,7 +156,7 @@ public class MdnsServiceTypeClient {
         this.serviceCache = serviceCache;
         this.cacheKey = new MdnsServiceCache.CacheKey(serviceType, socketKey);
         this.mdnsQuerier = dependencies.makeMdnsQuerier(serviceType, socketClient, executor, clock,
-                sharedLog, looper, serviceCache, cacheKey, queryCallback, sender);
+                sharedLog, looper, serviceCache, cacheKey, queryCallback, sender, featureFlags);
     }
 
     /**

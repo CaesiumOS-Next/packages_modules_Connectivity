@@ -32,7 +32,8 @@ public interface MdnsSender {
     /**
      * Send a packet.
      */
-    int sendNow(@NonNull MdnsPacket packet, @NonNull InetSocketAddress destination)
+    int sendNow(@NonNull MdnsPacket packet, @NonNull InetSocketAddress destination,
+            boolean onlyUseIpv6OnIpv6OnlyNetworks, boolean expectUnicastResponse)
             throws IOException;
 }
 

@@ -35,6 +35,11 @@ public class MdnsFeatureFlags {
      */
     public static final String NSD_EXPIRED_SERVICES_REMOVAL =
             "nsd_expired_services_removal";
+    /**
+     * A feature flag to control whether sending query is from packet repeater or legacy design.
+     */
+    public static final String NSD_SEND_QUERY_FROM_PACKET_REPEATER =
+            "nsd_send_query_from_packet_repeater";
 
     // Flag for offload feature
     public final boolean mIsMdnsOffloadFeatureEnabled;
@@ -45,14 +50,19 @@ public class MdnsFeatureFlags {
     // Flag for expired services removal
     public final boolean mIsExpiredServicesRemovalEnabled;
 
+    // Flag for sending query from packet repeater.
+    public final boolean mIsSendingQueryFromPacketRepeater;
+
     /**
      * The constructor for {@link MdnsFeatureFlags}.
      */
     public MdnsFeatureFlags(boolean isOffloadFeatureEnabled,
-            boolean includeInetAddressRecordsInProbing, boolean isExpiredServicesRemovalEnabled) {
+            boolean includeInetAddressRecordsInProbing, boolean isExpiredServicesRemovalEnabled,
+            boolean isSendingQueryFromPacketRepeater) {
         mIsMdnsOffloadFeatureEnabled = isOffloadFeatureEnabled;
         mIncludeInetAddressRecordsInProbing = includeInetAddressRecordsInProbing;
         mIsExpiredServicesRemovalEnabled = isExpiredServicesRemovalEnabled;
+        mIsSendingQueryFromPacketRepeater = isSendingQueryFromPacketRepeater;
     }
 
 
@@ -67,6 +77,7 @@ public class MdnsFeatureFlags {
         private boolean mIsMdnsOffloadFeatureEnabled;
         private boolean mIncludeInetAddressRecordsInProbing;
         private boolean mIsExpiredServicesRemovalEnabled;
+        private boolean mIsSendingQueryFromPacketRepeater;
 
         /**
          * The constructor for {@link Builder}.
@@ -75,6 +86,7 @@ public class MdnsFeatureFlags {
             mIsMdnsOffloadFeatureEnabled = false;
             mIncludeInetAddressRecordsInProbing = false;
             mIsExpiredServicesRemovalEnabled = true; // Default enabled.
+            mIsSendingQueryFromPacketRepeater = false;
         }
 
         /**
@@ -109,11 +121,23 @@ public class MdnsFeatureFlags {
         }
 
         /**
+         * Set whether the sending query is from packet repeater.
+         *
+         * @see #NSD_SEND_QUERY_FROM_PACKET_REPEATER
+         */
+        public Builder setIsSendingQueryFromPacketRepeater(
+                boolean isSendingQueryFromPacketRepeater) {
+            mIsSendingQueryFromPacketRepeater = isSendingQueryFromPacketRepeater;
+            return this;
+        }
+
+        /**
          * Builds a {@link MdnsFeatureFlags} with the arguments supplied to this builder.
          */
         public MdnsFeatureFlags build() {
             return new MdnsFeatureFlags(mIsMdnsOffloadFeatureEnabled,
-                    mIncludeInetAddressRecordsInProbing, mIsExpiredServicesRemovalEnabled);
+                    mIncludeInetAddressRecordsInProbing, mIsExpiredServicesRemovalEnabled,
+                    mIsSendingQueryFromPacketRepeater);
         }
     }
 }

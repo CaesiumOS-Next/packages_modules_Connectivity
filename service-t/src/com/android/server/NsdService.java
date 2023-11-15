@@ -1647,6 +1647,8 @@ public class NsdService extends INsdManager.Stub {
                         mContext, MdnsFeatureFlags.INCLUDE_INET_ADDRESS_RECORDS_IN_PROBING))
                 .setIsExpiredServicesRemovalEnabled(mDeps.isTrunkStableFeatureEnabled(
                         MdnsFeatureFlags.NSD_EXPIRED_SERVICES_REMOVAL))
+                .setIsSendingQueryFromPacketRepeater(mDeps.isFeatureEnabled(
+                        mContext, MdnsFeatureFlags.NSD_SEND_QUERY_FROM_PACKET_REPEATER))
                 .build();
         mMdnsSocketClient =
                 new MdnsMultinetworkSocketClient(handler.getLooper(), mMdnsSocketProvider,
