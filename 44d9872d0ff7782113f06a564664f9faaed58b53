@@ -46,6 +46,30 @@
       },
       "revId": "44d9872d0ff7782113f06a564664f9faaed58b53",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ae60b08_18abda25",
+        "filename": "thread/service/proguard.flags",
+        "patchSetId": 14
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-16T13:10:50Z",
+      "side": 1,
+      "message": "@reminv@google.com May also have some insights on the build stuff.",
+      "parentUuid": "33854629_c4fd890d",
+      "range": {
+        "startLine": 1,
+        "startChar": 2,
+        "endLine": 1,
+        "endChar": 46
+      },
+      "revId": "44d9872d0ff7782113f06a564664f9faaed58b53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
