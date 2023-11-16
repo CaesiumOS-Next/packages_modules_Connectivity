@@ -107,6 +107,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9daeeca8_339dbc86",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-16T09:53:39Z",
+      "side": 1,
+      "message": "It turned out to be proguard stripped the method. Fixed by configuring proguard flags.",
+      "parentUuid": "14e4d654_615c3a2d",
+      "range": {
+        "startLine": 312,
+        "startChar": 18,
+        "endLine": 312,
+        "endChar": 35
+      },
+      "revId": "91642a46ab75a0d579afb7febddb7af6bb08ef6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f407974c_67766d70",
