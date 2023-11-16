@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "912815ba_07d54638",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-16T02:31:37Z",
+      "side": 1,
+      "message": "This seems to be a reasonable API shape. Adding Jean.",
+      "revId": "3a544e14ad7926c73f655eb68da5a3e2d6e44ef1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "598fd906_c8ac52c5",
+        "filename": "framework-t/src/android/net/IpSecTransformState.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-16T02:31:37Z",
+      "side": 1,
+      "message": "Do we still need this?",
+      "range": {
+        "startLine": 55,
+        "startChar": 32,
+        "endLine": 55,
+        "endChar": 49
+      },
+      "revId": "3a544e14ad7926c73f655eb68da5a3e2d6e44ef1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
