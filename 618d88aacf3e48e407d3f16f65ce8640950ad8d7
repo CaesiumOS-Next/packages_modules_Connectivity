@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58faec13_ffadd0ba",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-16T10:30:10Z",
+      "side": 1,
+      "message": "// TODO : move to its own util instead of LinkProperties",
+      "revId": "618d88aacf3e48e407d3f16f65ce8640950ad8d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b58646c_5340f326",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-16T10:30:10Z",
+      "side": 1,
+      "message": "are generated",
+      "revId": "618d88aacf3e48e407d3f16f65ce8640950ad8d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfdffa04_f6a90c97",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-16T10:30:10Z",
+      "side": 1,
+      "message": "IIUC, this means you will fail the test if there is a group with the same name but less threads, e.g.\n\n  before : \"Test-Group-1\"\u003d5 threads\n  after : \"Test-Group-1\"\u003d4 threads\n\nBecause it would be updated",
+      "range": {
+        "startLine": 118,
+        "startChar": 58,
+        "endLine": 118,
+        "endChar": 65
+      },
+      "revId": "618d88aacf3e48e407d3f16f65ce8640950ad8d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a57ef76_33ab0ccb",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-16T10:30:10Z",
+      "side": 1,
+      "message": "nit : suggest putting this on the next line",
+      "range": {
+        "startLine": 133,
+        "startChar": 51,
+        "endLine": 133,
+        "endChar": 76
+      },
+      "revId": "618d88aacf3e48e407d3f16f65ce8640950ad8d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

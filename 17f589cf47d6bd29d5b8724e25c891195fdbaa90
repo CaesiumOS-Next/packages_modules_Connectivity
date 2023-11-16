@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "477881be_258323ca",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-16T10:30:10Z",
+      "side": 0,
+      "message": "nit : keep this space",
+      "range": {
+        "startLine": 125,
+        "startChar": 58,
+        "endLine": 125,
+        "endChar": 59
+      },
+      "revId": "17f589cf47d6bd29d5b8724e25c891195fdbaa90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
