@@ -1258,9 +1258,9 @@ public class BpfCoordinator {
         pw.decreaseIndent();
     }
 
-    private IpPrefix longToPrefix(long ip64) {
+    private IpPrefix bytesToPrefix(final byte[] ip64) {
         final ByteBuffer prefixBuffer = ByteBuffer.allocate(IPV6_ADDR_LEN);
-        prefixBuffer.putLong(ip64);
+        prefixBuffer.put(ip64);
         IpPrefix sourcePrefix;
         try {
             sourcePrefix = new IpPrefix(InetAddress.getByAddress(prefixBuffer.array()), 64);
@@ -1274,7 +1274,7 @@ public class BpfCoordinator {
 
     private String ipv6UpstreamRuleToString(TetherUpstream6Key key, Tether6Value value) {
         return String.format("%d(%s) [%s] [%s] -> %d(%s) %04x [%s] [%s]",
-                key.iif, getIfName(key.iif), key.dstMac, longToPrefix(key.src64), value.oif,
+                key.iif, getIfName(key.iif), key.dstMac, bytesToPrefix(key.src64), value.oif,
                 getIfName(value.oif), value.ethProto, value.ethSrcMac, value.ethDstMac);
     }
 
@@ -1570,7 +1570,7 @@ public class BpfCoordinator {
          */
         @NonNull
         public TetherUpstream6Key makeTetherUpstream6Key() {
-            long prefix64 = ByteBuffer.wrap(sourcePrefix.getRawAddress()).getLong();
+            final byte[] prefix64 = Arrays.copyOf(sourcePrefix.getRawAddress(), 8);
             return new TetherUpstream6Key(downstreamIfindex, inDstMac, prefix64);
         }
 

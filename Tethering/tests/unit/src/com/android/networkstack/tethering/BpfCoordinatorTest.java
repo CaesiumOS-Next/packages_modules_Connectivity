@@ -166,7 +166,6 @@ import java.io.StringWriter;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -794,7 +793,7 @@ public class BpfCoordinatorTest {
         if (!mDeps.isAtLeastS()) return;
         ArrayMap<TetherUpstream6Key, Tether6Value> expected = new ArrayMap<>();
         for (IpPrefix upstreamPrefix : upstreamPrefixes) {
-            long prefix64 = prefixToLong(upstreamPrefix);
+            final byte[] prefix64 = prefixToIp64(upstreamPrefix);
             final TetherUpstream6Key key = new TetherUpstream6Key(DOWNSTREAM_IFACE_PARAMS.index,
                     DOWNSTREAM_IFACE_PARAMS.macAddr, prefix64);
             final Tether6Value value = new Tether6Value(upstreamIfindex,
@@ -822,7 +821,7 @@ public class BpfCoordinatorTest {
         if (!mDeps.isAtLeastS()) return;
         Set<TetherUpstream6Key> expected = new ArraySet<>();
         for (IpPrefix upstreamPrefix : upstreamPrefixes) {
-            long prefix64 = prefixToLong(upstreamPrefix);
+            final byte[] prefix64 = prefixToIp64(upstreamPrefix);
             final TetherUpstream6Key key = new TetherUpstream6Key(DOWNSTREAM_IFACE_PARAMS.index,
                     DOWNSTREAM_IFACE_PARAMS.macAddr, prefix64);
             expected.add(key);
@@ -2269,8 +2268,8 @@ public class BpfCoordinatorTest {
                 100 /* nonzero, CT_NEW */);
     }
 
-    private static long prefixToLong(IpPrefix prefix) {
-        return ByteBuffer.wrap(prefix.getRawAddress()).getLong();
+    private static byte[] prefixToIp64(IpPrefix prefix) {
+        return Arrays.copyOf(prefix.getRawAddress(), 8);
     }
 
     void checkRule4ExistInUpstreamDownstreamMap() throws Exception {
@@ -2515,7 +2514,7 @@ public class BpfCoordinatorTest {
         final Ipv6DownstreamRule rule = buildTestDownstreamRule(UPSTREAM_IFINDEX, NEIGH_A, MAC_A);
         mBpfDownstream6Map.insertEntry(rule.makeTetherDownstream6Key(), rule.makeTether6Value());
 
-        final long prefix64 = prefixToLong(UPSTREAM_PREFIX);
+        final byte[] prefix64 = prefixToIp64(UPSTREAM_PREFIX);
         final TetherUpstream6Key upstream6Key = new TetherUpstream6Key(DOWNSTREAM_IFINDEX,
                 DOWNSTREAM_MAC, prefix64);
         final Tether6Value upstream6Value = new Tether6Value(UPSTREAM_IFINDEX,
