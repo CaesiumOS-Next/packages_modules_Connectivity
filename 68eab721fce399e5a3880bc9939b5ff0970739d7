@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bbafb39_a503f36c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-16T09:04:53Z",
+      "side": 1,
+      "message": "Failure is very obviously unrelated, and TH is flaking most of the time – this flake itself is preventing other patches from going in",
+      "revId": "68eab721fce399e5a3880bc9939b5ff0970739d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
