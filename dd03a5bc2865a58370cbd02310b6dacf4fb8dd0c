@@ -22,6 +22,30 @@
       },
       "revId": "dd03a5bc2865a58370cbd02310b6dacf4fb8dd0c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f16903bd_916baa36",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-16T11:06:26Z",
+      "side": 1,
+      "message": "Per discussion, we need some introspection into CarrierPrivilegeAuthenticator to make sure this has taken effect, so added a dumpsys command that does that.",
+      "parentUuid": "d9daea5a_5f5975e2",
+      "range": {
+        "startLine": 764,
+        "startChar": 0,
+        "endLine": 765,
+        "endChar": 31
+      },
+      "revId": "dd03a5bc2865a58370cbd02310b6dacf4fb8dd0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
