@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "05231d53_c7dbd4b2",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-16T11:14:31Z",
+      "side": 1,
+      "message": "I think we could achieve this in one of two ways :\n- Either we\u0027d leave the task of assigning the same values to the providers, in which case we\u0027d have a check on CS input, probably starting with a wtf like in this patch but for all changes to NetworkCapabilities, and possibly rejecting it in later SDKs\n- Or we decide on one which is authoritative and have CS forcefully copy the UIDs into the non-authoritative field on input\n\nIt\u0027s probably a good idea to do one of these. I\u0027d favor the latter on grounds that it is less work for the providers, but it has the drawback that they might be surprised by a forceful insertion into a field that they used to control.\n\nEither way, this looks quite far out of the scope of b/236669534 which is what this purports to implement. I will not have time to implement this with the few days I have left before I go on leave. Filed b/311347771.",
+      "parentUuid": "603bf83b_7b4d8135",
+      "range": {
+        "startLine": 213,
+        "startChar": 19,
+        "endLine": 213,
+        "endChar": 60
+      },
+      "revId": "75e9036a8b031dd4aecc5ea107fad934b1d8e849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e5972abd_16bc8a7d",
         "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
         "patchSetId": 2
