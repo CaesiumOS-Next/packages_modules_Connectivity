@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8b24cb7_d2743e90",
+        "filename": "thread/service/proguard.flags",
+        "patchSetId": 14
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-16T12:15:28Z",
+      "side": 1,
+      "message": "Wondering if there can be more classes / methods stripped by proguard and cause mysterious bugs. What\u0027s the cost of keeping the members here? What\u0027s penalty to keep everything?",
+      "range": {
+        "startLine": 1,
+        "startChar": 2,
+        "endLine": 1,
+        "endChar": 46
+      },
+      "revId": "44d9872d0ff7782113f06a564664f9faaed58b53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
