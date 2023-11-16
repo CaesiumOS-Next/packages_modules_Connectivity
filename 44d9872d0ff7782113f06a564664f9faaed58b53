@@ -22,6 +22,30 @@
       },
       "revId": "44d9872d0ff7782113f06a564664f9faaed58b53",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33854629_c4fd890d",
+        "filename": "thread/service/proguard.flags",
+        "patchSetId": 14
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-16T13:02:18Z",
+      "side": 1,
+      "message": "@jchalard@google.com I wonder if you have any suggestions.",
+      "parentUuid": "f8b24cb7_d2743e90",
+      "range": {
+        "startLine": 1,
+        "startChar": 2,
+        "endLine": 1,
+        "endChar": 46
+      },
+      "revId": "44d9872d0ff7782113f06a564664f9faaed58b53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
