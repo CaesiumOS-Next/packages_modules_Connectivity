@@ -91,6 +91,7 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -1260,7 +1261,8 @@ public class BpfCoordinator {
 
     private IpPrefix longToPrefix(long ip64) {
         final ByteBuffer prefixBuffer = ByteBuffer.allocate(IPV6_ADDR_LEN);
-        prefixBuffer.putLong(ip64);
+        // ip64 is stored in network order, use ByteBuffer with native order to preserve the order.
+        prefixBuffer.order(ByteOrder.nativeOrder()).putLong(ip64);
         IpPrefix sourcePrefix;
         try {
             sourcePrefix = new IpPrefix(InetAddress.getByAddress(prefixBuffer.array()), 64);
@@ -1570,7 +1572,9 @@ public class BpfCoordinator {
          */
         @NonNull
         public TetherUpstream6Key makeTetherUpstream6Key() {
-            long prefix64 = ByteBuffer.wrap(sourcePrefix.getRawAddress()).getLong();
+            // Use ByteBuffer with native order such that prefix64 is stored in network order.
+            long prefix64 = ByteBuffer.wrap(sourcePrefix.getRawAddress())
+                    .order(ByteOrder.nativeOrder()).getLong();
             return new TetherUpstream6Key(downstreamIfindex, inDstMac, prefix64);
         }
 

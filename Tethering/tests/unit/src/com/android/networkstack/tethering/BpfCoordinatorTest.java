@@ -167,6 +167,7 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -2270,7 +2271,7 @@ public class BpfCoordinatorTest {
     }
 
     private static long prefixToLong(IpPrefix prefix) {
-        return ByteBuffer.wrap(prefix.getRawAddress()).getLong();
+        return ByteBuffer.wrap(prefix.getRawAddress()).order(ByteOrder.nativeOrder()).getLong();
     }
 
     void checkRule4ExistInUpstreamDownstreamMap() throws Exception {
