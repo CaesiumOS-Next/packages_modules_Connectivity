@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80944ae8_e69476eb",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-16T20:11:32Z",
+      "side": 1,
+      "message": "is this always a destination? Is this struct also used for source addresses?",
+      "range": {
+        "startLine": 58,
+        "startChar": 56,
+        "endLine": 58,
+        "endChar": 67
+      },
+      "revId": "8da9c1fdfcfdf621399f8091747ae235f7754f35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0402b09a_ccf13a05",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-16T20:11:32Z",
+      "side": 1,
+      "message": "Nit(spelling): address?",
+      "range": {
+        "startLine": 60,
+        "startChar": 21,
+        "endLine": 60,
+        "endChar": 33
+      },
+      "revId": "8da9c1fdfcfdf621399f8091747ae235f7754f35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90af26dc_fb592190",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-16T20:11:32Z",
+      "side": 1,
+      "message": "Nit: suggest using this.address for clarity",
+      "range": {
+        "startLine": 68,
+        "startChar": 27,
+        "endLine": 68,
+        "endChar": 34
+      },
+      "revId": "8da9c1fdfcfdf621399f8091747ae235f7754f35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
