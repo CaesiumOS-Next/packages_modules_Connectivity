@@ -5263,9 +5263,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private boolean hasCarrierPrivilegeForNetworkCaps(final int callingUid,
             @NonNull final NetworkCapabilities caps) {
         if (mCarrierPrivilegeAuthenticator != null) {
+            Log.d("TEST", "isCarrierServiceUidForNetworkCapabilities: " + mCarrierPrivilegeAuthenticator.isCarrierServiceUidForNetworkCapabilities(
+                    callingUid, caps));
             return mCarrierPrivilegeAuthenticator.isCarrierServiceUidForNetworkCapabilities(
                     callingUid, caps);
         }
+
+        Log.d("TEST", "failed in hasCarrierPrivilegeForNetworkCaps");
         return false;
     }
 
@@ -7410,10 +7414,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     "Insufficient permissions to request a specific signal strength");
         }
         mAppOpsManager.checkPackage(callerUid, callerPackageName);
-
-        if (!nc.getSubscriptionIds().isEmpty()) {
-            enforceNetworkFactoryPermission();
-        }
     }
 
     private int[] getSignalStrengthThresholds(@NonNull final NetworkAgentInfo nai) {
@@ -7699,8 +7699,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         if (networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED) == false) {
             // For T+ devices, callers with carrier privilege could request with CBS capabilities.
-            if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)
-                    && hasCarrierPrivilegeForNetworkCaps(callingUid, networkCapabilities)) {
+            Log.d("TEST", "hasCarrierPrivilegeForNetworkCaps: " + hasCarrierPrivilegeForNetworkCaps(callingUid, networkCapabilities));
+            if (hasCarrierPrivilegeForNetworkCaps(callingUid, networkCapabilities)) {
                 return;
             }
             enforceConnectivityRestrictedNetworksPermission(true /* checkUidsAllowedList */);

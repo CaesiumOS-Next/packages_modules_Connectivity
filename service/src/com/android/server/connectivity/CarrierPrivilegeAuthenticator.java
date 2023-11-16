@@ -232,7 +232,9 @@ public class CarrierPrivilegeAuthenticator {
             @NonNull NetworkCapabilities networkCapabilities) {
         if (callingUid == Process.INVALID_UID) return false;
         final int subId;
-        if (networkCapabilities.hasSingleTransportBesidesTest(TRANSPORT_CELLULAR)) {
+        if (networkCapabilities.getSubscriptionIds().size() == 1) {
+            subId = networkCapabilities.getSubscriptionIds().toArray(new Integer[0])[0];
+        } else if (networkCapabilities.hasSingleTransportBesidesTest(TRANSPORT_CELLULAR)) {
             subId = getSubIdFromTelephonySpecifier(networkCapabilities.getNetworkSpecifier());
         } else if (networkCapabilities.hasSingleTransportBesidesTest(TRANSPORT_WIFI)) {
             subId = getSubIdFromWifiTransportInfo(networkCapabilities.getTransportInfo());
@@ -250,6 +252,10 @@ public class CarrierPrivilegeAuthenticator {
             Log.wtf(TAG, "NetworkCapabilities subIds are inconsistent between "
                     + "specifier/transportInfo and mSubIds : " + networkCapabilities);
         }
+
+        Log.d("TEST", "Got subid: " + subId);
+        Log.d("TEST", "Calling Uid: " + callingUid);
+        Log.d("TEST", "Carrier Service UID: " + getCarrierServiceUidForSubId(subId));
         if (SubscriptionManager.INVALID_SUBSCRIPTION_ID == subId) return false;
         return callingUid == getCarrierServiceUidForSubId(subId);
     }
