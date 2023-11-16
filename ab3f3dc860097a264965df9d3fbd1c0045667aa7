@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "beb79c49_4cc86af3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-16T04:50:35Z",
+      "side": 1,
+      "message": "Happy as is but please take a look at comments inline.",
+      "revId": "ab3f3dc860097a264965df9d3fbd1c0045667aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "547fbad1_8b5e1734",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-16T04:50:35Z",
+      "side": 1,
+      "message": "I don\u0027t have a strong opinion on this but are you sure a long doesn\u0027t cut it ? The max value for a long is close to 10 exabytes.",
+      "range": {
+        "startLine": 144,
+        "startChar": 37,
+        "endLine": 144,
+        "endChar": 47
+      },
+      "revId": "ab3f3dc860097a264965df9d3fbd1c0045667aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a226fc0f_f8673876",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-16T04:50:35Z",
+      "side": 1,
+      "message": "Likewise, does the wire protocol even allow for such high values ?",
+      "range": {
+        "startLine": 147,
+        "startChar": 37,
+        "endLine": 147,
+        "endChar": 47
+      },
+      "revId": "ab3f3dc860097a264965df9d3fbd1c0045667aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
