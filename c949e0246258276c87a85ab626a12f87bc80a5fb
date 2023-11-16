@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58182bb8_37c28bbd",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-16T18:01:05Z",
+      "side": 1,
+      "message": "do we want to enforce that this must be a single subId for the purposes of requests only (not callbacks)",
+      "range": {
+        "startLine": 227,
+        "startChar": 40,
+        "endLine": 227,
+        "endChar": 58
+      },
+      "revId": "c949e0246258276c87a85ab626a12f87bc80a5fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
