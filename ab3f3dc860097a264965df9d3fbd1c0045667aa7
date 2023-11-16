@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b1ca584_184bcea0",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-16T22:11:39Z",
+      "side": 1,
+      "message": "Hi Jean, this field is a __u64 in the Linux kernel. Although java now supports \"long\" data type to represent an unsigned 64-bit long, I feel using BigInteger should cause less confusion. Thoughts?",
+      "parentUuid": "547fbad1_8b5e1734",
+      "range": {
+        "startLine": 144,
+        "startChar": 37,
+        "endLine": 144,
+        "endChar": 47
+      },
+      "revId": "ab3f3dc860097a264965df9d3fbd1c0045667aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a226fc0f_f8673876",
         "filename": "framework-t/api/current.txt",
         "patchSetId": 4
@@ -54,6 +78,30 @@
       "writtenOn": "2023-11-16T04:50:35Z",
       "side": 1,
       "message": "Likewise, does the wire protocol even allow for such high values ?",
+      "range": {
+        "startLine": 147,
+        "startChar": 37,
+        "endLine": 147,
+        "endChar": 47
+      },
+      "revId": "ab3f3dc860097a264965df9d3fbd1c0045667aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bd5d62e_0ba97bc7",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-16T22:11:39Z",
+      "side": 1,
+      "message": "Similar to byte count, one sequence numbers are represented by two __u32 fields in the Linux Kernel for the lower 4 bytes and higher 4 bytes.",
+      "parentUuid": "a226fc0f_f8673876",
       "range": {
         "startLine": 147,
         "startChar": 37,
