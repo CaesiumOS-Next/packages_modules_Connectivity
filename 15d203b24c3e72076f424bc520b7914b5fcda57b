@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c57b695_bb91d710",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-16T01:25:23Z",
+      "side": 1,
+      "message": "For extended sequence numbers, this will roll over. Suggest BigInteger for the sequence numbers too",
+      "range": {
+        "startLine": 147,
+        "startChar": 18,
+        "endLine": 147,
+        "endChar": 22
+      },
+      "revId": "15d203b24c3e72076f424bc520b7914b5fcda57b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb0e1f5e_bc77b277",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-16T01:25:23Z",
+      "side": 1,
+      "message": "IpSecTransform?",
+      "range": {
+        "startLine": 210,
+        "startChar": 42,
+        "endLine": 210,
+        "endChar": 69
+      },
+      "revId": "15d203b24c3e72076f424bc520b7914b5fcda57b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83857388_40aa67a9",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-16T01:25:23Z",
+      "side": 1,
+      "message": "Suggest an `@see IpSecTransformState` at the bottom.",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 211,
+        "endChar": 6
+      },
+      "revId": "15d203b24c3e72076f424bc520b7914b5fcda57b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58c8d83f_5c71977b",
+        "filename": "framework-t/src/android/net/IpSecTransformState.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-16T01:25:23Z",
+      "side": 1,
+      "message": "IpSecTransform?",
+      "range": {
+        "startLine": 35,
+        "startChar": 55,
+        "endLine": 35,
+        "endChar": 81
+      },
+      "revId": "15d203b24c3e72076f424bc520b7914b5fcda57b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30ffe581_63ff3a26",
+        "filename": "framework-t/src/android/net/IpSecTransformState.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-16T01:25:23Z",
+      "side": 1,
+      "message": "State?",
+      "range": {
+        "startLine": 40,
+        "startChar": 17,
+        "endLine": 40,
+        "endChar": 22
+      },
+      "revId": "15d203b24c3e72076f424bc520b7914b5fcda57b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3689cf5c_4f1f3074",
+        "filename": "framework-t/src/android/net/IpSecTransformState.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-16T01:25:23Z",
+      "side": 1,
+      "message": "\"checked off\" is somewhat ambiguous. Suggest saying \"bits for the received packets will be marked as true\"\n\nAlternatively, instead of having bitshift math, suggest changing this to a bit set",
+      "range": {
+        "startLine": 204,
+        "startChar": 50,
+        "endLine": 204,
+        "endChar": 61
+      },
+      "revId": "15d203b24c3e72076f424bc520b7914b5fcda57b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "508ce036_4df7d8e5",
+        "filename": "framework-t/src/android/net/IpSecTransformState.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-16T01:25:23Z",
+      "side": 1,
+      "message": "Suggest \"will never change over the lifetime of an IpSecTransform\"",
+      "range": {
+        "startLine": 206,
+        "startChar": 38,
+        "endLine": 207,
+        "endChar": 14
+      },
+      "revId": "15d203b24c3e72076f424bc520b7914b5fcda57b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
