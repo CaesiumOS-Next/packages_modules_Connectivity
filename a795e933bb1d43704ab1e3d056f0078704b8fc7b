@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c92a2ec_c894453d",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-16T19:26:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67a3d830_a42a8fff",
+      "range": {
+        "startLine": 32,
+        "startChar": 10,
+        "endLine": 32,
+        "endChar": 14
+      },
+      "revId": "a795e933bb1d43704ab1e3d056f0078704b8fc7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f14a99e0_9fdbe0ec",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "920d0d7b_9a7bcd6a",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-16T19:26:51Z",
+      "side": 1,
+      "message": "As discussed those structs are very unlikely to change. But if those change do appear, we will catch them in CTS.\n\nI added some comments in https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2825612/6..8/staticlibs/device/com/android/net/module/util/netlink/IpSecXfrmNetlinkMessage.java",
+      "parentUuid": "f14a99e0_9fdbe0ec",
+      "range": {
+        "startLine": 47,
+        "startChar": 28,
+        "endLine": 47,
+        "endChar": 39
+      },
+      "revId": "a795e933bb1d43704ab1e3d056f0078704b8fc7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57e65623_81ece087",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-11-14T00:03:56Z",
       "side": 1,
       "message": "a new message? Doesn\u0027t have to be outbound, can be used for loopback as testing",
+      "range": {
+        "startLine": 57,
+        "startChar": 28,
+        "endLine": 57,
+        "endChar": 39
+      },
+      "revId": "a795e933bb1d43704ab1e3d056f0078704b8fc7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "525e5feb_4310713e",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-16T19:26:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57e65623_81ece087",
       "range": {
         "startLine": 57,
         "startChar": 28,
