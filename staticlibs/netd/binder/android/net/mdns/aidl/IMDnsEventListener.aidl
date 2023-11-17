@@ -31,8 +31,8 @@ import android.net.mdns.aidl.ResolutionInfo;
 oneway interface IMDnsEventListener {
     /**
      * Types for MDNS operation result.
-     * These are in sync with frameworks/libs/net/common/netd/libnetdutils/include/netdutils/\
-     * ResponseCode.h
+     * These are in sync with packages/modules/Connectivity/staticlibs/netd/libnetdutils/include/\
+     * netdutils/ResponseCode.h
      */
     const int SERVICE_DISCOVERY_FAILED     = 602;
     const int SERVICE_FOUND                = 603;
@@ -46,21 +46,33 @@ oneway interface IMDnsEventListener {
 
     /**
      * Notify service registration status.
+     *
+     * @throws UnsupportedOperationException on Android V and after.
+     * @deprecated unimplemented on V+.
      */
     void onServiceRegistrationStatus(in RegistrationInfo status);
 
     /**
      * Notify service discovery status.
+     *
+     * @throws UnsupportedOperationException on Android V and after.
+     * @deprecated unimplemented on V+.
      */
     void onServiceDiscoveryStatus(in DiscoveryInfo status);
 
     /**
      * Notify service resolution status.
+     *
+     * @throws UnsupportedOperationException on Android V and after.
+     * @deprecated unimplemented on V+.
      */
     void onServiceResolutionStatus(in ResolutionInfo status);
 
     /**
      * Notify getting service address status.
+     *
+     * @throws UnsupportedOperationException on Android V and after.
+     * @deprecated unimplemented on V+.
      */
     void onGettingServiceAddressStatus(in GetAddressInfo status);
 }
