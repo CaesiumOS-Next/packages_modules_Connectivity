@@ -45,6 +45,30 @@
       },
       "revId": "7e4314faee1b0364ce0df5b3e15b88a361c6cbf3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3a13389_a5f04a33",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T11:03:40Z",
+      "side": 1,
+      "message": "Okay I think I understand what I missed : in SM12 you need to call getTetheringThread before you call startTetheringThread.",
+      "parentUuid": "77a70563_0b699cc3",
+      "range": {
+        "startLine": 327,
+        "startChar": 26,
+        "endLine": 327,
+        "endChar": 44
+      },
+      "revId": "7e4314faee1b0364ce0df5b3e15b88a361c6cbf3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
