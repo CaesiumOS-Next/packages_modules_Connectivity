@@ -16,6 +16,24 @@
       "message": "This file should really not get new additions. The unit tests should use the jarjar rules instead, so that the jarjared names match at runtime.",
       "revId": "ae6eb08b0d5235882d46a1de81f0e83f5fdc07d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "530af98a_32f3a8d9",
+        "filename": "framework/jarjar-excludes.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-17T08:12:42Z",
+      "side": 1,
+      "message": "Reverted and use framework-connectivity-t.impl for unit tests.",
+      "parentUuid": "5289636e_20e8b18f",
+      "revId": "ae6eb08b0d5235882d46a1de81f0e83f5fdc07d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
