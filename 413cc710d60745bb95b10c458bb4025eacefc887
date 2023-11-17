@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e45241f8_d125358e",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-17T22:08:55Z",
+      "side": 1,
+      "message": "Just took another look at this patch - AFAICT, this method is used in the NetworkRequest path, but TransportInfo is not a requestable field, so this is almost certainly going to be empty.\n\nI\u0027ll be honest though, I can\u0027t think of many other good options, especially with an aim to be able to use this back to T:\n  - WifiNetworkSpecifier doesn\u0027t yet support subId matching\n  - NetworkRequest#setSubscriptionIds is SystemApi, and we\u0027d have to teach Wifi to advertise SubId capabilities for the NetworkOffer",
+      "range": {
+        "startLine": 222,
+        "startChar": 32,
+        "endLine": 222,
+        "endChar": 49
+      },
+      "revId": "413cc710d60745bb95b10c458bb4025eacefc887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

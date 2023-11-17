@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6549d1f1_a30a8291",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-17T22:08:55Z",
+      "side": 1,
+      "message": "Does this restriction still exist? Wifi does not advertise CBS. (Besides - a carrier using their own IMS or even INTERNET seems like a reasonable condition?)",
+      "range": {
+        "startLine": 204,
+        "startChar": 46,
+        "endLine": 204,
+        "endChar": 64
+      },
+      "revId": "1ddfe882992cc199257de4b89cfb74872d52db09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
