@@ -22,6 +22,30 @@
       },
       "revId": "c949e0246258276c87a85ab626a12f87bc80a5fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34cb3a5c_b121fc9f",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T07:27:53Z",
+      "side": 1,
+      "message": "I think we\u0027ll need some straightening up of the difference between carrier privilege and service UID. This is check is used in two places :\n❶ For checking the NCs of a network agent\n❷ For checking the ability to request a restricted network for a given subId\n\nFor ❶, the current code is correct (for now at least, unless we want to change what apps we grant access to)\n\nFor ❷, we have two problems \n  ① really we want to allow any carrier-privileged process to be able to request this, not only the service package\n  ② this line here is happy if \"contains(subId)\", but the matching is done if any of the subIds match. This is not exactly a burning security problem, but strictly speaking it means that when this code changes to using getSubscriptionIds(), an app that has carrier privilege for one subscription ID can file with 2, and get a callback for the other, which is wrong.\n\nThis is a useful remark but it\u0027s *very* far out of the scope of this work, so I updated b/311347771 about this.",
+      "parentUuid": "58182bb8_37c28bbd",
+      "range": {
+        "startLine": 227,
+        "startChar": 40,
+        "endLine": 227,
+        "endChar": 58
+      },
+      "revId": "c949e0246258276c87a85ab626a12f87bc80a5fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
