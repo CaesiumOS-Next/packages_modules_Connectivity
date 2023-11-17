@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a13394de_138e5e74",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T06:51:33Z",
+      "side": 1,
+      "message": "readable",
+      "range": {
+        "startLine": 7,
+        "startChar": 36,
+        "endLine": 7,
+        "endChar": 44
+      },
+      "revId": "3aae80d93b532756c3ccf5d1f2d703e471cc8b60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b094e7b3_913da172",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T06:51:33Z",
+      "side": 1,
+      "message": "Suggest commenting that because this is in the `threadsDiff.updated` member, you know for sure there is a corresponding key in threadCountsBeforeTest",
+      "range": {
+        "startLine": 120,
+        "startChar": 57,
+        "endLine": 120,
+        "endChar": 58
+      },
+      "revId": "3aae80d93b532756c3ccf5d1f2d703e471cc8b60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
