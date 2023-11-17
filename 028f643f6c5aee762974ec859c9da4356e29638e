@@ -93,6 +93,102 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23e76b53_69ee93ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T10:57:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9653484_53993ca4",
+      "range": {
+        "startLine": 10,
+        "startChar": 21,
+        "endLine": 10,
+        "endChar": 23
+      },
+      "revId": "028f643f6c5aee762974ec859c9da4356e29638e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e962fba7_fa1a8379",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T10:57:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3722f3c4_b62d37aa",
+      "range": {
+        "startLine": 10,
+        "startChar": 7,
+        "endLine": 10,
+        "endChar": 21
+      },
+      "revId": "028f643f6c5aee762974ec859c9da4356e29638e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adca486b_35b3235e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T10:57:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "919f904f_438f332a",
+      "range": {
+        "startLine": 10,
+        "startChar": 50,
+        "endLine": 10,
+        "endChar": 54
+      },
+      "revId": "028f643f6c5aee762974ec859c9da4356e29638e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c15ec7ec_389c4cd4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T10:57:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b306f7dc_766f6176",
+      "range": {
+        "startLine": 10,
+        "startChar": 33,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "028f643f6c5aee762974ec859c9da4356e29638e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82e975f7_0b8e67b5",
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e67bc805_4b869954",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T10:57:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82e975f7_0b8e67b5",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 9
+      },
+      "revId": "028f643f6c5aee762974ec859c9da4356e29638e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec93fbb9_2489e14c",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-09-08T02:59:56Z",
       "side": 1,
       "message": "This looks very dangerous.\n\n- The old code was creating a new thread, which was kind of a guarantee it would only be called once. But if you have to test `isAlive` it\u0027s because you need to call this multiple times. This points to a large change in semantics.\n- You\u0027ll have to call this on another thread than mTetherThread by definition, meaning mTetherThread can start between the call to `isAlive` and the call to `start`. I don\u0027t think we can take this risk.\n- It\u0027s a structural requirement that the thread is started exactly once, after the state machine is initialized but before it is started. So with this you require the getter to never be called before initalization, and to be called before starting. While SyncSM has some protections against the former, I think this is risky, and especially risky as the name of this method does not suggest at all that it will start the thread.\n- Having a getter make such a large side effect as starting a thread is uncommon and at best counterintuitive. We should avoid doing this.\n\nI would suggest instead that you have a method (possibly in the dependencies) called `startTetheringThread` or something. Then it\u0027s much easier to check that it\u0027s only called once, and where. Inside, you can throw if it\u0027s already started. Conversely, this method to get the looper can throw if the thread is not alive (but that\u0027s maybe not essential because it will return null in that case and crash soon afterwards)\n\nIn StateMachineShim, you can call getTetheringThread() in all cases, and if it\u0027s the asyncSM you\u0027d just call start on it. You can even remove this method completely, and just call getLooper on the thread itself, since you have a ref to it.",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 333,
+        "endChar": 68
+      },
+      "revId": "028f643f6c5aee762974ec859c9da4356e29638e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e70b5e5_7fead55b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T10:57:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec93fbb9_2489e14c",
       "range": {
         "startLine": 333,
         "startChar": 0,
