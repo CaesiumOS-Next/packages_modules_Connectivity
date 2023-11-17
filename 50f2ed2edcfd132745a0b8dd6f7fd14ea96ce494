@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5233059b_59744d61",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-17T05:55:44Z",
+      "side": 1,
+      "message": "Nit: would be good to add a newline before here. Or even better, put this around line 224 with its own comment.",
+      "range": {
+        "startLine": 234,
+        "startChar": 4,
+        "endLine": 234,
+        "endChar": 11
+      },
+      "revId": "50f2ed2edcfd132745a0b8dd6f7fd14ea96ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
