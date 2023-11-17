@@ -38,6 +38,7 @@ java_library {
         "service-connectivity-pre-jarjar",
     ],
     static_libs: [
+        "modules-utils-shell-command-handler",
         "net-utils-device-common",
         "net-utils-device-common-netlink",
         "ot-daemon-aidl-java",
