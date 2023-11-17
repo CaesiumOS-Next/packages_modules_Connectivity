@@ -35,6 +35,7 @@ import static android.net.thread.ThreadNetworkException.ERROR_REJECTED_BY_PEER;
 import static android.net.thread.ThreadNetworkException.ERROR_RESOURCE_EXHAUSTED;
 import static android.net.thread.ThreadNetworkException.ERROR_RESPONSE_BAD_FORMAT;
 import static android.net.thread.ThreadNetworkException.ERROR_TIMEOUT;
+import static android.net.thread.ThreadNetworkException.ERROR_UNAVAILABLE;
 import static android.net.thread.ThreadNetworkException.ERROR_UNSUPPORTED_CHANNEL;
 import static android.net.thread.ThreadNetworkException.ErrorCode;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
@@ -43,6 +44,7 @@ import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_BUSY;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_DETACHED;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_INVALID_STATE;
+import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_NOT_IMPLEMENTED;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_NO_BUFS;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_PARSE;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_REASSEMBLY_TIMEOUT;
@@ -59,8 +61,8 @@ import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.LocalNetworkConfig;
-import android.net.MulticastRoutingConfig;
 import android.net.LocalNetworkInfo;
+import android.net.MulticastRoutingConfig;
 import android.net.Network;
 import android.net.NetworkAgent;
 import android.net.NetworkAgentConfig;
@@ -81,7 +83,6 @@ import android.net.thread.PendingOperationalDataset;
 import android.net.thread.ThreadNetworkController;
 import android.net.thread.ThreadNetworkController.DeviceRole;
 import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.RemoteException;
@@ -91,12 +92,12 @@ import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.ServiceManagerWrapper;
+import com.android.server.thread.openthread.BorderRouterConfigurationParcel;
 import com.android.server.thread.openthread.IOtDaemon;
 import com.android.server.thread.openthread.IOtDaemonCallback;
 import com.android.server.thread.openthread.IOtStatusReceiver;
 import com.android.server.thread.openthread.Ipv6AddressInfo;
 import com.android.server.thread.openthread.OtDaemonState;
-import com.android.server.thread.openthread.BorderRouterConfigurationParcel;
 
 import java.io.IOException;
 import java.net.Inet6Address;
@@ -131,7 +132,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     // particular, the constructor does not run on the handler thread, so it must not touch any of
     // the non-final fields, nor must it mutate any of the non-final fields inside these objects.
 
-    private final HandlerThread mHandlerThread;
+    private final Looper mLooper;
     private final NetworkProvider mNetworkProvider;
     private final Supplier<IOtDaemon> mOtDaemonSupplier;
     private final ConnectivityManager mConnectivityManager;
@@ -156,14 +157,14 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     @VisibleForTesting
     ThreadNetworkControllerService(
             Context context,
-            HandlerThread handlerThread,
+            Looper looper,
             NetworkProvider networkProvider,
             Supplier<IOtDaemon> otDaemonSupplier,
             ConnectivityManager connectivityManager,
             TunInterfaceController tunIfController) {
         mContext = context;
-        mHandlerThread = handlerThread;
-        mHandler = new Handler(handlerThread.getLooper());
+        mLooper = looper;
+        mHandler = new Handler(looper);
         mNetworkProvider = networkProvider;
         mOtDaemonSupplier = otDaemonSupplier;
         mConnectivityManager = connectivityManager;
@@ -182,15 +183,13 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mBorderRouterConfig = new BorderRouterConfigurationParcel();
     }
 
-    public static ThreadNetworkControllerService newInstance(Context context) {
-        HandlerThread handlerThread = new HandlerThread("ThreadHandlerThread");
-        handlerThread.start();
+    public static ThreadNetworkControllerService newInstance(Context context, Looper looper) {
         NetworkProvider networkProvider =
-                new NetworkProvider(context, handlerThread.getLooper(), "ThreadNetworkProvider");
+                new NetworkProvider(context, looper, "ThreadNetworkProvider");
 
         return new ThreadNetworkControllerService(
                 context,
-                handlerThread,
+                looper,
                 networkProvider,
                 () -> IOtDaemon.Stub.asInterface(ServiceManagerWrapper.waitForService("ot_daemon")),
                 context.getSystemService(ConnectivityManager.class),
@@ -353,6 +352,23 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 mHandler);
     }
 
+    public void setCountryCode(byte[] countryCode, @NonNull IOperationReceiver receiver) {
+        OperationReceiverWrapper receiverWrapper = new OperationReceiverWrapper(receiver);
+        mHandler.post(() -> setCountryCodeInternal(countryCode, receiverWrapper));
+    }
+
+    private void setCountryCodeInternal(
+            byte[] countryCode, @NonNull OperationReceiverWrapper receiver) {
+        checkOnHandlerThread();
+
+        try {
+            getOtDaemon().setCountryCode(countryCode, newOtStatusReceiver(receiver));
+        } catch (RemoteException e) {
+            Log.e(TAG, "otDaemon.setCountryCode failed", e);
+            receiver.onError(ERROR_INTERNAL_ERROR, "Thread stack error");
+        }
+    }
+
     private void registerThreadNetwork() {
         if (mNetworkAgent != null) {
             return;
@@ -366,7 +382,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mNetworkAgent =
                 new NetworkAgent(
                         mContext,
-                        mHandlerThread.getLooper(),
+                        mLooper,
                         TAG,
                         netCaps,
                         mLinkProperties,
@@ -560,7 +576,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     }
 
     private void checkOnHandlerThread() {
-        if (Looper.myLooper() != mHandlerThread.getLooper()) {
+        if (Looper.myLooper() != mLooper) {
             Log.wtf(TAG, "Must be on the handler thread!");
         }
     }
@@ -594,6 +610,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 return ERROR_RESOURCE_EXHAUSTED;
             case OT_ERROR_PARSE:
                 return ERROR_RESPONSE_BAD_FORMAT;
+            case OT_ERROR_NOT_IMPLEMENTED:
+                return ERROR_UNAVAILABLE;
             case OT_ERROR_REASSEMBLY_TIMEOUT:
             case OT_ERROR_RESPONSE_TIMEOUT:
                 return ERROR_TIMEOUT;
@@ -800,8 +818,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         MulticastRoutingConfig newDownstreamConfig;
         MulticastRoutingConfig.Builder builder;
 
-        if (mDownstreamMulticastRoutingConfig.getForwardingMode() !=
-                MulticastRoutingConfig.FORWARD_SELECTED) {
+        if (mDownstreamMulticastRoutingConfig.getForwardingMode()
+                != MulticastRoutingConfig.FORWARD_SELECTED) {
             Log.e(
                     TAG,
                     "Ignore multicast listening address updates when downstream multicast "
@@ -809,8 +827,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             // Don't update the address set if downstream multicast forwarding is disabled.
             return;
         }
-        if (isAdded ==
-                mDownstreamMulticastRoutingConfig.getListeningAddresses().contains(address)) {
+        if (isAdded
+                == mDownstreamMulticastRoutingConfig.getListeningAddresses().contains(address)) {
             return;
         }
 
