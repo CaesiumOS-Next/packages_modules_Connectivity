@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d052ac6f_e69a2ad1",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-17T07:39:50Z",
+      "side": 1,
+      "message": "This is a behaviour change, right? Do we expect it to break something in production? Presumably not, because nothing will be depending on the list of subscription IDs being empty?",
+      "range": {
+        "startLine": 807,
+        "startChar": 25,
+        "endLine": 807,
+        "endChar": 26
+      },
+      "revId": "6cecbb5a607a33fc30209c4ba8ce2f03ccc29cd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
