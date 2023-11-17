@@ -28,6 +28,7 @@ interface IMDns {
      * Start the MDNSResponder daemon.
      *
      * @throws ServiceSpecificException with unix errno EALREADY if daemon is already running.
+     * @deprecated unimplemented on V+.
      */
     void startDaemon();
 
@@ -35,6 +36,7 @@ interface IMDns {
      * Stop the MDNSResponder daemon.
      *
      * @throws ServiceSpecificException with unix errno EBUSY if daemon is still in use.
+     * @deprecated unimplemented on V+.
      */
     void stopDaemon();
 
@@ -49,6 +51,7 @@ interface IMDns {
      * @throws ServiceSpecificException with one of the following error values:
      *         - Unix errno EBUSY if request id is already in use.
      *         - kDNSServiceErr_* list in dns_sd.h if registration fail.
+     * @deprecated unimplemented on V+.
      */
     void registerService(in RegistrationInfo info);
 
@@ -63,6 +66,7 @@ interface IMDns {
      * @throws ServiceSpecificException with one of the following error values:
      *         - Unix errno EBUSY if request id is already in use.
      *         - kDNSServiceErr_* list in dns_sd.h if discovery fail.
+     * @deprecated unimplemented on V+.
      */
     void discover(in DiscoveryInfo info);
 
@@ -77,6 +81,7 @@ interface IMDns {
      * @throws ServiceSpecificException with one of the following error values:
      *         - Unix errno EBUSY if request id is already in use.
      *         - kDNSServiceErr_* list in dns_sd.h if resolution fail.
+     * @deprecated unimplemented on V+.
      */
     void resolve(in ResolutionInfo info);
 
@@ -92,6 +97,7 @@ interface IMDns {
      * @throws ServiceSpecificException with one of the following error values:
      *         - Unix errno EBUSY if request id is already in use.
      *         - kDNSServiceErr_* list in dns_sd.h if getting address fail.
+     * @deprecated unimplemented on V+.
      */
     void getServiceAddress(in GetAddressInfo info);
 
@@ -101,6 +107,7 @@ interface IMDns {
      * @param id the operation id to be stopped.
      *
      * @throws ServiceSpecificException with unix errno ESRCH if request id is not in use.
+     * @deprecated unimplemented on V+.
      */
     void stopOperation(int id);
 
@@ -112,6 +119,7 @@ interface IMDns {
      * @throws ServiceSpecificException with one of the following error values:
      *         - Unix errno EINVAL if listener is null.
      *         - Unix errno EEXIST if register duplicated listener.
+     * @deprecated unimplemented on V+.
      */
     void registerEventListener(in IMDnsEventListener listener);
 
@@ -121,6 +129,7 @@ interface IMDns {
      * @param listener The listener to be unregistered.
      *
      * @throws ServiceSpecificException with unix errno EINVAL if listener is null.
+     * @deprecated unimplemented on V+.
      */
     void unregisterEventListener(in IMDnsEventListener listener);
 }
