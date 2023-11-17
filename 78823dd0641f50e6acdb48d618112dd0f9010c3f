@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33a97751_54561e96",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T08:13:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5488fd2d_d543d896",
+      "range": {
+        "startLine": 323,
+        "startChar": 17,
+        "endLine": 323,
+        "endChar": 22
+      },
+      "revId": "78823dd0641f50e6acdb48d618112dd0f9010c3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c984162_13450257",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-07T08:55:06Z",
       "side": 1,
       "message": "This sounds too generic a name and it doesn\u0027t really match what this does. I like the general architecture, but I think ideally you\u0027d have one method in this callback for each different message, so that the message constants do not leak into this file.\n\nYou could do this as a followup refactor, but if you keep the current code here and make that a followup, then I think in this patch you should rename this class :\n\n    public interface EventListener {\n      /** Notify the client of some event */\n      void onUpstreamEvent(int what, Object arg);\n    }",
+      "range": {
+        "startLine": 695,
+        "startChar": 13,
+        "endLine": 695,
+        "endChar": 21
+      },
+      "revId": "78823dd0641f50e6acdb48d618112dd0f9010c3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3de2e508_ee0104b0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T08:13:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c984162_13450257",
       "range": {
         "startLine": 695,
         "startChar": 13,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f6e7277_4708256a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T08:13:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "183c21ba_667753a0",
+      "range": {
+        "startLine": 1173,
+        "startChar": 22,
+        "endLine": 1173,
+        "endChar": 33
+      },
+      "revId": "78823dd0641f50e6acdb48d618112dd0f9010c3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54667a54_678768d5",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-09-07T08:55:06Z",
       "side": 1,
       "message": "Use `argThat` instead of a captor for much terser, easier to understand code :\n\n    mCallbackOrder.verify(mCallback).onChange(eq(),\n        argThat(nsCaptor -\u003e null !\u003d nsCaptor \u0026\u0026 cap.equals(nsCaptor.networkCapabilities));",
+      "range": {
+        "startLine": 627,
+        "startChar": 0,
+        "endLine": 632,
+        "endChar": 67
+      },
+      "revId": "78823dd0641f50e6acdb48d618112dd0f9010c3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "195fba50_92c4b0f5",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/UpstreamNetworkMonitorTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T08:13:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54667a54_678768d5",
       "range": {
         "startLine": 627,
         "startChar": 0,
