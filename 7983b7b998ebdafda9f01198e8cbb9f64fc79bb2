@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaa37d15_b13ff778",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-17T03:34:07Z",
+      "side": 1,
+      "message": "Oops, drive-by review",
+      "revId": "7983b7b998ebdafda9f01198e8cbb9f64fc79bb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "389e2f01_b011f8e2",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmReplayStateEsn.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-17T03:34:07Z",
+      "side": 1,
+      "message": "What\u0027s this?",
+      "range": {
+        "startLine": 40,
+        "startChar": 27,
+        "endLine": 40,
+        "endChar": 38
+      },
+      "revId": "7983b7b998ebdafda9f01198e8cbb9f64fc79bb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f3989fe_d57433ba",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmReplayStateEsn.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-17T03:34:07Z",
+      "side": 1,
+      "message": ":)",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 95
+      },
+      "revId": "7983b7b998ebdafda9f01198e8cbb9f64fc79bb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d05c2fb2_2812a436",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmReplayStateEsn.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-17T03:34:07Z",
+      "side": 1,
+      "message": "Why is this different from the above in parse()?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 60
+      },
+      "revId": "7983b7b998ebdafda9f01198e8cbb9f64fc79bb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfacdbfb_6b3d5301",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmUsersaInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-17T03:34:07Z",
+      "side": 1,
+      "message": "getCurrentLifetime()",
+      "range": {
+        "startLine": 212,
+        "startChar": 38,
+        "endLine": 212,
+        "endChar": 47
+      },
+      "revId": "7983b7b998ebdafda9f01198e8cbb9f64fc79bb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce300087_5eac41c1",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecXfrmNetlinkNewSaMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-17T03:34:07Z",
+      "side": 1,
+      "message": "Oh? We need this for getting the SA info?",
+      "range": {
+        "startLine": 44,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 41
+      },
+      "revId": "7983b7b998ebdafda9f01198e8cbb9f64fc79bb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
