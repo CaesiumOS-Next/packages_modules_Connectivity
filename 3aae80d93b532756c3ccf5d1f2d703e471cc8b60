@@ -24,6 +24,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5ea5bab_a04b33ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-17T07:06:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a13394de_138e5e74",
+      "range": {
+        "startLine": 7,
+        "startChar": 36,
+        "endLine": 7,
+        "endChar": 44
+      },
+      "revId": "3aae80d93b532756c3ccf5d1f2d703e471cc8b60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6ad5b49_993c94d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-17T07:06:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a13394de_138e5e74",
+      "range": {
+        "startLine": 7,
+        "startChar": 36,
+        "endLine": 7,
+        "endChar": 44
+      },
+      "revId": "3aae80d93b532756c3ccf5d1f2d703e471cc8b60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b094e7b3_913da172",
@@ -37,6 +85,54 @@
       "writtenOn": "2023-11-17T06:51:33Z",
       "side": 1,
       "message": "Suggest commenting that because this is in the `threadsDiff.updated` member, you know for sure there is a corresponding key in threadCountsBeforeTest",
+      "range": {
+        "startLine": 120,
+        "startChar": 57,
+        "endLine": 120,
+        "endChar": 58
+      },
+      "revId": "3aae80d93b532756c3ccf5d1f2d703e471cc8b60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30e0d20d_2d16e8d6",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-17T07:06:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b094e7b3_913da172",
+      "range": {
+        "startLine": 120,
+        "startChar": 57,
+        "endLine": 120,
+        "endChar": 58
+      },
+      "revId": "3aae80d93b532756c3ccf5d1f2d703e471cc8b60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea167140_2a400391",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-17T07:06:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b094e7b3_913da172",
       "range": {
         "startLine": 120,
         "startChar": 57,
