@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c447e62f_0fc3388e",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T06:22:34Z",
+      "side": 1,
+      "message": "Personally I would favor a long. BigInteger carries a huge cost both in memory footprint and performance compared to a long, and I don\u0027t think we\u0027ll need to exceed a long in 5G or even 6G land. When I mentioned this to Lorenzo and Maze they also thought it was unnecessary.\n\nAt most, you may want to cap it to Long.MAX_VALUE if it exceeds it (java longs are signed, as opposed to __u64) but I don\u0027t think you really risk transmitting 10 exabytes any time soon.",
+      "parentUuid": "6b1ca584_184bcea0",
+      "range": {
+        "startLine": 144,
+        "startChar": 37,
+        "endLine": 144,
+        "endChar": 47
+      },
+      "revId": "ab3f3dc860097a264965df9d3fbd1c0045667aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a226fc0f_f8673876",
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "Similar to byte count, one sequence numbers are represented by two __u32 fields in the Linux Kernel for the lower 4 bytes and higher 4 bytes.",
       "parentUuid": "a226fc0f_f8673876",
+      "range": {
+        "startLine": 147,
+        "startChar": 37,
+        "endLine": 147,
+        "endChar": 47
+      },
+      "revId": "ab3f3dc860097a264965df9d3fbd1c0045667aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b26408a_a1f34e44",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T06:22:34Z",
+      "side": 1,
+      "message": "Okay so that would be to represent the values ∈ [2⁶³, 2⁶⁴ - 1]. I also don\u0027t think this is necessary.",
+      "parentUuid": "2bd5d62e_0ba97bc7",
       "range": {
         "startLine": 147,
         "startChar": 37,
