@@ -16,13 +16,22 @@
 
 package com.android.server.thread;
 
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+
+import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.content.Context;
 import android.net.thread.IThreadNetworkController;
 import android.net.thread.IThreadNetworkManager;
+import android.os.Binder;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.ParcelFileDescriptor;
 
 import com.android.server.SystemService;
 
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,11 +40,16 @@ import java.util.List;
  */
 public class ThreadNetworkService extends IThreadNetworkManager.Stub {
     private final Context mContext;
+    private final Looper mLooper;
+    @Nullable private ThreadNetworkCountryCode mCountryCode;
     @Nullable private ThreadNetworkControllerService mControllerService;
 
     /** Creates a new {@link ThreadNetworkService} object. */
     public ThreadNetworkService(Context context) {
         mContext = context;
+        HandlerThread handlerThread = new HandlerThread("ThreadHandlerThread");
+        handlerThread.start();
+        mLooper = handlerThread.getLooper();
     }
 
     /**
@@ -45,8 +59,10 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
      */
     public void onBootPhase(int phase) {
         if (phase == SystemService.PHASE_BOOT_COMPLETED) {
-            mControllerService = ThreadNetworkControllerService.newInstance(mContext);
+            mControllerService = ThreadNetworkControllerService.newInstance(mContext, mLooper);
             mControllerService.initialize();
+            mCountryCode = new ThreadNetworkCountryCode(mContext, mControllerService, mLooper);
+            mCountryCode.initialize();
         }
     }
 
@@ -56,5 +72,40 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
             return Collections.emptyList();
         }
         return Collections.singletonList(mControllerService);
+    }
+
+    @Override
+    public int handleShellCommand(
+            @NonNull ParcelFileDescriptor in,
+            @NonNull ParcelFileDescriptor out,
+            @NonNull ParcelFileDescriptor err,
+            @NonNull String[] args) {
+        ThreadNetworkShellCommand shellCommand = new ThreadNetworkShellCommand(this);
+        return shellCommand.exec(
+                this,
+                in.getFileDescriptor(),
+                out.getFileDescriptor(),
+                err.getFileDescriptor(),
+                args);
+    }
+
+    @Override
+    protected void dump(FileDescriptor fd, PrintWriter pw, String[] args) {
+        if (mContext.checkCallingOrSelfPermission(android.Manifest.permission.DUMP)
+                != PERMISSION_GRANTED) {
+            pw.println(
+                    "Permission Denial: can't dump ThreadNetworkService from from pid="
+                            + Binder.getCallingPid()
+                            + ", uid="
+                            + Binder.getCallingUid());
+            return;
+        }
+
+        mCountryCode.dump(fd, pw, args);
+        pw.println();
+    }
+
+    public ThreadNetworkCountryCode getThreadNetworkCountryCode() {
+        return mCountryCode;
     }
 }
