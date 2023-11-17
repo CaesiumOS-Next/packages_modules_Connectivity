@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccad9025_7d0e212c",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-17T04:43:50Z",
+      "side": 1,
+      "message": "Nit: why extra space here?",
+      "range": {
+        "startLine": 208,
+        "startChar": 14,
+        "endLine": 208,
+        "endChar": 37
+      },
+      "revId": "24960c77b8a253e59650784599a15ec96fe23d9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a023b3a9_02bc5b88",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-17T04:43:50Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Build Warnings: unnecessary non-null assertion (!!) on a non-null receiver of type Int\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    unnecessary non-null assertion (!!) on a non-null receiver of type Int\n                val defaultSlotIndex \u003d SubscriptionManager.getSlotIndex(defaultSubId)!!\n                                                                                     ^\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P65589831/targets/errorprone-trunk_staging, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 758,
+        "startChar": 82,
+        "endLine": 758,
+        "endChar": 83
+      },
+      "revId": "24960c77b8a253e59650784599a15ec96fe23d9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
