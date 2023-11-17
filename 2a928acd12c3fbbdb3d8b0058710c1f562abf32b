@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3805b98_3abae121",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecXfrmNetlinkMessage.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-11-17T03:30:09Z",
+      "side": 1,
+      "message": "Do we need this?",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 47
+      },
+      "revId": "2a928acd12c3fbbdb3d8b0058710c1f562abf32b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
