@@ -22,6 +22,30 @@
       },
       "revId": "6cecbb5a607a33fc30209c4ba8ce2f03ccc29cd6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca1ac444_3637a721",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T09:17:44Z",
+      "side": 1,
+      "message": "Yes this is a behaviour change, and yes it would be extremely surprising that an app that is the owner of a network depends on the subscription list being empty.",
+      "parentUuid": "d052ac6f_e69a2ad1",
+      "range": {
+        "startLine": 807,
+        "startChar": 25,
+        "endLine": 807,
+        "endChar": 26
+      },
+      "revId": "6cecbb5a607a33fc30209c4ba8ce2f03ccc29cd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
