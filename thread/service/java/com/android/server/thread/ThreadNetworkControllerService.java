@@ -59,8 +59,8 @@ import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.LocalNetworkConfig;
-import android.net.MulticastRoutingConfig;
 import android.net.LocalNetworkInfo;
+import android.net.MulticastRoutingConfig;
 import android.net.Network;
 import android.net.NetworkAgent;
 import android.net.NetworkAgentConfig;
@@ -80,10 +80,12 @@ import android.net.thread.OperationalDatasetTimestamp;
 import android.net.thread.PendingOperationalDataset;
 import android.net.thread.ThreadNetworkController;
 import android.net.thread.ThreadNetworkController.DeviceRole;
+import android.net.thread.ThreadNetworkException;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
+import android.os.OutcomeReceiver;
 import android.os.RemoteException;
 import android.os.SystemClock;
 import android.util.Log;
@@ -91,12 +93,12 @@ import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.ServiceManagerWrapper;
+import com.android.server.thread.openthread.BorderRouterConfigurationParcel;
 import com.android.server.thread.openthread.IOtDaemon;
 import com.android.server.thread.openthread.IOtDaemonCallback;
 import com.android.server.thread.openthread.IOtStatusReceiver;
 import com.android.server.thread.openthread.Ipv6AddressInfo;
 import com.android.server.thread.openthread.OtDaemonState;
-import com.android.server.thread.openthread.BorderRouterConfigurationParcel;
 
 import java.io.IOException;
 import java.net.Inet6Address;
@@ -351,6 +353,40 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                         .build(),
                 new ThreadNetworkCallback(),
                 mHandler);
+    }
+
+    public void setCountryCode(
+            @NonNull String countryCode,
+            @NonNull OutcomeReceiver<Void, ThreadNetworkException> receiver) {
+        mHandler.post(() -> setCountryCodeInternal(countryCode, receiver));
+    }
+
+    private IOtStatusReceiver newOutcomeReceiver(
+            @NonNull OutcomeReceiver<Void, ThreadNetworkException> receiver) {
+        return new IOtStatusReceiver.Stub() {
+            @Override
+            public void onSuccess() {
+                receiver.onResult(null /* result */);
+            }
+
+            @Override
+            public void onError(int otError, String message) {
+                receiver.onError(new ThreadNetworkException(otError, message));
+            }
+        };
+    }
+
+    private void setCountryCodeInternal(
+            String countryCode, @NonNull OutcomeReceiver<Void, ThreadNetworkException> receiver) {
+        checkOnHandlerThread();
+
+        try {
+            getOtDaemon().setCountryCode(countryCode, newOutcomeReceiver(receiver));
+        } catch (RemoteException e) {
+            Log.e(TAG, "otDaemon.setCountryCode failed", e);
+            receiver.onError(
+                    new ThreadNetworkException(ERROR_INTERNAL_ERROR, "Thread stack error"));
+        }
     }
 
     private void registerThreadNetwork() {
@@ -800,8 +836,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         MulticastRoutingConfig newDownstreamConfig;
         MulticastRoutingConfig.Builder builder;
 
-        if (mDownstreamMulticastRoutingConfig.getForwardingMode() !=
-                MulticastRoutingConfig.FORWARD_SELECTED) {
+        if (mDownstreamMulticastRoutingConfig.getForwardingMode()
+                != MulticastRoutingConfig.FORWARD_SELECTED) {
             Log.e(
                     TAG,
                     "Ignore multicast listening address updates when downstream multicast "
@@ -809,8 +845,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             // Don't update the address set if downstream multicast forwarding is disabled.
             return;
         }
-        if (isAdded ==
-                mDownstreamMulticastRoutingConfig.getListeningAddresses().contains(address)) {
+        if (isAdded
+                == mDownstreamMulticastRoutingConfig.getListeningAddresses().contains(address)) {
             return;
         }
 
