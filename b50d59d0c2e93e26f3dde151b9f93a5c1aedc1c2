@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dec02557_3f1bff2e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1868,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T11:12:41Z",
+      "side": 1,
+      "message": "Maybe it would be useful to have a comment to explain why you\u0027re sure USE_SYNC_SM is true here. I can\u0027t figure it out.",
+      "range": {
+        "startLine": 1868,
+        "startChar": 20,
+        "endLine": 1868,
+        "endChar": 47
+      },
+      "revId": "b50d59d0c2e93e26f3dde151b9f93a5c1aedc1c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c901606b_efa32767",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2855,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-17T11:12:41Z",
+      "side": 1,
+      "message": "Can you explain why this is necessary ? In particular I am a little bit uncomfortable with the idea that `Handler#handleMessage` calls `sendMessage` on something that extends a handler",
+      "range": {
+        "startLine": 2845,
+        "startChar": 4,
+        "endLine": 2855,
+        "endChar": 0
+      },
+      "revId": "b50d59d0c2e93e26f3dde151b9f93a5c1aedc1c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
