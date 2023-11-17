@@ -28,11 +28,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doAnswer;
 
-import android.net.thread.IActiveOperationalDatasetReceiver;
-import android.net.thread.IOperationReceiver;
-import android.net.thread.IOperationalDatasetCallback;
-import android.net.thread.IStateCallback;
-import android.net.thread.IThreadNetworkController;
 import android.net.thread.ThreadNetworkController.OperationalDatasetCallback;
 import android.net.thread.ThreadNetworkController.StateCallback;
 import android.os.Binder;
