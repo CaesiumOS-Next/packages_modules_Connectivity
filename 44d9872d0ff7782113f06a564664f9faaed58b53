@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2c73b0c5_68698924",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-17T02:52:09Z",
+      "side": 1,
+      "message": "nit:\n```suggestion\n    private final class ThreadNetworkCallback extends ConnectivityManager.NetworkCallback {\n```",
+      "range": {
+        "startLine": 309,
+        "startChar": 4,
+        "endLine": 309,
+        "endChar": 18
+      },
+      "revId": "44d9872d0ff7782113f06a564664f9faaed58b53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "725841bd_4393764e",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-17T02:52:09Z",
+      "side": 1,
+      "message": "Shouldn\u0027t Border Router be disabled in this case?",
+      "range": {
+        "startLine": 320,
+        "startChar": 16,
+        "endLine": 321,
+        "endChar": 23
+      },
+      "revId": "44d9872d0ff7782113f06a564664f9faaed58b53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8b24cb7_d2743e90",
         "filename": "thread/service/proguard.flags",
         "patchSetId": 14
