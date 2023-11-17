@@ -49,6 +49,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aeafb1c1_15ee96e8",
+        "filename": "thread/tests/integration/Android.bp",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-17T02:09:48Z",
+      "side": 1,
+      "message": "```suggestion\n    name: \"ThreadNetworkIntegrationTests\",\n```",
+      "range": {
+        "startLine": 41,
+        "startChar": 11,
+        "endLine": 41,
+        "endChar": 33
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a31ace36_3dd55ed6",
         "filename": "thread/tests/integration/AndroidManifest.xml",
         "patchSetId": 15
