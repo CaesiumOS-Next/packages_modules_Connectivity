@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "789eeebd_67f5136e",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-17T02:02:10Z",
+      "side": 0,
+      "message": "Please revert",
+      "range": {
+        "startLine": 728,
+        "startChar": 8,
+        "endLine": 728,
+        "endChar": 12
+      },
+      "revId": "44d9872d0ff7782113f06a564664f9faaed58b53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
