@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb89ef89_1578e49e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-18T09:39:30Z",
+      "side": 1,
+      "message": "LGTM after fixing lint warning.",
+      "revId": "72223f2e4d5311b0cabb5549e4fbeb3d8ef9a7d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5f45b02_73fd6fce",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-18T09:39:30Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by AndroidLint: This method should only be accessed from tests or within private scope\n\nAnalyzer Description: Reports AndroidLint warnings.\nOwner: colefaust@google.com\n\nThis method should only be accessed from tests or within private scope\n\n            final HandlerThread thread \u003d deps.makeHandlerThread(TAG);\n                                              ~~~~~~~~~~~~~~~~~\n\nWith the `@VisibleForTesting` annotation you can specify an `otherwise\u003d` attribute which specifies the intended visibility if the method had not been made more widely visible for the tests.\n\nThis check looks for accesses from production code (e.g. not tests) where the access would not have been allowed with the intended production visibility.\n\nLocal repro steps at go/ayeaye-android-lint\n\nFor common FAQs about the @VisibleForTesting warning, see go/ayeaye-android-lint#visiblefortesting-faqs\n\nThis warning was found on the git_main branch",
+      "range": {
+        "startLine": 86,
+        "startChar": 43,
+        "endLine": 86,
+        "endChar": 65
+      },
+      "revId": "72223f2e4d5311b0cabb5549e4fbeb3d8ef9a7d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
