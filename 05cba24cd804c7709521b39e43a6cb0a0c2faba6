@@ -16,6 +16,24 @@
       "message": "Can you explain how it was determined that this patch is the culprit ? It\u0027s completely impossible that this patch is affecting this completely unrelated test ; it\u0027s almost certainly a new flake that happened to pass with the revert.",
       "revId": "05cba24cd804c7709521b39e43a6cb0a0c2faba6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfbd6f62_da16c782",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-20T11:10:17Z",
+      "side": 1,
+      "message": "It\u0027s been very hard to reproduce but I may have an idea of what is happening. To me this looks like a bug in cuttlefish\u0027s cell simulator code. Thing is, if I\u0027m right we can\u0027t really rule out similar bugs in OEM\u0027s cell code.\n\nI\u0027m investigating more and trying to find a good solution.",
+      "parentUuid": "ba707a7c_99ceec93",
+      "revId": "05cba24cd804c7709521b39e43a6cb0a0c2faba6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
