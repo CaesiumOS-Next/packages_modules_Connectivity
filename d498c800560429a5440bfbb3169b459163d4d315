@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cb718c11_0675dec4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-20T17:46:47Z",
+      "side": 1,
+      "message": "Ack, let me fix in follow up change.",
+      "parentUuid": "922e0cbb_b2489835",
+      "range": {
+        "startLine": 81,
+        "startChar": 34,
+        "endLine": 81,
+        "endChar": 37
+      },
+      "revId": "d498c800560429a5440bfbb3169b459163d4d315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "897d064e_77869eb3",
         "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
         "patchSetId": 16
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-17T08:13:19Z",
       "side": 1,
       "message": "Generally, for clarity, performance and future thread-safety, avoid\n\n- Pulling stuff that you just put in a map\n- Using stuff that you just put in a member\n\nHere :\n\n    final UpstreamNetworkState uns \u003d new UpstreamNetworkState(lp, newNc, network);\n    mNetworkMap.put(network, uns)\n    onUpstreamEvent(ON_CAPS, uns);\n\nThis is more performant, easier to understand, and if this class is ever used in a multithread context it\u0027s also safer.",
+      "range": {
+        "startLine": 378,
+        "startChar": 62,
+        "endLine": 378,
+        "endChar": 86
+      },
+      "revId": "d498c800560429a5440bfbb3169b459163d4d315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faf10b20_a10c14da",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-20T17:46:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "897d064e_77869eb3",
       "range": {
         "startLine": 378,
         "startChar": 62,
@@ -93,6 +141,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a2aa0e8_b4d43da0",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/UpstreamNetworkMonitorTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-20T17:46:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3afe216_b89cba39",
+      "range": {
+        "startLine": 626,
+        "startChar": 24,
+        "endLine": 626,
+        "endChar": 32
+      },
+      "revId": "d498c800560429a5440bfbb3169b459163d4d315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e79d61db_d97b6f73",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/UpstreamNetworkMonitorTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-20T17:46:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba557a70_3583413c",
+      "range": {
+        "startLine": 626,
+        "startChar": 36,
+        "endLine": 626,
+        "endChar": 52
+      },
+      "revId": "d498c800560429a5440bfbb3169b459163d4d315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d795aa29_f69f0180",
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "065959f0_48e1f496",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/UpstreamNetworkMonitorTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-20T17:46:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d795aa29_f69f0180",
+      "range": {
+        "startLine": 638,
+        "startChar": 66,
+        "endLine": 638,
+        "endChar": 93
+      },
+      "revId": "d498c800560429a5440bfbb3169b459163d4d315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df18d183_3707a465",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-11-17T08:13:19Z",
       "side": 1,
       "message": "Likewise, it\u0027s probably more readable to say\n\n    mCallbackOrder.verify(mListener).onUpstreamEvent(eq(EVENT_DEFAULT_SWITCHED),\n            argThat(ns -\u003e\n                    ns instanceof UpstreamNetworkState\n                    \u0026\u0026 agent.networkId.equals(ns.network)\n                    \u0026\u0026 agent.linkProperties.equals(ns.linkProperties)\n                    \u0026\u0026 agent.networkCapabilities.equals(ns.networkCapabilities)));",
+      "range": {
+        "startLine": 642,
+        "startChar": 0,
+        "endLine": 650,
+        "endChar": 89
+      },
+      "revId": "d498c800560429a5440bfbb3169b459163d4d315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68a54268_0cc269e3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/UpstreamNetworkMonitorTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-20T17:46:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df18d183_3707a465",
       "range": {
         "startLine": 642,
         "startChar": 0,
