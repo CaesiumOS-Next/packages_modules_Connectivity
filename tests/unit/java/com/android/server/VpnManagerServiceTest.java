@@ -52,9 +52,9 @@ import android.security.Credentials;
 
 import androidx.test.filters.SmallTest;
 
+import com.android.internal.net.ConnectivityBlobStore;
 import com.android.internal.net.VpnProfile;
 import com.android.server.connectivity.Vpn;
-import com.android.server.connectivity.VpnProfileStore;
 import com.android.server.net.LockdownVpnTracker;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
@@ -93,7 +93,7 @@ public class VpnManagerServiceTest extends VpnTestBase {
     @Mock private UserManager mUserManager;
     @Mock private INetd mNetd;
     @Mock private PackageManager mPackageManager;
-    @Mock private VpnProfileStore mVpnProfileStore;
+    @Mock private ConnectivityBlobStore mConnectivityBlobStore;
     @Mock private LockdownVpnTracker mLockdownVpnTracker;
 
     private VpnManagerServiceDependencies mDeps;
@@ -125,8 +125,8 @@ public class VpnManagerServiceTest extends VpnTestBase {
         }
 
         @Override
-        public VpnProfileStore getVpnProfileStore() {
-            return mVpnProfileStore;
+        public ConnectivityBlobStore getConnectivityBlobStore(Context context) {
+            return mConnectivityBlobStore;
         }
 
         @Override
@@ -302,7 +302,7 @@ public class VpnManagerServiceTest extends VpnTestBase {
 
     private void setupLockdownVpn(String packageName) {
         final byte[] profileTag = packageName.getBytes(StandardCharsets.UTF_8);
-        doReturn(profileTag).when(mVpnProfileStore).get(Credentials.LOCKDOWN_VPN);
+        doReturn(profileTag).when(mConnectivityBlobStore).get(Credentials.LOCKDOWN_VPN);
     }
 
     private void setupVpnProfile(String profileName) {
@@ -312,7 +312,7 @@ public class VpnManagerServiceTest extends VpnTestBase {
         profile.dnsServers = "8.8.8.8";
         profile.type = VpnProfile.TYPE_IPSEC_XAUTH_PSK;
         final byte[] encodedProfile = profile.encode();
-        doReturn(encodedProfile).when(mVpnProfileStore).get(Credentials.VPN + profileName);
+        doReturn(encodedProfile).when(mConnectivityBlobStore).get(Credentials.VPN + profileName);
     }
 
     @Test

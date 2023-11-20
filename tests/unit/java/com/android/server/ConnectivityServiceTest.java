@@ -386,6 +386,7 @@ import androidx.test.filters.SmallTest;
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.app.IBatteryStats;
+import com.android.internal.net.ConnectivityBlobStore;
 import com.android.internal.net.VpnConfig;
 import com.android.internal.net.VpnProfile;
 import com.android.internal.util.WakeupMessage;
@@ -421,7 +422,6 @@ import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
 import com.android.server.connectivity.TcpKeepaliveController;
 import com.android.server.connectivity.UidRangeUtils;
-import com.android.server.connectivity.VpnProfileStore;
 import com.android.server.net.NetworkPinner;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
@@ -624,7 +624,7 @@ public class ConnectivityServiceTest {
     @Mock TelephonyManager mTelephonyManager;
     @Mock EthernetManager mEthernetManager;
     @Mock NetworkPolicyManager mNetworkPolicyManager;
-    @Mock VpnProfileStore mVpnProfileStore;
+    @Mock ConnectivityBlobStore mConnectivityBlobStore;
     @Mock SystemConfigManager mSystemConfigManager;
     @Mock DevicePolicyManager mDevicePolicyManager;
     @Mock Resources mResources;
@@ -10186,7 +10186,7 @@ public class ConnectivityServiceTest {
     private VpnProfile setupLockdownVpn(int profileType) {
         final String profileName = "testVpnProfile";
         final byte[] profileTag = profileName.getBytes(StandardCharsets.UTF_8);
-        doReturn(profileTag).when(mVpnProfileStore).get(Credentials.LOCKDOWN_VPN);
+        doReturn(profileTag).when(mConnectivityBlobStore).get(Credentials.LOCKDOWN_VPN);
 
         final VpnProfile profile = new VpnProfile(profileName);
         profile.name = "My VPN";
@@ -10196,7 +10196,7 @@ public class ConnectivityServiceTest {
         profile.ipsecSecret = "My PSK";
         profile.type = profileType;
         final byte[] encodedProfile = profile.encode();
-        doReturn(encodedProfile).when(mVpnProfileStore).get(Credentials.VPN + profileName);
+        doReturn(encodedProfile).when(mConnectivityBlobStore).get(Credentials.VPN + profileName);
 
         return profile;
     }

@@ -172,6 +172,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 
 import com.android.internal.R;
+import com.android.internal.net.ConnectivityBlobStore;
 import com.android.internal.net.LegacyVpnInfo;
 import com.android.internal.net.VpnConfig;
 import com.android.internal.net.VpnProfile;
@@ -313,7 +314,7 @@ public class VpnTest extends VpnTestBase {
     @Mock private CarrierConfigManager mConfigManager;
     @Mock private SubscriptionManager mSubscriptionManager;
     @Mock private IpSecService mIpSecService;
-    @Mock private VpnProfileStore mVpnProfileStore;
+    @Mock private ConnectivityBlobStore mConnectivityBlobStore;
     private final TestExecutor mExecutor;
     @Mock DeviceIdleInternal mDeviceIdleInternal;
     private final VpnProfile mVpnProfile;
@@ -1074,7 +1075,7 @@ public class VpnTest extends VpnTestBase {
         assertEquals(expectedResult, vpn.provisionVpnProfile(TEST_VPN_PKG, mVpnProfile));
 
         // The profile should always be stored, whether or not consent has been previously granted.
-        verify(mVpnProfileStore)
+        verify(mConnectivityBlobStore)
                 .put(
                         eq(vpn.getProfileNameForPackage(TEST_VPN_PKG)),
                         eq(mVpnProfile.encode()));
@@ -1100,16 +1101,16 @@ public class VpnTest extends VpnTestBase {
     }
 
     private String startVpnForVerifyAppExclusionList(Vpn vpn) throws Exception {
-        when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
+        when(mConnectivityBlobStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
                 .thenReturn(mVpnProfile.encode());
-        when(mVpnProfileStore.get(PRIMARY_USER_APP_EXCLUDE_KEY))
+        when(mConnectivityBlobStore.get(PRIMARY_USER_APP_EXCLUDE_KEY))
                 .thenReturn(HexDump.hexStringToByteArray(PKGS_BYTES));
         final String sessionKey = vpn.startVpnProfile(TEST_VPN_PKG);
         final Set<Range<Integer>> uidRanges = vpn.createUserAndRestrictedProfilesRanges(
                 PRIMARY_USER.id, null /* allowedApplications */, Arrays.asList(PKGS));
         verify(mConnectivityManager).setVpnDefaultForUids(eq(sessionKey), eq(uidRanges));
         clearInvocations(mConnectivityManager);
-        verify(mVpnProfileStore).get(eq(vpn.getProfileNameForPackage(TEST_VPN_PKG)));
+        verify(mConnectivityBlobStore).get(eq(vpn.getProfileNameForPackage(TEST_VPN_PKG)));
         vpn.mNetworkAgent = mMockNetworkAgent;
 
         return sessionKey;
@@ -1126,9 +1127,9 @@ public class VpnTest extends VpnTestBase {
     public void testSetAndGetAppExclusionList() throws Exception {
         final Vpn vpn = createVpn(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
         final String sessionKey = startVpnForVerifyAppExclusionList(vpn);
-        verify(mVpnProfileStore, never()).put(eq(PRIMARY_USER_APP_EXCLUDE_KEY), any());
+        verify(mConnectivityBlobStore, never()).put(eq(PRIMARY_USER_APP_EXCLUDE_KEY), any());
         vpn.setAppExclusionList(TEST_VPN_PKG, Arrays.asList(PKGS));
-        verify(mVpnProfileStore)
+        verify(mConnectivityBlobStore)
                 .put(eq(PRIMARY_USER_APP_EXCLUDE_KEY),
                      eq(HexDump.hexStringToByteArray(PKGS_BYTES)));
         final Set<Range<Integer>> uidRanges = vpn.createUserAndRestrictedProfilesRanges(
@@ -1297,7 +1298,7 @@ public class VpnTest extends VpnTestBase {
 
         vpn.deleteVpnProfile(TEST_VPN_PKG);
 
-        verify(mVpnProfileStore)
+        verify(mConnectivityBlobStore)
                 .remove(eq(vpn.getProfileNameForPackage(TEST_VPN_PKG)));
     }
 
@@ -1318,12 +1319,12 @@ public class VpnTest extends VpnTestBase {
     public void testGetVpnProfilePrivileged() throws Exception {
         final Vpn vpn = createVpn();
 
-        when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
+        when(mConnectivityBlobStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
                 .thenReturn(new VpnProfile("").encode());
 
         vpn.getVpnProfilePrivileged(TEST_VPN_PKG);
 
-        verify(mVpnProfileStore).get(eq(vpn.getProfileNameForPackage(TEST_VPN_PKG)));
+        verify(mConnectivityBlobStore).get(eq(vpn.getProfileNameForPackage(TEST_VPN_PKG)));
     }
 
     private void verifyPlatformVpnIsActivated(String packageName) {
@@ -1354,12 +1355,12 @@ public class VpnTest extends VpnTestBase {
     public void testStartVpnProfile() throws Exception {
         final Vpn vpn = createVpn(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
 
-        when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
+        when(mConnectivityBlobStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
                 .thenReturn(mVpnProfile.encode());
 
         vpn.startVpnProfile(TEST_VPN_PKG);
 
-        verify(mVpnProfileStore).get(eq(vpn.getProfileNameForPackage(TEST_VPN_PKG)));
+        verify(mConnectivityBlobStore).get(eq(vpn.getProfileNameForPackage(TEST_VPN_PKG)));
         verifyPlatformVpnIsActivated(TEST_VPN_PKG);
     }
 
@@ -1367,7 +1368,7 @@ public class VpnTest extends VpnTestBase {
     public void testStartVpnProfileVpnServicePreconsented() throws Exception {
         final Vpn vpn = createVpn(AppOpsManager.OPSTR_ACTIVATE_VPN);
 
-        when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
+        when(mConnectivityBlobStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
                 .thenReturn(mVpnProfile.encode());
 
         vpn.startVpnProfile(TEST_VPN_PKG);
@@ -1399,14 +1400,15 @@ public class VpnTest extends VpnTestBase {
                 TEST_VPN_PKG, null /* attributionTag */, null /* message */);
 
         // Keystore should never have been accessed.
-        verify(mVpnProfileStore, never()).get(any());
+        verify(mConnectivityBlobStore, never()).get(any());
     }
 
     @Test
     public void testStartVpnProfileMissingProfile() throws Exception {
         final Vpn vpn = createVpn(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
 
-        when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG))).thenReturn(null);
+        when(mConnectivityBlobStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
+                .thenReturn(null);
 
         try {
             vpn.startVpnProfile(TEST_VPN_PKG);
@@ -1414,7 +1416,7 @@ public class VpnTest extends VpnTestBase {
         } catch (IllegalArgumentException expected) {
         }
 
-        verify(mVpnProfileStore).get(vpn.getProfileNameForPackage(TEST_VPN_PKG));
+        verify(mConnectivityBlobStore).get(vpn.getProfileNameForPackage(TEST_VPN_PKG));
         verify(mAppOps)
                 .noteOpNoThrow(
                         eq(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN),
@@ -1449,7 +1451,7 @@ public class VpnTest extends VpnTestBase {
     @Test
     public void testStartOpAndFinishOpWillBeCalledWhenPlatformVpnIsOnAndOff() throws Exception {
         final Vpn vpn = createVpn(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
-        when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
+        when(mConnectivityBlobStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
                 .thenReturn(mVpnProfile.encode());
         vpn.startVpnProfile(TEST_VPN_PKG);
         verifyPlatformVpnIsActivated(TEST_VPN_PKG);
@@ -1575,7 +1577,7 @@ public class VpnTest extends VpnTestBase {
         // security checks.
         doReturn(PERMISSION_GRANTED).when(mContext).checkCallingOrSelfPermission(CONTROL_VPN);
         final Vpn vpn = createVpn(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
-        when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
+        when(mConnectivityBlobStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
                 .thenReturn(mVpnProfile.encode());
 
         // Test the case that the user deactivates the vpn in vpn app.
@@ -1667,7 +1669,7 @@ public class VpnTest extends VpnTestBase {
     @Test
     public void testReconnectVpnManagerVpnWithAlwaysOnEnabled() throws Exception {
         final Vpn vpn = createVpn(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
-        when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
+        when(mConnectivityBlobStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
                 .thenReturn(mVpnProfile.encode());
         vpn.startVpnProfile(TEST_VPN_PKG);
         verifyPlatformVpnIsActivated(TEST_VPN_PKG);
@@ -1800,7 +1802,7 @@ public class VpnTest extends VpnTestBase {
                 ArgumentCaptor.forClass(IkeSessionCallback.class);
 
         final Vpn vpn = createVpn(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
-        when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
+        when(mConnectivityBlobStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
                 .thenReturn(mVpnProfile.encode());
 
         doReturn(new NetworkCapabilities()).when(mConnectivityManager)
@@ -2004,7 +2006,7 @@ public class VpnTest extends VpnTestBase {
     private void setAndVerifyAlwaysOnPackage(Vpn vpn, int uid, boolean lockdownEnabled) {
         assertTrue(vpn.setAlwaysOnPackage(TEST_VPN_PKG, lockdownEnabled, null));
 
-        verify(mVpnProfileStore).get(eq(vpn.getProfileNameForPackage(TEST_VPN_PKG)));
+        verify(mConnectivityBlobStore).get(eq(vpn.getProfileNameForPackage(TEST_VPN_PKG)));
         verify(mAppOps).setMode(
                 eq(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN), eq(uid), eq(TEST_VPN_PKG),
                 eq(AppOpsManager.MODE_ALLOWED));
@@ -2027,7 +2029,7 @@ public class VpnTest extends VpnTestBase {
         final int uid = Process.myUid() + 1;
         when(mPackageManager.getPackageUidAsUser(eq(TEST_VPN_PKG), anyInt()))
                 .thenReturn(uid);
-        when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
+        when(mConnectivityBlobStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
                 .thenReturn(mVpnProfile.encode());
 
         setAndVerifyAlwaysOnPackage(vpn, uid, false);
@@ -2148,7 +2150,7 @@ public class VpnTest extends VpnTestBase {
         doReturn(TEST_NETWORK).when(mMockNetworkAgent).getNetwork();
 
         final Vpn vpn = createVpn(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
-        when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
+        when(mConnectivityBlobStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
                 .thenReturn(vpnProfile.encode());
 
         final String sessionKey = vpn.startVpnProfile(TEST_VPN_PKG);
@@ -3342,7 +3344,7 @@ public class VpnTest extends VpnTestBase {
                 .thenReturn(asUserContext);
         final TestLooper testLooper = new TestLooper();
         final Vpn vpn = new Vpn(testLooper.getLooper(), mContext, mTestDeps, mNetService,
-                mNetd, userId, mVpnProfileStore, mSystemServices, mIkev2SessionCreator);
+                mNetd, userId, mConnectivityBlobStore, mSystemServices, mIkev2SessionCreator);
         verify(mConnectivityManager, times(1)).registerNetworkProvider(argThat(
                 provider -> provider.getName().contains("VpnNetworkProvider")
         ));
