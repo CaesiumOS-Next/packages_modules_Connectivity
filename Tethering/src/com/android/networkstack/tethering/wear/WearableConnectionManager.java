@@ -26,7 +26,8 @@ import com.android.internal.util.IndentingPrintWriter;
 /**
  * Manages Bluetooth connections from Wearable devices.
  */
-public class WearableConnectionManager {
+public class WearableConnectionManager  {
+
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public WearableConnectionManager(Context context) {
     }
