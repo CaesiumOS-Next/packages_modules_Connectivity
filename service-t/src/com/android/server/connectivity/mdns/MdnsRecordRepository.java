@@ -46,6 +46,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -510,13 +511,17 @@ public class MdnsRecordRepository {
     public MdnsReplyInfo getReply(MdnsPacket packet, InetSocketAddress src) {
         final long now = SystemClock.elapsedRealtime();
         final boolean replyUnicast = (packet.flags & MdnsConstants.QCLASS_UNICAST) != 0;
-        final ArrayList<MdnsRecord> additionalAnswerRecords = new ArrayList<>();
-        final ArrayList<RecordInfo<?>> answerInfo = new ArrayList<>();
+
+        // Use LinkedHashSet for preserving the insert order of the RRs, so that RRs of the same
+        // service or host are grouped together (which is more developer-friendly).
+        final Set<RecordInfo<?>> answerInfo = new LinkedHashSet<>();
+        final Set<RecordInfo<?>> additionalAnswerInfo = new LinkedHashSet<>();
+
         for (MdnsRecord question : packet.questions) {
             // Add answers from general records
             addReplyFromService(question, mGeneralRecords, null /* servicePtrRecord */,
                     null /* serviceSrvRecord */, null /* serviceTxtRecord */, replyUnicast, now,
-                    answerInfo, additionalAnswerRecords);
+                    answerInfo, additionalAnswerInfo);
 
             // Add answers from each service
             for (int i = 0; i < mServices.size(); i++) {
@@ -524,12 +529,32 @@ public class MdnsRecordRepository {
                 if (registration.exiting || registration.isProbing) continue;
                 if (addReplyFromService(question, registration.allRecords, registration.ptrRecords,
                         registration.srvRecord, registration.txtRecord, replyUnicast, now,
-                        answerInfo, additionalAnswerRecords)) {
+                        answerInfo, additionalAnswerInfo)) {
                     registration.repliedServiceCount++;
                     registration.sentPacketCount++;
                 }
             }
         }
+
+        // If any record was already in the answer section, remove it from the additional answer
+        // section. This can typically happen when there are both queries for
+        // SRV / TXT / A / AAAA and PTR (which can cause SRV / TXT / A / AAAA records being added
+        // to the additional answer section).
+        additionalAnswerInfo.removeAll(answerInfo);
+
+        final List<MdnsRecord> additionalAnswerRecords =
+                new ArrayList<>(additionalAnswerInfo.size());
+        for (RecordInfo<?> info : additionalAnswerInfo) {
+            additionalAnswerRecords.add(info.record);
+        }
+
+        // RFC6762 6.1: negative responses
+        // "On receipt of a question for a particular name, rrtype, and rrclass, for which a
+        // responder does have one or more unique answers, the responder MAY also include an NSEC
+        // record in the Additional Record Section indicating the nonexistence of other rrtypes
+        // for that name and rrclass."
+        addNsecRecordsForUniqueNames(additionalAnswerRecords,
+                answerInfo.iterator(), additionalAnswerInfo.iterator());
 
         if (answerInfo.size() == 0 && additionalAnswerRecords.size() == 0) {
             return null;
@@ -585,14 +610,14 @@ public class MdnsRecordRepository {
             @Nullable List<RecordInfo<MdnsPointerRecord>> servicePtrRecords,
             @Nullable RecordInfo<MdnsServiceRecord> serviceSrvRecord,
             @Nullable RecordInfo<MdnsTextRecord> serviceTxtRecord,
-            boolean replyUnicast, long now, @NonNull List<RecordInfo<?>> answerInfo,
-            @NonNull List<MdnsRecord> additionalAnswerRecords) {
+            boolean replyUnicast, long now, @NonNull Set<RecordInfo<?>> answerInfo,
+            @NonNull Set<RecordInfo<?>> additionalAnswerInfo) {
         boolean hasDnsSdPtrRecordAnswer = false;
         boolean hasDnsSdSrvRecordAnswer = false;
         boolean hasFullyOwnedNameMatch = false;
         boolean hasKnownAnswer = false;
 
-        final int answersStartIndex = answerInfo.size();
+        final int answersStartSize = answerInfo.size();
         for (RecordInfo<?> info : serviceRecords) {
 
              /* RFC6762 6.: the record name must match the question name, the record rrtype
@@ -636,7 +661,7 @@ public class MdnsRecordRepository {
         // ownership, for a type for which that name has no records, the responder MUST [...]
         // respond asserting the nonexistence of that record"
         if (hasFullyOwnedNameMatch && !hasKnownAnswer) {
-            additionalAnswerRecords.add(new MdnsNsecRecord(
+            MdnsNsecRecord nsecRecord = new MdnsNsecRecord(
                     question.getName(),
                     0L /* receiptTimeMillis */,
                     true /* cacheFlush */,
@@ -644,13 +669,14 @@ public class MdnsRecordRepository {
                     // be the same as the TTL that the record would have had, had it existed."
                     NAME_RECORDS_TTL_MILLIS,
                     question.getName(),
-                    new int[] { question.getType() }));
+                    new int[] { question.getType() });
+            additionalAnswerInfo.add(
+                    new RecordInfo<>(null /* serviceInfo */, nsecRecord, false /* isSharedName */));
         }
 
         // No more records to add if no answer
-        if (answerInfo.size() == answersStartIndex) return false;
+        if (answerInfo.size() == answersStartSize) return false;
 
-        final List<RecordInfo<?>> additionalAnswerInfo = new ArrayList<>();
         // RFC6763 12.1: if including PTR record, include the SRV and TXT records it names
         if (hasDnsSdPtrRecordAnswer) {
             if (serviceTxtRecord != null) {
@@ -669,15 +695,6 @@ public class MdnsRecordRepository {
                 }
             }
         }
-
-        for (RecordInfo<?> info : additionalAnswerInfo) {
-            additionalAnswerRecords.add(info.record);
-        }
-
-        // RFC6762 6.1: negative responses
-        addNsecRecordsForUniqueNames(additionalAnswerRecords,
-                answerInfo.listIterator(answersStartIndex),
-                additionalAnswerInfo.listIterator());
         return true;
     }
 
@@ -694,7 +711,7 @@ public class MdnsRecordRepository {
      *                      answer and additionalAnswer sections)
      */
     @SafeVarargs
-    private static void addNsecRecordsForUniqueNames(
+    private void addNsecRecordsForUniqueNames(
             List<MdnsRecord> destinationList,
             Iterator<RecordInfo<?>>... answerRecords) {
         // Group unique records by name. Use a TreeMap with comparator as arrays don't implement
@@ -708,8 +725,16 @@ public class MdnsRecordRepository {
             addNonSharedRecordsToMap(answers, nsecByName, namesInAddedOrder);
         }
 
+        final Map<String[], List<MdnsRecord>> allUniqueRecords = getAllUniqueRecords();
+
         for (String[] nsecName : namesInAddedOrder) {
             final List<MdnsRecord> entryRecords = nsecByName.get(nsecName);
+
+            // Add NSEC records only when the answers include all unique records of this name
+            if (!entryRecords.containsAll(allUniqueRecords.get(nsecName))) {
+                continue;
+            }
+
             long minTtl = Long.MAX_VALUE;
             final Set<Integer> types = new ArraySet<>(entryRecords.size());
             for (MdnsRecord record : entryRecords) {
@@ -727,6 +752,22 @@ public class MdnsRecordRepository {
         }
     }
 
+    /** Returns all unique resource records that this device has their authority. */
+    private Map<String[], List<MdnsRecord>> getAllUniqueRecords() {
+        final Map<String[], List<MdnsRecord>> uniqueRecords = new TreeMap<>(Arrays::compare);
+        addNonSharedRecordsToMap(
+                mGeneralRecords.iterator(), uniqueRecords, null /* namesInAddedOrder */);
+        for (int i = 0; i < mServices.size(); i++) {
+            final ServiceRegistration registration = mServices.valueAt(i);
+            if (registration.exiting || registration.isProbing) {
+                continue;
+            }
+            addNonSharedRecordsToMap(registration.allRecords.iterator(), uniqueRecords,
+                    null /* namesInAddedOrder */);
+        }
+        return uniqueRecords;
+    }
+
     /**
      * Add non-shared records to a map listing them by record name, and to a list of names that
      * remembers the adding order.
@@ -741,13 +782,13 @@ public class MdnsRecordRepository {
     private static void addNonSharedRecordsToMap(
             Iterator<RecordInfo<?>> records,
             Map<String[], List<MdnsRecord>> dest,
-            List<String[]> namesInAddedOrder) {
+            @Nullable List<String[]> namesInAddedOrder) {
         while (records.hasNext()) {
             final RecordInfo<?> record = records.next();
-            if (record.isSharedName) continue;
+            if (record.isSharedName || record.record instanceof MdnsNsecRecord) continue;
             final List<MdnsRecord> recordsForName = dest.computeIfAbsent(record.record.name,
                     key -> {
-                        namesInAddedOrder.add(key);
+                        if (namesInAddedOrder != null) namesInAddedOrder.add(key);
                         return new ArrayList<>();
                     });
             recordsForName.add(record.record);
