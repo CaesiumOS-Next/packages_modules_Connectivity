@@ -79,6 +79,8 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_OEM_PAID;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_OEM_PRIVATE;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_PARTIAL_CONNECTIVITY;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_LATENCY;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
 import static android.net.NetworkCapabilities.NET_ENTERPRISE_ID_1;
@@ -1654,6 +1656,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         mMetricsLog = logger;
         final NetworkRequest defaultInternetRequest = createDefaultRequest();
+        mDefaultNetworkFilter = new NetworkCapabilities.Builder()
+                .addForbiddenCapability(NET_CAPABILITY_PRIORITIZE_BANDWIDTH)
+                .addForbiddenCapability(NET_CAPABILITY_PRIORITIZE_LATENCY)
+                .build();
         mDefaultRequest = new NetworkRequestInfo(
                 Process.myUid(), defaultInternetRequest, null,
                 null /* binder */, NetworkCallback.FLAG_INCLUDE_LOCATION_INFO,
@@ -8059,6 +8065,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @VisibleForTesting
     @NonNull
     final ArraySet<NetworkRequestInfo> mDefaultNetworkRequests = new ArraySet<>();
+    @NonNull
+    final NetworkCapabilities mDefaultNetworkFilter;
 
     private boolean isPerAppDefaultRequest(@NonNull final NetworkRequestInfo nri) {
         return (mDefaultNetworkRequests.contains(nri) && mDefaultRequest != nri);
@@ -9992,9 +10000,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final NetworkReassignment changes = new NetworkReassignment();
 
         // Gather the list of all relevant agents.
-        final ArrayList<NetworkAgentInfo> nais = new ArrayList<>();
+        final ArrayList<NetworkAgentInfo> allNais = new ArrayList<>();
+        final ArrayList<NetworkAgentInfo> defaultEligibleNais = new ArrayList<>();
         for (final NetworkAgentInfo nai : mNetworkAgentInfos) {
-            nais.add(nai);
+            allNais.add(nai);
+            if (mDefaultNetworkFilter.satisfiedByNetworkCapabilities(nai.networkCapabilities)) {
+                defaultEligibleNais.add(nai);
+            }
         }
 
         for (final NetworkRequestInfo nri : networkRequests) {
@@ -10002,6 +10014,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if (!nri.isMultilayerRequest() && nri.mRequests.get(0).isListen()) {
                 continue;
             }
+            final ArrayList<NetworkAgentInfo> nais =
+                    mDefaultNetworkRequests.contains(nri) ? defaultEligibleNais : allNais;
             NetworkAgentInfo bestNetwork = null;
             NetworkRequest bestRequest = null;
             for (final NetworkRequest req : nri.mRequests) {
