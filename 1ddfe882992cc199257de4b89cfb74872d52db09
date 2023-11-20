@@ -22,6 +22,30 @@
       },
       "revId": "1ddfe882992cc199257de4b89cfb74872d52db09",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8941c07b_ed6b099c",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-20T05:00:13Z",
+      "side": 1,
+      "message": "It was never checked ; this comment is not really accurate, and I agree that a carrier granting access through this to their service UID should always be fine (in fact, it should really be \"to their carrier privileged UIDs\" as noted in b/311347771). Amended to match what the function does.\n\nThe reason this comment is here is because this is checked on the request path when the request contains both the RESTRICTED and the CBS capability. I kept the CBS mention as an example, since it\u0027s the prime use case today.",
+      "parentUuid": "6549d1f1_a30a8291",
+      "range": {
+        "startLine": 204,
+        "startChar": 46,
+        "endLine": 204,
+        "endChar": 64
+      },
+      "revId": "1ddfe882992cc199257de4b89cfb74872d52db09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

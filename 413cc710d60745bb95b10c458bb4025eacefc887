@@ -22,6 +22,30 @@
       },
       "revId": "413cc710d60745bb95b10c458bb4025eacefc887",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd4d3de4_c09ab94a",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-20T05:00:13Z",
+      "side": 1,
+      "message": "In the request path, as you say the transport info is never used and this will always be empty. But this is fine, because that\u0027s not really the point – the point of this check here is the other path, the one that checks the factory is allowed to set these allowed UIDs.\n\nSo you are right that there isn\u0027t really a way for the wifi carrier service app to request a CBS network (on T or even on V for that matter). But there is still value in doing this because the factory path will still grant access to the correct process.\n\nIf you need a way for the service app to *request* the network, you\u0027ll first have to discuss with WiFi a way to tell the WiFi component about this in the request.",
+      "parentUuid": "e45241f8_d125358e",
+      "range": {
+        "startLine": 222,
+        "startChar": 32,
+        "endLine": 222,
+        "endChar": 49
+      },
+      "revId": "413cc710d60745bb95b10c458bb4025eacefc887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
