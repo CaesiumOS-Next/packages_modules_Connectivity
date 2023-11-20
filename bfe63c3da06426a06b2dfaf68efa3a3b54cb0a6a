@@ -46,6 +46,30 @@
       },
       "revId": "bfe63c3da06426a06b2dfaf68efa3a3b54cb0a6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91516bbd_98acdede",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-20T02:44:23Z",
+      "side": 1,
+      "message": "After discussed on chat, we agreed that IgnoreAfter(U) is correct. Because mdns netd implementation is going to be removed from V.",
+      "parentUuid": "2639dd3e_0e246225",
+      "range": {
+        "startLine": 847,
+        "startChar": 60,
+        "endLine": 847,
+        "endChar": 67
+      },
+      "revId": "bfe63c3da06426a06b2dfaf68efa3a3b54cb0a6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
