@@ -455,26 +455,28 @@ class MdnsRecordRepositoryTest {
 
     @Test
     fun testGetReply() {
-        doGetReplyTest(subtype = null)
+        doGetReplyTest(listOf(arrayOf("_testservice", "_tcp", "local")))
     }
 
     @Test
     fun testGetReply_WithSubtype() {
-        doGetReplyTest(TEST_SUBTYPE)
+        doGetReplyTest(listOf(
+                arrayOf("_testservice", "_tcp", "local"),
+                arrayOf(TEST_SUBTYPE, "_sub", "_testservice", "_tcp", "local")))
     }
 
-    private fun doGetReplyTest(subtype: String?) {
+    private fun doGetReplyTest(queryNames : List<Array<String>>) {
         val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME, flags)
-        repository.initWithService(TEST_SERVICE_ID_1, TEST_SERVICE_1, subtype)
-        val queriedName = if (subtype == null) arrayOf("_testservice", "_tcp", "local")
-        else arrayOf(subtype, "_sub", "_testservice", "_tcp", "local")
+        repository.initWithService(TEST_SERVICE_ID_1, TEST_SERVICE_1, TEST_SUBTYPE)
 
-        val questions = listOf(MdnsPointerRecord(queriedName,
-                0L /* receiptTimeMillis */,
-                false /* cacheFlush */,
-                // TTL and data is empty for a question
-                0L /* ttlMillis */,
-                null /* pointer */))
+        val questions = queryNames.map {
+                MdnsPointerRecord(it,
+                        0L /* receiptTimeMillis */,
+                        false /* cacheFlush */,
+                        // TTL and data is empty for a question
+                        0L /* ttlMillis */,
+                        null /* pointer */)
+        }
         val query = MdnsPacket(0 /* flags */, questions, listOf() /* answers */,
                 listOf() /* authorityRecords */, listOf() /* additionalRecords */)
         val src = InetSocketAddress(parseNumericAddress("192.0.2.123"), 5353)
@@ -490,14 +492,16 @@ class MdnsRecordRepositoryTest {
         val shortTtl = 120_000L
         val serviceName = arrayOf("MyTestService", "_testservice", "_tcp", "local")
 
-        assertEquals(listOf(
-                MdnsPointerRecord(
-                        queriedName,
+        assertEquals(
+                queryNames.map {
+                    MdnsPointerRecord(
+                        it,
                         0L /* receiptTimeMillis */,
                         false /* cacheFlush */,
                         longTtl,
-                        serviceName),
-        ), reply.answers)
+                        serviceName)
+                },
+                reply.answers)
 
         assertEquals(listOf(
             MdnsTextRecord(
