@@ -1,0 +1,175 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e1bfe9c_f148dbff",
+        "filename": "thread/demoapp/AndroidManifest.xml",
+        "patchSetId": 107
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-20T02:24:46Z",
+      "side": 1,
+      "message": "In Android.bp it\u0027s specifying min SDK version as 34. Which one is the proper one?",
+      "revId": "15cb7d9b9f3c2421ae063af6c464bc9a9b0c4ebb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22a20a3b_baf96cb3",
+        "filename": "thread/demoapp/java/com/android/threadnetwork/demoapp/ConnectivityToolsFragment.java",
+        "patchSetId": 107
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-20T02:24:46Z",
+      "side": 1,
+      "message": "nit: shall they be named as starting with `m`?",
+      "range": {
+        "startLine": 73,
+        "startChar": 5,
+        "endLine": 86,
+        "endChar": 46
+      },
+      "revId": "15cb7d9b9f3c2421ae063af6c464bc9a9b0c4ebb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e3fb015_417dfed7",
+        "filename": "thread/demoapp/java/com/android/threadnetwork/demoapp/ConnectivityToolsFragment.java",
+        "patchSetId": 107
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-20T02:24:46Z",
+      "side": 1,
+      "message": "We may need to remove the default forbidden capability `NET_CAPABILITY_LOCAL_NETWORK`",
+      "revId": "15cb7d9b9f3c2421ae063af6c464bc9a9b0c4ebb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eec5e69_243bd243",
+        "filename": "thread/demoapp/java/com/android/threadnetwork/demoapp/ConnectivityToolsFragment.java",
+        "patchSetId": 107
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-20T02:24:46Z",
+      "side": 1,
+      "message": "Is it needed?",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 103,
+        "endChar": 0
+      },
+      "revId": "15cb7d9b9f3c2421ae063af6c464bc9a9b0c4ebb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "282002cf_2737b994",
+        "filename": "thread/demoapp/java/com/android/threadnetwork/demoapp/ConnectivityToolsFragment.java",
+        "patchSetId": 107
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-20T02:24:46Z",
+      "side": 1,
+      "message": "nit: What about putting the `\\n` at the end of the previous `pingOutputText.setText`?",
+      "revId": "15cb7d9b9f3c2421ae063af6c464bc9a9b0c4ebb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c1ea781_f76d1bf9",
+        "filename": "thread/demoapp/java/com/android/threadnetwork/demoapp/ThreadNetworkSettingsFragment.java",
+        "patchSetId": 107
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-20T02:24:46Z",
+      "side": 1,
+      "message": "We may need to remove the default forbidden capability `NET_CAPABILITY_LOCAL_NETWORK`",
+      "revId": "15cb7d9b9f3c2421ae063af6c464bc9a9b0c4ebb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34f52e62_04776154",
+        "filename": "thread/demoapp/java/com/android/threadnetwork/demoapp/ThreadNetworkSettingsFragment.java",
+        "patchSetId": 107
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-20T02:24:46Z",
+      "side": 1,
+      "message": "Why using a constant dataset instead of a random one?",
+      "revId": "15cb7d9b9f3c2421ae063af6c464bc9a9b0c4ebb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec3dd713_fb9d3ed2",
+        "filename": "thread/demoapp/java/com/android/threadnetwork/demoapp/ThreadNetworkSettingsFragment.java",
+        "patchSetId": 107
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-20T02:24:46Z",
+      "side": 1,
+      "message": "The logging text seems not to match with the action.",
+      "range": {
+        "startLine": 190,
+        "startChar": 18,
+        "endLine": 198,
+        "endChar": 21
+      },
+      "revId": "15cb7d9b9f3c2421ae063af6c464bc9a9b0c4ebb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b279db8_cd850a53",
+        "filename": "thread/demoapp/java/com/android/threadnetwork/demoapp/ThreadNetworkSettingsFragment.java",
+        "patchSetId": 107
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-20T02:24:46Z",
+      "side": 1,
+      "message": "I guess ideally we should not call this deprecated method.",
+      "revId": "15cb7d9b9f3c2421ae063af6c464bc9a9b0c4ebb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
