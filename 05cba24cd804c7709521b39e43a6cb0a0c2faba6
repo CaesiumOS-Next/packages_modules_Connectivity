@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba707a7c_99ceec93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-20T05:58:20Z",
+      "side": 1,
+      "message": "Can you explain how it was determined that this patch is the culprit ? It\u0027s completely impossible that this patch is affecting this completely unrelated test ; it\u0027s almost certainly a new flake that happened to pass with the revert.",
+      "revId": "05cba24cd804c7709521b39e43a6cb0a0c2faba6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
