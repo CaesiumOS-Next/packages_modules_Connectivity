@@ -59,7 +59,7 @@ public class IpSecStructXfrmUsersaId extends Struct {
 
     // Constructor that allows Strutc.parse(Class<T>, ByteBuffer) to work
     public IpSecStructXfrmUsersaId(
-            @NonNull byte[] nestedStructDAddr, long spi, int family, short proto) {
+            @NonNull final byte[] nestedStructDAddr, long spi, int family, short proto) {
         this.nestedStructDAddr = nestedStructDAddr.clone();
         this.spi = spi;
         this.family = family;
@@ -70,7 +70,7 @@ public class IpSecStructXfrmUsersaId extends Struct {
 
     // Constructor to build a new message
     public IpSecStructXfrmUsersaId(
-            @NonNull InetAddress destAddress, long spi, int family, short proto) {
+            @NonNull final InetAddress destAddress, long spi, int family, short proto) {
         this(new IpSecStructXfrmAddressT(destAddress).writeToBytes(), spi, family, proto);
     }
 
