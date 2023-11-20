@@ -16,6 +16,7 @@
 
 package com.android.server.connectivity.mdns;
 
+import android.annotation.NonNull;
 import android.annotation.Nullable;
 
 import androidx.annotation.VisibleForTesting;
@@ -69,6 +70,17 @@ public class MdnsInetAddressRecord extends MdnsRecord {
         } else {
             inet6Address = (Inet6Address) address;
         }
+    }
+
+    /**
+     * Creates a new {@link MdnsInetAddressRecord} with null address data.
+     *
+     * Only used for creating A or AAAA mDNS query records.
+     */
+    @VisibleForTesting
+    public MdnsInetAddressRecord(@NonNull String[] name, int type) {
+        super(name, type, MdnsConstants.QCLASS_INTERNET, 0 /* receiptTimeMillis */,
+                false /* cacheFlush */, 0 /* ttlMillis */);
     }
 
     /** Returns the IPv6 address. */
