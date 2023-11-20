@@ -69,6 +69,10 @@ import android.net.thread.OperationalDatasetTimestamp;
 import android.net.thread.PendingOperationalDataset;
 import android.net.thread.ThreadNetworkController;
 import android.net.thread.ThreadNetworkController.DeviceRole;
+import com.android.os.threadnetwork.ThreadnetworkTelemetryDataReported;
+import com.android.os.threadnetwork.ThreadnetworkTopoEntryRepeated;
+import com.android.os.threadnetwork.ThreadnetworkDeviceInfoReported;
+import com.android.server.thread.ThreadnetworkStatsLog;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -270,6 +274,42 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mNetworkAgent.register();
         mNetworkAgent.markConnected();
         Log.i(TAG, "Registered Thread network");
+
+        ThreadnetworkTelemetryDataReported.Builder builder = ThreadnetworkTelemetryDataReported.newBuilder();
+        builder.setWpanStats(ThreadnetworkTelemetryDataReported.WpanStats.newBuilder()
+            .setPhyRx(1)
+            .setPhyTx(1)
+            .setMacUnicastRx(2)
+            .setMacUnicastTx(3)
+            .setMacBroadcastRx(4));
+        builder.setWpanTopoFull(ThreadnetworkTelemetryDataReported.WpanTopoFull.newBuilder()
+            .setRloc16(1));
+        builder.setWpanBorderRouter(ThreadnetworkTelemetryDataReported.WpanBorderRouter.newBuilder()
+            .setBorderRoutingCounters(ThreadnetworkTelemetryDataReported.BorderRoutingCounters.newBuilder()
+                .setRaRx(1)
+                .setRaTxSuccess(2)));
+
+        ThreadnetworkTelemetryDataReported threadnetworkTelemetryDataReported = builder.build();
+        ThreadnetworkStatsLog.write(ThreadnetworkStatsLog.THREADNETWORK_TELEMETRY_DATA_REPORTED,
+            threadnetworkTelemetryDataReported.getWpanStats().toByteArray(),
+            threadnetworkTelemetryDataReported.getWpanTopoFull().toByteArray(),
+            threadnetworkTelemetryDataReported.getWpanBorderRouter().toByteArray(),
+            threadnetworkTelemetryDataReported.getWpanRcp().toByteArray(),
+            threadnetworkTelemetryDataReported.getCoexMetrics().toByteArray()
+        );
+
+        ThreadnetworkTopoEntryRepeated.Builder threadnetworkTopoEntryRepeatedBuilder = ThreadnetworkTopoEntryRepeated.newBuilder();
+        ThreadnetworkTopoEntryRepeated threadnetworkTopoEntryRepeated = threadnetworkTopoEntryRepeatedBuilder.build();
+        ThreadnetworkStatsLog.write(ThreadnetworkStatsLog.THREADNETWORK_TOPO_ENTRY_REPEATED,
+                threadnetworkTopoEntryRepeated.getTopoEntryRepeated().toByteArray());
+
+        ThreadnetworkDeviceInfoReported.Builder threadnetworkDeviceInfoReportedBuilder = ThreadnetworkDeviceInfoReported.newBuilder();
+        ThreadnetworkDeviceInfoReported threadnetworkDeviceInfoReported = threadnetworkDeviceInfoReportedBuilder.build();
+        ThreadnetworkStatsLog.write(ThreadnetworkStatsLog.THREADNETWORK_DEVICE_INFO_REPORTED,
+            threadnetworkDeviceInfoReported.getOtHostVersion(),
+            threadnetworkDeviceInfoReported.getOtRcpVersion(),
+            threadnetworkDeviceInfoReported.getThreadVersion(),
+            threadnetworkDeviceInfoReported.getThreadDaemonVersion());
     }
 
     private void unregisterThreadNetwork() {
