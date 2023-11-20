@@ -1,5 +1,138 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a86dfb77_90a9f064",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-20T14:23:28Z",
+      "side": 1,
+      "message": "just a few small nits.",
+      "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b3926b0_75de1446",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-20T14:23:28Z",
+      "side": 1,
+      "message": "nit: maybe use the constant already defined in NetworkStackConstants.java(https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/framework/com/android/net/module/util/NetworkStackConstants.java;l\u003d100?q\u003dNetworkStackConstants)",
+      "range": {
+        "startLine": 45,
+        "startChar": 29,
+        "endLine": 45,
+        "endChar": 45
+      },
+      "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbedc4cb_7e93edb0",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-20T14:23:28Z",
+      "side": 1,
+      "message": "nit: final",
+      "range": {
+        "startLine": 53,
+        "startChar": 44,
+        "endLine": 53,
+        "endChar": 50
+      },
+      "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "502b554d_448abffe",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-20T14:23:28Z",
+      "side": 1,
+      "message": "nit: final",
+      "range": {
+        "startLine": 58,
+        "startChar": 44,
+        "endLine": 58,
+        "endChar": 55
+      },
+      "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d97ecdd8_e46edb8b",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmUsersaId.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-20T14:23:28Z",
+      "side": 1,
+      "message": "nit: final",
+      "range": {
+        "startLine": 62,
+        "startChar": 21,
+        "endLine": 62,
+        "endChar": 27
+      },
+      "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaca053f_b2eae399",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmUsersaId.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-20T14:23:28Z",
+      "side": 1,
+      "message": "nit: final",
+      "range": {
+        "startLine": 73,
+        "startChar": 21,
+        "endLine": 73,
+        "endChar": 32
+      },
+      "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
