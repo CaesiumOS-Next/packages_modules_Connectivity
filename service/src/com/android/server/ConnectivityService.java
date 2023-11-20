@@ -10300,6 +10300,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    private static boolean requestSatisfiedByOffer(@NonNull final NetworkRequest request,
+            @NonNull final NetworkOffer offer) {
+        final NetworkCapabilities reqNc = new NetworkCapabilities(request.networkCapabilities);
+        // Offers do not consider forbidden capabilities when evaluating possible matches,
+        // because an offer is listing all possible capabilities the network may have, not
+        // all the capabilities it /will/ have, so the request should be sent even if it has
+        // forbidden capabilities present in the offer.
+        reqNc.removeAllForbiddenCapabilities();
+        return reqNc.satisfiedByNetworkCapabilities(offer.caps);
+    }
+
     /**
      * Inform a NetworkOffer about any new situation of a request.
      *
@@ -10347,7 +10358,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // offer can satisfy it, the provider should try and bring up the network for sure ;
             // no need to even ask the ranker – an offer that can satisfy is always better than
             // no network. Hence tell the provider so unless it already knew.
-            if (request.canBeSatisfiedBy(offer.caps) && !offer.neededFor(request)) {
+            if (requestSatisfiedByOffer(request, offer) && !offer.neededFor(request)) {
                 offer.onNetworkNeeded(request);
             }
         }
@@ -10359,7 +10370,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // served by this provider or if this offer can beat the current satisfier.
             final boolean currentlyServing = satisfier != null
                     && satisfier.factorySerialNumber == offer.providerId
-                    && activeRequest.canBeSatisfiedBy(offer.caps);
+                    && requestSatisfiedByOffer(activeRequest, offer);
             final boolean newNeeded = currentlyServing
                     || networkRanker.mightBeat(activeRequest, satisfier, offer);
             if (newNeeded != oldNeeded) {
