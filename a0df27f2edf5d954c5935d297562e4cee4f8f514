@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a764a4e_96a58a44",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-20T03:50:45Z",
+      "side": 1,
+      "message": "The build is now passing; this was not due to the original CL (which just reworded as string). It seems this was an infra error.",
+      "revId": "a0df27f2edf5d954c5935d297562e4cee4f8f514",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
