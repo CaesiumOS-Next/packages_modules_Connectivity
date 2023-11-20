@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b521c1d_711c3aae",
+        "filename": "thread/tests/unit/src/android/net/thread/ThreadNetworkControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-20T07:40:14Z",
+      "side": 1,
+      "message": "This breaks static analysis and makes it hard to navigate in IDEs and code search; it\u0027s also not the same solution that is used in other tests in packages/modules/Connectivity, so we\u0027d have to handle 2 different solutions.\n\nInstead of doing that, could you just use android.net.thread.IActiveOperationalDatasetReceiver here, but add `jarjar_rules: \":connectivity-jarjar-rules\"` to ThreadNetworkUnitTests ? That should take care of renaming the classes automatically",
+      "revId": "6f9565ac87d4c425c0d5501fbb5e695b27041506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
