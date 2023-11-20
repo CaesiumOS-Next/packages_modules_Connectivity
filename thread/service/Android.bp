@@ -31,21 +31,31 @@ java_library {
     // TODO (b/293613362): allow APEXes to have service jars with higher min_sdk than the APEX
     // (service-connectivity is only used on 31+) and use 31 here
     min_sdk_version: "30",
-    srcs: [":service-thread-sources"],
+    srcs: [":service-thread-sources",
+           ":statslog-threadnetwork-java-gen",],
     libs: [
         "framework-connectivity-pre-jarjar",
         "framework-connectivity-t-pre-jarjar",
         "service-connectivity-pre-jarjar",
+        "framework-statsd",
     ],
     static_libs: [
         "net-utils-device-common",
         "net-utils-device-common-netlink",
         "ot-daemon-aidl-java",
+        "ot-daemon-atom-java-proto-lite",
     ],
     apex_available: ["com.android.tethering"],
     optimize: {
         proguard_flags_files: ["proguard.flags"],
     },
+}
+
+genrule {
+  name: "statslog-threadnetwork-java-gen",
+  tools: ["stats-log-api-gen"],
+  cmd: "$(location stats-log-api-gen) --java $(out) --module threadnetwork --javaPackage com.android.server.thread --javaClass ThreadnetworkStatsLog",
+  out: ["service/java/com/android/server/thread/ThreadnetworkStatsLog.java"],
 }
 
 cc_library_shared {

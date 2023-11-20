@@ -80,6 +80,15 @@ import android.net.thread.OperationalDatasetTimestamp;
 import android.net.thread.PendingOperationalDataset;
 import android.net.thread.ThreadNetworkController;
 import android.net.thread.ThreadNetworkController.DeviceRole;
+import com.android.net.module.util.Struct;
+import com.android.net.module.util.Struct.Field;
+import com.android.net.module.util.Struct.Type;
+import com.android.os.threadnetwork.ThreadnetworkTelemetryDataReported;
+import com.android.os.threadnetwork.ThreadnetworkTopoEntryRepeated;
+import com.android.os.threadnetwork.ThreadnetworkTopoEntryRepeated.TopoEntryRepeated;
+import com.android.os.threadnetwork.ThreadnetworkDeviceInfoReported;
+import com.android.os.threadnetwork.ThreadnetworkTelemetryDataReported.SrpServerInfo;
+import com.android.server.thread.ThreadnetworkStatsLog;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -95,6 +104,7 @@ import com.android.server.thread.openthread.IOtDaemon;
 import com.android.server.thread.openthread.IOtDaemonCallback;
 import com.android.server.thread.openthread.IOtStatusReceiver;
 import com.android.server.thread.openthread.Ipv6AddressInfo;
+import com.android.server.thread.openthread.ListElement;
 import com.android.server.thread.openthread.OtDaemonState;
 import com.android.server.thread.openthread.BorderRouterConfigurationParcel;
 
@@ -102,9 +112,12 @@ import java.io.IOException;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
@@ -258,6 +271,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         otDaemon.initialize(mTunIfController.getTunFd());
         otDaemon.registerStateCallback(mOtDaemonCallbackProxy, -1);
         mOtDaemon = otDaemon;
+
+        otDaemon.requestTelemetry();
+
         return mOtDaemon;
     }
 
@@ -1093,5 +1109,668 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         public void onMulticastForwardingAddressChanged(byte[] address, boolean isAdded) {
             mHandler.post(() -> handleMulticastForwardingAddressChanged(address, isAdded));
         }
+
+        @Override
+        public void onTelemetryRetrieved(byte[] telemetryDataReported, List<ListElement> topoEntries) {
+            final ByteBuffer telemetryDataReportedBuf = ByteBuffer.wrap(telemetryDataReported);
+            telemetryDataReportedBuf.order(ByteOrder.nativeOrder());
+            TelemetryDataReportedStruct telemetriesStruct = Struct.parse(TelemetryDataReportedStruct.class, telemetryDataReportedBuf);
+
+            ThreadnetworkTelemetryDataReported.Builder builder = ThreadnetworkTelemetryDataReported.newBuilder();
+            builder.setWpanStats(ThreadnetworkTelemetryDataReported.WpanStats.newBuilder()
+                .setPhyRx(telemetriesStruct.phy_rx)
+                .setPhyTx(telemetriesStruct.phy_tx)
+                .setMacUnicastRx(telemetriesStruct.mac_unicast_rx)
+                .setMacUnicastTx(telemetriesStruct.mac_unicast_tx)
+                .setMacBroadcastRx(telemetriesStruct.mac_broadcast_rx)
+                .setMacBroadcastTx(telemetriesStruct.mac_broadcast_tx)
+                .setMacTxAckReq(telemetriesStruct.mac_tx_ack_req)
+                .setMacTxNoAckReq(telemetriesStruct.mac_tx_no_ack_req)
+                .setMacTxAcked(telemetriesStruct.mac_tx_acked)
+                .setMacTxData(telemetriesStruct.mac_tx_data)
+                .setMacTxDataPoll(telemetriesStruct.mac_tx_data_poll)
+                .setMacTxData(telemetriesStruct.mac_tx_data)
+                .setMacTxBeacon(telemetriesStruct.mac_tx_beacon)
+                .setMacTxBeaconReq(telemetriesStruct.mac_tx_beacon_req)
+                .setMacTxOtherPkt(telemetriesStruct.mac_tx_other_pkt)
+                .setMacTxRetry(telemetriesStruct.mac_tx_retry)
+                .setMacRxData(telemetriesStruct.mac_rx_data)
+                .setMacRxDataPoll(telemetriesStruct.mac_rx_data_poll)
+                .setMacRxBeacon(telemetriesStruct.mac_rx_beacon)
+                .setMacRxBeaconReq(telemetriesStruct.mac_rx_beacon_req)
+                .setMacRxOtherPkt(telemetriesStruct.mac_rx_other_pkt)
+                .setMacRxFilterWhitelist(telemetriesStruct.mac_rx_filter_whitelist)
+                .setMacRxFilterDestAddr(telemetriesStruct.mac_rx_filter_dest_addr)
+                .setMacTxFailCca(telemetriesStruct.mac_tx_fail_cca)
+                .setMacRxFailDecrypt(telemetriesStruct.mac_rx_fail_decrypt)
+                .setMacRxFailNoFrame(telemetriesStruct.mac_rx_fail_no_frame)
+                .setMacRxFailUnknownNeighbor(telemetriesStruct.mac_rx_fail_unknown_neighbor)
+                .setMacRxFailInvalidSrcAddr(telemetriesStruct.mac_rx_fail_invalid_src_addr)
+                .setMacRxFailFcs(telemetriesStruct.mac_rx_fail_fcs)
+                .setMacRxFailOther(telemetriesStruct.mac_rx_fail_other)
+                .setIpTxSuccess(telemetriesStruct.ip_tx_success)
+                .setIpRxSuccess(telemetriesStruct.ip_rx_success)
+                .setIpTxFailure(telemetriesStruct.ip_tx_failure)
+                .setIpRxFailure(telemetriesStruct.ip_rx_failure)
+                .setNodeType((int)telemetriesStruct.node_type)
+                .setChannel((int)telemetriesStruct.channel)
+                .setRadioTxPower(telemetriesStruct.radio_tx_power)
+                .setMacCcaFailRate(telemetriesStruct.mac_cca_fail_rate)
+                );
+            builder.setWpanTopoFull(ThreadnetworkTelemetryDataReported.WpanTopoFull.newBuilder()
+                .setRloc16(1));
+            builder.setWpanBorderRouter(ThreadnetworkTelemetryDataReported.WpanBorderRouter.newBuilder()
+                .setBorderRoutingCounters(ThreadnetworkTelemetryDataReported.BorderRoutingCounters.newBuilder()
+                    .setRaRx(1)
+                    .setRaTxSuccess(2))
+                .setSrpServer(ThreadnetworkTelemetryDataReported.SrpServerInfo.newBuilder()));
+
+            ThreadnetworkTelemetryDataReported threadnetworkTelemetryDataReported = builder.build();
+            ThreadnetworkStatsLog.write(ThreadnetworkStatsLog.THREADNETWORK_TELEMETRY_DATA_REPORTED,
+                threadnetworkTelemetryDataReported.getWpanStats().toByteArray(),
+                threadnetworkTelemetryDataReported.getWpanTopoFull().toByteArray(),
+                threadnetworkTelemetryDataReported.getWpanBorderRouter().toByteArray(),
+                threadnetworkTelemetryDataReported.getWpanRcp().toByteArray(),
+                threadnetworkTelemetryDataReported.getCoexMetrics().toByteArray()
+            );
+
+            ThreadnetworkTopoEntryRepeated.Builder threadnetworkTopoEntryRepeatedBuilder = ThreadnetworkTopoEntryRepeated.newBuilder();
+            for (ListElement topoEntry : topoEntries) {
+                ByteBuffer buf = ByteBuffer.wrap(topoEntry.bytes);
+                buf.order(ByteOrder.nativeOrder());
+                TopoEntryStruct topoEntryStruct = Struct.parse(TopoEntryStruct.class, buf);
+                TopoEntryRepeated.Builder topoEntryRepeatedBuilder = TopoEntryRepeated.newBuilder();
+                topoEntryRepeatedBuilder.addTopoEntries(ThreadnetworkTopoEntryRepeated.TopoEntry.newBuilder()
+                    .setComboTelemetry1((int) topoEntryStruct.combo_telemetry1));
+                threadnetworkTopoEntryRepeatedBuilder.setTopoEntryRepeated(
+                    topoEntryRepeatedBuilder
+                );
+            }
+            ThreadnetworkTopoEntryRepeated threadnetworkTopoEntryRepeated = threadnetworkTopoEntryRepeatedBuilder.build();
+            ThreadnetworkStatsLog.write(ThreadnetworkStatsLog.THREADNETWORK_TOPO_ENTRY_REPEATED,
+                    threadnetworkTopoEntryRepeated.getTopoEntryRepeated().toByteArray());
+
+            ThreadnetworkDeviceInfoReported.Builder threadnetworkDeviceInfoReportedBuilder = ThreadnetworkDeviceInfoReported.newBuilder();
+            ThreadnetworkDeviceInfoReported threadnetworkDeviceInfoReported = threadnetworkDeviceInfoReportedBuilder.build();
+            ThreadnetworkStatsLog.write(ThreadnetworkStatsLog.THREADNETWORK_DEVICE_INFO_REPORTED,
+                threadnetworkDeviceInfoReported.getOtHostVersion(),
+                threadnetworkDeviceInfoReported.getOtRcpVersion(),
+                threadnetworkDeviceInfoReported.getThreadVersion(),
+                threadnetworkDeviceInfoReported.getThreadDaemonVersion());
+        }
     }
+}
+
+class TelemetryDataReportedStruct extends Struct {
+    @Field(order = 0, type = Type.S32)
+    int phy_rx;
+    @Field(order = 1, type = Type.S32)
+    int phy_tx;
+    @Field(order = 2, type = Type.S32)
+    int mac_unicast_rx;
+    @Field(order = 3, type = Type.S32)
+    int mac_unicast_tx;
+    @Field(order = 4, type = Type.S32)
+    int mac_broadcast_rx;
+    @Field(order = 5, type = Type.S32)
+    int mac_broadcast_tx;
+    @Field(order = 6, type = Type.S32)
+    int mac_tx_ack_req;
+    @Field(order = 7, type = Type.S32)
+    int mac_tx_no_ack_req;
+    @Field(order = 8, type = Type.S32)
+    int mac_tx_acked;
+    @Field(order = 9, type = Type.S32)
+    int mac_tx_data;
+    @Field(order = 10, type = Type.S32)
+    int mac_tx_data_poll;
+    @Field(order = 11, type = Type.S32)
+    int mac_tx_beacon;
+    @Field(order = 12, type = Type.S32)
+    int mac_tx_beacon_req;
+    @Field(order = 13, type = Type.S32)
+    int mac_tx_other_pkt;
+    @Field(order = 14, type = Type.S32)
+    int mac_tx_retry;
+    @Field(order = 15, type = Type.S32)
+    int mac_rx_data;
+    @Field(order = 16, type = Type.S32)
+    int mac_rx_data_poll;
+    @Field(order = 17, type = Type.S32)
+    int mac_rx_beacon;
+    @Field(order = 18, type = Type.S32)
+    int mac_rx_beacon_req;
+    @Field(order = 19, type = Type.S32)
+    int mac_rx_other_pkt;
+    @Field(order = 20, type = Type.S32)
+    int mac_rx_filter_whitelist;
+    @Field(order = 21, type = Type.S32)
+    int mac_rx_filter_dest_addr;
+    @Field(order = 22, type = Type.S32)
+    int mac_tx_fail_cca;
+    @Field(order = 23, type = Type.S32)
+    int mac_rx_fail_decrypt;
+    @Field(order = 24, type = Type.S32)
+    int mac_rx_fail_no_frame;
+    @Field(order = 25, type = Type.S32)
+    int mac_rx_fail_unknown_neighbor;
+    @Field(order = 26, type = Type.S32)
+    int mac_rx_fail_invalid_src_addr;
+    @Field(order = 27, type = Type.S32)
+    int mac_rx_fail_fcs;
+    @Field(order = 28, type = Type.S32)
+    int mac_rx_fail_other;
+    @Field(order = 29, type = Type.S32)
+    int ip_tx_success;
+    @Field(order = 30, type = Type.S32)
+    int ip_rx_success;
+    @Field(order = 31, type = Type.S32)
+    int ip_tx_failure;
+    @Field(order = 32, type = Type.S32)
+    int ip_rx_failure;
+    @Field(order = 33, type = Type.U32)
+    long node_type;
+    @Field(order = 34, type = Type.U32)
+    long channel;
+    @Field(order = 35, type = Type.S32)
+    int radio_tx_power;
+    // TODO: parse int to float.
+    @Field(order = 36, type = Type.S32)
+    int mac_cca_fail_rate;
+
+    // TODO: fix the types.
+    @Field(order = 35, type = Type.S32)
+    long rloc16; 
+    @Field(order = 35, type = Type.S32)
+    long router_id; 
+    @Field(order = 35, type = Type.S32)
+    long leader_router_id; 
+    @Field(order = 35, type = Type.S32)
+    long leader_rloc16;  // replaced bytes leader_address; 
+    @Field(order = 35, type = Type.S32)
+    long leader_weight; 
+    @Field(order = 35, type = Type.S32)
+    long leader_local_weight; 
+    @Field(order = 35, type = Type.S32)
+    long preferred_router_id; 
+    @Field(order = 35, type = Type.S32)
+    long partition_id; 
+    @Field(order = 35, type = Type.S32)
+    long child_table_size; 
+    @Field(order = 35, type = Type.S32)
+    long neighbor_table_size; 
+    @Field(order = 35, type = Type.S32)
+    int instant_rssi; 
+    @Field(order = 35, type = Type.S32)
+    boolean has_extended_pan_id; 
+    @Field(order = 35, type = Type.S32)
+    boolean is_active_br; 
+    @Field(order = 35, type = Type.S32)
+    boolean is_active_srp_server; 
+    @Field(order = 35, type = Type.S32)
+    long sum_on_link_prefix_changes; 
+
+    // The number of Router Advertisement packets received by otbr-agent on the
+    // infra link
+    @Field(order = 35, type = Type.S32)
+    long ra_rx; 
+
+    // The number of Router Advertisement packets successfully transmitted by
+    // otbr-agent on the infra link.
+    @Field(order = 35, type = Type.S32)
+    long ra_tx_success; 
+
+    // The number of Router Advertisement packets failed to transmit by
+    // otbr-agent on the infra link.
+    @Field(order = 35, type = Type.S32)
+    long ra_tx_failure; 
+
+    // The number of Router Solicitation packets received by otbr-agent on the
+    // infra link
+    @Field(order = 35, type = Type.S32)
+    long rs_rx; 
+
+    // The number of Router Solicitation packets successfully transmitted by
+    // otbr-agent on the infra link.
+    @Field(order = 35, type = Type.S32)
+    long rs_tx_success; 
+
+    // The number of Router Solicitation packets failed to transmit by
+    // otbr-agent on the infra link.
+    @Field(order = 35, type = Type.S32)
+    long rs_tx_failure; 
+
+    // The counters for inbound unicast packets
+    @Field(order = 35, type = Type.S32)
+    long inbound_unicast_packet_count; 
+    @Field(order = 35, type = Type.S32)
+    long inbound_unicast_byte_count; 
+
+    // The counters for inbound multicast packets
+    @Field(order = 35, type = Type.S32)
+    long inbound_multicast_packet_count;
+    @Field(order = 35, type = Type.S32) 
+    long inbound_multicast_byte_count; 
+
+    // The counters for outbound unicast packets
+    @Field(order = 35, type = Type.S32)
+    long outbound_unicast_packet_count;
+    @Field(order = 35, type = Type.S32) 
+    long outbound_unicast_byte_count; 
+
+    // The counters for outbound multicast packets
+    @Field(order = 35, type = Type.S32)
+    long outbound_multicast_packet_count;
+    @Field(order = 35, type = Type.S32) 
+    long outbound_multicast_byte_count; 
+
+    // The inbound and outbound NAT64 traffic through the border router
+    @Field(order = 35, type = Type.S32)
+    long ipv4_to_ipv6_packets; 
+    @Field(order = 35, type = Type.S32)
+    long ipv4_to_ipv6_bytes; 
+    @Field(order = 35, type = Type.S32)
+    long ipv6_to_ipv4_packets; 
+    @Field(order = 35, type = Type.S32)
+    long ipv6_to_ipv4_bytes; 
+    @Field(order = 35, type = Type.S32)
+    long ipv4_to_ipv6_packets1; 
+    @Field(order = 35, type = Type.S32)
+    long ipv4_to_ipv6_bytes1; 
+    @Field(order = 35, type = Type.S32)
+    long ipv6_to_ipv4_packets1; 
+    @Field(order = 35, type = Type.S32)
+    long ipv6_to_ipv4_bytes1; 
+    @Field(order = 35, type = Type.S32)
+    long ipv4_to_ipv6_packets2; 
+    @Field(order = 35, type = Type.S32)
+    long ipv4_to_ipv6_bytes2; 
+    @Field(order = 35, type = Type.S32)
+    long ipv6_to_ipv4_packets2; 
+    @Field(order = 35, type = Type.S32)
+    long ipv6_to_ipv4_bytes2; 
+    
+
+    // Error counters for NAT64 translator on the border router
+    @Field(order = 35, type = Type.S32)
+    long err_ipv4_to_ipv6_packets; 
+    @Field(order = 35, type = Type.S32)
+    long err_ipv6_to_ipv4_packets; 
+    @Field(order = 35, type = Type.S32)
+    long err_ipv4_to_ipv6_packets1; 
+    @Field(order = 35, type = Type.S32)
+    long err_ipv6_to_ipv4_packets1; 
+    @Field(order = 35, type = Type.S32)
+    long err_ipv4_to_ipv6_packets2; 
+    @Field(order = 35, type = Type.S32)
+    long err_ipv6_to_ipv4_packets2; 
+    @Field(order = 35, type = Type.S32)
+    long err_ipv4_to_ipv6_packets3; 
+    @Field(order = 35, type = Type.S32)
+    long err_ipv6_to_ipv4_packets3; 
+    @Field(order = 35, type = Type.S32)
+    long err_ipv4_to_ipv6_packets4; 
+    @Field(order = 35, type = Type.S32)
+    long err_ipv6_to_ipv4_packets4; 
+
+    @Field(order = 35, type = Type.S32)
+    long state; 
+
+    // Listening port number
+    @Field(order = 35, type = Type.S32)
+    long port; 
+    // The address mode {unicast, anycast} of the SRP server
+    @Field(order = 35, type = Type.S32)
+    long address_mode; 
+
+    // The number of active hosts/services registered on the SRP server.
+    @Field(order = 35, type = Type.S32)
+    long fresh_count; 
+
+    // The number of hosts/services in 'Deleted' state on the SRP server.
+    @Field(order = 35, type = Type.S32)
+    long deleted_count; 
+
+    // The sum of lease time in milliseconds of all active hosts/services on the
+    // SRP server.
+    @Field(order = 35, type = Type.S32)
+    long lease_time_total_ms; 
+
+    // The sum of key lease time in milliseconds of all active hosts/services on
+    // the SRP server.
+    @Field(order = 35, type = Type.S32)
+    long key_lease_time_total_ms; 
+
+    // The sum of remaining lease time in milliseconds of all active
+    // hosts/services on the SRP server.
+    @Field(order = 35, type = Type.S32)
+    long remaining_lease_time_total_ms; 
+
+    // The sum of remaining key lease time in milliseconds of all active
+    // hosts/services on the SRP server.
+    @Field(order = 35, type = Type.S32)
+    long remaining_key_lease_time_total_ms; 
+
+    // The number of active hosts/services registered on the SRP server.
+    @Field(order = 35, type = Type.S32)
+    long fresh_count2; 
+
+    // The number of hosts/services in 'Deleted' state on the SRP server.
+    @Field(order = 35, type = Type.S32)
+    long deleted_count2; 
+
+    // The sum of lease time in milliseconds of all active hosts/services on the
+    // SRP server.
+    @Field(order = 35, type = Type.S32)
+    long lease_time_total_ms2; 
+
+    // The sum of key lease time in milliseconds of all active hosts/services on
+    // the SRP server.
+    @Field(order = 35, type = Type.S32)
+    long key_lease_time_total_ms2; 
+
+    // The sum of remaining lease time in milliseconds of all active
+    // hosts/services on the SRP server.
+    @Field(order = 35, type = Type.S32)
+    long remaining_lease_time_total_ms2; 
+
+    // The sum of remaining key lease time in milliseconds of all active
+    // hosts/services on the SRP server.
+    @Field(order = 35, type = Type.S32)
+    long remaining_key_lease_time_total_ms2; 
+
+    // The number of successful responses
+    @Field(order = 35, type = Type.S32)
+    long success_count; 
+
+    // The number of server failure responses
+    @Field(order = 35, type = Type.S32)
+    long server_failure_count; 
+
+    // The number of format error responses
+    @Field(order = 35, type = Type.S32)
+    long format_error_count; 
+
+    // The number of 'name exists' responses
+    @Field(order = 35, type = Type.S32)
+    long name_exists_count; 
+
+    // The number of refused responses
+    @Field(order = 35, type = Type.S32)
+    long refused_count; 
+
+    // The number of other responses
+    @Field(order = 35, type = Type.S32)
+    long other_count; 
+
+    // The number of successful responses
+    @Field(order = 35, type = Type.S32)
+    long dns_response_success_count; 
+
+    // The number of server failure responses
+    @Field(order = 35, type = Type.S32)
+    long dns_response_server_failure_count; 
+
+    // The number of format error responses
+    @Field(order = 35, type = Type.S32)
+    long dns_response_format_error_count; 
+
+    // The number of name error responses
+    @Field(order = 35, type = Type.S32)
+    long dns_response_name_error_count; 
+
+    // The number of 'not implemented' responses
+    @Field(order = 35, type = Type.S32)
+    long dns_response_not_implemented_count; 
+
+    // The number of other responses
+    @Field(order = 35, type = Type.S32)
+    long dns_response_other_count; 
+
+    // The number of DNS queries resolved at the local SRP server
+    @Field(order = 35, type = Type.S32)
+    long resolved_by_local_srp_count; 
+
+    // The number of successful responses
+    @Field(order = 35, type = Type.S32)
+    long host_registration_success_count; 
+
+    // The number of 'not found' responses
+    @Field(order = 35, type = Type.S32)
+    long host_registration_not_found_count; 
+
+    // The number of 'invalid arg' responses
+    @Field(order = 35, type = Type.S32)
+    long host_registration_invalid_args_count; 
+
+    // The number of 'duplicated' responses
+    @Field(order = 35, type = Type.S32)
+    long host_registration_duplicated_count; 
+
+    // The number of 'not implemented' responses
+    @Field(order = 35, type = Type.S32)
+    long host_registration_not_implemented_count; 
+
+    // The number of unknown error responses
+    @Field(order = 35, type = Type.S32)
+    long host_registration_unknown_error_count; 
+
+    // The number of aborted responses
+    @Field(order = 35, type = Type.S32)
+    long host_registration_aborted_count; 
+
+    // The number of invalid state responses
+    @Field(order = 35, type = Type.S32)
+    long host_registration_invalid_state_count; 
+
+    // The number of successful responses
+    @Field(order = 35, type = Type.S32)
+    long service_registration_success_count; 
+
+    // The number of 'not found' responses
+    @Field(order = 35, type = Type.S32)
+    long service_registration_not_found_count; 
+
+    // The number of 'invalid arg' responses
+    @Field(order = 35, type = Type.S32)
+    long service_registration_invalid_args_count; 
+
+    // The number of 'duplicated' responses
+    @Field(order = 35, type = Type.S32)
+    long service_registration_duplicated_count; 
+
+    // The number of 'not implemented' responses
+    @Field(order = 35, type = Type.S32)
+    long service_registration_not_implemented_count; 
+
+    // The number of unknown error responses
+    @Field(order = 35, type = Type.S32)
+    long service_registration_unknown_error_count; 
+
+    // The number of aborted responses
+    @Field(order = 35, type = Type.S32)
+    long service_registration_aborted_count; 
+
+    // The number of invalid state responses
+    @Field(order = 35, type = Type.S32)
+    long service_registration_invalid_state_count; 
+
+    // The number of successful responses
+    @Field(order = 35, type = Type.S32)
+    long host_resolution_success_count; 
+
+    // The number of 'not found' responses
+    @Field(order = 35, type = Type.S32)
+    long host_resolution_not_found_count; 
+
+    // The number of 'invalid arg' responses
+    @Field(order = 35, type = Type.S32)
+    long host_resolution_invalid_args_count; 
+
+    // The number of 'duplicated' responses
+    @Field(order = 35, type = Type.S32)
+    long host_resolution_duplicated_count; 
+
+    // The number of 'not implemented' responses
+    @Field(order = 35, type = Type.S32)
+    long host_resolution_not_implemented_count; 
+
+    // The number of unknown error responses
+    @Field(order = 35, type = Type.S32)
+    long host_resolution_unknown_error_count; 
+
+    // The number of aborted responses
+    @Field(order = 35, type = Type.S32)
+    long host_resolution_aborted_count; 
+
+    // The number of invalid state responses
+    @Field(order = 35, type = Type.S32)
+    long host_resolution_invalid_state_count; 
+
+    // The number of successful responses
+    @Field(order = 35, type = Type.S32)
+    long service_resolution_success_count; 
+
+    // The number of 'not found' responses
+    @Field(order = 35, type = Type.S32)
+    long service_resolution_not_found_count; 
+
+    // The number of 'invalid arg' responses
+    @Field(order = 35, type = Type.S32)
+    long service_resolution_invalid_args_count; 
+
+    // The number of 'duplicated' responses
+    @Field(order = 35, type = Type.S32)
+    long service_resolution_duplicated_count; 
+
+    // The number of 'not implemented' responses
+    @Field(order = 35, type = Type.S32)
+    long service_resolution_not_implemented_count; 
+
+    // The number of unknown error responses
+    @Field(order = 35, type = Type.S32)
+    long service_resolution_unknown_error_count; 
+
+    // The number of aborted responses
+    @Field(order = 35, type = Type.S32)
+    long service_resolution_aborted_count; 
+
+    // The number of invalid state responses
+    @Field(order = 35, type = Type.S32)
+    long service_resolution_invalid_state_count; 
+
+    // The EMA latency of host registrations in milliseconds
+    @Field(order = 35, type = Type.S32)
+    long host_registration_ema_latency_ms; 
+
+    // The EMA latency of service registrations in milliseconds
+    @Field(order = 35, type = Type.S32)
+    long service_registration_ema_latency_ms; 
+
+    // The EMA latency of host resolutions in milliseconds
+    @Field(order = 35, type = Type.S32)
+    long host_resolution_ema_latency_ms; 
+
+    // The EMA latency of service resolutions in milliseconds
+    @Field(order = 35, type = Type.S32)
+    long service_resolution_ema_latency_ms;
+
+    @Field(order = 35, type = Type.S32)
+    long prefix_manager_state;
+    @Field(order = 35, type = Type.S32)
+    long translator_state;
+
+    @Field(order = 35, type = Type.S32)
+    long rcp_timeout_count;
+    @Field(order = 35, type = Type.S32)
+    long rcp_reset_count;
+    @Field(order = 35, type = Type.S32)
+    long rcp_restoration_count;
+    @Field(order = 35, type = Type.S32)
+    long spinel_parse_error_count;
+    @Field(order = 35, type = Type.S32)
+    int rcp_firmware_update_count;
+    @Field(order = 35, type = Type.S32)
+    long thread_stack_uptime;
+
+    @Field(order = 35, type = Type.S32)
+    long rcp_interface_type;
+    @Field(order = 35, type = Type.S32)
+    long transferred_frames_count;
+    @Field(order = 35, type = Type.S32)
+    long transferred_valid_frames_count;
+    @Field(order = 35, type = Type.S32)
+    long transferred_garbage_frames_count;
+    @Field(order = 35, type = Type.S32)
+    long rx_frames_count;
+    @Field(order = 35, type = Type.S32)
+    long rx_bytes_count;
+    @Field(order = 35, type = Type.S32)
+    long tx_frames_count;
+    @Field(order = 35, type = Type.S32)
+    long tx_bytes_count;
+
+    @Field(order = 35, type = Type.S32)
+    long count_tx_request;
+    @Field(order = 35, type = Type.S32)
+    long count_tx_grant_immediate;
+    @Field(order = 35, type = Type.S32)
+    long count_tx_grant_wait;
+    @Field(order = 35, type = Type.S32)
+    long count_tx_grant_wait_activated;
+    @Field(order = 35, type = Type.S32)
+    long count_tx_grant_wait_timeout;
+    @Field(order = 35, type = Type.S32)
+    long count_tx_grant_deactivated_during_request;
+    @Field(order = 35, type = Type.S32)
+    long tx_average_request_to_grant_time_us;
+    @Field(order = 35, type = Type.S32)
+    long count_rx_request;
+    @Field(order = 35, type = Type.S32)
+    long count_rx_grant_immediate;
+    @Field(order = 35, type = Type.S32)
+    long count_rx_grant_wait;
+    @Field(order = 35, type = Type.S32)
+    long count_rx_grant_wait_activated;
+    @Field(order = 35, type = Type.S32)
+    long count_rx_grant_wait_timeout;
+    @Field(order = 35, type = Type.S32)
+    long count_rx_grant_deactivated_during_request;
+    @Field(order = 35, type = Type.S32)
+    long count_rx_grant_none;
+    @Field(order = 35, type = Type.S32)
+    long rx_average_request_to_grant_time_us;
+}
+
+class TopoEntryStruct extends Struct {
+    // 0~15: uint16_t rloc_16
+    // 16~31: uint16_t version Thread version of the neighbor
+    @Field(order = 1, type = Type.U32)
+    long combo_telemetry1 = 1;
+    // 0~7: uint8_t link_quality_in
+    // 8~15: int8_t average_rssi
+    // 16~23: int8_t last_rssi
+    // 24~31: uint8_t network_data_version
+    @Field(order = 2, type = Type.U32)
+    long combo_telemetry2 = 2;
+    @Field(order = 3, type = Type.U32)
+    long age_sec = 3;
+    // Each bit on the flag represents a bool flag
+    // 0: rx_on_when_idle
+    // 1: full_function
+    // 2: secure_data_request
+    // 3: full_network_data
+    // 4: is_child
+    @Field(order = 4, type = Type.U32)
+    long topo_entry_flags = 4;
+    @Field(order = 5, type = Type.U32)
+    long link_frame_counter = 5;
+    @Field(order = 6, type = Type.U32)
+    long mle_frame_counter = 6;
+    @Field(order = 7, type = Type.U32)
+    long timeout_sec = 7;
+    // 0~15: uint16_t frame_error_rate. Frame error rate (0xffff->100%). Requires error tracking feature.
+    // 16~31: uint16_t message_error_rate. (IPv6) msg error rate (0xffff->100%). Requires error tracking feature.
+    @Field(order = 7, type = Type.U32)
+    long combo_telemetry3 = 8;
 }
