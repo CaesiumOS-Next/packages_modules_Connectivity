@@ -71,6 +71,17 @@ public class MdnsInetAddressRecord extends MdnsRecord {
         }
     }
 
+    /**
+     * Creates a new {@link MdnsInetAddressRecord} with null address data.
+     *
+     * Only used for creating A or AAAA mDNS query records.
+     */
+    @VisibleForTesting
+    public MdnsInetAddressRecord(String[] name, int type) {
+        super(name, type, MdnsConstants.QCLASS_INTERNET, 0 /* receiptTimeMillis */,
+                false /* cacheFlush */, 0 /* ttlMillis */);
+    }
+
     /** Returns the IPv6 address. */
     @Nullable
     public Inet6Address getInet6Address() {
