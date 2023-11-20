@@ -46,6 +46,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -472,13 +473,15 @@ public class MdnsRecordRepository {
     public MdnsReplyInfo getReply(MdnsPacket packet, InetSocketAddress src) {
         final long now = SystemClock.elapsedRealtime();
         final boolean replyUnicast = (packet.flags & MdnsConstants.QCLASS_UNICAST) != 0;
-        final ArrayList<MdnsRecord> additionalAnswerRecords = new ArrayList<>();
-        final ArrayList<RecordInfo<?>> answerInfo = new ArrayList<>();
+
+        // Use LinkedHashSet for preserving the insert order of the RRs
+        final Set<RecordInfo<?>> additionalAnswerInfo = new LinkedHashSet<>();
+        final Set<RecordInfo<?>> answerInfo = new LinkedHashSet<>();
         for (MdnsRecord question : packet.questions) {
             // Add answers from general records
             addReplyFromService(question, mGeneralRecords, null /* servicePtrRecord */,
                     null /* serviceSrvRecord */, null /* serviceTxtRecord */, replyUnicast, now,
-                    answerInfo, additionalAnswerRecords);
+                    answerInfo, additionalAnswerInfo);
 
             // Add answers from each service
             for (int i = 0; i < mServices.size(); i++) {
@@ -486,12 +489,24 @@ public class MdnsRecordRepository {
                 if (registration.exiting || registration.isProbing) continue;
                 if (addReplyFromService(question, registration.allRecords, registration.ptrRecords,
                         registration.srvRecord, registration.txtRecord, replyUnicast, now,
-                        answerInfo, additionalAnswerRecords)) {
+                        answerInfo, additionalAnswerInfo)) {
                     registration.repliedServiceCount++;
                     registration.sentPacketCount++;
                 }
             }
         }
+
+        final ArrayList<MdnsRecord> additionalAnswerRecords = new ArrayList<>();
+        for (RecordInfo<?> info : additionalAnswerInfo) {
+            additionalAnswerRecords.add(info.record);
+        }
+
+        // RFC6762 6.1:
+        // "Any time a responder receives a query for a name for which it has verified exclusive
+        // ownership, for a type for which that name has no records, the responder MUST [...]
+        // respond asserting the nonexistence of that record"
+        addNsecRecordsForUniqueNames(additionalAnswerRecords,
+                answerInfo.iterator(), additionalAnswerInfo.iterator());
 
         if (answerInfo.size() == 0 && additionalAnswerRecords.size() == 0) {
             return null;
@@ -547,12 +562,10 @@ public class MdnsRecordRepository {
             @Nullable List<RecordInfo<MdnsPointerRecord>> servicePtrRecords,
             @Nullable RecordInfo<MdnsServiceRecord> serviceSrvRecord,
             @Nullable RecordInfo<MdnsTextRecord> serviceTxtRecord,
-            boolean replyUnicast, long now, @NonNull List<RecordInfo<?>> answerInfo,
-            @NonNull List<MdnsRecord> additionalAnswerRecords) {
+            boolean replyUnicast, long now, @NonNull Set<RecordInfo<?>> answerInfo,
+            @NonNull Set<RecordInfo<?>> additionalAnswerInfo) {
         boolean hasDnsSdPtrRecordAnswer = false;
         boolean hasDnsSdSrvRecordAnswer = false;
-        boolean hasFullyOwnedNameMatch = false;
-        boolean hasKnownAnswer = false;
 
         final int answersStartIndex = answerInfo.size();
         for (RecordInfo<?> info : serviceRecords) {
@@ -564,7 +577,6 @@ public class MdnsRecordRepository {
             if (!MdnsUtils.equalsDnsLabelIgnoreDnsCase(info.record.getName(), question.getName())) {
                 continue;
             }
-            hasFullyOwnedNameMatch |= !info.isSharedName;
 
             // The repository does not store CNAME records
             if (question.getType() != MdnsRecord.TYPE_ANY
@@ -576,7 +588,6 @@ public class MdnsRecordRepository {
                 continue;
             }
 
-            hasKnownAnswer = true;
             hasDnsSdPtrRecordAnswer |= (servicePtrRecords != null
                     && CollectionUtils.any(servicePtrRecords, r -> info == r));
             hasDnsSdSrvRecordAnswer |= (info == serviceSrvRecord);
@@ -593,26 +604,9 @@ public class MdnsRecordRepository {
             answerInfo.add(info);
         }
 
-        // RFC6762 6.1:
-        // "Any time a responder receives a query for a name for which it has verified exclusive
-        // ownership, for a type for which that name has no records, the responder MUST [...]
-        // respond asserting the nonexistence of that record"
-        if (hasFullyOwnedNameMatch && !hasKnownAnswer) {
-            additionalAnswerRecords.add(new MdnsNsecRecord(
-                    question.getName(),
-                    0L /* receiptTimeMillis */,
-                    true /* cacheFlush */,
-                    // TODO: RFC6762 6.1: "In general, the TTL given for an NSEC record SHOULD
-                    // be the same as the TTL that the record would have had, had it existed."
-                    NAME_RECORDS_TTL_MILLIS,
-                    question.getName(),
-                    new int[] { question.getType() }));
-        }
-
         // No more records to add if no answer
         if (answerInfo.size() == answersStartIndex) return false;
 
-        final List<RecordInfo<?>> additionalAnswerInfo = new ArrayList<>();
         // RFC6763 12.1: if including PTR record, include the SRV and TXT records it names
         if (hasDnsSdPtrRecordAnswer) {
             if (serviceTxtRecord != null) {
@@ -632,14 +626,6 @@ public class MdnsRecordRepository {
             }
         }
 
-        for (RecordInfo<?> info : additionalAnswerInfo) {
-            additionalAnswerRecords.add(info.record);
-        }
-
-        // RFC6762 6.1: negative responses
-        addNsecRecordsForUniqueNames(additionalAnswerRecords,
-                answerInfo.listIterator(answersStartIndex),
-                additionalAnswerInfo.listIterator());
         return true;
     }
 
