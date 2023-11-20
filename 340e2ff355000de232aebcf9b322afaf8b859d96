@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a4b5807_767529b9",
+        "filename": "staticlibs/native/bpf_syscall_wrappers/include/BpfSyscallWrappers.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-20T08:37:34Z",
+      "side": 1,
+      "message": "Nit: might want to mention that -1 is a useful sentinel/guard value, since a program ID of -1 is invalid?",
+      "range": {
+        "startLine": 172,
+        "startChar": 26,
+        "endLine": 172,
+        "endChar": 64
+      },
+      "revId": "340e2ff355000de232aebcf9b322afaf8b859d96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
