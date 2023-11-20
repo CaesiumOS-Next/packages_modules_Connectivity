@@ -10343,7 +10343,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // offer can satisfy it, the provider should try and bring up the network for sure ;
             // no need to even ask the ranker – an offer that can satisfy is always better than
             // no network. Hence tell the provider so unless it already knew.
-            if (request.canBeSatisfiedBy(offer.caps) && !offer.neededFor(request)) {
+            if (request.canBeSatisfiedBy(offer) && !offer.neededFor(request)) {
                 offer.onNetworkNeeded(request);
             }
         }
@@ -10355,7 +10355,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // served by this provider or if this offer can beat the current satisfier.
             final boolean currentlyServing = satisfier != null
                     && satisfier.factorySerialNumber == offer.providerId
-                    && activeRequest.canBeSatisfiedBy(offer.caps);
+                    && activeRequest.canBeSatisfiedBy(offer);
             final boolean newNeeded = currentlyServing
                     || networkRanker.mightBeat(activeRequest, satisfier, offer);
             if (newNeeded != oldNeeded) {

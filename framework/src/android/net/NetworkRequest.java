@@ -51,6 +51,8 @@ import android.os.Process;
 import android.text.TextUtils;
 import android.util.Range;
 
+import com.android.server.connectivity.NetworkOffer;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -760,6 +762,19 @@ public class NetworkRequest implements Parcelable {
      */
     public boolean canBeSatisfiedBy(@Nullable NetworkCapabilities nc) {
         return networkCapabilities.satisfiedByNetworkCapabilities(nc);
+    }
+
+    /**
+     * Returns true if and only if the capabilities requested in this NetworkRequest are satisfied
+     * by the provided {@link NetworkOffer}.
+     *
+     * @param offer Offer that should satisfy this NetworkRequest. null capabilities do not
+     *           satisfy any request.
+     */
+    public boolean canBeSatisfiedBy(@NonNull NetworkOffer offer) {
+        final NetworkCapabilities offerNc = offer.caps;
+        offerNc.removeAllForbiddenCapabilities();
+        return networkCapabilities.satisfiedByNetworkCapabilities(offerNc);
     }
 
     /**
