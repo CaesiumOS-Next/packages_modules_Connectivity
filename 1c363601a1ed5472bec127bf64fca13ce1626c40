@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae1d9419_a4374fc8",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-20T18:57:49Z",
+      "side": 1,
+      "message": "Thanks. Resolved in aosp/2838538.",
+      "parentUuid": "6b3926b0_75de1446",
+      "range": {
+        "startLine": 45,
+        "startChar": 29,
+        "endLine": 45,
+        "endChar": 45
+      },
+      "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbedc4cb_7e93edb0",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-11-20T14:23:28Z",
       "side": 1,
       "message": "nit: final",
+      "range": {
+        "startLine": 53,
+        "startChar": 44,
+        "endLine": 53,
+        "endChar": 50
+      },
+      "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "058900a3_4d30b05d",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-20T18:57:49Z",
+      "side": 1,
+      "message": "Resolved in aosp/2838538.",
+      "parentUuid": "bbedc4cb_7e93edb0",
       "range": {
         "startLine": 53,
         "startChar": 44,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e126e97b_cb5ff62a",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-20T18:57:49Z",
+      "side": 1,
+      "message": "Resolved in aosp/2838538.",
+      "parentUuid": "502b554d_448abffe",
+      "range": {
+        "startLine": 58,
+        "startChar": 44,
+        "endLine": 58,
+        "endChar": 55
+      },
+      "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d97ecdd8_e46edb8b",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c05da3f8_2fec30a7",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmUsersaId.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-20T18:57:49Z",
+      "side": 1,
+      "message": "Resolved in aosp/2838538.",
+      "parentUuid": "d97ecdd8_e46edb8b",
+      "range": {
+        "startLine": 62,
+        "startChar": 21,
+        "endLine": 62,
+        "endChar": 27
+      },
+      "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aaca053f_b2eae399",
@@ -123,6 +219,30 @@
       "writtenOn": "2023-11-20T14:23:28Z",
       "side": 1,
       "message": "nit: final",
+      "range": {
+        "startLine": 73,
+        "startChar": 21,
+        "endLine": 73,
+        "endChar": 32
+      },
+      "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0913215d_0590d4ff",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmUsersaId.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-20T18:57:49Z",
+      "side": 1,
+      "message": "Resolved in aosp/2838538.",
+      "parentUuid": "aaca053f_b2eae399",
       "range": {
         "startLine": 73,
         "startChar": 21,
