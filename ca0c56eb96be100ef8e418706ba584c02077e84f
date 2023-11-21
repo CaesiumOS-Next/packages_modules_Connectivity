@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62aabbc4_7a082e0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-21T06:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f3d3285_c7cb0604",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 15,
+        "endChar": 10
+      },
+      "revId": "ca0c56eb96be100ef8e418706ba584c02077e84f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb6a6c06_7a32adea",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-21T05:12:24Z",
       "side": 1,
       "message": "nit: Fix?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 3
+      },
+      "revId": "ca0c56eb96be100ef8e418706ba584c02077e84f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4b901f3_5c4c87cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-21T06:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb6a6c06_7a32adea",
       "range": {
         "startLine": 17,
         "startChar": 0,
@@ -77,6 +125,30 @@
       "writtenOn": "2023-11-21T05:12:24Z",
       "side": 1,
       "message": "nit: Maybe add comment to describe what is the handler used for and why we use ConnectivityThread?",
+      "range": {
+        "startLine": 635,
+        "startChar": 8,
+        "endLine": 635,
+        "endChar": 16
+      },
+      "revId": "ca0c56eb96be100ef8e418706ba584c02077e84f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8442f24b_1f871883",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-21T06:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3d28737_a4069145",
       "range": {
         "startLine": 635,
         "startChar": 8,
