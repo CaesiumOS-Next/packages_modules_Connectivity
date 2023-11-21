@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16e8d076_fcc70bcd",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmReplayStateEsn.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-21T00:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "389e2f01_b011f8e2",
+      "range": {
+        "startLine": 40,
+        "startChar": 27,
+        "endLine": 40,
+        "endChar": 38
+      },
+      "revId": "7983b7b998ebdafda9f01198e8cbb9f64fc79bb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f3989fe_d57433ba",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96278386_ccf4f3e0",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmReplayStateEsn.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-21T00:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f3989fe_d57433ba",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 95
+      },
+      "revId": "7983b7b998ebdafda9f01198e8cbb9f64fc79bb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d05c2fb2_2812a436",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-11-17T03:34:07Z",
       "side": 1,
       "message": "Why is this different from the above in parse()?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 60
+      },
+      "revId": "7983b7b998ebdafda9f01198e8cbb9f64fc79bb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "751e0914_9078f123",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmReplayStateEsn.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-21T00:35:39Z",
+      "side": 1,
+      "message": "The mBitmap size is unknown at compile time. I changed to define a nested struct that excludes the bitmap",
+      "parentUuid": "d05c2fb2_2812a436",
       "range": {
         "startLine": 75,
         "startChar": 0,
@@ -123,6 +195,30 @@
       "writtenOn": "2023-11-17T03:34:07Z",
       "side": 1,
       "message": "Oh? We need this for getting the SA info?",
+      "range": {
+        "startLine": 44,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 41
+      },
+      "revId": "7983b7b998ebdafda9f01198e8cbb9f64fc79bb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec09cdcc_1887c696",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecXfrmNetlinkNewSaMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-21T00:35:39Z",
+      "side": 1,
+      "message": "Yes this is the response to GET_SA. It includes either XFRMA_REPLAY_ESN_VAL or XFRMA_REPLAY_VAL",
+      "parentUuid": "ce300087_5eac41c1",
       "range": {
         "startLine": 44,
         "startChar": 13,
