@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac8e019e_591cdf9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-21T01:59:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2bd3aad_1b13b704",
+      "revId": "bdc752a2110835df5f1d956b01c3c40c7d0a3af7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "407a7e2f_1ddce113",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-11-21T01:46:32Z",
       "side": 1,
       "message": "Please add a comment to describe the rationale behind not using the stable library here.",
+      "range": {
+        "startLine": 97,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 9
+      },
+      "revId": "bdc752a2110835df5f1d956b01c3c40c7d0a3af7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9930f036_81fed71a",
+        "filename": "framework/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-21T01:59:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "407a7e2f_1ddce113",
       "range": {
         "startLine": 97,
         "startChar": 8,
