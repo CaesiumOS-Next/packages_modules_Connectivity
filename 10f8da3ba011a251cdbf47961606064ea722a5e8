@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82a63b2b_d523977d",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecXfrmNetlinkGetSaMessage.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-21T21:43:47Z",
+      "side": 1,
+      "message": "Moved to XfrmNetlinkGetSaMessage",
+      "range": {
+        "startLine": 43,
+        "startChar": 13,
+        "endLine": 43,
+        "endChar": 41
+      },
+      "revId": "10f8da3ba011a251cdbf47961606064ea722a5e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c333d6f_5815f32d",
@@ -14,6 +37,30 @@
       "writtenOn": "2023-11-20T15:26:32Z",
       "side": 1,
       "message": "how about renaming it to mUserSaId or mXfrmUserSaId? and add @NonNull?",
+      "range": {
+        "startLine": 44,
+        "startChar": 36,
+        "endLine": 44,
+        "endChar": 60
+      },
+      "revId": "10f8da3ba011a251cdbf47961606064ea722a5e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40856c89_18492188",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecXfrmNetlinkGetSaMessage.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-21T21:43:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c333d6f_5815f32d",
       "range": {
         "startLine": 44,
         "startChar": 36,
@@ -47,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "083ae3e4_a47c87af",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecXfrmNetlinkGetSaMessage.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-21T21:43:47Z",
+      "side": 1,
+      "message": "As discussed, the base class provide #pack method and the subclasses override #packPayload",
+      "parentUuid": "9c97fcfd_7bfabf8c",
+      "range": {
+        "startLine": 61,
+        "startChar": 19,
+        "endLine": 61,
+        "endChar": 30
+      },
+      "revId": "10f8da3ba011a251cdbf47961606064ea722a5e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f02cdabe_207e4f15",
@@ -70,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92ed478f_4a7fe760",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecXfrmNetlinkGetSaMessage.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-21T21:43:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f02cdabe_207e4f15",
+      "range": {
+        "startLine": 70,
+        "startChar": 11,
+        "endLine": 70,
+        "endChar": 21
+      },
+      "revId": "10f8da3ba011a251cdbf47961606064ea722a5e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96bae56f_36c46aa1",
@@ -83,6 +178,30 @@
       "writtenOn": "2023-11-20T15:26:32Z",
       "side": 1,
       "message": "looks like this parse() is dup to NetlinkMessage.parse(). Instead of duplicating the code, how about just adding the corresponding family in the NetlinkMessage.parse, something like:\n```\n        // Netlink family messages. The netlink family is required. Note that the reason for using\n        // if-statement is that switch-case can\u0027t be used because the OsConstants.NETLINK_* are\n        // not constant.\n        final NetlinkMessage parsed;\n        if (nlFamily \u003d\u003d OsConstants.NETLINK_ROUTE) {\n            parsed \u003d parseRtMessage(nlmsghdr, byteBuffer);\n        } else if (nlFamily \u003d\u003d OsConstants.NETLINK_INET_DIAG) {\n            parsed \u003d parseInetDiagMessage(nlmsghdr, byteBuffer);\n        } else if (nlFamily \u003d\u003d OsConstants.NETLINK_NETFILTER) {\n            parsed \u003d parseNfMessage(nlmsghdr, byteBuffer);\n        } else if (nlFamily \u003d\u003d OsConstants.NETLINK_XFRM) { // assume that NETLINK_XFRM is the correct family type.\n            parsed \u003d parseXfrmMessage(nlmsghdr, byteBuffer);\n        } else {\n            parsed \u003d null;\n        }\n```\n\nThen in parseXfrmMessage(), we can do something similar to the rtnetlink:\n```\n    @Nullable\n    private static NetlinkMessage parseXfrmMessage(@NonNull StructNlMsgHdr nlmsghdr,\n            @NonNull ByteBuffer byteBuffer) {\n        switch (nlmsghdr.nlmsg_type) {\n            case NetlinkConstants.XFRM_MSG_GETSA:\n                return (NetlinkMessage) IpSecXfrmNetlinkGetSaMessage.parse(nlmsghdr, byteBuffer);\n            // TODO: support other XFRM_* relevant message type.\n            default: return null;\n        }\n    }\n```\n\nThen I guess probably we don\u0027t need a separate IpSecXfrmNetlinkMessage class? given the xfrmnetlink message is still a netlink message, the header should be identical, is it? If so, then we can just use NetlinkMessage class.",
+      "range": {
+        "startLine": 55,
+        "startChar": 33,
+        "endLine": 55,
+        "endChar": 38
+      },
+      "revId": "10f8da3ba011a251cdbf47961606064ea722a5e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5803ff24_3de4e41a",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecXfrmNetlinkMessage.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-21T21:43:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96bae56f_36c46aa1",
       "range": {
         "startLine": 55,
         "startChar": 33,
