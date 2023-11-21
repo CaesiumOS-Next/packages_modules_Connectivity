@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae85f12d_6c6d98e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T06:19:02Z",
+      "side": 1,
+      "message": "Hi Xiao,\n\nCould you take a look at Ipv6Utils.java? Thanks!\n\nRegards,\nHanda",
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
