@@ -14,4 +14,3 @@
     static final % CMD_*;
     static final % EVENT_*;
 }
-
