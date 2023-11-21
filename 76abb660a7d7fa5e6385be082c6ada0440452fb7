@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7370a2c_7af2c290",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 38
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-21T13:05:23Z",
+      "side": 1,
+      "message": "LGTM, over to Lorenzo for CTS approval",
+      "revId": "76abb660a7d7fa5e6385be082c6ada0440452fb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
