@@ -290,9 +290,6 @@ public class ConnectivityManagerTest {
     // device could have only one interface: data, wifi.
     private static final int MIN_NUM_NETWORK_TYPES = 1;
 
-    // Airplane Mode BroadcastReceiver Timeout
-    private static final long AIRPLANE_MODE_CHANGE_TIMEOUT_MS = 10_000L;
-
     // Timeout for applying uids allowed on restricted networks
     private static final long APPLYING_UIDS_ALLOWED_ON_RESTRICTED_NETWORKS_TIMEOUT_MS = 3_000L;
 
@@ -2155,7 +2152,7 @@ public class ConnectivityManagerTest {
                 && !SdkLevel.isAtLeastT();
         final boolean supportTelephony = mPackageManager.hasSystemFeature(FEATURE_TELEPHONY);
         // store the current state of airplane mode
-        final boolean isAirplaneModeEnabled = isAirplaneModeEnabled();
+        final boolean isAirplaneModeEnabled = mCtsNetUtils.isAirplaneModeEnabled();
         final TestableNetworkCallback wifiCb = new TestableNetworkCallback();
         final TestableNetworkCallback telephonyCb = new TestableNetworkCallback();
         // disable airplane mode to reach a known state
@@ -2175,14 +2172,16 @@ public class ConnectivityManagerTest {
 
         try {
             // Verify we cannot set Airplane Mode without correct permission:
-            assertThrows(SecurityException.class, () -> setAndVerifyAirplaneMode(true));
+            assertThrows(SecurityException.class,
+                    () -> mCtsNetUtils.setAndVerifyAirplaneMode(mContext, mCm, true));
 
             // disable airplane mode again to reach a known state
             runShellCommand("cmd connectivity airplane-mode disable");
 
             // Verify we can enable Airplane Mode with correct permission.
             // TODO: test that NETWORK_AIRPLANE_MODE works as well, once the shell has it.
-            runAsShell(NETWORK_SETTINGS, () -> setAndVerifyAirplaneMode(true));
+            runAsShell(NETWORK_SETTINGS,
+                    () -> mCtsNetUtils.setAndVerifyAirplaneMode(mContext, mCm, true));
 
             // Verify that the enabling airplane mode takes effect as expected to prevent flakiness
             // caused by fast airplane mode switches. Ensure network lost before turning off
@@ -2191,7 +2190,8 @@ public class ConnectivityManagerTest {
             if (supportTelephony) waitForLost(telephonyCb);
 
             // Verify we can disable Airplane Mode with correct permission:
-            runAsShell(NETWORK_SETTINGS, () -> setAndVerifyAirplaneMode(false));
+            runAsShell(NETWORK_SETTINGS,
+                    () -> mCtsNetUtils.setAndVerifyAirplaneMode(mContext, mCm, false));
 
             // Verify that turning airplane mode off takes effect as expected.
             // connectToCell only registers a request, it cannot / does not need to be called twice
@@ -2234,34 +2234,6 @@ public class ConnectivityManagerTest {
     private void waitForLost(@NonNull final TestableNetworkCallback cb) {
         cb.eventuallyExpect(CallbackEntry.LOST, NETWORK_CALLBACK_TIMEOUT_MS,
                 c -> c instanceof CallbackEntry.Lost);
-    }
-
-    private void setAndVerifyAirplaneMode(Boolean expectedResult)
-            throws Exception {
-        final CompletableFuture<Boolean> actualResult = new CompletableFuture();
-        BroadcastReceiver receiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                // The defaultValue of getExtraBoolean should be the opposite of what is
-                // expected, thus ensuring a test failure if the extra is absent.
-                actualResult.complete(intent.getBooleanExtra("state", !expectedResult));
-            }
-        };
-        try {
-            mContext.registerReceiver(receiver,
-                    new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED));
-            mCm.setAirplaneMode(expectedResult);
-            final String msg = "Setting Airplane Mode failed,";
-            assertEquals(msg, expectedResult, actualResult.get(AIRPLANE_MODE_CHANGE_TIMEOUT_MS,
-                    TimeUnit.MILLISECONDS));
-        } finally {
-            mContext.unregisterReceiver(receiver);
-        }
-    }
-
-    private static boolean isAirplaneModeEnabled() {
-        return runShellCommand("cmd connectivity airplane-mode")
-                .trim().equals("enabled");
     }
 
     @Test

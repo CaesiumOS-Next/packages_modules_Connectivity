@@ -23,6 +23,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 
 import static com.android.compatibility.common.util.PropertyUtil.getFirstApiLevel;
+import static com.android.compatibility.common.util.SystemUtil.runShellCommand;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static org.junit.Assert.assertEquals;
@@ -95,6 +96,8 @@ public final class CtsNetUtils {
 
     private static final int PRIVATE_DNS_SETTING_TIMEOUT_MS = 10_000;
     private static final int CONNECTIVITY_CHANGE_TIMEOUT_SECS = 30;
+    // Airplane Mode BroadcastReceiver Timeout
+    private static final long AIRPLANE_MODE_CHANGE_TIMEOUT_MS = 10_000L;
 
     private static final String PRIVATE_DNS_MODE_OPPORTUNISTIC = "opportunistic";
     private static final String PRIVATE_DNS_MODE_STRICT = "hostname";
@@ -422,6 +425,42 @@ public final class CtsNetUtils {
         if (cellConnectAttempted()) {
             disconnectFromCell();
         }
+    }
+
+    /**
+     * Set airplane mode to the passed value of |enabled| and wait for it to be effective.
+     *
+     * @param context a context (used to register a broadcast receiver)
+     * @param cm an instance of ConnectivityManager
+     * @param enabled whether airplane mode should be enabled
+     */
+    public static void setAndVerifyAirplaneMode(@NonNull final Context context,
+            @NonNull final ConnectivityManager cm, @Nullable final boolean enabled)
+            throws Exception {
+        final CompletableFuture<Boolean> actualResult = new CompletableFuture();
+        BroadcastReceiver receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // The defaultValue of getExtraBoolean should be the opposite of what is
+                // expected, thus ensuring a test failure if the extra is absent.
+                actualResult.complete(intent.getBooleanExtra("state", !enabled));
+            }
+        };
+        try {
+            context.registerReceiver(receiver,
+                    new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED));
+            cm.setAirplaneMode(enabled);
+            final String msg = "Setting Airplane Mode failed,";
+            assertEquals(msg, enabled, actualResult.get(AIRPLANE_MODE_CHANGE_TIMEOUT_MS,
+                    TimeUnit.MILLISECONDS));
+        } finally {
+            context.unregisterReceiver(receiver);
+        }
+    }
+
+    public static boolean isAirplaneModeEnabled() {
+        return runShellCommand("cmd connectivity airplane-mode")
+                .trim().equals("enabled");
     }
 
     private NetworkRequest makeWifiNetworkRequest() {
