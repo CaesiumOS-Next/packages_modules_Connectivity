@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f3d3285_c7cb0604",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-21T05:12:24Z",
+      "side": 1,
+      "message": "nit: Maybe also describe more about what is ConnectivityThread and why leaking it is that fine.",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 15,
+        "endChar": 10
+      },
+      "revId": "ca0c56eb96be100ef8e418706ba584c02077e84f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb6a6c06_7a32adea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-21T05:12:24Z",
+      "side": 1,
+      "message": "nit: Fix?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 3
+      },
+      "revId": "ca0c56eb96be100ef8e418706ba584c02077e84f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d70fb0d_c835d4a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-21T05:12:24Z",
+      "side": 1,
+      "message": "LGTM with nits that can be ignored.",
+      "revId": "ca0c56eb96be100ef8e418706ba584c02077e84f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3d28737_a4069145",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-21T05:12:24Z",
+      "side": 1,
+      "message": "nit: Maybe add comment to describe what is the handler used for and why we use ConnectivityThread?",
+      "range": {
+        "startLine": 635,
+        "startChar": 8,
+        "endLine": 635,
+        "endChar": 16
+      },
+      "revId": "ca0c56eb96be100ef8e418706ba584c02077e84f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f32c3a82_0da3ab59",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-11-21T05:12:24Z",
+      "side": 1,
+      "message": "Not related to this CL.\nIt seems to me MdnsServiceCacheTest is also leaking.\n\n11-15 16:30:13 I/TestFailureListener: FailureListener.testFailed android.net.connectivity.com.android.server.connectivity.mdns.MdnsServiceCacheTest#ThreadLeakMonitor false\n11-15 16:30:13 I/ModuleListener: [1972/3060] 0.0.0.0:6521 com.android.connectivity.tests.coverage android.net.connectivity.com.android.server.connectivity.mdns.MdnsServiceCacheTest#ThreadLeakMonitor FAILURE: java.lang.IllegalStateException: removed: {}, added {MdnsServiceCacheTest\u003d1}\n\tat com.android.testutils.DevSdkIgnoreRunner.run(DevSdkIgnoreRunner.kt:116)\n\tat org.junit.runners.Suite.runChild(Suite.java:128)\n\tat org.junit.runners.Suite.runChild(Suite.java:27)\n\tat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\n\tat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\n\tat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\n\tat org.junit.runners.ParentRunner.-$$Nest$mrunChildren(Unknown Source:0)\n\tat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\n\tat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\n\tat org.junit.runners.ParentRunner.run(ParentRunner.java:413)\n\tat org.junit.runner.JUnitCore.run(JUnitCore.java:137)\n\tat org.junit.runner.JUnitCore.run(JUnitCore.java:115)\n\tat androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:67)\n\tat androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:58)\n\tat androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:445)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2402)",
+      "range": {
+        "startLine": 148,
+        "startChar": 20,
+        "endLine": 148,
+        "endChar": 37
+      },
+      "revId": "ca0c56eb96be100ef8e418706ba584c02077e84f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
