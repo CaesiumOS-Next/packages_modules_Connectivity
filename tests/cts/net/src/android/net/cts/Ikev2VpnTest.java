@@ -58,6 +58,7 @@ import android.os.Build;
 import android.os.Process;
 import android.platform.test.annotations.AppModeFull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.test.InstrumentationRegistry;
 
@@ -566,7 +567,7 @@ public class Ikev2VpnTest {
                 && Process.myUid() == c.getOwnerUid());
         cb.expect(CallbackEntry.LINK_PROPERTIES_CHANGED, vpnNetwork);
         cb.expect(CallbackEntry.BLOCKED_STATUS, vpnNetwork);
-
+        Log.d(TAG, "[DBG] Got callback");
         // A VPN that requires validation is initially not validated, while one that doesn't
         // immediately validate automatically. Because this VPN can't actually access Internet,
         // the VPN only validates if it doesn't require validation. If the VPN requires validation
@@ -581,12 +582,13 @@ public class Ikev2VpnTest {
                     entry -> ((CallbackEntry.CapabilitiesChanged) entry).getCaps()
                             .hasCapability(NET_CAPABILITY_VALIDATED));
         }
-
+        Log.d(TAG, "[DBG] calling to stopProvisionedVpnProfile");
         sVpnMgr.stopProvisionedVpnProfile();
         // Using expectCallback may cause the test to be flaky since test may receive other
         // callbacks such as linkproperties change.
         cb.eventuallyExpect(CallbackEntry.LOST, TIMEOUT_MS,
                 lost -> vpnNetwork.equals(lost.getNetwork()));
+        Log.d(TAG, "[DBG] Got onLost");
     }
 
     private void registerNetworkCallback(NetworkRequest request, TestableNetworkCallback callback) {
@@ -626,7 +628,9 @@ public class Ikev2VpnTest {
 
         @Override
         public void cleanupTest() {
+            Log.d(TAG, "cleanupTest");
             sVpnMgr.stopProvisionedVpnProfile();
+
         }
 
         @Override
