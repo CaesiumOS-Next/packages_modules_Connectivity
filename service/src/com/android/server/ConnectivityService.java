@@ -2493,7 +2493,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 // Not the system, so it's an app requesting on its own behalf.
                 type = RequestType.RT_APP.getNumber();
             }
-            countPerType.put(type, countPerType.get(type, 0));
+            countPerType.put(type, 1 + countPerType.get(type, 0));
         }
         for (int i = countPerType.size() - 1; i >= 0; --i) {
             final RequestCountForType.Builder r = RequestCountForType.newBuilder();
