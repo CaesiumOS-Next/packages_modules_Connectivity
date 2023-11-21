@@ -25,7 +25,10 @@ filegroup {
 
 java_library {
     name: "service-thread-pre-jarjar",
-    defaults: ["framework-system-server-module-defaults"],
+    defaults: [
+        "framework-system-server-module-defaults",
+        "framework-system-server-module-optimize-defaults",
+    ],
     sdk_version: "system_server_current",
     // This is included in service-connectivity which is 30+
     // TODO (b/293613362): allow APEXes to have service jars with higher min_sdk than the APEX
@@ -36,6 +39,8 @@ java_library {
         "framework-connectivity-pre-jarjar",
         "framework-connectivity-t-pre-jarjar",
         "service-connectivity-pre-jarjar",
+        "framework-connectivity.impl",
+        "framework-connectivity-t.impl",
     ],
     static_libs: [
         "net-utils-device-common",
@@ -43,9 +48,6 @@ java_library {
         "ot-daemon-aidl-java",
     ],
     apex_available: ["com.android.tethering"],
-    optimize: {
-        proguard_flags_files: ["proguard.flags"],
-    },
 }
 
 cc_library_shared {
