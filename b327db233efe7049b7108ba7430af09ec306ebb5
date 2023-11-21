@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce70e114_d65b1ed9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-21T02:10:39Z",
+      "side": 1,
+      "message": "I think all functions in IMDnsEventListener.aidl can be deprecated too.",
+      "revId": "b327db233efe7049b7108ba7430af09ec306ebb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
