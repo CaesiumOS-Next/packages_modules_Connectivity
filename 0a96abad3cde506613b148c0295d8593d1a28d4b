@@ -70,6 +70,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f320e7a4_90fc9ab1",
+        "filename": "thread/tests/integration/Android.bp",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aeafb1c1_15ee96e8",
+      "range": {
+        "startLine": 41,
+        "startChar": 11,
+        "endLine": 41,
+        "endChar": 33
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a31ace36_3dd55ed6",
@@ -116,6 +140,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b35cf2b_ae4b3955",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b94df08_f84b3909",
+      "range": {
+        "startLine": 86,
+        "startChar": 1,
+        "endLine": 86,
+        "endChar": 11
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6a77f73_933a1be4",
@@ -139,6 +187,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b8fcd54_b1e96952",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6a77f73_933a1be4",
+      "range": {
+        "startLine": 92,
+        "startChar": 39,
+        "endLine": 92,
+        "endChar": 42
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3825d01_d5ae251e",
@@ -152,6 +224,30 @@
       "writtenOn": "2023-11-17T02:02:10Z",
       "side": 1,
       "message": "nit:\n```suggestion\n    private static final class OtFtd {\n```",
+      "range": {
+        "startLine": 120,
+        "startChar": 12,
+        "endLine": 120,
+        "endChar": 19
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "922e4635_cf0b6f4c",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3825d01_d5ae251e",
       "range": {
         "startLine": 120,
         "startChar": 12,
@@ -208,6 +304,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c123db7d_891449bb",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fe67b9e_610356e4",
+      "range": {
+        "startLine": 199,
+        "startChar": 16,
+        "endLine": 199,
+        "endChar": 50
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89386535_aeb041e3",
@@ -221,6 +341,30 @@
       "writtenOn": "2023-11-17T02:02:10Z",
       "side": 1,
       "message": "nit: log the exception",
+      "range": {
+        "startLine": 231,
+        "startChar": 10,
+        "endLine": 231,
+        "endChar": 37
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba540f44_6a5867c4",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89386535_aeb041e3",
       "range": {
         "startLine": 231,
         "startChar": 10,
@@ -254,6 +398,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0632cc9_03a0512e",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a502c32a_6ea0cfe8",
+      "range": {
+        "startLine": 269,
+        "startChar": 43,
+        "endLine": 269,
+        "endChar": 53
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "495096b2_6c3ef080",
@@ -267,6 +435,30 @@
       "writtenOn": "2023-11-17T02:02:10Z",
       "side": 1,
       "message": "```suggestion\n    private static final class InfraNetworkDevice {\n```",
+      "range": {
+        "startLine": 275,
+        "startChar": 4,
+        "endLine": 275,
+        "endChar": 45
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "507b87ec_25987792",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:55:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "495096b2_6c3ef080",
       "range": {
         "startLine": 275,
         "startChar": 4,
@@ -300,6 +492,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19f0ab01_7e13f4ac",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6c76b75_87171ffe",
+      "range": {
+        "startLine": 331,
+        "startChar": 4,
+        "endLine": 342,
+        "endChar": 5
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b24543b_f52a89a1",
@@ -323,6 +539,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70482740_66e13d19",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b24543b_f52a89a1",
+      "range": {
+        "startLine": 345,
+        "startChar": 16,
+        "endLine": 345,
+        "endChar": 36
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74d080a2_ec212e16",
@@ -336,6 +576,30 @@
       "writtenOn": "2023-11-17T02:02:10Z",
       "side": 1,
       "message": "Move to \"setUp()\"",
+      "range": {
+        "startLine": 346,
+        "startChar": 8,
+        "endLine": 349,
+        "endChar": 91
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3726dbb9_81ad8242",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74d080a2_ec212e16",
       "range": {
         "startLine": 346,
         "startChar": 8,
@@ -371,6 +635,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "848e1840_dbf14864",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:55:23Z",
+      "side": 1,
+      "message": "What\u0027s the advantage of using `grantPermissions()` rather than `runAsShell()`?",
+      "parentUuid": "f759fa46_1b34f86d",
+      "range": {
+        "startLine": 355,
+        "startChar": 8,
+        "endLine": 356,
+        "endChar": 42
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56505914_9806c7e0",
         "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
         "patchSetId": 15
@@ -382,6 +670,30 @@
       "writtenOn": "2023-11-17T02:02:10Z",
       "side": 1,
       "message": "You should wait for the state to become attached (here is \"leader\"). See waitForStateAnyOf() for how you can write a short method for this https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java;bpv\u003d1;bpt\u003d1;l\u003d155?gsn\u003dwaitForStateAnyOf\u0026gs\u003dKYTHE%3A%2F%2Fkythe%3A%2F%2Fandroid.googlesource.com%2Fplatform%2Fsuperproject%2Fmain%2F%2Fmain%3Flang%3Djava%3Fpath%3Dandroid.net.thread.cts.ThreadNetworkControllerTest%2349ba6f76583b68f80b5340fe50a571a662cd31885257bd6e6b823b96a7ef7bb8",
+      "range": {
+        "startLine": 361,
+        "startChar": 8,
+        "endLine": 361,
+        "endChar": 28
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acd8b853_b1483bb2",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56505914_9806c7e0",
       "range": {
         "startLine": 361,
         "startChar": 8,
@@ -415,6 +727,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7954aba3_798a4d16",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5fe6bce_5b30f704",
+      "range": {
+        "startLine": 365,
+        "startChar": 8,
+        "endLine": 367,
+        "endChar": 28
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a549235_2979f150",
@@ -428,6 +764,30 @@
       "writtenOn": "2023-11-17T02:02:10Z",
       "side": 1,
       "message": "Please prepare for tests in setUp() and tear down a test in tearDown(). See go/unit-testing-practices#setUp",
+      "range": {
+        "startLine": 380,
+        "startChar": 8,
+        "endLine": 380,
+        "endChar": 79
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c80a1d8b_93c7dff0",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a549235_2979f150",
       "range": {
         "startLine": 380,
         "startChar": 8,
