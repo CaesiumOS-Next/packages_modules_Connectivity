@@ -180,6 +180,30 @@
       },
       "revId": "ca0c56eb96be100ef8e418706ba584c02077e84f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "431d3f05_3e8944f1",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-21T08:10:12Z",
+      "side": 1,
+      "message": "Fixed in aosp/2840316.",
+      "parentUuid": "f32c3a82_0da3ab59",
+      "range": {
+        "startLine": 148,
+        "startChar": 20,
+        "endLine": 148,
+        "endChar": 37
+      },
+      "revId": "ca0c56eb96be100ef8e418706ba584c02077e84f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
