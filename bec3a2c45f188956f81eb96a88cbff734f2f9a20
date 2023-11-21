@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c439b46e_ef04afdd",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-21T15:45:06Z",
+      "side": 1,
+      "message": "I think this mLock is expected to be removed finally? Better to have a TODO item to track here.",
+      "range": {
+        "startLine": 284,
+        "startChar": 20,
+        "endLine": 284,
+        "endChar": 40
+      },
+      "revId": "bec3a2c45f188956f81eb96a88cbff734f2f9a20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "941450b6_6acf7006",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-21T15:45:06Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 286,
+        "startChar": 24,
+        "endLine": 286,
+        "endChar": 28
+      },
+      "revId": "bec3a2c45f188956f81eb96a88cbff734f2f9a20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bbbece7_7b4264c0",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-21T15:45:06Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 362,
+        "startChar": 8,
+        "endLine": 362,
+        "endChar": 12
+      },
+      "revId": "bec3a2c45f188956f81eb96a88cbff734f2f9a20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddb5677d_e832df3a",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-21T15:45:06Z",
+      "side": 1,
+      "message": "Is it really necessary to use arg1, arg2? I feel obj should be enough. The handler should parse obj to get the actual argument.",
+      "range": {
+        "startLine": 683,
+        "startChar": 31,
+        "endLine": 683,
+        "endChar": 71
+      },
+      "revId": "bec3a2c45f188956f81eb96a88cbff734f2f9a20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
