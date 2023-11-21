@@ -804,7 +804,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final int EVENT_INITIAL_EVALUATION_TIMEOUT = 57;
 
     /**
-     * Used internally when the user does not want the network from captive portal app.
+     * Used internally when the user does not want the network from captive portal app or shell cmd.
      * obj = Network
      */
     private static final int EVENT_USER_DOES_NOT_WANT = 58;
@@ -11101,6 +11101,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         pw.println(ret);
                         return 0;
                     }
+                    case "kill-network": {
+                        final int killNetId = Integer.parseInt(getNextArg());
+                        final NetworkAgentInfo killNai = getNetworkAgentInfoForNetId(killNetId);
+                        if (killNai != null) {
+                            mHandler.sendMessage(mHandler.obtainMessage(
+                                    EVENT_USER_DOES_NOT_WANT, killNai.network));
+                        }
+                        return 0;
+                    }
                     default:
                         return handleDefaultCommands(cmd);
                 }
@@ -11129,6 +11138,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     + "    no effect if the chain is disabled.");
             pw.println("  get-package-networking-enabled [package name]");
             pw.println("    Get the deny bit in FIREWALL_CHAIN_OEM_DENY_3 for package.");
+            pw.println("  kill-network [netId]");
+            pw.println("    Disconnect network that has specified netId.");
         }
     }
 
