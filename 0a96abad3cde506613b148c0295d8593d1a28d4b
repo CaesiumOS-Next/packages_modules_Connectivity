@@ -755,6 +755,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00ef603c_60e5d8ce",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-21T06:04:45Z",
+      "side": 1,
+      "message": "It\u0027s the suggested way to test an API which requires system permission: go/ctswrite#write-a-test-to-test-an-api-that-requires-system-permission. It mentions CTS tests, check if this test case can actually be granted the permission.",
+      "parentUuid": "848e1840_dbf14864",
+      "range": {
+        "startLine": 355,
+        "startChar": 8,
+        "endLine": 356,
+        "endChar": 42
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56505914_9806c7e0",
         "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
         "patchSetId": 15
