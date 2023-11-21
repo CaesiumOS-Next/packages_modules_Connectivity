@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81ea9273_124200e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-21T10:39:46Z",
+      "side": 1,
+      "message": "Please add the test that would have caught this in ConnectivitySampleMetricsTest.kt",
+      "revId": "598617832fae16c1f256c81dcafb3c3b8981add6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
