@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44e3820a_58a5f2e8",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:57:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a910d8f_db0d2421",
+      "range": {
+        "startLine": 335,
+        "startChar": 34,
+        "endLine": 335,
+        "endChar": 62
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe944a65_2cd37fc5",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-17T02:02:10Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 388,
+        "startChar": 34,
+        "endLine": 388,
+        "endChar": 62
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "221afa72_8863fb1b",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:57:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe944a65_2cd37fc5",
       "range": {
         "startLine": 388,
         "startChar": 34,
@@ -107,6 +155,30 @@
       "writtenOn": "2023-11-17T02:02:10Z",
       "side": 1,
       "message": "-\u003e permission",
+      "range": {
+        "startLine": 23,
+        "startChar": 85,
+        "endLine": 23,
+        "endChar": 93
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8af211d_2214a037",
+        "filename": "thread/tests/integration/AndroidManifest.xml",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:57:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a31ace36_3dd55ed6",
       "range": {
         "startLine": 23,
         "startChar": 85,
@@ -271,6 +343,30 @@
       "writtenOn": "2023-11-17T02:02:10Z",
       "side": 1,
       "message": "Really needs so many new-lines?",
+      "range": {
+        "startLine": 177,
+        "startChar": 32,
+        "endLine": 177,
+        "endChar": 36
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d5703f5_d58cc79a",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:57:19Z",
+      "side": 1,
+      "message": "I\u0027m not sure about the minimal number of characters we need to fill here but I think it\u0027s not so harmful to write 1000 characters to fill up the buffer.",
+      "parentUuid": "47bf44a7_3678bac8",
       "range": {
         "startLine": 177,
         "startChar": 32,

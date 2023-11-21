@@ -16,6 +16,24 @@
       "message": "Check why adding this.",
       "revId": "55aa38a6de6275d56c55985a814a14454be3fab0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c70be68_0b3e29f3",
+        "filename": "framework/Android.bp",
+        "patchSetId": 18
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T05:57:19Z",
+      "side": 1,
+      "message": "No need to add this. Removed.",
+      "parentUuid": "b1649588_af833da1",
+      "revId": "55aa38a6de6275d56c55985a814a14454be3fab0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
