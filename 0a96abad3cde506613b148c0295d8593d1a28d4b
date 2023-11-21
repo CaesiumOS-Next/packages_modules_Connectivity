@@ -777,6 +777,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ca444db_d4187eed",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-21T06:17:12Z",
+      "side": 1,
+      "message": "IIUC `RunAsShell` is doing granting \u0026 revoking permissions. It\u0027s implemented based on `grantPermissions()`.",
+      "parentUuid": "00ef603c_60e5d8ce",
+      "range": {
+        "startLine": 355,
+        "startChar": 8,
+        "endLine": 356,
+        "endChar": 42
+      },
+      "revId": "0a96abad3cde506613b148c0295d8593d1a28d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56505914_9806c7e0",
