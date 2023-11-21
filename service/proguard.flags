@@ -15,3 +15,5 @@
     static final % EVENT_*;
 }
 
+-printusage
+-printseeds
