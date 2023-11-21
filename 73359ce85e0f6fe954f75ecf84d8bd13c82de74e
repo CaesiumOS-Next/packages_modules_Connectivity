@@ -16,6 +16,213 @@
       "message": "Hi Xiao,\n\nCould you take a look at Ipv6Utils.java? Thanks!\n\nRegards,\nHanda",
       "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51622aad_f9c50633",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-21T11:36:26Z",
+      "side": 1,
+      "message": "quit the handler thread looper at tearDown(), to prevent the potential memory leak, maybe do something like:\n\n```\n    if (mHandlerThread !\u003d null) {\n        mHandlerThread.quitSafely();\n        mHandlerThread.join();\n    }\n```",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 31
+      },
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e098d61_aca3111f",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-21T11:36:26Z",
+      "side": 1,
+      "message": "do you need to cleanup mActiveOperationalDataset when stopping thread radio?",
+      "range": {
+        "startLine": 164,
+        "startChar": 20,
+        "endLine": 164,
+        "endChar": 35
+      },
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "978aa83b_3f4fb7ae",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-21T11:36:26Z",
+      "side": 1,
+      "message": "nit: List\u003cString\u003e",
+      "range": {
+        "startLine": 196,
+        "startChar": 16,
+        "endLine": 196,
+        "endChar": 25
+      },
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f040e2b_0f10eaef",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-21T11:36:26Z",
+      "side": 1,
+      "message": "nit: List\u003cString\u003e",
+      "range": {
+        "startLine": 206,
+        "startChar": 16,
+        "endLine": 206,
+        "endChar": 25
+      },
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10f237b9_b8fb757b",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-21T11:36:26Z",
+      "side": 1,
+      "message": "nit: suggest to have a variable such as ipv6Header icmpv6Header, which is clear.\n```\nfinal Ipv6Header ipv6Header \u003d Struct.parse(Ipv6Header.class, buf);\nipv6Header.nextHeader !\u003d (byte) IPPROTO_ICMPV6)\n```",
+      "range": {
+        "startLine": 250,
+        "startChar": 16,
+        "endLine": 250,
+        "endChar": 51
+      },
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19c5fcab_e9fc2650",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-21T11:36:26Z",
+      "side": 1,
+      "message": "nit: getPios() or getPrefixInformationOptions()",
+      "range": {
+        "startLine": 260,
+        "startChar": 49,
+        "endLine": 260,
+        "endChar": 67
+      },
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e870c6f_daa7ab03",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-21T11:36:26Z",
+      "side": 1,
+      "message": "maybe move this line to the top, and return pioList (which is empty array) at L262/267/271, and add the valid element during parsing.",
+      "range": {
+        "startLine": 275,
+        "startChar": 8,
+        "endLine": 275,
+        "endChar": 77
+      },
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72e7010e_4eefd04f",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-21T11:36:26Z",
+      "side": 1,
+      "message": "nit: 40s is too long for running a test, and this may introduce flaky, any callback will tell us the ftd has been booted up?",
+      "range": {
+        "startLine": 391,
+        "startChar": 21,
+        "endLine": 391,
+        "endChar": 26
+      },
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fb135c6_ea855198",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-21T11:36:26Z",
+      "side": 1,
+      "message": "nit: suggest to move this below to setUp()",
+      "range": {
+        "startLine": 408,
+        "startChar": 16,
+        "endLine": 408,
+        "endChar": 24
+      },
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
