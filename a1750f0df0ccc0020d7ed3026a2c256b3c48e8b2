@@ -1,0 +1,297 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01a8756e_7f57ea8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 51
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-21T13:01:30Z",
+      "side": 1,
+      "message": "Generally LGTM. I think this also works correctly with unregisterAfterReplacement.",
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6d2e2a0_35a972da",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-21T13:01:30Z",
+      "side": 1,
+      "message": "Should this constant move to ConnectivityFlags ?",
+      "range": {
+        "startLine": 981,
+        "startChar": 31,
+        "endLine": 981,
+        "endChar": 63
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40b28b61_612a3ed2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 8796,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-21T13:01:30Z",
+      "side": 1,
+      "message": "I\u0027m not sure I understand this well – there can be multiple VPNs active on a device at any time (just non on the same user), and this kind of sounds like there can only be one. I expect you mean this is the only interface of the VPN ? If so how about `The VPN has only one interface, and only this interface has this address` ? Or, if it\u0027s guaranteed that VPNs have only one interface, `Only the VPN interface has this address (VPNs can only have one interface)`",
+      "range": {
+        "startLine": 8796,
+        "startChar": 17,
+        "endLine": 8796,
+        "endChar": 31
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9059f8e9_4921e969",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 8798,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-21T13:01:30Z",
+      "side": 1,
+      "message": "I think this needs a little more explanation because you could access nai.linkProperties. Presumably this doesn\u0027t work for you ; you should explain what is the use case. I presume this is because it\u0027s the new link properties ? You could say something like\n\n    * @param nai the nai for which to generate rules\n    * @param nai the link properties of the agent, including possibly the new\n    *            link properties that this agent is about to adopt",
+      "range": {
+        "startLine": 8798,
+        "startChar": 34,
+        "endLine": 8798,
+        "endChar": 85
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "759bfd22_e7db63db",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 8802,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-21T13:01:30Z",
+      "side": 1,
+      "message": "I think this method is more expensive than it should, especially when there is no VPN. You could do a lot less work on average by gathering the addresses first, e.g.\n\n    Map\u003c\u003e addresses \u003d null;\n    for (mNetworkAgentInfos) {\n      if (!VPN) continue\n      if (null \u003d\u003d addresses) addresses \u003d new ArrayMap\u003c\u003e();\n      for (agent.lp.getAllAddresses) {\n        if (!address.isLinkLocal) addresses.add(address, iface)\n      }\n    }\n    if (null \u003d\u003d addresses) return\n    for (mNetworkAgentInfos) {\n      if (agent.equals(nai)) continue\n      for (agent.getAllAddresses) addresses.remove(address)\n    }",
+      "range": {
+        "startLine": 8802,
+        "startChar": 43,
+        "endLine": 8802,
+        "endChar": 70
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14adaf2a_69bfe9b5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 8809,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-21T13:01:30Z",
+      "side": 1,
+      "message": "I think this is never supposed to happen (and would be dangerous if it did)",
+      "range": {
+        "startLine": 8807,
+        "startChar": 0,
+        "endLine": 8809,
+        "endChar": 13
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8f1b32c_afabffd6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 8826,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-21T13:01:30Z",
+      "side": 1,
+      "message": "Not possible, considering that you already added all the counts for all addresses inside addressOwnerCounts ?",
+      "range": {
+        "startLine": 8826,
+        "startChar": 42,
+        "endLine": 8826,
+        "endChar": 51
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b085879_95903570",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 51
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-21T13:01:30Z",
+      "side": 1,
+      "message": "nit : import",
+      "range": {
+        "startLine": 104,
+        "startChar": 49,
+        "endLine": 104,
+        "endChar": 70
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cc388c6_63205683",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 51
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-21T13:01:30Z",
+      "side": 1,
+      "message": "Maybe a stronger check is verifyNoMoreInteractions",
+      "range": {
+        "startLine": 132,
+        "startChar": 35,
+        "endLine": 132,
+        "endChar": 40
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ad2c54a_d2e2bf70",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 51
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-21T13:01:30Z",
+      "side": 1,
+      "message": "a",
+      "range": {
+        "startLine": 174,
+        "startChar": 41,
+        "endLine": 174,
+        "endChar": 44
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "480eba1d_91892fb5",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 51
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-21T13:01:30Z",
+      "side": 1,
+      "message": "as",
+      "range": {
+        "startLine": 183,
+        "startChar": 63,
+        "endLine": 183,
+        "endChar": 67
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2ef6c25_081e8abb",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 51
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-21T13:01:30Z",
+      "side": 1,
+      "message": "a",
+      "range": {
+        "startLine": 224,
+        "startChar": 43,
+        "endLine": 224,
+        "endChar": 46
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0256f07b_da8419e7",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 51
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-11-21T13:01:30Z",
+      "side": 1,
+      "message": "as",
+      "range": {
+        "startLine": 234,
+        "startChar": 65,
+        "endLine": 234,
+        "endChar": 69
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
