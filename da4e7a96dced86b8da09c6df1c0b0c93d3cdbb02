@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfa629e4_7dc1a31c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-22T21:16:56Z",
+      "side": 1,
+      "message": "Yeah will ask Ben to take another look",
+      "parentUuid": "170bfe4c_018151c3",
+      "revId": "da4e7a96dced86b8da09c6df1c0b0c93d3cdbb02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fd04267_1d4293f2",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a196f332_79563ec4",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/XfrmNetlinkGetSaMessage.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-22T21:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fd04267_1d4293f2",
+      "range": {
+        "startLine": 83,
+        "startChar": 61,
+        "endLine": 83,
+        "endChar": 71
+      },
+      "revId": "da4e7a96dced86b8da09c6df1c0b0c93d3cdbb02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "234d1b0d_a0e6ec5e",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-11-22T11:16:22Z",
       "side": 1,
       "message": "The position of bytebuffer doesn\u0027t move forward if we stop parsing the remaining bytes, that should be fine if bytebuffer only contain one netlink message (ideally it should be, AFAIC, kernel sends one netlink message as respond to the request netlink message). maybe have a double check, if that\u0027s not always the case, maybe we can do something similar to what RtNetlinkNeighborMessage does.",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 35
+      },
+      "revId": "da4e7a96dced86b8da09c6df1c0b0c93d3cdbb02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6f7df90_707d78ae",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/XfrmNetlinkGetSaMessage.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-22T21:16:56Z",
+      "side": 1,
+      "message": "I expect caller to call it from NetlinkMessage and the #parse method there will move the position to the end of the message. I updated the method name and access modifier as well as method doc to make the caller expectation more explicit.",
+      "parentUuid": "234d1b0d_a0e6ec5e",
       "range": {
         "startLine": 89,
         "startChar": 11,
