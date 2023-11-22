@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e36af076_5ee577bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-22T14:03:21Z",
+      "side": 1,
+      "message": "it seems the PREFIX_LENGTH \u003d 24, is this comment accurate?\nShould it be as follows?\n\n  -  RandomInt \u0026 0x00f0 -\u003e A\n  -  RandomInt \u0026 0x000f -\u003e B",
+      "range": {
+        "startLine": 15,
+        "startChar": 17,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "d1aa3f0840a3fa504599c7ae9606915ca9608b1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58531a10_de6dc394",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-22T14:03:21Z",
+      "side": 1,
+      "message": "Maybe irrelevant to this CL: it will be better to make mRandom local variable instead of create the Random() object all the time.",
+      "range": {
+        "startLine": 332,
+        "startChar": 16,
+        "endLine": 332,
+        "endChar": 28
+      },
+      "revId": "d1aa3f0840a3fa504599c7ae9606915ca9608b1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
