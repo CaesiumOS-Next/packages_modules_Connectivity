@@ -13004,6 +13004,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @Override
     public void updateMeteredNetworkAllowList(final int uid, final boolean add) {
         enforceNetworkStackOrSettingsPermission();
+        Log.e(TAG, "test");
 
         try {
             if (add) {
