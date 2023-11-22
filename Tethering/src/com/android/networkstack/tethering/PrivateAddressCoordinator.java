@@ -281,12 +281,13 @@ public class PrivateAddressCoordinator {
         // is less than 127.0.0.0 = 0x7f000000 = 2130706432.
         //
         // Additionally, it makes debug output easier to read by making the numbers smaller.
-        final int randomPrefixStart = getRandomInt() & ~prefixRangeMask & prefixMask;
+        final int randomInt = getRandomInt();
+        final int randomPrefixStart = randomInt & ~prefixRangeMask & prefixMask;
 
         // A random offset within the prefix. Used to determine the local address once the prefix
         // is selected. It does not result in an IPv4 address ending in .0, .1, or .255
         // For a PREFIX_LENGTH of 255, this is a number between 2 and 254.
-        final int subAddress = getSanitizedSubAddr(~prefixMask);
+        final int subAddress = getSanitizedSubAddr(randomInt, ~prefixMask);
 
         // Find a prefix length PREFIX_LENGTH between randomPrefixStart and the end of the block,
         // such that the prefix does not conflict with any upstream.
@@ -332,8 +333,8 @@ public class PrivateAddressCoordinator {
     }
 
     /** Get random subAddress and avoid selecting x.x.x.0, x.x.x.1 and x.x.x.255 address. */
-    private int getSanitizedSubAddr(final int subAddrMask) {
-        final int randomSubAddr = getRandomInt() & subAddrMask;
+    private int getSanitizedSubAddr(final int randomInt, final int subAddrMask) {
+        final int randomSubAddr = randomInt & subAddrMask;
         // If prefix length > 30, the selecting speace would be less than 4 which may be hard to
         // avoid 3 consecutive address.
         if (PREFIX_LENGTH > 30) return randomSubAddr;
