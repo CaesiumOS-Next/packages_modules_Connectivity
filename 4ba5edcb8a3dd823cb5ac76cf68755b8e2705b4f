@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cec9ed8_f686a58b",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/OWNERS",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-22T19:12:30Z",
+      "side": 1,
+      "message": "Hi Xiao,\n\nThis should be 685852 for IPsec. 1364804 is for IKE.",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 24
+      },
+      "revId": "4ba5edcb8a3dd823cb5ac76cf68755b8e2705b4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
