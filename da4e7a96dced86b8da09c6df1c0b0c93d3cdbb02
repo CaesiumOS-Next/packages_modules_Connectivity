@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "170bfe4c_018151c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-22T11:16:22Z",
+      "side": 1,
+      "message": "LGTM, Ben probably should also take a look I guess?",
+      "revId": "da4e7a96dced86b8da09c6df1c0b0c93d3cdbb02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fd04267_1d4293f2",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/XfrmNetlinkGetSaMessage.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-22T11:16:22Z",
+      "side": 1,
+      "message": "nit: final and L70",
+      "range": {
+        "startLine": 83,
+        "startChar": 61,
+        "endLine": 83,
+        "endChar": 71
+      },
+      "revId": "da4e7a96dced86b8da09c6df1c0b0c93d3cdbb02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "234d1b0d_a0e6ec5e",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/XfrmNetlinkGetSaMessage.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-22T11:16:22Z",
+      "side": 1,
+      "message": "The position of bytebuffer doesn\u0027t move forward if we stop parsing the remaining bytes, that should be fine if bytebuffer only contain one netlink message (ideally it should be, AFAIC, kernel sends one netlink message as respond to the request netlink message). maybe have a double check, if that\u0027s not always the case, maybe we can do something similar to what RtNetlinkNeighborMessage does.",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 35
+      },
+      "revId": "da4e7a96dced86b8da09c6df1c0b0c93d3cdbb02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
