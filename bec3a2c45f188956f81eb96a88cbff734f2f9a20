@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3001aaf0_a9051286",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-22T06:54:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "941450b6_6acf7006",
+      "range": {
+        "startLine": 286,
+        "startChar": 24,
+        "endLine": 286,
+        "endChar": 28
+      },
+      "revId": "bec3a2c45f188956f81eb96a88cbff734f2f9a20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2bbbece7_7b4264c0",
@@ -94,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba57000b_3853903c",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-22T06:54:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bbbece7_7b4264c0",
+      "range": {
+        "startLine": 362,
+        "startChar": 8,
+        "endLine": 362,
+        "endChar": 12
+      },
+      "revId": "bec3a2c45f188956f81eb96a88cbff734f2f9a20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ddb5677d_e832df3a",
@@ -107,6 +155,30 @@
       "writtenOn": "2023-11-21T15:45:06Z",
       "side": 1,
       "message": "Is it really necessary to use arg1, arg2? I feel obj should be enough. The handler should parse obj to get the actual argument.",
+      "range": {
+        "startLine": 683,
+        "startChar": 31,
+        "endLine": 683,
+        "endChar": 71
+      },
+      "revId": "bec3a2c45f188956f81eb96a88cbff734f2f9a20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fffe7a3_4dff4b7f",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-22T06:54:46Z",
+      "side": 1,
+      "message": "Done. You\u0027re right, arg1 \u0026 arg2 are actually not used at all.",
+      "parentUuid": "ddb5677d_e832df3a",
       "range": {
         "startLine": 683,
         "startChar": 31,
