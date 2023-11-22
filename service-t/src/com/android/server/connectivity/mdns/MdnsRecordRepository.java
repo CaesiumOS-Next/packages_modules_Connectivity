@@ -92,6 +92,7 @@ public class MdnsRecordRepository {
     private final Looper mLooper;
     @NonNull
     private final String[] mDeviceHostname;
+    @NonNull
     private final MdnsFeatureFlags mMdnsFeatureFlags;
 
     public MdnsRecordRepository(@NonNull Looper looper, @NonNull String[] deviceHostname,
@@ -516,7 +517,7 @@ public class MdnsRecordRepository {
             // Add answers from general records
             addReplyFromService(question, mGeneralRecords, null /* servicePtrRecord */,
                     null /* serviceSrvRecord */, null /* serviceTxtRecord */, replyUnicast, now,
-                    answerInfo, additionalAnswerRecords);
+                    answerInfo, additionalAnswerRecords, Collections.emptyList());
 
             // Add answers from each service
             for (int i = 0; i < mServices.size(); i++) {
@@ -524,7 +525,7 @@ public class MdnsRecordRepository {
                 if (registration.exiting || registration.isProbing) continue;
                 if (addReplyFromService(question, registration.allRecords, registration.ptrRecords,
                         registration.srvRecord, registration.txtRecord, replyUnicast, now,
-                        answerInfo, additionalAnswerRecords)) {
+                        answerInfo, additionalAnswerRecords, packet.answers)) {
                     registration.repliedServiceCount++;
                     registration.sentPacketCount++;
                 }
@@ -577,6 +578,15 @@ public class MdnsRecordRepository {
         return new MdnsReplyInfo(answerRecords, additionalAnswerRecords, delayMs, dest);
     }
 
+    private boolean isKnownAnswer(MdnsRecord answer, @NonNull List<MdnsRecord> knownAnswerRecords) {
+        for (MdnsRecord knownAnswer : knownAnswerRecords) {
+            if (answer.equals(knownAnswer) && knownAnswer.getTtl() > (answer.getTtl() / 2)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Add answers and additional answers for a question, from a ServiceRegistration.
      */
@@ -586,7 +596,8 @@ public class MdnsRecordRepository {
             @Nullable RecordInfo<MdnsServiceRecord> serviceSrvRecord,
             @Nullable RecordInfo<MdnsTextRecord> serviceTxtRecord,
             boolean replyUnicast, long now, @NonNull List<RecordInfo<?>> answerInfo,
-            @NonNull List<MdnsRecord> additionalAnswerRecords) {
+            @NonNull List<MdnsRecord> additionalAnswerRecords,
+            @NonNull List<MdnsRecord> knownAnswerRecords) {
         boolean hasDnsSdPtrRecordAnswer = false;
         boolean hasDnsSdSrvRecordAnswer = false;
         boolean hasFullyOwnedNameMatch = false;
@@ -615,6 +626,20 @@ public class MdnsRecordRepository {
             }
 
             hasKnownAnswer = true;
+
+            // RFC6762 7.1. Known-Answer Suppression:
+            // A Multicast DNS responder MUST NOT answer a Multicast DNS query if
+            // the answer it would give is already included in the Answer Section
+            // with an RR TTL at least half the correct value.  If the RR TTL of the
+            // answer as given in the Answer Section is less than half of the true
+            // RR TTL as known by the Multicast DNS responder, the responder MUST
+            // send an answer so as to update the querier's cache before the record
+            // becomes in danger of expiration.
+            if (mMdnsFeatureFlags.mIsKnownAnswerSuppressionEnabled
+                    && isKnownAnswer(info.record, knownAnswerRecords)) {
+                continue;
+            }
+
             hasDnsSdPtrRecordAnswer |= (servicePtrRecords != null
                     && CollectionUtils.any(servicePtrRecords, r -> info == r));
             hasDnsSdSrvRecordAnswer |= (info == serviceSrvRecord);
@@ -625,8 +650,6 @@ public class MdnsRecordRepository {
                     && now - info.lastAdvertisedTimeMs < MIN_MULTICAST_REPLY_INTERVAL_MS) {
                 continue;
             }
-
-            // TODO: Don't reply if in known answers of the querier (7.1) if TTL is > half
 
             answerInfo.add(info);
         }
