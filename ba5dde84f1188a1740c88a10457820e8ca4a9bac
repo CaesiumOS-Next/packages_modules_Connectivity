@@ -16,6 +16,24 @@
       "message": "Could you check the diff in framework_connectivity_jarjar_rules.txt before and after the change ?",
       "revId": "ba5dde84f1188a1740c88a10457820e8ca4a9bac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf089314_a1b09012",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-22T14:21:53Z",
+      "side": 1,
+      "message": "I have confirmed framework_connectivity_jarjar_rules.txt before and after the change in both aosp and udc-mainline-prod",
+      "parentUuid": "feb0d690_5d64d809",
+      "revId": "ba5dde84f1188a1740c88a10457820e8ca4a9bac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
