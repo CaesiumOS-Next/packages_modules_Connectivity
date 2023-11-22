@@ -26,7 +26,6 @@ filegroup {
     ],
     path: "java",
     visibility: [
-        "//packages/modules/Connectivity/framework:__subpackages__",
         "//packages/modules/Connectivity/framework-t:__subpackages__",
     ],
 }
