@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ab546b6_19b91f0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-22T06:57:26Z",
+      "side": 1,
+      "message": "LGTM with one nit",
+      "revId": "8946dab8a0f2bbb9b0c2febb8585bcecf857ae69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a40c1e29_ebeafa8e",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-22T06:57:26Z",
+      "side": 1,
+      "message": "nit: @Nullable",
+      "range": {
+        "startLine": 673,
+        "startChar": 41,
+        "endLine": 673,
+        "endChar": 47
+      },
+      "revId": "8946dab8a0f2bbb9b0c2febb8585bcecf857ae69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
