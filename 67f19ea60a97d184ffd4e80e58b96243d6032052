@@ -16,6 +16,23 @@
       "message": "This is a follow-up commit from aosp/2238118",
       "revId": "67f19ea60a97d184ffd4e80e58b96243d6032052",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fd82394_d427be58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-22T05:46:59Z",
+      "side": 1,
+      "message": "LGTM as part of fixing the flakes in b/250250617 (cleaning up the previous workaround)",
+      "revId": "67f19ea60a97d184ffd4e80e58b96243d6032052",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
