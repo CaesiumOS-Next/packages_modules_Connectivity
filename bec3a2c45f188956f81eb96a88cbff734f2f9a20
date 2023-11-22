@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0b64451_a849f259",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-22T04:29:24Z",
+      "side": 1,
+      "message": "Acknowledged. I see the lock protection is removed in later patches.",
+      "parentUuid": "c439b46e_ef04afdd",
+      "range": {
+        "startLine": 284,
+        "startChar": 20,
+        "endLine": 284,
+        "endChar": 40
+      },
+      "revId": "bec3a2c45f188956f81eb96a88cbff734f2f9a20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "941450b6_6acf7006",
