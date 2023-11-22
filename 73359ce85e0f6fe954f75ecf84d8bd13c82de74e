@@ -88,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "caa6e79c_35f4685d",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-22T07:04:48Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s necessary because the `OtFtd.joinNetwork` will explicitly set the dataset.",
+      "parentUuid": "7e098d61_aca3111f",
+      "range": {
+        "startLine": 164,
+        "startChar": 20,
+        "endLine": 164,
+        "endChar": 35
+      },
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "978aa83b_3f4fb7ae",
