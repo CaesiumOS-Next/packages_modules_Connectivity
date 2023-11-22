@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d3ae12b_97bb19fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-22T06:16:27Z",
+      "side": 1,
+      "message": "$ diff -U3 -ru -N staticlibs/netd/aidl_api/mdns_aidl_interface/1/ \n```\nstaticlibs/netd/aidl_api/mdns_aidl_interface/2\ndiff \u0027--color\u003dauto\u0027 -U3 -ru -N staticlibs/netd/aidl_api/mdns_aidl_interface/1/android/net/mdns/aidl/IMDns.aidl staticlibs/netd/aidl_api/mdns_aidl_interface/2/android/net/mdns/aidl/IMDns.aidl\n--- staticlibs/netd/aidl_api/mdns_aidl_interface/1/android/net/mdns/aidl/IMDns.aidl\t2023-10-07 08:42:35.071472228 +0800\n+++ staticlibs/netd/aidl_api/mdns_aidl_interface/2/android/net/mdns/aidl/IMDns.aidl\t2023-11-22 13:30:56.521946803 +0800\n@@ -34,13 +34,40 @@\n package android.net.mdns.aidl;\n /* @hide */\n interface IMDns {\n+  /**\n+   * @deprecated unimplemented on V+.\n+   */\n   void startDaemon();\n+  /**\n+   * @deprecated unimplemented on V+.\n+   */\n   void stopDaemon();\n+  /**\n+   * @deprecated unimplemented on V+.\n+   */\n   void registerService(in android.net.mdns.aidl.RegistrationInfo info);\n+  /**\n+   * @deprecated unimplemented on V+.\n+   */\n   void discover(in android.net.mdns.aidl.DiscoveryInfo info);\n+  /**\n+   * @deprecated unimplemented on V+.\n+   */\n   void resolve(in android.net.mdns.aidl.ResolutionInfo info);\n+  /**\n+   * @deprecated unimplemented on V+.\n+   */\n   void getServiceAddress(in android.net.mdns.aidl.GetAddressInfo info);\n+  /**\n+   * @deprecated unimplemented on V+.\n+   */\n   void stopOperation(int id);\n+  /**\n+   * @deprecated unimplemented on V+.\n+   */\n   void registerEventListener(in android.net.mdns.aidl.IMDnsEventListener listener);\n+  /**\n+   * @deprecated unimplemented on V+.\n+   */\n   void unregisterEventListener(in android.net.mdns.aidl.IMDnsEventListener listener);\n }\ndiff \u0027--color\u003dauto\u0027 -U3 -ru -N staticlibs/netd/aidl_api/mdns_aidl_interface/1/android/net/mdns/aidl/IMDnsEventListener.aidl staticlibs/netd/aidl_api/mdns_aidl_interface/2/android/net/mdns/aidl/IMDnsEventListener.aidl\n--- staticlibs/netd/aidl_api/mdns_aidl_interface/1/android/net/mdns/aidl/IMDnsEventListener.aidl\t2023-10-07 08:42:35.071472228 +0800\n+++ staticlibs/netd/aidl_api/mdns_aidl_interface/2/android/net/mdns/aidl/IMDnsEventListener.aidl\t2023-11-22 13:30:56.521946803 +0800\n@@ -34,9 +34,21 @@\n package android.net.mdns.aidl;\n /* @hide */\n interface IMDnsEventListener {\n+  /**\n+   * @deprecated unimplemented on V+.\n+   */\n   oneway void onServiceRegistrationStatus(in android.net.mdns.aidl.RegistrationInfo status);\n+  /**\n+   * @deprecated unimplemented on V+.\n+   */\n   oneway void onServiceDiscoveryStatus(in android.net.mdns.aidl.DiscoveryInfo status);\n+  /**\n+   * @deprecated unimplemented on V+.\n+   */\n   oneway void onServiceResolutionStatus(in android.net.mdns.aidl.ResolutionInfo status);\n+  /**\n+   * @deprecated unimplemented on V+.\n+   */\n   oneway void onGettingServiceAddressStatus(in android.net.mdns.aidl.GetAddressInfo status);\n   const int SERVICE_DISCOVERY_FAILED \u003d 602;\n   const int SERVICE_FOUND \u003d 603;\ndiff \u0027--color\u003dauto\u0027 -U3 -ru -N staticlibs/netd/aidl_api/mdns_aidl_interface/1/.hash staticlibs/netd/aidl_api/mdns_aidl_interface/2/.hash\n--- staticlibs/netd/aidl_api/mdns_aidl_interface/1/.hash\t2023-10-07 08:42:35.071472228 +0800\n+++ staticlibs/netd/aidl_api/mdns_aidl_interface/2/.hash\t2023-11-22 13:30:56.517946809 +0800\n@@ -1 +1 @@\n-ae4cfe565d66acc7d816aabd0dfab991e64031ab\n+f8058ff367c27c73bd53232e2eaf230068729e4e\n```",
+      "revId": "e2bcaef490fca7cb3a3059d9d9dd262f1b88e20e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
