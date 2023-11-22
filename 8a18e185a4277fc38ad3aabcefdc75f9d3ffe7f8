@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3a21cac_5be2835a",
+        "filename": "OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-22T09:23:34Z",
+      "side": 1,
+      "message": "Instead of doing it this way, can we ensure that any files owned by the vcn OWNERS are placed in separate directories?\n\nThe current \"every file that contains IpSec\" in the name is also owned by the vcn OWNERS means it is not obvious who can approve what. A separate directory is much easier for everyone to understand.\n\nFor the IpSec files above we didn\u0027t really have the option of doing that, because those files already existed. But for these new files, it\u0027s much easier for everyone to understand if the files are in a different directory.",
+      "range": {
+        "startLine": 6,
+        "startChar": 9,
+        "endLine": 6,
+        "endChar": 16
+      },
+      "revId": "8a18e185a4277fc38ad3aabcefdc75f9d3ffe7f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
