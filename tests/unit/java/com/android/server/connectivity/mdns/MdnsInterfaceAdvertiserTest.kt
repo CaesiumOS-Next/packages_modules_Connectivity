@@ -107,7 +107,8 @@ class MdnsInterfaceAdvertiserTest {
 
     @Before
     fun setUp() {
-        doReturn(repository).`when`(deps).makeRecordRepository(any(), eq(TEST_HOSTNAME), any())
+        doReturn(repository).`when`(deps).makeRecordRepository(
+                any(), eq(TEST_HOSTNAME), any(), any())
         doReturn(replySender).`when`(deps).makeReplySender(anyString(), any(), any(), any(), any())
         doReturn(announcer).`when`(deps).makeMdnsAnnouncer(anyString(), any(), any(), any(), any())
         doReturn(prober).`when`(deps).makeMdnsProber(anyString(), any(), any(), any(), any())
