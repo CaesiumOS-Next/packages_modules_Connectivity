@@ -111,6 +111,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "316ebd1b_5cba7085",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-22T07:03:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "978aa83b_3f4fb7ae",
+      "range": {
+        "startLine": 196,
+        "startChar": 16,
+        "endLine": 196,
+        "endChar": 25
+      },
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f040e2b_0f10eaef",
@@ -124,6 +148,30 @@
       "writtenOn": "2023-11-21T11:36:26Z",
       "side": 1,
       "message": "nit: List\u003cString\u003e",
+      "range": {
+        "startLine": 206,
+        "startChar": 16,
+        "endLine": 206,
+        "endChar": 25
+      },
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f5a1fbd_47bd73b4",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-22T07:03:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f040e2b_0f10eaef",
       "range": {
         "startLine": 206,
         "startChar": 16,
@@ -157,6 +205,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c671a77c_953fccf9",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-22T07:03:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10f237b9_b8fb757b",
+      "range": {
+        "startLine": 250,
+        "startChar": 16,
+        "endLine": 250,
+        "endChar": 51
+      },
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19c5fcab_e9fc2650",
@@ -170,6 +242,30 @@
       "writtenOn": "2023-11-21T11:36:26Z",
       "side": 1,
       "message": "nit: getPios() or getPrefixInformationOptions()",
+      "range": {
+        "startLine": 260,
+        "startChar": 49,
+        "endLine": 260,
+        "endChar": 67
+      },
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8446f492_47dad1e6",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-22T07:03:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19c5fcab_e9fc2650",
       "range": {
         "startLine": 260,
         "startChar": 49,
@@ -203,6 +299,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a4cf710_dbb32050",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-22T07:03:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e870c6f_daa7ab03",
+      "range": {
+        "startLine": 275,
+        "startChar": 8,
+        "endLine": 275,
+        "endChar": 77
+      },
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72e7010e_4eefd04f",
@@ -226,6 +346,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19d5327f_3c45b1e9",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-22T07:03:20Z",
+      "side": 1,
+      "message": "Changed the logic to let `OtFtd` poll the condition and wait for it to be true.",
+      "parentUuid": "72e7010e_4eefd04f",
+      "range": {
+        "startLine": 391,
+        "startChar": 21,
+        "endLine": 391,
+        "endChar": 26
+      },
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fb135c6_ea855198",
@@ -239,6 +383,30 @@
       "writtenOn": "2023-11-21T11:36:26Z",
       "side": 1,
       "message": "nit: suggest to move this below to setUp()",
+      "range": {
+        "startLine": 408,
+        "startChar": 16,
+        "endLine": 408,
+        "endChar": 24
+      },
+      "revId": "73359ce85e0f6fe954f75ecf84d8bd13c82de74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ade68b7_b9f086be",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-22T07:03:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fb135c6_ea855198",
       "range": {
         "startLine": 408,
         "startChar": 16,
