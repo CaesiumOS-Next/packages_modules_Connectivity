@@ -21,6 +21,7 @@ import android.net.LinkAddress
 import android.net.nsd.NsdServiceInfo
 import android.os.Build
 import android.os.HandlerThread
+import com.android.net.module.util.SharedLog
 import com.android.server.connectivity.mdns.MdnsAnnouncer.AnnouncementInfo
 import com.android.server.connectivity.mdns.MdnsRecordRepository.Dependencies
 import com.android.server.connectivity.mdns.MdnsRecordRepository.getReverseDnsAddress
@@ -35,6 +36,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import org.junit.After
 import org.junit.Before
@@ -46,6 +48,9 @@ private const val TEST_SERVICE_ID_2 = 43
 private const val TEST_SERVICE_ID_3 = 44
 private const val TEST_PORT = 12345
 private const val TEST_SUBTYPE = "_subtype"
+// TTLs as per RFC6762 10.
+private const val LONG_TTL = 4_500_000L
+private const val SHORT_TTL = 120_000L
 private val TEST_HOSTNAME = arrayOf("Android_000102030405060708090A0B0C0D0E0F", "local")
 private val TEST_ADDRESSES = listOf(
         LinkAddress(parseNumericAddress("192.0.2.111"), 24),
@@ -79,6 +84,7 @@ class MdnsRecordRepositoryTest {
                 Collections.enumeration(TEST_ADDRESSES.map { it.address })
     }
     private val flags = MdnsFeatureFlags.newBuilder().build()
+    private val sharedlog = SharedLog("MdnsRecordRepositoryTest")
 
     @Before
     fun setUp() {
@@ -119,7 +125,7 @@ class MdnsRecordRepositoryTest {
         assertEquals(MdnsServiceRecord(expectedName,
                 0L /* receiptTimeMillis */,
                 false /* cacheFlush */,
-                120_000L /* ttlMillis */,
+                SHORT_TTL /* ttlMillis */,
                 0 /* servicePriority */, 0 /* serviceWeight */,
                 TEST_PORT, TEST_HOSTNAME), packet.authorityRecords[0])
 
@@ -485,9 +491,6 @@ class MdnsRecordRepositoryTest {
         assertEquals(MdnsConstants.getMdnsIPv4Address(), reply.destination.address)
         assertEquals(MdnsConstants.MDNS_PORT, reply.destination.port)
 
-        // TTLs as per RFC6762 10.
-        val longTtl = 4_500_000L
-        val shortTtl = 120_000L
         val serviceName = arrayOf("MyTestService", "_testservice", "_tcp", "local")
 
         assertEquals(listOf(
@@ -495,7 +498,7 @@ class MdnsRecordRepositoryTest {
                         queriedName,
                         0L /* receiptTimeMillis */,
                         false /* cacheFlush */,
-                        longTtl,
+                        LONG_TTL,
                         serviceName),
         ), reply.answers)
 
@@ -504,13 +507,13 @@ class MdnsRecordRepositoryTest {
                     serviceName,
                     0L /* receiptTimeMillis */,
                     true /* cacheFlush */,
-                    longTtl,
+                    LONG_TTL,
                     listOf() /* entries */),
             MdnsServiceRecord(
                     serviceName,
                     0L /* receiptTimeMillis */,
                     true /* cacheFlush */,
-                    shortTtl,
+                    SHORT_TTL,
                     0 /* servicePriority */,
                     0 /* serviceWeight */,
                     TEST_PORT,
@@ -519,32 +522,32 @@ class MdnsRecordRepositoryTest {
                     TEST_HOSTNAME,
                     0L /* receiptTimeMillis */,
                     true /* cacheFlush */,
-                    shortTtl,
+                    SHORT_TTL,
                     TEST_ADDRESSES[0].address),
             MdnsInetAddressRecord(
                     TEST_HOSTNAME,
                     0L /* receiptTimeMillis */,
                     true /* cacheFlush */,
-                    shortTtl,
+                    SHORT_TTL,
                     TEST_ADDRESSES[1].address),
             MdnsInetAddressRecord(
                     TEST_HOSTNAME,
                     0L /* receiptTimeMillis */,
                     true /* cacheFlush */,
-                    shortTtl,
+                    SHORT_TTL,
                     TEST_ADDRESSES[2].address),
             MdnsNsecRecord(
                     serviceName,
                     0L /* receiptTimeMillis */,
                     true /* cacheFlush */,
-                    longTtl,
+                    LONG_TTL,
                     serviceName /* nextDomain */,
                     intArrayOf(MdnsRecord.TYPE_TXT, MdnsRecord.TYPE_SRV)),
             MdnsNsecRecord(
                     TEST_HOSTNAME,
                     0L /* receiptTimeMillis */,
                     true /* cacheFlush */,
-                    shortTtl,
+                    SHORT_TTL,
                     TEST_HOSTNAME /* nextDomain */,
                     intArrayOf(MdnsRecord.TYPE_A, MdnsRecord.TYPE_AAAA)),
         ), reply.additionalAnswers)
@@ -726,7 +729,7 @@ class MdnsRecordRepositoryTest {
                 expectedName,
                 0L /* receiptTimeMillis */,
                 false /* cacheFlush */,
-                120_000L /* ttlMillis */,
+                SHORT_TTL /* ttlMillis */,
                 0 /* servicePriority */,
                 0 /* serviceWeight */,
                 TEST_PORT,
@@ -735,23 +738,330 @@ class MdnsRecordRepositoryTest {
                 TEST_HOSTNAME,
                 0L /* receiptTimeMillis */,
                 false /* cacheFlush */,
-                120_000L /* ttlMillis */,
+                SHORT_TTL /* ttlMillis */,
                 TEST_ADDRESSES[0].address),
             MdnsInetAddressRecord(
                 TEST_HOSTNAME,
                 0L /* receiptTimeMillis */,
                 false /* cacheFlush */,
-                120_000L /* ttlMillis */,
+                SHORT_TTL /* ttlMillis */,
                 TEST_ADDRESSES[1].address),
             MdnsInetAddressRecord(
                 TEST_HOSTNAME,
                 0L /* receiptTimeMillis */,
                 false /* cacheFlush */,
-                120_000L /* ttlMillis */,
+                SHORT_TTL /* ttlMillis */,
                 TEST_ADDRESSES[2].address)
         ), packet.authorityRecords)
 
         assertContentEquals(intArrayOf(TEST_SERVICE_ID_1), repository.clearServices())
+    }
+
+    private fun doGetReplyWithAnswersTest(
+            questions: List<MdnsRecord>,
+            knownAnswers: List<MdnsRecord>,
+            replyAnswers: List<MdnsRecord>,
+            additionalAnswers: List<MdnsRecord>,
+            expectReply: Boolean
+    ) {
+        val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME,
+                MdnsFeatureFlags.newBuilder().setIsKnownAnswerSuppressionEnabled(true).build())
+        repository.initWithService(TEST_SERVICE_ID_1, TEST_SERVICE_1)
+        val query = MdnsPacket(0 /* flags */, questions, knownAnswers,
+                listOf() /* authorityRecords */, listOf() /* additionalRecords */)
+        val src = InetSocketAddress(parseNumericAddress("192.0.2.123"), 5353)
+        val reply = repository.getReply(query, src)
+
+        if (!expectReply) {
+            assertNull(reply)
+            return
+        }
+
+        assertNotNull(reply)
+        // Source address is IPv4
+        assertEquals(MdnsConstants.getMdnsIPv4Address(), reply.destination.address)
+        assertEquals(MdnsConstants.MDNS_PORT, reply.destination.port)
+        assertEquals(replyAnswers, reply.answers)
+        assertEquals(additionalAnswers, reply.additionalAnswers)
+    }
+
+    @Test
+    fun testGetReply_HasAnswers() {
+        val queriedName = arrayOf("_testservice", "_tcp", "local")
+        val questions = listOf(MdnsPointerRecord(queriedName,
+                0L /* receiptTimeMillis */,
+                false /* cacheFlush */,
+                // TTL and data is empty for a question
+                0L /* ttlMillis */,
+                null /* pointer */))
+        val knownAnswers = listOf(MdnsPointerRecord(
+                arrayOf("_testservice", "_tcp", "local"),
+                0L /* receiptTimeMillis */,
+                false /* cacheFlush */,
+                LONG_TTL,
+                arrayOf("MyTestService", "_testservice", "_tcp", "local")))
+        doGetReplyWithAnswersTest(questions, knownAnswers, listOf() /* replyAnswers */,
+                listOf() /* additionalAnswers */, false /* expectReply */)
+    }
+
+    @Test
+    fun testGetReply_HasAnswers_TtlLessThanHalf() {
+        val queriedName = arrayOf("_testservice", "_tcp", "local")
+        val serviceName = arrayOf("MyTestService", "_testservice", "_tcp", "local")
+        val questions = listOf(MdnsPointerRecord(queriedName,
+                0L /* receiptTimeMillis */,
+                false /* cacheFlush */,
+                // TTL and data is empty for a question
+                0L /* ttlMillis */,
+                null /* pointer */))
+        val knownAnswers = listOf(MdnsPointerRecord(
+                arrayOf("_testservice", "_tcp", "local"),
+                0L /* receiptTimeMillis */,
+                false /* cacheFlush */,
+                (LONG_TTL / 2 - 1000L),
+                arrayOf("MyTestService", "_testservice", "_tcp", "local")))
+        val replyAnswers = listOf(MdnsPointerRecord(
+                queriedName,
+                0L /* receiptTimeMillis */,
+                false /* cacheFlush */,
+                LONG_TTL,
+                serviceName))
+        val additionalAnswers = listOf(
+                MdnsTextRecord(
+                        serviceName,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        LONG_TTL,
+                        listOf() /* entries */),
+                MdnsServiceRecord(
+                        serviceName,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        SHORT_TTL,
+                        0 /* servicePriority */,
+                        0 /* serviceWeight */,
+                        TEST_PORT,
+                        TEST_HOSTNAME),
+                MdnsInetAddressRecord(
+                        TEST_HOSTNAME,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        SHORT_TTL,
+                        TEST_ADDRESSES[0].address),
+                MdnsInetAddressRecord(
+                        TEST_HOSTNAME,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        SHORT_TTL,
+                        TEST_ADDRESSES[1].address),
+                MdnsInetAddressRecord(
+                        TEST_HOSTNAME,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        SHORT_TTL,
+                        TEST_ADDRESSES[2].address),
+                MdnsNsecRecord(
+                        serviceName,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        LONG_TTL,
+                        serviceName /* nextDomain */,
+                        intArrayOf(MdnsRecord.TYPE_TXT, MdnsRecord.TYPE_SRV)),
+                MdnsNsecRecord(
+                        TEST_HOSTNAME,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        SHORT_TTL,
+                        TEST_HOSTNAME /* nextDomain */,
+                        intArrayOf(MdnsRecord.TYPE_A, MdnsRecord.TYPE_AAAA)))
+        doGetReplyWithAnswersTest(questions, knownAnswers, replyAnswers, additionalAnswers,
+                true /* expectReply */)
+    }
+
+    @Test
+    fun testGetReply_HasAnotherAnswer() {
+        val queriedName = arrayOf("_testservice", "_tcp", "local")
+        val serviceName = arrayOf("MyTestService", "_testservice", "_tcp", "local")
+        val questions = listOf(MdnsPointerRecord(queriedName,
+                0L /* receiptTimeMillis */,
+                false /* cacheFlush */,
+                // TTL and data is empty for a question
+                0L /* ttlMillis */,
+                null /* pointer */))
+        val knownAnswers = listOf(MdnsPointerRecord(
+                queriedName,
+                0L /* receiptTimeMillis */,
+                false /* cacheFlush */,
+                LONG_TTL,
+                arrayOf("MyOtherTestService", "_testservice", "_tcp", "local")))
+        val replyAnswers = listOf(MdnsPointerRecord(
+                queriedName,
+                0L /* receiptTimeMillis */,
+                false /* cacheFlush */,
+                LONG_TTL,
+                serviceName))
+        val additionalAnswers = listOf(
+                MdnsTextRecord(
+                        serviceName,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        LONG_TTL,
+                        listOf() /* entries */),
+                MdnsServiceRecord(
+                        serviceName,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        SHORT_TTL,
+                        0 /* servicePriority */,
+                        0 /* serviceWeight */,
+                        TEST_PORT,
+                        TEST_HOSTNAME),
+                MdnsInetAddressRecord(
+                        TEST_HOSTNAME,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        SHORT_TTL,
+                        TEST_ADDRESSES[0].address),
+                MdnsInetAddressRecord(
+                        TEST_HOSTNAME,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        SHORT_TTL,
+                        TEST_ADDRESSES[1].address),
+                MdnsInetAddressRecord(
+                        TEST_HOSTNAME,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        SHORT_TTL,
+                        TEST_ADDRESSES[2].address),
+                MdnsNsecRecord(
+                        serviceName,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        LONG_TTL,
+                        serviceName /* nextDomain */,
+                        intArrayOf(MdnsRecord.TYPE_TXT, MdnsRecord.TYPE_SRV)),
+                MdnsNsecRecord(
+                        TEST_HOSTNAME,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        SHORT_TTL,
+                        TEST_HOSTNAME /* nextDomain */,
+                        intArrayOf(MdnsRecord.TYPE_A, MdnsRecord.TYPE_AAAA)))
+        doGetReplyWithAnswersTest(questions, knownAnswers, replyAnswers, additionalAnswers,
+                true /* expectReply */)
+    }
+
+    @Test
+    fun testGetReply_HasAnswers_MultiQuestions() {
+        val queriedName = arrayOf("_testservice", "_tcp", "local")
+        val serviceName = arrayOf("MyTestService", "_testservice", "_tcp", "local")
+        val questions = listOf(
+                MdnsPointerRecord(queriedName,
+                        0L /* receiptTimeMillis */,
+                        false /* cacheFlush */,
+                        // TTL and data is empty for a question
+                        0L /* ttlMillis */,
+                        null /* pointer */),
+                MdnsServiceRecord(serviceName,
+                        0L /* receiptTimeMillis */,
+                        false /* cacheFlush */,
+                        // TTL and data is empty for a question
+                        0L /* ttlMillis */,
+                        0 /* servicePriority */,
+                        0 /* serviceWeight */,
+                        TEST_PORT,
+                        null /* serviceHost */))
+        val knownAnswers = listOf(MdnsPointerRecord(
+                queriedName,
+                0L /* receiptTimeMillis */,
+                false /* cacheFlush */,
+                LONG_TTL - 1000L,
+                serviceName))
+        val replyAnswers = listOf(MdnsServiceRecord(
+                serviceName,
+                0L /* receiptTimeMillis */,
+                false /* cacheFlush */,
+                SHORT_TTL /* ttlMillis */,
+                0 /* servicePriority */,
+                0 /* serviceWeight */,
+                TEST_PORT,
+                TEST_HOSTNAME))
+        val additionalAnswers = listOf(
+                MdnsInetAddressRecord(
+                        TEST_HOSTNAME,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        SHORT_TTL,
+                        TEST_ADDRESSES[0].address),
+                MdnsInetAddressRecord(
+                        TEST_HOSTNAME,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        SHORT_TTL,
+                        TEST_ADDRESSES[1].address),
+                MdnsInetAddressRecord(
+                        TEST_HOSTNAME,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        SHORT_TTL,
+                        TEST_ADDRESSES[2].address),
+                MdnsNsecRecord(
+                        serviceName,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        LONG_TTL,
+                        serviceName /* nextDomain */,
+                        intArrayOf(MdnsRecord.TYPE_SRV)),
+                MdnsNsecRecord(
+                        TEST_HOSTNAME,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        SHORT_TTL,
+                        TEST_HOSTNAME /* nextDomain */,
+                        intArrayOf(MdnsRecord.TYPE_A, MdnsRecord.TYPE_AAAA)))
+        doGetReplyWithAnswersTest(questions, knownAnswers, replyAnswers, additionalAnswers,
+                true /* expectReply */)
+    }
+
+    @Test
+    fun testGetReply_HasAnswers_MultiQuestions_NoReply() {
+        val queriedName = arrayOf("_testservice", "_tcp", "local")
+        val serviceName = arrayOf("MyTestService", "_testservice", "_tcp", "local")
+        val questions = listOf(
+                MdnsPointerRecord(queriedName,
+                        0L /* receiptTimeMillis */,
+                        false /* cacheFlush */,
+                        // TTL and data is empty for a question
+                        0L /* ttlMillis */,
+                        null /* pointer */),
+                MdnsServiceRecord(serviceName,
+                        0L /* receiptTimeMillis */,
+                        false /* cacheFlush */,
+                        // TTL and data is empty for a question
+                        0L /* ttlMillis */,
+                        0 /* servicePriority */,
+                        0 /* serviceWeight */,
+                        TEST_PORT,
+                        null /* serviceHost */))
+        val knownAnswers = listOf(
+                MdnsPointerRecord(
+                        queriedName,
+                        0L /* receiptTimeMillis */,
+                        false /* cacheFlush */,
+                        LONG_TTL - 1000L,
+                        serviceName),
+                MdnsServiceRecord(
+                        serviceName,
+                        0L /* receiptTimeMillis */,
+                        false /* cacheFlush */,
+                        SHORT_TTL - 15_000L,
+                        0 /* servicePriority */,
+                        0 /* serviceWeight */,
+                        TEST_PORT,
+                        TEST_HOSTNAME))
+        doGetReplyWithAnswersTest(questions, knownAnswers, listOf() /* replyAnswers */,
+                listOf() /* additionalAnswers */, false /* expectReply */)
     }
 }
 
