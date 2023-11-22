@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "305def17_69f4ca60",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-22T06:42:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "769e2a33_6e86129b",
+      "range": {
+        "startLine": 288,
+        "startChar": 18,
+        "endLine": 288,
+        "endChar": 27
+      },
+      "revId": "b89ae0ff31ab8e6458b253a9ceab162286215c03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a219c70_aa11e489",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-22T06:42:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c85279e8_a45ad088",
+      "range": {
+        "startLine": 288,
+        "startChar": 4,
+        "endLine": 288,
+        "endChar": 17
+      },
+      "revId": "b89ae0ff31ab8e6458b253a9ceab162286215c03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "188fe987_98bee04d",
@@ -88,6 +136,54 @@
         "startChar": 42,
         "endLine": 293,
         "endChar": 52
+      },
+      "revId": "b89ae0ff31ab8e6458b253a9ceab162286215c03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba7b8704_6a3d040a",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-22T06:42:21Z",
+      "side": 1,
+      "message": "It needs to be camel cased and started with m, I renamed it to mSrcAddr.",
+      "parentUuid": "23453626_ac30aa81",
+      "range": {
+        "startLine": 293,
+        "startChar": 42,
+        "endLine": 293,
+        "endChar": 52
+      },
+      "revId": "b89ae0ff31ab8e6458b253a9ceab162286215c03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "078e1308_60bb038c",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-22T06:42:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "188fe987_98bee04d",
+      "range": {
+        "startLine": 293,
+        "startChar": 8,
+        "endLine": 293,
+        "endChar": 17
       },
       "revId": "b89ae0ff31ab8e6458b253a9ceab162286215c03",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -139,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6d79b45_89a35581",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-22T06:42:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f40d6d1f_d81ccf4d",
+      "range": {
+        "startLine": 378,
+        "startChar": 12,
+        "endLine": 378,
+        "endChar": 19
+      },
+      "revId": "b89ae0ff31ab8e6458b253a9ceab162286215c03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6821664_fd9d60b1",
@@ -152,6 +272,30 @@
       "writtenOn": "2023-11-21T15:39:30Z",
       "side": 1,
       "message": "I feel this error message is not really useful. Could we do the check in start() and quit() instead? mRaMessageHandler \u003d\u003d null in start()/quit() should be treated differently.",
+      "range": {
+        "startLine": 663,
+        "startChar": 12,
+        "endLine": 663,
+        "endChar": 52
+      },
+      "revId": "b89ae0ff31ab8e6458b253a9ceab162286215c03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33342c83_e8fb100d",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-22T06:42:21Z",
+      "side": 1,
+      "message": "Removed this error message and added a error message in start() if start failed.",
+      "parentUuid": "f6821664_fd9d60b1",
       "range": {
         "startLine": 663,
         "startChar": 12,
