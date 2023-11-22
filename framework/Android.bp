@@ -266,7 +266,7 @@ java_genrule {
         ":framework-connectivity-t-pre-jarjar{.jar}",
         ":framework-connectivity.stubs.module_lib{.jar}",
         ":framework-connectivity-t.stubs.module_lib{.jar}",
-        ":framework-connectivity-flagged-apis{.jar}",
+        ":framework-connectivity-with-flagged-apis{.jar}",
         "jarjar-excludes.txt",
     ],
     tools: [
@@ -279,7 +279,7 @@ java_genrule {
         "--prefix android.net.connectivity " +
         "--apistubs $(location :framework-connectivity.stubs.module_lib{.jar}) " +
         "--apistubs $(location :framework-connectivity-t.stubs.module_lib{.jar}) " +
-        "--apistubs $(location :framework-connectivity-flagged-apis{.jar}) " +
+        "--apistubs $(location :framework-connectivity-with-flagged-apis{.jar}) " +
         // Make a ":"-separated list. There will be an extra ":" but empty items are ignored.
         "--unsupportedapi $$(printf ':%s' $(locations :connectivity-hiddenapi-files)) " +
         "--excludes $(location jarjar-excludes.txt) " +
@@ -292,7 +292,7 @@ java_genrule {
 }
 
 droidstubs {
-    name: "framework-connectivity-flagged-apis-droidstubs",
+    name: "framework-connectivity-with-flagged-apis-droidstubs",
     srcs: [
         ":framework-connectivity-sources",
         ":framework-connectivity-tiramisu-updatable-sources",
@@ -315,8 +315,8 @@ droidstubs {
 }
 
 java_library {
-    name: "framework-connectivity-flagged-apis",
-    srcs: [":framework-connectivity-flagged-apis-droidstubs"],
+    name: "framework-connectivity-with-flagged-apis",
+    srcs: [":framework-connectivity-with-flagged-apis-droidstubs"],
 }
 
 // Library providing limited APIs within the connectivity module, so that R+ components like
