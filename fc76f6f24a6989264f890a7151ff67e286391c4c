@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e005dd53_fe04ab20",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T13:26:37Z",
+      "side": 1,
+      "message": "Is there any benefit here to create the mMulticastRaAlarm in the CMD_START handling function instead of create the alarm object in the RouterAdvertisementDaemon constructor? Otherwise, it seems creating the object here and set the object to null in CMD_STOP can potentially increase the complexity of rest of the code for requiring null check all the time when accessing this variable.",
+      "range": {
+        "startLine": 290,
+        "startChar": 20,
+        "endLine": 291,
+        "endChar": 72
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c1a9066_59b0f991",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T13:26:37Z",
+      "side": 1,
+      "message": "I think if the command is CMD_BUILD_NEW_RA, it will be better off to send a  CMD_SEND_MULTICAST_RA command instead of calling the `sendMulticastRa()` directly.\n\nHowever, it does seems better to trigger the `sendMulticastRa()` directly here. So maybe rename CMD_BUILD_NEW_RA -\u003e CMD_BUILD_NEW_RA_AND_SEND?",
+      "range": {
+        "startLine": 325,
+        "startChar": 20,
+        "endLine": 325,
+        "endChar": 38
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "108d7d7e_afef5917",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T13:26:37Z",
+      "side": 1,
+      "message": "Will it be better to move this function to one level up? I am not sure if in the future other handler function will also need to use this function.",
+      "range": {
+        "startLine": 336,
+        "startChar": 30,
+        "endLine": 336,
+        "endChar": 47
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b74cbc6_af33fcc2",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T13:26:37Z",
+      "side": 1,
+      "message": "should be buildNewRaAndSend",
+      "range": {
+        "startLine": 399,
+        "startChar": 16,
+        "endLine": 399,
+        "endChar": 26
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfd007db_d409bb6c",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T13:26:37Z",
+      "side": 1,
+      "message": "This function is not only sendMulticastRa() but also schedule next sent alarm. Maybe better to can sendMulticastRaAndScheduleNext()?",
+      "range": {
+        "startLine": 691,
+        "startChar": 17,
+        "endLine": 691,
+        "endChar": 32
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "620be68c_f891f119",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T13:26:37Z",
+      "side": 1,
+      "message": "I think it will be better to move \n\n```\nfinal long now \u003d SystemClock.elapsedRealtime();\nnow + getNextMulticastTransmitDelayMs()\n```\n\nInto getNextMulticastTransmitDelayMs() funciton, it seems they are all used together.",
+      "range": {
+        "startLine": 700,
+        "startChar": 12,
+        "endLine": 700,
+        "endChar": 80
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae2e8ff2_b1b41be4",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T13:26:37Z",
+      "side": 1,
+      "message": "If there is already mMulticastRaAlarm scheduled, should it be canceled?\n\nIf the decision is not cancel() the already scheduled alarm, It will be better to add some document to describe why.",
+      "range": {
+        "startLine": 700,
+        "startChar": 12,
+        "endLine": 700,
+        "endChar": 29
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b66e3c2_a110cd05",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T13:26:37Z",
+      "side": 1,
+      "message": "Having both `getNextMulticastTransmitDelaySec` and `getNextMulticastTransmitDelayMs` seems redundant, can we merge the logic into getNextMulticastTransmitDelayMs()?\n\nAlso it is better off to move this function inside the Dependencies, it will be easier to mock in the test.",
+      "range": {
+        "startLine": 717,
+        "startChar": 4,
+        "endLine": 717,
+        "endChar": 52
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5668dd88_808d6726",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T13:26:37Z",
+      "side": 1,
+      "message": "Please add a test case for build two mRaDaemon.buildNewRa()",
+      "range": {
+        "startLine": 365,
+        "startChar": 8,
+        "endLine": 365,
+        "endChar": 43
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d2180d0_1b958f4b",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T13:26:37Z",
+      "side": 1,
+      "message": "Using the SystemClock directly inside the test can be a source of flakyness, it is highly recommended to mock the timeclock inside the test case. \n\nWe should have a way to inject the handler thread into RouterAdvertisementDaemon and have better control the handler thread in the test case.\n\nAn example: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt;l\u003d412?ss\u003dandroid\u0026q\u003drepo:platform%2Fsuperproject%2Fmain%20postSync",
+      "range": {
+        "startLine": 376,
+        "startChar": 8,
+        "endLine": 376,
+        "endChar": 53
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7eaa7f4_4b3aac55",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T13:26:37Z",
+      "side": 1,
+      "message": "Its better to add @NonNull annotation.",
+      "range": {
+        "startLine": 199,
+        "startChar": 70,
+        "endLine": 200,
+        "endChar": 40
+      },
+      "revId": "8fb1e0269eddef1822037986fff9a1436b896aae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6a6caef_fc03ed5c",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T13:26:37Z",
+      "side": 1,
+      "message": "Its better to add @NonNull annotation.",
+      "range": {
+        "startLine": 326,
+        "startChar": 12,
+        "endLine": 330,
+        "endChar": 64
+      },
+      "revId": "8fb1e0269eddef1822037986fff9a1436b896aae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3abb9bf8_57886fac",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T13:26:37Z",
+      "side": 1,
+      "message": "I don\u0027t feel this is a correct way of using Dependencies class. For those variable, it seems you want to make it configurable in the test case.\n\nYou can:\n\n1. create a RouterAdvertisementDaemonConfiguration class as an public static class inside RouterAdvertisementDaemon.java\n2. Make the RouterAdvertisementDaemon constructor accept RouterAdvertisementDaemonConfiguration as an argument and set the value in the constructor. I think you can refer to ApfFilter.java as an example to see how it take argument.",
+      "range": {
+        "startLine": 143,
+        "startChar": 19,
+        "endLine": 143,
+        "endChar": 43
+      },
+      "revId": "8fb1e0269eddef1822037986fff9a1436b896aae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6475cbc_c37af7b8",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T13:26:37Z",
+      "side": 1,
+      "message": "Instead of using the real clock here, It will be better off to also pass clock interface in the RouterAdvertisementDaemon, so you can mock the time in the test case.\n\nYou can refer to https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java;l\u003d211?ss\u003dandroid\u0026q\u003drepo:platform%2Fsuperproject%2Fmain%20MdnsServiceTypeClient as an example.",
+      "range": {
+        "startLine": 284,
+        "startChar": 29,
+        "endLine": 284,
+        "endChar": 58
+      },
+      "revId": "8fb1e0269eddef1822037986fff9a1436b896aae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5dfca00_6156c46c",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T13:26:37Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 335,
+        "startChar": 48,
+        "endLine": 335,
+        "endChar": 54
+      },
+      "revId": "8fb1e0269eddef1822037986fff9a1436b896aae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
