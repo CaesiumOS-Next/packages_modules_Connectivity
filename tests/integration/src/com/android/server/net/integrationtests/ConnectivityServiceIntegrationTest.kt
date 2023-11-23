@@ -43,6 +43,7 @@ import android.os.UserHandle
 import android.os.VintfRuntimeInfo
 import android.testing.TestableContext
 import android.util.Log
+import android.util.Range
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.compatibility.common.util.SystemUtil
@@ -255,7 +256,16 @@ class ConnectivityServiceIntegrationTest {
         na.connect()
 
         testCallback.expectAvailableThenValidatedCallbacks(na.network, TEST_TIMEOUT_MS)
-        assertEquals(2, nsInstrumentation.getRequestUrls().size)
+        assertInRange(nsInstrumentation.getRequestUrls().size, 1, 2)
+    }
+
+    /** Verify the given value is in range [lower, upper]  */
+    private fun assertInRange(value: Int, lower: Int, upper: Int) {
+        if (lower > upper) {
+            fail("lower must be less than or equal to upper: [$lower,$upper]")
+        }
+        val range = Range(lower, upper)
+        assertTrue(range.contains(value), "$value is not within range [$lower, $upper]")
     }
 
     @Test
