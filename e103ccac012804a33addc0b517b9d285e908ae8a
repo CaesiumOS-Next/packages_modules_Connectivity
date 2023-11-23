@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a06a8f5d_45303754",
+        "filename": "framework-t/src/android/net/ConnectivityFrameworkInitializerTiramisu.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-23T08:12:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f1cb318_4b342cd7",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 9
+      },
+      "revId": "e103ccac012804a33addc0b517b9d285e908ae8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "deade16d_569366f1",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-23T07:08:42Z",
       "side": 1,
       "message": "Nit: Update the comment to explain that the daemon will not start even if the target SDK \u003c S, as the native mdns service is no longer available.",
+      "range": {
+        "startLine": 648,
+        "startChar": 69,
+        "endLine": 648,
+        "endChar": 70
+      },
+      "revId": "e103ccac012804a33addc0b517b9d285e908ae8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73cf019b_d5149a25",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-23T08:12:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "deade16d_569366f1",
       "range": {
         "startLine": 648,
         "startChar": 69,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c39ef869_df60c88e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-23T08:12:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af129de5_4cf5be4a",
+      "range": {
+        "startLine": 191,
+        "startChar": 30,
+        "endLine": 191,
+        "endChar": 42
+      },
+      "revId": "e103ccac012804a33addc0b517b9d285e908ae8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb2ce56c_c4aad32e",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-11-23T07:08:42Z",
       "side": 1,
       "message": "To avoid duplicatation, recommend creating a method to check this. Like\n```\nprivate void verifyDaemonStarted(boolean preS) {\n    if (preS || SdkLevel.isAtLeastV()) {\n        verify(mServiceConn, never()).startDaemon();\n    } else {\n        verify(mServiceConn).startDaemon();\n    }\n}\n```",
+      "range": {
+        "startLine": 97,
+        "startChar": 8,
+        "endLine": 101,
+        "endChar": 9
+      },
+      "revId": "e103ccac012804a33addc0b517b9d285e908ae8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bf04846_28486462",
+        "filename": "tests/unit/java/android/net/nsd/NsdManagerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-23T08:12:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb2ce56c_c4aad32e",
       "range": {
         "startLine": 97,
         "startChar": 8,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bab883f_08449add",
+        "filename": "tests/unit/java/android/net/nsd/NsdManagerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-23T08:12:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ded6f5c9_ad844864",
+      "range": {
+        "startLine": 126,
+        "startChar": 8,
+        "endLine": 126,
+        "endChar": 52
+      },
+      "revId": "e103ccac012804a33addc0b517b9d285e908ae8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e86bd38_77eb59c3",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-11-23T07:08:42Z",
       "side": 1,
       "message": "Maybe just ignore this test After Android V?",
+      "range": {
+        "startLine": 261,
+        "startChar": 16,
+        "endLine": 261,
+        "endChar": 31
+      },
+      "revId": "e103ccac012804a33addc0b517b9d285e908ae8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85b0fb55_36e08221",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-23T08:12:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e86bd38_77eb59c3",
       "range": {
         "startLine": 261,
         "startChar": 16,
