@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e445dab_bde1fcb4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-23T11:21:12Z",
+      "side": 1,
+      "message": "The PrivateAddrssCoordinator is to generate an random unused LinkAddress. Change 192.168.A.B/24 to 192.168.A.B to avoid confusing with prefix length.\nIn the example of commit message, 192.168.A.B, A is 8 bits sub prefix from 192.168.0.0/16 and B is 8 bits sub address.\n\nThus A, B for private LinkAddress with /24 prefix length would be:\n10.0.0.0/8    -\u003e 10.A(16 bits 0x0000 ~ 0xFFFF).B(8 bits)\nB 172.16.0.0/12 -\u003e 172.A(0x1000 ~ 0x1FFF).B(8 bits)\n192.168.0.0/16 -\u003e 192.168.A(8 bits).B(8 bits)",
+      "parentUuid": "e36af076_5ee577bd",
+      "range": {
+        "startLine": 15,
+        "startChar": 17,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "d1aa3f0840a3fa504599c7ae9606915ca9608b1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58531a10_de6dc394",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-22T14:03:21Z",
       "side": 1,
       "message": "Maybe irrelevant to this CL: it will be better to make mRandom local variable instead of create the Random() object all the time.",
+      "range": {
+        "startLine": 332,
+        "startChar": 16,
+        "endLine": 332,
+        "endChar": 28
+      },
+      "revId": "d1aa3f0840a3fa504599c7ae9606915ca9608b1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2c3c400_630e4f85",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-23T11:21:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58531a10_de6dc394",
       "range": {
         "startLine": 332,
         "startChar": 16,
