@@ -72,6 +72,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3597f78f_e41a68eb",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T14:14:58Z",
+      "side": 1,
+      "message": "Just curious, what will be the draw back if we just remove this line. It seems to me it will already improve the power consumption?\n\nIf the system go to sleep right after \n```\nmMulticastRaAlarm.schedule(now + 1000 * (long) mDeps.getMaxRtrAdvIntervalSec());\n```\n\nThe message won\u0027t be processed by the handler anyway.",
+      "range": {
+        "startLine": 727,
+        "startChar": 11,
+        "endLine": 728,
+        "endChar": 74
+      },
+      "revId": "0b70f311941ba5a2f60ad06b3454c878c798342b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4e3c93bf_aafdeed3",
         "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
         "patchSetId": 4
