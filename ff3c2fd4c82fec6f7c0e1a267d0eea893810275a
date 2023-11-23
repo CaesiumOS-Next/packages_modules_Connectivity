@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c04854b8_0f2dcd8a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-23T13:14:36Z",
+      "side": 0,
+      "message": "Normally we\u0027ll avoid using address that is the network ID (all 0 for network address) and broadcast ID (all 1 for network address). Not sure why skip \".1\"?\n\nThe function takes subnet mask as input, means it doesn\u0027t necessary be 255.255.255.0 (i.e. prefix len \u003d 24), so the candidate that needed to be skip is not fixed as 255.",
+      "range": {
+        "startLine": 335,
+        "startChar": 16,
+        "endLine": 335,
+        "endChar": 35
+      },
+      "revId": "ff3c2fd4c82fec6f7c0e1a267d0eea893810275a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

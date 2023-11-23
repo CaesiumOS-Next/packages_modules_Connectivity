@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b0bbaf4_ea26e9e5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-23T13:14:36Z",
+      "side": 1,
+      "message": "24?",
+      "range": {
+        "startLine": 291,
+        "startChar": 34,
+        "endLine": 291,
+        "endChar": 37
+      },
+      "revId": "50fc27c5af8f828a14f9b6adae8504f1f03941af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
