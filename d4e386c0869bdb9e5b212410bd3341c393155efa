@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be448502_00f9db41",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-23T23:50:00Z",
+      "side": 1,
+      "message": "may consider having this in a separate file, to be reused by multiple integration test files",
+      "revId": "d4e386c0869bdb9e5b212410bd3341c393155efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
