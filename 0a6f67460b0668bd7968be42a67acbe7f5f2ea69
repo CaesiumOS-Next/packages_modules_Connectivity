@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d78e1943_194fb764",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-11-23T05:41:10Z",
+      "side": 1,
+      "message": "Can you verify if the size is one, the url should be the https one? I think it would be a more robust test.\n\nA valid case should `2` or `1(https)`.  We will not only want to receive any http requests.",
+      "range": {
+        "startLine": 259,
+        "startChar": 8,
+        "endLine": 259,
+        "endChar": 68
+      },
+      "revId": "0a6f67460b0668bd7968be42a67acbe7f5f2ea69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
