@@ -16,6 +16,24 @@
       "message": "This is different from what the code below implements: this section says that if I have a CNAME query for MyServiceName._tcp.local, I should reply with an NSEC record, because I know there is no CNAME record for MyServiceName._tcp.local (since it\u0027s a unique name verified via probing for the service name).\n\nAfter fixing it it would be best if you add a unit test for it to make sure it stays not broken :)",
       "revId": "44c2ce93fd282e1f7fcfbfc26f00e2ef4742285c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33970479_09df3b40",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-23T16:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fa588a6_7c3c7485",
+      "revId": "44c2ce93fd282e1f7fcfbfc26f00e2ef4742285c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
