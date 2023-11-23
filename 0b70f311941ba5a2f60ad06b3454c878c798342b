@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "617044d4_598cd97b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T14:12:33Z",
+      "side": 1,
+      "message": "I assume this logic is reviewed and agreed on already. Did you talk mark and jean(or lorenzo) singed off on this?\n\nI am not fully follow how this approach can work. It seems to me if we want to improve the power consumption here, we should actually increase the MIN_RTR_ADV_INTERVAL_SEC or always use MAX_RTR_ADV_INTERVAL_SEC to schedule the wake up alarm.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 28
+      },
+      "revId": "0b70f311941ba5a2f60ad06b3454c878c798342b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "683a5436_da429c79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T14:12:33Z",
+      "side": 1,
+      "message": "Do we have any doc/proof to show this calculation is correct? It seems we might better have a short design doc to review here before changing the timer.",
+      "range": {
+        "startLine": 17,
+        "startChar": 35,
+        "endLine": 18,
+        "endChar": 48
+      },
+      "revId": "0b70f311941ba5a2f60ad06b3454c878c798342b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f118ed68_db98297d",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T14:12:33Z",
+      "side": 1,
+      "message": "Using interleaving CMD_SEND_MULTICAST_RA and CMD_PEEK_TO_SEND_MULTICAST_RA seems really complicated and easy to get the sequence wrong.\n\nI would really recommend rethinking the logic again to see if there is any room to simplify it.\n\nAlso, changing the RA resentment interval could impacted Tethering experience, so we need to write extensive unit test and CTS to guarantee it works and also add a feature flag to rollout and monitor the metrics.",
+      "range": {
+        "startLine": 341,
+        "startChar": 21,
+        "endLine": 341,
+        "endChar": 50
+      },
+      "revId": "0b70f311941ba5a2f60ad06b3454c878c798342b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e3c93bf_aafdeed3",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T14:12:33Z",
+      "side": 1,
+      "message": "/* object */",
+      "range": {
+        "startLine": 748,
+        "startChar": 32,
+        "endLine": 748,
+        "endChar": 36
+      },
+      "revId": "0b70f311941ba5a2f60ad06b3454c878c798342b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fd77d74_edd5dd20",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-23T14:12:33Z",
+      "side": 1,
+      "message": "/* delayMillis */",
+      "range": {
+        "startLine": 752,
+        "startChar": 37,
+        "endLine": 752,
+        "endChar": 38
+      },
+      "revId": "0b70f311941ba5a2f60ad06b3454c878c798342b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
