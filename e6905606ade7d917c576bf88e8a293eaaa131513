@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dbe4e81_5051a09f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-24T01:54:56Z",
+      "side": 1,
+      "message": "LGTM assuming Junyu has no concerns.",
+      "revId": "e6905606ade7d917c576bf88e8a293eaaa131513",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
