@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "161ba28c_18dccf0d",
+        "filename": "service/ServiceConnectivityResources/res/values/strings.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-24T02:00:16Z",
+      "side": 1,
+      "message": "Nit: something like \"Android Mobile\" might be an easier example to understand.",
+      "range": {
+        "startLine": 36,
+        "startChar": 132,
+        "endLine": 36,
+        "endChar": 150
+      },
+      "revId": "ef79fe17a45b74a9da9fd2bd0368a9e058db5ef0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
