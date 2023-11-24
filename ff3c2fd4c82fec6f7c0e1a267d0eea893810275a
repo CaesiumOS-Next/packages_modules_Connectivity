@@ -22,6 +22,30 @@
       },
       "revId": "ff3c2fd4c82fec6f7c0e1a267d0eea893810275a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dac5b86a_8d2aa181",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-24T03:10:18Z",
+      "side": 0,
+      "message": "That\u0027s a good question. When I originally implemented PrivateAddressCoordinator, I just followed the previous design, which excluded these sub-addresses. Looking back at the history (b/70673901), it seems like the exclusion was probably an attempt to avoid address conflicts at a time when PrivateAddressCoordinator didn\u0027t exist. Now that PrivateAddressCoordinator can let tethering pick a non-conflicting prefix, it seems like exclude .0, .1 and .255 are no longer needed. I can have follow up change to remove this logic if we all think this is save.",
+      "parentUuid": "c04854b8_0f2dcd8a",
+      "range": {
+        "startLine": 335,
+        "startChar": 16,
+        "endLine": 335,
+        "endChar": 35
+      },
+      "revId": "ff3c2fd4c82fec6f7c0e1a267d0eea893810275a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
