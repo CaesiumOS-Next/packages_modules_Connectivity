@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e53d2a5_6a3816b1",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-24T14:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7eaa7f4_4b3aac55",
+      "range": {
+        "startLine": 199,
+        "startChar": 70,
+        "endLine": 200,
+        "endChar": 40
+      },
+      "revId": "8fb1e0269eddef1822037986fff9a1436b896aae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6a6caef_fc03ed5c",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-23T13:26:37Z",
       "side": 1,
       "message": "Its better to add @NonNull annotation.",
+      "range": {
+        "startLine": 326,
+        "startChar": 12,
+        "endLine": 330,
+        "endChar": 64
+      },
+      "revId": "8fb1e0269eddef1822037986fff9a1436b896aae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bd181f5_0fbc60ab",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-24T14:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6a6caef_fc03ed5c",
       "range": {
         "startLine": 326,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "962a37fe_8c709f6a",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-24T14:17:22Z",
+      "side": 1,
+      "message": "Done, but the class name changed to RouterAdvertisementConfiguration (removed Daemon in the naming since it is a little bit long).",
+      "parentUuid": "3abb9bf8_57886fac",
+      "range": {
+        "startLine": 143,
+        "startChar": 19,
+        "endLine": 143,
+        "endChar": 43
+      },
+      "revId": "8fb1e0269eddef1822037986fff9a1436b896aae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6475cbc_c37af7b8",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f465531_f8b9fa75",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-24T14:17:22Z",
+      "side": 1,
+      "message": "Done. But it is not used to mock the time in the test case yet.",
+      "parentUuid": "c6475cbc_c37af7b8",
+      "range": {
+        "startLine": 284,
+        "startChar": 29,
+        "endLine": 284,
+        "endChar": 58
+      },
+      "revId": "8fb1e0269eddef1822037986fff9a1436b896aae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5dfca00_6156c46c",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-11-23T13:26:37Z",
       "side": 1,
       "message": "@NonNull",
+      "range": {
+        "startLine": 335,
+        "startChar": 48,
+        "endLine": 335,
+        "endChar": 54
+      },
+      "revId": "8fb1e0269eddef1822037986fff9a1436b896aae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d45b02b3_40afac3a",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-24T14:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5dfca00_6156c46c",
       "range": {
         "startLine": 335,
         "startChar": 48,

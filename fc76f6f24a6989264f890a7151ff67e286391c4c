@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "844b2f46_9fc3dca9",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-24T14:17:22Z",
+      "side": 1,
+      "message": "Done. Also moved mRaHandlerThread and mRaMessageHandler together into the constructor because mMulticastRaAlarm needs mRaMessageHandler and mRaMessageHandler needs mRaHandlerThread. Also removed some code from stop() because they were not needed now.\n```\n// Move to constructor\nmRaHandlerThread \u003d new HandlerThread(TAG);\nmRaHandlerThread.start();\nmRaMessageHandler \u003d new RaMessageHandler(mRaHandlerThread.getLooper());\nmMulticastRaAlarm \u003d makeWakeupMessage(\"SEND_MULTICAST_RA\", CMD_SEND_MULTICAST_RA);\n// Remove from stop()\nmRaHandlerThread.quitSafely();\nmRaHandlerThread \u003d null;\nmRaMessageHandler \u003d null;\n```",
+      "parentUuid": "e005dd53_fe04ab20",
+      "range": {
+        "startLine": 290,
+        "startChar": 20,
+        "endLine": 291,
+        "endChar": 72
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c1a9066_59b0f991",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-23T13:26:37Z",
       "side": 1,
       "message": "I think if the command is CMD_BUILD_NEW_RA, it will be better off to send a  CMD_SEND_MULTICAST_RA command instead of calling the `sendMulticastRa()` directly.\n\nHowever, it does seems better to trigger the `sendMulticastRa()` directly here. So maybe rename CMD_BUILD_NEW_RA -\u003e CMD_BUILD_NEW_RA_AND_SEND?",
+      "range": {
+        "startLine": 325,
+        "startChar": 20,
+        "endLine": 325,
+        "endChar": 38
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4abaf77_6b255600",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-24T14:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c1a9066_59b0f991",
       "range": {
         "startLine": 325,
         "startChar": 20,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cac6fbbf_e8026f11",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-24T14:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "108d7d7e_afef5917",
+      "range": {
+        "startLine": 336,
+        "startChar": 30,
+        "endLine": 336,
+        "endChar": 47
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b74cbc6_af33fcc2",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72d14484_e0d02f86",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-24T14:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b74cbc6_af33fcc2",
+      "range": {
+        "startLine": 399,
+        "startChar": 16,
+        "endLine": 399,
+        "endChar": 26
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfd007db_d409bb6c",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-11-23T13:26:37Z",
       "side": 1,
       "message": "This function is not only sendMulticastRa() but also schedule next sent alarm. Maybe better to can sendMulticastRaAndScheduleNext()?",
+      "range": {
+        "startLine": 691,
+        "startChar": 17,
+        "endLine": 691,
+        "endChar": 32
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5674519_3c5d7cb6",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-24T14:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfd007db_d409bb6c",
       "range": {
         "startLine": 691,
         "startChar": 17,
@@ -162,6 +282,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81ec38d1_1fa29335",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-24T14:17:22Z",
+      "side": 1,
+      "message": "Done. Added a comment above mMulticastRaAlarm.schedule().",
+      "parentUuid": "ae2e8ff2_b1b41be4",
+      "range": {
+        "startLine": 700,
+        "startChar": 12,
+        "endLine": 700,
+        "endChar": 29
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a00c79ca_0d8436bd",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-24T14:17:22Z",
+      "side": 1,
+      "message": "Moved into getNextMulticastTransmitDelayMs() and renamed the function to getNextMulticastTransmitTimeMs().",
+      "parentUuid": "620be68c_f891f119",
+      "range": {
+        "startLine": 700,
+        "startChar": 12,
+        "endLine": 700,
+        "endChar": 80
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b66e3c2_a110cd05",
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef530a24_08003f94",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-24T14:17:22Z",
+      "side": 1,
+      "message": "Done merged the logic into getNextMulticastTransmitDelayMs().\nBut didn\u0027t move it inside Dependencies because the Dependencies class was removed (use RouterAdvertisementConfiguration instead). Maybe do it when it is required in the test?",
+      "parentUuid": "7b66e3c2_a110cd05",
+      "range": {
+        "startLine": 717,
+        "startChar": 4,
+        "endLine": 717,
+        "endChar": 52
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5668dd88_808d6726",
@@ -198,6 +390,30 @@
       "writtenOn": "2023-11-23T13:26:37Z",
       "side": 1,
       "message": "Please add a test case for build two mRaDaemon.buildNewRa()",
+      "range": {
+        "startLine": 365,
+        "startChar": 8,
+        "endLine": 365,
+        "endChar": 43
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a7c956e_78a1a92f",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-24T14:17:22Z",
+      "side": 1,
+      "message": "Do you mean this test case testUnSolicitRouterAdvertisement() ?",
+      "parentUuid": "5668dd88_808d6726",
       "range": {
         "startLine": 365,
         "startChar": 8,
