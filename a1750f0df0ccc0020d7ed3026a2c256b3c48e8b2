@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bcf960c_c10d89c0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-24T04:17:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6d2e2a0_35a972da",
+      "range": {
+        "startLine": 981,
+        "startChar": 31,
+        "endLine": 981,
+        "endChar": 63
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40b28b61_612a3ed2",
@@ -156,6 +180,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32e7c0f3_0bb328bf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 8826,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-24T04:17:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8f1b32c_afabffd6",
+      "range": {
+        "startLine": 8826,
+        "startChar": 42,
+        "endLine": 8826,
+        "endChar": 51
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b085879_95903570",
@@ -169,6 +217,30 @@
       "writtenOn": "2023-11-21T13:01:30Z",
       "side": 1,
       "message": "nit : import",
+      "range": {
+        "startLine": 104,
+        "startChar": 49,
+        "endLine": 104,
+        "endChar": 70
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e8bed80_ecfc4101",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 51
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-24T04:17:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b085879_95903570",
       "range": {
         "startLine": 104,
         "startChar": 49,
@@ -202,6 +274,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11efc47a_6af8a329",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 51
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-24T04:17:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cc388c6_63205683",
+      "range": {
+        "startLine": 132,
+        "startChar": 35,
+        "endLine": 132,
+        "endChar": 40
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ad2c54a_d2e2bf70",
@@ -215,6 +311,30 @@
       "writtenOn": "2023-11-21T13:01:30Z",
       "side": 1,
       "message": "a",
+      "range": {
+        "startLine": 174,
+        "startChar": 41,
+        "endLine": 174,
+        "endChar": 44
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dde2078d_f3067ecb",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 51
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-24T04:17:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ad2c54a_d2e2bf70",
       "range": {
         "startLine": 174,
         "startChar": 41,
@@ -248,6 +368,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cb6fa81_fd4bded8",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 51
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-24T04:17:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "480eba1d_91892fb5",
+      "range": {
+        "startLine": 183,
+        "startChar": 63,
+        "endLine": 183,
+        "endChar": 67
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2ef6c25_081e8abb",
@@ -271,6 +415,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "503254cc_795701ac",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 51
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-24T04:17:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2ef6c25_081e8abb",
+      "range": {
+        "startLine": 224,
+        "startChar": 43,
+        "endLine": 224,
+        "endChar": 46
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0256f07b_da8419e7",
@@ -284,6 +452,30 @@
       "writtenOn": "2023-11-21T13:01:30Z",
       "side": 1,
       "message": "as",
+      "range": {
+        "startLine": 234,
+        "startChar": 65,
+        "endLine": 234,
+        "endChar": 69
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a486e163_a5b1ed28",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 51
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-24T04:17:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0256f07b_da8419e7",
       "range": {
         "startLine": 234,
         "startChar": 65,
