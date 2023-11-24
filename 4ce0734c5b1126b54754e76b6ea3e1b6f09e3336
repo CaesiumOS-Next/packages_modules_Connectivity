@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4975e06a_954af81b",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-24T08:28:22Z",
+      "side": 1,
+      "message": "`initMulticastSocket` may be hard to be distinguished from `createMulticastSocket`",
+      "range": {
+        "startLine": 156,
+        "startChar": 30,
+        "endLine": 156,
+        "endChar": 49
+      },
+      "revId": "4ce0734c5b1126b54754e76b6ea3e1b6f09e3336",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "332245fb_c2c678a5",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-24T08:28:22Z",
+      "side": 1,
+      "message": "When will this happen?",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 9
+      },
+      "revId": "4ce0734c5b1126b54754e76b6ea3e1b6f09e3336",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2673d5f9_4323542e",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-24T08:28:22Z",
+      "side": 1,
+      "message": "```suggestion\n     * iif, S and G identifies an MFC entry. For example an MFC1 is added:\n     * [iif1, S1, G1, oifs1]\n     * Adding another MFC2 of [iif1, S1, G1, oifs2] to the kernel overwrites\n     * MFC1.\n```\nvery nit",
+      "range": {
+        "startLine": 544,
+        "startChar": 6,
+        "endLine": 547,
+        "endChar": 12
+      },
+      "revId": "4ce0734c5b1126b54754e76b6ea3e1b6f09e3336",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f16d4f3_b417e344",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-24T08:28:22Z",
+      "side": 1,
+      "message": "```suggestion\n        return new MfcValue(forwardingOifs, 0);\n```\nnit",
+      "range": {
+        "startLine": 683,
+        "startChar": 5,
+        "endLine": 684,
+        "endChar": 21
+      },
+      "revId": "4ce0734c5b1126b54754e76b6ea3e1b6f09e3336",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3e5d2d5_edcbd1f9",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-24T08:28:22Z",
+      "side": 1,
+      "message": "Shall we also check if sock is null?",
+      "revId": "4ce0734c5b1126b54754e76b6ea3e1b6f09e3336",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94ed29c5_afcad009",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-24T08:28:22Z",
+      "side": 1,
+      "message": "May add a comment telling what this filter does.",
+      "revId": "4ce0734c5b1126b54754e76b6ea3e1b6f09e3336",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
