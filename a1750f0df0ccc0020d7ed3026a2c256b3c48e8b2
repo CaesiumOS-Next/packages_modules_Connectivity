@@ -157,6 +157,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33faa91b_cea4fca8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 8809,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-24T04:21:15Z",
+      "side": 1,
+      "message": "disconnectAndDestroyNetwork calls updateIngressToVpnAddressFiltering with newLp\u003dnull, so generateIngressDiscardRules is called with lp\u003dnull.\nIn this case, this agentLp could be null.",
+      "parentUuid": "14adaf2a_69bfe9b5",
+      "range": {
+        "startLine": 8807,
+        "startChar": 0,
+        "endLine": 8809,
+        "endChar": 13
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8f1b32c_afabffd6",
