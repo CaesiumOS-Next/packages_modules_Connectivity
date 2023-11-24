@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53e210a7_751b3d43",
+        "filename": "thread/demoapp/java/com/android/threadnetwork/demoapp/ConnectivityToolsFragment.java",
+        "patchSetId": 108
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-24T07:01:58Z",
+      "side": 1,
+      "message": "FYI `clearCapabilities()` can also make it work.",
+      "revId": "138b4b1c4c768cb7265352d88fa432fe17fd420c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
