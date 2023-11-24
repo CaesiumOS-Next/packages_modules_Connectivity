@@ -116,6 +116,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaaf0f01_acf3076f",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-24T14:19:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e3c93bf_aafdeed3",
+      "range": {
+        "startLine": 748,
+        "startChar": 32,
+        "endLine": 748,
+        "endChar": 36
+      },
+      "revId": "0b70f311941ba5a2f60ad06b3454c878c798342b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fd77d74_edd5dd20",
@@ -129,6 +153,30 @@
       "writtenOn": "2023-11-23T14:12:33Z",
       "side": 1,
       "message": "/* delayMillis */",
+      "range": {
+        "startLine": 752,
+        "startChar": 37,
+        "endLine": 752,
+        "endChar": 38
+      },
+      "revId": "0b70f311941ba5a2f60ad06b3454c878c798342b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a58f03f_f34b49fc",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-24T14:19:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fd77d74_edd5dd20",
       "range": {
         "startLine": 752,
         "startChar": 37,
