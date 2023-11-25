@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15fba858_6eb82c8f",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-25T10:58:29Z",
+      "side": 1,
+      "message": "extra blank",
+      "revId": "f5fa51d989a96b71679afccdc041e5a3f562b7a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e7f3b88_e56bd715",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-25T10:58:29Z",
+      "side": 1,
+      "message": "nit: nowMs?",
+      "range": {
+        "startLine": 714,
+        "startChar": 19,
+        "endLine": 714,
+        "endChar": 22
+      },
+      "revId": "f5fa51d989a96b71679afccdc041e5a3f562b7a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

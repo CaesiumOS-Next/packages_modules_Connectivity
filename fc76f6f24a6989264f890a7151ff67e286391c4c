@@ -426,6 +426,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f98e56e_bd36feb0",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-25T10:58:29Z",
+      "side": 1,
+      "message": "Sorry I wasn\u0027t very clear before. I think the testUnsolicitRouterAdvertisementTimers() is fine as a basic test case.\nHowever, I think it will be better to add another test case that have two `mRaDaemon.buildNewRaAndSend`, it will be better to test the behavior when the second Ra is build and sent, what we do for previously scheduled mMulticastRaAlarm.",
+      "parentUuid": "0a7c956e_78a1a92f",
+      "range": {
+        "startLine": 365,
+        "startChar": 8,
+        "endLine": 365,
+        "endChar": 43
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8d2180d0_1b958f4b",
         "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
         "patchSetId": 7
