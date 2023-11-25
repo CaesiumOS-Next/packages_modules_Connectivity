@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3b2c29e_69aef188",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInetAddressRecord.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-25T10:03:27Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 80,
+        "startChar": 33,
+        "endLine": 80,
+        "endChar": 39
+      },
+      "revId": "82c0c5eb92375520376e542414b5f18d0ef015ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ecd0af9_1ebe19d6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-25T10:03:27Z",
+      "side": 1,
+      "message": "Can we use ArraySet()?",
+      "range": {
+        "startLine": 478,
+        "startChar": 50,
+        "endLine": 478,
+        "endChar": 63
+      },
+      "revId": "82c0c5eb92375520376e542414b5f18d0ef015ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
