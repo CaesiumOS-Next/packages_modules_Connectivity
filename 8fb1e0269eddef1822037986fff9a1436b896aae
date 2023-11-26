@@ -189,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0de0f351_98824258",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-26T09:18:35Z",
+      "side": 1,
+      "message": "Acked. I think using a mock timer in the test can be a TODO item for improvement. Doesn\u0027t necessary to be a block item for this CL.",
+      "parentUuid": "1f465531_f8b9fa75",
+      "range": {
+        "startLine": 284,
+        "startChar": 29,
+        "endLine": 284,
+        "endChar": 58
+      },
+      "revId": "8fb1e0269eddef1822037986fff9a1436b896aae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5dfca00_6156c46c",

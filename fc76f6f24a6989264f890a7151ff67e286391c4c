@@ -377,6 +377,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76177141_7ca74ea6",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-26T09:18:35Z",
+      "side": 1,
+      "message": "Acked",
+      "parentUuid": "ef530a24_08003f94",
+      "range": {
+        "startLine": 717,
+        "startChar": 4,
+        "endLine": 717,
+        "endChar": 52
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5668dd88_808d6726",
