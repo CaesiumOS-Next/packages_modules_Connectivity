@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "323030e0_ad2b527b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-27T08:13:58Z",
+      "side": 1,
+      "message": "\u003e This should be moved to after the known-answer suppression check, otherwise this boolean would be incorrect.\n\nMake sense. Update the design accordingly.\n\n\u003e I first thought that it would be OK to include the SRV, TXT, address records in the additional section even if the PTR was known, but you\u0027d possibly end up in cases where there\u0027s no record in the answer section at all, and only records in the additional section, which doesn\u0027t seem valid.\n\u003e\n\u003e Would you be able to test what Android S (mdnsresponder) does when the PTR record is in the known answers ? I\u0027d expect that it sends no reply to PTR questions ?\n\nI have tested the DUPLICATE SUPPRESSION test case of BCT using an Android S phone. The mDnsResponder does not send a reply to PTR questions if the PTR record is present in the known answers. Our current implementation does not send a response in the absence of an answer, so it won\u0027t have an invalid response containing only records in the additional section. However, I believe the issue may arise when dealing with multiple questions where the PTR record is present in the known answers but other records remain in the additional section.",
+      "parentUuid": "1228b4e1_677f9b29",
+      "range": {
+        "startLine": 587,
+        "startChar": 12,
+        "endLine": 587,
+        "endChar": 35
+      },
+      "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d63b508_41fe53dc",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-11-27T02:14:06Z",
       "side": 1,
       "message": "I don\u0027t think that\u0027s true: the RFC says \"Generally, this applies only to Shared records, not Unique records\", but it\u0027s \"Generally\", and that\u0027s just some background information, not specifying that it should only be used on shared records.",
+      "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b695bad_14092312",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-27T08:13:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9d63b508_41fe53dc",
       "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -58,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8b3a49a_bfd5afda",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-27T08:13:58Z",
+      "side": 1,
+      "message": "It\u0027s not necessary but we need a way to track the skipped records. Your suggestion should be a feasible solution. Leave a todo item here, I will implement the counter in a followup change.",
+      "parentUuid": "0a8a782b_f4334bf4",
+      "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdf1e73c_c38a15a2",
@@ -71,6 +131,24 @@
       "writtenOn": "2023-11-27T02:14:06Z",
       "side": 1,
       "message": "Known answer suppression should probably apply to the TXT, SRV, address records in additionalAnswerInfo as well",
+      "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0285b25_f97e5633",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-27T08:13:58Z",
+      "side": 1,
+      "message": "I have modified the `hasDnsSdPtrRecordAnswer` and `hasDnsSdSrvRecordAnswer` checks to occur after the known-answer suppression check. This ensures that SRV, TXT, and address records are not included in the additionalAnswerInfo if there is no corresponding PTR or SRV answer.\"",
+      "parentUuid": "bdf1e73c_c38a15a2",
       "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -92,6 +170,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "375f7c40_d7fc6a9e",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-27T08:13:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bc6dc79_56bc1dbe",
+      "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "580d2e04_c63a5774",
@@ -105,6 +201,24 @@
       "writtenOn": "2023-11-27T02:14:06Z",
       "side": 1,
       "message": "Nit: LONG_TTL / 2 - X would explain better than this is a \"less than half TTL\"",
+      "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a1f87d8_60eb0612",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-27T08:13:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "580d2e04_c63a5774",
       "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -132,6 +246,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d2c9374_bca17e61",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-27T08:13:58Z",
+      "side": 1,
+      "message": "Oops, I forgot to modify this.",
+      "parentUuid": "4b7a99bd_ffb843be",
+      "range": {
+        "startLine": 846,
+        "startChar": 16,
+        "endLine": 846,
+        "endChar": 26
+      },
+      "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e755b6af_a64c1193",
@@ -145,6 +283,24 @@
       "writtenOn": "2023-11-27T02:14:06Z",
       "side": 1,
       "message": "Nit: can you make the TTL in the known answers a bit lower ? Otherwise you only have tests for \"TTL less then half\" and \"TTL equals original\"",
+      "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad152421_7835b503",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-27T08:13:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e755b6af_a64c1193",
       "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
