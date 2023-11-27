@@ -60,6 +60,7 @@ java_library {
         "service-thread-pre-jarjar",
         service_remoteauth_pre_jarjar_lib,
         "ServiceConnectivityResources",
+        "ServiceThreadResources",
         "unsupportedappusage",
     ],
     static_libs: [

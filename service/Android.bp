@@ -177,6 +177,7 @@ java_library {
         "framework-wifi",
         "unsupportedappusage",
         "ServiceConnectivityResources",
+        "ServiceThreadResources",
         "framework-statsd",
     ],
     static_libs: [
