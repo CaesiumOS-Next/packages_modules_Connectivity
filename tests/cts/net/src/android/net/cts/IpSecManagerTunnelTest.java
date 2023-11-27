@@ -50,6 +50,7 @@ import android.net.IpSecAlgorithm;
 import android.net.IpSecManager;
 import android.net.IpSecManager.IpSecTunnelInterface;
 import android.net.IpSecTransform;
+import android.net.IpSecTransformState;
 import android.net.LinkAddress;
 import android.net.Network;
 import android.net.TestNetworkInterface;
@@ -57,6 +58,7 @@ import android.net.TestNetworkManager;
 import android.net.cts.PacketUtils.Payload;
 import android.net.cts.util.CtsNetUtils;
 import android.os.Build;
+import android.os.OutcomeReceiver;
 import android.os.ParcelFileDescriptor;
 import android.platform.test.annotations.AppModeFull;
 
@@ -77,6 +79,7 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.util.concurrent.Executors;
 
 // TODO: b/268552823 Improve the readability of IpSecManagerTunnelTest
 @RunWith(AndroidJUnit4.class)
@@ -1690,5 +1693,30 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     public void testMigrateTransformTunnelV6InV6UdpEncap() throws Exception {
         assumeExperimentalIpv6UdpEncapSupported();
         doTestMigrateTunnelModeTransform(AF_INET6, AF_INET6, true, false);
+    }
+
+    private static class TransformStateReceiver
+            implements OutcomeReceiver<IpSecTransformState, RuntimeException> {
+        public void onResult(IpSecTransformState state) {
+            android.util.Log.i("TEST", "state " + state);
+        }
+
+        public void onError(RuntimeException error) {
+            android.util.Log.i("TEST", "error " + error);
+        }
+    }
+
+    @Test
+    public void testGetIpSecTransformState() throws Exception {
+        InetAddress local = LOCAL_OUTER_6;
+        InetAddress remote = REMOTE_OUTER_6;
+        int spi = getRandomSpi(local, remote);
+
+        try (IpSecManager.SecurityParameterIndex inSpi =
+                        mISM.allocateSecurityParameterIndex(local, spi);
+                IpSecTransform transform = buildIpSecTransform(sContext, inSpi, null, remote)) {
+            transform.getIpSecTransformState(
+                    Executors.newSingleThreadExecutor(), new TransformStateReceiver());
+        }
     }
 }

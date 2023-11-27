@@ -1885,10 +1885,19 @@ public class IpSecService extends IIpSecService.Stub {
         Log.d(TAG, "getTransformState for spi " + spi + " destAddress " + destAddress);
 
         // Make netlink call
-        final XfrmNetlinkNewSaMessage xfrmNewSaMsg;
+        XfrmNetlinkNewSaMessage xfrmNewSaMsg = null;
         try {
             mIpSecXfrmCtrl.openNetlinkSocketIfNeeded();
-            xfrmNewSaMsg = mIpSecXfrmCtrl.ipSecGetSa(destAddress, Integer.toUnsignedLong(spi));
+
+            final long before = System.currentTimeMillis();
+            android.util.Log.i("TEST", "before timestamp " + System.currentTimeMillis());
+            for (int i = 0; i < 1000; i++) {
+                // android.util.Log.d("TEST", " do nothing");
+                xfrmNewSaMsg = mIpSecXfrmCtrl.ipSecGetSa(destAddress, Integer.toUnsignedLong(spi));
+            }
+            final long after = System.currentTimeMillis();
+            android.util.Log.i("TEST", "after timestamp " + System.currentTimeMillis());
+            android.util.Log.i("TEST", "time cost " + (after - before) + " ms");
         } catch (ErrnoException | IOException e) {
             Log.e(TAG, "getTransformState: failed to get IpSecTransformState" + e.toString());
             throw new IllegalStateException("Failed to get IpSecTransformState " + e.toString());

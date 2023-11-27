@@ -28,7 +28,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
-import com.android.net.module.util.HexDump;
 import com.android.net.module.util.netlink.NetlinkConstants;
 import com.android.net.module.util.netlink.NetlinkErrorMessage;
 import com.android.net.module.util.netlink.NetlinkMessage;
@@ -133,13 +132,13 @@ public class IpSecXfrmController {
             throw new IOException("mNetlinkSocket not initialized. Please call #start");
         }
 
-        logD(methodTag + ":  send request " + req.length + " bytes");
-        logV(HexDump.dumpHexString(req));
+        // logD(methodTag + ":  send request " + req.length + " bytes");
+        // logV(HexDump.dumpHexString(req));
         mDependencies.sendMessage(mNetlinkSocket, req);
 
         final ByteBuffer response = mDependencies.recvMessage(mNetlinkSocket);
-        logD(methodTag + ": receive response " + response.limit() + " bytes");
-        logV(HexDump.dumpHexString(response.array(), 0 /* offset */, response.limit()));
+        // logD(methodTag + ": receive response " + response.limit() + " bytes");
+        // logV(HexDump.dumpHexString(response.array(), 0 /* offset */, response.limit()));
 
         final NetlinkMessage msg = XfrmNetlinkMessage.parse(response, NETLINK_XFRM);
         if (msg == null) {
@@ -160,7 +159,7 @@ public class IpSecXfrmController {
     @NonNull
     public XfrmNetlinkNewSaMessage ipSecGetSa(@NonNull final InetAddress destAddress, long spi)
             throws ErrnoException, InterruptedIOException, IOException {
-        logD("ipSecGetSa: destAddress=" + destAddress + " spi=" + spi);
+        // logD("ipSecGetSa: destAddress=" + destAddress + " spi=" + spi);
 
         final byte[] req =
                 XfrmNetlinkGetSaMessage.newXfrmNetlinkGetSaMessage(
