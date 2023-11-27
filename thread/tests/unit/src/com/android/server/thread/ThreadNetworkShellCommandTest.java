@@ -117,6 +117,7 @@ public class ThreadNetworkShellCommandTest {
         assertThat(mThreadNetworkShellCommand.getErrPrintWriter().toString().isEmpty()).isFalse();
     }
 
+    @Test
     public void forceSetCountryCodeDisabled_executeInRootedShell_allowed() throws Exception {
         BinderUtil.setUid(Process.ROOT_UID);
 
