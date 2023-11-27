@@ -46,6 +46,7 @@ import android.util.Log;
 import com.android.internal.annotations.Keep;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.HandlerExecutor;
+import com.android.thread.resources.R;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -107,7 +108,7 @@ public class ThreadNetworkCountryCode {
     private static final String COUNTRY_CODE_SOURCE_TELEPHONY_LAST = "TelephonyLast";
     private static final String COUNTRY_CODE_SOURCE_WIFI = "Wifi";
 
-    private final Context mContext;
+    private final ThreadNetworkContext mContext;
     private final Handler mHandler;
     private final TelephonyManager mTelephonyManager;
     private final SubscriptionManager mSubscriptionManager;
@@ -202,8 +203,7 @@ public class ThreadNetworkCountryCode {
     }
 
     private boolean isLocationUseForCountryCodeEnabled() {
-        // TODO: b/311324956 read the configuration from the overlay configuration.
-        return true;
+        return mContext.getResources().getBoolean(R.bool.location_use_for_country_code_enabled);
     }
 
     @Nullable
@@ -213,7 +213,7 @@ public class ThreadNetworkCountryCode {
     }
 
     public ThreadNetworkCountryCode(
-            Context context,
+            ThreadNetworkContext context,
             ThreadNetworkControllerService threadNetworkControllerService,
             Looper looper) {
         this(context, threadNetworkControllerService, looper, new Geocoder(context));
@@ -221,7 +221,7 @@ public class ThreadNetworkCountryCode {
 
     @VisibleForTesting
     public ThreadNetworkCountryCode(
-            Context context,
+            ThreadNetworkContext context,
             ThreadNetworkControllerService threadNetworkControllerService,
             Looper looper,
             Geocoder geocoder) {
@@ -580,6 +580,7 @@ public class ThreadNetworkCountryCode {
         pw.println("mTelephonyCountryCodeInfoSlot: " + mTelephonyCountryCodeInfoPerSlot);
         pw.println("mWifiCountryCode: " + mWifiCountryCode);
         pw.println("mWifiCountryTimestamp: " + mWifiCountryTimestamp);
+        pw.println("isLocationUseForCountryCodeEnabled: " + isLocationUseForCountryCodeEnabled());
         pw.println("mLocationCountryCode: " + mLocationCountryCode);
         pw.println("mLocationCountryTimestamp: " + mLocationCountryTimestamp);
         pw.println("DefaultCountryCode(system property): " + getOemDefaultCountryCode());

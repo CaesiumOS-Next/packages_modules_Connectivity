@@ -18,6 +18,11 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+java_defaults {
+    name: "thread-module-sdk-version-defaults",
+    min_sdk_version: "30",
+}
+
 filegroup {
     name: "framework-thread-sources",
     srcs: [

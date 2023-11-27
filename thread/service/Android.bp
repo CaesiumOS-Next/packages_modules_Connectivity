@@ -18,6 +18,14 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+java_defaults {
+    name: "thread-service-common-defaults",
+    defaults: ["thread-module-sdk-version-defaults"],
+    errorprone: {
+        javacflags: ["-Xep:CheckReturnValue:ERROR"],
+    },
+}
+
 filegroup {
     name: "service-thread-sources",
     srcs: ["java/**/*.java"],
@@ -38,6 +46,8 @@ java_library {
         "framework-location.stubs.module_lib",
         "framework-wifi.stubs.module_lib",
         "service-connectivity-pre-jarjar",
+        // load the resources from the resources APK.
+        "ServiceThreadResources",
     ],
     static_libs: [
         "modules-utils-shell-command-handler",
