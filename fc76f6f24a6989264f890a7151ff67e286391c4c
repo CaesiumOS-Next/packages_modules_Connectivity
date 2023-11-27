@@ -474,6 +474,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff6b578f_b371144d",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-27T12:35:06Z",
+      "side": 1,
+      "message": "Done. Extend the test to verify the timers when a second buildNewRaAndSend is called. Found a bug in DeprecatedInfoTracker#decrementCounters but didn\u0027t fix in this CL. Added TODO comments as it is a behavior, fix it when we feel safe to do so.",
+      "parentUuid": "0f98e56e_bd36feb0",
+      "range": {
+        "startLine": 365,
+        "startChar": 8,
+        "endLine": 365,
+        "endChar": 43
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8d2180d0_1b958f4b",
         "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
         "patchSetId": 7
@@ -485,6 +509,30 @@
       "writtenOn": "2023-11-23T13:26:37Z",
       "side": 1,
       "message": "Using the SystemClock directly inside the test can be a source of flakyness, it is highly recommended to mock the timeclock inside the test case. \n\nWe should have a way to inject the handler thread into RouterAdvertisementDaemon and have better control the handler thread in the test case.\n\nAn example: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt;l\u003d412?ss\u003dandroid\u0026q\u003drepo:platform%2Fsuperproject%2Fmain%20postSync",
+      "range": {
+        "startLine": 376,
+        "startChar": 8,
+        "endLine": 376,
+        "endChar": 53
+      },
+      "revId": "fc76f6f24a6989264f890a7151ff67e286391c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4da2dab8_88d56996",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-11-27T12:35:06Z",
+      "side": 1,
+      "message": "Talked offline, using a mock clock can\u0027t effect the WakeupMessage.",
+      "parentUuid": "8d2180d0_1b958f4b",
       "range": {
         "startLine": 376,
         "startChar": 8,
