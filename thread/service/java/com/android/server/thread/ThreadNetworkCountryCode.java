@@ -42,6 +42,7 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.thread.resources.R;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -101,7 +102,7 @@ public class ThreadNetworkCountryCode {
     private static final String COUNTRY_CODE_SOURCE_TELEPHONY_LAST = "TelephonyLast";
     private static final String COUNTRY_CODE_SOURCE_WIFI = "Wifi";
 
-    private final Context mContext;
+    private final ThreadNetworkContext mContext;
     private final TelephonyManager mTelephonyManager;
     private final SubscriptionManager mSubscriptionManager;
     private final LocationManager mLocationManager;
@@ -186,7 +187,10 @@ public class ThreadNetworkCountryCode {
     }
 
     private boolean isLocationUseForCountryCodeEnabled() {
-        // TODO: b/311324956 read the configuration from the overlay configuration.
+        if (mContext.getResources() != null) {
+            return mContext.getResources().getBoolean(R.bool.location_use_for_country_code_enabled);
+        }
+
         return true;
     }
 
@@ -197,7 +201,7 @@ public class ThreadNetworkCountryCode {
     }
 
     public ThreadNetworkCountryCode(
-            Context context,
+            ThreadNetworkContext context,
             TelephonyManager telephonyManager,
             SubscriptionManager subscriptionManager,
             LocationManager locationManager,
@@ -541,6 +545,7 @@ public class ThreadNetworkCountryCode {
         pw.println("mTelephonyCountryCodeInfoSlot: " + mTelephonyCountryCodeInfoPerSlot);
         pw.println("mWifiCountryCode: " + mWifiCountryCode);
         pw.println("mWifiCountryTimestamp: " + DATE_FORMATTER.format(mWifiCountryTimestamp));
+        pw.println("isLocationUseForCountryCodeEnabled: " + isLocationUseForCountryCodeEnabled());
         pw.println("mLocationCountryCode: " + mLocationCountryCode);
         pw.println(
                 "mLocationCountryTimestamp: " + DATE_FORMATTER.format(mLocationCountryTimestamp));
