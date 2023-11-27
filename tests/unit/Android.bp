@@ -123,6 +123,7 @@ java_defaults {
         "android.test.base",
         "android.test.mock",
         "ServiceConnectivityResources",
+        "ServiceThreadResources",
     ],
     exclude_kotlinc_generated_files: false,
 }

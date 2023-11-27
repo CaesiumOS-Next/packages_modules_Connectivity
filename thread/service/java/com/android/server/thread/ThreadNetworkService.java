@@ -42,13 +42,13 @@ import java.util.List;
  * Implementation of the Thread network service. This is the entry point of Android Thread feature.
  */
 public class ThreadNetworkService extends IThreadNetworkManager.Stub {
-    private final Context mContext;
+    private final ThreadNetworkContext mContext;
     @Nullable private ThreadNetworkCountryCode mCountryCode;
     @Nullable private ThreadNetworkControllerService mControllerService;
 
     /** Creates a new {@link ThreadNetworkService} object. */
     public ThreadNetworkService(Context context) {
-        mContext = context;
+        mContext = new ThreadNetworkContext(context);
     }
 
     /**
