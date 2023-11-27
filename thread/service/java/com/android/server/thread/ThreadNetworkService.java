@@ -29,6 +29,7 @@ import android.os.Binder;
 import android.os.ParcelFileDescriptor;
 
 import com.android.server.SystemService;
+import com.android.server.connectivity.ConnectivityResources;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -62,7 +63,8 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
                             mContext.getSystemService(LocationManager.class),
                             mControllerService,
                             new Geocoder(mContext),
-                            Geocoder.isPresent());
+                            Geocoder.isPresent(),
+                            new ConnectivityResources(mContext));
             mCountryCode.initialize();
         }
     }
