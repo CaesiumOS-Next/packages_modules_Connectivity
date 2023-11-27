@@ -1,0 +1,152 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1228b4e1_677f9b29",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-27T02:14:06Z",
+      "side": 1,
+      "message": "This should be moved to after the known-answer suppression check, otherwise this boolean would be incorrect.\n\nI first thought that it would be OK to include the SRV, TXT, address records in the additional section even if the PTR was known, but you\u0027d possibly end up in cases where there\u0027s no record in the answer section at all, and only records in the additional section, which doesn\u0027t seem valid.\n\nWould you be able to test what Android S (mdnsresponder) does when the PTR record is in the known answers ? I\u0027d expect that it sends no reply to PTR questions ?",
+      "range": {
+        "startLine": 587,
+        "startChar": 12,
+        "endLine": 587,
+        "endChar": 35
+      },
+      "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d63b508_41fe53dc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-27T02:14:06Z",
+      "side": 1,
+      "message": "I don\u0027t think that\u0027s true: the RFC says \"Generally, this applies only to Shared records, not Unique records\", but it\u0027s \"Generally\", and that\u0027s just some background information, not specifying that it should only be used on shared records.",
+      "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a8a782b_f4334bf4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-27T02:14:06Z",
+      "side": 1,
+      "message": "That may be a bit too verbose (one log line per record). Is this really needed ? You could keep a count and log the total count of skipped records when sending replies (together with the count of replies), but I\u0027m not sure that\u0027s worth the effort",
+      "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdf1e73c_c38a15a2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-27T02:14:06Z",
+      "side": 1,
+      "message": "Known answer suppression should probably apply to the TXT, SRV, address records in additionalAnswerInfo as well",
+      "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bc6dc79_56bc1dbe",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-27T02:14:06Z",
+      "side": 1,
+      "message": "Can you also verify the additional answers section ? Its behavior is tied to the answer section so I think that\u0027s important to check",
+      "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "580d2e04_c63a5774",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-27T02:14:06Z",
+      "side": 1,
+      "message": "Nit: LONG_TTL / 2 - X would explain better than this is a \"less than half TTL\"",
+      "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b7a99bd_ffb843be",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-27T02:14:06Z",
+      "side": 1,
+      "message": "LONG_TTL, otherwise you may not actually be testing the \"service name is different\" case",
+      "range": {
+        "startLine": 846,
+        "startChar": 16,
+        "endLine": 846,
+        "endChar": 26
+      },
+      "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e755b6af_a64c1193",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-27T02:14:06Z",
+      "side": 1,
+      "message": "Nit: can you make the TTL in the known answers a bit lower ? Otherwise you only have tests for \"TTL less then half\" and \"TTL equals original\"",
+      "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
