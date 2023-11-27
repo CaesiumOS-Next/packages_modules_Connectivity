@@ -115,6 +115,7 @@ apex {
     ],
     apps: [
         "ServiceConnectivityResources",
+        "ServiceThreadResources",
     ],
     prebuilts: [
         "ot-daemon.init.34rc",
