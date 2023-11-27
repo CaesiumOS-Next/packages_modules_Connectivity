@@ -16,6 +16,103 @@
       "message": "I6bb188a7c3d01ee97d74915e0f8fc18cfcd56109",
       "revId": "e2ccc703a8f58e74bbad592a8caafc2b07274a5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77410b3a_a97a918d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-27T01:23:12Z",
+      "side": 1,
+      "message": "Not stopping or restarting the announcing is only valid in the case where subtypes are not announced, otherwise if there\u0027s a registration with subtype A, and it\u0027s updated to B, the advertiser should stop announcing packets saying that A exists.\n\nSo after adding support for the \"many subtypes don\u0027t get announced\" use-case, I think this method should be limited to updates for that use-case, otherwise support for stopping/restarting announcing should be added.\n\nMaybe add a comment to mention that the current implementation is intended to be used in cases where subtypes don\u0027t get announced, otherwise that should be added ?\n\nFYI in the case where subtypes are announced, I think restarting the announcing could be implemented by having MdnsRecordRepository#updateService return an AnnouncementInfo when the service wasn\u0027t stopping or exiting. Then if it\u0027s non-null call announcer.stop(id), and if that returns true restart announcing with the AnnouncementInfo.",
+      "revId": "e2ccc703a8f58e74bbad592a8caafc2b07274a5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e397b6c_312384ef",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-27T01:23:12Z",
+      "side": 1,
+      "message": "Nit: you could get rid of this field and just use srvRecord.record.getServiceHost() in withSubtype",
+      "revId": "e2ccc703a8f58e74bbad592a8caafc2b07274a5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc9b6ed7_ab29d5cd",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-27T01:23:12Z",
+      "side": 1,
+      "message": "Typo: fail",
+      "range": {
+        "startLine": 427,
+        "startChar": 67,
+        "endLine": 427,
+        "endChar": 72
+      },
+      "revId": "e2ccc703a8f58e74bbad592a8caafc2b07274a5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8431267_fa78456b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-27T01:23:12Z",
+      "side": 1,
+      "message": "No onRegisterServiceSucceeded in that case ?\n\nI think that\u0027s OK for now but it\u0027s a difference to keep in mind between registrations and updates. Before making this a public API we should think about the use-case for the onRegisterServiceSucceeded callback, and whether it would be useful to have it here.\n\nSince there\u0027s potential for the update to fail (for example if the service has already been unregistered), maybe a success callback would be necessary ?",
+      "revId": "e2ccc703a8f58e74bbad592a8caafc2b07274a5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe2c78e2_b729edbb",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiserTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-27T01:23:12Z",
+      "side": 1,
+      "message": "Nit: also here, _sub would be less confusing",
+      "range": {
+        "startLine": 292,
+        "startChar": 23,
+        "endLine": 292,
+        "endChar": 27
+      },
+      "revId": "e2ccc703a8f58e74bbad592a8caafc2b07274a5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
