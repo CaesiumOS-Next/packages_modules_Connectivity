@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ce323a2_f8c7dd66",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInetAddressRecord.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-27T03:30:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3b2c29e_69aef188",
+      "range": {
+        "startLine": 80,
+        "startChar": 33,
+        "endLine": 80,
+        "endChar": 39
+      },
+      "revId": "82c0c5eb92375520376e542414b5f18d0ef015ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ecd0af9_1ebe19d6",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-25T10:03:27Z",
       "side": 1,
       "message": "Can we use ArraySet()?",
+      "range": {
+        "startLine": 478,
+        "startChar": 50,
+        "endLine": 478,
+        "endChar": 63
+      },
+      "revId": "82c0c5eb92375520376e542414b5f18d0ef015ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "723058ab_aa1e0b9f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-27T03:30:43Z",
+      "side": 1,
+      "message": "`LinkedHashSet` works better because RRs of the same service or corresponding host are grouped together. It\u0027s more friendly for developers to dissect the packet with wireshark or tcpdump.",
+      "parentUuid": "7ecd0af9_1ebe19d6",
       "range": {
         "startLine": 478,
         "startChar": 50,
