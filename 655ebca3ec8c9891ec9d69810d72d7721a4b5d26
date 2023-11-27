@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf144608_d5e1e588",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-27T02:31:48Z",
+      "side": 1,
+      "message": "LGTM but I think Remi should take a look.",
+      "revId": "655ebca3ec8c9891ec9d69810d72d7721a4b5d26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
