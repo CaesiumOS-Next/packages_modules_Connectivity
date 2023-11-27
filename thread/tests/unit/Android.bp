@@ -47,6 +47,7 @@ android_test {
     libs: [
         "android.test.base",
         "android.test.runner",
+        "ServiceThreadResources",
     ],
     jarjar_rules: ":connectivity-jarjar-rules",
     jni_libs: [
