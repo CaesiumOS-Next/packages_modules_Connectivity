@@ -33,12 +33,14 @@ import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -83,7 +85,8 @@ public class ThreadNetworkCountryCodeTest {
     private static final int TEST_SLOT_IDX = 0;
     private static final int TEST_SLOT_IDX_OTHER = 1;
 
-    @Mock Context mContext;
+    @Mock ThreadNetworkContext mContext;
+    @Mock Resources mResources;
     @Mock TelephonyManager mTelephonyManager;
     @Mock SubscriptionManager mSubscriptionManager;
     @Mock LocationManager mLocationManager;
@@ -118,6 +121,8 @@ public class ThreadNetworkCountryCodeTest {
         when(mContext.getSystemService(SubscriptionManager.class)).thenReturn(mSubscriptionManager);
         when(mContext.getSystemService(WifiManager.class)).thenReturn(mWifiManager);
         when(mContext.getSystemService(LocationManager.class)).thenReturn(mLocationManager);
+        when(mContext.getResources()).thenReturn(mResources);
+        when(mResources.getBoolean(anyInt())).thenReturn(true);
 
         when(mSubscriptionManager.getActiveSubscriptionInfoList())
                 .thenReturn(mSubscriptionInfoList);
@@ -242,6 +247,14 @@ public class ThreadNetworkCountryCodeTest {
         verify(mThreadNetworkControllerService, never()).setCountryCode(any(), any());
         verify(mListener, never()).onUpdateCountryCodeSucceeded(TEST_COUNTRY_CODE);
         assertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(TEST_COUNTRY_CODE);
+    }
+
+    @Test
+    public void testSetCountryCodeWhenLocationUseIsDisabled() {
+        when(mResources.getBoolean(anyInt())).thenReturn(false);
+        mThreadNetworkCountryCode.initialize();
+        verifyNoMoreInteractions(mGeocoder);
+        verifyNoMoreInteractions(mLocationManager);
     }
 
     @Test
