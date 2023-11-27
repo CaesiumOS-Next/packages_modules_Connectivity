@@ -34,12 +34,14 @@ import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -83,7 +85,8 @@ public class ThreadNetworkCountryCodeTest {
     private static final int TEST_SLOT_INDEX_0 = 0;
     private static final int TEST_SLOT_INDEX_1 = 1;
 
-    @Mock Context mContext;
+    @Mock ThreadNetworkContext mContext;
+    @Mock Resources mResources;
     @Mock TelephonyManager mTelephonyManager;
     @Mock SubscriptionManager mSubscriptionManager;
     @Mock LocationManager mLocationManager;
@@ -111,6 +114,9 @@ public class ThreadNetworkCountryCodeTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+
+        when(mContext.getResources()).thenReturn(mResources);
+        when(mResources.getBoolean(anyInt())).thenReturn(true);
 
         when(mSubscriptionManager.getActiveSubscriptionInfoList())
                 .thenReturn(mSubscriptionInfoList);
