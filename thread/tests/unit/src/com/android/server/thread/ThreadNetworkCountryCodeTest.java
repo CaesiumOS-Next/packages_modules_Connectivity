@@ -34,12 +34,14 @@ import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -57,7 +59,9 @@ import android.telephony.TelephonyManager;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.connectivity.resources.R;
 import com.android.dx.mockito.inline.extended.ExtendedMockito;
+import com.android.server.connectivity.ConnectivityResources;
 
 import org.junit.After;
 import org.junit.Before;
@@ -91,6 +95,8 @@ public class ThreadNetworkCountryCodeTest {
     @Mock WifiManager mWifiManager;
     @Mock ThreadNetworkControllerService mThreadNetworkControllerService;
     @Mock PackageManager mPackageManager;
+    @Mock Resources mResources;
+    @Mock ConnectivityResources mConnectivityResources;
     @Mock Location mLocation;
     @Mock List<SubscriptionInfo> mSubscriptionInfoList;
     @Mock SubscriptionInfo mSubscriptionInfo0;
@@ -111,6 +117,9 @@ public class ThreadNetworkCountryCodeTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+
+        when(mConnectivityResources.get()).thenReturn(mResources);
+        when(mResources.getBoolean(anyInt())).thenReturn(true);
 
         when(mSubscriptionManager.getActiveSubscriptionInfoList())
                 .thenReturn(mSubscriptionInfoList);
@@ -163,6 +172,7 @@ public class ThreadNetworkCountryCodeTest {
                         mLocationManager,
                         mWifiManager,
                         mThreadNetworkControllerService,
+                        mConnectivityResources,
                         mGeocoder,
                         true);
     }
@@ -239,6 +249,17 @@ public class ThreadNetworkCountryCodeTest {
         mTelephonyCountryCodeReceiverCaptor.getValue().onReceive(mock(Context.class), intent);
 
         assertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(TEST_COUNTRY_CODE_US);
+    }
+
+    @Test
+    public void initialize_locationUseIsDisabled_locationFunctionIsNotCalled() {
+        when(mResources.getBoolean(R.bool.config_location_use_for_thread_country_code_enabled))
+                .thenReturn(false);
+
+        mThreadNetworkCountryCode.initialize();
+
+        verifyNoMoreInteractions(mGeocoder);
+        verifyNoMoreInteractions(mLocationManager);
     }
 
     @Test

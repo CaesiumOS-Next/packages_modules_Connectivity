@@ -40,7 +40,9 @@ import android.telephony.TelephonyManager;
 import android.util.ArrayMap;
 import android.util.Log;
 
+import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.server.connectivity.ConnectivityResources;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -97,6 +99,7 @@ public class ThreadNetworkCountryCode {
     private static final String COUNTRY_CODE_SOURCE_WIFI = "Wifi";
 
     private final Context mContext;
+    private final ConnectivityResources mResources;
     private final TelephonyManager mTelephonyManager;
     private final SubscriptionManager mSubscriptionManager;
     private final LocationManager mLocationManager;
@@ -189,8 +192,9 @@ public class ThreadNetworkCountryCode {
     }
 
     private boolean isLocationUseForCountryCodeEnabled() {
-        // TODO: b/311324956 read the configuration from the overlay configuration.
-        return true;
+        return mResources
+                .get()
+                .getBoolean(R.bool.config_location_use_for_thread_country_code_enabled);
     }
 
     @Nullable
@@ -206,6 +210,7 @@ public class ThreadNetworkCountryCode {
             LocationManager locationManager,
             WifiManager wifiManager,
             ThreadNetworkControllerService threadNetworkControllerService,
+            ConnectivityResources resources,
             Geocoder geocoder,
             boolean geocoderPresent) {
         mContext = context;
@@ -214,6 +219,7 @@ public class ThreadNetworkCountryCode {
         mLocationManager = locationManager;
         mWifiManager = wifiManager;
         mThreadNetworkControllerService = threadNetworkControllerService;
+        mResources = resources;
         mGeocoder = geocoder;
         mIsGeocoderPresent = geocoderPresent;
         mCurrentCountryCodeInfo = new CountryCodeInfo();

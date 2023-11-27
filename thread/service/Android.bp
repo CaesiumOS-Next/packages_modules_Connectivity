@@ -38,6 +38,7 @@ java_library {
         "framework-location.stubs.module_lib",
         "framework-wifi.stubs.module_lib",
         "service-connectivity-pre-jarjar",
+        "ServiceConnectivityResources",
     ],
     static_libs: [
         "modules-utils-shell-command-handler",
