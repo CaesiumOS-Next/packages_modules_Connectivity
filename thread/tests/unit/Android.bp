@@ -43,10 +43,12 @@ android_test {
         "net-tests-utils",
         "service-thread-pre-jarjar",
         "truth",
+        "service-connectivity-pre-jarjar",
     ],
     libs: [
         "android.test.base",
         "android.test.runner",
+        "ServiceConnectivityResources",
     ],
     jarjar_rules: ":connectivity-jarjar-rules",
     jni_libs: [

@@ -32,6 +32,7 @@ import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 
 import com.android.server.SystemService;
+import com.android.server.connectivity.ConnectivityResources;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -68,6 +69,7 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
                             mContext.getSystemService(LocationManager.class),
                             mContext.getSystemService(WifiManager.class),
                             mControllerService,
+                            new ConnectivityResources(mContext),
                             new Geocoder(mContext),
                             Geocoder.isPresent());
             mCountryCode.initialize();
