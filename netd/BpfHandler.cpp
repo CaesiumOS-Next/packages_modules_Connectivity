@@ -76,6 +76,13 @@ static Status checkProgramAccessible(const char* programPath) {
 }
 
 static Status initPrograms(const char* cg2_path) {
+    if (cg2_path) {
+        ALOGI("cg2_path %s", cg2_path);
+    } else {
+        ALOGE("cg2_path is NULL");
+        return statusFromErrno(EINVAL, "cg2_path is NULL");
+    }
+
     // This code was mainlined in T, so this should be trivially satisfied.
     if (!modules::sdklevel::IsAtLeastT()) abort();
 
