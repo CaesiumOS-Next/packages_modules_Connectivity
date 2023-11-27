@@ -35,10 +35,12 @@ import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -51,7 +53,9 @@ import android.os.SystemProperties;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.connectivity.resources.R;
 import com.android.dx.mockito.inline.extended.ExtendedMockito;
+import com.android.server.connectivity.ConnectivityResources;
 
 import org.junit.After;
 import org.junit.Before;
@@ -80,6 +84,8 @@ public class ThreadNetworkCountryCodeTest {
     @Mock ThreadNetworkControllerService mThreadNetworkControllerService;
     @Mock PackageManager mPackageManager;
     @Mock Location mLocation;
+    @Mock Resources mResources;
+    @Mock ConnectivityResources mConnectivityResources;
 
     private ThreadNetworkCountryCode mThreadNetworkCountryCode;
     private MockitoSession mStaticMockSession;
@@ -94,6 +100,9 @@ public class ThreadNetworkCountryCodeTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+
+        when(mConnectivityResources.get()).thenReturn(mResources);
+        when(mResources.getBoolean(anyInt())).thenReturn(true);
 
         when(mLocation.getLatitude()).thenReturn(0.0);
         when(mLocation.getLongitude()).thenReturn(0.0);
@@ -134,7 +143,8 @@ public class ThreadNetworkCountryCodeTest {
                         mLocationManager,
                         mThreadNetworkControllerService,
                         mGeocoder,
-                        true);
+                        true,
+                        mConnectivityResources);
     }
 
     @After
@@ -157,6 +167,17 @@ public class ThreadNetworkCountryCodeTest {
         mThreadNetworkCountryCode.initialize();
 
         assertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(TEST_COUNTRY_CODE_US);
+    }
+
+    @Test
+    public void initialize_locationUseIsDisabled_locationFunctionIsNotCalled() {
+        when(mResources.getBoolean(R.bool.config_thread_location_use_for_country_code_enabled))
+                .thenReturn(false);
+
+        mThreadNetworkCountryCode.initialize();
+
+        verifyNoMoreInteractions(mGeocoder);
+        verifyNoMoreInteractions(mLocationManager);
     }
 
     @Test
