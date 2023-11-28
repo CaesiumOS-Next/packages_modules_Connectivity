@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c59973e_23183cea",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-28T06:02:46Z",
+      "side": 1,
+      "message": "I\u0027m not sure we actually want to compare the whole file, I remember discussing maybe comparing just one section. Opened a chat to ask about that.",
+      "revId": "146f562ee4869a60a6e0a223a24cadf16ff0efa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87808007_13d18fdb",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-28T06:02:46Z",
+      "side": 1,
+      "message": "Nit: I think you mean \"neither X nor Y exist\" (or \"both X and Y don\u0027t exist\")",
+      "range": {
+        "startLine": 110,
+        "startChar": 26,
+        "endLine": 110,
+        "endChar": 32
+      },
+      "revId": "146f562ee4869a60a6e0a223a24cadf16ff0efa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f5799cf_37fc7fc6",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-28T06:02:46Z",
+      "side": 1,
+      "message": "Should this be after the strip() ?",
+      "revId": "146f562ee4869a60a6e0a223a24cadf16ff0efa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af583304_57bea2ef",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-28T06:02:46Z",
+      "side": 1,
+      "message": "Nit: that shouldn\u0027t really be necessary since packages/modules/Connectivity/service (service-connectivity.jar) is only loaded on S+",
+      "revId": "146f562ee4869a60a6e0a223a24cadf16ff0efa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50f70d5c_8f76f7d0",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-28T06:02:46Z",
+      "side": 1,
+      "message": "It would be useful to differentiate whether it\u0027s S, T or U files at least: how about selecting the list of templates based on the current SDK level ? You could still accept both of U and U QPR in the U case",
+      "revId": "146f562ee4869a60a6e0a223a24cadf16ff0efa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae80fdb1_67c6f7e9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1880,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-28T06:02:46Z",
+      "side": 1,
+      "message": "Can you add a killswitch flag for this: `if (isFeatureNotChickenedOut(flag)) mHandler.post(...)` ?",
+      "revId": "146f562ee4869a60a6e0a223a24cadf16ff0efa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
