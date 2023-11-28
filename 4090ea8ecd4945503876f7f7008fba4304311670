@@ -83,6 +83,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e374003_b6acf88d",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-11-28T10:32:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2831e527_61ad2d34",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 23
+      },
+      "revId": "4090ea8ecd4945503876f7f7008fba4304311670",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdfae061_d50077ad",
