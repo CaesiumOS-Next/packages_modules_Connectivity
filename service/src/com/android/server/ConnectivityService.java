@@ -1755,6 +1755,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         /**
+         * Call {@link InetDiagMessage#destroyLiveTcpSocketsByLocalAddress(Set)}
+         *
+         * @param localAddresses a set of local addresses to close live TCP sockets
+         */
+        public void destroyLiveTcpSocketsByLocalAddress(
+                @NonNull final List<InetAddress> localAddresses)
+                throws SocketException, InterruptedIOException, ErrnoException {
+            InetDiagMessage.destroyLiveTcpSocketsByLocalAddress(localAddresses);
+        }
+
+        /**
          * Schedule the evaluation timeout.
          *
          * When a network connects, it's "not evaluated" yet. Detection events cause the network
@@ -5420,6 +5431,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         if (DBG) {
             log(nai.toShortString() + " disconnected, was satisfying " + nai.numNetworkRequests());
+        }
+        if (Flags.connectivityServiceDestroySocketOnRemovedAddress()) {
+            destroySocketsOnRemovedAddresses(nai.linkProperties, null);
         }
         // Clear all notifications of this network.
         mNotifier.clearNotification(nai.network.getNetId());
@@ -9424,10 +9438,27 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             networkAgent.networkMonitor().notifyLinkPropertiesChanged(
                     new LinkProperties(newLp, true /* parcelSensitiveFields */));
-            notifyNetworkCallbacks(networkAgent, CALLBACK_IP_CHANGED);
+            if (Flags.connectivityServiceDestroySocketOnRemovedAddress() && oldLp != null) {
+                destroySocketsOnRemovedAddresses(oldLp, newLp);
+            }
+            notifyNetworkCallbacks(networkAgent, ConnectivityManager.CALLBACK_IP_CHANGED);
         }
-
         mKeepaliveTracker.handleCheckKeepalivesStillValid(networkAgent);
+    }
+
+    private void destroySocketsOnRemovedAddresses(
+            @NonNull LinkProperties oldLp, @Nullable LinkProperties newLp) {
+        List<InetAddress> inetAddresses = new ArrayList<>(oldLp.getAllAddresses());
+        if (newLp != null) {
+            inetAddresses.removeAll(newLp.getAllAddresses());
+        }
+        if (!inetAddresses.isEmpty()) {
+            try {
+                mDeps.destroyLiveTcpSocketsByLocalAddress(inetAddresses);
+            } catch (Exception e) {
+                loge("Exception destroy TCP sockets on local addresses: " + e);
+            }
+        }
     }
 
     private void applyInitialLinkProperties(@NonNull NetworkAgentInfo nai) {
