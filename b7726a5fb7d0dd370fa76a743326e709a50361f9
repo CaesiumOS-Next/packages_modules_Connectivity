@@ -234,6 +234,30 @@
       },
       "revId": "b7726a5fb7d0dd370fa76a743326e709a50361f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "643f20ff_d3a81e8f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-28T14:25:38Z",
+      "side": 1,
+      "message": "Thanks, the comment message is very clear to me now and I understand the logic behind the math :).",
+      "parentUuid": "f43d5c3a_a79454e8",
+      "range": {
+        "startLine": 209,
+        "startChar": 8,
+        "endLine": 211,
+        "endChar": 48
+      },
+      "revId": "b7726a5fb7d0dd370fa76a743326e709a50361f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
