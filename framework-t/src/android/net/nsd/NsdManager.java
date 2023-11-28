@@ -22,6 +22,7 @@ import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_PLATFORM_MDNS_BACKEND;
 import static android.net.connectivity.ConnectivityCompatChanges.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER;
 
+import android.annotation.FlaggedApi;
 import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -138,10 +139,19 @@ import java.util.concurrent.Executor;
  *
  * @see NsdServiceInfo
  */
+@FlaggedApi(NsdManager.Flags.REGISTER_NSD_OFFLOAD_ENGINE_API)
 @SystemService(Context.NSD_SERVICE)
 public final class NsdManager {
     private static final String TAG = NsdManager.class.getSimpleName();
     private static final boolean DBG = false;
+
+    // TODO : remove this class when udc-mainline-prod is abandoned and android.net.flags.Flags is
+    // available here
+    /** @hide */
+    public static class Flags {
+        static final String REGISTER_NSD_OFFLOAD_ENGINE_API =
+                "com.android.net.flags.register_nsd_offload_engine_api";
+    }
 
     /**
      * Broadcast intent action to indicate whether network service discovery is
