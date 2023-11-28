@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "286c9e6f_c165695b",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-28T07:38:56Z",
+      "side": 1,
+      "message": "why not pass in a File ?",
+      "range": {
+        "startLine": 78,
+        "startChar": 54,
+        "endLine": 78,
+        "endChar": 89
+      },
+      "revId": "c7c7dddf72ad5361dba5390afa682cb8e9c39eee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d1bcd129_56fe778e",
         "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
         "patchSetId": 3
@@ -20,6 +43,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "54180a9b_da94b508",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-28T07:38:56Z",
+      "side": 1,
+      "message": "space here I think",
+      "range": {
+        "startLine": 96,
+        "startChar": 54,
+        "endLine": 96,
+        "endChar": 55
+      },
+      "revId": "c7c7dddf72ad5361dba5390afa682cb8e9c39eee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "929567a8_3193ea16",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-28T07:38:56Z",
+      "side": 1,
+      "message": "I\u0027d eliminate this variable.\n\nFile :\u003d File(S/T/U path)\nif !File {\n  if U+ { File :\u003d File(U QPR2 path); }\n  if !File { wtf; return }\n  handle U QPR2\n  return\n}\nif U+ {\n  handle U\n  return\n}\nhandle S/T\nreturn",
+      "range": {
+        "startLine": 120,
+        "startChar": 19,
+        "endLine": 120,
+        "endChar": 38
+      },
+      "revId": "c7c7dddf72ad5361dba5390afa682cb8e9c39eee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a4b1abd_ea705ffe",
         "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
         "patchSetId": 3
@@ -31,6 +100,29 @@
       "writtenOn": "2023-11-28T07:31:25Z",
       "side": 1,
       "message": "Nit: you could avoid branching twice on QPR/non-QPR by having a `List\u003cString\u003e expectedLines` variable that you set in the `if` blocks above together with actualBpfRcFilePath",
+      "revId": "c7c7dddf72ad5361dba5390afa682cb8e9c39eee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "702b147c_fa1902f1",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-28T07:38:56Z",
+      "side": 1,
+      "message": "shouldn\u0027t this \u0027else\u0027 be merged with the which file exists check?",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 20
+      },
       "revId": "c7c7dddf72ad5361dba5390afa682cb8e9c39eee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
