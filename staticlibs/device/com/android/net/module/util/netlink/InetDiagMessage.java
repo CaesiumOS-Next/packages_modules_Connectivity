@@ -59,6 +59,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -491,6 +492,48 @@ public class InetDiagMessage extends NetlinkMessage {
                         && !isAdbSocket(diagMsg));
         final long durationMs = SystemClock.elapsedRealtime() - startTimeMs;
         Log.d(TAG, "Destroyed live tcp sockets for uids=" + ownerUids + " in " + durationMs + "ms");
+    }
+
+    /**
+     * Close tcp sockets that match the following condition
+     *  1. TCP status is one of TCP_ESTABLISHED, TCP_SYN_SENT, and TCP_SYN_RECV
+     *  2. Local address of socket is equal to the given address
+     *  3. Socket is not loopback
+     *  4. Socket is not adb socket
+     *
+     * @param localAddresses a set of local addresses to close live TCP sockets
+     */
+    public static void destroyLiveTcpSocketsByLocalAddress(Set<InetAddress> localAddresses)
+            throws SocketException, InterruptedIOException, ErrnoException {
+        final long startTimeMs = SystemClock.elapsedRealtime();
+
+        destroySockets(IPPROTO_TCP, TCP_ALIVE_STATE_FILTER,
+                (diagMsg) -> hasMatchedAddress(
+                        localAddresses,
+                        diagMsg.inetDiagMsg.id.locSocketAddress.getAddress())
+                        && !isLoopback(diagMsg)
+                        && !isAdbSocket(diagMsg));
+        final long durationMs = SystemClock.elapsedRealtime() - startTimeMs;
+        Log.d(TAG, "Destroyed live tcp sockets for local address=" + localAddresses
+                + " in " + durationMs + "ms");
+    }
+
+    private static boolean hasMatchedAddress(Set<InetAddress> addresses, InetAddress address) {
+        boolean matched = false;
+        for (InetAddress ia :  addresses) {
+            if (ia.equals(address)) {
+                matched = true;
+            } else if (ia instanceof Inet4Address && address instanceof Inet6Address) {
+                byte[] v4addr = ia.getAddress();
+                byte[] v4mappedV6Address = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, (byte) 0xFF, (byte) 0xFF,
+                        v4addr[0], v4addr[1], v4addr[2], v4addr[3]};
+                matched = Arrays.equals(v4mappedV6Address, address.getAddress());
+            }
+            if (matched) {
+                break;
+            }
+        }
+        return matched;
     }
 
     @Override
