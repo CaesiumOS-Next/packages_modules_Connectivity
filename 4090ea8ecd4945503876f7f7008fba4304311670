@@ -16,6 +16,52 @@
       "message": "Hi Xiao,\n\nCan we also add ownership for unit tests?\nstaticlibs/tests/unit/src/com/android/net/module/util/netlink/xfrm/",
       "revId": "4090ea8ecd4945503876f7f7008fba4304311670",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39ab9b6c_ee155d5c",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-28T00:24:00Z",
+      "side": 1,
+      "message": "Is this the right component? It says \"improving VCN performance and reliability\" but there are lots of other users of IPsec in the system.",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 23
+      },
+      "revId": "4090ea8ecd4945503876f7f7008fba4304311670",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdfae061_d50077ad",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-28T00:24:00Z",
+      "side": 1,
+      "message": "Any reason this needs to be a per-file statement? Given that this whole directory is for XFRM I think we can just have the vcn OWNERS own the whole directory.",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 16
+      },
+      "revId": "4090ea8ecd4945503876f7f7008fba4304311670",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
