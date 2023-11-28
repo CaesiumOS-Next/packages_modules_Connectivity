@@ -1609,6 +1609,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa72cebd_4e2ab7fc",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkMulticastRouteDumpMessage.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-28T13:12:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a76cf364_0f3f34fe",
+      "range": {
+        "startLine": 93,
+        "startChar": 73,
+        "endLine": 93,
+        "endChar": 98
+      },
+      "revId": "4b47131260c1f356f5aaeedbd757761f60a75e6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "035a3c55_931caacd",
@@ -1750,6 +1774,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f9d0b2d_72f4762b",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkMulticastRouteDumpMessage.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-28T13:12:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "df13883c_7c148907",
+      "range": {
+        "startLine": 134,
+        "startChar": 15,
+        "endLine": 137,
+        "endChar": 22
+      },
+      "revId": "4b47131260c1f356f5aaeedbd757761f60a75e6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79621e1f_ee59187b",
@@ -1810,6 +1858,30 @@
       "writtenOn": "2023-11-18T12:03:30Z",
       "side": 1,
       "message": "nit: add documentation for this method. Probably this is for only multicast routing?",
+      "range": {
+        "startLine": 108,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 5
+      },
+      "revId": "4b47131260c1f356f5aaeedbd757761f60a75e6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a851b73_05c39ab5",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-28T13:12:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b85d2f6b_63f81997",
       "range": {
         "startLine": 108,
         "startChar": 4,

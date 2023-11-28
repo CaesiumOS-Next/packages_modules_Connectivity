@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b52e5b1_7317b58a",
+        "filename": "framework/src/android/net/NetworkUtils.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-28T13:12:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "082522cb_6345ecbe",
+      "revId": "e0a2df5c2dab78533bd2fc0fabbb685107da3b4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c00779fa_5192e9de",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-11-24T08:28:22Z",
       "side": 1,
       "message": "It may not be accurate to refer to this part as \u0027unicast routing\u0027 because there may be common pieces used by both unicast and multicast routing like setting up forwarding.",
+      "range": {
+        "startLine": 91,
+        "startChar": 14,
+        "endLine": 91,
+        "endChar": 34
+      },
+      "revId": "e0a2df5c2dab78533bd2fc0fabbb685107da3b4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4008ccc1_fcf452c5",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-11-28T13:12:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c00779fa_5192e9de",
       "range": {
         "startLine": 91,
         "startChar": 14,
