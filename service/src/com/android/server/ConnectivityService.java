@@ -1876,6 +1876,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             activityManager.registerUidFrozenStateChangedCallback(
                     (Runnable r) -> r.run(), frozenStateChangedCallback);
         }
+
+        mHandler.post(BpfLoaderRcUtils::checkBpfLoaderRc);
     }
 
     /**
