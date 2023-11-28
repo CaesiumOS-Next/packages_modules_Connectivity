@@ -18826,6 +18826,45 @@ public class ConnectivityServiceTest {
         verify(mDestroySocketsWrapper).destroyLiveTcpSocketsByOwnerUids(Set.of(TEST_FROZEN_UID));
     }
 
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    public void testSocketDestroyOnRemovedAddress() throws Exception {
+        final TestNetworkCallback defaultCallback = new TestNetworkCallback();
+        final LinkProperties lp = new LinkProperties();
+        final LinkProperties newLp = new LinkProperties();
+        InetAddress testAddr1 = InetAddress.getByAddress(new byte[]{10, 10, 10, 11});
+        InetAddress testAddr2 = InetAddress.getByAddress(new byte[]{10, 10, 10, 12});
+        LinkAddress testLinkAddr1 = new LinkAddress(testAddr1, 32);
+        LinkAddress testLinkAddr2 = new LinkAddress(testAddr2, 32);
+
+        lp.setInterfaceName(MOBILE_IFNAME);
+        lp.setLinkAddresses(Set.of(testLinkAddr1));
+        newLp.setInterfaceName(IPSEC_IFNAME);
+        newLp.setLinkAddresses(Set.of(testLinkAddr2));
+        final TestNetworkAgentWrapper agent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, lp);
+        testAndCleanup(() -> {
+            mCm.registerDefaultNetworkCallback(defaultCallback);
+            agent.connect(true);
+            defaultCallback.expectAvailableThenValidatedCallbacks(agent);
+
+            agent.sendLinkProperties(newLp);
+            waitForIdle();
+            verify(mDestroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(Set.of(testAddr1));
+            clearInvocations(mDestroySocketsWrapper);
+
+            lp.setLinkAddresses(List.of(new LinkAddress(testAddr2, 32)));
+            agent.sendLinkProperties(lp);
+            waitForIdle();
+            verify(mDestroySocketsWrapper, never()).destroyLiveTcpSocketsByLocalAddress(any());
+
+            agent.disconnect();
+            waitForIdle();
+            verify(mDestroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(Set.of(testAddr2));
+        }, () -> { // Cleanup
+            mCm.unregisterNetworkCallback(defaultCallback);
+        });
+    }
+
     private void doTestDelayFrozenUidSocketDestroy(int transportType,
             boolean freezeWithNetworkInactive, boolean expectDelay) throws Exception {
         final TestNetworkCallback defaultCallback = new TestNetworkCallback();
