@@ -556,6 +556,7 @@ public class ConnectivityServiceTest {
     private static final String WIFI_WOL_IFNAME = "test_wlan_wol";
     private static final String VPN_IFNAME = "tun10042";
     private static final String ETHERNET_IFNAME = "eth0";
+    private static final String IPSEC_IFNAME = "test_ipsec0";
     private static final String TEST_PACKAGE_NAME = "com.android.test.package";
     private static final int TEST_PACKAGE_UID = 123;
     private static final int TEST_PACKAGE_UID2 = 321;
@@ -2303,6 +2304,7 @@ public class ConnectivityServiceTest {
             public void destroyLiveTcpSockets(final Set<Range<Integer>> ranges,
                     final Set<Integer> exemptUids){}
             public void destroyLiveTcpSocketsByOwnerUids(final Set<Integer> ownerUids){}
+            public void destroyLiveTcpSocketsByLocalAddress(final Set<InetAddress> addresses){}
         }
 
         @Override @SuppressWarnings("DirectInvocationOnMock")
@@ -2318,6 +2320,14 @@ public class ConnectivityServiceTest {
             // Create copy of ownerUids so that tests can verify the correct value even if the
             // ConnectivityService update the ownerUids after this method call.
             mDestroySocketsWrapper.destroyLiveTcpSocketsByOwnerUids(new ArraySet<>(ownerUids));
+        }
+
+        @Override @SuppressWarnings("DirectInvocationOnMock")
+        public void destroyLiveTcpSocketsByLocalAddress(@NonNull final Set<InetAddress> addresses) {
+            // Call mocked destroyLiveTcpSocketsByLocalAddress so that test can verify this method
+            // call. Create copy of addresses so that tests can verify the correct value even if the
+            // ConnectivityService destroys socket on the proper address after this method call.
+            mDestroySocketsWrapper.destroyLiveTcpSocketsByLocalAddress(new ArraySet<>(addresses));
         }
 
         final ArrayTrackRecord<Pair<Integer, Long>>.ReadHead mScheduledEvaluationTimeouts =
@@ -18827,6 +18837,45 @@ public class ConnectivityServiceTest {
         waitForIdle();
 
         verify(mDestroySocketsWrapper).destroyLiveTcpSocketsByOwnerUids(Set.of(TEST_FROZEN_UID));
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    public void testSocketDestroyOnRemovedAddress() throws Exception {
+        final TestNetworkCallback defaultCallback = new TestNetworkCallback();
+        final LinkProperties lp = new LinkProperties();
+        final LinkProperties newLp = new LinkProperties();
+        InetAddress testAddr1 = InetAddress.getByAddress(new byte[]{10, 10, 10, 11});
+        InetAddress testAddr2 = InetAddress.getByAddress(new byte[]{10, 10, 10, 12});
+        LinkAddress testLinkAddr1 = new LinkAddress(testAddr1, 32);
+        LinkAddress testLinkAddr2 = new LinkAddress(testAddr2, 32);
+
+        lp.setInterfaceName(MOBILE_IFNAME);
+        lp.setLinkAddresses(Set.of(testLinkAddr1));
+        newLp.setInterfaceName(IPSEC_IFNAME);
+        newLp.setLinkAddresses(Set.of(testLinkAddr2));
+        final TestNetworkAgentWrapper agent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, lp);
+        testAndCleanup(() -> {
+            mCm.registerDefaultNetworkCallback(defaultCallback);
+            agent.connect(true);
+            defaultCallback.expectAvailableThenValidatedCallbacks(agent);
+
+            agent.sendLinkProperties(newLp);
+            waitForIdle();
+            verify(mDestroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(Set.of(testAddr1));
+            clearInvocations(mDestroySocketsWrapper);
+
+            lp.setLinkAddresses(List.of(new LinkAddress(testAddr2, 32)));
+            agent.sendLinkProperties(lp);
+            waitForIdle();
+            verify(mDestroySocketsWrapper, never()).destroyLiveTcpSocketsByLocalAddress(any());
+
+            agent.disconnect();
+            waitForIdle();
+            verify(mDestroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(Set.of(testAddr2));
+        }, () -> { // Cleanup
+            mCm.unregisterNetworkCallback(defaultCallback);
+        });
     }
 
     private void doTestDelayFrozenUidSocketDestroy(int transportType,
