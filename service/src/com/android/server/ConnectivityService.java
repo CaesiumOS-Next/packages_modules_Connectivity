@@ -255,6 +255,7 @@ import android.net.netd.aidl.NativeUidRangeConfig;
 import android.net.networkstack.ModuleNetworkStackClient;
 import android.net.networkstack.NetworkStackClientBase;
 import android.net.networkstack.aidl.NetworkMonitorParameters;
+import android.net.platform.flags.Flags;
 import android.net.resolv.aidl.DnsHealthEventParcel;
 import android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener;
 import android.net.resolv.aidl.Nat64PrefixEventParcel;
@@ -1752,6 +1753,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
         public void destroyLiveTcpSocketsByOwnerUids(final Set<Integer> ownerUids)
                 throws SocketException, InterruptedIOException, ErrnoException {
             InetDiagMessage.destroyLiveTcpSocketsByOwnerUids(ownerUids);
+        }
+
+        /**
+         * Call {@link InetDiagMessage#destroyLiveTcpSocketsByLocalAddress(Set)}
+         *
+         * @param localAddresses a set of local addresses to close live TCP sockets
+         */
+        public void destroyLiveTcpSocketsByLocalAddress(
+                @NonNull final List<InetAddress> localAddresses)
+                throws SocketException, InterruptedIOException, ErrnoException {
+            InetDiagMessage.destroyLiveTcpSocketsByLocalAddress(localAddresses);
         }
 
         /**
@@ -5420,6 +5432,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         if (DBG) {
             log(nai.toShortString() + " disconnected, was satisfying " + nai.numNetworkRequests());
+        }
+        if (Flags.connectivityServiceDestroySocketOnRemovedAddress()) {
+            destroySocketsOnRemovedAddresses(nai.linkProperties, null);
         }
         // Clear all notifications of this network.
         mNotifier.clearNotification(nai.network.getNetId());
@@ -9424,10 +9439,27 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             networkAgent.networkMonitor().notifyLinkPropertiesChanged(
                     new LinkProperties(newLp, true /* parcelSensitiveFields */));
-            notifyNetworkCallbacks(networkAgent, CALLBACK_IP_CHANGED);
+            if (Flags.connectivityServiceDestroySocketOnRemovedAddress() && oldLp != null) {
+                destroySocketsOnRemovedAddresses(oldLp, newLp);
+            }
+            notifyNetworkCallbacks(networkAgent, ConnectivityManager.CALLBACK_IP_CHANGED);
         }
-
         mKeepaliveTracker.handleCheckKeepalivesStillValid(networkAgent);
+    }
+
+    private void destroySocketsOnRemovedAddresses(
+            @NonNull LinkProperties oldLp, @Nullable LinkProperties newLp) {
+        List<InetAddress> inetAddresses = new ArrayList<>(oldLp.getAllAddresses());
+        if (newLp != null) {
+            inetAddresses.removeAll(newLp.getAllAddresses());
+        }
+        if (!inetAddresses.isEmpty()) {
+            try {
+                mDeps.destroyLiveTcpSocketsByLocalAddress(inetAddresses);
+            } catch (Exception e) {
+                loge("Exception destroy TCP sockets on local addresses: " + e);
+            }
+        }
     }
 
     private void applyInitialLinkProperties(@NonNull NetworkAgentInfo nai) {
