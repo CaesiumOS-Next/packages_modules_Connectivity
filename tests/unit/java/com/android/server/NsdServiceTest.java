@@ -16,6 +16,7 @@
 
 package com.android.server;
 
+import static android.Manifest.permission.DEVICE_POWER;
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.NETWORK_STACK;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_CACHED;
@@ -24,7 +25,6 @@ import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_GONE;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
 import static android.content.pm.PackageManager.PERMISSION_DENIED;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-import static android.content.pm.PermissionInfo.PROTECTION_SIGNATURE;
 import static android.net.InetAddresses.parseNumericAddress;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
@@ -75,7 +75,6 @@ import android.compat.testing.PlatformCompatChangeRule;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.content.pm.PermissionInfo;
 import android.net.INetd;
 import android.net.Network;
 import android.net.mdns.aidl.DiscoveryInfo;
@@ -108,6 +107,7 @@ import androidx.annotation.NonNull;
 import androidx.test.filters.SmallTest;
 
 import com.android.metrics.NetworkNsdReportedMetrics;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.server.NsdService.Dependencies;
 import com.android.server.connectivity.mdns.MdnsAdvertiser;
 import com.android.server.connectivity.mdns.MdnsDiscoveryManager;
@@ -1708,17 +1708,32 @@ public class NsdServiceTest {
         doReturn(PERMISSION_GRANTED).when(mContext).checkCallingOrSelfPermission(
                 REGISTER_NSD_OFFLOAD_ENGINE);
 
-        PermissionInfo permissionInfo = new PermissionInfo("");
-        permissionInfo.packageName = "android";
-        permissionInfo.protectionLevel = PROTECTION_SIGNATURE;
-        doReturn(permissionInfo).when(mPackageManager).getPermissionInfo(
-                REGISTER_NSD_OFFLOAD_ENGINE, 0);
-        client.registerOffloadEngine("iface1", OffloadEngine.OFFLOAD_TYPE_REPLY,
-                OffloadEngine.OFFLOAD_CAPABILITY_BYPASS_MULTICAST_LOCK,
-                Runnable::run, offloadEngine);
-        client.unregisterOffloadEngine(offloadEngine);
+        if (SdkLevel.isAtLeastV()) {
+            doReturn(PERMISSION_DENIED).when(mContext).checkCallingOrSelfPermission(
+                    REGISTER_NSD_OFFLOAD_ENGINE);
+            doReturn(PERMISSION_GRANTED).when(mContext).checkCallingOrSelfPermission(
+                    DEVICE_POWER);
+            assertThrows(SecurityException.class,
+                    () -> client.registerOffloadEngine("iface1", OffloadEngine.OFFLOAD_TYPE_REPLY,
+                            OffloadEngine.OFFLOAD_CAPABILITY_BYPASS_MULTICAST_LOCK, Runnable::run,
+                            offloadEngine));
+            doReturn(PERMISSION_GRANTED).when(mContext).checkCallingOrSelfPermission(
+                    REGISTER_NSD_OFFLOAD_ENGINE);
+            client.registerOffloadEngine("iface1", OffloadEngine.OFFLOAD_TYPE_REPLY,
+                    OffloadEngine.OFFLOAD_CAPABILITY_BYPASS_MULTICAST_LOCK,
+                    Runnable::run, offloadEngine);
+            client.unregisterOffloadEngine(offloadEngine);
+        }
 
-        // TODO: add checks to test the packageName other than android
+        if (!SdkLevel.isAtLeastV() && SdkLevel.isAtLeastU()) {
+            doReturn(PERMISSION_GRANTED).when(mContext).checkCallingOrSelfPermission(
+                    DEVICE_POWER);
+            client.registerOffloadEngine("iface1", OffloadEngine.OFFLOAD_TYPE_REPLY,
+                    OffloadEngine.OFFLOAD_CAPABILITY_BYPASS_MULTICAST_LOCK,
+                    Runnable::run, offloadEngine);
+            client.unregisterOffloadEngine(offloadEngine);
+        }
+
     }
 
 
