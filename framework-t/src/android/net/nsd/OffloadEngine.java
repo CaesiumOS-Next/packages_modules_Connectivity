@@ -16,6 +16,7 @@
 
 package android.net.nsd;
 
+import android.annotation.FlaggedApi;
 import android.annotation.LongDef;
 import android.annotation.NonNull;
 import android.annotation.SystemApi;
@@ -33,6 +34,7 @@ import java.lang.annotation.RetentionPolicy;
  *
  * @hide
  */
+@FlaggedApi(NsdManager.Flags.REGISTER_NSD_OFFLOAD_ENGINE_API)
 @SystemApi
 public interface OffloadEngine {
     /**
