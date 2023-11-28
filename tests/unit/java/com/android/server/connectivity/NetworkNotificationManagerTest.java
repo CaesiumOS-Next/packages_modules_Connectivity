@@ -25,6 +25,7 @@ import static com.android.server.connectivity.NetworkNotificationManager.Notific
 import static com.android.server.connectivity.NetworkNotificationManager.NotificationType.PARTIAL_CONNECTIVITY;
 import static com.android.server.connectivity.NetworkNotificationManager.NotificationType.PRIVATE_DNS_BROKEN;
 import static com.android.server.connectivity.NetworkNotificationManager.NotificationType.SIGN_IN;
+import static com.android.server.connectivity.NetworkNotificationManager.USE_MOBILE_NO_INTERNET_NOTIFICATION_STRINGS;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -151,6 +152,7 @@ public class NetworkNotificationManagerTest {
 
     @Mock Context mCtx;
     @Mock Resources mResources;
+    @Mock NetworkNotificationManager.Dependencies mDeps;
     @Mock DisplayMetrics mDisplayMetrics;
     @Mock PackageManager mPm;
     @Mock TelephonyManager mTelephonyManager;
@@ -191,6 +193,8 @@ public class NetworkNotificationManagerTest {
         doReturn(mTestSubIdTelephonyManager).when(mTelephonyManager)
                 .createForSubscriptionId(TEST_SUB_ID);
         doReturn(TEST_OPERATOR_NAME).when(mTestSubIdTelephonyManager).getNetworkOperatorName();
+        doReturn(true).when(mDeps).isFeatureEnabled(
+                any(), eq(USE_MOBILE_NO_INTERNET_NOTIFICATION_STRINGS));
 
         // Come up with some credible-looking transport names. The actual values do not matter.
         String[] transportNames = new String[NetworkCapabilities.MAX_TRANSPORT + 1];
@@ -201,7 +205,7 @@ public class NetworkNotificationManagerTest {
             .thenReturn(transportNames);
         when(mResources.getBoolean(R.bool.config_autoCancelNetworkNotifications)).thenReturn(true);
 
-        mManager = new NetworkNotificationManager(mCtx, mTelephonyManager);
+        mManager = new NetworkNotificationManager(mCtx, mTelephonyManager, mDeps);
     }
 
     @After
@@ -580,5 +584,23 @@ public class NetworkNotificationManagerTest {
                 R.string.mobile_network_available_no_internet_detailed_unknown_carrier);
 
         runTelephonySignInNotificationTest(testTitle, testContents);
+    }
+
+    @Test
+    public void testTelephonySignInNotification_FeatureDisabled() {
+        doReturn(false).when(mDeps).isFeatureEnabled(
+                any(), eq(USE_MOBILE_NO_INTERNET_NOTIFICATION_STRINGS));
+        final String testTitle = "Standard sign-in title";
+        // The test does not use real resources as they are in the ConnectivityResources package,
+        // which is tricky to use (requires resolving the package, QUERY_ALL_PACKAGES permission).
+        doReturn(testTitle).when(mResources).getString(R.string.network_available_sign_in);
+
+        runTelephonySignInNotificationTest(testTitle, TEST_OPERATOR_NAME);
+
+        verify(mResources, never()).getString(R.string.mobile_network_available_no_internet);
+        verify(mResources, never()).getString(
+                R.string.mobile_network_available_no_internet_detailed);
+        verify(mResources, never()).getString(
+                R.string.mobile_network_available_no_internet_detailed_unknown_carrier);
     }
 }

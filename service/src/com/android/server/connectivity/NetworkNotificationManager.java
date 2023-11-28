@@ -48,6 +48,7 @@ import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.messages.nano.SystemMessageProto.SystemMessage;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.DeviceConfigUtils;
 
 public class NetworkNotificationManager {
 
@@ -79,6 +80,10 @@ public class NetworkNotificationManager {
     private static final String TAG = NetworkNotificationManager.class.getSimpleName();
     private static final boolean DBG = true;
 
+    @VisibleForTesting
+    public static final String USE_MOBILE_NO_INTERNET_NOTIFICATION_STRINGS =
+            "use_mobile_no_internet_notification_strings";
+
     // Notification channels used by ConnectivityService mainline module, it should be aligned with
     // SystemNotificationChannels so the channels are the same as the ones used as the system
     // server.
@@ -88,6 +93,7 @@ public class NetworkNotificationManager {
     // The context is for the current user (system server)
     private final Context mContext;
     private final ConnectivityResources mResources;
+    private final Dependencies mDeps;
     private final TelephonyManager mTelephonyManager;
     // The notification manager is created from a context for User.ALL, so notifications
     // will be sent to all users.
@@ -96,6 +102,12 @@ public class NetworkNotificationManager {
     private final SparseIntArray mNotificationTypeMap;
 
     public NetworkNotificationManager(@NonNull final Context c, @NonNull final TelephonyManager t) {
+        this(c, t, new Dependencies());
+    }
+
+    @VisibleForTesting
+    public NetworkNotificationManager(@NonNull final Context c, @NonNull final TelephonyManager t,
+            @NonNull Dependencies deps) {
         mContext = c;
         mTelephonyManager = t;
         mNotificationManager =
@@ -103,6 +115,20 @@ public class NetworkNotificationManager {
                         .getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationTypeMap = new SparseIntArray();
         mResources = new ConnectivityResources(mContext);
+        mDeps = deps;
+    }
+
+    /**
+     * Dependencies useful for testing.
+     */
+    public static class Dependencies {
+        /**
+         * @see DeviceConfigUtils#isTetheringFeatureEnabled(Context, String)
+         */
+        public boolean isFeatureEnabled(@NonNull Context context, @NonNull String feature) {
+            return DeviceConfigUtils.isTetheringFeatureEnabled(context,
+                    USE_MOBILE_NO_INTERNET_NOTIFICATION_STRINGS);
+        }
     }
 
     @VisibleForTesting
@@ -243,7 +269,11 @@ public class NetworkNotificationManager {
                     details = r.getString(R.string.network_available_sign_in_detailed, name);
                     break;
                 case TRANSPORT_CELLULAR:
-                    title = r.getString(R.string.mobile_network_available_no_internet);
+                    final boolean mobileStringsEnabled = mDeps.isFeatureEnabled(mContext,
+                            USE_MOBILE_NO_INTERNET_NOTIFICATION_STRINGS);
+                    title = r.getString(mobileStringsEnabled
+                            ? R.string.mobile_network_available_no_internet
+                            : R.string.network_available_sign_in);
                     // TODO: Change this to pull from NetworkInfo once a printable
                     // name has been added to it
                     NetworkSpecifier specifier = nai.networkCapabilities.getNetworkSpecifier();
@@ -254,13 +284,18 @@ public class NetworkNotificationManager {
 
                     final String operatorName = mTelephonyManager.createForSubscriptionId(subId)
                             .getNetworkOperatorName();
-                    if (TextUtils.isEmpty(operatorName)) {
-                        details = r.getString(R.string
-                                .mobile_network_available_no_internet_detailed_unknown_carrier);
+
+                    if (mobileStringsEnabled) {
+                        if (TextUtils.isEmpty(operatorName)) {
+                            details = r.getString(R.string
+                                    .mobile_network_available_no_internet_detailed_unknown_carrier);
+                        } else {
+                            details = r.getString(
+                                    R.string.mobile_network_available_no_internet_detailed,
+                                    operatorName);
+                        }
                     } else {
-                        details = r.getString(
-                                R.string.mobile_network_available_no_internet_detailed,
-                                operatorName);
+                        details = operatorName;
                     }
                     break;
                 default:
