@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1bcd129_56fe778e",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-28T07:31:25Z",
+      "side": 1,
+      "message": "There\u0027s no file in AOSP that does that, so this code isn\u0027t really exercised. Could you add a simple test for this method ? It could be in a separate change, although we should probably wait until you\u0027ve got passing tests before respinning this one. You could factor out a method that takes an InputStream as argument (you\u0027d use an InputStreamReader and a FileInputStream in practice), and test using ByteArrayInputStream",
+      "revId": "c7c7dddf72ad5361dba5390afa682cb8e9c39eee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a4b1abd_ea705ffe",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-28T07:31:25Z",
+      "side": 1,
+      "message": "Nit: you could avoid branching twice on QPR/non-QPR by having a `List\u003cString\u003e expectedLines` variable that you set in the `if` blocks above together with actualBpfRcFilePath",
+      "revId": "c7c7dddf72ad5361dba5390afa682cb8e9c39eee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
