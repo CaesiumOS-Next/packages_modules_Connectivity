@@ -27,6 +27,7 @@
 #include <log/log.h>
 #include <netdutils/UidConstants.h>
 #include <private/android_filesystem_config.h>
+#include <thread>
 
 #include "BpfSyscallWrappers.h"
 
@@ -75,43 +76,38 @@ static Status checkProgramAccessible(const char* programPath) {
     return netdutils::status::ok;
 }
 
+static void logAndAbort(const std::string& reason) {
+    ALOGE("%s", reason.c_str());
+    // Give it a second to print the log.
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    abort();
+}
+
 static Status initPrograms(const char* cg2_path) {
-    if (!cg2_path) {
-        ALOGE("cg2_path is NULL");
-        return statusFromErrno(EINVAL, "cg2_path is NULL");
-    }
+    if (!cg2_path) logAndAbort("cg2_path is NULL");
 
     // This code was mainlined in T, so this should be trivially satisfied.
-    if (!modules::sdklevel::IsAtLeastT()) {
-        ALOGE("S- platform is unsupported");
-        abort();
-    }
+    if (!modules::sdklevel::IsAtLeastT()) logAndAbort("S- platform is unsupported");
 
     // S requires eBPF support which was only added in 4.9, so this should be satisfied.
-    if (!bpf::isAtLeastKernelVersion(4, 9, 0)) {
-        ALOGE("kernel version < 4.9.0 is unsupported");
-        abort();
-    }
+    if (!bpf::isAtLeastKernelVersion(4, 9, 0)) logAndAbort("kernel version < 4.9.0 is unsupported");
 
     // U bumps the kernel requirement up to 4.14
     if (modules::sdklevel::IsAtLeastU() && !bpf::isAtLeastKernelVersion(4, 14, 0)) {
-        ALOGE("U+ platform with kernel version < 4.14.0 is unsupported");
-        abort();
+        logAndAbort("U+ platform with kernel version < 4.14.0 is unsupported");
     }
 
     if (modules::sdklevel::IsAtLeastV()) {
         // V bumps the kernel requirement up to 4.19
         // see also: //system/netd/tests/kernel_test.cpp TestKernel419
         if (!bpf::isAtLeastKernelVersion(4, 19, 0)) {
-            ALOGE("V+ platform with kernel version < 4.19.0 is unsupported");
-            abort();
+            logAndAbort("V+ platform with kernel version < 4.19.0 is unsupported");
         }
 
         // Technically already required by U, but only enforce on V+
         // see also: //system/netd/tests/kernel_test.cpp TestKernel64Bit
         if (bpf::isKernel32Bit() && bpf::isAtLeastKernelVersion(5, 16, 0)) {
-            ALOGE("V+ platform with 32 bit kernel, version >= 5.16.0 is unsupported");
-            abort();
+            logAndAbort("V+ platform with 32 bit kernel, version >= 5.16.0 is unsupported");
         }
     }
 
@@ -123,14 +119,12 @@ static Status initPrograms(const char* cg2_path) {
     // problems are AFAIK limited to various CAP_NET_ADMIN protected interfaces.
     // see also: //system/bpf/bpfloader/BpfLoader.cpp main()
     if (bpf::isUserspace32bit() && bpf::isAtLeastKernelVersion(6, 2, 0)) {
-        ALOGE("32 bit userspace with Kernel version >= 6.2.0 is unsupported");
-        abort();
+        logAndAbort("32 bit userspace with Kernel version >= 6.2.0 is unsupported");
     }
 
     // U mandates this mount point (though it should also be the case on T)
     if (modules::sdklevel::IsAtLeastU() && !!strcmp(cg2_path, "/sys/fs/cgroup")) {
-        ALOGE("U+ platform with cg2_path != /sys/fs/cgroup is unsupported");
-        abort();
+        logAndAbort("U+ platform with cg2_path != /sys/fs/cgroup is unsupported");
     }
 
     unique_fd cg_fd(open(cg2_path, O_DIRECTORY | O_RDONLY | O_CLOEXEC));
