@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0790aa3c_5afaca48",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-28T07:53:33Z",
+      "side": 1,
+      "message": "Improve the comment to avoid confusion.",
+      "parentUuid": "69e9fca5_440dafc4",
+      "range": {
+        "startLine": 10,
+        "startChar": 38,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "b7726a5fb7d0dd370fa76a743326e709a50361f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b7265f4_04cd9e95",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb87cfd2_9fb719b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-28T07:53:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b7265f4_04cd9e95",
+      "range": {
+        "startLine": 12,
+        "startChar": 61,
+        "endLine": 12,
+        "endChar": 69
+      },
+      "revId": "b7726a5fb7d0dd370fa76a743326e709a50361f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9025200_38ffa004",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-11-25T11:43:32Z",
       "side": 1,
       "message": "It seems to me it is better to use mTetheringPrefixes.size() instead of 3 to make it more intuitive.",
+      "range": {
+        "startLine": 192,
+        "startChar": 84,
+        "endLine": 192,
+        "endChar": 85
+      },
+      "revId": "b7726a5fb7d0dd370fa76a743326e709a50361f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e8a8493_77cdf445",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-28T07:53:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9025200_38ffa004",
       "range": {
         "startLine": 192,
         "startChar": 84,
@@ -106,6 +178,54 @@
       "writtenOn": "2023-11-25T11:43:32Z",
       "side": 1,
       "message": "It will be better for also add comment to explain why `0 ~   0xffff`, `0x10000 ~  0xfffff`, `0x100000 ~ 0xffffff` is chosen. I am not fully following here. If the number represent the number of the address can be used in with the prefix.\n\nI think /16 should have 0 ~ 0xffff value, /12 should have 0 ~ 0xfffff value, /8 should have 0~0xffffff value?",
+      "range": {
+        "startLine": 209,
+        "startChar": 8,
+        "endLine": 211,
+        "endChar": 48
+      },
+      "revId": "b7726a5fb7d0dd370fa76a743326e709a50361f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f84946dd_95310b1f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-28T07:53:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "418e3dc8_57ee6df7",
+      "range": {
+        "startLine": 211,
+        "startChar": 40,
+        "endLine": 211,
+        "endChar": 48
+      },
+      "revId": "b7726a5fb7d0dd370fa76a743326e709a50361f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f43d5c3a_a79454e8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-28T07:53:33Z",
+      "side": 1,
+      "message": "I added a comment. I just want to make sure that the selected rate between each range is that /8 is around 2^4 times of /12 and /12 is times of /16.",
+      "parentUuid": "8229901c_b3ab72c0",
       "range": {
         "startLine": 209,
         "startChar": 8,
