@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23abdda5_182070ff",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-11-28T17:40:59Z",
+      "side": 1,
+      "message": "not sure: should we avoid C++\u0027s \u003cthread\u003e and stick with something simpler (like \u0027man 2 nanosleep\u0027)\n\nor we could make this a macro ABORT() that returns some status and rely on netd\u0027s\n\n    if (libnetd_updatable_init(cg2_path.c_str())) {\n        ALOGE(\"libnetd_updatable_init failed\");\n        exit(1);\n    }\n    \nperhaps simply\n\n#define LOG_AND_RETURN(s) \\\n  do { ALOGE(s); return netdutils::status::undefined; } while (0)\n\nmaybe changing\n\npackages/modules/Connectivity/staticlibs/netd/libnetdutils/include/netdutils/Status.h\n\nto add a StatusFromMessage helper.\n(even though it looks like the actual value gets discarded anyway...)\n\n\u003d\u003d\n\nOr actually better yet...\n\nChange libnetd_updatable_init() in \n  packages/modules/Connectivity/netd/NetdUpdatable.cpp to log the message of the error and not abort().\n\nand here just do something like:\n\nreturn Status(\"...\")\n\nwhere there some default but *explicit* constructor from String or const char *",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 57
+      },
+      "revId": "ea4a59beb6dc438b39cb8d94a7ed9778f6455608",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
