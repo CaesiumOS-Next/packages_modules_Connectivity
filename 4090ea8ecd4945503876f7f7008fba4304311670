@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2831e527_61ad2d34",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-11-28T00:57:51Z",
+      "side": 1,
+      "message": "Hi Lorenzo,\n\nThis is the right component for IPsec stuff. https://b.corp.google.com/components/685852#basic. VCN has a different component.\n\nThis component 685852 was for IPsec, IKE and EAP. Now IKE and EAP are handed to telephony and 685852 is only for IPsec.",
+      "parentUuid": "39ab9b6c_ee155d5c",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 23
+      },
+      "revId": "4090ea8ecd4945503876f7f7008fba4304311670",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cdfae061_d50077ad",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/OWNERS",
         "patchSetId": 1
