@@ -83,6 +83,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d15e7467_a71a5832",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-11-28T08:21:07Z",
+      "side": 1,
+      "message": "I have observed that the MULTIPLE QUESTIONS - DUPLICATE SUPPRESSION test case transmits two questions and two corresponding known answers. One of these questions and its associated known answer is a SRV record. The test case expects no response to this particular question. This observation confirms your assertion that duplicate suppression can indeed be applied to shared records.",
+      "parentUuid": "3b695bad_14092312",
+      "revId": "afe906a106f9769f1f5d02aa7f28468dda028eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a8a782b_f4334bf4",
