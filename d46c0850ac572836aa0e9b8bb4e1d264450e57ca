@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccbbd01e_4be899a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-28T14:14:53Z",
+      "side": 1,
+      "message": "LGTM and +1. I think we also need Mark to take a look at the final version as he also looks at the previous series of patches. After mark LGTM on it. I will add +2.",
+      "revId": "d46c0850ac572836aa0e9b8bb4e1d264450e57ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
