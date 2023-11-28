@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10e39c06_0343122c",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-28T07:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c59973e_23183cea",
+      "revId": "146f562ee4869a60a6e0a223a24cadf16ff0efa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87808007_13d18fdb",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-11-28T06:02:46Z",
       "side": 1,
       "message": "Nit: I think you mean \"neither X nor Y exist\" (or \"both X and Y don\u0027t exist\")",
+      "range": {
+        "startLine": 110,
+        "startChar": 26,
+        "endLine": 110,
+        "endChar": 32
+      },
+      "revId": "146f562ee4869a60a6e0a223a24cadf16ff0efa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48f9a293_7f4a709c",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-28T07:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87808007_13d18fdb",
       "range": {
         "startLine": 110,
         "startChar": 26,
@@ -58,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43dbcaae_7a571a61",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-28T07:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f5799cf_37fc7fc6",
+      "revId": "146f562ee4869a60a6e0a223a24cadf16ff0efa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af583304_57bea2ef",
@@ -71,6 +131,24 @@
       "writtenOn": "2023-11-28T06:02:46Z",
       "side": 1,
       "message": "Nit: that shouldn\u0027t really be necessary since packages/modules/Connectivity/service (service-connectivity.jar) is only loaded on S+",
+      "revId": "146f562ee4869a60a6e0a223a24cadf16ff0efa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a95fc9c3_7c6cdbdc",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-28T07:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af583304_57bea2ef",
       "revId": "146f562ee4869a60a6e0a223a24cadf16ff0efa6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -92,6 +170,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "691870aa_08f50898",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-28T07:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50f70d5c_8f76f7d0",
+      "revId": "146f562ee4869a60a6e0a223a24cadf16ff0efa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae80fdb1_67c6f7e9",
@@ -105,6 +201,24 @@
       "writtenOn": "2023-11-28T06:02:46Z",
       "side": 1,
       "message": "Can you add a killswitch flag for this: `if (isFeatureNotChickenedOut(flag)) mHandler.post(...)` ?",
+      "revId": "146f562ee4869a60a6e0a223a24cadf16ff0efa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10c9ac7f_c2e83c00",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1880,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-28T07:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae80fdb1_67c6f7e9",
       "revId": "146f562ee4869a60a6e0a223a24cadf16ff0efa6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
