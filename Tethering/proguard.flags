@@ -7,20 +7,13 @@
     static final % EVENT_*;
 }
 
--keep class com.android.networkstack.tethering.util.BpfMap {
-    native <methods>;
-}
-
--keep class com.android.networkstack.tethering.util.TcUtils {
-    native <methods>;
-}
-
--keep class com.android.networkstack.tethering.util.TetheringUtils {
-    native <methods>;
-}
+# Keep JNI registered methods
+-keepclasseswithmembers,includedescriptorclasses class * { native <methods>; }
 
 # Ensure runtime-visible field annotations are kept when using R8 full mode.
 -keepattributes RuntimeVisibleAnnotations,AnnotationDefault
+
+# Keep classes extending structured message.
 -keep interface com.android.networkstack.tethering.util.Struct$Field {
     *;
 }
