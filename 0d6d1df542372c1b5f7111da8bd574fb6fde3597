@@ -1,0 +1,408 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f95b7aab_90be52ae",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "Probably at somewhere (OT/ot-daemon/ThreadNetworkControllerService) we should skip setting the country code when it\u0027s the same as the old one.",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4abd3867_0d27496f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "Which formatter were you using?",
+      "range": {
+        "startLine": 821,
+        "startChar": 7,
+        "endLine": 822,
+        "endChar": 61
+      },
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad8dd984_d30be852",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "```suggestion\n    private static final DateTimeFormatter DATE_FORMATTER \u003d\n```",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a6ac0ef_82867520",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "Shall there be underscores in this name?",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90a41388_25cff916",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "shall we consider using [StringDef](https://developer.android.com/reference/androidx/annotation/StringDef)?",
+      "range": {
+        "startLine": 81,
+        "startChar": 3,
+        "endLine": 88,
+        "endChar": 0
+      },
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb69a385_78fa38f4",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "```suggestion\n        public int slotIndex;\n```\nnit",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "337ac665_73ab6dfa",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "I think this won\u0027t be null.",
+      "range": {
+        "startLine": 134,
+        "startChar": 43,
+        "endLine": 134,
+        "endChar": 51
+      },
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c36e6327_bdde8844",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "I think this won\u0027t be null.",
+      "range": {
+        "startLine": 145,
+        "startChar": 56,
+        "endLine": 145,
+        "endChar": 64
+      },
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a1522d5_a878d6f7",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "I think `Objects.equals` only compares memory references. You may want to use `String.equals`.",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c50e590c_305ef724",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "```suggestion\n    private static boolean isGeocoderPresent() {\n        return Geocoder.isPresent();\n    }\n```\nAlso, what\u0027s the benefit of adding this method?",
+      "range": {
+        "startLine": 192,
+        "startChar": 4,
+        "endLine": 194,
+        "endChar": 5
+      },
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dc7e2a1_7a6bd967",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "```suggestion\n    private static boolean isValidCountryCode(String countryCode) {\n```",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "687ca3fd_d19191e9",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "Is it valid to have digits?",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "669cddfd_0f849104",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "```suggestion\n    private static String getOemDefaultCountryCode() {\n```",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c488ac9_e3c8f033",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "Maybe you can recursively call the other constructor to implement this constructor.",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edbf5e7c_59a5f4e7",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "- I would expect `set*` methods to take the value to be set as the argument. Maybe you can rename it to `updateCountryCode` to avoid confusion.\n- It will be more readable if you add comment for the boolean argument.",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "298017c8_7924fd64",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "```suggestion\n    private void onSetCountryCodeSucceeded(@NonNull CountryCodeInfo countryCodeInfo) {\n```",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c35af6a_ee496ed7",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "```suggestion\n    private void onSetCountryCodeFailed(int status, @NonNull CountryCodeInfo countryCodeInfo) {\n```",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f51b45c6_af223da7",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "Is it needed to add `this`?",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc5bcd68_1aab6599",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "Is it necessary to add `this`?",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d86f819b_8d4014b7",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "Do we need this annotation?",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caa6db94_92dfe913",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "```suggestion\n        Log.i(TAG, \"Set country code: \" + countryCodeInfo);\n```",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4497589e_edea7696",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T05:47:07Z",
+      "side": 1,
+      "message": "This one looks almost a duplicate of it in `CountryCodeInfo`.",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
