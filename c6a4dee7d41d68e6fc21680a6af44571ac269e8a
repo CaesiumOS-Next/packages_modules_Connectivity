@@ -603,6 +603,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7b43ef1_b2ee6444",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-29T08:27:25Z",
+      "side": 1,
+      "message": "Moved to aosp/2850390",
+      "parentUuid": "8569b88d_c8db95d7",
+      "revId": "c6a4dee7d41d68e6fc21680a6af44571ac269e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87c3f502_7cd96016",
