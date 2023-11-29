@@ -168,7 +168,11 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
             @NonNull String serviceType,
             @NonNull MdnsServiceBrowserListener listener,
             @NonNull MdnsSearchOptions searchOptions) {
-        sharedLog.i("Registering listener for serviceType: " + serviceType);
+        String subtypes = "";
+        if (!searchOptions.getSubtypes().isEmpty()) {
+            subtypes = ", subtypes: " + String.join(",", searchOptions.getSubtypes());
+        }
+        sharedLog.i("Registering listener for serviceType: " + serviceType + subtypes);
         checkAndRunOnHandlerThread(() ->
                 handleRegisterListener(serviceType, listener, searchOptions));
     }
