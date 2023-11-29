@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58e78b03_97409234",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-29T02:23:35Z",
+      "side": 1,
+      "message": "We don\u0027t need to remove the FlaggedAPI annotation.\nmetalava ignores released APIs in udc-mainline-prod. (b/313398274)",
+      "revId": "37c53ac0d67ffbdd78676aacc3c1487fedca2575",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
