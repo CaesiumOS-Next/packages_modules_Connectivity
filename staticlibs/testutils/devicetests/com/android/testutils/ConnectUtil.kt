@@ -17,6 +17,7 @@
 package com.android.testutils
 
 import android.Manifest.permission
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -82,6 +83,7 @@ class ConnectUtil(private val context: Context) {
         }
     }
 
+    @SuppressLint("MissingPermission") // The caller should supply the needed permissions.
     private fun ensureWifiConnected(requireValidated: Boolean): Network {
         val callback = TestableNetworkCallback(timeoutMs = WIFI_CONNECT_TIMEOUT_MS)
         cm.registerNetworkCallback(NetworkRequest.Builder()
@@ -90,24 +92,35 @@ class ConnectUtil(private val context: Context) {
 
         return tryTest {
             val connInfo = wifiManager.connectionInfo
-            Log.d(TAG, "connInfo=" + connInfo)
+            Log.d(TAG, "connInfo=$connInfo")
             if (connInfo == null || connInfo.networkId == -1) {
                 clearWifiBlocklist()
                 val pfd = getInstrumentation().uiAutomation.executeShellCommand("svc wifi enable")
                 // Read the output stream to ensure the command has completed
                 ParcelFileDescriptor.AutoCloseInputStream(pfd).use { it.readBytes() }
-                val config = getOrCreateWifiConfiguration()
-                connectToWifiConfig(config)
+                for (i in 1..MAX_WIFI_CONNECT_RETRIES) {
+                    val config = getOrCreateWifiConfiguration()
+                    val error = connectToWifiConfig(config)
+                    if (error != null) {
+                        Log.w(
+                            TAG, "Failed to connect to ${config.SSID}," +
+                                    " retry $i of $MAX_WIFI_CONNECT_RETRIES, error: $error"
+                        )
+                    } else {
+                        break
+                    }
+                }
             }
-            val errorMsg = if (requireValidated) {
+
+            callback.eventuallyExpect<CallbackEntry.Available>(
+                "Could not connect to a wifi access point within $WIFI_CONNECT_TIMEOUT_MS " +
+                        " ms. Check that the test device has a wifi network configured, " +
+                        "and that the test access point is functioning properly."
+            )
+            val cb = callback.eventuallyExpect<CapabilitiesChanged>(
                 "The wifi access point did not have access to the internet after " +
                         "$WIFI_CONNECT_TIMEOUT_MS ms. Check that it has a working connection."
-            } else {
-                "Could not connect to a wifi access point within $WIFI_CONNECT_TIMEOUT_MS ms. " +
-                        "Check that the test device has a wifi network configured, and that the " +
-                        "test access point is functioning properly."
-            }
-            val cb = callback.eventuallyExpect<CapabilitiesChanged>(errorMsg) {
+            ) {
                 (!requireValidated || it.caps.hasCapability(NET_CAPABILITY_VALIDATED))
             }
             cb.network
@@ -116,22 +129,21 @@ class ConnectUtil(private val context: Context) {
         }
     }
 
-    private fun connectToWifiConfig(config: WifiConfiguration) {
-        repeat(MAX_WIFI_CONNECT_RETRIES) {
-            val error = runAsShell(permission.NETWORK_SETTINGS) {
-                val listener = ConnectWifiListener()
-                wifiManager.connect(config, listener)
-                listener.connectFuture.get(WIFI_CONNECT_TIMEOUT_MS, TimeUnit.MILLISECONDS)
-            } ?: return // Connect succeeded
+    @SuppressLint("MissingPermission") // The caller should supply the needed permissions.
+    private fun connectToWifiConfig(config: WifiConfiguration): Int? {
+        val error = runAsShell(permission.NETWORK_SETTINGS) {
+            val listener = ConnectWifiListener()
+            wifiManager.connect(config, listener)
+            listener.connectFuture.get(WIFI_CONNECT_TIMEOUT_MS, TimeUnit.MILLISECONDS)
+        } ?: return null // Connect succeeded
 
-            // Only retry for IN_PROGRESS and BUSY
-            if (error != WIFI_ERROR_IN_PROGRESS && error != WIFI_ERROR_BUSY) {
-                fail("Failed to connect to " + config.SSID + ": " + error)
-            }
-            Log.w(TAG, "connect failed with $error; waiting before retry")
-            SystemClock.sleep(WIFI_CONNECT_INTERVAL_MS)
+        // Only retry for IN_PROGRESS and BUSY
+        if (error != WIFI_ERROR_IN_PROGRESS && error != WIFI_ERROR_BUSY) {
+            fail("Failed to connect to " + config.SSID + ": " + error)
         }
-        fail("Failed to connect to ${config.SSID} after $MAX_WIFI_CONNECT_RETRIES retries")
+        Log.w(TAG, "connect failed with $error; waiting before retry")
+        SystemClock.sleep(WIFI_CONNECT_INTERVAL_MS)
+        return error
     }
 
     private class ConnectWifiListener : WifiManager.ActionListener {
@@ -148,6 +160,7 @@ class ConnectUtil(private val context: Context) {
         }
     }
 
+    @SuppressLint("MissingPermission") // The caller should supply the needed permissions.
     private fun getOrCreateWifiConfiguration(): WifiConfiguration {
         val configs = runAsShell(permission.NETWORK_SETTINGS) {
             wifiManager.getConfiguredNetworks()
@@ -178,6 +191,7 @@ class ConnectUtil(private val context: Context) {
         return configs[0]
     }
 
+    @SuppressLint("MissingPermission") // The caller should supply the needed permissions.
     private fun getWifiScanResults(): List<ScanResult> {
         val scanResultsFuture = CompletableFuture<List<ScanResult>>()
         runAsShell(permission.NETWORK_SETTINGS) {
@@ -226,6 +240,7 @@ class ConnectUtil(private val context: Context) {
      * detected the last time they were connected. This is necessary to make sure wifi can reconnect
      * to them.
      */
+    @SuppressLint("MissingPermission") // The caller should supply the needed permissions.
     private fun clearWifiBlocklist() {
         runAsShell(permission.NETWORK_SETTINGS, permission.ACCESS_WIFI_STATE) {
             for (cfg in wifiManager.configuredNetworks) {
