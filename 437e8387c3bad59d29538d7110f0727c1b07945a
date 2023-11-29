@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14b440c4_0156fb81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-29T06:11:42Z",
+      "side": 1,
+      "message": "Do you have a change to update the test in android12-tests-dev, so the code can be cleaned up later ? If yes can you link it here ? Or otherwise indicate when the workaround can be removed.",
+      "revId": "437e8387c3bad59d29538d7110f0727c1b07945a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64107ac9_10fc3a5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-29T06:11:42Z",
+      "side": 1,
+      "message": "LGTM but Lorenzo should +1 for CTS fixes that aren\u0027t flake fixes, cherry-picks or NSD changes",
+      "revId": "437e8387c3bad59d29538d7110f0727c1b07945a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
