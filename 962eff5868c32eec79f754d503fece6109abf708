@@ -49,6 +49,86 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "299a72c1_c37eb068",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-29T14:33:42Z",
+      "side": 1,
+      "message": "We need tests for ConnectivityService change.\nI think we can update CSLocalAgentTests.kt.",
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1372ce93_add7ed82",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 5014,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-29T14:33:42Z",
+      "side": 1,
+      "message": "disconnectAndDestroyNetwork is called when network is disconnecting.\n\nI think currently, removeInterfaceFromMulticastRouting is called only for the local network.\nIf the disconnected network is the upstream of some local networks, do we need to call removeInterfaceFromMulticastRouting for the upstream network?\n\nIf so, I\u0027m also wondering if routingCoordinator can call removeInterfaceFromMulticastRouting internally when there are no multicastRouting config for the interface.",
+      "range": {
+        "startLine": 5014,
+        "startChar": 39,
+        "endLine": 5014,
+        "endChar": 74
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "facb9cd4_03d97ba5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 9141,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-29T14:33:42Z",
+      "side": 1,
+      "message": "oldSatisfier is the old upstream of the local network(nai).\nIt\u0027s possible that oldSatisfier will no longer the upstream network of any local network.\nDo we need to call removeInterfaceFromMulticastRouting in this case?",
+      "range": {
+        "startLine": 9141,
+        "startChar": 16,
+        "endLine": 9141,
+        "endChar": 42
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "503bd7b5_a18b7dc2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 10180,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-29T14:33:42Z",
+      "side": 1,
+      "message": "If the upstream network become no longer the upstream of any local network after this reassignemnt, do we need to call removeInterfaceFromMulticastRouting for the upstream?",
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b1f6931_33173db6",
         "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
         "patchSetId": 18
