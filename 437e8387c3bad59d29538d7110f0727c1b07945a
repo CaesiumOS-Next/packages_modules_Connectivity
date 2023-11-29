@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f5a02ee_d28d1e4a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-11-29T10:52:33Z",
+      "side": 1,
+      "message": "aosp/2851330 updates the test to pass old and new NetworkAgent.\nI will cherry-pick aosp/2851330 to android12-tests-dev.\nAnd after some months, I will update NetworkAgent and NetworkAgentTest to just use registerNetworkagent with LocalNetworkConfig arg.",
+      "parentUuid": "14b440c4_0156fb81",
+      "revId": "437e8387c3bad59d29538d7110f0727c1b07945a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64107ac9_10fc3a5f",
