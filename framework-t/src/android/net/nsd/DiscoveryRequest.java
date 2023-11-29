@@ -190,7 +190,7 @@ public final class DiscoveryRequest implements Parcelable {
         }
 
         /**
-         * Sets the {@link network} on which the discovery queries should be sent.
+         * Sets the {@link Network} on which the discovery queries should be sent.
          *
          * @param network the discovery network or {@code null} if the query should be sent on
          * all supported networks
