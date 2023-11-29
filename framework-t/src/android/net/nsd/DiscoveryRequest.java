@@ -89,7 +89,7 @@ public final class DiscoveryRequest implements Parcelable {
     }
 
     /**
-     * Returns the {@Link Network} on which the query should be sent or {@code null} if no
+     * Returns the {@link Network} on which the query should be sent or {@code null} if no
      * network is specified.
      */
     @Nullable
