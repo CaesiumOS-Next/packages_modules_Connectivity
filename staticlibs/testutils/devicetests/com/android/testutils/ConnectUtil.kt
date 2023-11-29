@@ -32,7 +32,6 @@ import android.net.wifi.ScanResult
 import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
 import android.os.ParcelFileDescriptor
-import android.os.SystemClock
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import com.android.testutils.RecorderCallback.CallbackEntry
@@ -43,14 +42,9 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 import kotlin.test.fail
 
-private const val MAX_WIFI_CONNECT_RETRIES = 10
-private const val WIFI_CONNECT_INTERVAL_MS = 500L
 private const val WIFI_CONNECT_TIMEOUT_MS = 30_000L
 
-// Constants used by WifiManager.ActionListener#onFailure. Although onFailure is SystemApi,
-// the error code constants are not (b/204277752)
-private const val WIFI_ERROR_IN_PROGRESS = 1
-private const val WIFI_ERROR_BUSY = 2
+private const val DURATION_SCREEN_TOGGLE_MS = 2000L
 
 class ConnectUtil(private val context: Context) {
     private val TAG = ConnectUtil::class.java.simpleName
@@ -93,60 +87,48 @@ class ConnectUtil(private val context: Context) {
             Log.d(TAG, "connInfo=" + connInfo)
             if (connInfo == null || connInfo.networkId == -1) {
                 clearWifiBlocklist()
-                val pfd = getInstrumentation().uiAutomation.executeShellCommand("svc wifi enable")
+                val pfd = executeShellCommand("svc wifi enable")
                 // Read the output stream to ensure the command has completed
                 ParcelFileDescriptor.AutoCloseInputStream(pfd).use { it.readBytes() }
-                val config = getOrCreateWifiConfiguration()
-                connectToWifiConfig(config)
+                // Ensure the necessary configures exist, trigger a scan and let the auto join
+                // handles the connects and retries. The screen must be on before scanning
+                // in order to trigger auto join.
+                turnScreenOn()
+                getOrCreateWifiConfiguration()
+                callback.eventuallyExpect<CallbackEntry.Available>(
+                    "Could not connect to a wifi access point within $WIFI_CONNECT_TIMEOUT_MS " +
+                            " ms. Check that the test device has a wifi network configured, " +
+                            "and that the test access point is functioning properly."
+                )
             }
-            val errorMsg = if (requireValidated) {
+            val cb = callback.eventuallyExpect<CapabilitiesChanged>(
                 "The wifi access point did not have access to the internet after " +
-                        "$WIFI_CONNECT_TIMEOUT_MS ms. Check that it has a working connection."
-            } else {
-                "Could not connect to a wifi access point within $WIFI_CONNECT_TIMEOUT_MS ms. " +
-                        "Check that the test device has a wifi network configured, and that the " +
-                        "test access point is functioning properly."
-            }
-            val cb = callback.eventuallyExpect<CapabilitiesChanged>(errorMsg) {
+                    "$WIFI_CONNECT_TIMEOUT_MS ms. Check that it has a working connection."
+            ) {
                 (!requireValidated || it.caps.hasCapability(NET_CAPABILITY_VALIDATED))
             }
             cb.network
         } cleanup {
             cm.unregisterNetworkCallback(callback)
+            turnScreenOff()
         }
     }
 
-    private fun connectToWifiConfig(config: WifiConfiguration) {
-        repeat(MAX_WIFI_CONNECT_RETRIES) {
-            val error = runAsShell(permission.NETWORK_SETTINGS) {
-                val listener = ConnectWifiListener()
-                wifiManager.connect(config, listener)
-                listener.connectFuture.get(WIFI_CONNECT_TIMEOUT_MS, TimeUnit.MILLISECONDS)
-            } ?: return // Connect succeeded
-
-            // Only retry for IN_PROGRESS and BUSY
-            if (error != WIFI_ERROR_IN_PROGRESS && error != WIFI_ERROR_BUSY) {
-                fail("Failed to connect to " + config.SSID + ": " + error)
-            }
-            Log.w(TAG, "connect failed with $error; waiting before retry")
-            SystemClock.sleep(WIFI_CONNECT_INTERVAL_MS)
-        }
-        fail("Failed to connect to ${config.SSID} after $MAX_WIFI_CONNECT_RETRIES retries")
+    private fun turnScreenOn() {
+        executeShellCommand("input keyevent KEYCODE_WAKEUP")
+        executeShellCommand("wm dismiss-keyguard")
+        // Wait for the screen on/off intent reaches WifiManager.
+        Thread.sleep(DURATION_SCREEN_TOGGLE_MS)
     }
 
-    private class ConnectWifiListener : WifiManager.ActionListener {
-        /**
-         * Future completed when the connect process ends. Provides the error code or null if none.
-         */
-        val connectFuture = CompletableFuture<Int?>()
-        override fun onSuccess() {
-            connectFuture.complete(null)
-        }
-
-        override fun onFailure(reason: Int) {
-            connectFuture.complete(reason)
-        }
+    private fun turnScreenOff() {
+        executeShellCommand("input keyevent KEYCODE_SLEEP")
+        // Wait for the screen on/off intent reaches WifiManager.
+        Thread.sleep(DURATION_SCREEN_TOGGLE_MS)
     }
+
+    private fun executeShellCommand(str: String) =
+        getInstrumentation().uiAutomation.executeShellCommand(str)
 
     private fun getOrCreateWifiConfiguration(): WifiConfiguration {
         val configs = runAsShell(permission.NETWORK_SETTINGS) {
