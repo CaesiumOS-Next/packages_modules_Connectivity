@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddb393e2_42f2966b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-29T02:52:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c07a089c_e84cbb3a",
+      "revId": "0193105c6d341c6e25367ca3f27de0e4a61b4fa3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea5ac84a_ff60a056",
@@ -53,6 +71,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6875372_6740a47c",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1713,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-29T02:52:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea5ac84a_ff60a056",
+      "revId": "0193105c6d341c6e25367ca3f27de0e4a61b4fa3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3bf4473_ee215532",
@@ -66,6 +102,24 @@
       "writtenOn": "2023-11-29T01:44:12Z",
       "side": 1,
       "message": "Since you are testing 2 different disjoint cases, this would be better in separate test methods annotated with @IgnoreUpTo and @IgnoreAfter (one that checks permission on U, and one that checks permission on V+).",
+      "revId": "0193105c6d341c6e25367ca3f27de0e4a61b4fa3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81fe396a_d6d60609",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1728,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-29T02:52:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3bf4473_ee215532",
       "revId": "0193105c6d341c6e25367ca3f27de0e4a61b4fa3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
