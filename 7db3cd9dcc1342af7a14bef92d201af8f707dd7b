@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9e348f4_6a2e946f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2023-11-29T07:43:11Z",
+      "side": 1,
+      "message": "RTA_DST -\u003e RTA_SRC.",
+      "revId": "7db3cd9dcc1342af7a14bef92d201af8f707dd7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e15f94c_37501824",
+        "filename": "tests/unit/java/android/net/NetworkUtilsTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2023-11-29T07:43:11Z",
+      "side": 1,
+      "message": "Is it necessary to wrap these two exceptions into RuntimeException?",
+      "revId": "7db3cd9dcc1342af7a14bef92d201af8f707dd7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
