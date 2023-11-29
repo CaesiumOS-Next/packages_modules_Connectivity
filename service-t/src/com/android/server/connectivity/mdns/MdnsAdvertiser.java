@@ -351,8 +351,7 @@ public class MdnsAdvertiser {
             mPendingRegistrations.put(id, registration);
             for (int i = 0; i < mAdvertisers.size(); i++) {
                 try {
-                    mAdvertisers.valueAt(i).addService(id, registration.getServiceInfo(),
-                            registration.getSubtype());
+                    mAdvertisers.valueAt(i).addService(id, registration.getServiceInfo());
                 } catch (NameConflictException e) {
                     mSharedLog.wtf("Name conflict adding services that should have unique names",
                             e);
@@ -367,7 +366,8 @@ public class MdnsAdvertiser {
         void updateService(int id, @NonNull Registration registration) {
             mPendingRegistrations.put(id, registration);
             for (int i = 0; i < mAdvertisers.size(); i++) {
-                mAdvertisers.valueAt(i).updateService(id, registration.getSubtype());
+                mAdvertisers.valueAt(i).updateService(
+                        id, registration.getServiceInfo().getSubtypes());
             }
         }
 
@@ -417,7 +417,7 @@ public class MdnsAdvertiser {
                 final Registration registration = mPendingRegistrations.valueAt(i);
                 try {
                     advertiser.addService(mPendingRegistrations.keyAt(i),
-                            registration.getServiceInfo(), registration.getSubtype());
+                            registration.getServiceInfo());
                 } catch (NameConflictException e) {
                     mSharedLog.wtf("Name conflict adding services that should have unique names",
                             e);
@@ -485,16 +485,12 @@ public class MdnsAdvertiser {
         private int mConflictCount;
         @NonNull
         private NsdServiceInfo mServiceInfo;
-        @Nullable
-        private String mSubtype;
-
         int mConflictDuringProbingCount;
         int mConflictAfterProbingCount;
 
-        private Registration(@NonNull NsdServiceInfo serviceInfo, @Nullable String subtype) {
+        private Registration(@NonNull NsdServiceInfo serviceInfo) {
             this.mOriginalName = serviceInfo.getServiceName();
             this.mServiceInfo = serviceInfo;
-            this.mSubtype = subtype;
         }
 
         /**
@@ -507,10 +503,10 @@ public class MdnsAdvertiser {
         }
 
         /**
-         * Update subType for the registration.
+         * Update subTypes for the registration.
          */
-        public void updateSubtype(@Nullable String subtype) {
-            this.mSubtype = subtype;
+        public void updateSubtypes(List<String> subtypes) {
+            mServiceInfo.setSubtypes(subtypes);
         }
 
         /**
@@ -543,6 +539,7 @@ public class MdnsAdvertiser {
             final NsdServiceInfo newInfo = new NsdServiceInfo();
             newInfo.setServiceName(getUpdatedServiceName(renameCount));
             newInfo.setServiceType(mServiceInfo.getServiceType());
+            newInfo.setSubtypes(mServiceInfo.getSubtypes());
             for (Map.Entry<String, byte[]> attr : mServiceInfo.getAttributes().entrySet()) {
                 newInfo.setAttribute(attr.getKey(),
                         attr.getValue() == null ? null : new String(attr.getValue()));
@@ -564,11 +561,6 @@ public class MdnsAdvertiser {
         @NonNull
         public NsdServiceInfo getServiceInfo() {
             return mServiceInfo;
-        }
-
-        @Nullable
-        public String getSubtype() {
-            return mSubtype;
         }
     }
 
@@ -665,14 +657,14 @@ public class MdnsAdvertiser {
      *
      * @param id A unique ID for the service.
      * @param service The service info to advertise.
-     * @param subtype An optional subtype to advertise the service with.
      * @param advertisingOptions The advertising options.
      */
-    public void addOrUpdateService(int id, NsdServiceInfo service, @Nullable String subtype,
+    public void addOrUpdateService(int id, NsdServiceInfo service,
             MdnsAdvertisingOptions advertisingOptions) {
         checkThread();
         final Registration existingRegistration = mRegistrations.get(id);
         final Network network = service.getNetwork();
+        final List<String> subtypes = service.getSubtypes();
         Registration registration;
         if (advertisingOptions.isOnlyUpdate()) {
             if (existingRegistration == null) {
@@ -687,10 +679,11 @@ public class MdnsAdvertiser {
                 return;
 
             }
-            mSharedLog.i("Update service " + service + " with ID " + id + " and subtype " + subtype
+            mSharedLog.i("Update service " + service + " with ID " + id + " and subtypes "
+                    + (subtypes.isEmpty() ? "null" : String.join(",", subtypes))
                     + " advertisingOptions " + advertisingOptions);
             registration = existingRegistration;
-            registration.updateSubtype(subtype);
+            registration.updateSubtypes(subtypes);
         } else {
             if (existingRegistration != null) {
                 mSharedLog.e("Adding duplicate registration for " + service);
@@ -698,9 +691,10 @@ public class MdnsAdvertiser {
                 mCb.onRegisterServiceFailed(id, NsdManager.FAILURE_INTERNAL_ERROR);
                 return;
             }
-            mSharedLog.i("Adding service " + service + " with ID " + id + " and subtype " + subtype
+            mSharedLog.i("Adding service " + service + " with ID " + id + " and subtypes "
+                    + (subtypes.isEmpty() ? "null" : String.join(",", subtypes))
                     + " advertisingOptions " + advertisingOptions);
-            registration = new Registration(service, subtype);
+            registration = new Registration(service);
             final BiPredicate<Network, InterfaceAdvertiserRequest> checkConflictFilter;
             if (network == null) {
                 // If registering on all networks, no advertiser must have conflicts
@@ -793,15 +787,10 @@ public class MdnsAdvertiser {
     private OffloadServiceInfoWrapper createOffloadService(int serviceId,
             @NonNull Registration registration, byte[] rawOffloadPacket) {
         final NsdServiceInfo nsdServiceInfo = registration.getServiceInfo();
-        final List<String> subTypes = new ArrayList<>();
-        String subType = registration.getSubtype();
-        if (subType != null) {
-            subTypes.add(subType);
-        }
         final OffloadServiceInfo offloadServiceInfo = new OffloadServiceInfo(
                 new OffloadServiceInfo.Key(nsdServiceInfo.getServiceName(),
                         nsdServiceInfo.getServiceType()),
-                subTypes,
+                nsdServiceInfo.getSubtypes(),
                 String.join(".", mDeviceHostName),
                 rawOffloadPacket,
                 // TODO: define overlayable resources in
