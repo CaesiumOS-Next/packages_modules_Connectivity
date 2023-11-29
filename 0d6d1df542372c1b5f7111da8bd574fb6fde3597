@@ -178,6 +178,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fef18e9_77a9cb56",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-11-29T06:40:59Z",
+      "side": 1,
+      "message": "Never mind. I got a misunderstanding of `Object.equals`.",
+      "parentUuid": "7a1522d5_a878d6f7",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c50e590c_305ef724",
