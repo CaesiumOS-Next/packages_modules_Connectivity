@@ -947,10 +947,28 @@ class NetworkAgentTest {
         doReturn(mockCm).`when`(mockContext).getSystemService(Context.CONNECTIVITY_SERVICE)
         val agent = createNetworkAgent(mockContext)
         agent.register()
+        // NetworkAgent will use registerNetworkAgent with LocalNetworkConfig arg.
+        // To keep the CTS compatibility, this test try verifying both registerNetworkAgent with and
+        // without LocalNetworkConfig arg.
+        // Once the old cts is EOL, mainline code and this test can be updated to use only the
+        // registerNetworkAgent with LocalNetworkConfig arg
+        try {
+            verify(mockCm).registerNetworkAgent(any(),
+                    argThat<NetworkInfo> {
+                        it.detailedState == NetworkInfo.DetailedState.CONNECTING },
+                    any(LinkProperties::class.java),
+                    any(NetworkCapabilities::class.java),
+                    any(NetworkScore::class.java),
+                    any(NetworkAgentConfig::class.java),
+                    eq(NetworkProvider.ID_NONE))
+            return
+        } catch (ignore: AssertionError) {
+        }
         verify(mockCm).registerNetworkAgent(any(),
                 argThat<NetworkInfo> { it.detailedState == NetworkInfo.DetailedState.CONNECTING },
                 any(LinkProperties::class.java),
                 any(NetworkCapabilities::class.java),
+                any(), // LocalNetworkConfig TODO : specify when it's public
                 any(NetworkScore::class.java),
                 any(NetworkAgentConfig::class.java),
                 eq(NetworkProvider.ID_NONE))
