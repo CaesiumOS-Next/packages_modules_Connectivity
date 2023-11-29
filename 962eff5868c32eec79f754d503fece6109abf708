@@ -1,0 +1,360 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e48d3476_91057121",
+        "filename": "framework/jni/android_net_NetworkUtils.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-29T07:58:00Z",
+      "side": 1,
+      "message": "Is IOException consistent with what other setsockopt flavours throw? Or do they throw SocketException or ErrnoException or...?",
+      "range": {
+        "startLine": 249,
+        "startChar": 43,
+        "endLine": 249,
+        "endChar": 54
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1db39d44_5307fadc",
+        "filename": "framework/src/android/net/NetworkUtils.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-29T07:58:00Z",
+      "side": 1,
+      "message": "Can we put this and its test into its own CL? It would make the rest easier to review.",
+      "range": {
+        "startLine": 430,
+        "startChar": 30,
+        "endLine": 430,
+        "endChar": 45
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b1f6931_33173db6",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-29T07:58:00Z",
+      "side": 1,
+      "message": "It\u0027s generally confusing to have equals and hashCode ignore fields that are part of the object\u0027s semantics. I\u0027ve really only seen this done for fields that are transient and non-meaninfgul (e.g., caches, temoprary calculated values, and the like).\n\nIf you want to only compare some of the fields, would suggest not storing the duration in the object at all. Or, if there are some cases where the duration doesn\u0027t matter, you could add another method such as \"boolean hasSameVirtualInterfacesAs(MfcValue other)\".",
+      "range": {
+        "startLine": 615,
+        "startChar": 23,
+        "endLine": 615,
+        "endChar": 29
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7438272f_6444cd05",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-29T07:58:00Z",
+      "side": 1,
+      "message": "The return value of this method is correct only if the method is called immediately after calling setInactiveDuration. If the method is called some time later, it will still return the inactive duration that the object had when it was created. Suggest storing the creation timestamp or the expiry timestamp instead.",
+      "range": {
+        "startLine": 639,
+        "startChar": 19,
+        "endLine": 639,
+        "endChar": 36
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "268d0b09_f1efcd23",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-29T07:58:00Z",
+      "side": 1,
+      "message": "These days I think you can just use \"+\" without having to write your own joiner code.",
+      "range": {
+        "startLine": 643,
+        "startChar": 31,
+        "endLine": 643,
+        "endChar": 43
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10290217_a4f65c9a",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-29T07:58:00Z",
+      "side": 1,
+      "message": "Nit: javadoc comments are:\n\n    /**\n\nnot\n\n    /*",
+      "range": {
+        "startLine": 655,
+        "startChar": 4,
+        "endLine": 655,
+        "endChar": 6
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62b6c155_6e832830",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-29T07:58:00Z",
+      "side": 1,
+      "message": "Can you move this file and corresponding tests to its own CL?",
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc8aee99_7f5c5f89",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-29T07:58:00Z",
+      "side": 1,
+      "message": "Maybe getExpiresCentiSeconds? But it seems better to just convert this to milliseconds and call this getExpiresMillis.",
+      "range": {
+        "startLine": 154,
+        "startChar": 26,
+        "endLine": 154,
+        "endChar": 32
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab6098fe_a4db089d",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-29T07:58:00Z",
+      "side": 1,
+      "message": "SRC",
+      "range": {
+        "startLine": 215,
+        "startChar": 26,
+        "endLine": 215,
+        "endChar": 29
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8da1549d_e3fc8ebe",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-29T07:58:00Z",
+      "side": 1,
+      "message": "Looks like you got this from the similar code below, but... When can this happen? Only when parsing failed? If so, it seems better to reject the message as invalid and return null.",
+      "range": {
+        "startLine": 243,
+        "startChar": 56,
+        "endLine": 243,
+        "endChar": 85
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a82a3b21_f792aeda",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-29T07:58:00Z",
+      "side": 1,
+      "message": "Out of curiosity, why did you add this check? Technically mDestination is nullable, but I can\u0027t imagine any real route ever having a null destination. If you added this null check just for tests, can you instead fix the tests to not pass in null destinations?",
+      "range": {
+        "startLine": 282,
+        "startChar": 8,
+        "endLine": 282,
+        "endChar": 35
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12ceadd8_3dbe2db3",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-29T07:58:00Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we pack the iif and source as well?",
+      "range": {
+        "startLine": 300,
+        "startChar": 4,
+        "endLine": 300,
+        "endChar": 5
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d29a68ff_bfc5ae48",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-29T07:58:00Z",
+      "side": 1,
+      "message": "In most cases mSource is nullable, but if it\u0027s null this code will crash. Might want to add a unit test. :-)\n\nMaybe don\u0027t include \"source{\" at all if mSource is null? Otherwise pretty much all routes will have source{null}.",
+      "range": {
+        "startLine": 307,
+        "startChar": 37,
+        "endLine": 307,
+        "endChar": 38
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e5bc1a9_4119e87a",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-29T07:58:00Z",
+      "side": 1,
+      "message": "Ditto, if ifindex is absent or zero, maybe don\u0027t print it?",
+      "range": {
+        "startLine": 310,
+        "startChar": 16,
+        "endLine": 310,
+        "endChar": 17
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d95a18f5_4c6499b5",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-29T07:58:00Z",
+      "side": 1,
+      "message": "Don\u0027t you need to consider any alignment or padding here? Maybe call getAlignedLengthOf or similar?",
+      "range": {
+        "startLine": 333,
+        "startChar": 61,
+        "endLine": 333,
+        "endChar": 62
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a327e28_d39ab25b",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-11-29T07:58:00Z",
+      "side": 1,
+      "message": "If parsing fails, do you really want to return only the routes that were seen so far? Seems better to throw.",
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
