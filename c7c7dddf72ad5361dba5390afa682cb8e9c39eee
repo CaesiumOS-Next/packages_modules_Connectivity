@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8548d7f3_b616b9cb",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-29T06:36:00Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "286c9e6f_c165695b",
+      "range": {
+        "startLine": 78,
+        "startChar": 54,
+        "endLine": 78,
+        "endChar": 89
+      },
+      "revId": "c7c7dddf72ad5361dba5390afa682cb8e9c39eee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3918294c_0fd35689",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-29T06:36:00Z",
+      "side": 1,
+      "message": "Updated. I pass in a InputStream. I do a logging in a separate function so that I can write unit test for this logic easier. Please kindly let me know if the new code structure still need to be improved.",
+      "parentUuid": "dbe314dd_1e357468",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 92
+      },
+      "revId": "c7c7dddf72ad5361dba5390afa682cb8e9c39eee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1bcd129_56fe778e",
@@ -64,6 +112,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44df0991_c912fbc2",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-29T06:36:00Z",
+      "side": 1,
+      "message": "Added a test case for this function.",
+      "parentUuid": "d1bcd129_56fe778e",
+      "revId": "c7c7dddf72ad5361dba5390afa682cb8e9c39eee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54180a9b_da94b508",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-11-28T07:38:56Z",
       "side": 1,
       "message": "space here I think",
+      "range": {
+        "startLine": 96,
+        "startChar": 54,
+        "endLine": 96,
+        "endChar": 55
+      },
+      "revId": "c7c7dddf72ad5361dba5390afa682cb8e9c39eee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "139d54ec_e17003fd",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-29T06:36:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54180a9b_da94b508",
       "range": {
         "startLine": 96,
         "startChar": 54,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b967b45_a1ac9f8f",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-29T06:36:00Z",
+      "side": 1,
+      "message": "Done. Refactored the code to use suggested control flow.",
+      "parentUuid": "929567a8_3193ea16",
+      "range": {
+        "startLine": 120,
+        "startChar": 19,
+        "endLine": 120,
+        "endChar": 38
+      },
+      "revId": "c7c7dddf72ad5361dba5390afa682cb8e9c39eee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a4b1abd_ea705ffe",
@@ -127,6 +241,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1c3a461_813611e0",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-29T06:36:00Z",
+      "side": 1,
+      "message": "Acknowledged. The branching is removed in the latest code.",
+      "parentUuid": "8a4b1abd_ea705ffe",
+      "revId": "c7c7dddf72ad5361dba5390afa682cb8e9c39eee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "702b147c_fa1902f1",
@@ -140,6 +272,30 @@
       "writtenOn": "2023-11-28T07:38:56Z",
       "side": 1,
       "message": "shouldn\u0027t this \u0027else\u0027 be merged with the which file exists check?",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 20
+      },
+      "revId": "c7c7dddf72ad5361dba5390afa682cb8e9c39eee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f853e8a7_038506a0",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-29T06:36:00Z",
+      "side": 1,
+      "message": "Acknowledged. The branching is removed in the latest code.",
+      "parentUuid": "702b147c_fa1902f1",
       "range": {
         "startLine": 135,
         "startChar": 0,
