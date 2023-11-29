@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e30f403b_cd61fe5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-29T01:44:12Z",
+      "side": 1,
+      "message": "LGTM, comments can be addressed separately",
+      "revId": "0193105c6d341c6e25367ca3f27de0e4a61b4fa3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea5ac84a_ff60a056",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1713,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-29T01:44:12Z",
+      "side": 1,
+      "message": "This is already mocked on L.1708; see comment below about having separate methods, I think it would be clearer than trying to factor out code for the 2 cases",
+      "revId": "0193105c6d341c6e25367ca3f27de0e4a61b4fa3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3bf4473_ee215532",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1728,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-29T01:44:12Z",
+      "side": 1,
+      "message": "Since you are testing 2 different disjoint cases, this would be better in separate test methods annotated with @IgnoreUpTo and @IgnoreAfter (one that checks permission on U, and one that checks permission on V+).",
+      "revId": "0193105c6d341c6e25367ca3f27de0e4a61b4fa3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
