@@ -426,4 +426,7 @@ public class NetworkUtils {
         return routedIPCount;
     }
 
+    public static native void setsockoptBytes(FileDescriptor fd, int level, int option,
+            byte[] value) throws ErrnoException;
+
 }
