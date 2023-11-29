@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1fbe7d6_dfd30124",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-29T06:49:04Z",
+      "side": 1,
+      "message": "Ideally you\u0027d specify the charset here, but I don\u0027t know what it\u0027s supposed to be; maybe Maze knows ?\n\nIt probably doesn\u0027t make a difference since the contents are supposed to be either ASCII or ignored comments though ?",
+      "range": {
+        "startLine": 88,
+        "startChar": 85,
+        "endLine": 88,
+        "endChar": 86
+      },
+      "revId": "7b47ee9a5d8563ed27828143398b83bf88554245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22f2d66e_1f5bc06e",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-11-29T06:49:04Z",
+      "side": 1,
+      "message": "It would be nice to also have an instrumented test that does `assertTrue(checkBpfLoaderRc())` (making this method return true when the check passes): do tests have permission to read the file ?\nOtherwise we may forget to update this test when the .rc file is updated.\n\nCan be in another change though.",
+      "revId": "7b47ee9a5d8563ed27828143398b83bf88554245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
