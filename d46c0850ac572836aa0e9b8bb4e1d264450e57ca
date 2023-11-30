@@ -16,6 +16,92 @@
       "message": "LGTM and +1. I think we also need Mark to take a look at the final version as he also looks at the previous series of patches. After mark LGTM on it. I will add +2.",
       "revId": "d46c0850ac572836aa0e9b8bb4e1d264450e57ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e475959_80c782f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-30T09:18:57Z",
+      "side": 1,
+      "message": "The original RA daemon used to sleep a thread for a specific period to schedule multicasts. If the device went to sleep, the thread wouldn\u0027t wake up, which meant that the scheduling period wasn\u0027t guaranteed. This introduced a multicast RA timer correctness issue, but it also meant that the RA daemon wouldn\u0027t hold the wakelock.\nThe new design uses WakeMessage. From the docs, WakeMessage will wake up system when it try to send the specified message to a Handler and keeps the system awake until the message is processed.\nI remember while we talked about his change, you had some test system wakeup. Could you mention your tests and results in the commit message to warrant the change?",
+      "revId": "d46c0850ac572836aa0e9b8bb4e1d264450e57ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "900f0f9d_fad6e24b",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-30T09:18:57Z",
+      "side": 1,
+      "message": "What is the purpose of this Clock class ? I don\u0027t see you inject Clock objection from the test.",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 5
+      },
+      "revId": "d46c0850ac572836aa0e9b8bb4e1d264450e57ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c9ab3f4_55c95c06",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-30T09:18:57Z",
+      "side": 1,
+      "message": "In the past, the RA daemon only scheduled multicast when it had an RA to send. Now, it schedules multicast when it starts up and reschedules the timer when the old timer expires. But what happens if you\u0027re on an IPv4-only network? In that case, the RA daemon will keep scheduling timers even though it doesn\u0027t have an RA to send. That seems like a waste of resources.",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 81
+      },
+      "revId": "d46c0850ac572836aa0e9b8bb4e1d264450e57ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21e93840_52dc5ee1",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-11-30T09:18:57Z",
+      "side": 1,
+      "message": "Before, MulticastTransmitter could use thread sleep to loop the timer scheduling. This was fine because it didn\u0027t wake up the system. Now you\u0027ve changed it to use WakeupMessage, which will actually wake up the system when it tries to send a message. We need to be careful to only schedule the timer when necessary. In particular, we need to cancel the timer when the RaParams object is null.",
+      "range": {
+        "startLine": 691,
+        "startChar": 0,
+        "endLine": 701,
+        "endChar": 5
+      },
+      "revId": "d46c0850ac572836aa0e9b8bb4e1d264450e57ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
