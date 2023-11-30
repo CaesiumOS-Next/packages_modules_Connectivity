@@ -500,7 +500,8 @@ public class MdnsRecordRepository {
 
         // Determine the send delay
         final long delayMs;
-        if ((packet.flags & MdnsConstants.FLAG_TRUNCATED) != 0) {
+        final boolean isTruncatedPacket = (packet.flags & MdnsConstants.FLAG_TRUNCATED) != 0;
+        if (isTruncatedPacket) {
             // RFC 6762 6.: 400-500ms delay if TC bit is set
             delayMs = 400L + mDelayGenerator.nextInt(100);
         } else if (packet.questions.size() > 1
@@ -537,7 +538,9 @@ public class MdnsRecordRepository {
             answerRecords.add(info.record);
         }
 
-        return new MdnsReplyInfo(answerRecords, additionalAnswerRecords, delayMs, dest);
+        return new MdnsReplyInfo(answerRecords, additionalAnswerRecords, delayMs, dest,
+                isTruncatedPacket && mMdnsFeatureFlags.mIsKnownAnswerSuppressionEnabled
+                        ? src : null);
     }
 
     /**

@@ -40,6 +40,8 @@ import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.eq
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.never
+import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 
 private const val TEST_PORT = 12345
@@ -52,6 +54,8 @@ private const val SHORT_TTL = 120_000L
 class MdnsReplySenderTest {
     private val serviceName = arrayOf("MyTestService", "_testservice", "_tcp", "local")
     private val serviceType = arrayOf("_testservice", "_tcp", "local")
+    private val source = InetSocketAddress(
+            InetAddresses.parseNumericAddress("192.0.2.1"), TEST_PORT)
     private val hostname = arrayOf("Android_000102030405060708090A0B0C0D0E0F", "local")
     private val hostAddresses = listOf(
             LinkAddress(InetAddresses.parseNumericAddress("192.0.2.111"), 24),
@@ -85,12 +89,19 @@ class MdnsReplySenderTest {
     private val replySender by lazy {
         MdnsReplySender(thread.looper, socket, buffer, sharedLog, false /* enableDebugLog */, deps)
     }
+    private lateinit var realHandler: Handler
+    private lateinit var delayMessage: Message
 
     @Before
     fun setUp() {
         thread.start()
         doReturn(true).`when`(socket).hasJoinedIpv4()
         doReturn(true).`when`(socket).hasJoinedIpv6()
+        doAnswer { inv ->
+            realHandler = inv.getArgument(0)
+            delayMessage = inv.getArgument(1)
+            true
+        }.`when`(deps).sendMessageDelayed(any(), any(), anyLong())
     }
 
     @After
@@ -110,8 +121,16 @@ class MdnsReplySenderTest {
     private fun sendNow(packet: MdnsPacket, destination: InetSocketAddress):
             Unit = runningOnHandlerAndReturn { replySender.sendNow(packet, destination) }
 
-    private fun queueReply(reply: MdnsReplyInfo):
-            Unit = runningOnHandlerAndReturn { replySender.queueReply(reply) }
+    private fun queueReply(reply: MdnsReplyInfo, source: InetSocketAddress?):
+            Unit = runningOnHandlerAndReturn { replySender.queueReply(reply, source) }
+
+    private fun updateKnownAnswers(
+            source: InetSocketAddress,
+            knownAnswers: List<MdnsRecord>,
+            hasRemainingPackets: Boolean
+    ): Unit = runningOnHandlerAndReturn {
+        replySender.updateKnownAnswers(source, knownAnswers, hasRemainingPackets)
+    }
 
     @Test
     fun testSendNow() {
@@ -126,19 +145,103 @@ class MdnsReplySenderTest {
 
     @Test
     fun testQueueReply() {
-        var realHandler: Handler? = null
-        var delayMessage: Message? = null
-        doAnswer { inv ->
-            realHandler = inv.getArgument(0)
-            delayMessage = inv.getArgument(1)
-            true
-        }.`when`(deps).sendMessageDelayed(any(), any(), anyLong())
-
-        val reply = MdnsReplyInfo(answers, additionalAnswers, 20L /* sendDelayMs */,
-                IPV4_SOCKET_ADDR)
-        queueReply(reply)
+        val reply = MdnsReplyInfo(answers, additionalAnswers,
+                20L /* sendDelayMs */, IPV4_SOCKET_ADDR, null /* source */)
+        queueReply(reply, null /* source */)
         verify(deps).sendMessageDelayed(any(), any(), eq(20L))
-        runningOnHandlerAndReturn { delayMessage?.let { realHandler?.dispatchMessage(it) }}
+        runningOnHandlerAndReturn { realHandler.dispatchMessage(delayMessage) }
         verify(socket).send(argThat{ it.socketAddress.equals(IPV4_SOCKET_ADDR) })
+    }
+
+    @Test
+    fun testQueueReply_MultiplePacket() {
+        val mutableAnswers = mutableListOf(MdnsPointerRecord(serviceType,
+                0L /* receiptTimeMillis */, false /* cacheFlush */, LONG_TTL, serviceName))
+        val reply = MdnsReplyInfo(mutableAnswers as List<MdnsRecord>, additionalAnswers,
+                400L /* sendDelayMs */, IPV4_SOCKET_ADDR, source)
+        queueReply(reply, source)
+        verify(deps).sendMessageDelayed(any(), any(), eq(400L))
+
+        // Received a known-answer packet
+        updateKnownAnswers(source, answers, false /* hasRemainingPackets */)
+        runningOnHandlerAndReturn { realHandler.dispatchMessage(delayMessage) }
+        verify(socket, never()).send(any())
+    }
+
+    @Test
+    fun testQueueReply_MultiplePacket_LostSubsequencePacket() {
+        val reply = MdnsReplyInfo(answers, additionalAnswers,
+                400L /* sendDelayMs */, IPV4_SOCKET_ADDR, source)
+        queueReply(reply, source)
+        verify(deps).sendMessageDelayed(any(), any(), eq(400L))
+
+        // No subsequence packets
+        runningOnHandlerAndReturn { realHandler.dispatchMessage(delayMessage) }
+        verify(socket).send(argThat { it.socketAddress.equals(IPV4_SOCKET_ADDR) })
+    }
+
+    @Test
+    fun testQueueReply_MultiplePacket_OtherKnownAnswer() {
+        val reply = MdnsReplyInfo(answers, additionalAnswers,
+                400L /* sendDelayMs */, IPV4_SOCKET_ADDR, source)
+        queueReply(reply, source)
+        verify(deps).sendMessageDelayed(any(), any(), eq(400L))
+
+        // Other known-answer service
+        val knownAnswers = listOf(MdnsPointerRecord(serviceType, 0L /* receiptTimeMillis */,
+                false /* cacheFlush */, LONG_TTL,
+                arrayOf("OtherTestService", "_testservice", "_tcp", "local")))
+        updateKnownAnswers(source, knownAnswers, false /* hasRemainingPackets */)
+        runningOnHandlerAndReturn { realHandler.dispatchMessage(delayMessage) }
+        verify(socket).send(argThat { it.socketAddress.equals(IPV4_SOCKET_ADDR) })
+    }
+
+    @Test
+    fun testQueueReply_MultiplePacket_TwoKnownAnswerPackets() {
+        val mutableAnswers = mutableListOf(MdnsPointerRecord(serviceType,
+                0L /* receiptTimeMillis */, false /* cacheFlush */, LONG_TTL, serviceName))
+        val reply = MdnsReplyInfo(mutableAnswers as List<MdnsRecord>, additionalAnswers,
+                400L /* sendDelayMs */, IPV4_SOCKET_ADDR, source)
+        queueReply(reply, source)
+        verify(deps).sendMessageDelayed(any(), any(), eq(400L))
+
+        // First known-answer service
+        val firstKnownAnswer = listOf(MdnsPointerRecord(serviceType, 0L /* receiptTimeMillis */,
+                false /* cacheFlush */, LONG_TTL,
+                arrayOf("OtherTestService", "_testservice", "_tcp", "local")))
+        updateKnownAnswers(source, firstKnownAnswer, true /* hasRemainingPackets */)
+        runningOnHandlerAndReturn { realHandler.dispatchMessage(delayMessage) }
+        verify(socket, never()).send(any())
+        verify(deps, times(2)).sendMessageDelayed(any(), any(), eq(400L))
+
+        // Second known-answer service
+        updateKnownAnswers(source, answers, false /* hasRemainingPackets */)
+        runningOnHandlerAndReturn { realHandler.dispatchMessage(delayMessage) }
+        verify(socket, never()).send(any())
+        verify(deps, times(2)).sendMessageDelayed(any(), any(), eq(400L))
+    }
+
+    @Test
+    fun testQueueReply_MultiplePacket_LostSecondaryPacket() {
+        val mutableAnswers = mutableListOf(MdnsPointerRecord(serviceType,
+                0L /* receiptTimeMillis */, false /* cacheFlush */, LONG_TTL, serviceName))
+        val reply = MdnsReplyInfo(mutableAnswers as List<MdnsRecord>, additionalAnswers,
+                400L /* sendDelayMs */, IPV4_SOCKET_ADDR, source)
+        queueReply(reply, source)
+        verify(deps).sendMessageDelayed(any(), any(), eq(400L))
+
+        // First known-answer service
+        val firstKnownAnswer = listOf(MdnsPointerRecord(serviceType, 0L /* receiptTimeMillis */,
+                false /* cacheFlush */, LONG_TTL,
+                arrayOf("OtherTestService", "_testservice", "_tcp", "local")))
+        updateKnownAnswers(source, firstKnownAnswer, true /* hasRemainingPackets */)
+        runningOnHandlerAndReturn { realHandler.dispatchMessage(delayMessage) }
+        verify(socket, never()).send(any())
+        verify(deps, times(2)).sendMessageDelayed(any(), any(), eq(400L))
+
+        // Second known-answer service
+        runningOnHandlerAndReturn { realHandler.dispatchMessage(delayMessage) }
+        verify(socket).send(argThat { it.socketAddress.equals(IPV4_SOCKET_ADDR) })
+        verify(deps, times(2)).sendMessageDelayed(any(), any(), eq(400L))
     }
 }

@@ -373,6 +373,25 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
             mCbHandler.post(() -> mCb.onServiceConflict(this, conflictServiceId));
         }
 
+        // RFC6762 7.2. Multipacket Known-Answer Suppression
+        // Sometimes a Multicast DNS querier will already have too many answers
+        // to fit in the Known-Answer Section of its query packets.  In this
+        // case, it should issue a Multicast DNS query containing a question and
+        // as many Known-Answer records as will fit.  It MUST then set the TC
+        // (Truncated) bit in the header before sending the query.  It MUST
+        // immediately follow the packet with another query packet containing no
+        // questions and as many more Known-Answer records as will fit.  If
+        // there are still too many records remaining to fit in the packet, it
+        // again sets the TC bit and continues until all the Known-Answer
+        // records have been sent.
+        if (mMdnsFeatureFlags.mIsKnownAnswerSuppressionEnabled
+                && packet.questions.isEmpty()
+                && !packet.answers.isEmpty()) {
+            // Check the TC bit if there is still a remaining Known-Answer records.
+            final boolean hasRemainingPacket = ((packet.flags & MdnsConstants.FLAG_TRUNCATED) != 0);
+            mReplySender.updateKnownAnswers(src, packet.answers, hasRemainingPacket);
+        }
+
         // Even in case of conflict, add replies for other services. But in general conflicts would
         // happen when the incoming packet has answer records (not a question), so there will be no
         // answer. One exception is simultaneous probe tiebreaking (rfc6762 8.2), in which case the
@@ -380,7 +399,7 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         final MdnsReplyInfo answers = mRecordRepository.getReply(packet, src);
 
         if (answers == null) return;
-        mReplySender.queueReply(answers);
+        mReplySender.queueReply(answers, answers.source);
     }
 
     /**
