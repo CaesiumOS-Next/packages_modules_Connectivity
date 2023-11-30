@@ -19,11 +19,13 @@ package com.android.server.connectivity.mdns;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.ensureRunningOnHandlerThread;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.annotation.RequiresApi;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.ArrayMap;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.SharedLog;
@@ -35,7 +37,11 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A class that handles sending mDNS replies to a {@link MulticastSocket}, possibly queueing them
@@ -60,6 +66,12 @@ public class MdnsReplySender {
     private final boolean mEnableDebugLog;
     @NonNull
     private final Dependencies mDependencies;
+    // RFC6762 15.2. Multipacket Known-Answer lists
+    // Multicast DNS responders associate the initial truncated query with its
+    // continuation packets by examining the source IP address in each packet.
+    private final Map<InetSocketAddress, MdnsReplyInfo> mSrcReplies = new ArrayMap<>();
+    @NonNull
+    private final MdnsFeatureFlags mMdnsFeatureFlags;
 
     /**
      * Dependencies of MdnsReplySender, for injection in tests.
@@ -80,24 +92,34 @@ public class MdnsReplySender {
         public void removeMessages(@NonNull Handler handler, int what) {
             handler.removeMessages(what);
         }
+
+        /**
+         * @see Handler#removeMessages(int)
+         */
+        public void removeMessages(@NonNull Handler handler, int what, @Nullable Object object) {
+            handler.removeMessages(what, object);
+        }
     }
 
     public MdnsReplySender(@NonNull Looper looper, @NonNull MdnsInterfaceSocket socket,
             @NonNull byte[] packetCreationBuffer, @NonNull SharedLog sharedLog,
-            boolean enableDebugLog) {
-        this(looper, socket, packetCreationBuffer, sharedLog, enableDebugLog, new Dependencies());
+            boolean enableDebugLog, @NonNull MdnsFeatureFlags mdnsFeatureFlags) {
+        this(looper, socket, packetCreationBuffer, sharedLog, enableDebugLog, new Dependencies(),
+                mdnsFeatureFlags);
     }
 
     @VisibleForTesting
     public MdnsReplySender(@NonNull Looper looper, @NonNull MdnsInterfaceSocket socket,
             @NonNull byte[] packetCreationBuffer, @NonNull SharedLog sharedLog,
-            boolean enableDebugLog, @NonNull Dependencies dependencies) {
+            boolean enableDebugLog, @NonNull Dependencies dependencies,
+            @NonNull MdnsFeatureFlags mdnsFeatureFlags) {
         mHandler = new SendHandler(looper);
         mSocket = socket;
         mPacketCreationBuffer = packetCreationBuffer;
         mSharedLog = sharedLog;
         mEnableDebugLog = enableDebugLog;
         mDependencies = dependencies;
+        mMdnsFeatureFlags = mdnsFeatureFlags;
     }
 
     /**
@@ -105,9 +127,56 @@ public class MdnsReplySender {
      */
     public void queueReply(@NonNull MdnsReplyInfo reply) {
         ensureRunningOnHandlerThread(mHandler);
-        // TODO: implement response aggregation (RFC 6762 6.4)
-        mDependencies.sendMessageDelayed(
-                mHandler, mHandler.obtainMessage(MSG_SEND, reply), reply.sendDelayMs);
+
+        if (mMdnsFeatureFlags.mIsKnownAnswerSuppressionEnabled) {
+            mDependencies.removeMessages(mHandler, MSG_SEND, reply.source);
+
+            final MdnsReplyInfo queuedReply = mSrcReplies.remove(reply.source);
+            final List<MdnsRecord> answers = new ArrayList<>();
+            final List<MdnsRecord> additionalAnswers = new ArrayList<>();
+            final List<MdnsRecord> knownAnswers = new ArrayList<>();
+            if (queuedReply != null) {
+                answers.addAll(queuedReply.answers);
+                additionalAnswers.addAll(queuedReply.additionalAnswers);
+                knownAnswers.addAll(queuedReply.knownAnswers);
+            }
+            answers.addAll(reply.answers);
+            additionalAnswers.addAll(reply.additionalAnswers);
+            knownAnswers.addAll(reply.knownAnswers);
+            // RFC6762 7.2. Multipacket Known-Answer Suppression
+            // If the responder sees any of its answers listed in the Known-Answer
+            // lists of subsequent packets from the querying host, it MUST delete
+            // that answer from the list of answers it is planning to give.
+            final Iterator<MdnsRecord> iterator = answers.iterator();
+            while (iterator.hasNext()) {
+                final MdnsRecord answer = iterator.next();
+                for (MdnsRecord knownAnswer : knownAnswers) {
+                    if (knownAnswer.equals(answer)
+                            && (knownAnswer.getTtl() > (answer.getTtl() / 2))) {
+                        iterator.remove();
+                    }
+                }
+            }
+
+            if (answers.size() == 0) {
+                return;
+            }
+
+            final MdnsReplyInfo newReply = new MdnsReplyInfo(
+                    answers,
+                    additionalAnswers,
+                    reply.sendDelayMs,
+                    reply.destination,
+                    reply.source,
+                    knownAnswers);
+
+            mSrcReplies.put(newReply.source, newReply);
+            mDependencies.sendMessageDelayed(mHandler,
+                    mHandler.obtainMessage(MSG_SEND, newReply.source), newReply.sendDelayMs);
+        } else {
+            mDependencies.sendMessageDelayed(
+                    mHandler, mHandler.obtainMessage(MSG_SEND, reply), reply.sendDelayMs);
+        }
 
         if (mEnableDebugLog) {
             mSharedLog.v("Scheduling " + reply);
@@ -147,7 +216,18 @@ public class MdnsReplySender {
 
         @Override
         public void handleMessage(@NonNull Message msg) {
-            final MdnsReplyInfo replyInfo = (MdnsReplyInfo) msg.obj;
+            final MdnsReplyInfo replyInfo;
+            if (mMdnsFeatureFlags.mIsKnownAnswerSuppressionEnabled) {
+                final InetSocketAddress source = (InetSocketAddress) msg.obj;
+                replyInfo = mSrcReplies.remove(source);
+            } else {
+                replyInfo = (MdnsReplyInfo) msg.obj;
+            }
+
+            if (replyInfo == null) {
+                return;
+            }
+
             if (mEnableDebugLog) mSharedLog.v("Sending " + replyInfo);
 
             final int flags = 0x8400; // Response, authoritative (rfc6762 18.4)
