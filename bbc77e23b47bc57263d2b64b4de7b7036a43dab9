@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "160189ac_2a874198",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-11-30T06:12:10Z",
+      "side": 1,
+      "message": "LGTM. Requesting the passing results on Bug 313585563.",
+      "revId": "bbc77e23b47bc57263d2b64b4de7b7036a43dab9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
