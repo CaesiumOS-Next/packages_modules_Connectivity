@@ -221,6 +221,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2759128c_114c0fa8",
+        "filename": "service/src/com/android/server/connectivity/StructMrt6Msg.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2023-11-30T07:01:09Z",
+      "side": 1,
+      "message": "Is this explicit constructor necessary?",
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "62b6c155_6e832830",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
         "patchSetId": 18
