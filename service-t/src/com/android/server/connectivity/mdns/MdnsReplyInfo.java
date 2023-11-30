@@ -17,6 +17,7 @@
 package com.android.server.connectivity.mdns;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 
 import java.net.InetSocketAddress;
 import java.util.List;
@@ -32,22 +33,36 @@ public final class MdnsReplyInfo {
     public final long sendDelayMs;
     @NonNull
     public final InetSocketAddress destination;
+    @Nullable
+    public final InetSocketAddress source;
+    @NonNull
+    public final List<MdnsRecord> knownAnswers;
+    public boolean isTruncatedPacket;
 
     public MdnsReplyInfo(
             @NonNull List<MdnsRecord> answers,
             @NonNull List<MdnsRecord> additionalAnswers,
             long sendDelayMs,
-            @NonNull InetSocketAddress destination) {
+            @NonNull InetSocketAddress destination,
+            @Nullable InetSocketAddress source,
+            @NonNull List<MdnsRecord> knownAnswers,
+            boolean isTruncatedPacket) {
         this.answers = answers;
         this.additionalAnswers = additionalAnswers;
         this.sendDelayMs = sendDelayMs;
         this.destination = destination;
+        this.source = source;
+        this.knownAnswers = knownAnswers;
+        this.isTruncatedPacket = isTruncatedPacket;
     }
 
     @Override
     public String toString() {
-        return "{MdnsReplyInfo to " + destination + ", answers: " + answers.size()
+        return "{MdnsReplyInfo: " + (source != null ? source : "")
+                + " to " + destination + ", answers: " + answers.size()
                 + ", additionalAnswers: " + additionalAnswers.size()
+                + ", knownAnswers: " + knownAnswers.size()
+                + ", isTruncatedPacket: " + isTruncatedPacket
                 + ", sendDelayMs " + sendDelayMs + "}";
     }
 }
