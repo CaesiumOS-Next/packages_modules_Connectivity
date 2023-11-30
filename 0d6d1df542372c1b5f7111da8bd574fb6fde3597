@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05b72927_766c5bf5",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "The Thread stack also provides cli commands for setting the country code. So that the country code checking should be handled be the Thread stack.",
+      "parentUuid": "f95b7aab_90be52ae",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4abd3867_0d27496f",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-11-29T05:47:07Z",
       "side": 1,
       "message": "Which formatter were you using?",
+      "range": {
+        "startLine": 821,
+        "startChar": 7,
+        "endLine": 822,
+        "endChar": 61
+      },
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "883e5e74_d5f9c8ef",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "I run the script `packages/modules/Connectivity/thread/scripts/make-pretty.sh` to format the code style.",
+      "parentUuid": "4abd3867_0d27496f",
       "range": {
         "startLine": 821,
         "startChar": 7,
@@ -58,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "710198f1_13121041",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad8dd984_d30be852",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a6ac0ef_82867520",
@@ -71,6 +131,24 @@
       "writtenOn": "2023-11-29T05:47:07Z",
       "side": 1,
       "message": "Shall there be underscores in this name?",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8831cdaa_ad4aa321",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "The name just aligns with `ro.boot.wificountrycode` and `ro.boot.uwbcountrycode`.\n\nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Wifi/service/java/com/android/server/wifi/WifiCountryCode.java;l\u003d61\n\nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Uwb/service/java/com/android/server/uwb/UwbInjector.java;l\u003d88",
+      "parentUuid": "3a6ac0ef_82867520",
       "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -98,6 +176,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad6aea8f_df4e3f6f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90a41388_25cff916",
+      "range": {
+        "startLine": 81,
+        "startChar": 3,
+        "endLine": 88,
+        "endChar": 0
+      },
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb69a385_78fa38f4",
@@ -111,6 +213,24 @@
       "writtenOn": "2023-11-29T05:47:07Z",
       "side": 1,
       "message": "```suggestion\n        public int slotIndex;\n```\nnit",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42453748_d3858ca2",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb69a385_78fa38f4",
       "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -138,6 +258,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aefa582c_71925a8e",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "337ac665_73ab6dfa",
+      "range": {
+        "startLine": 134,
+        "startChar": 43,
+        "endLine": 134,
+        "endChar": 51
+      },
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c36e6327_bdde8844",
@@ -151,6 +295,30 @@
       "writtenOn": "2023-11-29T05:47:07Z",
       "side": 1,
       "message": "I think this won\u0027t be null.",
+      "range": {
+        "startLine": 145,
+        "startChar": 56,
+        "endLine": 145,
+        "endChar": 64
+      },
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01eb14db_aa4759af",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c36e6327_bdde8844",
       "range": {
         "startLine": 145,
         "startChar": 56,
@@ -219,6 +387,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85f5ef88_17e92a51",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c50e590c_305ef724",
+      "range": {
+        "startLine": 192,
+        "startChar": 4,
+        "endLine": 194,
+        "endChar": 5
+      },
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9dc7e2a1_7a6bd967",
@@ -232,6 +424,24 @@
       "writtenOn": "2023-11-29T05:47:07Z",
       "side": 1,
       "message": "```suggestion\n    private static boolean isValidCountryCode(String countryCode) {\n```",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47a9d957_9a61ee16",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dc7e2a1_7a6bd967",
       "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -253,6 +463,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e3a1ecf_5893aed3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "687ca3fd_d19191e9",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "669cddfd_0f849104",
@@ -266,6 +494,24 @@
       "writtenOn": "2023-11-29T05:47:07Z",
       "side": 1,
       "message": "```suggestion\n    private static String getOemDefaultCountryCode() {\n```",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98c26bb6_bca8e1a5",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "669cddfd_0f849104",
       "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -287,6 +533,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "126cd753_31343ac4",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c488ac9_e3c8f033",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edbf5e7c_59a5f4e7",
@@ -300,6 +564,24 @@
       "writtenOn": "2023-11-29T05:47:07Z",
       "side": 1,
       "message": "- I would expect `set*` methods to take the value to be set as the argument. Maybe you can rename it to `updateCountryCode` to avoid confusion.\n- It will be more readable if you add comment for the boolean argument.",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bad2c4c3_66187db3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edbf5e7c_59a5f4e7",
       "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -321,6 +603,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2767eab8_8ddad492",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "298017c8_7924fd64",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c35af6a_ee496ed7",
@@ -334,6 +634,24 @@
       "writtenOn": "2023-11-29T05:47:07Z",
       "side": 1,
       "message": "```suggestion\n    private void onSetCountryCodeFailed(int status, @NonNull CountryCodeInfo countryCodeInfo) {\n```",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1e01c75_f33c52fe",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c35af6a_ee496ed7",
       "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -355,6 +673,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65cd55ed_dd71cdae",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f51b45c6_af223da7",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc5bcd68_1aab6599",
@@ -368,6 +704,24 @@
       "writtenOn": "2023-11-29T05:47:07Z",
       "side": 1,
       "message": "Is it necessary to add `this`?",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "497fa940_3098d663",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc5bcd68_1aab6599",
       "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -389,6 +743,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "360798e0_5f59d248",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "It is just used to notify developers that this function is set to `public` for testing only.",
+      "parentUuid": "d86f819b_8d4014b7",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "caa6db94_92dfe913",
@@ -406,6 +778,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "caf5cbae_3e6d9af1",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "caa6db94_92dfe913",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4497589e_edea7696",
@@ -419,6 +809,24 @@
       "writtenOn": "2023-11-29T05:47:07Z",
       "side": 1,
       "message": "This one looks almost a duplicate of it in `CountryCodeInfo`.",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87e98bc8_c205effc",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-11-30T07:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4497589e_edea7696",
       "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
