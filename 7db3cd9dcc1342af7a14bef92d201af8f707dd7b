@@ -33,6 +33,24 @@
       "message": "Is it necessary to wrap these two exceptions into RuntimeException?",
       "revId": "7db3cd9dcc1342af7a14bef92d201af8f707dd7b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bee7350_8f497487",
+        "filename": "tests/unit/java/android/net/NetworkUtilsTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-11-30T02:00:30Z",
+      "side": 1,
+      "message": "+1. Please don\u0027t catch any exception in a test case if you don\u0027t expect it. Instead, add `throws Exception` to the end of this test method:\n\n```\n    @Test\n    public void testSetSockOptBytes() throws Exception {\n    // ....\n    }\n```",
+      "parentUuid": "8e15f94c_37501824",
+      "revId": "7db3cd9dcc1342af7a14bef92d201af8f707dd7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
