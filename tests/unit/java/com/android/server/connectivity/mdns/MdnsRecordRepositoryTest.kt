@@ -1058,6 +1058,25 @@ class MdnsRecordRepositoryTest {
         doGetReplyWithAnswersTest(questions, knownAnswers, listOf() /* replyAnswers */,
                 listOf() /* additionalAnswers */, false /* expectReply */)
     }
+
+    @Test
+    fun testGetReply_MultiPacket() {
+        val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME,
+                MdnsFeatureFlags.newBuilder().setIsKnownAnswerSuppressionEnabled(true).build())
+        repository.initWithService(TEST_SERVICE_ID_1, TEST_SERVICE_1)
+        val knownAnswers = listOf(MdnsPointerRecord(
+                arrayOf("_testservice", "_tcp", "local"),
+                0L /* receiptTimeMillis */,
+                false /* cacheFlush */,
+                LONG_TTL - 1000L,
+                arrayOf("MyTestService", "_testservice", "_tcp", "local")))
+        val query = MdnsPacket(MdnsConstants.FLAG_TRUNCATED /* flags */, listOf(),
+                knownAnswers, listOf() /* authorityRecords */,
+                listOf() /* additionalRecords */)
+        val src = InetSocketAddress(parseNumericAddress("192.0.2.123"), 5353)
+        val reply = repository.getReply(query, src)
+        assertNotNull(reply)
+    }
 }
 
 private fun MdnsRecordRepository.initWithService(
