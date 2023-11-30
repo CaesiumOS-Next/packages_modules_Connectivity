@@ -34,11 +34,15 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
+import org.mockito.Mockito.any
+import org.mockito.Mockito.anyLong
 import org.mockito.Mockito.argThat
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.eq
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.never
 import org.mockito.Mockito.timeout
+import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 
 private const val TEST_PORT = 12345
@@ -51,6 +55,8 @@ private const val SHORT_TTL = 120_000L
 class MdnsReplySenderTest {
     private val serviceName = arrayOf("MyTestService", "_testservice", "_tcp", "local")
     private val serviceType = arrayOf("_testservice", "_tcp", "local")
+    private val source = InetSocketAddress(
+            InetAddresses.parseNumericAddress("192.0.2.1"), TEST_PORT)
     private val hostname = arrayOf("Android_000102030405060708090A0B0C0D0E0F", "local")
     private val hostAddresses = listOf(
             LinkAddress(InetAddresses.parseNumericAddress("192.0.2.111"), 24),
@@ -126,7 +132,7 @@ class MdnsReplySenderTest {
     @Test
     fun testQueueReply() {
         val reply = MdnsReplyInfo(answers, additionalAnswers, 20L /* sendDelayMs */,
-                IPV4_SOCKET_ADDR)
+                IPV4_SOCKET_ADDR, source, listOf(), false /* isTruncatedPacket */)
         val handlerCaptor = ArgumentCaptor.forClass(Handler::class.java)
         val messageCaptor = ArgumentCaptor.forClass(Message::class.java)
         queueReply(reply)
@@ -138,5 +144,140 @@ class MdnsReplySenderTest {
         verify(socket, timeout(DEFAULT_TIMEOUT_MS)).send(argThat{
             it.socketAddress.equals(IPV4_SOCKET_ADDR)
         })
+    }
+
+    @Test
+    fun testQueueReply_MultiplePacket() {
+        val mutableAnswers = mutableListOf(MdnsPointerRecord(serviceType,
+                0L /* receiptTimeMillis */, false /* cacheFlush */, LONG_TTL, serviceName))
+        val reply = MdnsReplyInfo(mutableAnswers as List<MdnsRecord>, additionalAnswers,
+                400L /* sendDelayMs */, IPV4_SOCKET_ADDR, source, emptyList(),
+                false /* isTruncatedPacket */)
+        val handlerCaptor = ArgumentCaptor.forClass(Handler::class.java)
+        val messageCaptor = ArgumentCaptor.forClass(Message::class.java)
+        queueReply(reply)
+        verify(deps).sendMessageDelayed(handlerCaptor.capture(), messageCaptor.capture(), eq(400L))
+
+        // Received a known-answer packet
+        val knownAnswers = MdnsReplyInfo(emptyList(), emptyList(), 0L /* sendDelayMs */, source,
+                source, answers, false /* isTruncatedPacket */)
+        val realHandler = handlerCaptor.value
+        val delayMessage = messageCaptor.value
+        queueReply(knownAnswers)
+        realHandler.sendMessage(delayMessage)
+        verify(socket, never()).send(any())
+    }
+
+    @Test
+    fun testQueueReply_MultiplePacket_LostSubsequencePacket() {
+        val reply = MdnsReplyInfo(answers, additionalAnswers, 400L /* sendDelayMs */,
+                IPV4_SOCKET_ADDR, source, emptyList(), false /* isTruncatedPacket */)
+        val handlerCaptor = ArgumentCaptor.forClass(Handler::class.java)
+        val messageCaptor = ArgumentCaptor.forClass(Message::class.java)
+        queueReply(reply)
+        verify(deps).sendMessageDelayed(handlerCaptor.capture(), messageCaptor.capture(), eq(400L))
+
+        // No subsequence packets
+        val realHandler = handlerCaptor.value
+        val delayMessage = messageCaptor.value
+        realHandler.sendMessage(delayMessage)
+        verify(socket, timeout(DEFAULT_TIMEOUT_MS)).send(argThat{
+            it.socketAddress.equals(IPV4_SOCKET_ADDR)
+        })
+    }
+
+    @Test
+    fun testQueueReply_MultiplePacket_OtherKnownAnswer() {
+        val reply = MdnsReplyInfo(answers, additionalAnswers, 400L /* sendDelayMs */,
+                IPV4_SOCKET_ADDR, source, emptyList(), false /* isTruncatedPacket */)
+        val handlerCaptor = ArgumentCaptor.forClass(Handler::class.java)
+        val messageCaptor = ArgumentCaptor.forClass(Message::class.java)
+        queueReply(reply)
+        verify(deps).sendMessageDelayed(handlerCaptor.capture(), messageCaptor.capture(), eq(400L))
+
+        // Other known-answer service
+        val knownAnswers = MdnsReplyInfo(emptyList(), emptyList(), 0L /* sendDelayMs */, source,
+                source, listOf(MdnsPointerRecord(serviceType, 0L /* receiptTimeMillis */,
+                false /* cacheFlush */, LONG_TTL,
+                arrayOf("OtherTestService", "_testservice", "_tcp", "local"))),
+                false /* isTruncatedPacket */)
+        val realHandler = handlerCaptor.value
+        val delayMessage = messageCaptor.value
+        queueReply(knownAnswers)
+        realHandler.sendMessage(delayMessage)
+        verify(socket, timeout(DEFAULT_TIMEOUT_MS)).send(argThat{
+            it.socketAddress.equals(IPV4_SOCKET_ADDR)
+        })
+    }
+
+    @Test
+    fun testQueueReply_MultiplePacket_TwoKnownAnswerPackets() {
+        val mutableAnswers = mutableListOf(MdnsPointerRecord(serviceType,
+                0L /* receiptTimeMillis */, false /* cacheFlush */, LONG_TTL, serviceName))
+        val reply = MdnsReplyInfo(mutableAnswers as List<MdnsRecord>, additionalAnswers,
+                400L /* sendDelayMs */, IPV4_SOCKET_ADDR, source, emptyList(),
+                false /* isTruncatedPacket */)
+        val handlerCaptor = ArgumentCaptor.forClass(Handler::class.java)
+        val messageCaptor = ArgumentCaptor.forClass(Message::class.java)
+        queueReply(reply)
+        verify(deps).sendMessageDelayed(handlerCaptor.capture(), messageCaptor.capture(), eq(400L))
+
+        // First known-answer service
+        val firstKnownAnswer = MdnsReplyInfo(emptyList(), emptyList(), 0L /* sendDelayMs */, source,
+                source, listOf(MdnsPointerRecord(serviceType, 0L /* receiptTimeMillis */,
+                false /* cacheFlush */, LONG_TTL,
+                arrayOf("OtherTestService", "_testservice", "_tcp", "local"))),
+                true /* isTruncatedPacket */)
+        val realHandler = handlerCaptor.value
+        val delayMessage = messageCaptor.value
+        queueReply(firstKnownAnswer)
+        realHandler.sendMessage(delayMessage)
+        verify(socket, never()).send(any())
+        verify(deps, timeout(DEFAULT_TIMEOUT_MS).times(2)).sendMessageDelayed(
+                eq(realHandler), messageCaptor.capture(), eq(400L))
+
+        // Second known-answer service
+        val secondKnownAnswer = MdnsReplyInfo(emptyList(), emptyList(), 0L /* sendDelayMs */,
+                source, source, answers, false /* isTruncatedPacket */)
+        val delayMessage2 = messageCaptor.value
+        queueReply(secondKnownAnswer)
+        realHandler.sendMessage(delayMessage2)
+        verify(socket, never()).send(any())
+        verify(deps, times(2)).sendMessageDelayed(any(), any(), anyLong())
+    }
+
+    @Test
+    fun testQueueReply_MultiplePacket_LostSecondaryPacket() {
+        val mutableAnswers = mutableListOf(MdnsPointerRecord(serviceType,
+                0L /* receiptTimeMillis */, false /* cacheFlush */, LONG_TTL, serviceName))
+        val reply = MdnsReplyInfo(mutableAnswers as List<MdnsRecord>, additionalAnswers,
+                400L /* sendDelayMs */, IPV4_SOCKET_ADDR, source, emptyList(),
+                false /* isTruncatedPacket */)
+        val handlerCaptor = ArgumentCaptor.forClass(Handler::class.java)
+        val messageCaptor = ArgumentCaptor.forClass(Message::class.java)
+        queueReply(reply)
+        verify(deps).sendMessageDelayed(handlerCaptor.capture(), messageCaptor.capture(), eq(400L))
+
+        // First known-answer service
+        val firstKnownAnswer = MdnsReplyInfo(emptyList(), emptyList(), 0L /* sendDelayMs */, source,
+                source, listOf(MdnsPointerRecord(serviceType, 0L /* receiptTimeMillis */,
+                false /* cacheFlush */, LONG_TTL,
+                arrayOf("OtherTestService", "_testservice", "_tcp", "local"))),
+                true /* isTruncatedPacket */)
+        val realHandler = handlerCaptor.value
+        val delayMessage = messageCaptor.value
+        queueReply(firstKnownAnswer)
+        realHandler.sendMessage(delayMessage)
+        verify(socket, never()).send(any())
+        verify(deps, timeout(DEFAULT_TIMEOUT_MS).times(2)).sendMessageDelayed(
+                eq(realHandler), messageCaptor.capture(), eq(400L))
+
+        // Second known-answer service lost
+        val delayMessage2 = messageCaptor.value
+        realHandler.sendMessage(delayMessage2)
+        verify(socket, timeout(DEFAULT_TIMEOUT_MS)).send(argThat{
+            it.socketAddress.equals(IPV4_SOCKET_ADDR)
+        })
+        verify(deps, times(2)).sendMessageDelayed(any(), any(), anyLong())
     }
 }

@@ -24,6 +24,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.ArrayMap;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.SharedLog;
@@ -36,6 +37,8 @@ import java.net.Inet6Address;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * A class that handles sending mDNS replies to a {@link MulticastSocket}, possibly queueing them
@@ -60,6 +63,10 @@ public class MdnsReplySender {
     private final boolean mEnableDebugLog;
     @NonNull
     private final Dependencies mDependencies;
+    // RFC6762 15.2. Multipacket Known-Answer lists
+    // Multicast DNS responders associate the initial truncated query with its
+    // continuation packets by examining the source IP address in each packet.
+    private final Map<InetSocketAddress, MdnsReplyInfo> mSrcReplies = new ArrayMap<>();
 
     /**
      * Dependencies of MdnsReplySender, for injection in tests.
@@ -105,9 +112,33 @@ public class MdnsReplySender {
      */
     public void queueReply(@NonNull MdnsReplyInfo reply) {
         ensureRunningOnHandlerThread(mHandler);
+        if (reply.answers.size() == 0 && reply.knownAnswers.size() != 0) {
+            final MdnsReplyInfo queuedReply = mSrcReplies.get(reply.source);
+            if (queuedReply == null) {
+                return;
+            }
+            // RFC6762 7.2. Multipacket Known-Answer Suppression
+            // If the responder sees any of its answers listed in the Known-Answer
+            // lists of subsequent packets from the querying host, it MUST delete
+            // that answer from the list of answers it is planning to give.
+            final Iterator<MdnsRecord> iterator = queuedReply.answers.iterator();
+            while (iterator.hasNext()) {
+                final MdnsRecord answer = iterator.next();
+                for (MdnsRecord knownAnswer : reply.knownAnswers) {
+                    if (knownAnswer.equals(answer)
+                            && (knownAnswer.getTtl() > (answer.getTtl() / 2))) {
+                        iterator.remove();
+                    }
+                }
+            }
+            queuedReply.isTruncatedPacket = reply.isTruncatedPacket;
+            return;
+        }
+
+        mSrcReplies.put(reply.source, reply);
         // TODO: implement response aggregation (RFC 6762 6.4)
         mDependencies.sendMessageDelayed(
-                mHandler, mHandler.obtainMessage(MSG_SEND, reply), reply.sendDelayMs);
+                mHandler, mHandler.obtainMessage(MSG_SEND, reply.source), reply.sendDelayMs);
 
         if (mEnableDebugLog) {
             mSharedLog.v("Scheduling " + reply);
@@ -147,7 +178,24 @@ public class MdnsReplySender {
 
         @Override
         public void handleMessage(@NonNull Message msg) {
-            final MdnsReplyInfo replyInfo = (MdnsReplyInfo) msg.obj;
+            final InetSocketAddress source = (InetSocketAddress) msg.obj;
+            final MdnsReplyInfo replyInfo = mSrcReplies.remove(source);
+            if (replyInfo == null || replyInfo.answers.isEmpty()) {
+                return;
+            }
+
+            // RFC6762 7.2. Multipacket Known-Answer Suppression
+            // If the responder receives additional Known-Answer packets with the TC
+            // bit set, it SHOULD extend the delay as necessary to ensure a pause of
+            // 400-500 ms after the last such packet before it sends its answer.
+            if (replyInfo.isTruncatedPacket) {
+                replyInfo.isTruncatedPacket = false;
+                mSrcReplies.put(source, replyInfo);
+                mDependencies.sendMessageDelayed(mHandler, mHandler.obtainMessage(MSG_SEND, source),
+                        replyInfo.sendDelayMs);
+                return;
+            }
+
             if (mEnableDebugLog) mSharedLog.v("Sending " + replyInfo);
 
             final int flags = 0x8400; // Response, authoritative (rfc6762 18.4)
