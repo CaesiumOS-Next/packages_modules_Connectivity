@@ -64,6 +64,7 @@ import com.android.server.connectivity.ConnectivityFlags
 import com.android.server.connectivity.MultinetworkPolicyTracker
 import com.android.server.connectivity.MultinetworkPolicyTrackerTestDependencies
 import com.android.server.connectivity.ProxyTracker
+import com.android.server.connectivity.RoutingCoordinatorService
 import com.android.testutils.visibleOnHandlerThread
 import com.android.testutils.waitForIdle
 import java.util.concurrent.Executors
@@ -164,6 +165,7 @@ open class CSTest {
     val telephonyManager = mock<TelephonyManager>().also {
         doReturn(true).`when`(it).isDataCapable()
     }
+    val routingCoordinatorService = mock<RoutingCoordinatorService>()
 
     val deps = CSDeps()
     val service = makeConnectivityService(context, netd, deps).also { it.systemReadyInternal() }
@@ -178,6 +180,8 @@ open class CSTest {
 
         override fun makeHandlerThread(tag: String) = csHandlerThread
         override fun makeProxyTracker(context: Context, connServiceHandler: Handler) = proxyTracker
+        override fun makeRoutingCoordinatorService(netd: INetd) =
+                this@CSTest.routingCoordinatorService
 
         override fun makeCarrierPrivilegeAuthenticator(
                 context: Context,
