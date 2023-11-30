@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "afc03454_2e3a48e5",
+        "filename": "framework/jni/android_net_NetworkUtils.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2023-11-30T13:59:19Z",
+      "side": 1,
+      "message": "+1 for using ErrnoException.",
+      "parentUuid": "e48d3476_91057121",
+      "range": {
+        "startLine": 249,
+        "startChar": 43,
+        "endLine": 249,
+        "endChar": 54
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1db39d44_5307fadc",
         "filename": "framework/src/android/net/NetworkUtils.java",
         "patchSetId": 18
@@ -215,6 +239,57 @@
         "endLine": 655,
         "endChar": 6
       },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44eb043b_51111368",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2023-11-30T13:59:19Z",
+      "side": 1,
+      "message": "is sock always equals to mMulticastSocket?",
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b3dbf51_6645e828",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2023-11-30T13:59:19Z",
+      "side": 1,
+      "message": "It\u0027s possible the group is already joined. For that case, we don\u0027t need to log it as errors, right?",
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92d0a537_71dc7015",
+        "filename": "service/src/com/android/server/connectivity/StructMif6ctl.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2023-11-30T13:59:19Z",
+      "side": 1,
+      "message": "Do we have to compose the C structure in java? When the structure in mroute6.h changed, we\u0027ll have to modify the code in java. Especially if the data structure layout in mroute6.h changed(e.g. field order changed), it might not be easy to deal with the compatibility in java. Thoughts?",
       "revId": "962eff5868c32eec79f754d503fece6109abf708",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
