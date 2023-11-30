@@ -1063,6 +1063,35 @@ class MdnsRecordRepositoryTest {
         doGetReplyWithAnswersTest(questions, knownAnswers, listOf() /* replyAnswers */,
                 listOf() /* additionalAnswers */, false /* expectReply */)
     }
+
+    @Test
+    fun testGetReply_TruncatedBitSet() {
+        // Known-Answer suppression feature disabled.
+        val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME, flags)
+        repository.initWithService(TEST_SERVICE_ID_1, TEST_SERVICE_1)
+        val questions = listOf(MdnsPointerRecord(
+                arrayOf("_testservice", "_tcp", "local"),
+                0L /* receiptTimeMillis */,
+                false /* cacheFlush */,
+                // TTL and data is empty for a question
+                0L /* ttlMillis */,
+                null /* pointer */))
+        val query = MdnsPacket(MdnsConstants.FLAG_TRUNCATED /* flags */, questions,
+                listOf() /* answers */, listOf() /* authorityRecords */,
+                listOf() /* additionalRecords */)
+        val src = InetSocketAddress(parseNumericAddress("192.0.2.123"), 5353)
+        val reply = repository.getReply(query, src)
+        assertNotNull(reply)
+        assertNull(reply?.source)
+
+        // Known-Answer suppression feature enabled.
+        val repository2 = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME,
+                MdnsFeatureFlags.newBuilder().setIsKnownAnswerSuppressionEnabled(true).build())
+        repository2.initWithService(TEST_SERVICE_ID_1, TEST_SERVICE_1)
+        val reply2 = repository2.getReply(query, src)
+        assertNotNull(reply2)
+        assertEquals(src, reply2.source)
+    }
 }
 
 private fun MdnsRecordRepository.initWithService(

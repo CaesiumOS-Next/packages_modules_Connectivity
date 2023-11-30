@@ -19,11 +19,13 @@ package com.android.server.connectivity.mdns;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.ensureRunningOnHandlerThread;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.annotation.RequiresApi;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.ArrayMap;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.SharedLog;
@@ -35,7 +37,11 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A class that handles sending mDNS replies to a {@link MulticastSocket}, possibly queueing them
@@ -59,6 +65,15 @@ public class MdnsReplySender {
     private final SharedLog mSharedLog;
     private final boolean mEnableDebugLog;
     private final Dependencies mDependencies;
+    // RFC6762 15.2. Multipacket Known-Answer lists
+    // Multicast DNS responders associate the initial truncated query with its
+    // continuation packets by examining the source IP address in each packet.
+    private final Map<InetSocketAddress, KnownAnswerInfo> mSrcKnownAnswers = new ArrayMap<>();
+
+    private class KnownAnswerInfo {
+        final List<MdnsRecord> mKnownAnswers = new ArrayList<>();
+        boolean mHasRemainingPackets = false;
+    }
 
     /**
      * Dependencies of MdnsReplySender, for injection in tests.
@@ -102,7 +117,7 @@ public class MdnsReplySender {
     /**
      * Queue a reply to be sent when its send delay expires.
      */
-    public void queueReply(@NonNull MdnsReplyInfo reply) {
+    public void queueReply(@NonNull MdnsReplyInfo reply, @Nullable InetSocketAddress source) {
         ensureRunningOnHandlerThread(mHandler);
         // TODO: implement response aggregation (RFC 6762 6.4)
         mDependencies.sendMessageDelayed(
@@ -110,6 +125,10 @@ public class MdnsReplySender {
 
         if (mEnableDebugLog) {
             mSharedLog.v("Scheduling " + reply);
+        }
+
+        if (source != null) {
+            mSrcKnownAnswers.put(source, new KnownAnswerInfo());
         }
     }
 
@@ -139,6 +158,19 @@ public class MdnsReplySender {
         mDependencies.removeMessages(mHandler, MSG_SEND);
     }
 
+    /**
+     * Add known answers for given source address and indicate if there are still remaining packets.
+     */
+    public void updateKnownAnswers(InetSocketAddress src, List<MdnsRecord> knownAnswers,
+            boolean hasRemainingPackets) {
+        ensureRunningOnHandlerThread(mHandler);
+        final KnownAnswerInfo info = mSrcKnownAnswers.get(src);
+        if (info != null) {
+            info.mKnownAnswers.addAll(knownAnswers);
+            info.mHasRemainingPackets = hasRemainingPackets;
+        }
+    }
+
     private class SendHandler extends Handler {
         SendHandler(@NonNull Looper looper) {
             super(looper);
@@ -147,6 +179,45 @@ public class MdnsReplySender {
         @Override
         public void handleMessage(@NonNull Message msg) {
             final MdnsReplyInfo replyInfo = (MdnsReplyInfo) msg.obj;
+            // RFC6762 7.2. Multipacket Known-Answer Suppression
+            // If the responder sees any of its answers listed in the Known-Answer
+            // lists of subsequent packets from the querying host, it MUST delete
+            // that answer from the list of answers it is planning to give.
+            final KnownAnswerInfo info = mSrcKnownAnswers.get(replyInfo.source);
+            if (info != null) {
+                // RFC6762 7.2. Multipacket Known-Answer Suppression
+                // If the responder receives additional Known-Answer packets with the TC
+                // bit set, it SHOULD extend the delay as necessary to ensure a pause of
+                // 400-500 ms after the last such packet before it sends its answer.
+                if (info.mHasRemainingPackets) {
+                    info.mHasRemainingPackets = false;
+                    mDependencies.sendMessageDelayed(mHandler,
+                            mHandler.obtainMessage(MSG_SEND, replyInfo), replyInfo.sendDelayMs);
+                    return;
+                }
+
+                // Remove duplication by comparing the known answers to the replied answers.
+                final Iterator<MdnsRecord> iterator = replyInfo.answers.iterator();
+                while (iterator.hasNext()) {
+                    final MdnsRecord answer = iterator.next();
+                    for (MdnsRecord knownAnswer : info.mKnownAnswers) {
+                        if (knownAnswer.equals(answer)
+                                && (knownAnswer.getTtl() > (answer.getTtl() / 2))) {
+                            iterator.remove();
+                        }
+                    }
+                }
+
+                // Clear the known-answer list after examine.
+                mSrcKnownAnswers.remove(replyInfo.source);
+
+                // Evaluate the remaining answers to determine if a reply should be transmitted.
+                if (replyInfo.answers.isEmpty()) {
+                    mSharedLog.log("Replied answers are all known answers. Ignore the reply.");
+                    return;
+                }
+            }
+
             if (mEnableDebugLog) mSharedLog.v("Sending " + replyInfo);
 
             final int flags = 0x8400; // Response, authoritative (rfc6762 18.4)
