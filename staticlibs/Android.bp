@@ -207,6 +207,9 @@ java_library {
         // version linked.
         "net-utils-device-common-struct",
     ],
+    static_libs: [
+        "net-utils-device-common",
+    ],
     apex_available: [
         "com.android.tethering",
         "//apex_available:platform",
