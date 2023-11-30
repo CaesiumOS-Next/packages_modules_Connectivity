@@ -178,6 +178,23 @@ public class StructNlAttr {
         }
     }
 
+    public StructNlAttr(short type, long value) {
+        this(type, value, ByteOrder.nativeOrder());
+    }
+
+    public StructNlAttr(short type, long value, ByteOrder order) {
+        nla_type = type;
+        setValue(new byte[Long.BYTES]);
+        final ByteBuffer buf = getValueAsByteBuffer();
+        final ByteOrder originalOrder = buf.order();
+        try {
+            buf.order(order);
+            buf.putLong(value);
+        } finally {
+            buf.order(originalOrder);
+        }
+    }
+
     public StructNlAttr(short type, @NonNull final byte[] value) {
         nla_type = type;
         setValue(value);
@@ -295,6 +312,17 @@ public class StructNlAttr {
             return null;
         }
         return byteBuffer.getInt();
+    }
+
+    /**
+     * Get attribute value as Long, or null if malformed (e.g., length is not 8 bytes).
+     */
+    public Long getValueAsLong() {
+        final ByteBuffer byteBuffer = getValueAsByteBuffer();
+        if (byteBuffer == null || byteBuffer.remaining() != Long.BYTES) {
+            return null;
+        }
+        return byteBuffer.getLong();
     }
 
     /**
