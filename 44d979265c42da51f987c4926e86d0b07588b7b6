@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a2f2a46_77b48222",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-30T13:26:50Z",
+      "side": 1,
+      "message": "nit: I think the variable name is not very accurate now.\n\nMaybe rename to `noNeedToIncludeInAnswerSection`?",
+      "range": {
+        "startLine": 596,
+        "startChar": 24,
+        "endLine": 596,
+        "endChar": 48
+      },
+      "revId": "44d979265c42da51f987c4926e86d0b07588b7b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2229d9b7_0905a3b2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-30T13:26:50Z",
+      "side": 1,
+      "message": "what kind of log we want to put in this case? I feel this TODO is not very instrumental,",
+      "range": {
+        "startLine": 601,
+        "startChar": 20,
+        "endLine": 601,
+        "endChar": 89
+      },
+      "revId": "44d979265c42da51f987c4926e86d0b07588b7b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a58bc5bb_cb26708e",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-11-30T13:26:50Z",
+      "side": 1,
+      "message": "Could we make this comment more elaborate?",
+      "range": {
+        "startLine": 51,
+        "startChar": 3,
+        "endLine": 51,
+        "endChar": 26
+      },
+      "revId": "44d979265c42da51f987c4926e86d0b07588b7b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
