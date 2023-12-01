@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcaed7f0_9d216960",
+        "filename": "framework/src/android/net/NetworkUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T06:32:30Z",
+      "side": 1,
+      "message": "nit: add documentation for this method",
+      "revId": "7b8b8a66d5f75112e7bf3c362b403d309324ba54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f58dd708_a6b000e1",
+        "filename": "tests/unit/java/android/net/NetworkUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T06:32:30Z",
+      "side": 1,
+      "message": "```suggestion\n\n        assertEquals(writeTimeval, readTimeval);\n```\n\nKeep the test case in three sections: arrange, act, assert. See go/unit-testing-practices#structure",
+      "revId": "7b8b8a66d5f75112e7bf3c362b403d309324ba54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
