@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9154e05_85c7e240",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-01T19:58:01Z",
+      "side": 1,
+      "message": "side note: more simplifications here (and 2 more in the prev function)",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 63
+      },
+      "revId": "b9e9b4f3a83931f9c73073fe7741cb6a1fe066ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "395db04b_fd5b1dca",
+        "filename": "staticlibs/netd/libnetdutils/include/netdutils/Status.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-01T19:58:01Z",
+      "side": 1,
+      "message": "this should probably be marked explicit",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 10
+      },
+      "revId": "b9e9b4f3a83931f9c73073fe7741cb6a1fe066ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
