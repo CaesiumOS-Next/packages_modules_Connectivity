@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "745f4bcf_56f5de52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T06:07:25Z",
+      "side": 1,
+      "message": "Looking into this but realized it\u0027s a bit hard to guard this with a feature flag: we are changing the type from `List\u003c\u003e` to `Set\u003c\u003e` so it won\u0027t build unless we keep both methods which is effectively duplicating all the code.\n\nI think we may be exempted from a flag given this is a bug fix and we added plenty test cases.\n\n@reminv@google.com do you have any opinion on this?",
+      "parentUuid": "5f1c0a8f_d7a5a365",
+      "revId": "668dd194d258521e4c5de53e0186a52045d319bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e66de96f_726860a1",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInetAddressRecord.java",
         "patchSetId": 14
