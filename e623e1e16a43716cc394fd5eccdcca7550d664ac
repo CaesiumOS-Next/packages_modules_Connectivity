@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d425386b_2e19b80a",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T07:44:19Z",
+      "side": 1,
+      "message": "Is this for only multicast?",
+      "range": {
+        "startLine": 97,
+        "startChar": 17,
+        "endLine": 97,
+        "endChar": 31
+      },
+      "revId": "e623e1e16a43716cc394fd5eccdcca7550d664ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "973eecb0_72a5d7f4",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T07:44:19Z",
+      "side": 1,
+      "message": "is this for only multicast?",
+      "revId": "e623e1e16a43716cc394fd5eccdcca7550d664ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aedc49a0_d27e7e7f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T07:44:19Z",
+      "side": 1,
+      "message": "nit:\n```suggestion\n        final short shortZero \u003d 0;\n        final long longZero \u003d 0;\n```\n\nBTW, you can replace `longZero` with `0L`",
+      "range": {
+        "startLine": 341,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 26
+      },
+      "revId": "e623e1e16a43716cc394fd5eccdcca7550d664ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fac2837_b055756a",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T07:44:19Z",
+      "side": 1,
+      "message": "nit: document the arguments:\n\n```suggestion\n                new StructRtMsg(RTNL_FAMILY_IP6MR, shortZero /* dstLen */, shortZero, shortZero,\n                    shortZero, shortZero, shortZero, shortZero, longZero);\n```\n\nIt\u0027s an example, you should document all of them.",
+      "range": {
+        "startLine": 345,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 74
+      },
+      "revId": "e623e1e16a43716cc394fd5eccdcca7550d664ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d6f093e_d6c156b7",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T07:44:19Z",
+      "side": 1,
+      "message": "The size of the attributes (e.g. source, destination, gateway...) are missing.",
+      "range": {
+        "startLine": 350,
+        "startChar": 8,
+        "endLine": 350,
+        "endChar": 87
+      },
+      "revId": "e623e1e16a43716cc394fd5eccdcca7550d664ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a489c296_b2e85f41",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T07:44:19Z",
+      "side": 1,
+      "message": "You should never throw `RuntimeException`, see go/java-practices/exceptions#abstract_throwables.\n\nI don\u0027t think the code can continue parsing the rest of the message buffer if the error is encountered here. So maybe just return the `multicastRoutes` from here.",
+      "range": {
+        "startLine": 383,
+        "startChar": 20,
+        "endLine": 383,
+        "endChar": 82
+      },
+      "revId": "e623e1e16a43716cc394fd5eccdcca7550d664ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb37e244_d18d4cdd",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T07:44:19Z",
+      "side": 1,
+      "message": "You need to close the `fd`.\n\n```suggestion\n        FileDescriptor fd \u003d null;\n        try {\n            fd \u003d NetlinkUtils.netlinkSocketForProto(NETLINK_ROUTE);\n            sendNetlinkDumpRequest(fd);\n            return processNetlinkDumpMessages(fd);\n        } finally {\n            closeSocketQuietly(fd);\n        }\n```",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 408,
+        "endChar": 46
+      },
+      "revId": "e623e1e16a43716cc394fd5eccdcca7550d664ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e23eaa35_e1f7b50d",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkRouteMessageTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T07:44:19Z",
+      "side": 1,
+      "message": "Should we test also the pack() method? (I think I did spot a bug in pack() :)",
+      "range": {
+        "startLine": 155,
+        "startChar": 16,
+        "endLine": 155,
+        "endChar": 49
+      },
+      "revId": "e623e1e16a43716cc394fd5eccdcca7550d664ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
