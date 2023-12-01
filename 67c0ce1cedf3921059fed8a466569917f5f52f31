@@ -1,0 +1,412 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9e21cf5_7fa90cb8",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "It\u0027s hard for me to understand this sentence...\nCould you refine this to be clearer?",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 85
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c4817c9_e1dd9944",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "```suggestion\n    // Tracks of the MFCs added to kernel\n```",
+      "range": {
+        "startLine": 138,
+        "startChar": 1,
+        "endLine": 138,
+        "endChar": 60
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f91f229a_8063325d",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "Can you add a similar documentation for `mMulticastRoutingConfigs` above",
+      "range": {
+        "startLine": 142,
+        "startChar": 8,
+        "endLine": 142,
+        "endChar": 56
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "406654ae_fcab2f1a",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "`netd` should be added into `Dependencies` as well.",
+      "range": {
+        "startLine": 153,
+        "startChar": 12,
+        "endLine": 153,
+        "endChar": 58
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "119692b2_0fad9386",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "Inspecting the code, you don\u0027t actually need `mhandlerThread` being a member field of RoutingCoordinatorService class. Instead, you need a `Looper` for RoutingCoordinatorService. So please make below changes:\n1. Define `Looper mLooper;` as a member field of `RoutingCoordinatorService`\n2. Move `mHandlerThread` to `Dependencies` class and starts it in the Dependencies\u0027s constructor\n3. Define a `RoutingCoordinatorService#getLooper()` for initializing mLooper of RoutingCoordinatorService\n\nThis way, you can use a [TestLooper](https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/tests/utils/testutils/java/android/os/test/TestLooper.java) for RoutingCoordinatorService in unit tests. TestLooper allows you to drive the execution of the tasks explicitly (e.g. with `TestLooper#dispatchAll` and `TestLooper#moveTimeForward`), so that you don\u0027t need to wait for a guessed timeout value which is brittle.",
+      "range": {
+        "startLine": 157,
+        "startChar": 8,
+        "endLine": 157,
+        "endChar": 60
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88901ed2_25cdb141",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "`mListenerThread` and `mListenerHandler` are used by only mMulticastNoCacheUpcallListener. So I think they should be member fields of class `MulticastNocacheUpcallListener` rather than `RoutingCoordinatorService`",
+      "range": {
+        "startLine": 162,
+        "startChar": 8,
+        "endLine": 162,
+        "endChar": 24
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02adc645_3cc22a1c",
+        "filename": "service/src/com/android/server/connectivity/StructMf6cctl.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "Should the structs be moved to `staticlibs/device/com/android/net/module/util/`?",
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00d32fd2_c842dd61",
+        "filename": "service/src/com/android/server/connectivity/StructMf6cctl.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "You probably want to check the size of `oifs` to avoid Index Out of Bounds Exception",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 9
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d3b40a6_bc173d37",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "```suggestion\n    private fun sendMrt6msgNocachePacket(interfaceVirtualIndex: Int, source: Inet6Address, destination: Inet6Address) {\n```",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa93e42f_547dc53a",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "```suggestion\n        applyMulticastForwardMinimumScope(mIfName1, mIfName2, 4 /* minScope */)\n```",
+      "range": {
+        "startLine": 178,
+        "startChar": 62,
+        "endLine": 178,
+        "endChar": 64
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3673c293_a7408d09",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s guaranteed that RoutingCoordinatorService really got a chance to call `addMulticastForwardingCache` before this verify() is called. You should use TestLooper and call `TestLooper#dispatchAll` to make sure all posted tasks has been executed.",
+      "range": {
+        "startLine": 181,
+        "startChar": 8,
+        "endLine": 181,
+        "endChar": 98
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e5b0c85_210498c7",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "```suggestion\n    fun testMulticastRouting_addressScopelargerThanMinScope_allowMfcIsAdded() {\n```\n\nSee go/unit-testing-practices#naming for how to name your test case",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 67
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c901b8f_a1577ac3",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "```suggestion\n        applyMulticastForwardMinimumScope(mIfName1, mIfName2, 4 /* minScope */)\n```\n\nYou should highlight this because this is what being tested in this method.",
+      "range": {
+        "startLine": 186,
+        "startChar": 62,
+        "endLine": 186,
+        "endChar": 64
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb25fab7_05dc5795",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "ditto, use `TestLooper#dispatchAll` to execute all posted tasks",
+      "range": {
+        "startLine": 187,
+        "startChar": 8,
+        "endLine": 187,
+        "endChar": 38
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "990f40f2_7657d956",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "```suggestion\n        // simulate a MRT6MSG_NOCACHE upcall for packets sent to group address of scope 5\n```",
+      "range": {
+        "startLine": 189,
+        "startChar": 45,
+        "endLine": 189,
+        "endChar": 78
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9e4984c_5e9246c6",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "ditto, use `TestLooper#dispatchAll`.",
+      "range": {
+        "startLine": 192,
+        "startChar": 22,
+        "endLine": 192,
+        "endChar": 41
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "facf9ffe_eac87d72",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "```suggestion\n\n\n        verify(mDeps, timeout(TIMEOUT_MS).times(1)).addMulticastForwardingCache(eq(mFd),\n            anyInt(), eq(oifs), any(), any())\n```\n\nMake your test structure consists of three sections: arrange, act, verify. See go/unit-testing-practices#structure",
+      "range": {
+        "startLine": 191,
+        "startChar": 2,
+        "endLine": 193,
+        "endChar": 45
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2f65b4f_98054cff",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-01T12:08:15Z",
+      "side": 1,
+      "message": "```suggestion\n    fun testMulticastRouting_addressScopeSmallerThanMinScope_denialMfcIsAdded() {\n```",
+      "range": {
+        "startLine": 197,
+        "startChar": 8,
+        "endLine": 197,
+        "endChar": 72
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
