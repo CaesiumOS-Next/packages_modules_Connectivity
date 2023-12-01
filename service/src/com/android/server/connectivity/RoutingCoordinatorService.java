@@ -171,7 +171,7 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
             }
             final ForwardingPair fwp = new ForwardingPair(fromIface, toIface);
             if (mForwardedInterfaces.contains(fwp)) {
-                throw new IllegalStateException("Forward already exists between ifaces "
+                Log.wtf(TAG, "Forward already exists between ifaces "
                         + fromIface + " → " + toIface);
             }
             mForwardedInterfaces.add(fwp);
