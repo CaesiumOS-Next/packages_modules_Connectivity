@@ -16,6 +16,86 @@
       "message": "LGTM",
       "revId": "668dd194d258521e4c5de53e0186a52045d319bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f1c0a8f_d7a5a365",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-01T03:31:46Z",
+      "side": 1,
+      "message": "Having a MdnsFeatureFlag is necessary due to the behavior change introduced by this fix. Please refer to aosp/2739333.",
+      "revId": "668dd194d258521e4c5de53e0186a52045d319bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e66de96f_726860a1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInetAddressRecord.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-01T03:31:46Z",
+      "side": 1,
+      "message": "BTW, I introduced a similar constructor for queries in aosp/2845495, which incorporates a unicast argument.",
+      "revId": "668dd194d258521e4c5de53e0186a52045d319bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "253534b9_4e42e123",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-01T03:31:46Z",
+      "side": 1,
+      "message": "I also introduced a MdnsPointerRecord contructor for queries in aosp/2845495.",
+      "range": {
+        "startLine": 485,
+        "startChar": 31,
+        "endLine": 485,
+        "endChar": 48
+      },
+      "revId": "668dd194d258521e4c5de53e0186a52045d319bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8ec19ee_8de81a00",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-01T03:31:46Z",
+      "side": 1,
+      "message": "Could you please check the specific records included in additionalAnswers?",
+      "range": {
+        "startLine": 679,
+        "startChar": 26,
+        "endLine": 679,
+        "endChar": 43
+      },
+      "revId": "668dd194d258521e4c5de53e0186a52045d319bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
