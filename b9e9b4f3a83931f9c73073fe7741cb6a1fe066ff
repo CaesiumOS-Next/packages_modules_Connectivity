@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e50f3bd_4db64320",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-12-02T14:24:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9154e05_85c7e240",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 63
+      },
+      "revId": "b9e9b4f3a83931f9c73073fe7741cb6a1fe066ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "395db04b_fd5b1dca",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-01T19:58:01Z",
       "side": 1,
       "message": "this should probably be marked explicit",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 10
+      },
+      "revId": "b9e9b4f3a83931f9c73073fe7741cb6a1fe066ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ee5c5dc_01998427",
+        "filename": "staticlibs/netd/libnetdutils/include/netdutils/Status.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-12-02T14:24:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "395db04b_fd5b1dca",
       "range": {
         "startLine": 45,
         "startChar": 4,
