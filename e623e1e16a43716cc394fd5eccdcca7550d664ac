@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66a3cb07_58362411",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-03T12:58:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d425386b_2e19b80a",
+      "range": {
+        "startLine": 97,
+        "startChar": 17,
+        "endLine": 97,
+        "endChar": 31
+      },
+      "revId": "e623e1e16a43716cc394fd5eccdcca7550d664ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "973eecb0_72a5d7f4",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d293117f_08fe9696",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-03T12:58:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "973eecb0_72a5d7f4",
+      "revId": "e623e1e16a43716cc394fd5eccdcca7550d664ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aedc49a0_d27e7e7f",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-12-01T07:44:19Z",
       "side": 1,
       "message": "nit:\n```suggestion\n        final short shortZero \u003d 0;\n        final long longZero \u003d 0;\n```\n\nBTW, you can replace `longZero` with `0L`",
+      "range": {
+        "startLine": 341,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 26
+      },
+      "revId": "e623e1e16a43716cc394fd5eccdcca7550d664ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "154f8b14_a11fb0e6",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-03T12:58:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aedc49a0_d27e7e7f",
       "range": {
         "startLine": 341,
         "startChar": 0,
@@ -87,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9acd9286_291bce76",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-03T12:58:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fac2837_b055756a",
+      "range": {
+        "startLine": 345,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 74
+      },
+      "revId": "e623e1e16a43716cc394fd5eccdcca7550d664ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d6f093e_d6c156b7",
@@ -100,6 +190,30 @@
       "writtenOn": "2023-12-01T07:44:19Z",
       "side": 1,
       "message": "The size of the attributes (e.g. source, destination, gateway...) are missing.",
+      "range": {
+        "startLine": 350,
+        "startChar": 8,
+        "endLine": 350,
+        "endChar": 87
+      },
+      "revId": "e623e1e16a43716cc394fd5eccdcca7550d664ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d72f1ac4_3e787e7c",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-03T12:58:01Z",
+      "side": 1,
+      "message": "This is the RTM_GETROUTE message in dump mode, it doesn\u0027t need the attributes, I added some description in comments above.",
+      "parentUuid": "0d6f093e_d6c156b7",
       "range": {
         "startLine": 350,
         "startChar": 8,
@@ -133,6 +247,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d809c548_2e9d53a2",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-03T12:58:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a489c296_b2e85f41",
+      "range": {
+        "startLine": 383,
+        "startChar": 20,
+        "endLine": 383,
+        "endChar": 82
+      },
+      "revId": "e623e1e16a43716cc394fd5eccdcca7550d664ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb37e244_d18d4cdd",
@@ -156,6 +294,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29db3287_2d2521dc",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-03T12:58:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb37e244_d18d4cdd",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 408,
+        "endChar": 46
+      },
+      "revId": "e623e1e16a43716cc394fd5eccdcca7550d664ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e23eaa35_e1f7b50d",
@@ -169,6 +331,30 @@
       "writtenOn": "2023-12-01T07:44:19Z",
       "side": 1,
       "message": "Should we test also the pack() method? (I think I did spot a bug in pack() :)",
+      "range": {
+        "startLine": 155,
+        "startChar": 16,
+        "endLine": 155,
+        "endChar": 49
+      },
+      "revId": "e623e1e16a43716cc394fd5eccdcca7550d664ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f99c278c_1fa4ef32",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkRouteMessageTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-03T12:58:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e23eaa35_e1f7b50d",
       "range": {
         "startLine": 155,
         "startChar": 16,
