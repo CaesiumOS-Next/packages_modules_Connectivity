@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "67ac8ab5_03e2c048",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-03T10:41:08Z",
+      "side": 1,
+      "message": "This CL use WakeupMessage to send multicast RAs, the next CL changes it to use both WakeupMessage and non-wakeup delayed message. The test and its result was put in https://buganizer.corp.google.com/issues/246928127#comment2.",
+      "parentUuid": "5e475959_80c782f0",
+      "revId": "d46c0850ac572836aa0e9b8bb4e1d264450e57ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "900f0f9d_fad6e24b",
         "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
         "patchSetId": 10
@@ -48,6 +66,30 @@
       "writtenOn": "2023-11-30T09:18:57Z",
       "side": 1,
       "message": "What is the purpose of this Clock class ? I don\u0027t see you inject Clock objection from the test.",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 5
+      },
+      "revId": "d46c0850ac572836aa0e9b8bb4e1d264450e57ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6b54f56_c7b6cb99",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-03T10:41:08Z",
+      "side": 1,
+      "message": "As suggested by Yuyang, the Clock class is used for mock the current time in test, but it is not used now.",
+      "parentUuid": "900f0f9d_fad6e24b",
       "range": {
         "startLine": 150,
         "startChar": 0,
@@ -81,6 +123,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d04c4f9_6316849d",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-03T10:41:08Z",
+      "side": 1,
+      "message": "Done, added check for mRaLength.",
+      "parentUuid": "9c9ab3f4_55c95c06",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 81
+      },
+      "revId": "d46c0850ac572836aa0e9b8bb4e1d264450e57ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21e93840_52dc5ee1",
@@ -94,6 +160,30 @@
       "writtenOn": "2023-11-30T09:18:57Z",
       "side": 1,
       "message": "Before, MulticastTransmitter could use thread sleep to loop the timer scheduling. This was fine because it didn\u0027t wake up the system. Now you\u0027ve changed it to use WakeupMessage, which will actually wake up the system when it tries to send a message. We need to be careful to only schedule the timer when necessary. In particular, we need to cancel the timer when the RaParams object is null.",
+      "range": {
+        "startLine": 691,
+        "startChar": 0,
+        "endLine": 701,
+        "endChar": 5
+      },
+      "revId": "d46c0850ac572836aa0e9b8bb4e1d264450e57ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccbd01f9_31f1c83d",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-03T10:41:08Z",
+      "side": 1,
+      "message": "Done, added check for mRaLength.",
+      "parentUuid": "21e93840_52dc5ee1",
       "range": {
         "startLine": 691,
         "startChar": 0,
