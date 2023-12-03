@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5970313f_693fe2fc",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 51
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-03T07:43:50Z",
+      "side": 1,
+      "message": "I guess this API also needed to be flagged?",
+      "range": {
+        "startLine": 199,
+        "startChar": 28,
+        "endLine": 199,
+        "endChar": 44
+      },
+      "revId": "a96ba3120a9a2d213cb90fea78f058bfb01a1e08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80f58ef1_ba21463b",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-03T07:43:50Z",
+      "side": 1,
+      "message": "There is a link warning, could you take a look and adjust?",
+      "range": {
+        "startLine": 40,
+        "startChar": 37,
+        "endLine": 40,
+        "endChar": 65
+      },
+      "revId": "a96ba3120a9a2d213cb90fea78f058bfb01a1e08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "844b6b0a_acdb70e6",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-03T07:43:50Z",
+      "side": 1,
+      "message": "Better to have a comment here to indicate this mSubtype is exist for backward compatibility reason, the recommended way is to",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 34
+      },
+      "revId": "a96ba3120a9a2d213cb90fea78f058bfb01a1e08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5de0e1c8_87c0aaf9",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-03T07:43:50Z",
+      "side": 1,
+      "message": "Can we add one more member here?\n\n```\nprivate final long mDiscoveryConfig\n```\n\nIt will be a bitmap to control how the discovery should be behave, I think we will need to control the discovery behavior in the near future so if we can get the change in the API at one time, it will be the best.",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 22
+      },
+      "revId": "a96ba3120a9a2d213cb90fea78f058bfb01a1e08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f6f762f_500e0431",
+        "filename": "framework-t/src/android/net/nsd/NsdFlags.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-03T07:43:50Z",
+      "side": 1,
+      "message": "We should move this flag into to NsdManager.\n\nreference cl: aosp/2849534",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 65
+      },
+      "revId": "a96ba3120a9a2d213cb90fea78f058bfb01a1e08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
