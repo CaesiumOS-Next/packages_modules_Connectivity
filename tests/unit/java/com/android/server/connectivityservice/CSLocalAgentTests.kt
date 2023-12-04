@@ -20,6 +20,8 @@ import android.net.IpPrefix
 import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.LocalNetworkConfig
+import android.net.MulticastRoutingConfig
+import android.net.MulticastRoutingConfig.CONFIG_FORWARD_NONE
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_DUN
 import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
@@ -45,6 +47,7 @@ import com.android.testutils.TestableNetworkCallback
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.clearInvocations
+import org.mockito.Mockito.eq
 import org.mockito.Mockito.inOrder
 import org.mockito.Mockito.never
 import org.mockito.Mockito.timeout
@@ -82,6 +85,22 @@ private fun keepScore() = FromS(
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class CSLocalAgentTests : CSTest() {
+    val multicastRoutingConfigMinScope =
+                MulticastRoutingConfig.Builder(MulticastRoutingConfig.FORWARD_WITH_MIN_SCOPE, 4)
+                .build();
+    val multicastRoutingConfigSelected =
+                MulticastRoutingConfig.Builder(MulticastRoutingConfig.FORWARD_SELECTED)
+                .build();
+    val upstreamSelectorAny = NetworkRequest.Builder().build()
+
+    val upstreamSelectorWifi = NetworkRequest.Builder()
+                .addTransportType(TRANSPORT_WIFI)
+                .build()
+
+    val upstreamSelectorCell = NetworkRequest.Builder()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .build()
+
     @Test
     fun testBadAgents() {
         deps.setBuildSdk(VERSION_V)
@@ -176,6 +195,252 @@ class CSLocalAgentTests : CSTest() {
         localAgent.disconnect()
     }
 
+    private fun createLocalAgent(name: String, upstreamType: Int): CSAgentWrapper {
+        val localAgent = Agent(
+                nc = nc(TRANSPORT_THREAD, NET_CAPABILITY_LOCAL_NETWORK),
+                lp = lp(name),
+                lnc = FromS(LocalNetworkConfig.Builder().build()),
+        )
+        val newLnc = LocalNetworkConfig.Builder()
+                .setUpstreamSelector(NetworkRequest.Builder()
+                        .addTransportType(upstreamType)
+                        .build())
+                .build()
+        localAgent.sendLocalNetworkConfig(newLnc)
+        return localAgent
+    }
+
+    private fun createWifiAgent(name: String): CSAgentWrapper {
+        return Agent(score = keepScore(), lp = lp(name),
+                nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_INTERNET))
+    }
+
+    private fun createCellAgent(name: String): CSAgentWrapper {
+        return Agent(score = keepScore(), lp = lp(name),
+                nc = nc(TRANSPORT_CELLULAR, NET_CAPABILITY_INTERNET))
+    }
+
+    private fun buildLocalNetworkAndUpstreamNetwork(): Pair<CSAgentWrapper, CSAgentWrapper> {
+        // Set up a local agent that should forward its multicast traffic to its upstream.
+        val localAgent = createLocalAgent("local0", TRANSPORT_WIFI)
+        localAgent.connect()
+
+        // Set up an upstream network that should forward its multicast traffic to its downstream.
+        val wifiAgent = createWifiAgent("wifi0")
+        wifiAgent.connect()
+
+        return Pair(localAgent, wifiAgent)
+    }
+
+    private fun build2LocalNetworksAndUpstreamNetwork():
+                Triple<CSAgentWrapper, CSAgentWrapper, CSAgentWrapper> {
+        // Set up a local agent that should forward its multicast traffic to its upstream.
+        val localAgent0 = createLocalAgent("local0", TRANSPORT_WIFI)
+        localAgent0.connect()
+
+        // Set up an upstream network that should forward its multicast traffic to its downstream.
+        val wifiAgent = createWifiAgent("wifi0")
+        wifiAgent.connect()
+
+        // Set up a local agent that should forward its multicast traffic to its upstream.
+        val localAgent1 = createLocalAgent("local1", TRANSPORT_WIFI)
+        localAgent1.connect()
+
+        return Triple(localAgent0, localAgent1, wifiAgent)
+    }
+
+    private fun sendLocalNetworkConfig(localAgent: CSAgentWrapper,
+                upstreamSelector: NetworkRequest?, upstreamConfig: MulticastRoutingConfig,
+                downstreamConfig: MulticastRoutingConfig) {
+        val newLnc = LocalNetworkConfig.Builder()
+                .setUpstreamSelector(upstreamSelector)
+                .setUpstreamMulticastRoutingConfig(upstreamConfig)
+                .setDownstreamMulticastRoutingConfig(downstreamConfig)
+                .build()
+        localAgent.sendLocalNetworkConfig(newLnc)
+    }
+
+    @Test
+    fun testMulticastRoutingConfig() {
+        deps.setBuildSdk(VERSION_V)
+        val (localAgent, wifiAgent) = buildLocalNetworkAndUpstreamNetwork()
+        val inOrder = inOrder(routingCoordinatorService)
+        waitForIdle()
+
+        clearInvocations(routingCoordinatorService)
+        sendLocalNetworkConfig(localAgent, upstreamSelectorWifi, multicastRoutingConfigMinScope,
+                multicastRoutingConfigSelected)
+        waitForIdle()
+
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                "local0", "wifi0", multicastRoutingConfigMinScope)
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                "wifi0", "local0", multicastRoutingConfigSelected)
+
+        wifiAgent.disconnect()
+
+        inOrder.verify(routingCoordinatorService)
+                .applyMulticastRoutingConfig("local0", "wifi0", CONFIG_FORWARD_NONE)
+        inOrder.verify(routingCoordinatorService)
+                .applyMulticastRoutingConfig("wifi0", "local0", CONFIG_FORWARD_NONE)
+
+        localAgent.disconnect()
+    }
+
+    @Test
+    fun testMulticastRoutingConfig_2LocalNetworks() {
+        deps.setBuildSdk(VERSION_V)
+        val (localAgent0, localAgent1, wifiAgent) = build2LocalNetworksAndUpstreamNetwork()
+        val inOrder = inOrder(routingCoordinatorService)
+        waitForIdle()
+
+        clearInvocations(routingCoordinatorService)
+        sendLocalNetworkConfig(localAgent0, upstreamSelectorWifi, multicastRoutingConfigMinScope,
+                multicastRoutingConfigSelected)
+        sendLocalNetworkConfig(localAgent1, upstreamSelectorWifi, multicastRoutingConfigMinScope,
+                multicastRoutingConfigSelected)
+        waitForIdle()
+
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                "local0", "wifi0", multicastRoutingConfigMinScope)
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                "wifi0", "local0", multicastRoutingConfigSelected)
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                "local1", "wifi0", multicastRoutingConfigMinScope)
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                "wifi0", "local1", multicastRoutingConfigSelected)
+
+        localAgent0.disconnect()
+        localAgent1.disconnect()
+        wifiAgent.disconnect()
+    }
+
+    @Test
+    fun testMulticastRoutingConfig_UpstreamCellToWifi() {
+        deps.setBuildSdk(VERSION_V)
+        val inOrder = inOrder(routingCoordinatorService)
+
+        val localAgent = Agent(
+                nc = nc(TRANSPORT_THREAD, NET_CAPABILITY_LOCAL_NETWORK),
+                lp = lp("local0"),
+                lnc = FromS(LocalNetworkConfig.Builder().build()),
+        )
+        val newLnc = LocalNetworkConfig.Builder()
+                .setUpstreamSelector(NetworkRequest.Builder()
+                        .build())
+                .build()
+        localAgent.sendLocalNetworkConfig(newLnc)
+
+        val wifiAgent = createWifiAgent("wifi0")
+        val cellAgent = createCellAgent("cell0")
+        cellAgent.connect()
+        localAgent.connect()
+        waitForIdle()
+
+        clearInvocations(routingCoordinatorService)
+        sendLocalNetworkConfig(localAgent, upstreamSelectorAny, multicastRoutingConfigMinScope,
+                multicastRoutingConfigSelected)
+        waitForIdle()
+
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                "local0", "cell0", multicastRoutingConfigMinScope)
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                "cell0", "local0", multicastRoutingConfigSelected)
+
+        wifiAgent.connect()
+        waitForIdle()
+        // upstream should have been switched to wifi
+        inOrder.verify(routingCoordinatorService)
+                .applyMulticastRoutingConfig("local0", "cell0", CONFIG_FORWARD_NONE)
+        inOrder.verify(routingCoordinatorService)
+                .applyMulticastRoutingConfig("cell0", "local0", CONFIG_FORWARD_NONE)
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                "local0", "wifi0", multicastRoutingConfigMinScope)
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                "wifi0", "local0", multicastRoutingConfigSelected)
+
+        localAgent.disconnect()
+        cellAgent.disconnect()
+        wifiAgent.disconnect()
+    }
+
+    @Test
+    fun testMulticastRoutingConfig_UpstreamSelectorCellToWifi() {
+        deps.setBuildSdk(VERSION_V)
+        val inOrder = inOrder(routingCoordinatorService)
+
+        val localAgent = createLocalAgent("local0", TRANSPORT_CELLULAR)
+        sendLocalNetworkConfig(localAgent, upstreamSelectorCell, multicastRoutingConfigMinScope,
+                multicastRoutingConfigSelected)
+        val wifiAgent = createWifiAgent("wifi0")
+        val cellAgent = createCellAgent("cell0")
+        clearInvocations(routingCoordinatorService)
+        cellAgent.connect()
+        wifiAgent.connect()
+        localAgent.connect()
+        waitForIdle()
+
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                "local0", "cell0", multicastRoutingConfigMinScope)
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                "cell0", "local0", multicastRoutingConfigSelected)
+
+        sendLocalNetworkConfig(localAgent, upstreamSelectorWifi, multicastRoutingConfigMinScope,
+                multicastRoutingConfigSelected)
+        waitForIdle()
+        // upstream should have been switched to wifi
+        inOrder.verify(routingCoordinatorService)
+                .applyMulticastRoutingConfig("local0", "cell0", CONFIG_FORWARD_NONE)
+        inOrder.verify(routingCoordinatorService)
+                .applyMulticastRoutingConfig("cell0", "local0", CONFIG_FORWARD_NONE)
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                "local0", "wifi0", multicastRoutingConfigMinScope)
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                "wifi0", "local0", multicastRoutingConfigSelected)
+
+        localAgent.disconnect()
+        cellAgent.disconnect()
+        wifiAgent.disconnect()
+    }
+
+    @Test
+    fun testMulticastRoutingConfig_UpstreamSelectorWifiToNull() {
+        deps.setBuildSdk(VERSION_V)
+        val inOrder = inOrder(routingCoordinatorService)
+
+        val localAgent = createLocalAgent("local0", TRANSPORT_WIFI)
+        val wifiAgent = createWifiAgent("wifi0")
+        sendLocalNetworkConfig(localAgent, upstreamSelectorWifi, multicastRoutingConfigMinScope,
+                multicastRoutingConfigSelected)
+        clearInvocations(routingCoordinatorService)
+        wifiAgent.connect()
+        localAgent.connect()
+        waitForIdle()
+
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                "local0", "wifi0", multicastRoutingConfigMinScope)
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                "wifi0", "local0", multicastRoutingConfigSelected)
+
+        clearInvocations(routingCoordinatorService)
+        sendLocalNetworkConfig(localAgent, null, multicastRoutingConfigMinScope,
+                multicastRoutingConfigSelected)
+        waitForIdle()
+        // upstream should have been switched to null
+        inOrder.verify(routingCoordinatorService)
+                .applyMulticastRoutingConfig("local0", "wifi0", CONFIG_FORWARD_NONE)
+        inOrder.verify(routingCoordinatorService)
+                .applyMulticastRoutingConfig("wifi0", "local0", CONFIG_FORWARD_NONE)
+        inOrder.verify(routingCoordinatorService, never()).applyMulticastRoutingConfig(
+                eq("local0"), any(), eq(multicastRoutingConfigMinScope))
+        inOrder.verify(routingCoordinatorService, never()).applyMulticastRoutingConfig(
+                any(), eq("local0"), eq(multicastRoutingConfigSelected))
+
+        localAgent.disconnect()
+        wifiAgent.disconnect()
+    }
+
+
     @Test
     fun testUnregisterUpstreamAfterReplacement_SameIfaceName() {
         doTestUnregisterUpstreamAfterReplacement(true)
@@ -205,6 +470,9 @@ class CSLocalAgentTests : CSTest() {
         )
         localAgent.connect()
 
+        sendLocalNetworkConfig(localAgent, upstreamSelectorWifi, multicastRoutingConfigMinScope,
+                multicastRoutingConfigSelected)
+
         cb.expectAvailableCallbacks(localAgent.network, validated = false)
 
         val wifiAgent = Agent(lp = lp("wifi0"),
@@ -217,12 +485,18 @@ class CSLocalAgentTests : CSTest() {
         }
 
         clearInvocations(netd)
-        val inOrder = inOrder(netd)
+        clearInvocations(routingCoordinatorService)
+        val inOrder = inOrder(netd, routingCoordinatorService)
         wifiAgent.unregisterAfterReplacement(LONG_TIMEOUT_MS)
         waitForIdle()
         inOrder.verify(netd).ipfwdRemoveInterfaceForward("local0", "wifi0")
+        inOrder.verify(routingCoordinatorService)
+                .applyMulticastRoutingConfig("local0", "wifi0", CONFIG_FORWARD_NONE)
+        inOrder.verify(routingCoordinatorService)
+                .applyMulticastRoutingConfig("wifi0", "local0", CONFIG_FORWARD_NONE)
         inOrder.verify(netd).networkDestroy(wifiAgent.network.netId)
 
+        clearInvocations(routingCoordinatorService)
         val wifiIface2 = if (sameIfaceName) "wifi0" else "wifi1"
         val wifiAgent2 = Agent(lp = lp(wifiIface2),
                 nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_INTERNET))
@@ -233,9 +507,16 @@ class CSLocalAgentTests : CSTest() {
         cb.expect<Lost> { it.network == wifiAgent.network }
 
         inOrder.verify(netd).ipfwdAddInterfaceForward("local0", wifiIface2)
-        if (sameIfaceName) {
-            inOrder.verify(netd, never()).ipfwdRemoveInterfaceForward(any(), any())
-        }
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                "local0", wifiIface2, multicastRoutingConfigMinScope)
+        inOrder.verify(routingCoordinatorService).applyMulticastRoutingConfig(
+                wifiIface2, "local0", multicastRoutingConfigSelected)
+
+        inOrder.verify(netd, never()).ipfwdRemoveInterfaceForward(any(), any())
+        inOrder.verify(routingCoordinatorService, never())
+                .applyMulticastRoutingConfig("local0", "wifi0", CONFIG_FORWARD_NONE)
+        inOrder.verify(routingCoordinatorService, never())
+                .applyMulticastRoutingConfig("wifi0", "local0", CONFIG_FORWARD_NONE)
     }
 
     @Test
