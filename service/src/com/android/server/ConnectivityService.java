@@ -171,6 +171,7 @@ import android.net.LinkProperties;
 import android.net.LocalNetworkConfig;
 import android.net.LocalNetworkInfo;
 import android.net.MatchAllNetworkSpecifier;
+import android.net.MulticastRoutingConfig;
 import android.net.NativeNetworkConfig;
 import android.net.NativeNetworkType;
 import android.net.NattSocketKeepalive;
@@ -348,6 +349,7 @@ import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.Inet4Address;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
@@ -362,6 +364,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
@@ -5209,9 +5212,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void removeLocalNetworkUpstream(@NonNull final NetworkAgentInfo localAgent,
             @NonNull final NetworkAgentInfo upstream) {
         try {
+            final String localNetworkInterfaceName = localAgent.linkProperties.getInterfaceName();
+            final String upstreamNetworkInterfaceName = upstream.linkProperties.getInterfaceName();
             mRoutingCoordinatorService.removeInterfaceForward(
-                    localAgent.linkProperties.getInterfaceName(),
-                    upstream.linkProperties.getInterfaceName());
+                    localNetworkInterfaceName,
+                    upstreamNetworkInterfaceName);
+            disableMulticastRouting(localNetworkInterfaceName, upstreamNetworkInterfaceName);
         } catch (RemoteException e) {
             loge("Couldn't remove interface forward for "
                     + localAgent.linkProperties.getInterfaceName() + " to "
@@ -9133,6 +9139,55 @@ public class ConnectivityService extends IConnectivityManager.Stub
         updateCapabilities(nai.getScore(), nai, nai.networkCapabilities);
     }
 
+    private void maybeApplyMulticastRoutingConfig(@NonNull final NetworkAgentInfo nai,
+            final LocalNetworkConfig oldConfig,
+            final LocalNetworkConfig newConfig) {
+        final MulticastRoutingConfig oldUpstreamConfig =
+                oldConfig == null ? MulticastRoutingConfig.CONFIG_FORWARD_NONE :
+                        oldConfig.getUpstreamMulticastRoutingConfig();
+        final MulticastRoutingConfig oldDownstreamConfig =
+                oldConfig == null ? MulticastRoutingConfig.CONFIG_FORWARD_NONE :
+                        oldConfig.getDownstreamMulticastRoutingConfig();
+        final MulticastRoutingConfig newUpstreamConfig =
+                newConfig == null ? MulticastRoutingConfig.CONFIG_FORWARD_NONE :
+                        newConfig.getUpstreamMulticastRoutingConfig();
+        final MulticastRoutingConfig newDownstreamConfig =
+                newConfig == null ? MulticastRoutingConfig.CONFIG_FORWARD_NONE :
+                        newConfig.getDownstreamMulticastRoutingConfig();
+
+        if (oldUpstreamConfig.equals(newUpstreamConfig) &&
+            oldDownstreamConfig.equals(newDownstreamConfig)) {
+            return;
+        }
+
+        final String downstreamNetworkName = nai.linkProperties.getInterfaceName();
+        final LocalNetworkInfo lni = localNetworkInfoForNai(nai);
+        final Network upstreamNetwork = lni.getUpstreamNetwork();
+
+        if (upstreamNetwork != null) {
+            final String upstreamNetworkName =
+                    getLinkProperties(upstreamNetwork).getInterfaceName();
+            applyMulticastRoutingConfig(downstreamNetworkName, upstreamNetworkName, newConfig);
+        }
+    }
+
+    private void applyMulticastRoutingConfig(@NonNull String localNetworkInterfaceName,
+            @NonNull String upstreamNetworkInterfaceName,
+            @NonNull final LocalNetworkConfig config) {
+        mRoutingCoordinatorService.applyMulticastRoutingConfig(localNetworkInterfaceName,
+                upstreamNetworkInterfaceName, config.getUpstreamMulticastRoutingConfig());
+        mRoutingCoordinatorService.applyMulticastRoutingConfig(upstreamNetworkInterfaceName,
+                localNetworkInterfaceName, config.getDownstreamMulticastRoutingConfig());
+    }
+
+    private void disableMulticastRouting(@NonNull String localNetworkInterfaceName,
+            @NonNull String upstreamNetworkInterfaceName) {
+        mRoutingCoordinatorService.applyMulticastRoutingConfig(localNetworkInterfaceName,
+                upstreamNetworkInterfaceName, MulticastRoutingConfig.CONFIG_FORWARD_NONE);
+        mRoutingCoordinatorService.applyMulticastRoutingConfig(upstreamNetworkInterfaceName,
+                localNetworkInterfaceName, MulticastRoutingConfig.CONFIG_FORWARD_NONE);
+    }
+
     // oldConfig is null iff this is the original registration of the local network config
     private void handleUpdateLocalNetworkConfig(@NonNull final NetworkAgentInfo nai,
             @Nullable final LocalNetworkConfig oldConfig,
@@ -9146,7 +9201,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
             Log.v(TAG, "Update local network config " + nai.network.netId + " : " + newConfig);
         }
         final LocalNetworkConfig.Builder configBuilder = new LocalNetworkConfig.Builder();
-        // TODO : apply the diff for multicast routing.
         configBuilder.setUpstreamMulticastRoutingConfig(
                 newConfig.getUpstreamMulticastRoutingConfig());
         configBuilder.setDownstreamMulticastRoutingConfig(
@@ -9205,6 +9259,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             configBuilder.setUpstreamSelector(oldRequest);
             nai.localNetworkConfig = configBuilder.build();
         }
+        maybeApplyMulticastRoutingConfig(nai, oldConfig, newConfig);
     }
 
     /**
@@ -10204,6 +10259,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     if (null != change.mOldNetwork) {
                         mRoutingCoordinatorService.removeInterfaceForward(fromIface,
                                 change.mOldNetwork.linkProperties.getInterfaceName());
+                        disableMulticastRouting(fromIface,
+                                change.mOldNetwork.linkProperties.getInterfaceName());
                     }
                     // If the new upstream is already destroyed, there is no point in setting up
                     // a forward (in fact, it might forward to the interface for some new network !)
@@ -10212,6 +10269,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     if (null != change.mNewNetwork && !change.mNewNetwork.isDestroyed()) {
                         mRoutingCoordinatorService.addInterfaceForward(fromIface,
                                 change.mNewNetwork.linkProperties.getInterfaceName());
+                        applyMulticastRoutingConfig(fromIface,
+                                change.mNewNetwork.linkProperties.getInterfaceName(),
+                                nai.localNetworkConfig);
                     }
                 } catch (final RemoteException e) {
                     loge("Can't update forwarding rules", e);
