@@ -499,6 +499,21 @@ public final class ThreadNetworkController {
         }
     }
 
+    /**
+     * Sets whether to allow using a test network as the upstream.
+     *
+     * @param allow whether to allow a test network to be the upstream.
+     * @hide
+     */
+    @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED")
+    public void setAllowTestNetworkAsUpstream(boolean allow) {
+        try {
+            mControllerService.setAllowTestNetworkAsUpstream(allow);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
     private static <T> void propagateError(
             Executor executor,
             OutcomeReceiver<T, ThreadNetworkException> receiver,
