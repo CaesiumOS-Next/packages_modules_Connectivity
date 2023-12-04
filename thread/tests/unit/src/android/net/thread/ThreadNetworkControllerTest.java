@@ -28,6 +28,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doAnswer;
 
+import android.net.TestNetworkSpecifier;
 import android.net.thread.IActiveOperationalDatasetReceiver;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.IOperationalDatasetCallback;
@@ -108,6 +109,11 @@ public final class ThreadNetworkControllerTest {
     }
 
     private static IOperationReceiver getScheduleMigrationReceiver(InvocationOnMock invocation) {
+        return (IOperationReceiver) invocation.getArguments()[1];
+    }
+
+    private static IOperationReceiver getSetTestNetworkAsUpstreamReceiver(
+            InvocationOnMock invocation) {
         return (IOperationReceiver) invocation.getArguments()[1];
     }
 
@@ -358,5 +364,28 @@ public final class ThreadNetworkControllerTest {
         assertThat(successCallbackUid.get()).isEqualTo(Process.myUid());
         assertThat(errorCallbackUid.get()).isNotEqualTo(SYSTEM_UID);
         assertThat(errorCallbackUid.get()).isEqualTo(Process.myUid());
+    }
+
+    @Test
+    public void setTestNetworkAsUpstream_callbackIsInvokedWithCallingAppIdentity()
+            throws Exception {
+        setBinderUid(SYSTEM_UID);
+
+        AtomicInteger callbackUid = new AtomicInteger(0);
+
+        doAnswer(
+                        invoke -> {
+                            getSetTestNetworkAsUpstreamReceiver(invoke).onSuccess();
+                            return null;
+                        })
+                .when(mMockService)
+                .setTestNetworkAsUpstream(anyString(), any(IOperationReceiver.class));
+        mController.setTestNetworkAsUpstream(
+                null, Runnable::run, v -> callbackUid.set(Binder.getCallingUid()));
+        mController.setTestNetworkAsUpstream(
+                new String("test0"), Runnable::run, v -> callbackUid.set(Binder.getCallingUid()));
+
+        assertThat(callbackUid.get()).isNotEqualTo(SYSTEM_UID);
+        assertThat(callbackUid.get()).isEqualTo(Process.myUid());
     }
 }
