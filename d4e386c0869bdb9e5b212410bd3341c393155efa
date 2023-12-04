@@ -16,6 +16,24 @@
       "message": "may consider having this in a separate file, to be reused by multiple integration test files",
       "revId": "d4e386c0869bdb9e5b212410bd3341c393155efa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9638c972_79a05cfd",
+        "filename": "thread/tests/integration/src/ThreadBorderRouterTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-04T07:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be448502_00f9db41",
+      "revId": "d4e386c0869bdb9e5b212410bd3341c393155efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
