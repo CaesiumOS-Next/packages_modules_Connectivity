@@ -38,6 +38,8 @@ interface IThreadNetworkController {
     void scheduleMigration(in PendingOperationalDataset pendingOpDataset, in IOperationReceiver receiver);
     void leave(in IOperationReceiver receiver);
 
+    void setAllowTestNetworkAsUpstream(in boolean allow);
+
     int getThreadVersion();
     void createRandomizedDataset(String networkName, IActiveOperationalDatasetReceiver receiver);
 }

@@ -26,9 +26,11 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
 import android.annotation.SystemApi;
+import android.annotation.TestApi;
 import android.os.Binder;
 import android.os.OutcomeReceiver;
 import android.os.RemoteException;
+import android.util.Log;
 
 import com.android.internal.annotations.GuardedBy;
 
@@ -494,6 +496,22 @@ public final class ThreadNetworkController {
         requireNonNull(receiver, "receiver cannot be null");
         try {
             mControllerService.leave(new OperationReceiverProxy(executor, receiver));
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Sets whether to allow using a test network as the upstream.
+     *
+     * @param allow whether to allow a test network to be the upstream.
+     * @hide
+     */
+    @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED")
+    public void setAllowTestNetworkAsUpstream(boolean allow) {
+        try {
+            Log.i(TAG, "setAllowTestNetworkAsUpstream: " + allow);
+            mControllerService.setAllowTestNetworkAsUpstream(allow);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
