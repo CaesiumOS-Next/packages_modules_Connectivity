@@ -215,6 +215,7 @@ public final class IpSecTransform implements AutoCloseable {
      * @see IpSecTransformState
      */
     @FlaggedApi(IPSEC_TRANSFORM_STATE)
+    @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
     public void getIpSecTransformState(
             @CallbackExecutor @NonNull Executor executor,
             @NonNull OutcomeReceiver<IpSecTransformState, RuntimeException> callback) {
