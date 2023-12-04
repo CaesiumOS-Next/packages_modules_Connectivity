@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f776b67_e2580205",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-04T17:35:44Z",
+      "side": 1,
+      "message": "don\u0027t see any build breakage in the linked bug... it says it\u0027s a one off build time out...",
+      "revId": "0220193d0ed9452c86b88d91ec4efb1271055d69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
