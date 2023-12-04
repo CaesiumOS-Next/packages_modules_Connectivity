@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77219b5e_ec6e16b5",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-04T08:31:40Z",
+      "side": 1,
+      "message": "Add `@VisibleForTesting`",
+      "range": {
+        "startLine": 508,
+        "startChar": 4,
+        "endLine": 508,
+        "endChar": 5
+      },
+      "revId": "09f22fca0a0787036d64ec15a82836eaeec47386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
