@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1c61f6b_f9e2f565",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2023-12-04T04:58:52Z",
+      "side": 1,
+      "message": "Hi, Jean.\nI moved SOCK_DESTROY (on the removed address) behavior from the Netd to the Connectivity module, according to the your suggestion.\nCould you please review this code change?",
+      "revId": "e7948b8db70783983a5425421dace49ca0b671e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
