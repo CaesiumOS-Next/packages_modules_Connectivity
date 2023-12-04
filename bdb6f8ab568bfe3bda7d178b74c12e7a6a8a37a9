@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b1f861e_191e802d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-04T08:27:46Z",
+      "side": 1,
+      "message": "renamed?",
+      "range": {
+        "startLine": 10,
+        "startChar": 10,
+        "endLine": 10,
+        "endChar": 16
+      },
+      "revId": "bdb6f8ab568bfe3bda7d178b74c12e7a6a8a37a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
