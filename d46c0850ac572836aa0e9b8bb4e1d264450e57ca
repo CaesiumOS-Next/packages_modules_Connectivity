@@ -148,6 +148,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a78d6bb3_e9d5ffe1",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-04T05:02:59Z",
+      "side": 1,
+      "message": "Done, removed Clock class.",
+      "parentUuid": "015d1e47_687bb2c7",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 5
+      },
+      "revId": "d46c0850ac572836aa0e9b8bb4e1d264450e57ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c9ab3f4_55c95c06",
