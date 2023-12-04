@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69a1c412_a1156ea3",
+        "filename": "framework/jni/android_net_NetworkUtils.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done in aosp/2854705",
+      "parentUuid": "afc03454_2e3a48e5",
+      "range": {
+        "startLine": 249,
+        "startChar": 43,
+        "endLine": 249,
+        "endChar": 54
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1db39d44_5307fadc",
@@ -61,6 +85,30 @@
       "writtenOn": "2023-11-29T07:58:00Z",
       "side": 1,
       "message": "Can we put this and its test into its own CL? It would make the rest easier to review.",
+      "range": {
+        "startLine": 430,
+        "startChar": 30,
+        "endLine": 430,
+        "endChar": 45
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26fc3655_b38edf03",
+        "filename": "framework/src/android/net/NetworkUtils.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done in aosp/2854705",
+      "parentUuid": "1db39d44_5307fadc",
       "range": {
         "startLine": 430,
         "startChar": 30,
@@ -88,6 +136,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de9cc4ba_7172576c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "299a72c1_c37eb068",
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1372ce93_add7ed82",
@@ -101,6 +167,30 @@
       "writtenOn": "2023-11-29T14:33:42Z",
       "side": 1,
       "message": "disconnectAndDestroyNetwork is called when network is disconnecting.\n\nI think currently, removeInterfaceFromMulticastRouting is called only for the local network.\nIf the disconnected network is the upstream of some local networks, do we need to call removeInterfaceFromMulticastRouting for the upstream network?\n\nIf so, I\u0027m also wondering if routingCoordinator can call removeInterfaceFromMulticastRouting internally when there are no multicastRouting config for the interface.",
+      "range": {
+        "startLine": 5014,
+        "startChar": 39,
+        "endLine": 5014,
+        "endChar": 74
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ada0d44a_ecc24f65",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 5014,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Good point, added the logic to call removeInterfaceFromMulticastRouting from routingCoordinator when an interface doesn\u0027t have active multicastRoutingConfig.",
+      "parentUuid": "1372ce93_add7ed82",
       "range": {
         "startLine": 5014,
         "startChar": 39,
@@ -134,6 +224,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c067dc95_6bd80c00",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 9141,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "This will now be handled by routingCoordinator after disabling the multicast config",
+      "parentUuid": "facb9cd4_03d97ba5",
+      "range": {
+        "startLine": 9141,
+        "startChar": 16,
+        "endLine": 9141,
+        "endChar": 42
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "503bd7b5_a18b7dc2",
@@ -151,6 +265,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "729bfeae_8550285e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 10180,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "This will now be handled by routingCoordinator after disabling the multicast config",
+      "parentUuid": "503bd7b5_a18b7dc2",
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b1f6931_33173db6",
@@ -164,6 +296,30 @@
       "writtenOn": "2023-11-29T07:58:00Z",
       "side": 1,
       "message": "It\u0027s generally confusing to have equals and hashCode ignore fields that are part of the object\u0027s semantics. I\u0027ve really only seen this done for fields that are transient and non-meaninfgul (e.g., caches, temoprary calculated values, and the like).\n\nIf you want to only compare some of the fields, would suggest not storing the duration in the object at all. Or, if there are some cases where the duration doesn\u0027t matter, you could add another method such as \"boolean hasSameVirtualInterfacesAs(MfcValue other)\".",
+      "range": {
+        "startLine": 615,
+        "startChar": 23,
+        "endLine": 615,
+        "endChar": 29
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7953f91e_3369edeb",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Having another method specific for comparing the oifs sounds nice, done.",
+      "parentUuid": "8b1f6931_33173db6",
       "range": {
         "startLine": 615,
         "startChar": 23,
@@ -197,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ff795a3_1cea0095",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Good point, done",
+      "parentUuid": "7438272f_6444cd05",
+      "range": {
+        "startLine": 639,
+        "startChar": 19,
+        "endLine": 639,
+        "endChar": 36
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "268d0b09_f1efcd23",
@@ -210,6 +390,30 @@
       "writtenOn": "2023-11-29T07:58:00Z",
       "side": 1,
       "message": "These days I think you can just use \"+\" without having to write your own joiner code.",
+      "range": {
+        "startLine": 643,
+        "startChar": 31,
+        "endLine": 643,
+        "endChar": 43
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa137763_bd43d641",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "268d0b09_f1efcd23",
       "range": {
         "startLine": 643,
         "startChar": 31,
@@ -243,6 +447,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "429c3acb_c8d54821",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10290217_a4f65c9a",
+      "range": {
+        "startLine": 655,
+        "startChar": 4,
+        "endLine": 655,
+        "endChar": 6
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44eb043b_51111368",
@@ -256,6 +484,24 @@
       "writtenOn": "2023-11-30T13:59:19Z",
       "side": 1,
       "message": "is sock always equals to mMulticastSocket?",
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46b8fde8_e6a892e1",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "yes, moved the mMulticastSocket inside Dependencies as it\u0027s only used here.",
+      "parentUuid": "44eb043b_51111368",
       "revId": "962eff5868c32eec79f754d503fece6109abf708",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -328,6 +574,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5848dbd_9865f3e1",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done in aosp/2854706",
+      "parentUuid": "62b6c155_6e832830",
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc8aee99_7f5c5f89",
@@ -341,6 +605,30 @@
       "writtenOn": "2023-11-29T07:58:00Z",
       "side": 1,
       "message": "Maybe getExpiresCentiSeconds? But it seems better to just convert this to milliseconds and call this getExpiresMillis.",
+      "range": {
+        "startLine": 154,
+        "startChar": 26,
+        "endLine": 154,
+        "endChar": 32
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d247da09_d7a8f843",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done in aosp/2854706",
+      "parentUuid": "fc8aee99_7f5c5f89",
       "range": {
         "startLine": 154,
         "startChar": 26,
@@ -374,6 +662,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dfcd36c_9c1519d2",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab6098fe_a4db089d",
+      "range": {
+        "startLine": 215,
+        "startChar": 26,
+        "endLine": 215,
+        "endChar": 29
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8da1549d_e3fc8ebe",
@@ -387,6 +699,30 @@
       "writtenOn": "2023-11-29T07:58:00Z",
       "side": 1,
       "message": "Looks like you got this from the similar code below, but... When can this happen? Only when parsing failed? If so, it seems better to reject the message as invalid and return null.",
+      "range": {
+        "startLine": 243,
+        "startChar": 56,
+        "endLine": 243,
+        "endChar": 85
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c16c140_cec7a67f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done in aosp/2854706",
+      "parentUuid": "8da1549d_e3fc8ebe",
       "range": {
         "startLine": 243,
         "startChar": 56,
@@ -420,6 +756,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbbc7be7_cd4b7fcc",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "This is for the RTM_GETROUTE message, this message is created to dump multicast routes from the kernel and doesn\u0027t need to include any attributes when used in NLM_F_DUMP mode. Added some more info in the comments for the RTM_GETROUTE dump message.",
+      "parentUuid": "a82a3b21_f792aeda",
+      "range": {
+        "startLine": 282,
+        "startChar": 8,
+        "endLine": 282,
+        "endChar": 35
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12ceadd8_3dbe2db3",
@@ -433,6 +793,30 @@
       "writtenOn": "2023-11-29T07:58:00Z",
       "side": 1,
       "message": "Shouldn\u0027t we pack the iif and source as well?",
+      "range": {
+        "startLine": 300,
+        "startChar": 4,
+        "endLine": 300,
+        "endChar": 5
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e2d48e8_91e63c19",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done in aosp/2854706",
+      "parentUuid": "12ceadd8_3dbe2db3",
       "range": {
         "startLine": 300,
         "startChar": 4,
@@ -466,6 +850,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42d1880e_f75c59b5",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done in aosp/2854706",
+      "parentUuid": "d29a68ff_bfc5ae48",
+      "range": {
+        "startLine": 307,
+        "startChar": 37,
+        "endLine": 307,
+        "endChar": 38
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e5bc1a9_4119e87a",
@@ -479,6 +887,30 @@
       "writtenOn": "2023-11-29T07:58:00Z",
       "side": 1,
       "message": "Ditto, if ifindex is absent or zero, maybe don\u0027t print it?",
+      "range": {
+        "startLine": 310,
+        "startChar": 16,
+        "endLine": 310,
+        "endChar": 17
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c450e6bb_63de09d8",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done in aosp/2854706",
+      "parentUuid": "1e5bc1a9_4119e87a",
       "range": {
         "startLine": 310,
         "startChar": 16,
@@ -512,6 +944,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44946be6_d2df5756",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "The `StructNlMsgHdr.STRUCT_SIZE` and `StructRtMsg.STRUCT_SIZE` are already aligned, for the dump request we don\u0027t need to add any other attributes so should be fine link this. Or am I missing something here?",
+      "parentUuid": "d95a18f5_4c6499b5",
+      "range": {
+        "startLine": 333,
+        "startChar": 61,
+        "endLine": 333,
+        "endChar": 62
+      },
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a327e28_d39ab25b",
@@ -525,6 +981,24 @@
       "writtenOn": "2023-11-29T07:58:00Z",
       "side": 1,
       "message": "If parsing fails, do you really want to return only the routes that were seen so far? Seems better to throw.",
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fae93ed2_25cbe1a6",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a327e28_d39ab25b",
       "revId": "962eff5868c32eec79f754d503fece6109abf708",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

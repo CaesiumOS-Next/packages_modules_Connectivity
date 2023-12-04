@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01674a02_97f4f750",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9e348f4_6a2e946f",
+      "revId": "7db3cd9dcc1342af7a14bef92d201af8f707dd7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e15f94c_37501824",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "+1. Please don\u0027t catch any exception in a test case if you don\u0027t expect it. Instead, add `throws Exception` to the end of this test method:\n\n```\n    @Test\n    public void testSetSockOptBytes() throws Exception {\n    // ....\n    }\n```",
       "parentUuid": "8e15f94c_37501824",
+      "revId": "7db3cd9dcc1342af7a14bef92d201af8f707dd7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d162bc22_c29689e2",
+        "filename": "tests/unit/java/android/net/NetworkUtilsTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done in aosp/2854705",
+      "parentUuid": "6bee7350_8f497487",
       "revId": "7db3cd9dcc1342af7a14bef92d201af8f707dd7b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

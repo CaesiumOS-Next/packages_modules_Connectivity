@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28d56fd8_0610fdf9",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9e21cf5_7fa90cb8",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 85
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c4817c9_e1dd9944",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b4d1b91_dfb6dc45",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c4817c9_e1dd9944",
+      "range": {
+        "startLine": 138,
+        "startChar": 1,
+        "endLine": 138,
+        "endChar": 60
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f91f229a_8063325d",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-12-01T12:08:15Z",
       "side": 1,
       "message": "Can you add a similar documentation for `mMulticastRoutingConfigs` above",
+      "range": {
+        "startLine": 142,
+        "startChar": 8,
+        "endLine": 142,
+        "endChar": 56
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64c7f79a_2b495eaa",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f91f229a_8063325d",
       "range": {
         "startLine": 142,
         "startChar": 8,
@@ -116,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a65fb087_85087783",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Good suggestion, thanks, done.",
+      "parentUuid": "119692b2_0fad9386",
+      "range": {
+        "startLine": 157,
+        "startChar": 8,
+        "endLine": 157,
+        "endChar": 60
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88901ed2_25cdb141",
@@ -129,6 +225,30 @@
       "writtenOn": "2023-12-01T12:08:15Z",
       "side": 1,
       "message": "`mListenerThread` and `mListenerHandler` are used by only mMulticastNoCacheUpcallListener. So I think they should be member fields of class `MulticastNocacheUpcallListener` rather than `RoutingCoordinatorService`",
+      "range": {
+        "startLine": 162,
+        "startChar": 8,
+        "endLine": 162,
+        "endChar": 24
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "545dd4c3_f500ea63",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "The `mListenerHandler` has to be passed to the `MulticastNocacheUpcallListener` constructor when creating the listener, so I had to create them in advance.",
+      "parentUuid": "88901ed2_25cdb141",
       "range": {
         "startLine": 162,
         "startChar": 8,
@@ -202,6 +322,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b1fed2a_1d01b1f5",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d3b40a6_bc173d37",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa93e42f_547dc53a",
@@ -215,6 +359,30 @@
       "writtenOn": "2023-12-01T12:08:15Z",
       "side": 1,
       "message": "```suggestion\n        applyMulticastForwardMinimumScope(mIfName1, mIfName2, 4 /* minScope */)\n```",
+      "range": {
+        "startLine": 178,
+        "startChar": 62,
+        "endLine": 178,
+        "endChar": 64
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac4562c8_58dc0a8e",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa93e42f_547dc53a",
       "range": {
         "startLine": 178,
         "startChar": 62,
@@ -248,6 +416,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0742aaa4_99ccfcd0",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3673c293_a7408d09",
+      "range": {
+        "startLine": 181,
+        "startChar": 8,
+        "endLine": 181,
+        "endChar": 98
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e5b0c85_210498c7",
@@ -261,6 +453,30 @@
       "writtenOn": "2023-12-01T12:08:15Z",
       "side": 1,
       "message": "```suggestion\n    fun testMulticastRouting_addressScopelargerThanMinScope_allowMfcIsAdded() {\n```\n\nSee go/unit-testing-practices#naming for how to name your test case",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 67
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f4924c0_3791eb58",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e5b0c85_210498c7",
       "range": {
         "startLine": 185,
         "startChar": 8,
@@ -294,6 +510,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a2be482_b21d6084",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c901b8f_a1577ac3",
+      "range": {
+        "startLine": 186,
+        "startChar": 62,
+        "endLine": 186,
+        "endChar": 64
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb25fab7_05dc5795",
@@ -307,6 +547,30 @@
       "writtenOn": "2023-12-01T12:08:15Z",
       "side": 1,
       "message": "ditto, use `TestLooper#dispatchAll` to execute all posted tasks",
+      "range": {
+        "startLine": 187,
+        "startChar": 8,
+        "endLine": 187,
+        "endChar": 38
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53b6a3c3_d282a6c0",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb25fab7_05dc5795",
       "range": {
         "startLine": 187,
         "startChar": 8,
@@ -340,6 +604,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fecf2e4_61346456",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "990f40f2_7657d956",
+      "range": {
+        "startLine": 189,
+        "startChar": 45,
+        "endLine": 189,
+        "endChar": 78
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9e4984c_5e9246c6",
@@ -353,6 +641,30 @@
       "writtenOn": "2023-12-01T12:08:15Z",
       "side": 1,
       "message": "ditto, use `TestLooper#dispatchAll`.",
+      "range": {
+        "startLine": 192,
+        "startChar": 22,
+        "endLine": 192,
+        "endChar": 41
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c77e2df4_97085bb8",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9e4984c_5e9246c6",
       "range": {
         "startLine": 192,
         "startChar": 22,
@@ -386,6 +698,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "955fa4a8_3494074f",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "facf9ffe_eac87d72",
+      "range": {
+        "startLine": 191,
+        "startChar": 2,
+        "endLine": 193,
+        "endChar": 45
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2f65b4f_98054cff",
@@ -399,6 +735,30 @@
       "writtenOn": "2023-12-01T12:08:15Z",
       "side": 1,
       "message": "```suggestion\n    fun testMulticastRouting_addressScopeSmallerThanMinScope_denialMfcIsAdded() {\n```",
+      "range": {
+        "startLine": 197,
+        "startChar": 8,
+        "endLine": 197,
+        "endChar": 72
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4700e6ee_30c95df3",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-04T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2f65b4f_98054cff",
       "range": {
         "startLine": 197,
         "startChar": 8,
