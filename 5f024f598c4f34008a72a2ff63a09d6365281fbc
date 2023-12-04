@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d98de129_91711bba",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-04T06:00:40Z",
+      "side": 1,
+      "message": "Not sure, is \u0027Make a reference to the XXX\u0027 accuracy? or \u0027reference to the\u0027 required?",
+      "range": {
+        "startLine": 56,
+        "startChar": 7,
+        "endLine": 56,
+        "endChar": 45
+      },
+      "revId": "5f024f598c4f34008a72a2ff63a09d6365281fbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
