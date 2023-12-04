@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "563726aa_a59acdbb",
+        "filename": "service/src/com/android/server/connectivity/NetworkNotificationManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-04T07:53:31Z",
+      "side": 1,
+      "message": "Original code (before aosp/2632310) was r.getString(R.string.network_available_sign_in, 0).\nIt seems the second argument was not used?",
+      "range": {
+        "startLine": 276,
+        "startChar": 39,
+        "endLine": 276,
+        "endChar": 64
+      },
+      "revId": "2b508f75c1debedf4051fb6291b75cbb490e42f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
