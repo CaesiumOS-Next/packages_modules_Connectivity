@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39309158_984cdba4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-04T10:18:39Z",
+      "side": 1,
+      "message": "Note that this is blocked by DnsResolver side change which will not reference the  unsynchronized data saver status in bpf map to prevent from mistakenly block dns packet.",
+      "revId": "045166e6331fea49941b247c8ead3f3035c0b142",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
