@@ -102,6 +102,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7ff003a4_1bbc4379",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-04T02:49:18Z",
+      "side": 1,
+      "message": "Hi @yuyanghuang@google.com, maybe remove from this CL since it is not used now?",
+      "parentUuid": "e6b54f56_c7b6cb99",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 5
+      },
+      "revId": "d46c0850ac572836aa0e9b8bb4e1d264450e57ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9c9ab3f4_55c95c06",
         "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
         "patchSetId": 10
