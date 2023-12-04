@@ -16,6 +16,24 @@
       "message": "don\u0027t see any build breakage in the linked bug... it says it\u0027s a one off build time out...",
       "revId": "0220193d0ed9452c86b88d91ec4efb1271055d69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65396347_3a5a8004",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1978453
+      },
+      "writtenOn": "2023-12-04T17:37:54Z",
+      "side": 1,
+      "message": "It\u0027s shown here: https://android-build.corp.google.com/build_explorer/branch/git_aosp-main-future/?gridSize\u003d20\u0026selectionType\u003dSTART_BUILD_WINDOW\u0026startBuildId\u003d11173208\u0026numBuilds\u003d20",
+      "parentUuid": "9f776b67_e2580205",
+      "revId": "0220193d0ed9452c86b88d91ec4efb1271055d69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
