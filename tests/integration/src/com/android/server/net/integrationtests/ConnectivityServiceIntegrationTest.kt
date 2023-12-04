@@ -58,6 +58,7 @@ import com.android.server.TestNetIdManager
 import com.android.server.connectivity.CarrierPrivilegeAuthenticator
 import com.android.server.connectivity.ConnectivityResources
 import com.android.server.connectivity.MockableSystemProperties
+import com.android.server.connectivity.MulticastRoutingCoordinatorService
 import com.android.server.connectivity.MultinetworkPolicyTracker
 import com.android.server.connectivity.ProxyTracker
 import com.android.testutils.DevSdkIgnoreRunner
@@ -65,6 +66,7 @@ import com.android.testutils.DeviceInfoUtils
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.tryTest
+import java.net.MulticastSocket
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
@@ -113,6 +115,8 @@ class ConnectivityServiceIntegrationTest {
     private lateinit var resources: Resources
     @Mock
     private lateinit var resourcesContext: Context
+    @Mock
+    private lateinit var multicastSocket: MulticastSocket
     @Spy
     private var context = TestableContext(realContext)
 
@@ -248,6 +252,16 @@ class ConnectivityServiceIntegrationTest {
                         super.makeHandlerThread().also { handlerThreads.add(it) }
                 },
                 tm, TelephonyManagerShimImpl.newInstance(tm))
+        }
+
+        override fun makeMulticastRoutingCoordinatorService(h: Handler):
+            MulticastRoutingCoordinatorService {
+            return MulticastRoutingCoordinatorService(
+                object: MulticastRoutingCoordinatorService.Dependencies() {
+                    override fun getHandler(): Handler = h
+
+                    override fun createMulticastSocket(): MulticastSocket = multicastSocket
+                })
         }
     }
 

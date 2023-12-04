@@ -46,8 +46,10 @@ import android.os.BatteryStatsManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
+import android.os.ParcelFileDescriptor
 import android.os.UserHandle
 import android.os.UserManager
+import android.os.test.TestLooper
 import android.telephony.TelephonyManager
 import android.testing.TestableContext
 import android.util.ArraySet
@@ -61,18 +63,25 @@ import com.android.server.connectivity.AutomaticOnOffKeepaliveTracker
 import com.android.server.connectivity.CarrierPrivilegeAuthenticator
 import com.android.server.connectivity.ClatCoordinator
 import com.android.server.connectivity.ConnectivityFlags
+import com.android.server.connectivity.MulticastRoutingCoordinatorService
 import com.android.server.connectivity.MultinetworkPolicyTracker
 import com.android.server.connectivity.MultinetworkPolicyTrackerTestDependencies
 import com.android.server.connectivity.ProxyTracker
+import com.android.server.connectivity.RoutingCoordinatorService
 import com.android.testutils.visibleOnHandlerThread
 import com.android.testutils.waitForIdle
+import java.io.FileDescriptor
+import java.net.DatagramSocket
 import java.util.concurrent.Executors
 import kotlin.test.assertNull
 import kotlin.test.fail
 import org.mockito.AdditionalAnswers.delegatesTo
 import org.mockito.Mockito.doAnswer
+import org.mockito.Mockito.doCallRealMethod
+import org.mockito.Mockito.doNothing
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.spy
 
 internal const val HANDLER_TIMEOUT_MS = 2_000
 internal const val BROADCAST_TIMEOUT_MS = 3_000L
@@ -165,6 +174,9 @@ open class CSTest {
     val telephonyManager = mock<TelephonyManager>().also {
         doReturn(true).`when`(it).isDataCapable()
     }
+    val fd = ParcelFileDescriptor.fromDatagramSocket(DatagramSocket()).getFileDescriptor()
+
+    val multicastRoutingCoordinatorService = mock<MulticastRoutingCoordinatorService>()
 
     val deps = CSDeps()
     val service = makeConnectivityService(context, netd, deps).also { it.systemReadyInternal() }
@@ -179,6 +191,8 @@ open class CSTest {
 
         override fun makeHandlerThread(tag: String) = csHandlerThread
         override fun makeProxyTracker(context: Context, connServiceHandler: Handler) = proxyTracker
+        override fun makeMulticastRoutingCoordinatorService(handler: Handler) =
+                this@CSTest.multicastRoutingCoordinatorService
 
         override fun makeCarrierPrivilegeAuthenticator(
                 context: Context,
