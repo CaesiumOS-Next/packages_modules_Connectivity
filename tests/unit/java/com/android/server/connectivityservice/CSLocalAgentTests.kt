@@ -20,6 +20,7 @@ import android.net.IpPrefix
 import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.LocalNetworkConfig
+import android.net.MulticastRoutingConfig
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_DUN
 import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
@@ -82,6 +83,13 @@ private fun keepScore() = FromS(
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class CSLocalAgentTests : CSTest() {
+    val multicastRoutingConfigMinScope =
+                MulticastRoutingConfig.Builder(MulticastRoutingConfig.FORWARD_WITH_MIN_SCOPE, 4)
+                        .build();
+        val multicastRoutingConfigSelected =
+                MulticastRoutingConfig.Builder(MulticastRoutingConfig.FORWARD_SELECTED)
+                        .build();
+
     @Test
     fun testBadAgents() {
         deps.setBuildSdk(VERSION_V)
@@ -174,6 +182,107 @@ class CSLocalAgentTests : CSTest() {
         cb.expect<LocalInfoChanged>(localAgent.network) { it.info.upstreamNetwork == null }
 
         localAgent.disconnect()
+    }
+
+    private fun buildLocalNetworkAndUpstreamNetwork(): Pair<CSAgentWrapper, CSAgentWrapper> {
+        // Set up a local agent that should forward its multicast traffic to its upstream.
+        val localAgent = Agent(
+                nc = nc(TRANSPORT_THREAD, NET_CAPABILITY_LOCAL_NETWORK),
+                lp = lp("local0"),
+                lnc = FromS(LocalNetworkConfig.Builder().build()),
+        )
+        localAgent.connect()
+
+        // Set up an upstream network that should forward its multicast traffic to its downstream.
+        val wifiAgent = Agent(score = keepScore(), lp = lp("wifi0"),
+                nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_INTERNET))
+        wifiAgent.connect()
+
+        val newLnc = LocalNetworkConfig.Builder()
+                .setUpstreamSelector(NetworkRequest.Builder()
+                        .addTransportType(TRANSPORT_WIFI)
+                        .build())
+                .build()
+        localAgent.sendLocalNetworkConfig(newLnc)
+        return Pair(localAgent, wifiAgent)
+    }
+
+    private fun build2LocalNetworksAndUpstreamNetwork():
+                Triple<CSAgentWrapper, CSAgentWrapper, CSAgentWrapper> {
+        val (localAgent0, wifiAgent) = buildLocalNetworkAndUpstreamNetwork()
+        val localAgent1 = Agent(
+                nc = nc(TRANSPORT_THREAD, NET_CAPABILITY_LOCAL_NETWORK),
+                lp = lp("local1"),
+                lnc = FromS(LocalNetworkConfig.Builder().build()),
+        )
+        localAgent1.connect()
+        val newLnc = LocalNetworkConfig.Builder()
+                .setUpstreamSelector(NetworkRequest.Builder()
+                        .addTransportType(TRANSPORT_WIFI)
+                        .build())
+                .build()
+        localAgent1.sendLocalNetworkConfig(newLnc)
+        return Triple(localAgent0, localAgent1, wifiAgent)
+    }
+
+    private fun sendLocalNetworkConfig(localAgent: CSAgentWrapper,
+                upstreamConfig: MulticastRoutingConfig, downstreamConfig: MulticastRoutingConfig) {
+        val newLnc = LocalNetworkConfig.Builder()
+                .setUpstreamSelector(NetworkRequest.Builder()
+                        .addTransportType(TRANSPORT_WIFI)
+                        .build())
+                .setUpstreamMulticastRoutingConfig(upstreamConfig)
+                .setDownstreamMulticastRoutingConfig(downstreamConfig)
+                .build()
+        localAgent.sendLocalNetworkConfig(newLnc)
+    }
+
+    @Test
+    fun testMulticastRoutingConfig() {
+        deps.setBuildSdk(VERSION_V)
+        val (localAgent, wifiAgent) = buildLocalNetworkAndUpstreamNetwork()
+
+        clearInvocations(routingCoordinatorService)
+        sendLocalNetworkConfig(localAgent, multicastRoutingConfigMinScope,
+                multicastRoutingConfigSelected)
+
+        verify(routingCoordinatorService, timeout(TIMEOUT_MS)).applyMulticastRoutingConfig(
+                "local0", "wifi0", multicastRoutingConfigMinScope)
+        verify(routingCoordinatorService, timeout(TIMEOUT_MS)).applyMulticastRoutingConfig(
+                "wifi0", "local0", multicastRoutingConfigSelected)
+
+        wifiAgent.disconnect()
+        verify(routingCoordinatorService, timeout(TIMEOUT_MS))
+                .removeInterfaceFromMulticastRouting("wifi0")
+        localAgent.disconnect()
+        verify(routingCoordinatorService, timeout(TIMEOUT_MS))
+                .removeInterfaceFromMulticastRouting("local0")
+    }
+
+    @Test
+    fun testMulticastRoutingConfig_2LocalNetworks() {
+        deps.setBuildSdk(VERSION_V)
+        val (localAgent0, localAgent1, wifiAgent) =
+                build2LocalNetworksAndUpstreamNetwork()
+
+        clearInvocations(routingCoordinatorService)
+        sendLocalNetworkConfig(localAgent0, multicastRoutingConfigMinScope,
+                multicastRoutingConfigSelected)
+        sendLocalNetworkConfig(localAgent1, multicastRoutingConfigMinScope,
+                multicastRoutingConfigSelected)
+
+        verify(routingCoordinatorService, timeout(TIMEOUT_MS)).applyMulticastRoutingConfig(
+                "local0", "wifi0", multicastRoutingConfigMinScope)
+        verify(routingCoordinatorService, timeout(TIMEOUT_MS)).applyMulticastRoutingConfig(
+                "wifi0", "local0", multicastRoutingConfigSelected)
+        verify(routingCoordinatorService, timeout(TIMEOUT_MS)).applyMulticastRoutingConfig(
+                "local1", "wifi0", multicastRoutingConfigMinScope)
+        verify(routingCoordinatorService, timeout(TIMEOUT_MS)).applyMulticastRoutingConfig(
+                "wifi0", "local1", multicastRoutingConfigSelected)
+
+        localAgent0.disconnect()
+        localAgent1.disconnect()
+        wifiAgent.disconnect()
     }
 
     @Test
