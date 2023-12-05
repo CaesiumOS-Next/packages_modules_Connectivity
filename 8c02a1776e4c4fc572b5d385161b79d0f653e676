@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b542ed36_550f7c51",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-05T02:54:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ab46f61_7c121dd1",
+      "range": {
+        "startLine": 139,
+        "startChar": 12,
+        "endLine": 139,
+        "endChar": 20
+      },
+      "revId": "8c02a1776e4c4fc572b5d385161b79d0f653e676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad876f53_080b062b",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-05T02:11:39Z",
       "side": 1,
       "message": "Replace volatile as final ?",
+      "range": {
+        "startLine": 140,
+        "startChar": 14,
+        "endLine": 140,
+        "endChar": 15
+      },
+      "revId": "8c02a1776e4c4fc572b5d385161b79d0f653e676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc511e43_7cc48c53",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-05T02:54:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad876f53_080b062b",
       "range": {
         "startLine": 140,
         "startChar": 14,
@@ -64,6 +112,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45dc5698_e4fc7fce",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-05T02:54:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95e0c49d_3d822834",
+      "revId": "8c02a1776e4c4fc572b5d385161b79d0f653e676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e598f2cc_67a3469a",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-12-05T02:11:39Z",
       "side": 1,
       "message": "Per talk offline, the new Handler design doesn\u0027t need to sleep the thread anymore so that we don\u0027t need to return 1 day here.",
+      "range": {
+        "startLine": 710,
+        "startChar": 8,
+        "endLine": 714,
+        "endChar": 11
+      },
+      "revId": "8c02a1776e4c4fc572b5d385161b79d0f653e676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de5d52cd_e9935be1",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-05T02:54:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e598f2cc_67a3469a",
       "range": {
         "startLine": 710,
         "startChar": 8,
