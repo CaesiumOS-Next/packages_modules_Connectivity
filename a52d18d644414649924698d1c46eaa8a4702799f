@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82411c2f_b12021e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-12-05T03:26:20Z",
+      "side": 1,
+      "message": "Suggest a comment to note that we\u0027re adding per Security Review comments",
+      "revId": "a52d18d644414649924698d1c46eaa8a4702799f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95b10285_7a1f5622",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-12-05T03:26:20Z",
+      "side": 1,
+      "message": "Should this change include the permission changes in IpSecService? or is that rolled into the implementation CL?",
+      "revId": "a52d18d644414649924698d1c46eaa8a4702799f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
