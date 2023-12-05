@@ -22,6 +22,30 @@
       },
       "revId": "47c1a292ea61ee43090306adab19621dc63a79d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcbcca12_ac4a0ded",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-12-05T13:11:37Z",
+      "side": 1,
+      "message": "Because it is RRO configuration which is different with device_config we used here. OEMs are allowed to change RRO configurations, but device_config flag is fully controlled by module owner.",
+      "parentUuid": "2a1c1246_481707c3",
+      "range": {
+        "startLine": 758,
+        "startChar": 17,
+        "endLine": 758,
+        "endChar": 49
+      },
+      "revId": "47c1a292ea61ee43090306adab19621dc63a79d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
