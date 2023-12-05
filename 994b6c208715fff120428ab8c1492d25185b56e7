@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "870fe7d3_e76571ec",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-05T06:59:12Z",
+      "side": 1,
+      "message": "rename this class to `UnicastRoutingTest` and add class documentation.",
+      "range": {
+        "startLine": 59,
+        "startChar": 13,
+        "endLine": 59,
+        "endChar": 30
+      },
+      "revId": "994b6c208715fff120428ab8c1492d25185b56e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b5c3776_50915393",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-05T06:59:12Z",
+      "side": 1,
+      "message": "Read and follow go/unit-testing-practices to refactor this test case",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 81
+      },
+      "revId": "994b6c208715fff120428ab8c1492d25185b56e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2cb07a7_244a43d9",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-05T06:59:12Z",
+      "side": 1,
+      "message": "```suggestion\n    public static final class FullThreadDevice {\n```",
+      "range": {
+        "startLine": 63,
+        "startChar": 30,
+        "endLine": 63,
+        "endChar": 35
+      },
+      "revId": "994b6c208715fff120428ab8c1492d25185b56e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b227454f_47c7432b",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-05T06:59:12Z",
+      "side": 1,
+      "message": "Please document this device.",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 37
+      },
+      "revId": "994b6c208715fff120428ab8c1492d25185b56e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50ddfa85_7b1c801b",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-05T06:59:12Z",
+      "side": 1,
+      "message": "Add document for all public methods.",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 34
+      },
+      "revId": "994b6c208715fff120428ab8c1492d25185b56e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87b7d2f4_a18d3517",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-05T06:59:12Z",
+      "side": 1,
+      "message": "Do not catch `Exception`. See go/java-practices/exceptions\n\n```suggestion\n                try {\n                    Inet6Address addr \u003d (Inet6Address) Inet6Address.getByName(address);\n                    if (!meshLocalPrefix.contains(addr)) {\n                        return addr;\n                    }\n                } catch (UnknownHostException | SecurityException e) {\n                    throw new IllegalStateException(\"Invalid Thread address: \" + address, e);\n                }\n```",
+      "range": {
+        "startLine": 83,
+        "startChar": 16,
+        "endLine": 89,
+        "endChar": 17
+      },
+      "revId": "994b6c208715fff120428ab8c1492d25185b56e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc636b28_83cf9d03",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-05T06:59:12Z",
+      "side": 1,
+      "message": "ditto, do not catch `Exception`",
+      "range": {
+        "startLine": 130,
+        "startChar": 12,
+        "endLine": 130,
+        "endChar": 41
+      },
+      "revId": "994b6c208715fff120428ab8c1492d25185b56e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8547b7be_74e02c98",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-05T06:59:12Z",
+      "side": 1,
+      "message": "Could you please move those fields to the beginning of this class? I think that\u0027s our conversion on field and method order.",
+      "range": {
+        "startLine": 156,
+        "startChar": 8,
+        "endLine": 157,
+        "endChar": 45
+      },
+      "revId": "994b6c208715fff120428ab8c1492d25185b56e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d29f1111_4e1d3d3c",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-05T06:59:12Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Error Prone: [UnusedVariable] The field \u0027mErrorReader\u0027 is never read.\n\nAnalyzer Description: Warnings generated by errorprone.\nOwner: farivar@google.com\n\n    [UnusedVariable] The field \u0027mErrorReader\u0027 is never read.\n            private final BufferedReader mErrorReader;\n                                         ^\n        (see https://errorprone.info/bugpattern/UnusedVariable)\n      Did you mean to remove this line or \u0027new BufferedReader(new InputStreamReader(mProcess.getErrorStream()));\u0027?\n\nUse `m RUN_ERROR_PRONE\u003dtrue MyModule` to reproduce locally.\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P66270774/targets/errorprone-trunk_staging, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 50
+      },
+      "revId": "994b6c208715fff120428ab8c1492d25185b56e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
