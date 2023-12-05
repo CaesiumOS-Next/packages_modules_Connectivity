@@ -44,6 +44,7 @@ import static org.junit.Assert.fail;
 import android.annotation.NonNull;
 import android.content.res.Resources;
 import android.net.NetworkStatsCollection.Key;
+import android.os.Build;
 import android.os.Process;
 import android.os.UserHandle;
 import android.telephony.SubscriptionPlan;
@@ -197,6 +198,35 @@ public class NetworkStatsCollectionTest {
         collection.read(new ByteArrayInputStream(bos.toByteArray()));
         assertSummaryTotalIncludingTags(collection, buildTemplateMobileAll(TEST_IMSI),
                 77017831L, 100995L, 35436758L, 92344L);
+    }
+
+    private InputStream getUidInputStreamFromRes(int uidRes) throws Exception {
+        final File testFile =
+                new File(InstrumentationRegistry.getContext().getFilesDir(), TEST_FILE);
+        stageFile(uidRes, testFile);
+
+        final NetworkStatsCollection collection = new NetworkStatsCollection(30 * MINUTE_IN_MILLIS);
+        collection.readLegacyUid(testFile, true);
+
+        // now export into a unified format
+        final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        collection.write(bos);
+        return new ByteArrayInputStream(bos.toByteArray());
+    }
+
+    // FastDataInput is not available until U.
+    @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testFastDataInputRead() throws Exception {
+        final NetworkStatsCollection legacyCollection =
+                new NetworkStatsCollection(30 * MINUTE_IN_MILLIS, false /* useFastDataInput */);
+        final NetworkStatsCollection fastReadCollection =
+                new NetworkStatsCollection(30 * MINUTE_IN_MILLIS, true /* useFastDataInput */);
+        final InputStream bis = getUidInputStreamFromRes(R.raw.netstats_uid_v4);
+        legacyCollection.read(bis);
+        bis.reset();
+        fastReadCollection.read(bis);
+        assertCollectionEntries(legacyCollection.getEntries(), fastReadCollection);
     }
 
     @Test
