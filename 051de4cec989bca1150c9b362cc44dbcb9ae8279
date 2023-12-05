@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb8781e1_f55bd771",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1059936
+      },
+      "writtenOn": "2023-12-05T18:04:52Z",
+      "side": 1,
+      "message": "Samip - could you help w/ DrNo approval for this CL?  This is CL pairs with aosp/2844056 -- thanks.",
+      "revId": "051de4cec989bca1150c9b362cc44dbcb9ae8279",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
