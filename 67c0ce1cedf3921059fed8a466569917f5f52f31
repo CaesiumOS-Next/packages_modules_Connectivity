@@ -278,6 +278,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "576d4f11_33288b6b",
+        "filename": "service/src/com/android/server/connectivity/StructMf6cctl.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T07:17:18Z",
+      "side": 1,
+      "message": "+1, seems better to have them in a common location.",
+      "parentUuid": "02adc645_3cc22a1c",
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "00d32fd2_c842dd61",
         "filename": "service/src/com/android/server/connectivity/StructMf6cctl.java",
         "patchSetId": 19
@@ -289,6 +307,30 @@
       "writtenOn": "2023-12-01T12:08:15Z",
       "side": 1,
       "message": "You probably want to check the size of `oifs` to avoid Index Out of Bounds Exception",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 9
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d7d5cf8_49ad0b62",
+        "filename": "service/src/com/android/server/connectivity/StructMf6cctl.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T07:17:18Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "00d32fd2_c842dd61",
       "range": {
         "startLine": 61,
         "startChar": 8,

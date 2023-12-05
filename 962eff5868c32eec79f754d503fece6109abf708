@@ -558,6 +558,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d19312b2_6397b5e1",
+        "filename": "service/src/com/android/server/connectivity/StructMif6ctl.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T07:17:18Z",
+      "side": 1,
+      "message": "Structs defined under include/uapi/... cannot change because they are covered by the linux kernel ABI stability guarantees (\"uapi\" stands for \"userspace API\").",
+      "parentUuid": "92d0a537_71dc7015",
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2759128c_114c0fa8",
@@ -571,6 +589,24 @@
       "writtenOn": "2023-11-30T07:01:09Z",
       "side": 1,
       "message": "Is this explicit constructor necessary?",
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6757510d_f842dc85",
+        "filename": "service/src/com/android/server/connectivity/StructMrt6Msg.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T07:17:18Z",
+      "side": 1,
+      "message": "I think so, if the members are final?",
+      "parentUuid": "2759128c_114c0fa8",
       "revId": "962eff5868c32eec79f754d503fece6109abf708",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
