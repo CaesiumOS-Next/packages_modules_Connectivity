@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f68e6920_ec22e144",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T05:58:50Z",
+      "side": 1,
+      "message": "Can you move the netlink code to its own CL?",
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea60a908_75382ee6",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T05:58:50Z",
+      "side": 1,
+      "message": "Do we actually need this? If we don\u0027t need it, can we remove it? The build rules for common libararies are complicated and it\u0027s hard to predict what might or might not jarjar classes in some downstream build target. It seems safest not to add to static libs at all.",
+      "range": {
+        "startLine": 211,
+        "startChar": 9,
+        "endLine": 211,
+        "endChar": 32
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "850f5e60_0662ecfd",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNlAttr.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T05:58:50Z",
+      "side": 1,
+      "message": "Pre-existing, but this is guaranteed to be nativeOrder(). You might want to just remove it and change line 177 to:\n\n    buf.order(nativeOrder());\n\nYou can do that in a separate CL before you merge this one.",
+      "range": {
+        "startLine": 172,
+        "startChar": 24,
+        "endLine": 172,
+        "endChar": 37
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fccaf542_ac305624",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNlAttr.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T05:58:50Z",
+      "side": 1,
+      "message": "Might want to mention here (and in line 307) that the attribute value is assumed to be in native byte order.",
+      "range": {
+        "startLine": 318,
+        "startChar": 86,
+        "endLine": 318,
+        "endChar": 87
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05fb78b6_f1ecc9e4",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNlMsgHdr.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T05:58:50Z",
+      "side": 1,
+      "message": "Maybe add a comment that explains why this else? Something like\n\n    // NLM_F_DUMP \u003d NLM_F_ROOT | NLM_F_MATCH.",
+      "range": {
+        "startLine": 79,
+        "startChar": 10,
+        "endLine": 79,
+        "endChar": 14
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
