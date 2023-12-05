@@ -16,6 +16,46 @@
       "message": "Ping for review.",
       "revId": "8b8b05128e292ba51d25d1f1091488db4c0ca6da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3b2b315_4fb0bb95",
+        "filename": "staticlibs/netd/binder/android/net/mdns/aidl/IMDnsEventListener.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-05T02:04:50Z",
+      "side": 1,
+      "message": "I don\u0027t think that\u0027s true: being a oneway interface, it can\u0027t throw exceptions back to the caller",
+      "revId": "8b8b05128e292ba51d25d1f1091488db4c0ca6da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ca555b2_1000797b",
+        "filename": "staticlibs/netd/binder/android/net/mdns/aidl/IMDnsEventListener.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-05T02:04:50Z",
+      "side": 1,
+      "message": "This is actually implemented, but should be a no-op when called on U+ right ?",
+      "range": {
+        "startLine": 51,
+        "startChar": 19,
+        "endLine": 51,
+        "endChar": 32
+      },
+      "revId": "8b8b05128e292ba51d25d1f1091488db4c0ca6da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
