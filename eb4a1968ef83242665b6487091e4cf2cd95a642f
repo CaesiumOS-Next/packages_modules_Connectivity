@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93e77f9b_21c72415",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T04:39:04Z",
+      "side": 1,
+      "message": "Nit: might want to check that the allowed UIDs are empty as well.\n\nGiven what the production code change does, we\u0027re assuming that the UID this test is running as is the owner of the network?",
+      "range": {
+        "startLine": 804,
+        "startChar": 43,
+        "endLine": 804,
+        "endChar": 61
+      },
+      "revId": "eb4a1968ef83242665b6487091e4cf2cd95a642f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
