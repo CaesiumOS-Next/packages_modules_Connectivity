@@ -56,6 +56,7 @@ java_defaults {
         "unsupportedappusage",
         "app-compat-annotations",
         "androidx.annotation_annotation",
+        "modules-utils-binary-xml",
     ],
     impl_only_libs: [
         // The build system will use framework-bluetooth module_current stubs, because
