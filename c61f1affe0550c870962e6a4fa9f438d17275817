@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "293b5bbc_ef25d25e",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/StructXfrmUsersaInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-12-05T03:32:04Z",
+      "side": 1,
+      "message": "Suggest a comment here that order matters",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 82
+      },
+      "revId": "c61f1affe0550c870962e6a4fa9f438d17275817",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
