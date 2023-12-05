@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46b689df_5b22233f",
+        "filename": "staticlibs/netd/binder/android/net/mdns/aidl/IMDnsEventListener.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-12-05T02:48:16Z",
+      "side": 1,
+      "message": "Yes, it can. We do receive issues when the exception is not yet catched by MDnsManager.java\nhttps://b.corp.google.com/issues/312092770",
+      "parentUuid": "a3b2b315_4fb0bb95",
+      "revId": "8b8b05128e292ba51d25d1f1091488db4c0ca6da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ca555b2_1000797b",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-12-05T02:04:50Z",
       "side": 1,
       "message": "This is actually implemented, but should be a no-op when called on U+ right ?",
+      "range": {
+        "startLine": 51,
+        "startChar": 19,
+        "endLine": 51,
+        "endChar": 32
+      },
+      "revId": "8b8b05128e292ba51d25d1f1091488db4c0ca6da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0260a6b6_377e1b3d",
+        "filename": "staticlibs/netd/binder/android/net/mdns/aidl/IMDnsEventListener.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-12-05T02:48:16Z",
+      "side": 1,
+      "message": "Yes, APIs are implemented and return UnsupportedOperationException on U+. The entire MDnsService in netd (which implements mdns binder APIs) will be deleted in V+. The CL is prepared but hold until the aosp_main is moved from U to V.\nhttps://android-review.git.corp.google.com/c/platform/system/netd/+/2832090",
+      "parentUuid": "8ca555b2_1000797b",
       "range": {
         "startLine": 51,
         "startChar": 19,
