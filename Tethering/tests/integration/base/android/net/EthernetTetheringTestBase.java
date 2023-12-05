@@ -57,8 +57,6 @@ import android.net.TetheringManager.TetheringEventCallback;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.TetheringTester.TetheredDevice;
 import android.net.cts.util.CtsNetUtils;
-import android.net.cts.util.CtsTetheringUtils;
-import android.net.cts.util.CtsTetheringUtils.TestTetheringEventCallback;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
@@ -172,18 +170,24 @@ public abstract class EthernetTetheringTestBase {
         // Tethering would cache the last upstreams so that the next enabled tethering avoids
         // picking up the address that is in conflict with the upstreams. To protect subsequent
         // tests, turn tethering on and off before running them.
-        final CtsTetheringUtils utils = new CtsTetheringUtils(sContext);
-        final TestTetheringEventCallback callback = utils.registerTetheringEventCallback();
+        MyTetheringEventCallback callback = null;
+        TestNetworkInterface testIface = null;
         try {
-            if (!callback.isWifiTetheringSupported(sContext)) return;
+            // If physical ethernet interface available, do nothing.
+            if (isInterfaceForTetheringAvailable()) return;
 
-            callback.expectNoTetheringActive();
+            testIface = createTestInterface();
+            setIncludeTestInterfaces(true);
 
-            utils.startWifiTethering(callback);
-            callback.getCurrentValidUpstream();
-            utils.stopWifiTethering(callback);
+            callback = enableEthernetTethering(testIface.getInterfaceName(), null);
+            callback.awaitUpstreamChanged(true /* throwTimeoutException */);
+        } catch (TimeoutException e) {
+            Log.d(TAG, "WARNNING " + e);
         } finally {
-            utils.unregisterTetheringEventCallback(callback);
+            maybeCloseTestInterface(testIface);
+            maybeUnregisterTetheringEventCallback(callback);
+
+            setIncludeTestInterfaces(false);
         }
     }
 
@@ -213,7 +217,7 @@ public abstract class EthernetTetheringTestBase {
         }
     }
 
-    protected void maybeCloseTestInterface(final TestNetworkInterface testInterface)
+    protected static void maybeCloseTestInterface(final TestNetworkInterface testInterface)
             throws Exception {
         if (testInterface != null) {
             testInterface.getFileDescriptor().close();
@@ -221,8 +225,8 @@ public abstract class EthernetTetheringTestBase {
         }
     }
 
-    protected void maybeUnregisterTetheringEventCallback(final MyTetheringEventCallback callback)
-            throws Exception {
+    protected static void maybeUnregisterTetheringEventCallback(
+            final MyTetheringEventCallback callback) throws Exception {
         if (callback != null) {
             callback.awaitInterfaceUntethered();
             callback.unregister();
@@ -307,13 +311,13 @@ public abstract class EthernetTetheringTestBase {
         }
     }
 
-    protected void setIncludeTestInterfaces(boolean include) {
+    protected static void setIncludeTestInterfaces(boolean include) {
         runAsShell(NETWORK_SETTINGS, () -> {
             sEm.setIncludeTestInterfaces(include);
         });
     }
 
-    protected void setPreferTestNetworks(boolean prefer) {
+    protected static void setPreferTestNetworks(boolean prefer) {
         runAsShell(NETWORK_SETTINGS, () -> {
             sTm.setPreferTestNetworks(prefer);
         });
@@ -643,7 +647,7 @@ public abstract class EthernetTetheringTestBase {
         }
     }
 
-    protected TestNetworkInterface createTestInterface() throws Exception {
+    protected static TestNetworkInterface createTestInterface() throws Exception {
         TestNetworkManager tnm = runAsShell(MANAGE_TEST_NETWORKS, () ->
                 sContext.getSystemService(TestNetworkManager.class));
         TestNetworkInterface iface = runAsShell(MANAGE_TEST_NETWORKS, () ->
