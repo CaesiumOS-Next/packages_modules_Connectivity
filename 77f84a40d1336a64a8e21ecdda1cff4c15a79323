@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f449c227_0f9149f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-05T11:07:25Z",
+      "side": 1,
+      "message": "This CL LGTM since this is just code move.\nBut why we need to move to `NetworkStatsCollection`?\nWho will call compareStats?",
+      "revId": "77f84a40d1336a64a8e21ecdda1cff4c15a79323",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "025d5513_e47d8365",
+        "filename": "framework-t/src/android/net/NetworkStatsCollection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-05T11:07:25Z",
+      "side": 1,
+      "message": "not for this CL, should this be moved to Key#toString?",
+      "range": {
+        "startLine": 930,
+        "startChar": 62,
+        "endLine": 930,
+        "endChar": 63
+      },
+      "revId": "77f84a40d1336a64a8e21ecdda1cff4c15a79323",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
