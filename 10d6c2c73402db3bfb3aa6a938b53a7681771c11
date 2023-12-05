@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "145a93b7_8c4e5484",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-12-05T16:50:59Z",
+      "side": 1,
+      "message": "If you just move createSocket() to CMD_START, start() won\u0027t be able to return a boolean value to indicate whether the socket was created successfully.",
+      "parentUuid": "900ea7f1_4b9fb183",
+      "range": {
+        "startLine": 394,
+        "startChar": 13,
+        "endLine": 394,
+        "endChar": 25
+      },
+      "revId": "10d6c2c73402db3bfb3aa6a938b53a7681771c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1e60d7cc_23c6ef8b",
         "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
         "patchSetId": 13
