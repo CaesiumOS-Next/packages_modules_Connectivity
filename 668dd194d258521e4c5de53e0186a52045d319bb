@@ -88,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "640f06a0_1ded486b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInetAddressRecord.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-05T07:59:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f58456e3_742bcdf1",
+      "revId": "668dd194d258521e4c5de53e0186a52045d319bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "253534b9_4e42e123",
@@ -125,6 +143,30 @@
       "side": 1,
       "message": "Ack. Keep it open so I will rebase on aosp/2845495",
       "parentUuid": "253534b9_4e42e123",
+      "range": {
+        "startLine": 485,
+        "startChar": 31,
+        "endLine": 485,
+        "endChar": 48
+      },
+      "revId": "668dd194d258521e4c5de53e0186a52045d319bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea8946a2_8919431c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-05T07:59:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca74d85f_117d12fb",
       "range": {
         "startLine": 485,
         "startChar": 31,
