@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6ddd52d_e2291cd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-05T15:36:18Z",
+      "side": 1,
+      "message": "Looks like the linter is still completely busted. Better to check if any thing went wrong during rebase...",
+      "revId": "68ff7fb09f411341579ec36b48c706ae68679ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
