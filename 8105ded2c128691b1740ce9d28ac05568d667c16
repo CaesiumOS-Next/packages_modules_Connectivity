@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f17069f_7414a592",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5014,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-05T06:43:30Z",
+      "side": 1,
+      "message": "Do we need this?\nI think `maybeDisableForwardRulesForDisconnectingNai` above should call `removeLocalNetworkUpstream` -\u003e `disableMulticastRouting` for this network.\nAnd RoutingCoordinatorService calls `removeInterfaceFromMulticastRouting` internally?",
+      "range": {
+        "startLine": 5014,
+        "startChar": 54,
+        "endLine": 5014,
+        "endChar": 55
+      },
+      "revId": "8105ded2c128691b1740ce9d28ac05568d667c16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

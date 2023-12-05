@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d558823_ebff603b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-05T06:43:30Z",
+      "side": 1,
+      "message": "Can we also verify `applyMulticastRoutingConfig` with `CONFIG_FORWARD_NONE` for both wifi and local network here?\nI think we need this to make sure the multicast routing configuration is properly cleaned up by routingCoordinator.",
+      "revId": "647a7544406d0f370edd182ec4de946850417525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2236781_3daad428",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-05T06:43:30Z",
+      "side": 1,
+      "message": "Thank you for adding tests.\n\nCould we also have the following test cases? \n1\nHave cell network as upstream.  \nRegister wifi NetworkAgent.  \nUpstream should be updated from cell to wifi.  \nVerify the RoutingConfig is updated expectedly.  \n\n2 \nHave two networks(e.g. cell and wifi).  \nSet upstreamSelector to choose cell network.  \nUpdate upstreamSelector (with multicastRoutingConfig change) to choose wifi.  \nVerify RoutingConfig is updated expectedly.\n\n3\nHave local network agent with upstream.  \nUpdate localNetworkAgent with upstreamSelector\u003dnull.  \nVerify RoutingConfig is updated expectedly.\n\n4\nUpdates tests for testUnregisterUpstreamAfterReplacement below to verify applyMulticastRoutingConfig is called expectedly.\n\nI\u0027m sorry to ask more but ConnectivityService is really complicated and we have the risk to break the behavior in the future if we don\u0027t have the test.\nPlease let me know if above cases are not clear.\nEspecially, `unregisterAfterReplacement` is difficult to understand. so feel free to ask.",
+      "revId": "647a7544406d0f370edd182ec4de946850417525",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
