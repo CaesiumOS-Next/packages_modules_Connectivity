@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a1c1246_481707c3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-05T09:41:45Z",
+      "side": 1,
+      "message": "Not sure, in existing code, it also needs to set the return value when mResources.getBoolean() is called, not needed now?\n```\n    @Test\n    public void testNewDhcpServerEnabled() {\n        when(mResources.getBoolean(R.bool.config_tether_enable_legacy_dhcp_server)).thenReturn(\n                false);\n        mDeps.setFeatureEnabled(TetheringConfiguration.TETHER_ENABLE_LEGACY_DHCP_SERVER, false);\n\n        final TetheringConfiguration cfg \u003d\n                new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID, mDeps);\n\n        assertFalse(cfg.useLegacyDhcpServer());\n    }\n```",
+      "range": {
+        "startLine": 758,
+        "startChar": 17,
+        "endLine": 758,
+        "endChar": 49
+      },
+      "revId": "47c1a292ea61ee43090306adab19621dc63a79d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
