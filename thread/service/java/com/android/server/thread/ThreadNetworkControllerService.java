@@ -80,6 +80,12 @@ import android.net.thread.OperationalDatasetTimestamp;
 import android.net.thread.PendingOperationalDataset;
 import android.net.thread.ThreadNetworkController;
 import android.net.thread.ThreadNetworkController.DeviceRole;
+import com.android.os.threadnetwork.ThreadnetworkTelemetryDataReported;
+import com.android.os.threadnetwork.ThreadnetworkTopoEntryRepeated;
+import com.android.os.threadnetwork.ThreadnetworkTopoEntryRepeated.TopoEntryRepeated;
+import com.android.os.threadnetwork.ThreadnetworkDeviceInfoReported;
+import com.android.os.threadnetwork.ThreadnetworkTelemetryDataReported.SrpServerInfo;
+import com.android.server.thread.ThreadnetworkStatsLog;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -102,9 +108,12 @@ import java.io.IOException;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
@@ -258,6 +267,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         otDaemon.initialize(mTunIfController.getTunFd());
         otDaemon.registerStateCallback(mOtDaemonCallbackProxy, -1);
         mOtDaemon = otDaemon;
+
+        otDaemon.requestTelemetry();
+
         return mOtDaemon;
     }
 
@@ -1093,5 +1105,33 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         public void onMulticastForwardingAddressChanged(byte[] address, boolean isAdded) {
             mHandler.post(() -> handleMulticastForwardingAddressChanged(address, isAdded));
         }
+
+        @Override
+        public void onTelemetryRetrieved(byte[] threadnetworkTelemetryDataReportedBytes, byte[] threadnetworkTopoEntryRepeatedBytes, byte[] threadnetworkDeviceInfoReportedBytes) {
+            try {
+            ThreadnetworkTelemetryDataReported threadnetworkTelemetryDataReported = ThreadnetworkTelemetryDataReported.newBuilder().mergeFrom(threadnetworkTelemetryDataReportedBytes).build();
+            ThreadnetworkStatsLog.write(ThreadnetworkStatsLog.THREADNETWORK_TELEMETRY_DATA_REPORTED,
+                threadnetworkTelemetryDataReported.getWpanStats().toByteArray(),
+                threadnetworkTelemetryDataReported.getWpanTopoFull().toByteArray(),
+                threadnetworkTelemetryDataReported.getWpanBorderRouter().toByteArray(),
+                threadnetworkTelemetryDataReported.getWpanRcp().toByteArray(),
+                threadnetworkTelemetryDataReported.getCoexMetrics().toByteArray()
+            );
+
+            ThreadnetworkTopoEntryRepeated threadnetworkTopoEntryRepeated = ThreadnetworkTopoEntryRepeated.newBuilder().mergeFrom(threadnetworkTopoEntryRepeatedBytes).build();
+            ThreadnetworkStatsLog.write(ThreadnetworkStatsLog.THREADNETWORK_TOPO_ENTRY_REPEATED,
+                    threadnetworkTopoEntryRepeated.getTopoEntryRepeated().toByteArray());
+
+            ThreadnetworkDeviceInfoReported threadnetworkDeviceInfoReported = ThreadnetworkDeviceInfoReported.newBuilder().mergeFrom(threadnetworkDeviceInfoReportedBytes).build();
+            ThreadnetworkStatsLog.write(ThreadnetworkStatsLog.THREADNETWORK_DEVICE_INFO_REPORTED,
+                threadnetworkDeviceInfoReported.getOtHostVersion(),
+                threadnetworkDeviceInfoReported.getOtRcpVersion(),
+                threadnetworkDeviceInfoReported.getThreadVersion(),
+                threadnetworkDeviceInfoReported.getThreadDaemonVersion());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }
+
