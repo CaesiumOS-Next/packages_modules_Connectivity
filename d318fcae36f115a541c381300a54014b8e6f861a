@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb18d824_a3f2d32a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T06:45:05Z",
+      "side": 1,
+      "message": "Can you move the netlink code to another CL?",
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea60a908_75382ee6",
@@ -36,6 +53,144 @@
         "startChar": 9,
         "endLine": 211,
         "endChar": 32
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9b7bc9c_fa789b44",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T06:45:05Z",
+      "side": 1,
+      "message": "It sounds like the kernel uses RTA_EXPIRES for this, but it\u0027s not an expiry. Maybe rename to mMillisSinceLastUse?",
+      "range": {
+        "startLine": 99,
+        "startChar": 36,
+        "endLine": 99,
+        "endChar": 73
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7677ac19_13fb81b5",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T06:45:05Z",
+      "side": 1,
+      "message": "Do we need to set mRtmsg.srcLen based on the mSource.getPrefixLength()? Or do we expect that srcLen will always be correct, because there is no setter for mSource? I guess if it\u0027s only used for testing then it doesn\u0027t matter.",
+      "range": {
+        "startLine": 286,
+        "startChar": 44,
+        "endLine": 286,
+        "endChar": 64
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6209dc5e_cf47fa7f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T06:45:05Z",
+      "side": 1,
+      "message": "Seems like these new methods would be better in NetlinkUtils.java, not here. This is just a data class and probably shouldn\u0027t have any dump code in it.",
+      "range": {
+        "startLine": 339,
+        "startChar": 25,
+        "endLine": 339,
+        "endChar": 53
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da0a911c_f6e492b2",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T06:45:05Z",
+      "side": 1,
+      "message": "Should this be NetlinkConstants.alignedLengthOf(spaceRequired)?",
+      "range": {
+        "startLine": 361,
+        "startChar": 38,
+        "endLine": 361,
+        "endChar": 51
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82ee116f_8f1a802e",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T06:45:05Z",
+      "side": 1,
+      "message": "Looks like this comes from InetDiagMessage? If so, then instead of adding a copy, could we try to make it generic? Something like:\n\n    public static List\u003cT\u003e processNetlinkDumpMessages(FileDescriptor dumpFd) {\n        List\u003cT\u003e out \u003d new ArrayList();\n        while (true) {\n            ...\n            ...\n\n                if (!(nlMsg instanceof T)) {\n                    Log.wtf(TAG, \"Received unexpected netlink message: \" + nlMsg);\n                    continue;\n                }\n                final T msg \u003d (T) nlMsg;\n                multicastRoutes.add(msg);\n        }\n    }\n\nand then call the method as:\n\n    NetlinkUtils.\u003cRtNetlinkRouteMessage\u003eprocessNetlinkDumpMessages(...) {\n\n\nMight want to do this in a preparatory CL.",
+      "range": {
+        "startLine": 376,
+        "startChar": 47,
+        "endLine": 376,
+        "endChar": 73
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b28d155_b136f697",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T06:45:05Z",
+      "side": 1,
+      "message": "In NetlinkUtils I see a comment that says:\n\n        // recvMessage() guaranteed to not return null if it did not throw.\n\nso maybe we don\u0027t need this null check?",
+      "range": {
+        "startLine": 382,
+        "startChar": 16,
+        "endLine": 382,
+        "endChar": 27
       },
       "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -105,6 +260,29 @@
         "startChar": 10,
         "endLine": 79,
         "endChar": 14
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6e5addf_bcee7d7d",
+        "filename": "staticlibs/tests/unit/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-05T06:45:05Z",
+      "side": 1,
+      "message": "Can you fix the indentation?",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 22
       },
       "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
