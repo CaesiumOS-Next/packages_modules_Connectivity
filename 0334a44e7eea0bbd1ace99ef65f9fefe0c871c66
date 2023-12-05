@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a200b63f_fe8c5142",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/StructXfrmReplayStateEsn.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-12-05T03:36:34Z",
+      "side": 1,
+      "message": "Remove unnecessary prefix?",
+      "range": {
+        "startLine": 53,
+        "startChar": 26,
+        "endLine": 53,
+        "endChar": 32
+      },
+      "revId": "0334a44e7eea0bbd1ace99ef65f9fefe0c871c66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

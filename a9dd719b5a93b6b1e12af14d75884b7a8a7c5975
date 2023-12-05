@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b310425d_9fa53bf7",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/StructXfrmReplayStateEsn.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-12-05T03:36:34Z",
+      "side": 1,
+      "message": "Why? A reason here would be helpful.",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 62
+      },
+      "revId": "a9dd719b5a93b6b1e12af14d75884b7a8a7c5975",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dec4374_29e3476e",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/XfrmNetlinkNewSaMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-12-05T03:36:34Z",
+      "side": 1,
+      "message": "Should this be a throw?",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 24
+      },
+      "revId": "a9dd719b5a93b6b1e12af14d75884b7a8a7c5975",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
