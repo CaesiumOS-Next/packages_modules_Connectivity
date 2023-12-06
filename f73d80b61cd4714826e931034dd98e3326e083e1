@@ -22,6 +22,30 @@
       },
       "revId": "f73d80b61cd4714826e931034dd98e3326e083e1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a31438fc_27f21539",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2658,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-06T01:26:37Z",
+      "side": 0,
+      "message": "I will do the following\n1. Update cts to be able to pass with both old and new behavior\n2. Cherry-pick this fix to old cts branches\n3. Wait a couple of months until old cts support is expired\n4. Update cts and mainline code to use only the new behavior.",
+      "parentUuid": "90f39260_791dc051",
+      "range": {
+        "startLine": 2658,
+        "startChar": 0,
+        "endLine": 2658,
+        "endChar": 37
+      },
+      "revId": "f73d80b61cd4714826e931034dd98e3326e083e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
