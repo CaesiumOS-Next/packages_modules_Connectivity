@@ -34,6 +34,24 @@
       "parentUuid": "04ed83db_3d738ceb",
       "revId": "e47375b174c566bea060e193054dd1e4c2004f89",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5ff74ea_8579712d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-06T10:02:14Z",
+      "side": 1,
+      "message": "I see, this is a flog for IpSecTransform API.\nCan you create namespace for your team? go/android-flags-howto-onboarding?\nnamespace is linked to the single team not mainline module in my understanding.\n\nWhile you are creating namespace, I will move flags.aconfig file to platform.\nI think you can add this flag to the flags.aconfig after the move or you need to create one for your namespace.\nI\u0027m not sure if it\u0027s recommended to have flags from multiple namespaces in the single flags.aconfig file.",
+      "parentUuid": "8ac22cdc_3f6bfeee",
+      "revId": "e47375b174c566bea060e193054dd1e4c2004f89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
