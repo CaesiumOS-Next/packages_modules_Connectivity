@@ -25,6 +25,7 @@ import static android.net.NetworkCapabilities.transportNamesOf;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.WorkerThread;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.CaptivePortalData;
@@ -162,6 +163,7 @@ import java.util.TreeSet;
 // the network is no longer considered "lingering". After the linger timer expires, if the network
 // is satisfying one or more background NetworkRequests it is kept up in the background. If it is
 // not, ConnectivityService disconnects the NetworkAgent's AsyncChannel.
+@WorkerThread
 public class NetworkAgentInfo implements NetworkRanker.Scoreable {
 
     @NonNull public NetworkInfo networkInfo;
@@ -1001,6 +1003,8 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
      *
      * @return the old capabilities of this network.
      */
+
+    @WorkerThread
     @NonNull public synchronized NetworkCapabilities getAndSetNetworkCapabilities(
             @NonNull final NetworkCapabilities nc) {
         final NetworkCapabilities oldNc = networkCapabilities;
