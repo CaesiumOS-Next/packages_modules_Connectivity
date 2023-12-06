@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04ed83db_3d738ceb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-06T02:43:46Z",
+      "side": 1,
+      "message": "Which code will use this flag?\nCurrently, mainline module can not read the trunk stable flag correctly.\nSo to avoid confusion, I\u0027m thinking to move this flag definition to platform and only keep the flag platform code uses.",
+      "revId": "e47375b174c566bea060e193054dd1e4c2004f89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
