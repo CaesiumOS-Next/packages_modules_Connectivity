@@ -184,10 +184,17 @@ public class TetheringManager {
     public static final int TETHERING_WIGIG = 6;
 
     /**
+	  * LOCAL HOTSPOT P2P tethering type. Use a separate type to prevent
+	  * conflicts with TETHERING_WIFI_P2P / TETHERING_LOCAL_HOTSPOT_SECONDARY
+	  * @see #startTethering.
+	  */
+    public static final int TETHERING_WIFI_P2P_SECONDARY = 7;
+
+    /**
      * The int value of last tethering type.
      * @hide
      */
-    public static final int MAX_TETHERING_TYPE = TETHERING_WIGIG;
+    public static final int MAX_TETHERING_TYPE = TETHERING_WIFI_P2P_SECONDARY;
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)

@@ -73,6 +73,7 @@ public class PrivateAddressCoordinator {
     private final ArrayMap<Network, List<IpPrefix>> mUpstreamPrefixMap;
     private final ArraySet<IpServer> mDownstreams;
     private static final String LEGACY_WIFI_P2P_IFACE_ADDRESS = "192.168.49.1/24";
+    private static final String LEGACY_WIFI_P2P_IFACE_ADDRESS_SECONDARY = "192.168.50.1/24";
     private static final String LEGACY_BLUETOOTH_IFACE_ADDRESS = "192.168.44.1/24";
     private final List<IpPrefix> mTetheringPrefixes;
     private final ConnectivityManager mConnectivityMgr;
@@ -93,6 +94,8 @@ public class PrivateAddressCoordinator {
                 new LinkAddress(LEGACY_BLUETOOTH_IFACE_ADDRESS));
         mCachedAddresses.put(new AddressKey(TETHERING_WIFI_P2P, CONNECTIVITY_SCOPE_LOCAL),
                 new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS));
+        mCachedAddresses.put(new AddressKey(TETHERING_WIFI_P2P, CONNECTIVITY_SCOPE_LOCAL),
+                new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS_SECONDARY));
 
         mTetheringPrefixes = new ArrayList<>(Arrays.asList(new IpPrefix("192.168.0.0/16"),
             new IpPrefix("172.16.0.0/12"), new IpPrefix("10.0.0.0/8")));
@@ -176,6 +179,10 @@ public class PrivateAddressCoordinator {
         if (mConfig.shouldEnableWifiP2pDedicatedIp()
                 && ipServer.interfaceType() == TETHERING_WIFI_P2P) {
             return new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS);
+        }
+        if (mConfig.shouldEnableWifiP2pDedicatedIp()
+                && ipServer.interfaceType() == TETHERING_WIFI_P2P_SECONDARY) {
+            return new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS_SECONDARY);
         }
 
         final AddressKey addrKey = new AddressKey(ipServer.interfaceType(), scope);
