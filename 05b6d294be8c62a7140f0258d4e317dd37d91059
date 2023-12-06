@@ -16,6 +16,29 @@
       "message": "+Lorenzo as Jean takes a long leave.",
       "revId": "05b6d294be8c62a7140f0258d4e317dd37d91059",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fce3dd65_4a3d6760",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 4992,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-06T17:42:03Z",
+      "side": 1,
+      "message": "what happens on U QPR2/3, ie. 24Q1 and 24Q2 ?\nThey\u0027re not V, but they\u0027ll get your netd changes.",
+      "range": {
+        "startLine": 4992,
+        "startChar": 0,
+        "endLine": 4992,
+        "endChar": 33
+      },
+      "revId": "05b6d294be8c62a7140f0258d4e317dd37d91059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
