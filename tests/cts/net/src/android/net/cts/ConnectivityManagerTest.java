@@ -801,7 +801,8 @@ public class ConnectivityManagerTest {
             assertNull(redactedNormal.getUids());
             assertNull(redactedNormal.getSsid());
             assertNull(redactedNormal.getUnderlyingNetworks());
-            assertEquals(0, redactedNormal.getSubscriptionIds().size());
+            // Owner UID is allowed to see the subscription IDs.
+            assertEquals(2, redactedNormal.getSubscriptionIds().size());
             assertEquals(WifiInfo.DEFAULT_MAC_ADDRESS,
                     ((WifiInfo) redactedNormal.getTransportInfo()).getBSSID());
             assertEquals(rssi, ((WifiInfo) redactedNormal.getTransportInfo()).getRssi());
