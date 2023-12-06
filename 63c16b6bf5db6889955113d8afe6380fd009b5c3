@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7eff74d_9e103236",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-06T09:51:33Z",
+      "side": 1,
+      "message": "AI suggested wording, apply if it is better :\n\nDataSaverEnabled map on V+ platforms is the only reliable source of information about the current data saver status. While ConnectivityService offers two ways to update this map, the U-platform implementation suffers from delays, potentially leading to inaccurate readings. Conversely, the V+ platform implementation is synchronized with the actual data saver state, making it a far more trustworthy source. Since this library primarily serves DNS resolvers, relying solely on V+ data prevents erroneous blocking of DNS queries.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 86
+      },
+      "revId": "63c16b6bf5db6889955113d8afe6380fd009b5c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
