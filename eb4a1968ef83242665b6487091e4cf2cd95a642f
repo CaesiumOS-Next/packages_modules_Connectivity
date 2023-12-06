@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7941760_ba884ce1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-12-06T00:42:58Z",
+      "side": 1,
+      "message": "Seems fine to me, not sure if it\u0027s worth SDK gating instead of removing it, but either way suffices.\n\nAt a higher level, do we know how we plan to change behavior like this in future? Otherwise every CTS we write is a mine that is laid for future development work.",
+      "revId": "eb4a1968ef83242665b6487091e4cf2cd95a642f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93e77f9b_21c72415",
