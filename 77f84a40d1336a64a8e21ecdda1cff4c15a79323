@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b86e18c6_d96d473a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-06T02:22:49Z",
+      "side": 1,
+      "message": "The NetworkStatsObserver is the one who is going to call this.\nSome context about what I\u0027m trying to do:\nhttps://docs.google.com/document/d/1kX1i9Ni6aGeiF0T_jGSV8jAQxkJo0F1PPMeU2UaLvkc/edit?usp\u003dsharing\u0026resourcekey\u003d0--dB-KI3Fl1CFUjuRe-fSDw",
+      "parentUuid": "f449c227_0f9149f2",
+      "revId": "77f84a40d1336a64a8e21ecdda1cff4c15a79323",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "025d5513_e47d8365",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-12-05T11:07:25Z",
       "side": 1,
       "message": "not for this CL, should this be moved to Key#toString?",
+      "range": {
+        "startLine": 930,
+        "startChar": 62,
+        "endLine": 930,
+        "endChar": 63
+      },
+      "revId": "77f84a40d1336a64a8e21ecdda1cff4c15a79323",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ffd6862_95fd6794",
+        "filename": "framework-t/src/android/net/NetworkStatsCollection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-06T02:22:49Z",
+      "side": 1,
+      "message": "Ack, keep this open for tracking.",
+      "parentUuid": "025d5513_e47d8365",
       "range": {
         "startLine": 930,
         "startChar": 62,
