@@ -21,6 +21,8 @@ import android.net.MacAddress;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import static java.nio.ByteOrder.nativeOrder;
+
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -169,10 +171,26 @@ public class StructNlAttr {
         nla_type = type;
         setValue(new byte[Integer.BYTES]);
         final ByteBuffer buf = getValueAsByteBuffer();
-        final ByteOrder originalOrder = buf.order();
         try {
             buf.order(order);
             buf.putInt(value);
+        } finally {
+            buf.order(nativeOrder());
+        }
+    }
+
+    public StructNlAttr(short type, long value) {
+        this(type, value, ByteOrder.nativeOrder());
+    }
+
+    public StructNlAttr(short type, long value, ByteOrder order) {
+        nla_type = type;
+        setValue(new byte[Long.BYTES]);
+        final ByteBuffer buf = getValueAsByteBuffer();
+        final ByteOrder originalOrder = buf.order();
+        try {
+            buf.order(order);
+            buf.putLong(value);
         } finally {
             buf.order(originalOrder);
         }
@@ -288,6 +306,7 @@ public class StructNlAttr {
 
     /**
      * Get attribute value as Integer, or null if malformed (e.g., length is not 4 bytes).
+     * The attribute value is assumed to be in native byte order.
      */
     public Integer getValueAsInteger() {
         final ByteBuffer byteBuffer = getValueAsByteBuffer();
@@ -295,6 +314,18 @@ public class StructNlAttr {
             return null;
         }
         return byteBuffer.getInt();
+    }
+
+    /**
+     * Get attribute value as Long, or null if malformed (e.g., length is not 8 bytes).
+     * The attribute value is assumed to be in native byte order.
+     */
+    public Long getValueAsLong() {
+        final ByteBuffer byteBuffer = getValueAsByteBuffer();
+        if (byteBuffer == null || byteBuffer.remaining() != Long.BYTES) {
+            return null;
+        }
+        return byteBuffer.getLong();
     }
 
     /**
