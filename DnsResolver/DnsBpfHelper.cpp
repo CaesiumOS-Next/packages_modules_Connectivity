@@ -69,9 +69,18 @@ base::Result<bool> DnsBpfHelper::isUidNetworkingBlocked(uid_t uid, bool metered)
   if (uidRules & PENALTY_BOX_MATCH) return true;
   if (uidRules & HAPPY_BOX_MATCH) return false;
 
-  auto dataSaverSetting = mDataSaverEnabledMap.readValue(DATA_SAVER_ENABLED_KEY);
-  RETURN_IF_RESULT_NOT_OK(dataSaverSetting);
-  return dataSaverSetting.value();
+  // Only reference DataSaverEnabled map on V+ platform. ConnectivityService has two paths that can
+  // set the current status into this map. On the U- platform, the path CS used is not time-precise.
+  // It can have some delay between the real setting change and the map update. On V+ platform, the
+  // path CS used is fully synchronized with the real setting. As the main user of this library is
+  // DNS resolver, only reference setting on V+ to avoid falsely blocking DNS queries.
+  if (android::modules::sdklevel::IsAtLeastV()) {
+    auto dataSaverSetting = mDataSaverEnabledMap.readValue(DATA_SAVER_ENABLED_KEY);
+    RETURN_IF_RESULT_NOT_OK(dataSaverSetting);
+    return dataSaverSetting.value();
+  }
+
+  return false;
 }
 
 }  // namespace net
