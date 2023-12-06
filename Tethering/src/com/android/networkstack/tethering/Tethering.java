@@ -40,6 +40,7 @@ import static android.net.TetheringManager.TETHERING_NCM;
 import static android.net.TetheringManager.TETHERING_USB;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
+import static android.net.TetheringManager.TETHERING_WIFI_P2P_SECONDARY;
 import static android.net.TetheringManager.TETHERING_WIGIG;
 import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
@@ -60,8 +61,11 @@ import static android.net.wifi.WifiManager.IFACE_IP_MODE_TETHERED;
 import static android.net.wifi.WifiManager.IFACE_IP_MODE_UNSPECIFIED;
 import static android.net.wifi.WifiManager.SoftApCallback;
 import static android.net.wifi.WifiManager.WIFI_AP_STATE_DISABLED;
+import static android.net.wifi.WifiManager.LOCAL_ONLY_P2P_TYPE_PRIMARY;
+import static android.net.wifi.WifiManager.LOCAL_ONLY_P2P_TYPE_SECONDARY;
 import static android.telephony.CarrierConfigManager.ACTION_CARRIER_CONFIG_CHANGED;
 import static android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID;
+
 
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_FORCE_USB_FUNCTIONS;
 import static com.android.networkstack.tethering.TetheringNotificationUpdater.DOWNSTREAM_NONE;
@@ -175,8 +179,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Tethering {
 
     private static final String TAG = Tethering.class.getSimpleName();
-    private static final boolean DBG = false;
-    private static final boolean VDBG = false;
+    private static final boolean DBG =  true;
+    private static final boolean VDBG =  true;
 
     private static final Class[] sMessageClasses = {
             Tethering.class, TetherMainSM.class, IpServer.class
@@ -278,7 +282,9 @@ public class Tethering {
     private Network mTetherUpstream;
     private TetherStatesParcel mTetherStatesParcel;
     private boolean mDataSaverEnabled = false;
-    private String mWifiP2pTetherInterface = null;
+    // private String mWifiP2pTetherInterface = null;
+    // private String mWifiP2pTetherInterfacePrimary = null;
+    // private String mWifiP2pTetherInterfaceSecondary = null;
     private int mOffloadStatus = TETHER_HARDWARE_OFFLOAD_STOPPED;
 
     private EthernetManager.TetheredInterfaceRequest mEthernetIfaceRequest;
@@ -607,6 +613,8 @@ public class Tethering {
         if (type == TETHERING_USB || type == TETHERING_NCM) return;
 
         if (type == TETHERING_BLUETOOTH && SdkLevel.isAtLeastT()) return;
+
+        if (type == TETHERING_WIFI_P2P && SdkLevel.isAtLeastT()) return;
 
         if (enabled) {
             ensureIpServerStarted(iface);
@@ -1180,14 +1188,15 @@ public class Tethering {
         public void onReceive(Context content, Intent intent) {
             final String action = intent.getAction();
             if (action == null) return;
-
+            Log.d(TAG, "kadalisa::StateReceiver function some Intent Recieved");
             if (action.equals(UsbManager.ACTION_USB_STATE)) {
                 handleUsbAction(intent);
             } else if (action.equals(CONNECTIVITY_ACTION)) {
                 handleConnectivityAction(intent);
             } else if (action.equals(WifiManager.WIFI_AP_STATE_CHANGED_ACTION)) {
-                handleWifiApAction(intent);
+		        handleWifiApAction(intent);
             } else if (action.equals(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION)) {
+                Log.d(TAG, "kadalisa::StateReceiver:: Wifi P2P connection status changed");
                 handleWifiP2pAction(intent);
             } else if (action.equals(Intent.ACTION_CONFIGURATION_CHANGED)) {
                 mLog.log("OBSERVED configuration changed");
@@ -1312,6 +1321,7 @@ public class Tethering {
         }
 
         private void handleWifiP2pAction(Intent intent) {
+            Log.d(TAG, "kadalisa::handleWifiP2pAction Inside handleWifiP2pAction function");
             if (mConfig.isWifiP2pLegacyTetheringMode()) return;
 
             final WifiP2pInfo p2pInfo =
@@ -1319,32 +1329,44 @@ public class Tethering {
             final WifiP2pGroup group =
                     (WifiP2pGroup) intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_GROUP);
 
-            mLog.i("WifiP2pAction: P2pInfo: " + p2pInfo + " Group: " + group);
+            mLog.i("kadalisa::WifiP2pAction: P2pInfo: " + p2pInfo + " Group: " + group);
 
+            int mTetheringType = LOCAL_ONLY_P2P_TYPE_PRIMARY; // Get which type of P2P
+            String mWifiP2pTetherInterface = group.getInterface();
             // if no group is formed, bring it down if needed.
             if (p2pInfo == null || !p2pInfo.groupFormed) {
                 disableWifiP2pIpServingIfNeeded(mWifiP2pTetherInterface);
                 mWifiP2pTetherInterface = null;
+                Log.d(TAG, "kadalisa::handleWifiP2pAction No Group is formed: Exit");
                 return;
             }
 
             // If there is a group but the device is not the owner, bail out.
-            if (!isGroupOwner(group)) return;
-
+            if (!isGroupOwner(group)) {
+                Log.d(TAG, "kadalisa::handleWifiP2pAction Group is there but the device is not the owner: Exit");
+                return;
+            }
             // If already serving from the correct interface, nothing to do.
-            if (group.getInterface().equals(mWifiP2pTetherInterface)) return;
+            // if (group.getInterface().equals(mWifiP2pTetherInterface)) return; --> Need to check
 
             // If already serving from another interface, turn it down first.
-            if (!TextUtils.isEmpty(mWifiP2pTetherInterface)) {
+            /*if (!TextUtils.isEmpty(mWifiP2pTetherInterface)) {
+                Log.d(TAG, "kadalisa::handleWifiP2pAction Already Serving from other interface, turn it down and re-thether");
                 mLog.w("P2P tethered interface " + mWifiP2pTetherInterface
-                        + "is different from current interface "
-                        + group.getInterface() + ", re-tether it");
+                + "is different from current interface "
+                + group.getInterface() + ", re-tether it");
                 disableWifiP2pIpServingIfNeeded(mWifiP2pTetherInterface);
-            }
+            }*/
 
             // Finally bring up serving on the new interface
-            mWifiP2pTetherInterface = group.getInterface();
-            enableWifiP2pIpServing(mWifiP2pTetherInterface);
+            Log.d(TAG, "kadalisa::handleWifiP2pAction Bring up serving on the new interface");
+            int type = TETHERING_INVALID;
+            if (mTetheringType == LOCAL_ONLY_P2P_TYPE_PRIMARY) {
+                type = TETHERING_WIFI_P2P;
+            } else if (mTetheringType == LOCAL_ONLY_P2P_TYPE_SECONDARY) {
+                type = TETHERING_WIFI_P2P_SECONDARY;
+            }
+            enableWifiP2pIpServing(mWifiP2pTetherInterface, mTetheringType);
         }
 
         private void handleUserRestrictionAction() {
@@ -1436,6 +1458,7 @@ public class Tethering {
 
     private void enableIpServing(int tetheringType, String ifname, int ipServingMode,
             boolean isNcm) {
+        Log.d(TAG,"kadalisa::enableIpServing");
         ensureIpServerStarted(ifname, tetheringType, isNcm);
         if (tether(ifname, ipServingMode) != TETHER_ERROR_NO_ERROR) {
             Log.e(TAG, "unable start tethering on iface " + ifname);
@@ -1443,6 +1466,7 @@ public class Tethering {
     }
 
     private void disableWifiIpServingCommon(int tetheringType, String ifname) {
+        Log.d(TAG,"kadalisa::disableWifiIpServingCommon");
         if (!TextUtils.isEmpty(ifname) && mTetherStates.containsKey(ifname)) {
             mTetherStates.get(ifname).ipServer.unwanted();
             return;
@@ -1480,7 +1504,8 @@ public class Tethering {
         disableWifiIpServingCommon(TETHERING_WIFI, ifname);
     }
 
-    private void enableWifiP2pIpServing(String ifname) {
+    private void enableWifiP2pIpServing(String ifname, int type) {
+        Log.d(TAG,"kadalisa::enableWifiP2pIpServing");
         if (TextUtils.isEmpty(ifname)) {
             mLog.e("Cannot enable P2P IP serving with invalid interface");
             return;
@@ -1488,15 +1513,16 @@ public class Tethering {
 
         // After T, tethering always trust the iface pass by state change intent. This allow
         // tethering to deprecate tetherable p2p regexs after T.
-        final int type = SdkLevel.isAtLeastT() ? TETHERING_WIFI_P2P : ifaceNameToType(ifname);
+        /*final int type = SdkLevel.isAtLeastT() ? TETHERING_WIFI_P2P : ifaceNameToType(ifname);
         if (!checkTetherableType(type)) {
             mLog.e(ifname + " is not a tetherable iface, ignoring");
             return;
-        }
+        }*/
         enableIpServing(type, ifname, IpServer.STATE_LOCAL_ONLY);
     }
 
     private void disableWifiP2pIpServingIfNeeded(String ifname) {
+        Log.d(TAG,"kadalisa::disavleWifiP2pIpServingIfNeeded");
         if (TextUtils.isEmpty(ifname)) return;
 
         mLog.log("Canceling P2P tethering request - interface=" + ifname);
