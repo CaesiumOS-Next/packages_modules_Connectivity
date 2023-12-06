@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e433a59e_2c5cce7c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2023-12-06T16:37:54Z",
+      "side": 1,
+      "message": "U not T",
+      "range": {
+        "startLine": 623,
+        "startChar": 51,
+        "endLine": 623,
+        "endChar": 61
+      },
+      "revId": "b21edf9794ebab1fd79fdf444c05a96f260b1d63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91503181_1a36ba54",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1337,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2023-12-06T16:37:54Z",
+      "side": 1,
+      "message": "This will be updated once wifiManager sends correct infor for P2P type.",
+      "range": {
+        "startLine": 1337,
+        "startChar": 15,
+        "endLine": 1337,
+        "endChar": 43
+      },
+      "revId": "b21edf9794ebab1fd79fdf444c05a96f260b1d63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "756823f6_bd1c8456",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1511,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2023-12-06T16:37:54Z",
+      "side": 1,
+      "message": "Change to type and uncomment.",
+      "range": {
+        "startLine": 1511,
+        "startChar": 51,
+        "endLine": 1511,
+        "endChar": 70
+      },
+      "revId": "b21edf9794ebab1fd79fdf444c05a96f260b1d63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
