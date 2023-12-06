@@ -29,7 +29,12 @@ import static android.system.OsConstants.SOL_SOCKET;
 import static android.system.OsConstants.SO_RCVBUF;
 import static android.system.OsConstants.SO_RCVTIMEO;
 import static android.system.OsConstants.SO_SNDTIMEO;
+import static com.android.net.module.util.netlink.NetlinkConstants.hexify;
+import static com.android.net.module.util.netlink.NetlinkConstants.NLMSG_DONE;
+import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_DUMP;
+import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_REQUEST;
 
+import android.net.ParseException;
 import android.net.util.SocketUtils;
 import android.system.ErrnoException;
 import android.system.Os;
@@ -47,6 +52,8 @@ import java.net.Inet6Address;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -163,11 +170,7 @@ public class NetlinkUtils {
             Log.e(TAG, errPrefix, e);
             throw new ErrnoException(errPrefix, EIO, e);
         } finally {
-            try {
-                SocketUtils.closeSocket(fd);
-            } catch (IOException e) {
-                // Nothing we can do here
-            }
+            closeSocketQuietly(fd);
         }
     }
 
@@ -308,4 +311,56 @@ public class NetlinkUtils {
     }
 
     private NetlinkUtils() {}
+
+    /**
+     *
+     * @param <T> extends NetlinkMessage
+     * @param dumpFd socket file descriptor to receive dump messages from kernel
+     * @param nlFamily netlink family
+     * @param msgClass expected class of the netlink message
+     * @return List of caller specified netlink message type T
+     * @throws InterruptedIOException when fails to read the dumpFd
+     * @throws ErrnoException when fails to set receive timeout
+     * @throws ParseException when message can't be parsed
+     */
+    public static <T extends NetlinkMessage> List<T> processNetlinkDumpMessages(
+            FileDescriptor dumpFd, int nlFamily, Class<T> msgClass)
+            throws InterruptedIOException, ErrnoException, ParseException {
+        List<T> out = new ArrayList<>();
+        while (true) {
+            final ByteBuffer buf = recvMessage(
+                    dumpFd, NetlinkUtils.DEFAULT_RECV_BUFSIZE, IO_TIMEOUT_MS);
+
+            while (buf.remaining() > 0) {
+                final int position = buf.position();
+                final NetlinkMessage nlMsg = NetlinkMessage.parse(buf, nlFamily);
+                if (nlMsg == null) {
+                    // Move to the position where parse started for error log.
+                    buf.position(position);
+                    Log.e(TAG, "Failed to parse netlink message: " + hexify(buf));
+                    throw new ParseException("Failed to parse netlink message");
+                }
+
+                if (nlMsg.getHeader().nlmsg_type == NLMSG_DONE) {
+                    return out;
+                }
+
+                if (!msgClass.isInstance(nlMsg)) {
+                    Log.wtf(TAG, "Received unexpected netlink message: " + nlMsg);
+                    continue;
+                }
+
+                final T msg = (T) nlMsg;
+                out.add(msg);
+            }
+        }
+    }
+
+    private static void closeSocketQuietly(final FileDescriptor fd) {
+        try {
+                SocketUtils.closeSocket(fd);
+            } catch (IOException e) {
+                // Nothing we can do here
+            }
+    }
 }
