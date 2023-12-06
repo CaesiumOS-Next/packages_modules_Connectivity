@@ -16,6 +16,24 @@
       "message": "Note that this is blocked by DnsResolver side change which will not reference the  unsynchronized data saver status in bpf map to prevent from mistakenly block dns packet.",
       "revId": "045166e6331fea49941b247c8ead3f3035c0b142",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd5d1a8e_433d127d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-06T03:56:22Z",
+      "side": 1,
+      "message": "What change is required in DnsResolver?\nDoes this CL change the `isUidNetworkingBlocked` behavior?",
+      "parentUuid": "39309158_984cdba4",
+      "revId": "045166e6331fea49941b247c8ead3f3035c0b142",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
