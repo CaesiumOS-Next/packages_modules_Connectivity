@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "867c08e5_9bfeb99d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-12-06T09:43:50Z",
+      "side": 1,
+      "message": "+Lorenzo as Jean takes a long leave.",
+      "revId": "05b6d294be8c62a7140f0258d4e317dd37d91059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
