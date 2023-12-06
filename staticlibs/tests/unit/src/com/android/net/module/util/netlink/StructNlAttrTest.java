@@ -19,6 +19,7 @@ package com.android.net.module.util.netlink;
 import static com.android.net.module.util.netlink.RtNetlinkAddressMessage.IFA_FLAGS;
 import static com.android.net.module.util.netlink.RtNetlinkLinkMessage.IFLA_ADDRESS;
 import static com.android.net.module.util.netlink.RtNetlinkLinkMessage.IFLA_IFNAME;
+import static com.android.net.module.util.netlink.RtNetlinkRouteMessage.RTA_EXPIRES;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -91,5 +92,25 @@ public class StructNlAttrTest {
         final int int3 = attr3.getValueAsInt(0x08 /* default value */);
         assertNull(integer3);
         assertEquals(int3, 0x08 /* default value */);
+    }
+
+    @Test
+    public void testGetValueAsLong() {
+        final Long input = 1234567L;
+        final StructNlAttr attr = new StructNlAttr(RTA_EXPIRES, input);
+
+        final Long output = attr.getValueAsLong();
+
+        assertEquals(input, output);
+    }
+
+    @Test
+    public void testGetValueAsLong_malformed() {
+        final int input = 1234567;
+        final StructNlAttr attr = new StructNlAttr(RTA_EXPIRES, input);
+
+        final Long output = attr.getValueAsLong();
+
+        assertNull(output);
     }
 }
