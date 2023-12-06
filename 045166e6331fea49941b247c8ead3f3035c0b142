@@ -34,6 +34,24 @@
       "parentUuid": "39309158_984cdba4",
       "revId": "045166e6331fea49941b247c8ead3f3035c0b142",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f283391_ef983ae0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-12-06T07:00:14Z",
+      "side": 1,
+      "message": "Dns resolver will also reference the data saver setting from the same BPF map. The difference is that DNS resolver need to know the precise setting. Delay is unacceptable because we don\u0027t want to falsely block DNS query. If I understand correctly, this CL writes the data saver settings into map like CS#setDataSaverEnabled(), but it may have some delay between the real setting switch and the time this CL triggers a set. Previously, CS#setDataSaverEnabled() would only be called after V, the DNS side can directly read the bpf map without version because it only needs to block DNS query when the value in BPF map is set . After this CL, the BPF map will be set regardless of whether it is before or after V, but only the value after V is useful to the DNS resolver. So, the DNS resolver side needs to do version control, and only refer to the data saver BPF map after V. I’m working on the CL.",
+      "parentUuid": "dd5d1a8e_433d127d",
+      "revId": "045166e6331fea49941b247c8ead3f3035c0b142",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
