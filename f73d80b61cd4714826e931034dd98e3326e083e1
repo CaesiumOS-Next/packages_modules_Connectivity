@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90f39260_791dc051",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2658,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-12-06T00:39:36Z",
+      "side": 0,
+      "message": "Is there an option to SDK gate this field? Either now, or in the future? Otherwise it does seem like we will have trouble changing behavior for future releases?",
+      "range": {
+        "startLine": 2658,
+        "startChar": 0,
+        "endLine": 2658,
+        "endChar": 37
+      },
+      "revId": "f73d80b61cd4714826e931034dd98e3326e083e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
