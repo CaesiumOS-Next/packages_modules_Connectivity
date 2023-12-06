@@ -119,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "585d0ddd_96aac168",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 7078,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-06T08:30:21Z",
+      "side": 1,
+      "message": "Nice catch.\nYes if the uid is in the deny list, it will always return enabled, even if the global switch is off.",
+      "parentUuid": "f124a90b_454642ad",
+      "range": {
+        "startLine": 7078,
+        "startChar": 23,
+        "endLine": 7078,
+        "endChar": 48
+      },
+      "revId": "fba5cf99a30dab1920807150c925a0657bd721fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1efe80ad_9c94a4f2",
