@@ -196,4 +196,15 @@ public class NetlinkUtilsTest {
 
         return bytes;
     }
+
+    @Test
+    public void testGetMulticastRoutes_doesNotThrow() {
+        var multicastRoutes = NetlinkUtils.getMulticastRoutes();
+
+        for (var route : multicastRoutes) {
+            assertNotNull(route);
+            assertNotNull(route.getSource());
+            assertNotNull(route.getDestination());
+        }
+    }
 }
