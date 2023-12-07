@@ -70,6 +70,24 @@
       "parentUuid": "e5ff74ea_8579712d",
       "revId": "e47375b174c566bea060e193054dd1e4c2004f89",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b126f16_9d6d752b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-07T04:05:54Z",
+      "side": 1,
+      "message": "OK, I saw you updated the namespace to `android_core_networking_ipsec` so I\u0027m fine with this CL.\nI will keep your flag when I move the flags.aconfig.",
+      "parentUuid": "2dd86aeb_cf0f6117",
+      "revId": "e47375b174c566bea060e193054dd1e4c2004f89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
