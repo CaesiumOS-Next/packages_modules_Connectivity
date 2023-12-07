@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.server.connectivity;
+package com.android.net.module.util;
 
 import android.annotation.NonNull;
 import android.os.Handler;
