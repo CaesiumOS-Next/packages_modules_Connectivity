@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-package com.android.server.connectivity;
+package com.android.net.module.util;
 
 import android.annotation.NonNull;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.SystemClock;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Helper class for Handler related utilities.
@@ -27,7 +30,6 @@ import android.os.SystemClock;
  * @hide
  */
 public class HandlerUtils {
-    // Note: @hide methods copied from android.os.Handler
     /**
      * Runs the specified task synchronously.
      * <p>
@@ -65,9 +67,7 @@ public class HandlerUtils {
      *         Returns false on failure, usually because the
      *         looper processing the message queue is exiting.
      *
-     * @hide This method is prone to abuse and should probably not be in the API.
-     * If we ever do make it part of the API, we might want to rename it to something
-     * less funny like runUnsafe().
+     * @hide
      */
     public static boolean runWithScissors(@NonNull Handler h, @NonNull Runnable r, long timeout) {
         if (r == null) {
@@ -82,58 +82,30 @@ public class HandlerUtils {
             return true;
         }
 
-        BlockingRunnable br = new BlockingRunnable(r);
-        return br.postAndWait(h, timeout);
-    }
+        final CountDownLatch latch = new CountDownLatch(1);
 
-    private static final class BlockingRunnable implements Runnable {
-        private final Runnable mTask;
-        private boolean mDone;
-
-        BlockingRunnable(Runnable task) {
-            mTask = task;
-        }
-
-        @Override
-        public void run() {
+        // Don't crash in the handler if something in the runnable throws an exception,
+        // but try to propagate the exception to the caller.
+        AtomicReference<RuntimeException> exceptionRef = new AtomicReference<>();
+        h.post(() -> {
             try {
-                mTask.run();
-            } finally {
-                synchronized (this) {
-                    mDone = true;
-                    notifyAll();
-                }
+                r.run();
+            } catch (RuntimeException e) {
+                exceptionRef.set(e);
             }
-        }
+            latch.countDown();
+        });
 
-        public boolean postAndWait(Handler handler, long timeout) {
-            if (!handler.post(this)) {
+        try {
+            if (!latch.await(timeout, TimeUnit.MILLISECONDS)) {
                 return false;
             }
-
-            synchronized (this) {
-                if (timeout > 0) {
-                    final long expirationTime = SystemClock.uptimeMillis() + timeout;
-                    while (!mDone) {
-                        long delay = expirationTime - SystemClock.uptimeMillis();
-                        if (delay <= 0) {
-                            return false; // timeout
-                        }
-                        try {
-                            wait(delay);
-                        } catch (InterruptedException ex) {
-                        }
-                    }
-                } else {
-                    while (!mDone) {
-                        try {
-                            wait();
-                        } catch (InterruptedException ex) {
-                        }
-                    }
-                }
-            }
-            return true;
+        } catch (InterruptedException e) {
+            exceptionRef.compareAndSet(null, new IllegalStateException("Thread interrupted", e));
         }
+
+        final RuntimeException e = exceptionRef.get();
+        if (e != null) throw e;
+        return true;
     }
 }
