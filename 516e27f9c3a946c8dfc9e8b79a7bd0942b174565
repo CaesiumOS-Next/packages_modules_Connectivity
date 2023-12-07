@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef957e0c_d51bbb54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-12-07T08:57:38Z",
+      "side": 1,
+      "message": "Test only change to replace the constructor. LGTM",
+      "revId": "516e27f9c3a946c8dfc9e8b79a7bd0942b174565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
