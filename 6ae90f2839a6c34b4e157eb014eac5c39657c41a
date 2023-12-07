@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fdcdc72_f4e19aaf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-07T06:45:43Z",
+      "side": 1,
+      "message": "Test failure should be already fixed by aosp/2862525",
+      "revId": "6ae90f2839a6c34b4e157eb014eac5c39657c41a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
