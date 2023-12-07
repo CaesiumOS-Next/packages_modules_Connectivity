@@ -98,6 +98,13 @@ public class RtNetlinkRouteMessage extends NetlinkMessage {
         mSinceLastUseMillis = -1;
     }
 
+    /**
+     * Returns the rtnetlink family.
+     */
+    public short getRtmFamily() {
+        return mRtmsg.family;
+    }
+
     public boolean isResolved() {
         return mIsResolved;
     }
