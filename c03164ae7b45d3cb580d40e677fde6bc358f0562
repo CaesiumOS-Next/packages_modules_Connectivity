@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81b590a8_3205dd39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-07T07:40:08Z",
+      "side": 1,
+      "message": "LGTM with nit.",
+      "revId": "c03164ae7b45d3cb580d40e677fde6bc358f0562",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54a58fe5_59f4da60",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-07T07:40:08Z",
+      "side": 1,
+      "message": "nit: @NonNull",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 11
+      },
+      "revId": "c03164ae7b45d3cb580d40e677fde6bc358f0562",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
