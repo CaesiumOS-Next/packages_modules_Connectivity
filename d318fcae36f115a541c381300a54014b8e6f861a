@@ -76,6 +76,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b822db42_3cce53a0",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-07T01:57:33Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "ea60a908_75382ee6",
+      "range": {
+        "startLine": 211,
+        "startChar": 9,
+        "endLine": 211,
+        "endChar": 32
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9b7bc9c_fa789b44",
@@ -89,6 +113,30 @@
       "writtenOn": "2023-12-05T06:45:05Z",
       "side": 1,
       "message": "It sounds like the kernel uses RTA_EXPIRES for this, but it\u0027s not an expiry. Maybe rename to mMillisSinceLastUse?",
+      "range": {
+        "startLine": 99,
+        "startChar": 36,
+        "endLine": 99,
+        "endChar": 73
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "525620cd_09519774",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-07T01:57:33Z",
+      "side": 1,
+      "message": "Done in aosp/2862269",
+      "parentUuid": "b9b7bc9c_fa789b44",
       "range": {
         "startLine": 99,
         "startChar": 36,
@@ -122,6 +170,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2486077_db7ef5d4",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-07T01:57:33Z",
+      "side": 1,
+      "message": "Sounds like that should be done in the setter, as we don\u0027t send rtmsg with source from user space I\u0027ll not add a setter for now.",
+      "parentUuid": "7677ac19_13fb81b5",
+      "range": {
+        "startLine": 286,
+        "startChar": 44,
+        "endLine": 286,
+        "endChar": 64
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6209dc5e_cf47fa7f",
@@ -135,6 +207,30 @@
       "writtenOn": "2023-12-05T06:45:05Z",
       "side": 1,
       "message": "Seems like these new methods would be better in NetlinkUtils.java, not here. This is just a data class and probably shouldn\u0027t have any dump code in it.",
+      "range": {
+        "startLine": 339,
+        "startChar": 25,
+        "endLine": 339,
+        "endChar": 53
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb24531a_f7632e90",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-07T01:57:33Z",
+      "side": 1,
+      "message": "Done in aosp/2862270",
+      "parentUuid": "6209dc5e_cf47fa7f",
       "range": {
         "startLine": 339,
         "startChar": 25,
@@ -168,6 +264,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c350725_bd930404",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-07T01:57:33Z",
+      "side": 1,
+      "message": "Done in aosp/2862270",
+      "parentUuid": "da0a911c_f6e492b2",
+      "range": {
+        "startLine": 361,
+        "startChar": 38,
+        "endLine": 361,
+        "endChar": 51
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82ee116f_8f1a802e",
@@ -181,6 +301,30 @@
       "writtenOn": "2023-12-05T06:45:05Z",
       "side": 1,
       "message": "Looks like this comes from InetDiagMessage? If so, then instead of adding a copy, could we try to make it generic? Something like:\n\n    public static List\u003cT\u003e processNetlinkDumpMessages(FileDescriptor dumpFd) {\n        List\u003cT\u003e out \u003d new ArrayList();\n        while (true) {\n            ...\n            ...\n\n                if (!(nlMsg instanceof T)) {\n                    Log.wtf(TAG, \"Received unexpected netlink message: \" + nlMsg);\n                    continue;\n                }\n                final T msg \u003d (T) nlMsg;\n                multicastRoutes.add(msg);\n        }\n    }\n\nand then call the method as:\n\n    NetlinkUtils.\u003cRtNetlinkRouteMessage\u003eprocessNetlinkDumpMessages(...) {\n\n\nMight want to do this in a preparatory CL.",
+      "range": {
+        "startLine": 376,
+        "startChar": 47,
+        "endLine": 376,
+        "endChar": 73
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a5fd3ec_9cb2f258",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-07T01:57:33Z",
+      "side": 1,
+      "message": "Done in aosp/2862268",
+      "parentUuid": "82ee116f_8f1a802e",
       "range": {
         "startLine": 376,
         "startChar": 47,
@@ -214,6 +358,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85d6bfa9_97e60881",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-07T01:57:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b28d155_b136f697",
+      "range": {
+        "startLine": 382,
+        "startChar": 16,
+        "endLine": 382,
+        "endChar": 27
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "850f5e60_0662ecfd",
@@ -227,6 +395,30 @@
       "writtenOn": "2023-12-05T05:58:50Z",
       "side": 1,
       "message": "Pre-existing, but this is guaranteed to be nativeOrder(). You might want to just remove it and change line 177 to:\n\n    buf.order(nativeOrder());\n\nYou can do that in a separate CL before you merge this one.",
+      "range": {
+        "startLine": 172,
+        "startChar": 24,
+        "endLine": 172,
+        "endChar": 37
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64d6bff5_c6eb09af",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNlAttr.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-07T01:57:33Z",
+      "side": 1,
+      "message": "Done in aosp/2862266",
+      "parentUuid": "850f5e60_0662ecfd",
       "range": {
         "startLine": 172,
         "startChar": 24,
@@ -260,6 +452,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf1d11a0_f36a188c",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNlAttr.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-07T01:57:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fccaf542_ac305624",
+      "range": {
+        "startLine": 318,
+        "startChar": 86,
+        "endLine": 318,
+        "endChar": 87
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05fb78b6_f1ecc9e4",
@@ -283,6 +499,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ca4f9fb_6aac6f7a",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNlMsgHdr.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-07T01:57:33Z",
+      "side": 1,
+      "message": "Done in aosp/2862267",
+      "parentUuid": "05fb78b6_f1ecc9e4",
+      "range": {
+        "startLine": 79,
+        "startChar": 10,
+        "endLine": 79,
+        "endChar": 14
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6e5addf_bcee7d7d",
@@ -296,6 +536,30 @@
       "writtenOn": "2023-12-05T06:45:05Z",
       "side": 1,
       "message": "Can you fix the indentation?",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 22
+      },
+      "revId": "d318fcae36f115a541c381300a54014b8e6f861a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9f78ef5_410fdc69",
+        "filename": "staticlibs/tests/unit/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-07T01:57:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6e5addf_bcee7d7d",
       "range": {
         "startLine": 37,
         "startChar": 12,
