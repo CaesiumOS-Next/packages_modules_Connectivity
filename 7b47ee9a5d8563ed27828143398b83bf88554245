@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28e92505_ed741d39",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-07T12:32:00Z",
+      "side": 1,
+      "message": "It won\u0027t matter... since yeah it should be ascii.\n\nBut do note that technically not all valid byte streams are valid UTF8...\nso this conversion could now fail (not to sure what java does if invalid utf8 shows up).\n\nIt might be better to use something that *can* parse everything, and has bottom 128 code points ascii even if it is incorrect... ie. iso-8859-1 for example.",
+      "parentUuid": "4d34a5f5_9d2a7c1c",
+      "range": {
+        "startLine": 88,
+        "startChar": 85,
+        "endLine": 88,
+        "endChar": 86
+      },
+      "revId": "7b47ee9a5d8563ed27828143398b83bf88554245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22f2d66e_1f5bc06e",
