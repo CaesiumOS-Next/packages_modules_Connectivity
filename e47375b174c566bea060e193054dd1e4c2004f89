@@ -52,6 +52,24 @@
       "parentUuid": "8ac22cdc_3f6bfeee",
       "revId": "e47375b174c566bea060e193054dd1e4c2004f89",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dd86aeb_cf0f6117",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-12-07T00:15:57Z",
+      "side": 1,
+      "message": "Sure I will use a separate namespace and the same package.\n\nI think having multiple namespaces in the single flags.aconfig file is fine, since we have the demo doing this (development/samples/AconfigDemo/aconfig_demo_flags.aconfig). Here are also a few examples:\n- packages/apps/Nfc/flags/nfc_flags.aconfig\n- frameworks/base/core/java/android/hardware/biometrics/flags.aconfig\n\nAlso package name + flag name forms the unique ID of a flag as per https://yaqs.corp.google.com/eng/q/6623555902257496064, thus all flags with the same package should live in the same file to mitigate the risk of conflicts.\n\nAt the same time, would it be possible if I add the flag first instead of waiting for the file move? I\u0027m building a platform feature that needs to access the API and currently blocked by the flag. I would greatly appreciate your help in removing the blocker.",
+      "parentUuid": "e5ff74ea_8579712d",
+      "revId": "e47375b174c566bea060e193054dd1e4c2004f89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
