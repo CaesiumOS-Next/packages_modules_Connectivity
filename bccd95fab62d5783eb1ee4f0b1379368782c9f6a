@@ -46,6 +46,30 @@
       },
       "revId": "bccd95fab62d5783eb1ee4f0b1379368782c9f6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdc2ab45_7ef9fe03",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/UpstreamNetworkMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-08T07:19:06Z",
+      "side": 0,
+      "message": "Acked.",
+      "parentUuid": "5d5defa5_d5bcf356",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 20
+      },
+      "revId": "bccd95fab62d5783eb1ee4f0b1379368782c9f6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
