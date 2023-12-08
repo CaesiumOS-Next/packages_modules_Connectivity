@@ -276,6 +276,8 @@ public class NsdManagerTest {
     private void doTestDiscoverService() throws Exception {
         NsdManager manager = mManager;
 
+        DiscoveryRequest request1 =
+                new DiscoveryRequest.Builder().setServiceType("a_type").build();
         NsdServiceInfo reply1 = new NsdServiceInfo("a_name", "a_type");
         NsdServiceInfo reply2 = new NsdServiceInfo("another_name", "a_type");
         NsdServiceInfo reply3 = new NsdServiceInfo("a_third_name", "a_type");
@@ -296,7 +298,7 @@ public class NsdManagerTest {
         int key2 = getRequestKey(req ->
                 verify(mServiceConn, times(2)).discoverServices(req.capture(), any()));
 
-        mCallback.onDiscoverServicesStarted(key2, reply1);
+        mCallback.onDiscoverServicesStarted(key2, request1);
         verify(listener, timeout(mTimeoutMs).times(1)).onDiscoveryStarted("a_type");
 
 
@@ -336,7 +338,7 @@ public class NsdManagerTest {
         int key3 = getRequestKey(req ->
                 verify(mServiceConn, times(3)).discoverServices(req.capture(), any()));
 
-        mCallback.onDiscoverServicesStarted(key3, reply1);
+        mCallback.onDiscoverServicesStarted(key3, request1);
         verify(listener, timeout(mTimeoutMs).times(1)).onDiscoveryStarted("a_type");
 
         // Client unregisters immediately, it fails
