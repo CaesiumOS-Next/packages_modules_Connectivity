@@ -191,6 +191,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "35c33438_c29df8f6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 8987,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-08T07:53:16Z",
+      "side": 1,
+      "message": "In addition to the capabilities, NetworkRequest has other fields, such as the request ID and legacy type. In particular, what happens looks like if the factory sends an upstreamSelector with a given capabilities, but then sends another request with a new upstreamSelector that has the same capabilities but a different legacyType or requestId? Perhaps it doesn\u0027t matter because the NetworkRequest passed in by the factory is ignored, and we construct a new NetworkRequest here in line 9034?",
+      "parentUuid": "3ad7adb2_a925f93a",
+      "range": {
+        "startLine": 8987,
+        "startChar": 34,
+        "endLine": 8987,
+        "endChar": 48
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec599a7f_b02bc674",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 21
@@ -273,6 +297,30 @@
       "side": 1,
       "message": "Does it actually bypass ? The counter is incremented in the constructor for NetworkRequestInfo in the line above (which is very counter-intuitive I know, but it\u0027s been this way forever).",
       "parentUuid": "7a3d5a15_28b496b4",
+      "range": {
+        "startLine": 8998,
+        "startChar": 12,
+        "endLine": 8998,
+        "endChar": 40
+      },
+      "revId": "f88210634d5658f9f0108e7193d100dd6e8b774e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bb0e621_81e899b4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 8998,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-08T07:53:16Z",
+      "side": 1,
+      "message": "Ok, but then what happens if that constructor throws because there are too many requests already filed? Won\u0027t it crash the system?",
+      "parentUuid": "ae1c61c6_5d2e559b",
       "range": {
         "startLine": 8998,
         "startChar": 12,
