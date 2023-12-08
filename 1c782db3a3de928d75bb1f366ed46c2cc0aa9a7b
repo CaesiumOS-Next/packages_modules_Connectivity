@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b04404d6_fbe5db1e",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectUtil.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-08T03:33:02Z",
+      "side": 1,
+      "message": "IIUC getOrCreateWifiConfiguration invokes it indirectly.\nI\u0027ll add a comment",
+      "parentUuid": "1f490fd8_ba09d520",
+      "revId": "1c782db3a3de928d75bb1f366ed46c2cc0aa9a7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3add47b1_b5fabb1b",
         "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectUtil.kt",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2023-12-05T09:34:00Z",
       "side": 1,
       "message": "This adds 2 sec every time wifi is connecting in tests, that can easily add up as we have many tests that can toggle wifi.\n\nIf you create the wifi configuration, then turn the screen on, can you just wait for the available callback without a sleep ? It would return as soon as wifi gets the intent and connects right ?",
+      "revId": "1c782db3a3de928d75bb1f366ed46c2cc0aa9a7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d0e3a54_520ad052",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectUtil.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-08T03:33:02Z",
+      "side": 1,
+      "message": "Not sure, it seems to me turn screen on has to be first.\nHi @qiangjiang@google.com, is it ok if we start the scan first?\nany possible way to prevent from unconditional sleep here?",
+      "parentUuid": "3add47b1_b5fabb1b",
       "revId": "1c782db3a3de928d75bb1f366ed46c2cc0aa9a7b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
