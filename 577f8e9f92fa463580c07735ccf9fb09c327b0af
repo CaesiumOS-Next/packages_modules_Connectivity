@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dc8f2e7_c947a46d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-08T09:36:16Z",
+      "side": 1,
+      "message": "Discussed with lorenzo, this is a better approach https://man7.org/linux/man-pages/man2/timerfd_create.2.html\n\n\nWe can discuss later after I have something concrete.\n\nIt can be much easier than the approach than the two CLs.",
+      "revId": "577f8e9f92fa463580c07735ccf9fb09c327b0af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "333d3082_5d694b7b",
