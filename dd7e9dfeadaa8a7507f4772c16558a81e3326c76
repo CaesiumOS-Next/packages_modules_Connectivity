@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f48bade_fcd8d6e0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 55
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-08T09:36:43Z",
+      "side": 1,
+      "message": "arriving via / ingressing via",
+      "range": {
+        "startLine": 7,
+        "startChar": 28,
+        "endLine": 7,
+        "endChar": 32
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0dd557e_2faea911",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 55
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-08T09:36:43Z",
+      "side": 1,
+      "message": "a",
+      "range": {
+        "startLine": 9,
+        "startChar": 42,
+        "endLine": 9,
+        "endChar": 45
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95b4bacf_25846121",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 8805,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-08T09:36:43Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 8805,
+        "startChar": 24,
+        "endLine": 8805,
+        "endChar": 28
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9aee7c5_2e3ae14c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 8805,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-08T09:36:43Z",
+      "side": 1,
+      "message": "is this true?\ndo we not support migration of a VPN from one vpn interface to another?",
+      "range": {
+        "startLine": 8805,
+        "startChar": 44,
+        "endLine": 8805,
+        "endChar": 50
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ab62df3_119f913b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 8805,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-08T09:36:43Z",
+      "side": 1,
+      "message": "a",
+      "range": {
+        "startLine": 8805,
+        "startChar": 40,
+        "endLine": 8805,
+        "endChar": 43
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5036c908_58988d94",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 8806,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-08T09:36:43Z",
+      "side": 1,
+      "message": "perhaps (even non-VPN ones)",
+      "range": {
+        "startLine": 8806,
+        "startChar": 22,
+        "endLine": 8806,
+        "endChar": 23
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
