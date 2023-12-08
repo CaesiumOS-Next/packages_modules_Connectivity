@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0b761e7_976304a5",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-08T06:49:06Z",
+      "side": 1,
+      "message": "Per offline discussion, it\u0027s likely this is the only unicast test case so no need to mark it as unicast.",
+      "parentUuid": "e34bf074_2bc70d54",
+      "range": {
+        "startLine": 59,
+        "startChar": 13,
+        "endLine": 59,
+        "endChar": 30
+      },
+      "revId": "994b6c208715fff120428ab8c1492d25185b56e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b5c3776_50915393",
