@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee54eaa7_e7b02125",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-08T06:08:49Z",
+      "side": 1,
+      "message": "From the comments in b/312669345, I think the suggestion is that we should use the logic of Tethering.java #dump instead of overcomplicated Handler.java copy.",
+      "revId": "d729e8e1c2c48d340a136d61333a2e06984487f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
