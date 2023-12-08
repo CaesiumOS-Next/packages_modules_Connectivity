@@ -69,6 +69,24 @@
       "parentUuid": "3add47b1_b5fabb1b",
       "revId": "1c782db3a3de928d75bb1f366ed46c2cc0aa9a7b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2d24a90_96835e04",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectUtil.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1467989
+      },
+      "writtenOn": "2023-12-08T03:44:38Z",
+      "side": 1,
+      "message": "Please turn on the screen first, as there is a scan schedule change because of the screen change.\nAbout the Remi\u0027s concern, we handled this by adding the screen change in the setup Class and teardown class. So for each test class, we only change the screen state once. Also other setup can move there which can reduce the running time a lot.",
+      "parentUuid": "1d0e3a54_520ad052",
+      "revId": "1c782db3a3de928d75bb1f366ed46c2cc0aa9a7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
