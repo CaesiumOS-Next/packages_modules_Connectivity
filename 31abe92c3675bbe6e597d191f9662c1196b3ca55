@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22e04e28_fe8a487c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-08T06:17:44Z",
+      "side": 1,
+      "message": "https://googleplex-android-review.git.corp.google.com/q/topic:%22mv_core_network_flags%22 need to be checked in first.",
+      "revId": "31abe92c3675bbe6e597d191f9662c1196b3ca55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
