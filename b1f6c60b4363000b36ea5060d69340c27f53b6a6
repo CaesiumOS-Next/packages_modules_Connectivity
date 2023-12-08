@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3854b1ee_d93d9f49",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-08T04:20:55Z",
+      "side": 1,
+      "message": "Can not we parse nlAttrs and have nlAttrs as List\u003cStructNlAttr\u003e?",
+      "range": {
+        "startLine": 177,
+        "startChar": 40,
+        "endLine": 177,
+        "endChar": 41
+      },
+      "revId": "b1f6c60b4363000b36ea5060d69340c27f53b6a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
