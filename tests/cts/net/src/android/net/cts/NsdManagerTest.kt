@@ -53,6 +53,7 @@ import android.net.cts.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.Ser
 import android.net.cts.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.ServiceUpdatedLost
 import android.net.cts.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.UnregisterCallbackSucceeded
 import android.net.cts.util.CtsNetUtils
+import android.net.nsd.DiscoveryRequest
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
 import android.net.nsd.OffloadEngine
@@ -109,6 +110,7 @@ import java.util.concurrent.Executor
 import kotlin.math.min
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.fail
@@ -1033,9 +1035,11 @@ class NsdManagerTest {
             nsdManager.discoverServices("_subtype1.$serviceType",
                     NsdManager.PROTOCOL_DNS_SD,
                     testNetwork1.network, Executor { it.run() }, subtype1DiscoveryRecord)
-            nsdManager.discoverServices("_subtype2.$serviceType",
-                    NsdManager.PROTOCOL_DNS_SD,
-                    testNetwork1.network, Executor { it.run() }, subtype2DiscoveryRecord)
+
+            nsdManager.discoverServices(
+                    DiscoveryRequest.Builder().setServiceType(serviceType).setSubtype("_subtype2")
+                            .setNetwork(testNetwork1.network).build(),
+                    Executor { it.run() }, subtype2DiscoveryRecord)
 
             val info1 = subtype1DiscoveryRecord.waitForServiceDiscovered(
                     serviceName, serviceType, testNetwork1.network)
