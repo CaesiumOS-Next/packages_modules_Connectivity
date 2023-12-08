@@ -137,6 +137,75 @@
       },
       "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e6b8c92_4287d209",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 8808,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-08T11:44:39Z",
+      "side": 1,
+      "message": "as",
+      "range": {
+        "startLine": 8808,
+        "startChar": 63,
+        "endLine": 8808,
+        "endChar": 65
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4bbcb48_fb9d403a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 8810,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-08T11:44:39Z",
+      "side": 1,
+      "message": "Set of pairs of addresses and interface names",
+      "range": {
+        "startLine": 8810,
+        "startChar": 48,
+        "endLine": 8810,
+        "endChar": 86
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "080c5ba5_206a9308",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 8849,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-08T11:44:39Z",
+      "side": 1,
+      "message": "ah... we don\u0027t actually support handover. since there\u0027s only one interface at most for a given IP",
+      "range": {
+        "startLine": 8849,
+        "startChar": 0,
+        "endLine": 8849,
+        "endChar": 86
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
