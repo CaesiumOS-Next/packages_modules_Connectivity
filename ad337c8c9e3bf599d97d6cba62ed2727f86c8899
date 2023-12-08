@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c2c0ff3_92e031e9",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 1959,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-08T09:10:26Z",
+      "side": 1,
+      "message": "this is unclear,\n\nto interface X from interface Y suggests a tunnel or forwarding or something\n\nperhaps you mean\n\"to a VPN interface\u0027s IP arriving on a non-VPN interface\"\nor \"to a VPN interface\u0027s IP ingressing via a non-VPN interface\"",
+      "range": {
+        "startLine": 1959,
+        "startChar": 0,
+        "endLine": 1959,
+        "endChar": 83
+      },
+      "revId": "ad337c8c9e3bf599d97d6cba62ed2727f86c8899",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ee01d56_01bae1fc",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 1961,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-08T09:10:26Z",
+      "side": 1,
+      "message": "as",
+      "range": {
+        "startLine": 1961,
+        "startChar": 50,
+        "endLine": 1961,
+        "endChar": 54
+      },
+      "revId": "ad337c8c9e3bf599d97d6cba62ed2727f86c8899",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f91ad90_df4666f7",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 1964,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-08T09:10:26Z",
+      "side": 1,
+      "message": "as",
+      "range": {
+        "startLine": 1964,
+        "startChar": 90,
+        "endLine": 1964,
+        "endChar": 94
+      },
+      "revId": "ad337c8c9e3bf599d97d6cba62ed2727f86c8899",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
