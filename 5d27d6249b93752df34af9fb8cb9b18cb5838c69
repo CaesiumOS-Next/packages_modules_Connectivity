@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8331b699_a1a0798f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-08T15:48:00Z",
+      "side": 1,
+      "message": "I feel it might be cleaner to refactor this part into a separate helper function like\n\n```\nprivate boolean func1() {\n\n} \n```\n\nAnd in the logic\n\nWe can write sth. like \n\n```\nif (mMdnsFeatureFlags.mIsKnownAnswerSuppressionEnabled \u0026\u0026 func1()) {\n   continue;\n}\n```\n\nIt seems to me it will be cleaner than the current version. WDYT?",
+      "range": {
+        "startLine": 630,
+        "startChar": 16,
+        "endLine": 637,
+        "endChar": 17
+      },
+      "revId": "5d27d6249b93752df34af9fb8cb9b18cb5838c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
