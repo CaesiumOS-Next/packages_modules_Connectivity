@@ -16,14 +16,20 @@
 
 package android.net.nsd;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
+import android.annotation.FlaggedApi;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.net.Network;
+import android.net.nsd.NsdManager.ResolveListener;
+import android.net.nsd.NsdManager.ServiceInfoCallback;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.ArrayMap;
+import android.util.ArraySet;
 import android.util.Log;
 
 import com.android.net.module.util.InetAddressUtils;
@@ -35,6 +41,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.Executor;
 
 /**
  * A class representing service information for network service discovery
@@ -47,6 +55,8 @@ public final class NsdServiceInfo implements Parcelable {
     private String mServiceName;
 
     private String mServiceType;
+
+    private final List<String> mSubtypes = new ArrayList<>();
 
     private final ArrayMap<String, byte[]> mTxtRecord = new ArrayMap<>();
 
@@ -391,11 +401,41 @@ public final class NsdServiceInfo implements Parcelable {
         mInterfaceIndex = interfaceIndex;
     }
 
+    /**
+     * Sets the subtypes to be advertised for this service instance.
+     *
+     * The elements in {@code subtypes} should be the subtype identifiers which have the trailing
+     * "._sub" removed. For example, the subtype should be "_printer" for
+     * "_printer._sub._http._tcp.local".
+     *
+     * Only one subtype will be registered if multiple elements of {@code subtypes} have the same
+     * case-insensitive value.
+     */
+    @FlaggedApi(NsdManager.Flags.NSD_SUBTYPES_SUPPORT_ENABLED)
+    public void setSubtypes(@NonNull List<String> subtypes) {
+        mSubtypes.clear();
+        mSubtypes.addAll(subtypes);
+    }
+
+    /**
+     * Returns subtypes of this service instance.
+     *
+     * When this object is returned by the service discovery/browse APIs (etc. {@link
+     * NsdManager#DiscoveryListener}), the return value may or may not include the subtypes of this
+     * service.
+     */
+    @FlaggedApi(NsdManager.Flags.NSD_SUBTYPES_SUPPORT_ENABLED)
+    @NonNull
+    public List<String> getSubtypes() {
+        return Collections.unmodifiableList(mSubtypes);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("name: ").append(mServiceName)
                 .append(", type: ").append(mServiceType)
+                .append(", subtypes: ").append(TextUtils.join(", ", mSubtypes))
                 .append(", hostAddresses: ").append(TextUtils.join(", ", mHostAddresses))
                 .append(", port: ").append(mPort)
                 .append(", network: ").append(mNetwork);
@@ -414,6 +454,7 @@ public final class NsdServiceInfo implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mServiceName);
         dest.writeString(mServiceType);
+        dest.writeStringList(mSubtypes);
         dest.writeInt(mPort);
 
         // TXT record key/value pairs.
@@ -445,6 +486,7 @@ public final class NsdServiceInfo implements Parcelable {
                 NsdServiceInfo info = new NsdServiceInfo();
                 info.mServiceName = in.readString();
                 info.mServiceType = in.readString();
+                info.setSubtypes(in.createStringArrayList());
                 info.mPort = in.readInt();
 
                 // TXT record key/value pairs.
