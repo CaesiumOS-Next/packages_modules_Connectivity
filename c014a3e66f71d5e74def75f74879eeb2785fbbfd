@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a42520ea_09167c5a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-08T16:10:44Z",
+      "side": 1,
+      "message": "Better to mention in the commit message that it is server-side impl for advertising logic.",
+      "range": {
+        "startLine": 7,
+        "startChar": 7,
+        "endLine": 7,
+        "endChar": 41
+      },
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "286981db_4e9a6bda",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-08T16:10:44Z",
+      "side": 1,
+      "message": "Better to move this change to the CL for discovery change",
+      "range": {
+        "startLine": 193,
+        "startChar": 27,
+        "endLine": 193,
+        "endChar": 34
+      },
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "371523b8_760b685a",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 26
@@ -14,6 +60,29 @@
       "writtenOn": "2023-12-08T10:24:31Z",
       "side": 1,
       "message": "parseTypeAndSubtype uses the following regex:\n\n`_[a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]`\n\nIt would be best to stay consistent, as this limits more than the first character",
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deb712c2_e727de4b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-08T16:10:44Z",
+      "side": 1,
+      "message": "nit: final",
+      "range": {
+        "startLine": 715,
+        "startChar": 16,
+        "endLine": 715,
+        "endChar": 19
+      },
       "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -54,6 +123,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "009d4b7a_28172357",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-08T16:10:44Z",
+      "side": 1,
+      "message": "No need for extra blank line",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 1
+      },
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b7c7816_413b37b5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-08T16:10:44Z",
+      "side": 1,
+      "message": "nit: @NonNull",
+      "range": {
+        "startLine": 508,
+        "startChar": 35,
+        "endLine": 508,
+        "endChar": 39
+      },
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84394c36_4e5955c5",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
         "patchSetId": 26
@@ -82,6 +197,29 @@
       "writtenOn": "2023-12-08T10:24:31Z",
       "side": 1,
       "message": "Just \"subtypes\" would be enough (which would call subtypes.toString(), except if null)",
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85cbce3f_c9b07edb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-08T16:10:44Z",
+      "side": 1,
+      "message": "This is discovery logic change. Better to put in discovery CL.",
+      "range": {
+        "startLine": 171,
+        "startChar": 8,
+        "endLine": 174,
+        "endChar": 9
+      },
       "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
