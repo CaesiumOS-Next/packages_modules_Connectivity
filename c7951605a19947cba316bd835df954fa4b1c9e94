@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b066b86_7bd06cb6",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 59
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-08T04:20:38Z",
+      "side": 1,
+      "message": "Could you separate the discovery and advertising (DiscoveryRequest and NsdServiceInfo) changes to 2 separate CLs ? They are fairly well separated in code, so you shouldn\u0027t need to have one large CL for both. Advertising should be higher priority since discovering with multiple subtypes shouldn\u0027t be necessary.",
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "976ebcea_675f07ef",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-08T04:20:38Z",
+      "side": 1,
+      "message": "Can this be renamed to an advertising map ? Is this only for advertising now ?",
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bbe9a10_20126a02",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-08T04:20:38Z",
+      "side": 1,
+      "message": "Instead of having one method that has 2 nullable arguments where some combinations are actually invalid (both null or both non-null are not valid), you could factor out the code to something like:\n\n```\nputAdvertisingListener(Object listener, Executor e, NsdServiceInfo s)\n    \u003d putListener(listener, e, mAdvertisingRequestMap, s);\nputDiscoveryListener(Object listener, Executor e, NsdServiceInfo s)\n    \u003d putListener(listener, e, mDiscoveryRequestMap, s);\n\nprivate \u003cT\u003e int putListener(Object, Executor, SparseArray\u003cT\u003e, T);\n```",
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72d02159_7e40fa0f",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-08T04:20:38Z",
+      "side": 1,
+      "message": "Nit: an example would clarify (for example for \"_printer._sub._http._tcp.local\", the subtype is \"_printer\").",
+      "range": {
+        "startLine": 408,
+        "startChar": 22,
+        "endLine": 408,
+        "endChar": 23
+      },
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ea6f00d_d2f548a0",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-08T04:20:38Z",
+      "side": 1,
+      "message": "That\u0027s not necessarily true, it\u0027s possible other subtypes are included if they were sent by the service (even if unsolicited).\n\nSo you could say: if the NsdServiceInfo is obtained through DiscoveryListener, ResolveListener or ServiceInfoCallback, this may contain subtypes as included by the service in its replies, but services are not required to do so unless the service is being discovered with a matching subtype.\n\nOr, considering that this may just be error-prone, we could leave this unset in discovery/resolve/service callback results.",
+      "range": {
+        "startLine": 422,
+        "startChar": 7,
+        "endLine": 422,
+        "endChar": 39
+      },
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02187452_c43eb6e7",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-08T04:20:38Z",
+      "side": 1,
+      "message": "A service resolve may not return the subtype, since it will not query PTR records",
+      "range": {
+        "startLine": 424,
+        "startChar": 18,
+        "endLine": 424,
+        "endChar": 32
+      },
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24b9b07f_3793e712",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-08T04:20:38Z",
+      "side": 1,
+      "message": "Parcel#createStringArrayList would be slightly simpler",
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab0a1a7e_5a9e365c",
+        "filename": "tests/cts/net/src/android/net/cts/DiscoveryRequestTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-08T04:20:38Z",
+      "side": 1,
+      "message": "We might want to add other protocols in the future, so the CTS test would fail in that case\n\nYou could use a higher number we\u0027re unlikely to use, like 42",
+      "range": {
+        "startLine": 79,
+        "startChar": 51,
+        "endLine": 79,
+        "endChar": 52
+      },
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb587881_a2c9cfc0",
+        "filename": "tests/cts/net/src/android/net/cts/DiscoveryRequestTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-08T04:20:38Z",
+      "side": 1,
+      "message": "Nit: that\u0027s unusual indentation, I think generally this line would be on +4 or +8 spaces compared to the previous one ?",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

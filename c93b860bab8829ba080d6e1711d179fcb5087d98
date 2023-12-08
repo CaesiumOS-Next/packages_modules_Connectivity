@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07e13b64_2f670bfe",
+        "filename": "common/flags.aconfig",
+        "patchSetId": 55
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-08T04:20:38Z",
+      "side": 1,
+      "message": "motomuman@ plans to move this config to frameworks/base, because only the platform would check if a flag is enabled. And in practice for this flag, nothing would check it since there\u0027s no external caller at the moment (only called from within the module).\n\nSo could you just remove this flag config ? You can keep using the NsdFlags.",
+      "revId": "c93b860bab8829ba080d6e1711d179fcb5087d98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
