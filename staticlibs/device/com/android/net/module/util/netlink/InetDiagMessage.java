@@ -154,7 +154,8 @@ public class InetDiagMessage extends NetlinkMessage {
     }
 
     public StructInetDiagMsg inetDiagMsg;
-
+    // The netlink attributes.
+    public ByteBuffer nlAttrs;
     @VisibleForTesting
     public InetDiagMessage(@NonNull StructNlMsgHdr header) {
         super(header);
@@ -172,6 +173,8 @@ public class InetDiagMessage extends NetlinkMessage {
         if (msg.inetDiagMsg == null) {
             return null;
         }
+
+        msg.nlAttrs = byteBuffer.slice();
         return msg;
     }
 
