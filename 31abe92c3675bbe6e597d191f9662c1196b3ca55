@@ -16,6 +16,23 @@
       "message": "https://googleplex-android-review.git.corp.google.com/q/topic:%22mv_core_network_flags%22 need to be checked in first.",
       "revId": "31abe92c3675bbe6e597d191f9662c1196b3ca55",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "106c72b8_70d44f84",
+        "filename": "common/TrunkStable.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-08T10:30:26Z",
+      "side": 1,
+      "message": "Don\u0027t forget to make another CL to delete this\n\nas discussed the plan is to change udc-mainline-prod to also include this file in the Android.bp so that there\u0027s no conflict, and then delete the include and this file with a change that automerges AOSP\n\nOr to do several changes bottoms-up",
+      "revId": "31abe92c3675bbe6e597d191f9662c1196b3ca55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
