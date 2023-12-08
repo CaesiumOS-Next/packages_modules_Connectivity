@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19ecfe70_ca76178a",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-08T06:05:14Z",
+      "side": 1,
+      "message": "Thanks! fixed in aosp/2864287",
+      "parentUuid": "28e92505_ed741d39",
+      "range": {
+        "startLine": 88,
+        "startChar": 85,
+        "endLine": 88,
+        "endChar": 86
+      },
+      "revId": "7b47ee9a5d8563ed27828143398b83bf88554245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22f2d66e_1f5bc06e",
