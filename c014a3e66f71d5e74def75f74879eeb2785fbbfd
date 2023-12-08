@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "371523b8_760b685a",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-08T10:24:31Z",
+      "side": 1,
+      "message": "parseTypeAndSubtype uses the following regex:\n\n`_[a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]`\n\nIt would be best to stay consistent, as this limits more than the first character",
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b2b2f4b_b0db9f46",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-08T10:24:31Z",
+      "side": 1,
+      "message": "Could you move the discovery parts out of this CL as well, to focus on the advertising ? It\u0027s best to keep small changes if there\u0027s no strong dependency.",
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c631aa27_b937169b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 2296,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-08T10:24:31Z",
+      "side": 1,
+      "message": "This repeats code with the method above; could you factor out something like:\n\n```\nprivate int getNetworkInterfaceIndex(Network network, int fallbackIndex)\n```\n\n ?",
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84394c36_4e5955c5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-08T10:24:31Z",
+      "side": 1,
+      "message": "Could you make a new NsdServiceInfo instead of modifying in place ? It\u0027s possible that there are references to the existing instance elsewhere, and this could cause unexpected behavior.\n\nYou could factor out a method using what is in makeNewServiceInfoForConflict right now, which creates a copy.",
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab4a818c_f4c2a052",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-08T10:24:31Z",
+      "side": 1,
+      "message": "Just \"subtypes\" would be enough (which would call subtypes.toString(), except if null)",
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2389d851_bd9df78d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-08T10:24:31Z",
+      "side": 1,
+      "message": "Also here, could you recreate the NsdServiceInfo to be safe ?",
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
