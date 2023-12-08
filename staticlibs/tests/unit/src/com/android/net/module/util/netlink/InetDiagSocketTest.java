@@ -345,28 +345,28 @@ public class InetDiagSocketTest {
     // Hexadecimal representation of InetDiagMessage
     private static final String INET_DIAG_MSG_HEX1 =
             // struct nlmsghdr
-            "58000000" +     // length = 88
-            "1400" +         // type = SOCK_DIAG_BY_FAMILY
-            "0200" +         // flags = NLM_F_MULTI
-            "00000000" +     // seqno
-            "f5220000" +     // pid
+            "58000000"     // length = 88
+            + "1400"         // type = SOCK_DIAG_BY_FAMILY
+            + "0200"         // flags = NLM_F_MULTI
+            + "00000000"     // seqno
+            + "f5220000"     // pid
             // struct inet_diag_msg
-            "0a" +           // family = AF_INET6
-            "01" +           // idiag_state = 1
-            "02" +           // idiag_timer = 2
-            "ff" +           // idiag_retrans = 255
+            + "0a"           // family = AF_INET6
+            + "01"           // idiag_state = 1
+            + "02"           // idiag_timer = 2
+            + "ff"           // idiag_retrans = 255
                 // inet_diag_sockid
-                "a817" +     // idiag_sport = 43031
-                "960f" +     // idiag_dport = 38415
-                "20010db8000000000000000000000001" + // idiag_src = 2001:db8::1
-                "20010db8000000000000000000000002" + // idiag_dst = 2001:db8::2
-                "07000000" + // idiag_if = 7
-                "5800000000000000" + // idiag_cookie = 88
-            "04000000" +     // idiag_expires = 4
-            "05000000" +     // idiag_rqueue = 5
-            "06000000" +     // idiag_wqueue = 6
-            "a3270000" +     // idiag_uid = 10147
-            "a57e19f0";      // idiag_inode = 4028202661
+                + "a817"     // idiag_sport = 43031
+                + "960f"     // idiag_dport = 38415
+                + "20010db8000000000000000000000001" // idiag_src = 2001:db8::1
+                + "20010db8000000000000000000000002" // idiag_dst = 2001:db8::2
+                + "07000000" // idiag_if = 7
+                + "5800000000000000" // idiag_cookie = 88
+            + "04000000"     // idiag_expires = 4
+            + "05000000"     // idiag_rqueue = 5
+            + "06000000"     // idiag_wqueue = 6
+            + "a3270000"     // idiag_uid = 10147
+            + "a57e19f0";      // idiag_inode = 4028202661
 
     private void assertInetDiagMsg1(final NetlinkMessage msg) {
         assertNotNull(msg);
@@ -394,34 +394,51 @@ public class InetDiagSocketTest {
         assertEquals(6, inetDiagMsg.inetDiagMsg.idiag_wqueue);
         assertEquals(10147, inetDiagMsg.inetDiagMsg.idiag_uid);
         assertEquals(4028202661L, inetDiagMsg.inetDiagMsg.idiag_inode);
+
+        // Verify that the length is expected.
+        assertEquals(0, inetDiagMsg.nlAttrs.size());
     }
+
+    // Hexadecimal representation of nlAttrs
+    private static final String NL_ATTRS_HEX =
+            "0500"           // len = 5
+            + "0800"         // type = 8
+            + "00000000"     // data
+            + "0800"         // len = 8
+            + "0F00"         // type = 15(INET_DIAG_MARK)
+            + "850A0C00"     // data, socket mark=789125
+            + "0400"         // len = 4
+            + "0200";        // type = 2
+
+    private static final ByteBuffer NL_ATTRS_BYTEBUFFER =
+            ByteBuffer.wrap(HexEncoding.decode(NL_ATTRS_HEX.toCharArray(), false));
 
     // Hexadecimal representation of InetDiagMessage
     private static final String INET_DIAG_MSG_HEX2 =
             // struct nlmsghdr
-            "58000000" +     // length = 88
-            "1400" +         // type = SOCK_DIAG_BY_FAMILY
-            "0200" +         // flags = NLM_F_MULTI
-            "00000000" +     // seqno
-            "f5220000" +     // pid
+            "6C000000"     // length = 108
+            + "1400"         // type = SOCK_DIAG_BY_FAMILY
+            + "0200"         // flags = NLM_F_MULTI
+            + "00000000"     // seqno
+            + "f5220000"     // pid
             // struct inet_diag_msg
-            "0a" +           // family = AF_INET6
-            "02" +           // idiag_state = 2
-            "10" +           // idiag_timer = 16
-            "20" +           // idiag_retrans = 32
+            + "0a"           // family = AF_INET6
+            + "02"           // idiag_state = 2
+            + "10"           // idiag_timer = 16
+            + "20"           // idiag_retrans = 32
                 // inet_diag_sockid
-                "a845" +     // idiag_sport = 43077
-                "01bb" +     // idiag_dport = 443
-                "20010db8000000000000000000000003" + // idiag_src = 2001:db8::3
-                "20010db8000000000000000000000004" + // idiag_dst = 2001:db8::4
-                "08000000" + // idiag_if = 8
-                "6300000000000000" + // idiag_cookie = 99
-            "30000000" +     // idiag_expires = 48
-            "40000000" +     // idiag_rqueue = 64
-            "50000000" +     // idiag_wqueue = 80
-            "39300000" +     // idiag_uid = 12345
-            "851a0000";      // idiag_inode = 6789
-
+                + "a845"     // idiag_sport = 43077
+                + "01bb"     // idiag_dport = 443
+                + "20010db8000000000000000000000003" // idiag_src = 2001:db8::3
+                + "20010db8000000000000000000000004" // idiag_dst = 2001:db8::4
+                + "08000000" // idiag_if = 8
+                + "6300000000000000" // idiag_cookie = 99
+            + "30000000"     // idiag_expires = 48
+            + "40000000"     // idiag_rqueue = 64
+            + "50000000"     // idiag_wqueue = 80
+            + "39300000"     // idiag_uid = 12345
+            + "851a0000"     // idiag_inode = 6789
+            + NL_ATTRS_HEX;
     private void assertInetDiagMsg2(final NetlinkMessage msg) {
         assertNotNull(msg);
 
@@ -448,6 +465,23 @@ public class InetDiagSocketTest {
         assertEquals(80, inetDiagMsg.inetDiagMsg.idiag_wqueue);
         assertEquals(12345, inetDiagMsg.inetDiagMsg.idiag_uid);
         assertEquals(6789, inetDiagMsg.inetDiagMsg.idiag_inode);
+
+        // Verify the number of nlAttr and their content.
+        assertEquals(3, inetDiagMsg.nlAttrs.size());
+
+        assertEquals(5, inetDiagMsg.nlAttrs.get(0).nla_len);
+        assertEquals(8, inetDiagMsg.nlAttrs.get(0).nla_type);
+        assertArrayEquals(
+                HexEncoding.decode("00".toCharArray(), false),
+                inetDiagMsg.nlAttrs.get(0).nla_value);
+        assertEquals(8, inetDiagMsg.nlAttrs.get(1).nla_len);
+        assertEquals(15, inetDiagMsg.nlAttrs.get(1).nla_type);
+        assertArrayEquals(
+                HexEncoding.decode("850A0C00".toCharArray(), false),
+                inetDiagMsg.nlAttrs.get(1).nla_value);
+        assertEquals(4, inetDiagMsg.nlAttrs.get(2).nla_len);
+        assertEquals(2, inetDiagMsg.nlAttrs.get(2).nla_type);
+        assertNull(inetDiagMsg.nlAttrs.get(2).nla_value);
     }
 
     private static final byte[] INET_DIAG_MSG_BYTES =
