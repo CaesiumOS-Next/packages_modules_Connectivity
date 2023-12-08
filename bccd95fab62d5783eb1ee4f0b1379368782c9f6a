@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ced4f95_77218ffb",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/UpstreamNetworkMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-08T07:09:26Z",
+      "side": 0,
+      "message": "These code seems existed from the start, did you see the same failure before? Not sure if different test cases in the same test class could be running in different threads at the same time now.",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 20
+      },
+      "revId": "bccd95fab62d5783eb1ee4f0b1379368782c9f6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
