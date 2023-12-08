@@ -52,6 +52,24 @@
       "parentUuid": "dd5d1a8e_433d127d",
       "revId": "045166e6331fea49941b247c8ead3f3035c0b142",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7fe4e4f_ab68b418",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-08T06:51:26Z",
+      "side": 1,
+      "message": "Resolver CLs merged. Remove -2 accordingly.\nhttps://android-review.git.corp.google.com/q/topic:%22data_saver_on_V%252B%22",
+      "parentUuid": "5f283391_ef983ae0",
+      "revId": "045166e6331fea49941b247c8ead3f3035c0b142",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
