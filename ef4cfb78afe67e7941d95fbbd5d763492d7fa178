@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f81cae68_dc41292f",
+        "filename": "DnsResolver/DnsBpfHelper.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-08T02:27:04Z",
+      "side": 1,
+      "message": "Is it better to put this behind flag too?\nGiven that:\n 1. It will be 3 different behaviors after V if support white/black list before v. Might be extra efforts to maintain.\n 2. This is new feature, and uids which affected by these 2 lines are limited set.\n 3. It will match test code if we do this.",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 0
+      },
+      "revId": "ef4cfb78afe67e7941d95fbbd5d763492d7fa178",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
