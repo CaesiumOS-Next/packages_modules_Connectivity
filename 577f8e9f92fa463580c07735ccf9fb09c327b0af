@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d696090_c0986608",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-12-08T09:30:36Z",
+      "side": 1,
+      "message": "Sorry for the back and forth, but I think we\u0027re almost there.",
+      "revId": "577f8e9f92fa463580c07735ccf9fb09c327b0af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "333d3082_5d694b7b",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-12-08T09:30:36Z",
+      "side": 1,
+      "message": "This can\u0027t prevent SocketUtils.closeSocket to be called twice but originally we can. Because the isSocketValid check whether mSocket is not null and not be -1. Now mSocket is final. If the mSocket is created then closed, isSocketValid() doesn\u0027t know.\n\nI think the simply way to protect calling SocketUtils.closeSocket in the code is make closeSocket() function inline (l.290). Since we will quit the thread after stop(), there is no chance to handle CMD_STOP twice.",
+      "range": {
+        "startLine": 640,
+        "startChar": 12,
+        "endLine": 640,
+        "endChar": 25
+      },
+      "revId": "577f8e9f92fa463580c07735ccf9fb09c327b0af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
