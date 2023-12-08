@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e34bf074_2bc70d54",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-08T06:46:53Z",
+      "side": 1,
+      "message": "Okay, then you need to explicitly say \"unicast\" in all your test methods (currently only one)",
+      "parentUuid": "b9be230a_35d5e380",
+      "range": {
+        "startLine": 59,
+        "startChar": 13,
+        "endLine": 59,
+        "endChar": 30
+      },
+      "revId": "994b6c208715fff120428ab8c1492d25185b56e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b5c3776_50915393",
         "filename": "thread/tests/integration/src/BorderRoutingTest.java",
         "patchSetId": 25
