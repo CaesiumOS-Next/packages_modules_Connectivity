@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d94f4348_6b4a95a0",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1893,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-12-09T00:38:14Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this just happen in ipSecGetSa below? as the first part of that call?",
+      "range": {
+        "startLine": 1893,
+        "startChar": 27,
+        "endLine": 1893,
+        "endChar": 52
+      },
+      "revId": "c456982fc1583c5e4ac63d46332569d6215a767f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
