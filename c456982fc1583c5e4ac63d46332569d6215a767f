@@ -22,6 +22,30 @@
       },
       "revId": "c456982fc1583c5e4ac63d46332569d6215a767f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0f0953c_b0ba6d10",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1893,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-12-09T01:52:27Z",
+      "side": 1,
+      "message": "Yeah that\u0027s probably more convenient for the caller. Moved to IpSecXfrmController",
+      "parentUuid": "d94f4348_6b4a95a0",
+      "range": {
+        "startLine": 1893,
+        "startChar": 27,
+        "endLine": 1893,
+        "endChar": 52
+      },
+      "revId": "c456982fc1583c5e4ac63d46332569d6215a767f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
