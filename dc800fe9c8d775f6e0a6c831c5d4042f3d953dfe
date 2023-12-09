@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed96caf7_54cb3bbb",
+        "filename": "service-t/src/com/android/server/IpSecXfrmController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-12-09T01:23:52Z",
+      "side": 1,
+      "message": "I see. For simplicity I made all the entries to this instance synchronized just like IpSecService.",
+      "parentUuid": "3e144a55_c96158da",
+      "range": {
+        "startLine": 75,
+        "startChar": 11,
+        "endLine": 75,
+        "endChar": 15
+      },
+      "revId": "dc800fe9c8d775f6e0a6c831c5d4042f3d953dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62538a9c_47e1ef0b",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-08T23:59:53Z",
       "side": 1,
       "message": "Ditto for everything that accesses this",
+      "range": {
+        "startLine": 89,
+        "startChar": 12,
+        "endLine": 89,
+        "endChar": 26
+      },
+      "revId": "dc800fe9c8d775f6e0a6c831c5d4042f3d953dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f3ccdab_960ddf6e",
+        "filename": "service-t/src/com/android/server/IpSecXfrmController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-12-09T01:23:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62538a9c_47e1ef0b",
       "range": {
         "startLine": 89,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99164d62_9f8ef008",
+        "filename": "service-t/src/com/android/server/IpSecXfrmController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-12-09T01:23:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54d01a68_3416d019",
+      "range": {
+        "startLine": 95,
+        "startChar": 15,
+        "endLine": 95,
+        "endChar": 29
+      },
+      "revId": "dc800fe9c8d775f6e0a6c831c5d4042f3d953dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fab71ec_f0cb50bb",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb9ff55e_fa8d3536",
+        "filename": "service-t/src/com/android/server/IpSecXfrmController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-12-09T01:23:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fab71ec_f0cb50bb",
+      "range": {
+        "startLine": 130,
+        "startChar": 27,
+        "endLine": 130,
+        "endChar": 41
+      },
+      "revId": "dc800fe9c8d775f6e0a6c831c5d4042f3d953dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7295187b_e354a25d",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-12-08T23:59:53Z",
       "side": 1,
       "message": "This probably could be either a constructor?",
+      "range": {
+        "startLine": 166,
+        "startChar": 40,
+        "endLine": 166,
+        "endChar": 66
+      },
+      "revId": "dc800fe9c8d775f6e0a6c831c5d4042f3d953dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c2aba3d_d16095b6",
+        "filename": "service-t/src/com/android/server/IpSecXfrmController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-12-09T01:23:52Z",
+      "side": 1,
+      "message": "Yes constructor also works. This method is more convenient because it also includes code to create a host order ByteBuffer to encode the message. It is a convention in the NetlinkMessage.",
+      "parentUuid": "7295187b_e354a25d",
       "range": {
         "startLine": 166,
         "startChar": 40,
