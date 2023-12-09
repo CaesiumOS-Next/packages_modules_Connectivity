@@ -111,6 +111,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -716,14 +717,14 @@ public class NsdService extends INsdManager.Stub {
 
                         final NsdServiceInfo info = args.serviceInfo;
                         transactionId = getUniqueId();
-                        final Pair<String, String> typeAndSubtype =
+                        final Pair<String, List<String>> typeAndSubtype =
                                 parseTypeAndSubtype(info.getServiceType());
                         final String serviceType = typeAndSubtype == null
                                 ? null : typeAndSubtype.first;
                         if (clientInfo.mUseJavaBackend
                                 || mDeps.isMdnsDiscoveryManagerEnabled(mContext)
                                 || useDiscoveryManagerForType(serviceType)) {
-                            if (serviceType == null) {
+                            if (serviceType == null || typeAndSubtype.second.size() > 1) {
                                 clientInfo.onDiscoverServicesFailedImmediately(clientRequestId,
                                         NsdManager.FAILURE_INTERNAL_ERROR, false /* isLegacy */);
                                 break;
@@ -738,10 +739,11 @@ public class NsdService extends INsdManager.Stub {
                                             .setNetwork(info.getNetwork())
                                             .setRemoveExpiredService(true)
                                             .setIsPassiveMode(true);
-                            if (typeAndSubtype.second != null) {
+                            if (!typeAndSubtype.second.isEmpty()) {
                                 // The parsing ensures subtype starts with an underscore.
                                 // MdnsSearchOptions expects the underscore to not be present.
-                                optionsBuilder.addSubtype(typeAndSubtype.second.substring(1));
+                                optionsBuilder.addSubtype(
+                                        typeAndSubtype.second.get(0).substring(1));
                             }
                             mMdnsDiscoveryManager.registerListener(
                                     listenServiceType, listener, optionsBuilder.build());
@@ -830,13 +832,14 @@ public class NsdService extends INsdManager.Stub {
                         transactionId = getUniqueId();
                         final NsdServiceInfo serviceInfo = args.serviceInfo;
                         final String serviceType = serviceInfo.getServiceType();
-                        final Pair<String, String> typeSubtype = parseTypeAndSubtype(serviceType);
+                        final Pair<String, List<String>> typeSubtype = parseTypeAndSubtype(
+                                serviceType);
                         final String registerServiceType = typeSubtype == null
                                 ? null : typeSubtype.first;
                         if (clientInfo.mUseJavaBackend
                                 || mDeps.isMdnsAdvertiserEnabled(mContext)
                                 || useAdvertiserForType(registerServiceType)) {
-                            if (registerServiceType == null) {
+                            if (registerServiceType == null || typeSubtype.second.size() > 1) {
                                 Log.e(TAG, "Invalid service type: " + serviceType);
                                 clientInfo.onRegisterServiceFailedImmediately(clientRequestId,
                                         NsdManager.FAILURE_INTERNAL_ERROR, false /* isLegacy */);
@@ -852,7 +855,7 @@ public class NsdService extends INsdManager.Stub {
                             // Name._subtype._sub._type._tcp, which is incorrect
                             // (it should be Name._type._tcp).
                             mAdvertiser.addOrUpdateService(transactionId, serviceInfo,
-                                    typeSubtype.second,
+                                    typeSubtype.second.isEmpty() ? null : typeSubtype.second.get(0),
                                     MdnsAdvertisingOptions.newBuilder().build());
                             storeAdvertiserRequestMap(clientRequestId, transactionId, clientInfo,
                                     serviceInfo.getNetwork());
@@ -932,7 +935,7 @@ public class NsdService extends INsdManager.Stub {
 
                         final NsdServiceInfo info = args.serviceInfo;
                         transactionId = getUniqueId();
-                        final Pair<String, String> typeSubtype =
+                        final Pair<String, List<String>> typeSubtype =
                                 parseTypeAndSubtype(info.getServiceType());
                         final String serviceType = typeSubtype == null
                                 ? null : typeSubtype.first;
@@ -1033,7 +1036,7 @@ public class NsdService extends INsdManager.Stub {
 
                         final NsdServiceInfo info = args.serviceInfo;
                         transactionId = getUniqueId();
-                        final Pair<String, String> typeAndSubtype =
+                        final Pair<String, List<String>> typeAndSubtype =
                                 parseTypeAndSubtype(info.getServiceType());
                         final String serviceType = typeAndSubtype == null
                                 ? null : typeAndSubtype.first;
@@ -1581,18 +1584,19 @@ public class NsdService extends INsdManager.Stub {
      * underscore; they are alphanumerical characters or dashes or underscore, except the
      * last one that is just alphanumerical. The last label must be _tcp or _udp.
      *
-     * <p>The subtype may also be specified with a comma after the service type, for example
-     * _type._tcp,_subtype.
+     * <p>The subtypes may also be specified with a comma after the service type, for example
+     * _type._tcp,_subtype1,_subtype2
      *
      * @param serviceType the request service type for discovery / resolution service
      * @return constructed service type or null if the given service type is invalid.
      */
     @Nullable
-    public static Pair<String, String> parseTypeAndSubtype(String serviceType) {
+    public static Pair<String, List<String>> parseTypeAndSubtype(String serviceType) {
         if (TextUtils.isEmpty(serviceType)) return null;
 
+
         final String typeOrSubtypePattern = "_[a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]";
-        final Pattern serviceTypePattern = Pattern.compile(
+        final String regexString =
                 // Optional leading subtype (_subtype._type._tcp)
                 // (?: xxx) is a non-capturing parenthesis, don't capture the dot
                 "^(?:(" + typeOrSubtypePattern + ")\\.)?"
@@ -1601,14 +1605,25 @@ public class NsdService extends INsdManager.Stub {
                         // Drop '.' at the end of service type that is compatible with old backend.
                         // e.g. allow "_type._tcp.local."
                         + "\\.?"
-                        // Optional subtype after comma, for "_type._tcp,_subtype" format
-                        + "(?:,(" + typeOrSubtypePattern + "))?"
-                        + "$");
+                        // Optional subtype after comma, for "_type._tcp,_subtype1,_subtype2" format
+                        + "((?:," + typeOrSubtypePattern + ")*)"
+                        + "$";
+        final Pattern serviceTypePattern = Pattern.compile(regexString);
         final Matcher matcher = serviceTypePattern.matcher(serviceType);
         if (!matcher.matches()) return null;
-        // Use the subtype either at the beginning or after the comma
-        final String subtype = matcher.group(1) != null ? matcher.group(1) : matcher.group(3);
-        return new Pair<>(matcher.group(2), subtype);
+        final String queryType = matcher.group(2);
+        // Use the subtype at the beginning
+        if (matcher.group(1) != null) {
+            return new Pair<>(queryType, List.of(matcher.group(1)));
+        }
+        // Use the subtypes at the end
+        final String subTypesStr = matcher.group(3);
+        if (subTypesStr != null && !subTypesStr.isEmpty()) {
+            final String[] subTypes = subTypesStr.substring(1).split(",");
+            return new Pair<>(queryType, List.of(subTypes));
+        }
+
+        return new Pair<>(queryType, Collections.emptyList());
     }
 
     @VisibleForTesting
