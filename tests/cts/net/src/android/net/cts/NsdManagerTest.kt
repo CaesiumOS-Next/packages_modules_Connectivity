@@ -1005,12 +1005,12 @@ class NsdManagerTest {
     private fun runSubtypeAdvertisingAndDiscoveryTest(useLegacySpecifier: Boolean) {
         val si = makeTestServiceInfo(network = testNetwork1.network)
         if (useLegacySpecifier) {
-            si.subtypes = listOf("_subtype1")
+            si.subtypes = setOf("_subtype1")
 
             // Test "_type._tcp.local,_subtype" syntax with the registration
             si.serviceType = si.serviceType + ",_subtype2"
         } else {
-            si.subtypes = listOf("_subtype1", "_subtype2")
+            si.subtypes = setOf("_subtype1", "_subtype2")
         }
 
         val registrationRecord = NsdRegistrationRecord()
@@ -1068,7 +1068,7 @@ class NsdManagerTest {
         val si = makeTestServiceInfo(network = testNetwork1.network)
         // Sets 101 subtypes in total
         val seq = generateSequence(1) { it + 1}
-        si.subtypes = seq.take(100).toList().map {it -> "_subtype" + it}
+        si.subtypes = seq.take(100).toList().map {it -> "_subtype" + it}.toSet()
         si.serviceType = si.serviceType + ",_subtype"
 
         val record = NsdRegistrationRecord()
@@ -1081,7 +1081,7 @@ class NsdManagerTest {
     @Test
     fun testSubtypeAdvertising_emptySubtypeLabel_returnsFailureBadParameters() {
         val si = makeTestServiceInfo(network = testNetwork1.network)
-        si.subtypes = listOf("")
+        si.subtypes = setOf("")
 
         val record = NsdRegistrationRecord()
         nsdManager.registerService(si, NsdManager.PROTOCOL_DNS_SD, Executor { it.run() }, record)
