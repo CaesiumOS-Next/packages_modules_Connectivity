@@ -18,6 +18,8 @@ package com.android.server.connectivity.mdns;
 
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
+import static org.junit.Assert.assertThrows;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.eq;
@@ -156,6 +158,14 @@ public class MdnsDiscoveryManagerTests {
         verify(socketClient).notifyNetworkRequested(
                 eq(listener), eq(options.getNetwork()), callbackCaptor.capture());
         return callbackCaptor.getValue();
+    }
+
+    @Test
+    public void registerListener_twoSubtypes_throwsIllegalArgument() throws IOException {
+        final MdnsSearchOptions options =
+                MdnsSearchOptions.newBuilder().addSubtype("_thread").addSubtype("_matter").build();
+        assertThrows(IllegalArgumentException.class,
+                () -> discoveryManager.registerListener(SERVICE_TYPE_1, mockListenerOne, options));
     }
 
     @Test
