@@ -1424,6 +1424,23 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return new AutomaticOnOffKeepaliveTracker(c, h);
         }
 
+        public RoutingCoordinatorService makeRoutingCoordinatorService(
+                INetd netd, @NonNull Handler h) {
+            return new RoutingCoordinatorService(
+                new RoutingCoordinatorService.Dependencies() {
+                    @NonNull
+                    public INetd getNetd() {
+                        return netd;
+                    }
+
+                    @NonNull
+                    public Handler getHandler() {
+                        return h;
+                    }
+                }
+            );
+        }
+
         /**
          * @see NetworkRequestStateStatsMetrics
          */
@@ -1875,7 +1892,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mCdmps = null;
         }
 
-        mRoutingCoordinatorService = new RoutingCoordinatorService(netd);
+        mRoutingCoordinatorService = mDeps.makeRoutingCoordinatorService(netd, mHandler);
 
         mDestroyFrozenSockets = mDeps.isAtLeastU()
                 && mDeps.isFeatureEnabled(context, KEY_DESTROY_FROZEN_SOCKETS_VERSION);
