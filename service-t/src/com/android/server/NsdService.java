@@ -73,6 +73,7 @@ import android.os.RemoteException;
 import android.os.UserHandle;
 import android.provider.DeviceConfig;
 import android.text.TextUtils;
+import android.util.ArrayMap;
 import android.util.ArraySet;
 import android.util.Log;
 import android.util.Pair;
@@ -186,6 +187,8 @@ public class NsdService extends INsdManager.Stub {
     static final int NO_TRANSACTION = -1;
     private static final int NO_SENT_QUERY_COUNT = 0;
     private static final int DISCOVERY_QUERY_SENT_CALLBACK = 1000;
+    // TODO: make this configurable via feature flag
+    private static final int MAX_SUBTYPE_COUNT = 100;
     private static final SharedLog LOGGER = new SharedLog("serviceDiscovery");
 
     private final Context mContext;
@@ -688,6 +691,35 @@ public class NsdService extends INsdManager.Stub {
                 return mClients.get(args.connector);
             }
 
+            /**
+             * Returns {@code false} if {@code subtypes} exceeds the maximum number limit or
+             * contains invalid subtype label.
+             */
+            private boolean checkSubtypeLabels(List<String> subtypes) {
+                if (subtypes.size() > MAX_SUBTYPE_COUNT) {
+                    mServiceLogs.e(
+                            "Too many subtypes: " + subtypes.size() + " (max = "
+                                    + MAX_SUBTYPE_COUNT + ")");
+                    return false;
+                }
+
+                for (String subtype : subtypes) {
+                    if (!checkSubtypeLabel(subtype)) {
+                        mServiceLogs.e("Subtype " + subtype + " is invalid");
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            private List<String> dedupSubtypeLabels(List<String> subtypes) {
+                final Map<String, String> subtypeMap = new ArrayMap<>(subtypes.size());
+                for (String subtype : subtypes) {
+                    subtypeMap.put(MdnsUtils.toDnsLowerCase(subtype), subtype);
+                }
+                return new ArrayList<>(subtypeMap.values());
+            }
+
             @Override
             public boolean processMessage(Message msg) {
                 final ClientInfo clientInfo;
@@ -846,13 +878,23 @@ public class NsdService extends INsdManager.Stub {
                             serviceInfo.setServiceName(truncateServiceName(
                                     serviceInfo.getServiceName()));
 
+                            List<String> subtypes = serviceInfo.getSubtypes();
+                            if (!TextUtils.isEmpty(typeSubtype.second)) {
+                                subtypes.add(typeSubtype.second);
+                            }
+
+                            subtypes = dedupSubtypeLabels(subtypes);
+
+                            if (!checkSubtypeLabels(subtypes)) {
+                                clientInfo.onRegisterServiceFailedImmediately(clientRequestId,
+                                        NsdManager.FAILURE_BAD_PARAMETERS, false /* isLegacy */);
+                                break;
+                            }
+
+                            serviceInfo.setSubtypes(subtypes);
+
                             maybeStartMonitoringSockets();
-                            // TODO: pass in the subtype as well. Including the subtype in the
-                            // service type would generate service instance names like
-                            // Name._subtype._sub._type._tcp, which is incorrect
-                            // (it should be Name._type._tcp).
                             mAdvertiser.addOrUpdateService(transactionId, serviceInfo,
-                                    typeSubtype.second,
                                     MdnsAdvertisingOptions.newBuilder().build());
                             storeAdvertiserRequestMap(clientRequestId, transactionId, clientInfo,
                                     serviceInfo.getNetwork());
@@ -1388,6 +1430,7 @@ public class NsdService extends INsdManager.Stub {
                         servInfo,
                         network == null ? INetd.LOCAL_NET_ID : network.netId,
                         serviceInfo.getInterfaceIndex());
+                servInfo.setSubtypes(serviceInfo.getSubtypes());
                 return servInfo;
             }
 
@@ -1609,6 +1652,12 @@ public class NsdService extends INsdManager.Stub {
         // Use the subtype either at the beginning or after the comma
         final String subtype = matcher.group(1) != null ? matcher.group(1) : matcher.group(3);
         return new Pair<>(matcher.group(2), subtype);
+    }
+
+    /** Returns {@code true} if {@code subtype} is a valid DNS-SD subtype label. */
+    private static boolean checkSubtypeLabel(String subtype) {
+        final String subtypePattern = "_[a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]";
+        return Pattern.compile("^" + subtypePattern + "$").matcher(subtype).matches();
     }
 
     @VisibleForTesting
