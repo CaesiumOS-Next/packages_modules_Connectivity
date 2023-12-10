@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41086c89_1f9e40d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T14:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a42520ea_09167c5a",
+      "range": {
+        "startLine": 7,
+        "startChar": 7,
+        "endLine": 7,
+        "endChar": 41
+      },
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "286981db_4e9a6bda",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-08T16:10:44Z",
       "side": 1,
       "message": "Better to move this change to the CL for discovery change",
+      "range": {
+        "startLine": 193,
+        "startChar": 27,
+        "endLine": 193,
+        "endChar": 34
+      },
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f9fa54e_fe29c4ff",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T14:09:09Z",
+      "side": 1,
+      "message": "Oh, thanks, I added it to the wrong CL. Fixed.",
+      "parentUuid": "286981db_4e9a6bda",
       "range": {
         "startLine": 193,
         "startChar": 27,
@@ -64,6 +112,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1d30774_eef2c7bd",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T14:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "371523b8_760b685a",
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "deb712c2_e727de4b",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-12-08T16:10:44Z",
       "side": 1,
       "message": "nit: final",
+      "range": {
+        "startLine": 715,
+        "startChar": 16,
+        "endLine": 715,
+        "endChar": 19
+      },
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a31f94ff_0ed5e3a0",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T14:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "deb712c2_e727de4b",
       "range": {
         "startLine": 715,
         "startChar": 16,
@@ -104,6 +194,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73a6abf5_f1b9f744",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T14:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b2b2f4b_b0db9f46",
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c631aa27_b937169b",
@@ -121,6 +229,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45463fad_5b167c18",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 2296,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T14:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c631aa27_b937169b",
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "009d4b7a_28172357",
@@ -134,6 +260,30 @@
       "writtenOn": "2023-12-08T16:10:44Z",
       "side": 1,
       "message": "No need for extra blank line",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 1
+      },
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9886701_8c0abe99",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T14:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "009d4b7a_28172357",
       "range": {
         "startLine": 239,
         "startChar": 0,
@@ -167,6 +317,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92215ad6_2262ad56",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T14:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b7c7816_413b37b5",
+      "range": {
+        "startLine": 508,
+        "startChar": 35,
+        "endLine": 508,
+        "endChar": 39
+      },
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84394c36_4e5955c5",
@@ -184,6 +358,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61e1179a_9a18f6a2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T14:09:09Z",
+      "side": 1,
+      "message": "Added a @hide copy constructor for `NsdServiceInfo`",
+      "parentUuid": "84394c36_4e5955c5",
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab4a818c_f4c2a052",
@@ -197,6 +389,24 @@
       "writtenOn": "2023-12-08T10:24:31Z",
       "side": 1,
       "message": "Just \"subtypes\" would be enough (which would call subtypes.toString(), except if null)",
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28f42449_375609b0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T14:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab4a818c_f4c2a052",
       "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -224,6 +434,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "131ce9d2_54d49b4a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T14:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85cbce3f_c9b07edb",
+      "range": {
+        "startLine": 171,
+        "startChar": 8,
+        "endLine": 174,
+        "endChar": 9
+      },
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2389d851_bd9df78d",
@@ -237,6 +471,24 @@
       "writtenOn": "2023-12-08T10:24:31Z",
       "side": 1,
       "message": "Also here, could you recreate the NsdServiceInfo to be safe ?",
+      "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cee72de_40caa0ac",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T14:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2389d851_bd9df78d",
       "revId": "c014a3e66f71d5e74def75f74879eeb2785fbbfd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
