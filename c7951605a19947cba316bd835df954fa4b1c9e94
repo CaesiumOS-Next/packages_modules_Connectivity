@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5adb7d9a_287670b1",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 59
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T12:28:41Z",
+      "side": 1,
+      "message": "Moved the discovery part to aosp/2864728.",
+      "parentUuid": "5b066b86_7bd06cb6",
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "976ebcea_675f07ef",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-12-08T04:20:38Z",
       "side": 1,
       "message": "Can this be renamed to an advertising map ? Is this only for advertising now ?",
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f5210a2_6cd84816",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T12:28:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "976ebcea_675f07ef",
       "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7a3d273_f6fd9dd7",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T12:28:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bbe9a10_20126a02",
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72d02159_7e40fa0f",
@@ -65,6 +119,30 @@
       "writtenOn": "2023-12-08T04:20:38Z",
       "side": 1,
       "message": "Nit: an example would clarify (for example for \"_printer._sub._http._tcp.local\", the subtype is \"_printer\").",
+      "range": {
+        "startLine": 408,
+        "startChar": 22,
+        "endLine": 408,
+        "endChar": 23
+      },
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cabf7049_2c59afa2",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T12:28:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72d02159_7e40fa0f",
       "range": {
         "startLine": 408,
         "startChar": 22,
@@ -98,6 +176,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7009136f_bdf152bb",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T12:28:41Z",
+      "side": 1,
+      "message": "Updated the documentation to say the return value may or may not include the subtypes of the service when the NsdServiceInfo object is returned by the DiscoveryListener, thanks!",
+      "parentUuid": "7ea6f00d_d2f548a0",
+      "range": {
+        "startLine": 422,
+        "startChar": 7,
+        "endLine": 422,
+        "endChar": 39
+      },
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02187452_c43eb6e7",
@@ -111,6 +213,30 @@
       "writtenOn": "2023-12-08T04:20:38Z",
       "side": 1,
       "message": "A service resolve may not return the subtype, since it will not query PTR records",
+      "range": {
+        "startLine": 424,
+        "startChar": 18,
+        "endLine": 424,
+        "endChar": 32
+      },
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ccb4057_8c84bfcf",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T12:28:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02187452_c43eb6e7",
       "range": {
         "startLine": 424,
         "startChar": 18,
@@ -138,6 +264,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ae0a126_2378aa98",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T12:28:41Z",
+      "side": 1,
+      "message": "Thanks! updated.",
+      "parentUuid": "24b9b07f_3793e712",
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab0a1a7e_5a9e365c",
@@ -161,6 +305,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c325bbc_d6715f5a",
+        "filename": "tests/cts/net/src/android/net/cts/DiscoveryRequestTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T12:28:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab0a1a7e_5a9e365c",
+      "range": {
+        "startLine": 79,
+        "startChar": 51,
+        "endLine": 79,
+        "endChar": 52
+      },
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb587881_a2c9cfc0",
@@ -174,6 +342,30 @@
       "writtenOn": "2023-12-08T04:20:38Z",
       "side": 1,
       "message": "Nit: that\u0027s unusual indentation, I think generally this line would be on +4 or +8 spaces compared to the previous one ?",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "c7951605a19947cba316bd835df954fa4b1c9e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03f8369a_6d3a7fc1",
+        "filename": "tests/cts/net/src/android/net/cts/DiscoveryRequestTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-10T12:28:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb587881_a2c9cfc0",
       "range": {
         "startLine": 88,
         "startChar": 0,
