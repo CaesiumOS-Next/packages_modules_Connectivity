@@ -51,6 +51,7 @@ import android.net.mdns.aidl.GetAddressInfo;
 import android.net.mdns.aidl.IMDnsEventListener;
 import android.net.mdns.aidl.RegistrationInfo;
 import android.net.mdns.aidl.ResolutionInfo;
+import android.net.nsd.DiscoveryRequest;
 import android.net.nsd.INsdManager;
 import android.net.nsd.INsdManagerCallback;
 import android.net.nsd.INsdServiceConnector;
@@ -267,15 +268,12 @@ public class NsdService extends INsdManager.Stub {
         protected final int mClientRequestId;
         protected final int mTransactionId;
         @NonNull
-        protected final NsdServiceInfo mReqServiceInfo;
-        @NonNull
         protected final String mListenedServiceType;
 
-        MdnsListener(int clientRequestId, int transactionId, @NonNull NsdServiceInfo reqServiceInfo,
+        MdnsListener(int clientRequestId, int transactionId,
                 @NonNull String listenedServiceType) {
             mClientRequestId = clientRequestId;
             mTransactionId = transactionId;
-            mReqServiceInfo = reqServiceInfo;
             mListenedServiceType = listenedServiceType;
         }
 
@@ -318,8 +316,8 @@ public class NsdService extends INsdManager.Stub {
     private class DiscoveryListener extends MdnsListener {
 
         DiscoveryListener(int clientRequestId, int transactionId,
-                @NonNull NsdServiceInfo reqServiceInfo, @NonNull String listenServiceType) {
-            super(clientRequestId, transactionId, reqServiceInfo, listenServiceType);
+                @NonNull String listenServiceType) {
+            super(clientRequestId, transactionId, listenServiceType);
         }
 
         @Override
@@ -348,8 +346,8 @@ public class NsdService extends INsdManager.Stub {
     private class ResolutionListener extends MdnsListener {
 
         ResolutionListener(int clientRequestId, int transactionId,
-                @NonNull NsdServiceInfo reqServiceInfo, @NonNull String listenServiceType) {
-            super(clientRequestId, transactionId, reqServiceInfo, listenServiceType);
+                @NonNull String listenServiceType) {
+            super(clientRequestId, transactionId, listenServiceType);
         }
 
         @Override
@@ -370,8 +368,8 @@ public class NsdService extends INsdManager.Stub {
     private class ServiceInfoListener extends MdnsListener {
 
         ServiceInfoListener(int clientRequestId, int transactionId,
-                @NonNull NsdServiceInfo reqServiceInfo, @NonNull String listenServiceType) {
-            super(clientRequestId, transactionId, reqServiceInfo, listenServiceType);
+                @NonNull String listenServiceType) {
+            super(clientRequestId, transactionId, listenServiceType);
         }
 
         @Override
@@ -749,10 +747,10 @@ public class NsdService extends INsdManager.Stub {
                             break;
                         }
 
-                        final NsdServiceInfo info = args.serviceInfo;
+                        final DiscoveryRequest discoveryRequest = args.discoveryRequest;
                         transactionId = getUniqueId();
                         final Pair<String, List<String>> typeAndSubtype =
-                                parseTypeAndSubtype(info.getServiceType());
+                                parseTypeAndSubtype(discoveryRequest.getServiceType());
                         final String serviceType = typeAndSubtype == null
                                 ? null : typeAndSubtype.first;
                         if (clientInfo.mUseJavaBackend
@@ -764,41 +762,54 @@ public class NsdService extends INsdManager.Stub {
                                 break;
                             }
 
+                            String subtype = discoveryRequest.getSubtype();
+                            if (subtype == null && !typeAndSubtype.second.isEmpty()) {
+                                // The parsing ensures subtype starts with an underscore.
+                                // MdnsSearchOptions expects the underscore to not be present.
+                                subtype = typeAndSubtype.second.get(0);
+                            }
+
+                            if (subtype != null && !checkSubtypeLabel(subtype)) {
+                                clientInfo.onDiscoverServicesFailedImmediately(clientRequestId,
+                                        NsdManager.FAILURE_BAD_PARAMETERS, false /* isLegacy */);
+                                break;
+                            }
+
                             final String listenServiceType = serviceType + ".local";
                             maybeStartMonitoringSockets();
                             final MdnsListener listener = new DiscoveryListener(clientRequestId,
-                                    transactionId, info, listenServiceType);
+                                    transactionId, listenServiceType);
                             final MdnsSearchOptions.Builder optionsBuilder =
                                     MdnsSearchOptions.newBuilder()
-                                            .setNetwork(info.getNetwork())
+                                            .setNetwork(discoveryRequest.getNetwork())
                                             .setRemoveExpiredService(true)
                                             .setIsPassiveMode(true);
-                            if (!typeAndSubtype.second.isEmpty()) {
-                                // The parsing ensures subtype starts with an underscore.
-                                // MdnsSearchOptions expects the underscore to not be present.
-                                optionsBuilder.addSubtype(
-                                        typeAndSubtype.second.get(0).substring(1));
+
+                            if (subtype != null) {
+                                // checkSubtypeLabels() ensures that subtypes start with '_'
+                                optionsBuilder.addSubtype(subtype.substring(1));
                             }
                             mMdnsDiscoveryManager.registerListener(
                                     listenServiceType, listener, optionsBuilder.build());
                             final ClientRequest request = storeDiscoveryManagerRequestMap(
                                     clientRequestId, transactionId, listener, clientInfo,
-                                    info.getNetwork());
-                            clientInfo.onDiscoverServicesStarted(clientRequestId, info, request);
+                                    discoveryRequest.getNetwork());
+                            clientInfo.onDiscoverServicesStarted(
+                                    clientRequestId, discoveryRequest, request);
                             clientInfo.log("Register a DiscoveryListener " + transactionId
                                     + " for service type:" + listenServiceType);
                         } else {
                             maybeStartDaemon();
-                            if (discoverServices(transactionId, info)) {
+                            if (discoverServices(transactionId, discoveryRequest)) {
                                 if (DBG) {
                                     Log.d(TAG, "Discover " + msg.arg2 + " " + transactionId
-                                            + info.getServiceType());
+                                            + discoveryRequest.getServiceType());
                                 }
                                 final ClientRequest request = storeLegacyRequestMap(clientRequestId,
                                         transactionId, clientInfo, msg.what,
                                         mClock.elapsedRealtime());
                                 clientInfo.onDiscoverServicesStarted(
-                                        clientRequestId, info, request);
+                                        clientRequestId, discoveryRequest, request);
                             } else {
                                 stopServiceDiscovery(transactionId);
                                 clientInfo.onDiscoverServicesFailedImmediately(clientRequestId,
@@ -995,7 +1006,7 @@ public class NsdService extends INsdManager.Stub {
 
                             maybeStartMonitoringSockets();
                             final MdnsListener listener = new ResolutionListener(clientRequestId,
-                                    transactionId, info, resolveServiceType);
+                                    transactionId, resolveServiceType);
                             final MdnsSearchOptions options = MdnsSearchOptions.newBuilder()
                                     .setNetwork(info.getNetwork())
                                     .setIsPassiveMode(true)
@@ -1093,7 +1104,7 @@ public class NsdService extends INsdManager.Stub {
 
                         maybeStartMonitoringSockets();
                         final MdnsListener listener = new ServiceInfoListener(clientRequestId,
-                                transactionId, info, resolveServiceType);
+                                transactionId, resolveServiceType);
                         final MdnsSearchOptions options = MdnsSearchOptions.newBuilder()
                                 .setNetwork(info.getNetwork())
                                 .setIsPassiveMode(true)
@@ -2073,9 +2084,17 @@ public class NsdService extends INsdManager.Stub {
     private static class ListenerArgs {
         public final NsdServiceConnector connector;
         public final NsdServiceInfo serviceInfo;
+        public final DiscoveryRequest discoveryRequest;
         ListenerArgs(NsdServiceConnector connector, NsdServiceInfo serviceInfo) {
             this.connector = connector;
             this.serviceInfo = serviceInfo;
+            this.discoveryRequest = null;
+        }
+
+        ListenerArgs(NsdServiceConnector connector, DiscoveryRequest discoveryRequest) {
+            this.connector = connector;
+            this.serviceInfo = null;
+            this.discoveryRequest = discoveryRequest;
         }
     }
 
@@ -2092,20 +2111,21 @@ public class NsdService extends INsdManager.Stub {
         public void unregisterService(int listenerKey) {
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
                     NsdManager.UNREGISTER_SERVICE, 0, listenerKey,
-                    new ListenerArgs(this, null)));
+                    new ListenerArgs(this, (NsdServiceInfo) null)));
         }
 
         @Override
-        public void discoverServices(int listenerKey, NsdServiceInfo serviceInfo) {
+        public void discoverServices(int listenerKey, DiscoveryRequest discoveryRequest) {
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
                     NsdManager.DISCOVER_SERVICES, 0, listenerKey,
-                    new ListenerArgs(this, serviceInfo)));
+                    new ListenerArgs(this, discoveryRequest)));
         }
 
         @Override
         public void stopDiscovery(int listenerKey) {
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
-                    NsdManager.STOP_DISCOVERY, 0, listenerKey, new ListenerArgs(this, null)));
+                    NsdManager.STOP_DISCOVERY, 0, listenerKey,
+                    new ListenerArgs(this, (NsdServiceInfo) null)));
         }
 
         @Override
@@ -2118,7 +2138,8 @@ public class NsdService extends INsdManager.Stub {
         @Override
         public void stopResolution(int listenerKey) {
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
-                    NsdManager.STOP_RESOLUTION, 0, listenerKey, new ListenerArgs(this, null)));
+                    NsdManager.STOP_RESOLUTION, 0, listenerKey,
+                    new ListenerArgs(this, (NsdServiceInfo) null)));
         }
 
         @Override
@@ -2132,13 +2153,13 @@ public class NsdService extends INsdManager.Stub {
         public void unregisterServiceInfoCallback(int listenerKey) {
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
                     NsdManager.UNREGISTER_SERVICE_CALLBACK, 0, listenerKey,
-                    new ListenerArgs(this, null)));
+                    new ListenerArgs(this, (NsdServiceInfo) null)));
         }
 
         @Override
         public void startDaemon() {
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
-                    NsdManager.DAEMON_STARTUP, new ListenerArgs(this, null)));
+                    NsdManager.DAEMON_STARTUP, new ListenerArgs(this, (NsdServiceInfo) null)));
         }
 
         @Override
@@ -2230,10 +2251,10 @@ public class NsdService extends INsdManager.Stub {
         return mMDnsManager.stopOperation(transactionId);
     }
 
-    private boolean discoverServices(int transactionId, NsdServiceInfo serviceInfo) {
-        final String type = serviceInfo.getServiceType();
-        final int discoverInterface = getNetworkInterfaceIndex(serviceInfo);
-        if (serviceInfo.getNetwork() != null && discoverInterface == IFACE_IDX_ANY) {
+    private boolean discoverServices(int transactionId, DiscoveryRequest discoveryRequest) {
+        final String type = discoveryRequest.getServiceType();
+        final int discoverInterface = getNetworkInterfaceIndex(discoveryRequest);
+        if (discoveryRequest.getNetwork() != null && discoverInterface == IFACE_IDX_ANY) {
             Log.e(TAG, "Interface to discover service on not found");
             return false;
         }
@@ -2266,21 +2287,32 @@ public class NsdService extends INsdManager.Stub {
      */
     private int getNetworkInterfaceIndex(NsdServiceInfo serviceInfo) {
         final Network network = serviceInfo.getNetwork();
+        int fallbackIndex = IFACE_IDX_ANY;
+        if (network == null && serviceInfo.getInterfaceIndex() != 0) {
+            fallbackIndex = serviceInfo.getInterfaceIndex();
+        }
+        return getNetworkInterfaceIndex(network, fallbackIndex);
+    }
+
+    /**
+     * Returns the interface to use to discover a service on a specific network, or {@link
+     * IFACE_IDX_ANY} if no network is specified.
+     */
+    private int getNetworkInterfaceIndex(DiscoveryRequest discoveryRequest) {
+        return getNetworkInterfaceIndex(
+                discoveryRequest.getNetwork(), IFACE_IDX_ANY /* fallbackIndex */);
+    }
+
+    private int getNetworkInterfaceIndex(@Nullable Network network, int fallbackIndex) {
         if (network == null) {
-            // Fallback to getInterfaceIndex if present (typically if the NsdServiceInfo was
-            // provided by NsdService from discovery results, and the service was found on an
-            // interface that has no app-usable Network).
-            if (serviceInfo.getInterfaceIndex() != 0) {
-                return serviceInfo.getInterfaceIndex();
-            }
-            return IFACE_IDX_ANY;
+            return fallbackIndex;
         }
 
         String interfaceName = getNetworkInterfaceName(network);
         if (interfaceName == null) {
-            return IFACE_IDX_ANY;
+            return fallbackIndex;
         }
-        return getNetworkInterfaceIndexByName(interfaceName);
+        return getNetworkInterfaceIndexByName(interfaceName, fallbackIndex);
     }
 
     private String getNetworkInterfaceName(@Nullable Network network) {
@@ -2300,18 +2332,18 @@ public class NsdService extends INsdManager.Stub {
         return lp.getInterfaceName();
     }
 
-    private int getNetworkInterfaceIndexByName(final String ifaceName) {
+    private int getNetworkInterfaceIndexByName(final String ifaceName, int fallbackIndex) {
         final NetworkInterface iface;
         try {
             iface = NetworkInterface.getByName(ifaceName);
         } catch (SocketException e) {
             Log.e(TAG, "Error querying interface", e);
-            return IFACE_IDX_ANY;
+            return fallbackIndex;
         }
 
         if (iface == null) {
             Log.e(TAG, "Interface not found: " + ifaceName);
-            return IFACE_IDX_ANY;
+            return fallbackIndex;
         }
 
         return iface.getIndex();
@@ -2638,21 +2670,21 @@ public class NsdService extends INsdManager.Stub {
                     && !(request instanceof AdvertiserClientRequest);
         }
 
-        void onDiscoverServicesStarted(int listenerKey, NsdServiceInfo info,
+        void onDiscoverServicesStarted(int listenerKey, DiscoveryRequest discoveryRequest,
                 ClientRequest request) {
             mMetrics.reportServiceDiscoveryStarted(
                     isLegacyClientRequest(request), request.mTransactionId);
             try {
-                mCb.onDiscoverServicesStarted(listenerKey, info);
+                mCb.onDiscoverServicesStarted(listenerKey, discoveryRequest);
             } catch (RemoteException e) {
                 Log.e(TAG, "Error calling onDiscoverServicesStarted", e);
             }
         }
+
         void onDiscoverServicesFailedImmediately(int listenerKey, int error, boolean isLegacy) {
             onDiscoverServicesFailed(listenerKey, error, isLegacy, NO_TRANSACTION,
                     0L /* durationMs */);
         }
-
         void onDiscoverServicesFailed(int listenerKey, int error, boolean isLegacy,
                 int transactionId, long durationMs) {
             mMetrics.reportServiceDiscoveryFailed(isLegacy, transactionId, durationMs);
