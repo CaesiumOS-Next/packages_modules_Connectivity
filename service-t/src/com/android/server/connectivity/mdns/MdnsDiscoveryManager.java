@@ -162,13 +162,24 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
      * @param listener      The {@link MdnsServiceBrowserListener} listener.
      * @param searchOptions The {@link MdnsSearchOptions} to be used for discovering {@code
      *                      serviceType}.
+     * @throws IllegalArgumentException if more than one subtype is specified in {@code
+     * searchOptions}
      */
     @RequiresPermission(permission.CHANGE_WIFI_MULTICAST_STATE)
     public void registerListener(
             @NonNull String serviceType,
             @NonNull MdnsServiceBrowserListener listener,
             @NonNull MdnsSearchOptions searchOptions) {
-        sharedLog.i("Registering listener for serviceType: " + serviceType);
+        if (searchOptions.getSubtypes().size() > 1) {
+            throw new IllegalArgumentException(
+                    "More than one subtype in searchOptions: " + searchOptions.getSubtypes());
+        }
+
+        String subtypes = "";
+        if (!searchOptions.getSubtypes().isEmpty()) {
+            subtypes = ", subtypes: " + searchOptions.getSubtypes();
+        }
+        sharedLog.i("Registering listener for serviceType: " + serviceType + subtypes);
         checkAndRunOnHandlerThread(() ->
                 handleRegisterListener(serviceType, listener, searchOptions));
     }
