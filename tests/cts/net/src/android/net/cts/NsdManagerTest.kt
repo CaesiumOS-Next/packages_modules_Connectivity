@@ -1068,7 +1068,7 @@ class NsdManagerTest {
         val si = makeTestServiceInfo(network = testNetwork1.network)
         // Sets 101 subtypes in total
         val seq = generateSequence(1) { it + 1}
-        si.subtypes = seq.take(100).toList().map {it -> "_subtype" + it}
+        si.subtypes = seq.take(100).toList().map {it -> "_subtype" + it}.toSet()
         si.serviceType = si.serviceType + ",_subtype"
 
         val record = NsdRegistrationRecord()
@@ -1081,7 +1081,7 @@ class NsdManagerTest {
     @Test
     fun testSubtypeAdvertising_emptySubtypeLabel_returnsFailureBadParameters() {
         val si = makeTestServiceInfo(network = testNetwork1.network)
-        si.subtypes = listOf("")
+        si.subtypes = setOf("")
 
         val record = NsdRegistrationRecord()
         nsdManager.registerService(si, NsdManager.PROTOCOL_DNS_SD, Executor { it.run() }, record)
