@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28b40b94_22a289af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 34
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-11T11:14:45Z",
+      "side": 1,
+      "message": "LGTM with nit",
+      "revId": "46053480e995f2874107b803630997941cf1211d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "454c719d_77f8667e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 1659,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-11T11:14:45Z",
+      "side": 1,
+      "message": "nit: better off to make the subTypePattern a class static variable which you can make it share between checkSubtypeLabel() and parseTypeAndSubtype()",
+      "range": {
+        "startLine": 1659,
+        "startChar": 21,
+        "endLine": 1659,
+        "endChar": 35
+      },
+      "revId": "46053480e995f2874107b803630997941cf1211d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fdd575d_c43ee737",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-11T11:14:45Z",
+      "side": 1,
+      "message": "nit: @NonNull",
+      "range": {
+        "startLine": 187,
+        "startChar": 41,
+        "endLine": 187,
+        "endChar": 45
+      },
+      "revId": "46053480e995f2874107b803630997941cf1211d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
