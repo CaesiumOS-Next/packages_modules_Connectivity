@@ -39,6 +39,30 @@
       },
       "revId": "231a989d1562795bc7a082411cdeb541ea4f47a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1897e27e_cc07173f",
+        "filename": "staticlibs/framework/com/android/net/module/util/HandlerUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-11T10:00:02Z",
+      "side": 1,
+      "message": "Moved since this is only needed in the service side.\nBut still keeps @hide given that it is no harm.\nSee if it works for you.",
+      "parentUuid": "35d52300_129c63a8",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 8
+      },
+      "revId": "231a989d1562795bc7a082411cdeb541ea4f47a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
