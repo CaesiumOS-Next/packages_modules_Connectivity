@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "826cbb50_b9964dbc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-11T05:25:42Z",
+      "side": 1,
+      "message": "Done, see aosp/2868034",
+      "parentUuid": "c0763339_4fef72f4",
+      "revId": "bdfcae4bda94e05b16444af637cffb7779e6b9ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd34859f_83919020",
@@ -49,6 +67,30 @@
       "writtenOn": "2023-12-11T04:02:08Z",
       "side": 1,
       "message": "Nit: \"returnsAllRecordsInAnswerSectionExceptNsec\" would be clearer\n\nOtherwise the \"but\" could mean \"except\" or \"however\", and it\u0027s not clear whether it\u0027s \"all records except nsec are in the answer section\", or \"all records are returned, except nsec which is in the answer section\"",
+      "range": {
+        "startLine": 694,
+        "startChar": 61,
+        "endLine": 694,
+        "endChar": 64
+      },
+      "revId": "bdfcae4bda94e05b16444af637cffb7779e6b9ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9707a46f_724a23c5",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-11T05:25:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd34859f_83919020",
       "range": {
         "startLine": 694,
         "startChar": 61,
@@ -76,6 +118,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6b5d64b_ce1b9aa0",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-11T05:25:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed4b26da_50d768ca",
+      "revId": "bdfcae4bda94e05b16444af637cffb7779e6b9ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9cc0fe1a_82135cf3",
@@ -89,6 +149,24 @@
       "writtenOn": "2023-12-11T04:02:08Z",
       "side": 1,
       "message": "This doesn\u0027t seem related to the fix in this commit ? In that case could you move it to another change ?",
+      "revId": "bdfcae4bda94e05b16444af637cffb7779e6b9ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "655d9a42_bed32f71",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-11T05:25:42Z",
+      "side": 1,
+      "message": "Done, see aosp/2868035",
+      "parentUuid": "9cc0fe1a_82135cf3",
       "revId": "bdfcae4bda94e05b16444af637cffb7779e6b9ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
