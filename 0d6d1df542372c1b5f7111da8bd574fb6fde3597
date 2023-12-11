@@ -83,6 +83,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a4b07f3_c7eace68",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-11T05:00:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "883e5e74_d5f9c8ef",
+      "range": {
+        "startLine": 821,
+        "startChar": 7,
+        "endLine": 822,
+        "endChar": 61
+      },
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad8dd984_d30be852",
@@ -149,6 +173,24 @@
       "side": 1,
       "message": "The name just aligns with `ro.boot.wificountrycode` and `ro.boot.uwbcountrycode`.\n\nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Wifi/service/java/com/android/server/wifi/WifiCountryCode.java;l\u003d61\n\nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Uwb/service/java/com/android/server/uwb/UwbInjector.java;l\u003d88",
       "parentUuid": "3a6ac0ef_82867520",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0051bd7d_0c095dce",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-11T05:00:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8831cdaa_ad4aa321",
       "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
