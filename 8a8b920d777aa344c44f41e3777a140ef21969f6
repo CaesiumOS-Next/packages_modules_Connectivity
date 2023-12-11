@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5aea0f13_2a8ed2d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-11T02:20:45Z",
+      "side": 1,
+      "message": "Generally LGTM",
+      "revId": "8a8b920d777aa344c44f41e3777a140ef21969f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e14c0811_bc20a06f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1588,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-11T02:20:45Z",
+      "side": 1,
+      "message": "nit: ,_subtype1,_subtype2",
+      "range": {
+        "startLine": 1588,
+        "startChar": 18,
+        "endLine": 1588,
+        "endChar": 26
+      },
+      "revId": "8a8b920d777aa344c44f41e3777a140ef21969f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7fee2de_d8087811",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-11T02:20:45Z",
+      "side": 1,
+      "message": "Should we examine whether there are any duplicate entries?",
+      "range": {
+        "startLine": 1622,
+        "startChar": 27,
+        "endLine": 1622,
+        "endChar": 35
+      },
+      "revId": "8a8b920d777aa344c44f41e3777a140ef21969f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07c19a00_ac9ce826",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1624,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-11T02:20:45Z",
+      "side": 1,
+      "message": "Question: After this service type parsing, if the input is `_subtype._type._tcp,_subtype1,_subtype2`, the resulting subtype is only `_subtype`. Is this the expected outcome?",
+      "range": {
+        "startLine": 1624,
+        "startChar": 8,
+        "endLine": 1624,
+        "endChar": 9
+      },
+      "revId": "8a8b920d777aa344c44f41e3777a140ef21969f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59c51f40_b07cd83e",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1469,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-11T02:20:45Z",
+      "side": 1,
+      "message": "Maybe also verify output for the specific service type  `_subtype._type._tcp,_subtype1,_subtype2` that I mention in the service type parsing.",
+      "range": {
+        "startLine": 1469,
+        "startChar": 4,
+        "endLine": 1469,
+        "endChar": 5
+      },
+      "revId": "8a8b920d777aa344c44f41e3777a140ef21969f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
