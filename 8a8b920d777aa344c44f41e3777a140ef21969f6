@@ -20,6 +20,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a9467b01_076c5309",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-11T02:38:22Z",
+      "side": 1,
+      "message": "More than one subtype is not correct for discovery, so a failure callback should be sent in that case (I think that also matches legacy behavior); so this should probably be `serviceType \u003d\u003d null || typeAndSubtype.second.size() \u003e 1` ?",
+      "revId": "8a8b920d777aa344c44f41e3777a140ef21969f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57e8b790_2f993059",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-11T02:38:22Z",
+      "side": 1,
+      "message": "It would be best to still send the FAILURE_INTERNAL_ERROR until advertising multiple subtypes is supported, otherwise if we cut a module update in the meantime, developers won\u0027t know if they are on a S- implementation that supports multiple subtypes, a T+ implementation that doesn\u0027t support it but still reports success, or a T+ implementation that actually supports it\n\nYou could just change the check above:\n\n```\n// TODO: allow multiple subtypes\nif (registerServiceType \u003d\u003d null || typeSubtype.second.size() \u003e 1)\n```",
+      "range": {
+        "startLine": 858,
+        "startChar": 74,
+        "endLine": 858,
+        "endChar": 99
+      },
+      "revId": "8a8b920d777aa344c44f41e3777a140ef21969f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e14c0811_bc20a06f",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 1
@@ -43,6 +83,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83b3feec_908485cc",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1608,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-11T02:38:22Z",
+      "side": 1,
+      "message": "Nit: suggest having an example with multiple like \"_type._tcp,_subtype1,_subtype2\"",
+      "range": {
+        "startLine": 1608,
+        "startChar": 61,
+        "endLine": 1608,
+        "endChar": 82
+      },
+      "revId": "8a8b920d777aa344c44f41e3777a140ef21969f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b7fee2de_d8087811",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 1
@@ -54,6 +117,30 @@
       "writtenOn": "2023-12-11T02:20:45Z",
       "side": 1,
       "message": "Should we examine whether there are any duplicate entries?",
+      "range": {
+        "startLine": 1622,
+        "startChar": 27,
+        "endLine": 1622,
+        "endChar": 35
+      },
+      "revId": "8a8b920d777aa344c44f41e3777a140ef21969f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad592ae7_15932acb",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-11T02:38:22Z",
+      "side": 1,
+      "message": "Note Kangping already has code for that in aosp/2850390 so I think that could be done when enabling multi-subtype advertising",
+      "parentUuid": "b7fee2de_d8087811",
       "range": {
         "startLine": 1622,
         "startChar": 27,
