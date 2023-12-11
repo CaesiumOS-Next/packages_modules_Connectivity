@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "557477de_b2e4e2b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-11T07:53:40Z",
+      "side": 1,
+      "message": "LGTM, but before we use this code in production can we replace the code in InetDiagMessage with it, and see if we can pass that code\u0027s tests?\n\nAlso, instead of returning an array, it would probably be better for the caller to pass in a lambda of what it wants to do with the message. If all the caller wants is an array (like you do here, I guess), that\u0027s easy - the lambda can just accumulate into an array.\n\nFeel free to do that in a follow-up CL.",
+      "revId": "f2bf838800b73bdcc084dd0ba8b3776d271a5fe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ce057f9_d9712cd4",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-11T07:53:40Z",
+      "side": 1,
+      "message": "FWIW it seems better for this method to open and close the sockets as well.",
+      "range": {
+        "startLine": 326,
+        "startChar": 53,
+        "endLine": 326,
+        "endChar": 79
+      },
+      "revId": "f2bf838800b73bdcc084dd0ba8b3776d271a5fe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
