@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "729130e6_aaf0445a",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-11T14:04:33Z",
+      "side": 1,
+      "message": "Though the new `DiscoveryRequest#setSubtype()` API accepts only a single subtype label, there are chances that two subtypes can result in here because we need to support the legacy comma-separate \u003ctype,subtype\u003e format (e.g. \"_http._tcp,_printer)\" in the \"serviceType\".\n\nBut probably we should ignore the subtype specified in serviceType when a non-null subtype is already set with `DiscoveryRequest#setSubtype`. I changed the code here to ensure that only one subtype is accepted in this case. PTAL",
+      "parentUuid": "48da8364_3c8623f9",
+      "range": {
+        "startLine": 792,
+        "startChar": 32,
+        "endLine": 792,
+        "endChar": 80
+      },
+      "revId": "8b034cb00c1530acc2d4b51617c13803ec40f2c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ca543d0_ffcdc820",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5a1ebff_0afd06ab",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2673,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-11T14:04:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ca543d0_ffcdc820",
+      "revId": "8b034cb00c1530acc2d4b51617c13803ec40f2c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22da9f81_f66992ee",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-12-11T12:59:39Z",
       "side": 1,
       "message": "Because we only support at most one subtype in discovery, Maybe its better to be defensive here to add a check?",
+      "range": {
+        "startLine": 172,
+        "startChar": 27,
+        "endLine": 172,
+        "endChar": 38
+      },
+      "revId": "8b034cb00c1530acc2d4b51617c13803ec40f2c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "661fa0f9_edb10a49",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-11T14:04:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22da9f81_f66992ee",
       "range": {
         "startLine": 172,
         "startChar": 27,
