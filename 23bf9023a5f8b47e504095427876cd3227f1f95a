@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6a08880_a534f031",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-11T15:40:01Z",
+      "side": 1,
+      "message": "I think we better add a `private long discoveryConfig` field and a setter method here as well? We will need to use this field to control the discovery behavior (e.g. only ipv6) later. So it is better to make the API here so we don\u0027t need the go through API review multiple time.",
+      "range": {
+        "startLine": 58,
+        "startChar": 3,
+        "endLine": 58,
+        "endChar": 22
+      },
+      "revId": "23bf9023a5f8b47e504095427876cd3227f1f95a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "038d38a1_03fb871f",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-11T15:40:01Z",
+      "side": 1,
+      "message": "This need to be a flagged API as well?",
+      "range": {
+        "startLine": 146,
+        "startChar": 30,
+        "endLine": 146,
+        "endChar": 37
+      },
+      "revId": "23bf9023a5f8b47e504095427876cd3227f1f95a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
