@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8681070d_8af4b68f",
+        "filename": "staticlibs/netd/binder/android/net/mdns/aidl/IMDnsEventListener.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-11T02:58:22Z",
+      "side": 1,
+      "message": "That is thrown by registerEventListener, in IMdns.aidl: that one is not a oneway interface. oneway binder calls do not wait for the result of the call in the other process, so they can\u0027t get return values, and shouldn\u0027t be able to receive exceptions thrown by the other end. So I don\u0027t think this method can throw UnsupportedOperationException as documented here.",
+      "parentUuid": "46b689df_5b22233f",
+      "revId": "8b8b05128e292ba51d25d1f1091488db4c0ca6da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ca555b2_1000797b",
         "filename": "staticlibs/netd/binder/android/net/mdns/aidl/IMDnsEventListener.aidl",
         "patchSetId": 3
@@ -90,6 +108,30 @@
       "side": 1,
       "message": "Yes, APIs are implemented and return UnsupportedOperationException on U+. The entire MDnsService in netd (which implements mdns binder APIs) will be deleted in V+. The CL is prepared but hold until the aosp_main is moved from U to V.\nhttps://android-review.git.corp.google.com/c/platform/system/netd/+/2832090",
       "parentUuid": "8ca555b2_1000797b",
+      "range": {
+        "startLine": 51,
+        "startChar": 19,
+        "endLine": 51,
+        "endChar": 32
+      },
+      "revId": "8b8b05128e292ba51d25d1f1091488db4c0ca6da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b54b4e9_bfe12d72",
+        "filename": "staticlibs/netd/binder/android/net/mdns/aidl/IMDnsEventListener.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-11T02:58:22Z",
+      "side": 1,
+      "message": "So if onServiceRegistrationStatus is actually going to stay implemented here: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/service-t/src/com/android/server/NsdService.java;drc\u003d283ff7058560eb924a8eb7c2b67d97059a93c1e7;l\u003d1836\n\nCould you update the documentation ?",
+      "parentUuid": "0260a6b6_377e1b3d",
       "range": {
         "startLine": 51,
         "startChar": 19,
