@@ -28,7 +28,6 @@ import com.android.server.connectivity.mdns.util.MdnsUtils;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.net.DatagramPacket;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -63,8 +62,6 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
     @NonNull
     private final WeakReference<MdnsSocketClientBase> weakRequestSender;
     @NonNull
-    private final MdnsPacketWriter packetWriter;
-    @NonNull
     private final String[] serviceTypeLabels;
     @NonNull
     private final List<String> subtypes;
@@ -83,7 +80,6 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
 
     EnqueueMdnsQueryCallable(
             @NonNull MdnsSocketClientBase requestSender,
-            @NonNull MdnsPacketWriter packetWriter,
             @NonNull String serviceType,
             @NonNull Collection<String> subtypes,
             boolean expectUnicastResponse,
@@ -95,7 +91,6 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
             @NonNull MdnsUtils.Clock clock,
             @NonNull SharedLog sharedLog) {
         weakRequestSender = new WeakReference<>(requestSender);
-        this.packetWriter = packetWriter;
         serviceTypeLabels = TextUtils.split(serviceType, "\\.");
         this.subtypes = new ArrayList<>(subtypes);
         this.expectUnicastResponse = expectUnicastResponse;
@@ -183,55 +178,54 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
                     Collections.emptyList(), /* answers */
                     Collections.emptyList(), /* authorityRecords */
                     Collections.emptyList() /* additionalRecords */);
-            MdnsUtils.writeMdnsPacket(packetWriter, queryPacket);
-            sendPacketToIpv4AndIpv6(requestSender, MdnsConstants.MDNS_PORT);
+            sendPacketToIpv4AndIpv6(requestSender, MdnsConstants.MDNS_PORT, queryPacket);
             for (Integer emulatorPort : castShellEmulatorMdnsPorts) {
-                sendPacketToIpv4AndIpv6(requestSender, emulatorPort);
+                sendPacketToIpv4AndIpv6(requestSender, emulatorPort, queryPacket);
             }
             return Pair.create(transactionId, subtypes);
-        } catch (IOException e) {
+        } catch (Exception e) {
             sharedLog.e(String.format("Failed to create mDNS packet for subtype: %s.",
                     TextUtils.join(",", subtypes)), e);
             return Pair.create(INVALID_TRANSACTION_ID, new ArrayList<>());
         }
     }
 
-    private void sendPacket(MdnsSocketClientBase requestSender, InetSocketAddress address)
-            throws IOException {
-        DatagramPacket packet = packetWriter.getPacket(address);
+    private void sendPacket(MdnsSocketClientBase requestSender, InetSocketAddress address,
+            MdnsPacket packet) throws IOException {
         if (expectUnicastResponse) {
             // MdnsMultinetworkSocketClient is only available on T+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
                     && requestSender instanceof MdnsMultinetworkSocketClient) {
                 ((MdnsMultinetworkSocketClient) requestSender).sendPacketRequestingUnicastResponse(
-                        packet, socketKey, onlyUseIpv6OnIpv6OnlyNetworks);
+                        packet, socketKey, onlyUseIpv6OnIpv6OnlyNetworks, address);
             } else {
                 requestSender.sendPacketRequestingUnicastResponse(
-                        packet, onlyUseIpv6OnIpv6OnlyNetworks);
+                        packet, onlyUseIpv6OnIpv6OnlyNetworks, address);
             }
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
                     && requestSender instanceof MdnsMultinetworkSocketClient) {
                 ((MdnsMultinetworkSocketClient) requestSender)
                         .sendPacketRequestingMulticastResponse(
-                                packet, socketKey, onlyUseIpv6OnIpv6OnlyNetworks);
+                                packet, socketKey, onlyUseIpv6OnIpv6OnlyNetworks, address);
             } else {
                 requestSender.sendPacketRequestingMulticastResponse(
-                        packet, onlyUseIpv6OnIpv6OnlyNetworks);
+                        packet, onlyUseIpv6OnIpv6OnlyNetworks, address);
             }
         }
     }
 
-    private void sendPacketToIpv4AndIpv6(MdnsSocketClientBase requestSender, int port) {
+    private void sendPacketToIpv4AndIpv6(MdnsSocketClientBase requestSender, int port,
+            MdnsPacket packet) {
         try {
             sendPacket(requestSender,
-                    new InetSocketAddress(MdnsConstants.getMdnsIPv4Address(), port));
+                    new InetSocketAddress(MdnsConstants.getMdnsIPv4Address(), port), packet);
         } catch (IOException e) {
             sharedLog.e("Can't send packet to IPv4", e);
         }
         try {
             sendPacket(requestSender,
-                    new InetSocketAddress(MdnsConstants.getMdnsIPv6Address(), port));
+                    new InetSocketAddress(MdnsConstants.getMdnsIPv6Address(), port), packet);
         } catch (IOException e) {
             sharedLog.e("Can't send packet to IPv6", e);
         }

@@ -21,6 +21,7 @@ import static com.android.server.connectivity.mdns.MulticastPacketReader.PacketH
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
@@ -52,9 +53,11 @@ import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.net.DatagramPacket;
+import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RunWith(DevSdkIgnoreRunner.class)
@@ -124,10 +127,16 @@ public class MdnsMultinetworkSocketClientTest {
     @Test
     public void testSendPacket() throws IOException {
         final SocketCallback callback = expectSocketCallback();
-        final DatagramPacket ipv4Packet = new DatagramPacket(BUFFER, 0 /* offset */, BUFFER.length,
-                InetAddresses.parseNumericAddress("192.0.2.1"), 0 /* port */);
-        final DatagramPacket ipv6Packet = new DatagramPacket(BUFFER, 0 /* offset */, BUFFER.length,
-                InetAddresses.parseNumericAddress("2001:db8::"), 0 /* port */);
+        final List<MdnsRecord> questions = new ArrayList<>();
+        questions.add(new MdnsPointerRecord(new String[]{"_testservice", "_tcp", "local"},
+                false /* isUnicast */));
+        final MdnsPacket packet = new MdnsPacket(0 /* flags */, questions,
+                Collections.emptyList()/* answers */, Collections.emptyList()/* authorityRecords */,
+                Collections.emptyList()/* additionalRecords */);
+        final InetSocketAddress ipv4Address = new InetSocketAddress(
+                InetAddresses.parseNumericAddress("192.0.2.1"), MdnsConstants.MDNS_PORT);
+        final InetSocketAddress ipv6Address = new InetSocketAddress(
+                InetAddresses.parseNumericAddress("2001:db8::"), MdnsConstants.MDNS_PORT);
 
         final MdnsInterfaceSocket tetherIfaceSock1 = mock(MdnsInterfaceSocket.class);
         final MdnsInterfaceSocket tetherIfaceSock2 = mock(MdnsInterfaceSocket.class);
@@ -148,38 +157,39 @@ public class MdnsMultinetworkSocketClientTest {
         verify(mSocketCreationCallback).onSocketCreated(tetherSocketKey2);
 
         // Send packet to IPv4 with mSocketKey and verify sending has been called.
-        mSocketClient.sendPacketRequestingMulticastResponse(ipv4Packet, mSocketKey,
-                false /* onlyUseIpv6OnIpv6OnlyNetworks */);
+        mSocketClient.sendPacketRequestingMulticastResponse(packet, mSocketKey,
+                false /* onlyUseIpv6OnIpv6OnlyNetworks */, ipv4Address);
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
-        verify(mSocket).send(ipv4Packet);
+        verify(mSocket).send(argThat(pkg -> pkg.getSocketAddress().equals(ipv4Address)));
         verify(tetherIfaceSock1, never()).send(any());
         verify(tetherIfaceSock2, never()).send(any());
 
         // Send packet to IPv4 with onlyUseIpv6OnIpv6OnlyNetworks = true, the packet will be sent.
-        mSocketClient.sendPacketRequestingMulticastResponse(ipv4Packet, mSocketKey,
-                true /* onlyUseIpv6OnIpv6OnlyNetworks */);
+        mSocketClient.sendPacketRequestingMulticastResponse(packet, mSocketKey,
+                true /* onlyUseIpv6OnIpv6OnlyNetworks */, ipv4Address);
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
-        verify(mSocket, times(2)).send(ipv4Packet);
+        verify(mSocket, times(2)).send(argThat(pkg -> pkg.getSocketAddress().equals(ipv4Address)));
         verify(tetherIfaceSock1, never()).send(any());
         verify(tetherIfaceSock2, never()).send(any());
 
         // Send packet to IPv6 with tetherSocketKey1 and verify sending has been called.
-        mSocketClient.sendPacketRequestingMulticastResponse(ipv6Packet, tetherSocketKey1,
-                false /* onlyUseIpv6OnIpv6OnlyNetworks */);
+        mSocketClient.sendPacketRequestingMulticastResponse(packet, tetherSocketKey1,
+                false /* onlyUseIpv6OnIpv6OnlyNetworks */, ipv6Address);
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
-        verify(mSocket, never()).send(ipv6Packet);
-        verify(tetherIfaceSock1).send(ipv6Packet);
-        verify(tetherIfaceSock2, never()).send(ipv6Packet);
+        verify(mSocket, never()).send(argThat(pkg -> pkg.getSocketAddress().equals(ipv6Address)));
+        verify(tetherIfaceSock1).send(argThat(pkg -> pkg.getSocketAddress().equals(ipv6Address)));
+        verify(tetherIfaceSock2, never()).send(any());
 
         // Send packet to IPv6 with onlyUseIpv6OnIpv6OnlyNetworks = true, the packet will not be
         // sent. Therefore, the tetherIfaceSock1.send() and tetherIfaceSock2.send() are still be
         // called once.
-        mSocketClient.sendPacketRequestingMulticastResponse(ipv6Packet, tetherSocketKey1,
-                true /* onlyUseIpv6OnIpv6OnlyNetworks */);
+        mSocketClient.sendPacketRequestingMulticastResponse(packet, tetherSocketKey1,
+                true /* onlyUseIpv6OnIpv6OnlyNetworks */, ipv6Address);
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
-        verify(mSocket, never()).send(ipv6Packet);
-        verify(tetherIfaceSock1, times(1)).send(ipv6Packet);
-        verify(tetherIfaceSock2, never()).send(ipv6Packet);
+        verify(mSocket, never()).send(argThat(pkg -> pkg.getSocketAddress().equals(ipv6Address)));
+        verify(tetherIfaceSock1, times(1)).send(
+                argThat(pkg -> pkg.getSocketAddress().equals(ipv6Address)));
+        verify(tetherIfaceSock2, never()).send(any());
     }
 
     @Test
@@ -234,8 +244,14 @@ public class MdnsMultinetworkSocketClientTest {
     public void testSocketRemovedAfterNetworkUnrequested() throws IOException {
         // Request sockets on all networks
         final SocketCallback callback = expectSocketCallback(mListener, null);
-        final DatagramPacket ipv4Packet = new DatagramPacket(BUFFER, 0 /* offset */, BUFFER.length,
-                InetAddresses.parseNumericAddress("192.0.2.1"), 0 /* port */);
+        final List<MdnsRecord> questions = new ArrayList<>();
+        questions.add(new MdnsPointerRecord(new String[]{"_testservice", "_tcp", "local"},
+                false /* isUnicast */));
+        final MdnsPacket packet = new MdnsPacket(0 /* flags */, questions,
+                Collections.emptyList()/* answers */, Collections.emptyList()/* authorityRecords */,
+                Collections.emptyList()/* additionalRecords */);
+        final InetSocketAddress address = new InetSocketAddress(
+                InetAddresses.parseNumericAddress("192.0.2.1"), MdnsConstants.MDNS_PORT);
 
         // Notify 3 socket created, including 2 tethered interfaces (null network)
         final MdnsInterfaceSocket socket2 = mock(MdnsInterfaceSocket.class);
@@ -260,10 +276,10 @@ public class MdnsMultinetworkSocketClientTest {
         verify(mSocketCreationCallback).onSocketCreated(socketKey3);
 
         // Send IPv4 packet on the mSocketKey and verify sending has been called.
-        mSocketClient.sendPacketRequestingMulticastResponse(ipv4Packet, mSocketKey,
-                false /* onlyUseIpv6OnIpv6OnlyNetworks */);
+        mSocketClient.sendPacketRequestingMulticastResponse(packet, mSocketKey,
+                false /* onlyUseIpv6OnIpv6OnlyNetworks */, address);
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
-        verify(mSocket).send(ipv4Packet);
+        verify(mSocket).send(argThat(pkg -> pkg.getSocketAddress().equals(address)));
         verify(socket2, never()).send(any());
         verify(socket3, never()).send(any());
 
@@ -289,37 +305,37 @@ public class MdnsMultinetworkSocketClientTest {
         verify(socketCreationCb2).onSocketCreated(socketKey3);
 
         // Send IPv4 packet on socket2 and verify sending to the socket2 only.
-        mSocketClient.sendPacketRequestingMulticastResponse(ipv4Packet, socketKey2,
-                false /* onlyUseIpv6OnIpv6OnlyNetworks */);
+        mSocketClient.sendPacketRequestingMulticastResponse(packet, socketKey2,
+                false /* onlyUseIpv6OnIpv6OnlyNetworks */, address);
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
         // ipv4Packet still sent only once on mSocket: times(1) matches the packet sent earlier on
         // mNetwork
-        verify(mSocket, times(1)).send(ipv4Packet);
-        verify(socket2).send(ipv4Packet);
-        verify(socket3, never()).send(ipv4Packet);
+        verify(mSocket, times(1)).send(argThat(pkg -> pkg.getSocketAddress().equals(address)));
+        verify(socket2).send(argThat(pkg -> pkg.getSocketAddress().equals(address)));
+        verify(socket3, never()).send(any());
 
         // Unregister the second request
         mHandler.post(() -> mSocketClient.notifyNetworkUnrequested(listener2));
         verify(mProvider, timeout(DEFAULT_TIMEOUT)).unrequestSocket(callback2);
 
         // Send IPv4 packet again and verify it's still sent a second time
-        mSocketClient.sendPacketRequestingMulticastResponse(ipv4Packet, socketKey2,
-                false /* onlyUseIpv6OnIpv6OnlyNetworks */);
+        mSocketClient.sendPacketRequestingMulticastResponse(packet, socketKey2,
+                false /* onlyUseIpv6OnIpv6OnlyNetworks */, address);
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
-        verify(socket2, times(2)).send(ipv4Packet);
-        verify(socket3, never()).send(ipv4Packet);
+        verify(socket2, times(2)).send(argThat(pkg -> pkg.getSocketAddress().equals(address)));
+        verify(socket3, never()).send(any());
 
         // Unrequest remaining sockets
         mHandler.post(() -> mSocketClient.notifyNetworkUnrequested(mListener));
         verify(mProvider, timeout(DEFAULT_TIMEOUT)).unrequestSocket(callback);
 
         // Send IPv4 packet and verify no more sending.
-        mSocketClient.sendPacketRequestingMulticastResponse(ipv4Packet, mSocketKey,
-                false /* onlyUseIpv6OnIpv6OnlyNetworks */);
+        mSocketClient.sendPacketRequestingMulticastResponse(packet, mSocketKey,
+                false /* onlyUseIpv6OnIpv6OnlyNetworks */, address);
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
-        verify(mSocket, times(1)).send(ipv4Packet);
-        verify(socket2, times(2)).send(ipv4Packet);
-        verify(socket3, never()).send(ipv4Packet);
+        verify(mSocket, times(1)).send(argThat(pkg -> pkg.getSocketAddress().equals(address)));
+        verify(socket2, times(2)).send(argThat(pkg -> pkg.getSocketAddress().equals(address)));
+        verify(socket3, never()).send(any());
     }
 
     @Test
