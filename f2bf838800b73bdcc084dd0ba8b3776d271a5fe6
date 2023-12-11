@@ -39,6 +39,29 @@
       },
       "revId": "f2bf838800b73bdcc084dd0ba8b3776d271a5fe6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ef31126_5becdd79",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-11T07:55:09Z",
+      "side": 1,
+      "message": "These lines should be unindented 4 spaces.",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 364,
+        "endChar": 13
+      },
+      "revId": "f2bf838800b73bdcc084dd0ba8b3776d271a5fe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
