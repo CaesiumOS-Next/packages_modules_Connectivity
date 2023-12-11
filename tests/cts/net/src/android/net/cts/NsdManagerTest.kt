@@ -844,8 +844,8 @@ class NsdManagerTest {
         checkConnectSocketToMdnsd(shouldFail = false)
     }
 
-    // Native mdns powered by Netd is removed after U.
-    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    // Native mdns powered by Netd is removed from U.
+    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
     @Test @CtsNetTestCasesMaxTargetSdk30("Socket is started with the service up to target SDK 30")
     fun testManagerCreatesLegacySocket() {
         nsdManager // Ensure the lazy-init member is initialized, so NsdManager is created
