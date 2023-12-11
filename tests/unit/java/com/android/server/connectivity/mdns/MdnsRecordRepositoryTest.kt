@@ -653,6 +653,23 @@ class MdnsRecordRepositoryTest {
     }
 
     @Test
+    fun testGetReply_txtQuestion_returnsNoNsecRecord() {
+        val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME, flags)
+        repository.initWithService(TEST_SERVICE_ID_1, TEST_SERVICE_1, TEST_SUBTYPE)
+        val src = InetSocketAddress(parseNumericAddress("192.0.2.123"), 5353)
+        val serviceName = arrayOf("MyTestService", "_testservice", "_tcp", "local")
+
+        val query = makeQuery(serviceName, TYPE_TXT)
+        val reply = repository.getReply(query, src)
+
+        assertNotNull(reply)
+        assertEquals(listOf(MdnsTextRecord(serviceName, 0L, true, LONG_TTL, listOf())),
+                reply.answers)
+        // No NSEC records because the reply doesn't include the SRV record
+        assertTrue(reply.additionalAnswers.isEmpty())
+    }
+
+    @Test
     fun testGetReply_ptrAndSrvQuestions_doesNotReturnSrvRecordInAdditionalAnswerSection() {
         val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME, flags)
         repository.initWithService(TEST_SERVICE_ID_1, TEST_SERVICE_1, TEST_SUBTYPE)
