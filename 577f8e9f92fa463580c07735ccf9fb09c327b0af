@@ -56,6 +56,30 @@
       },
       "revId": "577f8e9f92fa463580c07735ccf9fb09c327b0af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01370fc9_4a509c0e",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-11T02:57:28Z",
+      "side": 1,
+      "message": "FileDescriptor is an object, setting it to final just means it can\u0027t be set to null or other object references afterward, but it can be close and isSocketValid will become false after close.",
+      "parentUuid": "333d3082_5d694b7b",
+      "range": {
+        "startLine": 640,
+        "startChar": 12,
+        "endLine": 640,
+        "endChar": 25
+      },
+      "revId": "577f8e9f92fa463580c07735ccf9fb09c327b0af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
