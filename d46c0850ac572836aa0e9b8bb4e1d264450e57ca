@@ -53,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e659374c_bd4cc975",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-11T08:34:48Z",
+      "side": 1,
+      "message": "As discussed offline with Yuyang, thic CL will be changed to use delayed message instead of WakeupMessage to send multicast RA. When doing this, there will be no behavior change compared to the original code.",
+      "parentUuid": "67ac8ab5_03e2c048",
+      "revId": "d46c0850ac572836aa0e9b8bb4e1d264450e57ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "900f0f9d_fad6e24b",
