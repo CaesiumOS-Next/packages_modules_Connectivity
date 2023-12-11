@@ -16,6 +16,24 @@
       "message": "Nit: Collections.unmodifiableList(new ArrayList\u003c\u003e(mSubtypes)) may be best, otherwise some clients may depend on the list being modifiable, ad we wouldn\u0027t be able to change that in the future.",
       "revId": "87996881269382960191e6b1f388044053f98bd6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63d63407_85a62560",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-11T13:21:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e1b3a32_d82e8c3c",
+      "revId": "87996881269382960191e6b1f388044053f98bd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
