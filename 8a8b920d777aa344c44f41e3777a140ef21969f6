@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b241afb_fb42de49",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-11T10:55:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9467b01_076c5309",
+      "revId": "8a8b920d777aa344c44f41e3777a140ef21969f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57e8b790_2f993059",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-12-11T02:38:22Z",
       "side": 1,
       "message": "It would be best to still send the FAILURE_INTERNAL_ERROR until advertising multiple subtypes is supported, otherwise if we cut a module update in the meantime, developers won\u0027t know if they are on a S- implementation that supports multiple subtypes, a T+ implementation that doesn\u0027t support it but still reports success, or a T+ implementation that actually supports it\n\nYou could just change the check above:\n\n```\n// TODO: allow multiple subtypes\nif (registerServiceType \u003d\u003d null || typeSubtype.second.size() \u003e 1)\n```",
+      "range": {
+        "startLine": 858,
+        "startChar": 74,
+        "endLine": 858,
+        "endChar": 99
+      },
+      "revId": "8a8b920d777aa344c44f41e3777a140ef21969f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58b3d2a5_f3da644b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-11T10:55:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57e8b790_2f993059",
       "range": {
         "startLine": 858,
         "startChar": 74,
@@ -81,6 +123,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d07d1d5a_9411f28f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1588,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-11T10:55:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e14c0811_bc20a06f",
+      "range": {
+        "startLine": 1588,
+        "startChar": 18,
+        "endLine": 1588,
+        "endChar": 26
+      },
+      "revId": "8a8b920d777aa344c44f41e3777a140ef21969f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83b3feec_908485cc",
@@ -94,6 +160,30 @@
       "writtenOn": "2023-12-11T02:38:22Z",
       "side": 1,
       "message": "Nit: suggest having an example with multiple like \"_type._tcp,_subtype1,_subtype2\"",
+      "range": {
+        "startLine": 1608,
+        "startChar": 61,
+        "endLine": 1608,
+        "endChar": 82
+      },
+      "revId": "8a8b920d777aa344c44f41e3777a140ef21969f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6224298a_6f6258cf",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1608,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-11T10:55:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83b3feec_908485cc",
       "range": {
         "startLine": 1608,
         "startChar": 61,
@@ -151,6 +241,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8018c934_421aa13e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-11T10:55:49Z",
+      "side": 1,
+      "message": "Yeah, kangping already do the de-duplicate in this CL, I think I will need to checkin this CL after aosp/2850390 merged.",
+      "parentUuid": "ad592ae7_15932acb",
+      "range": {
+        "startLine": 1622,
+        "startChar": 27,
+        "endLine": 1622,
+        "endChar": 35
+      },
+      "revId": "8a8b920d777aa344c44f41e3777a140ef21969f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07c19a00_ac9ce826",
@@ -198,6 +312,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76358ac5_c7e9290d",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1624,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-11T10:55:49Z",
+      "side": 1,
+      "message": "I tested on the S-. The mdnsResponder won\u0027t support prefix subType for advertising code path. \n\nDiscussed with Remi offline, the best approach for us is to in favor of the prefix if the prefix exist, Otherwise, looks at the suffix.",
+      "parentUuid": "435519a1_4a9f6ad1",
+      "range": {
+        "startLine": 1624,
+        "startChar": 8,
+        "endLine": 1624,
+        "endChar": 9
+      },
+      "revId": "8a8b920d777aa344c44f41e3777a140ef21969f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59c51f40_b07cd83e",
@@ -211,6 +349,30 @@
       "writtenOn": "2023-12-11T02:20:45Z",
       "side": 1,
       "message": "Maybe also verify output for the specific service type  `_subtype._type._tcp,_subtype1,_subtype2` that I mention in the service type parsing.",
+      "range": {
+        "startLine": 1469,
+        "startChar": 4,
+        "endLine": 1469,
+        "endChar": 5
+      },
+      "revId": "8a8b920d777aa344c44f41e3777a140ef21969f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e018cbd_74f844cd",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1469,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-11T10:55:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59c51f40_b07cd83e",
       "range": {
         "startLine": 1469,
         "startChar": 4,
