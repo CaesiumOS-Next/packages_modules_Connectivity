@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57a81e0a_a20ab0d9",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectUtil.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-11T04:26:10Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "b04404d6_fbe5db1e",
+      "revId": "1c782db3a3de928d75bb1f366ed46c2cc0aa9a7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3add47b1_b5fabb1b",
@@ -121,6 +139,24 @@
       "side": 1,
       "message": "That should work. In that case I think you can remove the 2s wait here.\n\nDo you have any test need to run with screen off? If not, you can add test suite setup in the test xml, as this https://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:cts/tests/camera/AndroidTest.xml;l\u003d30-33;drc\u003d293f45367cef0bbd6a04aa604ffbfad61640e737\nAlso add this one to avoid timeout https://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:cts/tests/tests/wifi/AndroidTest.xml;l\u003d38-41;drc\u003d4b11a71b0ed31d0492ac774af387e15670692081",
       "parentUuid": "e6838cae_50961511",
+      "revId": "1c782db3a3de928d75bb1f366ed46c2cc0aa9a7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a78e6b55_04b45ee5",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectUtil.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-11T04:26:10Z",
+      "side": 1,
+      "message": "ConnectUtil might be used in other test cases as well.\nSo it seems to me rely on screen state might be errorprone.\nMake the test to retry with re-scan and re-select config.\nFeel free to reopen if any opinion.",
+      "parentUuid": "21d11fc7_3314fbde",
       "revId": "1c782db3a3de928d75bb1f366ed46c2cc0aa9a7b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
