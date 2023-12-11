@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca03fca8_b6f91c92",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-11T07:58:46Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "d921f2140488ec57a035a2e7218a05e9153ecaf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "883391ae_7a0a1b53",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNlAttr.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-11T07:58:46Z",
+      "side": 1,
+      "message": "Might want to add a comment that the ByteBuffer returned by getValueAsByteBuffer is always in native order.",
+      "range": {
+        "startLine": 174,
+        "startChar": 8,
+        "endLine": 174,
+        "endChar": 13
+      },
+      "revId": "d921f2140488ec57a035a2e7218a05e9153ecaf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1649cb77_a2519960",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNlAttr.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-11T07:58:46Z",
+      "side": 1,
+      "message": "Remove this and add a comment saying that the ByteBuffer returned by getValueAsByteBuffer is always in native byte order?",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 52
+      },
+      "revId": "d921f2140488ec57a035a2e7218a05e9153ecaf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46d5c001_01129a2e",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNlAttr.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-11T07:58:46Z",
+      "side": 1,
+      "message": "nativeOrder()",
+      "range": {
+        "startLine": 195,
+        "startChar": 22,
+        "endLine": 195,
+        "endChar": 35
+      },
+      "revId": "d921f2140488ec57a035a2e7218a05e9153ecaf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
