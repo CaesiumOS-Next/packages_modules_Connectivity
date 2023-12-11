@@ -294,6 +294,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41744041_4739db42",
+        "filename": "service/src/com/android/server/connectivity/StructMf6cctl.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-11T05:25:21Z",
+      "side": 1,
+      "message": "Moved to `staticlibs/device/com/android/net/module/util/structs/`, and splited the struct definitions to separate CLs: aosp/2867574, aosp/2867575, aosp/2867576",
+      "parentUuid": "576d4f11_33288b6b",
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00d32fd2_c842dd61",
@@ -331,6 +349,30 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "00d32fd2_c842dd61",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 9
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13284833_dc5028f3",
+        "filename": "service/src/com/android/server/connectivity/StructMf6cctl.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-11T05:25:21Z",
+      "side": 1,
+      "message": "Done in aosp/2867575",
+      "parentUuid": "4d7d5cf8_49ad0b62",
       "range": {
         "startLine": 61,
         "startChar": 8,

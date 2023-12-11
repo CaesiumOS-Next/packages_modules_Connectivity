@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04383fce_b272d7a2",
+        "filename": "service/src/com/android/server/connectivity/StructMf6cctl.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-11T05:25:21Z",
+      "side": 1,
+      "message": "Done in aosp/2867575",
+      "parentUuid": "53006a9e_5c49ddd5",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 38
+      },
+      "revId": "f289aead2a2ea4d22b3b1ff1c9b0a830fffcdd3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e592c3be_9bcee08b",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-12-05T07:17:18Z",
       "side": 1,
       "message": "Why do we need this? A caller can just use:\n\n    Struct.getSize(StructMrt6Msg.class)",
+      "range": {
+        "startLine": 23,
+        "startChar": 28,
+        "endLine": 23,
+        "endChar": 39
+      },
+      "revId": "f289aead2a2ea4d22b3b1ff1c9b0a830fffcdd3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a564b652_b4bdd209",
+        "filename": "service/src/com/android/server/connectivity/StructMrt6Msg.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-11T05:25:21Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "e592c3be_9bcee08b",
       "range": {
         "startLine": 23,
         "startChar": 28,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71bc8cfc_2fac3c98",
+        "filename": "service/src/com/android/server/connectivity/StructMrt6Msg.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-11T05:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36032440_6291e2d5",
+      "range": {
+        "startLine": 27,
+        "startChar": 25,
+        "endLine": 27,
+        "endChar": 26
+      },
+      "revId": "f289aead2a2ea4d22b3b1ff1c9b0a830fffcdd3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37c034ba_a141a3cc",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "833c546d_7e3830f7",
+        "filename": "service/src/com/android/server/connectivity/StructMrt6Msg.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-11T05:25:21Z",
+      "side": 1,
+      "message": "It\u0027s host byte order👍, updated.",
+      "parentUuid": "37c034ba_a141a3cc",
+      "range": {
+        "startLine": 30,
+        "startChar": 34,
+        "endLine": 30,
+        "endChar": 39
+      },
+      "revId": "f289aead2a2ea4d22b3b1ff1c9b0a830fffcdd3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80f617b9_98a7c7bc",
@@ -123,6 +219,30 @@
       "writtenOn": "2023-12-05T07:17:18Z",
       "side": 1,
       "message": "Do we need this? Can we use \"padding \u003d 4\" on the mif field?",
+      "range": {
+        "startLine": 33,
+        "startChar": 22,
+        "endLine": 33,
+        "endChar": 29
+      },
+      "revId": "f289aead2a2ea4d22b3b1ff1c9b0a830fffcdd3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33247890_89541cba",
+        "filename": "service/src/com/android/server/connectivity/StructMrt6Msg.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-11T05:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80f617b9_98a7c7bc",
       "range": {
         "startLine": 33,
         "startChar": 22,

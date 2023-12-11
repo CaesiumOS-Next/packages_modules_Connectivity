@@ -541,6 +541,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3706164e_60a47c99",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-11T05:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b3dbf51_6645e828",
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92d0a537_71dc7015",
@@ -607,6 +625,24 @@
       "side": 1,
       "message": "I think so, if the members are final?",
       "parentUuid": "2759128c_114c0fa8",
+      "revId": "962eff5868c32eec79f754d503fece6109abf708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "840b5acd_0f574572",
+        "filename": "service/src/com/android/server/connectivity/StructMrt6Msg.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-11T05:25:21Z",
+      "side": 1,
+      "message": "Yes, it needed for final members.",
+      "parentUuid": "6757510d_f842dc85",
       "revId": "962eff5868c32eec79f754d503fece6109abf708",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
