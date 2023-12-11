@@ -18,6 +18,92 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "556132eb_a823297a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 34
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-11T11:16:16Z",
+      "side": 1,
+      "message": "LGTM except for the comments in MdnsRecordRepository.java where the service registration is modified",
+      "revId": "46053480e995f2874107b803630997941cf1211d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd2b2cac_c008257b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-11T11:16:16Z",
+      "side": 1,
+      "message": "Nit: considering that there is a CTS test that verifies that the max is 100, this would not be possible.",
+      "range": {
+        "startLine": 190,
+        "startChar": 36,
+        "endLine": 190,
+        "endChar": 52
+      },
+      "revId": "46053480e995f2874107b803630997941cf1211d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09d76116_d28848d4",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-11T11:16:16Z",
+      "side": 1,
+      "message": "Nit: this is going to order the subtypes by the hash of the keys, which may make the behavior a bit unpredictable (for example the order of records in responses). Arguably that doesn\u0027t matter much, but consistency is best to repro issues.\n\nMaybe LinkedHashMap would avoid that ?",
+      "range": {
+        "startLine": 716,
+        "startChar": 59,
+        "endLine": 716,
+        "endChar": 67
+      },
+      "revId": "46053480e995f2874107b803630997941cf1211d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecdf0baa_e6dd096f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-11T11:16:16Z",
+      "side": 1,
+      "message": "This is assuming that the list returned by serviceInfo.getSubtypes is modifiable, which is not always a very good assumption (some APIs return Collections.unmodifiableList for example). It may be best to make a copy in an ArrayList if adding an element is needed.",
+      "range": {
+        "startLine": 883,
+        "startChar": 41,
+        "endLine": 883,
+        "endChar": 44
+      },
+      "revId": "46053480e995f2874107b803630997941cf1211d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "454c719d_77f8667e",
@@ -43,6 +129,80 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f20f6c02_8b5aacb5",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 1659,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-11T11:16:16Z",
+      "side": 1,
+      "message": "Nit: can you factor out a constant with the one used in parseTypeAndSubtype ?",
+      "revId": "46053480e995f2874107b803630997941cf1211d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93674b59_7c544a10",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-11T11:16:16Z",
+      "side": 1,
+      "message": "Nit: also here, this could just say \"subtypes\" (using List.toString())",
+      "range": {
+        "startLine": 685,
+        "startChar": 22,
+        "endLine": 685,
+        "endChar": 80
+      },
+      "revId": "46053480e995f2874107b803630997941cf1211d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "487b745e_0a3f7966",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-11T11:16:16Z",
+      "side": 1,
+      "message": "Can you keep this final ? See comment below on withSubtypes",
+      "revId": "46053480e995f2874107b803630997941cf1211d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a8d998f_ca2e3dba",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-11T11:16:16Z",
+      "side": 1,
+      "message": "More accurately this should have been \"Create a new ServiceRegistration identical to this one, except for the subtypes\"\n\nThis method isn\u0027t supposed to modify the ServiceRegistration, it creates a new one instead. But `serviceInfo \u003d new NsdServiceInfo(serviceInfo)` below modifies the original object.",
+      "revId": "46053480e995f2874107b803630997941cf1211d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5fdd575d_c43ee737",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
         "patchSetId": 34
@@ -60,6 +220,23 @@
         "endLine": 187,
         "endChar": 45
       },
+      "revId": "46053480e995f2874107b803630997941cf1211d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d7a6007_10b7e8c4",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-11T11:16:16Z",
+      "side": 1,
+      "message": "Nit: long line",
       "revId": "46053480e995f2874107b803630997941cf1211d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
