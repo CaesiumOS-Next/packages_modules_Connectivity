@@ -16,6 +16,24 @@
       "message": "I\u0027m not sure this is correct: the RFC says:\n\n\"On receipt of a question for a particular name, rrtype, and rrclass, for which a responder does have one or more unique answers, the responder MAY also include an NSEC record in the Additional Record Section indicating the nonexistence of other rrtypes for that name and rrclass.\"\n\nThe \"for that name and rrclass\" refer to the ones in the question, but here this verifies that there\u0027s no other record only for that name (not considering the question).\n\nAlso this seems to try to fix something that does not match the description of the commit (avoiding duplicate answers). Could you move this to another change ?",
       "revId": "bdfcae4bda94e05b16444af637cffb7779e6b9ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0763339_4fef72f4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-11T03:52:13Z",
+      "side": 1,
+      "message": "Sorry I\u0027m not reading this right: it\u0027s rrclass and not rrtype, so yes it\u0027s unrelated to the rrtype in the question.\n\nStill, could you move this to a different change ? It\u0027s harder to review different bugs being resolved in a single CL.",
+      "parentUuid": "6731e8a2_19aa6b4f",
+      "revId": "bdfcae4bda94e05b16444af637cffb7779e6b9ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
