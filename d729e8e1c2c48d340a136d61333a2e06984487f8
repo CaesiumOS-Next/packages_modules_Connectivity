@@ -16,6 +16,24 @@
       "message": "From the comments in b/312669345, I think the suggestion is that we should use the logic of Tethering.java #dump instead of overcomplicated Handler.java copy.",
       "revId": "d729e8e1c2c48d340a136d61333a2e06984487f8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2609d44_2eef53c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-11T06:36:52Z",
+      "side": 1,
+      "message": "Done.\nMerged into aosp/2865335",
+      "parentUuid": "ee54eaa7_e7b02125",
+      "revId": "d729e8e1c2c48d340a136d61333a2e06984487f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
