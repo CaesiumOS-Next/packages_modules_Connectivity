@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d1029c5_757aafe6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-12-11T07:32:41Z",
+      "side": 1,
+      "message": "LGTM, only have one question about why move util to framework staticlibs.",
+      "revId": "231a989d1562795bc7a082411cdeb541ea4f47a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35d52300_129c63a8",
+        "filename": "staticlibs/framework/com/android/net/module/util/HandlerUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-12-11T07:32:41Z",
+      "side": 1,
+      "message": "Wonder why this is in p/m/C/staticlibs/framework instead of p/m/C/statclibs/device/. I found all of the caller is not in framework and original this is util is place in service/ ?\n\nIf this is not in static/libs/framework, we can remove all of @hide annotation.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 8
+      },
+      "revId": "231a989d1562795bc7a082411cdeb541ea4f47a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
