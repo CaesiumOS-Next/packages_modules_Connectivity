@@ -176,6 +176,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "435519a1_4a9f6ad1",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1624,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-11T02:47:28Z",
+      "side": 1,
+      "message": "Ideally we\u0027d just follow legacy (S-) behavior here\n\nI think the _subtype._type._tcp was parsed here in mdnsresponder: https://cs.android.com/android/platform/superproject/main/+/main:external/mdnsresponder/mDNSCore/DNSCommon.c;drc\u003d47e4cebad7397422144bb03a21f3f7682c062c4a;l\u003d698\n\nBut actually for advertising (since discovery only does 1 subtype anyway) it\u0027s probably parsed here: https://cs.android.com/android/platform/superproject/main/+/main:external/mdnsresponder/mDNSShared/uds_daemon.c;drc\u003dd4035b6eb1192f71af7adae47bf17d22c7356fa1;l\u003d1641",
+      "parentUuid": "07c19a00_ac9ce826",
+      "range": {
+        "startLine": 1624,
+        "startChar": 8,
+        "endLine": 1624,
+        "endChar": 9
+      },
+      "revId": "8a8b920d777aa344c44f41e3777a140ef21969f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "59c51f40_b07cd83e",
         "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
         "patchSetId": 1
