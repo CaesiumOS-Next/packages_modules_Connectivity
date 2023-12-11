@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a5aefcb_27905c15",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-11T08:57:40Z",
+      "side": 1,
+      "message": "This can be passed to Agent in L200(lnc\u003d), I think.",
+      "range": {
+        "startLine": 202,
+        "startChar": 21,
+        "endLine": 206,
+        "endChar": 24
+      },
+      "revId": "79b71f463949350e030b57b54ad37d5e0bc7f751",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1247a2cc_da6dc584",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-11T08:57:40Z",
+      "side": 1,
+      "message": "nits: This is fine but LocalNetworkConfig will be overridden by sendLocalNetworkConfig in L244. \nAnd we don\u0027t verify anything before L244.  \nSo specifying TRANSPORT_WIFI does not do anything.\n\nAdding localNetworkConfig to createLocalAgent args might make sense.",
+      "range": {
+        "startLine": 235,
+        "startChar": 52,
+        "endLine": 235,
+        "endChar": 66
+      },
+      "revId": "79b71f463949350e030b57b54ad37d5e0bc7f751",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20a73323_4ff8d4a6",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-11T08:57:40Z",
+      "side": 1,
+      "message": "This is fine, but checking LocalInfoChanged callback (`cb.expect\u003cLocalInfoChanged\u003e`) instead of waitForIdle would be more realistic.\nWhen the upstream network of local network is updated, you should receive this callback.\ne.g. https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt;l\u003d166",
+      "range": {
+        "startLine": 246,
+        "startChar": 8,
+        "endLine": 246,
+        "endChar": 19
+      },
+      "revId": "79b71f463949350e030b57b54ad37d5e0bc7f751",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5c1c4ca_315d8306",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-11T08:57:40Z",
+      "side": 1,
+      "message": "nits: This can be passed at L304(lnc\u003d) directly.\nAlso, localNetworkConfig will be overridden by sendLocalNetworkConfig at L319.\nAnd we don\u0027t verify anything before L319.\nI\u0027m not sure if we need this.",
+      "range": {
+        "startLine": 306,
+        "startChar": 21,
+        "endLine": 309,
+        "endChar": 24
+      },
+      "revId": "79b71f463949350e030b57b54ad37d5e0bc7f751",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef7c88f4_97ace9cd",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-11T08:57:40Z",
+      "side": 1,
+      "message": "This can be passed to Agent at L440(lnc\u003d).",
+      "range": {
+        "startLine": 451,
+        "startChar": 8,
+        "endLine": 451,
+        "endChar": 30
+      },
+      "revId": "79b71f463949350e030b57b54ad37d5e0bc7f751",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e79d39e9_1e21acbe",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-11T08:57:40Z",
+      "side": 1,
+      "message": "nits: Do we need this?",
+      "range": {
+        "startLine": 477,
+        "startChar": 8,
+        "endLine": 477,
+        "endChar": 24
+      },
+      "revId": "79b71f463949350e030b57b54ad37d5e0bc7f751",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
