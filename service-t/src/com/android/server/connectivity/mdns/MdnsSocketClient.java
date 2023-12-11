@@ -28,6 +28,7 @@ import android.text.format.DateUtils;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.SharedLog;
+import com.android.server.connectivity.mdns.util.MdnsUtils;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -71,6 +72,7 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
     final Queue<DatagramPacket> unicastPacketQueue = new ArrayDeque<>();
     private final Context context;
     private final byte[] multicastReceiverBuffer = new byte[RECEIVER_BUFFER_SIZE];
+    private final byte[] packetCreationBuffer = new byte[1500];
     @Nullable private final byte[] unicastReceiverBuffer;
     private final MulticastLock multicastLock;
     private final boolean useSeparateSocketForUnicast =
@@ -202,18 +204,18 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
     }
 
     @Override
-    public void sendPacketRequestingMulticastResponse(@NonNull DatagramPacket packet,
-            boolean onlyUseIpv6OnIpv6OnlyNetworks) {
-        sendMdnsPacket(packet, multicastPacketQueue, onlyUseIpv6OnIpv6OnlyNetworks);
+    public void sendPacketRequestingMulticastResponse(@NonNull MdnsPacket packet,
+            boolean onlyUseIpv6OnIpv6OnlyNetworks, @NonNull InetSocketAddress address) {
+        sendMdnsPacket(packet, multicastPacketQueue, onlyUseIpv6OnIpv6OnlyNetworks, address);
     }
 
     @Override
-    public void sendPacketRequestingUnicastResponse(@NonNull DatagramPacket packet,
-            boolean onlyUseIpv6OnIpv6OnlyNetworks) {
+    public void sendPacketRequestingUnicastResponse(@NonNull MdnsPacket packet,
+            boolean onlyUseIpv6OnIpv6OnlyNetworks, @NonNull InetSocketAddress address) {
         if (useSeparateSocketForUnicast) {
-            sendMdnsPacket(packet, unicastPacketQueue, onlyUseIpv6OnIpv6OnlyNetworks);
+            sendMdnsPacket(packet, unicastPacketQueue, onlyUseIpv6OnIpv6OnlyNetworks, address);
         } else {
-            sendMdnsPacket(packet, multicastPacketQueue, onlyUseIpv6OnIpv6OnlyNetworks);
+            sendMdnsPacket(packet, multicastPacketQueue, onlyUseIpv6OnIpv6OnlyNetworks, address);
         }
     }
 
@@ -234,17 +236,15 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
         return false;
     }
 
-    private void sendMdnsPacket(DatagramPacket packet, Queue<DatagramPacket> packetQueueToUse,
-            boolean onlyUseIpv6OnIpv6OnlyNetworks) {
+    private void sendMdnsPacket(MdnsPacket packet, Queue<DatagramPacket> packetQueueToUse,
+            boolean onlyUseIpv6OnIpv6OnlyNetworks, InetSocketAddress address) {
         if (shouldStopSocketLoop && !MdnsConfigs.allowAddMdnsPacketAfterDiscoveryStops()) {
             sharedLog.w("sendMdnsPacket() is called after discovery already stopped");
             return;
         }
 
-        final boolean isIpv4 = ((InetSocketAddress) packet.getSocketAddress()).getAddress()
-                instanceof Inet4Address;
-        final boolean isIpv6 = ((InetSocketAddress) packet.getSocketAddress()).getAddress()
-                instanceof Inet6Address;
+        final boolean isIpv4 = address.getAddress() instanceof Inet4Address;
+        final boolean isIpv6 = address.getAddress() instanceof Inet6Address;
         final boolean ipv6Only = multicastSocket != null && multicastSocket.isOnIPv6OnlyNetwork();
         if (isIpv4 && ipv6Only) {
             return;
@@ -257,7 +257,15 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
             while (packetQueueToUse.size() >= MdnsConfigs.mdnsPacketQueueMaxSize()) {
                 packetQueueToUse.remove();
             }
-            packetQueueToUse.add(packet);
+            try {
+                final byte[] queryBuffer = MdnsUtils.createRawDnsPacket(packetCreationBuffer,
+                        packet);
+                packetQueueToUse.add(
+                        new DatagramPacket(queryBuffer, 0, queryBuffer.length, address));
+            } catch (IOException e) {
+                sharedLog.e("Failed to send a mDNS packet.", e);
+                return;
+            }
         }
         triggerSendThread();
     }

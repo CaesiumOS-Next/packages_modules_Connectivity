@@ -43,7 +43,6 @@ import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -78,7 +77,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
@@ -93,7 +93,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 /** Tests for {@link MdnsServiceTypeClient}. */
-@DevSdkIgnoreRunner.MonitorThreadLeak
 @RunWith(DevSdkIgnoreRunner.class)
 @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
 public class MdnsServiceTypeClientTests {
@@ -116,8 +115,6 @@ public class MdnsServiceTypeClientTests {
     @Mock
     private MdnsServiceBrowserListener mockListenerTwo;
     @Mock
-    private MdnsPacketWriter mockPacketWriter;
-    @Mock
     private MdnsMultinetworkSocketClient mockSocketClient;
     @Mock
     private Network mockNetwork;
@@ -130,12 +127,7 @@ public class MdnsServiceTypeClientTests {
     @Captor
     private ArgumentCaptor<MdnsServiceInfo> serviceInfoCaptor;
 
-    private final byte[] buf = new byte[10];
-
-    private DatagramPacket[] expectedIPv4Packets;
-    private DatagramPacket[] expectedIPv6Packets;
     private FakeExecutor currentThreadExecutor = new FakeExecutor();
-
     private MdnsServiceTypeClient client;
     private SocketKey socketKey;
     private HandlerThread thread;
@@ -150,69 +142,7 @@ public class MdnsServiceTypeClientTests {
     public void setUp() throws IOException {
         MockitoAnnotations.initMocks(this);
         doReturn(TEST_ELAPSED_REALTIME).when(mockDecoderClock).elapsedRealtime();
-
-        expectedIPv4Packets = new DatagramPacket[24];
-        expectedIPv6Packets = new DatagramPacket[24];
         socketKey = new SocketKey(mockNetwork, INTERFACE_INDEX);
-
-        for (int i = 0; i < expectedIPv4Packets.length; ++i) {
-            expectedIPv4Packets[i] = new DatagramPacket(buf, 0 /* offset */, 5 /* length */,
-                    MdnsConstants.getMdnsIPv4Address(), MdnsConstants.MDNS_PORT);
-            expectedIPv6Packets[i] = new DatagramPacket(buf, 0 /* offset */, 5 /* length */,
-                    MdnsConstants.getMdnsIPv6Address(), MdnsConstants.MDNS_PORT);
-        }
-        when(mockPacketWriter.getPacket(IPV4_ADDRESS))
-                .thenReturn(expectedIPv4Packets[0])
-                .thenReturn(expectedIPv4Packets[1])
-                .thenReturn(expectedIPv4Packets[2])
-                .thenReturn(expectedIPv4Packets[3])
-                .thenReturn(expectedIPv4Packets[4])
-                .thenReturn(expectedIPv4Packets[5])
-                .thenReturn(expectedIPv4Packets[6])
-                .thenReturn(expectedIPv4Packets[7])
-                .thenReturn(expectedIPv4Packets[8])
-                .thenReturn(expectedIPv4Packets[9])
-                .thenReturn(expectedIPv4Packets[10])
-                .thenReturn(expectedIPv4Packets[11])
-                .thenReturn(expectedIPv4Packets[12])
-                .thenReturn(expectedIPv4Packets[13])
-                .thenReturn(expectedIPv4Packets[14])
-                .thenReturn(expectedIPv4Packets[15])
-                .thenReturn(expectedIPv4Packets[16])
-                .thenReturn(expectedIPv4Packets[17])
-                .thenReturn(expectedIPv4Packets[18])
-                .thenReturn(expectedIPv4Packets[19])
-                .thenReturn(expectedIPv4Packets[20])
-                .thenReturn(expectedIPv4Packets[21])
-                .thenReturn(expectedIPv4Packets[22])
-                .thenReturn(expectedIPv4Packets[23]);
-
-        when(mockPacketWriter.getPacket(IPV6_ADDRESS))
-                .thenReturn(expectedIPv6Packets[0])
-                .thenReturn(expectedIPv6Packets[1])
-                .thenReturn(expectedIPv6Packets[2])
-                .thenReturn(expectedIPv6Packets[3])
-                .thenReturn(expectedIPv6Packets[4])
-                .thenReturn(expectedIPv6Packets[5])
-                .thenReturn(expectedIPv6Packets[6])
-                .thenReturn(expectedIPv6Packets[7])
-                .thenReturn(expectedIPv6Packets[8])
-                .thenReturn(expectedIPv6Packets[9])
-                .thenReturn(expectedIPv6Packets[10])
-                .thenReturn(expectedIPv6Packets[11])
-                .thenReturn(expectedIPv6Packets[12])
-                .thenReturn(expectedIPv6Packets[13])
-                .thenReturn(expectedIPv6Packets[14])
-                .thenReturn(expectedIPv6Packets[15])
-                .thenReturn(expectedIPv6Packets[16])
-                .thenReturn(expectedIPv6Packets[17])
-                .thenReturn(expectedIPv6Packets[18])
-                .thenReturn(expectedIPv6Packets[19])
-                .thenReturn(expectedIPv6Packets[20])
-                .thenReturn(expectedIPv6Packets[21])
-                .thenReturn(expectedIPv6Packets[22])
-                .thenReturn(expectedIPv6Packets[23]);
-
         thread = new HandlerThread("MdnsServiceTypeClientTests");
         thread.start();
         handler = new Handler(thread.getLooper());
@@ -241,15 +171,9 @@ public class MdnsServiceTypeClientTests {
             return true;
         }).when(mockDeps).sendMessage(any(Handler.class), any(Message.class));
 
-        client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                        mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                        serviceCache) {
-                    @Override
-                    MdnsPacketWriter createMdnsPacketWriter() {
-                        return mockPacketWriter;
-                    }
-                };
+        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
+                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
+                serviceCache);
     }
 
     @After
@@ -362,11 +286,15 @@ public class MdnsServiceTypeClientTests {
         verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
 
         // Queries should continue to be sent.
-        verifyAndSendQuery(1, 0, /* expectsUnicastResponse= */ true);
-        verifyAndSendQuery(
-                2, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
-        verifyAndSendQuery(
-                3, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+        verifyAndSendQuery(1 /* index */, 0 /* timeInMs */, true /* expectsUnicastResponse */,
+                true /* multipleSocketDiscovery */, 2 /* scheduledCount */, 1 /* transactionId */,
+                3 /* numberOfQuestion */);
+        verifyAndSendQuery(2 /* index */, MdnsConfigs.timeBetweenQueriesInBurstMs(),
+                false /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
+                3 /* scheduledCount */, 2 /* transactionId */, 3 /* numberOfQuestion */);
+        verifyAndSendQuery(3 /* index */, MdnsConfigs.timeBetweenQueriesInBurstMs(),
+                false /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
+                4 /* scheduledCount */, 3 /* transactionId */, 3 /* numberOfQuestion */);
 
         // Stop sending packets.
         stopSendAndReceive(mockListenerOne);
@@ -544,11 +472,15 @@ public class MdnsServiceTypeClientTests {
         verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
 
         // Queries should continue to be sent.
-        verifyAndSendQuery(1, 0, /* expectsUnicastResponse= */ true);
-        verifyAndSendQuery(
-                2, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
-        verifyAndSendQuery(
-                3, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+        verifyAndSendQuery(1 /* index */, 0 /* timeInMs */, true /* expectsUnicastResponse */,
+                true /* multipleSocketDiscovery */, 2 /* scheduledCount */, 1 /* transactionId */,
+                3 /* numberOfQuestion */);
+        verifyAndSendQuery(2 /* index */, MdnsConfigs.timeBetweenQueriesInBurstMs(),
+                false /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
+                3 /* scheduledCount */, 2 /* transactionId */, 3 /* numberOfQuestion */);
+        verifyAndSendQuery(3 /* index */, MdnsConfigs.timeBetweenQueriesInBurstMs(),
+                false /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
+                4 /* scheduledCount */, 3 /* transactionId */, 3 /* numberOfQuestion */);
 
         // Stop sending packets.
         stopSendAndReceive(mockListenerOne);
@@ -945,15 +877,6 @@ public class MdnsServiceTypeClientTests {
     public void processResponse_searchOptionsEnableServiceRemoval_shouldRemove()
             throws Exception {
         final String serviceInstanceName = "service-instance-1";
-        client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                        mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                        serviceCache) {
-                    @Override
-                    MdnsPacketWriter createMdnsPacketWriter() {
-                        return mockPacketWriter;
-                    }
-                };
         MdnsSearchOptions searchOptions = MdnsSearchOptions.newBuilder()
                 .setRemoveExpiredService(true)
                 .setNumOfQueriesBeforeBackoff(Integer.MAX_VALUE)
@@ -991,15 +914,6 @@ public class MdnsServiceTypeClientTests {
     public void processResponse_searchOptionsNotEnableServiceRemoval_shouldNotRemove()
             throws Exception {
         final String serviceInstanceName = "service-instance-1";
-        client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                        mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                        serviceCache) {
-                    @Override
-                    MdnsPacketWriter createMdnsPacketWriter() {
-                        return mockPacketWriter;
-                    }
-                };
         startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
         Runnable firstMdnsTask = currentThreadExecutor.getAndClearSubmittedRunnable();
 
@@ -1025,15 +939,6 @@ public class MdnsServiceTypeClientTests {
             throws Exception {
         //MdnsConfigsFlagsImpl.removeServiceAfterTtlExpires.override(true);
         final String serviceInstanceName = "service-instance-1";
-        client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                        mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                        serviceCache) {
-                    @Override
-                    MdnsPacketWriter createMdnsPacketWriter() {
-                        return mockPacketWriter;
-                    }
-                };
         startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
         Runnable firstMdnsTask = currentThreadExecutor.getAndClearSubmittedRunnable();
 
@@ -1148,10 +1053,6 @@ public class MdnsServiceTypeClientTests {
 
     @Test
     public void testProcessResponse_Resolve() throws Exception {
-        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
-
         final String instanceName = "service-instance";
         final String[] hostname = new String[] { "testhost "};
         final String ipV4Address = "192.0.2.0";
@@ -1164,19 +1065,17 @@ public class MdnsServiceTypeClientTests {
         InOrder inOrder = inOrder(mockListenerOne, mockSocketClient);
 
         // Verify a query for SRV/TXT was sent, but no PTR query
-        final ArgumentCaptor<DatagramPacket> srvTxtQueryCaptor =
-                ArgumentCaptor.forClass(DatagramPacket.class);
+        final ArgumentCaptor<MdnsPacket> srvTxtQueryCaptor =
+                ArgumentCaptor.forClass(MdnsPacket.class);
         currentThreadExecutor.getAndClearLastScheduledRunnable().run();
         // Send twice for IPv4 and IPv6
         inOrder.verify(mockSocketClient, times(2)).sendPacketRequestingUnicastResponse(
                 srvTxtQueryCaptor.capture(),
-                eq(socketKey), eq(false));
+                eq(socketKey), eq(false), any());
         verify(mockDeps, times(1)).sendMessage(any(), any(Message.class));
         assertNotNull(delayMessage);
 
-        final MdnsPacket srvTxtQueryPacket = MdnsPacket.parse(
-                new MdnsPacketReader(srvTxtQueryCaptor.getValue()));
-
+        final MdnsPacket srvTxtQueryPacket = srvTxtQueryCaptor.getValue();
         final String[] serviceName = getTestServiceName(instanceName);
         assertFalse(hasQuestion(srvTxtQueryPacket, MdnsRecord.TYPE_PTR));
         assertTrue(hasQuestion(srvTxtQueryPacket, MdnsRecord.TYPE_ANY, serviceName));
@@ -1199,15 +1098,14 @@ public class MdnsServiceTypeClientTests {
 
         // Expect a query for A/AAAA
         dispatchMessage();
-        final ArgumentCaptor<DatagramPacket> addressQueryCaptor =
-                ArgumentCaptor.forClass(DatagramPacket.class);
+        final ArgumentCaptor<MdnsPacket> addressQueryCaptor =
+                ArgumentCaptor.forClass(MdnsPacket.class);
         currentThreadExecutor.getAndClearLastScheduledRunnable().run();
         inOrder.verify(mockSocketClient, times(2)).sendPacketRequestingMulticastResponse(
                 addressQueryCaptor.capture(),
-                eq(socketKey), eq(false));
+                eq(socketKey), eq(false), any());
 
-        final MdnsPacket addressQueryPacket = MdnsPacket.parse(
-                new MdnsPacketReader(addressQueryCaptor.getValue()));
+        final MdnsPacket addressQueryPacket = addressQueryCaptor.getValue();
         assertTrue(hasQuestion(addressQueryPacket, MdnsRecord.TYPE_A, hostname));
         assertTrue(hasQuestion(addressQueryPacket, MdnsRecord.TYPE_AAAA, hostname));
 
@@ -1243,10 +1141,6 @@ public class MdnsServiceTypeClientTests {
 
     @Test
     public void testRenewTxtSrvInResolve() throws Exception {
-        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
-
         final String instanceName = "service-instance";
         final String[] hostname = new String[] { "testhost "};
         final String ipV4Address = "192.0.2.0";
@@ -1259,19 +1153,17 @@ public class MdnsServiceTypeClientTests {
         InOrder inOrder = inOrder(mockListenerOne, mockSocketClient);
 
         // Get the query for SRV/TXT
-        final ArgumentCaptor<DatagramPacket> srvTxtQueryCaptor =
-                ArgumentCaptor.forClass(DatagramPacket.class);
+        final ArgumentCaptor<MdnsPacket> srvTxtQueryCaptor =
+                ArgumentCaptor.forClass(MdnsPacket.class);
         currentThreadExecutor.getAndClearLastScheduledRunnable().run();
         // Send twice for IPv4 and IPv6
         inOrder.verify(mockSocketClient, times(2)).sendPacketRequestingUnicastResponse(
                 srvTxtQueryCaptor.capture(),
-                eq(socketKey), eq(false));
+                eq(socketKey), eq(false), any());
         verify(mockDeps, times(1)).sendMessage(any(), any(Message.class));
         assertNotNull(delayMessage);
 
-        final MdnsPacket srvTxtQueryPacket = MdnsPacket.parse(
-                new MdnsPacketReader(srvTxtQueryCaptor.getValue()));
-
+        final MdnsPacket srvTxtQueryPacket = srvTxtQueryCaptor.getValue();
         final String[] serviceName = getTestServiceName(instanceName);
         assertTrue(hasQuestion(srvTxtQueryPacket, MdnsRecord.TYPE_ANY, serviceName));
 
@@ -1314,17 +1206,16 @@ public class MdnsServiceTypeClientTests {
         currentThreadExecutor.getAndClearLastScheduledRunnable().run();
 
         // Expect a renewal query
-        final ArgumentCaptor<DatagramPacket> renewalQueryCaptor =
-                ArgumentCaptor.forClass(DatagramPacket.class);
+        final ArgumentCaptor<MdnsPacket> renewalQueryCaptor =
+                ArgumentCaptor.forClass(MdnsPacket.class);
         // Second and later sends are sent as "expect multicast response" queries
         inOrder.verify(mockSocketClient, times(2)).sendPacketRequestingMulticastResponse(
                 renewalQueryCaptor.capture(),
-                eq(socketKey), eq(false));
+                eq(socketKey), eq(false), any());
         verify(mockDeps, times(3)).sendMessage(any(), any(Message.class));
         assertNotNull(delayMessage);
         inOrder.verify(mockListenerOne).onDiscoveryQuerySent(any(), anyInt());
-        final MdnsPacket renewalPacket = MdnsPacket.parse(
-                new MdnsPacketReader(renewalQueryCaptor.getValue()));
+        final MdnsPacket renewalPacket = renewalQueryCaptor.getValue();
         assertTrue(hasQuestion(renewalPacket, MdnsRecord.TYPE_ANY, serviceName));
         inOrder.verifyNoMoreInteractions();
 
@@ -1359,10 +1250,6 @@ public class MdnsServiceTypeClientTests {
 
     @Test
     public void testProcessResponse_ResolveExcludesOtherServices() {
-        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
-
         final String requestedInstance = "instance1";
         final String otherInstance = "instance2";
         final String ipV4Address = "192.0.2.0";
@@ -1429,10 +1316,6 @@ public class MdnsServiceTypeClientTests {
 
     @Test
     public void testProcessResponse_SubtypeDiscoveryLimitedToSubtype() {
-        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
-
         final String matchingInstance = "instance1";
         final String subtype = "_subtype";
         final String otherInstance = "instance2";
@@ -1519,10 +1402,6 @@ public class MdnsServiceTypeClientTests {
 
     @Test
     public void testProcessResponse_SubtypeChange() {
-        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
-
         final String matchingInstance = "instance1";
         final String subtype = "_subtype";
         final String ipV4Address = "192.0.2.0";
@@ -1604,10 +1483,6 @@ public class MdnsServiceTypeClientTests {
 
     @Test
     public void testNotifySocketDestroyed() throws Exception {
-        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
-                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
-
         final String requestedInstance = "instance1";
         final String otherInstance = "instance2";
         final String ipV4Address = "192.0.2.0";
@@ -1794,7 +1669,7 @@ public class MdnsServiceTypeClientTests {
 
         int burstCounter = 0;
         int betweenBurstTime = 0;
-        for (int i = 0; i < expectedIPv4Packets.length; i += 3) {
+        for (int i = 0; i < 24; i += 3) {
             verifyAndSendQuery(i, betweenBurstTime, /* expectsUnicastResponse= */ true);
             verifyAndSendQuery(i + 1, /* timeInMs= */ 0, /* expectsUnicastResponse= */ false);
             verifyAndSendQuery(i + 2, TIME_BETWEEN_RETRANSMISSION_QUERIES_IN_BURST_MS,
@@ -1831,10 +1706,15 @@ public class MdnsServiceTypeClientTests {
         verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
 
         // Queries should continue to be sent.
-        verifyAndSendQuery(1, /* timeInMs= */ 0, /* expectsUnicastResponse= */ true);
-        verifyAndSendQuery(2, /* timeInMs= */ 0, /* expectsUnicastResponse= */ false);
-        verifyAndSendQuery(3, TIME_BETWEEN_RETRANSMISSION_QUERIES_IN_BURST_MS,
-                /* expectsUnicastResponse= */ false);
+        verifyAndSendQuery(1 /* index */, 0 /* timeInMs */, true /* expectsUnicastResponse */,
+                true /* multipleSocketDiscovery */, 2 /* scheduledCount */, 1 /* transactionId */,
+                3 /* numberOfQuestion */);
+        verifyAndSendQuery(2 /* index */, /* timeInMs= */ 0, false /* expectsUnicastResponse */,
+                true /* multipleSocketDiscovery */, 3 /* scheduledCount */, 2 /* transactionId */,
+                3 /* numberOfQuestion */);
+        verifyAndSendQuery(3 /* index */, TIME_BETWEEN_RETRANSMISSION_QUERIES_IN_BURST_MS,
+                false /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
+                4 /* scheduledCount */, 3 /* transactionId */, 3 /* numberOfQuestion */);
 
         // Stop sending packets.
         stopSendAndReceive(mockListenerOne);
@@ -1902,6 +1782,14 @@ public class MdnsServiceTypeClientTests {
 
     private void verifyAndSendQuery(int index, long timeInMs, boolean expectsUnicastResponse,
             boolean multipleSocketDiscovery, int scheduledCount) {
+        verifyAndSendQuery(index, timeInMs, expectsUnicastResponse,
+                multipleSocketDiscovery, scheduledCount,
+                index + 1 /* transactionId */, 2 /* numberOfQuestion */);
+    }
+
+    private void verifyAndSendQuery(int index, long timeInMs, boolean expectsUnicastResponse,
+            boolean multipleSocketDiscovery, int scheduledCount, int transactionId,
+            int numberOfQuestion) {
         // Dispatch the message
         if (delayMessage != null && realHandler != null) {
             dispatchMessage();
@@ -1910,17 +1798,33 @@ public class MdnsServiceTypeClientTests {
         currentThreadExecutor.getAndClearLastScheduledRunnable().run();
         if (expectsUnicastResponse) {
             verify(mockSocketClient).sendPacketRequestingUnicastResponse(
-                    expectedIPv4Packets[index], socketKey, false);
+                    argThat(packet -> packet.transactionId == transactionId
+                            && packet.questions.size() == numberOfQuestion),
+                    eq(socketKey),
+                    eq(false),
+                    argThat(address -> address.getAddress() instanceof Inet4Address));
             if (multipleSocketDiscovery) {
                 verify(mockSocketClient).sendPacketRequestingUnicastResponse(
-                        expectedIPv6Packets[index], socketKey, false);
+                        argThat(packet -> packet.transactionId == transactionId
+                                && packet.questions.size() == numberOfQuestion),
+                        eq(socketKey),
+                        eq(false),
+                        argThat(address -> address.getAddress() instanceof Inet6Address));
             }
         } else {
             verify(mockSocketClient).sendPacketRequestingMulticastResponse(
-                    expectedIPv4Packets[index], socketKey, false);
+                    argThat(packet -> packet.transactionId == transactionId
+                            && packet.questions.size() == numberOfQuestion),
+                    eq(socketKey),
+                    eq(false),
+                    argThat(address -> address.getAddress() instanceof Inet4Address));
             if (multipleSocketDiscovery) {
                 verify(mockSocketClient).sendPacketRequestingMulticastResponse(
-                        expectedIPv6Packets[index], socketKey, false);
+                        argThat(packet -> packet.transactionId == transactionId
+                                && packet.questions.size() == numberOfQuestion),
+                        eq(socketKey),
+                        eq(false),
+                        argThat(address -> address.getAddress() instanceof Inet6Address));
             }
         }
         verify(mockDeps, times(index + 1))
