@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d15f9ce_3651062d",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2638,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-11T15:53:31Z",
+      "side": 0,
+      "message": "nit: extra delete.",
+      "revId": "23bf9023a5f8b47e504095427876cd3227f1f95a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
