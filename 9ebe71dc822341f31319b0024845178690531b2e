@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afe20dc5_bd1335eb",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-11T14:19:17Z",
+      "side": 1,
+      "message": "You need to annotate this API with `@flaggedApi`. Take a look at other @FlaggedApi usages in ConnectivityManager.java to learn how to do it. For example: aosp/2818818",
+      "revId": "9ebe71dc822341f31319b0024845178690531b2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
