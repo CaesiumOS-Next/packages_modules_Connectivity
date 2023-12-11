@@ -20,6 +20,7 @@ import static com.android.internal.annotations.VisibleForTesting.Visibility.PRIV
 import static com.android.net.module.util.BitUtils.appendStringRepresentationOfBitMaskToStringBuilder;
 import static com.android.net.module.util.BitUtils.describeDifferences;
 
+import android.annotation.FlaggedApi;
 import android.annotation.IntDef;
 import android.annotation.LongDef;
 import android.annotation.NonNull;
@@ -130,6 +131,8 @@ public final class NetworkCapabilities implements Parcelable {
     public static class Flags {
         static final String FLAG_FORBIDDEN_CAPABILITY =
                 "com.android.net.flags.forbidden_capability";
+        static final String FLAG_NET_CAPABILITY_LOCAL_NETWORK =
+                "com.android.net.flags.net_capability_local_network";
     }
 
     /**
@@ -725,8 +728,8 @@ public final class NetworkCapabilities implements Parcelable {
      * this forbidden capability with {@link NetworkRequest.Builder#removeForbiddenCapability},
      * or by clearing all capabilites with {@link NetworkRequest.Builder#clearCapabilities()}.
      * </p>
-     * @hide
      */
+    @FlaggedApi(Flags.FLAG_NET_CAPABILITY_LOCAL_NETWORK)
     public static final int NET_CAPABILITY_LOCAL_NETWORK = 36;
 
     private static final int MAX_NET_CAPABILITY = NET_CAPABILITY_LOCAL_NETWORK;
