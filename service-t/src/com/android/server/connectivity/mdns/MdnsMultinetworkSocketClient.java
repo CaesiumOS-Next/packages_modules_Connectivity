@@ -29,6 +29,7 @@ import android.os.Looper;
 import android.util.ArrayMap;
 
 import com.android.net.module.util.SharedLog;
+import com.android.server.connectivity.mdns.util.MdnsUtils;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -55,6 +56,7 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
     private final ArrayMap<MdnsServiceBrowserListener, InterfaceSocketCallback> mSocketRequests =
             new ArrayMap<>();
     private final ArrayMap<SocketKey, ReadPacketHandler> mSocketPacketHandlers = new ArrayMap<>();
+    private final byte[] mPacketCreationBuffer = new byte[1500]; // TODO: use interface MTU
     private MdnsSocketClientBase.Callback mCallback = null;
     private int mReceivedPacketNumber = 0;
 
@@ -212,24 +214,24 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         return true;
     }
 
-    private void sendMdnsPacket(@NonNull DatagramPacket packet, @NonNull SocketKey targetSocketKey,
-            boolean onlyUseIpv6OnIpv6OnlyNetworks) {
+    private void sendMdnsPacket(@NonNull MdnsPacket packet, @NonNull SocketKey targetSocketKey,
+            boolean onlyUseIpv6OnIpv6OnlyNetworks, @NonNull InetSocketAddress address) {
         final MdnsInterfaceSocket socket = getTargetSocket(targetSocketKey);
         if (socket == null) {
             mSharedLog.e("No socket matches targetSocketKey=" + targetSocketKey);
             return;
         }
 
-        final boolean isIpv6 = ((InetSocketAddress) packet.getSocketAddress()).getAddress()
-                instanceof Inet6Address;
-        final boolean isIpv4 = ((InetSocketAddress) packet.getSocketAddress()).getAddress()
-                instanceof Inet4Address;
+        final boolean isIpv6 = address.getAddress() instanceof Inet6Address;
+        final boolean isIpv4 = address.getAddress() instanceof Inet4Address;
         final boolean shouldQueryIpv6 = !onlyUseIpv6OnIpv6OnlyNetworks || !socket.hasJoinedIpv4();
         // Check ip capability and network before sending packet
         if ((isIpv6 && socket.hasJoinedIpv6() && shouldQueryIpv6)
                 || (isIpv4 && socket.hasJoinedIpv4())) {
             try {
-                socket.send(packet);
+                final byte[] queryBuffer =
+                        MdnsUtils.createRawDnsPacket(mPacketCreationBuffer, packet);
+                socket.send(new DatagramPacket(queryBuffer, 0, queryBuffer.length, address));
             } catch (IOException e) {
                 mSharedLog.e("Failed to send a mDNS packet.", e);
             }
@@ -260,14 +262,16 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
     /**
      * Send a mDNS request packet via given socket key that asks for multicast response.
      */
-    public void sendPacketRequestingMulticastResponse(@NonNull DatagramPacket packet,
-            @NonNull SocketKey socketKey, boolean onlyUseIpv6OnIpv6OnlyNetworks) {
-        mHandler.post(() -> sendMdnsPacket(packet, socketKey, onlyUseIpv6OnIpv6OnlyNetworks));
+    public void sendPacketRequestingMulticastResponse(@NonNull MdnsPacket packet,
+            @NonNull SocketKey socketKey, boolean onlyUseIpv6OnIpv6OnlyNetworks,
+            @NonNull InetSocketAddress address) {
+        mHandler.post(() -> sendMdnsPacket(
+                packet, socketKey, onlyUseIpv6OnIpv6OnlyNetworks, address));
     }
 
     @Override
-    public void sendPacketRequestingMulticastResponse(
-            @NonNull DatagramPacket packet, boolean onlyUseIpv6OnIpv6OnlyNetworks) {
+    public void sendPacketRequestingMulticastResponse(@NonNull MdnsPacket packet,
+            boolean onlyUseIpv6OnIpv6OnlyNetworks, @NonNull InetSocketAddress address) {
         throw new UnsupportedOperationException("This socket client need to specify the socket to"
                 + "send packet");
     }
@@ -278,14 +282,16 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
      * <p>The socket client may use a null network to identify some or all interfaces, in which case
      * passing null sends the packet to these.
      */
-    public void sendPacketRequestingUnicastResponse(@NonNull DatagramPacket packet,
-            @NonNull SocketKey socketKey, boolean onlyUseIpv6OnIpv6OnlyNetworks) {
-        mHandler.post(() -> sendMdnsPacket(packet, socketKey, onlyUseIpv6OnIpv6OnlyNetworks));
+    public void sendPacketRequestingUnicastResponse(@NonNull MdnsPacket packet,
+            @NonNull SocketKey socketKey, boolean onlyUseIpv6OnIpv6OnlyNetworks,
+            @NonNull InetSocketAddress address) {
+        mHandler.post(() -> sendMdnsPacket(
+                packet, socketKey, onlyUseIpv6OnIpv6OnlyNetworks, address));
     }
 
     @Override
-    public void sendPacketRequestingUnicastResponse(
-            @NonNull DatagramPacket packet, boolean onlyUseIpv6OnIpv6OnlyNetworks) {
+    public void sendPacketRequestingUnicastResponse(@NonNull MdnsPacket packet,
+            boolean onlyUseIpv6OnIpv6OnlyNetworks, @NonNull InetSocketAddress address) {
         throw new UnsupportedOperationException("This socket client need to specify the socket to"
                 + "send packet");
     }
