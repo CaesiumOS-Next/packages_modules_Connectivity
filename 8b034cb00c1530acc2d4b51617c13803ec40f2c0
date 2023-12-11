@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48da8364_3c8623f9",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-11T12:59:39Z",
+      "side": 1,
+      "message": "I think we don\u0027t support discovery on multiple subtype, Better to check if the subtypes size is at most 1?",
+      "range": {
+        "startLine": 792,
+        "startChar": 32,
+        "endLine": 792,
+        "endChar": 80
+      },
+      "revId": "8b034cb00c1530acc2d4b51617c13803ec40f2c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ca543d0_ffcdc820",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2673,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-11T12:59:39Z",
+      "side": 1,
+      "message": "nit: unnecessary blank.",
+      "revId": "8b034cb00c1530acc2d4b51617c13803ec40f2c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22da9f81_f66992ee",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-11T12:59:39Z",
+      "side": 1,
+      "message": "Because we only support at most one subtype in discovery, Maybe its better to be defensive here to add a check?",
+      "range": {
+        "startLine": 172,
+        "startChar": 27,
+        "endLine": 172,
+        "endChar": 38
+      },
+      "revId": "8b034cb00c1530acc2d4b51617c13803ec40f2c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
