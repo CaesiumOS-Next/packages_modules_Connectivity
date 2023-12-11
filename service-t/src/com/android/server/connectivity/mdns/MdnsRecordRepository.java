@@ -711,7 +711,7 @@ public class MdnsRecordRepository {
      *                      answer and additionalAnswer sections)
      */
     @SafeVarargs
-    private static void addNsecRecordsForUniqueNames(
+    private void addNsecRecordsForUniqueNames(
             List<MdnsRecord> destinationList,
             Iterator<RecordInfo<?>>... answerRecords) {
         // Group unique records by name. Use a TreeMap with comparator as arrays don't implement
@@ -725,8 +725,16 @@ public class MdnsRecordRepository {
             addNonSharedRecordsToMap(answers, nsecByName, namesInAddedOrder);
         }
 
+        final Map<String[], List<MdnsRecord>> allUniqueRecords = getAllUniqueRecords();
+
         for (String[] nsecName : namesInAddedOrder) {
             final List<MdnsRecord> entryRecords = nsecByName.get(nsecName);
+
+            // Add NSEC records only when the answers include all unique records of this name
+            if (!entryRecords.containsAll(allUniqueRecords.get(nsecName))) {
+                continue;
+            }
+
             long minTtl = Long.MAX_VALUE;
             final Set<Integer> types = new ArraySet<>(entryRecords.size());
             for (MdnsRecord record : entryRecords) {
@@ -744,6 +752,22 @@ public class MdnsRecordRepository {
         }
     }
 
+    /** Returns all unique resource records that this device has their authority. */
+    private Map<String[], List<MdnsRecord>> getAllUniqueRecords() {
+        final Map<String[], List<MdnsRecord>> uniqueRecords = new TreeMap<>(Arrays::compare);
+        addNonSharedRecordsToMap(
+                mGeneralRecords.iterator(), uniqueRecords, null /* namesInAddedOrder */);
+        for (int i = 0; i < mServices.size(); i++) {
+            final ServiceRegistration registration = mServices.valueAt(i);
+            if (registration.exiting || registration.isProbing) {
+                continue;
+            }
+            addNonSharedRecordsToMap(registration.allRecords.iterator(), uniqueRecords,
+                    null /* namesInAddedOrder */);
+        }
+        return uniqueRecords;
+    }
+
     /**
      * Add non-shared records to a map listing them by record name, and to a list of names that
      * remembers the adding order.
@@ -758,13 +782,13 @@ public class MdnsRecordRepository {
     private static void addNonSharedRecordsToMap(
             Iterator<RecordInfo<?>> records,
             Map<String[], List<MdnsRecord>> dest,
-            List<String[]> namesInAddedOrder) {
+            @Nullable List<String[]> namesInAddedOrder) {
         while (records.hasNext()) {
             final RecordInfo<?> record = records.next();
-            if (record.isSharedName) continue;
+            if (record.isSharedName || record.record instanceof MdnsNsecRecord) continue;
             final List<MdnsRecord> recordsForName = dest.computeIfAbsent(record.record.name,
                     key -> {
-                        namesInAddedOrder.add(key);
+                        if (namesInAddedOrder != null) namesInAddedOrder.add(key);
                         return new ArrayList<>();
                     });
             recordsForName.add(record.record);
