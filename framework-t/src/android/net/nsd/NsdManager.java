@@ -152,6 +152,8 @@ public final class NsdManager {
                 "com.android.net.flags.register_nsd_offload_engine_api";
         static final String NSD_SUBTYPES_SUPPORT_ENABLED =
                 "com.android.net.flags.nsd_subtypes_support_enabled";
+        static final String ADVERTISE_REQUEST_API =
+                "com.android.net.flags.advertise_request_api";
     }
 
     /**
@@ -1098,6 +1100,16 @@ public final class NsdManager {
         return key;
     }
 
+    private int updateRegisteredListener(Object listener, Executor e, NsdServiceInfo s) {
+        final int key;
+        synchronized (mMapLock) {
+            key = getListenerKey(listener);
+            mServiceMap.put(key, s);
+            mExecutorMap.put(key, e);
+        }
+        return key;
+    }
+
     private void removeListener(int key) {
         synchronized (mMapLock) {
             mListenerMap.remove(key);
@@ -1162,14 +1174,107 @@ public final class NsdManager {
      */
     public void registerService(@NonNull NsdServiceInfo serviceInfo, int protocolType,
             @NonNull Executor executor, @NonNull RegistrationListener listener) {
+        checkServiceInfo(serviceInfo);
+        checkProtocol(protocolType);
+        final AdvertisingRequest.Builder builder = new AdvertisingRequest.Builder(serviceInfo,
+                protocolType);
+        // Optionally assume that the request is an update request if it uses subtypes and the same
+        // listener. This is not documented behavior as support for advertising subtypes via
+        // "_servicename,_sub1,_sub2" has never been documented in the first place, and using
+        // multiple subtypes was broken in T until a later module update. Subtype registration is
+        // documented in the NsdServiceInfo.setSubtypes API instead, but this provides a limited
+        // option for users of the older undocumented behavior, only for subtype changes.
+        if (isSubtypeUpdateRequest(serviceInfo, listener)) {
+            builder.setAdvertisingConfig(AdvertisingRequest.NSD_ADVERTISING_UPDATE_ONLY);
+        }
+        registerService(builder.build(), executor, listener);
+    }
+
+    private boolean isSubtypeUpdateRequest(@NonNull NsdServiceInfo serviceInfo, @NonNull
+            RegistrationListener listener) {
+        // If the listener is the same object, serviceInfo is for the same service name and
+        // type (outside of subtypes), and both use subtypes, treat the request as a subtype update
+        // request.
+        synchronized (mMapLock) {
+            int valueIndex = mListenerMap.indexOfValue(listener);
+            if (valueIndex == -1) {
+                return false;
+            }
+            final int key = mListenerMap.keyAt(valueIndex);
+            NsdServiceInfo existingService = mServiceMap.get(key);
+            if (existingService == null) {
+                return false;
+            }
+            final String existingBaseType = getBaseType(existingService.getServiceType());
+            final String newBaseType = getBaseType(serviceInfo.getServiceType());
+            final boolean existingHasNoSubtype = existingBaseType.equals(
+                    existingService.getServiceType());
+            final boolean updatedHasNoSubtype = newBaseType.equals(
+                    serviceInfo.getServiceType());
+            if (existingHasNoSubtype && updatedHasNoSubtype) {
+                // Only allow subtype changes when subtypes are used. This ensures that this
+                // behavior does not affect most requests.
+                return false;
+            }
+
+            return Objects.equals(existingService.getServiceName(), serviceInfo.getServiceName())
+                    && Objects.equals(existingBaseType, newBaseType);
+        }
+    }
+
+    /**
+     * Get the base type from a type specification with "_type,sub1,sub2" syntax.
+     *
+     * If the type specification uses a leading subtype (for example "_sub1._type,sub2", it is
+     * considered to be part of the base type.
+     */
+    @Nullable
+    private static String getBaseType(@NonNull String typeWithSubtype) {
+        final int commaIndex = typeWithSubtype.indexOf(',');
+        if (commaIndex < 0) {
+            return typeWithSubtype;
+        }
+        return typeWithSubtype.substring(0, commaIndex);
+    }
+
+    /**
+     * Register a service to be discovered by other services.
+     *
+     * <p> The function call immediately returns after sending a request to register service
+     * to the framework. The application is notified of a successful registration
+     * through the callback {@link RegistrationListener#onServiceRegistered} or a failure
+     * through {@link RegistrationListener#onRegistrationFailed}.
+     *
+     * <p> The application should call {@link #unregisterService} when the service
+     * registration is no longer required, and/or whenever the application is stopped.
+     * @param  advertisingRequest service being registered
+     * @param executor Executor to run listener callbacks with
+     * @param listener The listener notifies of a successful registration and is used to
+     * unregister this service through a call on {@link #unregisterService}. Cannot be null.
+     *
+     * @hide
+     */
+//    @FlaggedApi(Flags.ADVERTISE_REQUEST_API)
+    public void registerService(@NonNull AdvertisingRequest advertisingRequest,
+            @NonNull Executor executor,
+            @NonNull RegistrationListener listener) {
+        final NsdServiceInfo serviceInfo = advertisingRequest.getServiceInfo();
+        final int protocolType = advertisingRequest.getProtocolType();
         if (serviceInfo.getPort() <= 0) {
             throw new IllegalArgumentException("Invalid port number");
         }
         checkServiceInfo(serviceInfo);
         checkProtocol(protocolType);
-        int key = putListener(listener, executor, serviceInfo);
+        final int key;
+        // For update only request, the old listener has to be reused
+        if ((advertisingRequest.getAdvertisingConfig()
+                & AdvertisingRequest.NSD_ADVERTISING_UPDATE_ONLY) > 0) {
+            key = updateRegisteredListener(listener, executor, serviceInfo);
+        } else {
+            key = putListener(listener, executor, serviceInfo);
+        }
         try {
-            mService.registerService(key, serviceInfo);
+            mService.registerService(key, advertisingRequest);
         } catch (RemoteException e) {
             e.rethrowFromSystemServer();
         }

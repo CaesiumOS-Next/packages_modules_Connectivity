@@ -51,6 +51,7 @@ import android.net.mdns.aidl.GetAddressInfo;
 import android.net.mdns.aidl.IMDnsEventListener;
 import android.net.mdns.aidl.RegistrationInfo;
 import android.net.mdns.aidl.ResolutionInfo;
+import android.net.nsd.AdvertisingRequest;
 import android.net.nsd.INsdManager;
 import android.net.nsd.INsdManagerCallback;
 import android.net.nsd.INsdServiceConnector;
@@ -727,12 +728,11 @@ public class NsdService extends INsdManager.Stub {
                 final ClientInfo clientInfo;
                 final int transactionId;
                 final int clientRequestId = msg.arg2;
-                final ListenerArgs args;
                 final OffloadEngineInfo offloadEngineInfo;
                 switch (msg.what) {
                     case NsdManager.DISCOVER_SERVICES: {
                         if (DBG) Log.d(TAG, "Discover services");
-                        args = (ListenerArgs) msg.obj;
+                        final ListenerArgs args = (ListenerArgs) msg.obj;
                         clientInfo = mClients.get(args.connector);
                         // If the binder death notification for a INsdManagerCallback was received
                         // before any calls are received by NsdService, the clientInfo would be
@@ -807,7 +807,7 @@ public class NsdService extends INsdManager.Stub {
                     }
                     case NsdManager.STOP_DISCOVERY: {
                         if (DBG) Log.d(TAG, "Stop service discovery");
-                        args = (ListenerArgs) msg.obj;
+                        final ListenerArgs args = (ListenerArgs) msg.obj;
                         clientInfo = mClients.get(args.connector);
                         // If the binder death notification for a INsdManagerCallback was received
                         // before any calls are received by NsdService, the clientInfo would be
@@ -845,7 +845,7 @@ public class NsdService extends INsdManager.Stub {
                     }
                     case NsdManager.REGISTER_SERVICE: {
                         if (DBG) Log.d(TAG, "Register service");
-                        args = (ListenerArgs) msg.obj;
+                        final AdvertisingArgs args = (AdvertisingArgs) msg.obj;
                         clientInfo = mClients.get(args.connector);
                         // If the binder death notification for a INsdManagerCallback was received
                         // before any calls are received by NsdService, the clientInfo would be
@@ -860,9 +860,12 @@ public class NsdService extends INsdManager.Stub {
                                     NsdManager.FAILURE_MAX_LIMIT, true /* isLegacy */);
                             break;
                         }
-
-                        transactionId = getUniqueId();
-                        final NsdServiceInfo serviceInfo = args.serviceInfo;
+                        final AdvertisingRequest advertisingRequest = args.advertisingRequest;
+                        if (advertisingRequest == null) {
+                            Log.e(TAG, "Unknown advertisingRequest in registration");
+                            break;
+                        }
+                        final NsdServiceInfo serviceInfo = advertisingRequest.getServiceInfo();
                         final String serviceType = serviceInfo.getServiceType();
                         final Pair<String, String> typeSubtype = parseTypeAndSubtype(serviceType);
                         final String registerServiceType = typeSubtype == null
@@ -875,6 +878,23 @@ public class NsdService extends INsdManager.Stub {
                                 clientInfo.onRegisterServiceFailedImmediately(clientRequestId,
                                         NsdManager.FAILURE_INTERNAL_ERROR, false /* isLegacy */);
                                 break;
+                            }
+                            boolean isUpdateOnly = (advertisingRequest.getAdvertisingConfig()
+                                    & AdvertisingRequest.NSD_ADVERTISING_UPDATE_ONLY) > 0;
+                            // If it is an update request, then reuse the old transactionId
+                            if (isUpdateOnly) {
+                                final ClientRequest existingClientRequest =
+                                        clientInfo.mClientRequests.get(clientRequestId);
+                                if (existingClientRequest == null) {
+                                    Log.e(TAG, "Invalid update on requestId: " + clientRequestId);
+                                    clientInfo.onRegisterServiceFailedImmediately(clientRequestId,
+                                            NsdManager.FAILURE_INTERNAL_ERROR,
+                                            false /* isLegacy */);
+                                    break;
+                                }
+                                transactionId = existingClientRequest.mTransactionId;
+                            } else {
+                                transactionId = getUniqueId();
                             }
                             serviceInfo.setServiceType(registerServiceType);
                             serviceInfo.setServiceName(truncateServiceName(
@@ -896,12 +916,16 @@ public class NsdService extends INsdManager.Stub {
                             serviceInfo.setSubtypes(subtypes);
 
                             maybeStartMonitoringSockets();
+                            final MdnsAdvertisingOptions mdnsAdvertisingOptions =
+                                    MdnsAdvertisingOptions.newBuilder().setIsOnlyUpdate(
+                                            isUpdateOnly).build();
                             mAdvertiser.addOrUpdateService(transactionId, serviceInfo,
-                                    MdnsAdvertisingOptions.newBuilder().build());
+                                    mdnsAdvertisingOptions);
                             storeAdvertiserRequestMap(clientRequestId, transactionId, clientInfo,
                                     serviceInfo.getNetwork());
                         } else {
                             maybeStartDaemon();
+                            transactionId = getUniqueId();
                             if (registerService(transactionId, serviceInfo)) {
                                 if (DBG) {
                                     Log.d(TAG, "Register " + clientRequestId
@@ -921,7 +945,7 @@ public class NsdService extends INsdManager.Stub {
                     }
                     case NsdManager.UNREGISTER_SERVICE: {
                         if (DBG) Log.d(TAG, "unregister service");
-                        args = (ListenerArgs) msg.obj;
+                        final ListenerArgs args = (ListenerArgs) msg.obj;
                         clientInfo = mClients.get(args.connector);
                         // If the binder death notification for a INsdManagerCallback was received
                         // before any calls are received by NsdService, the clientInfo would be
@@ -964,7 +988,7 @@ public class NsdService extends INsdManager.Stub {
                     }
                     case NsdManager.RESOLVE_SERVICE: {
                         if (DBG) Log.d(TAG, "Resolve service");
-                        args = (ListenerArgs) msg.obj;
+                        final ListenerArgs args = (ListenerArgs) msg.obj;
                         clientInfo = mClients.get(args.connector);
                         // If the binder death notification for a INsdManagerCallback was received
                         // before any calls are received by NsdService, the clientInfo would be
@@ -1026,7 +1050,7 @@ public class NsdService extends INsdManager.Stub {
                     }
                     case NsdManager.STOP_RESOLUTION: {
                         if (DBG) Log.d(TAG, "Stop service resolution");
-                        args = (ListenerArgs) msg.obj;
+                        final ListenerArgs args = (ListenerArgs) msg.obj;
                         clientInfo = mClients.get(args.connector);
                         // If the binder death notification for a INsdManagerCallback was received
                         // before any calls are received by NsdService, the clientInfo would be
@@ -1065,7 +1089,7 @@ public class NsdService extends INsdManager.Stub {
                     }
                     case NsdManager.REGISTER_SERVICE_CALLBACK: {
                         if (DBG) Log.d(TAG, "Register a service callback");
-                        args = (ListenerArgs) msg.obj;
+                        final ListenerArgs args = (ListenerArgs) msg.obj;
                         clientInfo = mClients.get(args.connector);
                         // If the binder death notification for a INsdManagerCallback was received
                         // before any calls are received by NsdService, the clientInfo would be
@@ -1108,7 +1132,7 @@ public class NsdService extends INsdManager.Stub {
                     }
                     case NsdManager.UNREGISTER_SERVICE_CALLBACK: {
                         if (DBG) Log.d(TAG, "Unregister a service callback");
-                        args = (ListenerArgs) msg.obj;
+                        final ListenerArgs args = (ListenerArgs) msg.obj;
                         clientInfo = mClients.get(args.connector);
                         // If the binder death notification for a INsdManagerCallback was received
                         // before any calls are received by NsdService, the clientInfo would be
@@ -2063,20 +2087,33 @@ public class NsdService extends INsdManager.Stub {
         }
     }
 
+    private static class AdvertisingArgs {
+        public final NsdServiceConnector connector;
+        public final AdvertisingRequest advertisingRequest;
+
+        AdvertisingArgs(NsdServiceConnector connector, AdvertisingRequest advertisingRequest) {
+            this.connector = connector;
+            this.advertisingRequest = advertisingRequest;
+        }
+    }
+
     private class NsdServiceConnector extends INsdServiceConnector.Stub
             implements IBinder.DeathRecipient  {
+
         @Override
-        public void registerService(int listenerKey, NsdServiceInfo serviceInfo) {
+        public void registerService(int listenerKey, AdvertisingRequest advertisingRequest)
+                throws RemoteException {
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
                     NsdManager.REGISTER_SERVICE, 0, listenerKey,
-                    new ListenerArgs(this, serviceInfo)));
+                    new AdvertisingArgs(this, advertisingRequest)
+            ));
         }
 
         @Override
         public void unregisterService(int listenerKey) {
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
                     NsdManager.UNREGISTER_SERVICE, 0, listenerKey,
-                    new ListenerArgs(this, null)));
+                    new ListenerArgs(this, (NsdServiceInfo) null)));
         }
 
         @Override
@@ -2088,8 +2125,8 @@ public class NsdService extends INsdManager.Stub {
 
         @Override
         public void stopDiscovery(int listenerKey) {
-            mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
-                    NsdManager.STOP_DISCOVERY, 0, listenerKey, new ListenerArgs(this, null)));
+            mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(NsdManager.STOP_DISCOVERY,
+                    0, listenerKey, new ListenerArgs(this, (NsdServiceInfo) null)));
         }
 
         @Override
@@ -2101,8 +2138,8 @@ public class NsdService extends INsdManager.Stub {
 
         @Override
         public void stopResolution(int listenerKey) {
-            mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
-                    NsdManager.STOP_RESOLUTION, 0, listenerKey, new ListenerArgs(this, null)));
+            mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(NsdManager.STOP_RESOLUTION,
+                    0, listenerKey, new ListenerArgs(this, (NsdServiceInfo) null)));
         }
 
         @Override
@@ -2116,13 +2153,13 @@ public class NsdService extends INsdManager.Stub {
         public void unregisterServiceInfoCallback(int listenerKey) {
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
                     NsdManager.UNREGISTER_SERVICE_CALLBACK, 0, listenerKey,
-                    new ListenerArgs(this, null)));
+                    new ListenerArgs(this, (NsdServiceInfo) null)));
         }
 
         @Override
         public void startDaemon() {
-            mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
-                    NsdManager.DAEMON_STARTUP, new ListenerArgs(this, null)));
+            mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(NsdManager.DAEMON_STARTUP,
+                    new ListenerArgs(this, (NsdServiceInfo) null)));
         }
 
         @Override
