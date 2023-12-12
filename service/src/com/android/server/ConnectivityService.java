@@ -2564,7 +2564,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     /**
      * Return LinkProperties for the active (i.e., connected) default
-     * network interface for the calling uid.
+     * network interface for the calling uid. new comment
      * @return the ip properties for the active network, or {@code null} if
      * none is active
      */
