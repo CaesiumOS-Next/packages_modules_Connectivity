@@ -1,3 +1,5 @@
+<<<<<<< PATCH SET (6613f4 [nearby] Sync discoveryTimestamp field name)
+=======
 /*
  * Copyright (C) 2022 The Android Open Source Project
  *
@@ -131,3 +133,4 @@ message BleConfig {
   // Fast Pair cache expires after this time period.
   optional uint64 fast_pair_cache_expire_time_sec = 3;
 }
+>>>>>>> BASE      (6fca26 [nearby] Enable BLE when init)

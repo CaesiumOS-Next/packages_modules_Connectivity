@@ -1,3 +1,5 @@
+<<<<<<< PATCH SET (6613f4 [nearby] Sync discoveryTimestamp field name)
+=======
 /*
  * Copyright (C) 2022 The Android Open Source Project
  *
@@ -408,3 +410,4 @@ public class ChreDiscoveryProvider extends AbstractDiscoveryProvider {
         }
     }
 }
+>>>>>>> BASE      (6fca26 [nearby] Enable BLE when init)
