@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "996ce989_9146c284",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-12T05:50:21Z",
+      "side": 1,
+      "message": "This should be in \"static_libs\", not \"libs\"\n\nOtherwise at runtime you\u0027re probably actually using the version that is in frameworks/base here: https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/Android.bp;l\u003d400?ss\u003dandroid\u0026q\u003drepo:platform%2Fsuperproject%2Fmain%20modules-utils-binary-xml\n\ninstead of an internal, jarjared version.\n\nIt\u0027s probably best to have it in framework-connectivity instead of framework-connectivity-t too: this way it could be used in both places (and the storage cost is the same). That\u0027s why there\u0027s no static_libs in framework-connectivity-t.",
+      "revId": "269f8170cdf0c8106af3df08daf7852969eb0bc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6874748_83685bde",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-12T05:50:21Z",
+      "side": 1,
+      "message": "Is that really true ? I don\u0027t understand why, the NetworkStats code should be the same in any case. Would that be due to the problem in the build file making it use the FastDataInput from the platform instead of a bundled one ?",
+      "revId": "269f8170cdf0c8106af3df08daf7852969eb0bc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
