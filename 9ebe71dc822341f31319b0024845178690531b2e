@@ -16,6 +16,24 @@
       "message": "You need to annotate this API with `@flaggedApi`. Take a look at other @FlaggedApi usages in ConnectivityManager.java to learn how to do it. For example: aosp/2818818",
       "revId": "9ebe71dc822341f31319b0024845178690531b2e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe94babe_79e21eb8",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-12T14:23:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afe20dc5_bd1335eb",
+      "revId": "9ebe71dc822341f31319b0024845178690531b2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
