@@ -2985,7 +2985,7 @@ public class VpnTest extends VpnTestBase {
                         null /* iface */, RTN_UNREACHABLE));
         assertEquals(expectedRoutes, lp.getRoutes());
 
-        verify(mMockNetworkAgent).unregister();
+        verify(mMockNetworkAgent, timeout(TEST_TIMEOUT_MS)).unregister();
     }
 
     @Test
