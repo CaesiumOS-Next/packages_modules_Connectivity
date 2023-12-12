@@ -1,3 +1,5 @@
+<<<<<<< PATCH SET (d2d8e8 [nearby] Add disable logic)
+=======
 /*
  * Copyright (C) 2023 The Android Open Source Project
  *
@@ -409,3 +411,4 @@ public class DiscoveryProviderManagerTest {
         assertThat(mDiscoveryProviderManager.setBleScanEnabled()).isFalse();
     }
 }
+>>>>>>> BASE      (4dfc08 [nearby] Log changes)
