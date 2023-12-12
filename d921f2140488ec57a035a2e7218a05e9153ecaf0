@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33688d85_09aaccaf",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNlAttr.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-12T07:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "883391ae_7a0a1b53",
+      "range": {
+        "startLine": 174,
+        "startChar": 8,
+        "endLine": 174,
+        "endChar": 13
+      },
+      "revId": "d921f2140488ec57a035a2e7218a05e9153ecaf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1649cb77_a2519960",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "933536ba_70b1300b",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNlAttr.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-12T07:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1649cb77_a2519960",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 52
+      },
+      "revId": "d921f2140488ec57a035a2e7218a05e9153ecaf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46d5c001_01129a2e",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-12-11T07:58:46Z",
       "side": 1,
       "message": "nativeOrder()",
+      "range": {
+        "startLine": 195,
+        "startChar": 22,
+        "endLine": 195,
+        "endChar": 35
+      },
+      "revId": "d921f2140488ec57a035a2e7218a05e9153ecaf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47d0e957_8c04c124",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNlAttr.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-12T07:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46d5c001_01129a2e",
       "range": {
         "startLine": 195,
         "startChar": 22,
