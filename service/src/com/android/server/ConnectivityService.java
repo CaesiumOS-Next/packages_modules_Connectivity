@@ -281,6 +281,7 @@ import com.android.metrics.NetworkCountPerTransports;
 import com.android.metrics.NetworkDescription;
 import com.android.metrics.NetworkList;
 import com.android.metrics.NetworkRequestCount;
+import com.android.metrics.NetworkRequestStateStatsMetrics;
 import com.android.metrics.RequestCountForType;
 import com.android.modules.utils.BasicShellCommandHandler;
 import com.android.modules.utils.build.SdkLevel;
@@ -940,6 +941,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private long mLastWakeLockAcquireTimestamp = 0;
 
     private final IpConnectivityLog mMetricsLog;
+
+    private final NetworkRequestStateStatsMetrics mNetworkRequestStateStatsMetrics;
 
     @GuardedBy("mBandwidthRequests")
     private final SparseArray<Integer> mBandwidthRequests = new SparseArray<>(10);
@@ -1654,6 +1657,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 new RequestInfoPerUidCounter(MAX_NETWORK_REQUESTS_PER_SYSTEM_UID - 1);
 
         mMetricsLog = logger;
+        // We currently have network requests metric for Watch devices only
+        if (mContext.getPackageManager().hasSystemFeature(FEATURE_WATCH)) {
+            mNetworkRequestStateStatsMetrics = new NetworkRequestStateStatsMetrics();
+        } else {
+            mNetworkRequestStateStatsMetrics = null;
+        }
         final NetworkRequest defaultInternetRequest = createDefaultRequest();
         mDefaultRequest = new NetworkRequestInfo(
                 Process.myUid(), defaultInternetRequest, null,
@@ -5324,6 +5333,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                             updateSignalStrengthThresholds(network, "REGISTER", req);
                         }
                     }
+                } else if (req.isRequest() && mNetworkRequestStateStatsMetrics != null) {
+                    mNetworkRequestStateStatsMetrics.onNetworkRequestReceived(nri.mUid, req);
                 }
             }
 
@@ -5541,6 +5552,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             if (req.isListen()) {
                 removeListenRequestFromNetworks(req);
+            } else if (req.isRequest() && mNetworkRequestStateStatsMetrics != null) {
+                mNetworkRequestStateStatsMetrics.onNetworkRequestRemoved(req);
             }
         }
         nri.unlinkDeathRecipient();
