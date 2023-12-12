@@ -254,6 +254,30 @@
       },
       "revId": "2af2f3be7259c96d07ca4f5a69488a92f4e94230",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dbc8757_e933276a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 18571,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-12T03:47:30Z",
+      "side": 1,
+      "message": "I have cherry-pick only `testDestroyNativeNetworkAndDisconnectNetworkAgent` on top of the current head but this test does not fail.\nCould you fix this? Do we need to `verify(netd, never()).networkSetPermissionForNetwork`?\nIf you can not run test locally, I think you can upload CL only with the test change and confirm the presubmit fail first.",
+      "parentUuid": "7f989cad_18b4bb05",
+      "range": {
+        "startLine": 18571,
+        "startChar": 37,
+        "endLine": 18571,
+        "endChar": 63
+      },
+      "revId": "2af2f3be7259c96d07ca4f5a69488a92f4e94230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
