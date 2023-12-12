@@ -67,6 +67,8 @@ import static android.text.format.DateUtils.WEEK_IN_MILLIS;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_RAT_CHANGED;
 import static com.android.server.net.NetworkStatsEventLogger.PollEvent.pollReasonNameOf;
 import static com.android.server.net.NetworkStatsService.ACTION_NETWORK_STATS_POLL;
+import static com.android.server.net.NetworkStatsService.NETSTATS_FASTDATAINPUT_FALLBACKS_COUNTER_NAME;
+import static com.android.server.net.NetworkStatsService.NETSTATS_FASTDATAINPUT_SUCCESSES_COUNTER_NAME;
 import static com.android.server.net.NetworkStatsService.NETSTATS_IMPORT_ATTEMPTS_COUNTER_NAME;
 import static com.android.server.net.NetworkStatsService.NETSTATS_IMPORT_FALLBACKS_COUNTER_NAME;
 import static com.android.server.net.NetworkStatsService.NETSTATS_IMPORT_SUCCESSES_COUNTER_NAME;
@@ -83,6 +85,7 @@ import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -284,9 +287,13 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private @Mock PersistentInt mImportLegacyAttemptsCounter;
     private @Mock PersistentInt mImportLegacySuccessesCounter;
     private @Mock PersistentInt mImportLegacyFallbacksCounter;
+    private int mFastDataInputTargetAttempts = 0;
+    private @Mock PersistentInt mFastDataInputSuccessesCounter;
+    private @Mock PersistentInt mFastDataInputFallbacksCounter;
     private @Mock Resources mResources;
     private Boolean mIsDebuggable;
     private HandlerThread mObserverHandlerThread;
+    final NetworkStatsService.Dependencies mDeps = spy(makeDependencies());
 
     private class MockContext extends BroadcastInterceptingContext {
         private final Context mBaseContext;
@@ -369,7 +376,6 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
 
         mHandlerThread = new HandlerThread("NetworkStatsServiceTest-HandlerThread");
-        final NetworkStatsService.Dependencies deps = makeDependencies();
         // Create a separate thread for observers to run on. This thread cannot be the same
         // as the handler thread, because the observer callback is fired on this thread, and
         // it should not be blocked by client code. Additionally, creating the observers
@@ -384,7 +390,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
             }
         };
         mService = new NetworkStatsService(mServiceContext, mNetd, mAlarmManager, wakeLock,
-                mClock, mSettings, mStatsFactory, statsObservers, deps);
+                mClock, mSettings, mStatsFactory, statsObservers, mDeps);
 
         mElapsedRealtime = 0L;
 
@@ -447,6 +453,16 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
             }
 
             @Override
+            public int getUseFastDataInputTargetAttempts() {
+                return mFastDataInputTargetAttempts;
+            }
+
+            @Override
+            public String compareStats(NetworkStatsCollection a, NetworkStatsCollection b) {
+                return null;
+            }
+
+            @Override
             public PersistentInt createPersistentCounter(@androidx.annotation.NonNull Path dir,
                     @androidx.annotation.NonNull String name) throws IOException {
                 switch (name) {
@@ -456,6 +472,10 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                         return mImportLegacySuccessesCounter;
                     case NETSTATS_IMPORT_FALLBACKS_COUNTER_NAME:
                         return mImportLegacyFallbacksCounter;
+                    case NETSTATS_FASTDATAINPUT_SUCCESSES_COUNTER_NAME:
+                        return mFastDataInputSuccessesCounter;
+                    case NETSTATS_FASTDATAINPUT_FALLBACKS_COUNTER_NAME:
+                        return mFastDataInputFallbacksCounter;
                     default:
                         throw new IllegalArgumentException("Unknown counter name: " + name);
                 }
@@ -2163,6 +2183,53 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 assertShouldRunComparison(isDebuggable, isDebuggable);
             }
         }
+    }
+
+    /**
+     * Verify the service will evaluate FastDataInput by comparing data, and it can be controlled
+     * by the device flag.
+     */
+    @Test
+    public void testAdoptFastDataInput() throws Exception {
+        // Boot through serviceReady() with flag disabled, verify the persistent
+        // counters are not increased.
+        mockDefaultSettings();
+        mFastDataInputTargetAttempts = 0;
+        doReturn(0).when(mFastDataInputSuccessesCounter).get();
+        doReturn(0).when(mFastDataInputFallbacksCounter).get();
+        mockNetworkStatsUidDetail(buildEmptyStats());
+        prepareForSystemReady();
+        mService.systemReady();
+        verify(mFastDataInputSuccessesCounter, never()).set(anyInt());
+        verify(mFastDataInputFallbacksCounter, never()).set(anyInt());
+        verify(mDeps, never()).compareStats(any(), any());
+
+        // Boot through serviceReady() with flag enabled and assumes the stats are
+        // failed to compare, verify the fallbacks counter is increased.
+        mFastDataInputTargetAttempts = 1;
+        doReturn("Has differences").when(mDeps).compareStats(any(), any());
+        mService.systemReady();
+        verify(mFastDataInputSuccessesCounter, never()).set(anyInt());
+        verify(mFastDataInputFallbacksCounter).set(1);
+
+        // Boot again, verify the service won't retry unexpectedly
+        // since the target attempt remains the same.
+        doReturn(1).when(mFastDataInputFallbacksCounter).get();
+        clearInvocations(mFastDataInputFallbacksCounter);
+        mService.systemReady();
+        verify(mFastDataInputSuccessesCounter, never()).set(anyInt());
+        verify(mFastDataInputFallbacksCounter, never()).set(anyInt());
+
+        // Boot through serviceReady() with target attempts increased,
+        // and assumes the stats are successfully compared,
+        // verify the successes counter is increased.
+        mFastDataInputTargetAttempts = 2;
+        doReturn(1).when(mFastDataInputFallbacksCounter).get();
+        doReturn(null).when(mDeps).compareStats(any(), any());
+        mService.systemReady();
+        verify(mFastDataInputSuccessesCounter).set(1);
+        verify(mFastDataInputFallbacksCounter, never()).set(anyInt());
+
     }
 
     @Test
