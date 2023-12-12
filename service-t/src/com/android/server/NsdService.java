@@ -28,6 +28,7 @@ import static android.net.nsd.NsdManager.MDNS_SERVICE_EVENT;
 import static android.net.nsd.NsdManager.RESOLVE_SERVICE_SUCCEEDED;
 import static android.net.nsd.NsdManager.TYPE_REGEX;
 import static android.net.nsd.NsdManager.TYPE_SUBTYPE_LABEL_REGEX;
+import static android.os.Process.SYSTEM_UID;
 import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
 
 import static com.android.modules.utils.build.SdkLevel.isAtLeastU;
@@ -735,6 +736,12 @@ public class NsdService extends INsdManager.Stub {
                 return new ArraySet<>(subtypeMap.values());
             }
 
+            private static long getMinTtlSecondsForClient(ClientInfo clientInfo) {
+                // Allows Thread module in the system_server to register TTL that is smaller than
+                // 30 seconds
+                return clientInfo.getUid() == SYSTEM_UID ? 0 : NsdManager.TTL_SECONDS_MIN;
+            }
+
             @Override
             public boolean processMessage(Message msg) {
                 final ClientInfo clientInfo;
@@ -937,6 +944,18 @@ public class NsdService extends INsdManager.Stub {
                             if (!checkSubtypeLabels(subtypes)) {
                                 clientInfo.onRegisterServiceFailedImmediately(clientRequestId,
                                         NsdManager.FAILURE_BAD_PARAMETERS, false /* isLegacy */);
+                                break;
+                            }
+
+                            final long ttlSeconds = serviceInfo.getTtlSeconds();
+                            final long minTtlSeconds = getMinTtlSecondsForClient(clientInfo);
+                            if (ttlSeconds != 0
+                                    && (ttlSeconds < minTtlSeconds || ttlSeconds > 0xffffffffL)) {
+                                mServiceLogs.e("ttlSeconds exceeds allowed ranged (value = "
+                                        + ttlSeconds + ", allowedRange = [" + minTtlSeconds
+                                        + ", 0xffffffff])");
+                                clientInfo.onRegisterServiceFailedImmediately(clientRequestId,
+                                    NsdManager.FAILURE_BAD_PARAMETERS, false /* isLegacy */);
                                 break;
                             }
 
@@ -1483,6 +1502,7 @@ public class NsdService extends INsdManager.Stub {
                         network == null ? INetd.LOCAL_NET_ID : network.netId,
                         serviceInfo.getInterfaceIndex());
                 servInfo.setSubtypes(dedupSubtypeLabels(serviceInfo.getSubtypes()));
+                servInfo.setTtlSeconds(serviceInfo.getTtlSeconds());
                 return servInfo;
             }
 
@@ -2599,6 +2619,10 @@ public class NsdService extends INsdManager.Stub {
                         .append("\n");
             }
             return sb.toString();
+        }
+
+        public int getUid() {
+            return mUid;
         }
 
         private boolean isPreSClient() {
