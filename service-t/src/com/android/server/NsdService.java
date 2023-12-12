@@ -28,6 +28,7 @@ import static android.net.nsd.NsdManager.MDNS_SERVICE_EVENT;
 import static android.net.nsd.NsdManager.RESOLVE_SERVICE_SUCCEEDED;
 import static android.net.nsd.NsdManager.SUBTYPE_LABEL_REGEX;
 import static android.net.nsd.NsdManager.TYPE_REGEX;
+import static android.os.Process.SYSTEM_UID;
 import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
 
 import static com.android.modules.utils.build.SdkLevel.isAtLeastU;
@@ -115,6 +116,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -738,6 +740,27 @@ public class NsdService extends INsdManager.Stub {
                 return new ArraySet<>(subtypeMap.values());
             }
 
+            private boolean checkTtlDuration(
+                        @Nullable Duration ttlDuration, @NonNull ClientInfo clientInfo) {
+                if (ttlDuration == null) {
+                    return true;
+                }
+
+                final long ttlSeconds = ttlDuration.toSeconds();
+
+                // Allows Thread module in the system_server to register TTL that is smaller than
+                // 30 seconds
+                final long minTtlSeconds =
+                        clientInfo.getUid() == SYSTEM_UID ? 0 : NsdManager.TTL_SECONDS_MIN;
+                if (ttlSeconds < minTtlSeconds || ttlSeconds > 0xffffffffL) {
+                    mServiceLogs.e("ttlSeconds exceeds allowed ranged (value = "
+                            + ttlSeconds + ", allowedRange = [" + minTtlSeconds
+                            + ", 0xffffffff])");
+                    return false;
+                }
+                return true;
+            }
+
             @Override
             public boolean processMessage(Message msg) {
                 final ClientInfo clientInfo;
@@ -964,11 +987,20 @@ public class NsdService extends INsdManager.Stub {
                                 break;
                             }
 
+                            if (!checkTtlDuration(
+                                    advertisingRequest.getTtlDuration(), clientInfo)) {
+                                clientInfo.onRegisterServiceFailedImmediately(clientRequestId,
+                                    NsdManager.FAILURE_BAD_PARAMETERS, false /* isLegacy */);
+                                break;
+                            }
+
                             serviceInfo.setSubtypes(subtypes);
                             maybeStartMonitoringSockets();
                             final MdnsAdvertisingOptions mdnsAdvertisingOptions =
-                                    MdnsAdvertisingOptions.newBuilder().setIsOnlyUpdate(
-                                            isUpdateOnly).build();
+                                    MdnsAdvertisingOptions.newBuilder()
+                                            .setIsOnlyUpdate(isUpdateOnly)
+                                            .setTtlDuration(advertisingRequest.getTtlDuration())
+                                            .build();
                             mAdvertiser.addOrUpdateService(transactionId, serviceInfo,
                                     mdnsAdvertisingOptions, clientInfo.mUid);
                             storeAdvertiserRequestMap(clientRequestId, transactionId, clientInfo,
@@ -1511,6 +1543,7 @@ public class NsdService extends INsdManager.Stub {
                         network == null ? INetd.LOCAL_NET_ID : network.netId,
                         serviceInfo.getInterfaceIndex());
                 servInfo.setSubtypes(dedupSubtypeLabels(serviceInfo.getSubtypes()));
+                servInfo.setExpirationTime(serviceInfo.getExpirationTime());
                 return servInfo;
             }
 
@@ -2669,6 +2702,10 @@ public class NsdService extends INsdManager.Stub {
                         .append("\n");
             }
             return sb.toString();
+        }
+
+        public int getUid() {
+            return mUid;
         }
 
         private boolean isPreSClient() {
