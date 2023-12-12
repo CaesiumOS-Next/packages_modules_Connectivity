@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d597b4ec_ef3bffc7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-12-12T22:03:37Z",
+      "side": 1,
+      "message": "Needs to be re-submitted in a topic with aosp/2833754",
+      "revId": "69eb8325c0c403e28fb938112a3077d381207a8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
