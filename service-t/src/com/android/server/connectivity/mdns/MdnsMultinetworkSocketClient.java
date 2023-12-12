@@ -229,9 +229,10 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         if ((isIpv6 && socket.hasJoinedIpv6() && shouldQueryIpv6)
                 || (isIpv4 && socket.hasJoinedIpv4())) {
             try {
-                final byte[] queryBuffer =
-                        MdnsUtils.createRawDnsPacket(mPacketCreationBuffer, packet);
-                socket.send(new DatagramPacket(queryBuffer, 0, queryBuffer.length, address));
+                for (DatagramPacket datagramPacket : MdnsUtils.createQueryDatagramPackets(
+                        mPacketCreationBuffer, packet, address)) {
+                    socket.send(datagramPacket);
+                }
             } catch (IOException e) {
                 mSharedLog.e("Failed to send a mDNS packet.", e);
             }

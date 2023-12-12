@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity.mdns.util;
 
+import static com.android.server.connectivity.mdns.MdnsConstants.FLAG_TRUNCATED;
+
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.Network;
@@ -29,14 +31,20 @@ import com.android.server.connectivity.mdns.MdnsPacket;
 import com.android.server.connectivity.mdns.MdnsPacketWriter;
 import com.android.server.connectivity.mdns.MdnsRecord;
 
+import java.io.EOFException;
 import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -185,8 +193,8 @@ public class MdnsUtils {
     /**
      * Write the mdns packet from given MdnsPacket.
      */
-    public static void writeMdnsPacket(@NonNull MdnsPacketWriter writer, @NonNull MdnsPacket packet)
-            throws IOException {
+    private static void writeMdnsPacket(
+            @NonNull MdnsPacketWriter writer, @NonNull MdnsPacket packet) throws IOException {
         writer.writeUInt16(packet.transactionId); // Transaction ID (advertisement: 0)
         writer.writeUInt16(packet.flags); // Response, authoritative (rfc6762 18.4)
         writer.writeUInt16(packet.questions.size()); // questions count
@@ -220,6 +228,73 @@ public class MdnsUtils {
 
         final int len = writer.getWritePosition();
         return Arrays.copyOfRange(packetCreationBuffer, 0, len);
+    }
+
+    /**
+     * Create the query multiple datagram packets.
+     */
+    public static DatagramPacket[] createQueryDatagramPackets(@NonNull byte[] packetCreationBuffer,
+            @NonNull MdnsPacket packet, @NonNull InetSocketAddress destination) throws IOException {
+        final List<DatagramPacket> datagramPackets = new ArrayList<>();
+        MdnsPacket remainingPacket = packet;
+        while (remainingPacket != null) {
+            final MdnsPacketWriter writer = new MdnsPacketWriter(packetCreationBuffer);
+            writer.writeUInt16(packet.transactionId); // Transaction ID
+
+            final int flagsPos = writer.getWritePosition();
+            writer.writeUInt16(0); // Flags, written later
+            writer.writeUInt16(0); // questions count, written later
+            writer.writeUInt16(0); // answers count, written later
+            writer.writeUInt16(0); // authority entries count, empty session for query
+            writer.writeUInt16(0); // additional records count, empty session for query
+
+            int writtenQuestions = 0;
+            int writtenAnswers = 0;
+            int lastValidPos = writer.getWritePosition();
+            try {
+                for (MdnsRecord record : remainingPacket.questions) {
+                    // Questions do not have TTL or data
+                    record.writeHeaderFields(writer);
+                    writtenQuestions++;
+                    lastValidPos = writer.getWritePosition();
+                }
+                for (MdnsRecord record : remainingPacket.answers) {
+                    record.write(writer, 0L);
+                    writtenAnswers++;
+                    lastValidPos = writer.getWritePosition();
+                }
+                remainingPacket = null;
+            } catch (EOFException e) {
+                // Went over the packet limit; truncate
+                if (writtenQuestions == 0 && writtenAnswers == 0) {
+                    // No space to write even one record: just throw (as subclass of IOException)
+                    throw e;
+                }
+
+                // Set the last valid position as the final position (not as a rewind)
+                writer.rewind(lastValidPos);
+                writer.clearRewind();
+
+                remainingPacket = new MdnsPacket(packet.flags,
+                        remainingPacket.questions.subList(
+                                writtenQuestions, remainingPacket.questions.size()),
+                        remainingPacket.answers.subList(
+                                writtenAnswers, remainingPacket.answers.size()),
+                        Collections.emptyList(), /* authorityRecords */
+                        Collections.emptyList() /* additionalRecords */);
+            }
+
+            final int len = writer.getWritePosition();
+            writer.rewind(flagsPos);
+            writer.writeUInt16(packet.flags | (remainingPacket == null ? 0 : FLAG_TRUNCATED));
+            writer.writeUInt16(writtenQuestions);
+            writer.writeUInt16(writtenAnswers);
+            writer.unrewind();
+
+            final byte[] outBuffer = Arrays.copyOfRange(packetCreationBuffer, 0, len);
+            datagramPackets.add(new DatagramPacket(outBuffer, 0, outBuffer.length, destination));
+        }
+        return datagramPackets.toArray(new DatagramPacket[0]);
     }
 
     /**

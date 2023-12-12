@@ -254,17 +254,20 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
         }
 
         synchronized (packetQueueToUse) {
-            while (packetQueueToUse.size() >= MdnsConfigs.mdnsPacketQueueMaxSize()) {
-                packetQueueToUse.remove();
-            }
+            final DatagramPacket[] datagramPackets;
             try {
-                final byte[] queryBuffer = MdnsUtils.createRawDnsPacket(packetCreationBuffer,
-                        packet);
-                packetQueueToUse.add(
-                        new DatagramPacket(queryBuffer, 0, queryBuffer.length, address));
+                datagramPackets = MdnsUtils.createQueryDatagramPackets(
+                        packetCreationBuffer, packet, address);
             } catch (IOException e) {
                 sharedLog.e("Failed to send a mDNS packet.", e);
                 return;
+            }
+            while ((packetQueueToUse.size() + datagramPackets.length - 1)
+                    >= MdnsConfigs.mdnsPacketQueueMaxSize()) {
+                packetQueueToUse.remove();
+            }
+            for (DatagramPacket datagramPacket : datagramPackets) {
+                packetQueueToUse.add(datagramPacket);
             }
         }
         triggerSendThread();
