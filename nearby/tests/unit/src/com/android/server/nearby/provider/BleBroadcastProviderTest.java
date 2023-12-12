@@ -16,7 +16,11 @@
 
 package com.android.server.nearby.provider;
 
+<<<<<<< PATCH SET (d0962a [nearby] Fix test failure)
+import static org.mockito.Mockito.atLeast;
+=======
 import static org.mockito.ArgumentMatchers.any;
+>>>>>>> BASE      (df7db9 [nearby] Fix flakeness in the unit test)
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.times;
@@ -70,7 +74,11 @@ public class BleBroadcastProviderTest {
 
         AdvertiseSettings settings = new AdvertiseSettings.Builder().build();
         mBleBroadcastProvider.onStartSuccess(settings);
+<<<<<<< PATCH SET (d0962a [nearby] Fix test failure)
+        verify(mBroadcastListener, atLeast(1)).onStatusChanged(eq(BroadcastCallback.STATUS_OK));
+=======
         verify(mBroadcastListener, times(any())).onStatusChanged(eq(BroadcastCallback.STATUS_OK));
+>>>>>>> BASE      (df7db9 [nearby] Fix flakeness in the unit test)
     }
 
     @Test
@@ -82,7 +90,11 @@ public class BleBroadcastProviderTest {
         // advertising set can not be mocked, so we will allow nulls
         mBleBroadcastProvider.mAdvertisingSetCallback.onAdvertisingSetStarted(null, -30,
                 AdvertisingSetCallback.ADVERTISE_SUCCESS);
+<<<<<<< PATCH SET (d0962a [nearby] Fix test failure)
+        verify(mBroadcastListener, atLeast(1)).onStatusChanged(eq(BroadcastCallback.STATUS_OK));
+=======
         verify(mBroadcastListener, times(any())).onStatusChanged(eq(BroadcastCallback.STATUS_OK));
+>>>>>>> BASE      (df7db9 [nearby] Fix flakeness in the unit test)
     }
 
     @Test
