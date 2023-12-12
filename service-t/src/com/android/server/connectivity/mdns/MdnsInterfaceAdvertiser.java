@@ -36,6 +36,7 @@ import com.android.server.connectivity.mdns.util.MdnsUtils;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.time.Duration;
 import java.util.List;
 import java.util.Set;
 
@@ -247,8 +248,9 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
      *
      * @throws NameConflictException There is already a service being advertised with that name.
      */
-    public void addService(int id, NsdServiceInfo service) throws NameConflictException {
-        final int replacedExitingService = mRecordRepository.addService(id, service);
+    public void addService(int id, NsdServiceInfo service, @Nullable Duration ttlDuration)
+            throws NameConflictException {
+        final int replacedExitingService = mRecordRepository.addService(id, service, ttlDuration);
         // Cancel announcements for the existing service. This only happens for exiting services
         // (so cancelling exiting announcements), as per RecordRepository.addService.
         if (replacedExitingService >= 0) {
