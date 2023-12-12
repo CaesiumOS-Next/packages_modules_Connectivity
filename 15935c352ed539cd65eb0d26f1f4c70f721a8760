@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d246a2d8_dfb5c858",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-12-12T06:27:00Z",
+      "side": 1,
+      "message": "LGTM if Motomu doesn\u0027t have any other concerns.",
+      "revId": "15935c352ed539cd65eb0d26f1f4c70f721a8760",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "341a83e2_4bc1d74c",
+        "filename": "staticlibs/device/com/android/net/module/util/HandlerUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-12-12T06:27:00Z",
+      "side": 1,
+      "message": "nit: ForDump",
+      "range": {
+        "startLine": 62,
+        "startChar": 26,
+        "endLine": 62,
+        "endChar": 47
+      },
+      "revId": "15935c352ed539cd65eb0d26f1f4c70f721a8760",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
