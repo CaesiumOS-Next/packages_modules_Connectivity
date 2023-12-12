@@ -1,3 +1,5 @@
+<<<<<<< PATCH SET (755929 [nearby] Add nearby_enable_ble_in_init flag)
+=======
 /*
  * Copyright (C) 2023 The Android Open Source Project
  *
@@ -532,3 +534,4 @@ public class DiscoveryProviderManagerLegacy implements AbstractDiscoveryProvider
         return true;
     }
 }
+>>>>>>> BASE      (11234f Revert "[nearby] Add disable logic")
