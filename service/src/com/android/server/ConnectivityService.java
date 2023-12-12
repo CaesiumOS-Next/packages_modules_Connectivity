@@ -5116,6 +5116,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void destroyNetwork(NetworkAgentInfo nai) {
+        Log.e(TAG, "test");
         if (shouldDestroyNativeNetwork(nai)) {
             // Tell netd to clean up the configuration for this network
             // (routing rules, DNS, etc).
