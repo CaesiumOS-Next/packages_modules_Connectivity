@@ -54,6 +54,7 @@ import android.util.ArraySet
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.internal.app.IBatteryStats
 import com.android.internal.util.test.BroadcastInterceptingContext
+import com.android.metrics.NetworkRequestStateStatsMetrics
 import com.android.modules.utils.build.SdkLevel
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException
@@ -145,6 +146,7 @@ open class CSTest {
     val PRIMARY_USER = 0
     val PRIMARY_USER_INFO = UserInfo(PRIMARY_USER, "" /* name */, UserInfo.FLAG_PRIMARY)
     val PRIMARY_USER_HANDLE = UserHandle(PRIMARY_USER)
+
     val userManager = makeMockUserManager(PRIMARY_USER_INFO, PRIMARY_USER_HANDLE)
     val activityManager = makeActivityManager()
 
@@ -196,6 +198,11 @@ open class CSTest {
         override fun makeMultinetworkPolicyTracker(c: Context, h: Handler, r: Runnable) =
                 MultinetworkPolicyTracker(c, h, r,
                         MultinetworkPolicyTrackerTestDependencies(connResources.get()))
+
+        override fun makeNetworkRequestStateStatsMetrics(c: Context):
+                NetworkRequestStateStatsMetrics {
+            return mock<NetworkRequestStateStatsMetrics>()
+        }
 
         // All queried features must be mocked, because the test cannot hold the
         // READ_DEVICE_CONFIG permission and device config utils use static methods for
