@@ -117,6 +117,21 @@
           "exclude-annotation": "androidx.test.filters.LargeTest"
         }
       ]
+    },
+    {
+      "name": "FrameworksVcnTests"
+    },
+    {
+      "name": "CtsVcnTestCases"
+    },
+    {
+      "name": "FrameworksIkeTests"
+    },
+    {
+      "name": "CtsIkeTestCases"
+    },
+    {
+      "name": "IwlanTests"
     }
   ],
   "postsubmit": [
