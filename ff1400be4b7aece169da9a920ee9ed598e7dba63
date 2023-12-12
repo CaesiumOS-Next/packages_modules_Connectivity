@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a00451d9_c636eaf7",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-12T02:44:27Z",
+      "side": 1,
+      "message": "nit: if we are doing the HashSet -\u003e ArraySet refactoring. Probably we should also do a HashMap -\u003e ArrayMap refactoring in a different CL?",
+      "range": {
+        "startLine": 185,
+        "startChar": 22,
+        "endLine": 185,
+        "endChar": 29
+      },
+      "revId": "ff1400be4b7aece169da9a920ee9ed598e7dba63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
