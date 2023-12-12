@@ -42,6 +42,7 @@ import com.android.net.module.util.SharedLog;
 import com.android.server.connectivity.ConnectivityResources;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -356,7 +357,8 @@ public class MdnsAdvertiser {
             mPendingRegistrations.put(id, registration);
             for (int i = 0; i < mAdvertisers.size(); i++) {
                 try {
-                    mAdvertisers.valueAt(i).addService(id, registration.getServiceInfo());
+                    mAdvertisers.valueAt(i).addService(
+                            id, registration.getServiceInfo(), registration.getTtlDuration());
                 } catch (NameConflictException e) {
                     mSharedLog.wtf("Name conflict adding services that should have unique names",
                             e);
@@ -422,7 +424,7 @@ public class MdnsAdvertiser {
                 final Registration registration = mPendingRegistrations.valueAt(i);
                 try {
                     advertiser.addService(mPendingRegistrations.keyAt(i),
-                            registration.getServiceInfo());
+                            registration.getServiceInfo(), registration.getTtlDuration());
                 } catch (NameConflictException e) {
                     mSharedLog.wtf("Name conflict adding services that should have unique names",
                             e);
@@ -490,12 +492,15 @@ public class MdnsAdvertiser {
         private int mConflictCount;
         @NonNull
         private NsdServiceInfo mServiceInfo;
+        @Nullable
+        private Duration mTtlDuration;
         int mConflictDuringProbingCount;
         int mConflictAfterProbingCount;
 
-        private Registration(@NonNull NsdServiceInfo serviceInfo) {
+        private Registration(@NonNull NsdServiceInfo serviceInfo, @Nullable Duration ttlDuration) {
             this.mOriginalName = serviceInfo.getServiceName();
             this.mServiceInfo = serviceInfo;
+            this.mTtlDuration = ttlDuration;
         }
 
         /**
@@ -557,6 +562,11 @@ public class MdnsAdvertiser {
         @NonNull
         public NsdServiceInfo getServiceInfo() {
             return mServiceInfo;
+        }
+
+        @Nullable
+        public Duration getTtlDuration() {
+            return mTtlDuration;
         }
     }
 
@@ -715,7 +725,7 @@ public class MdnsAdvertiser {
             }
             mSharedLog.i("Adding service " + service + " with ID " + id + " and subtypes "
                     + subtypes + " advertisingOptions " + advertisingOptions);
-            registration = new Registration(service);
+            registration = new Registration(service, advertisingOptions.getTtlDuration());
             final BiPredicate<Network, InterfaceAdvertiserRequest> checkConflictFilter;
             if (network == null) {
                 // If registering on all networks, no advertiser must have conflicts
