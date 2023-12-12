@@ -33,6 +33,7 @@ import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.waitForIdle
 import java.net.InetSocketAddress
+import java.time.Duration
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -126,7 +127,7 @@ class MdnsInterfaceAdvertiserTest {
             knownServices.add(inv.getArgument(0))
 
             -1
-        }.`when`(repository).addService(anyInt(), any())
+        }.`when`(repository).addService(anyInt(), any(), any())
         doAnswer { inv ->
             knownServices.remove(inv.getArgument(0))
             null
@@ -284,9 +285,9 @@ class MdnsInterfaceAdvertiserTest {
     @Test
     fun testReplaceExitingService() {
         doReturn(TEST_SERVICE_ID_DUPLICATE).`when`(repository)
-                .addService(eq(TEST_SERVICE_ID_DUPLICATE), any())
-        advertiser.addService(TEST_SERVICE_ID_DUPLICATE, TEST_SERVICE_1_SUBTYPE)
-        verify(repository).addService(eq(TEST_SERVICE_ID_DUPLICATE), any())
+                .addService(eq(TEST_SERVICE_ID_DUPLICATE), any(), any())
+        advertiser.addService(TEST_SERVICE_ID_DUPLICATE, TEST_SERVICE_1_SUBTYPE, Duration.ZERO)
+        verify(repository).addService(eq(TEST_SERVICE_ID_DUPLICATE), any(), any())
         verify(announcer).stop(TEST_SERVICE_ID_DUPLICATE)
         verify(prober).startProbing(any())
     }
@@ -294,7 +295,7 @@ class MdnsInterfaceAdvertiserTest {
     @Test
     fun testUpdateExistingService() {
         doReturn(TEST_SERVICE_ID_DUPLICATE).`when`(repository)
-                .addService(eq(TEST_SERVICE_ID_DUPLICATE), any())
+                .addService(eq(TEST_SERVICE_ID_DUPLICATE), any(), any())
         val subTypes = setOf("_sub")
         advertiser.updateService(TEST_SERVICE_ID_DUPLICATE, subTypes)
         verify(repository).updateService(eq(TEST_SERVICE_ID_DUPLICATE), any())
@@ -308,8 +309,8 @@ class MdnsInterfaceAdvertiserTest {
         doReturn(serviceId).`when`(testProbingInfo).serviceId
         doReturn(testProbingInfo).`when`(repository).setServiceProbing(serviceId)
 
-        advertiser.addService(serviceId, serviceInfo)
-        verify(repository).addService(serviceId, serviceInfo)
+        advertiser.addService(serviceId, serviceInfo, Duration.ZERO)
+        verify(repository).addService(serviceId, serviceInfo, Duration.ZERO)
         verify(prober).startProbing(testProbingInfo)
 
         // Simulate probing success: continues to announcing
