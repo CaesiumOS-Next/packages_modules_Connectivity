@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f15c02c8_e01f5467",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-12T16:04:21Z",
+      "side": 1,
+      "message": "It is easier and a tiny bit more efficient memory-wise to store NetworkRequest directly (mNetworkRequest) and expose it via a getter, rather than duplicate its fields (e.g. mTransportTypes, mNetCapabilityNotMetered, etc).\n\nThen the constructor becomes simple enough to not need a Builder: NetworkRequestStateInfo(int packageUid, NetworkRequest networkRequest).\n\nThe constructor can also handle setting mNetworkRequestReceivedTime.",
+      "range": {
+        "startLine": 25,
+        "startChar": 14,
+        "endLine": 25,
+        "endChar": 31
+      },
+      "revId": "9fc9ebdeee1fee4ea10d174253309bc5e23bfad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9264263a_66954fc9",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-12T16:04:21Z",
+      "side": 1,
+      "message": "This is a timestamp, should be long.",
+      "range": {
+        "startLine": 29,
+        "startChar": 14,
+        "endLine": 29,
+        "endChar": 41
+      },
+      "revId": "9fc9ebdeee1fee4ea10d174253309bc5e23bfad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5d210e0_f67d7214",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-12T16:04:21Z",
+      "side": 1,
+      "message": "Consider replacing this method with `noteNetworkRequestRemoved()` (without arguments) which sets mNetworkRequestDurationMillis. In this case checks become unnecessary.",
+      "range": {
+        "startLine": 42,
+        "startChar": 16,
+        "endLine": 42,
+        "endChar": 44
+      },
+      "revId": "9fc9ebdeee1fee4ea10d174253309bc5e23bfad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "168770d0_30925bc3",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-12T16:04:21Z",
+      "side": 1,
+      "message": "Might be worth adding a note that this class is not thread-safe. It seems fine though, because network requests are received and removed on connectivity service thread.",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 44
+      },
+      "revId": "9fc9ebdeee1fee4ea10d174253309bc5e23bfad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "269d0838_d6d4429f",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-12T16:04:21Z",
+      "side": 1,
+      "message": "Nit: Can make message name a bit more verbose to make it more readable, e.g. MSG_NETWORK_REQUEST_RECEIVED and MSG_NETWORK_REQUEST_REMOVED.",
+      "range": {
+        "startLine": 38,
+        "startChar": 21,
+        "endLine": 38,
+        "endChar": 38
+      },
+      "revId": "9fc9ebdeee1fee4ea10d174253309bc5e23bfad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f7262de_1d5c10f3",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-12T16:04:21Z",
+      "side": 1,
+      "message": "Nit: onNetworkRequestReceived might be a better name, as the method simply performs logging when something happens, rather than registers something somewhere. Similarly below, onNetworkRequestRemoved.",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 46
+      },
+      "revId": "9fc9ebdeee1fee4ea10d174253309bc5e23bfad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99d2a2b8_eaf5c903",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-12T16:04:21Z",
+      "side": 1,
+      "message": "Nit: this should probably be a warning, we shouldn\u0027t receive a request more than once.",
+      "range": {
+        "startLine": 80,
+        "startChar": 16,
+        "endLine": 80,
+        "endChar": 17
+      },
+      "revId": "9fc9ebdeee1fee4ea10d174253309bc5e23bfad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "642cc658_2b522c97",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-12T16:04:21Z",
+      "side": 1,
+      "message": "Can just call mNetworkRequestsActive.remove -- the method returns value that is getting removed or null if no value if associated with the key.",
+      "range": {
+        "startLine": 99,
+        "startChar": 35,
+        "endLine": 99,
+        "endChar": 46
+      },
+      "revId": "9fc9ebdeee1fee4ea10d174253309bc5e23bfad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "000ccfaa_5e8e171c",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-12T16:04:21Z",
+      "side": 1,
+      "message": "elapsedRealtime returns long, truncating it to int could lead to invalid data.",
+      "range": {
+        "startLine": 104,
+        "startChar": 20,
+        "endLine": 104,
+        "endChar": 55
+      },
+      "revId": "9fc9ebdeee1fee4ea10d174253309bc5e23bfad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eefd5f62_141a7f9c",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-12T16:04:21Z",
+      "side": 1,
+      "message": "It might be a bit more readable to handle this case at the start of the method, as the code handling it is short. Can use warning log level: this error is not actionable.",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 94
+      },
+      "revId": "9fc9ebdeee1fee4ea10d174253309bc5e23bfad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e803981f_82f4d05e",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-12T16:04:21Z",
+      "side": 1,
+      "message": "Nit: This log line isn\u0027t strictly necessary, we can observe atom writes through statsd_testdrive. This might also be logged in statsd itself.",
+      "range": {
+        "startLine": 149,
+        "startChar": 20,
+        "endLine": 149,
+        "endChar": 94
+      },
+      "revId": "9fc9ebdeee1fee4ea10d174253309bc5e23bfad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5570e56_e91f6b99",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateInfoTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-12T16:04:21Z",
+      "side": 1,
+      "message": "Nit: this feels like it should be a local variable.",
+      "range": {
+        "startLine": 38,
+        "startChar": 8,
+        "endLine": 38,
+        "endChar": 40
+      },
+      "revId": "9fc9ebdeee1fee4ea10d174253309bc5e23bfad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e189129_0437fe0b",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-12T16:04:21Z",
+      "side": 1,
+      "message": "It feels like the test is verifying the internal implementation details of NetworkRequestStateStatsMetrics.\n\nIs it possible to construct a test that verifies behaviour, i.e. the fact that the atom is logged with the right values when a request is received or removed through ConnectivityService?",
+      "range": {
+        "startLine": 83,
+        "startChar": 16,
+        "endLine": 83,
+        "endChar": 57
+      },
+      "revId": "9fc9ebdeee1fee4ea10d174253309bc5e23bfad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
