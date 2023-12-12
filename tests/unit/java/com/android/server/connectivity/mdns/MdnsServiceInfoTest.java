@@ -202,7 +202,8 @@ public class MdnsServiceInfoTest {
                         List.of(),
                         /* textEntries= */ null,
                         /* interfaceIndex= */ 20,
-                        network);
+                        network,
+                        100L /* ttlSeconds */);
 
         assertEquals(network, info2.getNetwork());
     }
@@ -225,7 +226,8 @@ public class MdnsServiceInfoTest {
                                 MdnsServiceInfo.TextEntry.fromString("mn=Google Nest Hub Max"),
                                 MdnsServiceInfo.TextEntry.fromString("test=")),
                         20 /* interfaceIndex */,
-                        new Network(123));
+                        new Network(123),
+                        100L /* ttlSeconds */);
 
         beforeParcel.writeToParcel(parcel, 0);
         parcel.setDataPosition(0);
