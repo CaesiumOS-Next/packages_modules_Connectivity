@@ -1,3 +1,5 @@
+<<<<<<< PATCH SET (506eac Revert "[nearby] Add disable logic")
+=======
 /*
  * Copyright (C) 2023 The Android Open Source Project
  *
@@ -424,3 +426,4 @@ public class DiscoveryProviderManagerTest {
         assertThat(mDiscoveryProviderManager.enableBle()).isFalse();
     }
 }
+>>>>>>> BASE      (164969 [nearby] Add disable logic)

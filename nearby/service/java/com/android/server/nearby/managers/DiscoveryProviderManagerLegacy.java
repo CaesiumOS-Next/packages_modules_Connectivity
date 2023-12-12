@@ -1,3 +1,5 @@
+<<<<<<< PATCH SET (506eac Revert "[nearby] Add disable logic")
+=======
 /*
  * Copyright (C) 2023 The Android Open Source Project
  *
@@ -549,3 +551,4 @@ public class DiscoveryProviderManagerLegacy implements AbstractDiscoveryProvider
         return adapter.disableBLE();
     }
 }
+>>>>>>> BASE      (164969 [nearby] Add disable logic)
