@@ -16,6 +16,10 @@
 
 package com.android.server.connectivity.mdns;
 
+import android.annotation.NonNull;
+
+import java.time.Duration;
+
 /**
  * API configuration parameters for advertising the mDNS service.
  *
@@ -27,13 +31,15 @@ public class MdnsAdvertisingOptions {
 
     private static MdnsAdvertisingOptions sDefaultOptions;
     private final boolean mIsOnlyUpdate;
+    @NonNull
+    private final Duration mTtlDuration;
 
     /**
      * Parcelable constructs for a {@link MdnsAdvertisingOptions}.
      */
-    MdnsAdvertisingOptions(
-            boolean isOnlyUpdate) {
+    MdnsAdvertisingOptions(boolean isOnlyUpdate, @NonNull Duration ttlDuration) {
         this.mIsOnlyUpdate = isOnlyUpdate;
+        this.mTtlDuration = ttlDuration;
     }
 
     /**
@@ -60,9 +66,18 @@ public class MdnsAdvertisingOptions {
         return mIsOnlyUpdate;
     }
 
+    /**
+     * Returns the TTL duration for all records in a service.
+     */
+    @NonNull
+    public Duration getTtlDuration() {
+        return mTtlDuration;
+    }
+
     @Override
     public String toString() {
-        return "MdnsAdvertisingOptions{" + "mIsOnlyUpdate=" + mIsOnlyUpdate + '}';
+        return "MdnsAdvertisingOptions{" + "mIsOnlyUpdate=" + mIsOnlyUpdate + ", mTtlDuration="
+                + mTtlDuration + '}';
     }
 
     /**
@@ -70,6 +85,8 @@ public class MdnsAdvertisingOptions {
      */
     public static final class Builder {
         private boolean mIsOnlyUpdate = false;
+        @NonNull
+        private Duration mTtlDuration = Duration.ZERO;
 
         private Builder() {
         }
@@ -83,10 +100,18 @@ public class MdnsAdvertisingOptions {
         }
 
         /**
+         * Sets the TTL duration for all records of the service.
+         */
+        public Builder setTtlDuration(@NonNull Duration ttlDuration) {
+            this.mTtlDuration = ttlDuration;
+            return this;
+        }
+
+        /**
          * Builds a {@link MdnsAdvertisingOptions} with the arguments supplied to this builder.
          */
         public MdnsAdvertisingOptions build() {
-            return new MdnsAdvertisingOptions(mIsOnlyUpdate);
+            return new MdnsAdvertisingOptions(mIsOnlyUpdate, mTtlDuration);
         }
     }
 }
