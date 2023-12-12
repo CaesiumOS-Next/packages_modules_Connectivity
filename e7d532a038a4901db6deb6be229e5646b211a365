@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5426b08b_274b14f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-12-12T23:11:21Z",
+      "side": 1,
+      "message": "b/315965080: TestMappingSloChecker shouldn\u0027t ask users to verify the test if it\u0027s already been added to presubmit",
+      "revId": "e7d532a038a4901db6deb6be229e5646b211a365",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
