@@ -32,12 +32,14 @@ import android.util.ArraySet;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.HexDump;
 import com.android.net.module.util.SharedLog;
+import com.android.server.connectivity.mdns.MdnsAdvertisingOptions;
 import com.android.server.connectivity.mdns.MdnsAnnouncer.BaseAnnouncementInfo;
 import com.android.server.connectivity.mdns.MdnsPacketRepeater.PacketRepeaterCallback;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -258,8 +260,10 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
      *
      * @throws NameConflictException There is already a service being advertised with that name.
      */
-    public void addService(int id, NsdServiceInfo service) throws NameConflictException {
-        final int replacedExitingService = mRecordRepository.addService(id, service);
+    public void addService(int id, NsdServiceInfo service,
+            @NonNull MdnsAdvertisingOptions advertisingOptions) throws NameConflictException {
+        final int replacedExitingService =
+                mRecordRepository.addService(id, service, advertisingOptions.getTtl());
         // Cancel announcements for the existing service. This only happens for exiting services
         // (so cancelling exiting announcements), as per RecordRepository.addService.
         if (replacedExitingService >= 0) {
