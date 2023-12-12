@@ -67,6 +67,8 @@ import static android.text.format.DateUtils.WEEK_IN_MILLIS;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_RAT_CHANGED;
 import static com.android.server.net.NetworkStatsEventLogger.PollEvent.pollReasonNameOf;
 import static com.android.server.net.NetworkStatsService.ACTION_NETWORK_STATS_POLL;
+import static com.android.server.net.NetworkStatsService.NETSTATS_FASTDATAINPUT_FALLBACKS_COUNTER_NAME;
+import static com.android.server.net.NetworkStatsService.NETSTATS_FASTDATAINPUT_SUCCESSES_COUNTER_NAME;
 import static com.android.server.net.NetworkStatsService.NETSTATS_IMPORT_ATTEMPTS_COUNTER_NAME;
 import static com.android.server.net.NetworkStatsService.NETSTATS_IMPORT_FALLBACKS_COUNTER_NAME;
 import static com.android.server.net.NetworkStatsService.NETSTATS_IMPORT_SUCCESSES_COUNTER_NAME;
@@ -169,7 +171,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.io.File;
 import java.io.FileDescriptor;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.nio.file.Files;
@@ -284,9 +285,14 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private @Mock PersistentInt mImportLegacyAttemptsCounter;
     private @Mock PersistentInt mImportLegacySuccessesCounter;
     private @Mock PersistentInt mImportLegacyFallbacksCounter;
+    private int mFastDataInputTargetAttempts = 0;
+    private @Mock PersistentInt mFastDataInputSuccessesCounter;
+    private @Mock PersistentInt mFastDataInputFallbacksCounter;
+    private String mCompareStatsResult = null;
     private @Mock Resources mResources;
     private Boolean mIsDebuggable;
     private HandlerThread mObserverHandlerThread;
+    final TestDependencies mDeps = makeDependencies();
 
     private class MockContext extends BroadcastInterceptingContext {
         private final Context mBaseContext;
@@ -369,7 +375,6 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
 
         mHandlerThread = new HandlerThread("NetworkStatsServiceTest-HandlerThread");
-        final NetworkStatsService.Dependencies deps = makeDependencies();
         // Create a separate thread for observers to run on. This thread cannot be the same
         // as the handler thread, because the observer callback is fired on this thread, and
         // it should not be blocked by client code. Additionally, creating the observers
@@ -384,7 +389,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
             }
         };
         mService = new NetworkStatsService(mServiceContext, mNetd, mAlarmManager, wakeLock,
-                mClock, mSettings, mStatsFactory, statsObservers, deps);
+                mClock, mSettings, mStatsFactory, statsObservers, mDeps);
 
         mElapsedRealtime = 0L;
 
@@ -424,131 +429,155 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     }
 
     @NonNull
-    private NetworkStatsService.Dependencies makeDependencies() {
-        return new NetworkStatsService.Dependencies() {
-            @Override
-            public File getLegacyStatsDir() {
-                return mLegacyStatsDir;
-            }
+    private TestDependencies makeDependencies() {
+        return new TestDependencies();
+    }
 
-            @Override
-            public File getOrCreateStatsDir() {
-                return mStatsDir;
-            }
+    class TestDependencies extends NetworkStatsService.Dependencies {
+        private int mCompareStatsInvocation = 0;
 
-            @Override
-            public boolean getStoreFilesInApexData() {
-                return mStoreFilesInApexData;
-            }
+        @Override
+        public File getLegacyStatsDir() {
+            return mLegacyStatsDir;
+        }
 
-            @Override
-            public int getImportLegacyTargetAttempts() {
-                return mImportLegacyTargetAttempts;
-            }
+        @Override
+        public File getOrCreateStatsDir() {
+            return mStatsDir;
+        }
 
-            @Override
-            public PersistentInt createPersistentCounter(@androidx.annotation.NonNull Path dir,
-                    @androidx.annotation.NonNull String name) throws IOException {
-                switch (name) {
-                    case NETSTATS_IMPORT_ATTEMPTS_COUNTER_NAME:
-                        return mImportLegacyAttemptsCounter;
-                    case NETSTATS_IMPORT_SUCCESSES_COUNTER_NAME:
-                        return mImportLegacySuccessesCounter;
-                    case NETSTATS_IMPORT_FALLBACKS_COUNTER_NAME:
-                        return mImportLegacyFallbacksCounter;
-                    default:
-                        throw new IllegalArgumentException("Unknown counter name: " + name);
-                }
-            }
+        @Override
+        public boolean getStoreFilesInApexData() {
+            return mStoreFilesInApexData;
+        }
 
-            @Override
-            public NetworkStatsCollection readPlatformCollection(
-                    @NonNull String prefix, long bucketDuration) {
-                return mPlatformNetworkStatsCollection.get(prefix);
-            }
+        @Override
+        public int getImportLegacyTargetAttempts() {
+            return mImportLegacyTargetAttempts;
+        }
 
-            @Override
-            public HandlerThread makeHandlerThread() {
-                return mHandlerThread;
-            }
+        @Override
+        public int getUseFastDataInputTargetAttempts() {
+            return mFastDataInputTargetAttempts;
+        }
 
-            @Override
-            public NetworkStatsSubscriptionsMonitor makeSubscriptionsMonitor(
-                    @NonNull Context context, @NonNull Executor executor,
-                    @NonNull NetworkStatsService service) {
+        @Override
+        public String compareStats(NetworkStatsCollection a, NetworkStatsCollection b,
+                 boolean allowKeyChange) {
+            mCompareStatsInvocation++;
+            return mCompareStatsResult;
+        }
 
-                return mNetworkStatsSubscriptionsMonitor;
-            }
+        int getCompareStatsInvocation() {
+            return mCompareStatsInvocation;
+        }
 
-            @Override
-            public ContentObserver makeContentObserver(Handler handler,
-                    NetworkStatsSettings settings, NetworkStatsSubscriptionsMonitor monitor) {
-                mHandler = handler;
-                return mContentObserver = super.makeContentObserver(handler, settings, monitor);
+        @Override
+        public PersistentInt createPersistentCounter(@NonNull Path dir,
+                                                     @NonNull String name) {
+            switch (name) {
+                case NETSTATS_IMPORT_ATTEMPTS_COUNTER_NAME:
+                    return mImportLegacyAttemptsCounter;
+                case NETSTATS_IMPORT_SUCCESSES_COUNTER_NAME:
+                    return mImportLegacySuccessesCounter;
+                case NETSTATS_IMPORT_FALLBACKS_COUNTER_NAME:
+                    return mImportLegacyFallbacksCounter;
+                case NETSTATS_FASTDATAINPUT_SUCCESSES_COUNTER_NAME:
+                    return mFastDataInputSuccessesCounter;
+                case NETSTATS_FASTDATAINPUT_FALLBACKS_COUNTER_NAME:
+                    return mFastDataInputFallbacksCounter;
+                default:
+                    throw new IllegalArgumentException("Unknown counter name: " + name);
             }
+        }
 
-            @Override
-            public LocationPermissionChecker makeLocationPermissionChecker(final Context context) {
-                return mLocationPermissionChecker;
-            }
+        @Override
+        public NetworkStatsCollection readPlatformCollection(
+                @NonNull String prefix, long bucketDuration) {
+            return mPlatformNetworkStatsCollection.get(prefix);
+        }
 
-            @Override
-            public BpfInterfaceMapUpdater makeBpfInterfaceMapUpdater(
-                    @NonNull Context ctx, @NonNull Handler handler) {
-                return mBpfInterfaceMapUpdater;
-            }
+        @Override
+        public HandlerThread makeHandlerThread() {
+            return mHandlerThread;
+        }
 
-            @Override
-            public IBpfMap<S32, U8> getUidCounterSetMap() {
-                return mUidCounterSetMap;
-            }
+        @Override
+        public NetworkStatsSubscriptionsMonitor makeSubscriptionsMonitor(
+                @NonNull Context context, @NonNull Executor executor,
+                @NonNull NetworkStatsService service) {
 
-            @Override
-            public IBpfMap<CookieTagMapKey, CookieTagMapValue> getCookieTagMap() {
-                return mCookieTagMap;
-            }
+            return mNetworkStatsSubscriptionsMonitor;
+        }
 
-            @Override
-            public IBpfMap<StatsMapKey, StatsMapValue> getStatsMapA() {
-                return mStatsMapA;
-            }
+        @Override
+        public ContentObserver makeContentObserver(Handler handler,
+                NetworkStatsSettings settings, NetworkStatsSubscriptionsMonitor monitor) {
+            mHandler = handler;
+            return mContentObserver = super.makeContentObserver(handler, settings, monitor);
+        }
 
-            @Override
-            public IBpfMap<StatsMapKey, StatsMapValue> getStatsMapB() {
-                return mStatsMapB;
-            }
+        @Override
+        public LocationPermissionChecker makeLocationPermissionChecker(final Context context) {
+            return mLocationPermissionChecker;
+        }
 
-            @Override
-            public IBpfMap<UidStatsMapKey, StatsMapValue> getAppUidStatsMap() {
-                return mAppUidStatsMap;
-            }
+        @Override
+        public BpfInterfaceMapUpdater makeBpfInterfaceMapUpdater(
+                @NonNull Context ctx, @NonNull Handler handler) {
+            return mBpfInterfaceMapUpdater;
+        }
 
-            @Override
-            public IBpfMap<S32, StatsMapValue> getIfaceStatsMap() {
-                return mIfaceStatsMap;
-            }
+        @Override
+        public IBpfMap<S32, U8> getUidCounterSetMap() {
+            return mUidCounterSetMap;
+        }
 
-            @Override
-            public boolean isDebuggable() {
-                return mIsDebuggable == Boolean.TRUE;
-            }
+        @Override
+        public IBpfMap<CookieTagMapKey, CookieTagMapValue> getCookieTagMap() {
+            return mCookieTagMap;
+        }
 
-            @Override
-            public BpfNetMaps makeBpfNetMaps(Context ctx) {
-                return mBpfNetMaps;
-            }
+        @Override
+        public IBpfMap<StatsMapKey, StatsMapValue> getStatsMapA() {
+            return mStatsMapA;
+        }
 
-            @Override
-            public SkDestroyListener makeSkDestroyListener(
-                    IBpfMap<CookieTagMapKey, CookieTagMapValue> cookieTagMap, Handler handler) {
-                return mSkDestroyListener;
-            }
+        @Override
+        public IBpfMap<StatsMapKey, StatsMapValue> getStatsMapB() {
+            return mStatsMapB;
+        }
 
-            @Override
-            public boolean supportEventLogger(@NonNull Context cts) {
-                return true;
-            }
-        };
+        @Override
+        public IBpfMap<UidStatsMapKey, StatsMapValue> getAppUidStatsMap() {
+            return mAppUidStatsMap;
+        }
+
+        @Override
+        public IBpfMap<S32, StatsMapValue> getIfaceStatsMap() {
+            return mIfaceStatsMap;
+        }
+
+        @Override
+        public boolean isDebuggable() {
+            return mIsDebuggable == Boolean.TRUE;
+        }
+
+        @Override
+        public BpfNetMaps makeBpfNetMaps(Context ctx) {
+            return mBpfNetMaps;
+        }
+
+        @Override
+        public SkDestroyListener makeSkDestroyListener(
+                IBpfMap<CookieTagMapKey, CookieTagMapValue> cookieTagMap, Handler handler) {
+            return mSkDestroyListener;
+        }
+
+        @Override
+        public boolean supportEventLogger(@NonNull Context cts) {
+            return true;
+        }
     }
 
     @After
@@ -2163,6 +2192,71 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 assertShouldRunComparison(isDebuggable, isDebuggable);
             }
         }
+    }
+
+    @Test
+    public void testAdoptFastDataInput_featureDisabled() throws Exception {
+        // Boot through serviceReady() with flag disabled, verify the persistent
+        // counters are not increased.
+        mFastDataInputTargetAttempts = 0;
+        doReturn(0).when(mFastDataInputSuccessesCounter).get();
+        doReturn(0).when(mFastDataInputFallbacksCounter).get();
+        mService.systemReady();
+        verify(mFastDataInputSuccessesCounter, never()).set(anyInt());
+        verify(mFastDataInputFallbacksCounter, never()).set(anyInt());
+        assertEquals(0, mDeps.getCompareStatsInvocation());
+    }
+
+    @Test
+    public void testAdoptFastDataInput_noRetryAfterFail() throws Exception {
+        // Boot through serviceReady(), verify the service won't retry unexpectedly
+        // since the target attempt remains the same.
+        mFastDataInputTargetAttempts = 1;
+        doReturn(0).when(mFastDataInputSuccessesCounter).get();
+        doReturn(1).when(mFastDataInputFallbacksCounter).get();
+        mService.systemReady();
+        verify(mFastDataInputSuccessesCounter, never()).set(anyInt());
+        verify(mFastDataInputFallbacksCounter, never()).set(anyInt());
+    }
+
+    @Test
+    public void testAdoptFastDataInput_noRetryAfterSuccess() throws Exception {
+        // Boot through serviceReady(), verify the service won't retry unexpectedly
+        // since the target attempt remains the same.
+        mFastDataInputTargetAttempts = 1;
+        doReturn(1).when(mFastDataInputSuccessesCounter).get();
+        doReturn(0).when(mFastDataInputFallbacksCounter).get();
+        mService.systemReady();
+        verify(mFastDataInputSuccessesCounter, never()).set(anyInt());
+        verify(mFastDataInputFallbacksCounter, never()).set(anyInt());
+    }
+
+    @Test
+    public void testAdoptFastDataInput_hasDiff() throws Exception {
+        // Boot through serviceReady() with flag enabled and assumes the stats are
+        // failed to compare, verify the fallbacks counter is increased.
+        mockDefaultSettings();
+        doReturn(0).when(mFastDataInputSuccessesCounter).get();
+        doReturn(0).when(mFastDataInputFallbacksCounter).get();
+        mFastDataInputTargetAttempts = 1;
+        mCompareStatsResult = "Has differences";
+        mService.systemReady();
+        verify(mFastDataInputSuccessesCounter, never()).set(anyInt());
+        verify(mFastDataInputFallbacksCounter).set(1);
+    }
+
+    @Test
+    public void testAdoptFastDataInput_noDiff() throws Exception {
+        // Boot through serviceReady() with target attempts increased,
+        // assumes there was a previous failure,
+        // and assumes the stats are successfully compared,
+        // verify the successes counter is increased.
+        mFastDataInputTargetAttempts = 2;
+        doReturn(1).when(mFastDataInputFallbacksCounter).get();
+        mCompareStatsResult = null;
+        mService.systemReady();
+        verify(mFastDataInputSuccessesCounter).set(1);
+        verify(mFastDataInputFallbacksCounter, never()).set(anyInt());
     }
 
     @Test
