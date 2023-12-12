@@ -51,6 +51,7 @@ import android.net.mdns.aidl.GetAddressInfo;
 import android.net.mdns.aidl.IMDnsEventListener;
 import android.net.mdns.aidl.RegistrationInfo;
 import android.net.mdns.aidl.ResolutionInfo;
+import android.net.nsd.AdvertisingRequest;
 import android.net.nsd.INsdManager;
 import android.net.nsd.INsdManagerCallback;
 import android.net.nsd.INsdServiceConnector;
@@ -862,9 +863,28 @@ public class NsdService extends INsdManager.Stub {
                                     NsdManager.FAILURE_MAX_LIMIT, true /* isLegacy */);
                             break;
                         }
-
-                        transactionId = getUniqueId();
-                        final NsdServiceInfo serviceInfo = args.serviceInfo;
+                        final AdvertisingRequest advertisingRequest = args.advertisingRequest;
+                        if (advertisingRequest == null) {
+                            Log.e(TAG, "Unknown advertisingRequest in registration");
+                            break;
+                        }
+                        boolean isUpdateOnly = (advertisingRequest.getAdvertisingConfig()
+                                & AdvertisingRequest.NSD_ADVERTISING_UPDATE_ONLY) > 0;
+                        // If it is an update request, then reuse the old transactionId
+                        if (isUpdateOnly) {
+                            final ClientRequest existingClientRequest =
+                                    clientInfo.mClientRequests.get(clientRequestId);
+                            if (existingClientRequest == null) {
+                                Log.e(TAG, "Invalid update on requestId: " + clientRequestId);
+                                clientInfo.onRegisterServiceFailedImmediately(clientRequestId,
+                                        NsdManager.FAILURE_INTERNAL_ERROR, false /* isLegacy */);
+                                break;
+                            }
+                            transactionId = existingClientRequest.mTransactionId;
+                        } else {
+                            transactionId = getUniqueId();
+                        }
+                        final NsdServiceInfo serviceInfo = advertisingRequest.getServiceInfo();
                         final String serviceType = serviceInfo.getServiceType();
                         final Pair<String, List<String>> typeSubtype = parseTypeAndSubtype(
                                 serviceType);
@@ -899,8 +919,11 @@ public class NsdService extends INsdManager.Stub {
 
                             serviceInfo.setSubtypes(subtypes);
                             maybeStartMonitoringSockets();
+                            final MdnsAdvertisingOptions mdnsAdvertisingOptions =
+                                    MdnsAdvertisingOptions.newBuilder().setIsOnlyUpdate(
+                                            isUpdateOnly).build();
                             mAdvertiser.addOrUpdateService(transactionId, serviceInfo,
-                                    MdnsAdvertisingOptions.newBuilder().build());
+                                    mdnsAdvertisingOptions);
                             storeAdvertiserRequestMap(clientRequestId, transactionId, clientInfo,
                                     serviceInfo.getNetwork());
                         } else {
@@ -2071,26 +2094,37 @@ public class NsdService extends INsdManager.Stub {
     private static class ListenerArgs {
         public final NsdServiceConnector connector;
         public final NsdServiceInfo serviceInfo;
+        public final AdvertisingRequest advertisingRequest;
         ListenerArgs(NsdServiceConnector connector, NsdServiceInfo serviceInfo) {
             this.connector = connector;
             this.serviceInfo = serviceInfo;
+            this.advertisingRequest = null;
+        }
+
+        ListenerArgs(NsdServiceConnector connector, AdvertisingRequest advertisingRequest) {
+            this.connector = connector;
+            this.serviceInfo = null;
+            this.advertisingRequest = advertisingRequest;
         }
     }
 
     private class NsdServiceConnector extends INsdServiceConnector.Stub
             implements IBinder.DeathRecipient  {
+
         @Override
-        public void registerService(int listenerKey, NsdServiceInfo serviceInfo) {
+        public void registerService(int listenerKey, AdvertisingRequest advertisingRequest)
+                throws RemoteException {
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
                     NsdManager.REGISTER_SERVICE, 0, listenerKey,
-                    new ListenerArgs(this, serviceInfo)));
+                    new ListenerArgs(this, advertisingRequest)
+            ));
         }
 
         @Override
         public void unregisterService(int listenerKey) {
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
                     NsdManager.UNREGISTER_SERVICE, 0, listenerKey,
-                    new ListenerArgs(this, null)));
+                    new ListenerArgs(this, (NsdServiceInfo) null)));
         }
 
         @Override
@@ -2102,8 +2136,8 @@ public class NsdService extends INsdManager.Stub {
 
         @Override
         public void stopDiscovery(int listenerKey) {
-            mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
-                    NsdManager.STOP_DISCOVERY, 0, listenerKey, new ListenerArgs(this, null)));
+            mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(NsdManager.STOP_DISCOVERY,
+                    0, listenerKey, new ListenerArgs(this, (NsdServiceInfo) null)));
         }
 
         @Override
@@ -2115,8 +2149,8 @@ public class NsdService extends INsdManager.Stub {
 
         @Override
         public void stopResolution(int listenerKey) {
-            mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
-                    NsdManager.STOP_RESOLUTION, 0, listenerKey, new ListenerArgs(this, null)));
+            mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(NsdManager.STOP_RESOLUTION,
+                    0, listenerKey, new ListenerArgs(this, (NsdServiceInfo) null)));
         }
 
         @Override
@@ -2130,13 +2164,13 @@ public class NsdService extends INsdManager.Stub {
         public void unregisterServiceInfoCallback(int listenerKey) {
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
                     NsdManager.UNREGISTER_SERVICE_CALLBACK, 0, listenerKey,
-                    new ListenerArgs(this, null)));
+                    new ListenerArgs(this, (NsdServiceInfo) null)));
         }
 
         @Override
         public void startDaemon() {
-            mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
-                    NsdManager.DAEMON_STARTUP, new ListenerArgs(this, null)));
+            mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(NsdManager.DAEMON_STARTUP,
+                    new ListenerArgs(this, (NsdServiceInfo) null)));
         }
 
         @Override

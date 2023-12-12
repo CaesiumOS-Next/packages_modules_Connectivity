@@ -1064,6 +1064,30 @@ class NsdManagerTest {
     }
 
     @Test
+    fun testMultipleSubTypeAdvertisingAndDiscovery_withUpdate() {
+        val si = makeTestServiceInfo(network = testNetwork1.network)
+        val registrationRecord = NsdRegistrationRecord()
+        val subtype3DiscoveryRecord = NsdDiscoveryRecord()
+        tryTest {
+            si.serviceType = si.serviceType + ",_subtype1"
+            registerService(registrationRecord, si)
+            si.serviceType = si.serviceType + ",_subtype3"
+            updateService(registrationRecord, si)
+            nsdManager.discoverServices("_subtype3.$serviceType",
+                    NsdManager.PROTOCOL_DNS_SD, testNetwork1.network,
+                    { it.run() }, subtype3DiscoveryRecord)
+            val info3 = subtype3DiscoveryRecord.waitForServiceDiscovered(serviceName,
+                    serviceType, testNetwork1.network)
+            assertTrue(info3.subtypes.contains("_subtype3"))
+        } cleanupStep {
+            nsdManager.stopServiceDiscovery(subtype3DiscoveryRecord)
+            subtype3DiscoveryRecord.expectCallback<DiscoveryStopped>()
+        } cleanup {
+            nsdManager.unregisterService(registrationRecord)
+        }
+    }
+
+    @Test
     fun testSubtypeAdvertising_tooManySubtypes_returnsFailureBadParameters() {
         val si = makeTestServiceInfo(network = testNetwork1.network)
         // Sets 101 subtypes in total
@@ -1402,6 +1426,18 @@ class NsdManagerTest {
         // This events tells us the name that was registered.
         val cb = record.expectCallback<ServiceRegistered>(REGISTRATION_TIMEOUT_MS)
         return cb.serviceInfo
+    }
+
+    /**
+     * Update a service.
+     */
+    private fun updateService(
+            record: NsdRegistrationRecord,
+            si: NsdServiceInfo,
+            executor: Executor = Executor { it.run() }
+    ) {
+        nsdManager.registerService(si, NsdManager.PROTOCOL_DNS_SD, executor, record)
+        // TODO: add the callback check for the update.
     }
 
     private fun resolveService(discoveredInfo: NsdServiceInfo): NsdServiceInfo {

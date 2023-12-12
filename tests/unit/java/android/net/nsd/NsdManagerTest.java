@@ -196,6 +196,22 @@ public class NsdManagerTest {
         verify(listener2, timeout(mTimeoutMs).times(1)).onServiceResolved(reply);
     }
 
+    @Test
+    public void testRegisterServiceWithAdvertisingRequest() throws Exception {
+        final NsdManager manager = mManager;
+        final NsdServiceInfo request = new NsdServiceInfo("another_name2", "another_type2");
+        request.setPort(2203);
+        final AdvertisingRequest advertisingRequest = new AdvertisingRequest.Builder(request,
+                PROTOCOL).build();
+        final NsdManager.RegistrationListener listener = mock(
+                NsdManager.RegistrationListener.class);
+
+        manager.registerService(advertisingRequest, Runnable::run, listener);
+        int key4 = getRequestKey(req -> verify(mServiceConn).registerService(req.capture(), any()));
+        mCallback.onRegisterServiceSucceeded(key4, request);
+        verify(listener, timeout(mTimeoutMs).times(1)).onServiceRegistered(request);
+    }
+
     private void doTestRegisterService() throws Exception {
         NsdManager manager = mManager;
 
@@ -347,6 +363,7 @@ public class NsdManagerTest {
 
         NsdServiceInfo invalidService = new NsdServiceInfo(null, null);
         NsdServiceInfo validService = new NsdServiceInfo("a_name", "a_type");
+        NsdServiceInfo validServiceDuplicate = new NsdServiceInfo("a_name", "a_type");
         validService.setPort(2222);
 
         // Service registration
@@ -358,8 +375,12 @@ public class NsdManagerTest {
         mustFail(() -> { manager.registerService(validService, -1, listener1); });
         mustFail(() -> { manager.registerService(validService, PROTOCOL, null); });
         manager.registerService(validService, PROTOCOL, listener1);
+        //  update the existing service should be allowed
+        manager.registerService(validService, PROTOCOL, listener1);
         //  - listener already registered
-        mustFail(() -> { manager.registerService(validService, PROTOCOL, listener1); });
+        mustFail(() -> {
+            manager.registerService(validServiceDuplicate, PROTOCOL, listener1);
+        });
         manager.unregisterService(listener1);
         // TODO: make listener immediately reusable
         //mustFail(() -> { manager.unregisterService(listener1); });
