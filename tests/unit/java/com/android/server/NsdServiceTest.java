@@ -864,7 +864,8 @@ public class NsdServiceTest {
                 List.of() /* textStrings */,
                 List.of() /* textEntries */,
                 1234,
-                network);
+                network,
+                100L /* ttlSeconds */);
 
         // Callbacks for query sent.
         listener.onDiscoveryQuerySent(Collections.emptyList(), 1 /* transactionId */);
@@ -894,7 +895,8 @@ public class NsdServiceTest {
                 List.of() /* textStrings */,
                 List.of() /* textEntries */,
                 1234,
-                network);
+                network,
+                100L /* ttlSeconds */);
 
         // Verify onServiceUpdated callback.
         listener.onServiceUpdated(updatedServiceInfo);
@@ -1025,7 +1027,8 @@ public class NsdServiceTest {
                 List.of(), /* textStrings */
                 List.of(), /* textEntries */
                 1234, /* interfaceIndex */
-                network);
+                network,
+                100L /* ttlSeconds */);
 
         // Verify onServiceNameDiscovered callback
         listener.onServiceNameDiscovered(foundInfo, false /* isServiceFromCache */);
@@ -1046,7 +1049,8 @@ public class NsdServiceTest {
                 null, /* textStrings */
                 null, /* textEntries */
                 1234, /* interfaceIndex */
-                network);
+                network,
+                100L /* ttlSeconds */);
         // Verify onServiceNameRemoved callback
         listener.onServiceNameRemoved(removedInfo);
         verify(discListener, timeout(TIMEOUT_MS)).onServiceLost(argThat(info ->
@@ -1168,7 +1172,8 @@ public class NsdServiceTest {
                 List.of(MdnsServiceInfo.TextEntry.fromBytes(new byte[]{
                         'k', 'e', 'y', '=', (byte) 0xFF, (byte) 0xFE})) /* textEntries */,
                 1234,
-                network);
+                network,
+                100L /* ttlSeconds */);
 
         // Verify onServiceFound callback
         doReturn(TEST_TIME_MS + 10L).when(mClock).elapsedRealtime();
@@ -1193,6 +1198,7 @@ public class NsdServiceTest {
         assertTrue(info.getHostAddresses().stream().anyMatch(
                 address -> address.equals(parseNumericAddress("2001:db8::2"))));
         assertEquals(network, info.getNetwork());
+        assertEquals(100L, info.getTtlSeconds());
 
         // Verify the listener has been unregistered.
         verify(mDiscoveryManager, timeout(TIMEOUT_MS))
