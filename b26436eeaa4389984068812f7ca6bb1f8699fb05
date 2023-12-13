@@ -83,6 +83,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "168ed234_9ab0d959",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-13T11:22:36Z",
+      "side": 1,
+      "message": "Yes, it is simpler, but I had to add this thread to be able control the network request writes frequency from below.",
+      "parentUuid": "e8f15a6a_5efed681",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 45
+      },
+      "revId": "b26436eeaa4389984068812f7ca6bb1f8699fb05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ef7149a_ee94e09c",
         "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
         "patchSetId": 10
@@ -94,6 +118,30 @@
       "writtenOn": "2023-12-13T11:02:53Z",
       "side": 1,
       "message": "I guess we have this to decrease the frequency of stats write but do we need this?\nDo we have any issue if we don\u0027t have this?",
+      "range": {
+        "startLine": 161,
+        "startChar": 20,
+        "endLine": 161,
+        "endChar": 44
+      },
+      "revId": "b26436eeaa4389984068812f7ca6bb1f8699fb05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5774bde1_2fea5e8d",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-13T11:22:36Z",
+      "side": 1,
+      "message": "Yeah, you understood correctly.\n\nThe reason for it is that during some tests I made with my device I saw there can be quite a few network requests, so this is kind of safety measure to make sure we won\u0027t loose any other atoms because of too frequent network requests.",
+      "parentUuid": "1ef7149a_ee94e09c",
       "range": {
         "startLine": 161,
         "startChar": 20,
