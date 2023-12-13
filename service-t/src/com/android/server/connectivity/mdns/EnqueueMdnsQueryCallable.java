@@ -77,6 +77,8 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
     @NonNull
     private final SharedLog sharedLog;
     private final boolean onlyUseIpv6OnIpv6OnlyNetworks;
+    @NonNull
+    private final List<MdnsResponse> existingServices;
 
     EnqueueMdnsQueryCallable(
             @NonNull MdnsSocketClientBase requestSender,
@@ -89,7 +91,8 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
             boolean sendDiscoveryQueries,
             @NonNull Collection<MdnsResponse> servicesToResolve,
             @NonNull MdnsUtils.Clock clock,
-            @NonNull SharedLog sharedLog) {
+            @NonNull SharedLog sharedLog,
+            @NonNull Collection<MdnsResponse> existingServices) {
         weakRequestSender = new WeakReference<>(requestSender);
         serviceTypeLabels = TextUtils.split(serviceType, "\\.");
         this.subtypes = new ArrayList<>(subtypes);
@@ -101,6 +104,7 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
         this.servicesToResolve = new ArrayList<>(servicesToResolve);
         this.clock = clock;
         this.sharedLog = sharedLog;
+        this.existingServices = new ArrayList<>(existingServices);
     }
 
     /**
@@ -171,11 +175,26 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
                 return Pair.create(INVALID_TRANSACTION_ID, new ArrayList<>());
             }
 
+            // Put the existing ptr records into known-answer section.
+            final List<MdnsRecord> knownAnswers = new ArrayList<>();
+            if (sendDiscoveryQueries) {
+                for (MdnsResponse existingService : existingServices) {
+                    for (MdnsPointerRecord ptrRecord : existingService.getPointerRecords()) {
+                        knownAnswers.add(new MdnsPointerRecord(
+                                ptrRecord.getName(),
+                                ptrRecord.getReceiptTime(),
+                                ptrRecord.getCacheFlush(),
+                                ptrRecord.getRemainingTTL(now), // Put the remaining ttl.
+                                ptrRecord.getPointer()));
+                    }
+                }
+            }
+
             final MdnsPacket queryPacket = new MdnsPacket(
                     transactionId,
                     MdnsConstants.FLAGS_QUERY,
                     questions,
-                    Collections.emptyList(), /* answers */
+                    knownAnswers,
                     Collections.emptyList(), /* authorityRecords */
                     Collections.emptyList() /* additionalRecords */);
             sendPacketToIpv4AndIpv6(requestSender, MdnsConstants.MDNS_PORT, queryPacket);
