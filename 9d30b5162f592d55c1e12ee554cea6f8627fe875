@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81a426aa_24ea1572",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-13T11:02:53Z",
+      "side": 1,
+      "message": "in Connectivity, we often use Dependencies for testing.\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/src/com/android/server/connectivity/PermissionMonitor.java;l\u003d264-270\n\nAnd test calls the constructor with dependencies.",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 5
+      },
+      "revId": "9d30b5162f592d55c1e12ee554cea6f8627fe875",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67f293a8_fc3098a9",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-13T11:02:53Z",
+      "side": 1,
+      "message": "If we add the dependency which have `ConnectivityStatsLog.write` to NetworkRequestStateStatsMetrics, I think we can just verify the arguments of `write`.\nWith this, we don\u0027t need to mock handler and also I felt this would have more code coverage.",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 20
+      },
+      "revId": "9d30b5162f592d55c1e12ee554cea6f8627fe875",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
