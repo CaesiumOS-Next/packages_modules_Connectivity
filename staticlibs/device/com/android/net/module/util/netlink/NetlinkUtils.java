@@ -35,7 +35,6 @@ import static com.android.net.module.util.netlink.NetlinkConstants.RTNL_FAMILY_I
 import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_DUMP;
 import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_REQUEST;
 
-import android.net.ParseException;
 import android.net.util.SocketUtils;
 import android.system.ErrnoException;
 import android.system.Os;
@@ -323,15 +322,14 @@ public class NetlinkUtils {
      * @param nlFamily netlink family
      * @param msgClass expected class of the netlink message
      * @param func function defined by caller to handle the dump messages
-     * @throws SocketException when fails to create socket
+     * @throws SocketException when fails to create socket or connect socket to kernel
      * @throws InterruptedIOException when fails to read the dumpFd
      * @throws ErrnoException when fails to send dump request
-     * @throws ParseException when message can't be parsed
      */
     public static <T extends NetlinkMessage> void getAndProcessNetlinkDumpMessages(
             byte[] dumpRequestMessage, int nlFamily, Class<T> msgClass,
             Consumer<T> func)
-            throws SocketException, InterruptedIOException, ErrnoException, ParseException {
+            throws SocketException, InterruptedIOException, ErrnoException {
         // Create socket and send dump request
         final FileDescriptor fd;
         try {
@@ -343,10 +341,14 @@ public class NetlinkUtils {
 
         try {
             connectToKernel(fd);
-        } catch (ErrnoException | SocketException e) {
+        } catch (ErrnoException e) {
             Log.e(TAG, "Failed to connect netlink socket to kernel " + e);
             closeSocketQuietly(fd);
-            return;
+            throw e.rethrowAsSocketException();
+        } catch (SocketException e) {
+            Log.e(TAG, "Failed to connect netlink socket to kernel " + e);
+            closeSocketQuietly(fd);
+            throw e;
         }
 
         try {
@@ -369,7 +371,7 @@ public class NetlinkUtils {
                     buf.position(position);
                     Log.e(TAG, "Failed to parse netlink message: " + hexify(buf));
                     closeSocketQuietly(fd);
-                    throw new ParseException("Failed to parse netlink message");
+                    return;
                 }
 
                 if (nlMsg.getHeader().nlmsg_type == NLMSG_DONE) {
@@ -439,7 +441,7 @@ public class NetlinkUtils {
             NetlinkUtils.<RtNetlinkRouteMessage>getAndProcessNetlinkDumpMessages(
                     dumpMsg, NETLINK_ROUTE, RtNetlinkRouteMessage.class,
                     handleNlDumpMsg);
-        } catch (SocketException | InterruptedIOException | ErrnoException | ParseException e) {
+        } catch (SocketException | InterruptedIOException | ErrnoException e) {
             Log.e(TAG, "Failed to dump multicast routes");
             return routes;
         }
