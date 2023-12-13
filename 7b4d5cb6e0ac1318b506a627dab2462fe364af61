@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5933681e_814d78ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-13T04:11:28Z",
+      "side": 1,
+      "message": "@wgtdkp@google.com Any idea how to solve this?\n\nhttps://android-build.corp.google.com/artifact/pending/P66765640/aosp_cheetah-trunk_staging-userdebug/latest/view/logs%2Fbuild_error.log",
+      "revId": "7b4d5cb6e0ac1318b506a627dab2462fe364af61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
