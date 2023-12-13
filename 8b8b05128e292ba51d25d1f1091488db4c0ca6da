@@ -71,6 +71,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69fa69c4_6b51177d",
+        "filename": "staticlibs/netd/binder/android/net/mdns/aidl/IMDnsEventListener.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-12-13T02:12:39Z",
+      "side": 1,
+      "message": "Oh yes, IMdns.aidl is not oneway. I mixed them up.\nThanks!",
+      "parentUuid": "8681070d_8af4b68f",
+      "revId": "8b8b05128e292ba51d25d1f1091488db4c0ca6da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ca555b2_1000797b",
@@ -132,6 +150,30 @@
       "side": 1,
       "message": "So if onServiceRegistrationStatus is actually going to stay implemented here: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/service-t/src/com/android/server/NsdService.java;drc\u003d283ff7058560eb924a8eb7c2b67d97059a93c1e7;l\u003d1836\n\nCould you update the documentation ?",
       "parentUuid": "0260a6b6_377e1b3d",
+      "range": {
+        "startLine": 51,
+        "startChar": 19,
+        "endLine": 51,
+        "endChar": 32
+      },
+      "revId": "8b8b05128e292ba51d25d1f1091488db4c0ca6da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b139f28e_41de08a5",
+        "filename": "staticlibs/netd/binder/android/net/mdns/aidl/IMDnsEventListener.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2023-12-13T02:12:39Z",
+      "side": 1,
+      "message": "Sorry, I mixed it up with IMdns.aidl.\nUpdated.",
+      "parentUuid": "8b54b4e9_bfe12d72",
       "range": {
         "startLine": 51,
         "startChar": 19,
