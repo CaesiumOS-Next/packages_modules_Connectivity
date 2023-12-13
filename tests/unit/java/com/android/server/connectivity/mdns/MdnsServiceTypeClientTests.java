@@ -55,6 +55,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.SharedLog;
@@ -137,6 +138,7 @@ public class MdnsServiceTypeClientTests {
     private long latestDelayMs = 0;
     private Message delayMessage = null;
     private Handler realHandler = null;
+    private MdnsFeatureFlags featureFlags = MdnsFeatureFlags.newBuilder().build();
 
     @Before
     @SuppressWarnings("DoNotMock")
@@ -178,7 +180,7 @@ public class MdnsServiceTypeClientTests {
     private MdnsServiceTypeClient makeMdnsServiceTypeClient() {
         return new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                 mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
+                serviceCache, featureFlags);
     }
 
     @After
@@ -1855,6 +1857,128 @@ public class MdnsServiceTypeClientTests {
                 16 /* scheduledCount */);
     }
 
+    @Test
+    public void testSendQueryWithKnownAnswers() {
+        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
+                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
+                serviceCache,
+                MdnsFeatureFlags.newBuilder().setIsQueryWithKnownAnswerEnabled(true).build());
+
+        startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
+        InOrder inOrder = inOrder(mockListenerOne, mockSocketClient);
+
+        final ArgumentCaptor<MdnsPacket> queryCaptor = ArgumentCaptor.forClass(MdnsPacket.class);
+        currentThreadExecutor.getAndClearLastScheduledRunnable().run();
+        // Send twice for IPv4 and IPv6
+        inOrder.verify(mockSocketClient, times(2)).sendPacketRequestingUnicastResponse(
+                queryCaptor.capture(), eq(socketKey), eq(false), any());
+        verify(mockDeps, times(1)).sendMessage(any(), any(Message.class));
+        assertNotNull(delayMessage);
+
+        final MdnsPacket queryPacket = queryCaptor.getValue();
+        assertTrue(hasQuestion(queryPacket, MdnsRecord.TYPE_PTR));
+
+        // Process a response
+        final String serviceName = "service-instance";
+        final String ipV4Address = "192.0.2.0";
+        final String[] subtypeLabels = Stream.concat(Stream.of("_subtype", "_sub"),
+                        Arrays.stream(SERVICE_TYPE_LABELS)).toArray(String[]::new);
+        final MdnsPacket packetWithoutSubtype = createResponse(
+                serviceName, ipV4Address, 5353, SERVICE_TYPE_LABELS,
+                Collections.emptyMap() /* textAttributes */, TEST_TTL);
+        final MdnsPointerRecord originalPtr = (MdnsPointerRecord) CollectionUtils.findFirst(
+                packetWithoutSubtype.answers, r -> r instanceof MdnsPointerRecord);
+
+        // Add a subtype PTR record
+        final ArrayList<MdnsRecord> newAnswers = new ArrayList<>(packetWithoutSubtype.answers);
+        newAnswers.add(new MdnsPointerRecord(subtypeLabels, originalPtr.getReceiptTime(),
+                originalPtr.getCacheFlush(), originalPtr.getTtl(), originalPtr.getPointer()));
+        final MdnsPacket packetWithSubtype = new MdnsPacket(
+                packetWithoutSubtype.flags,
+                packetWithoutSubtype.questions,
+                newAnswers,
+                packetWithoutSubtype.authorityRecords,
+                packetWithoutSubtype.additionalRecords);
+        processResponse(packetWithSubtype, socketKey);
+
+        // Expect a query with known answers
+        dispatchMessage();
+        final ArgumentCaptor<MdnsPacket> knownAnswersQueryCaptor =
+                ArgumentCaptor.forClass(MdnsPacket.class);
+        currentThreadExecutor.getAndClearLastScheduledRunnable().run();
+        inOrder.verify(mockSocketClient, times(2)).sendPacketRequestingMulticastResponse(
+                knownAnswersQueryCaptor.capture(),
+                eq(socketKey), eq(false), any());
+
+        final MdnsPacket knownAnswersQueryPacket = knownAnswersQueryCaptor.getValue();
+        assertTrue(hasQuestion(knownAnswersQueryPacket, MdnsRecord.TYPE_PTR, SERVICE_TYPE_LABELS));
+        assertTrue(hasAnswer(knownAnswersQueryPacket, MdnsRecord.TYPE_PTR, SERVICE_TYPE_LABELS));
+        assertFalse(hasAnswer(knownAnswersQueryPacket, MdnsRecord.TYPE_PTR, subtypeLabels));
+    }
+
+    @Test
+    public void testSendQueryWithSubTypeWithKnownAnswers() {
+        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
+                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
+                serviceCache,
+                MdnsFeatureFlags.newBuilder().setIsQueryWithKnownAnswerEnabled(true).build());
+
+        final MdnsSearchOptions options = MdnsSearchOptions.newBuilder()
+                .addSubtype("subtype").build();
+        startSendAndReceive(mockListenerOne, options);
+        InOrder inOrder = inOrder(mockListenerOne, mockSocketClient);
+
+        final ArgumentCaptor<MdnsPacket> queryCaptor = ArgumentCaptor.forClass(MdnsPacket.class);
+        currentThreadExecutor.getAndClearLastScheduledRunnable().run();
+        // Send twice for IPv4 and IPv6
+        inOrder.verify(mockSocketClient, times(2)).sendPacketRequestingUnicastResponse(
+                queryCaptor.capture(), eq(socketKey), eq(false), any());
+        verify(mockDeps, times(1)).sendMessage(any(), any(Message.class));
+        assertNotNull(delayMessage);
+
+        final MdnsPacket queryPacket = queryCaptor.getValue();
+        final String[] subtypeLabels = Stream.concat(Stream.of("_subtype", "_sub"),
+                Arrays.stream(SERVICE_TYPE_LABELS)).toArray(String[]::new);
+        assertTrue(hasQuestion(queryPacket, MdnsRecord.TYPE_PTR, SERVICE_TYPE_LABELS));
+        assertTrue(hasQuestion(queryPacket, MdnsRecord.TYPE_PTR, subtypeLabels));
+
+        // Process a response
+        final String serviceName = "service-instance";
+        final String ipV4Address = "192.0.2.0";
+        final MdnsPacket packetWithoutSubtype = createResponse(
+                serviceName, ipV4Address, 5353, SERVICE_TYPE_LABELS,
+                Collections.emptyMap() /* textAttributes */, TEST_TTL);
+        final MdnsPointerRecord originalPtr = (MdnsPointerRecord) CollectionUtils.findFirst(
+                packetWithoutSubtype.answers, r -> r instanceof MdnsPointerRecord);
+
+        // Add a subtype PTR record
+        final ArrayList<MdnsRecord> newAnswers = new ArrayList<>(packetWithoutSubtype.answers);
+        newAnswers.add(new MdnsPointerRecord(subtypeLabels, originalPtr.getReceiptTime(),
+                originalPtr.getCacheFlush(), originalPtr.getTtl(), originalPtr.getPointer()));
+        final MdnsPacket packetWithSubtype = new MdnsPacket(
+                packetWithoutSubtype.flags,
+                packetWithoutSubtype.questions,
+                newAnswers,
+                packetWithoutSubtype.authorityRecords,
+                packetWithoutSubtype.additionalRecords);
+        processResponse(packetWithSubtype, socketKey);
+
+        // Expect a query with known answers
+        dispatchMessage();
+        final ArgumentCaptor<MdnsPacket> knownAnswersQueryCaptor =
+                ArgumentCaptor.forClass(MdnsPacket.class);
+        currentThreadExecutor.getAndClearLastScheduledRunnable().run();
+        inOrder.verify(mockSocketClient, times(2)).sendPacketRequestingMulticastResponse(
+                knownAnswersQueryCaptor.capture(),
+                eq(socketKey), eq(false), any());
+
+        final MdnsPacket knownAnswersQueryPacket = knownAnswersQueryCaptor.getValue();
+        assertTrue(hasQuestion(knownAnswersQueryPacket, MdnsRecord.TYPE_PTR, SERVICE_TYPE_LABELS));
+        assertTrue(hasQuestion(knownAnswersQueryPacket, MdnsRecord.TYPE_PTR, subtypeLabels));
+        assertTrue(hasAnswer(knownAnswersQueryPacket, MdnsRecord.TYPE_PTR, SERVICE_TYPE_LABELS));
+        assertTrue(hasAnswer(knownAnswersQueryPacket, MdnsRecord.TYPE_PTR, subtypeLabels));
+    }
+
     private static MdnsServiceInfo matchServiceName(String name) {
         return argThat(info -> info.getServiceInstanceName().equals(name));
     }
@@ -1937,6 +2061,12 @@ public class MdnsServiceTypeClientTests {
     private static boolean hasQuestion(MdnsPacket packet, int type, @Nullable String[] name) {
         return packet.questions.stream().anyMatch(q -> q.getType() == type
                 && (name == null || Arrays.equals(q.name, name)));
+    }
+
+    private static boolean hasAnswer(MdnsPacket packet, int type, @NonNull String[] name) {
+        return packet.answers.stream().anyMatch(q -> {
+            return q.getType() == type && (Arrays.equals(q.name, name));
+        });
     }
 
     // A fake ScheduledExecutorService that keeps tracking the last scheduled Runnable and its delay

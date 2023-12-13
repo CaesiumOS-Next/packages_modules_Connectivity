@@ -290,7 +290,6 @@ public class MdnsFeatureFlags {
             return this;
         }
 
-
         /**
          * Builds a {@link MdnsFeatureFlags} with the arguments supplied to this builder.
          */
