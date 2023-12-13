@@ -226,6 +226,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd5aa8b5_a426276d",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-13T15:27:15Z",
+      "side": 1,
+      "message": "Shared the link with the guidance.",
+      "parentUuid": "6beeaf06_e2fad5d0",
+      "range": {
+        "startLine": 161,
+        "startChar": 20,
+        "endLine": 161,
+        "endChar": 44
+      },
+      "revId": "b26436eeaa4389984068812f7ca6bb1f8699fb05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b40bf7b_bd81cbb5",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 10
