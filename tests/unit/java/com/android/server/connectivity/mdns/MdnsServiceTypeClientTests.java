@@ -130,6 +130,7 @@ public class MdnsServiceTypeClientTests {
     private long latestDelayMs = 0;
     private Message delayMessage = null;
     private Handler realHandler = null;
+    private MdnsFeatureFlags featureFlags = MdnsFeatureFlags.newBuilder().build();
 
     @Before
     @SuppressWarnings("DoNotMock")
@@ -167,7 +168,7 @@ public class MdnsServiceTypeClientTests {
 
         client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
                 mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
-                serviceCache);
+                serviceCache, featureFlags);
     }
 
     @After
@@ -282,13 +283,15 @@ public class MdnsServiceTypeClientTests {
         // Queries should continue to be sent.
         verifyAndSendQuery(1 /* index */, 0 /* timeInMs */, true /* expectsUnicastResponse */,
                 true /* multipleSocketDiscovery */, 2 /* scheduledCount */, 1 /* transactionId */,
-                3 /* numberOfQuestion */);
+                3 /* numberOfQuestion */, false /* hasKnownAnswer */);
         verifyAndSendQuery(2 /* index */, MdnsConfigs.timeBetweenQueriesInBurstMs(),
                 false /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
-                3 /* scheduledCount */, 2 /* transactionId */, 3 /* numberOfQuestion */);
+                3 /* scheduledCount */, 2 /* transactionId */, 3 /* numberOfQuestion */,
+                false /* hasKnownAnswer */);
         verifyAndSendQuery(3 /* index */, MdnsConfigs.timeBetweenQueriesInBurstMs(),
                 false /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
-                4 /* scheduledCount */, 3 /* transactionId */, 3 /* numberOfQuestion */);
+                4 /* scheduledCount */, 3 /* transactionId */, 3 /* numberOfQuestion */,
+                false /* hasKnownAnswer */);
 
         // Stop sending packets.
         stopSendAndReceive(mockListenerOne);
@@ -464,13 +467,15 @@ public class MdnsServiceTypeClientTests {
         // Queries should continue to be sent.
         verifyAndSendQuery(1 /* index */, 0 /* timeInMs */, true /* expectsUnicastResponse */,
                 true /* multipleSocketDiscovery */, 2 /* scheduledCount */, 1 /* transactionId */,
-                3 /* numberOfQuestion */);
+                3 /* numberOfQuestion */, false /* hasKnownAnswer */);
         verifyAndSendQuery(2 /* index */, MdnsConfigs.timeBetweenQueriesInBurstMs(),
                 false /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
-                3 /* scheduledCount */, 2 /* transactionId */, 3 /* numberOfQuestion */);
+                3 /* scheduledCount */, 2 /* transactionId */, 3 /* numberOfQuestion */,
+                false /* hasKnownAnswer */);
         verifyAndSendQuery(3 /* index */, MdnsConfigs.timeBetweenQueriesInBurstMs(),
                 false /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
-                4 /* scheduledCount */, 3 /* transactionId */, 3 /* numberOfQuestion */);
+                4 /* scheduledCount */, 3 /* transactionId */, 3 /* numberOfQuestion */,
+                false /* hasKnownAnswer */);
 
         // Stop sending packets.
         stopSendAndReceive(mockListenerOne);
@@ -1561,6 +1566,32 @@ public class MdnsServiceTypeClientTests {
                 socketKey);
     }
 
+    @Test
+    public void testSendQueryWithKnownAnswers() throws Exception {
+        client = new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor,
+                mockDecoderClock, socketKey, mockSharedLog, thread.getLooper(), mockDeps,
+                serviceCache,
+                MdnsFeatureFlags.newBuilder().setIsKnownAnswerSuppressionEnabled(true).build());
+
+        final String serviceName = "service-instance";
+        final String ipV4Address = "192.0.2.0";
+
+        processResponse(createResponse(
+                        serviceName, ipV4Address, 5353, SUBTYPE,
+                        Collections.emptyMap(), TEST_TTL),
+                socketKey);
+
+        // Register a listener
+        startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
+
+        // Always try to remove the task.
+        verify(mockDeps, times(1)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+
+        verifyAndSendQuery(1 /* index */, 0 /* timeInMs */, true /* expectsUnicastResponse */,
+                true /* multipleSocketDiscovery */, 2 /* scheduledCount */, 1 /* transactionId */,
+                3 /* numberOfQuestion */, true /* hasKnownAnswer */);
+    }
+
     private static MdnsServiceInfo matchServiceName(String name) {
         return argThat(info -> info.getServiceInstanceName().equals(name));
     }
@@ -1576,12 +1607,13 @@ public class MdnsServiceTypeClientTests {
             boolean multipleSocketDiscovery, int scheduledCount) {
         verifyAndSendQuery(index, timeInMs, expectsUnicastResponse,
                 multipleSocketDiscovery, scheduledCount,
-                index + 1 /* transactionId */, 2 /* numberOfQuestion */);
+                index + 1 /* transactionId */, 2 /* numberOfQuestion */,
+                false /* hasKnownAnswer */);
     }
 
     private void verifyAndSendQuery(int index, long timeInMs, boolean expectsUnicastResponse,
             boolean multipleSocketDiscovery, int scheduledCount, int transactionId,
-            int numberOfQuestion) {
+            int numberOfQuestion, boolean hasKnownAnswer) {
         // Dispatch the message
         if (delayMessage != null && realHandler != null) {
             dispatchMessage();
@@ -1591,14 +1623,18 @@ public class MdnsServiceTypeClientTests {
         if (expectsUnicastResponse) {
             verify(mockSocketClient).sendPacketRequestingUnicastResponse(
                     argThat(packet -> packet.transactionId == transactionId
-                            && packet.questions.size() == numberOfQuestion),
+                            && packet.questions.size() == numberOfQuestion
+                            && hasKnownAnswer
+                                    ? packet.answers.size() != 0 : packet.answers.size() == 0),
                     eq(socketKey),
                     eq(false),
                     argThat(address -> address.getAddress() instanceof Inet4Address));
             if (multipleSocketDiscovery) {
                 verify(mockSocketClient).sendPacketRequestingUnicastResponse(
                         argThat(packet -> packet.transactionId == transactionId
-                                && packet.questions.size() == numberOfQuestion),
+                                && packet.questions.size() == numberOfQuestion
+                                && hasKnownAnswer
+                                        ? packet.answers.size() != 0 : packet.answers.size() == 0),
                         eq(socketKey),
                         eq(false),
                         argThat(address -> address.getAddress() instanceof Inet6Address));
@@ -1606,14 +1642,18 @@ public class MdnsServiceTypeClientTests {
         } else {
             verify(mockSocketClient).sendPacketRequestingMulticastResponse(
                     argThat(packet -> packet.transactionId == transactionId
-                            && packet.questions.size() == numberOfQuestion),
+                            && packet.questions.size() == numberOfQuestion
+                            && hasKnownAnswer
+                                    ? packet.answers.size() != 0 : packet.answers.size() == 0),
                     eq(socketKey),
                     eq(false),
                     argThat(address -> address.getAddress() instanceof Inet4Address));
             if (multipleSocketDiscovery) {
                 verify(mockSocketClient).sendPacketRequestingMulticastResponse(
                         argThat(packet -> packet.transactionId == transactionId
-                                && packet.questions.size() == numberOfQuestion),
+                                && packet.questions.size() == numberOfQuestion
+                                && hasKnownAnswer
+                                        ? packet.answers.size() != 0 : packet.answers.size() == 0),
                         eq(socketKey),
                         eq(false),
                         argThat(address -> address.getAddress() instanceof Inet6Address));

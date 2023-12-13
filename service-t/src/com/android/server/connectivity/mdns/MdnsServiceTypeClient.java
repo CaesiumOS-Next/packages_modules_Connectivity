@@ -80,6 +80,7 @@ public class MdnsServiceTypeClient {
                     notifyRemovedServiceToListeners(previousResponse, "Service record expired");
                 }
             };
+    @NonNull private final MdnsFeatureFlags featureFlags;
     private final ArrayMap<MdnsServiceBrowserListener, MdnsSearchOptions> listeners =
             new ArrayMap<>();
     private final boolean removeServiceAfterTtlExpires =
@@ -112,7 +113,8 @@ public class MdnsServiceTypeClient {
                     // before sending the query, it needs to be called just before sending it.
                     final List<MdnsResponse> servicesToResolve = makeResponsesForResolve(socketKey);
                     final QueryTask queryTask = new QueryTask(taskArgs, servicesToResolve,
-                            servicesToResolve.size() < listeners.size() /* sendDiscoveryQueries */);
+                            servicesToResolve.size() < listeners.size() /* sendDiscoveryQueries */,
+                            getExistingServices());
                     executor.submit(queryTask);
                     break;
                 }
@@ -206,9 +208,10 @@ public class MdnsServiceTypeClient {
             @NonNull SocketKey socketKey,
             @NonNull SharedLog sharedLog,
             @NonNull Looper looper,
-            @NonNull MdnsServiceCache serviceCache) {
+            @NonNull MdnsServiceCache serviceCache,
+            @NonNull MdnsFeatureFlags featureFlags) {
         this(serviceType, socketClient, executor, new Clock(), socketKey, sharedLog, looper,
-                new Dependencies(), serviceCache);
+                new Dependencies(), serviceCache, featureFlags);
     }
 
     @VisibleForTesting
@@ -221,7 +224,8 @@ public class MdnsServiceTypeClient {
             @NonNull SharedLog sharedLog,
             @NonNull Looper looper,
             @NonNull Dependencies dependencies,
-            @NonNull MdnsServiceCache serviceCache) {
+            @NonNull MdnsServiceCache serviceCache,
+            @NonNull MdnsFeatureFlags featureFlags) {
         this.serviceType = serviceType;
         this.socketClient = socketClient;
         this.executor = executor;
@@ -235,6 +239,7 @@ public class MdnsServiceTypeClient {
         this.serviceCache = serviceCache;
         this.mdnsQueryScheduler = new MdnsQueryScheduler();
         this.cacheKey = new MdnsServiceCache.CacheKey(serviceType, socketKey);
+        this.featureFlags = featureFlags;
     }
 
     /**
@@ -293,6 +298,11 @@ public class MdnsServiceTypeClient {
                 textEntries,
                 response.getInterfaceIndex(),
                 response.getNetwork());
+    }
+
+    private List<MdnsResponse> getExistingServices() {
+        return featureFlags.isKnownAnswerSuppressionEnabled()
+                ? serviceCache.getCachedServices(cacheKey) : Collections.emptyList();
     }
 
     /**
@@ -356,7 +366,8 @@ public class MdnsServiceTypeClient {
             final QueryTask queryTask = new QueryTask(
                     mdnsQueryScheduler.scheduleFirstRun(taskConfig, now,
                             minRemainingTtl, currentSessionId), servicesToResolve,
-                    servicesToResolve.size() < listeners.size() /* sendDiscoveryQueries */);
+                    servicesToResolve.size() < listeners.size() /* sendDiscoveryQueries */,
+                    getExistingServices());
             executor.submit(queryTask);
         }
 
@@ -626,11 +637,14 @@ public class MdnsServiceTypeClient {
         private final MdnsQueryScheduler.ScheduledQueryTaskArgs taskArgs;
         private final List<MdnsResponse> servicesToResolve = new ArrayList<>();
         private final boolean sendDiscoveryQueries;
+        private final List<MdnsResponse> existingServices = new ArrayList<>();
         QueryTask(@NonNull MdnsQueryScheduler.ScheduledQueryTaskArgs taskArgs,
-                @NonNull List<MdnsResponse> servicesToResolve, boolean sendDiscoveryQueries) {
+                @NonNull List<MdnsResponse> servicesToResolve, boolean sendDiscoveryQueries,
+                @NonNull List<MdnsResponse> existingServices) {
             this.taskArgs = taskArgs;
             this.servicesToResolve.addAll(servicesToResolve);
             this.sendDiscoveryQueries = sendDiscoveryQueries;
+            this.existingServices.addAll(existingServices);
         }
 
         @Override
@@ -649,7 +663,8 @@ public class MdnsServiceTypeClient {
                                 sendDiscoveryQueries,
                                 servicesToResolve,
                                 clock,
-                                sharedLog)
+                                sharedLog,
+                                existingServices)
                                 .call();
             } catch (RuntimeException e) {
                 sharedLog.e(String.format("Failed to run EnqueueMdnsQueryCallable for subtype: %s",
