@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b0d874d_3d5293c9",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-13T11:18:32Z",
+      "side": 1,
+      "message": "Java reference (mNetworkRequest) takes 4 bytes. mNetworkRequestId, mTransportTypes as int primitives take 4 bytes each, plus two bools (mNetCapabilityNotMetered, mNetCapabilityInternet) one bit each, plus any other fields you might want to copy in the future.",
+      "parentUuid": "86a1779c_ef07c131",
+      "range": {
+        "startLine": 25,
+        "startChar": 14,
+        "endLine": 25,
+        "endChar": 31
+      },
+      "revId": "9fc9ebdeee1fee4ea10d174253309bc5e23bfad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9264263a_66954fc9",
         "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
         "patchSetId": 4
@@ -273,6 +297,30 @@
       "side": 1,
       "message": "I had a feeling that onSomethingHappend() names are usually used for callbacks and it may be a bit confusing as these methods are called directly. Don\u0027t you think so?",
       "parentUuid": "6f7262de_1d5c10f3",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 46
+      },
+      "revId": "9fc9ebdeee1fee4ea10d174253309bc5e23bfad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de80bedc_9cd64429",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-13T11:18:32Z",
+      "side": 1,
+      "message": "Not quite, onSomethingHappened() just means that the method performs an action when something happens. There is no convention that such names are reserved for callbacks.",
+      "parentUuid": "1f9a8fe3_4b0bc698",
       "range": {
         "startLine": 78,
         "startChar": 16,
