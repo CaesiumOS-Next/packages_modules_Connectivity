@@ -496,7 +496,7 @@ public class NetworkRequestTest {
     @Test @IgnoreUpTo(VANILLA_ICE_CREAM)
     public void testDefaultCapabilities() {
         final NetworkRequest defaultNR = new NetworkRequest.Builder().build();
-        assertTrue(defaultNR.hasForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK));
+        // TODO: check that LOCAL_NETWORK is a forbidden capability.
         assertFalse(defaultNR.hasCapability(NET_CAPABILITY_LOCAL_NETWORK));
         assertTrue(defaultNR.hasCapability(NET_CAPABILITY_NOT_VPN));
 
@@ -511,12 +511,8 @@ public class NetworkRequestTest {
         // A default NR can be satisfied by default NC.
         assertTrue(defaultNR.canBeSatisfiedBy(defaultNC));
 
-        // Conversely, network requests have forbidden capabilities by default to manage
-        // backward compatibility, so test that these forbidden capabilities are in place.
-        // Starting in V, NET_CAPABILITY_LOCAL_NETWORK is introduced but is not seen by
-        // default, thanks to a default forbidden capability in NetworkRequest.
-        defaultNC.addCapability(NET_CAPABILITY_LOCAL_NETWORK);
-        assertFalse(defaultNR.canBeSatisfiedBy(defaultNC));
+        // TODO(b/313030307): reapply the parts of aosp/2539630 that check that network
+        // requests have LOCAL_NETWORK by default.
     }
 
     @Test
