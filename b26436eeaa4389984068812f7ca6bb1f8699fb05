@@ -154,6 +154,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7227becb_79366021",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-13T13:23:46Z",
+      "side": 1,
+      "message": "I\u0027m not familiar with StatsD code but I think `ConnectivityStatsLog.write` should not lose the atoms even if we call this frequently.\nDid we have this issue before?\n\n@lifr@google.com Do you have any idea? I think our code calls `StatsLog.write` in some places, do we have any rate limiting?",
+      "parentUuid": "5774bde1_2fea5e8d",
+      "range": {
+        "startLine": 161,
+        "startChar": 20,
+        "endLine": 161,
+        "endChar": 44
+      },
+      "revId": "b26436eeaa4389984068812f7ca6bb1f8699fb05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b40bf7b_bd81cbb5",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 10
