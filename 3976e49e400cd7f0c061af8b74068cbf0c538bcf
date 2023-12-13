@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c691623_9f223cbf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-12-13T00:28:26Z",
+      "side": 1,
+      "message": "Verified following tests with TH (https://android-build.corp.google.com/abtd/run/L27400030000783265/?referrer\u003demail)\n- FrameworksVcnTests\n- CtsVcnTestCases\n- FrameworksIkeTests\n- CtsIkeTestCases\n- IwlanTests",
+      "revId": "3976e49e400cd7f0c061af8b74068cbf0c538bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
