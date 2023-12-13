@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "891f8761_bc00b7f4",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1367962
+      },
+      "writtenOn": "2023-12-13T00:05:31Z",
+      "side": 1,
+      "message": "I thought that we are going to apply on device filters for NetworkRequest(e.g. either has Transport type specified or unmetered capability required)?\nBut I didn\u0027t see that in this CL. Or am I missing anything here?",
+      "range": {
+        "startLine": 89,
+        "startChar": 63,
+        "endLine": 89,
+        "endChar": 77
+      },
+      "revId": "fa923af689b107223f10cf44585dfefa1fd0e7af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
