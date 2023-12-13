@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48d83c26_5ec6a5c0",
+        "filename": "Tethering/proguard.flags",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-13T09:00:29Z",
+      "side": 1,
+      "message": "This comment seems only for \u0027-keepclassmembers\u0027 at below?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 43
+      },
+      "revId": "646ab8c4db30ea95ec1bfb3c90146336d9098f75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
