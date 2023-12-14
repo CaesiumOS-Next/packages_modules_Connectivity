@@ -41,6 +41,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46593999_45e3f730",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-14T01:33:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31709809_1cba2125",
+      "revId": "b26436eeaa4389984068812f7ca6bb1f8699fb05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "347f20c8_53225d86",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-14T01:33:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "567434d7_6f335fbb",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 11
+      },
+      "revId": "b26436eeaa4389984068812f7ca6bb1f8699fb05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c28b227a_b6178f9a",
@@ -54,6 +96,24 @@
       "writtenOn": "2023-12-13T11:02:53Z",
       "side": 1,
       "message": "can this be final?",
+      "revId": "b26436eeaa4389984068812f7ca6bb1f8699fb05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35fb5b21_a363ce76",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-14T01:33:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c28b227a_b6178f9a",
       "revId": "b26436eeaa4389984068812f7ca6bb1f8699fb05",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -319,6 +379,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00002bee_1e3ebb18",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-14T01:33:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b40bf7b_bd81cbb5",
+      "range": {
+        "startLine": 945,
+        "startChar": 11,
+        "endLine": 945,
+        "endChar": 12
+      },
+      "revId": "b26436eeaa4389984068812f7ca6bb1f8699fb05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79146374_6f3b92e7",
@@ -365,6 +449,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4daafc6f_dee049e7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 5334,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-14T01:33:10Z",
+      "side": 1,
+      "message": "Great point, thanks!",
+      "parentUuid": "e82959b7_dcebdcdd",
+      "range": {
+        "startLine": 5334,
+        "startChar": 18,
+        "endLine": 5334,
+        "endChar": 22
+      },
+      "revId": "b26436eeaa4389984068812f7ca6bb1f8699fb05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00cde371_993f2fc8",
@@ -388,6 +496,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89f00865_c97d6c1d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 5553,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-14T01:33:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00cde371_993f2fc8",
+      "range": {
+        "startLine": 5553,
+        "startChar": 14,
+        "endLine": 5553,
+        "endChar": 18
+      },
+      "revId": "b26436eeaa4389984068812f7ca6bb1f8699fb05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f30e15af_197354d5",
@@ -401,6 +533,30 @@
       "writtenOn": "2023-12-13T11:02:53Z",
       "side": 1,
       "message": "We don\u0027t want to slow down test as much as possible since our test is already slow unfortunately.\n\nIt would be better to have Dependency\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/src/com/android/server/connectivity/KeepaliveStatsTracker.java;l\u003d272-274\n\nAnd set the time from the test.\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/unit/java/com/android/server/connectivity/KeepaliveStatsTrackerTest.java;l\u003d253-255\n\nAnd avoid sleep in the test.",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 13
+      },
+      "revId": "b26436eeaa4389984068812f7ca6bb1f8699fb05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebca98b1_bd118eae",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateInfoTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-14T01:33:10Z",
+      "side": 1,
+      "message": "Nice approach, thank you, fixed!",
+      "parentUuid": "f30e15af_197354d5",
       "range": {
         "startLine": 57,
         "startChar": 8,

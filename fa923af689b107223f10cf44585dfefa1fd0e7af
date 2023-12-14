@@ -22,6 +22,30 @@
       },
       "revId": "fa923af689b107223f10cf44585dfefa1fd0e7af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae94733c_65950305",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-14T01:33:10Z",
+      "side": 1,
+      "message": "Sorry, it\u0027s my bad, I missed this part of logic. Now I added it with the tests",
+      "parentUuid": "891f8761_bc00b7f4",
+      "range": {
+        "startLine": 89,
+        "startChar": 63,
+        "endLine": 89,
+        "endChar": 77
+      },
+      "revId": "fa923af689b107223f10cf44585dfefa1fd0e7af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

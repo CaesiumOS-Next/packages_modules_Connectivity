@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54d9b615_4f171138",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-14T01:33:10Z",
+      "side": 1,
+      "message": "Oh, I see, thank you! Added Dependency subclass as well.",
+      "parentUuid": "81a426aa_24ea1572",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 5
+      },
+      "revId": "9d30b5162f592d55c1e12ee554cea6f8627fe875",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67f293a8_fc3098a9",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-13T11:02:53Z",
       "side": 1,
       "message": "If we add the dependency which have `ConnectivityStatsLog.write` to NetworkRequestStateStatsMetrics, I think we can just verify the arguments of `write`.\nWith this, we don\u0027t need to mock handler and also I felt this would have more code coverage.",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 20
+      },
+      "revId": "9d30b5162f592d55c1e12ee554cea6f8627fe875",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "486bf664_d71ff539",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-14T01:33:10Z",
+      "side": 1,
+      "message": "I added a Dependency class, but I\u0027m not sure how to test ConnectivityStatsLog.write as it is called in the separate thread asynchronously. I added a sendMessage mock for not to the Dependency, I think this should be also fine to test",
+      "parentUuid": "67f293a8_fc3098a9",
       "range": {
         "startLine": 69,
         "startChar": 8,

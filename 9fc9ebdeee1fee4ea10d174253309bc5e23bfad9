@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "58945325_ed6ca511",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-14T01:33:10Z",
+      "side": 1,
+      "message": "Gotcha, fixed!",
+      "parentUuid": "8b0d874d_3d5293c9",
+      "range": {
+        "startLine": 25,
+        "startChar": 14,
+        "endLine": 25,
+        "endChar": 31
+      },
+      "revId": "9fc9ebdeee1fee4ea10d174253309bc5e23bfad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9264263a_66954fc9",
@@ -321,6 +345,30 @@
       "side": 1,
       "message": "Not quite, onSomethingHappened() just means that the method performs an action when something happens. There is no convention that such names are reserved for callbacks.",
       "parentUuid": "1f9a8fe3_4b0bc698",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 46
+      },
+      "revId": "9fc9ebdeee1fee4ea10d174253309bc5e23bfad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56a6780c_8958e870",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-14T01:33:10Z",
+      "side": 1,
+      "message": "Gotcha! Fixed",
+      "parentUuid": "de80bedc_9cd64429",
       "range": {
         "startLine": 78,
         "startChar": 16,
