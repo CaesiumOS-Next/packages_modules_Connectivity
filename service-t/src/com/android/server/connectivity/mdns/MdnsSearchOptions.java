@@ -52,7 +52,8 @@ public class MdnsSearchOptions implements Parcelable {
                             source.readParcelable(null),
                             source.readString(),
                             source.readInt() == 1,
-                            source.readInt());
+                            source.readInt(),
+                            source.readInt() == 1);
                 }
 
                 @Override
@@ -70,6 +71,7 @@ public class MdnsSearchOptions implements Parcelable {
     private final boolean removeExpiredService;
     // The target network for searching. Null network means search on all possible interfaces.
     @Nullable private final Network mNetwork;
+    private final boolean isAggressiveMode;
 
     /** Parcelable constructs for a {@link MdnsSearchOptions}. */
     MdnsSearchOptions(
@@ -79,7 +81,8 @@ public class MdnsSearchOptions implements Parcelable {
             @Nullable Network network,
             @Nullable String resolveInstanceName,
             boolean onlyUseIpv6OnIpv6OnlyNetworks,
-            int numOfQueriesBeforeBackoff) {
+            int numOfQueriesBeforeBackoff,
+            boolean isAggressiveMode) {
         this.subtypes = new ArrayList<>();
         if (subtypes != null) {
             this.subtypes.addAll(subtypes);
@@ -90,6 +93,7 @@ public class MdnsSearchOptions implements Parcelable {
         this.removeExpiredService = removeExpiredService;
         mNetwork = network;
         this.resolveInstanceName = resolveInstanceName;
+        this.isAggressiveMode = isAggressiveMode;
     }
 
     /** Returns a {@link Builder} for {@link MdnsSearchOptions}. */
@@ -158,6 +162,14 @@ public class MdnsSearchOptions implements Parcelable {
         return resolveInstanceName;
     }
 
+    /**
+     * @return {@code true} if the aggressive mode is used. The aggressive mode scans more
+     * frequently and send both unicast and multicast query simultaneously.
+     */
+    public boolean isAggressiveMode() {
+        return isAggressiveMode;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -172,6 +184,7 @@ public class MdnsSearchOptions implements Parcelable {
         out.writeString(resolveInstanceName);
         out.writeInt(onlyUseIpv6OnIpv6OnlyNetworks ? 1 : 0);
         out.writeInt(numOfQueriesBeforeBackoff);
+        out.writeInt(isAggressiveMode ? 1 : 0);
     }
 
     /** A builder to create {@link MdnsSearchOptions}. */
@@ -183,6 +196,7 @@ public class MdnsSearchOptions implements Parcelable {
         private boolean removeExpiredService;
         private Network mNetwork;
         private String resolveInstanceName;
+        private boolean isAggressiveMode = false;
 
         private Builder() {
             subtypes = MdnsUtils.newSet();
@@ -272,6 +286,19 @@ public class MdnsSearchOptions implements Parcelable {
             return this;
         }
 
+        /**
+         * Sets if the aggressive mode scan should be used. The aggressive mode scans more
+         * frequently and send both unicast and multicast query simultaneously.
+         *
+         * @param isAggressiveMode If set to {@code true}, aggressive mode will be used. If set to
+         *                         {@code false}, active or passive mode will be used that depends
+         *                         on {@code isPassiveMode} value.
+         */
+        public Builder setIsAggressiveMode(boolean isAggressiveMode) {
+            this.isAggressiveMode = isAggressiveMode;
+            return this;
+        }
+
         /** Builds a {@link MdnsSearchOptions} with the arguments supplied to this builder. */
         public MdnsSearchOptions build() {
             return new MdnsSearchOptions(
@@ -281,7 +308,8 @@ public class MdnsSearchOptions implements Parcelable {
                     mNetwork,
                     resolveInstanceName,
                     onlyUseIpv6OnIpv6OnlyNetworks,
-                    numOfQueriesBeforeBackoff);
+                    numOfQueriesBeforeBackoff,
+                    isAggressiveMode);
         }
     }
 }

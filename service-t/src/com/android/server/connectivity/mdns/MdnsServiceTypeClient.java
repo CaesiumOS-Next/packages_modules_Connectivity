@@ -333,7 +333,8 @@ public class MdnsServiceTypeClient {
                 searchOptions.isPassiveMode(),
                 searchOptions.onlyUseIpv6OnIpv6OnlyNetworks(),
                 searchOptions.numOfQueriesBeforeBackoff(),
-                socketKey);
+                socketKey,
+                searchOptions.isAggressiveMode());
         final long now = clock.elapsedRealtime();
         if (lastSentTime == 0) {
             lastSentTime = now;
