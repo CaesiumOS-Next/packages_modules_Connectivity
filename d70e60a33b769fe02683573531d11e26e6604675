@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e3607be6_84ba606c",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/StructMf6cctl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-14T09:44:42Z",
+      "side": 1,
+      "message": "How did you decide padding\u003d2 for this field?",
+      "range": {
+        "startLine": 55,
+        "startChar": 40,
+        "endLine": 55,
+        "endChar": 51
+      },
+      "revId": "d70e60a33b769fe02683573531d11e26e6604675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0f1a32c_7936e484",
         "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMf6cctlTest.java",
         "patchSetId": 6
@@ -14,6 +37,30 @@
       "writtenOn": "2023-12-14T08:07:00Z",
       "side": 1,
       "message": "Can we add test for parse and writeToBytes?",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 1
+      },
+      "revId": "d70e60a33b769fe02683573531d11e26e6604675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "130f01da_9fbf8d62",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMf6cctlTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-14T09:44:42Z",
+      "side": 1,
+      "message": "Also, do/will we have cts that would fail if the parsing or writeToByte is wrong?",
+      "parentUuid": "b0f1a32c_7936e484",
       "range": {
         "startLine": 47,
         "startChar": 0,
