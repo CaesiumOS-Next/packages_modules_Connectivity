@@ -70,6 +70,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e69a15ff_f7e7fc45",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-14T19:39:55Z",
+      "side": 1,
+      "message": "Removed this functionality",
+      "parentUuid": "3469751a_0ce9c485",
+      "range": {
+        "startLine": 81,
+        "startChar": 16,
+        "endLine": 81,
+        "endChar": 45
+      },
+      "revId": "f5a8753d9a4981c6499ad575d1e35e5b72bb534c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d97aca8_042f0c31",

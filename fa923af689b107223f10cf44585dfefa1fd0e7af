@@ -70,6 +70,30 @@
       },
       "revId": "fa923af689b107223f10cf44585dfefa1fd0e7af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fa77bbd_cb205afb",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-14T19:39:55Z",
+      "side": 1,
+      "message": "Discussed with Ivo offline if we need to have extra filtering on the client side before sending atoms to the statsd and looks like the network request count numbers are not that high to filter them out at all + these atoms can be potentially interested in the future, so removed the filtering. So the current proposal to filter them out on the SQL writing stage.",
+      "parentUuid": "f18bd928_9de27d19",
+      "range": {
+        "startLine": 89,
+        "startChar": 63,
+        "endLine": 89,
+        "endChar": 77
+      },
+      "revId": "fa923af689b107223f10cf44585dfefa1fd0e7af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
