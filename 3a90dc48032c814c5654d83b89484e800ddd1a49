@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "868023b1_137b715c",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T07:15:23Z",
+      "side": 1,
+      "message": "readParcelable ? That would also avoid the cast",
+      "range": {
+        "startLine": 42,
+        "startChar": 51,
+        "endLine": 42,
+        "endChar": 60
+      },
+      "revId": "3a90dc48032c814c5654d83b89484e800ddd1a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c21d12b9_f18c4568",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T07:15:23Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 4
+      },
+      "revId": "3a90dc48032c814c5654d83b89484e800ddd1a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11bd3cf4_e64e9b97",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T07:15:23Z",
+      "side": 1,
+      "message": "I think we\u0027ve talked about discovery requests for just A or AAAA records, for the discovery proxy feature, so maybe the serviceType shouldn\u0027t be in the constructor ?\n\nThe protocol should probably be assumed to be PROTOCOL_DNS_SD; there\u0027s been no other option for the last many years",
+      "revId": "3a90dc48032c814c5654d83b89484e800ddd1a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54a5d130_58295468",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T07:15:23Z",
+      "side": 1,
+      "message": "You should be able to fix the errorprone error by annotating the method itself with @GuardedBy(\"mMapLock\") (hopefully)",
+      "revId": "3a90dc48032c814c5654d83b89484e800ddd1a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dc47957_8236abc4",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1295,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T07:15:23Z",
+      "side": 1,
+      "message": "If DiscoveryRequest ends up allowing empty serviceType (for the discovery proxy AAAA queries for example), this method should still do the isEmpty check to keep the same behavior (same for other older overloads)",
+      "revId": "3a90dc48032c814c5654d83b89484e800ddd1a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0b34997_25a1012e",
+        "filename": "tests/cts/net/src/android/net/cts/DiscoveryRequestTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T07:15:23Z",
+      "side": 1,
+      "message": "Also @ConnectivityModuleTest: this should not be run on a T device unless it has an updated connectivity (tethering) module",
+      "revId": "3a90dc48032c814c5654d83b89484e800ddd1a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdbdcdc8_8618c822",
+        "filename": "tests/cts/net/src/android/net/cts/DiscoveryRequestTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T07:15:23Z",
+      "side": 1,
+      "message": "Although this is not a standard shared with all parts of the code, tests in tests/cts/net have \"test\" as prefix in their name\n\nSo: testParcelingIsLossless\ntestBuilder_emptyServiceType_throwsIllegalArgument\n\netc.",
+      "revId": "3a90dc48032c814c5654d83b89484e800ddd1a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

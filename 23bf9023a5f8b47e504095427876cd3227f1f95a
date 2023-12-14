@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0506aae4_566ffd63",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T07:15:23Z",
+      "side": 1,
+      "message": "protocolType was never used to say anything else than DNS_SD in the end, so I\u0027d agree that having a flags field instead would be more useful: then if we need to add a different protocol (unlikely ?), it could be a different flag.\n\nBut there\u0027s no implementation for any discoveryConfig / flag in this change, and the API should only be added when there\u0027s an implementation. So maybe this should be added when adding a flag (could be the \"discover only on IPv4/IPv6\" flags for example)",
+      "parentUuid": "e6a08880_a534f031",
+      "range": {
+        "startLine": 58,
+        "startChar": 3,
+        "endLine": 58,
+        "endChar": 22
+      },
+      "revId": "23bf9023a5f8b47e504095427876cd3227f1f95a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "038d38a1_03fb871f",
         "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
         "patchSetId": 12
