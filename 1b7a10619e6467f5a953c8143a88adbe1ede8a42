@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2af8a2c_e06d4e9b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-14T07:18:29Z",
+      "side": 1,
+      "message": "nits: When we expect the upstream is changed, we can check LocalInfoChanged.",
+      "range": {
+        "startLine": 317,
+        "startChar": 8,
+        "endLine": 317,
+        "endChar": 19
+      },
+      "revId": "1b7a10619e6467f5a953c8143a88adbe1ede8a42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a440db57_109c41a1",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-14T07:18:29Z",
+      "side": 1,
+      "message": "nits: do we need this and other `clearInvocations(routingCoordinatorService)`?",
+      "range": {
+        "startLine": 355,
+        "startChar": 8,
+        "endLine": 355,
+        "endChar": 24
+      },
+      "revId": "1b7a10619e6467f5a953c8143a88adbe1ede8a42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3486b8b4_565b9049",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-14T07:18:29Z",
+      "side": 1,
+      "message": "nits: We can check LocalInfoChanged here as well.",
+      "range": {
+        "startLine": 413,
+        "startChar": 8,
+        "endLine": 413,
+        "endChar": 19
+      },
+      "revId": "1b7a10619e6467f5a953c8143a88adbe1ede8a42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "525b8dcb_fcf40fd3",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-14T07:18:29Z",
+      "side": 1,
+      "message": "I would just mock RoutingCoordinatorService since logic in RoutingCoordinatorService is covered by `RoutingCoordinatorServiceTest`.\nOtherwise, we need to keep adding doNothing when RoutingCoordinatorService has new APIs.",
+      "range": {
+        "startLine": 171,
+        "startChar": 8,
+        "endLine": 171,
+        "endChar": 33
+      },
+      "revId": "1b7a10619e6467f5a953c8143a88adbe1ede8a42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
