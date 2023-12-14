@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b66bdb1a_48bf69d7",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-14T08:22:54Z",
+      "side": 1,
+      "message": "This seems like a really serious error. Seems like instead of ignoring it, the code should pass on the exception (or throw a new exception) and force the caller to deal with it?",
+      "range": {
+        "startLine": 338,
+        "startChar": 0,
+        "endLine": 339,
+        "endChar": 19
+      },
+      "revId": "2d01a23c7d723f8f2e14a1e2faed505f6930842d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11eb787e_adcead96",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/NetlinkUtilsTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-14T08:22:54Z",
+      "side": 1,
+      "message": "Maybe check that 127.0.0.1 and ::1 are in the output, like the old code did?",
+      "range": {
+        "startLine": 153,
+        "startChar": 35,
+        "endLine": 153,
+        "endChar": 36
+      },
+      "revId": "2d01a23c7d723f8f2e14a1e2faed505f6930842d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
