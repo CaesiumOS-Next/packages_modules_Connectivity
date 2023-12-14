@@ -40,6 +40,7 @@ public class QueryTaskConfig {
     private static final int QUERIES_PER_BURST_PASSIVE_MODE =
             (int) MdnsConfigs.queriesPerBurstPassive();
     private static final int UNSIGNED_SHORT_MAX_VALUE = 65536;
+    private static final int ACTIVE_QUERY_SESSION = 5;
     // The following fields are used by QueryTask so we need to test them.
     @VisibleForTesting
     final List<String> subtypes;
@@ -60,11 +61,13 @@ public class QueryTaskConfig {
     private final long queryCount;
     @NonNull
     final SocketKey socketKey;
+    private final boolean useBlendMode;
+    private final int sessionCounter;
 
     QueryTaskConfig(@NonNull QueryTaskConfig other, long queryCount, int transactionId,
             boolean expectUnicastResponse, boolean isFirstBurst, int burstCounter,
             int queriesPerBurst, int timeBetweenBurstsInMs,
-            long delayUntilNextTaskWithoutBackoffMs) {
+            long delayUntilNextTaskWithoutBackoffMs, int sessionCounter) {
         this.subtypes = new ArrayList<>(other.subtypes);
         this.usePassiveMode = other.usePassiveMode;
         this.onlyUseIpv6OnIpv6OnlyNetworks = other.onlyUseIpv6OnIpv6OnlyNetworks;
@@ -78,12 +81,15 @@ public class QueryTaskConfig {
         this.isFirstBurst = isFirstBurst;
         this.queryCount = queryCount;
         this.socketKey = other.socketKey;
+        this.useBlendMode = other.useBlendMode;
+        this.sessionCounter = sessionCounter;
     }
     QueryTaskConfig(@NonNull Collection<String> subtypes,
             boolean usePassiveMode,
             boolean onlyUseIpv6OnIpv6OnlyNetworks,
             int numOfQueriesBeforeBackoff,
-            @Nullable SocketKey socketKey) {
+            @Nullable SocketKey socketKey,
+            boolean useBlendMode) {
         this.usePassiveMode = usePassiveMode;
         this.onlyUseIpv6OnIpv6OnlyNetworks = onlyUseIpv6OnIpv6OnlyNetworks;
         this.numOfQueriesBeforeBackoff = numOfQueriesBeforeBackoff;
@@ -109,6 +115,8 @@ public class QueryTaskConfig {
         this.socketKey = socketKey;
         this.queryCount = 0;
         this.delayUntilNextTaskWithoutBackoffMs = TIME_BETWEEN_QUERIES_IN_BURST_MS;
+        this.useBlendMode = useBlendMode;
+        this.sessionCounter = 1;
     }
 
     /**
@@ -126,11 +134,14 @@ public class QueryTaskConfig {
         int newBurstCounter = burstCounter + 1;
         long newDelayUntilNextTaskWithoutBackoffMs = delayUntilNextTaskWithoutBackoffMs;
         int newTimeBetweenBurstsInMs = timeBetweenBurstsInMs;
+        int newSessionCounter = sessionCounter;
         // Only the first query expects uni-cast response.
         if (newBurstCounter == queriesPerBurst) {
             newBurstCounter = 0;
+            newSessionCounter++;
 
-            if (alwaysAskForUnicastResponse) {
+            if (alwaysAskForUnicastResponse
+                    || (useBlendMode && newSessionCounter <= ACTIVE_QUERY_SESSION)) {
                 newExpectUnicastResponse = true;
             }
             // In passive scan mode, sends a single burst of QUERIES_PER_BURST queries, and
@@ -142,6 +153,11 @@ public class QueryTaskConfig {
                     newQueriesPerBurst = QUERIES_PER_BURST_PASSIVE_MODE;
                 }
             }
+            // In blend scan mode, sends a single burst of QUERIES_PER_BURST queries after the
+            // session is more than ACTIVE_QUERY_SESSION
+            if (useBlendMode && newSessionCounter > ACTIVE_QUERY_SESSION) {
+                newQueriesPerBurst = QUERIES_PER_BURST_PASSIVE_MODE;
+            }
             // In active scan mode, sends a burst of QUERIES_PER_BURST queries,
             // TIME_BETWEEN_QUERIES_IN_BURST_MS apart, then waits for the scan interval, and
             // then repeats. The scan interval starts as INITIAL_TIME_BETWEEN_BURSTS_MS and
@@ -152,11 +168,15 @@ public class QueryTaskConfig {
                         TIME_BETWEEN_BURSTS_MS);
             }
         } else {
-            newDelayUntilNextTaskWithoutBackoffMs = TIME_BETWEEN_QUERIES_IN_BURST_MS;
+            if (useBlendMode && newBurstCounter == 1) {
+                newDelayUntilNextTaskWithoutBackoffMs = 0;
+            } else {
+                newDelayUntilNextTaskWithoutBackoffMs = TIME_BETWEEN_QUERIES_IN_BURST_MS;
+            }
         }
         return new QueryTaskConfig(this, newQueryCount, newTransactionId,
                 newExpectUnicastResponse, newIsFirstBurst, newBurstCounter, newQueriesPerBurst,
-                newTimeBetweenBurstsInMs, newDelayUntilNextTaskWithoutBackoffMs);
+                newTimeBetweenBurstsInMs, newDelayUntilNextTaskWithoutBackoffMs, newSessionCounter);
     }
 
     /**

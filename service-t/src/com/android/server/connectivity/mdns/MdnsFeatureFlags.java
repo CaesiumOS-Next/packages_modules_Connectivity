@@ -41,6 +41,11 @@ public class MdnsFeatureFlags {
      */
     public static final String NSD_LIMIT_LABEL_COUNT = "nsd_limit_label_count";
 
+    /**
+     * A feature flag to control whether the blend query mode should be enabled.
+     */
+    public static final String NSD_BLEND_QUERY_MODE = "nsd_blend_query_mode";
+
     // Flag for offload feature
     public final boolean mIsMdnsOffloadFeatureEnabled;
 
@@ -53,17 +58,21 @@ public class MdnsFeatureFlags {
     // Flag for label count limit
     public final boolean mIsLabelCountLimitEnabled;
 
+    // Flag for blend query mode
+    public final boolean mIsBlendQueryModeEnabled;
     /**
      * The constructor for {@link MdnsFeatureFlags}.
      */
     public MdnsFeatureFlags(boolean isOffloadFeatureEnabled,
             boolean includeInetAddressRecordsInProbing,
             boolean isExpiredServicesRemovalEnabled,
-            boolean isLabelCountLimitEnabled) {
+            boolean isLabelCountLimitEnabled,
+            boolean isBlendQueryModeEnabled) {
         mIsMdnsOffloadFeatureEnabled = isOffloadFeatureEnabled;
         mIncludeInetAddressRecordsInProbing = includeInetAddressRecordsInProbing;
         mIsExpiredServicesRemovalEnabled = isExpiredServicesRemovalEnabled;
         mIsLabelCountLimitEnabled = isLabelCountLimitEnabled;
+        mIsBlendQueryModeEnabled = isBlendQueryModeEnabled;
     }
 
 
@@ -79,6 +88,7 @@ public class MdnsFeatureFlags {
         private boolean mIncludeInetAddressRecordsInProbing;
         private boolean mIsExpiredServicesRemovalEnabled;
         private boolean mIsLabelCountLimitEnabled;
+        private boolean mIsBlendQueryModeEnabled;
 
         /**
          * The constructor for {@link Builder}.
@@ -88,6 +98,7 @@ public class MdnsFeatureFlags {
             mIncludeInetAddressRecordsInProbing = false;
             mIsExpiredServicesRemovalEnabled = false;
             mIsLabelCountLimitEnabled = true; // Default enabled.
+            mIsBlendQueryModeEnabled = false;
         }
 
         /**
@@ -132,13 +143,24 @@ public class MdnsFeatureFlags {
         }
 
         /**
+         * Set whether the new query mode is enabled.
+         *
+         * @see #NSD_BLEND_QUERY_MODE
+         */
+        public Builder setIsBlendQueryModeEnabled(boolean isBlendQueryModeEnabled) {
+            mIsBlendQueryModeEnabled = isBlendQueryModeEnabled;
+            return this;
+        }
+
+        /**
          * Builds a {@link MdnsFeatureFlags} with the arguments supplied to this builder.
          */
         public MdnsFeatureFlags build() {
             return new MdnsFeatureFlags(mIsMdnsOffloadFeatureEnabled,
                     mIncludeInetAddressRecordsInProbing,
                     mIsExpiredServicesRemovalEnabled,
-                    mIsLabelCountLimitEnabled);
+                    mIsLabelCountLimitEnabled,
+                    mIsBlendQueryModeEnabled);
         }
     }
 }

@@ -145,8 +145,8 @@ public class MdnsServiceTypeClientTests {
         MockitoAnnotations.initMocks(this);
         doReturn(TEST_ELAPSED_REALTIME).when(mockDecoderClock).elapsedRealtime();
 
-        expectedIPv4Packets = new DatagramPacket[16];
-        expectedIPv6Packets = new DatagramPacket[16];
+        expectedIPv4Packets = new DatagramPacket[17];
+        expectedIPv6Packets = new DatagramPacket[17];
         socketKey = new SocketKey(mockNetwork, INTERFACE_INDEX);
 
         for (int i = 0; i < expectedIPv4Packets.length; ++i) {
@@ -171,7 +171,8 @@ public class MdnsServiceTypeClientTests {
                 .thenReturn(expectedIPv4Packets[12])
                 .thenReturn(expectedIPv4Packets[13])
                 .thenReturn(expectedIPv4Packets[14])
-                .thenReturn(expectedIPv4Packets[15]);
+                .thenReturn(expectedIPv4Packets[15])
+                .thenReturn(expectedIPv4Packets[16]);
 
         when(mockPacketWriter.getPacket(IPV6_ADDRESS))
                 .thenReturn(expectedIPv6Packets[0])
@@ -189,7 +190,8 @@ public class MdnsServiceTypeClientTests {
                 .thenReturn(expectedIPv6Packets[12])
                 .thenReturn(expectedIPv6Packets[13])
                 .thenReturn(expectedIPv6Packets[14])
-                .thenReturn(expectedIPv6Packets[15]);
+                .thenReturn(expectedIPv6Packets[15])
+                .thenReturn(expectedIPv6Packets[16]);
 
         thread = new HandlerThread("MdnsServiceTypeClientTests");
         thread.start();
@@ -538,7 +540,7 @@ public class MdnsServiceTypeClientTests {
         QueryTaskConfig config = new QueryTaskConfig(
                 searchOptions.getSubtypes(), searchOptions.isPassiveMode(),
                 false /* onlyUseIpv6OnIpv6OnlyNetworks */, 3 /* numOfQueriesBeforeBackoff */,
-                socketKey);
+                socketKey, searchOptions.isBlendMode());
 
         // This is the first query. We will ask for unicast response.
         assertTrue(config.expectUnicastResponse);
@@ -569,7 +571,7 @@ public class MdnsServiceTypeClientTests {
         QueryTaskConfig config = new QueryTaskConfig(
                 searchOptions.getSubtypes(), searchOptions.isPassiveMode(),
                 false /* onlyUseIpv6OnIpv6OnlyNetworks */, 3 /* numOfQueriesBeforeBackoff */,
-                socketKey);
+                socketKey, searchOptions.isBlendMode());
 
         // This is the first query. We will ask for unicast response.
         assertTrue(config.expectUnicastResponse);
@@ -1664,6 +1666,165 @@ public class MdnsServiceTypeClientTests {
                 Collections.singletonList(SUBTYPE) /* subTypes */,
                 Collections.singletonMap("key", "value") /* attributes */,
                 socketKey);
+    }
+
+    @Test
+    public void sendQueries_blendScanMode() {
+        final MdnsSearchOptions searchOptions = MdnsSearchOptions.newBuilder()
+                .addSubtype(SUBTYPE)
+                .setIsPassiveMode(false)
+                .setIsBlendMode(true)
+                .build();
+        startSendAndReceive(mockListenerOne, searchOptions);
+        // Always try to remove the task.
+        verify(mockDeps, times(1)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+
+        // First burst, 3 queries.
+        verifyAndSendQuery(0, 0, /* expectsUnicastResponse= */ true);
+        verifyAndSendQuery(
+                1, 0, /* expectsUnicastResponse= */ false);
+        verifyAndSendQuery(
+                2, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+        // Second burst will be sent after initialTimeBetweenBurstsMs, 3 queries.
+        verifyAndSendQuery(
+                3, MdnsConfigs.initialTimeBetweenBurstsMs(), /* expectsUnicastResponse= */ true);
+        verifyAndSendQuery(
+                4, 0, /* expectsUnicastResponse= */ false);
+        verifyAndSendQuery(
+                5, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+        // Third burst will be sent after initialTimeBetweenBurstsMs * 2, 3 queries.
+        verifyAndSendQuery(
+                6, MdnsConfigs.initialTimeBetweenBurstsMs() * 2, /* expectsUnicastResponse= */
+                true);
+        verifyAndSendQuery(
+                7, 0, /* expectsUnicastResponse= */ false);
+        verifyAndSendQuery(
+                8, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+        // Forth burst will be sent after initialTimeBetweenBurstsMs * 4, 3 queries.
+        verifyAndSendQuery(
+                9, MdnsConfigs.initialTimeBetweenBurstsMs() * 4, /* expectsUnicastResponse= */
+                true);
+        verifyAndSendQuery(
+                10, 0, /* expectsUnicastResponse= */ false);
+        verifyAndSendQuery(
+                11, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+        // Fifth burst will be sent after timeBetweenBurstsMs, 3 queries.
+        verifyAndSendQuery(12, MdnsConfigs.timeBetweenBurstsMs(), /* expectsUnicastResponse= */
+                true);
+        verifyAndSendQuery(
+                13, 0, /* expectsUnicastResponse= */ false);
+        verifyAndSendQuery(
+                14, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+        verifyAndSendQuery(
+                15, MdnsConfigs.timeBetweenBurstsMs(), /* expectsUnicastResponse= */ false);
+        verifyAndSendQuery(
+                16, MdnsConfigs.timeBetweenBurstsMs(), /* expectsUnicastResponse= */ false);
+        // Verify that Task is not removed before stopSendAndReceive was called.
+        verify(mockDeps, times(1)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+
+        // Stop sending packets.
+        stopSendAndReceive(mockListenerOne);
+        verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+    }
+
+    @Test
+    public void sendQueries_reentry_blendScanMode() {
+        final MdnsSearchOptions searchOptions = MdnsSearchOptions.newBuilder()
+                .addSubtype(SUBTYPE)
+                .setIsPassiveMode(false)
+                .setIsBlendMode(true)
+                .build();
+        startSendAndReceive(mockListenerOne, searchOptions);
+        // Always try to remove the task.
+        verify(mockDeps, times(1)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+
+        // First burst, first query is sent.
+        verifyAndSendQuery(0, 0, /* expectsUnicastResponse= */ true);
+
+        // After the first query is sent, change the subtypes, and restart.
+        final MdnsSearchOptions searchOptions2 = MdnsSearchOptions.newBuilder()
+                .addSubtype(SUBTYPE)
+                .addSubtype("_subtype2")
+                .setIsPassiveMode(false)
+                .setIsBlendMode(true)
+                .build();
+        startSendAndReceive(mockListenerOne, searchOptions2);
+        // The previous scheduled task should be canceled.
+        verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+
+        // Queries should continue to be sent.
+        verifyAndSendQuery(1, 0, /* expectsUnicastResponse= */ true);
+        verifyAndSendQuery(2, 0, /* expectsUnicastResponse= */ false);
+        verifyAndSendQuery(
+                3, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+
+        // Stop sending packets.
+        stopSendAndReceive(mockListenerOne);
+        verify(mockDeps, times(3)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+    }
+
+    @Test
+    public void sendQueries_blendScanWithQueryBackoff() {
+        final MdnsSearchOptions searchOptions = MdnsSearchOptions.newBuilder()
+                .addSubtype(SUBTYPE)
+                .setIsPassiveMode(false)
+                .setIsBlendMode(true)
+                .setNumOfQueriesBeforeBackoff(11).build();
+        startSendAndReceive(mockListenerOne, searchOptions);
+        // Always try to remove the task.
+        verify(mockDeps, times(1)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+
+        // First burst, 3 queries.
+        verifyAndSendQuery(0, 0, /* expectsUnicastResponse= */ true);
+        verifyAndSendQuery(
+                1, 0, /* expectsUnicastResponse= */ false);
+        verifyAndSendQuery(
+                2, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+        // Second burst will be sent after initialTimeBetweenBurstsMs, 3 queries.
+        verifyAndSendQuery(
+                3, MdnsConfigs.initialTimeBetweenBurstsMs(), /* expectsUnicastResponse= */ true);
+        verifyAndSendQuery(
+                4, 0, /* expectsUnicastResponse= */ false);
+        verifyAndSendQuery(
+                5, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+        // Third burst will be sent after initialTimeBetweenBurstsMs * 2, 3 queries.
+        verifyAndSendQuery(
+                6, MdnsConfigs.initialTimeBetweenBurstsMs() * 2, /* expectsUnicastResponse= */
+                true);
+        verifyAndSendQuery(
+                7, 0, /* expectsUnicastResponse= */ false);
+        verifyAndSendQuery(
+                8, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+        // Forth burst will be sent after initialTimeBetweenBurstsMs * 4, 3 queries.
+        verifyAndSendQuery(
+                9, MdnsConfigs.initialTimeBetweenBurstsMs() * 4, /* expectsUnicastResponse= */
+                true);
+        verifyAndSendQuery(
+                10, 0, /* expectsUnicastResponse= */ false);
+        verifyAndSendQuery(
+                11, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+        // In backoff mode, the current scheduled task will be canceled and reschedule if the
+        // 0.8 * smallestRemainingTtl is larger than time to next run.
+        long currentTime = TEST_TTL / 2 + TEST_ELAPSED_REALTIME;
+        doReturn(currentTime).when(mockDecoderClock).elapsedRealtime();
+        doReturn(true).when(mockDeps).hasMessages(any(), eq(EVENT_START_QUERYTASK));
+        processResponse(createResponse(
+                "service-instance-1", "192.0.2.123", 5353,
+                SERVICE_TYPE_LABELS,
+                Collections.emptyMap(), TEST_TTL), socketKey);
+        verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        assertNotNull(delayMessage);
+        verifyAndSendQuery(12 /* index */, (long) (TEST_TTL / 2 * 0.8) /* timeInMs */,
+                true /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
+                14 /* scheduledCount */);
+        currentTime += (long) (TEST_TTL / 2 * 0.8);
+        doReturn(currentTime).when(mockDecoderClock).elapsedRealtime();
+        verifyAndSendQuery(13 /* index */, 0 /* timeInMs */,
+                false /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
+                15 /* scheduledCount */);
+        verifyAndSendQuery(14 /* index */, MdnsConfigs.timeBetweenQueriesInBurstMs(),
+                false /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
+                16 /* scheduledCount */);
     }
 
     private static MdnsServiceInfo matchServiceName(String name) {

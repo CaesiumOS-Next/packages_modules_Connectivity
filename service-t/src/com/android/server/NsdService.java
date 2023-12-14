@@ -240,6 +240,8 @@ public class NsdService extends INsdManager.Stub {
 
     private final RemoteCallbackList<IOffloadEngine> mOffloadEngines =
             new RemoteCallbackList<>();
+    @NonNull
+    private final MdnsFeatureFlags mMdnsFeatureFlags;
 
     private static class OffloadEngineInfo {
         @NonNull final String mInterfaceName;
@@ -738,6 +740,9 @@ public class NsdService extends INsdManager.Stub {
                                             .setNetwork(info.getNetwork())
                                             .setRemoveExpiredService(true)
                                             .setIsPassiveMode(true);
+                            if (mMdnsFeatureFlags.mIsBlendQueryModeEnabled) {
+                                optionsBuilder.setIsPassiveMode(false).setIsBlendMode(true);
+                            }
                             if (typeAndSubtype.second != null) {
                                 // The parsing ensures subtype starts with an underscore.
                                 // MdnsSearchOptions expects the underscore to not be present.
@@ -949,12 +954,16 @@ public class NsdService extends INsdManager.Stub {
                             maybeStartMonitoringSockets();
                             final MdnsListener listener = new ResolutionListener(clientRequestId,
                                     transactionId, info, resolveServiceType);
-                            final MdnsSearchOptions options = MdnsSearchOptions.newBuilder()
-                                    .setNetwork(info.getNetwork())
-                                    .setIsPassiveMode(true)
-                                    .setResolveInstanceName(info.getServiceName())
-                                    .setRemoveExpiredService(true)
-                                    .build();
+                            final MdnsSearchOptions.Builder optionsBuilder =
+                                    MdnsSearchOptions.newBuilder()
+                                            .setNetwork(info.getNetwork())
+                                            .setIsPassiveMode(true)
+                                            .setResolveInstanceName(info.getServiceName())
+                                            .setRemoveExpiredService(true);
+                            if (mMdnsFeatureFlags.mIsBlendQueryModeEnabled) {
+                                optionsBuilder.setIsPassiveMode(false).setIsBlendMode(true);
+                            }
+                            final MdnsSearchOptions options = optionsBuilder.build();
                             mMdnsDiscoveryManager.registerListener(
                                     resolveServiceType, listener, options);
                             storeDiscoveryManagerRequestMap(clientRequestId, transactionId,
@@ -1047,12 +1056,16 @@ public class NsdService extends INsdManager.Stub {
                         maybeStartMonitoringSockets();
                         final MdnsListener listener = new ServiceInfoListener(clientRequestId,
                                 transactionId, info, resolveServiceType);
-                        final MdnsSearchOptions options = MdnsSearchOptions.newBuilder()
-                                .setNetwork(info.getNetwork())
-                                .setIsPassiveMode(true)
-                                .setResolveInstanceName(info.getServiceName())
-                                .setRemoveExpiredService(true)
-                                .build();
+                        final MdnsSearchOptions.Builder optionsBuilder =
+                                MdnsSearchOptions.newBuilder()
+                                        .setNetwork(info.getNetwork())
+                                        .setIsPassiveMode(true)
+                                        .setResolveInstanceName(info.getServiceName())
+                                        .setRemoveExpiredService(true);
+                        if (mMdnsFeatureFlags.mIsBlendQueryModeEnabled) {
+                            optionsBuilder.setIsPassiveMode(false).setIsBlendMode(true);
+                        }
+                        final MdnsSearchOptions options = optionsBuilder.build();
                         mMdnsDiscoveryManager.registerListener(
                                 resolveServiceType, listener, options);
                         storeDiscoveryManagerRequestMap(clientRequestId, transactionId, listener,
@@ -1644,7 +1657,7 @@ public class NsdService extends INsdManager.Stub {
         am.addOnUidImportanceListener(new UidImportanceListener(handler),
                 mRunningAppActiveImportanceCutoff);
 
-        final MdnsFeatureFlags flags = new MdnsFeatureFlags.Builder()
+        mMdnsFeatureFlags = new MdnsFeatureFlags.Builder()
                 .setIsMdnsOffloadFeatureEnabled(mDeps.isTetheringFeatureNotChickenedOut(
                         mContext, MdnsFeatureFlags.NSD_FORCE_DISABLE_MDNS_OFFLOAD))
                 .setIncludeInetAddressRecordsInProbing(mDeps.isFeatureEnabled(
@@ -1656,12 +1669,14 @@ public class NsdService extends INsdManager.Stub {
                 .build();
         mMdnsSocketClient =
                 new MdnsMultinetworkSocketClient(handler.getLooper(), mMdnsSocketProvider,
-                        LOGGER.forSubComponent("MdnsMultinetworkSocketClient"), flags);
+                        LOGGER.forSubComponent("MdnsMultinetworkSocketClient"), mMdnsFeatureFlags);
         mMdnsDiscoveryManager = deps.makeMdnsDiscoveryManager(new ExecutorProvider(),
-                mMdnsSocketClient, LOGGER.forSubComponent("MdnsDiscoveryManager"), flags);
+                mMdnsSocketClient, LOGGER.forSubComponent("MdnsDiscoveryManager"),
+                mMdnsFeatureFlags);
         handler.post(() -> mMdnsSocketClient.setCallback(mMdnsDiscoveryManager));
         mAdvertiser = deps.makeMdnsAdvertiser(handler.getLooper(), mMdnsSocketProvider,
-                new AdvertiserCallback(), LOGGER.forSubComponent("MdnsAdvertiser"), flags);
+                new AdvertiserCallback(), LOGGER.forSubComponent("MdnsAdvertiser"),
+                mMdnsFeatureFlags);
         mClock = deps.makeClock();
     }
 

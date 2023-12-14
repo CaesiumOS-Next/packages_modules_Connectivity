@@ -52,7 +52,8 @@ public class MdnsSearchOptions implements Parcelable {
                             source.readParcelable(null),
                             source.readString(),
                             source.readInt() == 1,
-                            source.readInt());
+                            source.readInt(),
+                            source.readInt() == 1);
                 }
 
                 @Override
@@ -70,6 +71,7 @@ public class MdnsSearchOptions implements Parcelable {
     private final boolean removeExpiredService;
     // The target network for searching. Null network means search on all possible interfaces.
     @Nullable private final Network mNetwork;
+    private final boolean isBlendMode;
 
     /** Parcelable constructs for a {@link MdnsSearchOptions}. */
     MdnsSearchOptions(
@@ -79,7 +81,8 @@ public class MdnsSearchOptions implements Parcelable {
             @Nullable Network network,
             @Nullable String resolveInstanceName,
             boolean onlyUseIpv6OnIpv6OnlyNetworks,
-            int numOfQueriesBeforeBackoff) {
+            int numOfQueriesBeforeBackoff,
+            boolean isBlendMode) {
         this.subtypes = new ArrayList<>();
         if (subtypes != null) {
             this.subtypes.addAll(subtypes);
@@ -90,6 +93,7 @@ public class MdnsSearchOptions implements Parcelable {
         this.removeExpiredService = removeExpiredService;
         mNetwork = network;
         this.resolveInstanceName = resolveInstanceName;
+        this.isBlendMode = isBlendMode;
     }
 
     /** Returns a {@link Builder} for {@link MdnsSearchOptions}. */
@@ -158,6 +162,14 @@ public class MdnsSearchOptions implements Parcelable {
         return resolveInstanceName;
     }
 
+    /**
+     * @return {@code true} if the blend mode is used. The blend mode scans frequently in the
+     * beginning with unicast retry and then lowers frequency after 5 times scan.
+     */
+    public boolean isBlendMode() {
+        return isBlendMode;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -172,6 +184,7 @@ public class MdnsSearchOptions implements Parcelable {
         out.writeString(resolveInstanceName);
         out.writeInt(onlyUseIpv6OnIpv6OnlyNetworks ? 1 : 0);
         out.writeInt(numOfQueriesBeforeBackoff);
+        out.writeInt(isBlendMode ? 1 : 0);
     }
 
     /** A builder to create {@link MdnsSearchOptions}. */
@@ -183,6 +196,7 @@ public class MdnsSearchOptions implements Parcelable {
         private boolean removeExpiredService;
         private Network mNetwork;
         private String resolveInstanceName;
+        private boolean isBlendMode = false;
 
         private Builder() {
             subtypes = MdnsUtils.newSet();
@@ -272,6 +286,19 @@ public class MdnsSearchOptions implements Parcelable {
             return this;
         }
 
+        /**
+         * Sets if the blend mode scan should be used. The blend mode scans frequently in the
+         * beginning with unicast retry and then lowers frequency after 5 times scan.
+         *
+         * @param isBlendMode If set to {@code true}, blend mode will be used. If set to {@code
+         *                      false}, active or passive mode will be used that depends on
+         *                      {@code isPassiveMode} value.
+         */
+        public Builder setIsBlendMode(boolean isBlendMode) {
+            this.isBlendMode = isBlendMode;
+            return this;
+        }
+
         /** Builds a {@link MdnsSearchOptions} with the arguments supplied to this builder. */
         public MdnsSearchOptions build() {
             return new MdnsSearchOptions(
@@ -281,7 +308,8 @@ public class MdnsSearchOptions implements Parcelable {
                     mNetwork,
                     resolveInstanceName,
                     onlyUseIpv6OnIpv6OnlyNetworks,
-                    numOfQueriesBeforeBackoff);
+                    numOfQueriesBeforeBackoff,
+                    isBlendMode);
         }
     }
 }
