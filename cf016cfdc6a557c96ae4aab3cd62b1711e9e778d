@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24a6b60a_13ef24d0",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-14T08:28:29Z",
+      "side": 0,
+      "message": "Per discussion on the other CLs, it looks like these log messages will no longer be printed. Can you bring them back?",
+      "range": {
+        "startLine": 436,
+        "startChar": 32,
+        "endLine": 436,
+        "endChar": 68
+      },
+      "revId": "cf016cfdc6a557c96ae4aab3cd62b1711e9e778d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
