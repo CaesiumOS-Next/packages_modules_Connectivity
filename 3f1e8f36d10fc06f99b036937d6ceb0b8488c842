@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f329c84d_2d24af27",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-14T07:03:28Z",
+      "side": 1,
+      "message": "Why do we need a two separate sets to tell us which IpServers are monitoring conntrack events and which are monitoring ND events? Can\u0027t we just keep one set, and have that set contain \"all the IpServers that are currently active\"?",
+      "range": {
+        "startLine": 295,
+        "startChar": 32,
+        "endLine": 295,
+        "endChar": 60
+      },
+      "revId": "3f1e8f36d10fc06f99b036937d6ceb0b8488c842",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "616ba308_31bc8a83",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-14T07:03:28Z",
+      "side": 1,
+      "message": "Why do we need these three maps? Can\u0027t we store the information in the IpServers themselves instead? Would it be sufficient just to add methods on IpServer that BpfCoordinator can call when it needs this information?",
+      "range": {
+        "startLine": 318,
+        "startChar": 53,
+        "endLine": 318,
+        "endChar": 73
+      },
+      "revId": "3f1e8f36d10fc06f99b036937d6ceb0b8488c842",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6dd2906_2ab94225",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-14T07:03:28Z",
+      "side": 1,
+      "message": "Nit: would rename this to maybeStartPolling, because if polling is already started, it doesn\u0027t do anything.",
+      "range": {
+        "startLine": 536,
+        "startChar": 16,
+        "endLine": 536,
+        "endChar": 28
+      },
+      "revId": "3f1e8f36d10fc06f99b036937d6ceb0b8488c842",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf85a773_6792bd64",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-14T07:03:28Z",
+      "side": 1,
+      "message": "This runs later than it used to.\n\nThe old code would start conntrack monitoring and neighbour monitoring in BaseServingState#enter. But this new code only starts conntrack monitoring and neighbour later, after BaseServingState#enter calls sendInterfaceState, a handler loop passes, and Tethering transitions into TetherModeAliveState and calls this startPolling method.\n\nThis is probably fine most of the time. But it\u0027s possible in theory that an ND event happens, or an IPv4 flow is set up, before startPolling is called. In that case the flow would never be offloaded, or the ND cache entry would never be created until a subsequent ND event happened.\n\nGiven that you\u0027re moving this code anyway, why not do something like:\n\n- As soon as an IpServer starts (in BaseServingState#enter), it calls into BpfCoordinator to tell it that it exists.\n- If BpfCoordinator sees that this is the *first* IpServer to be started, then it will start the conntrack monitor, the neighbor monitor, *and* the stats polling.\n\nSimilarly, when an IpServer stops, it can remove itself from BpfCoordinator, and when BpfCoordinator sees the last IpServer go away, it can stop all three monitors. That way we can get rid of mPollingStarted, and just maintain the invariant that \"data usage polling and ND monitoring and conntrack monitoring are running iff at least one IpServer is serving\". We can also remove the need for Tethering to call BpfCoordinator to start and stop polling: that will be done by the IpServers themselves.\n\nYou already have almost all of this written of this written: in the current CL, IpServer calls BpfCoordinator#addIpServer before BaseServingState#enter returns. addIpServer could add the server to the hash tables, and then if it\u0027s the first server to be added, it could call startPolling(). Then you can remove the call to startPolling from Tethering.",
+      "range": {
+        "startLine": 544,
+        "startChar": 8,
+        "endLine": 544,
+        "endChar": 50
+      },
+      "revId": "3f1e8f36d10fc06f99b036937d6ceb0b8488c842",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
