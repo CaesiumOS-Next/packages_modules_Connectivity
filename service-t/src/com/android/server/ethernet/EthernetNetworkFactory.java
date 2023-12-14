@@ -165,11 +165,25 @@ public class EthernetNetworkFactory {
         mTrackingInterfaces.put(ifaceName, iface);
     }
 
+    /**
+     * get interface state.
+     *
+     * @param iface the name of the interface.
+     * @return  {@code STATE_ABSENT} if there is no interface
+     *          {@code STATE_DISABLED} if the network cable is linkup but Ethernet is not used
+     *          {@code STATE_ENABLED} if the network cable is linkup and Ethernet is used
+     *          {@code STATE_LINK_DOWN} if the network cable is linkdown but Ethernet is not used
+     *          {@code STATE_LINK_UP} if the network cable is linkup but Ethernet is not used
+     */
     @VisibleForTesting
     protected int getInterfaceState(@NonNull String iface) {
         final NetworkInterfaceState interfaceState = mTrackingInterfaces.get(iface);
         if (interfaceState == null) {
             return EthernetManager.STATE_ABSENT;
+        } else if (!interfaceState.mStateEnabled && interfaceState.mLinkUp) {
+            return EthernetManager.STATE_DISABLED;
+        } else if (interfaceState.mStateEnabled) {
+            return EthernetManager.STATE_ENABLED;
         } else if (!interfaceState.mLinkUp) {
             return EthernetManager.STATE_LINK_DOWN;
         } else {
@@ -245,6 +259,21 @@ public class EthernetNetworkFactory {
         return iface.updateLinkState(up);
     }
 
+    /** Returns true if state has been modified */
+    @VisibleForTesting(visibility = VisibleForTesting.Visibility.PACKAGE)
+    protected boolean updateInterfaceState(@NonNull final String ifaceName, final boolean enabled) {
+        if (!hasInterface(ifaceName)) {
+            return false;
+        }
+
+        if (DBG) {
+            Log.d(TAG, "updateInterfaceState, iface: " + ifaceName + ", enabled: " + enabled);
+        }
+
+        NetworkInterfaceState iface = mTrackingInterfaces.get(ifaceName);
+        return iface.updateState(enabled);
+    }
+
     @VisibleForTesting
     protected boolean hasInterface(String ifaceName) {
         return mTrackingInterfaces.containsKey(ifaceName);
@@ -264,6 +293,7 @@ public class EthernetNetworkFactory {
         private static String sTcpBufferSizes = null;  // Lazy initialized.
 
         private boolean mLinkUp;
+        private boolean mStateEnabled;
         private int mLegacyType;
         private LinkProperties mLinkProperties = new LinkProperties();
         private final Set<Integer> mRequestIds = new ArraySet<>();
@@ -578,7 +608,7 @@ public class EthernetNetworkFactory {
             maybeRestart();
         }
 
-        /** Returns true if state has been modified */
+        /** Returns true if link state has been modified */
         boolean updateLinkState(final boolean up) {
             if (mLinkUp == up)  {
                 return false;
@@ -586,6 +616,34 @@ public class EthernetNetworkFactory {
             mLinkUp = up;
 
             if (!up) { // was up, goes down
+                // retract network offer and stop IpClient.
+                unregisterNetworkOfferAndStop();
+                // If the network cable is down, then mStateSupported must be false
+                updateState(false);
+            } else { // was down, goes up
+                // register network offer
+                registerNetworkOffer();
+                updateState(true);
+            }
+
+            return true;
+        }
+
+        /** Returns true if state has been modified */
+        boolean updateState(final boolean enabled) {
+            if (mStateEnabled == enabled)  {
+                return false;
+            }
+
+            // If there is no link network cable, then mStateSupported must be false
+            if (!mLinkUp) {
+                mStateEnabled = false;
+                Log.w(TAG, "updateState, iface: " + name + ", enabled: " + mStateEnabled);
+                return false;
+            }
+            mStateEnabled = enabled;
+
+            if (!enabled) { // was up, goes down
                 // retract network offer and stop IpClient.
                 unregisterNetworkOfferAndStop();
             } else { // was down, goes up
@@ -667,7 +725,8 @@ public class EthernetNetworkFactory {
         public String toString() {
             return getClass().getSimpleName() + "{ "
                     + "iface: " + name + ", "
-                    + "up: " + mLinkUp + ", "
+                    + "linkUp: " + mLinkUp + ", "
+                    + "stateEnabled: " + mStateEnabled + ", "
                     + "hwAddress: " + mHwAddress + ", "
                     + "networkCapabilities: " + mCapabilities + ", "
                     + "networkAgent: " + mNetworkAgent + ", "

@@ -55,6 +55,8 @@ package android.net {
     field public static final int ROLE_NONE = 0; // 0x0
     field public static final int ROLE_SERVER = 2; // 0x2
     field public static final int STATE_ABSENT = 0; // 0x0
+    field public static final int STATE_DISABLED = 3; // 0x3
+    field public static final int STATE_ENABLED = 4; // 0x4
     field public static final int STATE_LINK_DOWN = 1; // 0x1
     field public static final int STATE_LINK_UP = 2; // 0x2
   }

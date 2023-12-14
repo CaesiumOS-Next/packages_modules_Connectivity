@@ -98,8 +98,22 @@ public class EthernetManager {
     @SystemApi(client = MODULE_LIBRARIES)
     public static final int STATE_LINK_UP = 2;
 
+    /**
+     * The interface is present and state is disabled.
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int STATE_DISABLED = 3;
+
+    /**
+     * The interface is present and state is enabled.
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int STATE_ENABLED = 4;
+
     /** @hide */
-    @IntDef(prefix = "STATE_", value = {STATE_ABSENT, STATE_LINK_DOWN, STATE_LINK_UP})
+    @IntDef(prefix = "STATE_", value = {STATE_ABSENT, STATE_LINK_DOWN, STATE_LINK_UP, STATE_DISABLED, STATE_ENABLED})
     @Retention(RetentionPolicy.SOURCE)
     public @interface InterfaceState {}
 
