@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0f1a32c_7936e484",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMf6cctlTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-14T08:07:00Z",
+      "side": 1,
+      "message": "Can we add test for parse and writeToBytes?",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 1
+      },
+      "revId": "d70e60a33b769fe02683573531d11e26e6604675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
