@@ -95,6 +95,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bdb7db8c_eb4306a0",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkContext.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-14T09:01:17Z",
+      "side": 1,
+      "message": "```suggestion\n            // Resource APK not loaded yet, print a stack trace to see where this is called from\n            Log.e(\n                    TAG,\n                    \"Attempted to fetch resources before Thread Resources APK is loaded!\");\n```",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 86,
+        "endChar": 49
+      },
+      "revId": "5b00ecb697c85c8b26b9a12f5ab21521b8551e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d81db13f_908e63d8",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkContext.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-14T09:01:17Z",
+      "side": 1,
+      "message": "In which cases can the resource APK be disabled?",
+      "range": {
+        "startLine": 106,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 74
+      },
+      "revId": "5b00ecb697c85c8b26b9a12f5ab21521b8551e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d8c493c1_eac92e01",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkContext.java",
         "patchSetId": 14
