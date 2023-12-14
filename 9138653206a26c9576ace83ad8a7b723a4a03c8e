@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7d46392_866baf82",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-14T08:11:46Z",
+      "side": 1,
+      "message": "This result is correct, but I think the methodology is wrong. The size of the buffer should be the aligned length, but the nlmsg_len should be the unaligned length. In this case, because the structures are already aligned you don\u0027t need any padding and the aligned length and the unaligned length are the same. But in case someone copy+pastes this code and uses it on non-aligned data, I think you need something like:\n\n    nlmsghdr.nlmsg_len \u003d StructNlMsgHdr.STRUCT_SIZE + StructRtMsg.STRUCT_SIZE;\n    final byte[] bytes \u003d new byte[NetlinkConstants.alignedLengthOf(spaceRequired)];\n    final ByteBuffer byteBuffer \u003d ...\n    ...",
+      "range": {
+        "startLine": 416,
+        "startChar": 17,
+        "endLine": 416,
+        "endChar": 26
+      },
+      "revId": "9138653206a26c9576ace83ad8a7b723a4a03c8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4cb9777_2676bb70",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-14T08:11:46Z",
+      "side": 1,
+      "message": "Really? This is surprising. What types of routes?",
+      "range": {
+        "startLine": 433,
+        "startChar": 34,
+        "endLine": 433,
+        "endChar": 59
+      },
+      "revId": "9138653206a26c9576ace83ad8a7b723a4a03c8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
