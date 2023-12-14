@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b519b9d7_c014f59a",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2293,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T08:01:26Z",
+      "side": 1,
+      "message": "+1, I think I suggested the refactor but don\u0027t remember what I suggested or what the original code was (might have actually been closer to what Yuyang is proposing). Still looking at the refactored code is now, I think Yuyang\u0027s proposal actually looks better.",
+      "parentUuid": "64ed00d5_35f27734",
+      "range": {
+        "startLine": 2291,
+        "startChar": 8,
+        "endLine": 2293,
+        "endChar": 9
+      },
+      "revId": "2dfd9e5b4e095529ad2fbeceb311e3433eca2160",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4a7e199_c3a9ae0a",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 9

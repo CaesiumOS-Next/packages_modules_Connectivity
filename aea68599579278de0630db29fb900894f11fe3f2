@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "145fac68_63ad0c1a",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T08:01:26Z",
+      "side": 1,
+      "message": "This comment was to explain why `.substring(1)` is called; it\u0027s a bit confusing if it\u0027s written here",
+      "revId": "aea68599579278de0630db29fb900894f11fe3f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b895d342_7c96abd8",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T08:01:26Z",
+      "side": 1,
+      "message": "Also mention that MdnsSearchOptions expects the underscore to not be present (that explains why there\u0027s a substring(1) here)",
+      "revId": "aea68599579278de0630db29fb900894f11fe3f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a6ccebb_cd0a3db4",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2078,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T08:01:26Z",
+      "side": 1,
+      "message": "Instead of 2 constructors creating 2 kinds of objects (ListenerArgs with a serviceInfo, and ListenerArgs with a discoveryRequest), this should probably be 2 different classes, because they are used in different cases, and it avoids having implicit invalid combinations (serviceInfo is non-null discoveryRequest must be null and vice-versa)",
+      "revId": "aea68599579278de0630db29fb900894f11fe3f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fab7575_ba68f4bb",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2119,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T08:01:26Z",
+      "side": 1,
+      "message": "resolveService and registerServiceInfoCallback should arguably also use a discoveryRequest with an additional serviceName field set; but that\u0027s probably to discuss later and implement separately.",
+      "revId": "aea68599579278de0630db29fb900894f11fe3f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5019588_30386e37",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T08:01:26Z",
+      "side": 1,
+      "message": "This code (everything in the service-connectivity-mdns-standalone-build-test build rule) is also used as a library in other codebases which may do this, so I don\u0027t think we can safely add this check",
+      "revId": "aea68599579278de0630db29fb900894f11fe3f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
