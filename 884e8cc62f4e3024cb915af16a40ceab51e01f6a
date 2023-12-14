@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c0559c6_29b04fdd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-14T08:37:00Z",
+      "side": 1,
+      "message": "LGTM with nit",
+      "revId": "884e8cc62f4e3024cb915af16a40ceab51e01f6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c57d70f7_576d102a",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-14T08:37:00Z",
+      "side": 1,
+      "message": "nit: maybe change the function comment to mention it calculate the relative time instead of the absolute time.",
+      "range": {
+        "startLine": 707,
+        "startChar": 17,
+        "endLine": 707,
+        "endChar": 48
+      },
+      "revId": "884e8cc62f4e3024cb915af16a40ceab51e01f6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
