@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcafb463_48954e56",
+        "filename": "service/Android.bp",
+        "patchSetId": 14
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-14T12:06:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99fe67a6_3d49f782",
+      "range": {
+        "startLine": 180,
+        "startChar": 9,
+        "endLine": 180,
+        "endChar": 31
+      },
+      "revId": "5b00ecb697c85c8b26b9a12f5ab21521b8551e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da19b85d_50f809b3",
@@ -60,6 +84,30 @@
       "writtenOn": "2023-12-14T08:53:03Z",
       "side": 1,
       "message": "This doesn\u0027t seem necessary to be `public`:\n```suggestion\n    private static boolean isAppInThreadApex(ApplicationInfo appInfo) {\n```",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 10
+      },
+      "revId": "5b00ecb697c85c8b26b9a12f5ab21521b8551e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66e2ef98_5a6b7c06",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkContext.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-14T12:06:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da19b85d_50f809b3",
       "range": {
         "startLine": 61,
         "startChar": 4,
@@ -93,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "deac92eb_99ae428d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkContext.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-14T12:06:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7533f97_312e276d",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 10
+      },
+      "revId": "5b00ecb697c85c8b26b9a12f5ab21521b8551e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdb7db8c_eb4306a0",
@@ -106,6 +178,30 @@
       "writtenOn": "2023-12-14T09:01:17Z",
       "side": 1,
       "message": "```suggestion\n            // Resource APK not loaded yet, print a stack trace to see where this is called from\n            Log.e(\n                    TAG,\n                    \"Attempted to fetch resources before Thread Resources APK is loaded!\");\n```",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 86,
+        "endChar": 49
+      },
+      "revId": "5b00ecb697c85c8b26b9a12f5ab21521b8551e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c167340a_b2b1afce",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkContext.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-14T12:06:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdb7db8c_eb4306a0",
       "range": {
         "startLine": 82,
         "startChar": 12,
@@ -141,6 +237,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0ef4bd35_0368082f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkContext.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-14T12:06:11Z",
+      "side": 1,
+      "message": "Users may disable the resource APK, see b/297444951.",
+      "parentUuid": "d81db13f_908e63d8",
+      "range": {
+        "startLine": 106,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 74
+      },
+      "revId": "5b00ecb697c85c8b26b9a12f5ab21521b8551e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d8c493c1_eac92e01",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkContext.java",
         "patchSetId": 14
@@ -152,6 +272,30 @@
       "writtenOn": "2023-12-14T08:53:03Z",
       "side": 1,
       "message": "This needs to be `synchronized()`",
+      "range": {
+        "startLine": 137,
+        "startChar": 12,
+        "endLine": 137,
+        "endChar": 35
+      },
+      "revId": "5b00ecb697c85c8b26b9a12f5ab21521b8551e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9ae31f5_8249077a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkContext.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-14T12:06:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8c493c1_eac92e01",
       "range": {
         "startLine": 137,
         "startChar": 12,
