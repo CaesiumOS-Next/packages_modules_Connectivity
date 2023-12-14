@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1203ef31_1aeb93fc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T06:40:48Z",
+      "side": 1,
+      "message": "I think this can be changed to:\n\n```\nIndicates whether the name of this record is expected to be fully owned by the\nentity containing the RecordInfo: either a ServiceRegistration, or the general\nrecords list.\n\nIf true, the name is \"shared\" and may be advertised by other entities (for example\nother local ServiceRegistration or other hosts on the network).\n\nIf false, only this ServiceRegistration or list of general records can contain the\nname of this record.\n```\n\nThis observes that the name of a non-shared record can only appear in a single ServiceRegistration or in the general records list; so if it\u0027s seen in one list, there\u0027s no need to check for it in other lists.",
+      "range": {
+        "startLine": 129,
+        "startChar": 11,
+        "endLine": 130,
+        "endChar": 54
+      },
+      "revId": "f7f5afddc90b74dc95e8fafaaa709477a2ae0673",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c267003_3c24f823",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T06:40:48Z",
+      "side": 1,
+      "message": "Based on the invariant noted above, I think you could simplify this processing by:\n\n - Changing getAllUniqueRecords to getAllUniqueRecords(List\u003cRecordInfo\u003c?\u003e\u003e)\n - Adding that argument to addNsecRecordsForUniqueNames: `addNsecRecordsForUniqueNames(List\u003cMdnsRecord\u003e destinationList, List\u003cRecordInfo\u003c?\u003e\u003e allRecordsFromService, Iterator\u003cRecordInfo\u003c?\u003e\u003e... answerRecords)`\n - Calling `addNsecRecordsForUniqueNames from addReplyFromService as before, but before adding the address records from the mGeneralRecords list (so before the last loop). For the second \"allRecordsFromService` argument you\u0027d pass in serviceRegistration.allRecords\n - For the address records, call addNsecRecordsForUniqueNames one more time from getReply as you have it now, but `allRecordsFromservice` is `mGeneralRecords` in that case\n\nSo basically: addNsecRecordsForUniqueNames adds nsec records for a ServiceRegistration (excluding general records), or for general records. You call it after adding a reply from a service, or once at the end for the general records. This avoids iterating through all services to build maps of unique records, since as per the invariant, \"unique\" names only appear in a single list (ServiceRegistration or mGeneralRecords)",
+      "revId": "f7f5afddc90b74dc95e8fafaaa709477a2ae0673",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
