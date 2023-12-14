@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4432d619_be12a9ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-14T07:43:28Z",
+      "side": 1,
+      "message": "Yeah realised it\u0027s better to make sure this works for InetDiagMessage before starting to use it, done in aosp/2875214\n\nupdated the function to take a lambda instead of returning a list.",
+      "parentUuid": "557477de_b2e4e2b4",
+      "revId": "f2bf838800b73bdcc084dd0ba8b3776d271a5fe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ce057f9_d9712cd4",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1eeaf462_8be767e8",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-14T07:43:28Z",
+      "side": 1,
+      "message": "This function now opens a netlink socket, sends the request message, processes the replies and closes the socket.",
+      "parentUuid": "7ce057f9_d9712cd4",
+      "range": {
+        "startLine": 326,
+        "startChar": 53,
+        "endLine": 326,
+        "endChar": 79
+      },
+      "revId": "f2bf838800b73bdcc084dd0ba8b3776d271a5fe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ef31126_5becdd79",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-12-11T07:55:09Z",
       "side": 1,
       "message": "These lines should be unindented 4 spaces.",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 364,
+        "endChar": 13
+      },
+      "revId": "f2bf838800b73bdcc084dd0ba8b3776d271a5fe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30ce607b_277c9ac6",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-14T07:43:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ef31126_5becdd79",
       "range": {
         "startLine": 361,
         "startChar": 0,

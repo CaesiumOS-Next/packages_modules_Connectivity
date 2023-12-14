@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "631e2a99_0458d18e",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-14T07:43:28Z",
+      "side": 1,
+      "message": "Good suggestion, thanks 😊",
+      "parentUuid": "38cd092c_398ffcff",
+      "range": {
+        "startLine": 336,
+        "startChar": 12,
+        "endLine": 336,
+        "endChar": 36
+      },
+      "revId": "0796783537b308f627602bc472346763e7f6ff9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d0c6fb8_0e7e4e75",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2db273a5_ac3a9ec9",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-14T07:43:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d0c6fb8_0e7e4e75",
+      "revId": "0796783537b308f627602bc472346763e7f6ff9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88067824_d8c9cdca",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-12-14T06:34:00Z",
       "side": 1,
       "message": "nits: we should closeSocketQuietly(fd) before throw.",
+      "range": {
+        "startLine": 366,
+        "startChar": 20,
+        "endLine": 366,
+        "endChar": 21
+      },
+      "revId": "0796783537b308f627602bc472346763e7f6ff9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49cd42f7_d0185a1b",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-14T07:43:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88067824_d8c9cdca",
       "range": {
         "startLine": 366,
         "startChar": 20,
