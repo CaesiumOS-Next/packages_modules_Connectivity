@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f365954_e1e74d53",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 69
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-14T02:53:06Z",
+      "side": 1,
+      "message": "@reminv@google.com I thought we had decided to add a builder for NsdServiceInfo. Is that still the plan? If so, then this method should be on the builder, not directly on the object.",
+      "range": {
+        "startLine": 263,
+        "startChar": 89,
+        "endLine": 263,
+        "endChar": 100
+      },
+      "revId": "028d29d3f5d1fa88b6656b042ff922841457832c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
