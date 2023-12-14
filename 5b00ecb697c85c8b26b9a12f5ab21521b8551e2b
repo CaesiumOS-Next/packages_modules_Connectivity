@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a97b8f96_f39764ca",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 14
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-14T08:53:03Z",
+      "side": 1,
+      "message": "@reminv@google.com Should there be a single Resource APK for Tethering module? Thinking if we should merge the Thread resources in the existing connectivity resources.",
+      "range": {
+        "startLine": 118,
+        "startChar": 9,
+        "endLine": 118,
+        "endChar": 31
+      },
+      "revId": "5b00ecb697c85c8b26b9a12f5ab21521b8551e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99fe67a6_3d49f782",
+        "filename": "service/Android.bp",
+        "patchSetId": 14
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-14T08:53:03Z",
+      "side": 1,
+      "message": "Thread is for only U+ devices, I don\u0027t think the Thread resources need to be added for \"service-connectivity\", it needs to be added for only \"service-connectivity-t\"",
+      "range": {
+        "startLine": 180,
+        "startChar": 9,
+        "endLine": 180,
+        "endChar": 31
+      },
+      "revId": "5b00ecb697c85c8b26b9a12f5ab21521b8551e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da19b85d_50f809b3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkContext.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-14T08:53:03Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem necessary to be `public`:\n```suggestion\n    private static boolean isAppInThreadApex(ApplicationInfo appInfo) {\n```",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 10
+      },
+      "revId": "5b00ecb697c85c8b26b9a12f5ab21521b8551e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7533f97_312e276d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkContext.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-14T08:53:03Z",
+      "side": 1,
+      "message": "ditto:\n```suggestion\n    private String getThreadOverlayApkPkgName() {\n```",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 10
+      },
+      "revId": "5b00ecb697c85c8b26b9a12f5ab21521b8551e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8c493c1_eac92e01",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkContext.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-14T08:53:03Z",
+      "side": 1,
+      "message": "This needs to be `synchronized()`",
+      "range": {
+        "startLine": 137,
+        "startChar": 12,
+        "endLine": 137,
+        "endChar": 35
+      },
+      "revId": "5b00ecb697c85c8b26b9a12f5ab21521b8551e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
