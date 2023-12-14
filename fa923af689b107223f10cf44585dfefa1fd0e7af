@@ -46,6 +46,30 @@
       },
       "revId": "fa923af689b107223f10cf44585dfefa1fd0e7af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f18bd928_9de27d19",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-14T11:24:38Z",
+      "side": 1,
+      "message": "We agreed to filter out only LISTEN requests on-device. Filters by transport type and unmetered capability will be applied server-side, that\u0027s why they are exposed as fields in the atom.",
+      "parentUuid": "ae94733c_65950305",
+      "range": {
+        "startLine": 89,
+        "startChar": 63,
+        "endLine": 89,
+        "endChar": 77
+      },
+      "revId": "fa923af689b107223f10cf44585dfefa1fd0e7af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

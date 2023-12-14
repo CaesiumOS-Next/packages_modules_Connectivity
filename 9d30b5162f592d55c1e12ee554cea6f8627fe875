@@ -93,6 +93,30 @@
       },
       "revId": "9d30b5162f592d55c1e12ee554cea6f8627fe875",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "565f6f80_58c797c7",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-14T11:24:38Z",
+      "side": 1,
+      "message": "It doesn\u0027t give the best test coverage, because the test verifies only sending the message, not processing it. For example, one can make `handleMessage` do nothing at all, and the test would pass. It is better to verify call to ConnectivityStatsLog.write, and if that\u0027s not possible, verify the call to `writeStats`.",
+      "parentUuid": "486bf664_d71ff539",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 20
+      },
+      "revId": "9d30b5162f592d55c1e12ee554cea6f8627fe875",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
