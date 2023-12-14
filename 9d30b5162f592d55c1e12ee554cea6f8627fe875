@@ -117,6 +117,30 @@
       },
       "revId": "9d30b5162f592d55c1e12ee554cea6f8627fe875",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a055f34_b5a5e331",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-14T14:16:00Z",
+      "side": 1,
+      "message": "What I thought was use un-mocked handler and add `ConnectivityStatsLog.write` to dependency.\n\n\u003e as it is called in the separate thread asynchronously\n\nI think we can use [waitForIdle](https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/testutils/devicetests/com/android/testutils/HandlerUtils.kt;l\u003d36-45) to wait until the handle become idle.\nOr\nwe can do `verify(dep, timeout(TIMEOUT_MS))`\n\nBut If we do this, please try to avoid having 1second sleep in the test.",
+      "parentUuid": "565f6f80_58c797c7",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 20
+      },
+      "revId": "9d30b5162f592d55c1e12ee554cea6f8627fe875",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
