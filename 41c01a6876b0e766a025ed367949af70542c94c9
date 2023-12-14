@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "529f3f47_6f976db6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T06:01:21Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed",
+      "revId": "41c01a6876b0e766a025ed367949af70542c94c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b844a282_adcb40bf",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T06:01:21Z",
+      "side": 1,
+      "message": "This method had a weird signature because it needed to look at sublists of the answerInfo / additionalAnswerInfo. That doesn\u0027t seem necessary anymore since the records are not added for each service reply \"sublist\", so could you make it more standard by taking `Collection\u003cRecordInfo\u003c?\u003e\u003e` instead of Iterator ?",
+      "range": {
+        "startLine": 543,
+        "startChar": 27,
+        "endLine": 543,
+        "endChar": 35
+      },
+      "revId": "41c01a6876b0e766a025ed367949af70542c94c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7a2e859_36880ac1",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 28
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T06:01:21Z",
+      "side": 1,
+      "message": "Typo: specified",
+      "range": {
+        "startLine": 514,
+        "startChar": 37,
+        "endLine": 514,
+        "endChar": 47
+      },
+      "revId": "41c01a6876b0e766a025ed367949af70542c94c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "263b496d_c0035b4d",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 28
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T06:01:21Z",
+      "side": 1,
+      "message": "Could you make this `vararg queries: Pair\u003cInt, String\u003e` ?\n\nThen this can be called with \n\n`makeQuery(TYPE_PTR to arrayOf(\"_testservice\", \"_tcp\", \"local\"),\n    TYPE_ANY to arrayOf(\"something\", \"else\"))`\n    \nand there\u0027s better type safety",
+      "range": {
+        "startLine": 516,
+        "startChar": 33,
+        "endLine": 516,
+        "endChar": 44
+      },
+      "revId": "41c01a6876b0e766a025ed367949af70542c94c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2578b7d5_df0a550b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 28
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T06:01:21Z",
+      "side": 1,
+      "message": "I think there\u0027s no coverage for a query with a single subtype question anymore (what testGetReply_WithSubtype used to do), even though this test is equivalent to the previous testGetReply. Is that on purpose ?",
+      "revId": "41c01a6876b0e766a025ed367949af70542c94c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d00eb373_2f6fffb6",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 28
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T06:01:21Z",
+      "side": 1,
+      "message": "Nit: long line",
+      "revId": "41c01a6876b0e766a025ed367949af70542c94c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15c0c133_2bc7a3e8",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-14T06:01:21Z",
+      "side": 1,
+      "message": "Nit: that\u0027s a bit unusual indentation, I think in general this would be +4 or +8 spaces looking at other tests",
+      "revId": "88a90ce8ebfe6ad0a6af6d28d9d98ac758a1aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
