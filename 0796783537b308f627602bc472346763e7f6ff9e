@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38cd092c_398ffcff",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-14T06:34:00Z",
+      "side": 1,
+      "message": "Can we use `java.util.function.Consumer`?",
+      "range": {
+        "startLine": 336,
+        "startChar": 12,
+        "endLine": 336,
+        "endChar": 36
+      },
+      "revId": "0796783537b308f627602bc472346763e7f6ff9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d0c6fb8_0e7e4e75",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-14T06:34:00Z",
+      "side": 1,
+      "message": "nits: I think this can be `final FileDescriptor fd;`",
+      "revId": "0796783537b308f627602bc472346763e7f6ff9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88067824_d8c9cdca",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-14T06:34:00Z",
+      "side": 1,
+      "message": "nits: we should closeSocketQuietly(fd) before throw.",
+      "range": {
+        "startLine": 366,
+        "startChar": 20,
+        "endLine": 366,
+        "endChar": 21
+      },
+      "revId": "0796783537b308f627602bc472346763e7f6ff9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
