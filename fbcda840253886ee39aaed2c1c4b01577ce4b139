@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d65c9cb9_32f64017",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-14T07:55:12Z",
+      "side": 1,
+      "message": "Add a javadoc comment saying that is always true for unicast and may be false only for multicast routes.",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 10
+      },
+      "revId": "fbcda840253886ee39aaed2c1c4b01577ce4b139",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff7a9d0d_f6abb688",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-14T07:55:12Z",
+      "side": 1,
+      "message": "Suggest adding:\n\nNote that this value is not updated with the passage of time. It always returns the value that was read when the netlink message was parsed.",
+      "range": {
+        "startLine": 144,
+        "startChar": 39,
+        "endLine": 144,
+        "endChar": 40
+      },
+      "revId": "fbcda840253886ee39aaed2c1c4b01577ce4b139",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
