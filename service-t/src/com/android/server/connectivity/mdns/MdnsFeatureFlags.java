@@ -46,6 +46,11 @@ public class MdnsFeatureFlags {
      */
     public static final String NSD_KNOWN_ANSWER_SUPPRESSION = "nsd_known_answer_suppression";
 
+    /**
+     * A feature flag to control whether the aggressive query mode should be enabled.
+     */
+    public static final String NSD_AGGRESSIVE_QUERY_MODE = "nsd_aggressive_query_mode";
+
     // Flag for offload feature
     public final boolean mIsMdnsOffloadFeatureEnabled;
 
@@ -61,6 +66,9 @@ public class MdnsFeatureFlags {
     // Flag for known-answer suppression
     public final boolean mIsKnownAnswerSuppressionEnabled;
 
+    // Flag for aggressive query mode
+    public final boolean mIsAggressiveQueryModeEnabled;
+
     /**
      * The constructor for {@link MdnsFeatureFlags}.
      */
@@ -68,12 +76,14 @@ public class MdnsFeatureFlags {
             boolean includeInetAddressRecordsInProbing,
             boolean isExpiredServicesRemovalEnabled,
             boolean isLabelCountLimitEnabled,
-            boolean isKnownAnswerSuppressionEnabled) {
+            boolean isKnownAnswerSuppressionEnabled,
+            boolean isAggressiveQueryModeEnabled) {
         mIsMdnsOffloadFeatureEnabled = isOffloadFeatureEnabled;
         mIncludeInetAddressRecordsInProbing = includeInetAddressRecordsInProbing;
         mIsExpiredServicesRemovalEnabled = isExpiredServicesRemovalEnabled;
         mIsLabelCountLimitEnabled = isLabelCountLimitEnabled;
         mIsKnownAnswerSuppressionEnabled = isKnownAnswerSuppressionEnabled;
+        mIsAggressiveQueryModeEnabled = isAggressiveQueryModeEnabled;
     }
 
 
@@ -90,6 +100,7 @@ public class MdnsFeatureFlags {
         private boolean mIsExpiredServicesRemovalEnabled;
         private boolean mIsLabelCountLimitEnabled;
         private boolean mIsKnownAnswerSuppressionEnabled;
+        private boolean mIsAggressiveQueryModeEnabled;
 
         /**
          * The constructor for {@link Builder}.
@@ -100,6 +111,7 @@ public class MdnsFeatureFlags {
             mIsExpiredServicesRemovalEnabled = false;
             mIsLabelCountLimitEnabled = true; // Default enabled.
             mIsKnownAnswerSuppressionEnabled = false;
+            mIsAggressiveQueryModeEnabled = false;
         }
 
         /**
@@ -154,6 +166,16 @@ public class MdnsFeatureFlags {
         }
 
         /**
+         * Set whether the new query mode is enabled.
+         *
+         * @see #NSD_AGGRESSIVE_QUERY_MODE
+         */
+        public Builder setIsAggressiveQueryModeEnabled(boolean isAggressiveQueryModeEnabled) {
+            mIsAggressiveQueryModeEnabled = isAggressiveQueryModeEnabled;
+            return this;
+        }
+
+        /**
          * Builds a {@link MdnsFeatureFlags} with the arguments supplied to this builder.
          */
         public MdnsFeatureFlags build() {
@@ -161,7 +183,8 @@ public class MdnsFeatureFlags {
                     mIncludeInetAddressRecordsInProbing,
                     mIsExpiredServicesRemovalEnabled,
                     mIsLabelCountLimitEnabled,
-                    mIsKnownAnswerSuppressionEnabled);
+                    mIsKnownAnswerSuppressionEnabled,
+                    mIsAggressiveQueryModeEnabled);
         }
     }
 }

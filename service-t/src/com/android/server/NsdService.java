@@ -250,6 +250,8 @@ public class NsdService extends INsdManager.Stub {
 
     private final RemoteCallbackList<IOffloadEngine> mOffloadEngines =
             new RemoteCallbackList<>();
+    @NonNull
+    private final MdnsFeatureFlags mMdnsFeatureFlags;
 
     private static class OffloadEngineInfo {
         @NonNull final String mInterfaceName;
@@ -786,6 +788,9 @@ public class NsdService extends INsdManager.Stub {
                                             .setNetwork(info.getNetwork())
                                             .setRemoveExpiredService(true)
                                             .setIsPassiveMode(true);
+                            if (mMdnsFeatureFlags.mIsAggressiveQueryModeEnabled) {
+                                optionsBuilder.setIsAggressiveMode(true);
+                            }
                             if (!typeAndSubtype.second.isEmpty()) {
                                 // The parsing ensures subtype starts with an underscore.
                                 // MdnsSearchOptions expects the underscore to not be present.
@@ -1033,14 +1038,17 @@ public class NsdService extends INsdManager.Stub {
                             maybeStartMonitoringSockets();
                             final MdnsListener listener = new ResolutionListener(clientRequestId,
                                     transactionId, info, resolveServiceType);
-                            final MdnsSearchOptions options = MdnsSearchOptions.newBuilder()
-                                    .setNetwork(info.getNetwork())
-                                    .setIsPassiveMode(true)
-                                    .setResolveInstanceName(info.getServiceName())
-                                    .setRemoveExpiredService(true)
-                                    .build();
+                            final MdnsSearchOptions.Builder optionsBuilder =
+                                    MdnsSearchOptions.newBuilder()
+                                            .setNetwork(info.getNetwork())
+                                            .setIsPassiveMode(true)
+                                            .setResolveInstanceName(info.getServiceName())
+                                            .setRemoveExpiredService(true);
+                            if (mMdnsFeatureFlags.mIsAggressiveQueryModeEnabled) {
+                                optionsBuilder.setIsAggressiveMode(true);
+                            }
                             mMdnsDiscoveryManager.registerListener(
-                                    resolveServiceType, listener, options);
+                                    resolveServiceType, listener, optionsBuilder.build());
                             storeDiscoveryManagerRequestMap(clientRequestId, transactionId,
                                     listener, clientInfo, info.getNetwork());
                             clientInfo.log("Register a ResolutionListener " + transactionId
@@ -1131,14 +1139,17 @@ public class NsdService extends INsdManager.Stub {
                         maybeStartMonitoringSockets();
                         final MdnsListener listener = new ServiceInfoListener(clientRequestId,
                                 transactionId, info, resolveServiceType);
-                        final MdnsSearchOptions options = MdnsSearchOptions.newBuilder()
-                                .setNetwork(info.getNetwork())
-                                .setIsPassiveMode(true)
-                                .setResolveInstanceName(info.getServiceName())
-                                .setRemoveExpiredService(true)
-                                .build();
+                        final MdnsSearchOptions.Builder optionsBuilder =
+                                MdnsSearchOptions.newBuilder()
+                                        .setNetwork(info.getNetwork())
+                                        .setIsPassiveMode(true)
+                                        .setResolveInstanceName(info.getServiceName())
+                                        .setRemoveExpiredService(true);
+                        if (mMdnsFeatureFlags.mIsAggressiveQueryModeEnabled) {
+                            optionsBuilder.setIsAggressiveMode(true);
+                        }
                         mMdnsDiscoveryManager.registerListener(
-                                resolveServiceType, listener, options);
+                                resolveServiceType, listener, optionsBuilder.build());
                         storeDiscoveryManagerRequestMap(clientRequestId, transactionId, listener,
                                 clientInfo, info.getNetwork());
                         clientInfo.onServiceInfoCallbackRegistered(transactionId);
@@ -1732,7 +1743,7 @@ public class NsdService extends INsdManager.Stub {
         am.addOnUidImportanceListener(new UidImportanceListener(handler),
                 mRunningAppActiveImportanceCutoff);
 
-        final MdnsFeatureFlags flags = new MdnsFeatureFlags.Builder()
+        mMdnsFeatureFlags = new MdnsFeatureFlags.Builder()
                 .setIsMdnsOffloadFeatureEnabled(mDeps.isTetheringFeatureNotChickenedOut(
                         mContext, MdnsFeatureFlags.NSD_FORCE_DISABLE_MDNS_OFFLOAD))
                 .setIncludeInetAddressRecordsInProbing(mDeps.isFeatureEnabled(
@@ -1743,15 +1754,19 @@ public class NsdService extends INsdManager.Stub {
                         mContext, MdnsFeatureFlags.NSD_LIMIT_LABEL_COUNT))
                 .setIsKnownAnswerSuppressionEnabled(mDeps.isFeatureEnabled(
                         mContext, MdnsFeatureFlags.NSD_KNOWN_ANSWER_SUPPRESSION))
+                .setIsAggressiveQueryModeEnabled(mDeps.isFeatureEnabled(
+                        mContext, MdnsFeatureFlags.NSD_AGGRESSIVE_QUERY_MODE))
                 .build();
         mMdnsSocketClient =
                 new MdnsMultinetworkSocketClient(handler.getLooper(), mMdnsSocketProvider,
-                        LOGGER.forSubComponent("MdnsMultinetworkSocketClient"), flags);
+                        LOGGER.forSubComponent("MdnsMultinetworkSocketClient"), mMdnsFeatureFlags);
         mMdnsDiscoveryManager = deps.makeMdnsDiscoveryManager(new ExecutorProvider(),
-                mMdnsSocketClient, LOGGER.forSubComponent("MdnsDiscoveryManager"), flags);
+                mMdnsSocketClient, LOGGER.forSubComponent("MdnsDiscoveryManager"),
+                mMdnsFeatureFlags);
         handler.post(() -> mMdnsSocketClient.setCallback(mMdnsDiscoveryManager));
         mAdvertiser = deps.makeMdnsAdvertiser(handler.getLooper(), mMdnsSocketProvider,
-                new AdvertiserCallback(), LOGGER.forSubComponent("MdnsAdvertiser"), flags);
+                new AdvertiserCallback(), LOGGER.forSubComponent("MdnsAdvertiser"),
+                mMdnsFeatureFlags);
         mClock = deps.makeClock();
     }
 
