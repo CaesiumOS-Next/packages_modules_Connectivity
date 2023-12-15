@@ -16,6 +16,24 @@
       "message": "Nit: that\u0027s a bit unusual indentation, I think in general this would be +4 or +8 spaces looking at other tests",
       "revId": "88a90ce8ebfe6ad0a6af6d28d9d98ac758a1aa25",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0112cd89_b8e84d1a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-15T12:27:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15c0c133_2bc7a3e8",
+      "revId": "88a90ce8ebfe6ad0a6af6d28d9d98ac758a1aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
