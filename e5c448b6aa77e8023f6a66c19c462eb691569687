@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c751ff7_440ea311",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-15T02:39:43Z",
+      "side": 1,
+      "message": "Why not just do a clean cherry-pick of aosp/2828315 instead? The production changes are a no-op, since this is a test-only branch, and a clean cherry-pick will reduce merge conflicts.",
+      "revId": "e5c448b6aa77e8023f6a66c19c462eb691569687",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
