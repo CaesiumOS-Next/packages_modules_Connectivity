@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "431945c7_4a3e39f1",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-15T10:13:55Z",
+      "side": 1,
+      "message": "actually, we also need to set the update only flag here.",
+      "range": {
+        "startLine": 875,
+        "startChar": 36,
+        "endLine": 875,
+        "endChar": 79
+      },
+      "revId": "5f6edc7d5e478a3818ff8f141081ab9d0cb1a9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
