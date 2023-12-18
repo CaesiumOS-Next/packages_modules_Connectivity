@@ -1,0 +1,469 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e758873f_a39ce5e0",
+        "filename": "thread/tests/integration/AndroidManifest.xml",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "Wondering why the integration test module doesn\u0027t require a customized \"test_config\" (e.g. AndroidTest.xml) similar to https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/thread/tests/unit/AndroidTest.xml. For example, the integration test needs to access to the hidden API, which requires `\u003coption name\u003d\"hidden-api-checks\" value\u003d\"false\"/\u003e` in AndroidTest.xml. Second example is that guava tests will bed added to `ThreadNetworkIntegrationTests` when it links the guava library, so we need\n\n```\n\u003c!-- Ignores tests introduced by guava-android-testlib --\u003e\n\u003coption name\u003d\"exclude-annotation\" value\u003d\"org.junit.Ignore\"/\u003e\n```\nin the AndroidTest.xml. Can you double check that you don\u0027t have those issues without AndroidTest.xml?",
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a37d752f_d31a41eb",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "This file should be put under directory \"thread/tests/integration/src/**android/net/thread/**\"",
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4b57979_60879fcd",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "Prefer [ApplicationProvider](https://developer.android.com/reference/androidx/test/core/app/ApplicationProvider):\n```suggestion\n    private final Context mContext \u003d ApplicationProvider.getApplicationContext();\n```",
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7f9180e_2b1d3f95",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "The MainExecutor is the activity executor, here you should use `MoreExecutors.directExecutor()`. MoreExecutors is in package \"com.google.common.util.concurrent\"",
+      "range": {
+        "startLine": 100,
+        "startChar": 32,
+        "endLine": 100,
+        "endChar": 56
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0927bd40_24d5c7d6",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "You should wait for the callback to ensure the result and timing of the operation",
+      "range": {
+        "startLine": 101,
+        "startChar": 32,
+        "endLine": 101,
+        "endChar": 39
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d281f28a_f5f3c74f",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "Ditto, wait for the callback.",
+      "range": {
+        "startLine": 110,
+        "startChar": 34,
+        "endLine": 110,
+        "endChar": 69
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02446722_795681ef",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "Ditto, wait for the callback.",
+      "range": {
+        "startLine": 111,
+        "startChar": 51,
+        "endLine": 111,
+        "endChar": 91
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c963783c_4b6c0da2",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "We typically don\u0027t write javadocs for java unit tests, can you extend the test case name to cover what is described by this sentence?",
+      "range": {
+        "startLine": 120,
+        "startChar": 7,
+        "endLine": 120,
+        "endChar": 98
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c4a82b5_83206ded",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "Can you move this topology documentation to the \"arrange\" section in the test body?",
+      "range": {
+        "startLine": 122,
+        "startChar": 7,
+        "endLine": 127,
+        "endChar": 13
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "638b745d_a5959096",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "Please remove useless comments, nobody cases this throw in unit tests",
+      "range": {
+        "startLine": 129,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 24
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "179f1c2e_4d308e12",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "Should we test also the reverse direction?",
+      "range": {
+        "startLine": 162,
+        "startChar": 8,
+        "endLine": 162,
+        "endChar": 44
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2f81763_b5fc424c",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "Please move this to its own class file",
+      "range": {
+        "startLine": 77,
+        "startChar": 30,
+        "endLine": 77,
+        "endChar": 46
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "627eba74_9c1a2e93",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "```suggestion\n        private final Process mProcess;\n```",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 23
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e515ce32_24c4f156",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "Where is this value defined? If it\u0027s not possible to use a link, use a constant integer literal?",
+      "range": {
+        "startLine": 88,
+        "startChar": 24,
+        "endLine": 88,
+        "endChar": 62
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a215dc0b_114297e9",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "```suggestion\n            } catch (IOException e) {\n                throw new IllegalStateException(\"Failed to start ot-cli-ftd (id\u003d\" + nodeId + \")\", e);\n            }\n```",
+      "range": {
+        "startLine": 97,
+        "startChar": 12,
+        "endLine": 102,
+        "endChar": 13
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ada5b954_0460b7b3",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "```suggestion\n         * Returns an OMR (Off-Mesh-Routable) address on this device or {@code null} if no valid OMR address exists.\n```",
+      "range": {
+        "startLine": 109,
+        "startChar": 11,
+        "endLine": 109,
+        "endChar": 73
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fb702c3_856e8620",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "This is a duplicate of the summary at the bginning of the javadoc, **please remove** (this is different from OpenThread practice).",
+      "range": {
+        "startLine": 114,
+        "startChar": 11,
+        "endLine": 114,
+        "endChar": 91
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec4ac442_30dcadd7",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "It\u0027s better to throw as this should never happen.\n```suggestion\n                    throw new IllegalStateException(\"failed to parse the IPv6 address \" + address, e);\n```",
+      "range": {
+        "startLine": 129,
+        "startChar": 20,
+        "endLine": 129,
+        "endChar": 81
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b81f2b23_eb972996",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "It\u0027s only okay to `throws Exception` for testing method (the method annotated with `@Test`, or @Before or @After). For any other methods, please throws specific checked exceptions, no matter how long the list can be. See go/java-practices/exceptions#documentation",
+      "range": {
+        "startLine": 162,
+        "startChar": 79,
+        "endLine": 162,
+        "endChar": 95
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f59f81d_0a27fd98",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "I believe it\u0027s better to throw a runtime exception here so that the test case stops here when any command once failed. Otherwise, it would be costly to find the first failure place when a test case didn\u0027t pass.\n```suggestion\n                throw IllegalStateException(\"Failed to read ot-cli-ftd output for command: \" + command, e);\n```\n\nOr simply ignore the IOException and add it to the method signature:\n```\nprivate List\u003cString\u003e executeCommand(String command) throws IOException {\n```\n\nI personally prefer the first one",
+      "range": {
+        "startLine": 196,
+        "startChar": 16,
+        "endLine": 196,
+        "endChar": 19
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12239666_6b31a3fd",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-18T10:04:52Z",
+      "side": 1,
+      "message": "Please move this to its own class file",
+      "range": {
+        "startLine": 229,
+        "startChar": 30,
+        "endLine": 229,
+        "endChar": 48
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
