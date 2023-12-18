@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17fc1d7c_ab266f06",
+        "filename": "thread/service/ServiceThreadResources/resources-certs/com.android.thread.resources.pk8",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-18T16:45:24Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "80d4024d_c6a11807",
+      "revId": "a908d53535866a2c6288b32e7d952b5448613ed1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d38ea7ac_1afc5ef5",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "Thanks for the suggestion. I will reuse the ServiceConnectivtyResources.apk.",
       "parentUuid": "d38ea7ac_1afc5ef5",
+      "revId": "a908d53535866a2c6288b32e7d952b5448613ed1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6b3f1e4_bc672cbf",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkContext.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-18T16:45:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24400be9_de734c35",
       "revId": "a908d53535866a2c6288b32e7d952b5448613ed1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "533b0cc9_ce23b1e3",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 14
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-18T16:45:24Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "48e0048c_a54e3218",
+      "range": {
+        "startLine": 118,
+        "startChar": 9,
+        "endLine": 118,
+        "endChar": 31
+      },
+      "revId": "5b00ecb697c85c8b26b9a12f5ab21521b8551e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99fe67a6_3d49f782",
@@ -273,6 +297,30 @@
       "side": 1,
       "message": "Users may disable the resource APK, see b/297444951.",
       "parentUuid": "d81db13f_908e63d8",
+      "range": {
+        "startLine": 106,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 74
+      },
+      "revId": "5b00ecb697c85c8b26b9a12f5ab21521b8551e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f52f57d_665982a8",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkContext.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-18T16:45:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ef4bd35_0368082f",
       "range": {
         "startLine": 106,
         "startChar": 12,
