@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b658abd3_db6b774b",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6283,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-18T08:08:46Z",
+      "side": 1,
+      "message": "Before V I think this will cause a Log.wtf. Don\u0027t we need to remove that?",
+      "range": {
+        "startLine": 6283,
+        "startChar": 68,
+        "endLine": 6283,
+        "endChar": 96
+      },
+      "revId": "38c7503ab5358256ef2e315e178b14b7409f513c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
