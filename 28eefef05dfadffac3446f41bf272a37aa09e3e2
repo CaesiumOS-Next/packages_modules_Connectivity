@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db720285_96b159cd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 3478,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-18T07:24:55Z",
+      "side": 1,
+      "message": "Can you rename this to checkStatusBarServicePermission, for consistency with the permission name?",
+      "range": {
+        "startLine": 3478,
+        "startChar": 20,
+        "endLine": 3478,
+        "endChar": 51
+      },
+      "revId": "28eefef05dfadffac3446f41bf272a37aa09e3e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
