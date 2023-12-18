@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ef4340f_b289f319",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 55
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T02:49:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f48bade_fcd8d6e0",
+      "range": {
+        "startLine": 7,
+        "startChar": 28,
+        "endLine": 7,
+        "endChar": 32
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0dd557e_2faea911",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-08T09:36:43Z",
       "side": 1,
       "message": "a",
+      "range": {
+        "startLine": 9,
+        "startChar": 42,
+        "endLine": 9,
+        "endChar": 45
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "378c9e07_d8583566",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 55
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T02:49:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0dd557e_2faea911",
       "range": {
         "startLine": 9,
         "startChar": 42,
@@ -116,6 +164,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24ca29a7_b58285d1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 8805,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T02:49:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95b4bacf_25846121",
+      "range": {
+        "startLine": 8805,
+        "startChar": 24,
+        "endLine": 8805,
+        "endChar": 28
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c6f7995_a9ed2a6b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 8805,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T02:49:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ab62df3_119f913b",
+      "range": {
+        "startLine": 8805,
+        "startChar": 40,
+        "endLine": 8805,
+        "endChar": 43
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5036c908_58988d94",
@@ -129,6 +225,30 @@
       "writtenOn": "2023-12-08T09:36:43Z",
       "side": 1,
       "message": "perhaps (even non-VPN ones)",
+      "range": {
+        "startLine": 8806,
+        "startChar": 22,
+        "endLine": 8806,
+        "endChar": 23
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e375bff6_7ec30548",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 8806,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T02:49:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5036c908_58988d94",
       "range": {
         "startLine": 8806,
         "startChar": 22,
@@ -162,6 +282,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fe2026f_621a7d25",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 8808,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T02:49:56Z",
+      "side": 1,
+      "message": "I feel changing \"at\" to \"as\" changes the meaning.\nI think my original comment was not clear, I have updated the comment and tried to clarify.",
+      "parentUuid": "2e6b8c92_4287d209",
+      "range": {
+        "startLine": 8808,
+        "startChar": 63,
+        "endLine": 8808,
+        "endChar": 65
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4bbcb48_fb9d403a",
@@ -175,6 +319,30 @@
       "writtenOn": "2023-12-08T11:44:39Z",
       "side": 1,
       "message": "Set of pairs of addresses and interface names",
+      "range": {
+        "startLine": 8810,
+        "startChar": 48,
+        "endLine": 8810,
+        "endChar": 86
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5202b68_74fa831b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 8810,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T02:49:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4bbcb48_fb9d403a",
       "range": {
         "startLine": 8810,
         "startChar": 48,

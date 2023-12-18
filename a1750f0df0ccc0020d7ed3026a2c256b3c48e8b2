@@ -88,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d9b123c_55704296",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 8796,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T02:49:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40b28b61_612a3ed2",
+      "range": {
+        "startLine": 8796,
+        "startChar": 17,
+        "endLine": 8796,
+        "endChar": 31
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9059f8e9_4921e969",
@@ -111,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ced59052_f7715c89",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 8798,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T02:49:56Z",
+      "side": 1,
+      "message": "This method is used to generate old rules and new rules.\nSo lp can be the old lp and new lp.\nUpdated to comment",
+      "parentUuid": "9059f8e9_4921e969",
+      "range": {
+        "startLine": 8798,
+        "startChar": 34,
+        "endLine": 8798,
+        "endChar": 85
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "759bfd22_e7db63db",
@@ -124,6 +172,30 @@
       "writtenOn": "2023-11-21T13:01:30Z",
       "side": 1,
       "message": "I think this method is more expensive than it should, especially when there is no VPN. You could do a lot less work on average by gathering the addresses first, e.g.\n\n    Map\u003c\u003e addresses \u003d null;\n    for (mNetworkAgentInfos) {\n      if (!VPN) continue\n      if (null \u003d\u003d addresses) addresses \u003d new ArrayMap\u003c\u003e();\n      for (agent.lp.getAllAddresses) {\n        if (!address.isLinkLocal) addresses.add(address, iface)\n      }\n    }\n    if (null \u003d\u003d addresses) return\n    for (mNetworkAgentInfos) {\n      if (agent.equals(nai)) continue\n      for (agent.getAllAddresses) addresses.remove(address)\n    }",
+      "range": {
+        "startLine": 8802,
+        "startChar": 43,
+        "endLine": 8802,
+        "endChar": 70
+      },
+      "revId": "a1750f0df0ccc0020d7ed3026a2c256b3c48e8b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8f27fd4_0a218698",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 8802,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T02:49:56Z",
+      "side": 1,
+      "message": "This does not work if multiple VPNs have the same address.",
+      "parentUuid": "759bfd22_e7db63db",
       "range": {
         "startLine": 8802,
         "startChar": 43,
