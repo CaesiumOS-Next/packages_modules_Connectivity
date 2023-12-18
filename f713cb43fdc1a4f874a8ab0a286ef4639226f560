@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "599bc168_277e8e17",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/StructMrt6Msg.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T07:15:07Z",
+      "side": 1,
+      "message": "nits:\nI think we ignore the mbz and always use 0 for mbz.\nIf this is what we want, it would be helpful to have comment for this behavior.",
+      "range": {
+        "startLine": 38,
+        "startChar": 36,
+        "endLine": 38,
+        "endChar": 39
+      },
+      "revId": "f713cb43fdc1a4f874a8ab0a286ef4639226f560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7555a950_88397415",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/StructMrt6Msg.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T07:15:07Z",
+      "side": 1,
+      "message": "Will we use this?\nI saw aosp/2817454 directly uses `Struct.parse(StructMrt6Msg.class, buf)`",
+      "range": {
+        "startLine": 46,
+        "startChar": 32,
+        "endLine": 46,
+        "endChar": 37
+      },
+      "revId": "f713cb43fdc1a4f874a8ab0a286ef4639226f560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95186a92_44d59de9",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMrt6MsgTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T07:15:07Z",
+      "side": 1,
+      "message": "nits: It would be better to use address from Prefix Reserved for Documentation rfc3849, if we don\u0027t have reason.",
+      "range": {
+        "startLine": 29,
+        "startChar": 54,
+        "endLine": 29,
+        "endChar": 90
+      },
+      "revId": "f713cb43fdc1a4f874a8ab0a286ef4639226f560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ce48817_892f609b",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMrt6MsgTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T07:15:07Z",
+      "side": 1,
+      "message": "nits: Can we have test for writeToBytes as well?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 1
+      },
+      "revId": "f713cb43fdc1a4f874a8ab0a286ef4639226f560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
