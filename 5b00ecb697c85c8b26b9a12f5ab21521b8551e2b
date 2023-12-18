@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "48e0048c_a54e3218",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 14
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-18T03:43:09Z",
+      "side": 1,
+      "message": "That sounds simpler yes; otherwise we\u0027d be using extra storage for not much benefit.\n\nConsidering that the code is all together in service-connectivity.jar, it would make sense to have all the resources in ServiceConnectivityResources.apk.\n\nYou could separate your config into `packages/modules/Connectivity/service/ServiceConnectivityResources/res/values/config_thread.xml` (instead of the connectivity config.xml) for example, then you could get owners on that one.",
+      "parentUuid": "a97b8f96_f39764ca",
+      "range": {
+        "startLine": 118,
+        "startChar": 9,
+        "endLine": 118,
+        "endChar": 31
+      },
+      "revId": "5b00ecb697c85c8b26b9a12f5ab21521b8551e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99fe67a6_3d49f782",
         "filename": "service/Android.bp",
         "patchSetId": 14
