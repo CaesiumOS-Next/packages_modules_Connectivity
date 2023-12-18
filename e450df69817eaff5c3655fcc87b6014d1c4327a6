@@ -22,6 +22,30 @@
       },
       "revId": "e450df69817eaff5c3655fcc87b6014d1c4327a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "784aec75_0ae79d29",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/NetlinkUtilsTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-18T08:31:31Z",
+      "side": 0,
+      "message": "By mistake, reverted.",
+      "parentUuid": "7ac81302_82ef97be",
+      "range": {
+        "startLine": 107,
+        "startChar": 8,
+        "endLine": 107,
+        "endChar": 90
+      },
+      "revId": "e450df69817eaff5c3655fcc87b6014d1c4327a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
