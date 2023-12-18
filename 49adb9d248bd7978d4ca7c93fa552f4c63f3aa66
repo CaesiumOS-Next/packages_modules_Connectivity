@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c17daf17_461fcd93",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMf6cctlTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T08:40:33Z",
+      "side": 1,
+      "message": "nits: `1 /* mf6ccParent */`",
+      "range": {
+        "startLine": 28,
+        "startChar": 72,
+        "endLine": 28,
+        "endChar": 73
+      },
+      "revId": "49adb9d248bd7978d4ca7c93fa552f4c63f3aa66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
