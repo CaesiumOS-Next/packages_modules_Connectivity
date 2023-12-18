@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12cc168f_bf881dca",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-18T08:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d65c9cb9_32f64017",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 10
+      },
+      "revId": "fbcda840253886ee39aaed2c1c4b01577ce4b139",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff7a9d0d_f6abb688",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-14T07:55:12Z",
       "side": 1,
       "message": "Suggest adding:\n\nNote that this value is not updated with the passage of time. It always returns the value that was read when the netlink message was parsed.",
+      "range": {
+        "startLine": 144,
+        "startChar": 39,
+        "endLine": 144,
+        "endChar": 40
+      },
+      "revId": "fbcda840253886ee39aaed2c1c4b01577ce4b139",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a07e976_f4a42838",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkRouteMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-18T08:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff7a9d0d_f6abb688",
       "range": {
         "startLine": 144,
         "startChar": 39,
