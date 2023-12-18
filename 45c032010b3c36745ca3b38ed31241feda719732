@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "970884c0_78228a30",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-18T04:49:31Z",
+      "side": 1,
+      "message": "Scan will only happen when configs.size !\u003d 1, which is actually an invalid configuration (CTS or similar should only have one configuration active in theory).\n\nWhat kind of flaky cases are you trying to fix with this change ? I\u0027m not sure this covers them",
+      "range": {
+        "startLine": 9,
+        "startChar": 11,
+        "endLine": 9,
+        "endChar": 18
+      },
+      "revId": "45c032010b3c36745ca3b38ed31241feda719732",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c07b57d_495b447f",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectUtil.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-18T04:49:31Z",
+      "side": 1,
+      "message": "Can this be @RequiresPermission instead ? That would indicate that the caller should have the permission.",
+      "range": {
+        "startLine": 86,
+        "startChar": 5,
+        "endLine": 86,
+        "endChar": 17
+      },
+      "revId": "45c032010b3c36745ca3b38ed31241feda719732",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "231646bb_7c142921",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectUtil.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-18T04:49:31Z",
+      "side": 1,
+      "message": "Could you move this to the caller ? It\u0027s a bit strange to have a method that just sleeps before returning in case of error (also the Log.w ends up duplicate here and in the caller, since error handling is kind of split between both)",
+      "revId": "45c032010b3c36745ca3b38ed31241feda719732",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
