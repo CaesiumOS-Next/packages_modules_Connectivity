@@ -39,6 +39,30 @@
       },
       "revId": "884e8cc62f4e3024cb915af16a40ceab51e01f6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d982bf69_b7cc38eb",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-18T03:14:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c57d70f7_576d102a",
+      "range": {
+        "startLine": 707,
+        "startChar": 17,
+        "endLine": 707,
+        "endChar": 48
+      },
+      "revId": "884e8cc62f4e3024cb915af16a40ceab51e01f6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
