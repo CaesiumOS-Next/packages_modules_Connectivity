@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14693732_06e95070",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 1959,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T02:50:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c2c0ff3_92e031e9",
+      "range": {
+        "startLine": 1959,
+        "startChar": 0,
+        "endLine": 1959,
+        "endChar": 83
+      },
+      "revId": "ad337c8c9e3bf599d97d6cba62ed2727f86c8899",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ee01d56_01bae1fc",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe5424f8_08bcc157",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 1961,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T02:50:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ee01d56_01bae1fc",
+      "range": {
+        "startLine": 1961,
+        "startChar": 50,
+        "endLine": 1961,
+        "endChar": 54
+      },
+      "revId": "ad337c8c9e3bf599d97d6cba62ed2727f86c8899",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f91ad90_df4666f7",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-12-08T09:10:26Z",
       "side": 1,
       "message": "as",
+      "range": {
+        "startLine": 1964,
+        "startChar": 90,
+        "endLine": 1964,
+        "endChar": 94
+      },
+      "revId": "ad337c8c9e3bf599d97d6cba62ed2727f86c8899",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d0a9859_5c58d043",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 1964,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T02:50:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f91ad90_df4666f7",
       "range": {
         "startLine": 1964,
         "startChar": 90,
