@@ -33,6 +33,24 @@
       "message": "I\u0027d recommend using ServiceConnectivtyResources.apk instead, then you can use the existing com.android.server.connectivity.ConnectivityResources.java (which you already have access to from service-connectivity-pre-jarjar)",
       "revId": "a908d53535866a2c6288b32e7d952b5448613ed1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24400be9_de734c35",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkContext.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-18T03:45:37Z",
+      "side": 1,
+      "message": "Thanks for the suggestion. I will reuse the ServiceConnectivtyResources.apk.",
+      "parentUuid": "d38ea7ac_1afc5ef5",
+      "revId": "a908d53535866a2c6288b32e7d952b5448613ed1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
