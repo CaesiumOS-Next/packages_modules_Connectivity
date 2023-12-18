@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a019274b_eacbc152",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-18T17:20:31Z",
+      "side": 1,
+      "message": "Discussed with Motomu that the case of NetworkRequestStateStatsMetrics object being null will be implicitly tested in the other ConnectivityService tests.",
+      "revId": "7f64420d8356f5e6e2592bda4fb74319a7d49eb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
