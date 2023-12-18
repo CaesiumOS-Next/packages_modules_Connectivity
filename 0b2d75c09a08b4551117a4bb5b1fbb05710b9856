@@ -1,5 +1,52 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce2aae0f_b6c1ad34",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T10:08:57Z",
+      "side": 1,
+      "message": "Should we throw in this case?",
+      "range": {
+        "startLine": 348,
+        "startChar": 12,
+        "endLine": 348,
+        "endChar": 18
+      },
+      "revId": "0b2d75c09a08b4551117a4bb5b1fbb05710b9856",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f5d5af2_7bda9252",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T10:08:57Z",
+      "side": 1,
+      "message": "From the current behavior of processNetlinkDumpAndDestroySockets in InetDiagMessage, should this be just `break`?",
+      "range": {
+        "startLine": 370,
+        "startChar": 20,
+        "endLine": 371,
+        "endChar": 80
+      },
+      "revId": "0b2d75c09a08b4551117a4bb5b1fbb05710b9856",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
