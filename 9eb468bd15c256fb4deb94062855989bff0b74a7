@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5156857_f8ca41a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T08:23:07Z",
+      "side": 1,
+      "message": "nits: annotation for `testGetDataSaverEnabled` should be updated accordingly.\n```\n    @IgnoreUpTo(VERSION_CODES.UPSIDE_DOWN_CAKE)\n    @Test\n    fun testGetDataSaverEnabled() {\n```",
+      "revId": "9eb468bd15c256fb4deb94062855989bff0b74a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
