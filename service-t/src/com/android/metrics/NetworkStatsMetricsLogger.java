@@ -29,15 +29,19 @@ import static com.android.server.ConnectivityStatsLog.NETWORK_STATS_RECORDER_FIL
 import static com.android.server.ConnectivityStatsLog.NETWORK_STATS_RECORDER_FILE_OPERATION_REPORTED__RECORDER_TYPE__RECORDER_TYPE_XT;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.net.NetworkStatsCollection;
 import android.net.NetworkStatsHistory;
+import android.util.Pair;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.ConnectivityStatsLog;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * Helper class to log NetworkStats related metrics.
@@ -94,10 +98,45 @@ public class NetworkStatsMetricsLogger {
     }
 
     /**
+     * Get file counts and total byte counts for the given directory and prefix.
+     *
+     * @return File counts and total byte counts as a pair, or 0s if met errors.
+     */
+    private static Pair<Integer, Integer> getStatsFilesAttributes(
+            @Nullable File statsDir, @NonNull String prefix) {
+        if (statsDir == null) return new Pair<>(0, 0);
+
+        // Only counts the matching files.
+        // The files are named in the following format:
+        //   <prefix>.<startTimestamp>-[<endTimestamp>]
+        //   e.g. uid_tag.12345-
+        // See FileRotator#FileInfo for more detail.
+        final Pattern pattern = Pattern.compile("^" + prefix + "\\.[0-9]+-[0-9]*$");
+
+        // Ensure that base path exists.
+        statsDir.mkdirs();
+
+        int totalFiles = 0;
+        int totalBytes = 0;
+        for (String name : emptyIfNull(statsDir.list())) {
+            if (!pattern.matcher(name).matches()) continue;
+
+            totalFiles++;
+            totalBytes += new File(statsDir, name).length();
+
+        }
+        return new Pair<>(totalFiles, totalBytes);
+    }
+
+    private static String [] emptyIfNull(@Nullable String [] array) {
+        return (array == null) ? new String[0] : array;
+    }
+
+    /**
      * Log NetworkStatsRecorder file reading event to metrics.
      */
     public void logRecorderFileReading(@NonNull String prefix, int duration,
-                                              @NonNull NetworkStatsCollection collection) {
+            @Nullable File statsDir, @NonNull NetworkStatsCollection collection) {
         final Set<Integer> uids = new HashSet<>();
         final Map<NetworkStatsCollection.Key, NetworkStatsHistory> entries =
                 collection.getEntries();
@@ -111,12 +150,11 @@ public class NetworkStatsMetricsLogger {
             totalHistorySize += history.size();
         }
 
-        // TODO: Fill file characteristics.
+        final Pair<Integer, Integer> fileAttributes = getStatsFilesAttributes(statsDir, prefix);
         mDeps.writeRecorderFileReadingStats(prefixToRecorderType(prefix),
-                duration,
-                mReadIndex++,
-                0 /* fileCount */,
-                0 /* totalFileSize */,
+                mReadIndex++, duration,
+                fileAttributes.first /* fileCount */,
+                fileAttributes.second /* totalFileSize */,
                 entries.size(),
                 uids.size(),
                 totalHistorySize);
