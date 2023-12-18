@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "908b2f52_e5ee588f",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-18T09:45:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a97e7fea_d6d59072",
+      "range": {
+        "startLine": 53,
+        "startChar": 21,
+        "endLine": 53,
+        "endChar": 95
+      },
+      "revId": "f5a8753d9a4981c6499ad575d1e35e5b72bb534c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95c69084_32bf3b1b",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-14T11:24:38Z",
       "side": 1,
       "message": "Consider converting it into a constant or using it as a local variable, see go/unit-testing-practices#constants",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 42
+      },
+      "revId": "f5a8753d9a4981c6499ad575d1e35e5b72bb534c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3a79411_9029235a",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-18T09:45:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95c69084_32bf3b1b",
       "range": {
         "startLine": 66,
         "startChar": 4,
@@ -117,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1dbe874_086ba73a",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-18T09:45:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d97aca8_042f0c31",
+      "range": {
+        "startLine": 113,
+        "startChar": 16,
+        "endLine": 113,
+        "endChar": 49
+      },
+      "revId": "f5a8753d9a4981c6499ad575d1e35e5b72bb534c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5ece674_47d72005",
@@ -130,6 +202,30 @@
       "writtenOn": "2023-12-14T11:24:38Z",
       "side": 1,
       "message": "Nit: consider name `testUnreceivedNetworkRequestRemoved` and `testReceivedNetworkRequestRemoved` to make clear the relationship between receiving the network request, and logging or not logging on network request removal.",
+      "range": {
+        "startLine": 155,
+        "startChar": 16,
+        "endLine": 155,
+        "endChar": 44
+      },
+      "revId": "f5a8753d9a4981c6499ad575d1e35e5b72bb534c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92871812_2000e690",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-18T09:45:02Z",
+      "side": 1,
+      "message": "Fixed the first one (I think `testExistingNetworkRequestReceived` reads more easy then `testReceivedNetworkRequestRemoved`)",
+      "parentUuid": "c5ece674_47d72005",
       "range": {
         "startLine": 155,
         "startChar": 16,
