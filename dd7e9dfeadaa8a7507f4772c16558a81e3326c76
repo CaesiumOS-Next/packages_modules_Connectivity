@@ -212,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61d3a8b2_a631ce71",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 8805,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T06:29:11Z",
+      "side": 1,
+      "message": "VPN seamless handover is done by updating LinkProperties.\nSo I think updating rules from `updateLinkProperties` is enough.\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:frameworks/base/services/core/java/com/android/server/connectivity/Vpn.java?q\u003dupdateLinkPropertiesInPlaceIfPossible",
+      "parentUuid": "b9aee7c5_2e3ae14c",
+      "range": {
+        "startLine": 8805,
+        "startChar": 44,
+        "endLine": 8805,
+        "endChar": 50
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5036c908_58988d94",
@@ -366,6 +390,30 @@
       "writtenOn": "2023-12-08T11:44:39Z",
       "side": 1,
       "message": "ah... we don\u0027t actually support handover. since there\u0027s only one interface at most for a given IP",
+      "range": {
+        "startLine": 8849,
+        "startChar": 0,
+        "endLine": 8849,
+        "endChar": 86
+      },
+      "revId": "dd7e9dfeadaa8a7507f4772c16558a81e3326c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cac2d5b9_50dc5e07",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 8849,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-18T06:29:11Z",
+      "side": 1,
+      "message": "VPN seamless handover is done by updating LinkProperties.\nSo I don\u0027t think we need to support two interface for each address.\nOnce I can merge this CL, let me upload CL to update the value to the single interface.",
+      "parentUuid": "080c5ba5_206a9308",
       "range": {
         "startLine": 8849,
         "startChar": 0,
