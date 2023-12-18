@@ -1,0 +1,186 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62fac539_0a806aa2",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-18T04:36:17Z",
+      "side": 1,
+      "message": "There is some special case in compareStats that were specific to the stats importer (NetworkStatsCollection#couldKeyChangeOnImport). Should that be removed for this case ?",
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e74f3a9_4c53a8f4",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-18T04:36:17Z",
+      "side": 1,
+      "message": "Add @GuardedBy(\"mStatsLock\") to avoid the linter errors (hopefully)",
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71b45297_bfc2b33e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-18T04:36:17Z",
+      "side": 1,
+      "message": "I\u0027m not sure you need this: up to line 1020 it will either be null or false, and if it was null, it is set to something else at that point.\n\nYou should be able to replace the \"null\" case by \"true\" and use a normal boolean.",
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "154dd89f_c55610a0",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1065,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-18T04:36:17Z",
+      "side": 1,
+      "message": "Do you still need to do the comparison after it has succeeded once ? For the legacy storage migration, on success the success counter would be set to targetAttempts",
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51c55684_db4474c1",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1371,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-18T04:36:17Z",
+      "side": 1,
+      "message": "It may be difficult to separate errors logged from the legacy stats import, and from the FastDataInput migration. Maybe have some argument to help differentiate the error messages ?",
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3250add_c456fbcc",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2745,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-18T04:36:17Z",
+      "side": 1,
+      "message": "Is this `PrintWriter#print(String format, Object... args)` ? This wouldn\u0027t be right I think. Should it be println(String) like the above line ?",
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "014ff961_e9e64d97",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-18T04:36:17Z",
+      "side": 1,
+      "message": "This mixes mocking through a manually created subclass on L.433, and through Mockito; it would be best to only use one scheme (the existing one) for consistency.\n\nInstead you could have the subclass of NetworkStatsService.Dependencies record calls to compareStats in some inner variable, without using mockito.\n\nAlso creating the spy here (and not in setUp) might share it across different tests, although that may depend on the test runner (FWIW, in Kotlin I think the test class is re-created for each test case, but not necessarily for Java tests)",
+      "range": {
+        "startLine": 296,
+        "startChar": 51,
+        "endLine": 296,
+        "endChar": 54
+      },
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0648b65e_887f107d",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2207,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-18T04:36:17Z",
+      "side": 1,
+      "message": "Nit: since that\u0027s a different scenario that doesn\u0027t depend on the previous one, can you put it in another test method ? (same for other cases below)",
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33947f15_76b7fb22",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2218,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-18T04:36:17Z",
+      "side": 1,
+      "message": "Generally this method is discouraged (see mockito doc); that should be fixed by moving this to a different test method",
+      "range": {
+        "startLine": 2218,
+        "startChar": 8,
+        "endLine": 2218,
+        "endChar": 24
+      },
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84c39950_a7f93887",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2232,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-18T04:36:17Z",
+      "side": 1,
+      "message": "Can you verify what happens when booting after a previous boot had successful comparisons ?",
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
