@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "943ce030_1350274f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-18T04:24:56Z",
+      "side": 1,
+      "message": "Motomu, here\u0027s the (unmerged) CL that was trying to fix the crash triggered by immediately disconnecting NetworkAgents.",
+      "revId": "b3567c9fd47a122c89f2bbdde30b405732977bfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
