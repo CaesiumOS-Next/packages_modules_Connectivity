@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa2088a1_49e95a29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1927237
+      },
+      "writtenOn": "2023-12-19T11:03:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18d5ce21_a67a93f6",
+      "revId": "b1bcc2f8b8acddd04afd2a9a73c77bf6bd976465",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e991c4d_2d72cae3",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-12-19T10:55:22Z",
       "side": 1,
       "message": "Can you add a description on why it is necessary to add a mcts tag to the build targets, and what it is used for ?",
+      "revId": "b1bcc2f8b8acddd04afd2a9a73c77bf6bd976465",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d147043_96572a8e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1927237
+      },
+      "writtenOn": "2023-12-19T11:03:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e991c4d_2d72cae3",
       "revId": "b1bcc2f8b8acddd04afd2a9a73c77bf6bd976465",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f15b1bd_6adfd945",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1927237
+      },
+      "writtenOn": "2023-12-19T11:03:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cca29f8d_bea788a2",
+      "revId": "b1bcc2f8b8acddd04afd2a9a73c77bf6bd976465",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc1089f2_a1d43728",
@@ -65,6 +119,30 @@
       "writtenOn": "2023-12-19T10:55:22Z",
       "side": 1,
       "message": "You can remove these 2 lines, since this won\u0027t actually be a cherry-pick, and there aren\u0027t changes merged downstream",
+      "range": {
+        "startLine": 10,
+        "startChar": 1,
+        "endLine": 11,
+        "endChar": 52
+      },
+      "revId": "b1bcc2f8b8acddd04afd2a9a73c77bf6bd976465",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f03c254a_7ceda520",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1927237
+      },
+      "writtenOn": "2023-12-19T11:03:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc1089f2_a1d43728",
       "range": {
         "startLine": 10,
         "startChar": 1,
