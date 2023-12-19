@@ -135,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cd85384_a4c224a6",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-12-19T21:51:30Z",
+      "side": 1,
+      "message": "The input for this constructor is a byte[]",
+      "parentUuid": "7770459d_dea4a296",
+      "range": {
+        "startLine": 54,
+        "startChar": 23,
+        "endLine": 54,
+        "endChar": 39
+      },
+      "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "502b554d_448abffe",
@@ -199,6 +223,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "851b42ed_151c0bee",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmUsersaId.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-12-19T21:51:30Z",
+      "side": 1,
+      "message": "This can be either an IPv4 or IPv6 address. And in both cases they need to be encoded to a 16-bytes array. Thus there are not many Struct.types can work here.\n\nIf we use `Ipv6Address`, we need to store an IPv4 address as `Inet6Address`. I think it will make the code less readable than using a nested array. Especially this `xfrm_address_t` will be used in other structs. It will be cleaner to just encapsulate the decode/encode logic in a seperate `IpSecStructXfrmAddressT` class so that structs that contain `xfrm_address_t` do not need to worry about it.",
+      "parentUuid": "7e76f048_0123d7f7",
+      "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4e70029_6125ed83",
@@ -212,6 +254,30 @@
       "writtenOn": "2023-12-19T15:08:10Z",
       "side": 1,
       "message": "Typo, Struct.",
+      "range": {
+        "startLine": 60,
+        "startChar": 31,
+        "endLine": 60,
+        "endChar": 37
+      },
+      "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7961bce_371c5851",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmUsersaId.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2023-12-19T21:51:30Z",
+      "side": 1,
+      "message": "Filed b/317116334 to fix it and other places that mispell \"Struct\"",
+      "parentUuid": "c4e70029_6125ed83",
       "range": {
         "startLine": 60,
         "startChar": 31,
