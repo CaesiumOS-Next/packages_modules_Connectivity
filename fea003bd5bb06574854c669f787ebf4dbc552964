@@ -34,6 +34,24 @@
       "parentUuid": "d9efd679_4c51c894",
       "revId": "fea003bd5bb06574854c669f787ebf4dbc552964",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e5d4e78_171d313f",
+        "filename": "nearby/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1060529
+      },
+      "writtenOn": "2023-12-19T20:41:09Z",
+      "side": 1,
+      "message": "It\u0027s fine to keep this, just make a big disclaimer this should be rare and developers should be aware of the implications.",
+      "parentUuid": "36591026_f76523d2",
+      "revId": "fea003bd5bb06574854c669f787ebf4dbc552964",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
