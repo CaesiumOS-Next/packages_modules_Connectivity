@@ -195,6 +195,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ba6b41a_3f29e216",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T09:42:11Z",
+      "side": 1,
+      "message": "LGTM for the naming",
+      "parentUuid": "8831cdaa_ad4aa321",
+      "revId": "0d6d1df542372c1b5f7111da8bd574fb6fde3597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90a41388_25cff916",

@@ -1,0 +1,307 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06e98acb_3434789c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T09:42:11Z",
+      "side": 1,
+      "message": "For mainline module the \"NewAPI\" check has to be enabled.",
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29469165_ceb060d3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T09:42:11Z",
+      "side": 1,
+      "message": "I wonder why not store them as `CountryCodeInfo`s? The data seems to overlap a lot.",
+      "range": {
+        "startLine": 115,
+        "startChar": 14,
+        "endLine": 119,
+        "endChar": 46
+      },
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fe219ed_ca6a9fab",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T09:42:11Z",
+      "side": 1,
+      "message": "I wonder why not `setWifiCountryCode(null)`?",
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4463e27_f3645c48",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T09:42:11Z",
+      "side": 1,
+      "message": "nit: This is a long method. Probably you can divide it into smaller methods to improve readability.",
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d28c8c5c_cbeb7608",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T09:42:11Z",
+      "side": 1,
+      "message": "Why is it using `Locale.US` here while others using `Locale.ROOT`?",
+      "range": {
+        "startLine": 350,
+        "startChar": 79,
+        "endLine": 350,
+        "endChar": 88
+      },
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd54fc34_fb5b8166",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T09:42:11Z",
+      "side": 1,
+      "message": "These two methods are quite similar. Probably you can unify them if you treat them as the same type like `CountryCodeInfo`.",
+      "range": {
+        "startLine": 367,
+        "startChar": 4,
+        "endLine": 391,
+        "endChar": 5
+      },
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bd1891d_21ff88c9",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T09:42:11Z",
+      "side": 1,
+      "message": "Why? E.g., when here are multiple SIMs, can you always return the value of the first slot?",
+      "range": {
+        "startLine": 400,
+        "startChar": 29,
+        "endLine": 401,
+        "endChar": 18
+      },
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dac425ca_d635f905",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T09:42:11Z",
+      "side": 1,
+      "message": "I\u0027m not sure what it means. Is it a typo?",
+      "range": {
+        "startLine": 406,
+        "startChar": 84,
+        "endLine": 406,
+        "endChar": 92
+      },
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66c69977_7f1cd2fb",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T09:42:11Z",
+      "side": 1,
+      "message": "nit: add comment at every step to refer to the step number.",
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64b24967_254efa60",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T09:42:11Z",
+      "side": 1,
+      "message": "Add `@VisibleForTesting`",
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e16559a8_b24db749",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T09:42:11Z",
+      "side": 1,
+      "message": "nit: use `@link`",
+      "range": {
+        "startLine": 530,
+        "startChar": 55,
+        "endLine": 530,
+        "endChar": 80
+      },
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5449a6e7_195f5081",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T09:42:11Z",
+      "side": 1,
+      "message": "I\u0027m not sure about the dump format format. If possible could you make it indicate this line is the **beginning** of the country code dump?",
+      "range": {
+        "startLine": 538,
+        "startChar": 0,
+        "endLine": 538,
+        "endChar": 65
+      },
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57c767ab_4f7e217e",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T09:42:11Z",
+      "side": 1,
+      "message": "nit: write a helper method to implement this part",
+      "range": {
+        "startLine": 544,
+        "startChar": 26,
+        "endLine": 546,
+        "endChar": 39
+      },
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ef5b9e7_84b35f9c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T09:42:11Z",
+      "side": 1,
+      "message": "Use `TextUtils.IsEmpty`?",
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c44ef903_dd645250",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T09:42:11Z",
+      "side": 1,
+      "message": "nit: Shall we call it `override-country-code`?",
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
