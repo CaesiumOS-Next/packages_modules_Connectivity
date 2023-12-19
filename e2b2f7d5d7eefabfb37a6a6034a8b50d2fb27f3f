@@ -233,6 +233,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fbbfd292_099288af",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-19T06:41:56Z",
+      "side": 1,
+      "message": "We need another test case which sends UDP packet from the BR itself to Thread ED. This should be the automation of the manual test case in the Demo app (in the \"Connectivity Tools\" page).\n\nThis test case is meaningfull because this is the case which drives making Thread a local network, and it\u0027s important to ensure the connectivity between the BR and Thread ED.\n\nInstead of adding the test cases in this CL, add it in a new CL.\n\nNote that the test case should cover both OMR and mesh-local address (two test cases).",
+      "range": {
+        "startLine": 132,
+        "startChar": 16,
+        "endLine": 132,
+        "endChar": 54
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "179f1c2e_4d308e12",
         "filename": "thread/tests/integration/src/BorderRoutingTest.java",
         "patchSetId": 28
