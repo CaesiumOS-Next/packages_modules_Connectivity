@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75da3fc7_91ade402",
+        "filename": "service/ServiceConnectivityResources/res/values/config_thread.xml",
+        "patchSetId": 18
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-19T10:09:37Z",
+      "side": 1,
+      "message": "Nit: spaces are generally not used here",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 17
+      },
+      "revId": "78c1a40203488c7e0615f15439b626069e23c9d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04571991_2648bb02",
+        "filename": "service/ServiceConnectivityResources/res/values/overlayable.xml",
+        "patchSetId": 18
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-19T10:09:37Z",
+      "side": 1,
+      "message": "Ideally this would be in a different file to mirror the config_thread.xml file, but I don\u0027t think you can have another overlayable file with the same target name. And overlay APKs can only target one target name, so that would force OEMs to use different APKs to override each.\n\nStill, to avoid merge conflicts between Thread changes and other connectivity changes, could you separate this line with some comments ? (ideally 2-3 lines of comments in another block below). Otherwise if we both work on changes that modify overlays at the same time, we\u0027d get merge conflicts.",
+      "revId": "78c1a40203488c7e0615f15439b626069e23c9d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
