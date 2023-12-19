@@ -118,6 +118,30 @@
       },
       "revId": "fa923af689b107223f10cf44585dfefa1fd0e7af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f66243d_24770568",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-19T20:27:35Z",
+      "side": 1,
+      "message": "No worries, thank you for clarification! Will mark as resolved then by now.",
+      "parentUuid": "66c26779_cce3e478",
+      "range": {
+        "startLine": 89,
+        "startChar": 63,
+        "endLine": 89,
+        "endChar": 77
+      },
+      "revId": "fa923af689b107223f10cf44585dfefa1fd0e7af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

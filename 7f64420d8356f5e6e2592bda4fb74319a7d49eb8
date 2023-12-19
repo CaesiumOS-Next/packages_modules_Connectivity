@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d108fa4_1313293c",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-19T20:27:35Z",
+      "side": 1,
+      "message": "Fixed all places discussed offline. Leaving this one unresolved for the case you have more conserns.",
+      "parentUuid": "04459232_33f86619",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 22
+      },
+      "revId": "7f64420d8356f5e6e2592bda4fb74319a7d49eb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a019274b_eacbc152",
