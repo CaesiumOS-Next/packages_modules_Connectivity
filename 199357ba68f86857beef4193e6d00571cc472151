@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8492f2fa_2823cb29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-19T11:10:53Z",
+      "side": 1,
+      "message": "Note that apart from these there\u0027s a few others, which you could add in a separate change too:\n\n - CtsTetheringTest\n - CtsNetTestCases (the most important one)\n - CtsThreadNetworkTestCases",
+      "revId": "199357ba68f86857beef4193e6d00571cc472151",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
