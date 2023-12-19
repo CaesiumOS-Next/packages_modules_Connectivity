@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05255735_d87b7b0d",
+        "filename": "thread/tests/integration/AndroidManifest.xml",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T04:23:01Z",
+      "side": 1,
+      "message": "I think `AndroidTest.xml` only applies to suite-based tests. \n\nThe doc of `AndroidTest.xml` is under the section `Test through suites` https://source.android.com/docs/core/tests/tradefed/testing/through-suite/android-test-structure\n\nSo far I haven\u0027t met issues without `AndroidTest.xml`:\n- I was able to access hidden API.\n- When I ran `ThreadNetworkIntegrationTests` no undesired test case is included.\n\n```\nRunning Tests...\n\nx86_64 ThreadNetworkIntegrationTests\n------------------------------------\ncom.android.thread.tests.integration (1 Test)\n[1/1] android.net.thread.BorderRoutingTest#infraDevicePingTheadDeviceOmr_Succeeds: PASSED (25.364s)\n```",
+      "parentUuid": "e758873f_a39ce5e0",
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a37d752f_d31a41eb",
