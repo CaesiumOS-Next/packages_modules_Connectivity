@@ -52,6 +52,24 @@
       "parentUuid": "36591026_f76523d2",
       "revId": "fea003bd5bb06574854c669f787ebf4dbc552964",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "497a862b_54293db0",
+        "filename": "nearby/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1900995
+      },
+      "writtenOn": "2023-12-19T23:42:58Z",
+      "side": 1,
+      "message": "Done in aosp/2883908",
+      "parentUuid": "5e5d4e78_171d313f",
+      "revId": "fea003bd5bb06574854c669f787ebf4dbc552964",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
