@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9efd679_4c51c894",
+        "filename": "nearby/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1060529
+      },
+      "writtenOn": "2023-12-19T20:27:41Z",
+      "side": 1,
+      "message": "Do we still expect engs to build udc-mainline-prod or in the future all changes should be in master on AOSP?",
+      "revId": "fea003bd5bb06574854c669f787ebf4dbc552964",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
