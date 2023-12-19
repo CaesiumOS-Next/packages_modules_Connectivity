@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b262afa5_bb4d976c",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-19T11:17:16Z",
+      "side": 1,
+      "message": "Remember to clean-up annotations and visibility levels. Most of the fields can be private, and they don\u0027t need @VisibleForTesting anymore.\n\nOther fields, like mStatsLoggingHandler can be passed to the constructor similarly to dependencies. Does it make sense to make it a dependency itself?",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 22
+      },
+      "revId": "7f64420d8356f5e6e2592bda4fb74319a7d49eb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a019274b_eacbc152",
