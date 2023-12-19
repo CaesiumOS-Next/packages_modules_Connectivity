@@ -53,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c68db72a_404abf3b",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a37d752f_d31a41eb",
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4b57979_60879fcd",
@@ -70,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc37f3a3_c7848403",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4b57979_60879fcd",
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7f9180e_2b1d3f95",
@@ -83,6 +119,30 @@
       "writtenOn": "2023-12-18T10:04:52Z",
       "side": 1,
       "message": "The MainExecutor is the activity executor, here you should use `MoreExecutors.directExecutor()`. MoreExecutors is in package \"com.google.common.util.concurrent\"",
+      "range": {
+        "startLine": 100,
+        "startChar": 32,
+        "endLine": 100,
+        "endChar": 56
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5b82df9_2c0a8396",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7f9180e_2b1d3f95",
       "range": {
         "startLine": 100,
         "startChar": 32,
@@ -116,6 +176,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44251520_bf64d414",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0927bd40_24d5c7d6",
+      "range": {
+        "startLine": 101,
+        "startChar": 32,
+        "endLine": 101,
+        "endChar": 39
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d281f28a_f5f3c74f",
@@ -129,6 +213,30 @@
       "writtenOn": "2023-12-18T10:04:52Z",
       "side": 1,
       "message": "Ditto, wait for the callback.",
+      "range": {
+        "startLine": 110,
+        "startChar": 34,
+        "endLine": 110,
+        "endChar": 69
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ff17cc1_f3d122cd",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d281f28a_f5f3c74f",
       "range": {
         "startLine": 110,
         "startChar": 34,
@@ -162,6 +270,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f57aa873_d2a912fe",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02446722_795681ef",
+      "range": {
+        "startLine": 111,
+        "startChar": 51,
+        "endLine": 111,
+        "endChar": 91
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c963783c_4b6c0da2",
@@ -175,6 +307,30 @@
       "writtenOn": "2023-12-18T10:04:52Z",
       "side": 1,
       "message": "We typically don\u0027t write javadocs for java unit tests, can you extend the test case name to cover what is described by this sentence?",
+      "range": {
+        "startLine": 120,
+        "startChar": 7,
+        "endLine": 120,
+        "endChar": 98
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cda2501_7183cc2a",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c963783c_4b6c0da2",
       "range": {
         "startLine": 120,
         "startChar": 7,
@@ -208,6 +364,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ff0bb4d_00def8d6",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c4a82b5_83206ded",
+      "range": {
+        "startLine": 122,
+        "startChar": 7,
+        "endLine": 127,
+        "endChar": 13
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "638b745d_a5959096",
@@ -221,6 +401,30 @@
       "writtenOn": "2023-12-18T10:04:52Z",
       "side": 1,
       "message": "Please remove useless comments, nobody cases this throw in unit tests",
+      "range": {
+        "startLine": 129,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 24
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ddc10a3_a7753ef1",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "638b745d_a5959096",
       "range": {
         "startLine": 129,
         "startChar": 7,
@@ -254,6 +458,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46d61c7f_31f0dd60",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "\u003e We need another test case which sends UDP packet from the BR itself to Thread ED. \n\nI agree. \n\n\u003e Instead of adding the test cases in this CL, add it in a new CL.\n\nSure, noted.",
+      "parentUuid": "fbbfd292_099288af",
+      "range": {
+        "startLine": 132,
+        "startChar": 16,
+        "endLine": 132,
+        "endChar": 54
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "179f1c2e_4d308e12",
@@ -267,6 +495,30 @@
       "writtenOn": "2023-12-18T10:04:52Z",
       "side": 1,
       "message": "Should we test also the reverse direction?",
+      "range": {
+        "startLine": 162,
+        "startChar": 8,
+        "endLine": 162,
+        "endChar": 44
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "554c98e0_b3ff0672",
+        "filename": "thread/tests/integration/src/BorderRoutingTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "This ping test already covers the routing of packets in both directions.\n\nAlso, the reverse direction is harder to implement because we need to tell the infra device to handle the echo request and parse the CLI output of the Thread device when it receives the echo reply. We may consider adding this case in a future CL.",
+      "parentUuid": "179f1c2e_4d308e12",
       "range": {
         "startLine": 162,
         "startChar": 8,
@@ -300,6 +552,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b1649c7_aafd8bf8",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2f81763_b5fc424c",
+      "range": {
+        "startLine": 77,
+        "startChar": 30,
+        "endLine": 77,
+        "endChar": 46
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "627eba74_9c1a2e93",
@@ -313,6 +589,30 @@
       "writtenOn": "2023-12-18T10:04:52Z",
       "side": 1,
       "message": "```suggestion\n        private final Process mProcess;\n```",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 23
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f8cc9d6_ffeb3843",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "627eba74_9c1a2e93",
       "range": {
         "startLine": 78,
         "startChar": 16,
@@ -346,6 +646,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d49adb3b_aacaa652",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e515ce32_24c4f156",
+      "range": {
+        "startLine": 88,
+        "startChar": 24,
+        "endLine": 88,
+        "endChar": 62
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a215dc0b_114297e9",
@@ -359,6 +683,30 @@
       "writtenOn": "2023-12-18T10:04:52Z",
       "side": 1,
       "message": "```suggestion\n            } catch (IOException e) {\n                throw new IllegalStateException(\"Failed to start ot-cli-ftd (id\u003d\" + nodeId + \")\", e);\n            }\n```",
+      "range": {
+        "startLine": 97,
+        "startChar": 12,
+        "endLine": 102,
+        "endChar": 13
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2828693_5aaa438b",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a215dc0b_114297e9",
       "range": {
         "startLine": 97,
         "startChar": 12,
@@ -392,6 +740,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24ef4d88_6e64f967",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ada5b954_0460b7b3",
+      "range": {
+        "startLine": 109,
+        "startChar": 11,
+        "endLine": 109,
+        "endChar": 73
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7fb702c3_856e8620",
@@ -405,6 +777,30 @@
       "writtenOn": "2023-12-18T10:04:52Z",
       "side": 1,
       "message": "This is a duplicate of the summary at the bginning of the javadoc, **please remove** (this is different from OpenThread practice).",
+      "range": {
+        "startLine": 114,
+        "startChar": 11,
+        "endLine": 114,
+        "endChar": 91
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1eff5d8_490d7c23",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fb702c3_856e8620",
       "range": {
         "startLine": 114,
         "startChar": 11,
@@ -438,6 +834,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf4c9c11_ef3a727d",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec4ac442_30dcadd7",
+      "range": {
+        "startLine": 129,
+        "startChar": 20,
+        "endLine": 129,
+        "endChar": 81
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b81f2b23_eb972996",
@@ -451,6 +871,30 @@
       "writtenOn": "2023-12-18T10:04:52Z",
       "side": 1,
       "message": "It\u0027s only okay to `throws Exception` for testing method (the method annotated with `@Test`, or @Before or @After). For any other methods, please throws specific checked exceptions, no matter how long the list can be. See go/java-practices/exceptions#documentation",
+      "range": {
+        "startLine": 162,
+        "startChar": 79,
+        "endLine": 162,
+        "endChar": 95
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db74f702_630283c1",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b81f2b23_eb972996",
       "range": {
         "startLine": 162,
         "startChar": 79,
@@ -484,6 +928,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5fa1ebe_164bf2ec",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f59f81d_0a27fd98",
+      "range": {
+        "startLine": 196,
+        "startChar": 16,
+        "endLine": 196,
+        "endChar": 19
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12239666_6b31a3fd",
@@ -497,6 +965,30 @@
       "writtenOn": "2023-12-18T10:04:52Z",
       "side": 1,
       "message": "Please move this to its own class file",
+      "range": {
+        "startLine": 229,
+        "startChar": 30,
+        "endLine": 229,
+        "endChar": 48
+      },
+      "revId": "e2b2f7d5d7eefabfb37a6a6034a8b50d2fb27f3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac136618_722c3986",
+        "filename": "thread/tests/integration/src/IntegrationTestUtils.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-19T08:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12239666_6b31a3fd",
       "range": {
         "startLine": 229,
         "startChar": 30,
