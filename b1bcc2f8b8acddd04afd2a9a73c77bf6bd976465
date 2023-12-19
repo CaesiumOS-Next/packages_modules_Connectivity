@@ -170,6 +170,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f3ca6c4_32721baf",
+        "filename": "Cronet/tests/cts/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1927237
+      },
+      "writtenOn": "2023-12-19T11:04:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a827c8a9_297c9e41",
+      "revId": "b1bcc2f8b8acddd04afd2a9a73c77bf6bd976465",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e70b37c_c94bb4ed",
@@ -183,6 +201,24 @@
       "writtenOn": "2023-12-19T10:55:22Z",
       "side": 1,
       "message": "Long line: could you separate these on different lines ?",
+      "revId": "b1bcc2f8b8acddd04afd2a9a73c77bf6bd976465",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "409d55bc_dbf4629c",
+        "filename": "staticlibs/testutils/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1927237
+      },
+      "writtenOn": "2023-12-19T11:04:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e70b37c_c94bb4ed",
       "revId": "b1bcc2f8b8acddd04afd2a9a73c77bf6bd976465",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
