@@ -16,6 +16,29 @@
       "message": "Failure is very obviously unrelated, and TH is flaking most of the time – this flake itself is preventing other patches from going in",
       "revId": "68eab721fce399e5a3880bc9939b5ff0970739d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7599355b_0e9a0018",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10179,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-19T04:10:07Z",
+      "side": 1,
+      "message": "If the network just started satisfying the request, would the notifyNetworkAvailable call at line 10132 already have sent an onLocalNetworkInfoChanged callback? So we have duplicate callbacks?",
+      "range": {
+        "startLine": 10179,
+        "startChar": 44,
+        "endLine": 10179,
+        "endChar": 79
+      },
+      "revId": "68eab721fce399e5a3880bc9939b5ff0970739d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
