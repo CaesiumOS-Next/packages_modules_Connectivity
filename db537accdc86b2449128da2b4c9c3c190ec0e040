@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b92f3d70_749e5722",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 99
+      },
+      "lineNbr": 12170,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-19T15:08:27Z",
+      "side": 1,
+      "message": "Now that dump runs on the handler thread, can we remove tihs catch, or make it catch only specific exceptions instead of Exception?",
+      "range": {
+        "startLine": 12170,
+        "startChar": 12,
+        "endLine": 12170,
+        "endChar": 35
+      },
+      "revId": "db537accdc86b2449128da2b4c9c3c190ec0e040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
