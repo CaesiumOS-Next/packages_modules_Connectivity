@@ -114,6 +114,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7770459d_dea4a296",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-19T15:08:10Z",
+      "side": 1,
+      "message": "You don\u0027t need to clone the address, InetAddress is immutable.",
+      "range": {
+        "startLine": 54,
+        "startChar": 23,
+        "endLine": 54,
+        "endChar": 39
+      },
+      "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "502b554d_448abffe",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmAddressT.java",
         "patchSetId": 11
@@ -154,6 +177,46 @@
         "startChar": 44,
         "endLine": 58,
         "endChar": 55
+      },
+      "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e76f048_0123d7f7",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmUsersaId.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-19T15:08:10Z",
+      "side": 1,
+      "message": "Why not Ipv6Address or some other better type than byte array?",
+      "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4e70029_6125ed83",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/IpSecStructXfrmUsersaId.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-19T15:08:10Z",
+      "side": 1,
+      "message": "Typo, Struct.",
+      "range": {
+        "startLine": 60,
+        "startChar": 31,
+        "endLine": 60,
+        "endChar": 37
       },
       "revId": "1c363601a1ed5472bec127bf64fca13ce1626c40",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
