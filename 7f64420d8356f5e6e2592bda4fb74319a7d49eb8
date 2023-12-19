@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "04459232_33f86619",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-19T14:27:26Z",
+      "side": 1,
+      "message": "Fixed annotations and visibility levels.\n\nAbout the mStatsLoggingHandler I think it\u0027s better not to change anything: 1) It is inconvenient to put it into Dependencies class whose object is fully mocked in the test - we shouldn\u0027t mock mStatsLoggingHandler and therefore it will cause complications. 2) I don\u0027t think it makes a lot of sense to provide it as an argument as this field is purely internal implementation detail.",
+      "parentUuid": "b262afa5_bb4d976c",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 22
+      },
+      "revId": "7f64420d8356f5e6e2592bda4fb74319a7d49eb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a019274b_eacbc152",
