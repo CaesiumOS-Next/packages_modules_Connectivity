@@ -1,5 +1,40 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7617cc68_325d2f84",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-20T04:17:11Z",
+      "side": 1,
+      "message": "FdEventsReader assumes that it owns the socket, and will close it when it is stopped.\n\nThis may happen to work in this case because the socket is created before creating the RsPacketListener, but it\u0027s at least error-prone, and possibly racy (what may happen between creation and processing CMD_START is not clear since it\u0027s on different threads, and different handler loops).\n\nCan the Fd be created here, instead of owned by the parent class ?",
+      "revId": "bdcd7db9d851b2951d63dd1ad3768a8d667f5c7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ec227d8_47a358f6",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-20T04:17:11Z",
+      "side": 1,
+      "message": "Does this class need to override shouldProcessZeroLengthPacket ?\n\nNote it is largely similar to DhcpPacketListener, but it\u0027s not the same type of socket",
+      "revId": "bdcd7db9d851b2951d63dd1ad3768a8d667f5c7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
