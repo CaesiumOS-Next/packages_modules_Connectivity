@@ -39,6 +39,52 @@
       "message": "Ideally this would be in a different file to mirror the config_thread.xml file, but I don\u0027t think you can have another overlayable file with the same target name. And overlay APKs can only target one target name, so that would force OEMs to use different APKs to override each.\n\nStill, to avoid merge conflicts between Thread changes and other connectivity changes, could you separate this line with some comments ? (ideally 2-3 lines of comments in another block below). Otherwise if we both work on changes that modify overlays at the same time, we\u0027d get merge conflicts.",
       "revId": "78c1a40203488c7e0615f15439b626069e23c9d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67aaaa71_d32fc498",
+        "filename": "service/ServiceConnectivityResources/res/values/overlayable.xml",
+        "patchSetId": 18
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-20T03:27:03Z",
+      "side": 1,
+      "message": "```suggestion\n\n            \u003c!-- Configuration values for ThreadNetworkService --\u003e\n            \u003citem type\u003d\"bool\" name\u003d\"config_location_use_for_thread_country_code_enabled\" /\u003e\n```",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 91
+      },
+      "revId": "78c1a40203488c7e0615f15439b626069e23c9d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fce5e88_3bdc7999",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-20T03:27:03Z",
+      "side": 1,
+      "message": "You need to be explicit that it is the \"config_location_use_for_thread_country_code_enabled\" being set to \"false\" here, because the test method name says \"locationUseIsDisabled\"",
+      "range": {
+        "startLine": 255,
+        "startChar": 35,
+        "endLine": 255,
+        "endChar": 43
+      },
+      "revId": "78c1a40203488c7e0615f15439b626069e23c9d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
