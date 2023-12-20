@@ -27,6 +27,8 @@ import android.net.thread.IThreadNetworkController;
 import android.net.thread.IThreadNetworkManager;
 import android.os.Binder;
 import android.os.ParcelFileDescriptor;
+import android.telephony.SubscriptionManager;
+import android.telephony.TelephonyManager;
 
 import com.android.server.SystemService;
 
@@ -62,7 +64,10 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
                             mContext.getSystemService(LocationManager.class),
                             mControllerService,
                             new Geocoder(mContext),
-                            Geocoder.isPresent());
+                            Geocoder.isPresent(),
+                            mContext,
+                            mContext.getSystemService(TelephonyManager.class),
+                            mContext.getSystemService(SubscriptionManager.class));
             mCountryCode.initialize();
         }
     }

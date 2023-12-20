@@ -37,6 +37,9 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -46,6 +49,9 @@ import android.location.LocationManager;
 import android.net.thread.ThreadNetworkException;
 import android.os.OutcomeReceiver;
 import android.os.SystemProperties;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
+import android.telephony.TelephonyManager;
 
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
@@ -64,6 +70,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.MockitoSession;
 import org.mockito.stubbing.Answer;
 
+import java.util.Iterator;
 import java.util.List;
 
 /** Unit tests for {@link ThreadNetworkCountryCode}. */
@@ -72,12 +79,20 @@ import java.util.List;
 public class ThreadNetworkCountryCodeTest {
     private static final String TEST_COUNTRY_CODE_US = "US";
     private static final String TEST_COUNTRY_CODE_CN = "CN";
+    private static final int TEST_SLOT_INDEX_0 = 0;
+    private static final int TEST_SLOT_INDEX_1 = 1;
 
+    @Mock Context mContext;
     @Mock LocationManager mLocationManager;
     @Mock Geocoder mGeocoder;
     @Mock ThreadNetworkControllerService mThreadNetworkControllerService;
     @Mock PackageManager mPackageManager;
     @Mock Location mLocation;
+    @Mock SubscriptionManager mSubscriptionManager;
+    @Mock TelephonyManager mTelephonyManager;
+    @Mock List<SubscriptionInfo> mSubscriptionInfoList;
+    @Mock SubscriptionInfo mSubscriptionInfo0;
+    @Mock SubscriptionInfo mSubscriptionInfo1;
 
     private ThreadNetworkCountryCode mThreadNetworkCountryCode;
     private MockitoSession mStaticMockSession;
@@ -85,6 +100,7 @@ public class ThreadNetworkCountryCodeTest {
 
     @Captor private ArgumentCaptor<LocationListener> mLocationListenerCaptor;
     @Captor private ArgumentCaptor<Geocoder.GeocodeListener> mGeocodeListenerCaptor;
+    @Captor private ArgumentCaptor<BroadcastReceiver> mTelephonyCountryCodeReceiverCaptor;
 
     @Captor
     private ArgumentCaptor<OutcomeReceiver<Void, ThreadNetworkException>> mOutcomeReceiverCaptor;
@@ -92,6 +108,16 @@ public class ThreadNetworkCountryCodeTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+
+        when(mSubscriptionManager.getActiveSubscriptionInfoList())
+                .thenReturn(mSubscriptionInfoList);
+        Iterator<SubscriptionInfo> iteratorMock = mock(Iterator.class);
+        when(mSubscriptionInfoList.size()).thenReturn(2);
+        when(mSubscriptionInfoList.iterator()).thenReturn(iteratorMock);
+        when(iteratorMock.hasNext()).thenReturn(true).thenReturn(true).thenReturn(false);
+        when(iteratorMock.next()).thenReturn(mSubscriptionInfo0).thenReturn(mSubscriptionInfo1);
+        when(mSubscriptionInfo0.getSimSlotIndex()).thenReturn(TEST_SLOT_INDEX_0);
+        when(mSubscriptionInfo1.getSimSlotIndex()).thenReturn(TEST_SLOT_INDEX_1);
 
         when(mLocation.getLatitude()).thenReturn(0.0);
         when(mLocation.getLongitude()).thenReturn(0.0);
@@ -128,7 +154,13 @@ public class ThreadNetworkCountryCodeTest {
 
         mThreadNetworkCountryCode =
                 new ThreadNetworkCountryCode(
-                        mLocationManager, mThreadNetworkControllerService, mGeocoder, true);
+                        mLocationManager,
+                        mThreadNetworkControllerService,
+                        mGeocoder,
+                        true,
+                        mContext,
+                        mTelephonyManager,
+                        mSubscriptionManager);
     }
 
     @After
@@ -170,6 +202,121 @@ public class ThreadNetworkCountryCodeTest {
         mGeocodeListenerCaptor.getValue().onGeocode(addresses);
 
         assertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(TEST_COUNTRY_CODE_US);
+    }
+
+    @Test
+    public void telephonyCountryCodeIsUpdated_locationCountryCodeAvailable_telephonyCodeIsUsed() {
+        mThreadNetworkCountryCode.initialize();
+        verify(mLocationManager)
+                .requestLocationUpdates(
+                        anyString(), anyLong(), anyFloat(), mLocationListenerCaptor.capture());
+        mLocationListenerCaptor.getValue().onLocationChanged(mLocation);
+        verify(mGeocoder)
+                .getFromLocation(
+                        anyDouble(), anyDouble(), anyInt(), mGeocodeListenerCaptor.capture());
+        Address mockAddress = mock(Address.class);
+        when(mockAddress.getCountryCode()).thenReturn(TEST_COUNTRY_CODE_US);
+        List<Address> addresses = List.of(mockAddress);
+        mGeocodeListenerCaptor.getValue().onGeocode(addresses);
+
+        verify(mContext)
+                .registerReceiver(
+                        mTelephonyCountryCodeReceiverCaptor.capture(),
+                        any(),
+                        eq(Context.RECEIVER_EXPORTED));
+        Intent intent =
+                new Intent(TelephonyManager.ACTION_NETWORK_COUNTRY_CHANGED)
+                        .putExtra(TelephonyManager.EXTRA_NETWORK_COUNTRY, TEST_COUNTRY_CODE_CN)
+                        .putExtra(SubscriptionManager.EXTRA_SLOT_INDEX, TEST_SLOT_INDEX_0);
+        mTelephonyCountryCodeReceiverCaptor.getValue().onReceive(mock(Context.class), intent);
+
+        assertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(TEST_COUNTRY_CODE_CN);
+    }
+
+    @Test
+    public void lastKnownTelephonyCodeIsUpdated_locationCodeAvailable_lastKnownTelCodeIsUsed() {
+        mThreadNetworkCountryCode.initialize();
+        verify(mLocationManager)
+                .requestLocationUpdates(
+                        anyString(), anyLong(), anyFloat(), mLocationListenerCaptor.capture());
+        mLocationListenerCaptor.getValue().onLocationChanged(mLocation);
+        verify(mGeocoder)
+                .getFromLocation(
+                        anyDouble(), anyDouble(), anyInt(), mGeocodeListenerCaptor.capture());
+        Address mockAddress = mock(Address.class);
+        when(mockAddress.getCountryCode()).thenReturn(TEST_COUNTRY_CODE_US);
+        List<Address> addresses = List.of(mockAddress);
+        mGeocodeListenerCaptor.getValue().onGeocode(addresses);
+
+        verify(mContext)
+                .registerReceiver(
+                        mTelephonyCountryCodeReceiverCaptor.capture(),
+                        any(),
+                        eq(Context.RECEIVER_EXPORTED));
+        Intent intent =
+                new Intent(TelephonyManager.ACTION_NETWORK_COUNTRY_CHANGED)
+                        .putExtra(TelephonyManager.EXTRA_NETWORK_COUNTRY, "")
+                        .putExtra(
+                                TelephonyManager.EXTRA_LAST_KNOWN_NETWORK_COUNTRY,
+                                TEST_COUNTRY_CODE_US)
+                        .putExtra(SubscriptionManager.EXTRA_SLOT_INDEX, TEST_SLOT_INDEX_0);
+        mTelephonyCountryCodeReceiverCaptor.getValue().onReceive(mock(Context.class), intent);
+
+        assertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(TEST_COUNTRY_CODE_US);
+    }
+
+    @Test
+    public void telephonyCountryCodeIsUpdated_lastKnownCountryCodeAvailable_telephonyCodeIsUsed() {
+        mThreadNetworkCountryCode.initialize();
+        verify(mContext)
+                .registerReceiver(
+                        mTelephonyCountryCodeReceiverCaptor.capture(),
+                        any(),
+                        eq(Context.RECEIVER_EXPORTED));
+        Intent intent0 =
+                new Intent(TelephonyManager.ACTION_NETWORK_COUNTRY_CHANGED)
+                        .putExtra(TelephonyManager.EXTRA_NETWORK_COUNTRY, "")
+                        .putExtra(
+                                TelephonyManager.EXTRA_LAST_KNOWN_NETWORK_COUNTRY,
+                                TEST_COUNTRY_CODE_US)
+                        .putExtra(SubscriptionManager.EXTRA_SLOT_INDEX, TEST_SLOT_INDEX_0);
+        mTelephonyCountryCodeReceiverCaptor.getValue().onReceive(mock(Context.class), intent0);
+
+        verify(mContext)
+                .registerReceiver(
+                        mTelephonyCountryCodeReceiverCaptor.capture(),
+                        any(),
+                        eq(Context.RECEIVER_EXPORTED));
+        Intent intent1 =
+                new Intent(TelephonyManager.ACTION_NETWORK_COUNTRY_CHANGED)
+                        .putExtra(TelephonyManager.EXTRA_NETWORK_COUNTRY, TEST_COUNTRY_CODE_CN)
+                        .putExtra(SubscriptionManager.EXTRA_SLOT_INDEX, TEST_SLOT_INDEX_1);
+        mTelephonyCountryCodeReceiverCaptor.getValue().onReceive(mock(Context.class), intent1);
+
+        assertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(TEST_COUNTRY_CODE_CN);
+    }
+
+    @Test
+    public void telephonySlot0CountryCodeIsUpdated_slot1CtyCodeAvailable_slot0CtyCodeIsUsed() {
+        mThreadNetworkCountryCode.initialize();
+        verify(mContext)
+                .registerReceiver(
+                        mTelephonyCountryCodeReceiverCaptor.capture(),
+                        any(),
+                        eq(Context.RECEIVER_EXPORTED));
+        Intent intent1 =
+                new Intent(TelephonyManager.ACTION_NETWORK_COUNTRY_CHANGED)
+                        .putExtra(TelephonyManager.EXTRA_NETWORK_COUNTRY, TEST_COUNTRY_CODE_CN)
+                        .putExtra(SubscriptionManager.EXTRA_SLOT_INDEX, TEST_SLOT_INDEX_1);
+        mTelephonyCountryCodeReceiverCaptor.getValue().onReceive(mock(Context.class), intent1);
+
+        Intent intent0 =
+                new Intent(TelephonyManager.ACTION_NETWORK_COUNTRY_CHANGED)
+                        .putExtra(TelephonyManager.EXTRA_NETWORK_COUNTRY, TEST_COUNTRY_CODE_CN)
+                        .putExtra(SubscriptionManager.EXTRA_SLOT_INDEX, TEST_SLOT_INDEX_0);
+        mTelephonyCountryCodeReceiverCaptor.getValue().onReceive(mock(Context.class), intent0);
+
+        assertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(TEST_COUNTRY_CODE_CN);
     }
 
     @Test
