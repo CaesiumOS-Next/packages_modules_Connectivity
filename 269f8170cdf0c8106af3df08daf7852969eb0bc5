@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d64cd96_f74c9554",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-20T03:09:22Z",
+      "side": 1,
+      "message": "Tried to put in framework-connectivity, but failed.\n\nFAILED: out/soong/build.aosp_cf_x86_64_phone.ninja\ncd \"$(dirname \"out/host/linux-x86/bin/soong_build\")\" \u0026\u0026 BUILDER\u003d\"$PWD/$(basename \"out/host/linux-x86/bin/soong_build\")\" \u0026\u0026 cd / \u0026\u0026 env -i  \"$BUILDER\"     --top \"\n$TOP\"     --soong_out \"out/soong\"     --out \"out\"     --soong_variables out/soong/soong.aosp_cf_x86_64_phone.variables -o out/soong/build.aosp_cf_x86_64_phone.ni\nnja --globListDir aosp_cf_x86_64_phone --globFile out/soong/globs-aosp_cf_x86_64_phone.ninja -l out/.module_paths/Android.bp.list --available_env out/soong/soong\n.environment.available --used_env out/soong/soong.environment.used.aosp_cf_x86_64_phone.build Android.bp\nerror: frameworks/libs/modules-utils/java/com/android/modules/utils/Android.bp:71:1: module \"modules-utils-binary-xml\" variant \"android_common\": should support m\nin_sdk_version(30) for \"framework-connectivity\": newer SDK(31).\n\nDependency path: framework-connectivity{os:android,arch:common,apex:}\n           via tag java.dependencyTag: { name:staticlib runtimeLinked:false toolchain:false}\n    -\u003e modules-utils-binary-xml{os:android,arch:common,apex:}\n\nConsider adding \u0027min_sdk_version: \"30\"\u0027 to \"modules-utils-binary-xml\"\nfatal errors encountered",
+      "parentUuid": "996ce989_9146c284",
+      "revId": "269f8170cdf0c8106af3df08daf7852969eb0bc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6874748_83685bde",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-12-12T05:50:21Z",
       "side": 1,
       "message": "Is that really true ? I don\u0027t understand why, the NetworkStats code should be the same in any case. Would that be due to the problem in the build file making it use the FastDataInput from the platform instead of a bundled one ?",
+      "revId": "269f8170cdf0c8106af3df08daf7852969eb0bc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72b4e312_f1b45b64",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-20T03:09:22Z",
+      "side": 1,
+      "message": "Yeah you are right, removed the annotation.",
+      "parentUuid": "b6874748_83685bde",
       "revId": "269f8170cdf0c8106af3df08daf7852969eb0bc5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
