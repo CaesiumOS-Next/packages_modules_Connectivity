@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "493ce2a5_46f5ff39",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-20T06:50:07Z",
+      "side": 1,
+      "message": "We can create the Fd inside RsPacketListener#createFd, but mSocket also used to send multicast RA outside of RsPacketListener, then we need to create another socket for it.\nTalked offline with Yuyang, I reverted this CL first.",
+      "parentUuid": "7617cc68_325d2f84",
+      "revId": "bdcd7db9d851b2951d63dd1ad3768a8d667f5c7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4ec227d8_47a358f6",
         "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
         "patchSetId": 8
@@ -31,6 +49,24 @@
       "writtenOn": "2023-12-20T04:17:11Z",
       "side": 1,
       "message": "Does this class need to override shouldProcessZeroLengthPacket ?\n\nNote it is largely similar to DhcpPacketListener, but it\u0027s not the same type of socket",
+      "revId": "bdcd7db9d851b2951d63dd1ad3768a8d667f5c7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cca33c5_1955c628",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-20T06:50:07Z",
+      "side": 1,
+      "message": "Okay, this can be done. We should continue processing RA packets even we receive a zero length packet (just ignore it). This CL was reverted, will change it in the new CL.",
+      "parentUuid": "4ec227d8_47a358f6",
       "revId": "bdcd7db9d851b2951d63dd1ad3768a8d667f5c7e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
