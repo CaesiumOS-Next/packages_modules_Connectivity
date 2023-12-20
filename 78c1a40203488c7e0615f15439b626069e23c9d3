@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed79568d_bb09184a",
+        "filename": "service/ServiceConnectivityResources/res/values/config_thread.xml",
+        "patchSetId": 18
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-20T10:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75da3fc7_91ade402",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 17
+      },
+      "revId": "78c1a40203488c7e0615f15439b626069e23c9d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04571991_2648bb02",
@@ -64,6 +88,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cf6770d_30861182",
+        "filename": "service/ServiceConnectivityResources/res/values/overlayable.xml",
+        "patchSetId": 18
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-20T10:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67aaaa71_d32fc498",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 91
+      },
+      "revId": "78c1a40203488c7e0615f15439b626069e23c9d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b61bda93_fdd74c55",
+        "filename": "service/ServiceConnectivityResources/res/values/overlayable.xml",
+        "patchSetId": 18
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-20T10:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04571991_2648bb02",
+      "revId": "78c1a40203488c7e0615f15439b626069e23c9d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fce5e88_3bdc7999",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-12-20T03:27:03Z",
       "side": 1,
       "message": "You need to be explicit that it is the \"config_location_use_for_thread_country_code_enabled\" being set to \"false\" here, because the test method name says \"locationUseIsDisabled\"",
+      "range": {
+        "startLine": 255,
+        "startChar": 35,
+        "endLine": 255,
+        "endChar": 43
+      },
+      "revId": "78c1a40203488c7e0615f15439b626069e23c9d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "312a1bda_be634da3",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-20T10:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fce5e88_3bdc7999",
       "range": {
         "startLine": 255,
         "startChar": 35,
