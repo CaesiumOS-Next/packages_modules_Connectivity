@@ -3,6 +3,69 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "31252b1e_ab161e55",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-20T05:17:14Z",
+      "side": 1,
+      "message": "This CL is relatively large while it consists of multiple independent components that can be splitted into multiple smaller CLs. I have to review all the code again every time, but it will be much easier to do that on small CLs.\n\nCan you separate each country code source (Telephony, Wifi, location) into their own CLs?",
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6680762c_dde8aa7b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-20T05:17:14Z",
+      "side": 1,
+      "message": "All public methods should be documented, please add javadoc for this API.",
+      "range": {
+        "startLine": 361,
+        "startChar": 4,
+        "endLine": 361,
+        "endChar": 10
+      },
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76db97b5_0930e36d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-20T05:17:14Z",
+      "side": 1,
+      "message": "```suggestion\n    private IOtStatusReceiver newOtStatusReceiver(\n```",
+      "range": {
+        "startLine": 367,
+        "startChar": 30,
+        "endLine": 367,
+        "endChar": 48
+      },
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06e98acb_3434789c",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
         "patchSetId": 27
@@ -14,6 +77,52 @@
       "writtenOn": "2023-12-19T09:42:11Z",
       "side": 1,
       "message": "For mainline module the \"NewAPI\" check has to be enabled.",
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0a590e5_b7137649",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-20T05:17:14Z",
+      "side": 1,
+      "message": "Can we use `@TargetApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)` instead?",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 23
+      },
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a55f53a2_035d53df",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-20T05:17:14Z",
+      "side": 1,
+      "message": "```suggestion\n    private final boolean mIsGeocoderPresent;\n```\n\nBTW, can we use null `mGeocoder` to represent that geocoder is not present?",
+      "range": {
+        "startLine": 109,
+        "startChar": 26,
+        "endLine": 109,
+        "endChar": 42
+      },
       "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -36,6 +145,52 @@
         "startChar": 14,
         "endLine": 119,
         "endChar": 46
+      },
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c3bfb53_471f1247",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-20T05:17:14Z",
+      "side": 1,
+      "message": "```suggestion\n                    + timetamp\n```\n\nI an wondering why you need a custom formatter rather than the default Instant formatter?",
+      "range": {
+        "startLine": 137,
+        "startChar": 20,
+        "endLine": 137,
+        "endChar": 83
+      },
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "172bb3a9_58ae85b4",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-20T05:17:14Z",
+      "side": 1,
+      "message": "```suggestion\n                    + mCountryCodeUpdatedTimestamp\n```",
+      "range": {
+        "startLine": 182,
+        "startChar": 22,
+        "endLine": 182,
+        "endChar": 73
       },
       "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
