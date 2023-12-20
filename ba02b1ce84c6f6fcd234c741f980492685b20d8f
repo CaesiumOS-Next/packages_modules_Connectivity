@@ -52,6 +52,23 @@
       "parentUuid": "0095bf62_b89764a1",
       "revId": "ba02b1ce84c6f6fcd234c741f980492685b20d8f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "815fce7e_4a27a531",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-20T08:13:56Z",
+      "side": 1,
+      "message": "The revert LGTM but please take a lok",
+      "revId": "ba02b1ce84c6f6fcd234c741f980492685b20d8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
