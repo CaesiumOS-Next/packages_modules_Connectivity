@@ -72,6 +72,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a793ce7d_d2a0e328",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-20T10:07:41Z",
+      "side": 1,
+      "message": "Moved to static_libs as it has to be in framework-connectivity-t to satisfied min_sdk checks.",
+      "parentUuid": "91ded3c5_ce384590",
+      "revId": "269f8170cdf0c8106af3df08daf7852969eb0bc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6874748_83685bde",
