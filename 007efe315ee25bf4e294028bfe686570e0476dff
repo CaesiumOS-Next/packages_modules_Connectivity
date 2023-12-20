@@ -89,6 +89,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f7c23d1_982315b5",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-20T10:06:23Z",
+      "side": 1,
+      "message": "Let\u0027s make setNetworkRequestRemoved() also update mNetworkRequestDurationMillis (can call it \"networkRequestRemoved\" or leave the the current name with \"set\"), and remove captureNetworkRequestCurrentDuration(). We always want to update request duration when the request is removed.",
+      "range": {
+        "startLine": 57,
+        "startChar": 16,
+        "endLine": 57,
+        "endChar": 40
+      },
+      "revId": "007efe315ee25bf4e294028bfe686570e0476dff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32bb6055_fa748dc3",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-20T10:06:23Z",
+      "side": 1,
+      "message": "Nit: don\u0027t need this conversion, getRequestorUid already returns int.",
+      "range": {
+        "startLine": 76,
+        "startChar": 15,
+        "endLine": 76,
+        "endChar": 20
+      },
+      "revId": "007efe315ee25bf4e294028bfe686570e0476dff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b95aa1d2_5c0f7001",
         "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
         "patchSetId": 28
@@ -112,6 +158,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d83321e0_7fbb5b00",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateInfoTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-20T10:06:23Z",
+      "side": 1,
+      "message": "Combine this test with testUpdateNetworkRequestDuration (see other comment about updating network request duration setNetworkRequestRemoved()).\n\n\"// Check state can\u0027t be reset\": this check isn\u0027t necessary, checking that a setter modifies the state after a single call is sufficient.",
+      "range": {
+        "startLine": 85,
+        "startChar": 16,
+        "endLine": 85,
+        "endChar": 44
+      },
+      "revId": "007efe315ee25bf4e294028bfe686570e0476dff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4adfbb74_96b9cd18",
         "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
         "patchSetId": 28
@@ -128,6 +197,29 @@
         "startChar": 5,
         "endLine": 56,
         "endChar": 57
+      },
+      "revId": "007efe315ee25bf4e294028bfe686570e0476dff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51a63bab_44437117",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-20T10:06:23Z",
+      "side": 1,
+      "message": "Replace these two asserts with a single one that verifies return values of nrStateInfoSent.getTransportTypes()",
+      "range": {
+        "startLine": 101,
+        "startChar": 8,
+        "endLine": 104,
+        "endChar": 92
       },
       "revId": "007efe315ee25bf4e294028bfe686570e0476dff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
