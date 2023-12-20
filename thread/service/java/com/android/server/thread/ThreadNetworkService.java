@@ -21,8 +21,6 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.content.Context;
-import android.location.Geocoder;
-import android.location.LocationManager;
 import android.net.thread.IThreadNetworkController;
 import android.net.thread.IThreadNetworkManager;
 import android.os.Binder;
@@ -59,12 +57,7 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
         if (phase == SystemService.PHASE_BOOT_COMPLETED) {
             mControllerService = ThreadNetworkControllerService.newInstance(mContext);
             mControllerService.initialize();
-            mCountryCode =
-                    new ThreadNetworkCountryCode(
-                            mContext.getSystemService(LocationManager.class),
-                            mControllerService,
-                            Geocoder.isPresent() ? new Geocoder(mContext) : null,
-                            new ConnectivityResources(mContext));
+            mCountryCode = ThreadNetworkCountryCode.newInstance(mContext, mControllerService);
             mCountryCode.initialize();
 
             mShellCommand = new ThreadNetworkShellCommand(mCountryCode);
