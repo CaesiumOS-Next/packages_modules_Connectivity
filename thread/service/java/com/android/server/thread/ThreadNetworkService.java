@@ -25,6 +25,7 @@ import android.location.Geocoder;
 import android.location.LocationManager;
 import android.net.thread.IThreadNetworkController;
 import android.net.thread.IThreadNetworkManager;
+import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.ParcelFileDescriptor;
 
@@ -63,7 +64,8 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
                             mContext.getSystemService(LocationManager.class),
                             mControllerService,
                             new Geocoder(mContext),
-                            Geocoder.isPresent());
+                            Geocoder.isPresent(),
+                            mContext.getSystemService(WifiManager.class));
             mCountryCode.initialize();
         }
     }
