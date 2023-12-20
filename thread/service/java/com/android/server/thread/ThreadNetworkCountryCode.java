@@ -19,12 +19,20 @@ package com.android.server.thread;
 import android.annotation.Nullable;
 import android.annotation.StringDef;
 import android.annotation.TargetApi;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.thread.IOperationReceiver;
 import android.os.Build;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
+import android.telephony.TelephonyManager;
+import android.util.ArrayMap;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
@@ -36,6 +44,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.time.Instant;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -64,22 +73,34 @@ public class ThreadNetworkCountryCode {
                 COUNTRY_CODE_SOURCE_DEFAULT,
                 COUNTRY_CODE_SOURCE_LOCATION,
                 COUNTRY_CODE_SOURCE_OVERRIDE,
+                COUNTRY_CODE_SOURCE_TELEPHONY,
+                COUNTRY_CODE_SOURCE_TELEPHONY_LAST,
             })
     private @interface CountryCodeSource {}
 
     private static final String COUNTRY_CODE_SOURCE_DEFAULT = "Default";
     private static final String COUNTRY_CODE_SOURCE_LOCATION = "Location";
     private static final String COUNTRY_CODE_SOURCE_OVERRIDE = "Override";
+    private static final String COUNTRY_CODE_SOURCE_TELEPHONY = "Telephony";
+    private static final String COUNTRY_CODE_SOURCE_TELEPHONY_LAST = "TelephonyLast";
+
     private static final CountryCodeInfo DEFAULT_COUNTRY_CODE_INFO =
             new CountryCodeInfo(DEFAULT_COUNTRY_CODE, COUNTRY_CODE_SOURCE_DEFAULT);
 
+    private final Context mContext;
     private final LocationManager mLocationManager;
     @Nullable private final Geocoder mGeocoder;
     private final ThreadNetworkControllerService mThreadNetworkControllerService;
+    private final TelephonyManager mTelephonyManager;
+    private final SubscriptionManager mSubscriptionManager;
+    private final Map<Integer, TelephonyCountryCodeSlotInfo> mTelephonyCountryCodeSlotInfoMap =
+            new ArrayMap();
 
     @Nullable private CountryCodeInfo mCurrentCountryCodeInfo;
     @Nullable private CountryCodeInfo mLocationCountryCodeInfo;
     @Nullable private CountryCodeInfo mOverrideCountryCodeInfo;
+    @Nullable private CountryCodeInfo mTelephonyCountryCodeInfo;
+    @Nullable private CountryCodeInfo mTelephonyLastCountryCodeInfo;
 
     /** Container class to store Thread country code information. */
     private static final class CountryCodeInfo {
@@ -122,6 +143,27 @@ public class ThreadNetworkCountryCode {
         }
     }
 
+    /** Container class to store country code per SIM slot. */
+    private static final class TelephonyCountryCodeSlotInfo {
+        public int slotIndex;
+        public String countryCode;
+        public String lastKnownCountryCode;
+        public Instant timestamp;
+
+        @Override
+        public String toString() {
+            return "TelephonyCountryCodeSlotInfo{ slotIndex: "
+                    + slotIndex
+                    + ", countryCode: "
+                    + countryCode
+                    + ", lastKnownCountryCode: "
+                    + lastKnownCountryCode
+                    + ", timestamp: "
+                    + timestamp
+                    + "}";
+        }
+    }
+
     private boolean isLocationUseForCountryCodeEnabled() {
         // TODO: b/311324956 read the configuration from the overlay configuration.
         return true;
@@ -130,15 +172,34 @@ public class ThreadNetworkCountryCode {
     public ThreadNetworkCountryCode(
             LocationManager locationManager,
             ThreadNetworkControllerService threadNetworkControllerService,
-            @Nullable Geocoder geocoder) {
+            @Nullable Geocoder geocoder,
+            Context context,
+            TelephonyManager telephonyManager,
+            SubscriptionManager subscriptionManager) {
         mLocationManager = locationManager;
         mThreadNetworkControllerService = threadNetworkControllerService;
         mGeocoder = geocoder;
+        mContext = context;
+        mTelephonyManager = telephonyManager;
+        mSubscriptionManager = subscriptionManager;
+    }
+
+    public static ThreadNetworkCountryCode newInstance(
+            Context context, ThreadNetworkControllerService controllerService) {
+        return new ThreadNetworkCountryCode(
+                context.getSystemService(LocationManager.class),
+                controllerService,
+                Geocoder.isPresent() ? new Geocoder(context) : null,
+                context,
+                context.getSystemService(TelephonyManager.class),
+                context.getSystemService(SubscriptionManager.class));
     }
 
     /** Sets up this country code module to listen to location country code changes. */
     public synchronized void initialize() {
         registerGeocoderCountryCodeCallback();
+        registerTelephonyCountryCodeCallback();
+        updateTelephonyCountryCodeFromSimCard();
         updateCountryCode(false /* forceUpdate */);
     }
 
@@ -187,13 +248,129 @@ public class ThreadNetworkCountryCode {
                 this::geocodeListener);
     }
 
+    private synchronized void registerTelephonyCountryCodeCallback() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            Log.wtf(
+                    TAG,
+                    "Unexpected call to register the telephony country code changed callback, "
+                            + "Thread code never runs under T or lower.");
+            return;
+        }
+
+        BroadcastReceiver broadcastReceiver =
+                new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        int slotIndex =
+                                intent.getIntExtra(
+                                        SubscriptionManager.EXTRA_SLOT_INDEX,
+                                        SubscriptionManager.INVALID_SIM_SLOT_INDEX);
+                        String lastKnownCountryCode = null;
+                        String countryCode =
+                                intent.getStringExtra(TelephonyManager.EXTRA_NETWORK_COUNTRY);
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                            lastKnownCountryCode =
+                                    intent.getStringExtra(
+                                            TelephonyManager.EXTRA_LAST_KNOWN_NETWORK_COUNTRY);
+                        }
+
+                        setTelephonyCountryCodeAndLastKnownCountryCode(
+                                slotIndex, countryCode, lastKnownCountryCode);
+                    }
+                };
+
+        mContext.registerReceiver(
+                broadcastReceiver,
+                new IntentFilter(TelephonyManager.ACTION_NETWORK_COUNTRY_CHANGED),
+                Context.RECEIVER_EXPORTED);
+    }
+
+    private synchronized void updateTelephonyCountryCodeFromSimCard() {
+        List<SubscriptionInfo> subscriptionInfoList =
+                mSubscriptionManager.getActiveSubscriptionInfoList();
+
+        if (subscriptionInfoList == null) {
+            Log.d(TAG, "No SIM card is found");
+            return;
+        }
+
+        for (SubscriptionInfo subscriptionInfo : subscriptionInfoList) {
+            String countryCode;
+            int slotIndex;
+
+            slotIndex = subscriptionInfo.getSimSlotIndex();
+            try {
+                countryCode = mTelephonyManager.getNetworkCountryIso(slotIndex);
+            } catch (IllegalArgumentException e) {
+                Log.e(TAG, "Failed to get country code for slot index:" + slotIndex, e);
+                continue;
+            }
+
+            Log.d(TAG, "Telephony slot " + slotIndex + " country code is " + countryCode);
+            setTelephonyCountryCodeAndLastKnownCountryCode(
+                    slotIndex, countryCode, null /* lastKnownCountryCode */);
+        }
+    }
+
+    private synchronized void setTelephonyCountryCodeAndLastKnownCountryCode(
+            int slotIndex, String countryCode, String lastKnownCountryCode) {
+        Log.d(
+                TAG,
+                "Set telephony country code to: "
+                        + countryCode
+                        + ", last country code to: "
+                        + lastKnownCountryCode
+                        + " for slotIndex: "
+                        + slotIndex);
+
+        TelephonyCountryCodeSlotInfo telephonyCountryCodeInfoSlot =
+                mTelephonyCountryCodeSlotInfoMap.computeIfAbsent(
+                        slotIndex, k -> new TelephonyCountryCodeSlotInfo());
+        telephonyCountryCodeInfoSlot.slotIndex = slotIndex;
+        telephonyCountryCodeInfoSlot.timestamp = Instant.now();
+        telephonyCountryCodeInfoSlot.countryCode = countryCode;
+        telephonyCountryCodeInfoSlot.lastKnownCountryCode = lastKnownCountryCode;
+
+        mTelephonyCountryCodeInfo = null;
+        mTelephonyLastCountryCodeInfo = null;
+
+        for (TelephonyCountryCodeSlotInfo slotInfo : mTelephonyCountryCodeSlotInfoMap.values()) {
+            if ((mTelephonyCountryCodeInfo == null) && isValidCountryCode(slotInfo.countryCode)) {
+                mTelephonyCountryCodeInfo =
+                        new CountryCodeInfo(
+                                slotInfo.countryCode,
+                                COUNTRY_CODE_SOURCE_TELEPHONY,
+                                slotInfo.timestamp);
+            }
+
+            if ((mTelephonyLastCountryCodeInfo == null)
+                    && isValidCountryCode(slotInfo.lastKnownCountryCode)) {
+                mTelephonyLastCountryCodeInfo =
+                        new CountryCodeInfo(
+                                slotInfo.lastKnownCountryCode,
+                                COUNTRY_CODE_SOURCE_TELEPHONY_LAST,
+                                slotInfo.timestamp);
+            }
+        }
+
+        updateCountryCode(false /* forceUpdate */);
+    }
+
     /**
      * Priority order of country code sources (we stop at the first known country code source):
      *
      * <ul>
      *   <li>1. Override country code - Country code forced via shell command (local/automated
      *       testing)
-     *   <li>2. Location Country code - Country code retrieved from LocationManager passive location
+     *   <li>2. Telephony country code - Current country code retrieved via cellular. If there are
+     *       multiple SIM's, the country code chosen is non-deterministic if they return different
+     *       codes. The first valid country code with the lowest slot number will be used.
+     *   <li>3. Last known telephony country code - Last known country code retrieved via cellular.
+     *       If there are multiple SIM's, the country code chosen is non-deterministic if they
+     *       return different codes. The first valid last known country code with the lowest slot
+     *       number will be used.
+     *   <li>4. Location country code - Country code retrieved from LocationManager passive location
      *       provider.
      * </ul>
      *
@@ -202,6 +379,14 @@ public class ThreadNetworkCountryCode {
     private CountryCodeInfo pickCountryCode() {
         if (mOverrideCountryCodeInfo != null) {
             return mOverrideCountryCodeInfo;
+        }
+
+        if (mTelephonyCountryCodeInfo != null) {
+            return mTelephonyCountryCodeInfo;
+        }
+
+        if (mTelephonyLastCountryCodeInfo != null) {
+            return mTelephonyLastCountryCodeInfo;
         }
 
         if (mLocationCountryCodeInfo != null) {
@@ -297,6 +482,9 @@ public class ThreadNetworkCountryCode {
     public synchronized void dump(FileDescriptor fd, PrintWriter pw, String[] args) {
         pw.println("---- Dump of ThreadNetworkCountryCode begin ----");
         pw.println("mOverrideCountryCodeInfo: " + mOverrideCountryCodeInfo);
+        pw.println("mTelephonyCountryCodeSlotInfoMap: " + mTelephonyCountryCodeSlotInfoMap);
+        pw.println("mTelephonyCountryCodeInfo: " + mTelephonyCountryCodeInfo);
+        pw.println("mTelephonyLastCountryCodeInfo: " + mTelephonyLastCountryCodeInfo);
         pw.println("mLocationCountryCodeInfo: " + mLocationCountryCodeInfo);
         pw.println("mCurrentCountryCodeInfo: " + mCurrentCountryCodeInfo);
         pw.println("---- Dump of ThreadNetworkCountryCode end ------");
