@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69838a78_6c5df88b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 34
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-20T05:36:56Z",
+      "side": 1,
+      "message": "LGTM if comments resolved.",
+      "revId": "af7726bd42fae75db1c6e303e3a9390db697fb4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e60c90a5_7420600a",
+        "filename": "thread/tests/integration/src/android/net/thread/IntegrationTestUtils.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-20T05:36:56Z",
+      "side": 1,
+      "message": "```suggestion\n     *     than 3000ms to read the next packet, the method will return null.\n```",
+      "range": {
+        "startLine": 147,
+        "startChar": 16,
+        "endLine": 147,
+        "endChar": 21
+      },
+      "revId": "af7726bd42fae75db1c6e303e3a9390db697fb4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "612d1b60_1898c181",
+        "filename": "thread/tests/integration/src/android/net/thread/IntegrationTestUtils.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-20T05:36:56Z",
+      "side": 1,
+      "message": "nit:\n```suggestion\n    /**\n     * Returns {@code true} if {@code packet} is an ICMPv6 packet of given {@code type}.\n     */\n```",
+      "range": {
+        "startLine": 157,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 7
+      },
+      "revId": "af7726bd42fae75db1c6e303e3a9390db697fb4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0b96add_d8b741b9",
+        "filename": "thread/tests/integration/src/android/net/thread/IntegrationTestUtils.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-20T05:36:56Z",
+      "side": 1,
+      "message": "```suggestion\n    public static List\u003cPrefixInformationOption\u003e getRaPios(byte[] raMsg) {\n```",
+      "revId": "af7726bd42fae75db1c6e303e3a9390db697fb4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
