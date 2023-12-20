@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74ecc5f8_946e2b65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-20T04:19:24Z",
+      "side": 1,
+      "message": "There are some AI items that we went through in the release review, so I\u0027d recommend not merging this immediately to look at AIs on parent changes first",
+      "revId": "7fc03bd9866e5407a49082aa331e6712c72a1592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
