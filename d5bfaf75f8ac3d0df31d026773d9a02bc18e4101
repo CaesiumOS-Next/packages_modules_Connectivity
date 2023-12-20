@@ -283,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc0ff44e_ee7c444c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-20T10:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93b350bd_7b3534f6",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 47
+      },
+      "revId": "d5bfaf75f8ac3d0df31d026773d9a02bc18e4101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ba4282c_dfec80a1",
@@ -2069,6 +2093,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01e38a05_65323be6",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-20T10:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8594978_a058610a",
+      "range": {
+        "startLine": 538,
+        "startChar": 15,
+        "endLine": 538,
+        "endChar": 31
+      },
+      "revId": "d5bfaf75f8ac3d0df31d026773d9a02bc18e4101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6c78066_d66c372a",
@@ -2341,6 +2389,30 @@
       "side": 1,
       "message": "The `android.Manifest.permission.DUMP` is used to allows an application to retrieve state dump information from system services (https://developer.android.com/reference/android/Manifest.permission#DUMP).",
       "parentUuid": "65830c63_954afed8",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 9
+      },
+      "revId": "d5bfaf75f8ac3d0df31d026773d9a02bc18e4101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6469ccff_0998a533",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-20T10:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "313200d1_30a84fc6",
       "range": {
         "startLine": 94,
         "startChar": 8,
@@ -2858,6 +2930,30 @@
       "side": 1,
       "message": "The `SubscriptionInfo.Builder` is a `hide` class, which do not allow us to use it to build the SubscriptionInfo. Refer to https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/telephony/java/android/telephony/SubscriptionInfo.java;l\u003d1048",
       "parentUuid": "e075a7a3_60601712",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 46
+      },
+      "revId": "d5bfaf75f8ac3d0df31d026773d9a02bc18e4101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "238c5b7c_6abe61b7",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-20T10:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c491d12f_b2c4c71c",
       "range": {
         "startLine": 95,
         "startChar": 0,
