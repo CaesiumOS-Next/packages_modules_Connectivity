@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db37c2a2_4fedf80a",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-20T21:50:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b164d28b_04af24ec",
+      "range": {
+        "startLine": 77,
+        "startChar": 17,
+        "endLine": 77,
+        "endChar": 39
+      },
+      "revId": "8e712a290dde23ddb85fe22415b9b3a9a88f7fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa6d6b78_af93705d",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7a5ffb65_205254c4",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkRequestStateStatsMetricsTests.kt",
+        "patchSetId": 32
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-20T21:50:34Z",
+      "side": 1,
+      "message": "Sorry, not sure I understood the suggestion/concern?",
+      "parentUuid": "fa6d6b78_af93705d",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "8e712a290dde23ddb85fe22415b9b3a9a88f7fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5143efa4_a09b9d06",
         "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkRequestStateStatsMetricsTests.kt",
         "patchSetId": 32
@@ -60,6 +108,30 @@
       "writtenOn": "2023-12-20T17:42:05Z",
       "side": 1,
       "message": "It should be sufficient to verify that cellInternetNotMeteredNR.networkCapabilities equals receivedNR.networkCapabilities, no need to do it field by field. See definition of NetworkCapabilities#equals.",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 92
+      },
+      "revId": "8e712a290dde23ddb85fe22415b9b3a9a88f7fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1aac4fc3_1fd2f01a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkRequestStateStatsMetricsTests.kt",
+        "patchSetId": 32
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-20T21:50:34Z",
+      "side": 1,
+      "message": "This not is not working as net caps are not fully equal: I don\u0027t have requestor Uid and package name in the beginning (maybe a couple more things).",
+      "parentUuid": "5143efa4_a09b9d06",
       "range": {
         "startLine": 60,
         "startChar": 8,

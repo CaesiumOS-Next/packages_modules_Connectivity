@@ -251,6 +251,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f31ca987_f31c7850",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-20T21:50:34Z",
+      "side": 1,
+      "message": "Thanks for pointing out about the camel case, missed it accidently.\n\nAbout the makeHandlerThread it was done for different purpose: to make mStatsLoggingHandler private. It allowed me not to use mStatsLoggingHandler in the test (I needed in only for waitForIdle(), now I\u0027m running it with mocked Thread object).\n\nMy understanding was that threadSleep() method being a part of mocked Dependencies object will be mocked by default and you don\u0027t need specify anything additionally (as in this case I don\u0027t want this method to do anything or return anything, just not to call to initial logic - only a stub).",
+      "parentUuid": "534ddde2_64f9dddb",
+      "range": {
+        "startLine": 166,
+        "startChar": 20,
+        "endLine": 166,
+        "endChar": 51
+      },
+      "revId": "7f64420d8356f5e6e2592bda4fb74319a7d49eb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbe58f06_7ccaf99d",
         "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateInfoTest.java",
         "patchSetId": 20
