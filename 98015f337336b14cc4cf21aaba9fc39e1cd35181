@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c9a2ca5_0aa4a615",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-20T03:57:27Z",
+      "side": 1,
+      "message": "Consider using the BinderUtils.withCleanCallingIdentity() instead of try/finally.",
+      "range": {
+        "startLine": 188,
+        "startChar": 12,
+        "endLine": 188,
+        "endChar": 23
+      },
+      "revId": "98015f337336b14cc4cf21aaba9fc39e1cd35181",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
