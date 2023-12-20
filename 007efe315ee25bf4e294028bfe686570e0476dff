@@ -89,6 +89,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2a65e419_a75a10ee",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-20T10:26:51Z",
+      "side": 1,
+      "message": "As I understand in this case I will need to have mNetworkRequestState in the class as int (I guess I can\u0027t access the initial enum type), which I thought is not very good, so created an internal enum.",
+      "parentUuid": "546a0081_9f181131",
+      "range": {
+        "startLine": 49,
+        "startChar": 31,
+        "endLine": 49,
+        "endChar": 59
+      },
+      "revId": "007efe315ee25bf4e294028bfe686570e0476dff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f7c23d1_982315b5",
         "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
         "patchSetId": 28
@@ -146,6 +170,30 @@
       "writtenOn": "2023-12-20T07:32:44Z",
       "side": 1,
       "message": "nits: @VisibleForTesting?\nOr we can make this private and add `getHandler` to Dependencies.",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 17
+      },
+      "revId": "007efe315ee25bf4e294028bfe686570e0476dff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b7b54e9_8370c5ef",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-20T10:26:51Z",
+      "side": 1,
+      "message": "Also discussed with Ivo this point yesterday, he also suggested to use Dependencies, but wasn\u0027t sure it is fine to have non static Dependencies, but if you also suggest this approach will change for Dependencies.",
+      "parentUuid": "b95aa1d2_5c0f7001",
       "range": {
         "startLine": 50,
         "startChar": 4,
@@ -284,6 +332,30 @@
       "writtenOn": "2023-12-20T07:32:44Z",
       "side": 1,
       "message": "Why we are calling service instead of cm?\nApps will call cm APIs so I think it\u0027s better to call cm.",
+      "range": {
+        "startLine": 48,
+        "startChar": 17,
+        "endLine": 48,
+        "endChar": 39
+      },
+      "revId": "007efe315ee25bf4e294028bfe686570e0476dff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2647a34_cd5790e0",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkRequestStateStatsMetricsTests.kt",
+        "patchSetId": 28
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-20T10:26:51Z",
+      "side": 1,
+      "message": "I\u0027m calling service as in some of the tests I needed the created NR object to test removal of it + made all tests using the same API. So I guess (not to loose test coverage) I can either have cm in some tests, and service in one of them or keep the tests as they are...",
+      "parentUuid": "c527c6f7_b6153c78",
       "range": {
         "startLine": 48,
         "startChar": 17,
