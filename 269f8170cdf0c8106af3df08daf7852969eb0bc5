@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdc0194c_270dffb6",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-20T07:43:52Z",
+      "side": 1,
+      "message": "min sdk 31 was added in this CL ag/22068445.",
+      "parentUuid": "9d64cd96_f74c9554",
+      "revId": "269f8170cdf0c8106af3df08daf7852969eb0bc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6874748_83685bde",
