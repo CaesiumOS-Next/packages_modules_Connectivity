@@ -93,6 +93,30 @@
       },
       "revId": "9138653206a26c9576ace83ad8a7b723a4a03c8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e39f5d1_72da007c",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-20T10:39:40Z",
+      "side": 1,
+      "message": "Ok, that\u0027s really strange. @maze@google.com any idea how this might happen? I looked at rtnetlink_rcv_msg and it seems to get the function pointer from the first byte after the netlink header.\n\nYang, have you seen this only on kernels where multicast routing isn\u0027t supported? I see code that does:\n\n\t\tlink \u003d rtnl_get_link(family, type);\n\t\tif (!link || !link-\u003edumpit) {\n\t\t\tfamily \u003d PF_UNSPEC;\n\t\t\tlink \u003d rtnl_get_link(family, type);\n\t\t\tif (!link || !link-\u003edumpit)\n\t\t\t\tgoto err_unlock;\n\t\t}",
+      "parentUuid": "87bf3ef9_a0625202",
+      "range": {
+        "startLine": 433,
+        "startChar": 34,
+        "endLine": 433,
+        "endChar": 59
+      },
+      "revId": "9138653206a26c9576ace83ad8a7b723a4a03c8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
