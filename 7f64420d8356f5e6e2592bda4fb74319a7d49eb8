@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "35ded275_aec84966",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-20T07:32:44Z",
+      "side": 1,
+      "message": "nits: can be final?",
+      "revId": "7f64420d8356f5e6e2592bda4fb74319a7d49eb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b262afa5_bb4d976c",
         "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
         "patchSetId": 20
@@ -72,6 +89,121 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f695c83b_14058672",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-20T07:32:44Z",
+      "side": 1,
+      "message": "nits: it would be helpful to have comment to explain that 1sec interval is suggestion from experiment team.",
+      "range": {
+        "startLine": 52,
+        "startChar": 48,
+        "endLine": 52,
+        "endChar": 52
+      },
+      "revId": "7f64420d8356f5e6e2592bda4fb74319a7d49eb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ce3bd30_3363ec8f",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-20T07:32:44Z",
+      "side": 1,
+      "message": "Can we move this to Dependencies to avoid having sleep in the test?",
+      "range": {
+        "startLine": 166,
+        "startChar": 20,
+        "endLine": 166,
+        "endChar": 51
+      },
+      "revId": "7f64420d8356f5e6e2592bda4fb74319a7d49eb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbe58f06_7ccaf99d",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateInfoTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-20T07:32:44Z",
+      "side": 1,
+      "message": "nits: Is there any reason that we don\u0027t want to run this test on S devices?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 37
+      },
+      "revId": "7f64420d8356f5e6e2592bda4fb74319a7d49eb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "323720b1_f8aafe3b",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateInfoTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-20T07:32:44Z",
+      "side": 1,
+      "message": "nits: Above two lines are identical.",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 79
+      },
+      "revId": "7f64420d8356f5e6e2592bda4fb74319a7d49eb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e318885e_e93e5df4",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-20T07:32:44Z",
+      "side": 1,
+      "message": "This was a bit confusing,\nI think the first `onNetworkRequestReceived` will call `writeStats` but the second `onNetworkRequestReceived` will not, correct?\n\ncan we call `clearInvocations` before 2nd `onNetworkRequestReceived` and update this line to `never()`?\nOr If we use `inOrder(mNRStateStatsDeps)`, can we specify `never()` here?",
+      "range": {
+        "startLine": 156,
+        "startChar": 34,
+        "endLine": 156,
+        "endChar": 42
+      },
+      "revId": "7f64420d8356f5e6e2592bda4fb74319a7d49eb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a019274b_eacbc152",
@@ -85,6 +217,29 @@
       "writtenOn": "2023-12-18T17:20:31Z",
       "side": 1,
       "message": "Discussed with Motomu that the case of NetworkRequestStateStatsMetrics object being null will be implicitly tested in the other ConnectivityService tests.",
+      "revId": "7f64420d8356f5e6e2592bda4fb74319a7d49eb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffe121de_f0d985e9",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-20T07:32:44Z",
+      "side": 1,
+      "message": "We can have mockedNetworkRequestStateStatsMetrics at around line 169 and return mockedNetworkRequestStateStatsMetrics here.\nAnd `mNetworkRequestStateStatsMetrics` in ConnectivityService can be private.\nI think this is what CSTest does for most dependencies (e.g. getResources, getBpfNetMaps)",
+      "range": {
+        "startLine": 203,
+        "startChar": 19,
+        "endLine": 203,
+        "endChar": 58
+      },
       "revId": "7f64420d8356f5e6e2592bda4fb74319a7d49eb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
