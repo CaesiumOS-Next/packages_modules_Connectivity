@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7e5aab0_2843c539",
+        "filename": "service-t/src/com/android/metrics/NetworkStatsMetricsLogger.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-12-20T13:01:49Z",
+      "side": 1,
+      "message": "It seems that the name is too long. It is recommended to shorten the naming length.\n\nI have left some comments in https://googleplex-android-review.git.corp.google.com/c/platform/frameworks/proto_logging/+/25641202/10/stats/enums/corenetworking/connectivity/enums.proto#66",
+      "range": {
+        "startLine": 24,
+        "startChar": 54,
+        "endLine": 24,
+        "endChar": 152
+      },
+      "revId": "ac9eb64a9a95decaf810158214f3522ca5cecb48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0d9e297_f6b94f1d",
+        "filename": "service-t/src/com/android/metrics/NetworkStatsMetricsLogger.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-12-20T13:01:49Z",
+      "side": 1,
+      "message": "RECODER_OPERATION_TYPE",
+      "range": {
+        "startLine": 25,
+        "startChar": 102,
+        "endLine": 25,
+        "endChar": 116
+      },
+      "revId": "ac9eb64a9a95decaf810158214f3522ca5cecb48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
