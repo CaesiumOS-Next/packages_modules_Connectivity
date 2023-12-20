@@ -35,6 +35,7 @@ java_library {
     libs: [
         "framework-connectivity-pre-jarjar",
         "framework-connectivity-t-pre-jarjar",
+        "framework-wifi",
         "service-connectivity-pre-jarjar",
     ],
     static_libs: [

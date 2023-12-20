@@ -24,6 +24,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.thread.IOperationReceiver;
+import android.net.wifi.WifiManager;
+import android.net.wifi.WifiManager.ActiveCountryCodeChangedCallback;
 import android.os.Build;
 import android.util.Log;
 
@@ -40,7 +42,7 @@ import java.util.Objects;
 
 /**
  * Provide functions for making changes to Thread Network country code. This Country Code is from
- * location. This class sends Country Code to Thread Network native layer.
+ * location or WiFi configuration. This class sends Country Code to Thread Network native layer.
  *
  * <p>This class is thread-safe.
  */
@@ -64,22 +66,26 @@ public class ThreadNetworkCountryCode {
                 COUNTRY_CODE_SOURCE_DEFAULT,
                 COUNTRY_CODE_SOURCE_LOCATION,
                 COUNTRY_CODE_SOURCE_OVERRIDE,
+                COUNTRY_CODE_SOURCE_WIFI,
             })
     private @interface CountryCodeSource {}
 
     private static final String COUNTRY_CODE_SOURCE_DEFAULT = "Default";
     private static final String COUNTRY_CODE_SOURCE_LOCATION = "Location";
     private static final String COUNTRY_CODE_SOURCE_OVERRIDE = "Override";
+    private static final String COUNTRY_CODE_SOURCE_WIFI = "Wifi";
     private static final CountryCodeInfo DEFAULT_COUNTRY_CODE_INFO =
             new CountryCodeInfo(DEFAULT_COUNTRY_CODE, COUNTRY_CODE_SOURCE_DEFAULT);
 
     private final LocationManager mLocationManager;
     @Nullable private final Geocoder mGeocoder;
     private final ThreadNetworkControllerService mThreadNetworkControllerService;
+    private final WifiManager mWifiManager;
 
     @Nullable private CountryCodeInfo mCurrentCountryCodeInfo;
     @Nullable private CountryCodeInfo mLocationCountryCodeInfo;
     @Nullable private CountryCodeInfo mOverrideCountryCodeInfo;
+    @Nullable private CountryCodeInfo mWifiCountryCodeInfo;
 
     /** Container class to store Thread country code information. */
     private static final class CountryCodeInfo {
@@ -130,15 +136,18 @@ public class ThreadNetworkCountryCode {
     public ThreadNetworkCountryCode(
             LocationManager locationManager,
             ThreadNetworkControllerService threadNetworkControllerService,
-            @Nullable Geocoder geocoder) {
+            @Nullable Geocoder geocoder,
+            WifiManager wifiManager) {
         mLocationManager = locationManager;
         mThreadNetworkControllerService = threadNetworkControllerService;
         mGeocoder = geocoder;
+        mWifiManager = wifiManager;
     }
 
     /** Sets up this country code module to listen to location country code changes. */
     public synchronized void initialize() {
         registerGeocoderCountryCodeCallback();
+        registerWifiCountryCodeCallback();
         updateCountryCode(false /* forceUpdate */);
     }
 
@@ -187,13 +196,41 @@ public class ThreadNetworkCountryCode {
                 this::geocodeListener);
     }
 
+    private synchronized void registerWifiCountryCodeCallback() {
+        if (mWifiManager != null) {
+            mWifiManager.registerActiveCountryCodeChangedCallback(
+                    r -> r.run(), new WifiCountryCodeCallback());
+        }
+    }
+
+    private class WifiCountryCodeCallback implements ActiveCountryCodeChangedCallback {
+        @Override
+        public void onActiveCountryCodeChanged(String countryCode) {
+            Log.d(TAG, "Wifi country code is changed to " + countryCode);
+            synchronized ("ThreadNetworkCountryCode.this") {
+                mWifiCountryCodeInfo = new CountryCodeInfo(countryCode, COUNTRY_CODE_SOURCE_WIFI);
+                updateCountryCode(false /* forceUpdate */);
+            }
+        }
+
+        @Override
+        public void onCountryCodeInactive() {
+            Log.d(TAG, "Wifi country code is inactived");
+            synchronized ("ThreadNetworkCountryCode.this") {
+                mWifiCountryCodeInfo = null;
+                updateCountryCode(false /* forceUpdate */);
+            }
+        }
+    }
+
     /**
      * Priority order of country code sources (we stop at the first known country code source):
      *
      * <ul>
      *   <li>1. Override country code - Country code forced via shell command (local/automated
      *       testing)
-     *   <li>2. Location Country code - Country code retrieved from LocationManager passive location
+     *   <li>2. Wifi country code - Current country code retrieved via wifi (via 80211.ad).
+     *   <li>3. Location Country code - Country code retrieved from LocationManager passive location
      *       provider.
      * </ul>
      *
@@ -202,6 +239,10 @@ public class ThreadNetworkCountryCode {
     private CountryCodeInfo pickCountryCode() {
         if (mOverrideCountryCodeInfo != null) {
             return mOverrideCountryCodeInfo;
+        }
+
+        if (mWifiCountryCodeInfo != null) {
+            return mWifiCountryCodeInfo;
         }
 
         if (mLocationCountryCodeInfo != null) {
@@ -297,6 +338,7 @@ public class ThreadNetworkCountryCode {
     public synchronized void dump(FileDescriptor fd, PrintWriter pw, String[] args) {
         pw.println("---- Dump of ThreadNetworkCountryCode begin ----");
         pw.println("mOverrideCountryCodeInfo: " + mOverrideCountryCodeInfo);
+        pw.println("mWifiCountryCodeInfo: " + mWifiCountryCodeInfo);
         pw.println("mLocationCountryCodeInfo: " + mLocationCountryCodeInfo);
         pw.println("mCurrentCountryCodeInfo: " + mCurrentCountryCodeInfo);
         pw.println("---- Dump of ThreadNetworkCountryCode end ------");
