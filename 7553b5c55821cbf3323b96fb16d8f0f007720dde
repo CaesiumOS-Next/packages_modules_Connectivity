@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0358f1eb_df692a01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1927237
+      },
+      "writtenOn": "2023-12-20T08:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02a05757_fef2bd0e",
+      "revId": "7553b5c55821cbf3323b96fb16d8f0f007720dde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41fa7cdd_734f7bd7",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-12-20T08:15:11Z",
       "side": 1,
       "message": "Can you remove this ? The downstream change is not necessary",
+      "revId": "7553b5c55821cbf3323b96fb16d8f0f007720dde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5028d09_0c3cb25d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1927237
+      },
+      "writtenOn": "2023-12-20T08:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41fa7cdd_734f7bd7",
       "revId": "7553b5c55821cbf3323b96fb16d8f0f007720dde",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
