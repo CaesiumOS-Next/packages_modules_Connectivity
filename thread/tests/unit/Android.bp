@@ -36,6 +36,7 @@ android_test {
         "framework-connectivity-t-pre-jarjar",
         "framework-location.stubs.module_lib",
         "framework-statsd.stubs.module_lib",
+        "framework-wifi.stubs.module_lib",
         "guava",
         "guava-android-testlib",
         "mockito-target-extended-minus-junit4",
