@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2a47e8f_5add602b",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-20T07:33:09Z",
+      "side": 1,
+      "message": "Good point, done.",
+      "parentUuid": "a7d46392_866baf82",
+      "range": {
+        "startLine": 416,
+        "startChar": 17,
+        "endLine": 416,
+        "endChar": 26
+      },
+      "revId": "9138653206a26c9576ace83ad8a7b723a4a03c8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4cb9777_2676bb70",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-14T08:11:46Z",
       "side": 1,
       "message": "Really? This is surprising. What types of routes?",
+      "range": {
+        "startLine": 433,
+        "startChar": 34,
+        "endLine": 433,
+        "endChar": 59
+      },
+      "revId": "9138653206a26c9576ace83ad8a7b723a4a03c8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87bf3ef9_a0625202",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-20T07:33:09Z",
+      "side": 1,
+      "message": "Examples I\u0027ve seen replied by kernel:\n`RtNetlinkRouteMessage{ nlmsghdr{StructNlMsgHdr{ nlmsg_len{52}, nlmsg_type{24(RTM_NEWROUTE)}, nlmsg_flags{2(NLM_F_MULTI)}, nlmsg_seq{0}, nlmsg_pid{4867} }}, Rtmsg{family: 2, dstLen: 30, srcLen: 0, tos: 0, table: 252, protocol: 4, scope: 253, type: 1, flags: 0}, destination{192.168.97.0}, gateway{}, oifindex{15}, rta_cacheinfo{} }`\n`RtNetlinkRouteMessage{ nlmsghdr{StructNlMsgHdr{ nlmsg_len{44}, nlmsg_type{24(RTM_NEWROUTE)}, nlmsg_flags{2(NLM_F_MULTI)}, nlmsg_seq{0}, nlmsg_pid{4017} }}, Rtmsg{family: 2, dstLen: 0, srcLen: 0, tos: 0, table: 252, protocol: 4, scope: 253, type: 1, flags: 0}, destination{0.0.0.0}, gateway{}, oifindex{2}, rta_cacheinfo{} }`\nwhich are AF_INET routes.",
+      "parentUuid": "a4cb9777_2676bb70",
       "range": {
         "startLine": 433,
         "startChar": 34,
