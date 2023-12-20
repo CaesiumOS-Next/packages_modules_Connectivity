@@ -117,6 +117,30 @@
       },
       "revId": "9138653206a26c9576ace83ad8a7b723a4a03c8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f263f9a8_af28a81b",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-20T10:52:23Z",
+      "side": 1,
+      "message": "Yes, I saw this only from test runs on S/T-base-images, so multicast routing is not supported there.",
+      "parentUuid": "2e39f5d1_72da007c",
+      "range": {
+        "startLine": 433,
+        "startChar": 34,
+        "endLine": 433,
+        "endChar": 59
+      },
+      "revId": "9138653206a26c9576ace83ad8a7b723a4a03c8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
