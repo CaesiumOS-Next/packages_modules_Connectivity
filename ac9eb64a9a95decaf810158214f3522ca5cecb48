@@ -45,6 +45,75 @@
       },
       "revId": "ac9eb64a9a95decaf810158214f3522ca5cecb48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d8ab729_c6d1d3cd",
+        "filename": "service-t/src/com/android/metrics/NetworkStatsMetricsLogger.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-12-21T02:04:54Z",
+      "side": 1,
+      "message": "Why the field hard code to FASTDATAINPUT_STATE_UNKNOWN?\nIs this true?\nWe don\u0027t know if it\u0027s ENABLED or DISABLED?",
+      "range": {
+        "startLine": 70,
+        "startChar": 20,
+        "endLine": 70,
+        "endChar": 118
+      },
+      "revId": "ac9eb64a9a95decaf810158214f3522ca5cecb48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1216f6c0_e302b49e",
+        "filename": "service-t/src/com/android/metrics/NetworkStatsMetricsLogger.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-12-21T02:04:54Z",
+      "side": 1,
+      "message": "Log statistics from the NetworkStatsRecorder file reading process into statsd.",
+      "range": {
+        "startLine": 97,
+        "startChar": 7,
+        "endLine": 97,
+        "endChar": 62
+      },
+      "revId": "ac9eb64a9a95decaf810158214f3522ca5cecb48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9af697e_8b59cdd1",
+        "filename": "service-t/src/com/android/metrics/NetworkStatsMetricsLogger.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-12-21T02:04:54Z",
+      "side": 1,
+      "message": "Wrong order,should be mReadIndex++, duration instead of duration,mReadIndex++",
+      "range": {
+        "startLine": 116,
+        "startChar": 16,
+        "endLine": 117,
+        "endChar": 28
+      },
+      "revId": "ac9eb64a9a95decaf810158214f3522ca5cecb48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
