@@ -1596,4 +1596,30 @@ public class IpSecManagerTest extends IpSecBaseTest {
             assertTrue("Returned invalid port", encapSocket.getPort() != 0);
         }
     }
+
+    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @Test
+    public void testRequestIpSecTransformState() throws Exception {
+        final InetAddress localAddr = InetAddress.getByName(IPV6_LOOPBACK);
+        try (SecurityParameterIndex spi = mISM.allocateSecurityParameterIndex(localAddr);
+                IpSecTransform transform =
+                        buildTransportModeTransform(spi, localAddr, null /* encapSocket*/)) {
+            final SocketPair<JavaUdpSocket> sockets =
+                    getJavaUdpSocketPair(localAddr, mISM, transform, false);
+
+            sockets.mLeftSock.sendTo(TEST_DATA, localAddr, sockets.mRightSock.getPort());
+            sockets.mRightSock.receive();
+
+            final int expectedPacketCount = 1;
+            final int expectedInnerPacketSize = TEST_DATA.length + UDP_HDRLEN;
+
+            checkTransformState(
+                    transform,
+                    expectedPacketCount,
+                    expectedPacketCount,
+                    2 * expectedPacketCount,
+                    2 * expectedInnerPacketSize,
+                    newReplayBitmap(expectedPacketCount));
+        }
+    }
 }
