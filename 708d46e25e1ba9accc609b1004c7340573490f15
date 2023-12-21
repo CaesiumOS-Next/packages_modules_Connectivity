@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68c28eab_c1628bfd",
+        "filename": "service-t/src/com/android/metrics/NetworkStatsMetricsLogger.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-12-21T07:29:45Z",
+      "side": 1,
+      "message": "readLatencyMillis",
+      "range": {
+        "startLine": 57,
+        "startChar": 87,
+        "endLine": 57,
+        "endChar": 99
+      },
+      "revId": "708d46e25e1ba9accc609b1004c7340573490f15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3badb80_7867b375",
+        "filename": "service-t/src/com/android/metrics/NetworkStatsMetricsLogger.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-12-21T07:29:45Z",
+      "side": 1,
+      "message": "readLatencyMillis",
+      "range": {
+        "startLine": 64,
+        "startChar": 20,
+        "endLine": 64,
+        "endChar": 32
+      },
+      "revId": "708d46e25e1ba9accc609b1004c7340573490f15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fb62ae3_cedb4b5c",
+        "filename": "service-t/src/com/android/metrics/NetworkStatsMetricsLogger.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-12-21T07:29:45Z",
+      "side": 1,
+      "message": "Same as the atom field name , readLatencyMillis",
+      "range": {
+        "startLine": 99,
+        "startChar": 67,
+        "endLine": 99,
+        "endChar": 75
+      },
+      "revId": "708d46e25e1ba9accc609b1004c7340573490f15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb3f3522_1e2a63c6",
+        "filename": "service-t/src/com/android/metrics/NetworkStatsMetricsLogger.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-12-21T07:29:45Z",
+      "side": 1,
+      "message": "readLatencyMillis",
+      "range": {
+        "startLine": 117,
+        "startChar": 16,
+        "endLine": 117,
+        "endChar": 24
+      },
+      "revId": "708d46e25e1ba9accc609b1004c7340573490f15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09f2544a_9ce64b7f",
+        "filename": "tests/unit/java/android/net/NetworkStatsRecorderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-12-21T07:29:45Z",
+      "side": 1,
+      "message": "readLatencyMillis",
+      "range": {
+        "startLine": 112,
+        "startChar": 23,
+        "endLine": 112,
+        "endChar": 35
+      },
+      "revId": "708d46e25e1ba9accc609b1004c7340573490f15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7097ca96_2bd2177b",
+        "filename": "tests/unit/java/android/net/NetworkStatsRecorderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-12-21T07:29:45Z",
+      "side": 1,
+      "message": "readLatencyMillis",
+      "range": {
+        "startLine": 125,
+        "startChar": 23,
+        "endLine": 125,
+        "endChar": 35
+      },
+      "revId": "708d46e25e1ba9accc609b1004c7340573490f15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fba4297_c3a9d747",
+        "filename": "tests/unit/java/android/net/NetworkStatsRecorderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-12-21T07:29:45Z",
+      "side": 1,
+      "message": "readLatencyMillis",
+      "range": {
+        "startLine": 154,
+        "startChar": 23,
+        "endLine": 154,
+        "endChar": 35
+      },
+      "revId": "708d46e25e1ba9accc609b1004c7340573490f15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
