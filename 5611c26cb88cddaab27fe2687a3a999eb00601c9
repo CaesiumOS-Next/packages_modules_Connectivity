@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4fa6619_529b7617",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/StructMif6ctl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T08:43:26Z",
+      "side": 1,
+      "message": "I used python struct.pack to pack the c struct, and then checked the output to see where it added paddings, for example:\n```\n\u003e\u003e\u003e x \u003d struct.pack(\"HBBHI\", 1, 2, 3, 4, 5)\n\u003e\u003e\u003e print(\u0027\u0027.join(\u0027{:02x}\u0027.format(i) for i in x))\n010002030400000005000000\n```",
+      "parentUuid": "6d2c415e_f3775d81",
+      "range": {
+        "startLine": 34,
+        "startChar": 39,
+        "endLine": 34,
+        "endChar": 50
+      },
+      "revId": "5611c26cb88cddaab27fe2687a3a999eb00601c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "331380d1_d1fa9e77",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-14T09:43:54Z",
       "side": 1,
       "message": "It\u0027s better to have test for parse and writeToByte.\nAlso, do/will we have cts that would fail if the parsing or writeToByte is wrong?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 1
+      },
+      "revId": "5611c26cb88cddaab27fe2687a3a999eb00601c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58245146_e9a0675c",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMif6ctlTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T08:43:26Z",
+      "side": 1,
+      "message": "Added test for parse and writeToBytes.\n\nThis struct is used to pass multicast routing related config from user space to kernel, later I\u0027ll add integration test for multicast routing, so the writeToByte function will be covered by that.",
+      "parentUuid": "331380d1_d1fa9e77",
       "range": {
         "startLine": 29,
         "startChar": 0,
