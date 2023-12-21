@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f929ad33_d5ee389a",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T08:13:51Z",
+      "side": 1,
+      "message": "nits: If this is nullable, having @Nullable helps to make this clear.",
+      "range": {
+        "startLine": 121,
+        "startChar": 33,
+        "endLine": 121,
+        "endChar": 52
+      },
+      "revId": "9ac00847dfd5aba4412b36296ba42948b5fe0197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1daa2b2f_6ff68e69",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T08:13:51Z",
+      "side": 1,
+      "message": "nits: having underscore helps reading, 300_000",
+      "range": {
+        "startLine": 124,
+        "startChar": 48,
+        "endLine": 124,
+        "endChar": 54
+      },
+      "revId": "9ac00847dfd5aba4412b36296ba42948b5fe0197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e26306af_8415a6eb",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T08:13:51Z",
+      "side": 1,
+      "message": "I think we can use ArrayMap since the number of interface should be small.",
+      "range": {
+        "startLine": 130,
+        "startChar": 61,
+        "endLine": 130,
+        "endChar": 76
+      },
+      "revId": "9ac00847dfd5aba4412b36296ba42948b5fe0197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8d73112_35bb2f2c",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T08:13:51Z",
+      "side": 1,
+      "message": "nits: Having comment to explain key and value would be helpful.",
+      "range": {
+        "startLine": 130,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 79
+      },
+      "revId": "9ac00847dfd5aba4412b36296ba42948b5fe0197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42812fac_e2ac29f0",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T08:13:51Z",
+      "side": 1,
+      "message": "Out of curious, is there any requirement to use LinkedHashMap?",
+      "range": {
+        "startLine": 138,
+        "startChar": 56,
+        "endLine": 138,
+        "endChar": 69
+      },
+      "revId": "9ac00847dfd5aba4412b36296ba42948b5fe0197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "083ff2f1_9652e30d",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T08:13:51Z",
+      "side": 1,
+      "message": "Can we directly call `doRemoveInterfaceFromMulticastRouting`?",
+      "range": {
+        "startLine": 406,
+        "startChar": 16,
+        "endLine": 406,
+        "endChar": 51
+      },
+      "revId": "9ac00847dfd5aba4412b36296ba42948b5fe0197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "873a7dea_dfd0696c",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T08:13:51Z",
+      "side": 1,
+      "message": "Out of curious, Do we need to keep `FORWARD_NONE` in mMulticastRoutingConfigs?\nIs there any difference between \"having FORWARD_NONE\" and \"no config in mMulticastRoutingConfigs\"?",
+      "range": {
+        "startLine": 532,
+        "startChar": 77,
+        "endLine": 532,
+        "endChar": 89
+      },
+      "revId": "9ac00847dfd5aba4412b36296ba42948b5fe0197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3d609c1_316ad226",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T08:13:51Z",
+      "side": 1,
+      "message": "I remember generally streams are not recommended in platform code due to memory overhead. Need comment from Lorenzo.",
+      "range": {
+        "startLine": 820,
+        "startChar": 32,
+        "endLine": 820,
+        "endChar": 41
+      },
+      "revId": "9ac00847dfd5aba4412b36296ba42948b5fe0197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24eab9d2_0aa6f46f",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T08:13:51Z",
+      "side": 1,
+      "message": "nits: I felt this method should be called from addOrUpdateMfc to avoid someone calls addOrUpdateMfc without checkMfcEntriesLimit by mistake.",
+      "range": {
+        "startLine": 893,
+        "startChar": 8,
+        "endLine": 893,
+        "endChar": 28
+      },
+      "revId": "9ac00847dfd5aba4412b36296ba42948b5fe0197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
