@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "418648b1_3ea4aec8",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T06:35:57Z",
+      "side": 1,
+      "message": "```suggestion\n        requireNonNull(executor, \"executor cannot be null\");\n        requireNonNull(receiver, \"receiver cannot be null\");\n```",
+      "range": {
+        "startLine": 518,
+        "startChar": 8,
+        "endLine": 519,
+        "endChar": 33
+      },
+      "revId": "4ed2231bf25bd3edd4bea02e324c1d0afdf9b973",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d83d5d25_817464b2",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T06:35:57Z",
+      "side": 1,
+      "message": "```suggestion\n            cancelRequestUpstreamNetwork();\n            mUpstreamTestNetworkSpecifier \u003d testNetworkSpecifier;\n```\n\nIt\u0027s safer to cancel first and replace the member later.",
+      "range": {
+        "startLine": 279,
+        "startChar": 12,
+        "endLine": 280,
+        "endChar": 43
+      },
+      "revId": "4ed2231bf25bd3edd4bea02e324c1d0afdf9b973",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "922abab3_f1d98694",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T06:35:57Z",
+      "side": 1,
+      "message": "```suggestion\n        \n        if (!Objects.equals(mUpstreamTestNetworkSpecifier, testNetworkSpecifier)) {\n            mUpstreamTestNetworkSpecifier \u003d testNetworkSpecifier;\n            cancelRequestUpstreamNetwork();\n            mUpstreamNetworkRequest \u003d newUpstreamNetworkRequest();\n            requestUpstreamNetwork();\n            sendLocalNetworkConfig();\n        }\n        \n        try {\n            receiver.onSuccess();\n        } catch (RemoteException ignored) {\n            // do nothing if the client is dead\n        }\n```",
+      "range": {
+        "startLine": 274,
+        "startChar": 8,
+        "endLine": 287,
+        "endChar": 9
+      },
+      "revId": "4ed2231bf25bd3edd4bea02e324c1d0afdf9b973",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82fca3f7_cded58c7",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T06:35:57Z",
+      "side": 1,
+      "message": "```suggestion\n            Log.d(TAG, \"requestUpstreamNetwork: The upstream network request is already there.\");\n```\n\nIs it an programming error to request the upstream network twice? If yes, you can throw AssertionError or InvalidStateException. Otherwise, this probably doesn\u0027t worth an ERROR log.",
+      "range": {
+        "startLine": 344,
+        "startChar": 16,
+        "endLine": 344,
+        "endChar": 17
+      },
+      "revId": "4ed2231bf25bd3edd4bea02e324c1d0afdf9b973",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afa28fe1_bb8c6d12",
+        "filename": "thread/tests/unit/src/android/net/thread/ThreadNetworkControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T06:35:57Z",
+      "side": 1,
+      "message": "We should probably add CTS tests, otherwise, the service side code is not covered.",
+      "revId": "4ed2231bf25bd3edd4bea02e324c1d0afdf9b973",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
