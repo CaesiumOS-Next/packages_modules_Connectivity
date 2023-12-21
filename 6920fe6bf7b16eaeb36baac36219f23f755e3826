@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0a0f9d4_dc913f4b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-21T05:27:01Z",
+      "side": 1,
+      "message": "It surprises me a bit that a default constructor doesn\u0027t use default values. Probably you can consider making it a private constructor. If you need to expose it, create a static method whose name indicates the behavior.",
+      "revId": "6920fe6bf7b16eaeb36baac36219f23f755e3826",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46958bce_38e7f9a5",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-21T05:27:01Z",
+      "side": 1,
+      "message": "Should it be `\u003c\u003d`?",
+      "revId": "6920fe6bf7b16eaeb36baac36219f23f755e3826",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9e99b87_89e862e6",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-21T05:27:01Z",
+      "side": 1,
+      "message": "```suggestion\n     * \u003cp\u003eA country code is valid if it consists of 2 alphabets.\n```",
+      "revId": "6920fe6bf7b16eaeb36baac36219f23f755e3826",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ce5b396_24dabfec",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-21T05:27:01Z",
+      "side": 1,
+      "message": "```suggestion\n     * @param countryCode A 2-Character alphabetical country code (as defined in ISO 3166).\n```",
+      "revId": "6920fe6bf7b16eaeb36baac36219f23f755e3826",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -955,6 +955,24 @@
       "parentUuid": "c44ef903_dd645250",
       "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b447694_e2d8d960",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-21T05:27:01Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "897b7ddb_7aa49098",
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
