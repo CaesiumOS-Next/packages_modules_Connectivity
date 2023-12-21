@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c4d85d3_321e37a3",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-21T10:31:40Z",
+      "side": 1,
+      "message": "Ah, I forgot - this causes a problem of calling nr.nc.getTransportTypesInternal() which is inside this call and which is not visible for certain tests: https://android-build.corp.google.com/test_investigate/?blocking\u003dblocking\u0026invocationId\u003dI64000010229683878\u0026status\u003dnone\u0026testResultId\u003dTR63029100609386337.",
+      "parentUuid": "db37c2a2_4fedf80a",
+      "range": {
+        "startLine": 77,
+        "startChar": 17,
+        "endLine": 77,
+        "endChar": 39
+      },
+      "revId": "8e712a290dde23ddb85fe22415b9b3a9a88f7fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa6d6b78_af93705d",
         "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkRequestStateStatsMetricsTests.kt",
         "patchSetId": 32
