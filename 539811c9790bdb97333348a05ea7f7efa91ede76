@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3848eea3_93fe1bba",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-21T08:33:54Z",
+      "side": 1,
+      "message": "Nit: advertisingConfig for consistency",
+      "range": {
+        "startLine": 75,
+        "startChar": 36,
+        "endLine": 75,
+        "endChar": 51
+      },
+      "revId": "539811c9790bdb97333348a05ea7f7efa91ede76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d32dc428_8c11fa00",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-21T08:33:54Z",
+      "side": 1,
+      "message": "Is this really necessary ?",
+      "revId": "539811c9790bdb97333348a05ea7f7efa91ede76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf969c12_48988de5",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-21T08:33:54Z",
+      "side": 1,
+      "message": "This does something very different from the current checkListener (which just checks for non-null).\n\nMaybe updateRegisteredListener ?",
+      "range": {
+        "startLine": 1103,
+        "startChar": 16,
+        "endLine": 1103,
+        "endChar": 29
+      },
+      "revId": "539811c9790bdb97333348a05ea7f7efa91ede76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c9df86f_a2b8ddbd",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1202,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-21T08:33:54Z",
+      "side": 1,
+      "message": "On second thought, this seems a bit restrictive, and would force us to keep the original NsdServiceInfo registered by the app (and not a copy) going forward.\n\nMaybe it would be enough to say \"same listener, same service name, same service type (except trailing subtypes)\" ?",
+      "range": {
+        "startLine": 1202,
+        "startChar": 19,
+        "endLine": 1202,
+        "endChar": 49
+      },
+      "revId": "539811c9790bdb97333348a05ea7f7efa91ede76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ad48d51_5f5821c2",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2094,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-21T08:33:54Z",
+      "side": 1,
+      "message": "Can this be another class for REGISTER_SERVICE ? It\u0027s weird to have one class that have fields that are possibly unused, depending on the message",
+      "revId": "539811c9790bdb97333348a05ea7f7efa91ede76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
