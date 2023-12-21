@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcf40556_57c60687",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T11:08:52Z",
+      "side": 1,
+      "message": "StructNlAttr.parse could return null without moving position if the data in buf is broken\nI think it\u0027s safe to have null check.\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/device/com/android/net/module/util/netlink/StructNlAttr.java;l\u003d91-95",
+      "range": {
+        "startLine": 181,
+        "startChar": 38,
+        "endLine": 181,
+        "endChar": 66
+      },
+      "revId": "96f4062420855b67f8fbdae9f784fdae82bf37e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
