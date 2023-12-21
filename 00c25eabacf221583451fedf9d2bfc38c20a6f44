@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f44c9f3_f1dead58",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-21T09:11:21Z",
+      "side": 1,
+      "message": "Theoratical yes.\nBut in pratice this won\u0027t happen because FastDataInput doesn\u0027t know about the file structure.\nDone but TBH I don\u0027t think it is worthy to add these ugly code for a case almost nearly won\u0027t happen at all.\nSee it it works for you.",
+      "parentUuid": "62fac539_0a806aa2",
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e74f3a9_4c53a8f4",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-12-18T04:36:17Z",
       "side": 1,
       "message": "Add @GuardedBy(\"mStatsLock\") to avoid the linter errors (hopefully)",
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc1434a7_4f0b3202",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-21T09:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e74f3a9_4c53a8f4",
       "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8ff45cc_3d84c428",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-21T09:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71b45297_bfc2b33e",
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "154dd89f_c55610a0",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-12-18T04:36:17Z",
       "side": 1,
       "message": "Do you still need to do the comparison after it has succeeded once ? For the legacy storage migration, on success the success counter would be set to targetAttempts",
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7383a7b_96bfc873",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1065,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-21T09:11:21Z",
+      "side": 1,
+      "message": "While storage migration has dryRunOnly (attempts already reach target attempts, but still do comparison),\nI tried to simplify the process by deleting dryRunOnly since we have A/B rollout.\nThus, I tried to use success + failure to replace attempts.\nWhile storage migration checks targetAttempts \u003e\u003d attempts,\nI check targetAttempts \u003e\u003d success + failure instead.\nThus, there is no attempts variable set after success or fail.\nWDYT?",
+      "parentUuid": "154dd89f_c55610a0",
       "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -86,6 +158,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d141923_8f057520",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1371,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-21T09:11:21Z",
+      "side": 1,
+      "message": "I added a reason field but removed in later patches.\nIt seems to me the log.wtf will give us full callstack in pitot.\nFrom the callstack it should be enough to differentiate the error message?",
+      "parentUuid": "51c55684_db4474c1",
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3250add_c456fbcc",
@@ -99,6 +189,24 @@
       "writtenOn": "2023-12-18T04:36:17Z",
       "side": 1,
       "message": "Is this `PrintWriter#print(String format, Object... args)` ? This wouldn\u0027t be right I think. Should it be println(String) like the above line ?",
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18dcc40c_3c34d23c",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2745,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-21T09:11:21Z",
+      "side": 1,
+      "message": "No, this is IndentingPrintWriter#print(@NonNull String key, @Nullable Object value).\nhttps://osscs.corp.google.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/util/IndentingPrintWriter.java;l\u003d139?ss\u003dandroid\u0026q\u003dPrintWriter\nIt\u0027s a helper method to print key/value pair but it doesn\u0027t have \\n.\nWill change to println if you still prefer it.\nFeel free to reopen.",
+      "parentUuid": "f3250add_c456fbcc",
       "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -126,6 +234,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84c16b1b_f35b5802",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-21T09:11:21Z",
+      "side": 1,
+      "message": "Removed.\nThe original idea was also testing exception when calling into compareStats.\nIf so using spy here would be more convenient.",
+      "parentUuid": "014ff961_e9e64d97",
+      "range": {
+        "startLine": 296,
+        "startChar": 51,
+        "endLine": 296,
+        "endChar": 54
+      },
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0648b65e_887f107d",
@@ -139,6 +271,24 @@
       "writtenOn": "2023-12-18T04:36:17Z",
       "side": 1,
       "message": "Nit: since that\u0027s a different scenario that doesn\u0027t depend on the previous one, can you put it in another test method ? (same for other cases below)",
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76173a2a_be5374a2",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2207,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-21T09:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0648b65e_887f107d",
       "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -166,6 +316,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49f237f6_e2549f22",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2218,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-21T09:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33947f15_76b7fb22",
+      "range": {
+        "startLine": 2218,
+        "startChar": 8,
+        "endLine": 2218,
+        "endChar": 24
+      },
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84c39950_a7f93887",
@@ -179,6 +353,24 @@
       "writtenOn": "2023-12-18T04:36:17Z",
       "side": 1,
       "message": "Can you verify what happens when booting after a previous boot had successful comparisons ?",
+      "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c1cbb21_ad53eaf6",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2232,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-21T09:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84c39950_a7f93887",
       "revId": "00c25eabacf221583451fedf9d2bfc38c20a6f44",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
