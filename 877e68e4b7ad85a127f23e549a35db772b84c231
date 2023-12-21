@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "116a7dc8_f651969d",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T10:31:59Z",
+      "side": 1,
+      "message": "nits: I feel caller can directly call `deps\u003dnew TestDependencies();`",
+      "range": {
+        "startLine": 425,
+        "startChar": 0,
+        "endLine": 428,
+        "endChar": 5
+      },
+      "revId": "877e68e4b7ad85a127f23e549a35db772b84c231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
