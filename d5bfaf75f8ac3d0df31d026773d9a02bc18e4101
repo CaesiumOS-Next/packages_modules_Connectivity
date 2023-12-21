@@ -309,6 +309,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4b9e29fa_d5b8a496",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T03:36:35Z",
+      "side": 1,
+      "message": "\u003e If we are using the system property, the factory only needs to provision different country codes via the system property for different country products.\n\nIsn\u0027t system properties set at build-time as well?\nIt\u0027s unclear how exactly country code would be provisioned with system property, and I believe the changes in this CL doesn\u0027t compliant to https://source.android.com/docs/core/architecture/configuration/sysprops-apis.\n\n**Please remove the system property approach from this CL**, we can discuss offline to decide whether it\u0027s really necessary by a separate CL (I believe it\u0027s not necessary...)",
+      "parentUuid": "bc0ff44e_ee7c444c",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 47
+      },
+      "revId": "d5bfaf75f8ac3d0df31d026773d9a02bc18e4101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ba4282c_dfec80a1",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
         "patchSetId": 14
