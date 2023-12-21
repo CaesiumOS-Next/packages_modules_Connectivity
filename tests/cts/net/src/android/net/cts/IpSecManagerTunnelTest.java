@@ -50,6 +50,7 @@ import android.net.IpSecAlgorithm;
 import android.net.IpSecManager;
 import android.net.IpSecManager.IpSecTunnelInterface;
 import android.net.IpSecTransform;
+import android.net.IpSecTransformState;
 import android.net.LinkAddress;
 import android.net.Network;
 import android.net.TestNetworkInterface;
@@ -57,6 +58,7 @@ import android.net.TestNetworkManager;
 import android.net.cts.PacketUtils.Payload;
 import android.net.cts.util.CtsNetUtils;
 import android.os.Build;
+import android.os.OutcomeReceiver;
 import android.os.ParcelFileDescriptor;
 import android.platform.test.annotations.AppModeFull;
 
@@ -77,6 +79,9 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 // TODO: b/268552823 Improve the readability of IpSecManagerTunnelTest
 @RunWith(AndroidJUnit4.class)
@@ -1690,5 +1695,49 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     public void testMigrateTransformTunnelV6InV6UdpEncap() throws Exception {
         assumeExperimentalIpv6UdpEncapSupported();
         doTestMigrateTunnelModeTransform(AF_INET6, AF_INET6, true, false);
+    }
+
+    private static class TransformStateReceiver
+            implements OutcomeReceiver<IpSecTransformState, RuntimeException> {
+        private CompletableFuture<IpSecTransformState> mFutureIpSecTransform =
+                new CompletableFuture<>();
+
+        @Override
+        public void onResult(IpSecTransformState state) {
+            mFutureIpSecTransform.complete(state);
+        }
+
+        @Override
+        public void onError(RuntimeException error) {
+            fail("Fail on getIpSecTransformState");
+        }
+
+        public IpSecTransformState awaitIpSecTransformState() throws Exception {
+            return mFutureIpSecTransform.get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        }
+    }
+
+    @Test
+    public void testGetIpSecTransformState() throws Exception {
+        final int spi = getRandomSpi(LOCAL_OUTER_6, REMOTE_OUTER_6);
+        final TransformStateReceiver transformStateReceiver = new TransformStateReceiver();
+        final int expectedBitmapByteSize = 512;
+
+        try (IpSecManager.SecurityParameterIndex inSpi =
+                        mISM.allocateSecurityParameterIndex(LOCAL_OUTER_6, spi);
+                IpSecTransform transform =
+                        buildIpSecTransform(sContext, inSpi, null, REMOTE_OUTER_6)) {
+            transform.getIpSecTransformState(
+                    Executors.newSingleThreadExecutor(), transformStateReceiver);
+
+            final IpSecTransformState transformState =
+                    transformStateReceiver.awaitIpSecTransformState();
+
+            assertEquals(0L, transformState.getTxHighestSequenceNumber());
+            assertEquals(0L, transformState.getRxHighestSequenceNumber());
+            assertEquals(0L, transformState.getPacketCount());
+            assertEquals(0L, transformState.getByteCount());
+            assertArrayEquals(new byte[expectedBitmapByteSize], transformState.getReplayBitmap());
+        }
     }
 }
