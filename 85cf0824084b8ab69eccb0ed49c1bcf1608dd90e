@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c915518c_ee85fec6",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMrt6MsgTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T12:33:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ddfb368_dbd6f41a",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 25
+      },
+      "revId": "85cf0824084b8ab69eccb0ed49c1bcf1608dd90e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01b89c55_44531844",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-12-21T09:31:09Z",
       "side": 1,
       "message": "nits: having \"source\u003d2001:db8::1\" would be helpful.",
+      "range": {
+        "startLine": 25,
+        "startChar": 69,
+        "endLine": 25,
+        "endChar": 70
+      },
+      "revId": "85cf0824084b8ab69eccb0ed49c1bcf1608dd90e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f3733fb_bfb67d7b",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMrt6MsgTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T12:33:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01b89c55_44531844",
       "range": {
         "startLine": 25,
         "startChar": 69,
@@ -100,6 +148,54 @@
       "writtenOn": "2023-12-21T09:31:09Z",
       "side": 1,
       "message": "nits: Sorry I missed in the last review but it\u0027s recommended to use `InetAddresses.parseNumericAddress` since this will never do a DNS lookup.",
+      "range": {
+        "startLine": 32,
+        "startChar": 50,
+        "endLine": 32,
+        "endChar": 86
+      },
+      "revId": "85cf0824084b8ab69eccb0ed49c1bcf1608dd90e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51df068a_6365afb7",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMrt6MsgTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T12:33:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "791345db_be3b3f00",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 86
+      },
+      "revId": "85cf0824084b8ab69eccb0ed49c1bcf1608dd90e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38925d32_3213fa5e",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMrt6MsgTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T12:33:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49e34b96_085fec09",
       "range": {
         "startLine": 32,
         "startChar": 50,
