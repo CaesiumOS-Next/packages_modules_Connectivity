@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a825e8d_82fa7f59",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/StructMrt6Msg.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T02:13:45Z",
+      "side": 1,
+      "message": "Thanks, I realised StructMrt6Msg is mainly for parsing message from kernel, so we should set mbz to the value set by kernel(likely always 0). updated.",
+      "parentUuid": "599bc168_277e8e17",
+      "range": {
+        "startLine": 38,
+        "startChar": 36,
+        "endLine": 38,
+        "endChar": 39
+      },
+      "revId": "f713cb43fdc1a4f874a8ab0a286ef4639226f560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7555a950_88397415",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-18T07:15:07Z",
       "side": 1,
       "message": "Will we use this?\nI saw aosp/2817454 directly uses `Struct.parse(StructMrt6Msg.class, buf)`",
+      "range": {
+        "startLine": 46,
+        "startChar": 32,
+        "endLine": 46,
+        "endChar": 37
+      },
+      "revId": "f713cb43fdc1a4f874a8ab0a286ef4639226f560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b93fe05b_ba9f2d32",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/StructMrt6Msg.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T02:13:45Z",
+      "side": 1,
+      "message": "Thanks for catching this, the routingCoordinator should use StructMrt6Msg.parse instead, updated in aosp/2817454.",
+      "parentUuid": "7555a950_88397415",
       "range": {
         "startLine": 46,
         "startChar": 32,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cca7d3d_cb98517a",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMrt6MsgTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T02:13:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95186a92_44d59de9",
+      "range": {
+        "startLine": 29,
+        "startChar": 54,
+        "endLine": 29,
+        "endChar": 90
+      },
+      "revId": "f713cb43fdc1a4f874a8ab0a286ef4639226f560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ce48817_892f609b",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-12-18T07:15:07Z",
       "side": 1,
       "message": "nits: Can we have test for writeToBytes as well?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 1
+      },
+      "revId": "f713cb43fdc1a4f874a8ab0a286ef4639226f560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7aa4a4c_a1a55b39",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMrt6MsgTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T02:13:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ce48817_892f609b",
       "range": {
         "startLine": 37,
         "startChar": 0,
