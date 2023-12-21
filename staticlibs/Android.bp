@@ -295,6 +295,7 @@ java_library {
             "-Xep:NullablePrimitive:ERROR",
         ],
     },
+    apex_available: ["com.android.tethering"],
 }
 
 java_library {
