@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "978bb328_fdf0bb6b",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-21T09:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3848eea3_93fe1bba",
+      "range": {
+        "startLine": 75,
+        "startChar": 36,
+        "endLine": 75,
+        "endChar": 51
+      },
+      "revId": "539811c9790bdb97333348a05ea7f7efa91ede76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d32dc428_8c11fa00",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd322a4e_fcb37ff8",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-21T09:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d32dc428_8c11fa00",
+      "revId": "539811c9790bdb97333348a05ea7f7efa91ede76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf969c12_48988de5",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-12-21T08:33:54Z",
       "side": 1,
       "message": "This does something very different from the current checkListener (which just checks for non-null).\n\nMaybe updateRegisteredListener ?",
+      "range": {
+        "startLine": 1103,
+        "startChar": 16,
+        "endLine": 1103,
+        "endChar": 29
+      },
+      "revId": "539811c9790bdb97333348a05ea7f7efa91ede76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bbd0b78_c8a5da52",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-21T09:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf969c12_48988de5",
       "range": {
         "startLine": 1103,
         "startChar": 16,
@@ -87,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a823e08_8c8b89d9",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1202,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-21T09:01:12Z",
+      "side": 1,
+      "message": "Done - going forward we should actually do defensive copies of the NsdServiceInfo that is passed in, so it\u0027s best to not depend on keeping the same instance.",
+      "parentUuid": "9c9df86f_a2b8ddbd",
+      "range": {
+        "startLine": 1202,
+        "startChar": 19,
+        "endLine": 1202,
+        "endChar": 49
+      },
+      "revId": "539811c9790bdb97333348a05ea7f7efa91ede76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ad48d51_5f5821c2",
@@ -100,6 +190,41 @@
       "writtenOn": "2023-12-21T08:33:54Z",
       "side": 1,
       "message": "Can this be another class for REGISTER_SERVICE ? It\u0027s weird to have one class that have fields that are possibly unused, depending on the message",
+      "revId": "539811c9790bdb97333348a05ea7f7efa91ede76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c9ff2a5_848f6dc4",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2094,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-21T09:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ad48d51_5f5821c2",
+      "revId": "539811c9790bdb97333348a05ea7f7efa91ede76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a66dfec8_1d0bb426",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-21T09:01:12Z",
+      "side": 1,
+      "message": "As per the javadoc on getSubtypes, this isn\u0027t guaranteed\n\n(we should probably not return the subtypes in NsdServiceInfo on discovery/resolve, since it won\u0027t be reliable...)",
       "revId": "539811c9790bdb97333348a05ea7f7efa91ede76",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
