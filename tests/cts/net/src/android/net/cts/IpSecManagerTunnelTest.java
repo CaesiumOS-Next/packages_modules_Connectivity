@@ -19,7 +19,9 @@ package android.net.cts;
 import static android.app.AppOpsManager.OP_MANAGE_IPSEC_TUNNELS;
 import static android.net.IpSecManager.UdpEncapsulationSocket;
 import static android.net.cts.IpSecManagerTest.assumeExperimentalIpv6UdpEncapSupported;
+import static android.net.cts.IpSecManagerTest.assumeRequestIpSecTransformStateSupported;
 import static android.net.cts.IpSecManagerTest.isIpv6UdpEncapSupported;
+import static android.net.cts.IpSecManagerTest.isRequestTransformStateSupported;
 import static android.net.cts.PacketUtils.AES_CBC_BLK_SIZE;
 import static android.net.cts.PacketUtils.AES_CBC_IV_LEN;
 import static android.net.cts.PacketUtils.BytePayload;
@@ -44,6 +46,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 
+import android.annotation.Nullable;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.IpSecAlgorithm;
@@ -116,6 +119,8 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     private static final int IP6_UDP_ENCAP_SOCKET_PORT_ANY = 65536;
 
     private static final int TIMEOUT_MS = 500;
+
+    private static final int PACKET_COUNT = 5000;
 
     // Static state to reduce setup/teardown
     private static ConnectivityManager sCM;
@@ -282,8 +287,31 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                 throws Exception;
     }
 
-    private int getPacketSize(
-            int innerFamily, int outerFamily, boolean useEncap, boolean transportInTunnelMode) {
+    /* Test runnables for callbacks after IPsec tunnels are set up. */
+    private abstract class IpSecTunnelTestRunnableSimple {
+        /**
+         * Runs the test code, and returns the inner socket port, if any.
+         *
+         * @param ipsecNetwork The IPsec Interface based Network for binding sockets on
+         * @param tunnelIface The IPsec tunnel interface that will be tested
+         * @param tunUtils The utility of the IPsec tunnel interface's underlying TUN network
+         * @param inTunnelTransform The inbound tunnel mode transform
+         * @param outTunnelTransform The outbound tunnel mode transform
+         * @param localOuter The local address of the outer IP packet
+         * @param remoteOuter The remote address of the outer IP packet
+         * @param seqNum The expected sequence number of the inbound packet
+         * @throws Exception if any part of the test failed.
+         */
+        public abstract int run(
+                int spi,
+                Network ipsecNetwork,
+                TunUtils tunUtils,
+                IpSecTransform inTunnelTransform,
+                IpSecTransform outTunnelTransform)
+                throws Exception;
+    }
+
+    private int getInnerPacketSize(int innerFamily, boolean transportInTunnelMode) {
         int expectedPacketSize = TEST_DATA.length + UDP_HDRLEN;
 
         // Inner Transport mode packet size
@@ -298,6 +326,13 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
 
         // Inner IP Header
         expectedPacketSize += innerFamily == AF_INET ? IP4_HDRLEN : IP6_HDRLEN;
+
+        return expectedPacketSize;
+    }
+
+    private int getPacketSize(
+            int innerFamily, int outerFamily, boolean useEncap, boolean transportInTunnelMode) {
+        int expectedPacketSize = getInnerPacketSize(innerFamily, transportInTunnelMode);
 
         // Tunnel mode transform size
         expectedPacketSize =
@@ -400,6 +435,20 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                     tunUtils.awaitEspPacketNoPlaintext(
                             spi, TEST_DATA, useEncap, expectedPacketSize);
                     socket.close();
+
+                    if (isRequestTransformStateSupported()) {
+                        final int innerPacketSize =
+                                getInnerPacketSize(innerFamily, transportInTunnelMode);
+
+                        checkTransformState(
+                                outTunnelTransform,
+                                seqNum,
+                                0L,
+                                seqNum,
+                                seqNum * (long) innerPacketSize,
+                                newReplayBitmap(0));
+                        checkTransformStateNoTraffic(inTunnelTransform);
+                    }
 
                     return innerSocketPort;
                 }
@@ -523,6 +572,22 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                     receiveAndValidatePacket(socket);
 
                     socket.close();
+
+                    if (isRequestTransformStateSupported()) {
+                        final int innerFamily =
+                                localInner instanceof Inet4Address ? AF_INET : AF_INET6;
+                        final int innerPacketSize =
+                                getInnerPacketSize(innerFamily, transportInTunnelMode);
+
+                        checkTransformStateNoTraffic(outTunnelTransform);
+                        checkTransformState(
+                                inTunnelTransform,
+                                0L,
+                                seqNum,
+                                seqNum,
+                                seqNum * (long) innerPacketSize,
+                                newReplayBitmap(seqNum));
+                    }
 
                     return 0;
                 }
@@ -1046,7 +1111,8 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
             InetAddress remoteOuter,
             int spi,
             UdpEncapsulationSocket encapSocket,
-            IpSecTunnelTestRunnable test)
+            @Nullable IpSecTunnelTestRunnable test,
+            @Nullable IpSecTunnelTestRunnableSimple testSimple)
             throws Exception {
         int innerPrefixLen = localInner instanceof Inet6Address ? IP6_PREFIX_LEN : IP4_PREFIX_LEN;
         TestNetworkCallback testNetworkCb = null;
@@ -1095,16 +1161,25 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                 mISM.applyTunnelModeTransform(
                         tunnelIface, IpSecManager.DIRECTION_OUT, outTransform);
 
-                innerSocketPort =
-                        test.run(
-                                testNetwork,
-                                tunnelIface,
-                                sTunWrapper.utils,
-                                inTransform,
-                                outTransform,
-                                localOuter,
-                                remoteOuter,
-                                1 /* seqNum */);
+                if (test != null && testSimple == null) {
+                    innerSocketPort =
+                            test.run(
+                                    testNetwork,
+                                    tunnelIface,
+                                    sTunWrapper.utils,
+                                    inTransform,
+                                    outTransform,
+                                    localOuter,
+                                    remoteOuter,
+                                    1 /* seqNum */);
+                } else if (test == null && testSimple != null) {
+                    innerSocketPort =
+                            testSimple.run(
+                                    spi, testNetwork, sTunWrapper.utils, inTransform, outTransform);
+                } else {
+                    throw new IllegalStateException(
+                            "Both test and testSimple are null or non-null");
+                }
             }
 
             // Teardown the test network
@@ -1125,6 +1200,40 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         }
 
         return innerSocketPort;
+    }
+
+    private int buildTunnelNetworkAndRunTests(
+            InetAddress localInner,
+            InetAddress remoteInner,
+            InetAddress localOuter,
+            InetAddress remoteOuter,
+            int spi,
+            UdpEncapsulationSocket encapSocket,
+            @Nullable IpSecTunnelTestRunnable test)
+            throws Exception {
+        return buildTunnelNetworkAndRunTests(
+                localInner,
+                remoteInner,
+                localOuter,
+                remoteOuter,
+                spi,
+                encapSocket,
+                test,
+                null /* testSimple */);
+    }
+
+    private int buildTunnelNetworkAndRunTestsSimple(IpSecTunnelTestRunnableSimple testSimple)
+            throws Exception {
+        final int spi = getRandomSpi(LOCAL_OUTER_6, REMOTE_OUTER_6);
+        return buildTunnelNetworkAndRunTests(
+                LOCAL_INNER_6,
+                REMOTE_INNER_6,
+                LOCAL_OUTER_6,
+                REMOTE_OUTER_6,
+                spi,
+                null /* encapSocket */,
+                null /* test */,
+                testSimple);
     }
 
     private static void receiveAndValidatePacket(JavaUdpSocket socket) throws Exception {
@@ -1690,5 +1799,102 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     public void testMigrateTransformTunnelV6InV6UdpEncap() throws Exception {
         assumeExperimentalIpv6UdpEncapSupported();
         doTestMigrateTunnelModeTransform(AF_INET6, AF_INET6, true, false);
+    }
+
+    private class RequestStateOnTxTransformTestRunnable extends IpSecTunnelTestRunnableSimple {
+        @Override
+        public int run(
+                int spi,
+                Network ipsecNetwork,
+                TunUtils tunUtils,
+                IpSecTransform inTunnelTransform,
+                IpSecTransform outTunnelTransform)
+                throws Exception {
+            // Build a socket and send traffic
+            final JavaUdpSocket outSocket = new JavaUdpSocket(LOCAL_INNER_6);
+            ipsecNetwork.bindSocket(outSocket.mSocket);
+            int innerSocketPort = outSocket.getPort();
+
+            int expectedPacketSize =
+                    getPacketSize(
+                            AF_INET6,
+                            AF_INET6,
+                            false /* useEncap */,
+                            false /* transportInTunnelMode */);
+
+            for (int i = 0; i < PACKET_COUNT; i++) {
+                outSocket.sendTo(TEST_DATA, REMOTE_INNER_6, innerSocketPort);
+                tunUtils.awaitEspPacketNoPlaintext(
+                        spi, TEST_DATA, false /* useEncap */, expectedPacketSize);
+            }
+
+            final int innerPacketSize =
+                    getInnerPacketSize(AF_INET6, false /* transportInTunnelMode */);
+            checkTransformState(
+                    outTunnelTransform,
+                    PACKET_COUNT,
+                    0L,
+                    PACKET_COUNT,
+                    PACKET_COUNT * (long) innerPacketSize,
+                    newReplayBitmap(0));
+
+            return innerSocketPort;
+        }
+    }
+
+    private class RequestStateOnRxTransformTestRunnable extends IpSecTunnelTestRunnableSimple {
+        @Override
+        public int run(
+                int spi,
+                Network ipsecNetwork,
+                TunUtils tunUtils,
+                IpSecTransform inTunnelTransform,
+                IpSecTransform outTunnelTransform)
+                throws Exception {
+            // Build a socket and send traffic
+            final JavaUdpSocket socket = new JavaUdpSocket(LOCAL_INNER_6);
+            ipsecNetwork.bindSocket(socket.mSocket);
+            int innerSocketPort = socket.getPort();
+
+            for (int i = 1; i < PACKET_COUNT + 1; i++) {
+                byte[] pkt =
+                        getTunnelModePacket(
+                                spi,
+                                REMOTE_INNER_6,
+                                LOCAL_INNER_6,
+                                REMOTE_OUTER_6,
+                                LOCAL_OUTER_6,
+                                innerSocketPort,
+                                0,
+                                i);
+                tunUtils.injectPacket(pkt);
+                receiveAndValidatePacket(socket);
+            }
+
+            final int innerPacketSize = getInnerPacketSize(AF_INET6, false);
+            checkTransformState(
+                    inTunnelTransform,
+                    0L,
+                    PACKET_COUNT,
+                    PACKET_COUNT,
+                    PACKET_COUNT * (long) innerPacketSize,
+                    newReplayBitmap(REPLAY_BITMAP_LEN_BYTE * 8));
+
+            return innerSocketPort;
+        }
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @Test
+    public void testRequestIpSecTransformStateForRx() throws Exception {
+        assumeRequestIpSecTransformStateSupported();
+        buildTunnelNetworkAndRunTestsSimple(new RequestStateOnRxTransformTestRunnable());
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @Test
+    public void testRequestIpSecTransformStateForTx() throws Exception {
+        assumeRequestIpSecTransformStateSupported();
+        buildTunnelNetworkAndRunTestsSimple(new RequestStateOnTxTransformTestRunnable());
     }
 }
