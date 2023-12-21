@@ -96,6 +96,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a3ed3d0_f9b971df",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-21T13:39:26Z",
+      "side": 1,
+      "message": "Fixed by replacing internal call with BitUtils.packBits(nc.getTransportTypes()), which is a pattern already used by Connectivity team in ConnectivityService.java:  https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2251614.",
+      "parentUuid": "4d97bf86_6de2ba22",
+      "range": {
+        "startLine": 77,
+        "startChar": 17,
+        "endLine": 77,
+        "endChar": 39
+      },
+      "revId": "8e712a290dde23ddb85fe22415b9b3a9a88f7fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa6d6b78_af93705d",
