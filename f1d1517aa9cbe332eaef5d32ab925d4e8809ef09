@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef12a8d4_e4b38eae",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMf6cctlTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T09:33:12Z",
+      "side": 1,
+      "message": "nits: this can be private static final",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 16
+      },
+      "revId": "f1d1517aa9cbe332eaef5d32ab925d4e8809ef09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f36d5780_38aabe9e",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMf6cctlTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T09:33:12Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 16
+      },
+      "revId": "f1d1517aa9cbe332eaef5d32ab925d4e8809ef09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10e87559_9d534d1a",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMf6cctlTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T09:33:12Z",
+      "side": 1,
+      "message": "nits: they can be static.\ne.g. https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/tests/unit/src/com/android/net/module/util/netlink/StructInetDiagSockIdTest.java",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 92
+      },
+      "revId": "f1d1517aa9cbe332eaef5d32ab925d4e8809ef09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85c7c879_0ee0b874",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMf6cctlTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T09:33:12Z",
+      "side": 1,
+      "message": "nits: we can use assertArrayEquals",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 18
+      },
+      "revId": "f1d1517aa9cbe332eaef5d32ab925d4e8809ef09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
