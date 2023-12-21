@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6de516a4_cfcf21bc",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateInfoTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T07:15:24Z",
+      "side": 1,
+      "message": "nits: we can update to `@RunWith(AndroidJUnit4.class)` or we can have `@DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)` since ConnectivityService is mainlined on S.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 34
+      },
+      "revId": "cd7f80115bf48036f14be7f79cc5fdf59a7191cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e4a1b7f2_8195ff1c",
         "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkRequestStateStatsMetricsTests.kt",
         "patchSetId": 33
