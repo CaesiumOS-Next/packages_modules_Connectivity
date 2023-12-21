@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b883315a_fb944b5b",
+        "filename": "service-t/src/com/android/metrics/NetworkStatsMetricsLogger.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-21T03:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7e5aab0_2843c539",
+      "range": {
+        "startLine": 24,
+        "startChar": 54,
+        "endLine": 24,
+        "endChar": 152
+      },
+      "revId": "ac9eb64a9a95decaf810158214f3522ca5cecb48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0d9e297_f6b94f1d",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-20T13:01:49Z",
       "side": 1,
       "message": "RECODER_OPERATION_TYPE",
+      "range": {
+        "startLine": 25,
+        "startChar": 102,
+        "endLine": 25,
+        "endChar": 116
+      },
+      "revId": "ac9eb64a9a95decaf810158214f3522ca5cecb48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5896a61_8d2d0f75",
+        "filename": "service-t/src/com/android/metrics/NetworkStatsMetricsLogger.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-21T03:54:17Z",
+      "side": 1,
+      "message": "it is based on variable name, prefer to keep it as is.\noptional android.corenetworking.connectivity.RecorderOperationType operation_type \u003d 1;",
+      "parentUuid": "a0d9e297_f6b94f1d",
       "range": {
         "startLine": 25,
         "startChar": 102,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9750853_0743dc84",
+        "filename": "service-t/src/com/android/metrics/NetworkStatsMetricsLogger.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-21T03:54:17Z",
+      "side": 1,
+      "message": "There is no such feature now.\nBut yes we can set this as DISABLED.",
+      "parentUuid": "5d8ab729_c6d1d3cd",
+      "range": {
+        "startLine": 70,
+        "startChar": 20,
+        "endLine": 70,
+        "endChar": 118
+      },
+      "revId": "ac9eb64a9a95decaf810158214f3522ca5cecb48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1216f6c0_e302b49e",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "504cbadf_5e15441e",
+        "filename": "service-t/src/com/android/metrics/NetworkStatsMetricsLogger.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-21T03:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1216f6c0_e302b49e",
+      "range": {
+        "startLine": 97,
+        "startChar": 7,
+        "endLine": 97,
+        "endChar": 62
+      },
+      "revId": "ac9eb64a9a95decaf810158214f3522ca5cecb48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9af697e_8b59cdd1",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-12-21T02:04:54Z",
       "side": 1,
       "message": "Wrong order,should be mReadIndex++, duration instead of duration,mReadIndex++",
+      "range": {
+        "startLine": 116,
+        "startChar": 16,
+        "endLine": 117,
+        "endChar": 28
+      },
+      "revId": "ac9eb64a9a95decaf810158214f3522ca5cecb48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b41c06e3_2fe67b00",
+        "filename": "service-t/src/com/android/metrics/NetworkStatsMetricsLogger.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-21T03:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9af697e_8b59cdd1",
       "range": {
         "startLine": 116,
         "startChar": 16,
