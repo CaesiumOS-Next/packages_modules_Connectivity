@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19aa24c9_cabd6c3a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T08:08:56Z",
+      "side": 1,
+      "message": "```suggestion\n            synchronized (\"ThreadNetworkCountryCode.this\") {\n                mCurrentCountryCodeInfo \u003d countryCodeInfo;\n            }\n```",
+      "range": {
+        "startLine": 249,
+        "startChar": 16,
+        "endLine": 249,
+        "endChar": 83
+      },
+      "revId": "6920fe6bf7b16eaeb36baac36219f23f755e3826",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b9e99b87_89e862e6",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
         "patchSetId": 30
