@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f72e5d25_97364f11",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMif6ctlTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T12:43:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1db7c8ae_e174f248",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 15
+      },
+      "revId": "04d67f2fafa78888186f00fb321c2758aa239c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "380a5c03_750f28e3",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f4e3560_ca194272",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMif6ctlTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T12:43:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "380a5c03_750f28e3",
+      "range": {
+        "startLine": 31,
+        "startChar": 52,
+        "endLine": 31,
+        "endChar": 53
+      },
+      "revId": "04d67f2fafa78888186f00fb321c2758aa239c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ed073c7_2b399ee4",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-12-21T09:34:51Z",
       "side": 1,
       "message": "nits: assertArrayEquals.",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 18
+      },
+      "revId": "04d67f2fafa78888186f00fb321c2758aa239c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19fd8d9a_a3e0c64d",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMif6ctlTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T12:43:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ed073c7_2b399ee4",
       "range": {
         "startLine": 64,
         "startChar": 8,
