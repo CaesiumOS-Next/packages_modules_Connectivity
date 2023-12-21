@@ -145,6 +145,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "737eae46_36d4b09c",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkRequestStateStatsMetricsTests.kt",
+        "patchSetId": 32
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-21T12:16:10Z",
+      "side": 1,
+      "message": "Constants are usually capitalised, e.g. CELL_INTERNET_NOT_METERED_NR.",
+      "parentUuid": "7a5ffb65_205254c4",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "8e712a290dde23ddb85fe22415b9b3a9a88f7fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5143efa4_a09b9d06",
         "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkRequestStateStatsMetricsTests.kt",
         "patchSetId": 32

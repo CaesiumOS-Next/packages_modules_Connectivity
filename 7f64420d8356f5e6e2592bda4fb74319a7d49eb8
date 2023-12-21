@@ -273,6 +273,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5981cce5_6cf56b28",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-21T12:16:10Z",
+      "side": 1,
+      "message": "You\u0027re right, I missed that dependencies are mocked.",
+      "parentUuid": "f31ca987_f31c7850",
+      "range": {
+        "startLine": 166,
+        "startChar": 20,
+        "endLine": 166,
+        "endChar": 51
+      },
+      "revId": "7f64420d8356f5e6e2592bda4fb74319a7d49eb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbe58f06_7ccaf99d",
