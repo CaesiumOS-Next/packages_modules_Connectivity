@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "448c4636_7eb2b334",
+        "filename": "thread/service/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T07:11:49Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this, this is for module-lib APIs",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "271af815_da0f2e43",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T07:11:49Z",
+      "side": 1,
+      "message": "This needs to be synchronized:\n```\n\n```\n```suggestion\n            synchronized (\"ThreadNetworkCountryCode.this\") {\n                mWifiCountryCodeInfo \u003d new CountryCodeInfo(countryCode, COUNTRY_CODE_SOURCE_WIFI);\n                updateCountryCode(false /* forceUpdate */);\n            }\n```",
+      "range": {
+        "startLine": 239,
+        "startChar": 12,
+        "endLine": 240,
+        "endChar": 55
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6154bc29_386e6811",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T07:11:49Z",
+      "side": 1,
+      "message": "ditto, needs to be synchronized",
+      "range": {
+        "startLine": 246,
+        "startChar": 12,
+        "endLine": 247,
+        "endChar": 55
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03d280cb_69e048e6",
+        "filename": "thread/tests/unit/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T07:11:49Z",
+      "side": 1,
+      "message": "Do we really need this?",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87592ccd_bf3aea97",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T07:11:49Z",
+      "side": 1,
+      "message": "```suggestion\n    public void wifiCountryCode_bothWifiAndLocationAreAvailable_wifiCountryCodeIsUsed() {\n```",
+      "range": {
+        "startLine": 184,
+        "startChar": 16,
+        "endLine": 184,
+        "endChar": 91
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2136e70_608af705",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T07:11:49Z",
+      "side": 1,
+      "message": "```suggestion\n    public void wifiCountryCode_wifiCountryCodeIsActive_wifiCountryCodeIsUsed() {\n```",
+      "range": {
+        "startLine": 207,
+        "startChar": 16,
+        "endLine": 207,
+        "endChar": 90
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c626ed3_05a25517",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T07:11:49Z",
+      "side": 1,
+      "message": "```suggestion\n    public void wifiCountryCode_wifiCountryCodeIsInactive_defaultCountryCodeIsUsed() {\n```",
+      "range": {
+        "startLine": 219,
+        "startChar": 16,
+        "endLine": 219,
+        "endChar": 92
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
