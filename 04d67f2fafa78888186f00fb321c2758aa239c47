@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1db7c8ae_e174f248",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMif6ctlTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T09:34:51Z",
+      "side": 1,
+      "message": "nits: can be static.",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 15
+      },
+      "revId": "04d67f2fafa78888186f00fb321c2758aa239c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "380a5c03_750f28e3",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMif6ctlTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T09:34:51Z",
+      "side": 1,
+      "message": "nits: Havig comment(`/* mif6cMifi */`) is helpful as you have in `testWriteToBytes`",
+      "range": {
+        "startLine": 31,
+        "startChar": 52,
+        "endLine": 31,
+        "endChar": 53
+      },
+      "revId": "04d67f2fafa78888186f00fb321c2758aa239c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ed073c7_2b399ee4",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMif6ctlTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-21T09:34:51Z",
+      "side": 1,
+      "message": "nits: assertArrayEquals.",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 18
+      },
+      "revId": "04d67f2fafa78888186f00fb321c2758aa239c47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
