@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36216049_d8d4e6f5",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMf6cctlTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T12:42:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef12a8d4_e4b38eae",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 16
+      },
+      "revId": "f1d1517aa9cbe332eaef5d32ab925d4e8809ef09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f36d5780_38aabe9e",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-21T09:33:12Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 16
+      },
+      "revId": "f1d1517aa9cbe332eaef5d32ab925d4e8809ef09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd74a96f_851e3e2a",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMf6cctlTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T12:42:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f36d5780_38aabe9e",
       "range": {
         "startLine": 40,
         "startChar": 4,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c27ff699_a9475bbe",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMf6cctlTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T12:42:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10e87559_9d534d1a",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 92
+      },
+      "revId": "f1d1517aa9cbe332eaef5d32ab925d4e8809ef09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85c7c879_0ee0b874",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-12-21T09:33:12Z",
       "side": 1,
       "message": "nits: we can use assertArrayEquals",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 18
+      },
+      "revId": "f1d1517aa9cbe332eaef5d32ab925d4e8809ef09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c057e38_6ff93deb",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMf6cctlTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T12:42:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85c7c879_0ee0b874",
       "range": {
         "startLine": 84,
         "startChar": 8,
