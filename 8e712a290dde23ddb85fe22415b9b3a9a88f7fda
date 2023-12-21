@@ -167,6 +167,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b3bbc7f_6f1cdb12",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkRequestStateStatsMetricsTests.kt",
+        "patchSetId": 32
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-21T12:34:11Z",
+      "side": 1,
+      "message": "Ah, got it! Fixed.",
+      "parentUuid": "737eae46_36d4b09c",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "8e712a290dde23ddb85fe22415b9b3a9a88f7fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5143efa4_a09b9d06",
