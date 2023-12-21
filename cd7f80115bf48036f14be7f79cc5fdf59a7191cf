@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bce13efc_5bc400ca",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-21T11:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4a640ec_3a029594",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 52
+      },
+      "revId": "cd7f80115bf48036f14be7f79cc5fdf59a7191cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6de516a4_cfcf21bc",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8201718_ce3d012d",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateInfoTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-21T11:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6de516a4_cfcf21bc",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 34
+      },
+      "revId": "cd7f80115bf48036f14be7f79cc5fdf59a7191cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4a1b7f2_8195ff1c",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-12-21T07:07:13Z",
       "side": 1,
       "message": "nits: I think you can use `argThat(req -\u003e req.networkCapabilities.equals(cellInternetNotMeteredNR.networkCapabilities)`",
+      "range": {
+        "startLine": 59,
+        "startChar": 73,
+        "endLine": 59,
+        "endChar": 89
+      },
+      "revId": "cd7f80115bf48036f14be7f79cc5fdf59a7191cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff398452_f2b6c191",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkRequestStateStatsMetricsTests.kt",
+        "patchSetId": 33
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-21T11:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4a1b7f2_8195ff1c",
       "range": {
         "startLine": 59,
         "startChar": 73,
