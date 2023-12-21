@@ -140,6 +140,30 @@
       },
       "revId": "8e712a290dde23ddb85fe22415b9b3a9a88f7fda",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85eb7b12_c8df6cf1",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkRequestStateStatsMetricsTests.kt",
+        "patchSetId": 32
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-21T02:33:59Z",
+      "side": 1,
+      "message": "Sorry my bad, didn\u0027t think to setup equestor Uid and package name in the first place. Fixed now.",
+      "parentUuid": "1aac4fc3_1fd2f01a",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 92
+      },
+      "revId": "8e712a290dde23ddb85fe22415b9b3a9a88f7fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
