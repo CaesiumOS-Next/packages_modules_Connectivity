@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a1c0068_f96a1fe5",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-21T05:40:56Z",
+      "side": 1,
+      "message": "```suggestion\n    /** Container class to store country code per SIM slot. */\n```",
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "096dca2a_3d936155",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-21T05:40:56Z",
+      "side": 1,
+      "message": "Does it need to be public?",
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43968c60_f74122e4",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-21T05:40:56Z",
+      "side": 1,
+      "message": "```suggestion\n            Log.d(TAG, \"No SIM card is found\");\n```",
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8978c7e_0e6af0ba",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-21T05:40:56Z",
+      "side": 1,
+      "message": "```suggestion\n                Log.e(TAG, \"Failed to get country code for slot index:\" + slotIndex, e);\n```\nNote that ID is different from index.",
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc20e607_846fc67b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-21T05:40:56Z",
+      "side": 1,
+      "message": "```suggestion\n     *   \u003cli\u003e4. Location country code - Country code retrieved from LocationManager passive location\n```",
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
