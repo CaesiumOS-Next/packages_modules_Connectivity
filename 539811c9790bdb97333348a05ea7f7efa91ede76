@@ -227,6 +227,24 @@
       "message": "As per the javadoc on getSubtypes, this isn\u0027t guaranteed\n\n(we should probably not return the subtypes in NsdServiceInfo on discovery/resolve, since it won\u0027t be reliable...)",
       "revId": "539811c9790bdb97333348a05ea7f7efa91ede76",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f13feb8_8d3d23e1",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-21T09:01:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a66dfec8_1d0bb426",
+      "revId": "539811c9790bdb97333348a05ea7f7efa91ede76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
