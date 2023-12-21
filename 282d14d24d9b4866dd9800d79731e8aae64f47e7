@@ -728,6 +728,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fc308c9_b06a32fc",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-21T00:58:31Z",
+      "side": 1,
+      "message": "This function will be called by the `ThreadNetworkShellCommand.java `, so we can add `@VisibleForTesting`.",
+      "parentUuid": "dd4d5331_6c504ade",
+      "revId": "282d14d24d9b4866dd9800d79731e8aae64f47e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e16559a8_b24db749",
