@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf667287_0dae7cc5",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsReplySenderTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-21T09:51:17Z",
+      "side": 1,
+      "message": "Instead of using the doAnswer in setUp to capture the realHandler for this test, this is generally achieved using captors:\n\n```\nval handlerCaptor \u003d ArgumentCaptor.forClass(Handler::class.java)\nverify(deps).sendMessageDelayed(handlerCaptor.capture(), any(), eq(20L))\nrunningOnHandlerAndReturn { handlerCaptor.getValue().dispatchMessage(delayMessage) }\n```\n\nAnd you can have another captor for the delayMessage",
+      "revId": "4cfc5cbbbce116d43f307f26b693daa70fda0918",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d0a7cd3_01816443",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsReplySenderTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-21T09:51:17Z",
+      "side": 1,
+      "message": "Hmm so you\u0027re dispatching the message using the realHandler, but on the looper of the test handler ? That doesn\u0027t seem very realistic; the code runs on a thread that\u0027s different from production code (the test thread), even though every up to now was posted as expected.\n\nShould this just be realHandler.post ? And `verify(socket, timeout(...)).send(...)` ?",
+      "range": {
+        "startLine": 140,
+        "startChar": 48,
+        "endLine": 140,
+        "endChar": 63
+      },
+      "revId": "4cfc5cbbbce116d43f307f26b693daa70fda0918",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
