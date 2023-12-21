@@ -37,6 +37,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f37309cd_139e98a5",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T07:36:26Z",
+      "side": 1,
+      "message": "Return early to reduce nest depth.\n```suggestion\n        if (Build.VERSION.SDK_INT \u003c Build.VERSION_CODES.TIRAMISU) {\n                    Log.wtf(\n                    TAG,\n                    \"Unexpected call to register the telephony country code changed callback, \"\n                            + \"Thread code never runs under T or lower.\");\n                    return;\n        }\n```",
+      "range": {
+        "startLine": 268,
+        "startChar": 8,
+        "endLine": 268,
+        "endChar": 68
+      },
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1156bf1f_5d348acc",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T07:36:26Z",
+      "side": 1,
+      "message": "This log is duplicated by the log in \"setTelephonyCountryCodeAndLastKnownCountryCode\"?",
+      "range": {
+        "startLine": 285,
+        "startChar": 32,
+        "endLine": 288,
+        "endChar": 63
+      },
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d0a71f9_1f099268",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T07:36:26Z",
+      "side": 1,
+      "message": "This log is duplicated by the log in \"setTelephonyCountryCodeAndLastKnownCountryCode\"?",
+      "range": {
+        "startLine": 291,
+        "startChar": 28,
+        "endLine": 291,
+        "endChar": 94
+      },
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43968c60_f74122e4",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
         "patchSetId": 2
@@ -82,6 +151,144 @@
       "writtenOn": "2023-12-21T05:40:56Z",
       "side": 1,
       "message": "```suggestion\n     *   \u003cli\u003e4. Location country code - Country code retrieved from LocationManager passive location\n```",
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fcb386d_ab776fc0",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T07:36:26Z",
+      "side": 1,
+      "message": "You can define a `ThreadNetworkCountryCode::newInstance(Context context, ThreadNetworkControllerService controllerService)` method so that you don\u0027t need to update `ThreadNetworkService.java` everytime you updated the constructor of ThreadNetworkCountryCode:\n\n```\npublic static ThreadNetworkCountryCode newInstance(Context context, ThreadNetworkControllerService controllerService) {\n    return new ThreadNetworkCountryCode(\n            context.getSystemService(LocationManager.class),\n            controllerService,\n            new Geocoder(context),\n            Geocoder.isPresent(),\n            context,\n            context.getSystemService(TelephonyManager.class),\n            context.getSystemService(SubscriptionManager.class));\n}\n```",
+      "range": {
+        "startLine": 63,
+        "startChar": 24,
+        "endLine": 63,
+        "endChar": 49
+      },
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18c93174_e30825fd",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T07:36:26Z",
+      "side": 1,
+      "message": "```suggestion\n    private static final int TEST_SIM_SLOT_INDEX_0 \u003d 0;\n    private static final int TEST_SIM_SLOT_INDEX_1 \u003d 1;\n```",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 51
+      },
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf0186fc_f2a00671",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T07:36:26Z",
+      "side": 1,
+      "message": "```suggestion\n    public void telephonyCountryCode_bothTelephonyAndLocationAvailable_telephonyCodeIsUsed() {\n```",
+      "range": {
+        "startLine": 208,
+        "startChar": 16,
+        "endLine": 208,
+        "endChar": 94
+      },
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc5468bb_b12e59d6",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T07:36:26Z",
+      "side": 1,
+      "message": "Can\u0027t we use \"mContext\"?",
+      "range": {
+        "startLine": 231,
+        "startChar": 65,
+        "endLine": 231,
+        "endChar": 84
+      },
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b2c412c_a81fde6d",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T07:36:26Z",
+      "side": 1,
+      "message": "```suggestion\n    public void telephonyCountryCode_locationIsAvailable_lastKnownTelephonyCodeIsUsed() {\n```",
+      "range": {
+        "startLine": 237,
+        "startChar": 16,
+        "endLine": 237,
+        "endChar": 92
+      },
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4630e47c_d7521031",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-21T07:36:26Z",
+      "side": 1,
+      "message": "```suggestion\n    public void telephonyCountryCode_multipleSims_firstSimIsUsed() {\n```",
+      "range": {
+        "startLine": 300,
+        "startChar": 16,
+        "endLine": 300,
+        "endChar": 91
+      },
       "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
