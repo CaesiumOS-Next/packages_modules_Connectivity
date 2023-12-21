@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff5663e3_bbfc966e",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/StructMf6cctl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T08:40:26Z",
+      "side": 1,
+      "message": "I used python struct.pack to pack the c struct, and then checked the output to see where it added paddings, for example:\n```\n\u003e\u003e\u003e source \u003d struct.pack(\"HHI16sI\", 10, 0, 0, socket.inet_pton(socket.AF_INET6, \"2001::1\"), 0)\n\u003e\u003e\u003e group \u003d struct.pack(\"HHI16sI\", 10, 0, 0, socket.inet_pton(socket.AF_INET6, \"ff05::1234\"), 0)\n\u003e\u003e\u003e x \u003d struct.pack(\"28s28sH\" + \"I\" * 8, source, group, 1, *oifset)\n\u003e\u003e\u003e print(\u0027\u0027.join(\u0027{:02x}\u0027.format(i) for i in x))\n0a0000000000000020010000000000000000000000000001000000000a00000000000000ff05000000000000000000000000123400000000010000000200000000000000000000000000000000000000000000000000000000000000\n\n```",
+      "parentUuid": "e3607be6_84ba606c",
+      "range": {
+        "startLine": 55,
+        "startChar": 40,
+        "endLine": 55,
+        "endChar": 51
+      },
+      "revId": "d70e60a33b769fe02683573531d11e26e6604675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0f1a32c_7936e484",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "Also, do/will we have cts that would fail if the parsing or writeToByte is wrong?",
       "parentUuid": "b0f1a32c_7936e484",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 1
+      },
+      "revId": "d70e60a33b769fe02683573531d11e26e6604675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1d5dcc9_30fc52f3",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMf6cctlTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-21T08:40:26Z",
+      "side": 1,
+      "message": "Added test for parse and writeToBytes.\n\nThis struct is used to pass multicast related config from user space to kernel, so later when I add integration test for multicast routing the writeToBytes function will be covered by that. We won\u0027t get message of this type from kernel so the parse will not be covered in any other tests.\n\nDo we need cts for this or is integration test ok?",
+      "parentUuid": "130f01da_9fbf8d62",
       "range": {
         "startLine": 47,
         "startChar": 0,
