@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05acaaa2_76f4409c",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMf6cctlTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-22T09:25:59Z",
+      "side": 1,
+      "message": "Prefer InetAddresses.parseNumericAddress.",
+      "range": {
+        "startLine": 47,
+        "startChar": 27,
+        "endLine": 47,
+        "endChar": 38
+      },
+      "revId": "1b9b6c99a060e2f4b56c13eff79b7de3d3784a84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
