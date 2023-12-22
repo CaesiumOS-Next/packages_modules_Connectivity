@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1795920e_8ffcbb8d",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-22T05:37:12Z",
+      "side": 1,
+      "message": "Applied in aosp/2875214",
+      "parentUuid": "ce2aae0f_b6c1ad34",
+      "range": {
+        "startLine": 348,
+        "startChar": 12,
+        "endLine": 348,
+        "endChar": 18
+      },
+      "revId": "0b2d75c09a08b4551117a4bb5b1fbb05710b9856",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f5d5af2_7bda9252",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-18T10:08:57Z",
       "side": 1,
       "message": "From the current behavior of processNetlinkDumpAndDestroySockets in InetDiagMessage, should this be just `break`?",
+      "range": {
+        "startLine": 370,
+        "startChar": 20,
+        "endLine": 371,
+        "endChar": 80
+      },
+      "revId": "0b2d75c09a08b4551117a4bb5b1fbb05710b9856",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5d9ab7b_14523861",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-22T05:37:12Z",
+      "side": 1,
+      "message": "Removed parseException in aosp/2875214",
+      "parentUuid": "7f5d5af2_7bda9252",
       "range": {
         "startLine": 370,
         "startChar": 20,
