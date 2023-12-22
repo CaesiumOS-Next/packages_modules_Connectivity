@@ -342,8 +342,6 @@ public class MdnsMultinetworkSocketClientTest {
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
 
         verify(mProvider).unrequestSocket(callback);
-        verify(mSocketCreationCallback).onSocketDestroyed(mSocketKey);
-        verify(mSocketCreationCallback).onSocketDestroyed(otherSocketKey);
     }
 
     @Test

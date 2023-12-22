@@ -102,16 +102,14 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
 
         private void notifySocketDestroyed(@NonNull SocketKey socketKey) {
             mActiveSockets.remove(socketKey);
-            if (!isSocketActive(socketKey)) {
-                mSocketCreationCallback.onSocketDestroyed(socketKey);
-            }
+            mSocketCreationCallback.onSocketDestroyed(socketKey);
         }
 
         void onNetworkUnrequested() {
             for (int i = mActiveSockets.size() - 1; i >= 0; i--) {
                 // Iterate from the end so the socket can be removed
                 final SocketKey socketKey = mActiveSockets.keyAt(i);
-                notifySocketDestroyed(socketKey);
+                mActiveSockets.remove(socketKey); // Only need to remove the active socket.
                 maybeCleanupPacketHandler(socketKey);
             }
         }
