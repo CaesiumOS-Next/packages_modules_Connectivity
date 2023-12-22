@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa032e9a_893306a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-22T04:00:45Z",
+      "side": 1,
+      "message": "LGTM apart from the extra try/catch that I think would be necessary",
+      "revId": "bcaab595d9704864c2d9ccd7cbe1ea63fc0c09a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fea4fa68_548a7aab",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-22T04:00:45Z",
+      "side": 1,
+      "message": "Could you have a try/catch on this to record read errors ?\n\ncompareImportedToLegacyStats catches exceptions when reading from the legacyRecorder, but this read is the first time the collection is read using FastDataInput, so it\u0027s possible there\u0027s bugs that should be recorded.",
+      "range": {
+        "startLine": 1056,
+        "startChar": 62,
+        "endLine": 1056,
+        "endChar": 85
+      },
+      "revId": "bcaab595d9704864c2d9ccd7cbe1ea63fc0c09a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
