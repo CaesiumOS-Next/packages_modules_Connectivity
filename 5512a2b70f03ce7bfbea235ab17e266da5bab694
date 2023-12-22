@@ -16,6 +16,24 @@
       "message": "@maze@google.com, it seems the previous revert reason is \"Reason for revert: there are devices in the field using usbX interfaces for tethering\". Are we sure since V+, no devices will use usbX interface for tethering?",
       "revId": "5512a2b70f03ce7bfbea235ab17e266da5bab694",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb9b94e4_0c4cfe16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-22T16:40:39Z",
+      "side": 1,
+      "message": "Devices upgrading to V will simply have to adjust.  Either by renaming the interfaces or by overriding this setting in device overlays.\nBy getting it in early, they\u0027ll have plenty of time to do so.",
+      "parentUuid": "f20047ea_85e33d72",
+      "revId": "5512a2b70f03ce7bfbea235ab17e266da5bab694",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
