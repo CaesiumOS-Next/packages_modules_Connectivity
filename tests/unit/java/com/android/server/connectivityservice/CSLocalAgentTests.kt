@@ -154,7 +154,6 @@ class CSLocalAgentTests : CSTest() {
         val newLnc = LocalNetworkConfig.Builder()
                 .setUpstreamSelector(NetworkRequest.Builder()
                         .addTransportType(TRANSPORT_WIFI)
-                        .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
                         .build())
                 .build()
         localAgent.sendLocalNetworkConfig(newLnc)
@@ -197,7 +196,6 @@ class CSLocalAgentTests : CSTest() {
                 lp = lp("local0"),
                 lnc = FromS(LocalNetworkConfig.Builder()
                 .setUpstreamSelector(NetworkRequest.Builder()
-                        .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
                         .addTransportType(TRANSPORT_WIFI)
                         .build())
                 .build()),
@@ -252,7 +250,6 @@ class CSLocalAgentTests : CSTest() {
                 lnc = FromS(LocalNetworkConfig.Builder()
                         .setUpstreamSelector(NetworkRequest.Builder()
                                 .addTransportType(TRANSPORT_WIFI)
-                                .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
                                 .build())
                         .build()),
                 score = FromS(NetworkScore.Builder()
@@ -299,7 +296,6 @@ class CSLocalAgentTests : CSTest() {
         val lnc = FromS(LocalNetworkConfig.Builder()
                 .setUpstreamSelector(NetworkRequest.Builder()
                         .addTransportType(TRANSPORT_WIFI)
-                        .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
                         .build())
                 .build())
         val localScore = FromS(NetworkScore.Builder().build())
@@ -352,7 +348,6 @@ class CSLocalAgentTests : CSTest() {
                 lp = lp("local0"),
                 lnc = FromS(LocalNetworkConfig.Builder()
                         .setUpstreamSelector(NetworkRequest.Builder()
-                                .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
                                 .addTransportType(TRANSPORT_WIFI)
                                 .build())
                         .build()),
@@ -382,7 +377,6 @@ class CSLocalAgentTests : CSTest() {
         val lnc = FromS(LocalNetworkConfig.Builder()
                 .setUpstreamSelector(NetworkRequest.Builder()
                         .addCapability(NET_CAPABILITY_DUN)
-                        .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
                         .build())
                 .build())
         val localAgent = Agent(nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_LOCAL_NETWORK),
@@ -510,7 +504,6 @@ class CSLocalAgentTests : CSTest() {
         val lnc = FromS(LocalNetworkConfig.Builder().apply {
             if (haveUpstream) {
                 setUpstreamSelector(NetworkRequest.Builder()
-                        .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
                         .addTransportType(TRANSPORT_WIFI)
                         .build())
             }
