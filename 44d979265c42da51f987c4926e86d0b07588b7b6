@@ -114,6 +114,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "55398100_71cbd4d3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-22T07:28:01Z",
+      "side": 1,
+      "message": "Acknowledged. I will make a change to fix the problem, so keep this open.",
+      "parentUuid": "12fb0b60_3847de6e",
+      "revId": "44d979265c42da51f987c4926e86d0b07588b7b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a58bc5bb_cb26708e",
         "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
         "patchSetId": 3

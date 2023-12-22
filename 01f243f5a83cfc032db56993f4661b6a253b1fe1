@@ -16,6 +16,24 @@
       "message": "Nit: this could be deduced by `!replyAnswers.isEmpty() || !additionalAnswers.isEmpty()`",
       "revId": "01f243f5a83cfc032db56993f4661b6a253b1fe1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30e2dc4e_772d6aa0",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-22T07:28:01Z",
+      "side": 1,
+      "message": "Will address this in aosp/2854586",
+      "parentUuid": "f6be30de_284e4899",
+      "revId": "01f243f5a83cfc032db56993f4661b6a253b1fe1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
