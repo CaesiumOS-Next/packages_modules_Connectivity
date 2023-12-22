@@ -101,11 +101,16 @@ public class MdnsMultinetworkSocketClientTest {
 
     private SocketCallback expectSocketCallback(MdnsServiceBrowserListener listener,
             Network requestedNetwork) {
+        return expectSocketCallback(listener, requestedNetwork, mSocketCreationCallback);
+    }
+
+    private SocketCallback expectSocketCallback(MdnsServiceBrowserListener listener,
+                Network requestedNetwork, SocketCreationCallback callback) {
         final ArgumentCaptor<SocketCallback> callbackCaptor =
                 ArgumentCaptor.forClass(SocketCallback.class);
         mHandler.post(() -> mSocketClient.notifyNetworkRequested(
-                listener, requestedNetwork, mSocketCreationCallback));
-        verify(mProvider, timeout(DEFAULT_TIMEOUT))
+                listener, requestedNetwork, callback));
+        verify(mProvider, timeout(DEFAULT_TIMEOUT).atLeastOnce())
                 .requestSocket(eq(requestedNetwork), callbackCaptor.capture());
         return callbackCaptor.getValue();
     }
@@ -342,8 +347,6 @@ public class MdnsMultinetworkSocketClientTest {
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
 
         verify(mProvider).unrequestSocket(callback);
-        verify(mSocketCreationCallback).onSocketDestroyed(mSocketKey);
-        verify(mSocketCreationCallback).onSocketDestroyed(otherSocketKey);
     }
 
     @Test
@@ -364,5 +367,33 @@ public class MdnsMultinetworkSocketClientTest {
         verify(mSocketCreationCallback).onSocketDestroyed(mSocketKey);
         callback.onInterfaceDestroyed(otherSocketKey, otherSocket);
         verify(mSocketCreationCallback).onSocketDestroyed(otherSocketKey);
+    }
+
+    @Test
+    public void testSocketDestroyed_MultipleCallbacks() {
+        final SocketCreationCallback creationCallback1 = mock(SocketCreationCallback.class);
+        final SocketCreationCallback creationCallback2 = mock(SocketCreationCallback.class);
+        final SocketCreationCallback creationCallback3 = mock(SocketCreationCallback.class);
+        final SocketCallback callback1 = expectSocketCallback(
+                mock(MdnsServiceBrowserListener.class), mNetwork, creationCallback1);
+        final SocketCallback callback2 = expectSocketCallback(
+                mock(MdnsServiceBrowserListener.class), mNetwork, creationCallback2);
+        final SocketCallback callback3 = expectSocketCallback(
+                mock(MdnsServiceBrowserListener.class), mNetwork, creationCallback3);
+
+        doReturn(createEmptyNetworkInterface()).when(mSocket).getInterface();
+        callback1.onSocketCreated(mSocketKey, mSocket, List.of());
+        callback2.onSocketCreated(mSocketKey, mSocket, List.of());
+        callback3.onSocketCreated(mSocketKey, mSocket, List.of());
+        verify(creationCallback1).onSocketCreated(mSocketKey);
+        verify(creationCallback2).onSocketCreated(mSocketKey);
+        verify(creationCallback3).onSocketCreated(mSocketKey);
+
+        callback1.onInterfaceDestroyed(mSocketKey, mSocket);
+        callback2.onInterfaceDestroyed(mSocketKey, mSocket);
+        callback3.onInterfaceDestroyed(mSocketKey, mSocket);
+        verify(creationCallback1).onSocketDestroyed(mSocketKey);
+        verify(creationCallback2).onSocketDestroyed(mSocketKey);
+        verify(creationCallback3).onSocketDestroyed(mSocketKey);
     }
 }
