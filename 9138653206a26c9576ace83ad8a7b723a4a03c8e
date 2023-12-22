@@ -165,6 +165,30 @@
       },
       "revId": "9138653206a26c9576ace83ad8a7b723a4a03c8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c71c091_3e661d7f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-12-22T09:29:21Z",
+      "side": 1,
+      "message": "The only thing that comes to mind is something that happens with AF_PACKET sockets:\n\nYou can create those with socket() for a given protocol then attach bpf filters.  However you actually need to create them in a non-receive-enabled way with socket() then attach bpf filters then bind them to the desired protocol.  If you don\u0027t there\u0027s a slight race where you can receive some generic packets for a given protocol before the bpf filter is enabled and read them out of the socket after you\u0027ve already attached the filter.\n\nMaybe there\u0027s something similar here?  But no idea if this is relevant at all.  I\u0027m not really tracking what this is doing, nor do I really know what netlink does in general...",
+      "parentUuid": "dcc63834_887fcab4",
+      "range": {
+        "startLine": 433,
+        "startChar": 34,
+        "endLine": 433,
+        "endChar": 59
+      },
+      "revId": "9138653206a26c9576ace83ad8a7b723a4a03c8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
