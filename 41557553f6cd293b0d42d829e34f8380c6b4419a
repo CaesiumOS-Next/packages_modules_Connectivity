@@ -46,6 +46,30 @@
       },
       "revId": "41557553f6cd293b0d42d829e34f8380c6b4419a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df7dc7d7_547671c9",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-22T08:49:35Z",
+      "side": 1,
+      "message": "FYI, there is a follow up CL: aosp/2864287 to change the charset to iso-8859-1",
+      "parentUuid": "7aa840e1_935780d4",
+      "range": {
+        "startLine": 90,
+        "startChar": 51,
+        "endLine": 90,
+        "endChar": 73
+      },
+      "revId": "41557553f6cd293b0d42d829e34f8380c6b4419a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
