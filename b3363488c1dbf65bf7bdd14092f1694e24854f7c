@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6b1f287_19ddbc15",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-22T10:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96da345c_204ad6ca",
+      "range": {
+        "startLine": 312,
+        "startChar": 27,
+        "endLine": 312,
+        "endChar": 45
+      },
+      "revId": "b3363488c1dbf65bf7bdd14092f1694e24854f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7bc5f256_751decf9",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-22T09:17:55Z",
       "side": 1,
       "message": "Does this method still call SocketException? Or are they all caught at line 418? If they are all caught, let\u0027s remove this.",
+      "range": {
+        "startLine": 401,
+        "startChar": 35,
+        "endLine": 401,
+        "endChar": 50
+      },
+      "revId": "b3363488c1dbf65bf7bdd14092f1694e24854f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f95adc8_332d204f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-22T10:46:01Z",
+      "side": 1,
+      "message": "It\u0027s still called by the connectToKernel(destroyFd).",
+      "parentUuid": "7bc5f256_751decf9",
       "range": {
         "startLine": 401,
         "startChar": 35,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce90ea2d_b990b893",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-22T10:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "175a4785_528cdcd3",
+      "range": {
+        "startLine": 418,
+        "startChar": 16,
+        "endLine": 418,
+        "endChar": 45
+      },
+      "revId": "b3363488c1dbf65bf7bdd14092f1694e24854f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "149f8225_448df220",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-12-22T09:17:55Z",
       "side": 1,
       "message": "FWIW it probably isn\u0027t necessary to have these separate catch clauses (including the one line line 337, though you might need that one if you move the rest of this code into another method per comment below).\n\nThe outcome is the same: control returns to the caller, and the caller does whatever it wants (the InetDiagMessage code will move on to the next address family). I don\u0027t think it\u0027s worth logging separate messages here, the caller will already log errno and that\u0027s enough information to know whether the socket creation failed or the connect failed.",
+      "range": {
+        "startLine": 348,
+        "startChar": 8,
+        "endLine": 348,
+        "endChar": 37
+      },
+      "revId": "b3363488c1dbf65bf7bdd14092f1694e24854f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "740bcf54_db2ece4f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-22T10:46:01Z",
+      "side": 1,
+      "message": "Done, also removed the catch and logging of L337, as the caller will handle it.",
+      "parentUuid": "149f8225_448df220",
       "range": {
         "startLine": 348,
         "startChar": 8,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ae7bb97_17ef0e51",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-22T10:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d50aba07_dd163837",
+      "range": {
+        "startLine": 363,
+        "startChar": 35,
+        "endLine": 363,
+        "endChar": 46
+      },
+      "revId": "b3363488c1dbf65bf7bdd14092f1694e24854f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d489692_d6fba8fb",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42930a5b_e3f0ba62",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-22T10:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d489692_d6fba8fb",
+      "range": {
+        "startLine": 374,
+        "startChar": 20,
+        "endLine": 374,
+        "endChar": 26
+      },
+      "revId": "b3363488c1dbf65bf7bdd14092f1694e24854f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "813c4a8b_97cb9a82",
@@ -152,6 +296,30 @@
       "writtenOn": "2023-12-22T09:17:55Z",
       "side": 1,
       "message": "Should this be wtf? That\u0027s what the InetDiagMessage code does.",
+      "range": {
+        "startLine": 383,
+        "startChar": 24,
+        "endLine": 383,
+        "endChar": 25
+      },
+      "revId": "b3363488c1dbf65bf7bdd14092f1694e24854f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f5951ef_91e31350",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-22T10:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "813c4a8b_97cb9a82",
       "range": {
         "startLine": 383,
         "startChar": 24,
