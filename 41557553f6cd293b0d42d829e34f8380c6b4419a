@@ -22,6 +22,30 @@
       },
       "revId": "41557553f6cd293b0d42d829e34f8380c6b4419a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aa840e1_935780d4",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-22T07:53:20Z",
+      "side": 1,
+      "message": "Looks like this is fine, invalid characters will just be replaced. The code ends up calling this:\n\n    StreamDecoder(InputStream in, Object lock, Charset cs) {\n        this(in, lock,\n         cs.newDecoder()\n         .onMalformedInput(CodingErrorAction.REPLACE)\n         .onUnmappableCharacter(CodingErrorAction.REPLACE));\n    }",
+      "parentUuid": "0b683c61_a9b2c0a7",
+      "range": {
+        "startLine": 90,
+        "startChar": 51,
+        "endLine": 90,
+        "endChar": 73
+      },
+      "revId": "41557553f6cd293b0d42d829e34f8380c6b4419a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
