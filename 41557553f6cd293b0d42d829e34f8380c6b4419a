@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b683c61_a9b2c0a7",
+        "filename": "service/src/com/android/server/BpfLoaderRcUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-22T07:49:45Z",
+      "side": 1,
+      "message": "Is it possible that the config file is not valid UTF-8? If so, what will happen? Will the read fail completely and log a WTF on every boot?",
+      "range": {
+        "startLine": 90,
+        "startChar": 51,
+        "endLine": 90,
+        "endChar": 73
+      },
+      "revId": "41557553f6cd293b0d42d829e34f8380c6b4419a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
