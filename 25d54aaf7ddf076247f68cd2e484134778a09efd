@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3333c6fd_aa3edcf8",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMrt6MsgTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-22T02:29:38Z",
+      "side": 1,
+      "message": "static variable should be capital (MSG_BYTES)",
+      "range": {
+        "startLine": 21,
+        "startChar": 32,
+        "endLine": 21,
+        "endChar": 40
+      },
+      "revId": "25d54aaf7ddf076247f68cd2e484134778a09efd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
