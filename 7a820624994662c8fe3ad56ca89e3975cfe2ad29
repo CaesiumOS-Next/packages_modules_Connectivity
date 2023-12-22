@@ -1,5 +1,69 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a364b226_4af95633",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/StructXfrmLifetimeCfg.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-22T07:45:15Z",
+      "side": 1,
+      "message": "Does this really need to be a BigInteger? This is a byte counter, can it reach 2**63 within the lifetime of the SA? Could we make this field be a U63 instead?",
+      "range": {
+        "startLine": 50,
+        "startChar": 34,
+        "endLine": 50,
+        "endChar": 37
+      },
+      "revId": "7a820624994662c8fe3ad56ca89e3975cfe2ad29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d188d9b_219b26f1",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/StructXfrmLifetimeCur.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-22T07:45:15Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "7a820624994662c8fe3ad56ca89e3975cfe2ad29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f94455f8_e35341bd",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/xfrm/StructXfrmLifetimeCfgTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-22T07:45:15Z",
+      "side": 1,
+      "message": "Please add a test for non-zero values.",
+      "range": {
+        "startLine": 43,
+        "startChar": 56,
+        "endLine": 43,
+        "endChar": 57
+      },
+      "revId": "7a820624994662c8fe3ad56ca89e3975cfe2ad29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
