@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf87e174_2c83f8f0",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMf6cctlTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-22T10:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05acaaa2_76f4409c",
+      "range": {
+        "startLine": 47,
+        "startChar": 27,
+        "endLine": 47,
+        "endChar": 38
+      },
+      "revId": "1b9b6c99a060e2f4b56c13eff79b7de3d3784a84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "576355d0_753f0ea0",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-22T10:18:15Z",
       "side": 1,
       "message": "nits: this should be uppercase",
+      "range": {
+        "startLine": 48,
+        "startChar": 38,
+        "endLine": 48,
+        "endChar": 49
+      },
+      "revId": "1b9b6c99a060e2f4b56c13eff79b7de3d3784a84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b1679b3_73f2dec4",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/structs/StructMf6cctlTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-22T10:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "576355d0_753f0ea0",
       "range": {
         "startLine": 48,
         "startChar": 38,
