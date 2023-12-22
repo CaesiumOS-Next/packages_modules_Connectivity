@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96da345c_204ad6ca",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-22T09:17:55Z",
+      "side": 1,
+      "message": "Nit: should probably rename to makeNetlinkDumpRequest, since it doesn\u0027t request anything, just makes a request that code can send later.",
+      "range": {
+        "startLine": 312,
+        "startChar": 27,
+        "endLine": 312,
+        "endChar": 45
+      },
+      "revId": "b3363488c1dbf65bf7bdd14092f1694e24854f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bc5f256_751decf9",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-22T09:17:55Z",
+      "side": 1,
+      "message": "Does this method still call SocketException? Or are they all caught at line 418? If they are all caught, let\u0027s remove this.",
+      "range": {
+        "startLine": 401,
+        "startChar": 35,
+        "endLine": 401,
+        "endChar": 50
+      },
+      "revId": "b3363488c1dbf65bf7bdd14092f1694e24854f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "175a4785_528cdcd3",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-22T09:17:55Z",
+      "side": 1,
+      "message": "FWIW, I don\u0027t think it\u0027s worth catching this separately from the one at line 421. The error message (e.g., \"too many file descriptors\" vs \"connection refused\") is enough information.",
+      "range": {
+        "startLine": 418,
+        "startChar": 16,
+        "endLine": 418,
+        "endChar": 45
+      },
+      "revId": "b3363488c1dbf65bf7bdd14092f1694e24854f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "149f8225_448df220",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-22T09:17:55Z",
+      "side": 1,
+      "message": "FWIW it probably isn\u0027t necessary to have these separate catch clauses (including the one line line 337, though you might need that one if you move the rest of this code into another method per comment below).\n\nThe outcome is the same: control returns to the caller, and the caller does whatever it wants (the InetDiagMessage code will move on to the next address family). I don\u0027t think it\u0027s worth logging separate messages here, the caller will already log errno and that\u0027s enough information to know whether the socket creation failed or the connect failed.",
+      "range": {
+        "startLine": 348,
+        "startChar": 8,
+        "endLine": 348,
+        "endChar": 37
+      },
+      "revId": "b3363488c1dbf65bf7bdd14092f1694e24854f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d50aba07_dd163837",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-22T09:17:55Z",
+      "side": 1,
+      "message": "If this throws, the socket needs to be closed. Per discussion, putting everything after line 340 into a separate method that this method can wrap in a try/finally might be a good way to do simplify the error handling code.",
+      "range": {
+        "startLine": 363,
+        "startChar": 35,
+        "endLine": 363,
+        "endChar": 46
+      },
+      "revId": "b3363488c1dbf65bf7bdd14092f1694e24854f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d489692_d6fba8fb",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-22T09:17:55Z",
+      "side": 1,
+      "message": "The InetDiagMessage code that calls this would use \"break\" instead, which means it would call recvMessage again. Maybe be consistent with that?",
+      "range": {
+        "startLine": 374,
+        "startChar": 20,
+        "endLine": 374,
+        "endChar": 26
+      },
+      "revId": "b3363488c1dbf65bf7bdd14092f1694e24854f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "813c4a8b_97cb9a82",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-22T09:17:55Z",
+      "side": 1,
+      "message": "Should this be wtf? That\u0027s what the InetDiagMessage code does.",
+      "range": {
+        "startLine": 383,
+        "startChar": 24,
+        "endLine": 383,
+        "endChar": 25
+      },
+      "revId": "b3363488c1dbf65bf7bdd14092f1694e24854f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

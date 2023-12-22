@@ -128,6 +128,30 @@
       },
       "revId": "63133e678666b66b726eaa86886d18e248fb34ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8446bb9_7657b677",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-22T09:17:55Z",
+      "side": 1,
+      "message": "Maybe this could be \"Failed to send netlink dump request or receive messages\"?",
+      "parentUuid": "7d7f0acb_efcf5a05",
+      "range": {
+        "startLine": 419,
+        "startChar": 32,
+        "endLine": 419,
+        "endChar": 67
+      },
+      "revId": "63133e678666b66b726eaa86886d18e248fb34ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
