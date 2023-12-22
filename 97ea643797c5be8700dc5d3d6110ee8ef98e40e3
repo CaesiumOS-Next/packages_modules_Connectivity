@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fdf9837_b345e46f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/StructXfrmId.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-12-22T07:39:25Z",
+      "side": 1,
+      "message": "Why not something more structured such as Ipv6Address? Also, I think maze@ and motomuman@ were working on supporting mapped addresses in Struct subclasses and having the Struct class.\n\nAFAICT this is not a mapped address, (for IPv4 addresses, the address is in the first 4 bytes) but it would still be useful have this struct deal with IPv4, IPv6 and IPv4-mapped without requiring the caller to worry about it.",
+      "range": {
+        "startLine": 43,
+        "startChar": 29,
+        "endLine": 43,
+        "endChar": 43
+      },
+      "revId": "97ea643797c5be8700dc5d3d6110ee8ef98e40e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
