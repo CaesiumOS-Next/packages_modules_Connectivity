@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f20047ea_85e33d72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-22T14:12:37Z",
+      "side": 1,
+      "message": "@maze@google.com, it seems the previous revert reason is \"Reason for revert: there are devices in the field using usbX interfaces for tethering\". Are we sure since V+, no devices will use usbX interface for tethering?",
+      "revId": "5512a2b70f03ce7bfbea235ab17e266da5bab694",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
