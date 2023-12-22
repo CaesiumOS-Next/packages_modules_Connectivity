@@ -1,5 +1,69 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f18b233_635dc80d",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-22T04:36:36Z",
+      "side": 1,
+      "message": "That will block the Handler for 1sec, with incoming messages accumulating in the queue.\n\nWithout a mechanism to rate-limit (drop) some messages, this will cause the queue to keep growing if any app is filing/unregistering requests more than once/second; with a Handler thread kind of always blocked.\n\nInstead, this should probably use mHandler.postMessageDelayed, with something like:\n\n```\n// Keep a list of pending events\n@GuardedBy(\"mPendingState\")\nmPendingState \u003d new ArrayList\u003c\u003e();\n\n\n\n// In MSG_NETWORK_REQUEST_STATE_CHANGED:\nsynchronized(mPendingState) {\n    mPendingState.add(newEvent);\n}\n\nif (mHandler.hasMessage(CMD_SEND_PENDING_METRICS)) return; // Wait for the msg to kick.\nif (currentTime \u003e mLastSend + MIN_DELAY) {\n    // Dispatch now\n    mHandler.sendMessage(CMD_SEND_PENDING_METRICS);\n    return;\n}\n\n// Dispatch after at least 1sec since last send\nmHandler.sendMessageDelayed(CMD_SEND_PENDING_METRIC, remainingTime);\n\n\n// In handleMessage\n\nCMD_SEND_PENDING_METRIC:\n    mLastSend \u003d now;\n    synchronized(mPendingState) {\n        // Send all the events, or part of them ?\n    }\n\n```",
+      "revId": "e3245081b128398eb4802855717b05749a742b9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e8c2a7a_075d7b8f",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-22T04:36:36Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Check Contents: Do not use \"Thread.sleep()\". Please see go/avoid-thread-sleep for more details.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nDo not use \"Thread.sleep()\". Please see go/avoid-thread-sleep for more details.",
+      "range": {
+        "startLine": 139,
+        "startChar": 16,
+        "endLine": 139,
+        "endChar": 28
+      },
+      "revId": "e3245081b128398eb4802855717b05749a742b9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3d877bb_87d1efff",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-22T04:36:36Z",
+      "side": 1,
+      "message": "I think the UID is generally considered sensitive to some extent ? Are these metrics covered by a PRD separate from the core networking ones ?\n\nIs this only used to know when requests are from the same app ? Not sure if there\u0027s a way to tie back the UID to the app based on metrics.",
+      "range": {
+        "startLine": 153,
+        "startChar": 44,
+        "endLine": 153,
+        "endChar": 57
+      },
+      "revId": "e3245081b128398eb4802855717b05749a742b9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
