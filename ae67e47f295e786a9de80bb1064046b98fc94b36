@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "620937a0_a7051eef",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-22T03:40:43Z",
+      "side": 1,
+      "message": "Why is this a `long` variable instead of `int`?",
+      "range": {
+        "startLine": 60,
+        "startChar": 18,
+        "endLine": 60,
+        "endChar": 22
+      },
+      "revId": "ae67e47f295e786a9de80bb1064046b98fc94b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82705bee_c7701a53",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-22T03:40:43Z",
+      "side": 1,
+      "message": "Nit: @AdvertisingConfig",
+      "range": {
+        "startLine": 165,
+        "startChar": 43,
+        "endLine": 165,
+        "endChar": 44
+      },
+      "revId": "ae67e47f295e786a9de80bb1064046b98fc94b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "397ab7ff_9c840141",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1111,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-22T03:40:43Z",
+      "side": 1,
+      "message": "Nit: Use `getListenerKey()`",
+      "range": {
+        "startLine": 1107,
+        "startChar": 12,
+        "endLine": 1111,
+        "endChar": 49
+      },
+      "revId": "ae67e47f295e786a9de80bb1064046b98fc94b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cf63c27_b52cedb2",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1188,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-22T03:40:43Z",
+      "side": 1,
+      "message": "IIUC this modifies existing behavior. Previously, calling this method twice with the same arguments would throw an IllegalArgumentException on the second invocation. However, this change allows it to work normally in that scenario. Can you update the doc to reflect this behavior change?",
+      "range": {
+        "startLine": 1186,
+        "startChar": 8,
+        "endLine": 1188,
+        "endChar": 9
+      },
+      "revId": "ae67e47f295e786a9de80bb1064046b98fc94b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03c26b61_89c189a7",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-22T03:40:43Z",
+      "side": 1,
+      "message": "Should we use the old transactionId for advertiser only? Do you know what\u0027s happening if we use the old transactionId for registeration on mDnsResponder.",
+      "range": {
+        "startLine": 868,
+        "startChar": 24,
+        "endLine": 883,
+        "endChar": 25
+      },
+      "revId": "ae67e47f295e786a9de80bb1064046b98fc94b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7408776_34fac8a5",
+        "filename": "tests/unit/java/android/net/nsd/NsdManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-22T03:40:43Z",
+      "side": 1,
+      "message": "Question: Why is this failed? The name and type is same as `validService`, it should be treated as service update.",
+      "range": {
+        "startLine": 381,
+        "startChar": 8,
+        "endLine": 383,
+        "endChar": 11
+      },
+      "revId": "ae67e47f295e786a9de80bb1064046b98fc94b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
