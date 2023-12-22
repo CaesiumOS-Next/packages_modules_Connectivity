@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d0c59b0_157b497f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-12-22T03:41:30Z",
+      "side": 1,
+      "message": "I\u0027m feeling we should return null if `StructNlAttr.parse` returns null assuming `StructNlAttr.parse` does not return null if the data is not malformed, broken, or truncated.\nI think most parsing code return null if there is a error while parsing.\n@xiaom@google.com, do you have any opinion on this?",
+      "range": {
+        "startLine": 183,
+        "startChar": 12,
+        "endLine": 183,
+        "endChar": 36
+      },
+      "revId": "c1022e963a9ccd9a3808380a3a89270681c041f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
