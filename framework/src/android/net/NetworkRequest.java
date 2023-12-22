@@ -290,10 +290,7 @@ public class NetworkRequest implements Parcelable {
          * Therefore these capabilities are only in NetworkRequest.
          */
         private static final int[] DEFAULT_FORBIDDEN_CAPABILITIES = new int[] {
-            // TODO(b/313030307): this should contain NET_CAPABILITY_LOCAL_NETWORK.
-            // We cannot currently add it because doing so would crash if the module rolls back,
-            // because JobScheduler persists NetworkRequests to disk, and existing production code
-            // does not consider LOCAL_NETWORK to be a valid capability.
+            NET_CAPABILITY_LOCAL_NETWORK
         };
 
         private final NetworkCapabilities mNetworkCapabilities;
