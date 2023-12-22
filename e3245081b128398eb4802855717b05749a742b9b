@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49a50f77_2f990f01",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-22T12:14:50Z",
+      "side": 1,
+      "message": "Thanks for the suggestion Remi. We need to limit sending (logging) events to one per second. We would like to be able to send them with a delay, even if they come in bursts. I suggest the following behaviour:\n\n```\n// Queue instead of an array\nmPendingState \u003d new ArrayDeque\u003c\u003e();\n\n// In MSG_NETWORK_REQUEST_STATE_CHANGED:\nsynchronized(mPendingState) {\n    // Only add events to the pending queue up to a certain limit (e.g. 30), otherwise drop them\n    if (mPendingState \u003c MAX_QUEUED_REQUESTS) {\n       mPendingState.add(newEvent);\n    } else {\n       return; \n    }\n}\n\n... as above ...\n\n// In handleMessage\n\nCMD_SEND_PENDING_METRIC:\n    mLastSend \u003d now;\n    synchronized(mPendingState) {\n        event \u003d mPendingState.remove()\n        // send event\n        if (!mPendingState.isEmpty()) {\n            mHandler.sendMessageDelayed(CMD_SEND_PENDING_METRIC, MIN_DELAY)\n        }\n    }\n```\n\nWhat do you think?",
+      "parentUuid": "8f18b233_635dc80d",
+      "revId": "e3245081b128398eb4802855717b05749a742b9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e8c2a7a_075d7b8f",
         "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
         "patchSetId": 37
