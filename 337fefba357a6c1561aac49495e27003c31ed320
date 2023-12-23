@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51a050f8_bf65ff36",
+        "filename": "thread/tests/integration/Android.bp",
+        "patchSetId": 36
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-23T11:58:15Z",
+      "side": 1,
+      "message": "Should this be \"general-tests\"? See https://source.android.com/docs/core/tests/development/test-mapping#package_build_script_rules",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 23
+      },
+      "revId": "337fefba357a6c1561aac49495e27003c31ed320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
