@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5e6a17d_b8ccf447",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-23T10:41:56Z",
+      "side": 1,
+      "message": "`mNetworkToInterface.clear()` doesn\u0027t need to be cleared, given `cancelRequestUpstreamNetwork` is only called from `setTestNetworkAsUpstreamInternal` which is already on the handler thread.",
+      "range": {
+        "startLine": 352,
+        "startChar": 8,
+        "endLine": 352,
+        "endChar": 50
+      },
+      "revId": "76bac79243c4c935324938c00b0a7f899f27f1fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9df8594f_5894b597",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-23T10:41:56Z",
+      "side": 1,
+      "message": "```suggestion\n        final LocalNetworkConfig localNetworkConfig \u003d newLocalNetworkConfig();\n        mNetworkAgent.sendLocalNetworkConfig(localNetworkConfig);\n        Log.d(TAG, \"Sent localNetworkConfig: \" + localNetworkConfig);;\n```",
+      "range": {
+        "startLine": 823,
+        "startChar": 0,
+        "endLine": 831,
+        "endChar": 61
+      },
+      "revId": "76bac79243c4c935324938c00b0a7f899f27f1fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
