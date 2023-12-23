@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6c95585_477212c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-23T07:24:34Z",
+      "side": 1,
+      "message": "Are we able to add a test case to reproduce the issue and confirm the fix in this CL can fix the issue?",
+      "revId": "56c546fc44ed2bbb703b142dcbe5d8b8b72cf8d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0115de45_d9c59f29",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2023-12-23T07:24:34Z",
+      "side": 1,
+      "message": "This comment is not very helpful. Could you elaborate a little bit more about the background here?",
+      "range": {
+        "startLine": 112,
+        "startChar": 53,
+        "endLine": 112,
+        "endChar": 90
+      },
+      "revId": "56c546fc44ed2bbb703b142dcbe5d8b8b72cf8d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
