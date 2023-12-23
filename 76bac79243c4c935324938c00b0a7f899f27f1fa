@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fb5fa9e_8bfd1ce4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-23T10:43:51Z",
+      "side": 1,
+      "message": "This CL should be submitted together with aosp/2817100",
+      "revId": "76bac79243c4c935324938c00b0a7f899f27f1fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5e6a17d_b8ccf447",
