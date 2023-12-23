@@ -27,6 +27,7 @@ import android.net.Network;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
+import android.platform.test.annotations.RequiresFlagsEnabled;
 
 import androidx.test.filters.SmallTest;
 
@@ -191,6 +192,7 @@ public class NsdServiceInfoTest {
     }
 
     @Test
+    @RequiresFlagsEnabled(NsdManager.Flags.NSD_SUBTYPES_SUPPORT_ENABLED)
     public void testSubtypesValidSubtypesSuccess() {
         NsdServiceInfo info = new NsdServiceInfo();
 
