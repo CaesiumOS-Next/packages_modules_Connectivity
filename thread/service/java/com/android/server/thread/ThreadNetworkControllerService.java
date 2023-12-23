@@ -59,8 +59,8 @@ import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.LocalNetworkConfig;
-import android.net.MulticastRoutingConfig;
 import android.net.LocalNetworkInfo;
+import android.net.MulticastRoutingConfig;
 import android.net.Network;
 import android.net.NetworkAgent;
 import android.net.NetworkAgentConfig;
@@ -91,12 +91,12 @@ import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.ServiceManagerWrapper;
+import com.android.server.thread.openthread.BorderRouterConfigurationParcel;
 import com.android.server.thread.openthread.IOtDaemon;
 import com.android.server.thread.openthread.IOtDaemonCallback;
 import com.android.server.thread.openthread.IOtStatusReceiver;
 import com.android.server.thread.openthread.Ipv6AddressInfo;
 import com.android.server.thread.openthread.OtDaemonState;
-import com.android.server.thread.openthread.BorderRouterConfigurationParcel;
 
 import java.io.IOException;
 import java.net.Inet6Address;
@@ -136,6 +136,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final Supplier<IOtDaemon> mOtDaemonSupplier;
     private final ConnectivityManager mConnectivityManager;
     private final TunInterfaceController mTunIfController;
+    private final InfraInterfaceController mInfraIfController;
     private final LinkProperties mLinkProperties = new LinkProperties();
     private final OtDaemonCallbackProxy mOtDaemonCallbackProxy = new OtDaemonCallbackProxy();
 
@@ -160,7 +161,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             NetworkProvider networkProvider,
             Supplier<IOtDaemon> otDaemonSupplier,
             ConnectivityManager connectivityManager,
-            TunInterfaceController tunIfController) {
+            TunInterfaceController tunIfController,
+            InfraInterfaceController infraIfController) {
         mContext = context;
         mHandlerThread = handlerThread;
         mHandler = new Handler(handlerThread.getLooper());
@@ -168,6 +170,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mOtDaemonSupplier = otDaemonSupplier;
         mConnectivityManager = connectivityManager;
         mTunIfController = tunIfController;
+        mInfraIfController = infraIfController;
         mUpstreamNetworkRequest =
                 new NetworkRequest.Builder()
                         .clearCapabilities()
@@ -194,7 +197,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 networkProvider,
                 () -> IOtDaemon.Stub.asInterface(ServiceManagerWrapper.waitForService("ot_daemon")),
                 context.getSystemService(ConnectivityManager.class),
-                new TunInterfaceController(TUN_IF_NAME));
+                new TunInterfaceController(TUN_IF_NAME),
+                new InfraInterfaceController());
     }
 
     private static NetworkCapabilities newNetworkCapabilities() {
@@ -681,7 +685,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         try {
             mBorderRouterConfig.infraInterfaceName = infraIfName;
             mBorderRouterConfig.infraInterfaceIcmp6Socket =
-                    InfraInterfaceController.createIcmp6Socket(infraIfName);
+                    mInfraIfController.createIcmp6Socket(infraIfName);
             mBorderRouterConfig.isBorderRoutingEnabled = true;
 
             mOtDaemon.configureBorderRouter(
@@ -800,8 +804,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         MulticastRoutingConfig newDownstreamConfig;
         MulticastRoutingConfig.Builder builder;
 
-        if (mDownstreamMulticastRoutingConfig.getForwardingMode() !=
-                MulticastRoutingConfig.FORWARD_SELECTED) {
+        if (mDownstreamMulticastRoutingConfig.getForwardingMode()
+                != MulticastRoutingConfig.FORWARD_SELECTED) {
             Log.e(
                     TAG,
                     "Ignore multicast listening address updates when downstream multicast "
@@ -809,8 +813,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             // Don't update the address set if downstream multicast forwarding is disabled.
             return;
         }
-        if (isAdded ==
-                mDownstreamMulticastRoutingConfig.getListeningAddresses().contains(address)) {
+        if (isAdded
+                == mDownstreamMulticastRoutingConfig.getListeningAddresses().contains(address)) {
             return;
         }
 
