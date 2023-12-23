@@ -34,6 +34,23 @@
       "parentUuid": "c2d3c4be_dec97eee",
       "revId": "44049a398356918307e775cb8f402101d6424777",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cc0fec4_124bbb2b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-23T10:42:55Z",
+      "side": 0,
+      "message": "Changes in the file look good to me. No necessary to split it to new CLs now. Thanks!",
+      "revId": "44049a398356918307e775cb8f402101d6424777",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
