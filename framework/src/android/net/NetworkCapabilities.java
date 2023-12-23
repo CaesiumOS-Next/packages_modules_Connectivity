@@ -350,7 +350,8 @@ public final class NetworkCapabilities implements Parcelable {
      * @hide
      */
     public void clearAll() {
-        mNetworkCapabilities = mTransportTypes = mForbiddenNetworkCapabilities = 0;
+        mNetworkCapabilities = mTransportTypes = mForbiddenNetworkCapabilities =
+                mHiddenNetworkCapabilities = 0;
         mLinkUpBandwidthKbps = mLinkDownBandwidthKbps = LINK_BANDWIDTH_UNSPECIFIED;
         mNetworkSpecifier = null;
         mTransportInfo = null;
@@ -391,6 +392,7 @@ public final class NetworkCapabilities implements Parcelable {
         setAdministratorUids(nc.getAdministratorUids());
         mOwnerUid = nc.mOwnerUid;
         mForbiddenNetworkCapabilities = nc.mForbiddenNetworkCapabilities;
+        mHiddenNetworkCapabilities = nc.mHiddenNetworkCapabilities;
         mSSID = nc.mSSID;
         mPrivateDnsBroken = nc.mPrivateDnsBroken;
         mRequestorUid = nc.mRequestorUid;
@@ -413,6 +415,17 @@ public final class NetworkCapabilities implements Parcelable {
      * If any capabilities specified here they must not exist in the matching Network.
      */
     private long mForbiddenNetworkCapabilities;
+
+    /**
+     * Capabilities which are hidden from users. {@link #getCapabilities()} and
+     * {@link #getForbiddenCapabilities()} don't return hidden capabilities.
+     * Hidden capabilities are unhidden when user call {@link #addCapability},
+     * {@link #removeCapability}, {@link #addForbiddenCapability},
+     * {@link #removeForbiddenCapability}, {@link #setCapabilities}, or {@link #hasCapability}
+     * with hidden capabilities.
+     */
+    private long mHiddenNetworkCapabilities;
+
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
@@ -836,6 +849,8 @@ public final class NetworkCapabilities implements Parcelable {
         mNetworkCapabilities |= 1L << capability;
         // remove from forbidden capability list
         mForbiddenNetworkCapabilities &= ~(1L << capability);
+        // capability user specifies is unhidden
+        mHiddenNetworkCapabilities &= ~(1L << capability);
         return this;
     }
 
@@ -856,6 +871,27 @@ public final class NetworkCapabilities implements Parcelable {
         checkValidCapability(capability);
         mForbiddenNetworkCapabilities |= 1L << capability;
         mNetworkCapabilities &= ~(1L << capability);  // remove from requested capabilities
+        // capability user specifies is unhidden
+        mHiddenNetworkCapabilities &= ~(1L << capability);
+    }
+
+    /**
+     * Hide the given capability from {@link #getCapabilities()} or
+     * {@link #getForbiddenCapabilities()}.
+     *
+     * @hide
+     */
+    public void addHiddenCapability(@NetCapability int capability) {
+        mHiddenNetworkCapabilities |= (1L << capability);
+    }
+
+    /**
+     * Unhide the given capability. See {@link #addHiddenCapability}
+     *
+     * @hide
+     */
+    public void removeHiddenCapability(@NetCapability int capability) {
+        mHiddenNetworkCapabilities &= ~(1L << capability);
     }
 
     /**
@@ -870,6 +906,8 @@ public final class NetworkCapabilities implements Parcelable {
         checkValidCapability(capability);
         final long mask = ~(1L << capability);
         mNetworkCapabilities &= mask;
+        // capability user specifies is unhidden
+        mHiddenNetworkCapabilities &= ~(1L << capability);
         return this;
     }
 
@@ -884,6 +922,8 @@ public final class NetworkCapabilities implements Parcelable {
     public @NonNull NetworkCapabilities removeForbiddenCapability(@NetCapability int capability) {
         checkValidCapability(capability);
         mForbiddenNetworkCapabilities &= ~(1L << capability);
+        // capability user specifies is unhidden
+        mHiddenNetworkCapabilities &= ~(1L << capability);
         return this;
     }
 
@@ -931,7 +971,7 @@ public final class NetworkCapabilities implements Parcelable {
      * @return an array of capability values for this instance.
      */
     public @NonNull @NetCapability int[] getCapabilities() {
-        return BitUtils.unpackBits(mNetworkCapabilities);
+        return BitUtils.unpackBits(mNetworkCapabilities & ~mHiddenNetworkCapabilities);
     }
 
     /**
@@ -943,7 +983,7 @@ public final class NetworkCapabilities implements Parcelable {
     @NonNull
     // TODO : @FlaggedApi(Flags.FLAG_FORBIDDEN_CAPABILITY) and public
     public @NetCapability int[] getForbiddenCapabilities() {
-        return BitUtils.unpackBits(mForbiddenNetworkCapabilities);
+        return BitUtils.unpackBits(mForbiddenNetworkCapabilities & ~mHiddenNetworkCapabilities);
     }
 
 
@@ -957,6 +997,8 @@ public final class NetworkCapabilities implements Parcelable {
             @NetCapability int[] forbiddenCapabilities) {
         mNetworkCapabilities = BitUtils.packBits(capabilities);
         mForbiddenNetworkCapabilities = BitUtils.packBits(forbiddenCapabilities);
+        // capability user specifies is unhidden
+        mHiddenNetworkCapabilities &= ~(mNetworkCapabilities | mForbiddenNetworkCapabilities);
     }
 
     /**
@@ -1045,6 +1087,8 @@ public final class NetworkCapabilities implements Parcelable {
      * @return {@code true} if set on this instance.
      */
     public boolean hasCapability(@NetCapability int capability) {
+        // capability user specifies is unhidden
+        mHiddenNetworkCapabilities &= ~(1L << capability);
         return isValidCapability(capability)
                 && ((mNetworkCapabilities & (1L << capability)) != 0);
     }
@@ -1059,6 +1103,8 @@ public final class NetworkCapabilities implements Parcelable {
     @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
     // TODO : @FlaggedApi(Flags.FLAG_FORBIDDEN_CAPABILITY) and public
     public boolean hasForbiddenCapability(@NetCapability int capability) {
+        // capability user specifies is unhidden
+        mHiddenNetworkCapabilities &= ~(1L << capability);
         return isValidCapability(capability)
                 && ((mForbiddenNetworkCapabilities & (1L << capability)) != 0);
     }
@@ -2298,24 +2344,26 @@ public final class NetworkCapabilities implements Parcelable {
                 + ((int) (mNetworkCapabilities >> 32) * 3)
                 + ((int) (mForbiddenNetworkCapabilities & 0xFFFFFFFF) * 5)
                 + ((int) (mForbiddenNetworkCapabilities >> 32) * 7)
-                + ((int) (mTransportTypes & 0xFFFFFFFF) * 11)
-                + ((int) (mTransportTypes >> 32) * 13)
-                + mLinkUpBandwidthKbps * 17
-                + mLinkDownBandwidthKbps * 19
-                + Objects.hashCode(mNetworkSpecifier) * 23
-                + mSignalStrength * 29
-                + mOwnerUid * 31
-                + Objects.hashCode(mUids) * 37
-                + Objects.hashCode(mAllowedUids) * 41
-                + Objects.hashCode(mSSID) * 43
-                + Objects.hashCode(mTransportInfo) * 47
-                + Objects.hashCode(mPrivateDnsBroken) * 53
-                + Objects.hashCode(mRequestorUid) * 59
-                + Objects.hashCode(mRequestorPackageName) * 61
-                + Arrays.hashCode(mAdministratorUids) * 67
-                + Objects.hashCode(mSubIds) * 71
-                + Objects.hashCode(mUnderlyingNetworks) * 73
-                + mEnterpriseId * 79;
+                + ((int) (mHiddenNetworkCapabilities & 0xFFFFFFFF) * 11)
+                + ((int) (mHiddenNetworkCapabilities >> 32) * 13)
+                + ((int) (mTransportTypes & 0xFFFFFFFF) * 17)
+                + ((int) (mTransportTypes >> 32) * 19)
+                + mLinkUpBandwidthKbps * 23
+                + mLinkDownBandwidthKbps * 29
+                + Objects.hashCode(mNetworkSpecifier) * 31
+                + mSignalStrength * 37
+                + mOwnerUid * 41
+                + Objects.hashCode(mUids) * 43
+                + Objects.hashCode(mAllowedUids) * 47
+                + Objects.hashCode(mSSID) * 53
+                + Objects.hashCode(mTransportInfo) * 59
+                + Objects.hashCode(mPrivateDnsBroken) * 61
+                + Objects.hashCode(mRequestorUid) * 67
+                + Objects.hashCode(mRequestorPackageName) * 71
+                + Arrays.hashCode(mAdministratorUids) * 73
+                + Objects.hashCode(mSubIds) * 79
+                + Objects.hashCode(mUnderlyingNetworks) * 83
+                + mEnterpriseId * 89;
     }
 
     @Override
@@ -2336,6 +2384,7 @@ public final class NetworkCapabilities implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(mNetworkCapabilities & ALL_VALID_CAPABILITIES);
         dest.writeLong(mForbiddenNetworkCapabilities & ALL_VALID_CAPABILITIES);
+        dest.writeLong(mHiddenNetworkCapabilities & ALL_VALID_CAPABILITIES);
         dest.writeLong(mTransportTypes & ALL_VALID_TRANSPORTS);
         dest.writeInt(mLinkUpBandwidthKbps);
         dest.writeInt(mLinkDownBandwidthKbps);
@@ -2363,6 +2412,7 @@ public final class NetworkCapabilities implements Parcelable {
                 // Validate the unparceled data, in case the parceling party was malicious.
                 netCap.mNetworkCapabilities = in.readLong() & ALL_VALID_CAPABILITIES;
                 netCap.mForbiddenNetworkCapabilities = in.readLong() & ALL_VALID_CAPABILITIES;
+                netCap.mHiddenNetworkCapabilities = in.readLong() & ALL_VALID_CAPABILITIES;
                 netCap.mTransportTypes = in.readLong() & ALL_VALID_TRANSPORTS;
                 netCap.mLinkUpBandwidthKbps = in.readInt();
                 netCap.mLinkDownBandwidthKbps = in.readInt();
@@ -2426,6 +2476,11 @@ public final class NetworkCapabilities implements Parcelable {
         if (0 != mForbiddenNetworkCapabilities) {
             sb.append(" Forbidden: ");
             appendStringRepresentationOfBitMaskToStringBuilder(sb, mForbiddenNetworkCapabilities,
+                    NetworkCapabilities::capabilityNameOf, "&");
+        }
+        if (0 != mHiddenNetworkCapabilities) {
+            sb.append(" Hidden: ");
+            appendStringRepresentationOfBitMaskToStringBuilder(sb, mHiddenNetworkCapabilities,
                     NetworkCapabilities::capabilityNameOf, "&");
         }
         if (mLinkUpBandwidthKbps > 0) {
@@ -2985,6 +3040,37 @@ public final class NetworkCapabilities implements Parcelable {
         // TODO : @FlaggedApi(Flags.FLAG_FORBIDDEN_CAPABILITY) and public
         public Builder removeForbiddenCapability(@NetCapability final int capability) {
             mCaps.removeForbiddenCapability(capability);
+            return this;
+        }
+
+        /**
+         * Adds the given capability to the list of hidden capabilities.
+         * Hidden capabilities will not be visible via {@link #getCapabilities()} or
+         * {@link #getForbiddenCapabilities()}
+         * Hidden capabilities are unhidden when user call {@link #addCapability},
+         * {@link #removeCapability}, {@link #addForbiddenCapability},
+         * {@link #removeForbiddenCapability}, {@link #setCapabilities}, or {@link #hasCapability}
+         * with hidden capabilities.
+         *
+         * @param capability the capability
+         * @return this builder
+         * @hide
+         */
+        public Builder addHiddenCapability(@NetCapability int capability) {
+            mCaps.addHiddenCapability(capability);
+            return this;
+        }
+
+        /**
+         * Removes the given capability from the list of hidden capabilities.
+         *
+         * @see #addHiddenCapability(int)
+         * @param capability the capability
+         * @return this builder
+         * @hide
+         */
+        public Builder removeHiddenCapability(@NetCapability int capability) {
+            mCaps.removeHiddenCapability(capability);
             return this;
         }
 
