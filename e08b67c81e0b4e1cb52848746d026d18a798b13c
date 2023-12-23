@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "906fe27d_71ae8d58",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a1c0068_f96a1fe5",
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "096dca2a_3d936155",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74e1ba61_e8619a46",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "096dca2a_3d936155",
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f37309cd_139e98a5",
@@ -48,6 +84,30 @@
       "writtenOn": "2023-12-21T07:36:26Z",
       "side": 1,
       "message": "Return early to reduce nest depth.\n```suggestion\n        if (Build.VERSION.SDK_INT \u003c Build.VERSION_CODES.TIRAMISU) {\n                    Log.wtf(\n                    TAG,\n                    \"Unexpected call to register the telephony country code changed callback, \"\n                            + \"Thread code never runs under T or lower.\");\n                    return;\n        }\n```",
+      "range": {
+        "startLine": 268,
+        "startChar": 8,
+        "endLine": 268,
+        "endChar": 68
+      },
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b3016a4_f58eb9c2",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f37309cd_139e98a5",
       "range": {
         "startLine": 268,
         "startChar": 8,
@@ -81,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01e11c28_eee984ac",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1156bf1f_5d348acc",
+      "range": {
+        "startLine": 285,
+        "startChar": 32,
+        "endLine": 288,
+        "endChar": 63
+      },
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d0a71f9_1f099268",
@@ -94,6 +178,30 @@
       "writtenOn": "2023-12-21T07:36:26Z",
       "side": 1,
       "message": "This log is duplicated by the log in \"setTelephonyCountryCodeAndLastKnownCountryCode\"?",
+      "range": {
+        "startLine": 291,
+        "startChar": 28,
+        "endLine": 291,
+        "endChar": 94
+      },
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dc8837a_b15cecdb",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d0a71f9_1f099268",
       "range": {
         "startLine": 291,
         "startChar": 28,
@@ -121,6 +229,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68edc2c7_16d37bd5",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43968c60_f74122e4",
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8978c7e_0e6af0ba",
@@ -134,6 +260,24 @@
       "writtenOn": "2023-12-21T05:40:56Z",
       "side": 1,
       "message": "```suggestion\n                Log.e(TAG, \"Failed to get country code for slot index:\" + slotIndex, e);\n```\nNote that ID is different from index.",
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "497b9ba4_f7b1aa5f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8978c7e_0e6af0ba",
       "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -155,6 +299,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb51ff01_fd7d2a67",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc20e607_846fc67b",
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fcb386d_ab776fc0",
@@ -168,6 +330,30 @@
       "writtenOn": "2023-12-21T07:36:26Z",
       "side": 1,
       "message": "You can define a `ThreadNetworkCountryCode::newInstance(Context context, ThreadNetworkControllerService controllerService)` method so that you don\u0027t need to update `ThreadNetworkService.java` everytime you updated the constructor of ThreadNetworkCountryCode:\n\n```\npublic static ThreadNetworkCountryCode newInstance(Context context, ThreadNetworkControllerService controllerService) {\n    return new ThreadNetworkCountryCode(\n            context.getSystemService(LocationManager.class),\n            controllerService,\n            new Geocoder(context),\n            Geocoder.isPresent(),\n            context,\n            context.getSystemService(TelephonyManager.class),\n            context.getSystemService(SubscriptionManager.class));\n}\n```",
+      "range": {
+        "startLine": 63,
+        "startChar": 24,
+        "endLine": 63,
+        "endChar": 49
+      },
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af569299_1e649dae",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fcb386d_ab776fc0",
       "range": {
         "startLine": 63,
         "startChar": 24,
@@ -201,6 +387,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05c908db_a54df1e3",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18c93174_e30825fd",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 51
+      },
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf0186fc_f2a00671",
@@ -214,6 +424,30 @@
       "writtenOn": "2023-12-21T07:36:26Z",
       "side": 1,
       "message": "```suggestion\n    public void telephonyCountryCode_bothTelephonyAndLocationAvailable_telephonyCodeIsUsed() {\n```",
+      "range": {
+        "startLine": 208,
+        "startChar": 16,
+        "endLine": 208,
+        "endChar": 94
+      },
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78e6ea22_2a20c2f3",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf0186fc_f2a00671",
       "range": {
         "startLine": 208,
         "startChar": 16,
@@ -247,6 +481,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec8e38b3_e950d2dd",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc5468bb_b12e59d6",
+      "range": {
+        "startLine": 231,
+        "startChar": 65,
+        "endLine": 231,
+        "endChar": 84
+      },
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b2c412c_a81fde6d",
@@ -270,6 +528,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85962579_d5a33b20",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b2c412c_a81fde6d",
+      "range": {
+        "startLine": 237,
+        "startChar": 16,
+        "endLine": 237,
+        "endChar": 92
+      },
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4630e47c_d7521031",
@@ -283,6 +565,30 @@
       "writtenOn": "2023-12-21T07:36:26Z",
       "side": 1,
       "message": "```suggestion\n    public void telephonyCountryCode_multipleSims_firstSimIsUsed() {\n```",
+      "range": {
+        "startLine": 300,
+        "startChar": 16,
+        "endLine": 300,
+        "endChar": 91
+      },
+      "revId": "e08b67c81e0b4e1cb52848746d026d18a798b13c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60333cad_7818334c",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4630e47c_d7521031",
       "range": {
         "startLine": 300,
         "startChar": 16,
