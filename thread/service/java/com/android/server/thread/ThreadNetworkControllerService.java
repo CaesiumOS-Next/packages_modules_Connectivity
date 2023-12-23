@@ -136,6 +136,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final Supplier<IOtDaemon> mOtDaemonSupplier;
     private final ConnectivityManager mConnectivityManager;
     private final TunInterfaceController mTunIfController;
+    private final InfraInterfaceController mInfraIfController;
     private final LinkProperties mLinkProperties = new LinkProperties();
     private final OtDaemonCallbackProxy mOtDaemonCallbackProxy = new OtDaemonCallbackProxy();
 
@@ -160,7 +161,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             NetworkProvider networkProvider,
             Supplier<IOtDaemon> otDaemonSupplier,
             ConnectivityManager connectivityManager,
-            TunInterfaceController tunIfController) {
+            TunInterfaceController tunIfController,
+            InfraInterfaceController infraIfController) {
         mContext = context;
         mHandlerThread = handlerThread;
         mHandler = new Handler(handlerThread.getLooper());
@@ -168,6 +170,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mOtDaemonSupplier = otDaemonSupplier;
         mConnectivityManager = connectivityManager;
         mTunIfController = tunIfController;
+        mInfraIfController = infraIfController;
         mUpstreamNetworkRequest =
                 new NetworkRequest.Builder()
                         .clearCapabilities()
@@ -194,7 +197,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 networkProvider,
                 () -> IOtDaemon.Stub.asInterface(ServiceManagerWrapper.waitForService("ot_daemon")),
                 context.getSystemService(ConnectivityManager.class),
-                new TunInterfaceController(TUN_IF_NAME));
+                new TunInterfaceController(TUN_IF_NAME),
+                new InfraInterfaceController());
     }
 
     private static NetworkCapabilities newNetworkCapabilities() {
@@ -681,7 +685,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         try {
             mBorderRouterConfig.infraInterfaceName = infraIfName;
             mBorderRouterConfig.infraInterfaceIcmp6Socket =
-                    InfraInterfaceController.createIcmp6Socket(infraIfName);
+                    mInfraIfController.createIcmp6Socket(infraIfName);
             mBorderRouterConfig.isBorderRoutingEnabled = true;
 
             mOtDaemon.configureBorderRouter(
