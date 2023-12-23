@@ -195,14 +195,6 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 new InfraInterfaceController());
     }
 
-    private static NetworkCapabilities newNetworkCapabilities() {
-        return new NetworkCapabilities.Builder()
-                .addTransportType(NetworkCapabilities.TRANSPORT_THREAD)
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK)
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
-                .build();
-    }
-
     private static Inet6Address bytesToInet6Address(byte[] addressBytes) {
         try {
             return (Inet6Address) Inet6Address.getByAddress(addressBytes);
@@ -425,27 +417,37 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 mHandler);
     }
 
+    private NetworkAgent newNetworkAgent() {
+        final NetworkCapabilities netCaps =
+                new NetworkCapabilities.Builder()
+                        .addTransportType(NetworkCapabilities.TRANSPORT_THREAD)
+                        .addCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK)
+                        .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
+                        .build();
+        final NetworkScore score =
+                new NetworkScore.Builder()
+                        .setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_LOCAL_NETWORK)
+                        .build();
+        return new NetworkAgent(
+                mContext,
+                mHandlerLooper,
+                TAG,
+                netCaps,
+                mLinkProperties,
+                newLocalNetworkConfig(),
+                score,
+                new NetworkAgentConfig.Builder().build(),
+                mNetworkProvider) {};
+    }
+
     private void registerThreadNetwork() {
         if (mNetworkAgent != null) {
             return;
         }
-        NetworkCapabilities netCaps = newNetworkCapabilities();
-        NetworkScore score =
-                new NetworkScore.Builder()
-                        .setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_LOCAL_NETWORK)
-                        .build();
+
         requestThreadNetwork();
-        mNetworkAgent =
-                new NetworkAgent(
-                        mContext,
-                        mHandlerLooper,
-                        TAG,
-                        netCaps,
-                        mLinkProperties,
-                        newLocalNetworkConfig(),
-                        score,
-                        new NetworkAgentConfig.Builder().build(),
-                        mNetworkProvider) {};
+
+        mNetworkAgent = newNetworkAgent();
         mNetworkAgent.register();
         mNetworkAgent.markConnected();
         Log.i(TAG, "Registered Thread network");
