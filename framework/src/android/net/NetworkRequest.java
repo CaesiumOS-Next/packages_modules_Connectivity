@@ -316,7 +316,9 @@ public class NetworkRequest implements Parcelable {
             // can be argued that it's fair to send them too, since it asked for everything
             // explicitly.
             for (final int forbiddenCap : DEFAULT_FORBIDDEN_CAPABILITIES) {
+                // Hide default capability until user specify it explicitly
                 mNetworkCapabilities.addForbiddenCapability(forbiddenCap);
+                mNetworkCapabilities.addHiddenCapability(forbiddenCap);
             }
         }
 

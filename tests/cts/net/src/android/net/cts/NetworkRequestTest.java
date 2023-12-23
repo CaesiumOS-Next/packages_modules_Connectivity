@@ -22,6 +22,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_MMS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_SUPL;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED;
@@ -29,8 +30,6 @@ import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
-
-import static com.android.testutils.DevSdkIgnoreRuleKt.VANILLA_ICE_CREAM;
 
 import static junit.framework.Assert.fail;
 
@@ -58,6 +57,7 @@ import android.util.Range;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.CollectionUtils;
 import com.android.networkstack.apishim.ConstantsShim;
 import com.android.networkstack.apishim.NetworkRequestShimImpl;
 import com.android.networkstack.apishim.common.NetworkRequestShim;
@@ -493,7 +493,7 @@ public class NetworkRequestTest {
         assertArrayEquals(netCapabilities, nr.getCapabilities());
     }
 
-    @Test @IgnoreUpTo(VANILLA_ICE_CREAM)
+    @Test @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     public void testDefaultCapabilities() {
         final NetworkRequest defaultNR = new NetworkRequest.Builder().build();
         assertTrue(defaultNR.hasForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK));
@@ -506,7 +506,9 @@ public class NetworkRequestTest {
 
         // defaultNC represent the capabilities of a network agent, so they must not contain
         // forbidden capabilities by default.
-        final NetworkCapabilities defaultNC = new NetworkCapabilities.Builder().build();
+        final NetworkCapabilities defaultNC = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                .build();
         assertArrayEquals(new int[0], defaultNC.getForbiddenCapabilities());
         // A default NR can be satisfied by default NC.
         assertTrue(defaultNR.canBeSatisfiedBy(defaultNC));
@@ -548,5 +550,25 @@ public class NetworkRequestTest {
                 .setSsidPattern(new PatternMatcher(TEST_SSID, PatternMatcher.PATTERN_LITERAL))
                 .setBssidPattern(ARBITRARY_ADDRESS, ARBITRARY_ADDRESS)
                 .build();
+    }
+
+    @Test
+    public void testHiddenLocalNetworkCapabilities() {
+        final NetworkRequest nr = new NetworkRequest.Builder().build();
+        // NET_CAPABILITY_LOCAL_NETWORK should not be visible to users unless they explicitly
+        // specify
+        assertFalse(CollectionUtils.contains(
+                nr.getForbiddenCapabilities(), NET_CAPABILITY_LOCAL_NETWORK));
+
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                .build();
+        assertTrue(nr.canBeSatisfiedBy(nc));
+
+        nc.addCapability(NET_CAPABILITY_LOCAL_NETWORK);
+        assertFalse(nr.canBeSatisfiedBy(nc));
+
+        assertFalse(CollectionUtils.contains(
+                nr.getForbiddenCapabilities(), NET_CAPABILITY_LOCAL_NETWORK));
     }
 }

@@ -86,6 +86,7 @@ import android.test.suitebuilder.annotation.SmallTest;
 import android.util.ArraySet;
 import android.util.Range;
 
+import com.android.net.module.util.CollectionUtils;
 import com.android.testutils.CompatUtil;
 import com.android.testutils.ConnectivityModuleTest;
 import com.android.testutils.DevSdkIgnoreRule;
@@ -1427,5 +1428,93 @@ public class NetworkCapabilitiesTest {
                 nc2.describeCapsDifferencesFrom(nc1));
         assertEquals("-SUPL-VALIDATED-CAPTIVE_PORTAL+MMS+OEM_PAID",
                 nc1.describeCapsDifferencesFrom(nc2));
+    }
+
+    @Test
+    public void testHiddenCapability() {
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                .addHiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                .addCapability(NET_CAPABILITY_DUN)
+                .addHiddenCapability(NET_CAPABILITY_DUN)
+                .build();
+        assertFalse(CollectionUtils.contains(
+                nc.getForbiddenCapabilities(), NET_CAPABILITY_LOCAL_NETWORK));
+        assertFalse(CollectionUtils.contains(
+                nc.getCapabilities(), NET_CAPABILITY_DUN));
+
+        // Adding other capabilities does not unhide hidden capabilities
+        nc.addCapability(NET_CAPABILITY_INTERNET);
+        nc.addForbiddenCapability(NET_CAPABILITY_CBS);
+        assertFalse(CollectionUtils.contains(
+                nc.getForbiddenCapabilities(), NET_CAPABILITY_LOCAL_NETWORK));
+        assertFalse(CollectionUtils.contains(
+                nc.getCapabilities(), NET_CAPABILITY_DUN));
+
+        nc.removeHiddenCapability(NET_CAPABILITY_LOCAL_NETWORK);
+        assertTrue(CollectionUtils.contains(
+                nc.getForbiddenCapabilities(), NET_CAPABILITY_LOCAL_NETWORK));
+        assertFalse(CollectionUtils.contains(
+                nc.getCapabilities(), NET_CAPABILITY_DUN));
+    }
+
+    @Test
+    public void testHiddenCapability_addCapability_unhideCapability() {
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                .addHiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                .addCapability(NET_CAPABILITY_DUN)
+                .addHiddenCapability(NET_CAPABILITY_DUN)
+                .build();
+        assertFalse(CollectionUtils.contains(
+                nc.getCapabilities(), NET_CAPABILITY_LOCAL_NETWORK));
+        assertFalse(CollectionUtils.contains(
+                nc.getCapabilities(), NET_CAPABILITY_DUN));
+
+        nc.addCapability(NET_CAPABILITY_LOCAL_NETWORK);
+        assertTrue(CollectionUtils.contains(
+                nc.getCapabilities(), NET_CAPABILITY_LOCAL_NETWORK));
+        assertFalse(CollectionUtils.contains(
+                nc.getCapabilities(), NET_CAPABILITY_DUN));
+    }
+
+    @Test
+    public void testHiddenCapability_addForbiddenCapability_unhideCapability() {
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                .addHiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                .addCapability(NET_CAPABILITY_DUN)
+                .addHiddenCapability(NET_CAPABILITY_DUN)
+                .build();
+        assertFalse(CollectionUtils.contains(
+                nc.getForbiddenCapabilities(), NET_CAPABILITY_LOCAL_NETWORK));
+        assertFalse(CollectionUtils.contains(
+                nc.getCapabilities(), NET_CAPABILITY_DUN));
+
+        nc.addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK);
+        assertTrue(CollectionUtils.contains(
+                nc.getForbiddenCapabilities(), NET_CAPABILITY_LOCAL_NETWORK));
+        assertFalse(CollectionUtils.contains(
+                nc.getCapabilities(), NET_CAPABILITY_DUN));
+    }
+
+    @Test
+    public void testHiddenCapability_hasForbiddenCapability_unhideCapability() {
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                .addHiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                .addCapability(NET_CAPABILITY_DUN)
+                .addHiddenCapability(NET_CAPABILITY_DUN)
+                .build();
+        assertFalse(CollectionUtils.contains(
+                nc.getForbiddenCapabilities(), NET_CAPABILITY_LOCAL_NETWORK));
+        assertFalse(CollectionUtils.contains(
+                nc.getCapabilities(), NET_CAPABILITY_DUN));
+
+        assertTrue(nc.hasForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK));
+        assertTrue(CollectionUtils.contains(
+                nc.getForbiddenCapabilities(), NET_CAPABILITY_LOCAL_NETWORK));
+        assertFalse(CollectionUtils.contains(
+                nc.getCapabilities(), NET_CAPABILITY_DUN));
     }
 }
