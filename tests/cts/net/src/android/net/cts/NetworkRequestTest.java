@@ -30,8 +30,6 @@ import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
-import static com.android.testutils.DevSdkIgnoreRuleKt.VANILLA_ICE_CREAM;
-
 import static junit.framework.Assert.fail;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -58,6 +56,7 @@ import android.util.Range;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.CollectionUtils;
 import com.android.networkstack.apishim.ConstantsShim;
 import com.android.networkstack.apishim.NetworkRequestShimImpl;
 import com.android.networkstack.apishim.common.NetworkRequestShim;
@@ -493,7 +492,7 @@ public class NetworkRequestTest {
         assertArrayEquals(netCapabilities, nr.getCapabilities());
     }
 
-    @Test @IgnoreUpTo(VANILLA_ICE_CREAM)
+    @Test @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     public void testDefaultCapabilities() {
         final NetworkRequest defaultNR = new NetworkRequest.Builder().build();
         assertTrue(defaultNR.hasForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK));
@@ -548,5 +547,23 @@ public class NetworkRequestTest {
                 .setSsidPattern(new PatternMatcher(TEST_SSID, PatternMatcher.PATTERN_LITERAL))
                 .setBssidPattern(ARBITRARY_ADDRESS, ARBITRARY_ADDRESS)
                 .build();
+    }
+
+    @Test
+    public void testHiddenLocalNetworkCapabilities() {
+        final NetworkRequest defaultNR = new NetworkRequest.Builder().build();
+        // NET_CAPABILITY_LOCAL_NETWORK should not be visible to users unless they explicitly
+        // specify
+        assertTrue(CollectionUtils.contains(
+                defaultNR.getForbiddenCapabilities(), NET_CAPABILITY_LOCAL_NETWORK));
+
+        final NetworkCapabilities defaultNC = new NetworkCapabilities.Builder().build();
+        assertTrue(defaultNR.canBeSatisfiedBy(defaultNC));
+
+        defaultNC.addCapability(NET_CAPABILITY_LOCAL_NETWORK);
+        assertFalse(defaultNR.canBeSatisfiedBy(defaultNC));
+
+        assertTrue(CollectionUtils.contains(
+                defaultNR.getForbiddenCapabilities(), NET_CAPABILITY_LOCAL_NETWORK));
     }
 }
