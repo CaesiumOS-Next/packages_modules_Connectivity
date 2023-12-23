@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1b9d6bc7_8dfce080",
+        "filename": "thread/service/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:51Z",
+      "side": 1,
+      "message": "After I remove it, it reports the following errors:\n\n```\npackages/modules/Connectivity/thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java:28: error: cannot find symbol\nimport android.net.wifi.WifiManager;\n                       ^\n  symbol:   class WifiManager\n  location: package android.net.wifi\npackages/modules/Connectivity/thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java:29: error: package android.net.wifi.WifiManager does not exist\nimport android.net.wifi.WifiManager.ActiveCountryCodeChangedCallback;\n                                   ^\npackages/modules/Connectivity/thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java:83: error: cannot find symbol\n    private final WifiManager mWifiManager;\n                  ^\n  symbol:   class WifiManager\n  location: class ThreadNetworkCountryCode\n```",
+      "parentUuid": "448c4636_7eb2b334",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "271af815_da0f2e43",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-21T07:11:49Z",
       "side": 1,
       "message": "This needs to be synchronized:\n```\n\n```\n```suggestion\n            synchronized (\"ThreadNetworkCountryCode.this\") {\n                mWifiCountryCodeInfo \u003d new CountryCodeInfo(countryCode, COUNTRY_CODE_SOURCE_WIFI);\n                updateCountryCode(false /* forceUpdate */);\n            }\n```",
+      "range": {
+        "startLine": 239,
+        "startChar": 12,
+        "endLine": 240,
+        "endChar": 55
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aedae52d_f42abfb4",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "271af815_da0f2e43",
       "range": {
         "startLine": 239,
         "startChar": 12,
@@ -60,6 +108,30 @@
       "writtenOn": "2023-12-21T07:11:49Z",
       "side": 1,
       "message": "ditto, needs to be synchronized",
+      "range": {
+        "startLine": 246,
+        "startChar": 12,
+        "endLine": 247,
+        "endChar": 55
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de853b24_28a33be6",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6154bc29_386e6811",
       "range": {
         "startLine": 246,
         "startChar": 12,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "97e77e2b_ec30f035",
+        "filename": "thread/tests/unit/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:51Z",
+      "side": 1,
+      "message": "After I remove it, it reports the following error:\n```\npackages/modules/Connectivity/thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java:47: error: cannot find symbol\nimport android.net.wifi.WifiManager;\n                       ^\n  symbol:   class WifiManager\n  location: package android.net.wifi\n```",
+      "parentUuid": "03d280cb_69e048e6",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87592ccd_bf3aea97",
         "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
         "patchSetId": 2
@@ -106,6 +202,30 @@
       "writtenOn": "2023-12-21T07:11:49Z",
       "side": 1,
       "message": "```suggestion\n    public void wifiCountryCode_bothWifiAndLocationAreAvailable_wifiCountryCodeIsUsed() {\n```",
+      "range": {
+        "startLine": 184,
+        "startChar": 16,
+        "endLine": 184,
+        "endChar": 91
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fa78af9_4f9a5ab8",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87592ccd_bf3aea97",
       "range": {
         "startLine": 184,
         "startChar": 16,
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d8fa546_88679c58",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2136e70_608af705",
+      "range": {
+        "startLine": 207,
+        "startChar": 16,
+        "endLine": 207,
+        "endChar": 90
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c626ed3_05a25517",
@@ -152,6 +296,30 @@
       "writtenOn": "2023-12-21T07:11:49Z",
       "side": 1,
       "message": "```suggestion\n    public void wifiCountryCode_wifiCountryCodeIsInactive_defaultCountryCodeIsUsed() {\n```",
+      "range": {
+        "startLine": 219,
+        "startChar": 16,
+        "endLine": 219,
+        "endChar": 92
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "639f5e0a_1cda00b7",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2023-12-23T09:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c626ed3_05a25517",
       "range": {
         "startLine": 219,
         "startChar": 16,
