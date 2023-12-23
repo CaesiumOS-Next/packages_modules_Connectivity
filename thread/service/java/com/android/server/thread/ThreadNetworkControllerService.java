@@ -36,9 +36,9 @@ import static android.net.thread.ThreadNetworkException.ERROR_RESOURCE_EXHAUSTED
 import static android.net.thread.ThreadNetworkException.ERROR_RESPONSE_BAD_FORMAT;
 import static android.net.thread.ThreadNetworkException.ERROR_TIMEOUT;
 import static android.net.thread.ThreadNetworkException.ERROR_UNSUPPORTED_CHANNEL;
-import static android.net.thread.ThreadNetworkException.ErrorCode;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
 
+import static com.android.server.thread.openthread.IOtDaemon.TUN_IF_NAME;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_ABORT;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_BUSY;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_DETACHED;
@@ -49,50 +49,22 @@ import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_REJECTED;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_RESPONSE_TIMEOUT;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_UNSUPPORTED_CHANNEL;
-import static com.android.server.thread.openthread.IOtDaemon.TUN_IF_NAME;
 
-import android.Manifest.permission;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.IpPrefix;
-import android.net.LinkAddress;
-import android.net.LinkProperties;
-import android.net.LocalNetworkConfig;
-import android.net.LocalNetworkInfo;
-import android.net.MulticastRoutingConfig;
-import android.net.Network;
-import android.net.NetworkAgent;
-import android.net.NetworkAgentConfig;
-import android.net.NetworkCapabilities;
-import android.net.NetworkProvider;
-import android.net.NetworkRequest;
-import android.net.NetworkScore;
-import android.net.RouteInfo;
-import android.net.TestNetworkSpecifier;
-import android.net.thread.ActiveOperationalDataset;
-import android.net.thread.ActiveOperationalDataset.SecurityPolicy;
 import android.net.thread.IActiveOperationalDatasetReceiver;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.IOperationalDatasetCallback;
 import android.net.thread.IStateCallback;
 import android.net.thread.IThreadNetworkController;
-import android.net.thread.OperationalDatasetTimestamp;
-import android.net.thread.PendingOperationalDataset;
-import android.net.thread.ThreadNetworkController;
-import android.net.thread.ThreadNetworkController.DeviceRole;
-import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
-import android.os.RemoteException;
 import android.os.SystemClock;
 import android.util.Log;
 import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
-import com.android.server.ServiceManagerWrapper;
 import com.android.server.thread.openthread.BorderRouterConfigurationParcel;
 import com.android.server.thread.openthread.IOtDaemon;
 import com.android.server.thread.openthread.IOtDaemonCallback;
@@ -104,6 +76,7 @@ import java.io.IOException;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.rmi.RemoteException;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.HashMap;
@@ -111,6 +84,30 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.function.Supplier;
+import java.util.logging.Handler;
+
+import javax.naming.Context;
+
+import framework.src.android.net.IpPrefix;
+import framework.src.android.net.LinkAddress;
+import framework.src.android.net.LocalNetworkConfig;
+import framework.src.android.net.LocalNetworkInfo;
+import framework.src.android.net.MulticastRoutingConfig;
+import framework.src.android.net.Network;
+import framework.src.android.net.NetworkAgent;
+import framework.src.android.net.NetworkAgentConfig;
+import framework.src.android.net.NetworkCapabilities;
+import framework.src.android.net.NetworkProvider;
+import framework.src.android.net.NetworkRequest;
+import framework.src.android.net.NetworkScore;
+import framework.src.android.net.RouteInfo;
+import framework.src.android.net.TestNetworkSpecifier;
+import service.src.com.android.server.ServiceManagerWrapper;
+import thread.framework.java.android.net.thread.ActiveOperationalDataset;
+import thread.framework.java.android.net.thread.ActiveOperationalDataset.SecurityPolicy;
+import thread.framework.java.android.net.thread.OperationalDatasetTimestamp;
+import thread.framework.java.android.net.thread.PendingOperationalDataset;
+import thread.framework.java.android.net.thread.ThreadNetworkController;
 
 /**
  * Implementation of the {@link ThreadNetworkController} API.
@@ -138,6 +135,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final Supplier<IOtDaemon> mOtDaemonSupplier;
     private final ConnectivityManager mConnectivityManager;
     private final TunInterfaceController mTunIfController;
+    private final InfraInterfaceController mInfraIfController;
     private final LinkProperties mLinkProperties = new LinkProperties();
     private final OtDaemonCallbackProxy mOtDaemonCallbackProxy = new OtDaemonCallbackProxy();
 
@@ -163,7 +161,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             NetworkProvider networkProvider,
             Supplier<IOtDaemon> otDaemonSupplier,
             ConnectivityManager connectivityManager,
-            TunInterfaceController tunIfController) {
+            TunInterfaceController tunIfController,
+            InfraInterfaceController infraIfController) {
         mContext = context;
         mHandlerThread = handlerThread;
         mHandler = new Handler(handlerThread.getLooper());
@@ -171,6 +170,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mOtDaemonSupplier = otDaemonSupplier;
         mConnectivityManager = connectivityManager;
         mTunIfController = tunIfController;
+        mInfraIfController = infraIfController;
         mUpstreamNetworkRequest = newUpstreamNetworkRequest();
         mNetworkToInterface = new HashMap<Network, String>();
         mBorderRouterConfig = new BorderRouterConfigurationParcel();
@@ -188,7 +188,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 networkProvider,
                 () -> IOtDaemon.Stub.asInterface(ServiceManagerWrapper.waitForService("ot_daemon")),
                 context.getSystemService(ConnectivityManager.class),
-                new TunInterfaceController(TUN_IF_NAME));
+                new TunInterfaceController(TUN_IF_NAME),
+                new InfraInterfaceController());
     }
 
     private static NetworkCapabilities newNetworkCapabilities() {
@@ -747,7 +748,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         try {
             mBorderRouterConfig.infraInterfaceName = infraIfName;
             mBorderRouterConfig.infraInterfaceIcmp6Socket =
-                    InfraInterfaceController.createIcmp6Socket(infraIfName);
+                    mInfraIfController.createIcmp6Socket(infraIfName);
             mBorderRouterConfig.isBorderRoutingEnabled = true;
 
             mOtDaemon.configureBorderRouter(
