@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c85d55bf_679eae3d",
+        "filename": "thread/tests/integration/Android.bp",
+        "patchSetId": 36
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-23T12:41:57Z",
+      "side": 1,
+      "message": "Please add this test module to postsubmit in TEST_MAPPING",
+      "range": {
+        "startLine": 41,
+        "startChar": 11,
+        "endLine": 41,
+        "endChar": 40
+      },
+      "revId": "337fefba357a6c1561aac49495e27003c31ed320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "51a050f8_bf65ff36",
         "filename": "thread/tests/integration/Android.bp",
         "patchSetId": 36
@@ -14,6 +37,30 @@
       "writtenOn": "2023-12-23T11:58:15Z",
       "side": 1,
       "message": "Should this be \"general-tests\"? See https://source.android.com/docs/core/tests/development/test-mapping#package_build_script_rules",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 23
+      },
+      "revId": "337fefba357a6c1561aac49495e27003c31ed320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7280474c_e0b45849",
+        "filename": "thread/tests/integration/Android.bp",
+        "patchSetId": 36
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-23T12:41:57Z",
+      "side": 1,
+      "message": "This test should be added to suite \"mts-tethering\" as well, and you probably need a customized AndroidTest.xml to be able to:\n1. Run this test module in the suite only when tethering module is installed.\n2. Run this test module in the suite only on Android U+\n\nYou don\u0027t need to make this change in the current CL.",
+      "parentUuid": "51a050f8_bf65ff36",
       "range": {
         "startLine": 49,
         "startChar": 8,
