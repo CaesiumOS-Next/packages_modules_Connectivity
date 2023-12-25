@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "104f3c05_ccc3dd8d",
+        "filename": "thread/tests/integration/Android.bp",
+        "patchSetId": 36
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-25T11:14:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c85d55bf_679eae3d",
+      "range": {
+        "startLine": 41,
+        "startChar": 11,
+        "endLine": 41,
+        "endChar": 40
+      },
+      "revId": "337fefba357a6c1561aac49495e27003c31ed320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51a050f8_bf65ff36",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "This test should be added to suite \"mts-tethering\" as well, and you probably need a customized AndroidTest.xml to be able to:\n1. Run this test module in the suite only when tethering module is installed.\n2. Run this test module in the suite only on Android U+\n\nYou don\u0027t need to make this change in the current CL.",
       "parentUuid": "51a050f8_bf65ff36",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 23
+      },
+      "revId": "337fefba357a6c1561aac49495e27003c31ed320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cdc302c_79f74cff",
+        "filename": "thread/tests/integration/Android.bp",
+        "patchSetId": 36
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-25T11:14:03Z",
+      "side": 1,
+      "message": "Acknowledged.\n\nI\u0027ll take care of it later.",
+      "parentUuid": "7280474c_e0b45849",
       "range": {
         "startLine": 49,
         "startChar": 8,
