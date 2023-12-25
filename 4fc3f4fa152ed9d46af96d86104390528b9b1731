@@ -16,6 +16,24 @@
       "message": "nit: extra line?",
       "revId": "4fc3f4fa152ed9d46af96d86104390528b9b1731",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b48a1380_b1448ab0",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-12-25T03:07:33Z",
+      "side": 1,
+      "message": "Acknowledged. It\u0027s intended to have an extra line to separate the if statement.",
+      "parentUuid": "e2b95e52_7d3f1896",
+      "revId": "4fc3f4fa152ed9d46af96d86104390528b9b1731",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
