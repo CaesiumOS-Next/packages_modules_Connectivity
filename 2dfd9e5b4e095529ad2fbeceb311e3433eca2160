@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09c6bf26_c4192e91",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2293,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T12:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b519b9d7_c014f59a",
+      "range": {
+        "startLine": 2291,
+        "startChar": 8,
+        "endLine": 2293,
+        "endChar": 9
+      },
+      "revId": "2dfd9e5b4e095529ad2fbeceb311e3433eca2160",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4a7e199_c3a9ae0a",
@@ -65,6 +89,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90b64da7_5932be96",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2667,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T12:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4a7e199_c3a9ae0a",
+      "revId": "2dfd9e5b4e095529ad2fbeceb311e3433eca2160",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8657b44_9b492c42",
@@ -78,6 +120,30 @@
       "writtenOn": "2023-12-11T15:53:31Z",
       "side": 1,
       "message": "nit: extra blank",
+      "range": {
+        "startLine": 380,
+        "startChar": 0,
+        "endLine": 380,
+        "endChar": 1
+      },
+      "revId": "2dfd9e5b4e095529ad2fbeceb311e3433eca2160",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "738ed73a_298c0d6b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T12:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8657b44_9b492c42",
       "range": {
         "startLine": 380,
         "startChar": 0,

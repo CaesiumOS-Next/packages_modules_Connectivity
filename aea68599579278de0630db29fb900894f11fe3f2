@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bccf279f_c07ec5d4",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T12:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "145fac68_63ad0c1a",
+      "revId": "aea68599579278de0630db29fb900894f11fe3f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b895d342_7c96abd8",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12e4ff98_d456ff42",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T12:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b895d342_7c96abd8",
+      "revId": "aea68599579278de0630db29fb900894f11fe3f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a6ccebb_cd0a3db4",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-12-14T08:01:26Z",
       "side": 1,
       "message": "Instead of 2 constructors creating 2 kinds of objects (ListenerArgs with a serviceInfo, and ListenerArgs with a discoveryRequest), this should probably be 2 different classes, because they are used in different cases, and it avoids having implicit invalid combinations (serviceInfo is non-null discoveryRequest must be null and vice-versa)",
+      "revId": "aea68599579278de0630db29fb900894f11fe3f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b145cdf_9471a033",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2078,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T12:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a6ccebb_cd0a3db4",
       "revId": "aea68599579278de0630db29fb900894f11fe3f2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -82,6 +136,24 @@
       "writtenOn": "2023-12-14T08:01:26Z",
       "side": 1,
       "message": "This code (everything in the service-connectivity-mdns-standalone-build-test build rule) is also used as a library in other codebases which may do this, so I don\u0027t think we can safely add this check",
+      "revId": "aea68599579278de0630db29fb900894f11fe3f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11cee26b_982ee1ec",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T12:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5019588_30386e37",
       "revId": "aea68599579278de0630db29fb900894f11fe3f2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
