@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99e0c4fc_4b31b496",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T12:58:47Z",
+      "side": 1,
+      "message": "Let\u0027s add the `discoveryConfig` field when we need to add flags support.",
+      "parentUuid": "0506aae4_566ffd63",
+      "range": {
+        "startLine": 58,
+        "startChar": 3,
+        "endLine": 58,
+        "endChar": 22
+      },
+      "revId": "23bf9023a5f8b47e504095427876cd3227f1f95a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "038d38a1_03fb871f",
@@ -61,6 +85,30 @@
       "writtenOn": "2023-12-11T15:40:01Z",
       "side": 1,
       "message": "This need to be a flagged API as well?",
+      "range": {
+        "startLine": 146,
+        "startChar": 30,
+        "endLine": 146,
+        "endChar": 37
+      },
+      "revId": "23bf9023a5f8b47e504095427876cd3227f1f95a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d84ba710_6a888c6a",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T12:58:47Z",
+      "side": 1,
+      "message": "I think this is already covered by the `@FlaggedApi(NsdManager.Flags.NSD_SUBTYPES_SUPPORT_ENABLED)` on the outer class. Otherwise, the presubmit will give me a NotFlaggedApi error.",
+      "parentUuid": "038d38a1_03fb871f",
       "range": {
         "startLine": 146,
         "startChar": 30,

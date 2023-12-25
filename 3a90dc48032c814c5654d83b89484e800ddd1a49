@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cba822b_341527ae",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T12:58:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "868023b1_137b715c",
+      "range": {
+        "startLine": 42,
+        "startChar": 51,
+        "endLine": 42,
+        "endChar": 60
+      },
+      "revId": "3a90dc48032c814c5654d83b89484e800ddd1a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c21d12b9_f18c4568",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-14T07:15:23Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 4
+      },
+      "revId": "3a90dc48032c814c5654d83b89484e800ddd1a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ffbe077_b89e9dbd",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T12:58:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c21d12b9_f18c4568",
       "range": {
         "startLine": 58,
         "startChar": 2,
@@ -64,6 +112,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac3476ea_75d829d7",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T12:58:47Z",
+      "side": 1,
+      "message": "Yeah, I forgot to update this CL. done",
+      "parentUuid": "11bd3cf4_e64e9b97",
+      "revId": "3a90dc48032c814c5654d83b89484e800ddd1a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54a5d130_58295468",
@@ -77,6 +143,24 @@
       "writtenOn": "2023-12-14T07:15:23Z",
       "side": 1,
       "message": "You should be able to fix the errorprone error by annotating the method itself with @GuardedBy(\"mMapLock\") (hopefully)",
+      "revId": "3a90dc48032c814c5654d83b89484e800ddd1a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3e3b048_7a415817",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T12:58:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54a5d130_58295468",
       "revId": "3a90dc48032c814c5654d83b89484e800ddd1a49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -98,6 +182,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c6b35ac_becd3d26",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1295,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T12:58:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7dc47957_8236abc4",
+      "revId": "3a90dc48032c814c5654d83b89484e800ddd1a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0b34997_25a1012e",
@@ -115,6 +217,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d992dfe1_5431c468",
+        "filename": "tests/cts/net/src/android/net/cts/DiscoveryRequestTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T12:58:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0b34997_25a1012e",
+      "revId": "3a90dc48032c814c5654d83b89484e800ddd1a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdbdcdc8_8618c822",
@@ -128,6 +248,24 @@
       "writtenOn": "2023-12-14T07:15:23Z",
       "side": 1,
       "message": "Although this is not a standard shared with all parts of the code, tests in tests/cts/net have \"test\" as prefix in their name\n\nSo: testParcelingIsLossless\ntestBuilder_emptyServiceType_throwsIllegalArgument\n\netc.",
+      "revId": "3a90dc48032c814c5654d83b89484e800ddd1a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5756771b_065f4c9a",
+        "filename": "tests/cts/net/src/android/net/cts/DiscoveryRequestTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T12:58:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdbdcdc8_8618c822",
       "revId": "3a90dc48032c814c5654d83b89484e800ddd1a49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
