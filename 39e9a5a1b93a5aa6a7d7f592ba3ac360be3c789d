@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06de44b2_20aa98cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 39
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2023-12-25T11:16:16Z",
+      "side": 1,
+      "message": "@wgtdkp@google.com your +2 Has been outdated. Could you grant again? Thanks!",
+      "revId": "39e9a5a1b93a5aa6a7d7f592ba3ac360be3c789d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
