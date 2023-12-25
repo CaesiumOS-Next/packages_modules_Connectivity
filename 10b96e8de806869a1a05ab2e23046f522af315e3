@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c53ffd4_f8abdaae",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-25T06:21:42Z",
+      "side": 1,
+      "message": "If the physical ethernet interface is available, ...",
+      "range": {
+        "startLine": 176,
+        "startChar": 15,
+        "endLine": 176,
+        "endChar": 55
+      },
+      "revId": "10b96e8de806869a1a05ab2e23046f522af315e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "089c2244_375cd3e9",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-25T06:21:42Z",
+      "side": 1,
+      "message": "I think the following code is more readable. It is clear that we don\u0027t accept null upstream.\n```\nif (mUpstream \u003d\u003d null) return;\nif (mAcceptAnyUpstream || Objects.equals(mUpstream, mExpectedUpstream)) {\n    mUpstreamLatch.countDown();\n}\n```",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 517,
+        "endChar": 13
+      },
+      "revId": "10b96e8de806869a1a05ab2e23046f522af315e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
