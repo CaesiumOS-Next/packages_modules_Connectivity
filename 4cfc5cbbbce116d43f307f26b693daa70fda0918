@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be7ad5eb_15d84eb1",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsReplySenderTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-25T07:21:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf667287_0dae7cc5",
+      "revId": "4cfc5cbbbce116d43f307f26b693daa70fda0918",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d0a7cd3_01816443",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-12-21T09:51:17Z",
       "side": 1,
       "message": "Hmm so you\u0027re dispatching the message using the realHandler, but on the looper of the test handler ? That doesn\u0027t seem very realistic; the code runs on a thread that\u0027s different from production code (the test thread), even though every up to now was posted as expected.\n\nShould this just be realHandler.post ? And `verify(socket, timeout(...)).send(...)` ?",
+      "range": {
+        "startLine": 140,
+        "startChar": 48,
+        "endLine": 140,
+        "endChar": 63
+      },
+      "revId": "4cfc5cbbbce116d43f307f26b693daa70fda0918",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "155a3099_043ccb1f",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsReplySenderTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-25T07:21:42Z",
+      "side": 1,
+      "message": "Using the `realHandler.sendMessage()` can simply do the `post` and `dispatchMessage`.",
+      "parentUuid": "7d0a7cd3_01816443",
       "range": {
         "startLine": 140,
         "startChar": 48,
