@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2b95e52_7d3f1896",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-12-25T02:24:01Z",
+      "side": 1,
+      "message": "nit: extra line?",
+      "revId": "4fc3f4fa152ed9d46af96d86104390528b9b1731",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
