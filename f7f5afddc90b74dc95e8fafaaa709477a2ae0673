@@ -39,6 +39,24 @@
       "message": "Based on the invariant noted above, I think you could simplify this processing by:\n\n - Changing getAllUniqueRecords to getAllUniqueRecords(List\u003cRecordInfo\u003c?\u003e\u003e)\n - Adding that argument to addNsecRecordsForUniqueNames: `addNsecRecordsForUniqueNames(List\u003cMdnsRecord\u003e destinationList, List\u003cRecordInfo\u003c?\u003e\u003e allRecordsFromService, Iterator\u003cRecordInfo\u003c?\u003e\u003e... answerRecords)`\n - Calling `addNsecRecordsForUniqueNames from addReplyFromService as before, but before adding the address records from the mGeneralRecords list (so before the last loop). For the second \"allRecordsFromService` argument you\u0027d pass in serviceRegistration.allRecords\n - For the address records, call addNsecRecordsForUniqueNames one more time from getReply as you have it now, but `allRecordsFromservice` is `mGeneralRecords` in that case\n\nSo basically: addNsecRecordsForUniqueNames adds nsec records for a ServiceRegistration (excluding general records), or for general records. You call it after adding a reply from a service, or once at the end for the general records. This avoids iterating through all services to build maps of unique records, since as per the invariant, \"unique\" names only appear in a single list (ServiceRegistration or mGeneralRecords)",
       "revId": "f7f5afddc90b74dc95e8fafaaa709477a2ae0673",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3707e6c8_730404ff",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T06:53:10Z",
+      "side": 1,
+      "message": "The problem with adding NSEC records from `addReplyFromService()` is that multiple NSEC records of the same name will be added in the additional answers section if there are multiple questions for different records of the same service. For example, if there are questions for the TXT and SRV records of a service, two NSEC records of the same name will be added to the answers but this CL can compact them into a single NSEC record.\n\nAnother option is to check if an NSEC record for a given name is already added into the answers and compact the new NSEC record into the existing one if there is. But I think this is just more complex.",
+      "parentUuid": "6c267003_3c24f823",
+      "revId": "f7f5afddc90b74dc95e8fafaaa709477a2ae0673",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
