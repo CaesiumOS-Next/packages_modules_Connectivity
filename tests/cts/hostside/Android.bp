@@ -43,6 +43,7 @@ java_test_host {
     test_suites: [
         "cts",
         "general-tests",
+        "mcts-tethering",
         "sts"
     ],
     data: [
