@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8a3e3a6_351af486",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:30:35Z",
+      "side": 1,
+      "message": "This is actually a bitmask; long allows using 64 instead of 32. Added a comment.",
+      "parentUuid": "620937a0_a7051eef",
+      "range": {
+        "startLine": 60,
+        "startChar": 18,
+        "endLine": 60,
+        "endChar": 22
+      },
+      "revId": "ae67e47f295e786a9de80bb1064046b98fc94b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82705bee_c7701a53",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6961229_bc4fa8f7",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:30:35Z",
+      "side": 1,
+      "message": "Actually I think it\u0027s technically not @AdvertisingConfig values, since it\u0027s a bitmask of flags, which may be a combination of @AdvertisingConfig.\n\nAdded javadoc.",
+      "parentUuid": "82705bee_c7701a53",
+      "range": {
+        "startLine": 165,
+        "startChar": 43,
+        "endLine": 165,
+        "endChar": 44
+      },
+      "revId": "ae67e47f295e786a9de80bb1064046b98fc94b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "397ab7ff_9c840141",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-12-22T03:40:43Z",
       "side": 1,
       "message": "Nit: Use `getListenerKey()`",
+      "range": {
+        "startLine": 1107,
+        "startChar": 12,
+        "endLine": 1111,
+        "endChar": 49
+      },
+      "revId": "ae67e47f295e786a9de80bb1064046b98fc94b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61a433df_27c6dfaf",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1111,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:30:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "397ab7ff_9c840141",
       "range": {
         "startLine": 1107,
         "startChar": 12,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a1ac11f0_f2e64eda",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1188,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:30:35Z",
+      "side": 1,
+      "message": "I\u0027m not sure about making this an official part of the API as the behavior is very specific; it also applies to the \"_servicetype,_sub\" syntax, which has never been documented in the first place, and for subtypes the upcoming NsdServiceInfo.setSubtypes API should be used instead.\n\nI restricted it further to only apply to requests that use subtypes, so it won\u0027t affect use-cases outside of the already undocumented \"_servicetype,_sub\" usage. And added some comments to explain why this is not documented.",
+      "parentUuid": "2cf63c27_b52cedb2",
+      "range": {
+        "startLine": 1186,
+        "startChar": 8,
+        "endLine": 1188,
+        "endChar": 9
+      },
+      "revId": "ae67e47f295e786a9de80bb1064046b98fc94b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "03c26b61_89c189a7",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 4
@@ -106,6 +202,30 @@
       "writtenOn": "2023-12-22T03:40:43Z",
       "side": 1,
       "message": "Should we use the old transactionId for advertiser only? Do you know what\u0027s happening if we use the old transactionId for registeration on mDnsResponder.",
+      "range": {
+        "startLine": 868,
+        "startChar": 24,
+        "endLine": 883,
+        "endChar": 25
+      },
+      "revId": "ae67e47f295e786a9de80bb1064046b98fc94b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2f0d23e_0da3f417",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:30:35Z",
+      "side": 1,
+      "message": "Oh right, this should only be supported in the new advertiser - done",
+      "parentUuid": "03c26b61_89c189a7",
       "range": {
         "startLine": 868,
         "startChar": 24,
@@ -129,6 +249,30 @@
       "writtenOn": "2023-12-22T03:40:43Z",
       "side": 1,
       "message": "Question: Why is this failed? The name and type is same as `validService`, it should be treated as service update.",
+      "range": {
+        "startLine": 381,
+        "startChar": 8,
+        "endLine": 383,
+        "endChar": 11
+      },
+      "revId": "ae67e47f295e786a9de80bb1064046b98fc94b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbe7f488_39c4c1b3",
+        "filename": "tests/unit/java/android/net/nsd/NsdManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:30:35Z",
+      "side": 1,
+      "message": "Oops, I updated the code but forgot the test. Done.",
+      "parentUuid": "b7408776_34fac8a5",
       "range": {
         "startLine": 381,
         "startChar": 8,
