@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b75f28a1_f10c0ae0",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-25T11:03:09Z",
+      "side": 1,
+      "message": "Understood. But that means you should also remove the `@AdvertisingConfig` from constructor.",
+      "parentUuid": "d6961229_bc4fa8f7",
+      "range": {
+        "startLine": 165,
+        "startChar": 43,
+        "endLine": 165,
+        "endChar": 44
+      },
+      "revId": "ae67e47f295e786a9de80bb1064046b98fc94b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "397ab7ff_9c840141",
         "filename": "framework-t/src/android/net/nsd/NsdManager.java",
         "patchSetId": 4
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "I\u0027m not sure about making this an official part of the API as the behavior is very specific; it also applies to the \"_servicetype,_sub\" syntax, which has never been documented in the first place, and for subtypes the upcoming NsdServiceInfo.setSubtypes API should be used instead.\n\nI restricted it further to only apply to requests that use subtypes, so it won\u0027t affect use-cases outside of the already undocumented \"_servicetype,_sub\" usage. And added some comments to explain why this is not documented.",
       "parentUuid": "2cf63c27_b52cedb2",
+      "range": {
+        "startLine": 1186,
+        "startChar": 8,
+        "endLine": 1188,
+        "endChar": 9
+      },
+      "revId": "ae67e47f295e786a9de80bb1064046b98fc94b36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d44bc09_fd4a784b",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1188,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-25T11:03:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a1ac11f0_f2e64eda",
       "range": {
         "startLine": 1186,
         "startChar": 8,

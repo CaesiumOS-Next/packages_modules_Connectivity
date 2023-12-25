@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e09f6f3_ee0bad2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-25T11:03:09Z",
+      "side": 1,
+      "message": "LGTM generally. But I still have a question for subtype change check.",
+      "revId": "30fe742c7898ec4d12ade47f85d4c5e6dd8cbd2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81b9d8a4_699a8a01",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-25T11:03:09Z",
+      "side": 1,
+      "message": "Do we need to consider the case that subtype changes from `_sub1._type` to `_sub2._type`? In that case, this check will be false.",
+      "range": {
+        "startLine": 1214,
+        "startChar": 12,
+        "endLine": 1214,
+        "endChar": 62
+      },
+      "revId": "30fe742c7898ec4d12ade47f85d4c5e6dd8cbd2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aabf3d71_f5387d83",
+        "filename": "tests/unit/java/android/net/nsd/NsdManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-25T11:03:09Z",
+      "side": 1,
+      "message": "Nit: Maybe add a failed case that the duplicated subtype update is not allowed.\n`mustFail(() -\u003e { manager.registerService(validServiceSubtypeUpdate, PROTOCOL, listener1); });`",
+      "range": {
+        "startLine": 386,
+        "startChar": 79,
+        "endLine": 386,
+        "endChar": 80
+      },
+      "revId": "30fe742c7898ec4d12ade47f85d4c5e6dd8cbd2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
