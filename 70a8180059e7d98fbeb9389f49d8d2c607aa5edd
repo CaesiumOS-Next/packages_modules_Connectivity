@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "dd2ec94c_247e6f60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T07:11:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a11acfe_7ab35161",
+      "range": {
+        "startLine": 7,
+        "startChar": 21,
+        "endLine": 7,
+        "endChar": 28
+      },
+      "revId": "70a8180059e7d98fbeb9389f49d8d2c607aa5edd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f9e2f9db_4fa91363",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 9
@@ -54,6 +78,30 @@
       "writtenOn": "2023-12-14T06:50:34Z",
       "side": 1,
       "message": "That\u0027s not really a problem considering that test cases should generally be kept small and separate if they can. I think the actual problem is that a IPv6-only host may not receive a reply if it was sent multicast to IPv4 recently, even though it did not get a chance to receive the previous reply since that reply was IPv4-only - and that\u0027s a bug.\n\nCould you update the comment to explain that (e.g. that there\u0027s a bug, not that it\u0027s a test organization problem) ?",
+      "range": {
+        "startLine": 777,
+        "startChar": 57,
+        "endLine": 778,
+        "endChar": 17
+      },
+      "revId": "70a8180059e7d98fbeb9389f49d8d2c607aa5edd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb26ea24_8bd3fac4",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-25T07:11:00Z",
+      "side": 1,
+      "message": "Updated and moved the comments to the `public long lastSentTimeMs;` definition in MdnsRecordRepository.java",
+      "parentUuid": "1f6c2963_84e84c87",
       "range": {
         "startLine": 777,
         "startChar": 57,
