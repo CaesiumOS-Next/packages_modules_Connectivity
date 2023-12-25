@@ -16,6 +16,24 @@
       "message": "Would it be possible to split a smaller library just for FastDataInput (which modules-utils-binary-xml would depend on) ? We don\u0027t need the XML classes, and there\u0027s no proguard stripping out unused classes on bootclasspath jars like framework-connectivity-t.\n\nCould be in another change.",
       "revId": "2dce848e885cca57f244c6b41e675fbcba9e93ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ff1cbd5_6ae7ebad",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-25T01:57:40Z",
+      "side": 1,
+      "message": "Ack, keep this open for tracking.",
+      "parentUuid": "4df6f138_025e84b5",
+      "revId": "2dce848e885cca57f244c6b41e675fbcba9e93ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
