@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b71a38ca_1d67c739",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-12-25T01:40:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aaf82c81_4913e608",
+      "range": {
+        "startLine": 182,
+        "startChar": 32,
+        "endLine": 182,
+        "endChar": 41
+      },
+      "revId": "c1022e963a9ccd9a3808380a3a89270681c041f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d0c59b0_157b497f",
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "so far the code still returns the parsed attributes if failure happens later, just ignore the broken one and following ones if any, maybe that\u0027s fine, depends on how the caller handles the parsed attributes. If the missing attribute is important, e.g. if RTM_NEWADDR doesn\u0027t have an address attribute, then we think the message is invalid and return null instead of giving the caller parsed attributes. So for the InetDiagMessage netlink message, do we have any critical or mandatory attributes? if that\u0027s missing, probably we want to return null as well, to tell the caller it\u0027s an invalid message.",
       "parentUuid": "0d0c59b0_157b497f",
+      "range": {
+        "startLine": 183,
+        "startChar": 12,
+        "endLine": 183,
+        "endChar": 36
+      },
+      "revId": "c1022e963a9ccd9a3808380a3a89270681c041f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3637d76_1a024060",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-12-25T01:40:55Z",
+      "side": 1,
+      "message": "Per offline discussion, updated to return null for invalid cases.",
+      "parentUuid": "f4192eee_6e4fc3ec",
       "range": {
         "startLine": 183,
         "startChar": 12,
@@ -140,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "adb9b599_40301c0b",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/InetDiagSocketTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-12-25T01:40:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e6d5f6b_38c12818",
+      "range": {
+        "startLine": 399,
+        "startChar": 11,
+        "endLine": 399,
+        "endChar": 45
+      },
+      "revId": "c1022e963a9ccd9a3808380a3a89270681c041f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aaffd209_cfff9afc",
@@ -163,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9cf1e97_50e4b661",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/InetDiagSocketTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-12-25T01:40:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aaffd209_cfff9afc",
+      "range": {
+        "startLine": 413,
+        "startChar": 41,
+        "endLine": 413,
+        "endChar": 56
+      },
+      "revId": "c1022e963a9ccd9a3808380a3a89270681c041f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07ef8ae0_382536df",
@@ -176,6 +272,30 @@
       "writtenOn": "2023-12-22T06:28:32Z",
       "side": 1,
       "message": "nit: never used? or removed it.",
+      "range": {
+        "startLine": 415,
+        "startChar": 36,
+        "endLine": 415,
+        "endChar": 55
+      },
+      "revId": "c1022e963a9ccd9a3808380a3a89270681c041f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7998668_2b0da276",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/InetDiagSocketTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-12-25T01:40:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07ef8ae0_382536df",
       "range": {
         "startLine": 415,
         "startChar": 36,
