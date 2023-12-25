@@ -1,0 +1,273 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b8b596a_a2d9b726",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:08:06Z",
+      "side": 1,
+      "message": "Should this be new ArrayList\u003c\u003e(packet.answers) ? For the below case:\n\n - Receive a query for A, B with no known answers but the TC bit set\n - Receive a query for C, with a known answer for B\n \nThe server is expected to reply for A and C.\n\nThis could happen if the queries for A and B (in practice probably more) are enough to fill the packet.",
+      "range": {
+        "startLine": 584,
+        "startChar": 16,
+        "endLine": 584,
+        "endChar": 39
+      },
+      "revId": "3997388459f4cfb88aa93e9c7c568fa87ba7735c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4df7a769_292f87dd",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:08:06Z",
+      "side": 1,
+      "message": "Is this check really necessary ? I think this code should also apply if there are answers; in which case this code should add them to the queued reply.",
+      "revId": "3997388459f4cfb88aa93e9c7c568fa87ba7735c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68ddbc01_b6d43361",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:08:06Z",
+      "side": 1,
+      "message": "MdnsReplyInfo is not really intended to be mutated; could you create a copy instead ?\nI think it\u0027s OK to modify MdnsReplyInfo that are owned / internal to MdnsReplySender, but modifying the one provided in argument is a bit error-prone. If anyone else holds reference to MdnsReplyInfo they may be surprised to see contents change over time.",
+      "range": {
+        "startLine": 124,
+        "startChar": 70,
+        "endLine": 124,
+        "endChar": 78
+      },
+      "revId": "3997388459f4cfb88aa93e9c7c568fa87ba7735c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "786be8d3_e568db93",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:08:06Z",
+      "side": 1,
+      "message": "Also the known answers should be added to the list of known answers in queuedReply, for the case described in an earlier comment (query for A, B, TC; then query for C with known answer for B)",
+      "revId": "3997388459f4cfb88aa93e9c7c568fa87ba7735c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13fdc3e0_2c52ad62",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:08:06Z",
+      "side": 1,
+      "message": "I think that is already implemented in MdnsRecordRepository, where `delayMs \u003d 400L + mDelayGenerator.nextInt(100);` is used when the query had the TC bit set. So this class shouldn\u0027t need to use additional delays.",
+      "revId": "3997388459f4cfb88aa93e9c7c568fa87ba7735c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "815a56e3_77d9b7d4",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:08:06Z",
+      "side": 1,
+      "message": "If you implemented the suggestion to include known answers in the ReplyInfo even for queries that have questions, you should have a test for it too",
+      "revId": "3997388459f4cfb88aa93e9c7c568fa87ba7735c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab365f5e_b7fe089d",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsReplySenderTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:08:06Z",
+      "side": 1,
+      "message": "As per comment on the non-test code, it would be best if this can pass without the list being mutable.",
+      "range": {
+        "startLine": 151,
+        "startChar": 29,
+        "endLine": 151,
+        "endChar": 42
+      },
+      "revId": "3997388459f4cfb88aa93e9c7c568fa87ba7735c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7f9af73_25ebfde5",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsReplySenderTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:08:06Z",
+      "side": 1,
+      "message": "Should this be true ? If this is about testing the effect of multiple packets for a continued query (also in other test methods)",
+      "range": {
+        "startLine": 155,
+        "startChar": 16,
+        "endLine": 155,
+        "endChar": 21
+      },
+      "revId": "3997388459f4cfb88aa93e9c7c568fa87ba7735c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9951df5_a9ade8d3",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsReplySenderTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:08:06Z",
+      "side": 1,
+      "message": "I think the 2nd answer, which has isTruncatedPacket\u003dfalse, should be posted quickly on the handler (here it has sendDelayMs\u003d\u003d0), and so that\u0027s the one that will be processed first on the handler, not the first one that had a 400ms delay.\n\nBasically this should verify that if there\u0027s a query with the TC bit set, then another query without the TC bit set, the answer is sent immediately (not waiting for 400ms after the first query)",
+      "range": {
+        "startLine": 167,
+        "startChar": 20,
+        "endLine": 167,
+        "endChar": 31
+      },
+      "revId": "3997388459f4cfb88aa93e9c7c568fa87ba7735c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05ba570c_0e76dd63",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsReplySenderTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:08:06Z",
+      "side": 1,
+      "message": "This will succeed immediately, even though it would take some time for realHandler.sendMessage to be processed, so this doesn\u0027t really test that nothing will be sent.\n\nYou should make sure the handler message is processed / the handler is idle before doing the assertion.",
+      "range": {
+        "startLine": 168,
+        "startChar": 23,
+        "endLine": 168,
+        "endChar": 28
+      },
+      "revId": "3997388459f4cfb88aa93e9c7c568fa87ba7735c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9dbb2f9_9d4ed2ee",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsReplySenderTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:08:06Z",
+      "side": 1,
+      "message": "Nit: subsequent (also in test title)",
+      "range": {
+        "startLine": 180,
+        "startChar": 14,
+        "endLine": 180,
+        "endChar": 25
+      },
+      "revId": "3997388459f4cfb88aa93e9c7c568fa87ba7735c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07ba73ef_ca46cb91",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsReplySenderTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:08:06Z",
+      "side": 1,
+      "message": "Nit: you could simplify the tests a bit with something like:\n\n```\nprivate fun verifyMessageQueued(deps, delay) : Pair\u003cHandler, Message\u003e { ... }\n```\n\nAnd call it with:\n\n```\nval (handler, message) \u003d verifyMessageQueued(deps, 400)\n```",
+      "range": {
+        "startLine": 193,
+        "startChar": 8,
+        "endLine": 196,
+        "endChar": 99
+      },
+      "revId": "3997388459f4cfb88aa93e9c7c568fa87ba7735c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af694971_e9c65e97",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsReplySenderTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-25T10:08:06Z",
+      "side": 1,
+      "message": "Could you also test behavior described in other comments:\n\n - Get answers for A, B with TC bit set\n - Then get answers for C with a known answer for B\n - Expect only answers for A, C to be sent",
+      "revId": "3997388459f4cfb88aa93e9c7c568fa87ba7735c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
