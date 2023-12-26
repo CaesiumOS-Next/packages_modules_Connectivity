@@ -63,6 +63,30 @@
       },
       "revId": "bcaab595d9704864c2d9ccd7cbe1ea63fc0c09a5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5da3b30e_82e3c7e3",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-26T04:19:54Z",
+      "side": 1,
+      "message": "Oh I see, but compareImportedToLegacyStats would actually be a bit more careful and catch other kinds of exception when reading from the legacy recorder (it catches Throwable). Considering that this is running code on unknown data, I think it would be a bit safer to catch and log generic exceptions here too ?",
+      "parentUuid": "8f5248f4_f62d3e66",
+      "range": {
+        "startLine": 1056,
+        "startChar": 62,
+        "endLine": 1056,
+        "endChar": 85
+      },
+      "revId": "bcaab595d9704864c2d9ccd7cbe1ea63fc0c09a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
