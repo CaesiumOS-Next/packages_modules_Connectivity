@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59c4aac4_080255bc",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-26T03:29:46Z",
+      "side": 1,
+      "message": "It is possible that we have next message which is a valid InetDiagMessage? The while at l.796 imply we have multiple NlMsgs?",
+      "range": {
+        "startLine": 801,
+        "startChar": 24,
+        "endLine": 801,
+        "endChar": 37
+      },
+      "revId": "e421983346219d00e885062f5aa5149871b18b37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
