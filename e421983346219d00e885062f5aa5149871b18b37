@@ -69,6 +69,30 @@
       },
       "revId": "e421983346219d00e885062f5aa5149871b18b37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e15f8d20_fd14614f",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-12-26T05:23:02Z",
+      "side": 1,
+      "message": "Add comment. YEs, there should be only one INET_DIAG_MARK for each socket.",
+      "parentUuid": "19bf1221_bc5f6e0d",
+      "range": {
+        "startLine": 854,
+        "startChar": 16,
+        "endLine": 854,
+        "endChar": 21
+      },
+      "revId": "e421983346219d00e885062f5aa5149871b18b37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
