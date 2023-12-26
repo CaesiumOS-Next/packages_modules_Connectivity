@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f44e0cbe_285ad4b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-26T06:24:08Z",
+      "side": 1,
+      "message": "LGTM assuming comment addressed",
+      "revId": "9e500a39cd2ed602303b089a8818d8f67091c2cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "110dc2dc_d2a1bc13",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1023,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-26T06:24:08Z",
+      "side": 1,
+      "message": "It would be good to have a way to force revert to previous behavior even if successes \u003e 0; for example if we find that FastDataInput can import some datasets fine, but then there\u0027s problems when adding more stats (likely to happen if someone sets up a new device with no initial stats)\n\nHow about `targetAttempts \u003e\u003d 0 \u0026\u0026 (doComparison || successes \u003e 0)` ? Then we could push -1 to force disable",
+      "range": {
+        "startLine": 1023,
+        "startChar": 30,
+        "endLine": 1023,
+        "endChar": 31
+      },
+      "revId": "9e500a39cd2ed602303b089a8818d8f67091c2cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
