@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "853840f0_9153e1f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-26T04:28:53Z",
+      "side": 1,
+      "message": "LGTM assuming comment addressed",
+      "revId": "ba341b25e18b062aca149205db824164b8455e70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9e3d6c3_0bbd1cf2",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1637,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-26T04:28:53Z",
+      "side": 1,
+      "message": "To avoid unexpected behavior if some OEM decides to register the service from OEM code, could you also check for V here ? Something like `isAtLeastV() ? null : ctx.getSystemService`",
+      "range": {
+        "startLine": 1637,
+        "startChar": 22,
+        "endLine": 1637,
+        "endChar": 24
+      },
+      "revId": "ba341b25e18b062aca149205db824164b8455e70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
