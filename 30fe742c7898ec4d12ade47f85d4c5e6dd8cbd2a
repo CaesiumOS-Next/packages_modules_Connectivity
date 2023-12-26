@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "54dbb57f_5c663f24",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1229,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-12-26T01:40:39Z",
+      "side": 1,
+      "message": "If the service type changes from `_sub1._type` to `_sub1._type,_sub2`, it will be a service type update as your design. However, the `NsdService#parseTypeAndSubtype()` will only use the subtype at the beginning for these two service types, so that the subtype is same and there is no update for this registraion request actually.\n\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/service-t/src/com/android/server/NsdService.java;l\u003d1658-1661",
+      "range": {
+        "startLine": 1228,
+        "startChar": 7,
+        "endLine": 1229,
+        "endChar": 46
+      },
+      "revId": "30fe742c7898ec4d12ade47f85d4c5e6dd8cbd2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aabf3d71_f5387d83",
         "filename": "tests/unit/java/android/net/nsd/NsdManagerTest.java",
         "patchSetId": 5
