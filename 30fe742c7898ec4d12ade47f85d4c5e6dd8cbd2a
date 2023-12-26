@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a22dea7_c214875a",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-26T04:05:05Z",
+      "side": 1,
+      "message": "Added check to disallow this usage",
+      "parentUuid": "81b9d8a4_699a8a01",
+      "range": {
+        "startLine": 1214,
+        "startChar": 12,
+        "endLine": 1214,
+        "endChar": 62
+      },
+      "revId": "30fe742c7898ec4d12ade47f85d4c5e6dd8cbd2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54dbb57f_5c663f24",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "adaa12f6_c0256398",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1229,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-26T04:05:05Z",
+      "side": 1,
+      "message": "Added check to disallow this usage",
+      "parentUuid": "54dbb57f_5c663f24",
+      "range": {
+        "startLine": 1228,
+        "startChar": 7,
+        "endLine": 1229,
+        "endChar": 46
+      },
+      "revId": "30fe742c7898ec4d12ade47f85d4c5e6dd8cbd2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aabf3d71_f5387d83",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-12-25T11:03:09Z",
       "side": 1,
       "message": "Nit: Maybe add a failed case that the duplicated subtype update is not allowed.\n`mustFail(() -\u003e { manager.registerService(validServiceSubtypeUpdate, PROTOCOL, listener1); });`",
+      "range": {
+        "startLine": 386,
+        "startChar": 79,
+        "endLine": 386,
+        "endChar": 80
+      },
+      "revId": "30fe742c7898ec4d12ade47f85d4c5e6dd8cbd2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d3fbef9_d31a3c21",
+        "filename": "tests/unit/java/android/net/nsd/NsdManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-26T04:05:05Z",
+      "side": 1,
+      "message": "Hmm actually that is allowed; it\u0027s just disallowed to update from \"no subtype\" to \"no subtype\"\n\nAdded a check for that",
+      "parentUuid": "aabf3d71_f5387d83",
       "range": {
         "startLine": 386,
         "startChar": 79,
