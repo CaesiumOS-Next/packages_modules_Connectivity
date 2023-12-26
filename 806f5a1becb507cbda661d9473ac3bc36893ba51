@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cad6d98f_edb6a871",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 42
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-12-26T11:06:48Z",
+      "side": 1,
+      "message": "only nits, feel free to address them in a follow-up CL.",
+      "revId": "806f5a1becb507cbda661d9473ac3bc36893ba51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94b4dc7a_a8a79f97",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-12-26T11:06:48Z",
+      "side": 1,
+      "message": "nit: BorderRoutingIntegrationTest?",
+      "range": {
+        "startLine": 65,
+        "startChar": 13,
+        "endLine": 65,
+        "endChar": 30
+      },
+      "revId": "806f5a1becb507cbda661d9473ac3bc36893ba51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70f2e08b_3d2ca884",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-12-26T11:06:48Z",
+      "side": 1,
+      "message": "nit: maybe just testInfraDevicePingTheadDeviceOmr?",
+      "range": {
+        "startLine": 133,
+        "startChar": 16,
+        "endLine": 133,
+        "endChar": 54
+      },
+      "revId": "806f5a1becb507cbda661d9473ac3bc36893ba51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c8c081d_bac5eea0",
+        "filename": "thread/tests/integration/src/android/net/thread/InfraNetworkDevice.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-12-26T11:06:48Z",
+      "side": 1,
+      "message": "nit: do you need to check if prefix length \u003c\u003d 64, otherwise, you cannot do slaac. maybe it\u0027s fine, assume that PIO in RA from BR always takes prefix length of 64. btw, why only last two bytes are randomly generated? should be last 64 bits are randomly generated?",
+      "range": {
+        "startLine": 107,
+        "startChar": 25,
+        "endLine": 107,
+        "endChar": 33
+      },
+      "revId": "806f5a1becb507cbda661d9473ac3bc36893ba51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31da2682_08c394bc",
+        "filename": "thread/tests/integration/src/android/net/thread/IntegrationTestUtils.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-12-26T11:06:48Z",
+      "side": 1,
+      "message": "nit: looks nobody uses this ctor, then delete it?",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 37
+      },
+      "revId": "806f5a1becb507cbda661d9473ac3bc36893ba51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "478e9ecb_736fe38b",
+        "filename": "thread/tests/integration/src/android/net/thread/IntegrationTestUtils.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-12-26T11:06:48Z",
+      "side": 1,
+      "message": "nit: suggest to define constants for the TIMEOUT such as 3000 or 5000, or is it possible to unify them with one constant?",
+      "range": {
+        "startLine": 106,
+        "startChar": 42,
+        "endLine": 106,
+        "endChar": 46
+      },
+      "revId": "806f5a1becb507cbda661d9473ac3bc36893ba51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
