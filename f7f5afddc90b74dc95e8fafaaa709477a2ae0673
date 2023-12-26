@@ -75,6 +75,24 @@
       "parentUuid": "3707e6c8_730404ff",
       "revId": "f7f5afddc90b74dc95e8fafaaa709477a2ae0673",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "839acddc_da083b9c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-26T12:31:04Z",
+      "side": 1,
+      "message": "Thanks for the consideration, I think it should work. But if the main concern is the memory usage, we can refactor the existing getAllUniqueRecords() to\n```\nint countUniqueRecords(String[] name) {\n}\n```\n\nAnd calls it for all names in the answers. It\u0027s still O(N * M) time complexity, where N is the question number and M is the record / service number.\n\nI am a bit concerned that your proposal looks harder to follow and maintain:\n1. it\u0027s a bit tricky that the NSEC addition depends on the order of the nested for loops and we need to document and maintain it. It looks more straight-forward that we deal with it after all answers have been added\n2. It depends on the implicit invariant you mentioned in another comment, though I think the invariant stands\n3. It now requires 3 calls to `addNsecRecordsForUniqueNames` while my solution needs 2\n\nAfter all, this case is just a \"MAY\" in the spec, I doubt it\u0027s useful and worths the code here. Does mDNSResponder support this \"MAY\"?",
+      "parentUuid": "a8c4ca3c_d9d5f271",
+      "revId": "f7f5afddc90b74dc95e8fafaaa709477a2ae0673",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
