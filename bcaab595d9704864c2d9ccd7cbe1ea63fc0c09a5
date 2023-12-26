@@ -39,6 +39,30 @@
       },
       "revId": "bcaab595d9704864c2d9ccd7cbe1ea63fc0c09a5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f5248f4_f62d3e66",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-26T03:37:43Z",
+      "side": 1,
+      "message": "Yes and no.\ngetOrLoadCompleteLocked doesn\u0027t throw, the exception is hidden inside loadLocked().\nThat is why I set wipeOnError to !doComparison, because if any exception happened while reading, we want to keep the data for legacy recorder (l.1030), and the read data won\u0027t match with the one read via legacy recorder. In that way the error will be recorded.\nWDYT?",
+      "parentUuid": "fea4fa68_548a7aab",
+      "range": {
+        "startLine": 1056,
+        "startChar": 62,
+        "endLine": 1056,
+        "endChar": 85
+      },
+      "revId": "bcaab595d9704864c2d9ccd7cbe1ea63fc0c09a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
