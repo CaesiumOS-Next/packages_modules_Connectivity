@@ -22,6 +22,30 @@
       },
       "revId": "e5b4b159b9dd7db99958a9d417b963081cd71dc6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcc66dd2_ba49e6c7",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-12-26T03:27:13Z",
+      "side": 1,
+      "message": "Right, after make the function static, the test can\u0027t build without explicitly calling it as function.",
+      "parentUuid": "ed5bc436_e18a566a",
+      "range": {
+        "startLine": 65,
+        "startChar": 20,
+        "endLine": 65,
+        "endChar": 54
+      },
+      "revId": "e5b4b159b9dd7db99958a9d417b963081cd71dc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
