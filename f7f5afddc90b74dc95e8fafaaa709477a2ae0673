@@ -57,6 +57,24 @@
       "parentUuid": "6c267003_3c24f823",
       "revId": "f7f5afddc90b74dc95e8fafaaa709477a2ae0673",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8c4ca3c_d9d5f271",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-26T03:04:04Z",
+      "side": 1,
+      "message": "Oh I see, sorry I missed that\n\nIn that case I think that can be solved by swapping the loops in getReply: instead of doing:\n\n```\nfor each question:\n    answer with general records\n    \n    for each service:\n        answer with the service\n```\n\nWe could have:\n\n```\nfor each question:\n    answer with general records\n\nfor each service:\n    final int answerPos \u003d answerInfo.size();\n    final int additionalAnswerPos \u003d additionalAnswerInfo.size();\n    for each question:\n        answer with the service\n    Add NSEC records for the service,\n    based on answerPos.listIterator(answerPos)\n    and additionalAnswerInfo.listIterator(additionalAnswerPos)\n```\n\nThe advantage in that case is that when adding NSEC records for the service, we only need to consider that service\u0027s records. So instead of building a map of all unique records on all services, the \"containsAll\" check below could be something like:\n\n```\nentryRecords.size() \u003d\u003d count(allServiceRecords, r -\u003e !r.isSharedName \u0026\u0026 Arrays.equals(r, nsecName));\n```\n\nThis may change the order of replies when there\u0027s 2 questions that both havce matches in 2 services, but I don\u0027t think that\u0027s really significant",
+      "parentUuid": "3707e6c8_730404ff",
+      "revId": "f7f5afddc90b74dc95e8fafaaa709477a2ae0673",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
