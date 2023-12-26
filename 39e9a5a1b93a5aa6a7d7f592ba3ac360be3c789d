@@ -33,6 +33,40 @@
       "message": "I think this needs to be \"general-tests\"",
       "revId": "39e9a5a1b93a5aa6a7d7f592ba3ac360be3c789d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "155e4377_3d12dde0",
+        "filename": "thread/tests/integration/src/android/net/thread/InfraNetworkDevice.java",
+        "patchSetId": 39
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-26T03:53:53Z",
+      "side": 1,
+      "message": "nit: it\u0027s recommended to use `InetAddresses.parseNumericAddress` which doesn\u0027t do DNS lookup",
+      "revId": "39e9a5a1b93a5aa6a7d7f592ba3ac360be3c789d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8af4a652_170ba5c0",
+        "filename": "thread/tests/integration/src/android/net/thread/IntegrationTestUtils.java",
+        "patchSetId": 39
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2023-12-26T03:53:53Z",
+      "side": 1,
+      "message": "nit: this waited for an extra intervalSeconds in the end.",
+      "revId": "39e9a5a1b93a5aa6a7d7f592ba3ac360be3c789d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
