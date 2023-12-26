@@ -66,6 +66,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00914a7e_4f46bed1",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-26T11:34:23Z",
+      "side": 1,
+      "message": "Thread tests follows the naming convention in go/unit-testing-practices#naming. So a better name is probably:\n\n```\npublic void unicastRouting_infraDevicePingTheadDeviceOmr_replyReceived() {\n}\n```\n\n@handaw@google.com please add `unicastRouting` which indicates what is being tested, given we are going to add multicast routing tests as well",
+      "parentUuid": "70f2e08b_3d2ca884",
+      "range": {
+        "startLine": 133,
+        "startChar": 16,
+        "endLine": 133,
+        "endChar": 54
+      },
+      "revId": "806f5a1becb507cbda661d9473ac3bc36893ba51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0c8c081d_bac5eea0",
         "filename": "thread/tests/integration/src/android/net/thread/InfraNetworkDevice.java",
         "patchSetId": 42
@@ -100,6 +124,30 @@
       "writtenOn": "2023-12-26T11:06:48Z",
       "side": 1,
       "message": "nit: looks nobody uses this ctor, then delete it?",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 37
+      },
+      "revId": "806f5a1becb507cbda661d9473ac3bc36893ba51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3392abde_ad397be4",
+        "filename": "thread/tests/integration/src/android/net/thread/IntegrationTestUtils.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-26T11:34:23Z",
+      "side": 1,
+      "message": "This is a utility class and we follow the convention in go/java-practices/utility-classes#subclassing-and-instantiating. AFAIK, there is not a Android specific convention which overrides this one.",
+      "parentUuid": "31da2682_08c394bc",
       "range": {
         "startLine": 51,
         "startChar": 4,
