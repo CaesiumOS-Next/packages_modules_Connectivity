@@ -22,6 +22,30 @@
       },
       "revId": "e421983346219d00e885062f5aa5149871b18b37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64ffc68a_61103b31",
+        "filename": "service/src/com/android/server/connectivity/AutomaticOnOffKeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-12-26T03:39:38Z",
+      "side": 1,
+      "message": "This is the same with the original design(l.801). If nlmsgType is not SOCK_DIAG_BY_FAMILY, it return false. I think it\u0027s no-op here.",
+      "parentUuid": "59c4aac4_080255bc",
+      "range": {
+        "startLine": 801,
+        "startChar": 24,
+        "endLine": 801,
+        "endChar": 37
+      },
+      "revId": "e421983346219d00e885062f5aa5149871b18b37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
