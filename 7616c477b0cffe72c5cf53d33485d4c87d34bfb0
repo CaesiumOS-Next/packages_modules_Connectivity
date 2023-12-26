@@ -189,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb5c303e_fb615c08",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-12-26T06:22:00Z",
+      "side": 1,
+      "message": "Done in aosp/2814219",
+      "parentUuid": "9fd14f3c_79353b0d",
+      "range": {
+        "startLine": 824,
+        "startChar": 25,
+        "endLine": 824,
+        "endChar": 47
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f024570_60580ea3",
@@ -533,6 +557,30 @@
       "side": 1,
       "message": "will do in a follow up",
       "parentUuid": "37cd37f0_687603da",
+      "range": {
+        "startLine": 947,
+        "startChar": 0,
+        "endLine": 948,
+        "endChar": 56
+      },
+      "revId": "7616c477b0cffe72c5cf53d33485d4c87d34bfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fe5e04a_fb307cfd",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-12-26T06:22:00Z",
+      "side": 1,
+      "message": "done in aosp/2891011",
+      "parentUuid": "1c0eb14c_4ddf4296",
       "range": {
         "startLine": 947,
         "startChar": 0,
