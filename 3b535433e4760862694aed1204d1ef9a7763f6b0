@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "657dfdef_653ad391",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-27T08:58:39Z",
+      "side": 1,
+      "message": "Okay, given it\u0027s unclear whether NSEC is shared or not, it\u0027s probably safer to exclude NSEC record explicitly here.\n\nI will leave the code as it is, thank you!",
+      "parentUuid": "7d63ce7f_bc25f931",
+      "range": {
+        "startLine": 800,
+        "startChar": 39,
+        "endLine": 800,
+        "endChar": 78
+      },
+      "revId": "3b535433e4760862694aed1204d1ef9a7763f6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50e0e673_3b216356",
@@ -78,6 +102,30 @@
       "writtenOn": "2023-12-27T07:57:53Z",
       "side": 1,
       "message": "Is this still necessary ? There\u0027s no caller passing null as argument now",
+      "range": {
+        "startLine": 803,
+        "startChar": 24,
+        "endLine": 803,
+        "endChar": 55
+      },
+      "revId": "3b535433e4760862694aed1204d1ef9a7763f6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66b9aebb_94861198",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-27T08:58:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50e0e673_3b216356",
       "range": {
         "startLine": 803,
         "startChar": 24,
