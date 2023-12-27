@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66d61513_c3145f9d",
+        "filename": "staticlibs/device/com/android/net/module/util/HandlerUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-27T06:55:40Z",
+      "side": 1,
+      "message": "Ack, restore the above code to dispatch inline instead.\nSee if it works for you.",
+      "parentUuid": "c7909ad5_8824f79d",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 38,
+        "endChar": 68
+      },
+      "revId": "42b74b45e5110449ab485c8794e0a2c2adc452e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57244f38_7626a2ea",
