@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7f9a68e_fe785c67",
+        "filename": "tests/unit/java/com/android/server/connectivity/RoutingCoordinatorServiceTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2023-12-27T11:11:09Z",
+      "side": 1,
+      "message": "nit: doLogWtf? maybe easier to know what we want to test? not strong opinion.",
+      "range": {
+        "startLine": 52,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 21
+      },
+      "revId": "ca3c524b49457616e2a3779bff69573223637e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
