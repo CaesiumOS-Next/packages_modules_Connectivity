@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e6220cb_84fadfde",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-12-27T02:44:04Z",
+      "side": 1,
+      "message": "nit: I think \u0027making\u0027 is more suitable word here.",
+      "range": {
+        "startLine": 9,
+        "startChar": 7,
+        "endLine": 9,
+        "endChar": 11
+      },
+      "revId": "c2d436a7af01108b31d6fa82b70515d2e4de79c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
