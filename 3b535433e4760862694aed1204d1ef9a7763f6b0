@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16b5ae52_56762f2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-27T07:57:53Z",
+      "side": 1,
+      "message": "LGTM but see comments",
+      "revId": "3b535433e4760862694aed1204d1ef9a7763f6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d84c5ad6_349175c0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-27T07:57:53Z",
+      "side": 1,
+      "message": "Is this necessary in this change ? I can\u0027t see any place that creates a RecordInfo containing a MdnsNsecRecord",
+      "range": {
+        "startLine": 800,
+        "startChar": 39,
+        "endLine": 800,
+        "endChar": 78
+      },
+      "revId": "3b535433e4760862694aed1204d1ef9a7763f6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50e0e673_3b216356",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-27T07:57:53Z",
+      "side": 1,
+      "message": "Is this still necessary ? There\u0027s no caller passing null as argument now",
+      "range": {
+        "startLine": 803,
+        "startChar": 24,
+        "endLine": 803,
+        "endChar": 55
+      },
+      "revId": "3b535433e4760862694aed1204d1ef9a7763f6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

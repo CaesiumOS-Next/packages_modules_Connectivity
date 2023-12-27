@@ -93,6 +93,24 @@
       "parentUuid": "a8c4ca3c_d9d5f271",
       "revId": "f7f5afddc90b74dc95e8fafaaa709477a2ae0673",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d2ee951_9d8c2e4d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-27T07:57:53Z",
+      "side": 1,
+      "message": "Yes mdnsresponder included these NSEC records\n\nI think your proposal looks good; I mainly didn\u0027t like having to build a map of all unique records every time; less than memory usage it\u0027s more about making a lot of allocations/GCs, and rebuilding the internal data into a different data structure just for that operation seemed a bit too heavyweight. In practice there shouldn\u0027t be more than 3-4 services with 5~10 records each, so O(N*M) shouldn\u0027t be too hard.\n\nThere\u0027s one use-case where we\u0027d advertise *many* subtypes, where iterating on all records would be a bit expensive due to all the PTR records. Maybe the ServiceRegistration class could maintain a list of non-shared records, which would avoid slowing down when a service with many subtypes is registered ? That could be in another change.",
+      "parentUuid": "839acddc_da083b9c",
+      "revId": "f7f5afddc90b74dc95e8fafaaa709477a2ae0673",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
