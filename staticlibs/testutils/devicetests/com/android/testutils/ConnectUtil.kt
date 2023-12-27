@@ -116,7 +116,10 @@ class ConnectUtil(private val context: Context) {
         }
     }
 
-    private fun connectToWifiConfig(config: WifiConfiguration) {
+    // Supress warning because WifiManager methods to connect to a config are
+    // documented not to be deprecated for privileged users.
+    @SuppressWarnings("deprecation")
+    fun connectToWifiConfig(config: WifiConfiguration) {
         repeat(MAX_WIFI_CONNECT_RETRIES) {
             val error = runAsShell(permission.NETWORK_SETTINGS) {
                 val listener = ConnectWifiListener()
