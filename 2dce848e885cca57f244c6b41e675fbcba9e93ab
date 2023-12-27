@@ -34,6 +34,24 @@
       "parentUuid": "4df6f138_025e84b5",
       "revId": "2dce848e885cca57f244c6b41e675fbcba9e93ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9f16a4f_92234614",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-27T03:10:01Z",
+      "side": 1,
+      "message": "Fixed in the below topic: https://android-review.git.corp.google.com/q/topic:%22lib-fastdata%22",
+      "parentUuid": "2ff1cbd5_6ae7ebad",
+      "revId": "2dce848e885cca57f244c6b41e675fbcba9e93ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
