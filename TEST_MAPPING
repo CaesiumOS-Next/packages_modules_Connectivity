@@ -100,6 +100,9 @@
       "name": "TetheringIntegrationTests"
     },
     {
+      "name": "CtsConnectivityMultiDevicesTestCases"
+    },
+    {
       "name": "libnetworkstats_test"
     },
     {
@@ -147,6 +150,9 @@
     },
     {
       "name": "NetHttpCoverageTests"
+    },
+    {
+      "name": "CtsConnectivityMultiDevicesTestCases"
     }
   ],
   "mainline-presubmit": [
