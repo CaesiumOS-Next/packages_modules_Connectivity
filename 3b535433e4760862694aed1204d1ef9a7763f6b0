@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d63ce7f_bc25f931",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-27T08:09:20Z",
+      "side": 1,
+      "message": "Sorry I see it\u0027s in the parent change\n\nYou could also have set the RecordInfo to isSharedName\u003dtrue in that case, as it\u0027s not clear what \"shared name\" means for a negative answer (if \"shared name\" means \"there may be other records with the same name and different value\", then arguably it\u0027s true for MdnsNsecRecord, which could have different values saying \"There\u0027s no TXT record for that name\", \"There\u0027s no SRV record for that name\", or \"There\u0027s no SRV and no TXT record for that name\" ?).\n\nBut whichever you prefer",
+      "parentUuid": "d84c5ad6_349175c0",
+      "range": {
+        "startLine": 800,
+        "startChar": 39,
+        "endLine": 800,
+        "endChar": 78
+      },
+      "revId": "3b535433e4760862694aed1204d1ef9a7763f6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50e0e673_3b216356",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
         "patchSetId": 19
