@@ -116,7 +116,7 @@ class ConnectUtil(private val context: Context) {
         }
     }
 
-    private fun connectToWifiConfig(config: WifiConfiguration) {
+    fun connectToWifiConfig(config: WifiConfiguration) {
         repeat(MAX_WIFI_CONNECT_RETRIES) {
             val error = runAsShell(permission.NETWORK_SETTINGS) {
                 val listener = ConnectWifiListener()
