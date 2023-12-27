@@ -59,7 +59,7 @@ java_defaults {
     ],
     static_libs: [
         // Cannot go to framework-connectivity because mid_sdk checks require 31.
-        "modules-utils-binary-xml",
+        "modules-utils-fastdata",
     ],
     impl_only_libs: [
         // The build system will use framework-bluetooth module_current stubs, because
