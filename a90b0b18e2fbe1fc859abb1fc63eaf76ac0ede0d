@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2cbf557_2010f6c3",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2194,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-12-27T05:37:31Z",
+      "side": 1,
+      "message": "It seems the printed list does not match what it checks.\nMaybe make an ArrayList, and add the needed permission into the list according to the sdk level?\nAnd check them at once, if it is not satisfied, print permissions in the list.",
+      "range": {
+        "startLine": 2194,
+        "startChar": 23,
+        "endLine": 2194,
+        "endChar": 31
+      },
+      "revId": "a90b0b18e2fbe1fc859abb1fc63eaf76ac0ede0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
