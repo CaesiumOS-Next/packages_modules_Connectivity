@@ -147,6 +147,9 @@
     },
     {
       "name": "NetHttpCoverageTests"
+    },
+    {
+      "name": "CtsConnectivityMultiDevicesTestCases"
     }
   ],
   "mainline-presubmit": [
