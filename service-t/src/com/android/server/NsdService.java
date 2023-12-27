@@ -2138,8 +2138,12 @@ public class NsdService extends INsdManager.Stub {
                 return;
             }
             throw new SecurityException("Requires one of the following permissions: "
-                    + String.join(", ", List.of(REGISTER_NSD_OFFLOAD_ENGINE, NETWORK_STACK,
-                    PERMISSION_MAINLINE_NETWORK_STACK, NETWORK_SETTINGS)) + ".");
+                    + (SdkLevel.isAtLeastV()
+                            ? String.join(", ", List.of(REGISTER_NSD_OFFLOAD_ENGINE, NETWORK_STACK,
+                                    PERMISSION_MAINLINE_NETWORK_STACK, NETWORK_SETTINGS))
+                            : String.join(", ", List.of(NETWORK_STACK,
+                                    PERMISSION_MAINLINE_NETWORK_STACK, NETWORK_SETTINGS)))
+                    + ".");
         }
     }
 
