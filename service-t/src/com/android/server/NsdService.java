@@ -91,6 +91,7 @@ import com.android.net.module.util.PermissionUtils;
 import com.android.net.module.util.SharedLog;
 import com.android.server.connectivity.mdns.ExecutorProvider;
 import com.android.server.connectivity.mdns.MdnsAdvertiser;
+import com.android.server.connectivity.mdns.MdnsAdvertiser.AdvertiserMetrics;
 import com.android.server.connectivity.mdns.MdnsAdvertisingOptions;
 import com.android.server.connectivity.mdns.MdnsDiscoveryManager;
 import com.android.server.connectivity.mdns.MdnsFeatureFlags;
@@ -101,6 +102,7 @@ import com.android.server.connectivity.mdns.MdnsServiceBrowserListener;
 import com.android.server.connectivity.mdns.MdnsServiceInfo;
 import com.android.server.connectivity.mdns.MdnsSocketProvider;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
+import com.android.server.connectivity.mdns.util.MdnsUtils.Clock;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -2138,8 +2140,12 @@ public class NsdService extends INsdManager.Stub {
                 return;
             }
             throw new SecurityException("Requires one of the following permissions: "
-                    + String.join(", ", List.of(REGISTER_NSD_OFFLOAD_ENGINE, NETWORK_STACK,
-                    PERMISSION_MAINLINE_NETWORK_STACK, NETWORK_SETTINGS)) + ".");
+                    + (SdkLevel.isAtLeastV()
+                            ? String.join(", ", List.of(REGISTER_NSD_OFFLOAD_ENGINE, NETWORK_STACK,
+                                    PERMISSION_MAINLINE_NETWORK_STACK, NETWORK_SETTINGS))
+                            : String.join(", ", List.of(NETWORK_STACK,
+                                    PERMISSION_MAINLINE_NETWORK_STACK, NETWORK_SETTINGS)))
+                    + ".");
         }
     }
 
