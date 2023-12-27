@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b4e2b06b_e87938c5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-12-27T08:16:14Z",
+      "side": 1,
+      "message": "Considering discussion in the next change, you could indeed make the method use Collection instead of Iterator. But maybe in another patchset considering there\u0027s already been a lot of uploads on these ?",
+      "parentUuid": "a97b6bca_6155b647",
+      "range": {
+        "startLine": 543,
+        "startChar": 27,
+        "endLine": 543,
+        "endChar": 35
+      },
+      "revId": "41c01a6876b0e766a025ed367949af70542c94c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f7a2e859_36880ac1",
         "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
         "patchSetId": 28
