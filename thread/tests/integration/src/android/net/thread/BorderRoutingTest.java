@@ -31,12 +31,18 @@ import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static com.google.common.io.BaseEncoding.base16;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 import android.content.Context;
 import android.net.LinkProperties;
 import android.net.MacAddress;
+import android.net.nsd.NsdManager;
+import android.net.nsd.NsdServiceInfo;
 import android.os.Handler;
 import android.os.HandlerThread;
 
@@ -48,6 +54,7 @@ import com.android.testutils.TapPacketReader;
 import com.android.testutils.TestNetworkTracker;
 
 import com.google.common.util.concurrent.MoreExecutors;
+import com.google.common.util.concurrent.SettableFuture;
 
 import org.junit.After;
 import org.junit.Before;
@@ -175,5 +182,54 @@ public class BorderRoutingTest {
                 readPacketFrom(
                         infraNetworkReader,
                         p -> isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)));
+    }
+
+    @Test
+    public void noAction_meshcopServiceDiscoverable() throws Exception {
+        NsdManager nsdManager = mContext.getSystemService(NsdManager.class);
+
+        SettableFuture<NsdServiceInfo> discoveredService = SettableFuture.create();
+
+        nsdManager.discoverServices(
+                "_meshcop._udp",
+                NsdManager.PROTOCOL_DNS_SD,
+                new NsdManager.DiscoveryListener() {
+                    @Override
+                    public void onStartDiscoveryFailed(String serviceType, int errorCode) {}
+
+                    @Override
+                    public void onStopDiscoveryFailed(String serviceType, int errorCode) {}
+
+                    @Override
+                    public void onDiscoveryStarted(String serviceType) {}
+
+                    @Override
+                    public void onDiscoveryStopped(String serviceType) {}
+
+                    @Override
+                    public void onServiceFound(NsdServiceInfo serviceInfo) {
+                        discoveredService.set(serviceInfo);
+                    }
+
+                    @Override
+                    public void onServiceLost(NsdServiceInfo serviceInfo) {}
+                });
+        SettableFuture<NsdServiceInfo> resolvedServiceFuture = SettableFuture.create();
+        nsdManager.resolveService(
+                discoveredService.get(5, SECONDS),
+                new NsdManager.ResolveListener() {
+                    @Override
+                    public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode) {}
+
+                    @Override
+                    public void onServiceResolved(NsdServiceInfo serviceInfo) {
+                        resolvedServiceFuture.set(serviceInfo);
+                    }
+                });
+
+        NsdServiceInfo resolvedServiceInfo = resolvedServiceFuture.get(5, SECONDS);
+        assertTrue(resolvedServiceInfo.getServiceName().startsWith("OpenThread"));
+        assertArrayEquals("1".getBytes(), resolvedServiceInfo.getAttributes().get("rv"));
+        assertArrayEquals("1.3.0".getBytes(), resolvedServiceInfo.getAttributes().get("tv"));
     }
 }
