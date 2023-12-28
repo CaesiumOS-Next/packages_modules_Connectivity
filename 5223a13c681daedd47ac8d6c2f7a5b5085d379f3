@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad86dc0a_a54a05a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-28T03:12:21Z",
+      "side": 1,
+      "message": "For reviewers:\nThe fact is that Context#enforceCallingOrSelfPermission is more commonly used in packages/modules: https://cs.android.com/search?q\u003dfilepath:%20packages%2Fmodules%2F%20enforceCallingOrSelfPermission\u0026start\u003d21",
+      "revId": "5223a13c681daedd47ac8d6c2f7a5b5085d379f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
