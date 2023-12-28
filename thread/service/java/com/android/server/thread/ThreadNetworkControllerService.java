@@ -18,6 +18,7 @@ import static android.net.MulticastRoutingConfig.CONFIG_FORWARD_NONE;
 import static android.net.MulticastRoutingConfig.FORWARD_NONE;
 import static android.net.MulticastRoutingConfig.FORWARD_SELECTED;
 import static android.net.MulticastRoutingConfig.FORWARD_WITH_MIN_SCOPE;
+import static android.net.nsd.NsdManager.PROTOCOL_DNS_SD;
 import static android.net.thread.ActiveOperationalDataset.CHANNEL_PAGE_24_GHZ;
 import static android.net.thread.ActiveOperationalDataset.LENGTH_EXTENDED_PAN_ID;
 import static android.net.thread.ActiveOperationalDataset.LENGTH_MESH_LOCAL_PREFIX_BITS;
@@ -72,6 +73,8 @@ import android.net.NetworkRequest;
 import android.net.NetworkScore;
 import android.net.RouteInfo;
 import android.net.TestNetworkSpecifier;
+import android.net.nsd.NsdManager;
+import android.net.nsd.NsdServiceInfo;
 import android.net.thread.ActiveOperationalDataset;
 import android.net.thread.ActiveOperationalDataset.SecurityPolicy;
 import android.net.thread.IActiveOperationalDatasetReceiver;
@@ -97,6 +100,7 @@ import android.util.SparseArray;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.ServiceManagerWrapper;
 import com.android.server.thread.openthread.BorderRouterConfigurationParcel;
+import com.android.server.thread.openthread.DnsTxtAttribute;
 import com.android.server.thread.openthread.IOtDaemon;
 import com.android.server.thread.openthread.IOtDaemonCallback;
 import com.android.server.thread.openthread.IOtStatusReceiver;
@@ -110,9 +114,11 @@ import java.net.UnknownHostException;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
+import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
 /**
@@ -140,6 +146,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final NetworkProvider mNetworkProvider;
     private final Supplier<IOtDaemon> mOtDaemonSupplier;
     private final ConnectivityManager mConnectivityManager;
+    private final NsdManager mNsdManager;
     private final TunInterfaceController mTunIfController;
     private final InfraInterfaceController mInfraIfController;
     private final LinkProperties mLinkProperties = new LinkProperties();
@@ -176,6 +183,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mNetworkProvider = networkProvider;
         mOtDaemonSupplier = otDaemonSupplier;
         mConnectivityManager = connectivityManager;
+        mNsdManager = mContext.getSystemService(NsdManager.class);
         mTunIfController = tunIfController;
         mInfraIfController = infraIfController;
         mUpstreamNetworkRequest = newUpstreamNetworkRequest();
@@ -307,6 +315,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         otDaemon.initialize(mTunIfController.getTunFd());
         otDaemon.registerStateCallback(mOtDaemonCallbackProxy, -1);
         otDaemon.asBinder().linkToDeath(() -> mHandler.post(this::onOtDaemonDied), 0);
+        otDaemon.setMdnsPublisher(mOtDaemonCallbackProxy);
         mOtDaemon = otDaemon;
         return mOtDaemon;
     }
@@ -971,6 +980,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         private final Map<IStateCallback, CallbackMetadata> mStateCallbacks = new HashMap<>();
         private final Map<IOperationalDatasetCallback, CallbackMetadata> mOpDatasetCallbacks =
                 new HashMap<>();
+        private final SparseArray<NsdManager.RegistrationListener> mMdnsRegistrationListeners =
+                new SparseArray<>(0);
 
         private OtDaemonState mState;
         private ActiveOperationalDataset mActiveDataset;
@@ -1195,6 +1206,89 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         @Override
         public void onMulticastForwardingAddressChanged(byte[] address, boolean isAdded) {
             mHandler.post(() -> handleMulticastForwardingAddressChanged(address, isAdded));
+        }
+
+        @Override
+        public void publishService(
+                String hostName,
+                String name,
+                String type,
+                List<String> subTypeList,
+                int port,
+                List<DnsTxtAttribute> txt,
+                int publishListenerId,
+                int unpublishListenerId) {
+            //
+            checkOnHandlerThread();
+            mHandler.post(
+                    () -> {
+                        NsdServiceInfo serviceInfo = new NsdServiceInfo();
+                        serviceInfo.setServiceName(name);
+                        serviceInfo.setServiceType(type);
+                        serviceInfo.setPort(port);
+//                        serviceInfo.setHostname("my-host");
+//                        serviceInfo.setHostAddresses(List.of(Inet6Address.parseNumericAddress("2001::1")));
+                        for (DnsTxtAttribute attribute : txt) {
+                            serviceInfo.setAttribute(attribute.name, attribute.value);
+                        }
+                        NsdManager.RegistrationListener listener =
+                                new NsdManager.RegistrationListener() {
+                                    @Override
+                                    public void onRegistrationFailed(
+                                            NsdServiceInfo serviceInfo, int errorCode) {
+                                        try {
+                                            mOtDaemon.onMdnsRegistrationCompleted(
+                                                    publishListenerId, errorCode);
+                                        } catch (RemoteException ignored) {
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onUnregistrationFailed(
+                                            NsdServiceInfo serviceInfo, int errorCode) {
+                                        try {
+                                            mOtDaemon.onMdnsRegistrationCompleted(
+                                                    unpublishListenerId, errorCode);
+                                            mMdnsRegistrationListeners.remove(publishListenerId);
+                                        } catch (RemoteException ignored) {
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onServiceRegistered(NsdServiceInfo serviceInfo) {
+                                        try {
+                                            mOtDaemon.onMdnsRegistrationCompleted(
+                                                    publishListenerId, 0);
+                                        } catch (RemoteException ignored) {
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onServiceUnregistered(NsdServiceInfo serviceInfo) {
+                                        try {
+                                            mOtDaemon.onMdnsRegistrationCompleted(
+                                                    unpublishListenerId, 0);
+                                            mMdnsRegistrationListeners.remove(publishListenerId);
+                                        } catch (RemoteException ignored) {
+                                        }
+                                    }
+                                };
+                        mMdnsRegistrationListeners.append(publishListenerId, listener);
+                        mNsdManager.registerService(serviceInfo, PROTOCOL_DNS_SD, listener);
+                    });
+        }
+
+        @Override
+        public void unpublishService(int listenerId) {
+            checkOnHandlerThread();
+            mHandler.post(
+                    () -> {
+                        NsdManager.RegistrationListener registrationListener =
+                                mMdnsRegistrationListeners.get(listenerId);
+                        mNsdManager.unregisterService(registrationListener);
+                        mMdnsRegistrationListeners.remove(listenerId);
+                    });
         }
     }
 }
