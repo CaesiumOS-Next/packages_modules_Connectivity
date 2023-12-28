@@ -596,7 +596,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     private void enforceAllCallingPermissionsGranted(String... permissions) {
         for (String permission : permissions) {
-            mContext.enforceCallingPermission(
+            mContext.enforceCallingOrSelfPermission(
                     permission, "Permission " + permission + " is missing");
         }
     }
