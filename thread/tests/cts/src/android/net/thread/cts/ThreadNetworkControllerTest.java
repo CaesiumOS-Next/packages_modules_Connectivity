@@ -30,6 +30,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.util.concurrent.MoreExecutors.directExecutor;
 
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assume.assumeNoException;
 import static org.junit.Assume.assumeNotNull;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
@@ -40,6 +41,9 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
+import android.net.cts.util.CtsNetUtils;
+import android.net.nsd.NsdManager;
+import android.net.nsd.NsdServiceInfo;
 import android.net.thread.ActiveOperationalDataset;
 import android.net.thread.OperationalDatasetTimestamp;
 import android.net.thread.PendingOperationalDataset;
@@ -50,6 +54,7 @@ import android.net.thread.ThreadNetworkException;
 import android.net.thread.ThreadNetworkManager;
 import android.os.Build;
 import android.os.OutcomeReceiver;
+import android.platform.test.annotations.FlakyTest;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
@@ -66,10 +71,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -83,6 +91,8 @@ public class ThreadNetworkControllerTest {
     private static final int JOIN_TIMEOUT_MILLIS = 30 * 1000;
     private static final int NETWORK_CALLBACK_TIMEOUT_MILLIS = 10 * 1000;
     private static final int CALLBACK_TIMEOUT_MILLIS = 1000;
+    private static final int SERVICE_DISCOVERY_TIMEOUT_MILLIS = 10 * 1000;
+    private static final String MESHCOP_SERVICE_TYPE = "_meshcop._udp";
     private static final String PERMISSION_THREAD_NETWORK_PRIVILEGED =
             "android.permission.THREAD_NETWORK_PRIVILEGED";
 
@@ -93,12 +103,16 @@ public class ThreadNetworkControllerTest {
     private ThreadNetworkManager mManager;
 
     private Set<String> mGrantedPermissions;
+    private ConnectivityManager mConnectivityManager;
+    private CtsNetUtils mCtsNetUtils;
 
     @Before
     public void setUp() {
         mExecutor = Executors.newSingleThreadExecutor();
         mManager = mContext.getSystemService(ThreadNetworkManager.class);
         mGrantedPermissions = new HashSet<String>();
+        mConnectivityManager = mContext.getSystemService(ConnectivityManager.class);
+        mCtsNetUtils = new CtsNetUtils(mContext);
 
         // TODO: we will also need it in tearDown(), it's better to have a Rule to skip
         // tests if a feature is not available.
@@ -789,5 +803,129 @@ public class ThreadNetworkControllerTest {
         runAsShell(
                 permission.ACCESS_NETWORK_STATE, () -> assertThat(isAttached(controller)).isTrue());
         assertThat(networkFuture.get(NETWORK_CALLBACK_TIMEOUT_MILLIS, MILLISECONDS)).isNotNull();
+    }
+
+    @FlakyTest(bugId = 321493585)
+    @Test
+    public void meshcopService_notJoined_discoveredButNoNetwork() throws Exception {
+        Network wifiNetwork = ensureWifiConnected();
+
+        Map<String, byte[]> txtMap =
+                resolveService(discoverService(MESHCOP_SERVICE_TYPE)).getAttributes();
+        assertThat(txtMap.get("rv")).isNotNull();
+        assertThat(txtMap.get("tv")).isNotNull();
+        assertThat(txtMap.get("sb")).isNotNull();
+        assertThat(txtMap.get("at")).isNull();
+
+        ensureWifiDisconnected(wifiNetwork);
+    }
+
+    @FlakyTest(bugId = 321493585)
+    @Test
+    public void meshcopService_joinNetwork_discoveredHasNetwork() throws Exception {
+        Network wifiNetwork = ensureWifiConnected();
+        ThreadNetworkController controller = mManager.getAllThreadNetworkControllers().get(0);
+        String threadNetworkName = "TestNet" + new Random().nextInt(100);
+        ActiveOperationalDataset activeDataset =
+                newRandomizedDataset(threadNetworkName, controller);
+        SettableFuture<Void> joinFuture = SettableFuture.create();
+        runAsShell(
+                PERMISSION_THREAD_NETWORK_PRIVILEGED,
+                () -> controller.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture)));
+        joinFuture.get(JOIN_TIMEOUT_MILLIS, MILLISECONDS);
+
+        Map<String, byte[]> txtMap =
+                resolveService(discoverService(MESHCOP_SERVICE_TYPE)).getAttributes();
+        assertThat(txtMap.get("rv")).isNotNull();
+        assertThat(txtMap.get("tv")).isNotNull();
+        assertThat(txtMap.get("sb")).isNotNull();
+        assertThat(txtMap.get("id")).isNotNull();
+        assertThat(txtMap.get("nn")).isEqualTo(threadNetworkName.getBytes(StandardCharsets.UTF_8));
+        assertThat(txtMap.get("at")).isNotNull();
+
+        ensureWifiDisconnected(wifiNetwork);
+    }
+
+    // Returns the first discovered service instance.
+    private NsdServiceInfo discoverService(String serviceType) throws Exception {
+        SettableFuture<NsdServiceInfo> serviceInfoFuture = SettableFuture.create();
+        NsdManager nsdManager = mContext.getSystemService(NsdManager.class);
+        NsdManager.DiscoveryListener listener =
+                new NsdManager.DiscoveryListener() {
+                    @Override
+                    public void onStartDiscoveryFailed(String serviceType, int errorCode) {}
+
+                    @Override
+                    public void onStopDiscoveryFailed(String serviceType, int errorCode) {}
+
+                    @Override
+                    public void onDiscoveryStarted(String serviceType) {}
+
+                    @Override
+                    public void onDiscoveryStopped(String serviceType) {}
+
+                    @Override
+                    public void onServiceFound(NsdServiceInfo serviceInfo) {
+                        serviceInfoFuture.set(serviceInfo);
+                    }
+
+                    @Override
+                    public void onServiceLost(NsdServiceInfo serviceInfo) {}
+                };
+        runAsShell(
+                permission.INTERNET,
+                () -> {
+                    nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, listener);
+                });
+        serviceInfoFuture.get(SERVICE_DISCOVERY_TIMEOUT_MILLIS, MILLISECONDS);
+        runAsShell(
+                permission.INTERNET,
+                () -> {
+                    nsdManager.stopServiceDiscovery(listener);
+                });
+        return serviceInfoFuture.get();
+    }
+
+    private NsdServiceInfo resolveService(NsdServiceInfo serviceInfo) throws Exception {
+        SettableFuture<NsdServiceInfo> serviceInfoFuture = SettableFuture.create();
+        NsdManager nsdManager = mContext.getSystemService(NsdManager.class);
+        NsdManager.ResolveListener listener =
+                new NsdManager.ResolveListener() {
+                    @Override
+                    public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode) {}
+
+                    @Override
+                    public void onServiceResolved(NsdServiceInfo serviceInfo) {
+                        serviceInfoFuture.set(serviceInfo);
+                    }
+                };
+        runAsShell(
+                permission.INTERNET,
+                () -> {
+                    nsdManager.resolveService(serviceInfo, listener);
+                });
+        serviceInfoFuture.get(SERVICE_DISCOVERY_TIMEOUT_MILLIS, MILLISECONDS);
+        return serviceInfoFuture.get();
+    }
+
+    // Try to connect to a WiFi network if there's an available WiFi configuration. If failed to
+    // connect, fail the assumption.
+    private Network ensureWifiConnected() {
+        Network wifiNetwork = null;
+        try {
+            wifiNetwork = mCtsNetUtils.ensureWifiConnected();
+        } catch (Throwable e) {
+            assumeNoException("Failed to connect to WiFi network", e);
+        }
+        return wifiNetwork;
+    }
+
+    // Try to disconnect from a WiFi network. If failed to disconnect, fail the assumption.
+    private void ensureWifiDisconnected(Network network) {
+        try {
+            mCtsNetUtils.ensureWifiDisconnected(network);
+        } catch (Throwable e) {
+            assumeNoException("Failed to disconnect from WiFi network", e);
+        }
     }
 }
