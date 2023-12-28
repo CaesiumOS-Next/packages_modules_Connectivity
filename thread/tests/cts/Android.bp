@@ -40,6 +40,10 @@ android_test {
         "guava",
         "guava-android-testlib",
         "net-tests-utils",
+        "net-utils-framework-common",
+        "FrameworksNetCommonTests",
+        "net-utils-device-common",
+        "cts-net-utils",
         "truth",
     ],
     libs: [
