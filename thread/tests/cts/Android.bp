@@ -37,11 +37,13 @@ android_test {
         "androidx.test.ext.junit",
         "compatibility-device-util-axt",
         "ctstestrunner-axt",
+        "cts-net-utils",
         "guava",
         "guava-android-testlib",
         "net-tests-utils",
         "truth",
     ],
+    platform_apis: true,
     libs: [
         "android.test.base",
         "android.test.runner",
