@@ -42,6 +42,7 @@ android_test {
         "net-tests-utils",
         "truth",
     ],
+    platform_apis: true,
     libs: [
         "android.test.base",
         "android.test.runner",
