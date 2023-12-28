@@ -85,6 +85,7 @@ public final class ThreadNetworkControllerServiceTest {
     @Mock private TunInterfaceController mMockTunIfController;
     @Mock private ParcelFileDescriptor mMockTunFd;
     @Mock private InfraInterfaceController mMockInfraIfController;
+    @Mock private NsdPublisher mMockNsdPublisher;
     private Context mContext;
     private TestLooper mTestLooper;
     private FakeOtDaemon mFakeOtDaemon;
@@ -112,7 +113,8 @@ public final class ThreadNetworkControllerServiceTest {
                         () -> mFakeOtDaemon,
                         mMockConnectivityManager,
                         mMockTunIfController,
-                        mMockInfraIfController);
+                        mMockInfraIfController,
+                        mMockNsdPublisher);
         mService.setTestNetworkAgent(mMockNetworkAgent);
     }
 

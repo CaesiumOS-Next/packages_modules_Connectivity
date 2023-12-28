@@ -143,6 +143,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final ConnectivityManager mConnectivityManager;
     private final TunInterfaceController mTunIfController;
     private final InfraInterfaceController mInfraIfController;
+    private final NsdPublisher mNsdPublisher;
     private final LinkProperties mLinkProperties = new LinkProperties();
     private final OtDaemonCallbackProxy mOtDaemonCallbackProxy = new OtDaemonCallbackProxy();
 
@@ -171,7 +172,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             Supplier<IOtDaemon> otDaemonSupplier,
             ConnectivityManager connectivityManager,
             TunInterfaceController tunIfController,
-            InfraInterfaceController infraIfController) {
+            InfraInterfaceController infraIfController,
+            NsdPublisher nsdPublisher) {
         mContext = context;
         mHandler = handler;
         mNetworkProvider = networkProvider;
@@ -179,6 +181,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mConnectivityManager = connectivityManager;
         mTunIfController = tunIfController;
         mInfraIfController = infraIfController;
+        mNsdPublisher = nsdPublisher;
         mUpstreamNetworkRequest = newUpstreamNetworkRequest();
         mNetworkToInterface = new HashMap<Network, String>();
         mBorderRouterConfig = new BorderRouterConfigurationParcel();
@@ -187,17 +190,19 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     public static ThreadNetworkControllerService newInstance(Context context) {
         HandlerThread handlerThread = new HandlerThread("ThreadHandlerThread");
         handlerThread.start();
+        Handler handler = new Handler(handlerThread.getLooper());
         NetworkProvider networkProvider =
                 new NetworkProvider(context, handlerThread.getLooper(), "ThreadNetworkProvider");
 
         return new ThreadNetworkControllerService(
                 context,
-                new Handler(handlerThread.getLooper()),
+                handler,
                 networkProvider,
                 () -> IOtDaemon.Stub.asInterface(ServiceManagerWrapper.waitForService("ot_daemon")),
                 context.getSystemService(ConnectivityManager.class),
                 new TunInterfaceController(TUN_IF_NAME),
-                new InfraInterfaceController());
+                new InfraInterfaceController(),
+                NsdPublisher.newInstance(context, handler));
     }
 
     private static Inet6Address bytesToInet6Address(byte[] addressBytes) {
@@ -273,7 +278,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         if (otDaemon == null) {
             throw new RemoteException("Internal error: failed to start OT daemon");
         }
-        otDaemon.initialize(mTunIfController.getTunFd());
+        otDaemon.initialize(mTunIfController.getTunFd(), mNsdPublisher);
         otDaemon.registerStateCallback(mOtDaemonCallbackProxy, -1);
         otDaemon.asBinder().linkToDeath(() -> mHandler.post(this::onOtDaemonDied), 0);
         mOtDaemon = otDaemon;
@@ -285,6 +290,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         Log.w(TAG, "OT daemon became dead, clean up...");
         OperationReceiverWrapper.onOtDaemonDied();
         mOtDaemonCallbackProxy.onOtDaemonDied();
+        mNsdPublisher.onOtDaemonDied();
         mOtDaemon = null;
     }
 
