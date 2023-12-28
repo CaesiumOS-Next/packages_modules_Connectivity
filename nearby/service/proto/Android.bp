@@ -16,20 +16,6 @@ package {
 }
 
 java_library {
-    name: "fast-pair-lite-protos",
-    proto: {
-        type: "lite",
-        canonical_path_from_root: false,
-    },
-    sdk_version: "system_current",
-    min_sdk_version: "30",
-    srcs: ["src/fastpair/*.proto"],
-    apex_available: [
-        "com.android.tethering",
-    ],
-}
-
-java_library {
     name: "presence-lite-protos",
     proto: {
         type: "lite",
