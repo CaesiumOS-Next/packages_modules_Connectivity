@@ -151,6 +151,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final ConnectivityManager mConnectivityManager;
     private final TunInterfaceController mTunIfController;
     private final InfraInterfaceController mInfraIfController;
+    private final NsdPublisher mNsdPublisher;
     private final LinkProperties mLinkProperties = new LinkProperties();
     private final OtDaemonCallbackProxy mOtDaemonCallbackProxy = new OtDaemonCallbackProxy();
 
@@ -181,7 +182,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             ConnectivityManager connectivityManager,
             TunInterfaceController tunIfController,
             InfraInterfaceController infraIfController,
-            ThreadPersistentSettings persistentSettings) {
+            ThreadPersistentSettings persistentSettings,
+            NsdPublisher nsdPublisher) {
         mContext = context;
         mHandler = handler;
         mNetworkProvider = networkProvider;
@@ -193,24 +195,27 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mNetworkToInterface = new HashMap<Network, String>();
         mBorderRouterConfig = new BorderRouterConfigurationParcel();
         mPersistentSettings = persistentSettings;
+        mNsdPublisher = nsdPublisher;
     }
 
     public static ThreadNetworkControllerService newInstance(
             Context context, ThreadPersistentSettings persistentSettings) {
         HandlerThread handlerThread = new HandlerThread("ThreadHandlerThread");
         handlerThread.start();
+        Handler handler = new Handler(handlerThread.getLooper());
         NetworkProvider networkProvider =
                 new NetworkProvider(context, handlerThread.getLooper(), "ThreadNetworkProvider");
 
         return new ThreadNetworkControllerService(
                 context,
-                new Handler(handlerThread.getLooper()),
+                handler,
                 networkProvider,
                 () -> IOtDaemon.Stub.asInterface(ServiceManagerWrapper.waitForService("ot_daemon")),
                 context.getSystemService(ConnectivityManager.class),
                 new TunInterfaceController(TUN_IF_NAME),
                 new InfraInterfaceController(),
-                persistentSettings);
+                persistentSettings,
+                NsdPublisher.newInstance(context, handler));
     }
 
     private static Inet6Address bytesToInet6Address(byte[] addressBytes) {
@@ -288,7 +293,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
         otDaemon.initialize(
                 mTunIfController.getTunFd(),
-                mPersistentSettings.get(ThreadPersistentSettings.THREAD_ENABLED));
+                mPersistentSettings.get(ThreadPersistentSettings.THREAD_ENABLED),
+                mNsdPublisher);
         otDaemon.registerStateCallback(mOtDaemonCallbackProxy, -1);
         otDaemon.asBinder().linkToDeath(() -> mHandler.post(this::onOtDaemonDied), 0);
         mOtDaemon = otDaemon;
@@ -300,6 +306,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         Log.w(TAG, "OT daemon became dead, clean up...");
         OperationReceiverWrapper.onOtDaemonDied();
         mOtDaemonCallbackProxy.onOtDaemonDied();
+        mNsdPublisher.onOtDaemonDied();
         mOtDaemon = null;
     }
 
