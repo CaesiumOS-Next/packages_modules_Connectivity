@@ -231,7 +231,7 @@ class MdnsInterfaceAdvertiserTest {
     @Test
     fun testConflict() {
         addServiceAndFinishProbing(TEST_SERVICE_ID_1, TEST_SERVICE_1)
-        doReturn(setOf(TEST_SERVICE_ID_1)).`when`(repository).getConflictingServices(any())
+        doReturn(setOf(TEST_SERVICE_ID_1)).`when`(repository).getConflictingServicesDueToSrvTxtRecords(any())
 
         // Reply obtained with:
         // scapy.raw(scapy.DNS(
@@ -244,7 +244,7 @@ class MdnsInterfaceAdvertiserTest {
         packetHandler.handlePacket(query, query.size, src)
 
         val packetCaptor = ArgumentCaptor.forClass(MdnsPacket::class.java)
-        verify(repository).getConflictingServices(packetCaptor.capture())
+        verify(repository).getConflictingServicesDueToSrvTxtRecords(packetCaptor.capture())
 
         packetCaptor.value.let {
             assertEquals(0, it.questions.size)
@@ -257,7 +257,7 @@ class MdnsInterfaceAdvertiserTest {
         }
 
         thread.waitForIdle(TIMEOUT_MS)
-        verify(cb).onServiceConflict(advertiser, TEST_SERVICE_ID_1)
+        verify(cb).onServiceConflict(advertiser, TEST_SERVICE_ID_1, true)
     }
 
     @Test

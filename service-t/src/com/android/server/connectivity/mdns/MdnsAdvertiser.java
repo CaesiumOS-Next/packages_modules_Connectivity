@@ -30,6 +30,7 @@ import android.net.nsd.OffloadEngine;
 import android.net.nsd.OffloadServiceInfo;
 import android.os.Build;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.util.SparseArray;
@@ -175,8 +176,8 @@ public class MdnsAdvertiser {
         }
 
         @Override
-        public void onServiceConflict(@NonNull MdnsInterfaceAdvertiser advertiser, int serviceId) {
-            mSharedLog.i("Found conflict, restarted probing for service " + serviceId);
+        public void onServiceConflict(@NonNull MdnsInterfaceAdvertiser advertiser, int serviceId, boolean isOnlyServiceConflict) {
+            mSharedLog.i("Found conflict, restarted probing for service " + serviceId + " " + isOnlyServiceConflict);
 
             final Registration registration = mRegistrations.get(serviceId);
             if (registration == null) return;
@@ -199,6 +200,15 @@ public class MdnsAdvertiser {
                     }
                 });
                 return;
+            }
+
+            if (!isOnlyServiceConflict) {
+                registration.mConflictOnHost++;
+                // TODO: how many conflicts to allow?
+                if (registration.mConflictOnHost > mAllAdvertisers.size() * 3) {
+                    mCb.onRegisterServiceFailed(serviceId, NsdManager.FAILURE_HOST_NAME_CONFLICT);
+                }
+                return ;
             }
 
             // Conflict was found during probing; rename once to find a name that has no conflict
@@ -334,6 +344,9 @@ public class MdnsAdvertiser {
         int getConflictingService(@NonNull NsdServiceInfo info) {
             for (int i = 0; i < mPendingRegistrations.size(); i++) {
                 final NsdServiceInfo other = mPendingRegistrations.valueAt(i).getServiceInfo();
+                if (TextUtils.isEmpty(other.getServiceName())) {
+                    continue;
+                }
                 if (MdnsUtils.equalsIgnoreDnsCase(info.getServiceName(), other.getServiceName())
                         && MdnsUtils.equalsIgnoreDnsCase(info.getServiceType(),
                         other.getServiceType())) {
@@ -488,10 +501,12 @@ public class MdnsAdvertiser {
         private NsdServiceInfo mServiceInfo;
         int mConflictDuringProbingCount;
         int mConflictAfterProbingCount;
+        int mConflictOnHost;
 
         private Registration(@NonNull NsdServiceInfo serviceInfo) {
             this.mOriginalName = serviceInfo.getServiceName();
             this.mServiceInfo = serviceInfo;
+            this.mConflictOnHost = 0;
         }
 
         /**
