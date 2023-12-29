@@ -85,10 +85,16 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         /**
          * Called by the advertiser when a conflict was found, during or after probing.
          *
-         * If a conflict is found during probing, the {@link #renameServiceForConflict} must be
-         * called to restart probing and attempt registration with a different name.
+         * <p>If a service name conflict is found during probing, the {@link
+         * #renameServiceForConflict} must be called to restart probing and attempt registration
+         * with a different name.
+         *
+         * <p>If a host name conflict is found during probing, TODO
          */
-        void onServiceConflict(@NonNull MdnsInterfaceAdvertiser advertiser, int serviceId);
+        void onServiceConflict(
+                @NonNull MdnsInterfaceAdvertiser advertiser,
+                int serviceId,
+                boolean isOnlyServiceConflict);
 
         /**
          * Called by the advertiser when it destroyed itself.
@@ -381,8 +387,17 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
                     + packet.additionalRecords.size() + " additional from " + src);
         }
 
-        for (int conflictServiceId : mRecordRepository.getConflictingServices(packet)) {
-            mCbHandler.post(() -> mCb.onServiceConflict(this, conflictServiceId));
+        Set<Integer> conflictServicesDueToGeneralRecords =
+                mRecordRepository.getConflictingServicesDueToGeneralRecords(packet);
+        for (int conflictServiceId : conflictServicesDueToGeneralRecords) {
+            mCbHandler.post(() -> mCb.onServiceConflict(this, conflictServiceId, false /* isOnlyServiceConflict */));
+        }
+        Set<Integer> conflictServicesDueToService =
+                mRecordRepository.getConflictingServicesDueToSrvTxtRecords(packet);
+        for (int conflictServiceId : conflictServicesDueToService) {
+            if (!conflictServicesDueToGeneralRecords.contains(conflictServiceId)) {
+                mCbHandler.post(() -> mCb.onServiceConflict(this, conflictServiceId, true /* isOnlyServiceConflict */));
+            }
         }
 
         // Even in case of conflict, add replies for other services. But in general conflicts would
