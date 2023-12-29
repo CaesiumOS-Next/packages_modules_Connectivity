@@ -158,6 +158,8 @@ public final class NsdManager {
                 "com.android.net.flags.nsd_subtypes_support_enabled";
         static final String ADVERTISE_REQUEST_API =
                 "com.android.net.flags.advertise_request_api";
+        static final String NSD_CUSTOM_HOSTNAME_ENABLED =
+                "com.android.net.flags.nsd_custom_hostname_enabled";
     }
 
     /**
@@ -1208,7 +1210,7 @@ public final class NsdManager {
      */
     public void registerService(@NonNull NsdServiceInfo serviceInfo, int protocolType,
             @NonNull Executor executor, @NonNull RegistrationListener listener) {
-        checkServiceInfo(serviceInfo);
+        checkServiceInfoForRegistration(serviceInfo);
         checkProtocol(protocolType);
         final AdvertisingRequest.Builder builder = new AdvertisingRequest.Builder(serviceInfo,
                 protocolType);
@@ -1267,7 +1269,10 @@ public final class NsdManager {
      * @return Type and comma-separated list of subtypes, or null if invalid format.
      */
     @Nullable
-    private static Pair<String, String> getTypeAndSubtypes(@NonNull String typeWithSubtype) {
+    private static Pair<String, String> getTypeAndSubtypes(@Nullable String typeWithSubtype) {
+        if (typeWithSubtype == null) {
+            return null;
+        }
         final Matcher matcher = Pattern.compile(TYPE_REGEX).matcher(typeWithSubtype);
         if (!matcher.matches()) return null;
         // Reject specifications using leading subtypes with a dot
@@ -1298,10 +1303,7 @@ public final class NsdManager {
             @NonNull RegistrationListener listener) {
         final NsdServiceInfo serviceInfo = advertisingRequest.getServiceInfo();
         final int protocolType = advertisingRequest.getProtocolType();
-        if (serviceInfo.getPort() <= 0) {
-            throw new IllegalArgumentException("Invalid port number");
-        }
-        checkServiceInfo(serviceInfo);
+        checkServiceInfoForRegistration(serviceInfo);
         checkProtocol(protocolType);
         final int key;
         // For update only request, the old listener has to be reused
@@ -1551,7 +1553,7 @@ public final class NsdManager {
     @Deprecated
     public void resolveService(@NonNull NsdServiceInfo serviceInfo,
             @NonNull Executor executor, @NonNull ResolveListener listener) {
-        checkServiceInfo(serviceInfo);
+        checkServiceInfoForResolution(serviceInfo);
         int key = putListener(listener, executor, serviceInfo);
         try {
             mService.resolveService(key, serviceInfo);
@@ -1604,7 +1606,7 @@ public final class NsdManager {
      */
     public void registerServiceInfoCallback(@NonNull NsdServiceInfo serviceInfo,
             @NonNull Executor executor, @NonNull ServiceInfoCallback listener) {
-        checkServiceInfo(serviceInfo);
+        checkServiceInfoForResolution(serviceInfo);
         int key = putListener(listener, executor, serviceInfo);
         try {
             mService.registerServiceInfoCallback(key, serviceInfo);
@@ -1649,13 +1651,58 @@ public final class NsdManager {
         }
     }
 
-    private static void checkServiceInfo(NsdServiceInfo serviceInfo) {
+    private static void checkServiceInfoForResolution(NsdServiceInfo serviceInfo) {
         Objects.requireNonNull(serviceInfo, "NsdServiceInfo cannot be null");
         if (TextUtils.isEmpty(serviceInfo.getServiceName())) {
             throw new IllegalArgumentException("Service name cannot be empty");
         }
         if (TextUtils.isEmpty(serviceInfo.getServiceType())) {
             throw new IllegalArgumentException("Service type cannot be empty");
+        }
+    }
+
+    /**
+     * You can register:
+     * - A service with an optional host.
+     * - A hostname with addresses.
+     *
+     * Note that:
+     * - When registering a service, you must specify the service name, service type and port
+     *   number. If you also specify a hostname, you can optionally specify the host addresses.
+     * - When registering a host without a service, you must specify the addresses.
+     *
+     * @hide
+     */
+    public static void checkServiceInfoForRegistration(NsdServiceInfo serviceInfo) {
+        Objects.requireNonNull(serviceInfo, "NsdServiceInfo cannot be null");
+        boolean hasServiceName = !TextUtils.isEmpty(serviceInfo.getServiceName());
+        boolean hasServiceType = !TextUtils.isEmpty(serviceInfo.getServiceType());
+        boolean hasHostname = !TextUtils.isEmpty(serviceInfo.getHostname());
+        boolean hasHostAddresses = !CollectionUtils.isEmpty(serviceInfo.getHostAddresses());
+
+        if (serviceInfo.getPort() < 0) {
+            throw new IllegalArgumentException("Invalid port");
+        }
+
+        if (hasServiceType || hasServiceName || (serviceInfo.getPort() > 0)) {
+            if (!(hasServiceType && hasServiceName && (serviceInfo.getPort() > 0))) {
+                throw new IllegalArgumentException(
+                        "The service type, service name or port is missing");
+            }
+        }
+
+        if (hasHostAddresses && !hasHostname) {
+            throw new IllegalArgumentException(
+                    "The addresses are specified but the hostname is missing");
+        }
+
+        if (!hasServiceType && !hasHostname) {
+            throw new IllegalArgumentException("No service or host specified in NsdServiceInfo");
+        }
+
+        if (!hasServiceType && hasHostname && !hasHostAddresses) {
+            // TODO: b/317946010 - This may be allowed when it supports registering KEY RR.
+            throw new IllegalArgumentException("No host addresses specified in NsdServiceInfo");
         }
     }
 }
