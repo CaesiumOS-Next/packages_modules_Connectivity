@@ -89,6 +89,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1baf399c_9bc3424e",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-29T02:25:21Z",
+      "side": 1,
+      "message": "```suggestion\n    @RequiresPermission(PERMISSION_THREAD_NETWORK_PRIVILEGED)\n    public void setCountryCode(...) {\n        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);\n        \n        setCountryCodeInternal(...);\n    }\n```",
+      "parentUuid": "5cee60d5_c0982543",
+      "range": {
+        "startLine": 433,
+        "startChar": 4,
+        "endLine": 433,
+        "endChar": 31
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb72d196_b1b3822b",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 32
