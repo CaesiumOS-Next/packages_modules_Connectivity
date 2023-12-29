@@ -72,7 +72,7 @@ open class NsdRecord<T : NsdEvent> private constructor(
         )
         assertTrue(
             nextEvent is V, "Expected ${V::class.java.simpleName} but got " +
-                    nextEvent.javaClass.simpleName
+                    nextEvent.javaClass.simpleName + " whd " + nextEvent
         )
         return nextEvent
     }
