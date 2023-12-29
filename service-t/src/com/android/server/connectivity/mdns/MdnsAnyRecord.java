@@ -19,6 +19,7 @@ package com.android.server.connectivity.mdns;
 import android.net.DnsResolver;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * A mDNS "ANY" record, used in mDNS questions to query for any record type.
@@ -42,5 +43,9 @@ public class MdnsAnyRecord extends MdnsRecord {
     @Override
     protected void writeData(MdnsPacketWriter writer) throws IOException {
         // No data to write
+    }
+
+    public String toString() {
+        return "MdnsAnyRecord: " + Arrays.toString(getName());
     }
 }
