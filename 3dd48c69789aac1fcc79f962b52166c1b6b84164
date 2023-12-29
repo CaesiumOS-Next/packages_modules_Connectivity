@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e9c82f4_8f16de2a",
+        "filename": "thread/service/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-29T05:38:49Z",
+      "side": 1,
+      "message": "Oh, instead of adding \"framework-wifi.stubs.module_lib\", please add \"framework-wifi\"",
+      "parentUuid": "1b9d6bc7_8dfce080",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "271af815_da0f2e43",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
         "patchSetId": 2
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "After I remove it, it reports the following error:\n```\npackages/modules/Connectivity/thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java:47: error: cannot find symbol\nimport android.net.wifi.WifiManager;\n                       ^\n  symbol:   class WifiManager\n  location: package android.net.wifi\n```",
       "parentUuid": "03d280cb_69e048e6",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a0ffc4f_6199ec1a",
+        "filename": "thread/tests/unit/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-29T05:38:49Z",
+      "side": 1,
+      "message": "ditto, change it to \"framework-wifi\" should work",
+      "parentUuid": "97e77e2b_ec30f035",
       "range": {
         "startLine": 39,
         "startChar": 8,
