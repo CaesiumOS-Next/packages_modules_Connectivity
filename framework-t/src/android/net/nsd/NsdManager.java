@@ -158,6 +158,8 @@ public final class NsdManager {
                 "com.android.net.flags.nsd_subtypes_support_enabled";
         static final String ADVERTISE_REQUEST_API =
                 "com.android.net.flags.advertise_request_api";
+        static final String NSD_CUSTOM_HOSTNAME_ENABLED =
+                "com.android.net.flags.nsd_custom_hostname_enabled";
     }
 
     /**
@@ -1298,9 +1300,6 @@ public final class NsdManager {
             @NonNull RegistrationListener listener) {
         final NsdServiceInfo serviceInfo = advertisingRequest.getServiceInfo();
         final int protocolType = advertisingRequest.getProtocolType();
-        if (serviceInfo.getPort() <= 0) {
-            throw new IllegalArgumentException("Invalid port number");
-        }
         checkServiceInfo(serviceInfo);
         checkProtocol(protocolType);
         final int key;
@@ -1651,11 +1650,29 @@ public final class NsdManager {
 
     private static void checkServiceInfo(NsdServiceInfo serviceInfo) {
         Objects.requireNonNull(serviceInfo, "NsdServiceInfo cannot be null");
-        if (TextUtils.isEmpty(serviceInfo.getServiceName())) {
-            throw new IllegalArgumentException("Service name cannot be empty");
+        boolean hasServiceName = !TextUtils.isEmpty(serviceInfo.getServiceName());
+        boolean hasServiceType = !TextUtils.isEmpty(serviceInfo.getServiceType());
+        boolean hasHostname = !TextUtils.isEmpty(serviceInfo.getHostname());
+        boolean hasHostAddresses = !CollectionUtils.isEmpty(serviceInfo.getHostAddresses());
+        if (hasServiceName != hasServiceType) {
+            throw new IllegalArgumentException(
+                    "Service name and service type must be either both non-empty or both empty");
         }
-        if (TextUtils.isEmpty(serviceInfo.getServiceType())) {
-            throw new IllegalArgumentException("Service type cannot be empty");
+        if (!hasServiceName && !hasHostname) {
+            throw new IllegalArgumentException(
+                    "At least one of service name and hostname must be non-empty");
+        }
+        if (!hasServiceName && !CollectionUtils.isEmpty(serviceInfo.getSubtypes())) {
+            throw new IllegalArgumentException(
+                    "Subtypes must be empty when service name is unspecified");
+        }
+        if (!hasServiceName && serviceInfo.getPort() != 0) {
+            throw new IllegalArgumentException(
+                    "Port must be zero when service name is unspecified");
+        }
+        if (hasHostname != hasHostAddresses) {
+            throw new IllegalArgumentException(
+                    "Hostname and host addresses must be either both non-empty or both empty");
         }
     }
 }

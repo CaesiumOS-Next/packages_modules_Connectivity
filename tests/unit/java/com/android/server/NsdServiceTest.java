@@ -1379,14 +1379,14 @@ public class NsdServiceTest {
         regInfo.setAttribute("testattr", "testvalue");
         regInfo.setNetwork(new Network(999));
 
-        client.registerService(regInfo, NsdManager.PROTOCOL_DNS_SD, Runnable::run, regListener);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    client.registerService(
+                            regInfo, NsdManager.PROTOCOL_DNS_SD, Runnable::run, regListener);
+                });
         waitForIdle();
         verify(mAdvertiser, never()).addOrUpdateService(anyInt(), any(), any());
-
-        verify(regListener, timeout(TIMEOUT_MS)).onRegistrationFailed(
-                argThat(info -> matches(info, regInfo)), eq(FAILURE_INTERNAL_ERROR));
-        verify(mMetrics).reportServiceRegistrationFailed(
-                false /* isLegacy */, NO_TRANSACTION, 0L /* durationMs */);
     }
 
     @Test
