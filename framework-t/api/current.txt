@@ -271,6 +271,7 @@ package android.net.nsd {
     method public java.util.Map<java.lang.String,byte[]> getAttributes();
     method @Deprecated public java.net.InetAddress getHost();
     method @NonNull public java.util.List<java.net.InetAddress> getHostAddresses();
+    method @FlaggedApi("com.android.net.flags.nsd_custom_hostname_enabled") @Nullable public String getHostname();
     method @Nullable public android.net.Network getNetwork();
     method public int getPort();
     method public String getServiceName();
@@ -280,6 +281,7 @@ package android.net.nsd {
     method public void setAttribute(String, String);
     method @Deprecated public void setHost(java.net.InetAddress);
     method public void setHostAddresses(@NonNull java.util.List<java.net.InetAddress>);
+    method @FlaggedApi("com.android.net.flags.nsd_custom_hostname_enabled") public void setHostname(@Nullable String);
     method public void setNetwork(@Nullable android.net.Network);
     method public void setPort(int);
     method public void setServiceName(String);
