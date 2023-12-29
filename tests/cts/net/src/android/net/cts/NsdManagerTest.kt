@@ -153,6 +153,7 @@ class NsdManagerTest {
     private val serviceName = "NsdTest%09d".format(Random().nextInt(1_000_000_000))
     private val serviceName2 = "NsdTest%09d".format(Random().nextInt(1_000_000_000))
     private val serviceType = "_nmt%09d._tcp".format(Random().nextInt(1_000_000_000))
+    private val customHostname = "NsdTestHost%09d".format(Random().nextInt(1_000_000_000))
     private val handlerThread = HandlerThread(NsdManagerTest::class.java.simpleName)
     private val ctsNetUtils by lazy{ CtsNetUtils(context) }
 
@@ -270,11 +271,18 @@ class NsdManagerTest {
         return agent
     }
 
-    private fun makeTestServiceInfo(network: Network? = null) = NsdServiceInfo().also {
+    private fun makeTestServiceInfo(network: Network? = null,
+                                    hostname: String? = null,
+                                    hostAddresses: List<InetAddress>? = null) = NsdServiceInfo().also {
+
         it.serviceType = serviceType
         it.serviceName = serviceName
         it.network = network
         it.port = TEST_PORT
+        it.hostname = hostname
+        if (hostAddresses != null) {
+            it.hostAddresses = hostAddresses
+        }
     }
 
     @After
@@ -1347,6 +1355,90 @@ class NsdManagerTest {
         assertEquals(
                 setOf(parseNumericAddress("192.0.2.123"), parseNumericAddress("2001:db8::123")),
                 serviceResolved.serviceInfo.hostAddresses.toSet())
+    }
+
+    @Test
+    public fun testCustomHostAdvertisingAndDiscovery_addressesFound() {
+        val hostAddresses = listOf(parseNumericAddress("2002::1"), parseNumericAddress("2002::2"))
+        val si = makeTestServiceInfo(network = testNetwork1.network,
+                hostname = customHostname,
+                hostAddresses = hostAddresses)
+
+        val registrationRecord = NsdRegistrationRecord()
+
+        val discoveryRecord = NsdDiscoveryRecord()
+        tryTest {
+            registerService(registrationRecord, si)
+
+            nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD,
+                    testNetwork1.network, Executor { it.run() }, discoveryRecord)
+
+            val discoveredInfo = discoveryRecord.waitForServiceDiscovered(
+                    serviceName, serviceType, testNetwork1.network)
+            val resolvedInfo = resolveService(discoveredInfo)
+
+            assertEquals(TEST_PORT, resolvedInfo.port)
+            assertEquals(hostAddresses, resolvedInfo.hostAddresses)
+        } cleanupStep {
+            nsdManager.stopServiceDiscovery(discoveryRecord)
+
+            discoveryRecord.expectCallback<DiscoveryStopped>()
+        } cleanup {
+            nsdManager.unregisterService(registrationRecord)
+        }
+    }
+
+    @Test
+    public fun testCustomHostMultipleTimesAdvertisingAndDiscovery_updateAddresses() {
+        val hostAddresses1 = listOf(parseNumericAddress("2002::1"), parseNumericAddress("2002::2"))
+        val hostAddresses2 = listOf(parseNumericAddress("2002::3"))
+        val hostAddresses3 = listOf(parseNumericAddress("2002::1"), parseNumericAddress("2002::3"));
+        val si1 = makeTestServiceInfo(network = testNetwork1.network,
+                hostname = customHostname,
+                hostAddresses = hostAddresses1)
+        si1.serviceType = ""
+        si1.serviceName = ""
+        si1.port = 0
+        val si2 = makeTestServiceInfo(network = testNetwork1.network,
+                hostname = customHostname,
+                hostAddresses = hostAddresses2)
+        val si3 = makeTestServiceInfo(network = testNetwork1.network,
+                hostname = customHostname,
+                hostAddresses = hostAddresses3)
+        si3.serviceName = serviceName + "1"
+
+        val registrationRecord1 = NsdRegistrationRecord()
+        val registrationRecord2 = NsdRegistrationRecord()
+        val registrationRecord3 = NsdRegistrationRecord()
+
+        val discoveryRecord = NsdDiscoveryRecord()
+        tryTest {
+            registerService(registrationRecord1, si1)
+            registerService(registrationRecord2, si2)
+
+            nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD,
+                    testNetwork1.network, Executor { it.run() }, discoveryRecord)
+
+            val discoveredInfo1 = discoveryRecord.waitForServiceDiscovered(serviceName, serviceType, testNetwork1.network)
+            val resolvedInfo1 = resolveService(discoveredInfo1)
+
+            assertEquals(hostAddresses2, resolvedInfo1.hostAddresses)
+
+            registerService(registrationRecord3, si3)
+
+            val discoveredInfo2 = discoveryRecord.waitForServiceDiscovered(serviceName + "1", serviceType, testNetwork1.network)
+            val resolvedInfo2 = resolveService(discoveredInfo2)
+
+            assertEquals(hostAddresses3, resolvedInfo2.hostAddresses)
+        } cleanupStep {
+            nsdManager.stopServiceDiscovery(discoveryRecord)
+
+            discoveryRecord.expectCallback<DiscoveryStopped>()
+        } cleanup {
+            nsdManager.unregisterService(registrationRecord1)
+            nsdManager.unregisterService(registrationRecord2)
+            nsdManager.unregisterService(registrationRecord3)
+        }
     }
 
     private fun buildConflictingAnnouncement(): ByteBuffer {
