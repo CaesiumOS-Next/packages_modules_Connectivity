@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5838cefe_7a198fd9",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2023-12-29T05:42:14Z",
+      "side": 1,
+      "message": "```suggestion\n                Geocoder.isPresent() ? new Geocoder(context) : null,\n```\n\nOtherwise, Geocoder will always be present in ThreadNetworkCountryCode class.",
+      "range": {
+        "startLine": 194,
+        "startChar": 16,
+        "endLine": 194,
+        "endChar": 38
+      },
+      "revId": "890ec853209b765916573447ce4348bf3535634f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
