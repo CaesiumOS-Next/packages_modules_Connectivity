@@ -49,8 +49,10 @@ public final class NsdServiceInfo implements Parcelable {
 
     private static final String TAG = "NsdServiceInfo";
 
+    @Nullable
     private String mServiceName;
 
+    @Nullable
     private String mServiceType;
 
     private final Set<String> mSubtypes;
@@ -58,6 +60,9 @@ public final class NsdServiceInfo implements Parcelable {
     private final ArrayMap<String, byte[]> mTxtRecord;
 
     private final List<InetAddress> mHostAddresses;
+
+    @Nullable
+    private String mHostname;
 
     private int mPort;
 
@@ -90,6 +95,7 @@ public final class NsdServiceInfo implements Parcelable {
         mSubtypes = new ArraySet<>(other.getSubtypes());
         mTxtRecord = new ArrayMap<>(other.mTxtRecord);
         mHostAddresses = new ArrayList<>(other.getHostAddresses());
+        mHostname = other.getHostname();
         mPort = other.getPort();
         mNetwork = other.getNetwork();
         mInterfaceIndex = other.getInterfaceIndex();
@@ -166,6 +172,32 @@ public final class NsdServiceInfo implements Parcelable {
     public void setHostAddresses(@NonNull List<InetAddress> addresses) {
         mHostAddresses.clear();
         mHostAddresses.addAll(addresses);
+    }
+
+    /** Get the hostname. */
+    @FlaggedApi(NsdManager.Flags.NSD_CUSTOM_HOSTNAME_ENABLED)
+    @Nullable
+    public String getHostname() {
+        return mHostname;
+    }
+
+    /**
+     * Set a custom hostname for this service instance for registration.
+     *
+     * <p>A hostname must be in ".local." domain. The ".local." must be omitted when calling this
+     * method.
+     *
+     * <p>For example, you should call setHostname("MyHost") to use the hostname "MyHost.local.".
+     *
+     * <p>If a hostname is set with this method, the addresses set with {@link #setHostAddresses}
+     * will be registered with the hostname.
+     *
+     * <p>If the hostname is null, a random hostname is used and the addresses of this device will
+     * be registered.
+     */
+    @FlaggedApi(NsdManager.Flags.NSD_CUSTOM_HOSTNAME_ENABLED)
+    public void setHostname(@Nullable String hostname) {
+        mHostname = hostname;
     }
 
     /**
@@ -454,6 +486,7 @@ public final class NsdServiceInfo implements Parcelable {
                 .append(", type: ").append(mServiceType)
                 .append(", subtypes: ").append(TextUtils.join(", ", mSubtypes))
                 .append(", hostAddresses: ").append(TextUtils.join(", ", mHostAddresses))
+                .append(", hostname: ").append(mHostname)
                 .append(", port: ").append(mPort)
                 .append(", network: ").append(mNetwork);
 
@@ -494,6 +527,7 @@ public final class NsdServiceInfo implements Parcelable {
         for (InetAddress address : mHostAddresses) {
             InetAddressUtils.parcelInetAddress(dest, address, flags);
         }
+        dest.writeString(mHostname);
     }
 
     /** Implement the Parcelable interface */
@@ -523,6 +557,7 @@ public final class NsdServiceInfo implements Parcelable {
                 for (int i = 0; i < size; i++) {
                     info.mHostAddresses.add(InetAddressUtils.unparcelInetAddress(in));
                 }
+                info.mHostname = in.readString();
                 return info;
             }
 
