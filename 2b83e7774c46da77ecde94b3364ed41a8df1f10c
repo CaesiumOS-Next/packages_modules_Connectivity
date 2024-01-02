@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a69390f_2e588474",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1878380
+      },
+      "writtenOn": "2024-01-02T20:34:26Z",
+      "side": 1,
+      "message": "Hi Chiachang, since Remi is OOO, would you be able to review this CL?",
+      "revId": "2b83e7774c46da77ecde94b3364ed41a8df1f10c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
