@@ -45,6 +45,30 @@
       },
       "revId": "e5cba9cb872bac92356a771464578d94aacb9c80",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e3c7ea3_c17f79ed",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-02T13:02:19Z",
+      "side": 1,
+      "message": "Fixed in aosp/2893140",
+      "parentUuid": "68d52ed8_b675ca31",
+      "range": {
+        "startLine": 332,
+        "startChar": 0,
+        "endLine": 332,
+        "endChar": 14
+      },
+      "revId": "e5cba9cb872bac92356a771464578d94aacb9c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
