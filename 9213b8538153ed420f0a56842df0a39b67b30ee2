@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "cb853ab0_d3516a5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0115367_43dd6682",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 35
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "041ef968_4d4ddbe7",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 32
@@ -54,6 +78,30 @@
       "writtenOn": "2023-12-27T13:12:40Z",
       "side": 1,
       "message": "Please revert this line.\nThe location API required by this change is already included in the default framework lib, so this line is not needed.",
+      "range": {
+        "startLine": 38,
+        "startChar": 8,
+        "endLine": 38,
+        "endChar": 46
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36bb7612_c9335c2e",
+        "filename": "thread/service/Android.bp",
+        "patchSetId": 32
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a49d4a37_8d92b127",
       "range": {
         "startLine": 38,
         "startChar": 8,
@@ -111,6 +159,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1414c5e9_255ed86c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1baf399c_9bc3424e",
+      "range": {
+        "startLine": 433,
+        "startChar": 4,
+        "endLine": 433,
+        "endChar": 31
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb72d196_b1b3822b",
@@ -124,6 +196,30 @@
       "writtenOn": "2023-12-27T13:12:40Z",
       "side": 1,
       "message": "```suggestion\n        OperationReceiverWrapper receiverWrapper \u003d\n                new OperationReceiverWrapper(newOperationReceiver(receiver));\n        mHandler.post(() -\u003e setCountryCodeInternal(countryCode, receiverWrapper));\n```",
+      "range": {
+        "startLine": 436,
+        "startChar": 8,
+        "endLine": 436,
+        "endChar": 75
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c154668_2b078cb3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb72d196_b1b3822b",
       "range": {
         "startLine": 436,
         "startChar": 8,
@@ -157,6 +253,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f99d362_021f9dc5",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddee09c6_4c4bbe18",
+      "range": {
+        "startLine": 444,
+        "startChar": 0,
+        "endLine": 444,
+        "endChar": 85
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb6ce761_64a7ae5d",
@@ -170,6 +290,30 @@
       "writtenOn": "2023-12-27T13:12:40Z",
       "side": 1,
       "message": "Follow my previous comment, you can here define a newOperationReceiver method:\n```suggestion\n    private IOperationReceiver newOperationReceiver(\n            @NonNull OutcomeReceiver\u003cVoid, ThreadNetworkException\u003e receiver) {\n        return new IOperationReceiver() {\n            @Override\n            public void onSuccess() {\n                receiver.onResult(null /* result */);\n            }\n\n            @Override\n            public void onError(int otError, String message) {\n                receiver.onError(new ThreadNetworkException(otError, message));\n            }\n        };\n    }\n```",
+      "range": {
+        "startLine": 452,
+        "startChar": 0,
+        "endLine": 465,
+        "endChar": 5
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6184fd60_82d1c523",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb6ce761_64a7ae5d",
       "range": {
         "startLine": 452,
         "startChar": 0,
@@ -203,6 +347,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "068de5f6_ac27e040",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5467a559_85a8477f",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 37
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2736e6f_f68884c0",
@@ -216,6 +384,30 @@
       "writtenOn": "2023-12-27T13:12:40Z",
       "side": 1,
       "message": "nit:\n```suggestion\n    @Nullable\n    private CountryCodeInfo mCurrentCountryCodeInfo;\n    \n    @Nullable\n    private CountryCodeInfo mLocationCountryCodeInfo;\n    \n    @Nullable\n    private CountryCodeInfo mOverrideCountryCodeInfo;\n```",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 53
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2f70bdd_b7ef366f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2736e6f_f68884c0",
       "range": {
         "startLine": 80,
         "startChar": 0,
@@ -249,6 +441,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31986c8f_13429c1c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8aad2da_20f6d858",
+      "range": {
+        "startLine": 91,
+        "startChar": 16,
+        "endLine": 91,
+        "endChar": 45
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61db5fdc_05321373",
@@ -262,6 +478,30 @@
       "writtenOn": "2023-12-27T13:12:40Z",
       "side": 1,
       "message": "nit:\n```suggestion\n                Instant instant) {\n```\n\nYou can typically ignore @NonNull for Non-API methods, as well take it as by default non-null",
+      "range": {
+        "startLine": 93,
+        "startChar": 16,
+        "endLine": 93,
+        "endChar": 40
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4005429_787a37ba",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61db5fdc_05321373",
       "range": {
         "startLine": 93,
         "startChar": 16,
@@ -295,6 +535,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14a0d3bf_eef2ef11",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ea0dda5_17e15f88",
+      "range": {
+        "startLine": 100,
+        "startChar": 16,
+        "endLine": 100,
+        "endChar": 26
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ceeda5b3_188b8054",
@@ -308,6 +572,30 @@
       "writtenOn": "2023-12-27T13:12:40Z",
       "side": 1,
       "message": "```suggestion\n            @Nullable Geocoder geocoder) {\n```",
+      "range": {
+        "startLine": 136,
+        "startChar": 12,
+        "endLine": 136,
+        "endChar": 29
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18b2b885_b5f094da",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ceeda5b3_188b8054",
       "range": {
         "startLine": 136,
         "startChar": 12,
@@ -341,6 +629,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c01d571f_abbc80aa",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e923a1d7_1c29e5c3",
+      "range": {
+        "startLine": 178,
+        "startChar": 57,
+        "endLine": 178,
+        "endChar": 61
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a20b798_9800fec2",
@@ -354,6 +666,30 @@
       "writtenOn": "2023-12-27T13:12:40Z",
       "side": 1,
       "message": "We are creating a new Object of the same value each time pickCountryCode() is called. What about defining a \n```\nprivate static final CountryCodeInfo DEFAULT_COUNTRY_CODE_INFO \u003d new CountryCodeInfo(DEFAULT_COUNTRY_CODE, COUNTRY_CODE_SOURCE_DEFAULT);\n```\n?",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 86
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9086b597_994e7ed4",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a20b798_9800fec2",
       "range": {
         "startLine": 214,
         "startChar": 0,
@@ -387,6 +723,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cc5a20f_573d10bb",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13f477c9_5e4a25e3",
+      "range": {
+        "startLine": 276,
+        "startChar": 66,
+        "endLine": 276,
+        "endChar": 73
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fc9f6be_0f3b61e9",
@@ -400,6 +760,30 @@
       "writtenOn": "2023-12-27T13:12:40Z",
       "side": 1,
       "message": "```suggestion\n            mCountryCode.initialize();\n```\n\nIt\u0027s guaranteed not-null",
+      "range": {
+        "startLine": 66,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 13
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07cf8dea_07364a11",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkService.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fc9f6be_0f3b61e9",
       "range": {
         "startLine": 66,
         "startChar": 12,
@@ -433,6 +817,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42fc8f03_6eff8a7a",
+        "filename": "thread/tests/unit/Android.bp",
+        "patchSetId": 32
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "933762db_6c154fb0",
+      "range": {
+        "startLine": 37,
+        "startChar": 8,
+        "endLine": 37,
+        "endChar": 46
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64fa9fc0_438c0a3a",
@@ -456,6 +864,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2842b1b0_9ae96189",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64fa9fc0_438c0a3a",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 59
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d5eba75_b89319f3",
@@ -469,6 +901,30 @@
       "writtenOn": "2023-12-27T13:12:40Z",
       "side": 1,
       "message": "```suggestion\n        verify(mThreadNetworkCountryCode).setOverrideCountryCode(eq(\"US\"));\n```",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 72
+      },
+      "revId": "9213b8538153ed420f0a56842df0a39b67b30ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87f0b52f_f886d5d2",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d5eba75_b89319f3",
       "range": {
         "startLine": 102,
         "startChar": 8,
