@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c37cbf7_77390e2f",
+        "filename": "thread/service/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e9c82f4_8f16de2a",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "271af815_da0f2e43",
@@ -227,6 +251,30 @@
       "side": 1,
       "message": "ditto, change it to \"framework-wifi\" should work",
       "parentUuid": "97e77e2b_ec30f035",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "3dd48c69789aac1fcc79f962b52166c1b6b84164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89386e9f_09eb213e",
+        "filename": "thread/tests/unit/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-02T07:54:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a0ffc4f_6199ec1a",
       "range": {
         "startLine": 39,
         "startChar": 8,
