@@ -97,6 +97,7 @@ public class ThreadNetworkCountryCodeTest {
     @Mock List<SubscriptionInfo> mSubscriptionInfoList;
     @Mock SubscriptionInfo mSubscriptionInfo0;
     @Mock SubscriptionInfo mSubscriptionInfo1;
+    @Mock ThreadNetworkInjector mInjector;
 
     private ThreadNetworkCountryCode mThreadNetworkCountryCode;
     private boolean mErrorSetCountryCode;
@@ -126,6 +127,7 @@ public class ThreadNetworkCountryCodeTest {
 
         when(mLocation.getLatitude()).thenReturn(0.0);
         when(mLocation.getLongitude()).thenReturn(0.0);
+        when(mInjector.getOemCountryCode()).thenReturn(null);
 
         Answer setCountryCodeCallback =
                 invocation -> {
@@ -153,7 +155,8 @@ public class ThreadNetworkCountryCodeTest {
                         mWifiManager,
                         mContext,
                         mTelephonyManager,
-                        mSubscriptionManager);
+                        mSubscriptionManager,
+                        mInjector);
     }
 
     private static Address newAddress(String countryCode) {
@@ -167,6 +170,15 @@ public class ThreadNetworkCountryCodeTest {
         mThreadNetworkCountryCode.initialize();
 
         assertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(DEFAULT_COUNTRY_CODE);
+    }
+
+    @Test
+    public void initialize_oemCountryCodeAvailable_oemCountryCodeIsUsed() {
+        when(mInjector.getOemCountryCode()).thenReturn(TEST_COUNTRY_CODE_US);
+
+        mThreadNetworkCountryCode.initialize();
+
+        assertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(TEST_COUNTRY_CODE_US);
     }
 
     @Test

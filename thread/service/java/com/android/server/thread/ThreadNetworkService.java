@@ -56,7 +56,9 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
         if (phase == SystemService.PHASE_BOOT_COMPLETED) {
             mControllerService = ThreadNetworkControllerService.newInstance(mContext);
             mControllerService.initialize();
-            mCountryCode = ThreadNetworkCountryCode.newInstance(mContext, mControllerService);
+            mCountryCode =
+                    ThreadNetworkCountryCode.newInstance(
+                            mContext, mControllerService, new ThreadNetworkInjector());
             mCountryCode.initialize();
 
             mShellCommand = new ThreadNetworkShellCommand(mCountryCode);
