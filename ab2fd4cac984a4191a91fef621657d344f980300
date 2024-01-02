@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb4177da_11eb93c5",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-02T02:57:36Z",
+      "side": 0,
+      "message": "NsdManager now needs to be updated to accept @Nullable service type and name. For example, NsdManager#checkServiceInfo requires Non-Empty serviceName and serviceType in the NsdServiceInfo object. See https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/framework-t/src/android/net/nsd/NsdManager.java;drc\u003d7dd1201dc915585c6075fd2833a77966ed6a2376;bpv\u003d1;bpt\u003d1;l\u003d1652?q\u003dNsdManager.java\u0026gsn\u003dcheckServiceInfo\u0026gs\u003dKYTHE%3A%2F%2Fkythe%3A%2F%2Fandroid.googlesource.com%2Fplatform%2Fsuperproject%2Fmain%2F%2Fmain%3Flang%3Djava%3Fpath%3Dandroid.net.nsd.NsdManager%2324ddd17de24240842b57fee1da0083441ee3bbd89e35fceac7482aaeebe119ad\n\nPrecisely, NsdManager should require at least one of the service or host name be non-empty.",
+      "revId": "ab2fd4cac984a4191a91fef621657d344f980300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

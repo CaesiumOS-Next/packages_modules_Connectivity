@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bf33646_cbf9d74d",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-02T02:57:36Z",
+      "side": 1,
+      "message": "```suggestion\n    @Nullable\n    private String mServiceName;\n\n    @Nullable\n    private String mServiceType;\n```",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 32
+      },
+      "revId": "c01b041302d73d0b6924a290fba496b510618524",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ad7a27f_51dcbe1f",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-02T02:57:36Z",
+      "side": 1,
+      "message": "```suggestion\n    @Nullable\n    private String mHostname;\n```",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 29
+      },
+      "revId": "c01b041302d73d0b6924a290fba496b510618524",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c022459b_faf28896",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-02T02:57:36Z",
+      "side": 1,
+      "message": "It\u0027s unclear to me whether we want to change the getter/setter APIs to @Nullable or just leave them untouched. It\u0027s up to Lorenzo / Remi, but call it out here.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 5
+      },
+      "revId": "c01b041302d73d0b6924a290fba496b510618524",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
