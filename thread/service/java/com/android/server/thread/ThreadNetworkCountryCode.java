@@ -77,6 +77,7 @@ public class ThreadNetworkCountryCode {
             value = {
                 COUNTRY_CODE_SOURCE_DEFAULT,
                 COUNTRY_CODE_SOURCE_LOCATION,
+                COUNTRY_CODE_SOURCE_OEM,
                 COUNTRY_CODE_SOURCE_OVERRIDE,
                 COUNTRY_CODE_SOURCE_TELEPHONY,
                 COUNTRY_CODE_SOURCE_TELEPHONY_LAST,
@@ -86,6 +87,7 @@ public class ThreadNetworkCountryCode {
 
     private static final String COUNTRY_CODE_SOURCE_DEFAULT = "Default";
     private static final String COUNTRY_CODE_SOURCE_LOCATION = "Location";
+    private static final String COUNTRY_CODE_SOURCE_OEM = "Oem";
     private static final String COUNTRY_CODE_SOURCE_OVERRIDE = "Override";
     private static final String COUNTRY_CODE_SOURCE_TELEPHONY = "Telephony";
     private static final String COUNTRY_CODE_SOURCE_TELEPHONY_LAST = "TelephonyLast";
@@ -104,6 +106,7 @@ public class ThreadNetworkCountryCode {
     private final SubscriptionManager mSubscriptionManager;
     private final Map<Integer, TelephonyCountryCodeSlotInfo> mTelephonyCountryCodeSlotInfoMap =
             new ArrayMap();
+    private final ThreadNetworkInjector mInjector;
 
     @Nullable private CountryCodeInfo mCurrentCountryCodeInfo;
     @Nullable private CountryCodeInfo mLocationCountryCodeInfo;
@@ -188,7 +191,8 @@ public class ThreadNetworkCountryCode {
             WifiManager wifiManager,
             Context context,
             TelephonyManager telephonyManager,
-            SubscriptionManager subscriptionManager) {
+            SubscriptionManager subscriptionManager,
+            ThreadNetworkInjector injector) {
         mLocationManager = locationManager;
         mThreadNetworkControllerService = threadNetworkControllerService;
         mGeocoder = geocoder;
@@ -197,10 +201,13 @@ public class ThreadNetworkCountryCode {
         mContext = context;
         mTelephonyManager = telephonyManager;
         mSubscriptionManager = subscriptionManager;
+        mInjector = injector;
     }
 
     public static ThreadNetworkCountryCode newInstance(
-            Context context, ThreadNetworkControllerService controllerService) {
+            Context context,
+            ThreadNetworkControllerService controllerService,
+            ThreadNetworkInjector injector) {
         return new ThreadNetworkCountryCode(
                 context.getSystemService(LocationManager.class),
                 controllerService,
@@ -209,7 +216,8 @@ public class ThreadNetworkCountryCode {
                 context.getSystemService(WifiManager.class),
                 context,
                 context.getSystemService(TelephonyManager.class),
-                context.getSystemService(SubscriptionManager.class));
+                context.getSystemService(SubscriptionManager.class),
+                injector);
     }
 
     /** Sets up this country code module to listen to location country code changes. */
@@ -402,6 +410,18 @@ public class ThreadNetworkCountryCode {
         updateCountryCode(false /* forceUpdate */);
     }
 
+    @Nullable
+    private CountryCodeInfo getOemCountryCodeInfo() {
+        String countryCode = mInjector.getOemCountryCode();
+        CountryCodeInfo countryCodeInfo = null;
+
+        if (isValidCountryCode(countryCode)) {
+            countryCodeInfo = new CountryCodeInfo(countryCode, COUNTRY_CODE_SOURCE_OEM);
+        }
+
+        return countryCodeInfo;
+    }
+
     /**
      * Priority order of country code sources (we stop at the first known country code source):
      *
@@ -418,6 +438,9 @@ public class ThreadNetworkCountryCode {
      *       number will be used.
      *   <li>5. Location country code - Country code retrieved from LocationManager passive location
      *       provider.
+     *   <li>6. OEM country code - Country code retrieved from the system properity
+     *       `ro.boot.threadnetwork.country_code`.
+     *   <li>7. Default country code `WW`.
      * </ul>
      *
      * @return the selected country code information.
@@ -441,6 +464,11 @@ public class ThreadNetworkCountryCode {
 
         if (mLocationCountryCodeInfo != null) {
             return mLocationCountryCodeInfo;
+        }
+
+        CountryCodeInfo oemCountryCodeInfo = getOemCountryCodeInfo();
+        if (oemCountryCodeInfo != null) {
+            return oemCountryCodeInfo;
         }
 
         return DEFAULT_COUNTRY_CODE_INFO;
@@ -537,6 +565,7 @@ public class ThreadNetworkCountryCode {
         pw.println("mWifiCountryCodeInfo: " + mWifiCountryCodeInfo);
         pw.println("mTelephonyLastCountryCodeInfo: " + mTelephonyLastCountryCodeInfo);
         pw.println("mLocationCountryCodeInfo: " + mLocationCountryCodeInfo);
+        pw.println("OemCountryCodeInfo: " + getOemCountryCodeInfo());
         pw.println("mCurrentCountryCodeInfo: " + mCurrentCountryCodeInfo);
         pw.println("---- Dump of ThreadNetworkCountryCode end ------");
     }
