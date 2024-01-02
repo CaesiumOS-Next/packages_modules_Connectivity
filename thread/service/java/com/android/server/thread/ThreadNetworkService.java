@@ -60,7 +60,9 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
             // Country code initialization is delayed to the BOOT_COMPLETED phase because it will
             // call into Wi-Fi and Telephony service whose country code module is ready after
             // PHASE_ACTIVITY_MANAGER_READY and PHASE_THIRD_PARTY_APPS_CAN_START
-            mCountryCode = ThreadNetworkCountryCode.newInstance(mContext, mControllerService);
+            mCountryCode =
+                    ThreadNetworkCountryCode.newInstance(
+                            mContext, mControllerService, new ThreadNetworkInjector());
             mCountryCode.initialize();
             mShellCommand = new ThreadNetworkShellCommand(mCountryCode);
         }
