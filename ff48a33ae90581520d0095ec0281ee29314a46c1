@@ -16,6 +16,24 @@
       "message": "Nit: can you move this down to after the following `if` block (so before the `if (isTruncatedPacket)` ? It\u0027s a bit confusing that there\u0027s a check here, but it isn\u0027t used in the code that immediately follows",
       "revId": "ff48a33ae90581520d0095ec0281ee29314a46c1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92647430_f3117a5a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-02T08:55:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51680075_1d316ec3",
+      "revId": "ff48a33ae90581520d0095ec0281ee29314a46c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
