@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fccfb247_1fa4f191",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSetting.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-03T09:28:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc6d3773_dc1ea692",
+      "range": {
+        "startLine": 38,
+        "startChar": 14,
+        "endLine": 38,
+        "endChar": 42
+      },
+      "revId": "a9b403933ae66b64ee244a81a4465e7207d3f0b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe8fbc37_ef0d1fac",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-03T06:52:38Z",
       "side": 1,
       "message": "```suggestion\npublic class ThreadPersistentSettings {\n```",
+      "range": {
+        "startLine": 40,
+        "startChar": 13,
+        "endLine": 40,
+        "endChar": 36
+      },
+      "revId": "a9b403933ae66b64ee244a81a4465e7207d3f0b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06e9749b_aa427003",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSetting.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-03T09:28:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe8fbc37_ef0d1fac",
       "range": {
         "startLine": 40,
         "startChar": 13,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08497258_d3a3892f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSetting.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-03T09:28:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bad4f48_9c9e2e9b",
+      "range": {
+        "startLine": 66,
+        "startChar": 35,
+        "endLine": 66,
+        "endChar": 44
+      },
+      "revId": "a9b403933ae66b64ee244a81a4465e7207d3f0b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b91f2d7_46f120b1",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-01-03T06:52:38Z",
       "side": 1,
       "message": "Shouldn\u0027t the parameters be \"String key, T value\" ? If a Key\u003cT\u003e is provided as the argument, people can be confused whether it is the `Key.defaultValue` being saved or the `value` argument. Use \"String key\" won\u0027t have this problem.\n\n```suggestion\n    public \u003cT\u003e void put(String key, @Nullable T value) {\n        putObject(key.key, value);\n        writeToStoreFile();\n    }\n```",
+      "range": {
+        "startLine": 127,
+        "startChar": 4,
+        "endLine": 130,
+        "endChar": 5
+      },
+      "revId": "a9b403933ae66b64ee244a81a4465e7207d3f0b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "148d442f_577e9c78",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSetting.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-03T09:28:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b91f2d7_46f120b1",
       "range": {
         "startLine": 127,
         "startChar": 4,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c12c010_6f4d9b2a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSetting.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-03T09:28:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13a3152e_0143e02d",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 5
+      },
+      "revId": "a9b403933ae66b64ee244a81a4465e7207d3f0b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ab78576_1751e343",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-01-03T06:53:31Z",
       "side": 1,
       "message": "This class doesn\u0027t seem useful, consider removing it and save the default values in a static dict.",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 147,
+        "endChar": 32
+      },
+      "revId": "a9b403933ae66b64ee244a81a4465e7207d3f0b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "589d72ba_36ad8fd7",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSetting.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-03T09:28:18Z",
+      "side": 1,
+      "message": "As offline discussed, this class helps to handle different types of default value. Having a static dict we would need to handle the cast of Object to value types. Keeping this class.",
+      "parentUuid": "6ab78576_1751e343",
       "range": {
         "startLine": 147,
         "startChar": 4,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d24e1a7_b0f9cc13",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSetting.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-03T09:28:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "691ce30f_cdb1fe4c",
+      "range": {
+        "startLine": 158,
+        "startChar": 19,
+        "endLine": 158,
+        "endChar": 75
+      },
+      "revId": "a9b403933ae66b64ee244a81a4465e7207d3f0b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0037e7f7_2e3e2a73",
@@ -175,6 +343,30 @@
       "writtenOn": "2024-01-03T06:52:38Z",
       "side": 1,
       "message": "This should be protected by the `mLock`",
+      "range": {
+        "startLine": 171,
+        "startChar": 12,
+        "endLine": 171,
+        "endChar": 71
+      },
+      "revId": "a9b403933ae66b64ee244a81a4465e7207d3f0b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6b830ac_ea91f934",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSetting.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-03T09:28:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0037e7f7_2e3e2a73",
       "range": {
         "startLine": 171,
         "startChar": 12,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71d19aa7_6bcd936b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSetting.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-03T09:28:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1fce7a1_3ca257c9",
+      "range": {
+        "startLine": 188,
+        "startChar": 12,
+        "endLine": 188,
+        "endChar": 48
+      },
+      "revId": "a9b403933ae66b64ee244a81a4465e7207d3f0b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "776f40cc_ae5c6d7f",
@@ -221,6 +437,30 @@
       "writtenOn": "2024-01-03T06:52:38Z",
       "side": 1,
       "message": "ditto.\n```suggestion\n/** Unit tests for {@link ThreadPersistentSetting}. */\n```",
+      "range": {
+        "startLine": 49,
+        "startChar": 26,
+        "endLine": 49,
+        "endChar": 75
+      },
+      "revId": "a9b403933ae66b64ee244a81a4465e7207d3f0b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "206112bc_fa2beb83",
+        "filename": "thread/tests/unit/src/android/net/thread/ThreadPersistentSettingTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-03T09:28:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "776f40cc_ae5c6d7f",
       "range": {
         "startLine": 49,
         "startChar": 26,
@@ -254,6 +494,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f177a714_2b4801ac",
+        "filename": "thread/tests/unit/src/android/net/thread/ThreadPersistentSettingTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-03T09:28:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a49b8a0_a2745fd3",
+      "range": {
+        "startLine": 68,
+        "startChar": 16,
+        "endLine": 68,
+        "endChar": 23
+      },
+      "revId": "a9b403933ae66b64ee244a81a4465e7207d3f0b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5307e50b_4624c2a3",
@@ -267,6 +531,30 @@
       "writtenOn": "2024-01-03T06:52:38Z",
       "side": 1,
       "message": "They are trivial asserts, don\u0027t need comments\n\n```suggestion\n        assertThat(mThreadPersistentSetting.get(THREAD_FEATURE_ENABLED)).isFalse();\n        verify(mAtomicFile, never()).startWrite();\n```",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 50
+      },
+      "revId": "a9b403933ae66b64ee244a81a4465e7207d3f0b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ac9d930_d305c399",
+        "filename": "thread/tests/unit/src/android/net/thread/ThreadPersistentSettingTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-03T09:28:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5307e50b_4624c2a3",
       "range": {
         "startLine": 100,
         "startChar": 0,
