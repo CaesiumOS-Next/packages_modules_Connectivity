@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85e9ef12_6c3561f6",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-03T03:42:29Z",
+      "side": 1,
+      "message": "Can we use the `ThreadNetworkCountryCode#newInstance()` ? So that we don\u0027t need to update ThreadNetworkService.java everytime we add a member to ThreadNetworkCountrycode class",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 73
+      },
+      "revId": "69c370af8c19ae6831145876644ac1aab6a6353c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
