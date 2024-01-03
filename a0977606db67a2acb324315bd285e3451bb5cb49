@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "321ef91e_2a5e077b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-03T05:13:18Z",
+      "side": 1,
+      "message": "I\u0027m not sure what it means to access something **from Handler**.",
+      "range": {
+        "startLine": 120,
+        "startChar": 80,
+        "endLine": 121,
+        "endChar": 13
+      },
+      "revId": "a0977606db67a2acb324315bd285e3451bb5cb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb32d605_4ae0a468",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-03T05:13:18Z",
+      "side": 1,
+      "message": "I\u0027m curious about whether we need to add such annotations on private member fields.",
+      "range": {
+        "startLine": 147,
+        "startChar": 2,
+        "endLine": 149,
+        "endChar": 53
+      },
+      "revId": "a0977606db67a2acb324315bd285e3451bb5cb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af43b062_b83b2a1c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-03T05:13:18Z",
+      "side": 1,
+      "message": "Should it be public?",
+      "revId": "a0977606db67a2acb324315bd285e3451bb5cb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70d2a2b1_6d4a4b4b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-03T05:13:18Z",
+      "side": 1,
+      "message": "Same question: not sure what it means to access it from `mHandler`.",
+      "range": {
+        "startLine": 937,
+        "startChar": 81,
+        "endLine": 938,
+        "endChar": 17
+      },
+      "revId": "a0977606db67a2acb324315bd285e3451bb5cb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
