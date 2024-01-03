@@ -16,6 +16,75 @@
       "message": "fuck u pussys",
       "revId": "6e9b0dd2a283753631865c25cf6f2cdf55ff599f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b4f2d08_bd04b0af",
+        "filename": "tests/cts/multidevices/snippet/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-01-03T02:32:09Z",
+      "side": 1,
+      "message": "NETWORK_STACK permission need platform key, do you really need permission?",
+      "range": {
+        "startLine": 24,
+        "startChar": 33,
+        "endLine": 24,
+        "endChar": 65
+      },
+      "revId": "6e9b0dd2a283753631865c25cf6f2cdf55ff599f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de5f2875_a6369443",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-01-03T02:32:09Z",
+      "side": 1,
+      "message": "This API always return false if wifi setting disabled. https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java;l\u003d477?q\u003disPortableHotspotSupported\u0026ss\u003dh%2Fandroid%2Fplatform%2Fsuperproject%2Fmain%2F%2B%2Frefs%2Fheads%2Fmain:packages%2Fmodules%2FConnectivity%2Ftests%2F",
+      "range": {
+        "startLine": 66,
+        "startChar": 47,
+        "endLine": 66,
+        "endChar": 73
+      },
+      "revId": "6e9b0dd2a283753631865c25cf6f2cdf55ff599f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "873067d2_48e1d053",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-01-03T02:32:09Z",
+      "side": 1,
+      "message": "Delete this? When you call ctsTetheringUitls.registerTetheringEventCallback at l.129, it already check expectCallbackStarted before return to caller.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 49
+      },
+      "revId": "6e9b0dd2a283753631865c25cf6f2cdf55ff599f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
