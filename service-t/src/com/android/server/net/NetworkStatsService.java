@@ -299,6 +299,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     static final String NETSTATS_FASTDATAINPUT_SUCCESSES_COUNTER_NAME = "fastdatainput.successes";
     static final String NETSTATS_FASTDATAINPUT_FALLBACKS_COUNTER_NAME = "fastdatainput.fallbacks";
 
+    static final long TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS = 1_000L;
+
     private final Context mContext;
     private final NetworkStatsFactory mStatsFactory;
     private final AlarmManager mAlarmManager;
@@ -453,6 +455,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private static final long POLL_RATE_LIMIT_MS = 15_000;
 
     private long mLastStatsSessionPoll;
+
+    private final TrafficStatsRateLimitCache mTrafficStatsIfaceCache;
 
     private final Object mOpenSessionCallsLock = new Object();
 
@@ -640,6 +644,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         } else {
             mEventLogger = null;
         }
+        mTrafficStatsIfaceCache = new TrafficStatsRateLimitCache(mClock,
+                TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS);
 
         // TODO: Remove bpfNetMaps creation and always start SkDestroyListener
         // Following code is for the experiment to verify the SkDestroyListener refactoring. Based
@@ -1987,15 +1993,22 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     @Override
     public long getIfaceStats(@NonNull String iface, int type) {
         Objects.requireNonNull(iface);
-        long nativeIfaceStats = getEntryValueForType(nativeGetIfaceStat(iface), type);
-        if (nativeIfaceStats == UNSUPPORTED) {
-            return nativeIfaceStats;
+        NetworkStats.Entry entry =
+                mTrafficStatsIfaceCache.get(Binder.getCallingUid(), iface, UID_ALL);
+        if (entry == null) {
+            entry = nativeGetIfaceStat(iface);
+        }
+        long value = getEntryValueForType(entry, type);
+        if (value == UNSUPPORTED) {
+            return UNSUPPORTED;
         } else {
             // When tethering offload is in use, nativeIfaceStats does not contain usage from
             // offload, add it back here. Note that the included statistics might be stale
             // since polling newest stats from hardware might impact system health and not
             // suitable for TrafficStats API use cases.
-            return nativeIfaceStats + getEntryValueForType(getProviderIfaceStats(iface), type);
+            entry.add(getProviderIfaceStats(iface));
+            mTrafficStatsIfaceCache.put(Binder.getCallingUid(), iface, UID_ALL, entry);
+            return getEntryValueForType(entry, type);
         }
     }
 
