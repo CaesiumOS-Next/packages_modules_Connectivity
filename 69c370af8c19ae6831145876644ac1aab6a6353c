@@ -22,6 +22,30 @@
       },
       "revId": "69c370af8c19ae6831145876644ac1aab6a6353c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d436387f_00f803cc",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-03T06:35:21Z",
+      "side": 1,
+      "message": "I added the `ThreadNetworkCountryCode#newInstance()` in https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2884948",
+      "parentUuid": "85e9ef12_6c3561f6",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 73
+      },
+      "revId": "69c370af8c19ae6831145876644ac1aab6a6353c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
