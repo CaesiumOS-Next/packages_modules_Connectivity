@@ -118,6 +118,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ab78576_1751e343",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSetting.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-03T06:53:31Z",
+      "side": 1,
+      "message": "This class doesn\u0027t seem useful, consider removing it and save the default values in a static dict.",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 147,
+        "endChar": 32
+      },
+      "revId": "a9b403933ae66b64ee244a81a4465e7207d3f0b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "691ce30f_cdb1fe4c",
         "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSetting.java",
         "patchSetId": 3
