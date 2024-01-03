@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6966ba08_a42f4d9a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-03T07:00:47Z",
+      "side": 1,
+      "message": "Updated the comment to say \"access from thread of `mHandler`\"",
+      "parentUuid": "321ef91e_2a5e077b",
+      "range": {
+        "startLine": 120,
+        "startChar": 80,
+        "endLine": 121,
+        "endChar": 13
+      },
+      "revId": "a0977606db67a2acb324315bd285e3451bb5cb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb32d605_4ae0a468",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-03T05:13:18Z",
       "side": 1,
       "message": "I\u0027m curious about whether we need to add such annotations on private member fields.",
+      "range": {
+        "startLine": 147,
+        "startChar": 2,
+        "endLine": 149,
+        "endChar": 53
+      },
+      "revId": "a0977606db67a2acb324315bd285e3451bb5cb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65fdda83_f23e7865",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-03T07:00:47Z",
+      "side": 1,
+      "message": "Add @Nullable to make it clear that this field can be null. A field in the Thread codebase without any annotation is not nullable.",
+      "parentUuid": "fb32d605_4ae0a468",
       "range": {
         "startLine": 147,
         "startChar": 2,
@@ -64,6 +112,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea37d595_46486e9b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-03T07:00:47Z",
+      "side": 1,
+      "message": "We should use lowest visibility as possible. Given this is for only unit test, package visibility is enough.",
+      "parentUuid": "af43b062_b83b2a1c",
+      "revId": "a0977606db67a2acb324315bd285e3451bb5cb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70d2a2b1_6d4a4b4b",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-01-03T05:13:18Z",
       "side": 1,
       "message": "Same question: not sure what it means to access it from `mHandler`.",
+      "range": {
+        "startLine": 937,
+        "startChar": 81,
+        "endLine": 938,
+        "endChar": 17
+      },
+      "revId": "a0977606db67a2acb324315bd285e3451bb5cb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa81c9d4_93808e51",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-03T07:00:47Z",
+      "side": 1,
+      "message": "Updated to say \"accessed from the thread of `mHandler`\"",
+      "parentUuid": "70d2a2b1_6d4a4b4b",
       "range": {
         "startLine": 937,
         "startChar": 81,
