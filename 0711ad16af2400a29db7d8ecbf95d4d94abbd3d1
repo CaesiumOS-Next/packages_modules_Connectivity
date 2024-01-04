@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29a4efeb_6a2204f9",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 44
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-01-04T06:54:13Z",
+      "side": 1,
+      "message": "I see many source files use \"import android.system.OsConstants;\". Should we do the same instead of import these constants one by one? The same question for constants in MulticastRoutingCnofig.",
+      "revId": "0711ad16af2400a29db7d8ecbf95d4d94abbd3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
