@@ -129,7 +129,7 @@ public final class ThreadNetworkSettingsFragment extends Fragment {
         ThreadNetworkManager threadManager =
                 getActivity().getSystemService(ThreadNetworkManager.class);
         if (threadManager != null) {
-            mThreadController = threadManager.getAllThreadNetworkControllers().get(0);
+            mThreadController = threadManager.getThreadNetworkController();
             mThreadController.registerStateCallback(
                     mMainExecutor,
                     new ThreadNetworkController.StateCallback() {
