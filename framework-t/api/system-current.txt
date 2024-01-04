@@ -536,7 +536,7 @@ package android.net.thread {
   }
 
   @FlaggedApi("com.android.net.thread.flags.thread_enabled") public final class ThreadNetworkManager {
-    method @NonNull public java.util.List<android.net.thread.ThreadNetworkController> getAllThreadNetworkControllers();
+    method @NonNull public android.net.thread.ThreadNetworkController getThreadNetworkController();
   }
 
 }
