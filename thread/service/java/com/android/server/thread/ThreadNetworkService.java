@@ -30,8 +30,6 @@ import com.android.server.SystemService;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Implementation of the Thread network service. This is the entry point of Android Thread feature.
@@ -64,11 +62,8 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
     }
 
     @Override
-    public List<IThreadNetworkController> getAllThreadNetworkControllers() {
-        if (mControllerService == null) {
-            return Collections.emptyList();
-        }
-        return Collections.singletonList(mControllerService);
+    public IThreadNetworkController getThreadNetworkController() {
+        return mControllerService;
     }
 
     @Override
