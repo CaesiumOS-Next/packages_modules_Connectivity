@@ -23,5 +23,5 @@ import android.net.thread.IThreadNetworkController;
 * @hide
 */
 interface IThreadNetworkManager {
-    List<IThreadNetworkController> getAllThreadNetworkControllers();
+    IThreadNetworkController getThreadNetworkController();
 }
