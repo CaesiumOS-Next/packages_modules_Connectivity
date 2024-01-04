@@ -299,6 +299,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     static final String NETSTATS_FASTDATAINPUT_SUCCESSES_COUNTER_NAME = "fastdatainput.successes";
     static final String NETSTATS_FASTDATAINPUT_FALLBACKS_COUNTER_NAME = "fastdatainput.fallbacks";
 
+    static final long TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS = 1_000L;
+
     private final Context mContext;
     private final NetworkStatsFactory mStatsFactory;
     private final AlarmManager mAlarmManager;
@@ -453,6 +455,10 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private static final long POLL_RATE_LIMIT_MS = 15_000;
 
     private long mLastStatsSessionPoll;
+
+    private final TrafficStatsRateLimitCache mTrafficStatsTotalCache;
+    private final TrafficStatsRateLimitCache mTrafficStatsIfaceCache;
+    private final TrafficStatsRateLimitCache mTrafficStatsUidCache;
 
     private final Object mOpenSessionCallsLock = new Object();
 
@@ -640,6 +646,12 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         } else {
             mEventLogger = null;
         }
+        mTrafficStatsTotalCache = new TrafficStatsRateLimitCache(mClock,
+                TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS);
+        mTrafficStatsIfaceCache = new TrafficStatsRateLimitCache(mClock,
+                TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS);
+        mTrafficStatsUidCache = new TrafficStatsRateLimitCache(mClock,
+                TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS);
 
         // TODO: Remove bpfNetMaps creation and always start SkDestroyListener
         // Following code is for the experiment to verify the SkDestroyListener refactoring. Based
@@ -1981,13 +1993,25 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         if (callingUid != android.os.Process.SYSTEM_UID && callingUid != uid) {
             return UNSUPPORTED;
         }
-        return getEntryValueForType(nativeGetUidStat(uid), type);
+        NetworkStats.Entry entry =
+                mTrafficStatsUidCache.get(Binder.getCallingUid(), IFACE_ALL, uid);
+        if (entry == null) {
+            entry = nativeGetUidStat(uid);
+            if (entry != null) {
+                mTrafficStatsUidCache.put(Binder.getCallingUid(), IFACE_ALL, uid, entry);
+            }
+        }
+        return getEntryValueForType(entry, type);
     }
 
     @Override
     public long getIfaceStats(@NonNull String iface, int type) {
         Objects.requireNonNull(iface);
-        final NetworkStats.Entry entry = nativeGetIfaceStat(iface);
+        NetworkStats.Entry entry =
+                mTrafficStatsIfaceCache.get(Binder.getCallingUid(), iface, UID_ALL);
+        if (entry == null) {
+            entry = nativeGetIfaceStat(iface);
+        }
         final long value = getEntryValueForType(entry, type);
         if (value == UNSUPPORTED) {
             return UNSUPPORTED;
@@ -1997,6 +2021,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             // since polling newest stats from hardware might impact system health and not
             // suitable for TrafficStats API use cases.
             entry.add(getProviderIfaceStats(iface));
+            mTrafficStatsIfaceCache.put(Binder.getCallingUid(), iface, UID_ALL, entry);
             return getEntryValueForType(entry, type);
         }
     }
@@ -2019,13 +2044,18 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
     @Override
     public long getTotalStats(int type) {
-        final NetworkStats.Entry entry = nativeGetTotalStat();
+        NetworkStats.Entry entry =
+                mTrafficStatsTotalCache.get(Binder.getCallingUid(), IFACE_ALL, UID_ALL);
+        if (entry == null) {
+            entry = nativeGetTotalStat();
+        }
         final long value = getEntryValueForType(entry, type);
         if (value == UNSUPPORTED) {
             return UNSUPPORTED;
         } else {
             // Refer to comment in getIfaceStats
             entry.add(getProviderIfaceStats(IFACE_ALL));
+            mTrafficStatsTotalCache.put(Binder.getCallingUid(), IFACE_ALL, UID_ALL, entry);
             return getEntryValueForType(entry, type);
         }
     }
