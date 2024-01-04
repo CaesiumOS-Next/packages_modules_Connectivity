@@ -161,5 +161,3 @@ UnflaggedApi: android.net.thread.ThreadNetworkController#getThreadVersion():
     New API must be flagged with @FlaggedApi: method android.net.thread.ThreadNetworkController.getThreadVersion()
 UnflaggedApi: android.net.thread.ThreadNetworkManager:
     New API must be flagged with @FlaggedApi: class android.net.thread.ThreadNetworkManager
-UnflaggedApi: android.net.thread.ThreadNetworkManager#getAllThreadNetworkControllers():
-    New API must be flagged with @FlaggedApi: method android.net.thread.ThreadNetworkManager.getAllThreadNetworkControllers()

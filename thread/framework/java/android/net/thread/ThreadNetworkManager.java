@@ -25,11 +25,6 @@ import android.annotation.SystemService;
 import android.content.Context;
 import android.os.RemoteException;
 
-import com.android.net.module.util.CollectionUtils;
-
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Provides the primary API for managing app aspects of Thread network connectivity.
  *
@@ -80,7 +75,7 @@ public final class ThreadNetworkManager {
             "android.permission.THREAD_NETWORK_PRIVILEGED";
 
     @NonNull private final Context mContext;
-    @NonNull private final List<ThreadNetworkController> mUnmodifiableControllerServices;
+    @NonNull private final ThreadNetworkController mController;
 
     /**
      * Creates a new ThreadNetworkManager instance.
@@ -89,34 +84,30 @@ public final class ThreadNetworkManager {
      */
     public ThreadNetworkManager(
             @NonNull Context context, @NonNull IThreadNetworkManager managerService) {
-        this(context, makeControllers(managerService));
-    }
-
-    private static List<ThreadNetworkController> makeControllers(
-            @NonNull IThreadNetworkManager managerService) {
-        requireNonNull(managerService, "managerService cannot be null");
-
-        List<IThreadNetworkController> controllerServices;
-
-        try {
-            controllerServices = managerService.getAllThreadNetworkControllers();
-        } catch (RemoteException e) {
-            e.rethrowFromSystemServer();
-            return Collections.emptyList();
-        }
-
-        return CollectionUtils.map(controllerServices, ThreadNetworkController::new);
+        this(context, makeController(managerService));
     }
 
     private ThreadNetworkManager(
-            @NonNull Context context, @NonNull List<ThreadNetworkController> controllerServices) {
+            @NonNull Context context, @NonNull ThreadNetworkController controller) {
         mContext = context;
-        mUnmodifiableControllerServices = Collections.unmodifiableList(controllerServices);
+        mController = controller;
     }
 
-    /** Returns the {@link ThreadNetworkController} object of all Thread networks. */
+    private static ThreadNetworkController makeController(
+            @NonNull IThreadNetworkManager managerService) {
+        requireNonNull(managerService, "managerService cannot be null");
+
+        try {
+            return new ThreadNetworkController(managerService.getThreadNetworkController());
+        } catch (RemoteException e) {
+            e.rethrowFromSystemServer();
+            return null;
+        }
+    }
+
+    /** Returns the {@link ThreadNetworkController} object for managing Thread network. */
     @NonNull
-    public List<ThreadNetworkController> getAllThreadNetworkControllers() {
-        return mUnmodifiableControllerServices;
+    public ThreadNetworkController getThreadNetworkController() {
+        return mController;
     }
 }
