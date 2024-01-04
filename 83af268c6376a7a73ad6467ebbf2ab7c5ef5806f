@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e23d453_704dbd58",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2014,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2024-01-04T03:44:35Z",
+      "side": 1,
+      "message": "It has a logic change here which returns 0 in the original code, returns -1 in this commit. If you\u0027re certain that the type won\u0027t be unsupported, maybe just modify the commit message for the \"no-op refacotring\" part. If the type can be unsupported, it\u0027s not good to `return nativeTotalStats + (-1)` at L.2025.",
+      "range": {
+        "startLine": 2014,
+        "startChar": 16,
+        "endLine": 2014,
+        "endChar": 35
+      },
+      "revId": "83af268c6376a7a73ad6467ebbf2ab7c5ef5806f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
