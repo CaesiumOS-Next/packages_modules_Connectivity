@@ -41,8 +41,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.List;
-
 /** Tests for {@link ThreadNetworkManager}. */
 @SmallTest
 @RunWith(AndroidJUnit4.class)
@@ -100,11 +98,11 @@ public class ThreadNetworkManagerTest {
 
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
-    public void getAllThreadNetworkControllers_managerIsNotNull_returnsNotEmptyList() {
+    public void getThreadNetworkController_managerIsNotNull_returnsNotNullController() {
         assumeNotNull(mManager);
 
-        List<ThreadNetworkController> controllers = mManager.getAllThreadNetworkControllers();
+        ThreadNetworkController controller = mManager.getThreadNetworkController();
 
-        assertThat(controllers).isNotEmpty();
+        assertThat(controller).isNotNull();
     }
 }
