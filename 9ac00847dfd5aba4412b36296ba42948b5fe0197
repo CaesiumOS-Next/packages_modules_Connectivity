@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3fa4011_81206444",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-04T06:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f929ad33_d5ee389a",
+      "range": {
+        "startLine": 121,
+        "startChar": 33,
+        "endLine": 121,
+        "endChar": 52
+      },
+      "revId": "9ac00847dfd5aba4412b36296ba42948b5fe0197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1daa2b2f_6ff68e69",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-21T08:13:51Z",
       "side": 1,
       "message": "nits: having underscore helps reading, 300_000",
+      "range": {
+        "startLine": 124,
+        "startChar": 48,
+        "endLine": 124,
+        "endChar": 54
+      },
+      "revId": "9ac00847dfd5aba4412b36296ba42948b5fe0197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53669115_38173783",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-04T06:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1daa2b2f_6ff68e69",
       "range": {
         "startLine": 124,
         "startChar": 48,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d56afb32_02a367a9",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-04T06:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e26306af_8415a6eb",
+      "range": {
+        "startLine": 130,
+        "startChar": 61,
+        "endLine": 130,
+        "endChar": 76
+      },
+      "revId": "9ac00847dfd5aba4412b36296ba42948b5fe0197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8d73112_35bb2f2c",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-12-21T08:13:51Z",
       "side": 1,
       "message": "nits: Having comment to explain key and value would be helpful.",
+      "range": {
+        "startLine": 130,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 79
+      },
+      "revId": "9ac00847dfd5aba4412b36296ba42948b5fe0197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f10c4d12_40aaf2b4",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-04T06:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8d73112_35bb2f2c",
       "range": {
         "startLine": 130,
         "startChar": 4,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ad112a0_a24f45a4",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-04T06:52:02Z",
+      "side": 1,
+      "message": "I wanted the mfcs to be stored in the order they were added, so when the number of MFCs reaches the max limit then I can remove the first added one.",
+      "parentUuid": "42812fac_e2ac29f0",
+      "range": {
+        "startLine": 138,
+        "startChar": 56,
+        "endLine": 138,
+        "endChar": 69
+      },
+      "revId": "9ac00847dfd5aba4412b36296ba42948b5fe0197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "083ff2f1_9652e30d",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8033065_6e4363da",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-04T06:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "083ff2f1_9652e30d",
+      "range": {
+        "startLine": 406,
+        "startChar": 16,
+        "endLine": 406,
+        "endChar": 51
+      },
+      "revId": "9ac00847dfd5aba4412b36296ba42948b5fe0197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "873a7dea_dfd0696c",
@@ -152,6 +296,30 @@
       "writtenOn": "2023-12-21T08:13:51Z",
       "side": 1,
       "message": "Out of curious, Do we need to keep `FORWARD_NONE` in mMulticastRoutingConfigs?\nIs there any difference between \"having FORWARD_NONE\" and \"no config in mMulticastRoutingConfigs\"?",
+      "range": {
+        "startLine": 532,
+        "startChar": 77,
+        "endLine": 532,
+        "endChar": 89
+      },
+      "revId": "9ac00847dfd5aba4412b36296ba42948b5fe0197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76dfa22b_36aa8f3c",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-04T06:52:02Z",
+      "side": 1,
+      "message": "There is no difference, I updated the code so we remove config when setting to FORWARD_NONE. So here we don\u0027t need to check for config is not FORWARD_NONE.",
+      "parentUuid": "873a7dea_dfd0696c",
       "range": {
         "startLine": 532,
         "startChar": 77,
@@ -198,6 +366,30 @@
       "writtenOn": "2023-12-21T08:13:51Z",
       "side": 1,
       "message": "nits: I felt this method should be called from addOrUpdateMfc to avoid someone calls addOrUpdateMfc without checkMfcEntriesLimit by mistake.",
+      "range": {
+        "startLine": 893,
+        "startChar": 8,
+        "endLine": 893,
+        "endChar": 28
+      },
+      "revId": "9ac00847dfd5aba4412b36296ba42948b5fe0197",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbb06c77_7944e34b",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-04T06:52:02Z",
+      "side": 1,
+      "message": "MFC can only be added when handling the NoCache upcall, in other places (multicast config changes, remove multicast interface, etc) we are only updating or removing existing mfcs. So I feel it\u0027s fine to do the check here, adding it to addOrUpdateMfc means we will do the check more times when it\u0027s not needed. Let me know your thoughts.",
+      "parentUuid": "24eab9d2_0aa6f46f",
       "range": {
         "startLine": 893,
         "startChar": 8,

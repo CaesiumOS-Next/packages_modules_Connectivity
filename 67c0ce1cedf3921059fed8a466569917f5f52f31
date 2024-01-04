@@ -165,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b3fce43_a0c1f857",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-04T06:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "406654ae_fcab2f1a",
+      "range": {
+        "startLine": 153,
+        "startChar": 12,
+        "endLine": 153,
+        "endChar": 58
+      },
+      "revId": "67c0ce1cedf3921059fed8a466569917f5f52f31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "119692b2_0fad9386",
