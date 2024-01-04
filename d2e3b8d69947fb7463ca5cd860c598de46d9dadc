@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7a21356_66c52a9d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2001,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2024-01-04T07:25:52Z",
+      "side": 1,
+      "message": "Will this better?\n```\nentry.add(getProviderIfaceStats(iface));\nreturn getEntryValueForType(entry, type);\n```",
+      "range": {
+        "startLine": 1991,
+        "startChar": 0,
+        "endLine": 2001,
+        "endChar": 9
+      },
+      "revId": "d2e3b8d69947fb7463ca5cd860c598de46d9dadc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
