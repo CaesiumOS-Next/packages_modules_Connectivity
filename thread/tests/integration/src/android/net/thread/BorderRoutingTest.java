@@ -31,7 +31,6 @@ import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static com.google.common.io.BaseEncoding.base16;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import android.content.Context;
@@ -88,9 +87,7 @@ public class BorderRoutingTest {
         mHandlerThread = new HandlerThread(getClass().getSimpleName());
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
-        var threadControllers = mThreadNetworkManager.getAllThreadNetworkControllers();
-        assertEquals(threadControllers.size(), 1);
-        mThreadNetworkController = threadControllers.get(0);
+        mThreadNetworkController = mThreadNetworkManager.getThreadNetworkController();
         mInfraNetworkTracker =
                 runAsShell(
                         MANAGE_TEST_NETWORKS,

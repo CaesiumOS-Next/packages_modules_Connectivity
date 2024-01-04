@@ -82,41 +82,38 @@ public class ThreadNetworkControllerTest {
 
     private final Context mContext = ApplicationProvider.getApplicationContext();
     private ExecutorService mExecutor;
-    private ThreadNetworkManager mManager;
+    private ThreadNetworkController mController;
 
     private Set<String> mGrantedPermissions;
 
     @Before
     public void setUp() {
         mExecutor = Executors.newSingleThreadExecutor();
-        mManager = mContext.getSystemService(ThreadNetworkManager.class);
+        final ThreadNetworkManager manager = mContext.getSystemService(ThreadNetworkManager.class);
+        if (manager != null) {
+            mController = manager.getThreadNetworkController();
+        }
         mGrantedPermissions = new HashSet<String>();
 
         // TODO: we will also need it in tearDown(), it's better to have a Rule to skip
         // tests if a feature is not available.
-        assumeNotNull(mManager);
+        assumeNotNull(mController);
     }
 
     @After
     public void tearDown() throws Exception {
-        if (mManager != null) {
+        if (mController != null) {
             leaveAndWait();
             dropAllPermissions();
         }
     }
 
-    private List<ThreadNetworkController> getAllControllers() {
-        return mManager.getAllThreadNetworkControllers();
-    }
-
     private void leaveAndWait() throws Exception {
         grantPermissions(PERMISSION_THREAD_NETWORK_PRIVILEGED);
 
-        for (ThreadNetworkController controller : getAllControllers()) {
-            SettableFuture<Void> future = SettableFuture.create();
-            controller.leave(mExecutor, future::set);
-            future.get();
-        }
+        SettableFuture<Void> future = SettableFuture.create();
+        mController.leave(mExecutor, future::set);
+        future.get();
     }
 
     private void grantPermissions(String... permissions) {
@@ -206,26 +203,21 @@ public class ThreadNetworkControllerTest {
 
     @Test
     public void getThreadVersion_returnsAtLeastThreadVersion1P3() {
-        for (ThreadNetworkController controller : getAllControllers()) {
-            assertThat(controller.getThreadVersion()).isAtLeast(THREAD_VERSION_1_3);
-        }
+        assertThat(mController.getThreadVersion()).isAtLeast(THREAD_VERSION_1_3);
     }
 
     @Test
     public void registerStateCallback_permissionsGranted_returnsCurrentStates() throws Exception {
         grantPermissions(permission.ACCESS_NETWORK_STATE);
+        SettableFuture<Integer> deviceRole = SettableFuture.create();
+        StateCallback callback = deviceRole::set;
 
-        for (ThreadNetworkController controller : getAllControllers()) {
-            SettableFuture<Integer> deviceRole = SettableFuture.create();
-            StateCallback callback = deviceRole::set;
+        try {
+            mController.registerStateCallback(mExecutor, callback);
 
-            try {
-                controller.registerStateCallback(mExecutor, callback);
-
-                assertThat(deviceRole.get()).isEqualTo(DEVICE_ROLE_STOPPED);
-            } finally {
-                controller.unregisterStateCallback(callback);
-            }
+            assertThat(deviceRole.get()).isEqualTo(DEVICE_ROLE_STOPPED);
+        } finally {
+            mController.unregisterStateCallback(callback);
         }
     }
 
@@ -233,11 +225,9 @@ public class ThreadNetworkControllerTest {
     public void registerStateCallback_noPermissions_throwsSecurityException() throws Exception {
         dropAllPermissions();
 
-        for (ThreadNetworkController controller : getAllControllers()) {
-            assertThrows(
-                    SecurityException.class,
-                    () -> controller.registerStateCallback(mExecutor, role -> {}));
-        }
+        assertThrows(
+                SecurityException.class,
+                () -> mController.registerStateCallback(mExecutor, role -> {}));
     }
 
     @Test
@@ -245,76 +235,65 @@ public class ThreadNetworkControllerTest {
             throws Exception {
         grantPermissions(permission.ACCESS_NETWORK_STATE);
 
-        for (ThreadNetworkController controller : getAllControllers()) {
-            SettableFuture<Integer> deviceRole = SettableFuture.create();
-            StateCallback callback = role -> deviceRole.set(role);
-            controller.registerStateCallback(mExecutor, callback);
+        SettableFuture<Integer> deviceRole = SettableFuture.create();
+        StateCallback callback = role -> deviceRole.set(role);
+        mController.registerStateCallback(mExecutor, callback);
 
-            assertThrows(
-                    IllegalArgumentException.class,
-                    () -> controller.registerStateCallback(mExecutor, callback));
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> mController.registerStateCallback(mExecutor, callback));
     }
 
     @Test
     public void unregisterStateCallback_noPermissions_throwsSecurityException() throws Exception {
-        for (ThreadNetworkController controller : getAllControllers()) {
-            SettableFuture<Integer> deviceRole = SettableFuture.create();
-            StateCallback callback = role -> deviceRole.set(role);
-            grantPermissions(permission.ACCESS_NETWORK_STATE);
-            controller.registerStateCallback(mExecutor, callback);
+        SettableFuture<Integer> deviceRole = SettableFuture.create();
+        StateCallback callback = role -> deviceRole.set(role);
+        grantPermissions(permission.ACCESS_NETWORK_STATE);
+        mController.registerStateCallback(mExecutor, callback);
 
-            try {
-                dropAllPermissions();
-                assertThrows(
-                        SecurityException.class,
-                        () -> controller.unregisterStateCallback(callback));
-            } finally {
-                grantPermissions(permission.ACCESS_NETWORK_STATE);
-                controller.unregisterStateCallback(callback);
-            }
+        try {
+            dropAllPermissions();
+            assertThrows(
+                    SecurityException.class, () -> mController.unregisterStateCallback(callback));
+        } finally {
+            grantPermissions(permission.ACCESS_NETWORK_STATE);
+            mController.unregisterStateCallback(callback);
         }
     }
 
     @Test
     public void unregisterStateCallback_callbackRegistered_success() throws Exception {
         grantPermissions(permission.ACCESS_NETWORK_STATE);
-        for (ThreadNetworkController controller : getAllControllers()) {
-            SettableFuture<Integer> deviceRole = SettableFuture.create();
-            StateCallback callback = role -> deviceRole.set(role);
-            controller.registerStateCallback(mExecutor, callback);
+        SettableFuture<Integer> deviceRole = SettableFuture.create();
+        StateCallback callback = role -> deviceRole.set(role);
+        mController.registerStateCallback(mExecutor, callback);
 
-            controller.unregisterStateCallback(callback);
-        }
+        mController.unregisterStateCallback(callback);
     }
 
     @Test
     public void unregisterStateCallback_callbackNotRegistered_throwsIllegalArgumentException()
             throws Exception {
-        for (ThreadNetworkController controller : getAllControllers()) {
-            SettableFuture<Integer> deviceRole = SettableFuture.create();
-            StateCallback callback = role -> deviceRole.set(role);
+        SettableFuture<Integer> deviceRole = SettableFuture.create();
+        StateCallback callback = role -> deviceRole.set(role);
 
-            assertThrows(
-                    IllegalArgumentException.class,
-                    () -> controller.unregisterStateCallback(callback));
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> mController.unregisterStateCallback(callback));
     }
 
     @Test
     public void unregisterStateCallback_alreadyUnregistered_throwsIllegalArgumentException()
             throws Exception {
         grantPermissions(permission.ACCESS_NETWORK_STATE);
-        for (ThreadNetworkController controller : getAllControllers()) {
-            SettableFuture<Integer> deviceRole = SettableFuture.create();
-            StateCallback callback = deviceRole::set;
-            controller.registerStateCallback(mExecutor, callback);
-            controller.unregisterStateCallback(callback);
+        SettableFuture<Integer> deviceRole = SettableFuture.create();
+        StateCallback callback = deviceRole::set;
+        mController.registerStateCallback(mExecutor, callback);
+        mController.unregisterStateCallback(callback);
 
-            assertThrows(
-                    IllegalArgumentException.class,
-                    () -> controller.unregisterStateCallback(callback));
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> mController.unregisterStateCallback(callback));
     }
 
     @Test
@@ -322,19 +301,17 @@ public class ThreadNetworkControllerTest {
             throws Exception {
         grantPermissions(permission.ACCESS_NETWORK_STATE, PERMISSION_THREAD_NETWORK_PRIVILEGED);
 
-        for (ThreadNetworkController controller : getAllControllers()) {
-            SettableFuture<ActiveOperationalDataset> activeFuture = SettableFuture.create();
-            SettableFuture<PendingOperationalDataset> pendingFuture = SettableFuture.create();
-            var callback = newDatasetCallback(activeFuture, pendingFuture);
+        SettableFuture<ActiveOperationalDataset> activeFuture = SettableFuture.create();
+        SettableFuture<PendingOperationalDataset> pendingFuture = SettableFuture.create();
+        var callback = newDatasetCallback(activeFuture, pendingFuture);
 
-            try {
-                controller.registerOperationalDatasetCallback(mExecutor, callback);
+        try {
+            mController.registerOperationalDatasetCallback(mExecutor, callback);
 
-                assertThat(activeFuture.get()).isNull();
-                assertThat(pendingFuture.get()).isNull();
-            } finally {
-                controller.unregisterOperationalDatasetCallback(callback);
-            }
+            assertThat(activeFuture.get()).isNull();
+            assertThat(pendingFuture.get()).isNull();
+        } finally {
+            mController.unregisterOperationalDatasetCallback(callback);
         }
     }
 
@@ -343,52 +320,44 @@ public class ThreadNetworkControllerTest {
             throws Exception {
         dropAllPermissions();
 
-        for (ThreadNetworkController controller : getAllControllers()) {
-            SettableFuture<ActiveOperationalDataset> activeFuture = SettableFuture.create();
-            SettableFuture<PendingOperationalDataset> pendingFuture = SettableFuture.create();
-            var callback = newDatasetCallback(activeFuture, pendingFuture);
+        SettableFuture<ActiveOperationalDataset> activeFuture = SettableFuture.create();
+        SettableFuture<PendingOperationalDataset> pendingFuture = SettableFuture.create();
+        var callback = newDatasetCallback(activeFuture, pendingFuture);
 
-            assertThrows(
-                    SecurityException.class,
-                    () -> controller.registerOperationalDatasetCallback(mExecutor, callback));
-        }
+        assertThrows(
+                SecurityException.class,
+                () -> mController.registerOperationalDatasetCallback(mExecutor, callback));
     }
 
     @Test
     public void unregisterOperationalDatasetCallback_callbackRegistered_success() throws Exception {
         grantPermissions(permission.ACCESS_NETWORK_STATE, PERMISSION_THREAD_NETWORK_PRIVILEGED);
-        for (ThreadNetworkController controller : getAllControllers()) {
-            SettableFuture<ActiveOperationalDataset> activeFuture = SettableFuture.create();
-            SettableFuture<PendingOperationalDataset> pendingFuture = SettableFuture.create();
-            var callback = newDatasetCallback(activeFuture, pendingFuture);
-            controller.registerOperationalDatasetCallback(mExecutor, callback);
+        SettableFuture<ActiveOperationalDataset> activeFuture = SettableFuture.create();
+        SettableFuture<PendingOperationalDataset> pendingFuture = SettableFuture.create();
+        var callback = newDatasetCallback(activeFuture, pendingFuture);
+        mController.registerOperationalDatasetCallback(mExecutor, callback);
 
-            controller.unregisterOperationalDatasetCallback(callback);
-        }
+        mController.unregisterOperationalDatasetCallback(callback);
     }
 
     @Test
     public void unregisterOperationalDatasetCallback_noPermissions_throwsSecurityException()
             throws Exception {
         dropAllPermissions();
+        SettableFuture<ActiveOperationalDataset> activeFuture = SettableFuture.create();
+        SettableFuture<PendingOperationalDataset> pendingFuture = SettableFuture.create();
+        var callback = newDatasetCallback(activeFuture, pendingFuture);
+        grantPermissions(permission.ACCESS_NETWORK_STATE, PERMISSION_THREAD_NETWORK_PRIVILEGED);
+        mController.registerOperationalDatasetCallback(mExecutor, callback);
 
-        for (ThreadNetworkController controller : getAllControllers()) {
-            SettableFuture<ActiveOperationalDataset> activeFuture = SettableFuture.create();
-            SettableFuture<PendingOperationalDataset> pendingFuture = SettableFuture.create();
-            var callback = newDatasetCallback(activeFuture, pendingFuture);
+        try {
+            dropAllPermissions();
+            assertThrows(
+                    SecurityException.class,
+                    () -> mController.unregisterOperationalDatasetCallback(callback));
+        } finally {
             grantPermissions(permission.ACCESS_NETWORK_STATE, PERMISSION_THREAD_NETWORK_PRIVILEGED);
-            controller.registerOperationalDatasetCallback(mExecutor, callback);
-
-            try {
-                dropAllPermissions();
-                assertThrows(
-                        SecurityException.class,
-                        () -> controller.unregisterOperationalDatasetCallback(callback));
-            } finally {
-                grantPermissions(
-                        permission.ACCESS_NETWORK_STATE, PERMISSION_THREAD_NETWORK_PRIVILEGED);
-                controller.unregisterOperationalDatasetCallback(callback);
-            }
+            mController.unregisterOperationalDatasetCallback(callback);
         }
     }
 
@@ -410,301 +379,261 @@ public class ThreadNetworkControllerTest {
     @Test
     public void join_withPrivilegedPermission_success() throws Exception {
         grantPermissions(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+        ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", mController);
+        SettableFuture<Void> joinFuture = SettableFuture.create();
 
-        for (ThreadNetworkController controller : getAllControllers()) {
-            ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", controller);
-            SettableFuture<Void> joinFuture = SettableFuture.create();
+        mController.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
+        joinFuture.get();
 
-            controller.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
-            joinFuture.get();
-
-            grantPermissions(permission.ACCESS_NETWORK_STATE);
-            assertThat(isAttached(controller)).isTrue();
-            assertThat(getActiveOperationalDataset(controller)).isEqualTo(activeDataset);
-        }
+        grantPermissions(permission.ACCESS_NETWORK_STATE);
+        assertThat(isAttached(mController)).isTrue();
+        assertThat(getActiveOperationalDataset(mController)).isEqualTo(activeDataset);
     }
 
     @Test
     public void join_withoutPrivilegedPermission_throwsSecurityException() throws Exception {
         dropAllPermissions();
 
-        for (ThreadNetworkController controller : getAllControllers()) {
-            ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", controller);
+        ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", mController);
 
-            assertThrows(
-                    SecurityException.class,
-                    () -> controller.join(activeDataset, mExecutor, v -> {}));
-        }
+        assertThrows(
+                SecurityException.class, () -> mController.join(activeDataset, mExecutor, v -> {}));
     }
 
     @Test
     public void join_concurrentRequests_firstOneIsAborted() throws Exception {
         grantPermissions(PERMISSION_THREAD_NETWORK_PRIVILEGED);
-
         final byte[] KEY_1 = new byte[] {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
         final byte[] KEY_2 = new byte[] {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2};
-        for (ThreadNetworkController controller : getAllControllers()) {
-            ActiveOperationalDataset activeDataset1 =
-                    new ActiveOperationalDataset.Builder(
-                                    newRandomizedDataset("TestNet", controller))
-                            .setNetworkKey(KEY_1)
-                            .build();
-            ActiveOperationalDataset activeDataset2 =
-                    new ActiveOperationalDataset.Builder(activeDataset1)
-                            .setNetworkKey(KEY_2)
-                            .build();
-            SettableFuture<Void> joinFuture1 = SettableFuture.create();
-            SettableFuture<Void> joinFuture2 = SettableFuture.create();
+        ActiveOperationalDataset activeDataset1 =
+                new ActiveOperationalDataset.Builder(newRandomizedDataset("TestNet", mController))
+                        .setNetworkKey(KEY_1)
+                        .build();
+        ActiveOperationalDataset activeDataset2 =
+                new ActiveOperationalDataset.Builder(activeDataset1).setNetworkKey(KEY_2).build();
+        SettableFuture<Void> joinFuture1 = SettableFuture.create();
+        SettableFuture<Void> joinFuture2 = SettableFuture.create();
 
-            controller.join(activeDataset1, mExecutor, newOutcomeReceiver(joinFuture1));
-            controller.join(activeDataset2, mExecutor, newOutcomeReceiver(joinFuture2));
+        mController.join(activeDataset1, mExecutor, newOutcomeReceiver(joinFuture1));
+        mController.join(activeDataset2, mExecutor, newOutcomeReceiver(joinFuture2));
 
-            ThreadNetworkException thrown =
-                    (ThreadNetworkException)
-                            assertThrows(ExecutionException.class, joinFuture1::get).getCause();
-            assertThat(thrown.getErrorCode()).isEqualTo(ERROR_ABORTED);
-            joinFuture2.get();
-            grantPermissions(permission.ACCESS_NETWORK_STATE);
-            assertThat(isAttached(controller)).isTrue();
-            assertThat(getActiveOperationalDataset(controller)).isEqualTo(activeDataset2);
-        }
+        ThreadNetworkException thrown =
+                (ThreadNetworkException)
+                        assertThrows(ExecutionException.class, joinFuture1::get).getCause();
+        assertThat(thrown.getErrorCode()).isEqualTo(ERROR_ABORTED);
+        joinFuture2.get();
+        grantPermissions(permission.ACCESS_NETWORK_STATE);
+        assertThat(isAttached(mController)).isTrue();
+        assertThat(getActiveOperationalDataset(mController)).isEqualTo(activeDataset2);
     }
 
     @Test
     public void leave_withPrivilegedPermission_success() throws Exception {
         grantPermissions(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+        ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", mController);
+        SettableFuture<Void> joinFuture = SettableFuture.create();
+        SettableFuture<Void> leaveFuture = SettableFuture.create();
+        mController.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
+        joinFuture.get();
 
-        for (ThreadNetworkController controller : getAllControllers()) {
-            ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", controller);
-            SettableFuture<Void> joinFuture = SettableFuture.create();
-            SettableFuture<Void> leaveFuture = SettableFuture.create();
-            controller.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
-            joinFuture.get();
+        mController.leave(mExecutor, newOutcomeReceiver(leaveFuture));
+        leaveFuture.get();
 
-            controller.leave(mExecutor, newOutcomeReceiver(leaveFuture));
-            leaveFuture.get();
-
-            grantPermissions(permission.ACCESS_NETWORK_STATE);
-            assertThat(getDeviceRole(controller)).isEqualTo(DEVICE_ROLE_STOPPED);
-        }
+        grantPermissions(permission.ACCESS_NETWORK_STATE);
+        assertThat(getDeviceRole(mController)).isEqualTo(DEVICE_ROLE_STOPPED);
     }
 
     @Test
     public void leave_withoutPrivilegedPermission_throwsSecurityException() {
         dropAllPermissions();
 
-        for (ThreadNetworkController controller : getAllControllers()) {
-            assertThrows(SecurityException.class, () -> controller.leave(mExecutor, v -> {}));
-        }
+        assertThrows(SecurityException.class, () -> mController.leave(mExecutor, v -> {}));
     }
 
     @Test
     public void leave_concurrentRequests_bothSuccess() throws Exception {
         grantPermissions(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+        ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", mController);
+        SettableFuture<Void> joinFuture = SettableFuture.create();
+        SettableFuture<Void> leaveFuture1 = SettableFuture.create();
+        SettableFuture<Void> leaveFuture2 = SettableFuture.create();
+        mController.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
+        joinFuture.get();
 
-        for (ThreadNetworkController controller : getAllControllers()) {
-            ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", controller);
-            SettableFuture<Void> joinFuture = SettableFuture.create();
-            SettableFuture<Void> leaveFuture1 = SettableFuture.create();
-            SettableFuture<Void> leaveFuture2 = SettableFuture.create();
-            controller.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
-            joinFuture.get();
+        mController.leave(mExecutor, newOutcomeReceiver(leaveFuture1));
+        mController.leave(mExecutor, newOutcomeReceiver(leaveFuture2));
 
-            controller.leave(mExecutor, newOutcomeReceiver(leaveFuture1));
-            controller.leave(mExecutor, newOutcomeReceiver(leaveFuture2));
-
-            leaveFuture1.get();
-            leaveFuture2.get();
-            grantPermissions(permission.ACCESS_NETWORK_STATE);
-            assertThat(getDeviceRole(controller)).isEqualTo(DEVICE_ROLE_STOPPED);
-        }
+        leaveFuture1.get();
+        leaveFuture2.get();
+        grantPermissions(permission.ACCESS_NETWORK_STATE);
+        assertThat(getDeviceRole(mController)).isEqualTo(DEVICE_ROLE_STOPPED);
     }
 
     @Test
     public void scheduleMigration_withPrivilegedPermission_success() throws Exception {
         grantPermissions(permission.ACCESS_NETWORK_STATE, PERMISSION_THREAD_NETWORK_PRIVILEGED);
+        ActiveOperationalDataset activeDataset1 =
+                new ActiveOperationalDataset.Builder(newRandomizedDataset("TestNet", mController))
+                        .setActiveTimestamp(new OperationalDatasetTimestamp(1L, 0, false))
+                        .setExtendedPanId(new byte[] {1, 1, 1, 1, 1, 1, 1, 1})
+                        .build();
+        ActiveOperationalDataset activeDataset2 =
+                new ActiveOperationalDataset.Builder(activeDataset1)
+                        .setActiveTimestamp(new OperationalDatasetTimestamp(2L, 0, false))
+                        .setNetworkName("ThreadNet2")
+                        .build();
+        PendingOperationalDataset pendingDataset2 =
+                new PendingOperationalDataset(
+                        activeDataset2,
+                        OperationalDatasetTimestamp.fromInstant(Instant.now()),
+                        Duration.ofSeconds(30));
+        SettableFuture<Void> joinFuture = SettableFuture.create();
+        SettableFuture<Void> migrateFuture = SettableFuture.create();
+        mController.join(activeDataset1, mExecutor, newOutcomeReceiver(joinFuture));
+        joinFuture.get();
 
-        for (ThreadNetworkController controller : getAllControllers()) {
-            ActiveOperationalDataset activeDataset1 =
-                    new ActiveOperationalDataset.Builder(
-                                    newRandomizedDataset("TestNet", controller))
-                            .setActiveTimestamp(new OperationalDatasetTimestamp(1L, 0, false))
-                            .setExtendedPanId(new byte[] {1, 1, 1, 1, 1, 1, 1, 1})
-                            .build();
-            ActiveOperationalDataset activeDataset2 =
-                    new ActiveOperationalDataset.Builder(activeDataset1)
-                            .setActiveTimestamp(new OperationalDatasetTimestamp(2L, 0, false))
-                            .setNetworkName("ThreadNet2")
-                            .build();
-            PendingOperationalDataset pendingDataset2 =
-                    new PendingOperationalDataset(
-                            activeDataset2,
-                            OperationalDatasetTimestamp.fromInstant(Instant.now()),
-                            Duration.ofSeconds(30));
-            SettableFuture<Void> joinFuture = SettableFuture.create();
-            SettableFuture<Void> migrateFuture = SettableFuture.create();
-            controller.join(activeDataset1, mExecutor, newOutcomeReceiver(joinFuture));
-            joinFuture.get();
+        mController.scheduleMigration(
+                pendingDataset2, mExecutor, newOutcomeReceiver(migrateFuture));
 
-            controller.scheduleMigration(
-                    pendingDataset2, mExecutor, newOutcomeReceiver(migrateFuture));
-
-            migrateFuture.get();
-            Thread.sleep(35 * 1000);
-            assertThat(getActiveOperationalDataset(controller)).isEqualTo(activeDataset2);
-            assertThat(getPendingOperationalDataset(controller)).isNull();
-        }
+        migrateFuture.get();
+        Thread.sleep(35 * 1000);
+        assertThat(getActiveOperationalDataset(mController)).isEqualTo(activeDataset2);
+        assertThat(getPendingOperationalDataset(mController)).isNull();
     }
 
     @Test
     public void scheduleMigration_whenNotAttached_failWithPreconditionError() throws Exception {
         grantPermissions(permission.ACCESS_NETWORK_STATE, PERMISSION_THREAD_NETWORK_PRIVILEGED);
+        PendingOperationalDataset pendingDataset =
+                new PendingOperationalDataset(
+                        newRandomizedDataset("TestNet", mController),
+                        OperationalDatasetTimestamp.fromInstant(Instant.now()),
+                        Duration.ofSeconds(30));
+        SettableFuture<Void> migrateFuture = SettableFuture.create();
 
-        for (ThreadNetworkController controller : getAllControllers()) {
-            PendingOperationalDataset pendingDataset =
-                    new PendingOperationalDataset(
-                            newRandomizedDataset("TestNet", controller),
-                            OperationalDatasetTimestamp.fromInstant(Instant.now()),
-                            Duration.ofSeconds(30));
-            SettableFuture<Void> migrateFuture = SettableFuture.create();
+        mController.scheduleMigration(pendingDataset, mExecutor, newOutcomeReceiver(migrateFuture));
 
-            controller.scheduleMigration(
-                    pendingDataset, mExecutor, newOutcomeReceiver(migrateFuture));
-
-            ThreadNetworkException thrown =
-                    (ThreadNetworkException)
-                            assertThrows(ExecutionException.class, migrateFuture::get).getCause();
-            assertThat(thrown.getErrorCode()).isEqualTo(ERROR_FAILED_PRECONDITION);
-        }
+        ThreadNetworkException thrown =
+                (ThreadNetworkException)
+                        assertThrows(ExecutionException.class, migrateFuture::get).getCause();
+        assertThat(thrown.getErrorCode()).isEqualTo(ERROR_FAILED_PRECONDITION);
     }
 
     @Test
     public void scheduleMigration_secondRequestHasSmallerTimestamp_rejectedByLeader()
             throws Exception {
         grantPermissions(permission.ACCESS_NETWORK_STATE, PERMISSION_THREAD_NETWORK_PRIVILEGED);
+        final ActiveOperationalDataset activeDataset =
+                new ActiveOperationalDataset.Builder(newRandomizedDataset("testNet", mController))
+                        .setActiveTimestamp(new OperationalDatasetTimestamp(1L, 0, false))
+                        .build();
+        ActiveOperationalDataset activeDataset1 =
+                new ActiveOperationalDataset.Builder(activeDataset)
+                        .setActiveTimestamp(new OperationalDatasetTimestamp(2L, 0, false))
+                        .setNetworkName("testNet1")
+                        .build();
+        PendingOperationalDataset pendingDataset1 =
+                new PendingOperationalDataset(
+                        activeDataset1,
+                        new OperationalDatasetTimestamp(100, 0, false),
+                        Duration.ofSeconds(30));
+        ActiveOperationalDataset activeDataset2 =
+                new ActiveOperationalDataset.Builder(activeDataset)
+                        .setActiveTimestamp(new OperationalDatasetTimestamp(3L, 0, false))
+                        .setNetworkName("testNet2")
+                        .build();
+        PendingOperationalDataset pendingDataset2 =
+                new PendingOperationalDataset(
+                        activeDataset2,
+                        new OperationalDatasetTimestamp(20, 0, false),
+                        Duration.ofSeconds(30));
+        SettableFuture<Void> joinFuture = SettableFuture.create();
+        SettableFuture<Void> migrateFuture1 = SettableFuture.create();
+        SettableFuture<Void> migrateFuture2 = SettableFuture.create();
+        mController.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
+        joinFuture.get();
 
-        for (ThreadNetworkController controller : getAllControllers()) {
-            final ActiveOperationalDataset activeDataset =
-                    new ActiveOperationalDataset.Builder(
-                                    newRandomizedDataset("testNet", controller))
-                            .setActiveTimestamp(new OperationalDatasetTimestamp(1L, 0, false))
-                            .build();
-            ActiveOperationalDataset activeDataset1 =
-                    new ActiveOperationalDataset.Builder(activeDataset)
-                            .setActiveTimestamp(new OperationalDatasetTimestamp(2L, 0, false))
-                            .setNetworkName("testNet1")
-                            .build();
-            PendingOperationalDataset pendingDataset1 =
-                    new PendingOperationalDataset(
-                            activeDataset1,
-                            new OperationalDatasetTimestamp(100, 0, false),
-                            Duration.ofSeconds(30));
-            ActiveOperationalDataset activeDataset2 =
-                    new ActiveOperationalDataset.Builder(activeDataset)
-                            .setActiveTimestamp(new OperationalDatasetTimestamp(3L, 0, false))
-                            .setNetworkName("testNet2")
-                            .build();
-            PendingOperationalDataset pendingDataset2 =
-                    new PendingOperationalDataset(
-                            activeDataset2,
-                            new OperationalDatasetTimestamp(20, 0, false),
-                            Duration.ofSeconds(30));
-            SettableFuture<Void> joinFuture = SettableFuture.create();
-            SettableFuture<Void> migrateFuture1 = SettableFuture.create();
-            SettableFuture<Void> migrateFuture2 = SettableFuture.create();
-            controller.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
-            joinFuture.get();
+        mController.scheduleMigration(
+                pendingDataset1, mExecutor, newOutcomeReceiver(migrateFuture1));
+        migrateFuture1.get();
+        mController.scheduleMigration(
+                pendingDataset2, mExecutor, newOutcomeReceiver(migrateFuture2));
 
-            controller.scheduleMigration(
-                    pendingDataset1, mExecutor, newOutcomeReceiver(migrateFuture1));
-            migrateFuture1.get();
-            controller.scheduleMigration(
-                    pendingDataset2, mExecutor, newOutcomeReceiver(migrateFuture2));
-
-            ThreadNetworkException thrown =
-                    (ThreadNetworkException)
-                            assertThrows(ExecutionException.class, migrateFuture2::get).getCause();
-            assertThat(thrown.getErrorCode()).isEqualTo(ERROR_REJECTED_BY_PEER);
-        }
+        ThreadNetworkException thrown =
+                (ThreadNetworkException)
+                        assertThrows(ExecutionException.class, migrateFuture2::get).getCause();
+        assertThat(thrown.getErrorCode()).isEqualTo(ERROR_REJECTED_BY_PEER);
     }
 
     @Test
     public void scheduleMigration_secondRequestHasLargerTimestamp_success() throws Exception {
         grantPermissions(permission.ACCESS_NETWORK_STATE, PERMISSION_THREAD_NETWORK_PRIVILEGED);
+        final ActiveOperationalDataset activeDataset =
+                new ActiveOperationalDataset.Builder(newRandomizedDataset("validName", mController))
+                        .setActiveTimestamp(new OperationalDatasetTimestamp(1L, 0, false))
+                        .build();
+        ActiveOperationalDataset activeDataset1 =
+                new ActiveOperationalDataset.Builder(activeDataset)
+                        .setActiveTimestamp(new OperationalDatasetTimestamp(2L, 0, false))
+                        .setNetworkName("testNet1")
+                        .build();
+        PendingOperationalDataset pendingDataset1 =
+                new PendingOperationalDataset(
+                        activeDataset1,
+                        new OperationalDatasetTimestamp(100, 0, false),
+                        Duration.ofSeconds(30));
+        ActiveOperationalDataset activeDataset2 =
+                new ActiveOperationalDataset.Builder(activeDataset)
+                        .setActiveTimestamp(new OperationalDatasetTimestamp(3L, 0, false))
+                        .setNetworkName("testNet2")
+                        .build();
+        PendingOperationalDataset pendingDataset2 =
+                new PendingOperationalDataset(
+                        activeDataset2,
+                        new OperationalDatasetTimestamp(200, 0, false),
+                        Duration.ofSeconds(30));
+        SettableFuture<Void> joinFuture = SettableFuture.create();
+        SettableFuture<Void> migrateFuture1 = SettableFuture.create();
+        SettableFuture<Void> migrateFuture2 = SettableFuture.create();
+        mController.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
+        joinFuture.get();
 
-        for (ThreadNetworkController controller : getAllControllers()) {
-            final ActiveOperationalDataset activeDataset =
-                    new ActiveOperationalDataset.Builder(
-                                    newRandomizedDataset("validName", controller))
-                            .setActiveTimestamp(new OperationalDatasetTimestamp(1L, 0, false))
-                            .build();
-            ActiveOperationalDataset activeDataset1 =
-                    new ActiveOperationalDataset.Builder(activeDataset)
-                            .setActiveTimestamp(new OperationalDatasetTimestamp(2L, 0, false))
-                            .setNetworkName("testNet1")
-                            .build();
-            PendingOperationalDataset pendingDataset1 =
-                    new PendingOperationalDataset(
-                            activeDataset1,
-                            new OperationalDatasetTimestamp(100, 0, false),
-                            Duration.ofSeconds(30));
-            ActiveOperationalDataset activeDataset2 =
-                    new ActiveOperationalDataset.Builder(activeDataset)
-                            .setActiveTimestamp(new OperationalDatasetTimestamp(3L, 0, false))
-                            .setNetworkName("testNet2")
-                            .build();
-            PendingOperationalDataset pendingDataset2 =
-                    new PendingOperationalDataset(
-                            activeDataset2,
-                            new OperationalDatasetTimestamp(200, 0, false),
-                            Duration.ofSeconds(30));
-            SettableFuture<Void> joinFuture = SettableFuture.create();
-            SettableFuture<Void> migrateFuture1 = SettableFuture.create();
-            SettableFuture<Void> migrateFuture2 = SettableFuture.create();
-            controller.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
-            joinFuture.get();
+        mController.scheduleMigration(
+                pendingDataset1, mExecutor, newOutcomeReceiver(migrateFuture1));
+        migrateFuture1.get();
+        mController.scheduleMigration(
+                pendingDataset2, mExecutor, newOutcomeReceiver(migrateFuture2));
 
-            controller.scheduleMigration(
-                    pendingDataset1, mExecutor, newOutcomeReceiver(migrateFuture1));
-            migrateFuture1.get();
-            controller.scheduleMigration(
-                    pendingDataset2, mExecutor, newOutcomeReceiver(migrateFuture2));
-
-            migrateFuture2.get();
-            Thread.sleep(35 * 1000);
-            assertThat(getActiveOperationalDataset(controller)).isEqualTo(activeDataset2);
-            assertThat(getPendingOperationalDataset(controller)).isNull();
-        }
+        migrateFuture2.get();
+        Thread.sleep(35 * 1000);
+        assertThat(getActiveOperationalDataset(mController)).isEqualTo(activeDataset2);
+        assertThat(getPendingOperationalDataset(mController)).isNull();
     }
 
     @Test
     public void createRandomizedDataset_wrongNetworkNameLength_throwsIllegalArgumentException() {
-        for (ThreadNetworkController controller : getAllControllers()) {
-            assertThrows(
-                    IllegalArgumentException.class,
-                    () -> controller.createRandomizedDataset("", mExecutor, dataset -> {}));
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> mController.createRandomizedDataset("", mExecutor, dataset -> {}));
 
-            assertThrows(
-                    IllegalArgumentException.class,
-                    () ->
-                            controller.createRandomizedDataset(
-                                    "ANetNameIs17Bytes", mExecutor, dataset -> {}));
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () ->
+                        mController.createRandomizedDataset(
+                                "ANetNameIs17Bytes", mExecutor, dataset -> {}));
     }
 
     @Test
     public void createRandomizedDataset_validNetworkName_success() throws Exception {
-        for (ThreadNetworkController controller : getAllControllers()) {
-            ActiveOperationalDataset dataset = newRandomizedDataset("validName", controller);
+        ActiveOperationalDataset dataset = newRandomizedDataset("validName", mController);
 
-            assertThat(dataset.getNetworkName()).isEqualTo("validName");
-            assertThat(dataset.getPanId()).isLessThan(0xffff);
-            assertThat(dataset.getChannelMask().size()).isAtLeast(1);
-            assertThat(dataset.getExtendedPanId()).hasLength(8);
-            assertThat(dataset.getNetworkKey()).hasLength(16);
-            assertThat(dataset.getPskc()).hasLength(16);
-            assertThat(dataset.getMeshLocalPrefix().getPrefixLength()).isEqualTo(64);
-            assertThat(dataset.getMeshLocalPrefix().getRawAddress()[0]).isEqualTo((byte) 0xfd);
-        }
+        assertThat(dataset.getNetworkName()).isEqualTo("validName");
+        assertThat(dataset.getPanId()).isLessThan(0xffff);
+        assertThat(dataset.getChannelMask().size()).isAtLeast(1);
+        assertThat(dataset.getExtendedPanId()).hasLength(8);
+        assertThat(dataset.getNetworkKey()).hasLength(16);
+        assertThat(dataset.getPskc()).hasLength(16);
+        assertThat(dataset.getMeshLocalPrefix().getPrefixLength()).isEqualTo(64);
+        assertThat(dataset.getMeshLocalPrefix().getRawAddress()[0]).isEqualTo((byte) 0xfd);
     }
 }
