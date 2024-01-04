@@ -48,4 +48,10 @@ public class FeatureVersions {
     // by BPF for the given uid and conditions, introduced in version M-2024-Feb on Nov 6, 2023.
     public static final long FEATURE_IS_UID_NETWORKING_BLOCKED =
             CONNECTIVITY_MODULE_ID + 34_14_00_000L;
+
+    // TRAFFIC_STATS_RATE_LIMIT_CACHE is a feature in NetworkStatsService,
+    // which provides a rate-limit cache to cache TrafficStats get* API results,
+    // introduced in version M-2024-June on March 4, 2024.
+    public static final long FEATURE_TRAFFIC_STATS_RATE_LIMIT_CACHE =
+            CONNECTIVITY_MODULE_ID + 34_18_00_000L;
 }

@@ -116,6 +116,7 @@ import android.net.TelephonyNetworkSpecifier;
 import android.net.TestNetworkSpecifier;
 import android.net.TetherStatsParcel;
 import android.net.TetheringManager;
+import android.net.TrafficStats;
 import android.net.UnderlyingNetworkInfo;
 import android.net.netstats.provider.INetworkStatsProviderCallback;
 import android.net.wifi.WifiInfo;
@@ -125,6 +126,7 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.PowerManager;
+import android.os.Process;
 import android.os.SimpleClock;
 import android.provider.Settings;
 import android.system.ErrnoException;
@@ -189,6 +191,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Function;
 
 /**
  * Tests for {@link NetworkStatsService}.
@@ -294,7 +297,8 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private @Mock Resources mResources;
     private Boolean mIsDebuggable;
     private HandlerThread mObserverHandlerThread;
-    final TestDependencies mDeps = new TestDependencies();
+    private boolean mSupportTrafficStatsRateLimitCache = false;
+    final TestDependencies mDeps = spy(new TestDependencies());
 
     private class MockContext extends BroadcastInterceptingContext {
         private final Context mBaseContext;
@@ -371,34 +375,10 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         mLegacyStatsDir = TestIoUtils.createTemporaryDirectory(
                 getClass().getSimpleName() + "-legacy");
 
-        PowerManager powerManager = (PowerManager) mServiceContext.getSystemService(
-                Context.POWER_SERVICE);
-        PowerManager.WakeLock wakeLock =
-                powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
-
-        mHandlerThread = new HandlerThread("NetworkStatsServiceTest-HandlerThread");
-        // Create a separate thread for observers to run on. This thread cannot be the same
-        // as the handler thread, because the observer callback is fired on this thread, and
-        // it should not be blocked by client code. Additionally, creating the observers
-        // object requires a looper, which can only be obtained after a thread has been started.
-        mObserverHandlerThread = new HandlerThread("NetworkStatsServiceTest-ObserversThread");
-        mObserverHandlerThread.start();
-        final Looper observerLooper = mObserverHandlerThread.getLooper();
-        final NetworkStatsObservers statsObservers = new NetworkStatsObservers() {
-            @Override
-            protected Looper getHandlerLooperLocked() {
-                return observerLooper;
-            }
-        };
-        mService = new NetworkStatsService(mServiceContext, mNetd, mAlarmManager, wakeLock,
-                mClock, mSettings, mStatsFactory, statsObservers, mDeps);
+        makeNewStatsService();
 
         mElapsedRealtime = 0L;
 
-        mockDefaultSettings();
-        mockNetworkStatsUidDetail(buildEmptyStats());
-        prepareForSystemReady();
-        mService.systemReady();
         // Verify that system ready fetches realtime stats
         verify(mStatsFactory).readNetworkStatsDetail(UID_ALL, INTERFACES_ALL, TAG_ALL);
         // Wait for posting onChange() event to handler thread and verify that when system ready,
@@ -410,9 +390,51 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
         doReturn(TelephonyManager.CARRIER_PRIVILEGE_STATUS_HAS_ACCESS).when(mTelephonyManager)
                 .checkCarrierPrivilegesForPackageAnyPhone(anyString());
+    }
 
-        mSession = mService.openSession();
-        assertNotNull("openSession() failed", mSession);
+    /**
+     * Create a NetworkStatsService instance, and renew member variables for testing.
+     *
+     * Note this method requires a started ObserverHandlerThread.
+     */
+    private void makeNewStatsService() throws Exception {
+        // Reinitialize the handler thread.
+        if (mHandlerThread != null) {
+            mHandlerThread.quitSafely();
+            mHandlerThread.join();
+        }
+        mHandlerThread = new HandlerThread("NetworkStatsServiceTest-HandlerThread");
+        // Clear previously created mocks and session object.
+        reset(mNetd);
+        reset(mTetheringManager);
+        if (mSession != null) {
+            mSession.close();
+        }
+
+        // Create a separate thread for observers to run on. This thread cannot be the same
+        // as the handler thread, because the observer callback is fired on this thread, and
+        // it should not be blocked by client code. Additionally, creating the observers
+        // object requires a looper, which can only be obtained after a thread has been started.
+        if (mObserverHandlerThread == null) {
+            mObserverHandlerThread = new HandlerThread("NetworkStatsServiceTest-ObserversThread");
+            mObserverHandlerThread.start();
+        }
+
+        final PowerManager powerManager = mServiceContext.getSystemService(PowerManager.class);
+        final PowerManager.WakeLock wakeLock =
+                powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+        final Looper observerLooper = mObserverHandlerThread.getLooper();
+        final NetworkStatsObservers statsObservers = new NetworkStatsObservers() {
+            @Override
+            protected Looper getHandlerLooperLocked() {
+                return observerLooper;
+            }
+        };
+        mService = new NetworkStatsService(mServiceContext, mNetd, mAlarmManager, wakeLock,
+                mClock, mSettings, mStatsFactory, statsObservers, mDeps);
+
+        prepareForSystemReady();
+        mService.systemReady();
 
         // Catch AlertObserver during systemReady().
         final ArgumentCaptor<AlertObserver> alertObserver =
@@ -428,9 +450,13 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         mTetheringEventCallback = tetheringEventCbCaptor.getValue();
 
         mUsageCallback = new TestableUsageCallback(mUsageCallbackBinder);
+
+        mSession = mService.openSession();
+        assertNotNull("openSession() failed", mSession);
     }
 
-    class TestDependencies extends NetworkStatsService.Dependencies {
+    // Package-private class cannot be spied.
+    public class TestDependencies extends NetworkStatsService.Dependencies {
         private int mCompareStatsInvocation = 0;
 
         @Override
@@ -572,6 +598,11 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         @Override
         public boolean supportEventLogger(@NonNull Context cts) {
             return true;
+        }
+
+        @Override
+        public boolean supportTrafficStatsRateLimitCache(Context ctx) {
+            return false;
         }
     }
 
@@ -729,8 +760,6 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertStatsFilesExist(true);
 
         // boot through serviceReady() again
-        mockDefaultSettings();
-        mockNetworkStatsUidDetail(buildEmptyStats());
         prepareForSystemReady();
 
         mService.systemReady();
@@ -2053,8 +2082,6 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 getLegacyCollection(PREFIX_UID_TAG, true /* includeTags */));
 
         // Mock zero usage and boot through serviceReady(), verify there is no imported data.
-        mockDefaultSettings();
-        mockNetworkStatsUidDetail(buildEmptyStats());
         prepareForSystemReady();
         mService.systemReady();
         assertStatsFilesExist(false);
@@ -2066,8 +2093,6 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertStatsFilesExist(false);
 
         // Boot through systemReady() again.
-        mockDefaultSettings();
-        mockNetworkStatsUidDetail(buildEmptyStats());
         prepareForSystemReady();
         mService.systemReady();
 
@@ -2141,8 +2166,6 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 getLegacyCollection(PREFIX_UID_TAG, true /* includeTags */));
 
         // Mock zero usage and boot through serviceReady(), verify there is no imported data.
-        mockDefaultSettings();
-        mockNetworkStatsUidDetail(buildEmptyStats());
         prepareForSystemReady();
         mService.systemReady();
         assertStatsFilesExist(false);
@@ -2154,8 +2177,6 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertStatsFilesExist(false);
 
         // Boot through systemReady() again.
-        mockDefaultSettings();
-        mockNetworkStatsUidDetail(buildEmptyStats());
         prepareForSystemReady();
         mService.systemReady();
 
@@ -2307,6 +2328,71 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertUidTotal(sTemplateWifi, UID_GREEN, 64L, 3L, 1024L, 8L, 0);
     }
 
+    @Test
+    public void testTrafficStatsRateLimitCache_disabled() throws Exception {
+        doTestTrafficStatsRateLimitCache(false /* cacheEnabled */);
+    }
+
+    @Test
+    public void testTrafficStatsRateLimitCache_enabled() throws Exception {
+        doTestTrafficStatsRateLimitCache(true /* cacheEnabled */);
+    }
+
+    private void doTestTrafficStatsRateLimitCache(boolean cacheEnabled) throws Exception {
+        mockDefaultSettings();
+        doReturn(cacheEnabled).when(mDeps).supportTrafficStatsRateLimitCache(mServiceContext);
+        makeNewStatsService();
+        mService.systemReady();
+        // Calling uid is not injected into the service, use the real uid to pass the caller check.
+        final int myUid = Process.myUid();
+        mockTrafficStatsValues(TEST_IFACE, myUid, 64L, 3L, 1024L, 8L);
+        assertTrafficStatsValues(TEST_IFACE, myUid, 64L, 3L, 1024L, 8L);
+
+        // Verify the values are cached.
+        incrementCurrentTime(NetworkStatsService.TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS / 2);
+        mockTrafficStatsValues(TEST_IFACE, myUid, 65L, 8L, 1055L, 9L);
+        if (cacheEnabled) {
+            assertTrafficStatsValues(TEST_IFACE, myUid, 64L, 3L, 1024L, 8L);
+        } else {
+            assertTrafficStatsValues(TEST_IFACE, myUid, 65L, 8L, 1055L, 9L);
+        }
+
+        // Verify the values are updated after cache expiry.
+        incrementCurrentTime(NetworkStatsService.TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS);
+        assertTrafficStatsValues(TEST_IFACE, myUid, 65L, 8L, 1055L, 9L);
+    }
+
+    private void mockTrafficStatsValues(String iface, int uid, long rxBytes, long rxPackets,
+                                        long txBytes, long txPackets) {
+        // In practice, keys and operations are not used and filled with default values when
+        // returned by JNI layer.
+        final NetworkStats.Entry entry = new NetworkStats.Entry(IFACE_ALL, UID_ALL, SET_DEFAULT,
+                TAG_NONE, METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO,
+                rxBytes, rxPackets, txBytes, txPackets, 0L);
+        doReturn(entry).when(mDeps).nativeGetTotalStat();
+        doReturn(entry).when(mDeps).nativeGetIfaceStat(iface);
+        doReturn(entry).when(mDeps).nativeGetUidStat(uid);
+    }
+
+    // Assert for 3 different API return values respectively.
+    private void assertTrafficStatsValues(String iface, int uid, long rxBytes, long rxPackets,
+            long txBytes, long txPackets) {
+        assertTrafficStatsValuesThat(rxBytes, rxPackets, txBytes, txPackets,
+                (type) -> mService.getTotalStats(type));
+        assertTrafficStatsValuesThat(rxBytes, rxPackets, txBytes, txPackets,
+                (type) -> mService.getIfaceStats(iface, type));
+        assertTrafficStatsValuesThat(rxBytes, rxPackets, txBytes, txPackets,
+                (type) -> mService.getUidStats(uid, type));
+    }
+
+    private void assertTrafficStatsValuesThat(long rxBytes, long rxPackets, long txBytes,
+            long txPackets, Function<Integer, Long> fetcher) {
+        assertEquals(rxBytes, (long) fetcher.apply(TrafficStats.TYPE_RX_BYTES));
+        assertEquals(rxPackets, (long) fetcher.apply(TrafficStats.TYPE_RX_PACKETS));
+        assertEquals(txBytes, (long) fetcher.apply(TrafficStats.TYPE_TX_BYTES));
+        assertEquals(txPackets, (long) fetcher.apply(TrafficStats.TYPE_TX_PACKETS));
+    }
+
     private void assertShouldRunComparison(boolean expected, boolean isDebuggable) {
         assertEquals("shouldRunComparison (debuggable=" + isDebuggable + "): ",
                 expected, mService.shouldRunComparison());
@@ -2371,6 +2457,8 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     }
 
     private void prepareForSystemReady() throws Exception {
+        mockDefaultSettings();
+        mockNetworkStatsUidDetail(buildEmptyStats());
         mockNetworkStatsSummary(buildEmptyStats());
     }
 
