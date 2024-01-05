@@ -22,6 +22,30 @@
       },
       "revId": "7b4538f0702d728a773b195ed9193b72ae29c4f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "689fab2f_451d50f3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-05T08:45:42Z",
+      "side": 1,
+      "message": "PHASE_SYSTEM_SERVICES_READY is one of boot phases, so this makes sense.",
+      "parentUuid": "f597240b_d3768808",
+      "range": {
+        "startLine": 55,
+        "startChar": 16,
+        "endLine": 55,
+        "endChar": 27
+      },
+      "revId": "7b4538f0702d728a773b195ed9193b72ae29c4f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
