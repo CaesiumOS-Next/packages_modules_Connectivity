@@ -48,17 +48,19 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
     }
 
     /**
-     * Called by the service initializer.
+     * Called by {@link com.android.server.ConnectivityServiceInitializer}.
      *
      * @see com.android.server.SystemService#onBootPhase
      */
     public void onBootPhase(int phase) {
-        if (phase == SystemService.PHASE_BOOT_COMPLETED) {
+        if (phase == SystemService.PHASE_SYSTEM_SERVICES_READY) {
             mControllerService = ThreadNetworkControllerService.newInstance(mContext);
             mControllerService.initialize();
+        } else if (phase == SystemService.PHASE_BOOT_COMPLETED) {
+            // Country code initialization will call into telephony, Wi-Fi and UWB whose country
+            // code module is prepared after PHASE_BOOT_COMPLETED
             mCountryCode = ThreadNetworkCountryCode.newInstance(mContext, mControllerService);
             mCountryCode.initialize();
-
             mShellCommand = new ThreadNetworkShellCommand(mCountryCode);
         }
     }
