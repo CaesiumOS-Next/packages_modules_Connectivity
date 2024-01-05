@@ -943,23 +943,14 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     }
 
     private static final class CallbackMetadata {
-        private static long gId = 0;
-
-        // The unique ID
-        final long id;
+        // A never invoked callback will be invoked even if there are no OT daemon state changes
+        boolean invoked;
 
         final IBinder.DeathRecipient deathRecipient;
 
         CallbackMetadata(IBinder.DeathRecipient deathRecipient) {
-            this.id = allocId();
+            this.invoked = false;
             this.deathRecipient = deathRecipient;
-        }
-
-        private static long allocId() {
-            if (gId == Long.MAX_VALUE) {
-                gId = 0;
-            }
-            return gId++;
         }
     }
 
@@ -994,7 +985,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             }
 
             try {
-                getOtDaemon().registerStateCallback(this, callbackMetadata.id);
+                getOtDaemon().registerStateCallback(this, -1);
             } catch (RemoteException e) {
                 // oneway operation should never fail
             }
@@ -1026,7 +1017,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             }
 
             try {
-                getOtDaemon().registerStateCallback(this, callbackMetadata.id);
+                getOtDaemon().registerStateCallback(this, -1);
             } catch (RemoteException e) {
                 // oneway operation should never fail
             }
