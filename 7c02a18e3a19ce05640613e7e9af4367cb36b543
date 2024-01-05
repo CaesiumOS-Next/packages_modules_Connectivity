@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f57d701e_5c82459e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-05T05:58:22Z",
+      "side": 1,
+      "message": "Alo the packet should be a query (\"follow the packet with another query packet\"), so MdnsConstants.FLAG_RESPONSE should be cleared in the packet flags.\n\nThis should avoid queueing MdnsReplyInfo for every response seen",
+      "revId": "7c02a18e3a19ce05640613e7e9af4367cb36b543",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "052c1d07_0bc2b108",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-05T05:58:22Z",
+      "side": 1,
+      "message": "Could there be duplicates in that case ? Maybe only add if not already contained ?",
+      "revId": "7c02a18e3a19ce05640613e7e9af4367cb36b543",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c7a27ec_91b32fa2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-05T05:58:22Z",
+      "side": 1,
+      "message": "Should that apply to knownAnswers as well ? Probably yes ?",
+      "revId": "7c02a18e3a19ce05640613e7e9af4367cb36b543",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3e2d23a_e5364528",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-05T05:58:22Z",
+      "side": 1,
+      "message": "What should be the behavior if the first reply is to be replied unicast, but the second one is multicast ? Or the opposite ?\n\nArguably a multicast reply should not be changed to unicast after combining it, since replying unicast when the query requests unicast reply is optional, but when the query does not request unicast reply, multicast replies are expected",
+      "revId": "7c02a18e3a19ce05640613e7e9af4367cb36b543",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
