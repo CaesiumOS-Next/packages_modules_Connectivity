@@ -53,7 +53,7 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
      * @see com.android.server.SystemService#onBootPhase
      */
     public void onBootPhase(int phase) {
-        if (phase == SystemService.PHASE_BOOT_COMPLETED) {
+        if (phase == SystemService.PHASE_SYSTEM_SERVICES_READY) {
             mControllerService = ThreadNetworkControllerService.newInstance(mContext);
             mControllerService.initialize();
             mCountryCode = ThreadNetworkCountryCode.newInstance(mContext, mControllerService);
