@@ -42,4 +42,6 @@ interface IThreadNetworkController {
 
     int getThreadVersion();
     void createRandomizedDataset(String networkName, IActiveOperationalDatasetReceiver receiver);
+
+    void setThreadEnabled(boolean enabled, in IOperationReceiver receiver);
 }
