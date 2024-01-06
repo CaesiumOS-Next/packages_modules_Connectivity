@@ -22,4 +22,5 @@ package android.net.thread;
 oneway interface IStateCallback {
     void onDeviceRoleChanged(int deviceRole);
     void onPartitionIdChanged(long partitionId);
+    void onThreadEnabledChanged(int enabledState);
 }
