@@ -16,11 +16,15 @@
 
 package android.net.thread.cts;
 
+import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_CHILD;
+import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_LEADER;
+import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_ROUTER;
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_STOPPED;
 import static android.net.thread.ThreadNetworkController.THREAD_VERSION_1_3;
 import static android.net.thread.ThreadNetworkException.ERROR_ABORTED;
 import static android.net.thread.ThreadNetworkException.ERROR_FAILED_PRECONDITION;
 import static android.net.thread.ThreadNetworkException.ERROR_REJECTED_BY_PEER;
+import static android.net.thread.ThreadNetworkException.ERROR_THREAD_DISABLED;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
@@ -62,12 +66,15 @@ import org.junit.runner.RunWith;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingDeque;
 
 /** CTS tests for {@link ThreadNetworkController}. */
 @LargeTest
@@ -87,7 +94,7 @@ public class ThreadNetworkControllerTest {
     private Set<String> mGrantedPermissions;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         mExecutor = Executors.newSingleThreadExecutor();
         mManager = mContext.getSystemService(ThreadNetworkManager.class);
         mGrantedPermissions = new HashSet<String>();
@@ -95,11 +102,19 @@ public class ThreadNetworkControllerTest {
         // TODO: we will also need it in tearDown(), it's better to have a Rule to skip
         // tests if a feature is not available.
         assumeNotNull(mManager);
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            setEnabled(controller, true);
+        }
+        dropAllPermissions();
     }
 
     @After
     public void tearDown() throws Exception {
         if (mManager != null) {
+            for (ThreadNetworkController controller : getAllControllers()) {
+                setEnabled(controller, true);
+            }
             leaveAndWait();
             dropAllPermissions();
         }
@@ -150,6 +165,14 @@ public class ThreadNetworkControllerTest {
         int role = future.get(CALLBACK_TIMEOUT_MILLIS, MILLISECONDS);
         controller.unregisterStateCallback(callback);
         return role;
+    }
+
+    private static int waitForAttachedState(ThreadNetworkController controller) throws Exception {
+        List<Integer> attachedRoles = new ArrayList<>();
+        attachedRoles.add(DEVICE_ROLE_CHILD);
+        attachedRoles.add(DEVICE_ROLE_ROUTER);
+        attachedRoles.add(DEVICE_ROLE_LEADER);
+        return waitForStateAnyOf(controller, attachedRoles);
     }
 
     private static int waitForStateAnyOf(
@@ -223,6 +246,34 @@ public class ThreadNetworkControllerTest {
                 controller.registerStateCallback(mExecutor, callback);
 
                 assertThat(deviceRole.get()).isEqualTo(DEVICE_ROLE_STOPPED);
+            } finally {
+                controller.unregisterStateCallback(callback);
+            }
+        }
+    }
+
+    @Test
+    public void registerStateCallback_permissionsGranted_returnsThreadEnabledState()
+            throws Exception {
+        grantPermissions(permission.ACCESS_NETWORK_STATE, PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            SettableFuture<Boolean> isThreadEnabled = SettableFuture.create();
+            StateCallback callback =
+                    new ThreadNetworkController.StateCallback() {
+                        @Override
+                        public void onDeviceRoleChanged(int mDeviceRole) {}
+
+                        @Override
+                        public void onThreadEnabledChanged(boolean enabled) {
+                            isThreadEnabled.set(enabled);
+                        }
+                    };
+
+            try {
+                controller.registerStateCallback(mExecutor, callback);
+
+                assertThat(isThreadEnabled.get()).isEqualTo(true);
             } finally {
                 controller.unregisterStateCallback(callback);
             }
@@ -437,6 +488,60 @@ public class ThreadNetworkControllerTest {
         }
     }
 
+    private void setEnabled(ThreadNetworkController controller, boolean enabled)
+            throws Exception {
+        String[] savedPermissions =
+                mGrantedPermissions.toArray(new String[mGrantedPermissions.size()]);
+        grantPermissions(permission.ACCESS_NETWORK_STATE, PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        BlockingQueue<Boolean> queue = new LinkedBlockingDeque<>();
+
+        StateCallback callback =
+                new ThreadNetworkController.StateCallback() {
+                    @Override
+                    public void onDeviceRoleChanged(int mDeviceRole) {}
+
+                    @Override
+                    public void onThreadEnabledChanged(boolean enabled) {
+                        queue.add(enabled);
+                    }
+                };
+
+        controller.registerStateCallback(mExecutor, callback);
+
+        try {
+            if (queue.take() != enabled) {
+                SettableFuture<Void> setFuture = SettableFuture.create();
+                controller.setEnabled(enabled, mExecutor, newOutcomeReceiver(setFuture));
+                setFuture.get();
+
+                assertThat(queue.take()).isEqualTo(enabled);
+            }
+        } finally {
+            controller.unregisterStateCallback(callback);
+            dropAllPermissions();
+            grantPermissions(savedPermissions);
+        }
+    }
+
+    @Test
+    public void join_whenThreadDisabled_throwsThreadNetworkException() throws Exception {
+        grantPermissions(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", controller);
+            setEnabled(controller, false);
+
+            SettableFuture<Void> joinFuture = SettableFuture.create();
+            controller.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
+
+            ThreadNetworkException thrown =
+                    (ThreadNetworkException)
+                            assertThrows(ExecutionException.class, joinFuture::get).getCause();
+            assertThat(thrown.getErrorCode()).isEqualTo(ERROR_THREAD_DISABLED);
+        }
+    }
+
     @Test
     public void join_concurrentRequests_firstOneIsAborted() throws Exception {
         grantPermissions(PERMISSION_THREAD_NETWORK_PRIVILEGED);
@@ -495,6 +600,27 @@ public class ThreadNetworkControllerTest {
 
         for (ThreadNetworkController controller : getAllControllers()) {
             assertThrows(SecurityException.class, () -> controller.leave(mExecutor, v -> {}));
+        }
+    }
+
+    @Test
+    public void leave_whenThreadDisabled_throwsThreadNetworkException() throws Exception {
+        grantPermissions(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", controller);
+            SettableFuture<Void> joinFuture = SettableFuture.create();
+            SettableFuture<Void> leaveFuture = SettableFuture.create();
+            controller.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
+            joinFuture.get();
+
+            setEnabled(controller, false);
+            controller.leave(mExecutor, newOutcomeReceiver(leaveFuture));
+
+            ThreadNetworkException thrown =
+                    (ThreadNetworkException)
+                            assertThrows(ExecutionException.class, leaveFuture::get).getCause();
+            assertThat(thrown.getErrorCode()).isEqualTo(ERROR_THREAD_DISABLED);
         }
     }
 
@@ -721,6 +847,34 @@ public class ThreadNetworkControllerTest {
     }
 
     @Test
+    public void scheduleMigration_whenThreadDisabled_throwsThreadNetworkException()
+            throws Exception {
+        grantPermissions(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", controller);
+            PendingOperationalDataset pendingDataset =
+                    new PendingOperationalDataset(
+                            activeDataset,
+                            OperationalDatasetTimestamp.fromInstant(Instant.now()),
+                            Duration.ofSeconds(30));
+            SettableFuture<Void> joinFuture = SettableFuture.create();
+            SettableFuture<Void> migrationFuture = SettableFuture.create();
+            controller.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
+            joinFuture.get();
+
+            setEnabled(controller, false);
+            controller.scheduleMigration(
+                    pendingDataset, mExecutor, newOutcomeReceiver(migrationFuture));
+
+            ThreadNetworkException thrown =
+                    (ThreadNetworkException)
+                            assertThrows(ExecutionException.class, migrationFuture::get).getCause();
+            assertThat(thrown.getErrorCode()).isEqualTo(ERROR_THREAD_DISABLED);
+        }
+    }
+
+    @Test
     public void createRandomizedDataset_wrongNetworkNameLength_throwsIllegalArgumentException() {
         for (ThreadNetworkController controller : getAllControllers()) {
             assertThrows(
@@ -748,6 +902,79 @@ public class ThreadNetworkControllerTest {
             assertThat(dataset.getPskc()).hasLength(16);
             assertThat(dataset.getMeshLocalPrefix().getPrefixLength()).isEqualTo(64);
             assertThat(dataset.getMeshLocalPrefix().getRawAddress()[0]).isEqualTo((byte) 0xfd);
+        }
+    }
+
+    @Test
+    public void setEnabled_permissionsGranted_succeeds() throws Exception {
+        grantPermissions(permission.ACCESS_NETWORK_STATE, PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            setEnabled(controller, false);
+
+            setEnabled(controller, true);
+        }
+    }
+
+    @Test
+    public void setEnabled_noPermissions_throwsSecurityException() throws Exception {
+        dropAllPermissions();
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            SettableFuture<Void> setFuture = SettableFuture.create();
+
+            assertThrows(
+                    SecurityException.class,
+                    () ->
+                            controller.setEnabled(
+                                    false, mExecutor, newOutcomeReceiver(setFuture)));
+        }
+    }
+
+    @Test
+    public void setEnabled_disable_leavesThreadNetwork() throws Exception {
+        grantPermissions(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", controller);
+            SettableFuture<Void> joinFuture = SettableFuture.create();
+            SettableFuture<Void> setFuture = SettableFuture.create();
+
+            controller.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
+            joinFuture.get();
+            assertThat(isAttached(controller)).isTrue();
+
+            controller.setEnabled(false, mExecutor, newOutcomeReceiver(setFuture));
+            setFuture.get();
+
+            grantPermissions(permission.ACCESS_NETWORK_STATE);
+            assertThat(getDeviceRole(controller)).isEqualTo(DEVICE_ROLE_STOPPED);
+        }
+    }
+
+    @Test
+    public void setEnabled_toggleAfterJoin_joinsThreadNetworkAgain() throws Exception {
+        grantPermissions(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", controller);
+            SettableFuture<Void> joinFuture = SettableFuture.create();
+            SettableFuture<Void> setFuture1 = SettableFuture.create();
+            SettableFuture<Void> setFuture2 = SettableFuture.create();
+
+            controller.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
+            joinFuture.get();
+            assertThat(isAttached(controller)).isTrue();
+
+            controller.setEnabled(false, mExecutor, newOutcomeReceiver(setFuture1));
+            setFuture1.get();
+            grantPermissions(permission.ACCESS_NETWORK_STATE);
+            assertThat(getDeviceRole(controller)).isEqualTo(DEVICE_ROLE_STOPPED);
+
+            controller.setEnabled(true, mExecutor, newOutcomeReceiver(setFuture2));
+            setFuture2.get();
+
+            waitForAttachedState(controller);
         }
     }
 }
