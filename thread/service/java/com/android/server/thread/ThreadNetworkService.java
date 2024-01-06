@@ -16,20 +16,27 @@
 
 package com.android.server.thread;
 
+import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.content.ApexEnvironment;
 import android.content.Context;
+import android.net.thread.IThreadEnabledCallback;
 import android.net.thread.IThreadNetworkController;
 import android.net.thread.IThreadNetworkManager;
 import android.os.Binder;
 import android.os.ParcelFileDescriptor;
+import android.util.AtomicFile;
 
 import com.android.server.SystemService;
 
+import java.io.File;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Implementation of the Thread network service. This is the entry point of Android Thread feature.
@@ -38,11 +45,18 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
     private final Context mContext;
     @Nullable private ThreadNetworkCountryCode mCountryCode;
     @Nullable private ThreadNetworkControllerService mControllerService;
+    private final ThreadPersistentSettings mPersistentSettings;
     @Nullable private ThreadNetworkShellCommand mShellCommand;
 
     /** Creates a new {@link ThreadNetworkService} object. */
     public ThreadNetworkService(Context context) {
         mContext = context;
+        mPersistentSettings =
+                new ThreadPersistentSettings(
+                        new AtomicFile(
+                                new File(
+                                        getOrCreateThreadnetworkDir(),
+                                        ThreadPersistentSettings.FILE_NAME)));
     }
 
     /**
@@ -52,7 +66,9 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
      */
     public void onBootPhase(int phase) {
         if (phase == SystemService.PHASE_BOOT_COMPLETED) {
-            mControllerService = ThreadNetworkControllerService.newInstance(mContext);
+            mPersistentSettings.initialize();
+            mControllerService =
+                    ThreadNetworkControllerService.newInstance(mContext, mPersistentSettings);
             mControllerService.initialize();
             mCountryCode = ThreadNetworkCountryCode.newInstance(mContext, mControllerService);
             mCountryCode.initialize();
@@ -100,5 +116,20 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
         }
 
         pw.println();
+    }
+
+    /** Get device protected storage dir for the tethering apex. */
+    private static File getOrCreateThreadnetworkDir() {
+        final File threadnetworkDir;
+        final File apexDataDir =
+                ApexEnvironment.getApexEnvironment(TETHERING_MODULE_NAME)
+                        .getDeviceProtectedDataDir();
+        threadnetworkDir = new File(apexDataDir, "threadnetwork");
+
+        if (threadnetworkDir.exists() || threadnetworkDir.mkdirs()) {
+            return threadnetworkDir;
+        }
+        throw new IllegalStateException(
+                "Cannot write into thread network data directory: " + threadnetworkDir);
     }
 }
