@@ -106,6 +106,43 @@ public final class ThreadNetworkController {
         mControllerService = controllerService;
     }
 
+    /**
+     * Enables/Disables Thread.
+     *
+     * <p>Disabling Thread will cause {@link ThreadNetworkController} APIs which return a {@link
+     * ThreadNetworkException} to fail with error code {@link
+     * ThreadNetworkException#ERROR_THREAD_DISABLED}.
+     *
+     * <p>On success, {@link OutcomeReceiver#onResult} of {@code receiver} is called. This does not
+     * indicate that the Thread enabled state has been set to the desired state in this API call.
+     * Callers of this method should use {@link #registerStateCallback} to subscribe to the Thread
+     * enabled state changes and determine whether the operation completed.
+     * <p>On failure, {@link OutcomeReceiver#onError} of {@code receiver} will be invoked with a
+     * specific error:
+     *
+     * <ul>
+     *   <li>{@link ThreadNetworkException#ERROR_FAILED_PRECONDITION} when ot stack is unavailable
+     * </ul>
+     *
+     * <p>
+     *
+     * @param enabled Thread enabled state
+     * @param executor the executor to execute {@code receiver}
+     * @param receiver the receiver to receive result of this operation
+     */
+    @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED")
+    public void setThreadEnabled(
+            @NonNull boolean enabled,
+            @NonNull @CallbackExecutor Executor executor,
+            @NonNull OutcomeReceiver<Void, ThreadNetworkException> receiver) {
+        try {
+            mControllerService.setThreadEnabled(
+                    enabled, new OperationReceiverProxy(executor, receiver));
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
     /** Returns the Thread version this device is operating on. */
     @ThreadVersion
     public int getThreadVersion() {
@@ -170,6 +207,18 @@ public final class ThreadNetworkController {
          * @param partitionId the new Thread partition ID
          */
         default void onPartitionIdChanged(long partitionId) {}
+
+        /**
+         * The Thread enabled state has changed.
+         *
+         * <p>The Thread enabled state can be set with {@link setThreadEnabled}, it may also be
+         * updated by airplane mode or admin control. The state change is notified after ot-daemon
+         * has disabled/enabled Thread.
+         *
+         * @param enabled the Thread enabled state
+         */
+        default void onThreadEnabledChanged(boolean enabled) {}
+        ;
     }
 
     private static final class StateCallbackProxy extends IStateCallback.Stub {
@@ -196,6 +245,16 @@ public final class ThreadNetworkController {
             final long identity = Binder.clearCallingIdentity();
             try {
                 mExecutor.execute(() -> mCallback.onPartitionIdChanged(partitionId));
+            } finally {
+                Binder.restoreCallingIdentity(identity);
+            }
+        }
+
+        @Override
+        public void onThreadEnabledChanged(boolean enabled) {
+            final long identity = Binder.clearCallingIdentity();
+            try {
+                mExecutor.execute(() -> mCallback.onThreadEnabledChanged(enabled));
             } finally {
                 Binder.restoreCallingIdentity(identity);
             }
