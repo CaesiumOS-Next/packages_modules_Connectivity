@@ -68,6 +68,15 @@ public final class ThreadNetworkController {
     /** The device is a Thread Leader. */
     public static final int DEVICE_ROLE_LEADER = 4;
 
+    /** The Thread radio is disabled. */
+    public static final int STATE_DISABLED = 0;
+
+    /** The Thread radio is enabled. */
+    public static final int STATE_ENABLED = 1;
+
+    /** The Thread radio is being disabled. */
+    public static final int STATE_DISABLING = 2;
+
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({
@@ -78,6 +87,11 @@ public final class ThreadNetworkController {
         DEVICE_ROLE_LEADER
     })
     public @interface DeviceRole {}
+
+    /** @hide */
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({STATE_DISABLED, STATE_ENABLED, STATE_DISABLING})
+    public @interface EnabledState {}
 
     /** Thread standard version 1.3. */
     public static final int THREAD_VERSION_1_3 = 4;
@@ -104,6 +118,38 @@ public final class ThreadNetworkController {
     public ThreadNetworkController(@NonNull IThreadNetworkController controllerService) {
         requireNonNull(controllerService, "controllerService cannot be null");
         mControllerService = controllerService;
+    }
+
+    /**
+     * Enables/Disables Thread.
+     *
+     * <p>When Thread is disabling/disabled, {@link ThreadNetworkController} APIs which return a
+     * {@link ThreadNetworkException} and requires the Thread radio will fail with error code {@link
+     * ThreadNetworkException#ERROR_THREAD_DISABLED}.
+     *
+     * <p>On success, {@link OutcomeReceiver#onResult} of {@code receiver} is called. It indicates
+     * the operation has started, but not necessarilied completed. Callers of this method should use
+     * {@link #registerStateCallback} to subscribe to the Thread enabled state changes and determine
+     * whether the operation completed. The requested enabled state will be persistent and survives
+     * device reboots.
+     *
+     * <p>On failure, {@link OutcomeReceiver#onError} of {@code receiver} will be invoked with a
+     * specific error in {@link ThreadNetworkException#ERROR_}.
+     *
+     * @param enabled {@code true} for enabling Thread
+     * @param executor the executor to execute {@code receiver}
+     * @param receiver the receiver to receive result of this operation
+     */
+    @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED")
+    public void setEnabled(
+            @NonNull boolean enabled,
+            @NonNull @CallbackExecutor Executor executor,
+            @NonNull OutcomeReceiver<Void, ThreadNetworkException> receiver) {
+        try {
+            mControllerService.setEnabled(enabled, new OperationReceiverProxy(executor, receiver));
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
     }
 
     /** Returns the Thread version this device is operating on. */
@@ -170,6 +216,16 @@ public final class ThreadNetworkController {
          * @param partitionId the new Thread partition ID
          */
         default void onPartitionIdChanged(long partitionId) {}
+
+        /**
+         * The Thread enabled state has changed.
+         *
+         * <p>The Thread enabled state can be set with {@link setEnabled}, it may also be updated by
+         * airplane mode or admin control.
+         *
+         * @param enabledState the new Thread enabled state
+         */
+        default void onThreadEnabledChanged(@EnabledState int enabledState) {}
     }
 
     private static final class StateCallbackProxy extends IStateCallback.Stub {
@@ -196,6 +252,16 @@ public final class ThreadNetworkController {
             final long identity = Binder.clearCallingIdentity();
             try {
                 mExecutor.execute(() -> mCallback.onPartitionIdChanged(partitionId));
+            } finally {
+                Binder.restoreCallingIdentity(identity);
+            }
+        }
+
+        @Override
+        public void onThreadEnabledChanged(@EnabledState int enabled) {
+            final long identity = Binder.clearCallingIdentity();
+            try {
+                mExecutor.execute(() -> mCallback.onThreadEnabledChanged(enabled));
             } finally {
                 Binder.restoreCallingIdentity(identity);
             }
