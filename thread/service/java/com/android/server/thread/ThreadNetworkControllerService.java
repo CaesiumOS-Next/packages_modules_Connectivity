@@ -34,7 +34,9 @@ import static android.net.thread.ThreadNetworkException.ERROR_INTERNAL_ERROR;
 import static android.net.thread.ThreadNetworkException.ERROR_REJECTED_BY_PEER;
 import static android.net.thread.ThreadNetworkException.ERROR_RESOURCE_EXHAUSTED;
 import static android.net.thread.ThreadNetworkException.ERROR_RESPONSE_BAD_FORMAT;
+import static android.net.thread.ThreadNetworkException.ERROR_THREAD_DISABLED;
 import static android.net.thread.ThreadNetworkException.ERROR_TIMEOUT;
+import static android.net.thread.ThreadNetworkException.ERROR_UNAVAILABLE;
 import static android.net.thread.ThreadNetworkException.ERROR_UNSUPPORTED_CHANNEL;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
 
@@ -159,8 +161,13 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private UpstreamNetworkCallback mUpstreamNetworkCallback;
     private TestNetworkSpecifier mUpstreamTestNetworkSpecifier;
     private final HashMap<Network, String> mNetworkToInterface;
+    private final ThreadPersistentSettings mPersistentSettings;
 
     private BorderRouterConfigurationParcel mBorderRouterConfig;
+
+    private boolean mIsThreadEnabled = false;
+    private boolean mIsDisablingThread = false;
+    private OperationReceiverWrapper mDisableThreadReceiver = null;
 
     @VisibleForTesting
     ThreadNetworkControllerService(
@@ -170,6 +177,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             Supplier<IOtDaemon> otDaemonSupplier,
             ConnectivityManager connectivityManager,
             TunInterfaceController tunIfController,
+            ThreadPersistentSettings persistentSettings,
             InfraInterfaceController infraIfController) {
         mContext = context;
         mHandler = handler;
@@ -181,9 +189,11 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mUpstreamNetworkRequest = newUpstreamNetworkRequest();
         mNetworkToInterface = new HashMap<Network, String>();
         mBorderRouterConfig = new BorderRouterConfigurationParcel();
+        mPersistentSettings = persistentSettings;
     }
 
-    public static ThreadNetworkControllerService newInstance(Context context) {
+    public static ThreadNetworkControllerService newInstance(
+            Context context, ThreadPersistentSettings persistentSettings) {
         HandlerThread handlerThread = new HandlerThread("ThreadHandlerThread");
         handlerThread.start();
         NetworkProvider networkProvider =
@@ -196,6 +206,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 () -> IOtDaemon.Stub.asInterface(ServiceManagerWrapper.waitForService("ot_daemon")),
                 context.getSystemService(ConnectivityManager.class),
                 new TunInterfaceController(TUN_IF_NAME),
+                persistentSettings,
                 new InfraInterfaceController());
     }
 
@@ -293,6 +304,18 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
     }
 
+    private void terminateOtDaemon(@Nullable OperationReceiverWrapper receiver) {
+        Log.i(TAG, "Terminating ot-daemon as Thread is disabled.");
+
+        mIsDisablingThread = true;
+        mDisableThreadReceiver = receiver;
+        try {
+            getOtDaemon().terminate();
+        } catch (RemoteException e) {
+            // oneway operation should never fail
+        }
+    }
+
     private IOtDaemon getOtDaemon() throws RemoteException {
         checkOnHandlerThread();
 
@@ -314,9 +337,20 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     // TODO(b/309792480): restarts the OT daemon service
     private void onOtDaemonDied() {
         Log.w(TAG, "OT daemon became dead, clean up...");
-        OperationReceiverWrapper.onOtDaemonDied();
+        if (!mIsDisablingThread) {
+            OperationReceiverWrapper.onOtDaemonDied();
+        }
         mOtDaemonCallbackProxy.onOtDaemonDied();
         mOtDaemon = null;
+        if (mIsDisablingThread) {
+            mIsDisablingThread = false;
+            mIsThreadEnabled = false;
+            if (mDisableThreadReceiver != null) {
+                mDisableThreadReceiver.onSuccess();
+                mDisableThreadReceiver = null;
+            }
+            mOtDaemonCallbackProxy.onThreadEnabledChanged();
+        }
     }
 
     public void initialize() {
@@ -329,13 +363,64 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                         throw new IllegalStateException(
                                 "Failed to create Thread tunnel interface", e);
                     }
-                    mLinkProperties.setInterfaceName(TUN_IF_NAME);
-                    mLinkProperties.setMtu(TunInterfaceController.MTU);
-                    mConnectivityManager.registerNetworkProvider(mNetworkProvider);
-                    requestUpstreamNetwork();
-
-                    initializeOtDaemon();
+                    boolean isEnabled =
+                            mPersistentSettings.get(ThreadPersistentSettings.THREAD_ENABLED);
+                    setThreadEnabledInternal(isEnabled, null);
                 });
+    }
+
+    public void setThreadEnabled(@NonNull boolean isEnabled, @NonNull IOperationReceiver receiver) {
+        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        mHandler.post(
+                () -> setThreadEnabledInternal(isEnabled, new OperationReceiverWrapper(receiver)));
+    }
+
+    private void setThreadEnabledInternal(
+            @NonNull boolean isEnabled, @Nullable OperationReceiverWrapper receiver) {
+        if (mIsThreadEnabled == isEnabled) {
+            Log.w(
+                    TAG,
+                    "setThreadEnabled "
+                            + isEnabled
+                            + " when Thread is already "
+                            + (mIsThreadEnabled ? "enabled" : "disabled"));
+            Log.i(TAG, "receiver is " + receiver);
+            if (receiver != null) {
+                receiver.onError(
+                        ERROR_UNAVAILABLE,
+                        "Thread is already " + (isEnabled ? "enabled" : "disabled"));
+            }
+            return;
+        }
+        if (isEnabled) {
+            enableInternal(receiver);
+        } else {
+            disableInternal(receiver);
+        }
+    }
+
+    public void enableInternal(@Nullable OperationReceiverWrapper receiver) {
+        Log.d(TAG, "Enabling Thread system service...");
+        mLinkProperties.setInterfaceName(TUN_IF_NAME);
+        mLinkProperties.setMtu(TunInterfaceController.MTU);
+        mConnectivityManager.registerNetworkProvider(mNetworkProvider);
+        requestUpstreamNetwork();
+
+        initializeOtDaemon();
+        mIsThreadEnabled = true;
+        if (receiver != null) {
+            receiver.onSuccess();
+        }
+        mOtDaemonCallbackProxy.onThreadEnabledChanged();
+    }
+
+    public void disableInternal(@Nullable OperationReceiverWrapper receiver) {
+        Log.d(TAG, "Disabling Thread system service...");
+        terminateOtDaemon(receiver);
+        cancelRequestUpstreamNetwork();
+        mConnectivityManager.unregisterNetworkProvider(mNetworkProvider);
+        mLinkProperties.setInterfaceName(null);
     }
 
     private void requestUpstreamNetwork() {
@@ -530,6 +615,10 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             String networkName, IActiveOperationalDatasetReceiver receiver) {
         mHandler.post(
                 () -> {
+                    if (!mIsThreadEnabled) {
+                        notifyThreadDisabled(receiver);
+                        return;
+                    }
                     ActiveOperationalDataset dataset =
                             createRandomizedDatasetInternal(
                                     networkName,
@@ -694,6 +783,14 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
     }
 
+    private void notifyThreadDisabled(IActiveOperationalDatasetReceiver receiver) {
+        try {
+            receiver.onError(ERROR_THREAD_DISABLED, "Thread is disabled");
+        } catch (RemoteException e) {
+            // Client is dead, do nothing
+        }
+    }
+
     @Override
     public void join(
             @NonNull ActiveOperationalDataset activeDataset, @NonNull IOperationReceiver receiver) {
@@ -707,6 +804,11 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             @NonNull ActiveOperationalDataset activeDataset,
             @NonNull OperationReceiverWrapper receiver) {
         checkOnHandlerThread();
+
+        if (!mIsThreadEnabled) {
+            receiver.onError(ERROR_THREAD_DISABLED, "Thread is disabled");
+            return;
+        }
 
         try {
             // The otDaemon.join() will leave first if this device is currently attached
@@ -732,6 +834,11 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             @NonNull OperationReceiverWrapper receiver) {
         checkOnHandlerThread();
 
+        if (!mIsThreadEnabled) {
+            receiver.onError(ERROR_THREAD_DISABLED, "Thread is disabled");
+            return;
+        }
+
         try {
             getOtDaemon()
                     .scheduleMigration(
@@ -751,6 +858,11 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     private void leaveInternal(@NonNull OperationReceiverWrapper receiver) {
         checkOnHandlerThread();
+
+        if (!mIsThreadEnabled) {
+            receiver.onError(ERROR_THREAD_DISABLED, "Thread is disabled");
+            return;
+        }
 
         try {
             getOtDaemon().leave(newOtStatusReceiver(receiver));
@@ -998,6 +1110,16 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             } catch (RemoteException e) {
                 // oneway operation should never fail
             }
+            // Notify current thread enabled state
+            notifyThreadEnabledUpdated(callback, mIsThreadEnabled);
+        }
+
+        private void notifyThreadEnabledUpdated(IStateCallback callback, boolean enabled) {
+            try {
+                callback.onThreadEnabledChanged(enabled);
+            } catch (RemoteException ignored) {
+                // do nothing if the client is dead
+            }
         }
 
         public void unregisterStateCallback(IStateCallback callback) {
@@ -1060,6 +1182,13 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 } catch (RemoteException ignored) {
                     // do nothing if the client is dead
                 }
+            }
+        }
+
+        public void onThreadEnabledChanged() {
+            checkOnHandlerThread();
+            for (IStateCallback callback : mStateCallbacks.keySet()) {
+                notifyThreadEnabledUpdated(callback, mIsThreadEnabled);
             }
         }
 
