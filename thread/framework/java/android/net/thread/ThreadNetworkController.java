@@ -106,6 +106,22 @@ public final class ThreadNetworkController {
         mControllerService = controllerService;
     }
 
+    /**
+     * Enables/Disables Thread.
+     *
+     * <p>Disabling Thread will cause {@link ThreadNetworkController} APIs which return a {@link
+     * ThreadNetworkException} to fail with error code {@link
+     * ThreadNetworkException#ERROR_THREAD_DISABLED}.
+     */
+    @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED")
+    public void setThreadEnabled(boolean enabled) {
+        try {
+            mControllerService.setThreadEnabled(enabled);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
     /** Returns the Thread version this device is operating on. */
     @ThreadVersion
     public int getThreadVersion() {
@@ -170,6 +186,13 @@ public final class ThreadNetworkController {
          * @param partitionId the new Thread partition ID
          */
         default void onPartitionIdChanged(long partitionId) {}
+
+        /**
+         * The Thread enabled state has changed.
+         *
+         * @param enabled the Thread enabled state
+         */
+        default void onThreadEnabledChanged(boolean enabled) {};
     }
 
     private static final class StateCallbackProxy extends IStateCallback.Stub {
@@ -196,6 +219,16 @@ public final class ThreadNetworkController {
             final long identity = Binder.clearCallingIdentity();
             try {
                 mExecutor.execute(() -> mCallback.onPartitionIdChanged(partitionId));
+            } finally {
+                Binder.restoreCallingIdentity(identity);
+            }
+        }
+
+        @Override
+        public void onThreadEnabledChanged(boolean enabled) {
+            final long identity = Binder.clearCallingIdentity();
+            try {
+                mExecutor.execute(() -> mCallback.onThreadEnabledChanged(enabled));
             } finally {
                 Binder.restoreCallingIdentity(identity);
             }
