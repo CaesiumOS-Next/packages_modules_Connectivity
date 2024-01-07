@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fa36513_83ad8102",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-07T10:19:49Z",
+      "side": 1,
+      "message": "```suggestion\n        if (TextUtils.isEmpty(hostname)) {\n```",
+      "range": {
+        "startLine": 430,
+        "startChar": 8,
+        "endLine": 430,
+        "endChar": 31
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bae6afcb_141d4f71",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-07T10:19:49Z",
+      "side": 1,
+      "message": "```suggestion\n        if (TextUtils.isEmpty(hostname)) {\n```",
+      "range": {
+        "startLine": 438,
+        "startChar": 12,
+        "endLine": 438,
+        "endChar": 28
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a3a81a2_7cd613b3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-07T10:19:49Z",
+      "side": 1,
+      "message": "We should all clear the reference counting table.\n```suggestion\n        mGeneralRecords.removeIf(r -\u003e r.serviceInfo !\u003d null);\n        mCustomHostnameRefCount.clear();\n```",
+      "range": {
+        "startLine": 592,
+        "startChar": 8,
+        "endLine": 592,
+        "endChar": 61
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f84c338f_5c3a0ef0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-07T10:19:49Z",
+      "side": 1,
+      "message": "Instead of adding one more `serviceInetAddressRecords` to this method, why not calling `getInetAddressRecordsForService` directly from here? It allows lazy computation of the address records list in this way.",
+      "range": {
+        "startLine": 817,
+        "startChar": 8,
+        "endLine": 821,
+        "endChar": 9
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b32c4dfd_a552feb9",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 1361,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-07T10:19:49Z",
+      "side": 1,
+      "message": "```suggestion\n    public fun testAdvertisingAndDiscovery_servicesWithCustomHost_customAddressesFound() {\n```\n\nCan you extend this test case to multiple services with different custom hosts?",
+      "range": {
+        "startLine": 1361,
+        "startChar": 15,
+        "endLine": 1361,
+        "endChar": 67
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9c3185a_f18b9a75",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 1361,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-07T10:19:49Z",
+      "side": 1,
+      "message": "What about adding test case that advertises only a custom host?\n\n```\n@Test\npublic void testAdvertisingAndDiscovery_emptyServiceWithOnlyCustomHost_customHostDiscovered() {\n// ....\n}\n```",
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bb8cfa6_bfd46224",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-07T10:19:49Z",
+      "side": 1,
+      "message": "```suggestion\n    public fun testAdvertisingAndDiscovery_servicesWithTheSameCustomHost_addrsUpdatedToLastOnes() {\n```",
+      "range": {
+        "startLine": 1392,
+        "startChar": 15,
+        "endLine": 1392,
+        "endChar": 81
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d1ed47b_47bb900f",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-07T10:19:49Z",
+      "side": 1,
+      "message": "We should also add test case which verifies that the custom host is still discoverable when only a subset of the registered services are unregistered.",
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67aa3511_d5dc56fd",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 1395,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-07T10:19:49Z",
+      "side": 1,
+      "message": "nit: Kotlin doesn\u0027t require the trailing \";\"\n```suggestion\n        val hostAddresses3 \u003d listOf(parseNumericAddress(\"2002::1\"), parseNumericAddress(\"2002::3\"))\n```",
+      "range": {
+        "startLine": 1395,
+        "startChar": 0,
+        "endLine": 1395,
+        "endChar": 100
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "288afcd9_49bbdd22",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-07T10:19:49Z",
+      "side": 1,
+      "message": "Try to constructs the test name with three components:\n1. what is being tested; this is usually the public method name (i.e. \"getReply\" here)\n2. The conditions focused in this test case\n3. The expected behavior / result under the conditions in #2\n\na. So please merge \"ptrQuestion\" and \"serviceWithCustomHost\"\n\nb. \"returnsSrvTxtAddressNsecRecords\" This is already tested by other basic test cases. In this test case, we actually case only that the custom host name is used in the records in the answer sections.\n\nBased on those, I think it\u0027s clearer to name the test case to \"testGetReply_ptrQuestionForServiceWithCustomHost_customHostUsedInAnswers\"",
+      "range": {
+        "startLine": 590,
+        "startChar": 8,
+        "endLine": 590,
+        "endChar": 92
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8682c4d2_f2035602",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-07T10:19:49Z",
+      "side": 1,
+      "message": "ditto, rename it to\n```suggestion\n    fun testGetReply_AAAAQuestionForCustomHost_returnsCustomAAAARecords() {\n```",
+      "range": {
+        "startLine": 755,
+        "startChar": 8,
+        "endLine": 755,
+        "endChar": 62
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
