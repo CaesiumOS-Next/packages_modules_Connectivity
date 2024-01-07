@@ -20,6 +20,7 @@ import android.net.Network
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
 import android.os.Process
+import android.util.Log
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.net.module.util.DnsPacket
 import com.android.net.module.util.NetworkStackConstants.ETHER_HEADER_LEN
@@ -285,6 +286,12 @@ fun TapPacketReader.pollForQuery(
     vararg requiredTypes: Int,
     timeoutMs: Long = MDNS_REGISTRATION_TIMEOUT_MS
 ): TestDnsPacket? = pollForMdnsPacket(timeoutMs) { it.isQueryFor(recordName, *requiredTypes) }
+
+fun TapPacketReader.pollForReply(
+        recordName: String,
+        type: Int,
+        timeoutMs: Long = MDNS_REGISTRATION_TIMEOUT_MS
+): TestDnsPacket? = pollForMdnsPacket(timeoutMs) { it.isReplyFor(recordName, type) }
 
 fun TapPacketReader.pollForReply(
     serviceName: String,

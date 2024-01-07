@@ -1758,15 +1758,23 @@ public final class NsdManager {
         boolean hasServiceType = !TextUtils.isEmpty(serviceInfo.getServiceType());
         boolean hasHostname = !TextUtils.isEmpty(serviceInfo.getHostname());
         boolean hasHostAddresses = !CollectionUtils.isEmpty(serviceInfo.getHostAddresses());
+        boolean hasPublicKey =
+                serviceInfo.getPublicKey() != null && serviceInfo.getPublicKey().length > 0;
 
         if (serviceInfo.getPort() < 0) {
             throw new IllegalArgumentException("Invalid port");
         }
 
         if (hasServiceType || hasServiceName || (serviceInfo.getPort() > 0)) {
-            if (!(hasServiceType && hasServiceName && (serviceInfo.getPort() > 0))) {
+            if (serviceInfo.getPort() == 0) {
+                if (hasPublicKey) {
+                    return;
+                }
+                throw new IllegalArgumentException("The service port is missing");
+            }
+            if (!(hasServiceType && hasServiceName)) {
                 throw new IllegalArgumentException(
-                        "The service type, service name or port is missing");
+                        "The service type or service name is missing");
             }
         }
 
@@ -1774,9 +1782,9 @@ public final class NsdManager {
             throw new IllegalArgumentException("No service or host specified in NsdServiceInfo");
         }
 
-        if (!hasServiceType && hasHostname && !hasHostAddresses) {
-            // TODO: b/317946010 - This may be allowed when it supports registering KEY RR.
-            throw new IllegalArgumentException("No host addresses specified in NsdServiceInfo");
+        if (!hasServiceType && hasHostname && !hasHostAddresses && !hasPublicKey) {
+            throw new IllegalArgumentException(
+                    "Hostname is specified but no host addresses or public key NsdServiceInfo");
         }
     }
 }
