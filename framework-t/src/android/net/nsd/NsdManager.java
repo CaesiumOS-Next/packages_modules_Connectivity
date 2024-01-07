@@ -373,6 +373,7 @@ public final class NsdManager {
     }
 
     private static final int FIRST_LISTENER_KEY = 1;
+    private static final int DNSSEC_PROTOCOL = 3;
 
     private final INsdServiceConnector mService;
     private final Context mContext;
@@ -1728,6 +1729,23 @@ public final class NsdManager {
         }
     }
 
+    /**
+     * Checks if the public key is valid for registration.
+     *
+     * <p>For simplicity, it only checks if the protocol is DNSSEC and the RDATA is not fewer than 4
+     * bytes. See RFC 3445 Section 3.
+     */
+    private static boolean checkPublicKey(@Nullable byte[] publicKey) {
+        if (publicKey == null) {
+            return true;
+        }
+        if (publicKey.length < 4) {
+            return false;
+        }
+        int protocol = publicKey[2];
+        return protocol == DNSSEC_PROTOCOL;
+    }
+
     private static void checkServiceInfoForResolution(NsdServiceInfo serviceInfo) {
         Objects.requireNonNull(serviceInfo, "NsdServiceInfo cannot be null");
         if (TextUtils.isEmpty(serviceInfo.getServiceName())) {
@@ -1758,15 +1776,28 @@ public final class NsdManager {
         boolean hasServiceType = !TextUtils.isEmpty(serviceInfo.getServiceType());
         boolean hasHostname = !TextUtils.isEmpty(serviceInfo.getHostname());
         boolean hasHostAddresses = !CollectionUtils.isEmpty(serviceInfo.getHostAddresses());
+        boolean hasPublicKey =
+                serviceInfo.getPublicKey() != null && serviceInfo.getPublicKey().length > 0;
 
         if (serviceInfo.getPort() < 0) {
             throw new IllegalArgumentException("Invalid port");
         }
 
+        if (!checkPublicKey(serviceInfo.getPublicKey())) {
+            throw new IllegalArgumentException(
+                    "The public key is invalid: " + serviceInfo.getPublicKey());
+        }
+
         if (hasServiceType || hasServiceName || (serviceInfo.getPort() > 0)) {
-            if (!(hasServiceType && hasServiceName && (serviceInfo.getPort() > 0))) {
+            if (serviceInfo.getPort() == 0) {
+                if (hasPublicKey) {
+                    return;
+                }
+                throw new IllegalArgumentException("The service port is missing");
+            }
+            if (!(hasServiceType && hasServiceName)) {
                 throw new IllegalArgumentException(
-                        "The service type, service name or port is missing");
+                        "The service type or service name is missing");
             }
         }
 
@@ -1774,9 +1805,9 @@ public final class NsdManager {
             throw new IllegalArgumentException("No service or host specified in NsdServiceInfo");
         }
 
-        if (!hasServiceType && hasHostname && !hasHostAddresses) {
-            // TODO: b/317946010 - This may be allowed when it supports registering KEY RR.
-            throw new IllegalArgumentException("No host addresses specified in NsdServiceInfo");
+        if (!hasServiceType && hasHostname && !hasHostAddresses && !hasPublicKey) {
+            throw new IllegalArgumentException(
+                    "Hostname is specified but no host addresses or public key in NsdServiceInfo");
         }
     }
 }

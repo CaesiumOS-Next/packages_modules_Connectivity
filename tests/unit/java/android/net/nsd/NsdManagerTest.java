@@ -16,6 +16,8 @@
 
 package android.net.nsd;
 
+import static com.android.net.module.util.HexDump.hexStringToByteArray;
+
 import static libcore.junit.util.compat.CoreCompatChangeRule.DisableCompatChanges;
 import static libcore.junit.util.compat.CoreCompatChangeRule.EnableCompatChanges;
 
@@ -376,6 +378,7 @@ public class NsdManagerTest {
         NsdManager.RegistrationListener listener4 = mock(NsdManager.RegistrationListener.class);
         NsdManager.RegistrationListener listener5 = mock(NsdManager.RegistrationListener.class);
         NsdManager.RegistrationListener listener6 = mock(NsdManager.RegistrationListener.class);
+        NsdManager.RegistrationListener listener7 = mock(NsdManager.RegistrationListener.class);
 
         NsdServiceInfo invalidService = new NsdServiceInfo(null, null);
         NsdServiceInfo validService = new NsdServiceInfo("a_name", "_a_type._tcp");
@@ -420,6 +423,19 @@ public class NsdManagerTest {
         validServiceWithCustomHostNoAddresses.setPort(2222);
         validServiceWithCustomHostNoAddresses.setHostname("a_host");
 
+        NsdServiceInfo validServiceWithPublicKey = new NsdServiceInfo("a_name", "_a_type._tcp");
+        validServiceWithPublicKey.setPublicKey(
+                hexStringToByteArray(
+                        "0201030dc141d0637960b98cbc12cfca"
+                                + "221d2879dac26ee5b460e9007c992e19"
+                                + "02d897c391b03764d448f7d0c772fdb0"
+                                + "3b1d9d6d52ff8886769e8e2362513565"
+                                + "270962d3"));
+
+        NsdServiceInfo invalidServiceWithTooShortPublicKey =
+                new NsdServiceInfo("a_name", "_a_type._tcp");
+        invalidServiceWithTooShortPublicKey.setPublicKey(hexStringToByteArray("0201"));
+
         // Service registration
         //  - invalid arguments
         mustFail(() -> { manager.unregisterService(null); });
@@ -430,6 +446,8 @@ public class NsdManagerTest {
         mustFail(() -> { manager.registerService(validService, PROTOCOL, null); });
         mustFail(() -> {
             manager.registerService(invalidMissingHostnameWithAddresses, PROTOCOL, listener1); });
+        mustFail(() -> {
+            manager.registerService(invalidServiceWithTooShortPublicKey, PROTOCOL, listener1); });
         manager.registerService(validService, PROTOCOL, listener1);
         //  - update without subtype is not allowed
         mustFail(() -> { manager.registerService(validServiceDuplicate, PROTOCOL, listener1); });
@@ -460,6 +478,9 @@ public class NsdManagerTest {
         //  - registering a service with a custom host with no addresses is valid
         manager.registerService(validServiceWithCustomHostNoAddresses, PROTOCOL, listener6);
         manager.unregisterService(listener6);
+        //  - registering a service with a public key is valid
+        manager.registerService(validServiceWithPublicKey, PROTOCOL, listener7);
+        manager.unregisterService(listener7);
 
         // Discover service
         //  - invalid arguments
