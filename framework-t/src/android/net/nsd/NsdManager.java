@@ -160,6 +160,8 @@ public final class NsdManager {
                 "com.android.net.flags.advertise_request_api";
         static final String NSD_CUSTOM_HOSTNAME_ENABLED =
                 "com.android.net.flags.nsd_custom_hostname_enabled";
+        static final String NSD_PUBLIC_KEY_ENABLED =
+                "com.android.net.flags.nsd_public_key_enabled";
     }
 
     /**
