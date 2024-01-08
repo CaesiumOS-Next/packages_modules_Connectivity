@@ -169,6 +169,12 @@ public class MdnsRecordRepository {
         @Nullable
         public final RecordInfo<MdnsTextRecord> txtRecord;
         @NonNull
+        public final List<RecordInfo<MdnsKeyRecord>> keyRecords;
+        @Nullable
+        public final RecordInfo<MdnsKeyRecord> serviceKeyRecord;
+        @Nullable
+        public final RecordInfo<MdnsKeyRecord> hostKeyRecord;
+        @NonNull
         public final List<RecordInfo<MdnsInetAddressRecord>> addressRecords;
         @NonNull
         public final NsdServiceInfo serviceInfo;
@@ -212,15 +218,21 @@ public class MdnsRecordRepository {
 
             final boolean hasService = !TextUtils.isEmpty(serviceInfo.getServiceType());
             final boolean hasCustomHost = !TextUtils.isEmpty(serviceInfo.getHostname());
+            final boolean hasKey =
+                    serviceInfo.getPublicKey() != null && serviceInfo.getPublicKey().length > 0;
             final String[] hostname =
                     hasCustomHost
                             ? new String[] {serviceInfo.getHostname(), LOCAL_TLD}
                             : deviceHostname;
             final ArrayList<RecordInfo<?>> allRecords = new ArrayList<>(5);
 
+            String[] serviceType = null;
+            String[] serviceName = null;
             if (hasService) {
-                final String[] serviceType = splitServiceType(serviceInfo);
-                final String[] serviceName = splitFullyQualifiedName(serviceInfo, serviceType);
+                serviceType = splitServiceType(serviceInfo);
+                serviceName = splitFullyQualifiedName(serviceInfo, serviceType);
+            }
+            if (hasService && serviceInfo.getPort() > 0) {
                 // Service PTR records
                 ptrRecords = new ArrayList<>(serviceInfo.getSubtypes().size() + 1);
                 ptrRecords.add(new RecordInfo<>(
@@ -300,6 +312,41 @@ public class MdnsRecordRepository {
             } else {
                 addressRecords = Collections.emptyList();
             }
+
+            if (hasKey) {
+                this.keyRecords = new ArrayList<>();
+            } else {
+                this.keyRecords = Collections.emptyList();
+            }
+            if (hasKey && hasService) {
+                this.serviceKeyRecord = new RecordInfo<>(
+                        serviceInfo,
+                        new MdnsKeyRecord(
+                                serviceName,
+                                0L /*receiptTimeMillis */,
+                                true /* cacheFlush */,
+                                NAME_RECORDS_TTL_MILLIS,
+                                serviceInfo.getPublicKey()),
+                        false /* sharedName */);
+                this.keyRecords.add(this.serviceKeyRecord);
+            } else {
+                this.serviceKeyRecord = null;
+            }
+            if (hasKey && hasCustomHost) {
+                this.hostKeyRecord = new RecordInfo<>(
+                        serviceInfo,
+                        new MdnsKeyRecord(
+                                hostname,
+                                0L /*receiptTimeMillis */,
+                                true /* cacheFlush */,
+                                NAME_RECORDS_TTL_MILLIS,
+                                serviceInfo.getPublicKey()),
+                        false /* sharedName */);
+                this.keyRecords.add(this.hostKeyRecord);
+            } else {
+                this.hostKeyRecord = null;
+            }
+            allRecords.addAll(this.keyRecords);
 
             this.allRecords = Collections.unmodifiableList(allRecords);
             this.repliedServiceCount = repliedServiceCount;
@@ -392,7 +439,13 @@ public class MdnsRecordRepository {
                 getServiceByNameAndType(serviceInfo.getServiceName(), serviceInfo.getServiceType());
         // It's OK to re-add a service that is exiting
         if (existing >= 0 && !mServices.get(existing).exiting) {
-            throw new NameConflictException(existing);
+            NsdServiceInfo otherServiceInfo = mServices.get(existing).serviceInfo;
+            // Conflict if both have SRV record or KEY record
+            if ((serviceInfo.getPort() > 0 && otherServiceInfo.getPort() > 0)
+                    || (serviceInfo.getPublicKey() != null
+                            && otherServiceInfo.getPublicKey() != null)) {
+                throw new NameConflictException(existing);
+            }
         }
 
         final ServiceRegistration registration = new ServiceRegistration(
@@ -448,6 +501,16 @@ public class MdnsRecordRepository {
                     inetAddressRecord.getInet4Address() == null
                             ? inetAddressRecord.getInet6Address()
                             : inetAddressRecord.getInet4Address()));
+        }
+
+        for (RecordInfo<MdnsKeyRecord> keyRecordInfo : registration.keyRecords) {
+            MdnsKeyRecord keyRecord = keyRecordInfo.record;
+            probingRecords.add(new MdnsKeyRecord(
+                            keyRecord.getName(),
+                            0L /* receiptTimeMillis */,
+                            false /* cacheFlush */,
+                            keyRecord.getTtl(),
+                            keyRecord.getRData()));
         }
         return new MdnsProber.ProbingInfo(serviceId, probingRecords);
     }
@@ -1048,6 +1111,13 @@ public class MdnsRecordRepository {
 
     private static boolean conflictForService(
             @NonNull MdnsRecord record, @NonNull ServiceRegistration registration) {
+        if (record instanceof MdnsKeyRecord) {
+            if (registration.serviceKeyRecord == null) {
+                return false;
+            }
+            return conflict((MdnsKeyRecord) record, registration.serviceKeyRecord.record);
+        }
+
         if (registration.srvRecord == null) {
             return false;
         }
@@ -1097,6 +1167,13 @@ public class MdnsRecordRepository {
             return false;
         }
 
+        if (record instanceof MdnsKeyRecord) {
+            if (registration.hostKeyRecord == null) {
+                return false;
+            }
+            return conflict((MdnsKeyRecord) record, registration.hostKeyRecord.record);
+        }
+
         // If this registration has any address record and there's no identical record in the
         // repository, it's a conflict. There will be no conflict if no registration has addresses
         // for that hostname.
@@ -1107,6 +1184,15 @@ public class MdnsRecordRepository {
         }
 
         return false;
+    }
+
+    private static boolean conflict(
+            @NonNull MdnsKeyRecord keyRecord1, @NonNull MdnsKeyRecord keyRecord2) {
+        if (!MdnsUtils.equalsDnsLabelIgnoreDnsCase(keyRecord1.getName(), keyRecord2.getName())) {
+            return false;
+        }
+
+        return !Objects.equals(keyRecord1, keyRecord2);
     }
 
     private List<RecordInfo<MdnsInetAddressRecord>> getInetAddressRecordsForHostname(

@@ -405,11 +405,22 @@ public class MdnsAdvertiser {
                 if (mPendingRegistrations.valueAt(i) == originalRegistration) {
                     continue;
                 }
-                final NsdServiceInfo other = mPendingRegistrations.valueAt(i).getServiceInfo();
-                if (MdnsUtils.equalsIgnoreDnsCase(info.getServiceName(), other.getServiceName())
-                        && MdnsUtils.equalsIgnoreDnsCase(info.getServiceType(),
-                        other.getServiceType())) {
-                    return mPendingRegistrations.keyAt(i);
+                final Registration otherRegistration = mPendingRegistrations.valueAt(i);
+                final NsdServiceInfo otherServiceInfo = otherRegistration.getServiceInfo();
+                if (MdnsUtils.equalsIgnoreDnsCase(
+                                info.getServiceName(), otherServiceInfo.getServiceName())
+                        && MdnsUtils.equalsIgnoreDnsCase(
+                                info.getServiceType(), otherServiceInfo.getServiceType())) {
+                    // Conflict if any of following is true:
+                    // 1. Both services have SRV record.
+                    // 2. Both services have KEY record.
+                    // 3. The services are registered by different users.
+                    if ((info.getPort() > 0 && otherServiceInfo.getPort() > 0)
+                            || (info.getPublicKey() != null
+                                    && otherServiceInfo.getPublicKey() != null)
+                            || (originalRegistration.mClientUid != otherRegistration.mClientUid)) {
+                        return mPendingRegistrations.keyAt(i);
+                    }
                 }
             }
             return -1;
