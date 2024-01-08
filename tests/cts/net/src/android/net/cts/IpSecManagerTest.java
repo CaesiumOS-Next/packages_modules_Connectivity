@@ -424,14 +424,16 @@ public class IpSecManagerTest extends IpSecBaseTest {
          */
         private static void waitForNumPackets(int numPackets) throws Exception {
             long uidTxDelta = 0;
+            long ifaceTxDelta = 0;
             long uidRxDelta = 0;
             for (int i = 0; i < 100; i++) {
                 uidTxDelta = TrafficStats.getUidTxPackets(Os.getuid()) - uidTxPackets;
                 uidRxDelta = TrafficStats.getUidRxPackets(Os.getuid()) - uidRxPackets;
+                ifaceTxDelta = TrafficStats.getLoopbackTxPackets() - ifaceTxPackets;
 
                 // TODO: Check Rx packets as well once kernel security policy bug is fixed.
                 // (b/70635417)
-                if (uidTxDelta >= numPackets) {
+                if (uidTxDelta >= numPackets && ifaceTxDelta >= numPackets) {
                     return;
                 }
                 Thread.sleep(MAX_WAIT_TIME_MILLIS / 100);
@@ -439,11 +441,9 @@ public class IpSecManagerTest extends IpSecBaseTest {
             fail(
                     "Not enough traffic was recorded to satisfy the provided conditions: wanted "
                             + numPackets
-                            + ", got "
-                            + uidTxDelta
-                            + " tx and "
-                            + uidRxDelta
-                            + " rx packets");
+                            + ", got uidTxPackets=" + uidTxDelta
+                            + ", uidRxPckates=" + uidRxDelta
+                            + " and ifaceTxPackets=" + ifaceTxDelta);
         }
 
         private static void assertUidStatsDelta(
