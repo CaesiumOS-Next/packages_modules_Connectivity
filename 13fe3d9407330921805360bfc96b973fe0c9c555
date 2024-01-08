@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d40af62_9a6ac057",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-08T03:39:10Z",
+      "side": 1,
+      "message": "We should cry loudly if vendor sets invalid country code so that they know they were wrong.\n\n```suggestion\n        if (oemCountryCode !\u003d null \u0026\u0026 !isValidCountryCode(oemCountryCode)) {\n            throw new IllegalArgumentException(\"OEM country code is invalid: \" + oemCountryCode);\n        }\n        \n        mOemCountryCodeInfo \u003d new CountryCodeInfo(oemCountryCode, COUNTRY_CODE_SOURCE_OEM);\n```\n\nAnd add a a unittest to cover to new code suggested here.",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 9
+      },
+      "revId": "13fe3d9407330921805360bfc96b973fe0c9c555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b1b4da3_3e702896",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-08T03:39:10Z",
+      "side": 1,
+      "message": "There is no necessary for `ThreadNetworkService` to know how to get the OEM country code. So don\u0027t add an argument to `ThreadNetworkCountryCode#newInstance`:\n```suggestion\n    public static ThreadNetworkCountryCode newInstance(\n            Context context, ThreadNetworkControllerService controllerService) {\n        return new ThreadNetworkCountryCode(\n                context.getSystemService(LocationManager.class),\n                controllerService,\n                Geocoder.isPresent() ? new Geocoder(context) : null,\n                new ConnectivityResources(context),\n                context.getSystemService(WifiManager.class),\n                context,\n                context.getSystemService(TelephonyManager.class),\n                context.getSystemService(SubscriptionManager.class),\n                ThreadNetworkProperties.country_code().orElse(null));\n```",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 32
+      },
+      "revId": "13fe3d9407330921805360bfc96b973fe0c9c555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "133e85bd_986771cd",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-08T03:39:10Z",
+      "side": 1,
+      "message": "Instead of creating a new ThreadNetworkCountryCode object with so many parameters here, you can define a method to create the object with given OEM country code in this test class:\n\n```\nprivate ThreadNetworkCountryCode newCountryCodeWithOemSource(@Nullable String oemCountryCode) {\n    return new ThreadNetworkCountryCode(\n                        mLocationManager,\n                        mThreadNetworkControllerService,\n                        mGeocoder,\n                        mConnectivityResources,\n                        mWifiManager,\n                        mContext,\n                        mTelephonyManager,\n                        mSubscriptionManager,\n                        oemCountryCode);\n}\n```\n\nSo that your test case here can be cleaned up to:\n```\n@Test\npublic void initialize_oemCountryCodeAvailable_oemCountryCodeIsUsed() {\n    mThreadNetworkCountryCode \u003d newCountryCodeWithOemSource(TEST_COUNTRY_CODE_US);\n    \n    mThreadNetworkCountryCode.initialize();\n    \nassertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(TEST_COUNTRY_CODE_US);\n        \n}\n```\n\nThis is not only for reusing code, but also highlighting what is being tested in this method. See go/unit-testing-practices#factory-methods\n\n------\n\nAnd you can reuse this method in `setUp()` method.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 46
+      },
+      "revId": "13fe3d9407330921805360bfc96b973fe0c9c555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
