@@ -25,6 +25,7 @@ import android.net.thread.IThreadNetworkController;
 import android.net.thread.IThreadNetworkManager;
 import android.os.Binder;
 import android.os.ParcelFileDescriptor;
+import android.sysprop.ThreadNetworkProperties;
 
 import com.android.server.SystemService;
 
@@ -56,7 +57,11 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
         if (phase == SystemService.PHASE_BOOT_COMPLETED) {
             mControllerService = ThreadNetworkControllerService.newInstance(mContext);
             mControllerService.initialize();
-            mCountryCode = ThreadNetworkCountryCode.newInstance(mContext, mControllerService);
+            mCountryCode =
+                    ThreadNetworkCountryCode.newInstance(
+                            mContext,
+                            mControllerService,
+                            ThreadNetworkProperties.country_code().orElse(null));
             mCountryCode.initialize();
 
             mShellCommand = new ThreadNetworkShellCommand(mCountryCode);
