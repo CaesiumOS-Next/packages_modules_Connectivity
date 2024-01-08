@@ -147,6 +147,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aff4ffb5_ce2651cb",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-08T10:29:30Z",
+      "side": 1,
+      "message": "Making this public API is this CL now.",
+      "parentUuid": "39362647_77a7450d",
+      "revId": "85ddc02816fc96fdad88ee4019d52e287923f354",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce6f4457_3da30004",
@@ -267,6 +285,24 @@
       "side": 1,
       "message": "yes, we should update the document.",
       "parentUuid": "d2360063_71790357",
+      "revId": "85ddc02816fc96fdad88ee4019d52e287923f354",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d659ead_84ecdcfc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-08T10:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96db8a0f_9337f5f5",
       "revId": "85ddc02816fc96fdad88ee4019d52e287923f354",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },

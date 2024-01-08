@@ -119,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd2de709_a6edf3dc",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-08T10:29:30Z",
+      "side": 1,
+      "message": "Oh, it\u0027s somehow out-of-sync due in a few rebases. Updated to use ttlSeconds for PTR records as well.",
+      "parentUuid": "72f33cb7_690bdd90",
+      "range": {
+        "startLine": 72,
+        "startChar": 16,
+        "endLine": 72,
+        "endChar": 27
+      },
+      "revId": "5b875658516d4327f0d73029a29727e57dd5c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d42b53e_e3c8f6be",
