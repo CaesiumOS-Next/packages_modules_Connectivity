@@ -153,7 +153,8 @@ public class ThreadNetworkCountryCodeTest {
                         mWifiManager,
                         mContext,
                         mTelephonyManager,
-                        mSubscriptionManager);
+                        mSubscriptionManager,
+                        null);
     }
 
     private static Address newAddress(String countryCode) {
@@ -167,6 +168,25 @@ public class ThreadNetworkCountryCodeTest {
         mThreadNetworkCountryCode.initialize();
 
         assertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(DEFAULT_COUNTRY_CODE);
+    }
+
+    @Test
+    public void initialize_oemCountryCodeAvailable_oemCountryCodeIsUsed() {
+        mThreadNetworkCountryCode =
+                new ThreadNetworkCountryCode(
+                        mLocationManager,
+                        mThreadNetworkControllerService,
+                        mGeocoder,
+                        mConnectivityResources,
+                        mWifiManager,
+                        mContext,
+                        mTelephonyManager,
+                        mSubscriptionManager,
+                        TEST_COUNTRY_CODE_US);
+
+        mThreadNetworkCountryCode.initialize();
+
+        assertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(TEST_COUNTRY_CODE_US);
     }
 
     @Test
