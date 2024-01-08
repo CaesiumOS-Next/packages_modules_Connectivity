@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09c1f213_55e8c3ef",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-08T10:46:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d40af62_9a6ac057",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 9
+      },
+      "revId": "13fe3d9407330921805360bfc96b973fe0c9c555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b1b4da3_3e702896",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0bdc801_95f60531",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-08T10:46:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b1b4da3_3e702896",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 32
+      },
+      "revId": "13fe3d9407330921805360bfc96b973fe0c9c555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "133e85bd_986771cd",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-01-08T03:39:10Z",
       "side": 1,
       "message": "Instead of creating a new ThreadNetworkCountryCode object with so many parameters here, you can define a method to create the object with given OEM country code in this test class:\n\n```\nprivate ThreadNetworkCountryCode newCountryCodeWithOemSource(@Nullable String oemCountryCode) {\n    return new ThreadNetworkCountryCode(\n                        mLocationManager,\n                        mThreadNetworkControllerService,\n                        mGeocoder,\n                        mConnectivityResources,\n                        mWifiManager,\n                        mContext,\n                        mTelephonyManager,\n                        mSubscriptionManager,\n                        oemCountryCode);\n}\n```\n\nSo that your test case here can be cleaned up to:\n```\n@Test\npublic void initialize_oemCountryCodeAvailable_oemCountryCodeIsUsed() {\n    mThreadNetworkCountryCode \u003d newCountryCodeWithOemSource(TEST_COUNTRY_CODE_US);\n    \n    mThreadNetworkCountryCode.initialize();\n    \nassertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(TEST_COUNTRY_CODE_US);\n        \n}\n```\n\nThis is not only for reusing code, but also highlighting what is being tested in this method. See go/unit-testing-practices#factory-methods\n\n------\n\nAnd you can reuse this method in `setUp()` method.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 46
+      },
+      "revId": "13fe3d9407330921805360bfc96b973fe0c9c555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64199e9d_70ac8b2d",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-08T10:46:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "133e85bd_986771cd",
       "range": {
         "startLine": 175,
         "startChar": 0,
