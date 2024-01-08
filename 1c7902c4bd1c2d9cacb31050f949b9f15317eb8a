@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e1f3a4a_03dfef63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-08T11:33:41Z",
+      "side": 1,
+      "message": "We should highlight why Resource Overlay can\u0027t fulfill our requirement here because we already provided Resource Overlay support for Thread.\n\n```suggestion\n\u003c1\u003e The default country code needs to be set to different values for the same product selling to different countries. Resource Overlay doesn\u0027t work here as it would require a different RRO package for each country of of the same product.\n\u003c2\u003e None of the other alternatives in https://source.android.com/docs/core/architecture/configuration can fulfill the requirement\n\u003c3\u003e Wi-Fi and UWB uses system properties for country code, so it will simplifies the build in factory if Thread is made consistent with them\n```",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 60
+      },
+      "revId": "1c7902c4bd1c2d9cacb31050f949b9f15317eb8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d818d0f3_4a834016",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-08T11:33:41Z",
+      "side": 1,
+      "message": "One small suggestion on the commit message, otherwise looks good to me.",
+      "revId": "1c7902c4bd1c2d9cacb31050f949b9f15317eb8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
