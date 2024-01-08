@@ -244,6 +244,49 @@ public class MdnsRecordTests {
     }
 
     @Test
+    public void testKeyRecord() throws IOException {
+        final byte[] dataIn =
+                HexDump.hexStringToByteArray(
+                        "09746573742d686f7374056c6f63616c"
+                                + "00001980010000000a00440201030dc1"
+                                + "41d0637960b98cbc12cfca221d2879da"
+                                + "c26ee5b460e9007c992e1902d897c391"
+                                + "b03764d448f7d0c772fdb03b1d9d6d52"
+                                + "ff8886769e8e2362513565270962d3");
+        final byte[] rData =
+                HexDump.hexStringToByteArray(
+                        "0201030dc141d0637960b98cbc12cfca"
+                                + "221d2879dac26ee5b460e9007c992e19"
+                                + "02d897c391b03764d448f7d0c772fdb0"
+                                + "3b1d9d6d52ff8886769e8e2362513565"
+                                + "270962d3");
+        assertNotNull(dataIn);
+        String dataInText = HexDump.dumpHexString(dataIn, 0, dataIn.length);
+
+        // Decode
+        DatagramPacket packet = new DatagramPacket(dataIn, dataIn.length);
+        MdnsPacketReader reader = new MdnsPacketReader(packet);
+
+        String[] name = reader.readLabels();
+        assertNotNull(name);
+        assertEquals(2, name.length);
+        String fqdn = MdnsRecord.labelsToString(name);
+        assertEquals("test-host.local", fqdn);
+
+        int type = reader.readUInt16();
+        assertEquals(MdnsRecord.TYPE_KEY, type);
+
+        MdnsKeyRecord record = new MdnsKeyRecord(name, reader);
+
+        assertArrayEquals(rData, record.getRData());
+
+        String dataOutText = toHex(record);
+        Log.d(TAG, dataOutText);
+
+        assertEquals(dataInText, dataOutText);
+    }
+
+    @Test
     public void testAnyRecord() throws IOException {
         final byte[] dataIn = HexDump.hexStringToByteArray(
                 "047465737407616E64726F696403636F6D0000FF0001000000000000");
