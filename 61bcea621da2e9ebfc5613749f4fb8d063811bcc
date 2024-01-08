@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dddea17c_5f2500b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-08T05:10:55Z",
+      "side": 1,
+      "message": "Note that I updated this CL to keep the initialization of the ThreadNetworkCountryCode module in the PHASE_BOOT_COMPLETED stage because it depends on Wifi country code which isn\u0027t ready before BOOT_COMPLETED.",
+      "revId": "61bcea621da2e9ebfc5613749f4fb8d063811bcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
