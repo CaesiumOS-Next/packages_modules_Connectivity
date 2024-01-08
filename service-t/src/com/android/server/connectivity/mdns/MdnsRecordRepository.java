@@ -167,6 +167,9 @@ public class MdnsRecordRepository {
         public final RecordInfo<MdnsServiceRecord> srvRecord;
         @Nullable
         public final RecordInfo<MdnsTextRecord> txtRecord;
+
+//        @Nullable
+//        public final RecordInfo<MdnsKeyRecord> keyRecord;
         @NonNull
         public final NsdServiceInfo serviceInfo;
 
