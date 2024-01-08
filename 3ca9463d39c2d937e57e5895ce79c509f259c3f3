@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "903d7ed2_d2602140",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-08T11:14:35Z",
+      "side": 1,
+      "message": "Use `assertThrows`:\n```suggestion\n        assertThrows(IllegalArgumentException.class, () -\u003e newCountryCodeWithOemSource(TEST_COUNTRY_CODE_INVALID));\n```\n\nYou should import `assertThrows` as:\n```\nimport static org.junit.Assert.assertThrows;\n```\n\nCheck other usages in Thread code: https://cs.android.com/search?q\u003dassertThrows\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain:packages%2Fmodules%2FConnectivity%2Fthread%2Ftests%2F",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 48
+      },
+      "revId": "3ca9463d39c2d937e57e5895ce79c509f259c3f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
