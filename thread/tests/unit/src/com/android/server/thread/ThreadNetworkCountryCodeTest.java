@@ -22,6 +22,7 @@ import static com.android.server.thread.ThreadNetworkCountryCode.DEFAULT_COUNTRY
 
 import static com.google.common.truth.Truth.assertThat;
 
+import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyDouble;
@@ -30,6 +31,7 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.clearInvocations;
+import static org.mockito.Mockito.contains;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
@@ -55,6 +57,7 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 
+import androidx.annotation.Nullable;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -70,6 +73,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
 
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -80,6 +85,7 @@ import java.util.Locale;
 public class ThreadNetworkCountryCodeTest {
     private static final String TEST_COUNTRY_CODE_US = "US";
     private static final String TEST_COUNTRY_CODE_CN = "CN";
+    private static final String TEST_COUNTRY_CODE_INVALID = "INVALID";
     private static final int TEST_SIM_SLOT_INDEX_0 = 0;
     private static final int TEST_SIM_SLOT_INDEX_1 = 1;
 
@@ -97,6 +103,7 @@ public class ThreadNetworkCountryCodeTest {
     @Mock List<SubscriptionInfo> mSubscriptionInfoList;
     @Mock SubscriptionInfo mSubscriptionInfo0;
     @Mock SubscriptionInfo mSubscriptionInfo1;
+    @Mock PrintWriter mPrintWriter;
 
     private ThreadNetworkCountryCode mThreadNetworkCountryCode;
     private boolean mErrorSetCountryCode;
@@ -144,16 +151,20 @@ public class ThreadNetworkCountryCodeTest {
                 .when(mThreadNetworkControllerService)
                 .setCountryCode(any(), any(IOperationReceiver.class));
 
-        mThreadNetworkCountryCode =
-                new ThreadNetworkCountryCode(
-                        mLocationManager,
-                        mThreadNetworkControllerService,
-                        mGeocoder,
-                        mConnectivityResources,
-                        mWifiManager,
-                        mContext,
-                        mTelephonyManager,
-                        mSubscriptionManager);
+        mThreadNetworkCountryCode = newCountryCodeWithOemSource(null);
+    }
+
+    private ThreadNetworkCountryCode newCountryCodeWithOemSource(@Nullable String oemCountryCode) {
+        return new ThreadNetworkCountryCode(
+                mLocationManager,
+                mThreadNetworkControllerService,
+                mGeocoder,
+                mConnectivityResources,
+                mWifiManager,
+                mContext,
+                mTelephonyManager,
+                mSubscriptionManager,
+                oemCountryCode);
     }
 
     private static Address newAddress(String countryCode) {
@@ -163,10 +174,26 @@ public class ThreadNetworkCountryCodeTest {
     }
 
     @Test
+    public void threadNetworkCountryCode_invalidOemCountryCode_illegalArgumentExceptionIsThrown() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> newCountryCodeWithOemSource(TEST_COUNTRY_CODE_INVALID));
+    }
+
+    @Test
     public void initialize_defaultCountryCodeIsUsed() {
         mThreadNetworkCountryCode.initialize();
 
         assertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(DEFAULT_COUNTRY_CODE);
+    }
+
+    @Test
+    public void initialize_oemCountryCodeAvailable_oemCountryCodeIsUsed() {
+        mThreadNetworkCountryCode = newCountryCodeWithOemSource(TEST_COUNTRY_CODE_US);
+
+        mThreadNetworkCountryCode.initialize();
+
+        assertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(TEST_COUNTRY_CODE_US);
     }
 
     @Test
@@ -405,5 +432,19 @@ public class ThreadNetworkCountryCodeTest {
         verify(mThreadNetworkControllerService)
                 .setCountryCode(eq(TEST_COUNTRY_CODE_CN), mOperationReceiverCaptor.capture());
         assertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(DEFAULT_COUNTRY_CODE);
+    }
+
+    @Test
+    public void dump_allCountryCodeInfoAreDumped() {
+        mThreadNetworkCountryCode.dump(new FileDescriptor(), mPrintWriter, null);
+
+        verify(mPrintWriter).println(contains("mOverrideCountryCodeInfo"));
+        verify(mPrintWriter).println(contains("mTelephonyCountryCodeSlotInfoMap"));
+        verify(mPrintWriter).println(contains("mTelephonyCountryCodeInfo"));
+        verify(mPrintWriter).println(contains("mWifiCountryCodeInfo"));
+        verify(mPrintWriter).println(contains("mTelephonyLastCountryCodeInfo"));
+        verify(mPrintWriter).println(contains("mLocationCountryCodeInfo"));
+        verify(mPrintWriter).println(contains("mOemCountryCodeInfo"));
+        verify(mPrintWriter).println(contains("mCurrentCountryCodeInfo"));
     }
 }
