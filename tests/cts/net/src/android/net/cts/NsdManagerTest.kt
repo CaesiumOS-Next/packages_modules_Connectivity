@@ -992,6 +992,51 @@ class NsdManagerTest {
         }
     }
 
+    // Succeeds. The second service is renamed due to conflict.
+    @Test
+    fun testSubtypeAdvertisingAndDiscovery_twoRegistrationRecords() {
+        val si1 = makeTestServiceInfo(network = testNetwork1.network)
+        si1.setAttribute("a", byteArrayOf(1,2,3))
+        si1.port = 12345
+        val si2 = makeTestServiceInfo(network = testNetwork1.network)
+        si2.setAttribute("b", byteArrayOf(4,2,3))
+        si2.port = 54321
+
+        val registrationRecord1 = NsdRegistrationRecord()
+        val registrationRecord2 = NsdRegistrationRecord()
+
+        tryTest {
+            registerService(registrationRecord1, si1)
+            registerService(registrationRecord2, si2)
+        } cleanupStep {
+        } cleanup {
+            nsdManager.unregisterService(registrationRecord1)
+            nsdManager.unregisterService(registrationRecord2)
+        }
+    }
+
+
+    // Failed. Listener already in use.
+    @Test
+    fun testSubtypeAdvertisingAndDiscovery_oneRegistrationRecord() {
+        val si1 = makeTestServiceInfo(network = testNetwork1.network)
+        si1.setAttribute("a", byteArrayOf(1,2,3))
+        si1.port = 12345
+        val si2 = makeTestServiceInfo(network = testNetwork1.network)
+        si2.setAttribute("b", byteArrayOf(4,2,3))
+        si2.port = 54321
+
+        val registrationRecord1 = NsdRegistrationRecord()
+
+        tryTest {
+            registerService(registrationRecord1, si1)
+            registerService(registrationRecord1, si2)
+        } cleanupStep {
+        } cleanup {
+            nsdManager.unregisterService(registrationRecord1)
+        }
+    }
+
     @Test
     fun testSubtypeAdvertisingAndDiscovery_withSetSubtypesApi() {
         runSubtypeAdvertisingAndDiscoveryTest(useLegacySpecifier = false)
