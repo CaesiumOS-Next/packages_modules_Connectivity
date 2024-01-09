@@ -15,13 +15,16 @@
  */
 package com.android.server.net;
 
+import android.annotation.NonNull;
 import android.content.Context;
 import android.net.INetd;
+import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.system.ErrnoException;
+import android.system.Os;
 import android.util.IndentingPrintWriter;
 import android.util.Log;
 
@@ -30,8 +33,9 @@ import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.BpfDump;
 import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.IBpfMap;
-import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.Struct.S32;
+
+import java.util.Objects;
 
 /**
  * Monitor interface added (without removed) and right interface name and its index to bpf map.
@@ -74,9 +78,14 @@ public class BpfInterfaceMapUpdater {
             }
         }
 
-        /** Get InterfaceParams for giving interface name. */
-        public InterfaceParams getInterfaceParams(String ifaceName) {
-            return InterfaceParams.getByName(ifaceName);
+        /** Get index for the given interface name. 0 if error. */
+        public int getInterfaceIndex(@NonNull String ifaceName) {
+            final long ident = Binder.clearCallingIdentity();
+            try {
+                return Os.if_nametoindex(Objects.requireNonNull(ifaceName));
+            } finally {
+                Binder.restoreCallingIdentity(ident);
+            }
         }
 
         /** Get INetd binder object. */
@@ -119,14 +128,17 @@ public class BpfInterfaceMapUpdater {
     }
 
     private void addInterface(String ifaceName) {
-        final InterfaceParams iface = mDeps.getInterfaceParams(ifaceName);
-        if (iface == null) {
-            Log.e(TAG, "Unable to get InterfaceParams for " + ifaceName);
+        if (ifaceName == null) {
+            Log.e(TAG, "Unable to addInterface for null interface name");
             return;
         }
-
+        final int index = mDeps.getInterfaceIndex(ifaceName);
+        if (index == 0) {
+            Log.e(TAG, "Unable to get index for " + ifaceName);
+            return;
+        }
         try {
-            mIndexToIfaceBpfMap.updateEntry(new S32(iface.index), new InterfaceMapValue(ifaceName));
+            mIndexToIfaceBpfMap.updateEntry(new S32(index), new InterfaceMapValue(ifaceName));
         } catch (ErrnoException e) {
             Log.e(TAG, "Unable to update entry for " + ifaceName + ", " + e);
         }
