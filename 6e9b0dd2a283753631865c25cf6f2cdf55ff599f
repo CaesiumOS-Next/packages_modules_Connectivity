@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60dcafe4_dc627344",
+        "filename": "tests/cts/multidevices/snippet/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-09T10:11:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b4f2d08_bd04b0af",
+      "range": {
+        "startLine": 24,
+        "startChar": 33,
+        "endLine": 24,
+        "endChar": 65
+      },
+      "revId": "6e9b0dd2a283753631865c25cf6f2cdf55ff599f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de5f2875_a6369443",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "928ae595_697509e0",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-09T10:11:06Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "de5f2875_a6369443",
+      "range": {
+        "startLine": 66,
+        "startChar": 47,
+        "endLine": 66,
+        "endChar": 73
+      },
+      "revId": "6e9b0dd2a283753631865c25cf6f2cdf55ff599f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "873067d2_48e1d053",
@@ -77,6 +125,30 @@
       "writtenOn": "2024-01-03T02:32:09Z",
       "side": 1,
       "message": "Delete this? When you call ctsTetheringUitls.registerTetheringEventCallback at l.129, it already check expectCallbackStarted before return to caller.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 49
+      },
+      "revId": "6e9b0dd2a283753631865c25cf6f2cdf55ff599f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef2c48d1_f2835829",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-09T10:11:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "873067d2_48e1d053",
       "range": {
         "startLine": 133,
         "startChar": 0,
