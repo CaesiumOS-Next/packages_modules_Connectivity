@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd7b83e2_7d1456ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-09T09:40:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6c95585_477212c3",
+      "revId": "56c546fc44ed2bbb703b142dcbe5d8b8b72cf8d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0115de45_d9c59f29",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-12-23T07:24:34Z",
       "side": 1,
       "message": "This comment is not very helpful. Could you elaborate a little bit more about the background here?",
+      "range": {
+        "startLine": 112,
+        "startChar": 53,
+        "endLine": 112,
+        "endChar": 90
+      },
+      "revId": "56c546fc44ed2bbb703b142dcbe5d8b8b72cf8d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38d19c63_07fec130",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-09T09:40:01Z",
+      "side": 1,
+      "message": "Acknowledged. Updated.",
+      "parentUuid": "0115de45_d9c59f29",
       "range": {
         "startLine": 112,
         "startChar": 53,
