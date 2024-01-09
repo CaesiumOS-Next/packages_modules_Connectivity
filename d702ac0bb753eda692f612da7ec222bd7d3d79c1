@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f387694_5f3447de",
+        "filename": "Cronet/tests/mts/res/values/bools.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2024-01-09T11:54:56Z",
+      "side": 1,
+      "message": "Should the file be renamed?",
+      "revId": "d702ac0bb753eda692f612da7ec222bd7d3d79c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
