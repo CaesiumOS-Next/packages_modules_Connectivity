@@ -16,6 +16,24 @@
       "message": "Should the file be renamed?",
       "revId": "d702ac0bb753eda692f612da7ec222bd7d3d79c1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb8dcb64_b6ddcbdf",
+        "filename": "Cronet/tests/mts/res/values/bools.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2024-01-09T17:10:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f387694_5f3447de",
+      "revId": "d702ac0bb753eda692f612da7ec222bd7d3d79c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
