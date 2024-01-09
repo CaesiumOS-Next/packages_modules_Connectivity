@@ -333,6 +333,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                     mLinkProperties.setMtu(TunInterfaceController.MTU);
                     mConnectivityManager.registerNetworkProvider(mNetworkProvider);
                     requestUpstreamNetwork();
+                    requestThreadNetwork();
 
                     initializeOtDaemon();
                 });
@@ -415,7 +416,6 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 new NetworkRequest.Builder()
                         .clearCapabilities()
                         .addTransportType(NetworkCapabilities.TRANSPORT_THREAD)
-                        .removeForbiddenCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK)
                         .build(),
                 new ThreadNetworkCallback(),
                 mHandler);
@@ -458,8 +458,6 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         if (mNetworkAgent != null) {
             return;
         }
-
-        requestThreadNetwork();
 
         mNetworkAgent = newNetworkAgent();
         mNetworkAgent.register();
