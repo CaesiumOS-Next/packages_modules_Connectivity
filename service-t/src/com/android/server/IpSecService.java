@@ -48,6 +48,7 @@ import android.net.IpSecUdpEncapResponse;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
+import android.net.NetworkUtils;
 import android.net.TrafficStats;
 import android.os.Binder;
 import android.os.IBinder;
@@ -1164,6 +1165,13 @@ public class IpSecService extends IIpSecService.Stub {
     @Override
     public synchronized IpSecSpiResponse allocateSecurityParameterIndex(
             String destinationAddress, int requestedSpi, IBinder binder) throws RemoteException {
+        try {
+            final boolean isKernel64Bit = NetworkUtils.isKernel64Bit();
+            android.util.Log.i("TEST", "isKernel64Bit " + isKernel64Bit);
+        } catch (Exception e) {
+            android.util.Log.e("IpSecService", "e " + e);
+        }
+
         checkInetAddress(destinationAddress);
         // RFC 4303 Section 2.1 - 0=local, 1-255=reserved.
         if (requestedSpi > 0 && requestedSpi < 256) {
