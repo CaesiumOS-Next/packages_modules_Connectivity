@@ -47,6 +47,7 @@ android_test {
     ],
     test_suites: [
         "general-tests",
+        "mts-tethering",
     ],
     srcs: [
         "src/**/*.java",
