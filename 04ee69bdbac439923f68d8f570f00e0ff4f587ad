@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd18868e_b10603c8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-09T14:58:58Z",
+      "side": 1,
+      "message": "I think this explanation is great and provides a lot of background.\n\nHowever, it seems it is irrelevant to what the following logic\n\n```\nif ((packet.flags \u0026 MdnsConstants.FLAGS_RESPONSE) !\u003d 0\n                    || !(mMdnsFeatureFlags.mIsKnownAnswerSuppressionEnabled\n                            \u0026\u0026 packet.questions.size() \u003d\u003d 0 \u0026\u0026 packet.answers.size() !\u003d 0)) {\n                return null;\n            }\n```\n\nCould you please add more comment to explain why added the check logic here?",
+      "range": {
+        "startLine": 549,
+        "startChar": 12,
+        "endLine": 549,
+        "endChar": 64
+      },
+      "revId": "04ee69bdbac439923f68d8f570f00e0ff4f587ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de90034b_43c9815e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-09T14:58:58Z",
+      "side": 1,
+      "message": "there are some extra blanks in this paragraph. Please fix it.",
+      "range": {
+        "startLine": 551,
+        "startChar": 72,
+        "endLine": 551,
+        "endChar": 73
+      },
+      "revId": "04ee69bdbac439923f68d8f570f00e0ff4f587ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f42b5b6a_0f78f3a6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-09T14:58:58Z",
+      "side": 1,
+      "message": "Is it accurate we only check FLAGS_RESPONSE without checking FLAG_TRUNCATED?",
+      "range": {
+        "startLine": 560,
+        "startChar": 46,
+        "endLine": 560,
+        "endChar": 60
+      },
+      "revId": "04ee69bdbac439923f68d8f570f00e0ff4f587ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7d2a213_f4309240",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-09T14:58:58Z",
+      "side": 1,
+      "message": "Should that apply to addtionalAnswers as well? (I guess @reminv@google.com might also try to ask the same question......)",
+      "range": {
+        "startLine": 144,
+        "startChar": 12,
+        "endLine": 144,
+        "endChar": 29
+      },
+      "revId": "04ee69bdbac439923f68d8f570f00e0ff4f587ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f59c7fea_8d4553b0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-09T14:58:58Z",
+      "side": 1,
+      "message": "Its better off to have a comment here to explain why we can always call without checking the msg type? mSrcReplies.remove(source)",
+      "range": {
+        "startLine": 222,
+        "startChar": 15,
+        "endLine": 222,
+        "endChar": 55
+      },
+      "revId": "04ee69bdbac439923f68d8f570f00e0ff4f587ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
