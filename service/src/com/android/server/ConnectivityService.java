@@ -2027,6 +2027,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         if (enable) {
+            if ((networkRequest == mDefaultMobileDataRequest
+                    || networkRequest == mDefaultWifiRequest
+                    || networkRequest == mDefaultVehicleRequest)
+                    && !hasEnoughRequestForSystemUid()) {
+                Log.wtf(TAG, "dont have enough request for default Request");
+                return;
+            }
             handleRegisterNetworkRequest(new NetworkRequestInfo(
                     Process.myUid(), networkRequest, null /* messenger */, null /* binder */,
                     NetworkCallback.FLAG_INCLUDE_LOCATION_INFO,
@@ -2045,6 +2052,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final boolean vehicleAlwaysRequested = mResources.get().getBoolean(
                 R.bool.config_vehicleInternalNetworkAlwaysRequested);
         handleAlwaysOnNetworkRequest(mDefaultVehicleRequest, vehicleAlwaysRequested);
+    }
+
+    private boolean hasEnoughRequestForSystemUid () {
+        return mSystemNetworkRequestCounter.get(Process.SYSTEM_UID)
+                < MAX_NETWORK_REQUESTS_PER_SYSTEM_UID - 1;
     }
 
     // Note that registering observer for setting do not get initial callback when registering,
