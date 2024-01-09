@@ -51,6 +51,7 @@ import android.net.SocketKeepalive;
 import android.os.ConditionVariable;
 import android.os.HandlerThread;
 import android.os.Message;
+import android.util.CloseGuard;
 import android.util.Log;
 import android.util.Range;
 
@@ -70,6 +71,7 @@ public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
     // tools in ConnectivityServiceTest.
     private final NetworkCapabilities mNetworkCapabilities;
     private final HandlerThread mHandlerThread;
+    private final CloseGuard mCloseGuard;
     private final Context mContext;
     private final String mLogTag;
     private final NetworkAgentConfig mNetworkAgentConfig;
@@ -157,6 +159,8 @@ public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
         mLogTag = "Mock-" + typeName;
         mHandlerThread = new HandlerThread(mLogTag);
         mHandlerThread.start();
+        mCloseGuard = new CloseGuard();
+        mCloseGuard.open("destroy");
 
         // extraInfo is set to "" by default in NetworkAgentConfig.
         final String extraInfo = (transport == TRANSPORT_CELLULAR) ? "internet.apn" : "";
@@ -357,6 +361,29 @@ public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
 
     public void disconnect() {
         mNetworkAgent.unregister();
+    }
+
+    /**
+     * Destroy the network agent and stop its looper.
+     *
+     * <p>This must always be called.
+     */
+    public void destroy() {
+        mHandlerThread.quitSafely();
+        mCloseGuard.close();
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        try {
+            // Note that mCloseGuard could be null if the constructor threw.
+            if (mCloseGuard != null) {
+                mCloseGuard.warnIfOpen();
+            }
+            destroy();
+        } finally {
+            super.finalize();
+        }
     }
 
     @Override
