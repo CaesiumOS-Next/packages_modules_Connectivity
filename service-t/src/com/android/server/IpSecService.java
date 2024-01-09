@@ -69,6 +69,7 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.Preconditions;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BinderUtils;
+import com.android.net.module.util.KernelUtils;
 import com.android.net.module.util.NetdUtils;
 import com.android.net.module.util.PermissionUtils;
 import com.android.net.module.util.netlink.xfrm.XfrmNetlinkNewSaMessage;
@@ -1164,6 +1165,13 @@ public class IpSecService extends IIpSecService.Stub {
     @Override
     public synchronized IpSecSpiResponse allocateSecurityParameterIndex(
             String destinationAddress, int requestedSpi, IBinder binder) throws RemoteException {
+        try {
+            final boolean isKernel64Bit = KernelUtils.isKernel64Bit();
+            android.util.Log.i("TEST", "isKernel64Bit " + isKernel64Bit);
+        } catch (Exception e) {
+            android.util.Log.e("IpSecService", "e " + e);
+        }
+
         checkInetAddress(destinationAddress);
         // RFC 4303 Section 2.1 - 0=local, 1-255=reserved.
         if (requestedSpi > 0 && requestedSpi < 256) {

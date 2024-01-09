@@ -129,6 +129,7 @@ java_library {
         "device/com/android/net/module/util/BpfDump.java",
         "device/com/android/net/module/util/BpfMap.java",
         "device/com/android/net/module/util/BpfUtils.java",
+        "device/com/android/net/module/util/KernelUtils.java",
         "device/com/android/net/module/util/IBpfMap.java",
         "device/com/android/net/module/util/JniUtil.java",
         "device/com/android/net/module/util/Struct.java",
