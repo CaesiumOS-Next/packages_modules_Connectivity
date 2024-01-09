@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74805d91_780a8719",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-09T05:26:03Z",
+      "side": 1,
+      "message": "nit: document why clearCapabilities() is necessary here",
+      "range": {
+        "startLine": 417,
+        "startChar": 24,
+        "endLine": 417,
+        "endChar": 44
+      },
+      "revId": "851cc8cc0e8293c7c94fcc4be7024aa2c514953a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
