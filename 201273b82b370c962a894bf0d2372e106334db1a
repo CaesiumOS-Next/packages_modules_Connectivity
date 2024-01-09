@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38d22e11_622872f1",
+        "filename": "tests/common/java/android/net/nsd/NsdServiceInfoTest.java",
+        "patchSetId": 60
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-09T14:02:13Z",
+      "side": 1,
+      "message": "Should we check the behavior if the caller set the with value \u003e 0xffffffffL or \u003c 0? I think we need to check and throw exception? I feel it will be the best if we do the range check in the setTtlSeconds() as well.",
+      "range": {
+        "startLine": 203,
+        "startChar": 16,
+        "endLine": 203,
+        "endChar": 43
+      },
+      "revId": "201273b82b370c962a894bf0d2372e106334db1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "628bae14_ce8f5d90",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 60
+      },
+      "lineNbr": 1449,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-09T14:02:13Z",
+      "side": 1,
+      "message": "it seems the range is @IntRange(from \u003d 0, to \u003d 0xffffffffL), why 29 is invalid? If 29 is invalid, please update the range.",
+      "range": {
+        "startLine": 1449,
+        "startChar": 31,
+        "endLine": 1449,
+        "endChar": 48
+      },
+      "revId": "201273b82b370c962a894bf0d2372e106334db1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
