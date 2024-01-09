@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48cce1a2_bc197042",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-09T07:34:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f57d701e_5c82459e",
+      "revId": "7c02a18e3a19ce05640613e7e9af4367cb36b543",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "052c1d07_0bc2b108",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "633ace3a_a1a53a78",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-09T07:34:02Z",
+      "side": 1,
+      "message": "I use `Set` to avoid duplication.",
+      "parentUuid": "052c1d07_0bc2b108",
+      "revId": "7c02a18e3a19ce05640613e7e9af4367cb36b543",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c7a27ec_91b32fa2",
@@ -48,6 +84,24 @@
       "writtenOn": "2024-01-05T05:58:22Z",
       "side": 1,
       "message": "Should that apply to knownAnswers as well ? Probably yes ?",
+      "revId": "7c02a18e3a19ce05640613e7e9af4367cb36b543",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ae12f72_459c1f1e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-09T07:34:02Z",
+      "side": 1,
+      "message": "Not sure what `apply to knownAnswers as well` means",
+      "parentUuid": "7c7a27ec_91b32fa2",
       "revId": "7c02a18e3a19ce05640613e7e9af4367cb36b543",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
