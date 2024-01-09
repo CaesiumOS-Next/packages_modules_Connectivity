@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca344786_d5b9d3e8",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 32
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-09T13:05:35Z",
+      "side": 1,
+      "message": "Could you confirm if this Builder method doesn\u0027t needed to be flagged? Its a little bit wired to have a unflagged class in the API file?",
+      "revId": "60385deee6be4841bc95a531c0a147bc89883b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce87ae0f_62ab9237",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-09T13:05:35Z",
+      "side": 1,
+      "message": "There is a lot of Error Prone and Check Contents warnings, please kindly check and fix them accordingly.",
+      "revId": "60385deee6be4841bc95a531c0a147bc89883b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
