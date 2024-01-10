@@ -1,6 +1,132 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80f999b4_17637c1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-10T08:30:44Z",
+      "side": 1,
+      "message": "Looks promising and really cool I think; for adding a new CTS test I think we\u0027ll need to ask Lorenzo eventually.",
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a086eb37_e4ef5ec3",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectUtil.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-10T08:30:44Z",
+      "side": 1,
+      "message": "Is there some comment you can add to silence the warning ? Saying that it\u0027s documented to not be deprecated for privileged callers",
+      "range": {
+        "startLine": 119,
+        "startChar": 36,
+        "endLine": 119,
+        "endChar": 53
+      },
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f6695d4_15fd7874",
+        "filename": "tests/cts/multidevices/AndroidTest.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-10T08:30:44Z",
+      "side": 1,
+      "message": "Is that actually required ? Could we do wifi-to-wifi tethering if the hardware supports it, to make it easier to run this in presubmit ?\n\nMaybe at runtime you could check that either telephony is supported, or wifi-to-wifi is supported",
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83685354_782dabee",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-10T08:30:44Z",
+      "side": 1,
+      "message": "Nit: if we\u0027re really unlucky, and there\u0027s 10 devices running the test within wifi range, there\u0027s a ~0.5% chance that some device will connect to an unexpected one.\n\nIt would be best to use more digits to minimize that; or use a UUID-32 (max SSID length being 32; you could also get it down to 22 characters in base64 with `len(base64.b64encode(uuid.uuid1().bytes).decode(\u0027utf-8\u0027).strip(\u0027\u003d\u0027))`).",
+      "range": {
+        "startLine": 42,
+        "startChar": 34,
+        "endLine": 42,
+        "endChar": 41
+      },
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b75f1794_f17f2c83",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-10T08:30:44Z",
+      "side": 1,
+      "message": "Nit: in theory this requires wifi feature, which you probably have when you have hotspot, but technically it\u0027s different...",
+      "range": {
+        "startLine": 73,
+        "startChar": 13,
+        "endLine": 73,
+        "endChar": 32
+      },
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe49760c_ec3bdad0",
+        "filename": "tests/cts/multidevices/snippet/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-10T08:30:44Z",
+      "side": 1,
+      "message": "You could use ConnectivityTestsLatestSdkDefaults for testing older platforms",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 36,
+        "endChar": 25
+      },
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d18c12fb_fac370bf",
@@ -20,6 +146,63 @@
         "endLine": 71,
         "endChar": 21
       },
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d4a2af4_53052818",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-10T08:30:44Z",
+      "side": 1,
+      "message": "Also here, since WifiManager methods to connect to a config are documented not to be deprecated for privileged users, it would be best to suppress the warnings",
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27c21044_7814d04d",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-10T08:30:44Z",
+      "side": 1,
+      "message": "Since `!!` is discouraged, you could do:\n\n```\nval cb \u003d networkCallback.expect\u003cAvailable\u003e()\n...\nreturn cb.network\n```",
+      "range": {
+        "startLine": 102,
+        "startChar": 51,
+        "endLine": 102,
+        "endChar": 53
+      },
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dc89078_be7d4a01",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-10T08:30:44Z",
+      "side": 1,
+      "message": "FYI I\u0027ve vaguely heard talks about deprecating hidden SSIDs, so not sure this will always be usable",
       "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
