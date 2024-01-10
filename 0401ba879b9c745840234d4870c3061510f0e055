@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7b918ec_7e15349d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-10T14:20:28Z",
+      "side": 1,
+      "message": "Could we add test case to cover this logics?",
+      "range": {
+        "startLine": 125,
+        "startChar": 30,
+        "endLine": 125,
+        "endChar": 49
+      },
+      "revId": "0401ba879b9c745840234d4870c3061510f0e055",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b95b1c5_56304e23",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-10T14:20:28Z",
+      "side": 1,
+      "message": "Could we make the if statement check matches what the comment is described.\n\ne.g. if (queuingReply.desitnation \u003d\u003d multicast address)\n\nRight now the if statement is a little bit hard to follow and triggered the errorProne warning.",
+      "range": {
+        "startLine": 133,
+        "startChar": 12,
+        "endLine": 133,
+        "endChar": 59
+      },
+      "revId": "0401ba879b9c745840234d4870c3061510f0e055",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fb4ac12_fffe3800",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-10T14:20:28Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 139,
+        "startChar": 12,
+        "endLine": 139,
+        "endChar": 61
+      },
+      "revId": "0401ba879b9c745840234d4870c3061510f0e055",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
