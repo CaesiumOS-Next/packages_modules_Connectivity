@@ -22,6 +22,30 @@
       },
       "revId": "d50acc1ac3a68e7cb73fba3d93a82bb5f0a6f4a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98787b05_6e249521",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-10T02:17:41Z",
+      "side": 1,
+      "message": "Same as above, a use case is we want to register a custom host without any services.",
+      "parentUuid": "1687471f_0efeecaa",
+      "range": {
+        "startLine": 1662,
+        "startChar": 20,
+        "endLine": 1662,
+        "endChar": 95
+      },
+      "revId": "d50acc1ac3a68e7cb73fba3d93a82bb5f0a6f4a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
