@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb787bc2_c2d903a1",
+        "filename": "staticlibs/device/com/android/net/module/util/HandlerUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-10T03:59:52Z",
+      "side": 1,
+      "message": "nits: I think this is not correct for the `runWithScissorsForDump`. \nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:libcore/ojluni/src/main/java/java/util/concurrent/CountDownLatch.java;l\u003d264-265;drc\u003d1a303583fea54f3809bb17bb61f7ff4de4bffd4c",
+      "range": {
+        "startLine": 58,
+        "startChar": 54,
+        "endLine": 58,
+        "endChar": 77
+      },
+      "revId": "98ae7bb4b84560b4fdc6f9442a9f428ef3f3822c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
