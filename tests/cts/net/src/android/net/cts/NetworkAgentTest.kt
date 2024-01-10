@@ -21,6 +21,7 @@ import android.Manifest.permission.READ_PRIVILEGED_PHONE_STATE
 import android.app.Instrumentation
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.pm.PackageManager.FEATURE_TELEPHONY_SUBSCRIPTION
 import android.net.ConnectivityManager
 import android.net.EthernetNetworkSpecifier
 import android.net.INetworkAgent
@@ -733,6 +734,9 @@ class NetworkAgentTest {
                     " installed CtsCarrierServicePackage.apk", e)
         }
 
+        // The tools to set the carrier service package override do not exist before U
+        val skipTestCarrierServiceOverride = SdkLevel.isAtLeastU() ||
+                realContext.packageManager.hasSystemFeature(FEATURE_TELEPHONY_SUBSCRIPTION)
         val tm = realContext.getSystemService(TelephonyManager::class.java)!!
         val defaultSubId = SubscriptionManager.getDefaultSubscriptionId()
         tryTest {
@@ -742,9 +746,10 @@ class NetworkAgentTest {
             doTestAllowedUids(defaultSubId, TRANSPORT_WIFI, uid, expectUidsPresent = false)
             doTestAllowedUids(defaultSubId, TRANSPORT_BLUETOOTH, uid, expectUidsPresent = false)
 
-            // The tools to set the carrier service package override do not exist before U,
-            // so there is no way to test the rest of this test on < U.
-            if (!SdkLevel.isAtLeastU()) return@tryTest
+            // TODO(b/315136340): Add cases for expectUidsPresent = true after allowedUids become
+            // visible to owner
+
+            if (skipTestCarrierServiceOverride) return@tryTest
             // Acquiring carrier privilege is necessary to override the carrier service package.
             val defaultSlotIndex = SubscriptionManager.getSlotIndex(defaultSubId)
             acquireCarrierPrivilege(defaultSubId)
@@ -787,9 +792,13 @@ class NetworkAgentTest {
             doTestAllowedUids(defaultSubId, intArrayOf(TRANSPORT_CELLULAR, TRANSPORT_WIFI), uid,
                     expectUidsPresent = false)
         } cleanupStep {
-            if (SdkLevel.isAtLeastU()) setCarrierServicePackageOverride(defaultSubId, null)
+            if (!skipTestCarrierServiceOverride) {
+                setCarrierServicePackageOverride(defaultSubId, null)
+            }
         } cleanup {
-            if (SdkLevel.isAtLeastU()) dropCarrierPrivilege(defaultSubId)
+            if (!skipTestCarrierServiceOverride) {
+                dropCarrierPrivilege(defaultSubId)
+            }
         }
     }
 
