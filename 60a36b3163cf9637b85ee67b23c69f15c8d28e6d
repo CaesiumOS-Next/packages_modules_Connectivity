@@ -16,6 +16,24 @@
       "message": "Why this check is removed?",
       "revId": "60a36b3163cf9637b85ee67b23c69f15c8d28e6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5077b43_f3ecc656",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1301,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-10T02:16:16Z",
+      "side": 0,
+      "message": "In the new API we want to support registering a host without having any services. In such a case we\u0027ll set the service name \u0026 type to null and set a non-null hostname and its host addresses.",
+      "parentUuid": "09b060a8_284a0cab",
+      "revId": "60a36b3163cf9637b85ee67b23c69f15c8d28e6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
