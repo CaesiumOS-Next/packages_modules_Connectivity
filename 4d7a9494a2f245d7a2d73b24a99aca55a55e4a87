@@ -16,6 +16,29 @@
       "message": "Does this work on previous Android releases? I would expect that it doesn\u0027t, because android.sysprop is part of the non-updatable bootclasspath jar. If it doesn\u0027t, then how would we make this work on U TV devices?",
       "revId": "4d7a9494a2f245d7a2d73b24a99aca55a55e4a87",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b9cdbe0_4dd75fdc",
+        "filename": "thread/sysprop/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2024-01-10T08:21:45Z",
+      "side": 1,
+      "message": "Why not use a number?",
+      "range": {
+        "startLine": 27,
+        "startChar": 25,
+        "endLine": 27,
+        "endChar": 35
+      },
+      "revId": "4d7a9494a2f245d7a2d73b24a99aca55a55e4a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
