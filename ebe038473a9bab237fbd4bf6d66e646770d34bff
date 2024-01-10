@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cff85e4_8bb3dd33",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-10T10:12:02Z",
+      "side": 1,
+      "message": "Maybe \n@MonitorThreadLeak\n@RunWith(DevSdkIgnoreRunner.class)\nif feasible?",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 30
+      },
+      "revId": "ebe038473a9bab237fbd4bf6d66e646770d34bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d319220c_d6548a6a",
+        "filename": "tests/integration/util/com/android/server/NetworkAgentWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-10T10:12:02Z",
+      "side": 1,
+      "message": "IIUC we\u0027ll need to call mHandlerThread.join() after this as well.",
+      "range": {
+        "startLine": 372,
+        "startChar": 23,
+        "endLine": 372,
+        "endChar": 33
+      },
+      "revId": "ebe038473a9bab237fbd4bf6d66e646770d34bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68e86d17_fd6c77c6",
+        "filename": "tests/integration/util/com/android/server/NetworkAgentWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-10T10:12:02Z",
+      "side": 1,
+      "message": "Stupid Question: When will this be called?",
+      "range": {
+        "startLine": 377,
+        "startChar": 19,
+        "endLine": 377,
+        "endChar": 27
+      },
+      "revId": "ebe038473a9bab237fbd4bf6d66e646770d34bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a508d58e_b49a57e9",
+        "filename": "tests/integration/util/com/android/server/NetworkAgentWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-10T10:12:02Z",
+      "side": 1,
+      "message": "Lint says do not override it.\nDo we want to add comment for this and add @SuppressWarnings(\"Finalize\")?",
+      "range": {
+        "startLine": 377,
+        "startChar": 0,
+        "endLine": 377,
+        "endChar": 48
+      },
+      "revId": "ebe038473a9bab237fbd4bf6d66e646770d34bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b8c9ee3_01ccfbd8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-10T10:12:02Z",
+      "side": 1,
+      "message": "Maybe add @MonitorThreadLeak annotation?",
+      "range": {
+        "startLine": 503,
+        "startChar": 1,
+        "endLine": 503,
+        "endChar": 8
+      },
+      "revId": "ebe038473a9bab237fbd4bf6d66e646770d34bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
