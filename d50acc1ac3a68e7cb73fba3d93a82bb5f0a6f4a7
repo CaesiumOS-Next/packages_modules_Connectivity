@@ -46,6 +46,30 @@
       },
       "revId": "d50acc1ac3a68e7cb73fba3d93a82bb5f0a6f4a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71148ceb_a84c5450",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-10T14:10:57Z",
+      "side": 1,
+      "message": "Thanks for explain the use case here.\n\nI feel the current logic is very complicated and hard to follow.\n\nCould we update the logic to do the check as follows:\n\n```\nif hostName is set:\n   if other fields is null or 0 or default value, then it is valid\ndo the old check\n```\n\nIf my understanding of the design is correct, there are only two valid cases: 1. all fields is set with valid value. 2. only host name is set and other fields is not touched.\n\nDo I have any misunderstanding here?",
+      "parentUuid": "98787b05_6e249521",
+      "range": {
+        "startLine": 1662,
+        "startChar": 20,
+        "endLine": 1662,
+        "endChar": 95
+      },
+      "revId": "d50acc1ac3a68e7cb73fba3d93a82bb5f0a6f4a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
