@@ -21,6 +21,7 @@ import android.Manifest.permission.READ_PRIVILEGED_PHONE_STATE
 import android.app.Instrumentation
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.pm.PackageManager.FEATURE_TELEPHONY_SUBSCRIPTION
 import android.net.ConnectivityManager
 import android.net.EthernetNetworkSpecifier
 import android.net.INetworkAgent
@@ -150,6 +151,7 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import kotlin.test.fail
 import org.junit.After
+import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -723,6 +725,7 @@ class NetworkAgentTest {
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.S)
     fun testAllowedUids() {
+        assumeTrue(realContext.packageManager.hasSystemFeature(FEATURE_TELEPHONY_SUBSCRIPTION))
         // Use a different package than this one to make sure that a package that doesn't hold
         // carrier service permission can be set as an allowed UID.
         val servicePackage = "android.net.cts.carrierservicepackage"
