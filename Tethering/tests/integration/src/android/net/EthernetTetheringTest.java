@@ -261,7 +261,8 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
             downstreamReader = makePacketReader(fd, getMTU(downstreamIface));
             TetheringTester tester = new TetheringTester(downstreamReader);
             DhcpResults dhcpResults = tester.runDhcp(client1);
-            assertEquals(new LinkAddress(clientAddr), dhcpResults.ipAddress);
+            LinkAddress la = new LinkAddress(clientAddr);
+            assertTrue((new LinkAddress(clientAddr)).isSameAddressAs(dhcpResults.ipAddress));
 
             try {
                 tester.runDhcp(client2);
