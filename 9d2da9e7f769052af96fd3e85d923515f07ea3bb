@@ -179,6 +179,30 @@
       },
       "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e132f92_0748c9fc",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-11T10:10:46Z",
+      "side": 1,
+      "message": "I see, in that case, I think we can make NetworkRequestStateInfo a bit simpler.\nFor example, we don\u0027t need mNetworkRequestState.",
+      "parentUuid": "b6c9d2c5_9d0ea698",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 9
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
