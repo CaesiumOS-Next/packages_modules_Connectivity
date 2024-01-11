@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f36b921_3a0bcea1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-11T04:07:46Z",
+      "side": 1,
+      "message": "API shape LGTM assuming comments addressed.",
+      "revId": "f531cf8a5e0ef7c633aef5f34891047d60935871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6208be2_58b7c030",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-11T04:07:46Z",
+      "side": 1,
+      "message": "Dont you need an @FlaggedApi here?",
+      "range": {
+        "startLine": 503,
+        "startChar": 4,
+        "endLine": 503,
+        "endChar": 10
+      },
+      "revId": "f531cf8a5e0ef7c633aef5f34891047d60935871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8f0f42c_c11aedcb",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-11T04:07:46Z",
+      "side": 1,
+      "message": "This does not indicate that the operation has completed, only that the operation was scheduled. Callers of this method should use {@link #registerStateCallback} to subscribe to Thread enabled state changes and determine whether the operation completed.",
+      "range": {
+        "startLine": 116,
+        "startChar": 84,
+        "endLine": 116,
+        "endChar": 85
+      },
+      "revId": "f531cf8a5e0ef7c633aef5f34891047d60935871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eee678c1_689e1fd7",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkException.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-11T04:07:46Z",
+      "side": 1,
+      "message": "radio",
+      "range": {
+        "startLine": 127,
+        "startChar": 47,
+        "endLine": 127,
+        "endChar": 54
+      },
+      "revId": "f531cf8a5e0ef7c633aef5f34891047d60935871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
