@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dc9abdf_82ca9679",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-11T09:22:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e9b6f81_f63f34ea",
+      "range": {
+        "startLine": 207,
+        "startChar": 32,
+        "endLine": 207,
+        "endChar": 33
+      },
+      "revId": "d751310c2d1e4e445a7d127fa1e2d015a244a80d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b74e2c9_2e37a67d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-11T09:22:10Z",
+      "side": 1,
+      "message": "`clientProvidedTtlMillis` is a bit long that it forces me to break\n\n```\n            final long nonNameRecordsTtlMillis \u003d\n                    clientProvidedTtlMillis !\u003d 0 ? clientProvidedTtlMillis : DEFAULT_NON_NAME_RECORDS_TTL_MILLIS;\n```\n\ninto three lines which doesn\u0027t look pretty. So I used a rather shorter descriptive name: `customTtlMillis`",
+      "parentUuid": "d2c54e9a_f9da5856",
+      "range": {
+        "startLine": 207,
+        "startChar": 23,
+        "endLine": 207,
+        "endChar": 32
+      },
+      "revId": "d751310c2d1e4e445a7d127fa1e2d015a244a80d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb56dcb6_520da74d",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-01-09T14:13:06Z",
       "side": 1,
       "message": "Should be long?",
+      "range": {
+        "startLine": 271,
+        "startChar": 11,
+        "endLine": 271,
+        "endChar": 14
+      },
+      "revId": "d751310c2d1e4e445a7d127fa1e2d015a244a80d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b227a127_dabfb82a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-11T09:22:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb56dcb6_520da74d",
       "range": {
         "startLine": 271,
         "startChar": 11,
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6b6f2c0_0a00b7e6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-11T09:22:10Z",
+      "side": 1,
+      "message": "Yeah, it makes more sense to use 0xffffffffL here even though it won\u0027t change the actual behavior",
+      "parentUuid": "a91f5868_ee8fdfd7",
+      "range": {
+        "startLine": 272,
+        "startChar": 8,
+        "endLine": 272,
+        "endChar": 36
+      },
+      "revId": "d751310c2d1e4e445a7d127fa1e2d015a244a80d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32e7ec93_a09da2f7",
@@ -106,6 +202,24 @@
       "writtenOn": "2024-01-09T14:13:06Z",
       "side": 1,
       "message": "extra blank.",
+      "revId": "d751310c2d1e4e445a7d127fa1e2d015a244a80d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2762c643_0d0b16f3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-11T09:22:10Z",
+      "side": 1,
+      "message": "I reverted it from this CL.\n\nBut should we add trailing newline for all source files in packages/modules/Connectivity? This is the common requirement for all Google3 code and many of the editors will add a newline at the end by default when the file is saved.\n\nThis is going to make my life easier so that I don\u0027t need to pay attention to changes like this.",
+      "parentUuid": "32e7ec93_a09da2f7",
       "revId": "d751310c2d1e4e445a7d127fa1e2d015a244a80d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
