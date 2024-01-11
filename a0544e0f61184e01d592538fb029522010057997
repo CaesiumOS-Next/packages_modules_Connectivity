@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9366b571_18fe7af9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2024-01-11T12:58:14Z",
+      "side": 1,
+      "message": "LGTM, outside the readability warnings.",
+      "revId": "a0544e0f61184e01d592538fb029522010057997",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
