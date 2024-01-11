@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e16d184_d925a280",
+        "filename": "tests/common/java/android/net/nsd/NsdServiceInfoTest.java",
+        "patchSetId": 60
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-11T09:25:40Z",
+      "side": 1,
+      "message": "Checks are added.",
+      "parentUuid": "38d22e11_622872f1",
+      "range": {
+        "startLine": 203,
+        "startChar": 16,
+        "endLine": 203,
+        "endChar": 43
+      },
+      "revId": "201273b82b370c962a894bf0d2372e106334db1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "628bae14_ce8f5d90",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-09T14:02:13Z",
       "side": 1,
       "message": "it seems the range is @IntRange(from \u003d 0, to \u003d 0xffffffffL), why 29 is invalid? If 29 is invalid, please update the range.",
+      "range": {
+        "startLine": 1449,
+        "startChar": 31,
+        "endLine": 1449,
+        "endChar": 48
+      },
+      "revId": "201273b82b370c962a894bf0d2372e106334db1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a15a522_5176e559",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 60
+      },
+      "lineNbr": 1449,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-11T09:25:40Z",
+      "side": 1,
+      "message": "This is the NsdManagerTest rather than the NsdServiceInfoTest. `NsdServiceInfo#setTtlSeconds` will be used for carry the TTL value this device received on the wire, so the range needs to be [0, 0xffffffffL]. While the 30 seconds lower bound is for only service registration.",
+      "parentUuid": "628bae14_ce8f5d90",
       "range": {
         "startLine": 1449,
         "startChar": 31,
