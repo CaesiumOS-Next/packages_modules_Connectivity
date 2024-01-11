@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1417da22_c6d62755",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2030,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-11T03:16:50Z",
+      "side": 1,
+      "message": "As discussed in the bug, this likely will not fix the issue:\n\n - Even if this code path does not crash, the next time the system UID registers any network request that is not mDefaultMobileDataRequest, mDefaultWifiRequest or mDefaultVehicleRequest, it will crash. So this probably only delays the crash a little.\n - This causes always-on network requests to not be registered, so the device will destroy networks that are really needed. Even if devices do not crash, they will have no network connectivity and apps will behave strangely. This is likely more frustrating for the user, because a crash would recover immediately (framework reboot), but instead users would have a malfunctioning device for a long time. In that case users may not report crashes anymore (they may think the app/network is bad instead), but the experience is likely worse.\n\nIt would be best to figure out what component is filing more than 250 requests in the system UID, as that is unexpected behavior.",
+      "revId": "ffd3ca22d72ceb80ddff1d5962a9d41d8ab854a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
