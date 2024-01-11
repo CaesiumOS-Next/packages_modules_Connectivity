@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ccf163b_2ed5509b",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-11T08:04:26Z",
+      "side": 1,
+      "message": "This can be final.",
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb3d7fb3_0c50f44d",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-11T08:04:26Z",
+      "side": 1,
+      "message": "Do we need this?\nIf the queue is not empty, I think the handler message queue is also not empty.",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 33
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df1a73bb_2e9bf57d",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-11T08:04:26Z",
+      "side": 1,
+      "message": "If we access sLastLogTime from multiple threads, I think we need lock.",
+      "range": {
+        "startLine": 107,
+        "startChar": 69,
+        "endLine": 107,
+        "endChar": 92
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3d7749b_1d627ba3",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-11T08:04:26Z",
+      "side": 1,
+      "message": "If sendStatsMessage is called multiple times in short period, handler thread might not update sLastLogTime yet.\nIn this case, I think we will send multiple metrics without waiting 1sec interval.",
+      "range": {
+        "startLine": 108,
+        "startChar": 8,
+        "endLine": 117,
+        "endChar": 9
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fab0474_2cef22e3",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-11T08:04:26Z",
+      "side": 1,
+      "message": "I thought `onNetworkRequestReceived` and `onNetworkRequestRemoved` can just send message to handler thread and Handler can decide drop the metrics or put this metrics to the queue (and post delayed message to send the metrics).\nThis way, only the handler thread access PendingState queue and I feel this makes code simpler.",
+      "range": {
+        "startLine": 118,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 5
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "689669e3_e1027db4",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-11T08:04:26Z",
+      "side": 1,
+      "message": "Do we need to call `sendStatsMessage` here?",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 9
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
