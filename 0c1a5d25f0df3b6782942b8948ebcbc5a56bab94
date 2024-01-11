@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a834b124_59018e79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-11T04:06:02Z",
+      "side": 1,
+      "message": "Lorenzo, what would you think of having a new API for differentiating \"enabled\" and \"link up/down\" ? Not sure where to route this as Patrick is OOO",
+      "revId": "0c1a5d25f0df3b6782942b8948ebcbc5a56bab94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
