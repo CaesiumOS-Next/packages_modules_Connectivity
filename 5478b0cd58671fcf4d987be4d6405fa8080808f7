@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e213a651_2cf22821",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6027,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-11T06:34:42Z",
+      "side": 1,
+      "message": "I feel this is a bit misleading since setDataSaverEnabled actually calls netd and enable/disable data saver mode.\nAnd caller of this API is NetworkManagementService.\n\nI personally felt it\u0027s fine to have `getDataSaverEnabled` but will we have any issue by having `getDataSaverEnabled`?",
+      "range": {
+        "startLine": 6025,
+        "startChar": 10,
+        "endLine": 6027,
+        "endChar": 93
+      },
+      "revId": "5478b0cd58671fcf4d987be4d6405fa8080808f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
