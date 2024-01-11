@@ -22,6 +22,30 @@
       },
       "revId": "5478b0cd58671fcf4d987be4d6405fa8080808f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91e457dc_a57162fd",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6027,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-11T06:54:24Z",
+      "side": 1,
+      "message": "it calls netd.\nBut it also updates the data saver status in bpfmap, which is exactly for the purpose described in the javadoc. The javadoc describe the background strory of adding this API. Let me try to update it to clarify.\n\nFor getter, Jean was strongly against it, more context can be found at https://b.corp.google.com/issues/307695368#comment5",
+      "parentUuid": "e213a651_2cf22821",
+      "range": {
+        "startLine": 6025,
+        "startChar": 10,
+        "endLine": 6027,
+        "endChar": 93
+      },
+      "revId": "5478b0cd58671fcf4d987be4d6405fa8080808f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
