@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c97ae0c7_b4b6a232",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-11T15:49:45Z",
+      "side": 1,
+      "message": "I installed the Tethering mainline module that contains this CL to the Android TV device on U branch. This CL works. The Tethering mainline module can read out the configured country code via the system property. \n\nHere are test logs for your reference.\n\n```\ntv:/ # getprop ro.build.version.sdk\n34\ntv:/ # getprop ro.boot.threadnetwork.country_code\nCN\ntv:/ # dumpsys thread_network\n---- Dump of ThreadNetworkCountryCode begin ----\nmOverrideCountryCodeInfo        : null\nmTelephonyCountryCodeSlotInfoMap: {}\nmTelephonyCountryCodeInfo       : null\nmWifiCountryCodeInfo            : CountryCodeInfo{ mCountryCode: US, mSource: Wifi, mUpdatedTimestamp: 2024-01-03T19:56:42.714281Z}\nmTelephonyLastCountryCodeInfo   : null\nmLocationCountryCodeInfo        : null\nmOemCountryCodeInfo             : CountryCodeInfo{ mCountryCode: CN, mSource: Oem, mUpdatedTimestamp: 2024-01-03T19:56:42.519834Z}\nmCurrentCountryCodeInfo         : null\n---- Dump of ThreadNetworkCountryCode end ------\n```",
+      "parentUuid": "fe877a75_56ba6150",
+      "revId": "4d7a9494a2f245d7a2d73b24a99aca55a55e4a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b9cdbe0_4dd75fdc",
         "filename": "thread/sysprop/Android.bp",
         "patchSetId": 7
@@ -49,6 +67,30 @@
       "writtenOn": "2024-01-10T08:21:45Z",
       "side": 1,
       "message": "Why not use a number?",
+      "range": {
+        "startLine": 27,
+        "startChar": 25,
+        "endLine": 27,
+        "endChar": 35
+      },
+      "revId": "4d7a9494a2f245d7a2d73b24a99aca55a55e4a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "439051da_5c2e0666",
+        "filename": "thread/sysprop/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-11T15:49:45Z",
+      "side": 1,
+      "message": "I have updated it. What\u0027s the differences between using a number and a name?",
+      "parentUuid": "6b9cdbe0_4dd75fdc",
       "range": {
         "startLine": 27,
         "startChar": 25,
