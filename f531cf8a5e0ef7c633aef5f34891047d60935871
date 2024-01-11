@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "125e425f_2e86493a",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-11T04:08:44Z",
+      "side": 1,
+      "message": "(never mind, the whole class is @FlaggedApi)",
+      "parentUuid": "b6208be2_58b7c030",
+      "range": {
+        "startLine": 503,
+        "startChar": 4,
+        "endLine": 503,
+        "endChar": 10
+      },
+      "revId": "f531cf8a5e0ef7c633aef5f34891047d60935871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8f0f42c_c11aedcb",
