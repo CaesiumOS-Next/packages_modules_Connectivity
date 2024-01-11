@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd198560_af6d20e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-11T07:00:23Z",
+      "side": 1,
+      "message": "I don\u0027t expect it depends on any new bootclasspath library changes because the autogen library code in this CL just works (without any changes in system_server).\n\nI think this is just a purely framework side wrapper on existing binder interfaces, and the Thread properties are just new names to the argument of the binder interface. @jiyong@google.com could you help answer this?",
+      "parentUuid": "fe877a75_56ba6150",
+      "revId": "4d7a9494a2f245d7a2d73b24a99aca55a55e4a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b9cdbe0_4dd75fdc",
         "filename": "thread/sysprop/Android.bp",
         "patchSetId": 7
