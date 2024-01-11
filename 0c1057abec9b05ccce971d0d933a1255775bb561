@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b9e20b3_f88e18d5",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-11T04:09:19Z",
+      "side": 1,
+      "message": "Is there a reason you can\u0027t use one handler for everything?",
+      "range": {
+        "startLine": 121,
+        "startChar": 26,
+        "endLine": 121,
+        "endChar": 42
+      },
+      "revId": "0c1057abec9b05ccce971d0d933a1255775bb561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93b88c9d_0bbb3d4a",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-11T04:09:19Z",
+      "side": 1,
+      "message": "What happens on a device that does not have multicast routing enabled in the kernel config? Also, how do we ensure that on such a device, the multicast routing code never runs? Or at least doesn\u0027t do anything incorrect?",
+      "range": {
+        "startLine": 160,
+        "startChar": 44,
+        "endLine": 160,
+        "endChar": 72
+      },
+      "revId": "0c1057abec9b05ccce971d0d933a1255775bb561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34609509_bd5f94e9",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-11T04:09:19Z",
+      "side": 1,
+      "message": "Suggest not making this function asynchronous but instead just running the code inline. If you don\u0027t run the code inline, the caller cannot know when the operation is complete, and if the caller (in this case, ConnectivityService) sends async callbacks to *its* callers, then those callbacks can be called before this operation is complete. This makes it difficult for the users of those callbacks to figure out what is going on.\n\nGiven that this code is tightly coupled to ConnectivityService (it\u0027s a global singleton in the system server process, owned only by CS itself), then we can just have CS pass in its own handler. I think this is what we do in other classes such as KeepaliveTracker.",
+      "range": {
+        "startLine": 428,
+        "startChar": 8,
+        "endLine": 428,
+        "endChar": 24
+      },
+      "revId": "0c1057abec9b05ccce971d0d933a1255775bb561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "180e75b4_80b94053",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-11T04:09:19Z",
+      "side": 1,
+      "message": "What if there are no available indices? This method must have some way of returning failure.",
+      "range": {
+        "startLine": 460,
+        "startChar": 23,
+        "endLine": 460,
+        "endChar": 32
+      },
+      "revId": "0c1057abec9b05ccce971d0d933a1255775bb561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "511a37e4_bda1a03e",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-11T04:09:19Z",
+      "side": 1,
+      "message": "Is it guaranteed that the indices are always in order with no gaps? Why not do something like\n\n        for (int i \u003d 0; i \u003c mVirtualInterfaceNameMap.size(); i++) {\n            if (!mVirtualInterfaceNameMap.containsKey(i)) {\n                ...",
+      "range": {
+        "startLine": 463,
+        "startChar": 41,
+        "endLine": 463,
+        "endChar": 46
+      },
+      "revId": "0c1057abec9b05ccce971d0d933a1255775bb561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6835559_994f2ba3",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-11T04:09:19Z",
+      "side": 1,
+      "message": "else on same line as }",
+      "range": {
+        "startLine": 465,
+        "startChar": 12,
+        "endLine": 466,
+        "endChar": 13
+      },
+      "revId": "0c1057abec9b05ccce971d0d933a1255775bb561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cbea85e_f5482fc6",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-11T04:09:19Z",
+      "side": 1,
+      "message": "Prefer unindenting.\n\n    if (!mVirtualInterfaceIndexMap.contains(ifName)) return;",
+      "range": {
+        "startLine": 502,
+        "startChar": 8,
+        "endLine": 502,
+        "endChar": 60
+      },
+      "revId": "0c1057abec9b05ccce971d0d933a1255775bb561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
