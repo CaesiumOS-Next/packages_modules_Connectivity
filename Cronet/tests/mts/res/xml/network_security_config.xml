@@ -17,6 +17,12 @@
   -->
 
 <network-security-config>
+  <base-config>
+    <trust-anchors>
+      <certificates src="@raw/quicroot"/>
+      <certificates src="system"/>
+    </trust-anchors>
+  </base-config>
     <domain-config cleartextTrafficPermitted="true">
         <!-- Used as the base URL by native test server (net::EmbeddedTestServer) -->
         <domain includeSubdomains="true">127.0.0.1</domain>
