@@ -137,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e0c762ee_e49ff119",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-11T10:50:32Z",
+      "side": 1,
+      "message": "I don\u0027t think that solve the issue since the sLastLogTime is updated by the handler thread.\nIf we call `sendStatsMessage` twice, there is no guarantee that sLastLogTime is updated between two `sendStatsMessage` calls.\n\nIf you think my another comment(https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2890277/comment/3fab0474_2cef22e3/) makes sense, I think this should solve the issue since lastLogTime will be accessed only from handler thread.",
+      "parentUuid": "02cf7a93_de966403",
+      "range": {
+        "startLine": 108,
+        "startChar": 8,
+        "endLine": 117,
+        "endChar": 9
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3fab0474_2cef22e3",
         "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
         "patchSetId": 5
@@ -219,6 +243,30 @@
       "side": 1,
       "message": "I see, in that case, I think we can make NetworkRequestStateInfo a bit simpler.\nFor example, we don\u0027t need mNetworkRequestState.",
       "parentUuid": "b6c9d2c5_9d0ea698",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 9
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c30f105_25f38799",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-11T10:50:32Z",
+      "side": 1,
+      "message": "If we only collect metrics at requestRemoved, we can not know the information of apps that file network request but don\u0027t release request, I think.\nIs this ok for you?",
+      "parentUuid": "5e132f92_0748c9fc",
       "range": {
         "startLine": 135,
         "startChar": 8,
