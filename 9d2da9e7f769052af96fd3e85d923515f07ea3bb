@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fbbeb4f7_b76a1cbc",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-01-11T10:02:24Z",
+      "side": 1,
+      "message": "Not exactly: if a few events are coming at the same time, we will send only one message (and this message resends more), and the other NR events will be in the mPendingState queue. In this case at the point when this only message is already processed, the handler queue is already empty, but mPendingState is not.",
+      "parentUuid": "eb3d7fb3_0c50f44d",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 33
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df1a73bb_2e9bf57d",
         "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
         "patchSetId": 5
@@ -123,6 +147,30 @@
       "writtenOn": "2024-01-11T08:04:26Z",
       "side": 1,
       "message": "Do we need to call `sendStatsMessage` here?",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 9
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6c9d2c5_9d0ea698",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-01-11T10:02:24Z",
+      "side": 1,
+      "message": "We have recently discussed with Ivo that maybe we don\u0027t need to log this event as it is only needed to count network requests, but we can do that using the \"remove\" events.",
+      "parentUuid": "689669e3_e1027db4",
       "range": {
         "startLine": 135,
         "startChar": 8,
