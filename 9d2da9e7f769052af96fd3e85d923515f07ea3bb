@@ -113,6 +113,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "02cf7a93_de966403",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-01-11T10:26:52Z",
+      "side": 1,
+      "message": "Oh, I see..do you think that putting all the method body into the synchronized will help?",
+      "parentUuid": "a3d7749b_1d627ba3",
+      "range": {
+        "startLine": 108,
+        "startChar": 8,
+        "endLine": 117,
+        "endChar": 9
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3fab0474_2cef22e3",
         "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
         "patchSetId": 5
