@@ -12605,6 +12605,34 @@ public class ConnectivityService extends IConnectivityManager.Stub
         rematchAllNetworksAndRequests();
     }
 
+    @NonNull
+    ArraySet<NetworkRequestInfo> createMultiLayerRequest() {
+        final ArraySet<NetworkRequestInfo> nris = new ArraySet<>();
+        final List<NetworkRequest> requests = new ArrayList<>();
+
+        // 1: track default
+        // 2: fallback
+        requests.add(createDefaultInternetRequestForTransport(
+                TYPE_NONE, NetworkRequest.Type.TRACK_DEFAULT));
+        final NetworkCapabilities cap = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                .addTransportType(TRANSPORT_CELLULAR)
+                .build();
+        requests.add(createNetworkRequest(NetworkRequest.Type.REQUEST, cap));
+        setNetworkRequestUids(requests, new ArraySet<>(List.of(new UidRange(1000, 1000))));
+
+        nris.add(new NetworkRequestInfo(Process.myUid(), requests, 40));
+        return nris;
+    }
+
+    public void fileMultiLayerRequest() {
+        mHandler.post(() -> {
+            addPerAppDefaultNetworkRequests(createMultiLayerRequest());
+            rematchAllNetworksAndRequests();
+        });
+    }
+
     private void handleIngressRateLimitChanged() {
         final long oldIngressRateLimit = mIngressRateLimit;
         mIngressRateLimit = ConnectivitySettingsManager.getIngressRateLimitInBytesPerSecond(

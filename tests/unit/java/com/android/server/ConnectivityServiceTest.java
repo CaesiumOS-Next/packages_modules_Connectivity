@@ -6235,6 +6235,88 @@ public class ConnectivityServiceTest {
         wifiCallback.assertNoCallback();
     }
 
+    @Test
+    public void testMultiLayerNetworkRequest() throws Exception {
+        final NetworkProvider cellProvider = new NetworkProvider(mServiceContext,
+                mCsHandlerThread.getLooper(), "Cell provider");
+        final NetworkProvider wifiProvider = new NetworkProvider(mServiceContext,
+                mCsHandlerThread.getLooper(), "Wifi provider");
+
+        mCm.registerNetworkProvider(cellProvider);
+        mCm.registerNetworkProvider(wifiProvider);
+
+        final NetworkScore cellScore = new NetworkScore.Builder().build();
+        final NetworkScore wifiScore = new NetworkScore.Builder().build();
+        final NetworkCapabilities defaultCaps = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                .build();
+        final NetworkCapabilities cellCaps = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                .build();
+        final NetworkCapabilities wifiCaps = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_WIFI)
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                .build();
+        final TestableNetworkOfferCallback cellCallback = new TestableNetworkOfferCallback(
+                TIMEOUT_MS /* timeout */, TEST_CALLBACK_TIMEOUT_MS /* noCallbackTimeout */);
+        final TestableNetworkOfferCallback wifiCallback = new TestableNetworkOfferCallback(
+                TIMEOUT_MS /* timeout */, TEST_CALLBACK_TIMEOUT_MS /* noCallbackTimeout */);
+
+        // Offer callbacks will run on the CS handler thread in this test.
+        cellProvider.registerNetworkOffer(cellScore, cellCaps, r -> r.run(), cellCallback);
+        wifiProvider.registerNetworkOffer(wifiScore, wifiCaps, r -> r.run(), wifiCallback);
+
+        // Only Wifi provider receives the default request.
+        cellCallback.assertNoCallback();
+        wifiCallback.expectOnNetworkNeeded(defaultCaps);
+
+        final TestNetworkCallback wifiNetworkCallback = new TestNetworkCallback();
+        final NetworkRequest wifiRequest = new NetworkRequest.Builder()
+                .addTransportType(TRANSPORT_WIFI).build();
+        mCm.registerNetworkCallback(wifiRequest, wifiNetworkCallback);
+
+        // Bring up wifi
+        mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI,
+                new LinkProperties(), null /* ncTemplate */, wifiProvider);
+        mWiFiAgent.connect(false);
+        wifiNetworkCallback.expectAvailableCallbacksUnvalidated(mWiFiAgent);
+
+        // file multi layer request
+        mService.fileMultiLayerRequest();
+
+        // cell provider does not receive request since first request(TRACK_DEFAULT) in multi-layer
+        // request is satisfied by wifi
+        cellCallback.assertNoCallback();
+        wifiCallback.assertNoCallback();
+
+        mWiFiAgent.disconnect();
+        wifiNetworkCallback.expect(LOST, mWiFiAgent);
+
+        // cell provider should receive 2nd request in multi-layer request
+        final NetworkCapabilities multiLayerCellCap = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                .addTransportType(TRANSPORT_CELLULAR)
+                .build();
+        cellCallback.expectOnNetworkNeeded(multiLayerCellCap);
+
+        // Bring up wifi again
+        mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI,
+                new LinkProperties(), null /* ncTemplate */, wifiProvider);
+        mWiFiAgent.connect(false);
+        wifiNetworkCallback.expectAvailableCallbacksUnvalidated(mWiFiAgent);
+
+        // cell provider receive unneeded since first request(TRACK_DEFAULT) in multi-layer request
+        // is satisfied by wifi
+        cellCallback.expectOnNetworkUnneeded(multiLayerCellCap);
+        wifiCallback.assertNoCallback();
+    }
+
     public void doTestPreferBadWifi(final boolean avoidBadWifi,
             final boolean preferBadWifi, final boolean explicitlySelected,
             @NonNull Predicate<Long> checkUnvalidationTimeout) throws Exception {
