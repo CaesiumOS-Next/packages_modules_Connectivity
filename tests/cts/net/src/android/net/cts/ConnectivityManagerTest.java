@@ -1352,10 +1352,9 @@ public class ConnectivityManagerTest {
     @Test
     public void testToggleWifiConnectivityAction() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
+        assertTrue(mWifiManager.isWifiEnabled());
 
-        // toggleWifi calls connectToWifi and disconnectFromWifi, which both wait for
-        // CONNECTIVITY_ACTION broadcasts.
-        mCtsNetUtils.toggleWifi();
+        mCtsNetUtils.toggleWifiAndWaitForLegacyBroadcast();
     }
 
     /** Verify restricted networks cannot be requested. */

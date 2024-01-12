@@ -870,7 +870,7 @@ public abstract class EthernetTetheringTestBase {
         // See Tethering#chooseUpstreamType, CtsNetUtils#toggleWifi.
         // TODO: toggle cellular network if the device has no WIFI feature.
         Log.d(TAG, "Toggle WIFI to retry upstream selection");
-        sCtsNetUtils.toggleWifi();
+        sCtsNetUtils.toggleWifiIfSupported();
 
         // Wait for expected upstream.
         final CompletableFuture<Network> future = new CompletableFuture<>();
