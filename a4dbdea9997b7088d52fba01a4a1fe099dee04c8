@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b219817_32325d20",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-12T11:16:28Z",
+      "side": 1,
+      "message": "Actually to avoid confusion, I\u0027m thinking it\u0027s probably best to only have \"getExpirationTime\" on NsdServiceInfo, and have \"setTtlSeconds\" on the AdvertisingRequest instead",
+      "parentUuid": "0158b4c3_bfe3ad9c",
+      "range": {
+        "startLine": 492,
+        "startChar": 16,
+        "endLine": 492,
+        "endChar": 29
+      },
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c77fd05_3444afca",
         "filename": "tests/common/java/android/net/nsd/NsdServiceInfoTest.java",
         "patchSetId": 64
