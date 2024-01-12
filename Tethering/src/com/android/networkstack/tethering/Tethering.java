@@ -40,6 +40,7 @@ import static android.net.TetheringManager.TETHERING_NCM;
 import static android.net.TetheringManager.TETHERING_USB;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
+import static android.net.TetheringManager.TETHERING_WIFI_P2P_2;
 import static android.net.TetheringManager.TETHERING_WIGIG;
 import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
@@ -124,6 +125,7 @@ import android.util.ArrayMap;
 import android.util.Log;
 import android.util.Pair;
 import android.util.SparseArray;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -233,7 +235,7 @@ public class Tethering {
     // to be used after the interface comes up asynchronously.
     private final SparseArray<TetheringRequestParcel> mActiveTetheringRequests =
             new SparseArray<>();
-
+    private final SparseArray<IIntResultListener> mP2pCallback = new SparseArray<>();
     private final Context mContext;
     private final ArrayMap<String, TetherState> mTetherStates;
     private final BroadcastReceiver mStateReceiver;
@@ -724,13 +726,23 @@ public class Tethering {
             case TETHERING_ETHERNET:
                 result = setEthernetTethering(enable);
                 break;
+            case TETHERING_WIFI_P2P:
+            case TETHERING_WIFI_P2P_2:
+                if (enable) {
+                    enableP2pIpServing(type, listener);
+                } else {
+                    disableP2pIpServing(type);
+                }
+                break;
             default:
                 Log.w(TAG, "Invalid tether type.");
                 result = TETHER_ERROR_UNKNOWN_TYPE;
         }
 
         // The result of Bluetooth tethering will be sent by #setBluetoothTethering.
-        if (type != TETHERING_BLUETOOTH) {
+        // The result of Wifi P2P is fired after IpServer is on LocalOnly State
+        if (type != TETHERING_BLUETOOTH && type != TETHERING_WIFI_P2P
+            && type != TETHERING_WIFI_P2P_2) {
             sendTetherResult(listener, result, type);
         }
     }
@@ -1499,6 +1511,31 @@ public class Tethering {
 
         mLog.log("Canceling P2P tethering request - interface=" + ifname);
         disableWifiIpServingCommon(TETHERING_WIFI_P2P, ifname);
+    }
+
+    private void enableP2pIpServing(int type, final IIntResultListener listener) {
+        final TetheringRequestParcel request = mActiveTetheringRequests.get(type);
+        if (request != null) {
+            mP2pCallback.put(type, listener);
+            enableIpServing(request.tetheringType,
+                    request.wifiP2pInterface,
+                    request.connectivityScope,
+                    false /* isNcm*/);
+        } else {
+             try {
+                listener.onResult(TETHER_ERROR_SERVICE_UNAVAIL);
+            } catch (RemoteException e) {
+            }
+        }
+    }
+
+    private void disableP2pIpServing(int type) {
+        for (int i = 0; i < mTetherStates.size(); i++) {
+            final IpServer ipServer = mTetherStates.valueAt(i).ipServer;
+            if (ipServer.interfaceType() == type) {
+                ensureIpServerStopped(ipServer.interfaceName());
+            }
+        }
     }
 
     private void enableWifiIpServing(String ifname, int wifiIpMode) {
@@ -2711,16 +2748,28 @@ public class Tethering {
         }
     }
 
-    private class ControlCallback extends IpServer.Callback {
-        @Override
-        public void updateInterfaceState(IpServer who, int state, int lastError) {
-            final String iface = who.interfaceName();
-            final TetherState tetherState = mTetherStates.get(iface);
-            if (tetherState != null && tetherState.ipServer.equals(who)) {
-                tetherState.lastState = state;
-                tetherState.lastError = lastError;
-            } else {
-                if (DBG) Log.d(TAG, "got notification from stale iface " + iface);
+    private void sendResultAndRemoveListener(final int result, final int type) {
+        IIntResultListener listener = mP2pCallback.get(type);
+        if (listener == null) return;
+        sendTetherResult(listener, result, type);
+        mP2pCallback.delete(type);
+    }
+
+    private IpServer.Callback makeControlCallback() {
+        return new IpServer.Callback() {
+            @Override
+            public void updateInterfaceState(IpServer who, int state, int lastError) {
+                notifyInterfaceStateChange(who, state, lastError);
+                if (who.interfaceType() == TETHERING_WIFI_P2P ||
+                                who.interfaceType() == TETHERING_WIFI_P2P_2) {
+                    if (lastError != TETHER_ERROR_NO_ERROR) {
+                        sendResultAndRemoveListener(lastError,
+                        who.interfaceType());
+                    } else if (state == IpServer.STATE_LOCAL_ONLY) {
+                        sendResultAndRemoveListener(TETHER_ERROR_NO_ERROR,
+                        who.interfaceType());
+                    }
+                }
             }
 
             mLog.log(String.format("OBSERVED iface=%s state=%s error=%s", iface, state, lastError));
