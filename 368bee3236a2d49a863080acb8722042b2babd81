@@ -16,6 +16,24 @@
       "message": "I had a look at the code paths and it seems that everything that calls enforceNetworkRequestPermissions will also call ensureSufficientPermissionsForRequest, which calls mAppOpsManager.checkPackage(uid, packageName), so this is probably not needed.\n\nIdeally we\u0027d refactor these paths to avoid splitting permission checks in many methods but...",
       "revId": "368bee3236a2d49a863080acb8722042b2babd81",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4104dbd_11ad6fe4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-12T04:22:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ed8a84c0_cc15b9f1",
+      "revId": "368bee3236a2d49a863080acb8722042b2babd81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
