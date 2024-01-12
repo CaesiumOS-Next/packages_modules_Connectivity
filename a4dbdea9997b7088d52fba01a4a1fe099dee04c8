@@ -16,6 +16,149 @@
       "message": "LGTM but we should get @reminv@google.com to take another look.",
       "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc80f63a_8d5c9503",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-12T11:12:17Z",
+      "side": 1,
+      "message": "If we make this an API, we won\u0027t be able to change it.\n\nIt may be better to keep the constant hidden, and just mention it in the javadoc of setTtlSeconds ? Then if we want to relax the check, we can just update the javadoc (possibly using a compat flag, but if it\u0027s just relaxing the range that may not be necessary)",
+      "range": {
+        "startLine": 312,
+        "startChar": 29,
+        "endLine": 312,
+        "endChar": 44
+      },
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68342e4b_9423233a",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-12T11:12:17Z",
+      "side": 1,
+      "message": "Should we have a max ? It wouldn\u0027t be reasonable to have something very large, like an hour or more",
+      "range": {
+        "startLine": 465,
+        "startChar": 60,
+        "endLine": 465,
+        "endChar": 75
+      },
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2414fd43_49b93b9e",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-12T11:12:17Z",
+      "side": 1,
+      "message": "Nit: it would be best to explain to developers what the tradeoff is here, and why they shouldn\u0027t use this in general.\n\nBasically: if the TTL is too short, discovery will take more time and be less reliable, as advertised services will quickly expire.\nIf the TTL is too long, when the device loses network connectivity, other devices on the network will take a long time to realize that it has disappeared.\nUnless they have a specific use-case and done extensive testing, developers should not set any explicit TTL with this method.",
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5f1d6dc_03ee2b2f",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-12T11:12:17Z",
+      "side": 1,
+      "message": "TTL_SECONDS_MIN ?",
+      "range": {
+        "startLine": 475,
+        "startChar": 25,
+        "endLine": 475,
+        "endChar": 27
+      },
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baaf3f4e_08d2f08b",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-12T11:12:17Z",
+      "side": 1,
+      "message": "Nit: the first line of each javadoc must be just one line",
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0158b4c3_bfe3ad9c",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-12T11:12:17Z",
+      "side": 1,
+      "message": "Should this be an expiration timestamp instead ?\n\nOtherwise, depending on how much processing time passed since we received the advertisement, this will be incorrect. And it may be difficult to use for an application, as they\u0027d need to remember the time at which we sent that value.\n\nAlso, when the reply we send is from cache, this isn\u0027t very useful as it\u0027s the TTL when we received the reply, but it\u0027s actually now lower.\n\nIt may be best to call this \"getAdvertisedTtlSeconds\", and have another method for \"getExpirationTime\" or \"getAdvertisedTime\"; otherwise it sounds like it\u0027s the remaining TTL \"now\"",
+      "range": {
+        "startLine": 492,
+        "startChar": 16,
+        "endLine": 492,
+        "endChar": 29
+      },
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c77fd05_3444afca",
+        "filename": "tests/common/java/android/net/nsd/NsdServiceInfoTest.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-12T11:12:17Z",
+      "side": 1,
+      "message": "Also 0 should throw ? And other small values ?",
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
