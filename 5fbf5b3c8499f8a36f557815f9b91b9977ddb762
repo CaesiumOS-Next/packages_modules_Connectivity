@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "983543fe_d81e5e68",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-12T05:34:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df59eaff_2543b76c",
+      "range": {
+        "startLine": 148,
+        "startChar": 31,
+        "endLine": 148,
+        "endChar": 56
+      },
+      "revId": "5fbf5b3c8499f8a36f557815f9b91b9977ddb762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00bf78c5_3593795b",
@@ -60,6 +84,30 @@
       "writtenOn": "2024-01-11T04:45:43Z",
       "side": 1,
       "message": "Any reason not to put this check before we create the upcall listener?\n\nSuggest putting this into a utility method such as:\n\n    mMulticastUpcallListener \u003d maybeCreateMulticastUpcallListener();\n    if (mMulticastUpcallListener !\u003d null) {\n        mHandler.post(mMulticastUpcallListener.start());\n    }",
+      "range": {
+        "startLine": 162,
+        "startChar": 12,
+        "endLine": 162,
+        "endChar": 31
+      },
+      "revId": "5fbf5b3c8499f8a36f557815f9b91b9977ddb762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e52d2a62_6a199d03",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-12T05:34:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00bf78c5_3593795b",
       "range": {
         "startLine": 162,
         "startChar": 12,
@@ -93,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45195668_e44e2ab6",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-12T05:34:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "386daed1_95237c9e",
+      "range": {
+        "startLine": 362,
+        "startChar": 16,
+        "endLine": 362,
+        "endChar": 48
+      },
+      "revId": "5fbf5b3c8499f8a36f557815f9b91b9977ddb762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c476fa46_6f8189dd",
@@ -106,6 +178,30 @@
       "writtenOn": "2024-01-11T04:45:43Z",
       "side": 1,
       "message": "Suggest factoring this out to a \"isMulticastRoutingEnabled()\" or \"isMulticastRoutingSupported()\" method.",
+      "range": {
+        "startLine": 364,
+        "startChar": 8,
+        "endLine": 364,
+        "endChar": 48
+      },
+      "revId": "5fbf5b3c8499f8a36f557815f9b91b9977ddb762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e5ba019_b3197f8e",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-12T05:34:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c476fa46_6f8189dd",
       "range": {
         "startLine": 364,
         "startChar": 8,
@@ -139,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39cc34b8_e8302f7f",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-12T05:34:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0818817c_5ffae9cf",
+      "range": {
+        "startLine": 366,
+        "startChar": 53,
+        "endLine": 366,
+        "endChar": 72
+      },
+      "revId": "5fbf5b3c8499f8a36f557815f9b91b9977ddb762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41216cff_da8be0c8",
@@ -162,6 +282,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0182f135_36a12fcb",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-12T05:34:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41216cff_da8be0c8",
+      "range": {
+        "startLine": 394,
+        "startChar": 10,
+        "endLine": 394,
+        "endChar": 18
+      },
+      "revId": "5fbf5b3c8499f8a36f557815f9b91b9977ddb762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b280332_da1a8b7b",
@@ -175,6 +319,30 @@
       "writtenOn": "2024-01-11T04:45:43Z",
       "side": 1,
       "message": "ditto, check forwarding mode?",
+      "range": {
+        "startLine": 415,
+        "startChar": 22,
+        "endLine": 415,
+        "endChar": 28
+      },
+      "revId": "5fbf5b3c8499f8a36f557815f9b91b9977ddb762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d258a55a_802849b7",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-12T05:34:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b280332_da1a8b7b",
       "range": {
         "startLine": 415,
         "startChar": 22,

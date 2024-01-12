@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f79098e_41cafcf7",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-12T05:34:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b9e20b3_f88e18d5",
+      "range": {
+        "startLine": 121,
+        "startChar": 26,
+        "endLine": 121,
+        "endChar": 42
+      },
+      "revId": "0c1057abec9b05ccce971d0d933a1255775bb561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93b88c9d_0bbb3d4a",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-11T04:09:19Z",
       "side": 1,
       "message": "What happens on a device that does not have multicast routing enabled in the kernel config? Also, how do we ensure that on such a device, the multicast routing code never runs? Or at least doesn\u0027t do anything incorrect?",
+      "range": {
+        "startLine": 160,
+        "startChar": 44,
+        "endLine": 160,
+        "endChar": 72
+      },
+      "revId": "0c1057abec9b05ccce971d0d933a1255775bb561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81f726a7_fa9d8766",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-12T05:34:43Z",
+      "side": 1,
+      "message": "In that case createMulticastRoutingSocket will return null, added 2 unit test cases for when the multicast routing socket can\u0027t be created.",
+      "parentUuid": "93b88c9d_0bbb3d4a",
       "range": {
         "startLine": 160,
         "startChar": 44,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ffaff06_2371ca2f",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-12T05:34:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34609509_bd5f94e9",
+      "range": {
+        "startLine": 428,
+        "startChar": 8,
+        "endLine": 428,
+        "endChar": 24
+      },
+      "revId": "0c1057abec9b05ccce971d0d933a1255775bb561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "180e75b4_80b94053",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-01-11T04:09:19Z",
       "side": 1,
       "message": "What if there are no available indices? This method must have some way of returning failure.",
+      "range": {
+        "startLine": 460,
+        "startChar": 23,
+        "endLine": 460,
+        "endChar": 32
+      },
+      "revId": "0c1057abec9b05ccce971d0d933a1255775bb561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a40ee7d_3c533de8",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-12T05:34:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "180e75b4_80b94053",
       "range": {
         "startLine": 460,
         "startChar": 23,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35f92e66_b407a464",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-12T05:34:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "511a37e4_bda1a03e",
+      "range": {
+        "startLine": 463,
+        "startChar": 41,
+        "endLine": 463,
+        "endChar": 46
+      },
+      "revId": "0c1057abec9b05ccce971d0d933a1255775bb561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6835559_994f2ba3",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c9c0967_f291dd10",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-12T05:34:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c6835559_994f2ba3",
+      "range": {
+        "startLine": 465,
+        "startChar": 12,
+        "endLine": 466,
+        "endChar": 13
+      },
+      "revId": "0c1057abec9b05ccce971d0d933a1255775bb561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5cbea85e_f5482fc6",
@@ -152,6 +296,30 @@
       "writtenOn": "2024-01-11T04:09:19Z",
       "side": 1,
       "message": "Prefer unindenting.\n\n    if (!mVirtualInterfaceIndexMap.contains(ifName)) return;",
+      "range": {
+        "startLine": 502,
+        "startChar": 8,
+        "endLine": 502,
+        "endChar": 60
+      },
+      "revId": "0c1057abec9b05ccce971d0d933a1255775bb561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c100e70_184bc879",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-12T05:34:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cbea85e_f5482fc6",
       "range": {
         "startLine": 502,
         "startChar": 8,
