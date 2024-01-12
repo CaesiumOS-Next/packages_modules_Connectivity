@@ -16,6 +16,114 @@
       "message": "LGTM but we should get @reminv@google.com should take another look.",
       "revId": "8c579990cfb6ef89650caf4221d8960351325d43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "772172c6_79562552",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 34
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-12T10:53:19Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed, but Lorenzo will need to review for API review",
+      "revId": "8c579990cfb6ef89650caf4221d8960351325d43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6147720d_0e071338",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-12T10:53:19Z",
+      "side": 1,
+      "message": "Nit: the first line will end up in the top table in the API documentation, then there must be an empty line, and the rest will be in the documentation for the method: https://developer.android.com/reference/android/net/nsd/NsdServiceInfo\n\nThe \"meshcop\" and \"matter\" examples are a bit specific so it may look better if they\u0027re in the description (so after an empty line)",
+      "revId": "8c579990cfb6ef89650caf4221d8960351325d43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "808a5c02_3cc7be4f",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-12T10:53:19Z",
+      "side": 1,
+      "message": "Similarly, this must be a single line, then an empty line, then a description (if any); so the first line must fit in one line (same for getNetwork)",
+      "revId": "8c579990cfb6ef89650caf4221d8960351325d43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "446acace_3f8916c0",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-12T10:53:19Z",
+      "side": 1,
+      "message": "\", serviceType: \"",
+      "range": {
+        "startLine": 107,
+        "startChar": 21,
+        "endLine": 107,
+        "endChar": 22
+      },
+      "revId": "8c579990cfb6ef89650caf4221d8960351325d43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90095244_abd13750",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-12T10:53:19Z",
+      "side": 1,
+      "message": "Nit: might want to mention that the second label can only be \"_tcp\" or \"_udp\", and that the first label must also start with an underscore (as per RFC6763 #7)",
+      "revId": "8c579990cfb6ef89650caf4221d8960351325d43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9bab693_83369d7a",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-12T10:53:19Z",
+      "side": 1,
+      "message": "Nit: might want to mention that the argument must start with an underscore (some APIs sometimes automatically append the underscore, I think this one does not)",
+      "revId": "8c579990cfb6ef89650caf4221d8960351325d43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
