@@ -49,6 +49,7 @@ package android.net {
     field public static final int TETHERING_USB = 1; // 0x1
     field public static final int TETHERING_WIFI = 0; // 0x0
     field public static final int TETHERING_WIFI_P2P = 3; // 0x3
+    field public static final int TETHERING_WIFI_P2P_2 = 7; // 0x7
     field public static final int TETHER_ERROR_DHCPSERVER_ERROR = 12; // 0xc
     field public static final int TETHER_ERROR_DISABLE_FORWARDING_ERROR = 9; // 0x9
     field public static final int TETHER_ERROR_ENABLE_FORWARDING_ERROR = 8; // 0x8
@@ -101,6 +102,7 @@ package android.net {
     method @Nullable public android.net.LinkAddress getLocalIpv4Address();
     method public boolean getShouldShowEntitlementUi();
     method public int getTetheringType();
+    method @Nullable public String getWifiP2pInterface();
     method public boolean isExemptFromEntitlementCheck();
   }
 
@@ -111,6 +113,7 @@ package android.net {
     method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setExemptFromEntitlementCheck(boolean);
     method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setShouldShowEntitlementUi(boolean);
     method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setStaticIpv4Addresses(@NonNull android.net.LinkAddress, @NonNull android.net.LinkAddress);
+    method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setWifiP2pInterface(@Nullable String);
   }
 
 }
