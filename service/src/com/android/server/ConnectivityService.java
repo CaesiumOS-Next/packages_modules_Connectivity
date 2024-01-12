@@ -7722,6 +7722,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             Log.wtf(TAG, "Connectivity service should always run in at least SDK S");
             return;
         }
+        verifyCallingUidAndPackage(callerPackageName, callingUid);
         ApplicationSelfCertifiedNetworkCapabilities applicationNetworkCapabilities;
         final long ident = Binder.clearCallingIdentity();
         try {
