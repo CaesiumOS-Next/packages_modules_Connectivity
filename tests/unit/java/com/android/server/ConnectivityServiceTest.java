@@ -6235,6 +6235,134 @@ public class ConnectivityServiceTest {
         wifiCallback.assertNoCallback();
     }
 
+    @Test
+    public void testMultiLayerNetworkRequest() throws Exception {
+        final NetworkProvider restrictedCellProvider = new NetworkProvider(mServiceContext,
+                mCsHandlerThread.getLooper(), "Restricted Cell provider");
+        final NetworkProvider cellProvider = new NetworkProvider(mServiceContext,
+                mCsHandlerThread.getLooper(), "Cell provider");
+        final NetworkProvider wifiProvider = new NetworkProvider(mServiceContext,
+                mCsHandlerThread.getLooper(), "Wifi provider");
+
+        mCm.registerNetworkProvider(restrictedCellProvider);
+        mCm.registerNetworkProvider(cellProvider);
+        mCm.registerNetworkProvider(wifiProvider);
+
+        final NetworkScore restrictedCellScore = new NetworkScore.Builder().build();
+        final NetworkScore wifiScore = new NetworkScore.Builder().build();
+        final NetworkScore cellScore = new NetworkScore.Builder().build();
+        final NetworkCapabilities restrictedCellCaps = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                .addCapability(NET_CAPABILITY_TRUSTED)
+                .addCapability(NET_CAPABILITY_NOT_VPN)
+                .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                .build();
+        final NetworkCapabilities wifiCaps = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_WIFI)
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                .addCapability(NET_CAPABILITY_TRUSTED)
+                .addCapability(NET_CAPABILITY_NOT_VPN)
+                .build();
+        final NetworkCapabilities cellCaps = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                .addCapability(NET_CAPABILITY_TRUSTED)
+                .addCapability(NET_CAPABILITY_NOT_VPN)
+                .build();
+        final TestableNetworkOfferCallback restrictedCellCallback = new TestableNetworkOfferCallback(TIMEOUT_MS /* timeout */, TEST_CALLBACK_TIMEOUT_MS /* noCallbackTimeout */);
+        final TestableNetworkOfferCallback wifiCallback = new TestableNetworkOfferCallback( TIMEOUT_MS /* timeout */, TEST_CALLBACK_TIMEOUT_MS /* noCallbackTimeout */);
+        final TestableNetworkOfferCallback cellCallback = new TestableNetworkOfferCallback( TIMEOUT_MS /* timeout */, TEST_CALLBACK_TIMEOUT_MS /* noCallbackTimeout */);
+
+        // Offer callbacks will run on the CS handler thread in this test.
+        restrictedCellProvider.registerNetworkOffer(restrictedCellScore, restrictedCellCaps, r -> r.run(), restrictedCellCallback);
+        wifiProvider.registerNetworkOffer(wifiScore, wifiCaps, r -> r.run(), wifiCallback);
+        wifiProvider.registerNetworkOffer(cellScore, cellCaps, r -> r.run(), cellCallback);
+
+        final NetworkCapabilities defaultCaps = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                .build();
+
+        // RestrictedCell provider does not receive the default request.
+        restrictedCellCallback.assertNoCallback();
+        wifiCallback.expectOnNetworkNeeded(defaultCaps);
+        cellCallback.expectOnNetworkNeeded(defaultCaps);
+
+        // Register default network callback for uid 7777 (target uid of multi layer requests)
+        final TestNetworkCallback appDefaultNetworkCallback = new TestNetworkCallback();
+        withPermission(NETWORK_SETTINGS, () -> mCm.registerDefaultNetworkCallbackForUid(
+                7777 /* uid */, appDefaultNetworkCallback,
+                new Handler(ConnectivityThread.getInstanceLooper())));
+        final TestNetworkCallback defaultNetworkCallback = new TestNetworkCallback();
+        mCm.registerDefaultNetworkCallback(defaultNetworkCallback);
+
+        // RestrictedCell provider does not receive the default request for app
+        restrictedCellCallback.assertNoCallback();
+        wifiCallback.expectOnNetworkNeeded(defaultCaps);
+        cellCallback.expectOnNetworkNeeded(defaultCaps);
+
+        // Bring up cell
+        mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR,
+                new LinkProperties(), null /* ncTemplate */, cellProvider);
+        mCellAgent.connect(false);
+        appDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(mCellAgent);
+        defaultNetworkCallback.expectAvailableCallbacksUnvalidated(mCellAgent);
+
+        // Bring up wifi (default network is switched to wifi)
+        mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI,
+                new LinkProperties(), null /* ncTemplate */, wifiProvider);
+        mWiFiAgent.connect(false);
+        appDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(mWiFiAgent);
+        defaultNetworkCallback.expectAvailableCallbacksUnvalidated(mWiFiAgent);
+
+        // file 2 multilayer requests
+        setAndUpdateMobileDataPreferredUids(Set.of(7777));
+        mService.fileMultiLayerRequest();
+
+        // Only app default is switched to cell due to mobileDataPreferred
+        appDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(mCellAgent);
+        defaultNetworkCallback.assertNoCallback();
+
+        restrictedCellCallback.assertNoCallback();
+
+        mWiFiAgent.disconnect();
+        mCellAgent.disconnect();
+        appDefaultNetworkCallback.expect(LOST, mCellAgent);
+        defaultNetworkCallback.expect(LOST, mWiFiAgent);
+
+        // cell provider should receive 2nd request in multi-layer request
+        restrictedCellCallback.expectOnNetworkNeeded(restrictedCellCaps);
+
+        // Bring up restricted cell, app default network is satisfied by this network.
+        TestNetworkAgentWrapper restrictedCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR,
+                new LinkProperties(), restrictedCellCaps, restrictedCellProvider);
+        restrictedCellAgent.connect(false);
+
+        // appDefaultNetworkCallback does not receive onAvailable for restrictedCellAgent yet since
+        // MobileDataPreferred has higher priority
+        appDefaultNetworkCallback.assertNoCallback();
+        assertNull(mCm.getActiveNetworkForUid(7777));
+
+        // After removing MobileDataPreferred, appDefaultNetworkCallback receive onAvailable
+        setAndUpdateMobileDataPreferredUids(Set.of());
+        appDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(restrictedCellAgent);
+        assertEquals(restrictedCellAgent.getNetwork(), mCm.getActiveNetworkForUid(7777));
+
+        // Bring up wifi again
+        mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI,
+                new LinkProperties(), null /* ncTemplate */, wifiProvider);
+        mWiFiAgent.connect(false);
+        appDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(mWiFiAgent);
+
+        // cell provider receive unneeded since first request(TRACK_DEFAULT) in multi-layer request
+        // is satisfied by wifi
+        restrictedCellCallback.expectOnNetworkUnneeded(restrictedCellCaps);
+    }
+
     public void doTestPreferBadWifi(final boolean avoidBadWifi,
             final boolean preferBadWifi, final boolean explicitlySelected,
             @NonNull Predicate<Long> checkUnvalidationTimeout) throws Exception {

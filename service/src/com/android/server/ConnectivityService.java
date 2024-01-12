@@ -8220,6 +8220,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return nri.getNetworkRequestForCallback() != nri.mRequests.get(0);
     }
 
+    // avoid fallback to default network
     /**
      * Determine if an nri is a managed default request that disallows default networking.
      * @param nri the request to evaluate
@@ -8261,6 +8262,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return mDefaultRequest.mSatisfier;
     }
 
+    // return the network which satisfy the higest priority network request
     private NetworkAgentInfo getDefaultNetworkForUid(final int uid) {
         NetworkRequestInfo highestPriorityNri = mDefaultRequest;
         for (final NetworkRequestInfo nri : mDefaultNetworkRequests) {
@@ -10063,6 +10065,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
             }
             if (null == bestNetwork && isDefaultBlocked(nri)) {
+                // noServiceNetwork
                 // Remove default networking if disallowed for managed default requests.
                 bestNetwork = mNoServiceNetwork;
             }
@@ -12607,6 +12610,35 @@ public class ConnectivityService extends IConnectivityManager.Stub
         rematchAllNetworksAndRequests();
     }
 
+    @NonNull
+    ArraySet<NetworkRequestInfo> createMultiLayerRequest() {
+        final ArraySet<NetworkRequestInfo> nris = new ArraySet<>();
+        final List<NetworkRequest> requests = new ArrayList<>();
+
+        // 1: track default
+        // 2: fallback
+        requests.add(createDefaultInternetRequestForTransport(
+                TYPE_NONE, NetworkRequest.Type.TRACK_DEFAULT));
+        final NetworkCapabilities cap = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                .addTransportType(TRANSPORT_CELLULAR)
+                .build();
+        requests.add(createNetworkRequest(NetworkRequest.Type.REQUEST, cap));
+        setNetworkRequestUids(requests, new ArraySet<>(List.of(new UidRange(7777, 7777))));
+
+        nris.add(new NetworkRequestInfo(Process.myUid(), requests, 40 /* preferenceOrder */));
+        return nris;
+    }
+
+    public void fileMultiLayerRequest() {
+        mHandler.post(() -> {
+            addPerAppDefaultNetworkRequests(createMultiLayerRequest());
+            rematchAllNetworksAndRequests();
+        });
+    }
+
     private void handleIngressRateLimitChanged() {
         final long oldIngressRateLimit = mIngressRateLimit;
         mIngressRateLimit = ConnectivitySettingsManager.getIngressRateLimitInBytesPerSecond(
@@ -12810,6 +12842,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 getPerAppCallbackRequestsToUpdate();
         final ArraySet<NetworkRequestInfo> nrisToRegister = new ArraySet<>(nris);
         handleRemoveNetworkRequests(perAppCallbackRequestsToUpdate);
+        // Updating TRACK_DEFAULT to follow new per app default network request
         nrisToRegister.addAll(
                 createPerAppCallbackRequestsToRegister(perAppCallbackRequestsToUpdate));
         handleRegisterNetworkRequests(nrisToRegister);
