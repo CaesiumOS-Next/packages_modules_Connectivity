@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "015f8358_5e00d6e4",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-12T06:51:09Z",
+      "side": 1,
+      "message": "FWIW I think it might be better to move the multicast code to its own class, maybe MulticastRoutingCoordinator? But if there is too much cross-talk between that code and the unicast code, you don\u0027t have to do it.",
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8bac618_cf12a96e",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-12T06:51:09Z",
+      "side": 1,
+      "message": "If this adds the interface as well, the method name should reflect that. Would be good to pick a name that pairs well with the corresponding remove method.",
+      "range": {
+        "startLine": 495,
+        "startChar": 17,
+        "endLine": 495,
+        "endChar": 57
+      },
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12d9a671_b1268510",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-12T06:51:09Z",
+      "side": 1,
+      "message": "Nit: if this is an internal-only object you can simply make all the members \"public final\" and delete the getters.",
+      "range": {
+        "startLine": 610,
+        "startChar": 19,
+        "endLine": 610,
+        "endChar": 37
+      },
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "189cbcb7_9019bbac",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-12T06:51:09Z",
+      "side": 1,
+      "message": "Would be nice to have brief (even just 1-line) javadoc comments explaining what the importnt methods in this class do.",
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a73fe9dc_925eb2a5",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-12T06:51:09Z",
+      "side": 1,
+      "message": "Seems like this should be created in the enclosing class constructor instead, not in the dependencies? And if this fails, that\u0027s sort of fatal for this code? Perhaps we should just throw an exception and crash? That way you can make the socket @NonNull final and have to null-check it.",
+      "range": {
+        "startLine": 933,
+        "startChar": 38,
+        "endLine": 933,
+        "endChar": 54
+      },
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "752aa08d_6380c5a8",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-12T06:51:09Z",
+      "side": 1,
+      "message": "Might want to comment that this can fail if the kernel doesb\u0027t support multicast routing.",
+      "range": {
+        "startLine": 957,
+        "startChar": 30,
+        "endLine": 957,
+        "endChar": 58
+      },
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4c45fc8_70fd8cfb",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-12T06:51:09Z",
+      "side": 1,
+      "message": "It looks like some of the important functions in this file are split half/half between the main class and dependencies. I think you could make things easier to read by making the dependencies simpler / lower level, such as something like:\n\n    public void setsockoptMrt6AddMif(FileDescriptor fd,, StructMif6Ctl mif6Ctl) {\n        NetworkUtils.setsockoptBytes(fd, IPPROTO_IPV6, MRT6_ADD_MIF, mif6Ctl.writeToBytes());\n    }\n\n    public void setsockoptMrt6DelMif(FileDescriptor fd, int vif) {\n        ....\n    }",
+      "range": {
+        "startLine": 975,
+        "startChar": 20,
+        "endLine": 975,
+        "endChar": 41
+      },
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07b45210_30c80ac2",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-12T06:51:09Z",
+      "side": 1,
+      "message": "If this is the value and the others are keys, might want to put this last.",
+      "range": {
+        "startLine": 992,
+        "startChar": 42,
+        "endLine": 992,
+        "endChar": 61
+      },
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad23478e_2280ea07",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-12T06:51:09Z",
+      "side": 1,
+      "message": "Nit: is it worth defining a MulticastCacheKey object that has these three fields in it? That might make it easier to understand what are they keys and what are the values of the data we write into the kernel.",
+      "range": {
+        "startLine": 1000,
+        "startChar": 35,
+        "endLine": 1000,
+        "endChar": 78
+      },
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd6004e1_f682008b",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-12T06:51:09Z",
+      "side": 1,
+      "message": "Can this happen? Is there a way we can make it never happen?",
+      "range": {
+        "startLine": 1010,
+        "startChar": 12,
+        "endLine": 1010,
+        "endChar": 43
+      },
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
