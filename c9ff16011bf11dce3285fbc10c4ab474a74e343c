@@ -20,6 +20,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1b41e151_ef575bb6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-12T06:44:37Z",
+      "side": 1,
+      "message": "Could be integration test if we preferred.\nI think it depends on whether we want OEMs to run this.\nFor me it\u0027s like no difference: \n  1. Given that OEMs are already running CTS of Tethering and Wifi separately. It seems ok for them not run this.\n  2. I also can\u0027t think of any reason that this shouldn\u0027t be in CTS.\n  \nNot sure which is better. WDYT?\nAlso @lorenzo@google.com to input.",
+      "parentUuid": "80f999b4_17637c1b",
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e43a7840_66fc7213",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-12T06:44:37Z",
+      "side": 1,
+      "message": "Chat with easoncylee@, TEST_MAPPING does not support multiple devices.\nRemove this change.",
+      "range": {
+        "startLine": 152,
+        "startChar": 15,
+        "endLine": 152,
+        "endChar": 51
+      },
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a086eb37_e4ef5ec3",
         "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectUtil.kt",
         "patchSetId": 4
@@ -31,6 +72,30 @@
       "writtenOn": "2024-01-10T08:30:44Z",
       "side": 1,
       "message": "Is there some comment you can add to silence the warning ? Saying that it\u0027s documented to not be deprecated for privileged callers",
+      "range": {
+        "startLine": 119,
+        "startChar": 36,
+        "endLine": 119,
+        "endChar": 53
+      },
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7563e5e_e097d668",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectUtil.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-12T06:44:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a086eb37_e4ef5ec3",
       "range": {
         "startLine": 119,
         "startChar": 36,
@@ -58,6 +123,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f20a0fb_0c75bb30",
+        "filename": "tests/cts/multidevices/AndroidTest.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-12T06:44:37Z",
+      "side": 1,
+      "message": "Sadly for presubmit it is needed to use cuttlefish, while this test must use physical device. So this test cannot fits presumit.\nRef: go/test-mapping-mainline-user-guide#limitations-and-known-issues\n\nAlternatively, if cuttlefish supports multiple device test, it would be perfect.\nBut again I don\u0027t see it is documented anywhere.\nRef: https://source.android.com/docs/setup/create/cuttlefish-connectivity#example\n\nGiven that it is not feasible to put this in presubmit.\nI refactor it to maximize the coverage for both cell/wifi upstream.\nWe can disable any of it if we preferred.\nSee if works for you.",
+      "parentUuid": "0f6695d4_15fd7874",
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83685354_782dabee",
@@ -71,6 +154,30 @@
       "writtenOn": "2024-01-10T08:30:44Z",
       "side": 1,
       "message": "Nit: if we\u0027re really unlucky, and there\u0027s 10 devices running the test within wifi range, there\u0027s a ~0.5% chance that some device will connect to an unexpected one.\n\nIt would be best to use more digits to minimize that; or use a UUID-32 (max SSID length being 32; you could also get it down to 22 characters in base64 with `len(base64.b64encode(uuid.uuid1().bytes).decode(\u0027utf-8\u0027).strip(\u0027\u003d\u0027))`).",
+      "range": {
+        "startLine": 42,
+        "startChar": 34,
+        "endLine": 42,
+        "endChar": 41
+      },
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec2dd51f_88b7dd49",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-12T06:44:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83685354_782dabee",
       "range": {
         "startLine": 42,
         "startChar": 34,
@@ -104,6 +211,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b1480f1_95cbcdce",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-12T06:44:37Z",
+      "side": 1,
+      "message": "Removed.\nThis is to connect to old wifi before we leave.\nNot sure this is useful.",
+      "parentUuid": "b75f1794_f17f2c83",
+      "range": {
+        "startLine": 73,
+        "startChar": 13,
+        "endLine": 73,
+        "endChar": 32
+      },
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe49760c_ec3bdad0",
@@ -117,6 +248,30 @@
       "writtenOn": "2024-01-10T08:30:44Z",
       "side": 1,
       "message": "You could use ConnectivityTestsLatestSdkDefaults for testing older platforms",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 36,
+        "endChar": 25
+      },
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46d52ff4_9178df25",
+        "filename": "tests/cts/multidevices/snippet/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-12T06:44:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe49760c_ec3bdad0",
       "range": {
         "startLine": 36,
         "startChar": 7,
@@ -167,6 +322,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db5b5267_c52634da",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-12T06:44:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d4a2af4_53052818",
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27c21044_7814d04d",
@@ -190,6 +363,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98247ded_d1c9275e",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-12T06:44:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27c21044_7814d04d",
+      "range": {
+        "startLine": 102,
+        "startChar": 51,
+        "endLine": 102,
+        "endChar": 53
+      },
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6dc89078_be7d4a01",
@@ -203,6 +400,24 @@
       "writtenOn": "2024-01-10T08:30:44Z",
       "side": 1,
       "message": "FYI I\u0027ve vaguely heard talks about deprecating hidden SSIDs, so not sure this will always be usable",
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ec1e335_0a431354",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-12T06:44:37Z",
+      "side": 1,
+      "message": "Removed anyway.",
+      "parentUuid": "6dc89078_be7d4a01",
       "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
