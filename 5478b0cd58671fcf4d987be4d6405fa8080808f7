@@ -70,6 +70,30 @@
       },
       "revId": "5478b0cd58671fcf4d987be4d6405fa8080808f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0df09fca_ce7e99e5",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6027,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-12T09:30:45Z",
+      "side": 1,
+      "message": "I agree that apps need to use getRestrictBackgroundStatus to know their data saver status.\nBut I thought it\u0027s fine to have getDataSaverEnabled that return if the data saver is enabled or not.\nI saw that we concluded to add the comment to javadoc in the bug so I\u0027m fine with this.",
+      "parentUuid": "9fd342be_95de99eb",
+      "range": {
+        "startLine": 6025,
+        "startChar": 10,
+        "endLine": 6027,
+        "endChar": 93
+      },
+      "revId": "5478b0cd58671fcf4d987be4d6405fa8080808f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
