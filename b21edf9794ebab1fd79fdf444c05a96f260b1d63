@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a05f543_b920e2cb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2024-01-12T18:05:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e433a59e_2c5cce7c",
+      "range": {
+        "startLine": 623,
+        "startChar": 51,
+        "endLine": 623,
+        "endChar": 61
+      },
+      "revId": "b21edf9794ebab1fd79fdf444c05a96f260b1d63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91503181_1a36ba54",
@@ -60,6 +84,30 @@
       "writtenOn": "2023-12-06T16:37:54Z",
       "side": 1,
       "message": "Change to type and uncomment.",
+      "range": {
+        "startLine": 1511,
+        "startChar": 51,
+        "endLine": 1511,
+        "endChar": 70
+      },
+      "revId": "b21edf9794ebab1fd79fdf444c05a96f260b1d63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fbd729d_369e91a8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1511,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2024-01-12T18:05:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "756823f6_bd1c8456",
       "range": {
         "startLine": 1511,
         "startChar": 51,
