@@ -184,10 +184,16 @@ public class TetheringManager {
     public static final int TETHERING_WIGIG = 6;
 
     /**
+    * Secondary wifi P2p tethering type which only used in dual wifi
+    * p2p case.
+    */
+    public static final int TETHERING_WIFI_P2P_2 = 7;
+
+    /**
      * The int value of last tethering type.
      * @hide
      */
-    public static final int MAX_TETHERING_TYPE = TETHERING_WIGIG;
+    public static final int MAX_TETHERING_TYPE = TETHERING_WIFI_P2P_2;
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
@@ -694,6 +700,18 @@ public class TetheringManager {
                 mBuilderParcel.exemptFromEntitlementCheck = false;
                 mBuilderParcel.showProvisioningUi = true;
                 mBuilderParcel.connectivityScope = getDefaultConnectivityScope(type);
+                mBuilderParcel.wifiP2pInterface = null;
+            }
+
+            /** Set WiFi P2P interface. This only work when
+            tetheringType is
+            * TETHERING_ WIFI_P2P*
+            */
+            @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED)
+            @NonNull
+            public Builder setWifiP2pInterface(@Nullable String iface) {
+                mBuilderParcel.wifiP2pInterface = iface;
+                return this;
             }
 
             /**
@@ -756,8 +774,20 @@ public class TetheringManager {
             /** Build {@link TetheringRequest} with the currently set configuration. */
             @NonNull
             public TetheringRequest build() {
+                if (mBuilderParcel.tetheringType != TETHERING_WIFI_P2P &&
+                        mBuilderParcel.tetheringType != TETHERING_WIFI_P2P_2) {
+                    mBuilderParcel.wifiP2pInterface = null;
+                }
                 return new TetheringRequest(mBuilderParcel);
             }
+        }
+
+        /**
+        * Get wifi p2p interface
+        */
+        @Nullable
+        public String getWifiP2pInterface() {
+            return mRequestParcel.wifiP2pInterface;
         }
 
         /**
