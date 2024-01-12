@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33372a5d_b2f67667",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-12T03:15:23Z",
+      "side": 1,
+      "message": "LGTM but Lorenzo should +2 for CTS changes when it\u0027s not flake fixes",
+      "revId": "70fd1e5d540b4ff09f8abb33499855cf802f6c82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
