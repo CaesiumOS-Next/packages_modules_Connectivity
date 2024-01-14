@@ -1128,7 +1128,6 @@ public class NsdServiceTest {
         final NsdManager client = connectClient(mService);
         final NsdServiceInfo regInfo = new NsdServiceInfo("Instance", typeWithSubtype);
         final Network network = new Network(999);
-        regInfo.setHostAddresses(List.of(parseNumericAddress("192.0.2.123")));
         regInfo.setPort(12345);
         regInfo.setNetwork(network);
 
@@ -1138,7 +1137,7 @@ public class NsdServiceTest {
         verify(mAdvertiser).addOrUpdateService(anyInt(), argThat(s ->
                 "Instance".equals(s.getServiceName())
                         && SERVICE_TYPE.equals(s.getServiceType())
-                        && s.getSubtypes().equals(Set.of("_subtype"))), any());
+                        && s.getSubtypes().equals(Set.of("_subtype"))), any(), any());
 
         final DiscoveryListener discListener = mock(DiscoveryListener.class);
         client.discoverServices(typeWithSubtype, PROTOCOL, network, Runnable::run, discListener);
@@ -1227,7 +1226,6 @@ public class NsdServiceTest {
         // Create NsdService w/o feature enabled.
         final NsdManager client = connectClient(mService);
         final NsdServiceInfo regInfo = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
-        regInfo.setHost(parseNumericAddress("192.0.2.123"));
         regInfo.setPort(12345);
         final RegistrationListener regListenerWithoutFeature = mock(RegistrationListener.class);
         client.registerService(regInfo, PROTOCOL, regListenerWithoutFeature);
@@ -1245,7 +1243,7 @@ public class NsdServiceTest {
 
         final ArgumentCaptor<Integer> serviceIdCaptor = ArgumentCaptor.forClass(Integer.class);
         verify(mAdvertiser).addOrUpdateService(serviceIdCaptor.capture(),
-                argThat(info -> matches(info, regInfo)), any());
+                argThat(info -> matches(info, regInfo)), any(), any());
 
         client.unregisterService(regListenerWithoutFeature);
         waitForIdle();
@@ -1271,10 +1269,8 @@ public class NsdServiceTest {
 
         final NsdManager client = connectClient(mService);
         final NsdServiceInfo service1 = new NsdServiceInfo(SERVICE_NAME, "_type1._tcp");
-        service1.setHostAddresses(List.of(parseNumericAddress("2001:db8::123")));
         service1.setPort(1234);
         final NsdServiceInfo service2 = new NsdServiceInfo(SERVICE_NAME, "_type2._tcp");
-        service2.setHostAddresses(List.of(parseNumericAddress("2001:db8::123")));
         service2.setPort(1234);
 
         client.discoverServices(service1.getServiceType(),
@@ -1306,9 +1302,9 @@ public class NsdServiceTest {
 
         // The advertiser is enabled for _type2 but not _type1
         verify(mAdvertiser, never()).addOrUpdateService(anyInt(),
-                argThat(info -> matches(info, service1)), any());
+                argThat(info -> matches(info, service1)), any(), any());
         verify(mAdvertiser).addOrUpdateService(anyInt(), argThat(info -> matches(info, service2)),
-                any());
+                any(), any());
     }
 
     @Test
@@ -1323,7 +1319,6 @@ public class NsdServiceTest {
         verify(mDeps).makeMdnsAdvertiser(any(), any(), cbCaptor.capture(), any(), any());
 
         final NsdServiceInfo regInfo = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
-        regInfo.setHost(parseNumericAddress("192.0.2.123"));
         regInfo.setPort(12345);
         regInfo.setAttribute("testattr", "testvalue");
         regInfo.setNetwork(new Network(999));
@@ -1333,7 +1328,7 @@ public class NsdServiceTest {
         verify(mSocketProvider).startMonitoringSockets();
         final ArgumentCaptor<Integer> idCaptor = ArgumentCaptor.forClass(Integer.class);
         verify(mAdvertiser).addOrUpdateService(idCaptor.capture(), argThat(info ->
-                matches(info, regInfo)), any());
+                matches(info, regInfo)), any(), any());
 
         // Verify onServiceRegistered callback
         final MdnsAdvertiser.AdvertiserCallback cb = cbCaptor.getValue();
@@ -1374,14 +1369,13 @@ public class NsdServiceTest {
         verify(mDeps).makeMdnsAdvertiser(any(), any(), cbCaptor.capture(), any(), any());
 
         final NsdServiceInfo regInfo = new NsdServiceInfo(SERVICE_NAME, "invalid_type");
-        regInfo.setHost(parseNumericAddress("192.0.2.123"));
         regInfo.setPort(12345);
         regInfo.setAttribute("testattr", "testvalue");
         regInfo.setNetwork(new Network(999));
 
         client.registerService(regInfo, NsdManager.PROTOCOL_DNS_SD, Runnable::run, regListener);
         waitForIdle();
-        verify(mAdvertiser, never()).addOrUpdateService(anyInt(), any(), any());
+        verify(mAdvertiser, never()).addOrUpdateService(anyInt(), any(), any(), any());
 
         verify(regListener, timeout(TIMEOUT_MS)).onRegistrationFailed(
                 argThat(info -> matches(info, regInfo)), eq(FAILURE_INTERNAL_ERROR));
@@ -1401,7 +1395,6 @@ public class NsdServiceTest {
         verify(mDeps).makeMdnsAdvertiser(any(), any(), cbCaptor.capture(), any(), any());
 
         final NsdServiceInfo regInfo = new NsdServiceInfo("a".repeat(70), SERVICE_TYPE);
-        regInfo.setHost(parseNumericAddress("192.0.2.123"));
         regInfo.setPort(12345);
         regInfo.setAttribute("testattr", "testvalue");
         regInfo.setNetwork(new Network(999));
@@ -1411,7 +1404,7 @@ public class NsdServiceTest {
         final ArgumentCaptor<Integer> idCaptor = ArgumentCaptor.forClass(Integer.class);
         // Service name is truncated to 63 characters
         verify(mAdvertiser).addOrUpdateService(idCaptor.capture(),
-                argThat(info -> info.getServiceName().equals("a".repeat(63))), any());
+                argThat(info -> info.getServiceName().equals("a".repeat(63))), any(), any());
 
         // Verify onServiceRegistered callback
         final MdnsAdvertiser.AdvertiserCallback cb = cbCaptor.getValue();
@@ -1499,7 +1492,6 @@ public class NsdServiceTest {
         final NsdManager client = connectClient(mService);
         final NsdServiceInfo regInfo = new NsdServiceInfo("a".repeat(70), SERVICE_TYPE);
         final Network network = new Network(999);
-        regInfo.setHostAddresses(List.of(parseNumericAddress("192.0.2.123")));
         regInfo.setPort(12345);
         regInfo.setAttribute("testattr", "testvalue");
         regInfo.setNetwork(network);
@@ -1509,7 +1501,7 @@ public class NsdServiceTest {
         client.registerService(regInfo, NsdManager.PROTOCOL_DNS_SD, Runnable::run, regListener);
         waitForIdle();
         verify(mSocketProvider).startMonitoringSockets();
-        verify(mAdvertiser).addOrUpdateService(anyInt(), any(), any());
+        verify(mAdvertiser).addOrUpdateService(anyInt(), any(), any(), any());
 
         // Verify the discovery uses MdnsDiscoveryManager
         final DiscoveryListener discListener = mock(DiscoveryListener.class);
@@ -1533,7 +1525,6 @@ public class NsdServiceTest {
         final NsdManager client = connectClient(mService);
 
         final NsdServiceInfo regInfo = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
-        regInfo.setHostAddresses(List.of(parseNumericAddress("192.0.2.123")));
         regInfo.setPort(12345);
         // File a request for all networks
         regInfo.setNetwork(null);
@@ -1542,7 +1533,7 @@ public class NsdServiceTest {
         client.registerService(regInfo, NsdManager.PROTOCOL_DNS_SD, Runnable::run, regListener);
         waitForIdle();
         verify(mSocketProvider).startMonitoringSockets();
-        verify(mAdvertiser).addOrUpdateService(anyInt(), any(), any());
+        verify(mAdvertiser).addOrUpdateService(anyInt(), any(), any(), any());
 
         final Network wifiNetwork1 = new Network(123);
         final Network wifiNetwork2 = new Network(124);
@@ -1629,7 +1620,6 @@ public class NsdServiceTest {
 
         // First client advertises on any network
         final NsdServiceInfo regInfo = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
-        regInfo.setHostAddresses(List.of(parseNumericAddress("192.0.2.123")));
         regInfo.setPort(12345);
         regInfo.setNetwork(null);
         final RegistrationListener regListener = mock(RegistrationListener.class);
