@@ -52,6 +52,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64c90cdc_fc927086",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-14T08:57:07Z",
+      "side": 1,
+      "message": "Doclava ends the first sentence of the javadoc at the first period (see go/android-api-guidelines#period). So only \"Returns the service type.\" will show up in the public method table. One concrete example is the NsdServiceInfo#getAttributes API listed in the given link.\n\nBut \"Returns the service type.\" provides no additional meaningful information than what a developer can get from the API method name (`getServiceType()`). It makes the summary useless when it\u0027s shown in the method table.\n\nSo I made changes:\n1. To say that the service name is dot-joint string of two labels.\n2 Move the examples to the description section.\n\nPlease unresolve this if it doesn\u0027t look good to you.",
+      "parentUuid": "6147720d_0e071338",
+      "revId": "8c579990cfb6ef89650caf4221d8960351325d43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "808a5c02_3cc7be4f",
@@ -65,6 +83,24 @@
       "writtenOn": "2024-01-12T10:53:19Z",
       "side": 1,
       "message": "Similarly, this must be a single line, then an empty line, then a description (if any); so the first line must fit in one line (same for getNetwork)",
+      "revId": "8c579990cfb6ef89650caf4221d8960351325d43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2248974a_1af52e51",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-14T08:57:07Z",
+      "side": 1,
+      "message": "It\u0027s useless to show only \"Returns the subtype\" in the method table.\n\nI am keeping this summary sentence but also added one example in separate description section.",
+      "parentUuid": "808a5c02_3cc7be4f",
       "revId": "8c579990cfb6ef89650caf4221d8960351325d43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -92,6 +128,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f1a1634_6b9fced0",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-14T08:57:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "446acace_3f8916c0",
+      "range": {
+        "startLine": 107,
+        "startChar": 21,
+        "endLine": 107,
+        "endChar": 22
+      },
+      "revId": "8c579990cfb6ef89650caf4221d8960351325d43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90095244_abd13750",
@@ -109,6 +169,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8dbb91f_1d6a0abd",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-14T08:57:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90095244_abd13750",
+      "revId": "8c579990cfb6ef89650caf4221d8960351325d43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9bab693_83369d7a",
@@ -122,6 +200,24 @@
       "writtenOn": "2024-01-12T10:53:19Z",
       "side": 1,
       "message": "Nit: might want to mention that the argument must start with an underscore (some APIs sometimes automatically append the underscore, I think this one does not)",
+      "revId": "8c579990cfb6ef89650caf4221d8960351325d43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97712259_f4868b03",
+        "filename": "framework-t/src/android/net/nsd/DiscoveryRequest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-14T08:57:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9bab693_83369d7a",
       "revId": "8c579990cfb6ef89650caf4221d8960351325d43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
