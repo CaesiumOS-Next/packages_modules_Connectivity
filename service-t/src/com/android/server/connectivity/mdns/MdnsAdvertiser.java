@@ -17,6 +17,8 @@
 package com.android.server.connectivity.mdns;
 
 import static com.android.server.connectivity.mdns.MdnsConstants.NO_PACKET;
+import static com.android.server.connectivity.mdns.MdnsInterfaceAdvertiser.CONFLICT_HOST;
+import static com.android.server.connectivity.mdns.MdnsInterfaceAdvertiser.CONFLICT_SERVICE;
 import static com.android.server.connectivity.mdns.MdnsRecord.MAX_LABEL_LENGTH;
 
 import android.annotation.NonNull;
@@ -30,6 +32,7 @@ import android.net.nsd.OffloadEngine;
 import android.net.nsd.OffloadServiceInfo;
 import android.os.Build;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.util.SparseArray;
@@ -147,7 +150,9 @@ public class MdnsAdvertiser {
                 mSharedLog.wtf("Register succeeded for unknown registration");
                 return;
             }
-            if (mMdnsFeatureFlags.mIsMdnsOffloadFeatureEnabled) {
+            if (mMdnsFeatureFlags.mIsMdnsOffloadFeatureEnabled
+                    // TODO: Enable offload when the serviceInfo contains a custom host.
+                    && !TextUtils.isEmpty(registration.getServiceInfo().getHostname())) {
                 final String interfaceName = advertiser.getSocketInterfaceName();
                 final List<OffloadServiceInfoWrapper> existingOffloadServiceInfoWrappers =
                         mInterfaceOffloadServices.computeIfAbsent(interfaceName,
@@ -175,8 +180,8 @@ public class MdnsAdvertiser {
         }
 
         @Override
-        public void onServiceConflict(@NonNull MdnsInterfaceAdvertiser advertiser, int serviceId) {
-            mSharedLog.i("Found conflict, restarted probing for service " + serviceId);
+        public void onServiceConflict(@NonNull MdnsInterfaceAdvertiser advertiser, int serviceId, int conflictType) {
+            mSharedLog.i("Found conflict, restarted probing for service " + serviceId + " " + conflictType);
 
             final Registration registration = mRegistrations.get(serviceId);
             if (registration == null) return;
@@ -201,10 +206,22 @@ public class MdnsAdvertiser {
                 return;
             }
 
-            // Conflict was found during probing; rename once to find a name that has no conflict
-            registration.updateForConflict(
-                    registration.makeNewServiceInfoForConflict(1 /* renameCount */),
-                    1 /* renameCount */);
+            if ((conflictType & CONFLICT_SERVICE) != 0) {
+                // Service conflict was found during probing; rename once to find a name that has no
+                // conflict
+                registration.updateForConflict(
+                        registration.makeNewServiceInfoForServiceConflict(1 /* renameCount */),
+                        1 /* renameCount */);
+            }
+
+            if ((conflictType & CONFLICT_HOST) != 0) {
+                // Host conflict was found during probing; rename once to find a name that has no
+                // conflict
+                registration.updateForConflict(
+                        registration.makeNewServiceInfoForHostConflict(1 /* renameCount */),
+                        1 /* renameCount */);
+            }
+
             registration.mConflictDuringProbingCount++;
 
             // Keep renaming if the new name conflicts in local registrations
@@ -241,7 +258,7 @@ public class MdnsAdvertiser {
         NsdServiceInfo newInfo = registration.getServiceInfo();
         while (hasAnyConflict(applicableAdvertiserFilter, newInfo)) {
             renameCount++;
-            newInfo = registration.makeNewServiceInfoForConflict(renameCount);
+            newInfo = registration.makeNewServiceInfoForServiceConflict(renameCount);
         }
         registration.updateForConflict(newInfo, renameCount);
     }
@@ -325,15 +342,21 @@ public class MdnsAdvertiser {
          * cause a conflict in this {@link InterfaceAdvertiserRequest}.
          */
         boolean hasConflict(@NonNull NsdServiceInfo newInfo) {
-            return getConflictingService(newInfo) >= 0;
+            return getConflictingServiceDueToServiceName(newInfo) >= 0;
         }
 
         /**
          * Get the ID of a conflicting service, or -1 if none.
          */
-        int getConflictingService(@NonNull NsdServiceInfo info) {
+        int getConflictingServiceDueToServiceName(@NonNull NsdServiceInfo info) {
+            if (TextUtils.isEmpty(info.getServiceName())) {
+                return -1;
+            }
             for (int i = 0; i < mPendingRegistrations.size(); i++) {
                 final NsdServiceInfo other = mPendingRegistrations.valueAt(i).getServiceInfo();
+                if (TextUtils.isEmpty(other.getServiceName())) {
+                    continue;
+                }
                 if (MdnsUtils.equalsIgnoreDnsCase(info.getServiceName(), other.getServiceName())
                         && MdnsUtils.equalsIgnoreDnsCase(info.getServiceType(),
                         other.getServiceType())) {
@@ -346,7 +369,7 @@ public class MdnsAdvertiser {
         /**
          * Add a service to advertise.
          *
-         * Conflicts must be checked via {@link #getConflictingService} before attempting to add.
+         * Conflicts must be checked via {@link #getConflictingServiceDueToServiceName} before attempting to add.
          */
         void addService(int id, @NonNull Registration registration) {
             mPendingRegistrations.put(id, registration);
@@ -480,17 +503,21 @@ public class MdnsAdvertiser {
     }
 
     private static class Registration {
-        @NonNull
-        final String mOriginalName;
+        @Nullable
+        final String mOriginalSerivceName;
+        @Nullable
+        final String mOriginalHostname;
         boolean mNotifiedRegistrationSuccess;
-        private int mConflictCount;
+        private int mServiceNameConflictCount;
+        private int mHostnameConflictCount;
         @NonNull
         private NsdServiceInfo mServiceInfo;
         int mConflictDuringProbingCount;
         int mConflictAfterProbingCount;
 
         private Registration(@NonNull NsdServiceInfo serviceInfo) {
-            this.mOriginalName = serviceInfo.getServiceName();
+            this.mOriginalSerivceName = serviceInfo.getServiceName();
+            this.mOriginalHostname = serviceInfo.getHostname();
             this.mServiceInfo = serviceInfo;
         }
 
@@ -498,7 +525,7 @@ public class MdnsAdvertiser {
          * Matches between the NsdServiceInfo in the Registration and the provided argument.
          */
         public boolean matches(@Nullable NsdServiceInfo newInfo) {
-            return Objects.equals(newInfo.getServiceName(), mOriginalName) && Objects.equals(
+            return Objects.equals(newInfo.getServiceName(), mOriginalSerivceName) && Objects.equals(
                     newInfo.getServiceType(), mServiceInfo.getServiceType()) && Objects.equals(
                     newInfo.getNetwork(), mServiceInfo.getNetwork());
         }
@@ -518,7 +545,7 @@ public class MdnsAdvertiser {
          * @param renameCount How many renames were done before reaching the current name.
          */
         private void updateForConflict(@NonNull NsdServiceInfo newInfo, int renameCount) {
-            mConflictCount += renameCount;
+            mServiceNameConflictCount += renameCount;
             mServiceInfo = newInfo;
         }
 
@@ -534,7 +561,7 @@ public class MdnsAdvertiser {
          * @param renameCount How much to increase the number suffix for this conflict.
          */
         @NonNull
-        public NsdServiceInfo makeNewServiceInfoForConflict(int renameCount) {
+        public NsdServiceInfo makeNewServiceInfoForServiceConflict(int renameCount) {
             // In case of conflict choose a different service name. After the first conflict use
             // "Name (2)", then "Name (3)" etc.
             // TODO: use a hidden method in NsdServiceInfo once MdnsAdvertiser is moved to service-t
@@ -543,11 +570,41 @@ public class MdnsAdvertiser {
             return newInfo;
         }
 
+        /**
+         * Make a new hostname for the registration, after a conflict was found.
+         *
+         * <p>If a name conflict was found during probing or because different advertising requests
+         * used the same name, the registration is attempted again with a new name (here using a
+         * number suffix, -1, -2, etc). Registration success is notified once probing succeeds with
+         * a new name.
+         *
+         * @param renameCount How much to increase the number suffix for this conflict.
+         */
+        @NonNull
+        public NsdServiceInfo makeNewServiceInfoForHostConflict(int renameCount) {
+            // In case of conflict choose a different hostname. After the first conflict use
+            // "Name-2", then "Name-3" etc.
+            final NsdServiceInfo newInfo = new NsdServiceInfo(mServiceInfo);
+            newInfo.setHostname(getUpdatedHostname(renameCount));
+            return newInfo;
+        }
+
         private String getUpdatedServiceName(int renameCount) {
-            final String suffix = " (" + (mConflictCount + renameCount + 1) + ")";
-            final String truncatedServiceName = MdnsUtils.truncateServiceName(mOriginalName,
+            final String suffix = " (" + (mServiceNameConflictCount + renameCount + 1) + ")";
+            final String truncatedServiceName = MdnsUtils.truncateServiceName(mOriginalSerivceName,
                     MAX_LABEL_LENGTH - suffix.length());
             return truncatedServiceName + suffix;
+        }
+
+        private String getUpdatedHostname(int renameCount) {
+            final String suffix = "-" + (mHostnameConflictCount + renameCount + 1);
+            final String truncatedHostname =
+                    mOriginalHostname.substring(
+                            0,
+                            Math.min(
+                                    MAX_LABEL_LENGTH - suffix.length(),
+                                    mOriginalHostname.length()));
+            return truncatedHostname + suffix;
         }
 
         @NonNull
