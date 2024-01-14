@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1148ae58_4e22708a",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-14T08:58:19Z",
+      "side": 0,
+      "message": "Splitted in out into aosp/2905868.\n\nNote that this CL depends on aosp/2905868 because no NsdServiceInfo is passed for discovery requests now",
+      "parentUuid": "bb56f832_705a2031",
+      "revId": "60385deee6be4841bc95a531c0a147bc89883b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fab8928e_7bc1c930",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-01-09T13:47:00Z",
       "side": 0,
       "message": "nit: extra blank deletion.",
+      "revId": "60385deee6be4841bc95a531c0a147bc89883b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "041498b1_4a0b43ce",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 2726,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-14T08:58:19Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "fab8928e_7bc1c930",
       "revId": "60385deee6be4841bc95a531c0a147bc89883b14",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
