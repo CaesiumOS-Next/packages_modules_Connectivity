@@ -232,7 +232,7 @@ class MdnsAdvertiserTest {
         verify(cb).onOffloadStartOrUpdate(eq(TEST_INTERFACE1), eq(OFFLOAD_SERVICEINFO_NO_SUBTYPE))
 
         // Service is conflicted.
-        postSync { intAdvCbCaptor.value.onServiceConflict(mockInterfaceAdvertiser1, SERVICE_ID_1) }
+        postSync { intAdvCbCaptor.value.onServiceConflict(mockInterfaceAdvertiser1, SERVICE_ID_1, NsdManager.FAILURE_SERVICE_NAME_CONFLICT) }
 
         // Verify the metrics data
         doReturn(25).`when`(mockInterfaceAdvertiser1).getServiceRepliedRequestsCount(SERVICE_ID_1)
@@ -305,9 +305,9 @@ class MdnsAdvertiserTest {
                 argThat { it.matches(ALL_NETWORKS_SERVICE_SUBTYPE) })
 
         // Services are conflicted.
-        postSync { intAdvCbCaptor1.value.onServiceConflict(mockInterfaceAdvertiser1, SERVICE_ID_1) }
-        postSync { intAdvCbCaptor1.value.onServiceConflict(mockInterfaceAdvertiser1, SERVICE_ID_1) }
-        postSync { intAdvCbCaptor2.value.onServiceConflict(mockInterfaceAdvertiser2, SERVICE_ID_1) }
+        postSync { intAdvCbCaptor1.value.onServiceConflict(mockInterfaceAdvertiser1, SERVICE_ID_1, NsdManager.FAILURE_SERVICE_NAME_CONFLICT) }
+        postSync { intAdvCbCaptor1.value.onServiceConflict(mockInterfaceAdvertiser1, SERVICE_ID_1, NsdManager.FAILURE_SERVICE_NAME_CONFLICT) }
+        postSync { intAdvCbCaptor2.value.onServiceConflict(mockInterfaceAdvertiser2, SERVICE_ID_1, NsdManager.FAILURE_SERVICE_NAME_CONFLICT) }
 
         // Verify the metrics data
         doReturn(10).`when`(mockInterfaceAdvertiser1).getServiceRepliedRequestsCount(SERVICE_ID_1)

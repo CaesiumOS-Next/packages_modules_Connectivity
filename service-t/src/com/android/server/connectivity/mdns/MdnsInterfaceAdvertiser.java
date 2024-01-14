@@ -22,10 +22,12 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresApi;
 import android.net.LinkAddress;
+import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.ArraySet;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.HexDump;
@@ -85,10 +87,15 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         /**
          * Called by the advertiser when a conflict was found, during or after probing.
          *
-         * If a conflict is found during probing, the {@link #renameServiceForConflict} must be
-         * called to restart probing and attempt registration with a different name.
+         * <p>If a service name conflict is found during probing, the {@link
+         * #renameServiceForConflict} must be called to restart probing and attempt registration
+         * with a different name.
+         *
+         * <p>{@code conflictType} tells whether it's a service conflict, host conflict or both. See
+         * the error codes in {@link NsdManager}.
          */
-        void onServiceConflict(@NonNull MdnsInterfaceAdvertiser advertiser, int serviceId);
+        void onServiceConflict(
+                @NonNull MdnsInterfaceAdvertiser advertiser, int serviceId, int conflictType);
 
         /**
          * Called by the advertiser when it destroyed itself.
@@ -383,8 +390,32 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
                     + packet.additionalRecords.size() + " additional from " + srcCopy);
         }
 
-        for (int conflictServiceId : mRecordRepository.getConflictingServices(packet)) {
-            mCbHandler.post(() -> mCb.onServiceConflict(this, conflictServiceId));
+        Set<Integer> conflictServicesDueToService =
+                mRecordRepository.getConflictingServicesDueToServiceName(packet);
+        Set<Integer> conflictServicesDueToHost =
+                mRecordRepository.getConflictingServicesDueToHostName(packet);
+        if (conflictServicesDueToService.size() + conflictServicesDueToHost.size() > 0) {
+            Set<Integer> allConflictingServices = new ArraySet<>();
+            allConflictingServices.addAll(conflictServicesDueToService);
+            allConflictingServices.addAll(conflictServicesDueToHost);
+
+            for (int serviceId : allConflictingServices) {
+                int conflictType;
+                if (conflictServicesDueToService.contains(serviceId)
+                        && conflictServicesDueToHost.contains(serviceId)) {
+                    conflictType = NsdManager.FAILURE_SERVICE_AND_HOST_NAME_CONFLICT;
+                } else if (conflictServicesDueToService.contains(serviceId)) {
+                    conflictType = NsdManager.FAILURE_SERVICE_NAME_CONFLICT;
+                } else if (conflictServicesDueToHost.contains(serviceId)) {
+                    conflictType = NsdManager.FAILURE_HOST_NAME_CONFLICT;
+                } else {
+                    conflictType = 0;
+                }
+                mCbHandler.post(
+                        () -> {
+                            mCb.onServiceConflict(this, serviceId, conflictType);
+                        });
+            }
         }
 
         // Even in case of conflict, add replies for other services. But in general conflicts would

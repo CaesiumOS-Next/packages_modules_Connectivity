@@ -885,7 +885,8 @@ public class NsdService extends INsdManager.Stub {
                         if (clientInfo.mUseJavaBackend
                                 || mDeps.isMdnsAdvertiserEnabled(mContext)
                                 || useAdvertiserForType(registerServiceType)) {
-                            if (registerServiceType == null) {
+                            // If the service type is specified but invalid
+                            if (!TextUtils.isEmpty(serviceType) && registerServiceType == null) {
                                 Log.e(TAG, "Invalid service type: " + serviceType);
                                 clientInfo.onRegisterServiceFailedImmediately(clientRequestId,
                                         NsdManager.FAILURE_INTERNAL_ERROR, false /* isLegacy */);
@@ -908,14 +909,19 @@ public class NsdService extends INsdManager.Stub {
                             } else {
                                 transactionId = getUniqueId();
                             }
-                            serviceInfo.setServiceType(registerServiceType);
-                            serviceInfo.setServiceName(truncateServiceName(
-                                    serviceInfo.getServiceName()));
+
+                            if (registerServiceType != null) {
+                                serviceInfo.setServiceType(registerServiceType);
+                                serviceInfo.setServiceName(
+                                        truncateServiceName(serviceInfo.getServiceName()));
+                            }
 
                             Set<String> subtypes = new ArraySet<>(serviceInfo.getSubtypes());
-                            for (String subType: typeSubtype.second) {
-                                if (!TextUtils.isEmpty(subType)) {
-                                    subtypes.add(subType);
+                            if (typeSubtype != null && typeSubtype.second != null) {
+                                for (String subType : typeSubtype.second) {
+                                    if (!TextUtils.isEmpty(subType)) {
+                                        subtypes.add(subType);
+                                    }
                                 }
                             }
                             subtypes = dedupSubtypeLabels(subtypes);

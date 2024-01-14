@@ -30,6 +30,7 @@ import android.net.nsd.OffloadEngine;
 import android.net.nsd.OffloadServiceInfo;
 import android.os.Build;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.util.SparseArray;
@@ -147,7 +148,9 @@ public class MdnsAdvertiser {
                 mSharedLog.wtf("Register succeeded for unknown registration");
                 return;
             }
-            if (mMdnsFeatureFlags.mIsMdnsOffloadFeatureEnabled) {
+            if (mMdnsFeatureFlags.mIsMdnsOffloadFeatureEnabled
+                    // Only offload services without custom hosts
+                    && TextUtils.isEmpty(registration.getServiceInfo().getHostname())) {
                 final String interfaceName = advertiser.getSocketInterfaceName();
                 final List<OffloadServiceInfoWrapper> existingOffloadServiceInfoWrappers =
                         mInterfaceOffloadServices.computeIfAbsent(interfaceName,
@@ -175,8 +178,8 @@ public class MdnsAdvertiser {
         }
 
         @Override
-        public void onServiceConflict(@NonNull MdnsInterfaceAdvertiser advertiser, int serviceId) {
-            mSharedLog.i("Found conflict, restarted probing for service " + serviceId);
+        public void onServiceConflict(@NonNull MdnsInterfaceAdvertiser advertiser, int serviceId, int conflictType) {
+            mSharedLog.i("Found conflict, restarted probing for service " + serviceId + " " + conflictType);
 
             final Registration registration = mRegistrations.get(serviceId);
             if (registration == null) return;
@@ -199,6 +202,11 @@ public class MdnsAdvertiser {
                     }
                 });
                 return;
+            }
+
+            if (hasHostConflict(conflictType)) {
+                mCb.onRegisterServiceFailed(serviceId, NsdManager.FAILURE_HOST_NAME_CONFLICT);
+                return ;
             }
 
             // Conflict was found during probing; rename once to find a name that has no conflict
@@ -332,8 +340,14 @@ public class MdnsAdvertiser {
          * Get the ID of a conflicting service, or -1 if none.
          */
         int getConflictingService(@NonNull NsdServiceInfo info) {
+            if (TextUtils.isEmpty(info.getServiceName())) {
+                return -1;
+            }
             for (int i = 0; i < mPendingRegistrations.size(); i++) {
                 final NsdServiceInfo other = mPendingRegistrations.valueAt(i).getServiceInfo();
+                if (TextUtils.isEmpty(other.getServiceName())) {
+                    continue;
+                }
                 if (MdnsUtils.equalsIgnoreDnsCase(info.getServiceName(), other.getServiceName())
                         && MdnsUtils.equalsIgnoreDnsCase(info.getServiceType(),
                         other.getServiceType())) {
@@ -790,5 +804,15 @@ public class MdnsAdvertiser {
                 // TODO: set the offloadType based on the callback timing.
                 OffloadEngine.OFFLOAD_TYPE_REPLY);
         return new OffloadServiceInfoWrapper(serviceId, offloadServiceInfo);
+    }
+
+    private static boolean hasServiceConflict(int conflictType) {
+        return conflictType == NsdManager.FAILURE_SERVICE_NAME_CONFLICT
+                || conflictType == NsdManager.FAILURE_SERVICE_AND_HOST_NAME_CONFLICT;
+    }
+
+    private static boolean hasHostConflict(int conflictType) {
+        return conflictType == NsdManager.FAILURE_HOST_NAME_CONFLICT
+                || conflictType == NsdManager.FAILURE_SERVICE_AND_HOST_NAME_CONFLICT;
     }
 }
