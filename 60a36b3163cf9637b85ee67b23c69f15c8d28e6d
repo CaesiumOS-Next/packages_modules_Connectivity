@@ -52,6 +52,24 @@
       "parentUuid": "d5077b43_f3ecc656",
       "revId": "60a36b3163cf9637b85ee67b23c69f15c8d28e6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6e96826_7e37a9f0",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1301,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-14T09:18:36Z",
+      "side": 0,
+      "message": "Updated the logic to make it more readable.",
+      "parentUuid": "37f4014a_c7bf62be",
+      "revId": "60a36b3163cf9637b85ee67b23c69f15c8d28e6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

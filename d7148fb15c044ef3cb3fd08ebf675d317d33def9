@@ -16,6 +16,24 @@
       "message": "Add CTS tests for the changes here.",
       "revId": "d7148fb15c044ef3cb3fd08ebf675d317d33def9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdd5d9a5_73202081",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1656,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-14T09:18:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f05d73c_f76bd8dd",
+      "revId": "d7148fb15c044ef3cb3fd08ebf675d317d33def9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
