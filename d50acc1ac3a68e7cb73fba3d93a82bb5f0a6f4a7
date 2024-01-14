@@ -16,6 +16,24 @@
       "message": "The CTS changes should be put in the same CL of the API change",
       "revId": "d50acc1ac3a68e7cb73fba3d93a82bb5f0a6f4a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e677350_3f03f4a1",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-14T09:13:47Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "0cb77e63_7b578c1e",
+      "revId": "d50acc1ac3a68e7cb73fba3d93a82bb5f0a6f4a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

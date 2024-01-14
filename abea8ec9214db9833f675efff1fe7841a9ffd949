@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d81d156_c37a23ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-14T09:13:47Z",
+      "side": 1,
+      "message": "I recently",
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fa36513_83ad8102",
@@ -14,6 +31,30 @@
       "writtenOn": "2024-01-07T10:19:49Z",
       "side": 1,
       "message": "```suggestion\n        if (TextUtils.isEmpty(hostname)) {\n```",
+      "range": {
+        "startLine": 430,
+        "startChar": 8,
+        "endLine": 430,
+        "endChar": 31
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ca4c438_a96c0f30",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-14T09:13:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fa36513_83ad8102",
       "range": {
         "startLine": 430,
         "startChar": 8,
@@ -47,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd8974c1_323e5b19",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-14T09:13:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bae6afcb_141d4f71",
+      "range": {
+        "startLine": 438,
+        "startChar": 12,
+        "endLine": 438,
+        "endChar": 28
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a3a81a2_7cd613b3",
@@ -70,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69f97654_8a1e02f2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-14T09:13:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a3a81a2_7cd613b3",
+      "range": {
+        "startLine": 592,
+        "startChar": 8,
+        "endLine": 592,
+        "endChar": 61
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f84c338f_5c3a0ef0",
@@ -83,6 +172,30 @@
       "writtenOn": "2024-01-07T10:19:49Z",
       "side": 1,
       "message": "Instead of adding one more `serviceInetAddressRecords` to this method, why not calling `getInetAddressRecordsForService` directly from here? It allows lazy computation of the address records list in this way.",
+      "range": {
+        "startLine": 817,
+        "startChar": 8,
+        "endLine": 821,
+        "endChar": 9
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adb68637_1531e61d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-14T09:13:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f84c338f_5c3a0ef0",
       "range": {
         "startLine": 817,
         "startChar": 8,
@@ -133,6 +246,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c500136_39c5d44c",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 1361,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-14T09:13:47Z",
+      "side": 1,
+      "message": "Today NsdManager doesn\u0027t support resolving a host without service.",
+      "parentUuid": "c9c3185a_f18b9a75",
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ae74a25_bb9c636a",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 1361,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-14T09:13:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b32c4dfd_a552feb9",
+      "range": {
+        "startLine": 1361,
+        "startChar": 15,
+        "endLine": 1361,
+        "endChar": 67
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3bb8cfa6_bfd46224",
@@ -173,6 +328,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c7c0acc_1f0034ee",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-14T09:13:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3bb8cfa6_bfd46224",
+      "range": {
+        "startLine": 1392,
+        "startChar": 15,
+        "endLine": 1392,
+        "endChar": 81
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6345bd68_5dc8c1d4",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-14T09:13:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d1ed47b_47bb900f",
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67aa3511_d5dc56fd",
@@ -186,6 +383,30 @@
       "writtenOn": "2024-01-07T10:19:49Z",
       "side": 1,
       "message": "nit: Kotlin doesn\u0027t require the trailing \";\"\n```suggestion\n        val hostAddresses3 \u003d listOf(parseNumericAddress(\"2002::1\"), parseNumericAddress(\"2002::3\"))\n```",
+      "range": {
+        "startLine": 1395,
+        "startChar": 0,
+        "endLine": 1395,
+        "endChar": 100
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42c63ad9_f37ee0ce",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 1395,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-14T09:13:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67aa3511_d5dc56fd",
       "range": {
         "startLine": 1395,
         "startChar": 0,
@@ -219,6 +440,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "148c9c7f_b5c14b28",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-14T09:13:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "288afcd9_49bbdd22",
+      "range": {
+        "startLine": 590,
+        "startChar": 8,
+        "endLine": 590,
+        "endChar": 92
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8682c4d2_f2035602",
@@ -232,6 +477,30 @@
       "writtenOn": "2024-01-07T10:19:49Z",
       "side": 1,
       "message": "ditto, rename it to\n```suggestion\n    fun testGetReply_AAAAQuestionForCustomHost_returnsCustomAAAARecords() {\n```",
+      "range": {
+        "startLine": 755,
+        "startChar": 8,
+        "endLine": 755,
+        "endChar": 62
+      },
+      "revId": "abea8ec9214db9833f675efff1fe7841a9ffd949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fc8a400_1fe52188",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-14T09:13:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8682c4d2_f2035602",
       "range": {
         "startLine": 755,
         "startChar": 8,
