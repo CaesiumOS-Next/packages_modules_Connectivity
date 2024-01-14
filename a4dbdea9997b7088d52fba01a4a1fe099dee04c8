@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "524cb42b_4c5dc065",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-14T10:05:11Z",
+      "side": 1,
+      "message": "Isn\u0027t \"changing the minimum supported value of an API\" also an API break? Like, apps may depend on the the value no matter a constant is defined or not.",
+      "parentUuid": "fc80f63a_8d5c9503",
+      "range": {
+        "startLine": 312,
+        "startChar": 29,
+        "endLine": 312,
+        "endChar": 44
+      },
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "68342e4b_9423233a",
         "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
         "patchSetId": 64
@@ -83,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1cca7b96_de3475f9",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-14T10:05:11Z",
+      "side": 1,
+      "message": "What about making the TTL hidden APIs? Do you have other use cases that requires custom TTL?",
+      "parentUuid": "2414fd43_49b93b9e",
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5f1d6dc_03ee2b2f",
         "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
         "patchSetId": 64
@@ -94,6 +136,30 @@
       "writtenOn": "2024-01-12T11:12:17Z",
       "side": 1,
       "message": "TTL_SECONDS_MIN ?",
+      "range": {
+        "startLine": 475,
+        "startChar": 25,
+        "endLine": 475,
+        "endChar": 27
+      },
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46c0c6b7_bcc7d9d2",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-14T10:05:11Z",
+      "side": 1,
+      "message": "setTtlSeconds will be used for representing the TTL in RR received on the wire. So we can throw for values smaller than TTL_SECONDS_MIN",
+      "parentUuid": "c5f1d6dc_03ee2b2f",
       "range": {
         "startLine": 475,
         "startChar": 25,
@@ -170,6 +236,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "beda9a40_29482dd5",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-14T10:05:11Z",
+      "side": 1,
+      "message": "For Discovery Proxy, TTL value needs to be passed unmodified for long-lived query and DNS Push Notification. See https://www.rfc-editor.org/rfc/rfc8766.html#name-dns-ttl-limiting:\n\n\u003e For received Unicast DNS queries that use LLQ [RFC8764] or DNS Push Notifications [RFC8765], the Multicast DNS record\u0027s TTL SHOULD be returned unmodified, because the notification channel exists to inform the remote client as records come and go. For further details about Long-Lived Queries and its newer replacement, DNS Push Notifications, see Section 5.6.",
+      "parentUuid": "3b219817_32325d20",
+      "range": {
+        "startLine": 492,
+        "startChar": 16,
+        "endLine": 492,
+        "endChar": 29
+      },
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c77fd05_3444afca",
         "filename": "tests/common/java/android/net/nsd/NsdServiceInfoTest.java",
         "patchSetId": 64
@@ -181,6 +271,24 @@
       "writtenOn": "2024-01-12T11:12:17Z",
       "side": 1,
       "message": "Also 0 should throw ? And other small values ?",
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26fa279b_0a1c1324",
+        "filename": "tests/common/java/android/net/nsd/NsdServiceInfoTest.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-14T10:05:11Z",
+      "side": 1,
+      "message": "0 is used for default value. Like, if 0 is set, default TTL will be used for SRV, TXT records to keep the behavior unchanged when a custom TTL is never set.",
+      "parentUuid": "3c77fd05_3444afca",
       "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
