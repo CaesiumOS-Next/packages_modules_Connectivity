@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1574575d_dd699534",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-14T09:19:09Z",
+      "side": 1,
+      "message": "Maybe a new error code for both service and host name conflicts",
+      "revId": "0d859730d25a964a034b2bb886a6775c68d042a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
