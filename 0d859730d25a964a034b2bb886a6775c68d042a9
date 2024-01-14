@@ -16,6 +16,24 @@
       "message": "Maybe a new error code for both service and host name conflicts",
       "revId": "0d859730d25a964a034b2bb886a6775c68d042a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a89db78_75e25dea",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-14T09:20:46Z",
+      "side": 1,
+      "message": "Is this one what you wanted?\n```\n    field @FlaggedApi(\"com.android.net.flags.nsd_registration_conflict_failure_enabled\") public static final int FAILURE_SERVICE_AND_HOST_NAME_CONFLICT \u003d 9; // 0x9\n```",
+      "parentUuid": "1574575d_dd699534",
+      "revId": "0d859730d25a964a034b2bb886a6775c68d042a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
