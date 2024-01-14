@@ -1651,6 +1651,7 @@ class NsdManagerTest {
             val resolvedInfo = resolveService(discoveredInfo)
 
             assertEquals(TEST_PORT, resolvedInfo.port)
+            assertEquals(si1.hostname, resolvedInfo.hostname)
             assertAddressEquals(hostAddresses1, resolvedInfo.hostAddresses)
 
             registerService(registrationRecord2, si2)
@@ -1662,6 +1663,7 @@ class NsdManagerTest {
             val resolvedInfo2 = resolveService(discoveredInfo2)
 
             assertEquals(TEST_PORT + 1, resolvedInfo2.port)
+            assertEquals(si2.hostname, resolvedInfo2.hostname)
             assertAddressEquals(hostAddresses2, resolvedInfo2.hostAddresses)
         } cleanupStep {
             nsdManager.stopServiceDiscovery(discoveryRecord1)
