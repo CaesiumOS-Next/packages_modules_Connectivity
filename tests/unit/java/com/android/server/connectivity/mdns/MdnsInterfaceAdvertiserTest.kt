@@ -18,6 +18,7 @@ package com.android.server.connectivity.mdns
 
 import android.net.InetAddresses.parseNumericAddress
 import android.net.LinkAddress
+import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
 import android.os.Build
 import android.os.HandlerThread
@@ -26,6 +27,7 @@ import com.android.net.module.util.SharedLog
 import com.android.server.connectivity.mdns.MdnsAnnouncer.AnnouncementInfo
 import com.android.server.connectivity.mdns.MdnsAnnouncer.BaseAnnouncementInfo
 import com.android.server.connectivity.mdns.MdnsAnnouncer.ExitAnnouncementInfo
+import com.android.server.connectivity.mdns.MdnsInterfaceAdvertiser.CONFLICT_SERVICE
 import com.android.server.connectivity.mdns.MdnsInterfaceAdvertiser.EXIT_ANNOUNCEMENT_DELAY_MS
 import com.android.server.connectivity.mdns.MdnsPacketRepeater.PacketRepeaterCallback
 import com.android.server.connectivity.mdns.MdnsProber.ProbingInfo
@@ -263,7 +265,7 @@ class MdnsInterfaceAdvertiserTest {
         }
 
         thread.waitForIdle(TIMEOUT_MS)
-        verify(cb).onServiceConflict(advertiser, TEST_SERVICE_ID_1)
+        verify(cb).onServiceConflict(advertiser, TEST_SERVICE_ID_1, CONFLICT_SERVICE)
     }
 
     @Test

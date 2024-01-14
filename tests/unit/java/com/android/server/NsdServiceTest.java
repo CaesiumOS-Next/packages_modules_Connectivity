@@ -1128,7 +1128,6 @@ public class NsdServiceTest {
         final NsdManager client = connectClient(mService);
         final NsdServiceInfo regInfo = new NsdServiceInfo("Instance", typeWithSubtype);
         final Network network = new Network(999);
-        regInfo.setHostAddresses(List.of(parseNumericAddress("192.0.2.123")));
         regInfo.setPort(12345);
         regInfo.setNetwork(network);
 
@@ -1227,7 +1226,6 @@ public class NsdServiceTest {
         // Create NsdService w/o feature enabled.
         final NsdManager client = connectClient(mService);
         final NsdServiceInfo regInfo = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
-        regInfo.setHost(parseNumericAddress("192.0.2.123"));
         regInfo.setPort(12345);
         final RegistrationListener regListenerWithoutFeature = mock(RegistrationListener.class);
         client.registerService(regInfo, PROTOCOL, regListenerWithoutFeature);
@@ -1271,10 +1269,8 @@ public class NsdServiceTest {
 
         final NsdManager client = connectClient(mService);
         final NsdServiceInfo service1 = new NsdServiceInfo(SERVICE_NAME, "_type1._tcp");
-        service1.setHostAddresses(List.of(parseNumericAddress("2001:db8::123")));
         service1.setPort(1234);
         final NsdServiceInfo service2 = new NsdServiceInfo(SERVICE_NAME, "_type2._tcp");
-        service2.setHostAddresses(List.of(parseNumericAddress("2001:db8::123")));
         service2.setPort(1234);
 
         client.discoverServices(service1.getServiceType(),
@@ -1323,7 +1319,6 @@ public class NsdServiceTest {
         verify(mDeps).makeMdnsAdvertiser(any(), any(), cbCaptor.capture(), any(), any());
 
         final NsdServiceInfo regInfo = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
-        regInfo.setHost(parseNumericAddress("192.0.2.123"));
         regInfo.setPort(12345);
         regInfo.setAttribute("testattr", "testvalue");
         regInfo.setNetwork(new Network(999));
@@ -1374,7 +1369,6 @@ public class NsdServiceTest {
         verify(mDeps).makeMdnsAdvertiser(any(), any(), cbCaptor.capture(), any(), any());
 
         final NsdServiceInfo regInfo = new NsdServiceInfo(SERVICE_NAME, "invalid_type");
-        regInfo.setHost(parseNumericAddress("192.0.2.123"));
         regInfo.setPort(12345);
         regInfo.setAttribute("testattr", "testvalue");
         regInfo.setNetwork(new Network(999));
@@ -1401,7 +1395,6 @@ public class NsdServiceTest {
         verify(mDeps).makeMdnsAdvertiser(any(), any(), cbCaptor.capture(), any(), any());
 
         final NsdServiceInfo regInfo = new NsdServiceInfo("a".repeat(70), SERVICE_TYPE);
-        regInfo.setHost(parseNumericAddress("192.0.2.123"));
         regInfo.setPort(12345);
         regInfo.setAttribute("testattr", "testvalue");
         regInfo.setNetwork(new Network(999));
@@ -1499,7 +1492,6 @@ public class NsdServiceTest {
         final NsdManager client = connectClient(mService);
         final NsdServiceInfo regInfo = new NsdServiceInfo("a".repeat(70), SERVICE_TYPE);
         final Network network = new Network(999);
-        regInfo.setHostAddresses(List.of(parseNumericAddress("192.0.2.123")));
         regInfo.setPort(12345);
         regInfo.setAttribute("testattr", "testvalue");
         regInfo.setNetwork(network);
@@ -1533,7 +1525,6 @@ public class NsdServiceTest {
         final NsdManager client = connectClient(mService);
 
         final NsdServiceInfo regInfo = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
-        regInfo.setHostAddresses(List.of(parseNumericAddress("192.0.2.123")));
         regInfo.setPort(12345);
         // File a request for all networks
         regInfo.setNetwork(null);
@@ -1629,7 +1620,6 @@ public class NsdServiceTest {
 
         // First client advertises on any network
         final NsdServiceInfo regInfo = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
-        regInfo.setHostAddresses(List.of(parseNumericAddress("192.0.2.123")));
         regInfo.setPort(12345);
         regInfo.setNetwork(null);
         final RegistrationListener regListener = mock(RegistrationListener.class);
