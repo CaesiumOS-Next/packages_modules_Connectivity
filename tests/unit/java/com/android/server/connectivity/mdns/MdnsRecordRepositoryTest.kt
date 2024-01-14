@@ -53,6 +53,10 @@ import org.junit.runner.RunWith
 private const val TEST_SERVICE_ID_1 = 42
 private const val TEST_SERVICE_ID_2 = 43
 private const val TEST_SERVICE_ID_3 = 44
+private const val TEST_CUSTOM_HOST_ID_1 = 45
+private const val TEST_CUSTOM_HOST_ID_2 = 46
+private const val TEST_CUSTOM_HOST_ID_3 = 47
+private const val TEST_SERVICE_CUSTOM_HOST_ID_1 = 48
 private const val TEST_PORT = 12345
 private const val TEST_SUBTYPE = "_subtype"
 private const val TEST_SUBTYPE2 = "_subtype2"
@@ -84,6 +88,26 @@ private val TEST_SERVICE_2 = NsdServiceInfo().apply {
 private val TEST_SERVICE_3 = NsdServiceInfo().apply {
     serviceType = "_TESTSERVICE._tcp"
     serviceName = "MyTESTSERVICE"
+    port = TEST_PORT
+}
+
+private val TEST_CUSTOM_HOST_1 = NsdServiceInfo().apply {
+    hostname = "TestHost"
+    hostAddresses = listOf(parseNumericAddress("2001::1"), parseNumericAddress("2001::2"))
+}
+
+private val TEST_CUSTOM_HOST_1_NAME = arrayOf("TestHost", "local")
+
+private val TEST_CUSTOM_HOST_2 = NsdServiceInfo().apply {
+    hostname = "OtherTestHost"
+    hostAddresses = listOf(parseNumericAddress("2001::3"), parseNumericAddress("2001::4"))
+}
+
+private val TEST_SERVICE_CUSTOM_HOST_1 = NsdServiceInfo().apply {
+    hostname = "TestHost"
+    hostAddresses = listOf(parseNumericAddress("2001::1"))
+    serviceType = "_testservice._tcp"
+    serviceName = "TestService"
     port = TEST_PORT
 }
 
@@ -561,6 +585,34 @@ class MdnsRecordRepositoryTest {
             ), reply.additionalAnswers)
     }
 
+
+    @Test
+    fun testGetReply_ptrQuestionForServiceWithCustomHost_customHostUsedInAnswers() {
+        val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME, flags)
+        repository.initWithService(TEST_SERVICE_CUSTOM_HOST_ID_1, TEST_SERVICE_CUSTOM_HOST_1, setOf(TEST_SUBTYPE, TEST_SUBTYPE2))
+        val src = InetSocketAddress(parseNumericAddress("fe80::1234"), 5353)
+        val serviceName = arrayOf("TestService", "_testservice", "_tcp", "local")
+
+        val query = makeQuery(TYPE_PTR to arrayOf("_testservice", "_tcp", "local"))
+        val reply = repository.getReply(query, src)
+
+        assertNotNull(reply)
+        assertEquals(listOf(
+                MdnsPointerRecord(
+                        arrayOf("_testservice", "_tcp", "local"), 0L, false, LONG_TTL, serviceName)),
+                reply.answers)
+        assertEquals(listOf(
+                MdnsTextRecord(serviceName, 0L, true, LONG_TTL, listOf()),
+                MdnsServiceRecord(serviceName, 0L, true, SHORT_TTL, 0, 0, TEST_PORT, TEST_CUSTOM_HOST_1_NAME),
+                MdnsInetAddressRecord(
+                        TEST_CUSTOM_HOST_1_NAME, 0L, true, SHORT_TTL, parseNumericAddress("2001::1")),
+                MdnsNsecRecord(serviceName, 0L, true, LONG_TTL, serviceName /* nextDomain */,
+                        intArrayOf(TYPE_TXT, TYPE_SRV)),
+                MdnsNsecRecord(TEST_CUSTOM_HOST_1_NAME, 0L, true, SHORT_TTL, TEST_CUSTOM_HOST_1_NAME /* nextDomain */,
+                        intArrayOf(TYPE_AAAA)),
+        ), reply.additionalAnswers)
+    }
+
     @Test
     fun testGetReply_singleSubtypePtrQuestion_returnsSrvTxtAddressNsecRecords() {
         val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME, flags)
@@ -700,6 +752,43 @@ class MdnsRecordRepositoryTest {
     }
 
     @Test
+    fun testGetReply_AAAAQuestionForCustomHost_returnsAAAARecord() {
+        val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME, flags)
+        repository.initWithService(
+                TEST_CUSTOM_HOST_ID_1, TEST_CUSTOM_HOST_1, subtypes = setOf(),
+                listOf(LinkAddress(parseNumericAddress("192.0.2.111"), 24)))
+        repository.addService(TEST_CUSTOM_HOST_ID_2, TEST_CUSTOM_HOST_2)
+        val src = InetSocketAddress(parseNumericAddress("fe80::123"), 5353)
+
+        val query = makeQuery(TYPE_AAAA to TEST_CUSTOM_HOST_1_NAME)
+        val reply = repository.getReply(query, src)
+
+        assertNotNull(reply)
+        assertEquals(listOf(
+                MdnsInetAddressRecord(TEST_CUSTOM_HOST_1_NAME, 0, false, LONG_TTL, parseNumericAddress("2001::1")),
+                MdnsInetAddressRecord(TEST_CUSTOM_HOST_1_NAME, 0, false, LONG_TTL, parseNumericAddress("2001::2"))),
+                reply.answers)
+    }
+
+    @Test
+    fun testGetReply_customHostRemoved_noAnswerToAAAAQuestion() {
+        val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME, flags)
+        repository.initWithService(
+                TEST_CUSTOM_HOST_ID_1, TEST_CUSTOM_HOST_1, subtypes = setOf(),
+                listOf(LinkAddress(parseNumericAddress("192.0.2.111"), 24)))
+        repository.addService(TEST_SERVICE_CUSTOM_HOST_ID_1, TEST_SERVICE_CUSTOM_HOST_1)
+        repository.removeService(TEST_CUSTOM_HOST_ID_1)
+        repository.removeService(TEST_SERVICE_CUSTOM_HOST_ID_1)
+
+        val src = InetSocketAddress(parseNumericAddress("fe80::123"), 5353)
+
+        val query = makeQuery(TYPE_AAAA to TEST_CUSTOM_HOST_1_NAME)
+        val reply = repository.getReply(query, src)
+
+        assertNull(reply)
+    }
+
+    @Test
     fun testGetReply_ptrAndSrvQuestions_doesNotReturnSrvRecordInAdditionalAnswerSection() {
         val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME, flags)
         repository.initWithService(TEST_SERVICE_ID_1, TEST_SERVICE_1, setOf(TEST_SUBTYPE))
@@ -808,7 +897,7 @@ class MdnsRecordRepositoryTest {
                 emptyList() /* additionalRecords */)
 
         assertEquals(setOf(TEST_SERVICE_ID_1, TEST_SERVICE_ID_2),
-                repository.getConflictingServices(packet))
+                repository.getConflictingServicesDueToSrvTxtRecords(packet))
     }
 
     @Test
@@ -836,7 +925,108 @@ class MdnsRecordRepositoryTest {
             emptyList() /* additionalRecords */)
 
         assertEquals(setOf(TEST_SERVICE_ID_1, TEST_SERVICE_ID_2),
-            repository.getConflictingServices(packet))
+            repository.getConflictingServicesDueToSrvTxtRecords(packet))
+    }
+
+    @Test
+    fun testGetConflictingServices_customHosts_differentAddresses() {
+        val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME, flags)
+        repository.addService(TEST_CUSTOM_HOST_ID_1, TEST_CUSTOM_HOST_1)
+        repository.addService(TEST_CUSTOM_HOST_ID_2, TEST_CUSTOM_HOST_2);
+
+        val packet = MdnsPacket(
+                0, /* flags */
+                emptyList(), /* questions */
+                listOf(
+                        MdnsInetAddressRecord(arrayOf("TestHost", "local"), 0L /* receiptTimeMillis */, true /* cacheFlush */, 0L /* ttlMillis */, parseNumericAddress("2001::5")),
+                        MdnsInetAddressRecord(arrayOf("TestHost", "local"), 0L /* receiptTimeMillis */, true /* cacheFlush */, 0L /* ttlMillis */, parseNumericAddress("2001::6")),
+                ) /* answers */,
+                emptyList() /* authorityRecords */,
+                emptyList() /* additionalRecords */)
+
+        assertEquals(setOf(TEST_CUSTOM_HOST_ID_1),
+                repository.getConflictingServicesDueToGeneralRecords(packet))
+    }
+
+    @Test
+    fun testGetConflictingServices_customHosts_moreAddressesThanUs_conflict() {
+        val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME, flags)
+        repository.addService(TEST_CUSTOM_HOST_ID_1, TEST_CUSTOM_HOST_1)
+        repository.addService(TEST_CUSTOM_HOST_ID_2, TEST_CUSTOM_HOST_2);
+
+        val packet = MdnsPacket(
+                0, /* flags */
+                emptyList(), /* questions */
+                listOf(
+                        MdnsInetAddressRecord(arrayOf("TestHost", "local"), 0L /* receiptTimeMillis */, true /* cacheFlush */, 0L /* ttlMillis */, parseNumericAddress("2001::1")),
+                        MdnsInetAddressRecord(arrayOf("TestHost", "local"), 0L /* receiptTimeMillis */, true /* cacheFlush */, 0L /* ttlMillis */, parseNumericAddress("2001::2")),
+                        MdnsInetAddressRecord(arrayOf("TestHost", "local"), 0L /* receiptTimeMillis */, true /* cacheFlush */, 0L /* ttlMillis */, parseNumericAddress("2001::3")),
+                ) /* answers */,
+                emptyList() /* authorityRecords */,
+                emptyList() /* additionalRecords */)
+
+        assertEquals(setOf(TEST_CUSTOM_HOST_ID_1),
+                repository.getConflictingServicesDueToGeneralRecords(packet))
+    }
+
+    @Test
+    fun testGetConflictingServices_customHosts_fewerAddressesThanUs_noConflict() {
+        val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME, flags)
+        repository.addService(TEST_CUSTOM_HOST_ID_1, TEST_CUSTOM_HOST_1)
+        repository.addService(TEST_CUSTOM_HOST_ID_2, TEST_CUSTOM_HOST_2);
+
+        val packet = MdnsPacket(
+                0, /* flags */
+                emptyList(), /* questions */
+                listOf(
+                        MdnsInetAddressRecord(arrayOf("TestHost", "local"), 0L /* receiptTimeMillis */, true /* cacheFlush */, 0L /* ttlMillis */, parseNumericAddress("2001::2")),
+                ) /* answers */,
+                emptyList() /* authorityRecords */,
+                emptyList() /* additionalRecords */)
+
+        assertEquals(setOf(),
+                repository.getConflictingServicesDueToGeneralRecords(packet))
+    }
+
+    @Test
+    fun testGetConflictingServices_customHosts_identicalHosts_noConflict() {
+        val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME, flags)
+        repository.addService(TEST_CUSTOM_HOST_ID_1, TEST_CUSTOM_HOST_1)
+        repository.addService(TEST_CUSTOM_HOST_ID_2, TEST_CUSTOM_HOST_2);
+
+        val packet = MdnsPacket(
+                0, /* flags */
+                emptyList(), /* questions */
+                listOf(
+                        MdnsInetAddressRecord(arrayOf("TestHost", "local"), 0L /* receiptTimeMillis */, true /* cacheFlush */, 0L /* ttlMillis */, parseNumericAddress("2001::1")),
+                        MdnsInetAddressRecord(arrayOf("TestHost", "local"), 0L /* receiptTimeMillis */, true /* cacheFlush */, 0L /* ttlMillis */, parseNumericAddress("2001::2")),
+                ) /* answers */,
+                emptyList() /* authorityRecords */,
+                emptyList() /* additionalRecords */)
+
+        assertEquals(setOf(),
+                repository.getConflictingServicesDueToGeneralRecords(packet))
+    }
+
+
+    @Test
+    fun testGetConflictingServices_customHostsCaseInsensitive_identicalHosts_noConflict() {
+        val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME, flags)
+        repository.addService(TEST_CUSTOM_HOST_ID_1, TEST_CUSTOM_HOST_1)
+        repository.addService(TEST_CUSTOM_HOST_ID_2, TEST_CUSTOM_HOST_2);
+
+        val packet = MdnsPacket(
+                0, /* flags */
+                emptyList(), /* questions */
+                listOf(
+                        MdnsInetAddressRecord(arrayOf("TESTHOST", "local"), 0L /* receiptTimeMillis */, true /* cacheFlush */, 0L /* ttlMillis */, parseNumericAddress("2001::1")),
+                        MdnsInetAddressRecord(arrayOf("testhost", "local"), 0L /* receiptTimeMillis */, true /* cacheFlush */, 0L /* ttlMillis */, parseNumericAddress("2001::2")),
+                ) /* answers */,
+                emptyList() /* authorityRecords */,
+                emptyList() /* additionalRecords */)
+
+        assertEquals(setOf(),
+                repository.getConflictingServicesDueToGeneralRecords(packet))
     }
 
     @Test
@@ -865,7 +1055,7 @@ class MdnsRecordRepositoryTest {
                 emptyList() /* additionalRecords */)
 
         // Above records are identical to the actual registrations: no conflict
-        assertEquals(emptySet(), repository.getConflictingServices(packet))
+        assertEquals(emptySet(), repository.getConflictingServicesDueToSrvTxtRecords(packet))
     }
 
     @Test
@@ -894,7 +1084,7 @@ class MdnsRecordRepositoryTest {
                 emptyList() /* additionalRecords */)
 
         // Above records are identical to the actual registrations: no conflict
-        assertEquals(emptySet(), repository.getConflictingServices(packet))
+        assertEquals(emptySet(), repository.getConflictingServicesDueToSrvTxtRecords(packet))
     }
 
     @Test

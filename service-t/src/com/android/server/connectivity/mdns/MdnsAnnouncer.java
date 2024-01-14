@@ -46,35 +46,47 @@ public class MdnsAnnouncer extends MdnsPacketRepeater<MdnsAnnouncer.BaseAnnounce
     /** Base class for announcement requests to send with {@link MdnsAnnouncer}. */
     public abstract static class BaseAnnouncementInfo implements MdnsPacketRepeater.Request {
         private final int mServiceId;
-        @NonNull
-        private final MdnsPacket mPacket;
 
-        protected BaseAnnouncementInfo(int serviceId, @NonNull List<MdnsRecord> announcedRecords,
-                @NonNull List<MdnsRecord> additionalRecords) {
+        protected BaseAnnouncementInfo(int serviceId) {
             mServiceId = serviceId;
-            final int flags = 0x8400; // Response, authoritative (rfc6762 18.4)
-            mPacket = new MdnsPacket(flags,
-                    Collections.emptyList() /* questions */,
-                    announcedRecords,
-                    Collections.emptyList() /* authorityRecords */,
-                    additionalRecords);
         }
 
         public int getServiceId() {
             return mServiceId;
         }
 
-        @Override
-        public MdnsPacket getPacket(int index) {
-            return mPacket;
+        protected static MdnsPacket makePacket(
+                @NonNull List<MdnsRecord> announcedRecords,
+                @NonNull List<MdnsRecord> additionalRecords) {
+            final int flags = 0x8400; // Response, authoritative (rfc6762 18.4)
+            return new MdnsPacket(
+                    flags,
+                    Collections.emptyList() /* questions */,
+                    announcedRecords,
+                    Collections.emptyList() /* authorityRecords */,
+                    additionalRecords);
         }
     }
 
     /** Announcement request to send with {@link MdnsAnnouncer}. */
     public static class AnnouncementInfo extends BaseAnnouncementInfo {
-        AnnouncementInfo(int serviceId, List<MdnsRecord> announcedRecords,
+        @Nullable private final MdnsRecordRepository mRecordRepository;
+
+        @Nullable private MdnsPacket mPacket;
+
+        AnnouncementInfo(
+                int serviceId,
+                List<MdnsRecord> announcedRecords,
                 List<MdnsRecord> additionalRecords) {
-            super(serviceId, announcedRecords, additionalRecords);
+            super(serviceId);
+            mRecordRepository = null;
+            mPacket = makePacket(announcedRecords, additionalRecords);
+        }
+
+        AnnouncementInfo(int serviceId, @NonNull MdnsRecordRepository recordRepository) {
+            super(serviceId);
+            mRecordRepository = recordRepository;
+            mPacket = null;
         }
 
         @Override
@@ -87,12 +99,28 @@ public class MdnsAnnouncer extends MdnsPacketRepeater<MdnsAnnouncer.BaseAnnounce
         public int getNumSends() {
             return ANNOUNCEMENT_COUNT;
         }
+
+        @Override
+        public @NonNull MdnsPacket getPacket(int index) {
+            if (mPacket != null) {
+                return mPacket;
+            }
+            List<MdnsRecord> answerRecords =
+                    mRecordRepository.makeAnnouncementAnswerRecords(getServiceId());
+            List<MdnsRecord> additionalRecords =
+                    mRecordRepository.makeAnnouncementAdditionalRecords(getServiceId());
+            return makePacket(answerRecords, additionalRecords);
+        }
     }
 
     /** Service exit announcement request to send with {@link MdnsAnnouncer}. */
     public static class ExitAnnouncementInfo extends BaseAnnouncementInfo {
-        ExitAnnouncementInfo(int serviceId, List<MdnsRecord> announcedRecords) {
-            super(serviceId, announcedRecords, Collections.emptyList() /* additionalRecords */);
+        @NonNull
+        private final MdnsPacket mPacket;
+
+        ExitAnnouncementInfo(int serviceId, @NonNull List<MdnsRecord> announcedRecords) {
+            super(serviceId);
+            mPacket = makePacket(announcedRecords, Collections.emptyList() /* additionalRecords */);
         }
 
         @Override
@@ -103,6 +131,11 @@ public class MdnsAnnouncer extends MdnsPacketRepeater<MdnsAnnouncer.BaseAnnounce
         @Override
         public int getNumSends() {
             return EXIT_COUNT;
+        }
+
+        @Override
+        public @NonNull MdnsPacket getPacket(int index) {
+            return mPacket;
         }
     }
 
