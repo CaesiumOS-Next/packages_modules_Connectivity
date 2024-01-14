@@ -28,6 +28,7 @@ import android.net.nsd.NsdServiceInfo;
 import android.os.Build;
 import android.os.Looper;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.util.ArraySet;
 import android.util.SparseArray;
 
@@ -45,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -88,6 +90,8 @@ public class MdnsRecordRepository {
     @NonNull
     private final List<RecordInfo<?>> mGeneralRecords = new ArrayList<>();
     @NonNull
+    private final Map<String, Integer> mCustomHostnameRefCount = new HashMap<>();
+    @NonNull
     private final Looper mLooper;
     @NonNull
     private final String[] mDeviceHostname;
@@ -124,7 +128,7 @@ public class MdnsRecordRepository {
 
     private static class RecordInfo<T extends MdnsRecord> {
         public final T record;
-        public final NsdServiceInfo serviceInfo;
+        public NsdServiceInfo serviceInfo;
 
         /**
          * Whether the name of this record is expected to be fully owned by the service or may be
@@ -158,9 +162,9 @@ public class MdnsRecordRepository {
         public final List<RecordInfo<?>> allRecords;
         @NonNull
         public final List<RecordInfo<MdnsPointerRecord>> ptrRecords;
-        @NonNull
+        @Nullable
         public final RecordInfo<MdnsServiceRecord> srvRecord;
-        @NonNull
+        @Nullable
         public final RecordInfo<MdnsTextRecord> txtRecord;
         @NonNull
         public final NsdServiceInfo serviceInfo;
@@ -201,7 +205,27 @@ public class MdnsRecordRepository {
         ServiceRegistration(@NonNull String[] deviceHostname, @NonNull NsdServiceInfo serviceInfo,
                 int repliedServiceCount, int sentPacketCount, boolean exiting, boolean isProbing) {
             this.serviceInfo = serviceInfo;
+            this.repliedServiceCount = repliedServiceCount;
+            this.sentPacketCount = sentPacketCount;
+            this.isProbing = isProbing;
+            this.exiting = exiting;
 
+            final boolean hasService = !TextUtils.isEmpty(serviceInfo.getServiceName());
+
+            // No service instance. No records will be added.
+            if (!hasService) {
+                ptrRecords = Collections.emptyList();
+                srvRecord = null;
+                txtRecord = null;
+                allRecords = Collections.emptyList();
+                return;
+            }
+
+            final boolean hasCustomHost = !TextUtils.isEmpty(serviceInfo.getHostname());
+            final String[] hostname =
+                    hasCustomHost
+                            ? new String[] {serviceInfo.getHostname(), LOCAL_TLD}
+                            : deviceHostname;
             final String[] serviceType = splitServiceType(serviceInfo);
             final String[] serviceName = splitFullyQualifiedName(serviceInfo, serviceType);
 
@@ -235,7 +259,7 @@ public class MdnsRecordRepository {
                             true /* cacheFlush */,
                             NAME_RECORDS_TTL_MILLIS, 0 /* servicePriority */, 0 /* serviceWeight */,
                             serviceInfo.getPort(),
-                            deviceHostname),
+                            hostname),
                     false /* sharedName */);
 
             txtRecord = new RecordInfo<>(
@@ -261,12 +285,7 @@ public class MdnsRecordRepository {
                             NON_NAME_RECORDS_TTL_MILLIS,
                             serviceType),
                     true /* sharedName */));
-
             this.allRecords = Collections.unmodifiableList(allRecords);
-            this.repliedServiceCount = repliedServiceCount;
-            this.sentPacketCount = sentPacketCount;
-            this.isProbing = isProbing;
-            this.exiting = exiting;
         }
 
         /**
@@ -284,36 +303,58 @@ public class MdnsRecordRepository {
         void setProbing(boolean probing) {
             this.isProbing = probing;
         }
-
     }
 
     /**
      * Inform the repository of the latest interface addresses.
      */
     public void updateAddresses(@NonNull List<LinkAddress> newAddresses) {
-        mGeneralRecords.clear();
+        mGeneralRecords.removeIf(recordInfo -> recordInfo.serviceInfo == null);
         for (LinkAddress addr : newAddresses) {
-            final String[] revDnsAddr = getReverseDnsAddress(addr.getAddress());
-            mGeneralRecords.add(new RecordInfo<>(
-                    null /* serviceInfo */,
-                    new MdnsPointerRecord(
-                            revDnsAddr,
-                            0L /* receiptTimeMillis */,
-                            true /* cacheFlush */,
-                            NAME_RECORDS_TTL_MILLIS,
-                            mDeviceHostname),
-                    false /* sharedName */));
-
-            mGeneralRecords.add(new RecordInfo<>(
-                    null /* serviceInfo */,
-                    new MdnsInetAddressRecord(
-                            mDeviceHostname,
-                            0L /* receiptTimeMillis */,
-                            true /* cacheFlush */,
-                            NAME_RECORDS_TTL_MILLIS,
-                            addr.getAddress()),
-                    false /* sharedName */));
+            addAddressForHost(null /* serviceInfo */, mDeviceHostname, addr.getAddress());
         }
+    }
+
+    private void clearAddressesForHost(@Nullable String hostname) {
+        if (hostname == null) {
+            return;
+        }
+        mGeneralRecords.removeIf(
+                recordInfo ->
+                        recordInfo.serviceInfo != null
+                                && recordInfo.serviceInfo.getHostname() != null
+                                && MdnsUtils.equalsIgnoreDnsCase(
+                                        hostname, recordInfo.serviceInfo.getHostname()));
+    }
+
+    private void addAddressForHost(
+            @Nullable NsdServiceInfo serviceInfo,
+            @Nullable String[] hostname,
+            @NonNull InetAddress address) {
+        if (hostname == null) {
+            return;
+        }
+        final String[] revDnsAddr = getReverseDnsAddress(address);
+        mGeneralRecords.add(
+                new RecordInfo<>(
+                        serviceInfo,
+                        new MdnsPointerRecord(
+                                revDnsAddr,
+                                0L /* receiptTimeMillis */,
+                                true /* cacheFlush */,
+                                NAME_RECORDS_TTL_MILLIS,
+                                hostname),
+                        false /* sharedName */));
+        mGeneralRecords.add(
+                new RecordInfo<>(
+                        serviceInfo,
+                        new MdnsInetAddressRecord(
+                                hostname,
+                                0L /* receiptTimeMillis */,
+                                true /* cacheFlush */,
+                                NAME_RECORDS_TTL_MILLIS,
+                                address),
+                        false /* sharedName */));
     }
 
     /**
@@ -331,6 +372,11 @@ public class MdnsRecordRepository {
         final ServiceRegistration updatedRegistration = existingRegistration.withSubtypes(
                 subtypes);
         mServices.put(serviceId, updatedRegistration);
+        for (RecordInfo<?> record : mGeneralRecords) {
+            if (record.serviceInfo == existingRegistration.serviceInfo) {
+                record.serviceInfo = updatedRegistration.serviceInfo;
+            }
+        }
     }
 
     /**
@@ -359,20 +405,73 @@ public class MdnsRecordRepository {
                 mDeviceHostname, serviceInfo, NO_PACKET /* repliedServiceCount */,
                 NO_PACKET /* sentPacketCount */);
         mServices.put(serviceId, registration);
+        incrementCustomHostRefCount(registration.serviceInfo.getHostname());
 
         // Remove existing exiting service
+        if (existing >= 0) {
+            decrementCustomHostRefCount(mServices.get(existing).serviceInfo.getHostname());
+        }
         mServices.remove(existing);
+
+        // Update addresses for the custom host
+        if (!TextUtils.isEmpty(serviceInfo.getHostname())
+                && !CollectionUtils.isEmpty(serviceInfo.getHostAddresses())) {
+            clearAddressesForHost(serviceInfo.getHostname());
+            String[] hostname = new String[] {serviceInfo.getHostname(), LOCAL_TLD};
+            for (InetAddress address : serviceInfo.getHostAddresses()) {
+                addAddressForHost(serviceInfo, hostname, address);
+            }
+        }
+
         return existing;
+    }
+
+    private void incrementCustomHostRefCount(@Nullable String hostname) {
+        if (TextUtils.isEmpty(hostname)) {
+            return;
+        }
+        int count = mCustomHostnameRefCount.getOrDefault(hostname, 0);
+        mCustomHostnameRefCount.put(hostname, ++count);
+    }
+
+    private void decrementCustomHostRefCount(@Nullable String hostname) {
+        if (TextUtils.isEmpty(hostname)) {
+            return;
+        }
+        int count = mCustomHostnameRefCount.getOrDefault(hostname, 0);
+        if (--count == 0) {
+            mCustomHostnameRefCount.remove(hostname);
+            clearAddressesForHost(hostname);
+        } else {
+            mCustomHostnameRefCount.put(hostname, count);
+        }
     }
 
     /**
      * @return The ID of the service identified by its name, or -1 if none.
      */
-    private int getServiceByName(@NonNull String serviceName) {
+    private int getServiceByName(@Nullable String serviceName) {
+        if (TextUtils.isEmpty(serviceName)) {
+            return -1;
+        }
         for (int i = 0; i < mServices.size(); i++) {
             final ServiceRegistration registration = mServices.valueAt(i);
-            if (MdnsUtils.equalsIgnoreDnsCase(serviceName,
-                    registration.serviceInfo.getServiceName())) {
+            if (registration.serviceInfo.getServiceName() != null
+                    && MdnsUtils.equalsIgnoreDnsCase(
+                            serviceName, registration.serviceInfo.getServiceName())) {
+                return mServices.keyAt(i);
+            }
+        }
+        return -1;
+    }
+
+
+    /**
+     * @return The ID of the service identified by {@link NsdServiceInfo}, or -1 if none.
+     */
+    private int getServiceByServiceInfo(@NonNull NsdServiceInfo serviceInfo) {
+        for (int i = 0; i < mServices.size(); i++) {
+            if (mServices.valueAt(i).serviceInfo == serviceInfo) {
                 return mServices.keyAt(i);
             }
         }
@@ -380,18 +479,20 @@ public class MdnsRecordRepository {
     }
 
     private MdnsProber.ProbingInfo makeProbingInfo(int serviceId,
-            @NonNull MdnsServiceRecord srvRecord,
+            @Nullable MdnsServiceRecord srvRecord,
             @NonNull List<MdnsInetAddressRecord> inetAddressRecords) {
         final List<MdnsRecord> probingRecords = new ArrayList<>();
         // Probe with cacheFlush cleared; it is set when announcing, as it was verified unique:
         // RFC6762 10.2
-        probingRecords.add(new MdnsServiceRecord(srvRecord.getName(),
-                0L /* receiptTimeMillis */,
-                false /* cacheFlush */,
-                srvRecord.getTtl(),
-                srvRecord.getServicePriority(), srvRecord.getServiceWeight(),
-                srvRecord.getServicePort(),
-                srvRecord.getServiceHost()));
+        if (srvRecord != null) {
+            probingRecords.add(new MdnsServiceRecord(srvRecord.getName(),
+                    0L /* receiptTimeMillis */,
+                    false /* cacheFlush */,
+                    srvRecord.getTtl(),
+                    srvRecord.getServicePriority(), srvRecord.getServiceWeight(),
+                    srvRecord.getServicePort(),
+                    srvRecord.getServiceHost()));
+        }
 
         for (MdnsInetAddressRecord inetAddressRecord : inetAddressRecords) {
             probingRecords.add(new MdnsInetAddressRecord(inetAddressRecord.getName(),
@@ -403,6 +504,42 @@ public class MdnsRecordRepository {
                             : inetAddressRecord.getInet4Address()));
         }
         return new MdnsProber.ProbingInfo(serviceId, probingRecords);
+    }
+
+    public @NonNull List<MdnsRecord> makeAnnouncementAnswerRecords(int serviceId) {
+        final ArrayList<MdnsRecord> answers = new ArrayList<>();
+        ServiceRegistration registration = mServices.get(serviceId);
+
+        if (registration == null) {
+            return answers;
+        }
+
+        // Address records in general records
+        for (RecordInfo<?> record : mGeneralRecords) {
+            if (recordMatchesServiceInfo(record, registration.serviceInfo)) {
+                answers.add(record.record);
+            }
+        }
+
+        // All service records
+        for (RecordInfo<?> info : registration.allRecords) {
+            answers.add(info.record);
+        }
+
+        return answers;
+    }
+
+    public @NonNull List<MdnsRecord> makeAnnouncementAdditionalRecords(int serviceId) {
+        final ArrayList<MdnsRecord> additionalAnswers = new ArrayList<>();
+        ServiceRegistration registration = mServices.get(serviceId);
+
+        if (registration == null) {
+            return additionalAnswers;
+        }
+        addNsecRecordsForUniqueNames(
+                additionalAnswers, mGeneralRecords.iterator(), registration.allRecords.iterator());
+
+        return additionalAnswers;
     }
 
     private static List<MdnsServiceInfo.TextEntry> attrsToTextEntries(Map<String, byte[]> attrs) {
@@ -448,6 +585,10 @@ public class MdnsRecordRepository {
     }
 
     public void removeService(int id) {
+        final NsdServiceInfo serviceInfo = mServices.get(id).serviceInfo;
+        if (!TextUtils.isEmpty(serviceInfo.getHostname())) {
+            decrementCustomHostRefCount(serviceInfo.getHostname());
+        }
         mServices.remove(id);
     }
 
@@ -486,6 +627,8 @@ public class MdnsRecordRepository {
         for (int i = 0; i < mServices.size(); i++) {
             ret[i] = mServices.keyAt(i);
         }
+        mGeneralRecords.removeIf(r -> r.serviceInfo != null);
+        mCustomHostnameRefCount.clear();
         mServices.clear();
         return ret;
     }
@@ -509,7 +652,8 @@ public class MdnsRecordRepository {
         for (MdnsRecord question : packet.questions) {
             // Add answers from general records
             addReplyFromService(question, mGeneralRecords, null /* servicePtrRecord */,
-                    null /* serviceSrvRecord */, null /* serviceTxtRecord */, replyUnicast, now,
+                    null /* serviceSrvRecord */, null /* serviceTxtRecord */,
+                    null /* serviceInfo */, replyUnicast, now,
                     answerInfo, additionalAnswerInfo, Collections.emptyList());
 
             // Add answers from each service
@@ -517,8 +661,8 @@ public class MdnsRecordRepository {
                 final ServiceRegistration registration = mServices.valueAt(i);
                 if (registration.exiting || registration.isProbing) continue;
                 if (addReplyFromService(question, registration.allRecords, registration.ptrRecords,
-                        registration.srvRecord, registration.txtRecord, replyUnicast, now,
-                        answerInfo, additionalAnswerInfo, packet.answers)) {
+                        registration.srvRecord, registration.txtRecord, registration.serviceInfo,
+                        replyUnicast, now, answerInfo, additionalAnswerInfo, packet.answers)) {
                     registration.repliedServiceCount++;
                     registration.sentPacketCount++;
                 }
@@ -608,6 +752,7 @@ public class MdnsRecordRepository {
             @Nullable List<RecordInfo<MdnsPointerRecord>> servicePtrRecords,
             @Nullable RecordInfo<MdnsServiceRecord> serviceSrvRecord,
             @Nullable RecordInfo<MdnsTextRecord> serviceTxtRecord,
+            @Nullable NsdServiceInfo serviceInfo,
             boolean replyUnicast, long now, @NonNull Set<RecordInfo<?>> answerInfo,
             @NonNull Set<RecordInfo<?>> additionalAnswerInfo,
             @NonNull List<MdnsRecord> knownAnswerRecords) {
@@ -700,11 +845,7 @@ public class MdnsRecordRepository {
 
         // RFC6763 12.1&.2: if including PTR or SRV record, include the address records it names
         if (hasDnsSdPtrRecordAnswer || hasDnsSdSrvRecordAnswer) {
-            for (RecordInfo<?> record : mGeneralRecords) {
-                if (record.record instanceof MdnsInetAddressRecord) {
-                    additionalAnswerInfo.add(record);
-                }
-            }
+            additionalAnswerInfo.addAll(getInetAddressRecordsForService(serviceInfo));
         }
         return true;
     }
@@ -818,29 +959,14 @@ public class MdnsRecordRepository {
             MdnsProber.ProbingInfo probeSuccessInfo)
             throws IOException {
 
-        final ServiceRegistration registration = mServices.get(probeSuccessInfo.getServiceId());
-        if (registration == null) throw new IOException(
-                "Service is not registered: " + probeSuccessInfo.getServiceId());
+        int serviceId = probeSuccessInfo.getServiceId();
+        final ServiceRegistration registration = mServices.get(serviceId);
+        if (registration == null) {
+            throw new IOException("Service is not registered: " + serviceId);
+        }
         registration.setProbing(false);
 
-        final ArrayList<MdnsRecord> answers = new ArrayList<>();
-        final ArrayList<MdnsRecord> additionalAnswers = new ArrayList<>();
-
-        // Interface address records in general records
-        for (RecordInfo<?> record : mGeneralRecords) {
-            answers.add(record.record);
-        }
-
-        // All service records
-        for (RecordInfo<?> info : registration.allRecords) {
-            answers.add(info.record);
-        }
-
-        addNsecRecordsForUniqueNames(additionalAnswers,
-                mGeneralRecords.iterator(), registration.allRecords.iterator());
-
-        return new MdnsAnnouncer.AnnouncementInfo(probeSuccessInfo.getServiceId(),
-                answers, additionalAnswers);
+        return new MdnsAnnouncer.AnnouncementInfo(serviceId, this);
     }
 
     /**
@@ -859,10 +985,15 @@ public class MdnsRecordRepository {
         for (RecordInfo<MdnsPointerRecord> ptrRecord : registration.ptrRecords) {
             answers.add(ptrRecord.record);
         }
-        answers.add(registration.srvRecord.record);
-        answers.add(registration.txtRecord.record);
+        if (registration.srvRecord != null) {
+            answers.add(registration.srvRecord.record);
+        }
+        if (registration.txtRecord != null) {
+            answers.add(registration.txtRecord.record);
+        }
         for (RecordInfo<?> record : mGeneralRecords) {
-            if (record.record instanceof MdnsInetAddressRecord) {
+            if (record.record instanceof MdnsInetAddressRecord
+                    && recordMatchesServiceInfo(record, registration.serviceInfo)) {
                 answers.add(record.record);
             }
         }
@@ -878,13 +1009,59 @@ public class MdnsRecordRepository {
     /**
      * Get the service IDs of services conflicting with a received packet.
      */
-    public Set<Integer> getConflictingServices(MdnsPacket packet) {
+    public Set<Integer> getConflictingServicesDueToGeneralRecords(MdnsPacket packet) {
+        // Avoid allocating a new set for each incoming packet: use an empty set by default.
+        Set<Integer> conflicting = Collections.emptySet();
+        for (MdnsRecord record : packet.answers) {
+            // Identical record is not a conflict
+            if (hasGeneralRecord(record)) {
+                continue;
+            }
+            for (RecordInfo<?> recordInfo : mGeneralRecords) {
+                if (recordInfo.serviceInfo == null) {
+                    continue;
+                }
+                if (record.getType() !=  recordInfo.record.getType()) {
+                    continue;
+                }
+                if (!MdnsUtils.equalsDnsLabelIgnoreDnsCase(
+                        record.getName(), recordInfo.record.getName())) {
+                    continue;
+                }
+                // Identical record is not a conflict
+                if (Objects.equals(record, recordInfo.record)) {
+                    continue;
+                }
+                final int serviceId = getServiceByServiceInfo(recordInfo.serviceInfo);
+                // The answer record conflicts with a general record associated with a service
+                // registration.
+                if (serviceId >= 0 && !mServices.get(serviceId).exiting) {
+                    if (conflicting.isEmpty()) {
+                        // Conflict was found: use a mutable set
+                        conflicting = new ArraySet<>();
+                    }
+                    conflicting.add(serviceId);
+                }
+            }
+        }
+
+        return conflicting;
+    }
+
+    /**
+     * Get the service IDs of services conflicting with a received packet.
+     */
+    public Set<Integer> getConflictingServicesDueToSrvTxtRecords(MdnsPacket packet) {
         // Avoid allocating a new set for each incoming packet: use an empty set by default.
         Set<Integer> conflicting = Collections.emptySet();
         for (MdnsRecord record : packet.answers) {
             for (int i = 0; i < mServices.size(); i++) {
                 final ServiceRegistration registration = mServices.valueAt(i);
                 if (registration.exiting) continue;
+
+                if (registration.srvRecord == null) {
+                    continue;
+                }
 
                 // Only look for conflicts in service name, as a different service name can be used
                 // if there is a conflict, but there is nothing actionable if any other conflict
@@ -927,11 +1104,36 @@ public class MdnsRecordRepository {
         return conflicting;
     }
 
-    private List<MdnsInetAddressRecord> makeProbingInetAddressRecords() {
+    private boolean hasGeneralRecord(@NonNull MdnsRecord record) {
+        for (RecordInfo<?> recordInfo : mGeneralRecords) {
+            if (Objects.equals(record, recordInfo.record)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<RecordInfo<MdnsInetAddressRecord>> getInetAddressRecordsForService(
+            @Nullable NsdServiceInfo serviceInfo) {
+        final List<RecordInfo<MdnsInetAddressRecord>> records = new ArrayList<>();
+        for (RecordInfo<?> record : mGeneralRecords) {
+            if (record.record instanceof MdnsInetAddressRecord
+                    && recordMatchesServiceInfo(record, serviceInfo)) {
+                records.add((RecordInfo<MdnsInetAddressRecord>) record);
+            }
+        }
+
+        return records;
+    }
+
+    private List<MdnsInetAddressRecord> makeProbingInetAddressRecords(
+            @NonNull NsdServiceInfo serviceInfo) {
         final List<MdnsInetAddressRecord> records = new ArrayList<>();
-        if (mMdnsFeatureFlags.mIncludeInetAddressRecordsInProbing) {
+        if (mMdnsFeatureFlags.mIncludeInetAddressRecordsInProbing
+                || !TextUtils.isEmpty(serviceInfo.getHostname())) {
             for (RecordInfo<?> record : mGeneralRecords) {
-                if (record.record instanceof MdnsInetAddressRecord) {
+                if (record.record instanceof MdnsInetAddressRecord
+                        && recordMatchesServiceInfo(record, serviceInfo)) {
                     records.add((MdnsInetAddressRecord) record.record);
                 }
             }
@@ -940,7 +1142,22 @@ public class MdnsRecordRepository {
     }
 
     /**
+     * A {@link RecordInfo} in {@code mGeneralRecords} matches an {@link NsdServiceInfo} if either:
+     * - {@code recordInfo.serviceInfo} is the same as {@code serviceInfo}.
+     * - {@code recordInfo.serviceInfo} is null and {@code serviceInfo} doesn't have a custom host.
+     */
+    private static boolean recordMatchesServiceInfo(
+            @NonNull RecordInfo<?> recordInfo, @Nullable NsdServiceInfo serviceInfo) {
+        if (serviceInfo == null) {
+            return recordInfo.serviceInfo == null;
+        }
+        return (recordInfo.serviceInfo == serviceInfo)
+                || (recordInfo.serviceInfo == null && TextUtils.isEmpty(serviceInfo.getHostname()));
+    }
+
+    /**
      * (Re)set a service to the probing state.
+     *
      * @return The {@link MdnsProber.ProbingInfo} to send for probing.
      */
     @Nullable
@@ -949,8 +1166,14 @@ public class MdnsRecordRepository {
         if (registration == null) return null;
 
         registration.setProbing(true);
+        MdnsServiceRecord srvRecord = null;
+        if (registration.srvRecord != null) {
+            srvRecord = registration.srvRecord.record;
+        }
         return makeProbingInfo(
-                serviceId, registration.srvRecord.record, makeProbingInetAddressRecords());
+                serviceId,
+                srvRecord,
+                makeProbingInetAddressRecords(registration.serviceInfo));
     }
 
     /**
@@ -985,9 +1208,18 @@ public class MdnsRecordRepository {
 
         final ServiceRegistration newService = new ServiceRegistration(mDeviceHostname, newInfo,
                 existing.repliedServiceCount, existing.sentPacketCount);
+        for (RecordInfo<?> info : mGeneralRecords) {
+            if (info.serviceInfo == existing.serviceInfo) {
+                info.serviceInfo = newService.serviceInfo;
+            }
+        }
         mServices.put(serviceId, newService);
+        MdnsServiceRecord srvRecord = null;
+        if (newService.srvRecord != null) {
+            srvRecord = newService.srvRecord.record;
+        }
         return makeProbingInfo(
-                serviceId, newService.srvRecord.record, makeProbingInetAddressRecords());
+                serviceId, srvRecord, makeProbingInetAddressRecords(newService.serviceInfo));
     }
 
     /**
