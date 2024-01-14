@@ -125,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49e77c92_3e12296f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2119,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-14T09:08:52Z",
+      "side": 1,
+      "message": "Added a TODO for registerServiceInfoCallback in https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2864728",
+      "parentUuid": "7fab7575_ba68f4bb",
+      "revId": "aea68599579278de0630db29fb900894f11fe3f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d5019588_30386e37",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
         "patchSetId": 12
