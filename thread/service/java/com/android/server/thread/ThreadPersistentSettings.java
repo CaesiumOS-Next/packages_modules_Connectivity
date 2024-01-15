@@ -89,6 +89,7 @@ public class ThreadPersistentSettings {
         readFromStoreFile();
         synchronized (mLock) {
             if (!mSettings.containsKey(THREAD_ENABLED.key)) {
+                Log.i(TAG, "\"thread_enabled\" is missing in settings file, writing default value");
                 put(
                         THREAD_ENABLED.key,
                         mResources.get().getBoolean(R.bool.config_thread_default_enabled));

@@ -21,8 +21,9 @@ package {
     ],
 }
 
-runtime_resource_overlay {
+android_test_helper_app {
     name: "ThreadTestOverlay",
     sdk_version: "current",
     product_specific: true,
+    aaptflags: ["--no-resource-removal"],
 }
