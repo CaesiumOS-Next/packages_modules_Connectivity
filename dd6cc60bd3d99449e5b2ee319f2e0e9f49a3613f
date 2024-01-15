@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a2968b8_f5c35775",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-15T06:19:13Z",
+      "side": 1,
+      "message": "Generally LGTM but see inline",
+      "revId": "dd6cc60bd3d99449e5b2ee319f2e0e9f49a3613f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cfcb840_daf7a9c3",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 36
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-15T06:19:13Z",
+      "side": 1,
+      "message": "Can this be @NonNull instead? In the current API shape, It\u0027s possible to create a DiscoveryRequest that is basically empty, with nothing to discover. That\u0027s not great.\n\nPer offline discuission, if we\u0027re going to add a setHostname(@Nullable String) to DiscoveryRequest.Builder and say that clients must pass in either a hostname or a servicetype, then for now we can make this @NonNull and then change it to Nullable in the CL that introduces that method?",
+      "range": {
+        "startLine": 227,
+        "startChar": 83,
+        "endLine": 227,
+        "endChar": 92
+      },
+      "revId": "dd6cc60bd3d99449e5b2ee319f2e0e9f49a3613f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
