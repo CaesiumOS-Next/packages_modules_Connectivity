@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7883e1b6_4cb12e68",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-01-15T09:25:27Z",
+      "side": 1,
+      "message": "I guess this is resolved?",
+      "parentUuid": "fbbeb4f7_b76a1cbc",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 33
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df1a73bb_2e9bf57d",
         "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
         "patchSetId": 5
@@ -239,6 +263,30 @@
       "side": 1,
       "message": "Processing of `CMD_SEND_MAYBE_ENQUEUE_NETWORK_REQUEST_STATE_METRIC` is not blocking handler thread and the size of `mPendingState` is limited, so I don\u0027t this current code has the issue previous code had.\n\nPreviously processing of `MSG_NETWORK_REQUEST_STATE_CHANGED` was blocking handler thread for 1sec and this could keep increasing the handler message queue.",
       "parentUuid": "52813055_8585992e",
+      "range": {
+        "startLine": 108,
+        "startChar": 8,
+        "endLine": 117,
+        "endChar": 9
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e1f855d_e8141cff",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-01-15T09:25:27Z",
+      "side": 1,
+      "message": "Got it, thank you! I think this is resolved then.",
+      "parentUuid": "fbe1d822_95412c3d",
       "range": {
         "startLine": 108,
         "startChar": 8,

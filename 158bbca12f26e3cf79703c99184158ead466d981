@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf69e6a7_eff259ab",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-01-15T09:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fdf7cc6_491aeac1",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 38
+      },
+      "revId": "158bbca12f26e3cf79703c99184158ead466d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4de9bf0_52dced9f",
@@ -72,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "674de686_a2a8c0e2",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-01-15T09:25:27Z",
+      "side": 1,
+      "message": "I was just thinking of situation:\n1) We receive MAX_QUEUED_REQUESTS at close time;\n \u003d\u003e Sent MAX_QUEUED_REQUESTS CMD_SEND_MAYBE_ENQUEUE_NETWORK_REQUEST_STATE_METRIC messages;\n \u003d\u003e Sent one CMD_SEND_PENDING_NETWORK_REQUEST_STATE_METRIC message;\n2) During the execution of CMD_SEND_PENDING_NETWORK_REQUEST_STATE_METRIC something happened before a message is popped mPendingState;\n3) Not sure whether it can happen: execution of the thread is not stopped due to some throttling and main thread execution is not stopped, but mPendingState is full;\n4) Result: we\u0027ll always skip all network request without any chance to empty the mPendingState queue.",
+      "parentUuid": "567045f6_9861872d",
+      "range": {
+        "startLine": 196,
+        "startChar": 77,
+        "endLine": 196,
+        "endChar": 78
+      },
+      "revId": "158bbca12f26e3cf79703c99184158ead466d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6731ec90_f03246f2",
         "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
         "patchSetId": 6
@@ -83,6 +131,30 @@
       "writtenOn": "2024-01-15T03:03:50Z",
       "side": 1,
       "message": "I don\u0027t think we need this.",
+      "range": {
+        "startLine": 198,
+        "startChar": 12,
+        "endLine": 198,
+        "endChar": 33
+      },
+      "revId": "158bbca12f26e3cf79703c99184158ead466d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae5a8d66_e049c258",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-01-15T09:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6731ec90_f03246f2",
       "range": {
         "startLine": 198,
         "startChar": 12,
@@ -129,6 +201,30 @@
       "writtenOn": "2024-01-15T03:03:50Z",
       "side": 1,
       "message": "I don\u0027t think we need this.",
+      "range": {
+        "startLine": 230,
+        "startChar": 24,
+        "endLine": 230,
+        "endChar": 45
+      },
+      "revId": "158bbca12f26e3cf79703c99184158ead466d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd8e9cf1_c9f73086",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-01-15T09:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e6efb8b_dc011da1",
       "range": {
         "startLine": 230,
         "startChar": 24,
