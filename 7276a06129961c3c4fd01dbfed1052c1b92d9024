@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f155816_64180ee0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-15T11:26:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97a82e6c_86d6971a",
+      "range": {
+        "startLine": 509,
+        "startChar": 31,
+        "endLine": 510,
+        "endChar": 86
+      },
+      "revId": "7276a06129961c3c4fd01dbfed1052c1b92d9024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c23518d_06d7a404",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-01-15T08:32:04Z",
       "side": 1,
       "message": "Nit: `:Boolean`",
+      "range": {
+        "startLine": 306,
+        "startChar": 66,
+        "endLine": 306,
+        "endChar": 67
+      },
+      "revId": "7276a06129961c3c4fd01dbfed1052c1b92d9024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b41b7b9_7906d0a0",
+        "filename": "tests/cts/net/src/android/net/cts/MdnsTestUtils.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-15T11:26:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c23518d_06d7a404",
       "range": {
         "startLine": 306,
         "startChar": 66,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38a7e395_cc026670",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-15T11:26:51Z",
+      "side": 1,
+      "message": "Oops, sorry bad rebase I think",
+      "parentUuid": "e8b6668c_45056d25",
+      "range": {
+        "startLine": 543,
+        "startChar": 16,
+        "endLine": 543,
+        "endChar": 30
+      },
+      "revId": "7276a06129961c3c4fd01dbfed1052c1b92d9024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d53ebfb4_9a5fe51d",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-01-15T08:32:04Z",
       "side": 1,
       "message": "Nit: This can be replaced to `\nMdnsPointerRecord(arrayOf(\"_testservice\", \"_tcp\", \"local\"), true /* isUnicast */)`",
+      "range": {
+        "startLine": 1287,
+        "startChar": 31,
+        "endLine": 1292,
+        "endChar": 35
+      },
+      "revId": "7276a06129961c3c4fd01dbfed1052c1b92d9024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bc490e5_7d2ac2f2",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-15T11:26:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d53ebfb4_9a5fe51d",
       "range": {
         "startLine": 1287,
         "startChar": 31,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15ca70f2_8a11d696",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1298,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-15T11:26:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "787b7933_d30c8a76",
+      "range": {
+        "startLine": 1293,
+        "startChar": 12,
+        "endLine": 1298,
+        "endChar": 35
+      },
+      "revId": "7276a06129961c3c4fd01dbfed1052c1b92d9024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f95122a_2205c175",
@@ -146,6 +266,30 @@
       "writtenOn": "2024-01-15T08:32:04Z",
       "side": 1,
       "message": "I expect the reply to be multicast, since one of the question requests a multicast.",
+      "range": {
+        "startLine": 1334,
+        "startChar": 8,
+        "endLine": 1334,
+        "endChar": 44
+      },
+      "revId": "7276a06129961c3c4fd01dbfed1052c1b92d9024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53ab208b_f4ef1e79",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1334,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-15T11:26:51Z",
+      "side": 1,
+      "message": "Oops yes, forgot to update this test and it still passed because I forgot to register the 2nd service...",
+      "parentUuid": "1f95122a_2205c175",
       "range": {
         "startLine": 1334,
         "startChar": 8,
