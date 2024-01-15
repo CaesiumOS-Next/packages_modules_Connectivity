@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3514e33_ee4de18e",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketBridge.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-15T08:58:44Z",
+      "side": 1,
+      "message": "Comment added.\nIIUC The needed permission should be supplied at the caller site, e.g.\nhttps://osscs.corp.google.com/android/platform/superproject/main/+/main:packages/modules/NetworkStack/tests/integration/signature/android/net/NetworkStatsIntegrationTest.kt;l\u003d103?ss\u003dandroid\u0026q\u003dNetworkStatsIntegrationTest\nReopen if I missed anything.",
+      "parentUuid": "80b41f67_528871ed",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 38
+      },
+      "revId": "5358d4e5ab8f65b76ce7d3a493521909459bcf71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c59c5882_06acd029",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-15T03:53:23Z",
       "side": 1,
       "message": "Can we reuse or merge with `swapBytes` and `swapAddresses` in PacketReflector?\nI think they are doing the same thing.",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 1
+      },
+      "revId": "5358d4e5ab8f65b76ce7d3a493521909459bcf71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6362867_4fd34a23",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketReflectorUtil.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-15T08:58:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c59c5882_06acd029",
       "range": {
         "startLine": 139,
         "startChar": 0,
