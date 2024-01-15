@@ -39,6 +39,30 @@
       },
       "revId": "dd6cc60bd3d99449e5b2ee319f2e0e9f49a3613f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "430bb962_b2a60cc4",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 36
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-15T07:54:51Z",
+      "side": 1,
+      "message": "Done. Made this @NonNull and also added the serviceType to the Builder constructor so that Builder#build won\u0027t fail with IllegalStateException.",
+      "parentUuid": "2cfcb840_daf7a9c3",
+      "range": {
+        "startLine": 227,
+        "startChar": 83,
+        "endLine": 227,
+        "endChar": 92
+      },
+      "revId": "dd6cc60bd3d99449e5b2ee319f2e0e9f49a3613f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
