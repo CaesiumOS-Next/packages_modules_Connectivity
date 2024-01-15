@@ -22,6 +22,30 @@
       },
       "revId": "0ad1e222f99da58de6962a605c51086d7c4c80e5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d99670f9_85b8100a",
+        "filename": "thread/sysprop/api/ThreadNetworkProperties-current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-15T03:57:05Z",
+      "side": 1,
+      "message": "I have updated the code to remove the namespace `ro.boot`.",
+      "parentUuid": "2279644e_ce311de1",
+      "range": {
+        "startLine": 6,
+        "startChar": 16,
+        "endLine": 6,
+        "endChar": 23
+      },
+      "revId": "0ad1e222f99da58de6962a605c51086d7c4c80e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
