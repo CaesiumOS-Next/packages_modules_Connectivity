@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2279644e_ce311de1",
+        "filename": "thread/sysprop/api/ThreadNetworkProperties-current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2024-01-15T00:32:43Z",
+      "side": 1,
+      "message": "again, please explain the need for this namespace.",
+      "range": {
+        "startLine": 6,
+        "startChar": 16,
+        "endLine": 6,
+        "endChar": 23
+      },
+      "revId": "0ad1e222f99da58de6962a605c51086d7c4c80e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
