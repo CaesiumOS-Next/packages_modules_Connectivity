@@ -106,8 +106,10 @@ import android.os.UserManager;
 import android.util.Log;
 import android.util.SparseArray;
 
+import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.ServiceManagerWrapper;
+import com.android.server.connectivity.ConnectivityResources;
 import com.android.server.thread.openthread.BackboneRouterState;
 import com.android.server.thread.openthread.BorderRouterConfigurationParcel;
 import com.android.server.thread.openthread.IChannelMasksReceiver;
@@ -159,6 +161,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final InfraInterfaceController mInfraIfController;
     private final NsdPublisher mNsdPublisher;
     private final OtDaemonCallbackProxy mOtDaemonCallbackProxy = new OtDaemonCallbackProxy();
+    private final ConnectivityResources mResources;
 
     @Nullable private IOtDaemon mOtDaemon;
     @Nullable private NetworkAgent mNetworkAgent;
@@ -188,7 +191,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             InfraInterfaceController infraIfController,
             ThreadPersistentSettings persistentSettings,
             NsdPublisher nsdPublisher,
-            UserManager userManager) {
+            UserManager userManager,
+            ConnectivityResources resources) {
         mContext = context;
         mHandler = handler;
         mNetworkProvider = networkProvider;
@@ -202,6 +206,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mPersistentSettings = persistentSettings;
         mNsdPublisher = nsdPublisher;
         mUserManager = userManager;
+        mResources = resources;
     }
 
     public static ThreadNetworkControllerService newInstance(
@@ -222,7 +227,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 new InfraInterfaceController(),
                 persistentSettings,
                 NsdPublisher.newInstance(context, handler),
-                context.getSystemService(UserManager.class));
+                context.getSystemService(UserManager.class),
+                new ConnectivityResources(context));
     }
 
     private static Inet6Address bytesToInet6Address(byte[] addressBytes) {
@@ -298,7 +304,10 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         if (otDaemon == null) {
             throw new RemoteException("Internal error: failed to start OT daemon");
         }
-        otDaemon.initialize(mTunIfController.getTunFd(), isEnabled(), mNsdPublisher);
+        final String vendorName = mResources.get().getString(R.string.config_thread_vendor_name);
+        final String modelName = mResources.get().getString(R.string.config_thread_model_name);
+        otDaemon.initialize(
+                mTunIfController.getTunFd(), isEnabled(), mNsdPublisher, vendorName, modelName);
         otDaemon.registerStateCallback(mOtDaemonCallbackProxy, -1);
         otDaemon.asBinder().linkToDeath(() -> mHandler.post(this::onOtDaemonDied), 0);
         mOtDaemon = otDaemon;
