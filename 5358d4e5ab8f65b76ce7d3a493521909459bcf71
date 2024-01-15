@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80b41f67_528871ed",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketBridge.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-15T03:53:23Z",
+      "side": 1,
+      "message": "Why do we need this?\nCan we have comment here to explain why we need this or how we can remove this?",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 38
+      },
+      "revId": "5358d4e5ab8f65b76ce7d3a493521909459bcf71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c59c5882_06acd029",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketReflectorUtil.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-15T03:53:23Z",
+      "side": 1,
+      "message": "Can we reuse or merge with `swapBytes` and `swapAddresses` in PacketReflector?\nI think they are doing the same thing.",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 1
+      },
+      "revId": "5358d4e5ab8f65b76ce7d3a493521909459bcf71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
