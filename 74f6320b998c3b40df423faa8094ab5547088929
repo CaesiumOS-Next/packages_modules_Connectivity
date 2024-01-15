@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8892d5f9_d4f05f28",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2024-01-15T10:43:17Z",
+      "side": 1,
+      "message": "Out of curiority, why is it not static?",
+      "range": {
+        "startLine": 51,
+        "startChar": 34,
+        "endLine": 51,
+        "endChar": 50
+      },
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
