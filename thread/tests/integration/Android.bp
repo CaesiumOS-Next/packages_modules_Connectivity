@@ -58,3 +58,24 @@ android_test {
     ],
     compile_multilib: "both",
 }
+
+android_test {
+    name: "ThreadConfigTests",
+    platform_apis: true,
+    manifest: "AndroidConfigManifest.xml",
+    test_config: "AndroidConfigTest.xml",
+    defaults: [
+        "framework-connectivity-test-defaults",
+        "ThreadNetworkIntegrationTestsDefaults",
+    ],
+    test_suites: [
+        "general-tests",
+    ],
+    srcs: [
+        "overlay/src/**/*.java",
+    ],
+    data: [
+        ":ThreadTestOverlay",
+    ],
+    compile_multilib: "both",
+}
