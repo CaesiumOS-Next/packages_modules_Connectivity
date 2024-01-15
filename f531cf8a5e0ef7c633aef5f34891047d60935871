@@ -88,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05b08017_84a57f2e",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-15T05:04:18Z",
+      "side": 1,
+      "message": "Updated the doc with a minor diff, onResult indicates the operation has completed, however the outcome has to be checked via registerStateCallback.",
+      "parentUuid": "a8f0f42c_c11aedcb",
+      "range": {
+        "startLine": 116,
+        "startChar": 84,
+        "endLine": 116,
+        "endChar": 85
+      },
+      "revId": "f531cf8a5e0ef7c633aef5f34891047d60935871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eee678c1_689e1fd7",
@@ -101,6 +125,30 @@
       "writtenOn": "2024-01-11T04:07:46Z",
       "side": 1,
       "message": "radio",
+      "range": {
+        "startLine": 127,
+        "startChar": 47,
+        "endLine": 127,
+        "endChar": 54
+      },
+      "revId": "f531cf8a5e0ef7c633aef5f34891047d60935871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67739f8c_46c3f1e8",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkException.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-15T05:04:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eee678c1_689e1fd7",
       "range": {
         "startLine": 127,
         "startChar": 47,
