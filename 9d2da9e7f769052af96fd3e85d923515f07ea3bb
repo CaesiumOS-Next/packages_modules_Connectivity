@@ -533,6 +533,30 @@
       },
       "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8444ab8a_cba92f68",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-01-15T20:04:11Z",
+      "side": 1,
+      "message": "Looks like it makes sense to log both start and end of the network request. Put queue size to 6 to make it even (so that it is equivalent to 3 NR). But let\u0027s discuss if we can have larger queue (10 events)",
+      "parentUuid": "efc08423_5099b4ae",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 9
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
