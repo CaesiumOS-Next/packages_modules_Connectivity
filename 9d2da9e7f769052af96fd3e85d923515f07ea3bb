@@ -509,6 +509,30 @@
       },
       "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efc08423_5099b4ae",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-01-15T09:26:21Z",
+      "side": 1,
+      "message": "Thank you very much! I guess I need to check this with Calvin.",
+      "parentUuid": "c3d2aa45_a761cace",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 9
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
