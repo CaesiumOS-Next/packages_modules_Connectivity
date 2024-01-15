@@ -43,6 +43,7 @@ import static org.mockito.Mockito.when;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkAgent;
 import android.net.NetworkProvider;
@@ -59,6 +60,8 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 
+import com.android.connectivity.resources.R;
+import com.android.server.connectivity.ConnectivityResources;
 import com.android.server.thread.openthread.testing.FakeOtDaemon;
 
 import org.junit.Before;
@@ -96,6 +99,9 @@ public final class ThreadNetworkControllerServiceTest {
     private static final ActiveOperationalDataset DEFAULT_ACTIVE_DATASET =
             ActiveOperationalDataset.fromThreadTlvs(DEFAULT_ACTIVE_DATASET_TLVS);
 
+    private static final String TEST_VENDOR = "test vendor";
+    private static final String TEST_MODEL = "test model";
+
     @Mock private ConnectivityManager mMockConnectivityManager;
     @Mock private NetworkAgent mMockNetworkAgent;
     @Mock private TunInterfaceController mMockTunIfController;
@@ -104,6 +110,9 @@ public final class ThreadNetworkControllerServiceTest {
     @Mock private ThreadPersistentSettings mMockPersistentSettings;
     @Mock private NsdPublisher mMockNsdPublisher;
     @Mock private UserManager mMockUserManager;
+    @Mock Resources mResources;
+    @Mock ConnectivityResources mConnectivityResources;
+
     private Context mContext;
     private TestLooper mTestLooper;
     private FakeOtDaemon mFakeOtDaemon;
@@ -125,6 +134,10 @@ public final class ThreadNetworkControllerServiceTest {
         when(mMockPersistentSettings.get(any())).thenReturn(true);
         when(mMockUserManager.hasUserRestriction(eq(DISALLOW_THREAD_NETWORK))).thenReturn(false);
 
+        when(mConnectivityResources.get()).thenReturn(mResources);
+        when(mResources.getString(eq(R.string.config_thread_vendor_name))).thenReturn(TEST_VENDOR);
+        when(mResources.getString(eq(R.string.config_thread_model_name))).thenReturn(TEST_MODEL);
+
         mService =
                 new ThreadNetworkControllerService(
                         mContext,
@@ -136,7 +149,8 @@ public final class ThreadNetworkControllerServiceTest {
                         mMockInfraIfController,
                         mMockPersistentSettings,
                         mMockNsdPublisher,
-                        mMockUserManager);
+                        mMockUserManager,
+                        mConnectivityResources);
         mService.setTestNetworkAgent(mMockNetworkAgent);
     }
 
@@ -150,6 +164,18 @@ public final class ThreadNetworkControllerServiceTest {
         verify(mMockTunIfController, times(1)).createTunInterface();
         assertThat(mFakeOtDaemon.getTunFd()).isEqualTo(mMockTunFd);
         assertThat(mFakeOtDaemon.getNsdPublisher()).isEqualTo(mMockNsdPublisher);
+    }
+
+    @Test
+    public void initialize_vendorAndModelNameInResourcesAreSetToOtDaemon() throws Exception {
+        when(mResources.getString(eq(R.string.config_thread_vendor_name))).thenReturn(TEST_VENDOR);
+        when(mResources.getString(eq(R.string.config_thread_model_name))).thenReturn(TEST_MODEL);
+
+        mService.initialize();
+        mTestLooper.dispatchAll();
+
+        assertThat(mFakeOtDaemon.getVendorName()).isEqualTo(TEST_VENDOR);
+        assertThat(mFakeOtDaemon.getModelName()).isEqualTo(TEST_MODEL);
     }
 
     @Test
