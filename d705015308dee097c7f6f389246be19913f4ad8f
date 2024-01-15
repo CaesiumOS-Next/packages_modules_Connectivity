@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1a60262_8c3d3c6f",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-15T09:44:44Z",
+      "side": 1,
+      "message": "nits: PacketForwarder",
+      "range": {
+        "startLine": 61,
+        "startChar": 39,
+        "endLine": 61,
+        "endChar": 57
+      },
+      "revId": "d705015308dee097c7f6f389246be19913f4ad8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
