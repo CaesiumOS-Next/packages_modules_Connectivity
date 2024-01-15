@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "161acf55_55910ba4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsFeatureFlags.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-15T08:32:04Z",
+      "side": 1,
+      "message": "Nit: Move the flag below the `mIsKnownAnswerSuppressionEnabled` and add a separate comment to explain its purpose.",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 48
+      },
+      "revId": "498237df88daa92e66c7dde2eed00f4614249bd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
