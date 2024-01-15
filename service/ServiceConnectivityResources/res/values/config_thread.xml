@@ -26,4 +26,16 @@
     -->
     <bool name="config_thread_location_use_for_country_code_enabled">true</bool>
 
+    <!-- Specifies the UTF-8 vendor name of this device. This value will be included in TXT value
+    (key is 'vn') of the mDNS "_meshcop._udp" service which is published by the Thread service. The
+    value will be truncated if the string length (in UTF-8 bytes) exceeds 22 bytes.
+    -->
+    <string translatable="false" name="config_thread_vendor_name">Android</string>
+
+    <!-- Specifies the UTF-8 product model name of this device. This value will be included in TXT
+    (key is 'mn') value of the mDNS "_meshcop._udp" service which is published by the Thread
+    service. The value will be truncated if the string length (in UTF-8 bytes) exceeds 22 bytes.
+    -->
+    <string translatable="false" name="config_thread_model_name">Thread Border Router</string>
+
 </resources>

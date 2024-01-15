@@ -46,6 +46,8 @@
 
             <!-- Configuration values for ThreadNetworkService -->
             <item type="bool" name="config_thread_location_use_for_country_code_enabled" />
+            <item type="string" name="config_thread_vendor_name" />
+            <item type="string" name="config_thread_model_name" />
         </policy>
     </overlayable>
 </resources>
