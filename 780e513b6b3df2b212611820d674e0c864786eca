@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1936756f_7d48397a",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-15T03:52:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "015f8358_5e00d6e4",
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8bac618_cf12a96e",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-01-12T06:51:09Z",
       "side": 1,
       "message": "If this adds the interface as well, the method name should reflect that. Would be good to pick a name that pairs well with the corresponding remove method.",
+      "range": {
+        "startLine": 495,
+        "startChar": 17,
+        "endLine": 495,
+        "endChar": 57
+      },
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87c1564e_4173d10e",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-15T03:52:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8bac618_cf12a96e",
       "range": {
         "startLine": 495,
         "startChar": 17,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04eb77f0_6c2122d0",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-15T03:52:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12d9a671_b1268510",
+      "range": {
+        "startLine": 610,
+        "startChar": 19,
+        "endLine": 610,
+        "endChar": 37
+      },
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "189cbcb7_9019bbac",
@@ -81,6 +147,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64e1348f_5d30d293",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-15T03:52:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "189cbcb7_9019bbac",
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a73fe9dc_925eb2a5",
@@ -94,6 +178,30 @@
       "writtenOn": "2024-01-12T06:51:09Z",
       "side": 1,
       "message": "Seems like this should be created in the enclosing class constructor instead, not in the dependencies? And if this fails, that\u0027s sort of fatal for this code? Perhaps we should just throw an exception and crash? That way you can make the socket @NonNull final and have to null-check it.",
+      "range": {
+        "startLine": 933,
+        "startChar": 38,
+        "endLine": 933,
+        "endChar": 54
+      },
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9059c2db_d164bf3b",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-15T03:52:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a73fe9dc_925eb2a5",
       "range": {
         "startLine": 933,
         "startChar": 38,
@@ -127,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61d82970_fc450cbe",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-15T03:52:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "752aa08d_6380c5a8",
+      "range": {
+        "startLine": 957,
+        "startChar": 30,
+        "endLine": 957,
+        "endChar": 58
+      },
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4c45fc8_70fd8cfb",
@@ -140,6 +272,30 @@
       "writtenOn": "2024-01-12T06:51:09Z",
       "side": 1,
       "message": "It looks like some of the important functions in this file are split half/half between the main class and dependencies. I think you could make things easier to read by making the dependencies simpler / lower level, such as something like:\n\n    public void setsockoptMrt6AddMif(FileDescriptor fd,, StructMif6Ctl mif6Ctl) {\n        NetworkUtils.setsockoptBytes(fd, IPPROTO_IPV6, MRT6_ADD_MIF, mif6Ctl.writeToBytes());\n    }\n\n    public void setsockoptMrt6DelMif(FileDescriptor fd, int vif) {\n        ....\n    }",
+      "range": {
+        "startLine": 975,
+        "startChar": 20,
+        "endLine": 975,
+        "endChar": 41
+      },
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d045b64d_5fc6a1a8",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-15T03:52:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4c45fc8_70fd8cfb",
       "range": {
         "startLine": 975,
         "startChar": 20,
@@ -173,6 +329,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd34105d_3d5796c2",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-15T03:52:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "07b45210_30c80ac2",
+      "range": {
+        "startLine": 992,
+        "startChar": 42,
+        "endLine": 992,
+        "endChar": 61
+      },
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad23478e_2280ea07",
@@ -196,6 +376,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86de89af_8eeb5ef8",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-15T03:52:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ad23478e_2280ea07",
+      "range": {
+        "startLine": 1000,
+        "startChar": 35,
+        "endLine": 1000,
+        "endChar": 78
+      },
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd6004e1_f682008b",
@@ -209,6 +413,30 @@
       "writtenOn": "2024-01-12T06:51:09Z",
       "side": 1,
       "message": "Can this happen? Is there a way we can make it never happen?",
+      "range": {
+        "startLine": 1010,
+        "startChar": 12,
+        "endLine": 1010,
+        "endChar": 43
+      },
+      "revId": "780e513b6b3df2b212611820d674e0c864786eca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8740563a_52f2a7f6",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-15T03:52:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd6004e1_f682008b",
       "range": {
         "startLine": 1010,
         "startChar": 12,
