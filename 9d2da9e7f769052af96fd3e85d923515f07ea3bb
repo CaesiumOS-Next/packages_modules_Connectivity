@@ -227,6 +227,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fbe1d822_95412c3d",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-15T03:03:50Z",
+      "side": 1,
+      "message": "Processing of `CMD_SEND_MAYBE_ENQUEUE_NETWORK_REQUEST_STATE_METRIC` is not blocking handler thread and the size of `mPendingState` is limited, so I don\u0027t this current code has the issue previous code had.\n\nPreviously processing of `MSG_NETWORK_REQUEST_STATE_CHANGED` was blocking handler thread for 1sec and this could keep increasing the handler message queue.",
+      "parentUuid": "52813055_8585992e",
+      "range": {
+        "startLine": 108,
+        "startChar": 8,
+        "endLine": 117,
+        "endChar": 9
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3fab0474_2cef22e3",
         "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
         "patchSetId": 5
@@ -381,6 +405,30 @@
       "side": 1,
       "message": "Is it actually possible? I mean doesn\u0027t ConnectivityService remove network requests after certain TTL?",
       "parentUuid": "6c30f105_25f38799",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 9
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ebeae59_a459d0ab",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-15T03:03:50Z",
+      "side": 1,
+      "message": "ConnectivityService does not remove network request unless app asks or app dies.",
+      "parentUuid": "03ef97f2_f1525171",
       "range": {
         "startLine": 135,
         "startChar": 8,

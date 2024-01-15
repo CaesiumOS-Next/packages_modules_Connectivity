@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fdf7cc6_491aeac1",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-15T03:03:50Z",
+      "side": 1,
+      "message": "I don\u0027t think we need this.",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 38
+      },
+      "revId": "158bbca12f26e3cf79703c99184158ead466d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4de9bf0_52dced9f",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-15T03:03:50Z",
+      "side": 1,
+      "message": "This can be a member of `StatsLoggingHandler` and non static.",
+      "range": {
+        "startLine": 65,
+        "startChar": 24,
+        "endLine": 65,
+        "endChar": 36
+      },
+      "revId": "158bbca12f26e3cf79703c99184158ead466d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "567045f6_9861872d",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-15T03:03:50Z",
+      "side": 1,
+      "message": "I think we can return if mPendingState.size() is equal or larger than MAX_QUEUED_REQUESTS",
+      "range": {
+        "startLine": 196,
+        "startChar": 77,
+        "endLine": 196,
+        "endChar": 78
+      },
+      "revId": "158bbca12f26e3cf79703c99184158ead466d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6731ec90_f03246f2",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-15T03:03:50Z",
+      "side": 1,
+      "message": "I don\u0027t think we need this.",
+      "range": {
+        "startLine": 198,
+        "startChar": 12,
+        "endLine": 198,
+        "endChar": 33
+      },
+      "revId": "158bbca12f26e3cf79703c99184158ead466d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ab2b811_8b85a7e6",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-15T03:03:50Z",
+      "side": 1,
+      "message": "This is not possible.",
+      "range": {
+        "startLine": 201,
+        "startChar": 27,
+        "endLine": 201,
+        "endChar": 50
+      },
+      "revId": "158bbca12f26e3cf79703c99184158ead466d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e6efb8b_dc011da1",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-15T03:03:50Z",
+      "side": 1,
+      "message": "I don\u0027t think we need this.",
+      "range": {
+        "startLine": 230,
+        "startChar": 24,
+        "endLine": 230,
+        "endChar": 45
+      },
+      "revId": "158bbca12f26e3cf79703c99184158ead466d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
