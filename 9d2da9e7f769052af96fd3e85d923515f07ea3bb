@@ -437,6 +437,30 @@
       },
       "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3d2aa45_a761cace",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-15T03:15:08Z",
+      "side": 1,
+      "message": "Talked with Remi.\nSome bad behaving app could file network request and never release it.\nBut if the app is behaving correctly, we can expect app withdraws the network request when they don\u0027t need network.\nSo, depends on the purpose of the metrics, but maybe it\u0027s fine to collect metrics only at request removal.",
+      "parentUuid": "0ebeae59_a459d0ab",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 9
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
