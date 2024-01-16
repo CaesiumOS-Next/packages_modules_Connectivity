@@ -1,0 +1,526 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c08bd3d_08833934",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "The whole service has no reason to run if this is null, right? If so, suggest trying to initialize it as soon as possible in the constructor, and if you can\u0027t, throwing UnsupportedOperationException or the like.",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 13
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae03e320_f79d35d6",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "Nit: might want to make these javadoc comments /** Comment */. These become documentation that is visible in IDEs and the like.",
+      "range": {
+        "startLine": 108,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 6
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f36519d_16c4345c",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "PerInterfaceMulticastRoutingConfig",
+      "range": {
+        "startLine": 112,
+        "startChar": 25,
+        "endLine": 112,
+        "endChar": 50
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9470dd5_77a45563",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "Put thies next to mMulticastRoutingConfigs.",
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a71836fb_591e7724",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "I think you can just crash here instead of logging a WTF. Maybe be consistent with what connectivityservice does?",
+      "range": {
+        "startLine": 150,
+        "startChar": 16,
+        "endLine": 150,
+        "endChar": 19
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98658bcb_e1f54e39",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": ", and + are different here:\n\n    , e -\u003e logs the exception and the stack trace\n    + e -\u003e only logs the exception.\n\nYou probably want \"+ e\" here?",
+      "range": {
+        "startLine": 173,
+        "startChar": 71,
+        "endLine": 173,
+        "endChar": 72
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcd83a57_a6050246",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "Per discussion: if the interface index has changed (e.g., interface deleted and re-added), there is no way to leave the groups any more. May not need to fix this immediately.",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 200,
+        "endChar": 19
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fa9b10a_29224d2a",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "Per discussion: if applyMulticastRoutingConfig also cleans up the iif map when the last oif for that iif is deleted, maybe we don\u0027t need this?",
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83593c9e_faa4358e",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "Check forwarding mode instead?",
+      "range": {
+        "startLine": 327,
+        "startChar": 44,
+        "endLine": 327,
+        "endChar": 50
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d350715d_bb5b7ec0",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "Nit: if this is an object called *Config, then this should be called iifConfig, not iifConfigs.",
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b09caabc_68b1f7af",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "What about:\n\n    if (isConfigNone) {\n        if (iifConfig !\u003d null) iifConfig.oifConfigs.remove(oifName);\n        if (iifConfig.oifConfigs.isEmpty()) {\n            mMulticastRoutingConfigs.remove(iifName);\n        }\n        return;\n    }\n\n    if (iifConfig \u003d\u003d null) {\n        iifConfig \u003d new ...;\n    }\n\n    iifConfig.oifConfigs.put(oifName, config);",
+      "range": {
+        "startLine": 329,
+        "startChar": 8,
+        "endLine": 329,
+        "endChar": 10
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0fdb220_3dde26b6",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "Out of curiosity, why not:\n\n    if (mMulticastRoutingConfigs.containsKey(ifName)) return true;\n    for (PerInterfaceMulticastRoutingConfig pif \u003d mMulticastRoutingConfigs.values()) {\n        if (pif.containsKey(ifName)) return true;\n    }\n    return false;\n\nIf you do this, the comment is useful to keep",
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33ddf2a7_d1cc63f8",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "\u003d\u003d is almost never correct on objects like String. You want TextUtils.equals() or Objects.equals(), or just .equals().",
+      "range": {
+        "startLine": 346,
+        "startChar": 28,
+        "endLine": 346,
+        "endChar": 30
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19e68922_14a1302b",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": ", which is an MFC with an empty oif list.",
+      "range": {
+        "startLine": 503,
+        "startChar": 95,
+        "endLine": 504,
+        "endChar": 31
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "099d664c_6d4bde50",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "Is this a virtual interface? If so, rename to vif.",
+      "range": {
+        "startLine": 508,
+        "startChar": 40,
+        "endLine": 508,
+        "endChar": 43
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "333f3474_a5ee8b37",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "Return value, not updatedValue? Or null?",
+      "range": {
+        "startLine": 529,
+        "startChar": 19,
+        "endLine": 529,
+        "endChar": 31
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b2a7d05_7e904f81",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "Why set it to false here when you might set it to true in line 545? Suggest:\n\n\n    if (mMfcs.size() \u003e 0) {\n        // post\n        mMfcPollingScheduled \u003d true;\n    } else {\n        mMfcPollingScheduled \u003d false;\n    }",
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f53317ec_84b2828e",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "Would suggest \"continue\" instead of \"else\".",
+      "range": {
+        "startLine": 588,
+        "startChar": 12,
+        "endLine": 588,
+        "endChar": 20
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8a9c901_ae779093",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "Can this happen? If not, suggest either log.wtf if it does happen, or just remove the if statement entirely.",
+      "range": {
+        "startLine": 599,
+        "startChar": 8,
+        "endLine": 599,
+        "endChar": 44
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17edd43a_a38c7dc5",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "Lower case, updateMfcs",
+      "range": {
+        "startLine": 633,
+        "startChar": 17,
+        "endLine": 633,
+        "endChar": 18
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2634cce0_f0e6794e",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "If you never care about the return value except whether it\u0027s null or not, suggest making the function return boolean.",
+      "range": {
+        "startLine": 639,
+        "startChar": 79,
+        "endLine": 639,
+        "endChar": 86
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2e6ec18_28e7d6d6",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "Can this happen? If not, would at least log an error or a wtf if it does happen.",
+      "range": {
+        "startLine": 657,
+        "startChar": 20,
+        "endLine": 657,
+        "endChar": 49
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9344846_aed023fc",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "Should we check whether iifVid is one of the virtual interfaces we care about, and if it isn\u0027t, ignore the event? Maybe not, because in that case addOrUpdateMfc will return null? Seems useful to add a comment to explain.",
+      "range": {
+        "startLine": 694,
+        "startChar": 38,
+        "endLine": 694,
+        "endChar": 39
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1de83cc8_79c43e59",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T09:01:10Z",
+      "side": 1,
+      "message": "Seems wrong to start polling if addOrUpdateMfc returned null?",
+      "range": {
+        "startLine": 701,
+        "startChar": 13,
+        "endLine": 701,
+        "endChar": 33
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
