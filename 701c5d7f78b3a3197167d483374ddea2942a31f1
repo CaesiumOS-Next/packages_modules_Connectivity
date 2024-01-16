@@ -16,6 +16,98 @@
       "message": "Daniel a cimino",
       "revId": "701c5d7f78b3a3197167d483374ddea2942a31f1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "346a6e99_5b84e441",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-16T14:32:14Z",
+      "side": 1,
+      "message": "nits: Is it possible that mPendingState is empty here?",
+      "range": {
+        "startLine": 213,
+        "startChar": 20,
+        "endLine": 213,
+        "endChar": 51
+      },
+      "revId": "701c5d7f78b3a3197167d483374ddea2942a31f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4e5147a_004c7a24",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-16T14:32:14Z",
+      "side": 1,
+      "message": "nits: do we need this?",
+      "range": {
+        "startLine": 165,
+        "startChar": 8,
+        "endLine": 165,
+        "endChar": 61
+      },
+      "revId": "701c5d7f78b3a3197167d483374ddea2942a31f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1766bcd9_a9a1e809",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-16T14:32:14Z",
+      "side": 1,
+      "message": "nits: I think this can be removed since verify has timeout.",
+      "range": {
+        "startLine": 184,
+        "startChar": 21,
+        "endLine": 184,
+        "endChar": 32
+      },
+      "revId": "701c5d7f78b3a3197167d483374ddea2942a31f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d86433c2_14f3040b",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-16T14:32:14Z",
+      "side": 1,
+      "message": "nits: comment should be updated.",
+      "range": {
+        "startLine": 186,
+        "startChar": 11,
+        "endLine": 186,
+        "endChar": 55
+      },
+      "revId": "701c5d7f78b3a3197167d483374ddea2942a31f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
