@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "75546c1e_da7fb681",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T02:10:16Z",
+      "side": 1,
+      "message": "OT daemon is a single-threaded process, so tasks posted to OT will be queued and executed by their order. In your case, B\u0027s setEnabled(true) will succeed and state will be set to enabled. We try to send \"good-bye\" messages over Thread before disabling Thread, so if A\u0027s setEnabled(false) didn\u0027t finish before B\u0027s setEnabled(true), it will be aborted.",
+      "parentUuid": "d059e121_b8da017d",
+      "range": {
+        "startLine": 361,
+        "startChar": 12,
+        "endLine": 361,
+        "endChar": 85
+      },
+      "revId": "94d0cb22dd82f64a9271d71c1bc2e323b2bf2fb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4f1b1c02_88c8b43a",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 10
