@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d059e121_b8da017d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T01:35:19Z",
+      "side": 1,
+      "message": "Per discussion, what happens if caller A setEnabled(false) and caller B immediately afterwards calls setEnabled(true)? B will immediately get a callback that says the operation suceeded, but when it tries to use the controller, it will actually be disabled. That\u0027s why I think it\u0027s better to just say the app shouldn\u0027t look at the OutcomeReceiver#onResult at all, and just listen for the callbacks.",
+      "range": {
+        "startLine": 361,
+        "startChar": 12,
+        "endLine": 361,
+        "endChar": 85
+      },
+      "revId": "94d0cb22dd82f64a9271d71c1bc2e323b2bf2fb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f1b1c02_88c8b43a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T01:35:19Z",
+      "side": 1,
+      "message": "It seems unwise to write the persistent settings when receiving the callback that says the state changed. This is because if changing the state fails, the persistent setting is never changed, and if for whatever reason the state gets stuck, the perisstent setting cannot be changed without a reboot. It seems better for the persistent setting to described the *desired* state, and update it whenever the code tries to change the state.",
+      "revId": "94d0cb22dd82f64a9271d71c1bc2e323b2bf2fb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
