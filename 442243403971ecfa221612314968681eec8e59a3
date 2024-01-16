@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b20379e_74d696c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:24:48Z",
+      "side": 1,
+      "message": "LGTM with or without the enabled boolean changed to set of possible integers. If you\u0027re confident that for the next few years at least we\u0027ll never need any other state than enabled or disabled because those intermediate states are all covered by the device role, then I guess that makes sense.",
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9da8ad70_cc8418e3",
