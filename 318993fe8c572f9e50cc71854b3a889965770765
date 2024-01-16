@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "114d6d5f_00bd91d9",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1500,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-16T08:50:28Z",
+      "side": 1,
+      "message": "`mCallingPackage` should be non-null because it is used for permission checks below. Therefore, I don\u0027t think annotating `callingPackage` as nullable is correct.",
+      "range": {
+        "startLine": 1500,
+        "startChar": 33,
+        "endLine": 1500,
+        "endChar": 48
+      },
+      "revId": "318993fe8c572f9e50cc71854b3a889965770765",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
