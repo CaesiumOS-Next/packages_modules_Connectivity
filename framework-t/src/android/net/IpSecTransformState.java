@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @FlaggedApi(IPSEC_TRANSFORM_STATE)
 public final class IpSecTransformState implements Parcelable {
-    private final long mTimeStamp;
+    private final long mTimestamp;
     private final long mTxHighestSequenceNumber;
     private final long mRxHighestSequenceNumber;
     private final long mPacketCount;
@@ -54,7 +54,7 @@ public final class IpSecTransformState implements Parcelable {
             long packetCount,
             long byteCount,
             byte[] replayBitmap) {
-        mTimeStamp = timestamp;
+        mTimestamp = timestamp;
         mTxHighestSequenceNumber = txHighestSequenceNumber;
         mRxHighestSequenceNumber = rxHighestSequenceNumber;
         mPacketCount = packetCount;
@@ -78,7 +78,7 @@ public final class IpSecTransformState implements Parcelable {
     @VisibleForTesting(visibility = Visibility.PRIVATE)
     public IpSecTransformState(@NonNull Parcel in) {
         Objects.requireNonNull(in, "The input PersistableBundle is null");
-        mTimeStamp = in.readLong();
+        mTimestamp = in.readLong();
         mTxHighestSequenceNumber = in.readLong();
         mRxHighestSequenceNumber = in.readLong();
         mPacketCount = in.readLong();
@@ -97,7 +97,7 @@ public final class IpSecTransformState implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel out, int flags) {
-        out.writeLong(mTimeStamp);
+        out.writeLong(mTimestamp);
         out.writeLong(mTxHighestSequenceNumber);
         out.writeLong(mRxHighestSequenceNumber);
         out.writeLong(mPacketCount);
@@ -122,14 +122,16 @@ public final class IpSecTransformState implements Parcelable {
     /**
      * Retrieve the epoch timestamp (milliseconds) for when this state was created
      *
-     * @see Builder#setTimestamp(long)
+     * <p>Except for testing, the timestamp is normally taken from {@link System#currentTimeMillis}
+     *
+     * @see Builder#setTimestampMillis(long)
      */
-    public long getTimestamp() {
-        return mTimeStamp;
+    public long getTimestampMillis() {
+        return mTimestamp;
     }
 
     /**
-     * Retrieve the highest sequence number sent so far
+     * Retrieve the highest sequence number sent so far as an unsigned long
      *
      * @see Builder#setTxHighestSequenceNumber(long)
      */
@@ -138,7 +140,7 @@ public final class IpSecTransformState implements Parcelable {
     }
 
     /**
-     * Retrieve the highest sequence number received so far
+     * Retrieve the highest sequence number received so far as an unsigned long
      *
      * @see Builder#setRxHighestSequenceNumber(long)
      */
@@ -147,7 +149,7 @@ public final class IpSecTransformState implements Parcelable {
     }
 
     /**
-     * Retrieve the number of packets received AND sent so far
+     * Retrieve the number of packets received AND sent so far as an unsigned long
      *
      * @see Builder#setPacketCount(long)
      */
@@ -156,7 +158,7 @@ public final class IpSecTransformState implements Parcelable {
     }
 
     /**
-     * Retrieve the number of bytes received AND sent so far
+     * Retrieve the number of bytes received AND sent so far as an unsigned long
      *
      * @see Builder#setByteCount(long)
      */
@@ -183,10 +185,15 @@ public final class IpSecTransformState implements Parcelable {
         return mReplayBitmap.clone();
     }
 
-    /** Builder class for testing purposes */
+    /**
+     * Builder class for testing purposes
+     *
+     * <p>Except for testing, IPsec callers normally do not instantiate {@link IpSecTransformState}
+     * themselves but instead get a reference via {@link IpSecTransformState}
+     */
     @FlaggedApi(IPSEC_TRANSFORM_STATE)
     public static final class Builder {
-        private long mTimeStamp;
+        private long mTimestamp;
         private long mTxHighestSequenceNumber;
         private long mRxHighestSequenceNumber;
         private long mPacketCount;
@@ -194,22 +201,22 @@ public final class IpSecTransformState implements Parcelable {
         private byte[] mReplayBitmap;
 
         public Builder() {
-            mTimeStamp = System.currentTimeMillis();
+            mTimestamp = System.currentTimeMillis();
         }
 
         /**
          * Set the epoch timestamp (milliseconds) for when this state was created
          *
-         * @see IpSecTransformState#getTimestamp()
+         * @see IpSecTransformState#getTimestampMillis()
          */
         @NonNull
-        public Builder setTimestamp(long timeStamp) {
-            mTimeStamp = timeStamp;
+        public Builder setTimestampMillis(long timestamp) {
+            mTimestamp = timestamp;
             return this;
         }
 
         /**
-         * Set the highest sequence number sent so far
+         * Set the highest sequence number sent so far as an unsigned long
          *
          * @see IpSecTransformState#getTxHighestSequenceNumber()
          */
@@ -220,7 +227,7 @@ public final class IpSecTransformState implements Parcelable {
         }
 
         /**
-         * Set the highest sequence number received so far
+         * Set the highest sequence number received so far as an unsigned long
          *
          * @see IpSecTransformState#getRxHighestSequenceNumber()
          */
@@ -231,7 +238,7 @@ public final class IpSecTransformState implements Parcelable {
         }
 
         /**
-         * Set the number of packets received AND sent so far
+         * Set the number of packets received AND sent so far as an unsigned long
          *
          * @see IpSecTransformState#getPacketCount()
          */
@@ -242,7 +249,7 @@ public final class IpSecTransformState implements Parcelable {
         }
 
         /**
-         * Set the number of bytes received AND sent so far
+         * Set the number of bytes received AND sent so far as an unsigned long
          *
          * @see IpSecTransformState#getByteCount()
          */
@@ -271,7 +278,7 @@ public final class IpSecTransformState implements Parcelable {
         @NonNull
         public IpSecTransformState build() {
             return new IpSecTransformState(
-                    mTimeStamp,
+                    mTimestamp,
                     mTxHighestSequenceNumber,
                     mRxHighestSequenceNumber,
                     mPacketCount,
