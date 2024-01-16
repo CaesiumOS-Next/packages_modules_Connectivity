@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3202260d_eda0d416",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T03:32:17Z",
+      "side": 1,
+      "message": "nsd_custom_hostname_enabled ? since there is no rename mechanism for hostnames, so \"conflict failure\" should always be enabled for hostnames",
+      "range": {
+        "startLine": 230,
+        "startChar": 45,
+        "endLine": 230,
+        "endChar": 86
+      },
+      "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5a32494_f1151b70",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T03:32:17Z",
+      "side": 1,
+      "message": "Need to look at impl first, but does this happen with the current code ? (also the one below)",
+      "range": {
+        "startLine": 234,
+        "startChar": 113,
+        "endLine": 234,
+        "endChar": 151
+      },
+      "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57459aae_7c6bd708",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T03:32:17Z",
+      "side": 1,
+      "message": "Is that another feature that should be in another change ?",
+      "range": {
+        "startLine": 163,
+        "startChar": 28,
+        "endLine": 163,
+        "endChar": 69
+      },
+      "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e6001ce_1e834452",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1684,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T03:32:17Z",
+      "side": 1,
+      "message": "There\u0027s some duplicate checks in the logic below. Can it be simplified ?\n\n```\nif (port \u003c 0) throw...\nif (hasServiceType || hasServiceName || hasPort) {\n    if (!(hasServiceType \u0026\u0026 hasServiceName \u0026\u0026 hasPort)) throw...\n}\n\nif (!hasServiceType \u0026\u0026 !hasHostname) {\n    throw...\n}\nif (hasHostname) {\n    // Any additional check necessary here ? Actually maybe anything is fine ?\n}\n```",
+      "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
