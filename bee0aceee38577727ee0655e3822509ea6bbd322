@@ -1,0 +1,244 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dd86465_075ce454",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "Just minor comments",
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ec41ece_88f1de6f",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "Did you run statsd_testdrive to make sure the data is as expected ? In particular make sure the UIDs etc. are correct",
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b0c4044_22d74ee2",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "Nit: add @Nullable / @NonNull to all fields and arguments (you have them only on some arguments of some methods)",
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58ec695d_e908b409",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "It\u0027s best to mock as little as possible for the test; could you just make this \"elapsedRealtime\" ?",
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f7beedb_78dd91d2",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "Supernit: I doubt the device can boot within 1s but technically you\u0027d want to also pass the check regardless if mLastLogTime \u003d\u003d 0... That would probably only matter if someone decides to make ATOM_INTERVAL_MS significantly bigger at some point",
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cd4158d_9a04e0da",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "Nit: \u003e\u003d",
+      "range": {
+        "startLine": 201,
+        "startChar": 34,
+        "endLine": 201,
+        "endChar": 37
+      },
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "303234ec_5e48657b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 5345,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "Note this will also log requests filed by the system, for example to keep always-on networks connected (so devices will always have 1-2 registered on boot and send these metrics). Is that expected ?",
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c69eed6e_1d16eb8e",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateInfoTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "Nit: when(...).thenReturn is hard to debug if other threads access the mocks at the same time (because it persists state in globals between the call to getElapsedRealtime() and the call to when()). doReturn(...).when(...) is generally a safer syntax",
+      "range": {
+        "startLine": 62,
+        "startChar": 57,
+        "endLine": 62,
+        "endChar": 67
+      },
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c298064_758450f3",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateInfoTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "Nit: just networkRequestStateInfo (also in the other test)",
+      "range": {
+        "startLine": 63,
+        "startChar": 32,
+        "endLine": 63,
+        "endChar": 34
+      },
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82cf94ee_78683192",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "clearInvocations is generally discouraged (see the doc); you can use verify(..., times(2)) instead.\n\nTechnically if you want to follow the best practice of having only setup steps, followed only by verification steps, you could just do:\n\n - onNetworkRequestReceived\n - onNetworkRequestRemoved\n - verify(mNRStateStatsDeps, times(2)).writeStats(capture())\n - Verify mNetworkRequestStateInfoCaptor.getAllValues().get(0)\n - Verify mNetworkRequestStateInfoCaptor.getAllValues().get(1)\n\nBut up to you",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 24
+      },
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44f2dff2_afdce795",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "Also here, instead of this you can do verify(..., times(1))... for the second verification to check there\u0027s no new one",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 24
+      },
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67036e17_2590acae",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "It\u0027s not clear why 4; could you just do MAX_QUEUED_REQUESTS + 1 ?\n\nMaybe change the loop comparison to `2 * i \u003c NetworkRequestStateStatsMetrics.MAX_QUEUED_REQUESTS + 1`",
+      "range": {
+        "startLine": 162,
+        "startChar": 32,
+        "endLine": 162,
+        "endChar": 33
+      },
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

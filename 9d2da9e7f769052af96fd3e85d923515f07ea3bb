@@ -3,6 +3,69 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7383275c_abf4ca7d",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "stats.proto is copied into this package from frameworks/proto_logging (because that\u0027s how the metrics are supposed to be implemented), but there\u0027s no other connectivity class in that package; for Java logic this should probably be something like com.android.server.connectivity, if possible ?",
+      "range": {
+        "startLine": 17,
+        "startChar": 8,
+        "endLine": 17,
+        "endChar": 27
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d1b8dd8_5e8b52df",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "Could you instead pass in the current time in the constructor and as argument to setNetworkRequestRemoved ? This would simplify a bit since you already have Dependencies to mock current time in the caller.",
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62091cd0_a4301f34",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "Nit: this is not a great reference for AOSP contributors that don\u0027t have direct contact. It\u0027s best to describe the technical limitation and rationale (so for example say that logging is limited to one atom per 10 milliseconds, and 1 second is a safety margin. It would be best to clarify the rationale for that 1s recommendation though, I couldn\u0027t find any justification...)",
+      "range": {
+        "startLine": 55,
+        "startChar": 38,
+        "endLine": 55,
+        "endChar": 56
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4ccf163b_2ed5509b",
         "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
         "patchSetId": 5
@@ -32,6 +95,29 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "4ccf163b_2ed5509b",
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d175b4a2_4f5b7137",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "It\u0027s worth noting that this will block on a condition variable set by the handlerThread once it\u0027s up and running; so it can slightly slow down boot time. I\u0027m not sure there\u0027s a simple design that would avoid that though; at least the cost is only paid when the class is constructed (so only on Wear)",
+      "range": {
+        "startLine": 82,
+        "startChar": 69,
+        "endLine": 82,
+        "endChar": 78
+      },
       "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -578,6 +664,70 @@
         "startChar": 8,
         "endLine": 135,
         "endChar": 9
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "526b545d_8e6d16de",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "If you only send events on disconnect, you will miss events if the request is not released until the device is powered off. That may be the case for some long-running services like GMS, and everything that was currently active when the device powers off will not be logged. That may be OK depending on your use-case.",
+      "parentUuid": "8444ab8a_cba92f68",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 9
+      },
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5a4a2d7_dd8ec73c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "Nit: add @Nullable",
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88e3c609_60731469",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1434,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T07:06:24Z",
+      "side": 1,
+      "message": "supernit: extra space",
+      "range": {
+        "startLine": 1434,
+        "startChar": 22,
+        "endLine": 1434,
+        "endChar": 24
       },
       "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
