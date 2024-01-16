@@ -492,9 +492,10 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
      */
     private static class OpenSessionKey {
         public final int uid;
+        @Nullable
         public final String packageName;
 
-        OpenSessionKey(int uid, @NonNull String packageName) {
+        OpenSessionKey(int uid, @Nullable String packageName) {
             this.uid = uid;
             this.packageName = packageName;
         }
@@ -1432,7 +1433,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     }
 
     @Override
-    public INetworkStatsSession openSessionForUsageStats(int flags, String callingPackage) {
+    public INetworkStatsSession openSessionForUsageStats(
+            int flags, @NonNull String callingPackage) {
         return openSessionInternal(flags, callingPackage);
     }
 
@@ -1461,7 +1463,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         return now - lastCallTime < POLL_RATE_LIMIT_MS;
     }
 
-    private int restrictFlagsForCaller(int flags, @NonNull String callingPackage) {
+    private int restrictFlagsForCaller(int flags, @Nullable String callingPackage) {
         // All non-privileged callers are not allowed to turn off POLL_ON_OPEN.
         final boolean isPrivileged = PermissionUtils.checkAnyPermissionOf(mContext,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
@@ -1478,7 +1480,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         return flags;
     }
 
-    private INetworkStatsSession openSessionInternal(final int flags, final String callingPackage) {
+    private INetworkStatsSession openSessionInternal(
+            final int flags, @Nullable final String callingPackage) {
         final int restrictedFlags = restrictFlagsForCaller(flags, callingPackage);
         if ((restrictedFlags & (NetworkStatsManager.FLAG_POLL_ON_OPEN
                 | NetworkStatsManager.FLAG_POLL_FORCE)) != 0) {
