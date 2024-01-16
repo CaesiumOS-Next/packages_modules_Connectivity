@@ -113,6 +113,8 @@ import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPer
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermissionOr;
 import static com.android.net.module.util.PermissionUtils.hasAnyPermissionOf;
 import static com.android.server.ConnectivityStatsLog.CONNECTIVITY_STATE_SAMPLE;
+import static com.android.server.connectivity.CarrierPrivilegeAuthenticator.CarrierPrivilegesLostListener;
+import static com.android.server.connectivity.ConnectivityFlags.REQUEST_RESTRICTED_WIFI;
 
 import android.Manifest;
 import android.annotation.CheckResult;
@@ -466,6 +468,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     final RequestInfoPerUidCounter mSystemNetworkRequestCounter;
 
     private volatile boolean mLockdownEnabled;
+
+    private final boolean mRequestRestrictedWifiEnabled;
 
     /**
      * Stale copy of uid blocked reasons provided by NPMS. As long as they are accessed only in
@@ -830,6 +834,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * Event to inform the ConnectivityService handler when a uid has been frozen or unfrozen.
      */
     private static final int EVENT_UID_FROZEN_STATE_CHANGED = 61;
+
+    /**
+     * Event to inform the ConnectivityService handler when a uid has lost carrier privileges.
+     */
+    private static final int EVENT_UID_CARRIER_PRIVILEGES_LOST = 62;
 
     /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
@@ -1270,6 +1279,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
     private final LegacyTypeTracker mLegacyTypeTracker = new LegacyTypeTracker(this);
 
+    private final CarrierPrivilegesLostListenerImpl mCarrierPrivilegesLostListenerImpl =
+            new CarrierPrivilegesLostListenerImpl();
+
+    private class CarrierPrivilegesLostListenerImpl implements CarrierPrivilegesLostListener {
+        @Override
+        public void onCarrierPrivilegesLost(int uid) {
+            mHandler.sendMessage(mHandler.obtainMessage(
+                    EVENT_UID_CARRIER_PRIVILEGES_LOST, uid, 0 /* arg2 */));
+        }
+    }
     final LocalPriorityDump mPriorityDumper = new LocalPriorityDump();
     /**
      * Helper class which parses out priority arguments and dumps sections according to their
@@ -1488,9 +1507,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
          */
         @Nullable
         public CarrierPrivilegeAuthenticator makeCarrierPrivilegeAuthenticator(
-                @NonNull final Context context, @NonNull final TelephonyManager tm) {
+                @NonNull final Context context,
+                @NonNull final TelephonyManager tm,
+                boolean requestRestrictedWifiEnabled) {
             if (isAtLeastT()) {
-                return new CarrierPrivilegeAuthenticator(context, tm);
+                return new CarrierPrivilegeAuthenticator(context, tm, requestRestrictedWifiEnabled);
             } else {
                 return null;
             }
@@ -1759,8 +1780,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mTelephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         mAppOpsManager = (AppOpsManager) mContext.getSystemService(Context.APP_OPS_SERVICE);
         mLocationPermissionChecker = mDeps.makeLocationPermissionChecker(mContext);
-        mCarrierPrivilegeAuthenticator =
-                mDeps.makeCarrierPrivilegeAuthenticator(mContext, mTelephonyManager);
+        mRequestRestrictedWifiEnabled = mDeps.isAtLeastU()
+                && mDeps.isFeatureEnabled(context, REQUEST_RESTRICTED_WIFI);
+        mCarrierPrivilegeAuthenticator = mDeps.makeCarrierPrivilegeAuthenticator(
+                mContext, mTelephonyManager, mRequestRestrictedWifiEnabled);
 
         // To ensure uid state is synchronized with Network Policy, register for
         // NetworkPolicyManagerService events must happen prior to NetworkPolicyManagerService
@@ -1927,6 +1950,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         if (mDeps.isFeatureNotChickenedOut(mContext, LOG_BPF_RC)) {
             mHandler.post(BpfLoaderRcUtils::checkBpfLoaderRc);
+        }
+
+        if (mRequestRestrictedWifiEnabled && mCarrierPrivilegeAuthenticator != null) {
+            mCarrierPrivilegeAuthenticator
+                    .registerCarrierPrivilegesLostListener(mCarrierPrivilegesLostListenerImpl);
         }
     }
 
@@ -6410,6 +6438,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     UidFrozenStateChangedArgs args = (UidFrozenStateChangedArgs) msg.obj;
                     handleFrozenUids(args.mUids, args.mFrozenStates);
                     break;
+                case EVENT_UID_CARRIER_PRIVILEGES_LOST:
+                    handleUidCarrierPrivilegesLost(msg.arg1);
+                    break;
             }
         }
     }
@@ -7490,9 +7521,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         mAppOpsManager.checkPackage(callerUid, callerPackageName);
 
-        if (!nc.getSubscriptionIds().isEmpty()) {
-            enforceNetworkFactoryPermission();
+        if (nc.getSubscriptionIds().isEmpty()) {
+            return;
         }
+        if (mRequestRestrictedWifiEnabled
+                && canBypassNetworkPermissionsCheck(nc, callerUid)) {
+            return;
+        }
+        enforceNetworkFactoryPermission();
     }
 
     private int[] getSignalStrengthThresholds(@NonNull final NetworkAgentInfo nai) {
@@ -7772,6 +7808,22 @@ public class ConnectivityService extends IConnectivityManager.Stub
         applicationNetworkCapabilities.enforceSelfCertifiedNetworkCapabilitiesDeclared(
                 networkCapabilities);
     }
+
+    private boolean canBypassNetworkPermissionsCheck(
+            NetworkCapabilities networkCapabilities, int callingUid) {
+        if (mRequestRestrictedWifiEnabled) {
+            // For U+ devices, callers with carrier privilege could request restricted networks
+            // with CBS capabilities, or any restricted WiFi networks.
+            return ((networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)
+                || networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI))
+                && hasCarrierPrivilegeForNetworkCaps(callingUid, networkCapabilities));
+        } else {
+            // For T+ devices, callers with carrier privilege could request with CBS
+            // capabilities.
+            return (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)
+                && hasCarrierPrivilegeForNetworkCaps(callingUid, networkCapabilities));
+        }
+    }
     private void enforceNetworkRequestPermissions(NetworkCapabilities networkCapabilities,
             String callingPackageName, String callingAttributionTag, final int callingUid) {
         if (shouldCheckCapabilitiesDeclaration(networkCapabilities, callingUid,
@@ -7779,13 +7831,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             enforceRequestCapabilitiesDeclaration(callingPackageName, networkCapabilities,
                     callingUid);
         }
-        if (networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED) == false) {
-            // For T+ devices, callers with carrier privilege could request with CBS capabilities.
-            if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)
-                    && hasCarrierPrivilegeForNetworkCaps(callingUid, networkCapabilities)) {
-                return;
+        if (!networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)) {
+            if (!canBypassNetworkPermissionsCheck(networkCapabilities, callingUid)) {
+                enforceConnectivityRestrictedNetworksPermission(true /* checkUidsAllowedList */);
             }
-            enforceConnectivityRestrictedNetworksPermission(true /* checkUidsAllowedList */);
         } else {
             enforceChangePermission(callingPackageName, callingAttributionTag);
         }
@@ -9049,6 +9098,39 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // updateNetworkInfo will mix in the suspended info from the capabilities and
             // take appropriate action for the network having possibly changed state.
             updateNetworkInfo(nai, nai.networkInfo);
+        }
+    }
+
+    private void handleUidCarrierPrivilegesLost(int uid) {
+        ensureRunningOnConnectivityServiceThread();
+        // A NetworkRequest needs to be revoked when all the conditions are met
+        //   1. It requests restricted network
+        //   2. The requestor uid matches the uid with the callback
+        //   3. The app doesn't have Carrier Privileges
+        //   4. The app doesn't have permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS
+        for (final NetworkRequest nr : mNetworkRequests.keySet()) {
+            if (nr.isRequest()
+                    && !nr.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                    && nr.getRequestorUid() == uid
+                    && !hasCarrierPrivilegeForNetworkCaps(uid, nr.networkCapabilities)
+                    && !hasConnectivityRestrictedNetworksPermission(uid, true)) {
+                declareNetworkRequestUnfulfillable(nr);
+            }
+        }
+
+        // A NetworkAgent's allowedUids may need to be updated if the app has lost
+        // carrier config
+        for (final NetworkAgentInfo info : mNetworkAgentInfos) {
+            if (info.networkCapabilities.getAllowedUidsNoCopy().contains(uid)) {
+                // Reuse NETWORK_CAPAIBLITIES_CHANGED for all the safety checks, including the
+                // allowedUids checks. This will transitively also clear the routing rules that
+                // would otherwise continue allowing the app access to the network, even if
+                // the requests are removed.
+                mTrackerHandler.obtainMessage(
+                        NetworkAgent.EVENT_NETWORK_CAPABILITIES_CHANGED,
+                        new Pair<>(info, info.networkCapabilities))
+                        .sendToTarget();
+            }
         }
     }
 

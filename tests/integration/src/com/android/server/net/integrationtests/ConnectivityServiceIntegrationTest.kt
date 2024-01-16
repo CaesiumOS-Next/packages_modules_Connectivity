@@ -240,14 +240,15 @@ class ConnectivityServiceIntegrationTest {
 
         override fun makeCarrierPrivilegeAuthenticator(
             context: Context,
-            tm: TelephonyManager
+            tm: TelephonyManager,
+            requestRestrictedWifiEnabled: Boolean
         ): CarrierPrivilegeAuthenticator {
             return CarrierPrivilegeAuthenticator(context,
                 object : CarrierPrivilegeAuthenticator.Dependencies() {
                     override fun makeHandlerThread(): HandlerThread =
                         super.makeHandlerThread().also { handlerThreads.add(it) }
                 },
-                tm, TelephonyManagerShimImpl.newInstance(tm))
+                tm, TelephonyManagerShimImpl.newInstance(tm), requestRestrictedWifiEnabled)
         }
     }
 
