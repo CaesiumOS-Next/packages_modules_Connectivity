@@ -112,6 +112,8 @@ import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermission;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermissionOr;
 import static com.android.server.ConnectivityStatsLog.CONNECTIVITY_STATE_SAMPLE;
+import static com.android.server.connectivity.CarrierPrivilegeAuthenticator.CarrierPrivilegesLostListener;
+import static com.android.server.connectivity.ConnectivityFlags.REQUEST_RESTRICTED_WIFI;
 
 import static java.util.Map.Entry;
 
@@ -463,6 +465,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     final RequestInfoPerUidCounter mSystemNetworkRequestCounter;
 
     private volatile boolean mLockdownEnabled;
+
+    private final boolean mRequestRestrictedWifiEnabled;
 
     /**
      * Stale copy of uid blocked reasons provided by NPMS. As long as they are accessed only in
@@ -1266,6 +1270,31 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
     private final LegacyTypeTracker mLegacyTypeTracker = new LegacyTypeTracker(this);
 
+    @VisibleForTesting
+    final CarrierPrivilegesLostListenerImpl mCarrierPrivilegesLostListenerImpl =
+            new CarrierPrivilegesLostListenerImpl();
+
+    @VisibleForTesting
+    class CarrierPrivilegesLostListenerImpl implements CarrierPrivilegesLostListener {
+        @Override
+        public void onCarrierPrivilegesLost(int uid) {
+            synchronized (mNetworkRequests) {
+                // A NetworkRequest needs to be revoked when all the conditions are met
+                //   1. It requests restricted network
+                //   2. The requestor uid matches the uid with the callback
+                //   3. The app doesn't have Carrier Privileges
+                //   4. The app doesn't have permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS
+                for (final NetworkRequest nr : mNetworkRequests.keySet()) {
+                    if (!nr.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                            && nr.getRequestorUid() == uid
+                            && !hasCarrierPrivilegeForNetworkCaps(uid, nr.networkCapabilities)
+                            && !checkConnectivityRestrictedNetworksPermission(uid, true)) {
+                        declareNetworkRequestUnfulfillable(nr);
+                    }
+                }
+            }
+        }
+    }
     final LocalPriorityDump mPriorityDumper = new LocalPriorityDump();
     /**
      * Helper class which parses out priority arguments and dumps sections according to their
@@ -1877,6 +1906,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         mRoutingCoordinatorService = new RoutingCoordinatorService(netd);
 
+        mRequestRestrictedWifiEnabled = mDeps.isAtLeastU()
+                && mDeps.isFeatureEnabled(context, REQUEST_RESTRICTED_WIFI);
         mDestroyFrozenSockets = mDeps.isAtLeastU()
                 && mDeps.isFeatureEnabled(context, KEY_DESTROY_FROZEN_SOCKETS_VERSION);
         mDelayDestroyFrozenSockets = mDeps.isAtLeastU()
@@ -1910,6 +1941,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         if (mDeps.isFeatureNotChickenedOut(mContext, LOG_BPF_RC)) {
             mHandler.post(BpfLoaderRcUtils::checkBpfLoaderRc);
+        }
+
+        if (mRequestRestrictedWifiEnabled && mCarrierPrivilegeAuthenticator != null) {
+            mCarrierPrivilegeAuthenticator
+                        .registerCarrierPrivilegesLostListener(mCarrierPrivilegesLostListenerImpl);
         }
     }
 
@@ -7458,7 +7494,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         mAppOpsManager.checkPackage(callerUid, callerPackageName);
 
-        if (!nc.getSubscriptionIds().isEmpty()) {
+        if (!mRequestRestrictedWifiEnabled && !nc.getSubscriptionIds().isEmpty()) {
             enforceNetworkFactoryPermission();
         }
     }
@@ -7740,6 +7776,22 @@ public class ConnectivityService extends IConnectivityManager.Stub
         applicationNetworkCapabilities.enforceSelfCertifiedNetworkCapabilitiesDeclared(
                 networkCapabilities);
     }
+
+    private boolean canBypassRestrictedNetworkPermissionCheck(
+            NetworkCapabilities networkCapabilities, int callingUid) {
+        if (mRequestRestrictedWifiEnabled) {
+            // For U+ devices, callers with carrier privilege could request restricted networks
+            // with CBS capabilities, or any restricted WiFi networks.
+            return ((networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)
+                || networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI))
+                && hasCarrierPrivilegeForNetworkCaps(callingUid, networkCapabilities));
+        } else {
+            // For T+ devices, callers with carrier privilege could request with CBS
+            // capabilities.
+            return (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)
+                && hasCarrierPrivilegeForNetworkCaps(callingUid, networkCapabilities));
+        }
+    }
     private void enforceNetworkRequestPermissions(NetworkCapabilities networkCapabilities,
             String callingPackageName, String callingAttributionTag, final int callingUid) {
         if (shouldCheckCapabilitiesDeclaration(networkCapabilities, callingUid,
@@ -7747,12 +7799,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             enforceRequestCapabilitiesDeclaration(callingPackageName, networkCapabilities,
                     callingUid);
         }
-        if (networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED) == false) {
-            // For T+ devices, callers with carrier privilege could request with CBS capabilities.
-            if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)
-                    && hasCarrierPrivilegeForNetworkCaps(callingUid, networkCapabilities)) {
-                return;
-            }
+        if (!networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                && !canBypassRestrictedNetworkPermissionCheck(networkCapabilities, callingUid)) {
             enforceConnectivityRestrictedNetworksPermission(true /* checkUidsAllowedList */);
         } else {
             enforceChangePermission(callingPackageName, callingAttributionTag);
