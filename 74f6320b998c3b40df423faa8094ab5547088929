@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e1bff55_488b60c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T08:12:31Z",
+      "side": 1,
+      "message": "This is a flake fix but as it changes behavior a bit in CTS, I\u0027m not sure whether Lorenzo would like to have a look ?",
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8892d5f9_d4f05f28",
         "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
         "patchSetId": 3
@@ -14,6 +31,30 @@
       "writtenOn": "2024-01-15T10:43:17Z",
       "side": 1,
       "message": "Out of curiority, why is it not static?",
+      "range": {
+        "startLine": 51,
+        "startChar": 34,
+        "endLine": 51,
+        "endChar": 50
+      },
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78fce741_8aaaf9d0",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T08:12:31Z",
+      "side": 1,
+      "message": "@ClassRule needs to be static, but @Rule is per-test-method and is not static. I used @ClassRule for DnsResolverTest to avoid reconnecting wifi many times (which takes time), but in this class there\u0027s only one DNS-related test so a normal @Rule should be fine.",
+      "parentUuid": "8892d5f9_d4f05f28",
       "range": {
         "startLine": 51,
         "startChar": 34,
