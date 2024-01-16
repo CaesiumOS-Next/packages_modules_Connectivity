@@ -20,6 +20,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
 import static com.android.server.connectivity.ConnectivityFlags.CARRIER_SERVICE_CHANGED_USE_CALLBACK;
+import static com.android.server.connectivity.ConnectivityFlags.REQUEST_RESTRICTED_WIFI;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -46,6 +47,7 @@ import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.modules.utils.HandlerExecutor;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.DeviceConfigUtils;
 import com.android.networkstack.apishim.TelephonyManagerShimImpl;
 import com.android.networkstack.apishim.common.TelephonyManagerShim;
@@ -79,6 +81,9 @@ public class CarrierPrivilegeAuthenticator {
     @NonNull
     private final List<PrivilegeListener> mCarrierPrivilegesChangedListeners = new ArrayList<>();
     private final boolean mUseCallbacksForServiceChanged;
+    private final boolean mRequestRestrictedWifiEnabled;
+    @GuardedBy("mLock")
+    private List<CarrierPrivilegesLostListener> mListeners = new ArrayList<>();
 
     public CarrierPrivilegeAuthenticator(@NonNull final Context c,
             @NonNull final Dependencies deps,
@@ -92,6 +97,8 @@ public class CarrierPrivilegeAuthenticator {
         mHandler = new Handler(thread.getLooper());
         mUseCallbacksForServiceChanged = deps.isFeatureEnabled(
                 c, CARRIER_SERVICE_CHANGED_USE_CALLBACK);
+        mRequestRestrictedWifiEnabled = SdkLevel.isAtLeastU()
+                && deps.isFeatureEnabled(c, REQUEST_RESTRICTED_WIFI);
         final IntentFilter filter = new IntentFilter();
         filter.addAction(TelephonyManager.ACTION_MULTI_SIM_CONFIG_CHANGED);
         synchronized (mLock) {
@@ -133,6 +140,36 @@ public class CarrierPrivilegeAuthenticator {
         }
     }
 
+    /**
+     * Listener interface to get a notification when the carrier App lost its privileges.
+     */
+    public interface CarrierPrivilegesLostListener {
+        /**
+         * Called when the carrier App lost its privileges.
+         *
+         * @param uid  The uid of the carrier app which has lost its privileges.
+         */
+        void onCarrierPrivilegesLost(int uid);
+    }
+
+    /** Register a listener for carrier privileges lost. */
+    public void registerCarrierPrivilegesLostListener(CarrierPrivilegesLostListener listener) {
+        synchronized (mLock) {
+            if (mRequestRestrictedWifiEnabled && !mListeners.contains(listener)) {
+                mListeners.add(listener);
+            }
+        }
+    }
+
+    /** Unregister a listener for carrier privileges lost. */
+    public void unRegisterCarrierPrivilegesLostListener(CarrierPrivilegesLostListener listener) {
+        synchronized (mLock) {
+            if (mRequestRestrictedWifiEnabled && mListeners.contains(listener)) {
+                mListeners.remove(listener);
+            }
+        }
+    }
+
     private void simConfigChanged() {
         synchronized (mLock) {
             unregisterCarrierPrivilegesListeners();
@@ -171,11 +208,25 @@ public class CarrierPrivilegeAuthenticator {
                 return;
             }
             synchronized (mLock) {
+                int oldUid = mCarrierServiceUid.get(mLogicalSlot);
                 mCarrierServiceUid.put(mLogicalSlot, carrierServiceUid);
+                if (oldUid != 0 && oldUid != carrierServiceUid) {
+                    notifyCarrierPrivilegesLost(oldUid);
+                }
             }
         }
     }
 
+    private void notifyCarrierPrivilegesLost(int uid) {
+        if (!mRequestRestrictedWifiEnabled) {
+            return;
+        }
+        synchronized (mLock) {
+            for (CarrierPrivilegesLostListener listener : mListeners) {
+                listener.onCarrierPrivilegesLost(uid);
+            }
+        }
+    }
     private void registerCarrierPrivilegesListeners(final int modemCount) {
         final HandlerExecutor executor = new HandlerExecutor(mHandler);
         try {
@@ -193,7 +244,11 @@ public class CarrierPrivilegeAuthenticator {
     private void unregisterCarrierPrivilegesListeners() {
         for (PrivilegeListener carrierPrivilegesListener : mCarrierPrivilegesChangedListeners) {
             removeCarrierPrivilegesListener(carrierPrivilegesListener);
+            int oldUid = mCarrierServiceUid.get(carrierPrivilegesListener.mLogicalSlot);
             mCarrierServiceUid.delete(carrierPrivilegesListener.mLogicalSlot);
+            if (oldUid != 0) {
+                notifyCarrierPrivilegesLost(oldUid);
+            }
         }
         mCarrierPrivilegesChangedListeners.clear();
     }
@@ -231,7 +286,7 @@ public class CarrierPrivilegeAuthenticator {
     public boolean isCarrierServiceUidForNetworkCapabilities(int callingUid,
             @NonNull NetworkCapabilities networkCapabilities) {
         if (callingUid == Process.INVALID_UID) return false;
-        final int subId;
+        int subId;
         if (networkCapabilities.hasSingleTransportBesidesTest(TRANSPORT_CELLULAR)) {
             subId = getSubIdFromTelephonySpecifier(networkCapabilities.getNetworkSpecifier());
         } else if (networkCapabilities.hasSingleTransportBesidesTest(TRANSPORT_WIFI)) {
@@ -239,6 +294,12 @@ public class CarrierPrivilegeAuthenticator {
         } else {
             subId = SubscriptionManager.INVALID_SUBSCRIPTION_ID;
         }
+        if (subId == SubscriptionManager.INVALID_SUBSCRIPTION_ID
+                && mRequestRestrictedWifiEnabled
+                && networkCapabilities.getSubscriptionIds().size() == 1) {
+            subId = networkCapabilities.getSubscriptionIds().toArray(new Integer[0])[0];
+        }
+
         if (subId != SubscriptionManager.INVALID_SUBSCRIPTION_ID
                 && !networkCapabilities.getSubscriptionIds().contains(subId)) {
             // Ideally, the code above should just use networkCapabilities.getSubscriptionIds()
@@ -257,13 +318,23 @@ public class CarrierPrivilegeAuthenticator {
     @VisibleForTesting
     void updateCarrierServiceUid() {
         synchronized (mLock) {
+            SparseIntArray oldCarrierServiceUid = mCarrierServiceUid.clone();
             mCarrierServiceUid.clear();
             for (int i = 0; i < mModemCount; i++) {
                 mCarrierServiceUid.put(i, getCarrierServicePackageUidForSlot(i));
             }
+            for (int i = 0; i < oldCarrierServiceUid.size(); i++) {
+                if (mCarrierServiceUid.indexOfValue(oldCarrierServiceUid.valueAt(i)) < 0) {
+                    notifyCarrierPrivilegesLost(oldCarrierServiceUid.valueAt(i));
+                }
+            }
         }
     }
 
+    @VisibleForTesting
+    List<CarrierPrivilegesLostListener> getCarrierPrivilegesLostListener() {
+        return mListeners;
+    }
     @VisibleForTesting
     int getCarrierServiceUidForSubId(int subId) {
         final int slotId = getSlotIndex(subId);
@@ -340,6 +411,7 @@ public class CarrierPrivilegeAuthenticator {
 
     public void dump(IndentingPrintWriter pw) {
         pw.println("CarrierPrivilegeAuthenticator:");
+        pw.println("mRequestRestrictedWifiEnabled = " + mRequestRestrictedWifiEnabled);
         synchronized (mLock) {
             final int size = mCarrierServiceUid.size();
             for (int i = 0; i < size; ++i) {
