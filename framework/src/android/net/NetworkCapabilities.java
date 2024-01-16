@@ -20,6 +20,7 @@ import static com.android.internal.annotations.VisibleForTesting.Visibility.PRIV
 import static com.android.net.module.util.BitUtils.appendStringRepresentationOfBitMaskToStringBuilder;
 import static com.android.net.module.util.BitUtils.describeDifferences;
 
+import android.annotation.FlaggedApi;
 import android.annotation.IntDef;
 import android.annotation.LongDef;
 import android.annotation.NonNull;
@@ -130,6 +131,9 @@ public final class NetworkCapabilities implements Parcelable {
     public static class Flags {
         static final String FLAG_FORBIDDEN_CAPABILITY =
                 "com.android.net.flags.forbidden_capability";
+
+        static final String REQUEST_RESTRICTED_WIFI =
+                "com.android.net.flags.request_restricted_wifi";
     }
 
     /**
@@ -2794,10 +2798,9 @@ public final class NetworkCapabilities implements Parcelable {
      * receiver holds the NETWORK_FACTORY permission. In all other cases, it will be the empty set.
      *
      * @return
-     * @hide
      */
     @NonNull
-    @SystemApi
+    @FlaggedApi(Flags.REQUEST_RESTRICTED_WIFI)
     public Set<Integer> getSubscriptionIds() {
         return new ArraySet<>(mSubIds);
     }
