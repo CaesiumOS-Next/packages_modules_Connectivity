@@ -85,6 +85,86 @@
       "message": "There\u0027s some duplicate checks in the logic below. Can it be simplified ?\n\n```\nif (port \u003c 0) throw...\nif (hasServiceType || hasServiceName || hasPort) {\n    if (!(hasServiceType \u0026\u0026 hasServiceName \u0026\u0026 hasPort)) throw...\n}\n\nif (!hasServiceType \u0026\u0026 !hasHostname) {\n    throw...\n}\nif (hasHostname) {\n    // Any additional check necessary here ? Actually maybe anything is fine ?\n}\n```",
       "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5de2930_a5d4af4f",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 1358,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T09:03:16Z",
+      "side": 1,
+      "message": "Nit: use reserved addresses for testing; for example 192.0.2.0/24, or 2001:db8::...",
+      "range": {
+        "startLine": 1358,
+        "startChar": 57,
+        "endLine": 1358,
+        "endChar": 70
+      },
+      "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed8f9e2a_383eb8d7",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 1360,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T09:03:16Z",
+      "side": 1,
+      "message": "nit: maybe 2 services is enough instead of 3 ?",
+      "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12471e4f_f5eaea24",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 1361,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T09:03:16Z",
+      "side": 1,
+      "message": "Nit: \"apply\" would be more convenient (don\u0027t need to say \"it.\")",
+      "range": {
+        "startLine": 1361,
+        "startChar": 35,
+        "endLine": 1361,
+        "endChar": 39
+      },
+      "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d94d95a3_16cbf246",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 1498,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T09:03:16Z",
+      "side": 1,
+      "message": "As discussed, also there should be a test that if 2 services register the same addresses, they should not be duplicate in the answer",
+      "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
