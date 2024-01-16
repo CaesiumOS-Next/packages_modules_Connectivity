@@ -1,0 +1,370 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6f95cba_41aefb12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9da8ad70_cc8418e3",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "Unless you are very sure that there will never be any other state than \"enabled\" and \"disabled\" you probably want to make this an int and define an IntDef for ENABLED and DISABLED. That allows you to have (now or in the future), ENABLING, DISABLING, etc.",
+      "range": {
+        "startLine": 522,
+        "startChar": 54,
+        "endLine": 522,
+        "endChar": 61
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13eaa1e0_59913aa9",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "Per discussion: if a disable operation is requested, and then another operation is requested, then the disable operation *must* complete. (Even if the other operation being requested is \"enable\".) The other requested operation should either be queued, and potentially complete, or return some sort of error.",
+      "range": {
+        "startLine": 535,
+        "startChar": 34,
+        "endLine": 535,
+        "endChar": 55
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12e544a2_1a13d199",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "Static imports?",
+      "range": {
+        "startLine": 109,
+        "startChar": 16,
+        "endLine": 109,
+        "endChar": 47
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6edc2016_8a8d6d0e",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "// TODO: use runAsShell everywhere and make this unnecessary.",
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb289ce2_38c0a532",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "(see comment below)",
+      "range": {
+        "startLine": 276,
+        "startChar": 83,
+        "endLine": 276,
+        "endChar": 87
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de916911_cf05fa02",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "You need to unregister the callback somehow. You can use try/finally in this method, but that gets verbose and cluttered. What we do in other tests is have a convenience method that registers the callback and also stores it into a Set in the test class, so that tearDown can unregister them automatically.\n\nMaybe in this case add a ThreadNetworkControllerTest#registerNewEnabledStateListener(ThreadNetworkController c) method?",
+      "range": {
+        "startLine": 279,
+        "startChar": 20,
+        "endLine": 279,
+        "endChar": 21
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3f3b024_cdafa8e8",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "Do we also have a test then when registering a listener, the callback gets called with enabled(false)?",
+      "range": {
+        "startLine": 280,
+        "startChar": 16,
+        "endLine": 280,
+        "endChar": 19
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39a7aeca_55b4566b",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "If you address the other comments, you don\u0027t need this if.",
+      "range": {
+        "startLine": 451,
+        "startChar": 20,
+        "endLine": 451,
+        "endChar": 34
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "242af045_0ec312fe",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "finalize is deprecated and oiverriding it is discouraged unless you really know what you\u0027re doing. In this case I don\u0027t think this will ever run because unless you call unregisterStateCallback, the system server will maintain a live reference to mCallback through a binder proxy, and because mCallback is not static it will maintain a reference to the EnabledStateListener, and the object will never be garbage collected. This will leak memory both here and in the system server until this process exits.",
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f386a24_b6f807c4",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "We do want to make sure that the OutcomeReceiver is called, and that no exception occurs?",
+      "range": {
+        "startLine": 531,
+        "startChar": 73,
+        "endLine": 531,
+        "endChar": 77
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c9d479f_aab2b966",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "If you put the merpmissions on one line I think you can unindent this. Also elsewhere.",
+      "range": {
+        "startLine": 542,
+        "startChar": 16,
+        "endLine": 542,
+        "endChar": 23
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac8f93cc_50c4187f",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "Might just want to do this on one controller, in case there is more than one.",
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44697948_67618c86",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "Nit: move closer to where it\u0027s used (after the setEnabled).",
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5736dba0_a12c1e1b",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "Let\u0027s not wait forever and instead add some sort of reasonable timeout with a useful. I think you can just call the variant of get that takes a timeout. If the get times out, then the code will throw and the test will fail cleanly with a timeoutexception. Also elsewhere.",
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27b4505e_d04a5056",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "You do this fairly often, maybe factor out to a joinRandomizedDatasetAndWait() method?",
+      "range": {
+        "startLine": 971,
+        "startChar": 24,
+        "endLine": 971,
+        "endChar": 41
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72ae7ff5_d69f4651",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "Ditto you could have a setEnabledAndWait method.",
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00f11ffe_6463030f",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T02:21:01Z",
+      "side": 1,
+      "message": "Nit: instead of doing this you might want to expect the device role change on the listener. ArrayTrackRecord does have some ways to expect stuff eventually.",
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
