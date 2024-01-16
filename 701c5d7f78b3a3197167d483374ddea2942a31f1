@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23dd4c9f_1dcd75a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3256099
+      },
+      "writtenOn": "2024-01-16T14:29:53Z",
+      "side": 1,
+      "message": "Daniel a cimino",
+      "revId": "701c5d7f78b3a3197167d483374ddea2942a31f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
