@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7620396_8134ca79",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-16T01:18:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42915bf3_61ffd8b6",
+      "range": {
+        "startLine": 119,
+        "startChar": 12,
+        "endLine": 119,
+        "endChar": 33
+      },
+      "revId": "49d62f381ef4d9fce35de7146cddfd0110998728",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5db172cc_f762d2b7",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-15T08:08:54Z",
       "side": 1,
       "message": "Please try to avoid depending on large 3p libraries if you can. For this kind of usage, it\u0027s simple to use CompletableFuture or CountDownLatch.",
+      "range": {
+        "startLine": 261,
+        "startChar": 12,
+        "endLine": 261,
+        "endChar": 26
+      },
+      "revId": "49d62f381ef4d9fce35de7146cddfd0110998728",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b18e5547_4f8dc860",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-16T01:18:23Z",
+      "side": 1,
+      "message": "Added a follow up ticket to move this test suite away from SettableFutures. b/320349593",
+      "parentUuid": "5db172cc_f762d2b7",
       "range": {
         "startLine": 261,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b36cf7c3_0c2e3e0e",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-16T01:18:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55a2db9f_06d62f93",
+      "range": {
+        "startLine": 276,
+        "startChar": 42,
+        "endLine": 276,
+        "endChar": 48
+      },
+      "revId": "49d62f381ef4d9fce35de7146cddfd0110998728",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a76f6ce5_3a31f8a5",
@@ -87,6 +159,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5ea79ca_1ee8be60",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-16T01:18:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a76f6ce5_3a31f8a5",
+      "revId": "49d62f381ef4d9fce35de7146cddfd0110998728",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c78427d1_5486de85",
@@ -100,6 +190,30 @@
       "writtenOn": "2024-01-15T08:08:54Z",
       "side": 1,
       "message": "We have utility classes for this type of thing. Look at ArrayTrackRecord and friends. They may make it less work. But this seems OK as well.",
+      "range": {
+        "startLine": 505,
+        "startChar": 32,
+        "endLine": 505,
+        "endChar": 54
+      },
+      "revId": "49d62f381ef4d9fce35de7146cddfd0110998728",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02bf1518_b4e8e433",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-16T01:18:23Z",
+      "side": 1,
+      "message": "👍 done",
+      "parentUuid": "c78427d1_5486de85",
       "range": {
         "startLine": 505,
         "startChar": 32,
@@ -133,6 +247,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e32b570a_78ef1868",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-16T01:18:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c34d4f4_85da95c2",
+      "range": {
+        "startLine": 513,
+        "startChar": 22,
+        "endLine": 513,
+        "endChar": 26
+      },
+      "revId": "49d62f381ef4d9fce35de7146cddfd0110998728",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38a31144_4dce3bc1",
@@ -146,6 +284,30 @@
       "writtenOn": "2024-01-15T08:08:54Z",
       "side": 1,
       "message": "Can you also check that if you now register a state callback, you immediately get a callback that says that the controller is disabled? Given that there is no isEnabled method, registering the callback must result in an immediate callback telling the caller whether the controller is enabled or not.",
+      "range": {
+        "startLine": 542,
+        "startChar": 8,
+        "endLine": 542,
+        "endChar": 9
+      },
+      "revId": "49d62f381ef4d9fce35de7146cddfd0110998728",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eeff29e_1f632f0a",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-16T01:18:23Z",
+      "side": 1,
+      "message": "Added such check in `registerStateCallback_permissionsGranted_returnsThreadEnabledState`",
+      "parentUuid": "38a31144_4dce3bc1",
       "range": {
         "startLine": 542,
         "startChar": 8,
