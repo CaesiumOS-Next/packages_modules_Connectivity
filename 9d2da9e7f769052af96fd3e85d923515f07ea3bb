@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a869ab33_94eeed7e",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T10:08:17Z",
+      "side": 1,
+      "message": "Also fine in a followup if you prefer",
+      "parentUuid": "7d1b8dd8_5e8b52df",
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "62091cd0_a4301f34",
         "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
         "patchSetId": 5

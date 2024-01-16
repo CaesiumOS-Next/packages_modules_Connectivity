@@ -71,6 +71,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df99688e_f3b0a224",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T10:08:17Z",
+      "side": 1,
+      "message": "Also fine in a followup if you prefer",
+      "parentUuid": "58ec695d_e908b409",
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "980162df_52ad5bc1",
         "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
         "patchSetId": 11
@@ -220,6 +238,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b5ce23a3_a5561eac",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T10:08:17Z",
+      "side": 1,
+      "message": "It\u0027s OK to change that in a followup if you prefer",
+      "parentUuid": "82cf94ee_78683192",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 24
+      },
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44f2dff2_afdce795",
         "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
         "patchSetId": 11
@@ -243,6 +285,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f55dfad8_b938bffa",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T10:08:17Z",
+      "side": 1,
+      "message": "Alternatively, use something like:\n\nfinal InOrder inOrder \u003d inOrder(mNRStateStatsDeps);\n\ninOrder.verify(mNRStateStatsDeps).writeStats(...);\n\n...\n\ninOrder.verifyNoMoreInteractions();\n\nBut also OK in a followup if you prefer",
+      "parentUuid": "44f2dff2_afdce795",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 24
+      },
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "67036e17_2590acae",
         "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
         "patchSetId": 11
@@ -254,6 +320,30 @@
       "writtenOn": "2024-01-16T07:06:24Z",
       "side": 1,
       "message": "It\u0027s not clear why 4; could you just do MAX_QUEUED_REQUESTS + 1 ?\n\nMaybe change the loop comparison to `2 * i \u003c NetworkRequestStateStatsMetrics.MAX_QUEUED_REQUESTS + 1`",
+      "range": {
+        "startLine": 162,
+        "startChar": 32,
+        "endLine": 162,
+        "endChar": 33
+      },
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9346911_9c36ebeb",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T10:08:17Z",
+      "side": 1,
+      "message": "(can address in a followup if you want)",
+      "parentUuid": "67036e17_2590acae",
       "range": {
         "startLine": 162,
         "startChar": 32,
