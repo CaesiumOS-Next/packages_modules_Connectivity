@@ -83,6 +83,167 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7dd2d26_fdd1d4f9",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "Can we make this clearer like:\n\nWhen onResult() is called, this API is guaranteed to have successfully changed the state to the specified value. But out of concurrent calls to this API, the enabled state may be changed immediately after the {@code receiver} callback by other parties (e.g. Airplane mode). In this case, it\u0027s better to call {@link registerStateCallback} to listen to the enabled state changed events.",
+      "range": {
+        "startLine": 116,
+        "startChar": 89,
+        "endLine": 119,
+        "endChar": 82
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9eb13ab_22dfc6e8",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "Please also mention that the requested state will be persisted and survive device reboots.",
+      "range": {
+        "startLine": 120,
+        "startChar": 5,
+        "endLine": 120,
+        "endChar": 6
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2923fb7d_83a2af31",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "```suggestion\n     * \u003cp\u003eOn failure, {@link OutcomeReceiver#onError} of {@code receiver} will be invoked with a specific error in {@link ThreadNetworkException#ERROR_}\n```",
+      "range": {
+        "startLine": 121,
+        "startChar": 7,
+        "endLine": 126,
+        "endChar": 12
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36bc0cbd_d63fdd59",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "nit:\n```suggestion\n     * @param enabled {@code true} for enabling Thread\n```",
+      "range": {
+        "startLine": 128,
+        "startChar": 22,
+        "endLine": 128,
+        "endChar": 42
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85e9e614_a3841392",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "```suggestion\n         * airplane mode or admin control.\n```\n\nIt\u0027s implementation details, don\u0027t expose it to app developers.",
+      "range": {
+        "startLine": 213,
+        "startChar": 42,
+        "endLine": 214,
+        "endChar": 35
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4121bf95_5144b7f3",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "nit:\n```suggestion\n         * @param enabled {@code true} if Thread is enabled\n```",
+      "range": {
+        "startLine": 216,
+        "startChar": 26,
+        "endLine": 216,
+        "endChar": 50
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4546d26_c374a48c",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkException.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "```suggestion\n     * The operation failed because the Thread radio is disabled by {@link ThreadNetworkController#setEnabled}, airplane mode or device admin. The caller should retry only after Thread is enabled.\n```",
+      "range": {
+        "startLine": 127,
+        "startChar": 64,
+        "endLine": 128,
+        "endChar": 48
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "12e544a2_1a13d199",
         "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
         "patchSetId": 10
@@ -232,6 +393,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b17fba8_d22d8037",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "```suggestion\n    private void setEnabledAndWait(ThreadNetworkController controller, boolean enabled) throws Exception {\n```",
+      "range": {
+        "startLine": 527,
+        "startChar": 17,
+        "endLine": 527,
+        "endChar": 27
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4f386a24_b6f807c4",
         "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
         "patchSetId": 10
@@ -248,6 +432,122 @@
         "startChar": 73,
         "endLine": 531,
         "endChar": 77
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a75e2bf8_b6b40713",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "+1\n\nYou shouldn\u0027t use `null` with `newOutcomeReceiver()`",
+      "parentUuid": "4f386a24_b6f807c4",
+      "range": {
+        "startLine": 531,
+        "startChar": 73,
+        "endLine": 531,
+        "endChar": 77
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5715e980_0230160e",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "```suggestion\n            runAsShell(\n                PERMISSION_THREAD_NETWORK_PRIVILEGED,\n                () -\u003e controller.setEnabled(enabled, mExecutor, newOutcomeReceiver(null)));\n```\n\nTry to use `runAsShell()` to wrap only the operation that actually needs the additional permissions.",
+      "range": {
+        "startLine": 531,
+        "startChar": 12,
+        "endLine": 531,
+        "endChar": 80
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cce12add_14df7cb6",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "```suggestion\n        controller.setEnabled(enabled, mExecutor, newOutcomeReceiver(setEnabledFuture));\n\n        setEnabledFuture.get(SET_ENABLED_TIMEOUT_MILLIS, MILLISCONDS);\n```\n\nAdditionally, you can write a helper function `boolean getEnabledState(Controller)` to retrieve the current enabled state and `witForEnabledState(Controller, boolean)` to wait for the state to be changed to the expected value.",
+      "range": {
+        "startLine": 528,
+        "startChar": 8,
+        "endLine": 534,
+        "endChar": 9
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30fdb9e1_f43d1442",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "nit: to be more specific with the error code.\n\n```suggestion\n    public void join_threadDisabled_failsWithErrorThreadDisabled() throws Exception {\n```",
+      "range": {
+        "startLine": 538,
+        "startChar": 40,
+        "endLine": 538,
+        "endChar": 68
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5333251_89ab1122",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "Follow my suggestion in the other comment, you don\u0027t need to wrap the whole test with runAsShell()",
+      "range": {
+        "startLine": 539,
+        "startChar": 8,
+        "endLine": 541,
+        "endChar": 53
       },
       "revId": "442243403971ecfa221612314968681eec8e59a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -312,6 +612,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "531c6b8a_b601e176",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "```suggestion\n                        runAsShell(\n                            PERMISSION_THREAD_NETWORK_PRIVILEGED,\n                            () -\u003e controller.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));\n```",
+      "range": {
+        "startLine": 549,
+        "startChar": 24,
+        "endLine": 549,
+        "endChar": 98
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7533a1f_96a5b67f",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "Leave should success, right?",
+      "range": {
+        "startLine": 622,
+        "startChar": 16,
+        "endLine": 622,
+        "endChar": 69
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "485d947f_91c24090",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 623,
+        "startChar": 8,
+        "endLine": 625,
+        "endChar": 53
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5736dba0_a12c1e1b",
         "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
         "patchSetId": 10
@@ -323,6 +692,52 @@
       "writtenOn": "2024-01-16T02:21:01Z",
       "side": 1,
       "message": "Let\u0027s not wait forever and instead add some sort of reasonable timeout with a useful. I think you can just call the variant of get that takes a timeout. If the get times out, then the code will throw and the test will fail cleanly with a timeoutexception. Also elsewhere.",
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e474235_19b144d3",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "Follow Lorenzo\u0027s suggestion, you should specify a timeout here as well:\n\n```suggestion\n                                        assertThrows(ExecutionException.class, ()-\u003e leaveFuture.get(LEAVE_TIMEOUT_MILLIS, MILLISECONDS))\n```",
+      "range": {
+        "startLine": 640,
+        "startChar": 40,
+        "endLine": 640,
+        "endChar": 95
+      },
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fd65599_0b3cafc7",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:24:14Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 872,
+        "startChar": 8,
+        "endLine": 874,
+        "endChar": 53
+      },
       "revId": "442243403971ecfa221612314968681eec8e59a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
