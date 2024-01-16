@@ -27,6 +27,7 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.content.Context;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Binder;
 
 import java.io.PrintWriter;
@@ -182,5 +183,31 @@ public final class PermissionUtils {
             }
         }
         return result;
+    }
+
+    /**
+     * Enforces that the given package name belongs to the given uid.
+     *
+     * @param context {@link android.content.Context} for the process.
+     * @param uid User ID to check the package ownership for.
+     * @param packageName Package name to verify.
+     * @throws SecurityException If the package does not belong to the specified uid.
+     */
+    public static void enforcePackageName(@NonNull Context context,
+            int uid, @NonNull String packageName) {
+        try {
+            int packageUid = context.getPackageManager().getPackageUid(packageName, 0);
+
+            if (uid != packageUid) {
+                // Package does not belong to the specified UID
+                throw new SecurityException(
+                        "Package " + packageName + " does not belong to UID " + uid);
+            }
+        } catch (NameNotFoundException e) {
+            // Package not found. Use the same exception to prevent malicious app from
+            // knowing whether the application is installed.
+            throw new SecurityException(
+                    "Package " + packageName + " does not belong to UID " + uid);
+        }
     }
 }
