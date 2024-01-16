@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dc220d6_bdd523ae",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:53:07Z",
+      "side": 1,
+      "message": "```suggestion\n        // otDaemon set enabled state operation succeeded or not so that it can recover to the desired the value after reboot.\n```",
+      "range": {
+        "startLine": 362,
+        "startChar": 64,
+        "endLine": 362,
+        "endChar": 65
+      },
+      "revId": "a6f4fb3acc093d2dc6a6ecdc6513410105933e0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

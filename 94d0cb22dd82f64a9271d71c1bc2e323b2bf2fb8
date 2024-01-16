@@ -63,6 +63,24 @@
       "message": "It seems unwise to write the persistent settings when receiving the callback that says the state changed. This is because if changing the state fails, the persistent setting is never changed, and if for whatever reason the state gets stuck, the perisstent setting cannot be changed without a reboot. It seems better for the persistent setting to described the *desired* state, and update it whenever the code tries to change the state.",
       "revId": "94d0cb22dd82f64a9271d71c1bc2e323b2bf2fb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6189e5aa_90aa74bc",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-16T06:53:07Z",
+      "side": 1,
+      "message": "It will make the API inconsistent: the caller is told that setEnabled() failed via the API callback but the device eventually reboots into a success state.\n\nIf we want to make the persistent settings the source of truth of the enabled state, then we should remove the callback of the setEnabled API and assume OT daemon always success on setEnabled (it can fail only because OT daemon is crashed and the enabled state will be re-initialized when OT daemon is restarted).",
+      "parentUuid": "4f1b1c02_88c8b43a",
+      "revId": "94d0cb22dd82f64a9271d71c1bc2e323b2bf2fb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
