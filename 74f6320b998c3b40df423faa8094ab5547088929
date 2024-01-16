@@ -20,6 +20,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc156b25_8e3768e7",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T14:23:57Z",
+      "side": 1,
+      "message": "This doesn\u0027t need to check for support, there\u0027s an assertion just above that checks for FEATURE_WIFI.",
+      "range": {
+        "startLine": 873,
+        "startChar": 21,
+        "endLine": 873,
+        "endChar": 42
+      },
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91aee496_e7f1fdd1",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T14:23:57Z",
+      "side": 1,
+      "message": "Why toggleWifiIfSupported? This method has already confirmed that wifi is supported and connected. Maybe add a toggleWifi method that doesn\u0027t check for support?\n\nAlso, have you checked that this code does not care about the broadcast? I assume it doesn\u0027t, since it\u0027s driven by CS, but would be good to make sure.",
+      "range": {
+        "startLine": 202,
+        "startChar": 21,
+        "endLine": 202,
+        "endChar": 42
+      },
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f26ce2b0_4d2a61cc",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T14:23:57Z",
+      "side": 1,
+      "message": "Just to confirm - this is a synchronous method, and when it returns the new value will immediately be used to create new NetworkMonitors?",
+      "range": {
+        "startLine": 138,
+        "startChar": 33,
+        "endLine": 138,
+        "endChar": 42
+      },
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8892d5f9_d4f05f28",
         "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
         "patchSetId": 3
@@ -61,6 +130,109 @@
         "endLine": 51,
         "endChar": 50
       },
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37e58e67_09083be7",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T14:23:57Z",
+      "side": 1,
+      "message": "mDeviceConfigRule?",
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58c1c3ba_9905c244",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T14:23:57Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Check Contents: Prefer to use mContext.getSystemService(ConnectivityManager.class) instead to avoid the cast.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nPrefer to use mContext.getSystemService(ConnectivityManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 84,
+        "startChar": 14,
+        "endLine": 84,
+        "endChar": 62
+      },
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba6b41fe_7d7c70bb",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T14:23:57Z",
+      "side": 1,
+      "message": "Maybe call this \"ConnectivityAction\" instead of \"LegacyBroadcast\"? It\u0027s more specific and about the same length.",
+      "range": {
+        "startLine": 180,
+        "startChar": 36,
+        "endLine": 180,
+        "endChar": 51
+      },
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cf4399e_fdbdde71",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T14:23:57Z",
+      "side": 1,
+      "message": "Can you move these changes to CtsNetUtils to a separate CL (and maybe let them soak for a day or two if you have time)? They are used in lots of tests so changes here might break in unusual configurations that we don\u0027t test in presubmit.",
+      "range": {
+        "startLine": 180,
+        "startChar": 16,
+        "endLine": 180,
+        "endChar": 51
+      },
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d314b33_8c58a699",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-16T14:23:57Z",
+      "side": 1,
+      "message": "The old code supported wifi being disabled when the test was run, but the new code doesn\u0027t. Any reason not to support that any more?\n\nAlso, it looks like disableWifi is a no-op if wifi is already disabled. So if wifi is already disabled, this method enables it, so it\u0027s not really \"toggling\" wifi. Similar comments for toggleWifiAndWaitForLegacyBroadcast above.",
       "revId": "74f6320b998c3b40df423faa8094ab5547088929",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
