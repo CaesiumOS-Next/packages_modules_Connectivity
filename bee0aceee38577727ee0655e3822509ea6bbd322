@@ -375,6 +375,30 @@
       },
       "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86209efd_39f1a610",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-16T10:17:02Z",
+      "side": 1,
+      "message": "As discussed in meeting:\n\n```\nfinal ConditionVariable cv \u003d new ConditionVariable();\nmHandler.post(() -\u003e cv.block());\n\n// Do stuff that posts to the handler\n\ncv.open(); // Starts processing back\n```\n\nThen, no need to mock hasMessages",
+      "parentUuid": "4b99189e_a9a56496",
+      "range": {
+        "startLine": 165,
+        "startChar": 8,
+        "endLine": 165,
+        "endChar": 99
+      },
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
