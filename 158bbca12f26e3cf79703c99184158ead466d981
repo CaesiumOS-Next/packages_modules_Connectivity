@@ -142,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2917d085_7f2e367a",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-01-16T02:08:10Z",
+      "side": 1,
+      "message": "Gave another thought and I think you\u0027re right and that shouldn\u0027t be the case + this approach will not work anyway as if we are having multiple not pushing, but releasing only messages we\u0027ll have kind of race condition and the thread will fail.\n\nChanged the logic and tests to return.",
+      "parentUuid": "674de686_a2a8c0e2",
+      "range": {
+        "startLine": 196,
+        "startChar": 77,
+        "endLine": 196,
+        "endChar": 78
+      },
+      "revId": "158bbca12f26e3cf79703c99184158ead466d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6731ec90_f03246f2",
@@ -202,6 +226,30 @@
       "writtenOn": "2024-01-15T03:03:50Z",
       "side": 1,
       "message": "This is not possible.",
+      "range": {
+        "startLine": 201,
+        "startChar": 27,
+        "endLine": 201,
+        "endChar": 50
+      },
+      "revId": "158bbca12f26e3cf79703c99184158ead466d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d34725ed_d21c9624",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-01-16T02:08:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab2b811_8b85a7e6",
       "range": {
         "startLine": 201,
         "startChar": 27,
