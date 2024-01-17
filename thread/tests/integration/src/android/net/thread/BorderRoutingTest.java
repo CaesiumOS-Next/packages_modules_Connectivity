@@ -33,12 +33,14 @@ import static com.google.common.io.BaseEncoding.base16;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assume.assumeTrue;
 
 import android.content.Context;
 import android.net.LinkProperties;
 import android.net.MacAddress;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.SystemProperties;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
@@ -85,6 +87,8 @@ public class BorderRoutingTest {
 
     @Before
     public void setUp() throws Exception {
+        assumeTrue(SystemProperties.get("ro.product.model").toLowerCase().contains("cuttlefish"));
+
         mHandlerThread = new HandlerThread(getClass().getSimpleName());
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
