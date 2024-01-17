@@ -16,6 +16,52 @@
       "message": "LGTM. But better to have @reminv@google.com to take another look.",
       "revId": "74e864f64d5ce038b4ae39ff1213e8940b7dcb00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5db7fabd_505d3a18",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-17T11:28:40Z",
+      "side": 1,
+      "message": "But if no other request is using it, the socket will be destroyed, so the callback should be sent ?\n\nI think (please double check) that this is not actually necessary because MdnsDiscoveryManager#handleUnregisterListener, which calls notifyNetworkUnrequested, already cleans up the MdnsServiceTypeClient by calling stopSendAndReceive. But that would not call the service removed callbacks as notifySocketDestroyed did though; is that a change of behavior ?",
+      "range": {
+        "startLine": 112,
+        "startChar": 68,
+        "endLine": 113,
+        "endChar": 36
+      },
+      "revId": "74e864f64d5ce038b4ae39ff1213e8940b7dcb00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "902eae36_b930d716",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-17T11:28:40Z",
+      "side": 1,
+      "message": "This is not true anymore",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 200,
+        "endChar": 94
+      },
+      "revId": "74e864f64d5ce038b4ae39ff1213e8940b7dcb00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
