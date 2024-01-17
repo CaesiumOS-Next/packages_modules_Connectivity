@@ -22,6 +22,30 @@
       },
       "revId": "ee21f60e93a6c623424603fee70b438a1357dc9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29deeee0_0a7ee866",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-17T12:16:32Z",
+      "side": 1,
+      "message": "- `publicKey \u003d\u003d null` is valid which means we don\u0027t want to advertise the key record.\n- `publicKey \u003d\u003d new byte[0]` is invalid because KEY RR should be at least 2 bytes long. We should reject it. I haven\u0027t implemented such a check yet.\n\nAre you suggesting we should make it `@NonNull`? I think `setPublicKey(null)` is more readable than `setPublicKey(new byte[0])`.",
+      "parentUuid": "9a8fdaed_9707ca9f",
+      "range": {
+        "startLine": 215,
+        "startChar": 29,
+        "endLine": 215,
+        "endChar": 55
+      },
+      "revId": "ee21f60e93a6c623424603fee70b438a1357dc9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
