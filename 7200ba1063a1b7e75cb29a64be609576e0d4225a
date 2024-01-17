@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f435c6d7_92473b1a",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c08bd3d_08833934",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 13
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae03e320_f79d35d6",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-16T09:01:10Z",
       "side": 1,
       "message": "Nit: might want to make these javadoc comments /** Comment */. These become documentation that is visible in IDEs and the like.",
+      "range": {
+        "startLine": 108,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 6
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "961e6d25_463e6813",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae03e320_f79d35d6",
       "range": {
         "startLine": 108,
         "startChar": 4,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ea6837c_dca56a71",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f36519d_16c4345c",
+      "range": {
+        "startLine": 112,
+        "startChar": 25,
+        "endLine": 112,
+        "endChar": 50
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9470dd5_77a45563",
@@ -87,6 +159,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59caac38_4342b495",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9470dd5_77a45563",
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a71836fb_591e7724",
@@ -100,6 +190,30 @@
       "writtenOn": "2024-01-16T09:01:10Z",
       "side": 1,
       "message": "I think you can just crash here instead of logging a WTF. Maybe be consistent with what connectivityservice does?",
+      "range": {
+        "startLine": 150,
+        "startChar": 16,
+        "endLine": 150,
+        "endChar": 19
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b4ace63_d7b2a221",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a71836fb_591e7724",
       "range": {
         "startLine": 150,
         "startChar": 16,
@@ -133,6 +247,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6457f3f2_1a897c7b",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "keeping `, e` here as it will be easier for people not familiar with this code to understand the log.",
+      "parentUuid": "98658bcb_e1f54e39",
+      "range": {
+        "startLine": 173,
+        "startChar": 71,
+        "endLine": 173,
+        "endChar": 72
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dcd83a57_a6050246",
@@ -146,6 +284,30 @@
       "writtenOn": "2024-01-16T09:01:10Z",
       "side": 1,
       "message": "Per discussion: if the interface index has changed (e.g., interface deleted and re-added), there is no way to leave the groups any more. May not need to fix this immediately.",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 200,
+        "endChar": 19
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "addd203d_2ac8d464",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcd83a57_a6050246",
       "range": {
         "startLine": 200,
         "startChar": 8,
@@ -173,6 +335,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6282632_bb206b75",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fa9b10a_29224d2a",
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83593c9e_faa4358e",
@@ -186,6 +366,30 @@
       "writtenOn": "2024-01-16T09:01:10Z",
       "side": 1,
       "message": "Check forwarding mode instead?",
+      "range": {
+        "startLine": 327,
+        "startChar": 44,
+        "endLine": 327,
+        "endChar": 50
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8451aa39_313b6331",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83593c9e_faa4358e",
       "range": {
         "startLine": 327,
         "startChar": 44,
@@ -213,6 +417,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2916b1f0_9597b5f8",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d350715d_bb5b7ec0",
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b09caabc_68b1f7af",
@@ -226,6 +448,30 @@
       "writtenOn": "2024-01-16T09:01:10Z",
       "side": 1,
       "message": "What about:\n\n    if (isConfigNone) {\n        if (iifConfig !\u003d null) iifConfig.oifConfigs.remove(oifName);\n        if (iifConfig.oifConfigs.isEmpty()) {\n            mMulticastRoutingConfigs.remove(iifName);\n        }\n        return;\n    }\n\n    if (iifConfig \u003d\u003d null) {\n        iifConfig \u003d new ...;\n    }\n\n    iifConfig.oifConfigs.put(oifName, config);",
+      "range": {
+        "startLine": 329,
+        "startChar": 8,
+        "endLine": 329,
+        "endChar": 10
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a55b0e8_d8615a80",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b09caabc_68b1f7af",
       "range": {
         "startLine": 329,
         "startChar": 8,
@@ -253,6 +499,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a6860fe_60a28cfd",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0fdb220_3dde26b6",
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33ddf2a7_d1cc63f8",
@@ -266,6 +530,30 @@
       "writtenOn": "2024-01-16T09:01:10Z",
       "side": 1,
       "message": "\u003d\u003d is almost never correct on objects like String. You want TextUtils.equals() or Objects.equals(), or just .equals().",
+      "range": {
+        "startLine": 346,
+        "startChar": 28,
+        "endLine": 346,
+        "endChar": 30
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6e1f2c1_81fa5a65",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "33ddf2a7_d1cc63f8",
       "range": {
         "startLine": 346,
         "startChar": 28,
@@ -299,6 +587,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69c94eb7_eae562b6",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19e68922_14a1302b",
+      "range": {
+        "startLine": 503,
+        "startChar": 95,
+        "endLine": 504,
+        "endChar": 31
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "099d664c_6d4bde50",
@@ -312,6 +624,30 @@
       "writtenOn": "2024-01-16T09:01:10Z",
       "side": 1,
       "message": "Is this a virtual interface? If so, rename to vif.",
+      "range": {
+        "startLine": 508,
+        "startChar": 40,
+        "endLine": 508,
+        "endChar": 43
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74f2279f_340ca855",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "099d664c_6d4bde50",
       "range": {
         "startLine": 508,
         "startChar": 40,
@@ -345,6 +681,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a4b67cd_2342ae05",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "333f3474_a5ee8b37",
+      "range": {
+        "startLine": 529,
+        "startChar": 19,
+        "endLine": 529,
+        "endChar": 31
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b2a7d05_7e904f81",
@@ -362,6 +722,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26baa011_9959bf4b",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b2a7d05_7e904f81",
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f53317ec_84b2828e",
@@ -375,6 +753,30 @@
       "writtenOn": "2024-01-16T09:01:10Z",
       "side": 1,
       "message": "Would suggest \"continue\" instead of \"else\".",
+      "range": {
+        "startLine": 588,
+        "startChar": 12,
+        "endLine": 588,
+        "endChar": 20
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "851e7afc_96207a32",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f53317ec_84b2828e",
       "range": {
         "startLine": 588,
         "startChar": 12,
@@ -408,6 +810,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35bd624a_b6a7facd",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8a9c901_ae779093",
+      "range": {
+        "startLine": 599,
+        "startChar": 8,
+        "endLine": 599,
+        "endChar": 44
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17edd43a_a38c7dc5",
@@ -421,6 +847,30 @@
       "writtenOn": "2024-01-16T09:01:10Z",
       "side": 1,
       "message": "Lower case, updateMfcs",
+      "range": {
+        "startLine": 633,
+        "startChar": 17,
+        "endLine": 633,
+        "endChar": 18
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "031d99d8_996c7cf5",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17edd43a_a38c7dc5",
       "range": {
         "startLine": 633,
         "startChar": 17,
@@ -454,6 +904,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "914d07e7_fcae0b54",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2634cce0_f0e6794e",
+      "range": {
+        "startLine": 639,
+        "startChar": 79,
+        "endLine": 639,
+        "endChar": 86
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2e6ec18_28e7d6d6",
@@ -467,6 +941,30 @@
       "writtenOn": "2024-01-16T09:01:10Z",
       "side": 1,
       "message": "Can this happen? If not, would at least log an error or a wtf if it does happen.",
+      "range": {
+        "startLine": 657,
+        "startChar": 20,
+        "endLine": 657,
+        "endChar": 49
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78f20930_c79dee48",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2e6ec18_28e7d6d6",
       "range": {
         "startLine": 657,
         "startChar": 20,
@@ -500,6 +998,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b4087d7_8ed4b7ca",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9344846_aed023fc",
+      "range": {
+        "startLine": 694,
+        "startChar": 38,
+        "endLine": 694,
+        "endChar": 39
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1de83cc8_79c43e59",
@@ -513,6 +1035,30 @@
       "writtenOn": "2024-01-16T09:01:10Z",
       "side": 1,
       "message": "Seems wrong to start polling if addOrUpdateMfc returned null?",
+      "range": {
+        "startLine": 701,
+        "startChar": 13,
+        "endLine": 701,
+        "endChar": 33
+      },
+      "revId": "7200ba1063a1b7e75cb29a64be609576e0d4225a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "421b608e_9e8fc55a",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-17T05:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1de83cc8_79c43e59",
       "range": {
         "startLine": 701,
         "startChar": 13,
