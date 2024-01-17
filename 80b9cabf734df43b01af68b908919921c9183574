@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a520fcfa_f1018242",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 52
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-17T08:22:54Z",
+      "side": 1,
+      "message": "LGTM as is, though it would be nice if you could make the code robust against interfaces being deleted/re-added, which changes the mapping between interface name and interface index.\n\nBefore we call this code finished I think we\u0027ll need a real forwarding test in MTS that creates a few TestNetworkInterface objects, registers the appropriate NetworkAgents, and checks forwarding between them.",
+      "revId": "80b9cabf734df43b01af68b908919921c9183574",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23bcee25_fe0da716",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-17T08:22:54Z",
+      "side": 1,
+      "message": "//",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 7
+      },
+      "revId": "80b9cabf734df43b01af68b908919921c9183574",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47d576f5_bdefdb7a",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-17T08:22:54Z",
+      "side": 1,
+      "message": "Optional: this contains the same information as the one above? if so, I think you can delete the one above. If you have an interface name, you can get the index by doing something like mVirtualInterfaceNameMap.keyAt(mVirtualInterfaceNameMap.indexOfValue(iface)).",
+      "range": {
+        "startLine": 109,
+        "startChar": 12,
+        "endLine": 109,
+        "endChar": 23
+      },
+      "revId": "80b9cabf734df43b01af68b908919921c9183574",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0701a259_d246e300",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-17T08:22:54Z",
+      "side": 1,
+      "message": "If the interface name has been deleted and readded and now has a new index, calling getInterfaceName on the index could return null. Can you get this information from the maps in this class instead?\n\nIf you only ever call this method the first time you add a new interface, convert it into an index, and then never try to look up the name for that index, then that\u0027s OK. It looks like you call this method from the refresh/expiry code though, and I think there might be a bug there if the interface name changes index.\n\nMaybe you can check the index\u003c-\u003ename map here first, and only if you don\u0027t find the index in the map, call getInterfaceName?",
+      "range": {
+        "startLine": 278,
+        "startChar": 55,
+        "endLine": 278,
+        "endChar": 68
+      },
+      "revId": "80b9cabf734df43b01af68b908919921c9183574",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe7d3828_2670b9dc",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-17T08:22:54Z",
+      "side": 1,
+      "message": "Per discussion, maybe add a TODO to dump unresolved multicast routes on the newly-added interface(s) and add MFCs for them?",
+      "range": {
+        "startLine": 337,
+        "startChar": 4,
+        "endLine": 337,
+        "endChar": 5
+      },
+      "revId": "80b9cabf734df43b01af68b908919921c9183574",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b6b9e09_97cd067b",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-17T08:22:54Z",
+      "side": 1,
+      "message": "Nit: this looks a bit strange. I think it would be more readable as:\n\n   if (!addOrUpdateMfc(...)) {\n       removeMfcFromKernel(...);\n       ...",
+      "range": {
+        "startLine": 626,
+        "startChar": 16,
+        "endLine": 626,
+        "endChar": 30
+      },
+      "revId": "80b9cabf734df43b01af68b908919921c9183574",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b286a19c_496267f0",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-17T08:22:54Z",
+      "side": 1,
+      "message": "getNetworkInterface(physicalIndex)",
+      "range": {
+        "startLine": 804,
+        "startChar": 38,
+        "endLine": 804,
+        "endChar": 80
+      },
+      "revId": "80b9cabf734df43b01af68b908919921c9183574",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
