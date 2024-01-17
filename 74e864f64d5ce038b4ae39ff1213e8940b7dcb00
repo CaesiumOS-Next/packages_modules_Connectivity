@@ -62,6 +62,46 @@
       },
       "revId": "74e864f64d5ce038b4ae39ff1213e8940b7dcb00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efef05f0_ac99930b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-17T11:37:11Z",
+      "side": 1,
+      "message": "Can you make this more explicit, for example by having the number of times as argument ?",
+      "range": {
+        "startLine": 113,
+        "startChar": 51,
+        "endLine": 113,
+        "endChar": 62
+      },
+      "revId": "74e864f64d5ce038b4ae39ff1213e8940b7dcb00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30063e8a_48fc3c72",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-17T11:37:11Z",
+      "side": 1,
+      "message": "It seems using 3 callbacks doesn\u0027t test much more than if there were 2. So how about having the 3rd callback request a null network, and get 2 sockets ? This would test that the callbacks happen properly even if there\u0027s another socket on that callback.",
+      "revId": "74e864f64d5ce038b4ae39ff1213e8940b7dcb00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
