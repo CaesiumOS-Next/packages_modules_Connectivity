@@ -334,6 +334,7 @@ import com.android.server.connectivity.ProfileNetworkPreferenceInfo;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
 import com.android.server.connectivity.RoutingCoordinatorService;
+import com.android.server.connectivity.SatelliteAccessController;
 import com.android.server.connectivity.UidRangeUtils;
 import com.android.server.connectivity.VpnNetworkPreferenceInfo;
 import com.android.server.connectivity.wear.CompanionDeviceManagerProxyService;
@@ -558,6 +559,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // See {@link ConnectivitySettingsManager#setMobileDataPreferredUids}
     @VisibleForTesting
     static final int PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED = 30;
+    // Order of setting satellite network preference fallback when default message application
+    // with role_sms role and android.permission.SATELLITE_COMMUNICATION permission detected
+    @VisibleForTesting
+    static final int PREFERENCE_ORDER_SATELLITE_FALLBACK_PREFERRED = 40;
     // Preference order that signifies the network shouldn't be set as a default network for
     // the UIDs, only give them access to it. TODO : replace this with a boolean
     // in NativeUidRangeConfig
@@ -828,6 +833,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final int EVENT_UID_FROZEN_STATE_CHANGED = 61;
 
     /**
+     * Event to inform the ConnectivityService handler for creating multi layer request when default
+     * messaging app with role_sms role and android.permission.SATELLITE_COMMUNICATION permission
+     * detected.
+     */
+    private static final int EVENT_SET_SATELLITE_NETWORK_PREFERENCE_UIDS = 62;
+
+    /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
      * should be shown.
      */
@@ -908,6 +920,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private final TelephonyManager mTelephonyManager;
     private final CarrierPrivilegeAuthenticator mCarrierPrivilegeAuthenticator;
+
+    private final SatelliteAccessController mSatelliteAccessController;
     private final AppOpsManager mAppOpsManager;
 
     private final LocationPermissionChecker mLocationPermissionChecker;
@@ -978,6 +992,23 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     // Uids that ConnectivityService is pending to close sockets of.
     private final Set<Integer> mPendingFrozenUids = new ArraySet<>();
+
+    /**
+     * Callback used when role sms change detected and default messaging application
+     * satellite network preferred uids role changed
+     */
+    public interface OnUpdateSatelliteNetworkPreferenceUids {
+        /**
+         * Called when satellite network preferred uids at {@link SatelliteAccessController}
+         * cache was updated based on {@link
+         * android.app.role.OnRoleHoldersChangedListener#onRoleHoldersChanged(String, UserHandle)},
+         * to trigger {@link #EVENT_SET_SATELLITE_NETWORK_PREFERENCE_UIDS} and to create multilayer
+         * request with preference order {@link #PREFERENCE_ORDER_SATELLITE_FALLBACK_PREFERRED}
+         * there on.
+         *
+         */
+        void updateSatelliteNetworkPreferenceUids();
+    }
 
     /**
      * Implements support for the legacy "one network per network type" model.
@@ -1482,6 +1513,23 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         /**
+         * @see SatelliteAccessController
+         *
+         * This method returns null in versions before V, where satellite internet access for
+         * default message app is not supported.
+         */
+        @Nullable
+        public SatelliteAccessController makeSatelliteAccessController(
+                @NonNull final Context context,
+                OnUpdateSatelliteNetworkPreferenceUids callback) {
+            if (isAtLeastV()) {
+                return new SatelliteAccessController(context, callback);
+            } else {
+                return null;
+            }
+        }
+
+        /**
          * @see DeviceConfigUtils#isTetheringFeatureEnabled
          */
         public boolean isFeatureEnabled(Context context, String name) {
@@ -1741,11 +1789,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mDnsResolver = Objects.requireNonNull(dnsresolver, "missing IDnsResolver");
         mProxyTracker = mDeps.makeProxyTracker(mContext, mHandler);
 
+
         mTelephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         mAppOpsManager = (AppOpsManager) mContext.getSystemService(Context.APP_OPS_SERVICE);
         mLocationPermissionChecker = mDeps.makeLocationPermissionChecker(mContext);
         mCarrierPrivilegeAuthenticator =
                 mDeps.makeCarrierPrivilegeAuthenticator(mContext, mTelephonyManager);
+
+        mSatelliteAccessController = mDeps.makeSatelliteAccessController(
+                mContext, this::updateSatelliteNetworkPreferenceUids);
 
         // To ensure uid state is synchronized with Network Policy, register for
         // NetworkPolicyManagerService events must happen prior to NetworkPolicyManagerService
@@ -3729,6 +3781,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // the uids rules on netd.
         if (!ConnectivitySettingsManager.getMobileDataPreferredUids(mContext).isEmpty()) {
             updateMobileDataPreferredUids();
+        }
+
+        if (mDeps.isAtLeastV()
+                && !mSatelliteAccessController.getSatelliteSmsPreferredUids().isEmpty()) {
+            updateSatelliteNetworkPreferenceUids();
         }
 
         // On T+ devices, register callback for statsd to pull NETWORK_BPF_MAP_INFO atom
@@ -6396,6 +6453,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 case EVENT_UID_FROZEN_STATE_CHANGED:
                     UidFrozenStateChangedArgs args = (UidFrozenStateChangedArgs) msg.obj;
                     handleFrozenUids(args.mUids, args.mFrozenStates);
+                    break;
+                case EVENT_SET_SATELLITE_NETWORK_PREFERENCE_UIDS:
+                    handleSetSatelliteNetworkPreference();
                     break;
             }
         }
@@ -12622,6 +12682,54 @@ public class ConnectivityService extends IConnectivityManager.Stub
         removeDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED);
         addPerAppDefaultNetworkRequests(
                 createNrisFromMobileDataPreferredUids(mMobileDataPreferredUids));
+        // Finally, rematch.
+        rematchAllNetworksAndRequests();
+    }
+
+    /**
+     * Method to trigger connectivity handler {@link #EVENT_SET_SATELLITE_NETWORK_PREFERENCE_UIDS}
+     * to create multi layer request for satellite network preferred uids.
+     */
+    private void updateSatelliteNetworkPreferenceUids() {
+        mHandler.sendEmptyMessage(EVENT_SET_SATELLITE_NETWORK_PREFERENCE_UIDS);
+    }
+
+    @NonNull
+    ArraySet<NetworkRequestInfo> createMultiLayerNrisFromSatelliteNetworkPreferredUids(
+            @NonNull final Set<Integer> uids) {
+        final ArraySet<NetworkRequestInfo> nris = new ArraySet<>();
+        final List<NetworkRequest> requests = new ArrayList<>();
+
+        // request: track default(unrestricted internet network)
+        requests.add(createDefaultInternetRequestForTransport(
+                TYPE_NONE, NetworkRequest.Type.TRACK_DEFAULT));
+
+        // request: restricted Satellite internet
+        final NetworkCapabilities cap = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                .addTransportType(NetworkCapabilities.TRANSPORT_SATELLITE)
+                .build();
+        requests.add(createNetworkRequest(NetworkRequest.Type.REQUEST, cap));
+
+        final Set<UidRange> ranges = new ArraySet<>();
+        for (final int uid : uids) {
+            ranges.add(new UidRange(uid, uid));
+        }
+        setNetworkRequestUids(requests, ranges);
+        nris.add(new NetworkRequestInfo(Process.myUid(), requests,
+                PREFERENCE_ORDER_SATELLITE_FALLBACK_PREFERRED));
+        return nris;
+    }
+
+    private void handleSetSatelliteNetworkPreference() {
+        Set<Integer> satelliteNetworkPreferredUids =
+                mSatelliteAccessController.getSatelliteNetworkPreferredUids();
+        removeDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_SATELLITE_FALLBACK_PREFERRED);
+        addPerAppDefaultNetworkRequests(
+                createMultiLayerNrisFromSatelliteNetworkPreferredUids(satelliteNetworkPreferredUids)
+        );
         // Finally, rematch.
         rematchAllNetworksAndRequests();
     }
