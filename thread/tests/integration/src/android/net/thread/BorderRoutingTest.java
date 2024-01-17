@@ -18,6 +18,7 @@ package android.net.thread;
 
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.net.thread.IntegrationTestUtils.isExpectedIcmpv6Packet;
+import static android.net.thread.IntegrationTestUtils.isSupported;
 import static android.net.thread.IntegrationTestUtils.newPacketReader;
 import static android.net.thread.IntegrationTestUtils.readPacketFrom;
 import static android.net.thread.IntegrationTestUtils.waitFor;
@@ -131,6 +132,8 @@ public class BorderRoutingTest {
 
     @Test
     public void infraDevicePingTheadDeviceOmr_Succeeds() throws Exception {
+        assumeTrue(isSupported());
+
         /*
          * <pre>
          * Topology:
