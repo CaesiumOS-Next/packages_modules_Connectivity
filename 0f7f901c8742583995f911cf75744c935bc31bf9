@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a1046be_09fd459e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-17T20:42:09Z",
+      "side": 1,
+      "message": "There are some fatal failure in the CtsNetTestCases. Could you verify if they are related to this change?",
+      "revId": "0f7f901c8742583995f911cf75744c935bc31bf9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
