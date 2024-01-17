@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0cfa860_df168475",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-01-17T18:32:53Z",
+      "side": 1,
+      "message": "why are you getting all installed packages? just get default sms applications",
+      "range": {
+        "startLine": 160,
+        "startChar": 8,
+        "endLine": 161,
+        "endChar": 58
+      },
+      "revId": "88afdc2daf458e4cd2538d08e3432f0e0498def0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3180fe68_e89fca69",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-01-17T18:32:53Z",
+      "side": 1,
+      "message": "why do you need this check",
+      "range": {
+        "startLine": 213,
+        "startChar": 8,
+        "endLine": 213,
+        "endChar": 68
+      },
+      "revId": "88afdc2daf458e4cd2538d08e3432f0e0498def0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c63ae46_d63513e1",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-01-17T18:32:53Z",
+      "side": 1,
+      "message": "i think you should return a list here",
+      "range": {
+        "startLine": 225,
+        "startChar": 19,
+        "endLine": 225,
+        "endChar": 47
+      },
+      "revId": "88afdc2daf458e4cd2538d08e3432f0e0498def0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
