@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1597334_0665de71",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRouterTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-17T05:21:53Z",
+      "side": 1,
+      "message": "Per offline discussion, we should move this test case to a more general test suite. I\u0027ll do this in a later patchset.",
+      "revId": "72e479f887db06fdf215a6a662c5903ed8f89f80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
