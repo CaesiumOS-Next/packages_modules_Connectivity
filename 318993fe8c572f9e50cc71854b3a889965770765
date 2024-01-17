@@ -22,6 +22,30 @@
       },
       "revId": "318993fe8c572f9e50cc71854b3a889965770765",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0148f588_bc506b5b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1500,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-17T03:30:58Z",
+      "side": 1,
+      "message": "Do we have the code that expect `callingPackage` is @NonNull in `checkAccessLevel`?\nI just checked some methods called from `checkAccessLevel` and it seems they can handler callingPackage\u003dnull case.",
+      "parentUuid": "114d6d5f_00bd91d9",
+      "range": {
+        "startLine": 1500,
+        "startChar": 33,
+        "endLine": 1500,
+        "endChar": 48
+      },
+      "revId": "318993fe8c572f9e50cc71854b3a889965770765",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
