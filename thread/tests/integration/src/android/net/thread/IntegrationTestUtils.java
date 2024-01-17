@@ -37,6 +37,7 @@ import com.android.testutils.TapPacketReader;
 import com.google.common.util.concurrent.SettableFuture;
 
 import java.io.FileDescriptor;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,12 @@ import java.util.function.Supplier;
 /** Static utility methods relating to Thread integration tests. */
 public final class IntegrationTestUtils {
     private IntegrationTestUtils() {}
+
+    /** Returns whether the device supports simulated Thread radio. */
+    public static boolean isSimulatedThreadRadioSupported() {
+        // The integration test uses SIMULATION Thread radio so that it only supports CuttleFish.
+        return SystemProperties.get("ro.product.model").startsWith("Cuttlefish");
+    }
 
     /**
      * Waits for the given {@link Supplier} to be true until given timeout.
