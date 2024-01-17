@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a8fdaed_9707ca9f",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-17T06:40:07Z",
+      "side": 1,
+      "message": "Do we treat publicKey \u003d\u003d null and publicKey \u003d\u003d new byte[0] different here? If not, shall we stick on one instead of supporting two?",
+      "range": {
+        "startLine": 215,
+        "startChar": 29,
+        "endLine": 215,
+        "endChar": 55
+      },
+      "revId": "ee21f60e93a6c623424603fee70b438a1357dc9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
