@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed5da513_573140f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 38
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-17T06:35:12Z",
+      "side": 1,
+      "message": "There code is general LGTM but there are a lot of test failure.\n\nWould you mind to take a look?",
+      "revId": "5d7acd6df3991f5f5a88c02ed9a89d4b4808a8ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
