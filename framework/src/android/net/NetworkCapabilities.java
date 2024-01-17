@@ -1257,6 +1257,7 @@ public final class NetworkCapabilities implements Parcelable {
             TRANSPORT_TEST,
             TRANSPORT_USB,
             TRANSPORT_THREAD,
+            TRANSPORT_SATELLITE,
     })
     public @interface Transport { }
 
@@ -1313,10 +1314,15 @@ public final class NetworkCapabilities implements Parcelable {
      */
     public static final int TRANSPORT_THREAD = 9;
 
+    /**
+     * Indicates this network uses a Satellite transport.
+     */
+    public static final int TRANSPORT_SATELLITE = 10;
+
     /** @hide */
     public static final int MIN_TRANSPORT = TRANSPORT_CELLULAR;
     /** @hide */
-    public static final int MAX_TRANSPORT = TRANSPORT_THREAD;
+    public static final int MAX_TRANSPORT = TRANSPORT_SATELLITE;
 
     private static final int ALL_VALID_TRANSPORTS;
     static {
