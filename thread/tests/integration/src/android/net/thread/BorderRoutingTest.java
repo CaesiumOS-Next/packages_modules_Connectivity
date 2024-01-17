@@ -18,6 +18,7 @@ package android.net.thread;
 
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.net.thread.IntegrationTestUtils.isExpectedIcmpv6Packet;
+import static android.net.thread.IntegrationTestUtils.isSupported;
 import static android.net.thread.IntegrationTestUtils.newPacketReader;
 import static android.net.thread.IntegrationTestUtils.readPacketFrom;
 import static android.net.thread.IntegrationTestUtils.waitFor;
@@ -40,7 +41,6 @@ import android.net.LinkProperties;
 import android.net.MacAddress;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.os.SystemProperties;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
@@ -87,8 +87,6 @@ public class BorderRoutingTest {
 
     @Before
     public void setUp() throws Exception {
-        assumeTrue(SystemProperties.get("ro.product.model").toLowerCase().contains("cuttlefish"));
-
         mHandlerThread = new HandlerThread(getClass().getSimpleName());
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
@@ -135,6 +133,8 @@ public class BorderRoutingTest {
 
     @Test
     public void infraDevicePingTheadDeviceOmr_Succeeds() throws Exception {
+        assumeTrue(isSupported());
+
         /*
          * <pre>
          * Topology:
