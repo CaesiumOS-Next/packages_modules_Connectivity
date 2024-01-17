@@ -34,6 +34,24 @@
       "parentUuid": "1574575d_dd699534",
       "revId": "0d859730d25a964a034b2bb886a6775c68d042a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbc7f263_d107f295",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-17T12:58:14Z",
+      "side": 1,
+      "message": "Mark as resolved because the error code is already added.",
+      "parentUuid": "7a89db78_75e25dea",
+      "revId": "0d859730d25a964a034b2bb886a6775c68d042a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bca3a6c_87ed2d88",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-17T12:58:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3202260d_eda0d416",
+      "range": {
+        "startLine": 230,
+        "startChar": 45,
+        "endLine": 230,
+        "endChar": 86
+      },
+      "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5a32494_f1151b70",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-16T03:32:17Z",
       "side": 1,
       "message": "Need to look at impl first, but does this happen with the current code ? (also the one below)",
+      "range": {
+        "startLine": 234,
+        "startChar": 113,
+        "endLine": 234,
+        "endChar": 151
+      },
+      "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "237cc565_3f5cc928",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-17T12:58:14Z",
+      "side": 1,
+      "message": "It\u0027s used in `MdnsInterfaceAdvertiser` to represent the conflict type. I agree there may be better ways to represent the conflict (for example, 2 booleans). Let\u0027s discuss it later.",
+      "parentUuid": "c5a32494_f1151b70",
       "range": {
         "startLine": 234,
         "startChar": 113,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2225af4e_ac497fe2",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-17T12:58:14Z",
+      "side": 1,
+      "message": "It\u0027s needed in the `MdnsInterfaceAdvertiser`.",
+      "parentUuid": "57459aae_7c6bd708",
+      "range": {
+        "startLine": 163,
+        "startChar": 28,
+        "endLine": 163,
+        "endChar": 69
+      },
+      "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e6001ce_1e834452",
@@ -83,6 +155,24 @@
       "writtenOn": "2024-01-16T03:32:17Z",
       "side": 1,
       "message": "There\u0027s some duplicate checks in the logic below. Can it be simplified ?\n\n```\nif (port \u003c 0) throw...\nif (hasServiceType || hasServiceName || hasPort) {\n    if (!(hasServiceType \u0026\u0026 hasServiceName \u0026\u0026 hasPort)) throw...\n}\n\nif (!hasServiceType \u0026\u0026 !hasHostname) {\n    throw...\n}\nif (hasHostname) {\n    // Any additional check necessary here ? Actually maybe anything is fine ?\n}\n```",
+      "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea5c34ec_2ba968e6",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1684,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-17T12:58:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e6001ce_1e834452",
       "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "760dd1e0_b87e97e1",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 1358,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-17T12:58:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5de2930_a5d4af4f",
+      "range": {
+        "startLine": 1358,
+        "startChar": 57,
+        "endLine": 1358,
+        "endChar": 70
+      },
+      "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed8f9e2a_383eb8d7",
@@ -123,6 +237,24 @@
       "writtenOn": "2024-01-16T09:03:16Z",
       "side": 1,
       "message": "nit: maybe 2 services is enough instead of 3 ?",
+      "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19ca5e48_7ed53b4e",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 1360,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-17T12:58:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed8f9e2a_383eb8d7",
       "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -150,6 +282,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56910fdb_77769fa9",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 1361,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-17T12:58:14Z",
+      "side": 1,
+      "message": "There are same names for member fields and the local variables so `apply` doesn\u0027t work as desired when doing `serviceName \u003d serviceName`. It just self assigned the member field.",
+      "parentUuid": "12471e4f_f5eaea24",
+      "range": {
+        "startLine": 1361,
+        "startChar": 35,
+        "endLine": 1361,
+        "endChar": 39
+      },
+      "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d94d95a3_16cbf246",
@@ -163,6 +319,24 @@
       "writtenOn": "2024-01-16T09:03:16Z",
       "side": 1,
       "message": "As discussed, also there should be a test that if 2 services register the same addresses, they should not be duplicate in the answer",
+      "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b9c22df_ad5f067a",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 1498,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-17T12:58:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d94d95a3_16cbf246",
       "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
