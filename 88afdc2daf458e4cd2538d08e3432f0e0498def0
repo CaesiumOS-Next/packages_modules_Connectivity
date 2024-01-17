@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e07376ba_3c55f8e5",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-01-17T18:40:39Z",
+      "side": 1,
+      "message": "actively monitor change in ROLE_SMS role by registering OnRoleHoldersChangedListener and update the list of app uids with these combinations of permissions\n\nSatelliteAccessController  will also need to monitor for the change in ROLE_SMS role, and if it changes update the allowedUid",
+      "parentUuid": "3180fe68_e89fca69",
+      "range": {
+        "startLine": 213,
+        "startChar": 8,
+        "endLine": 213,
+        "endChar": 68
+      },
+      "revId": "88afdc2daf458e4cd2538d08e3432f0e0498def0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c63ae46_d63513e1",
         "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
         "patchSetId": 1
