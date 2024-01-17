@@ -46,6 +46,30 @@
       },
       "revId": "318993fe8c572f9e50cc71854b3a889965770765",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bd458e7_b9357966",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1500,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-17T06:25:01Z",
+      "side": 1,
+      "message": "1. After checking,\n enforceTemplatePermissions should be @Nullable since\n content of mLocationPermissionChecker\n                    .checkCallersLocationPermission seems accept nullable.\nwhere the appopsManager accept null package name and it handles null package name in their implementation:\nhttps://osscs.corp.google.com/android/platform/superproject/main/+/main:frameworks/base/services/core/java/com/android/server/appop/AppOpsService.java;l\u003d2612;drc\u003de8617ab59c0c1533952212fa97818b26114a04f7?ss\u003dandroid\u0026q\u003dnoteOperation\u0026start\u003d11\nannotated accordingly.\n\n2. No, calling checkAccessLevel should be @Nullable, since the caller with null package name simply can\u0027t get priviledged access. \nanootated accordingly.",
+      "parentUuid": "114d6d5f_00bd91d9",
+      "range": {
+        "startLine": 1500,
+        "startChar": 33,
+        "endLine": 1500,
+        "endChar": 48
+      },
+      "revId": "318993fe8c572f9e50cc71854b3a889965770765",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
