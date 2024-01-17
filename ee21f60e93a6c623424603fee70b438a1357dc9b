@@ -46,6 +46,30 @@
       },
       "revId": "ee21f60e93a6c623424603fee70b438a1357dc9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35291975_3e380799",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-17T12:28:56Z",
+      "side": 1,
+      "message": "I do think setPublicKey(null) is better.\n\n\u003eis invalid because KEY RR should be at least 2 bytes long. We should reject it. I haven\u0027t implemented such a check yet.\n\nWe should implement this API and get it documented. Its pretty important to let the API user to understand what is the valid input.",
+      "parentUuid": "29deeee0_0a7ee866",
+      "range": {
+        "startLine": 215,
+        "startChar": 29,
+        "endLine": 215,
+        "endChar": 55
+      },
+      "revId": "ee21f60e93a6c623424603fee70b438a1357dc9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
