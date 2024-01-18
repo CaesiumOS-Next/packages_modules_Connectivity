@@ -44,6 +44,7 @@ import android.net.thread.ThreadNetworkException;
 import android.net.thread.ThreadNetworkManager;
 import android.os.Build;
 import android.os.OutcomeReceiver;
+import android.util.SparseIntArray;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
@@ -748,6 +749,81 @@ public class ThreadNetworkControllerTest {
             assertThat(dataset.getPskc()).hasLength(16);
             assertThat(dataset.getMeshLocalPrefix().getPrefixLength()).isEqualTo(64);
             assertThat(dataset.getMeshLocalPrefix().getRawAddress()[0]).isEqualTo((byte) 0xfd);
+        }
+    }
+
+    @Test
+    public void setChannelTargetPowers_withPrivilegedPermission_success() throws Exception {
+        grantPermissions(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+        final SparseIntArray DEFAULT_CHANNEL_POWERS =
+                new SparseIntArray() {
+                    {
+                        put(11, 32767);
+                    }
+                };
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            SettableFuture<Void> powerFuture = SettableFuture.create();
+
+            controller.setChannelTargetPowers(
+                    DEFAULT_CHANNEL_POWERS, mExecutor, newOutcomeReceiver(powerFuture));
+            assertThat(powerFuture.get()).isNull();
+        }
+    }
+
+    @Test
+    public void setChannelTargetPowers_withoutPrivilegedPermission_throwsSecurityException()
+            throws Exception {
+        dropAllPermissions();
+        final SparseIntArray DEFAULT_CHANNEL_POWERS =
+                new SparseIntArray() {
+                    {
+                        put(11, 32767);
+                    }
+                };
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            assertThrows(
+                    SecurityException.class,
+                    () ->
+                            controller.setChannelTargetPowers(
+                                    DEFAULT_CHANNEL_POWERS, mExecutor, v -> {}));
+        }
+    }
+
+    @Test
+    public void setChannelTargetPowers_invalidChannelAndPower_throwsIllegalArgumentException() {
+        final SparseIntArray INVALID_CHANNEL_ARRAY =
+                new SparseIntArray() {
+                    {
+                        put(10, 32767);
+                        put(27, 32767);
+                    }
+                };
+        final SparseIntArray INVALID_POWER_ARRAY =
+                new SparseIntArray() {
+                    {
+                        put(11, -32769);
+                        put(26, 32768);
+                    }
+                };
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            assertThrows(
+                    IllegalArgumentException.class,
+                    () ->
+                            controller.setChannelTargetPowers(
+                                    new SparseIntArray(), mExecutor, v -> {}));
+            assertThrows(
+                    IllegalArgumentException.class,
+                    () ->
+                            controller.setChannelTargetPowers(
+                                    INVALID_CHANNEL_ARRAY, mExecutor, v -> {}));
+            assertThrows(
+                    IllegalArgumentException.class,
+                    () ->
+                            controller.setChannelTargetPowers(
+                                    INVALID_POWER_ARRAY, mExecutor, v -> {}));
         }
     }
 }
