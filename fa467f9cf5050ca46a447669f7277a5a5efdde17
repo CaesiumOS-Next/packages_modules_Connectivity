@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88c50caa_4d4e87aa",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1984,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-01-18T19:37:29Z",
+      "side": 0,
+      "message": "Note that this is a single bpf system call and thus cheap, see bpfGetUidStatsInternal impl.\n\nYou\u0027re not going to gain much by caching this.\n\nThe real problem is the higher level API - which reads all 4 stats (see getEntryValueForType) RX/TX bytes/packets, but then returns just 1 of the 4 values.  So any time someone does want all 4 (which is probably always)... they need to call it 4 times.\n\nIs there a way to fix the API to actually return everything in one go?\nOr perhaps add a newer API?",
+      "range": {
+        "startLine": 1984,
+        "startChar": 36,
+        "endLine": 1984,
+        "endChar": 52
+      },
+      "revId": "fa467f9cf5050ca46a447669f7277a5a5efdde17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b94828df_96cffbae",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1990,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-01-18T19:37:29Z",
+      "side": 0,
+      "message": "this one *is* really expensive - see  bpfGetIfaceStatsInternal - and is the one I want to fix via bulk api calls",
+      "range": {
+        "startLine": 1990,
+        "startChar": 41,
+        "endLine": 1990,
+        "endChar": 59
+      },
+      "revId": "fa467f9cf5050ca46a447669f7277a5a5efdde17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "740837fb_267c3f0f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2022,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-01-18T19:37:29Z",
+      "side": 0,
+      "message": "as is this one - since it\u0027s also  bpfGetIfaceStatsInternal",
+      "range": {
+        "startLine": 2022,
+        "startChar": 41,
+        "endLine": 2022,
+        "endChar": 59
+      },
+      "revId": "fa467f9cf5050ca46a447669f7277a5a5efdde17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
