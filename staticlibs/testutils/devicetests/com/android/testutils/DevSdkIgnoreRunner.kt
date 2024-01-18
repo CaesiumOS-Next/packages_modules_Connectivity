@@ -55,7 +55,7 @@ import org.junit.runners.Parameterized
  */
 class DevSdkIgnoreRunner(private val klass: Class<*>) : Runner(), Filterable, Sortable {
     private val leakMonitorDesc = Description.createTestDescription(klass, "ThreadLeakMonitor")
-    private val shouldThreadLeakFailTest = klass.isAnnotationPresent(MonitorThreadLeak::class.java)
+    private val shouldThreadLeakFailTest = true
 
     // Inference correctly infers Runner & Filterable & Sortable for |baseRunner|, but the
     // Java bytecode doesn't have a way to express this. Give this type a name by wrapping it.
