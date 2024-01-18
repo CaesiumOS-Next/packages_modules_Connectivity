@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "251a71b6_746f1f7a",
+        "filename": "service-t/src/com/android/metrics/NetworkStatsMetricsLogger.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2024-01-18T09:19:33Z",
+      "side": 1,
+      "message": "Should this line be merged with L.112?\n\nAnd what is the impact w/ and w/o the change in the metric\u0027s aggregation?",
+      "range": {
+        "startLine": 122,
+        "startChar": 8,
+        "endLine": 122,
+        "endChar": 36
+      },
+      "revId": "dd83e6eedc7d9d76198450a754b36b0e1c129457",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
