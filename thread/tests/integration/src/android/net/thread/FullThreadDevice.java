@@ -145,6 +145,10 @@ public final class FullThreadDevice {
         }
     }
 
+    public void subscribeMulticastAddress(String address) {
+        executeCommand("ipmaddr add " + address);
+    }
+
     private List<String> executeCommand(String command) {
         try {
             mWriter.write(command + "\n");
