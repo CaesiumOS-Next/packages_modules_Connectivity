@@ -29,6 +29,7 @@ import static android.net.thread.ThreadNetworkException.ERROR_ABORTED;
 import static android.net.thread.ThreadNetworkException.ERROR_FAILED_PRECONDITION;
 import static android.net.thread.ThreadNetworkException.ERROR_REJECTED_BY_PEER;
 import static android.net.thread.ThreadNetworkException.ERROR_THREAD_DISABLED;
+import static android.net.thread.ThreadNetworkException.ERROR_UNSUPPORTED_OPERATION;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
@@ -63,6 +64,7 @@ import android.net.thread.utils.TapTestNetworkTracker;
 import android.os.Build;
 import android.os.HandlerThread;
 import android.os.OutcomeReceiver;
+import android.util.SparseIntArray;
 
 import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
@@ -112,6 +114,12 @@ public class ThreadNetworkControllerTest {
     private static final String MESHCOP_SERVICE_TYPE = "_meshcop._udp";
     private static final String THREAD_NETWORK_PRIVILEGED =
             "android.permission.THREAD_NETWORK_PRIVILEGED";
+    private static final SparseIntArray CHANNEL_MAX_POWERS =
+            new SparseIntArray() {
+                {
+                    put(20, 32767);
+                }
+            };
 
     @Rule public DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
 
@@ -1205,5 +1213,65 @@ public class ThreadNetworkControllerTest {
 
         @Override
         public void onServiceInfoCallbackUnregistered() {}
+    }
+
+    @Test
+    public void setChannelMaxPowers_withPrivilegedPermission_success() throws Exception {
+        grantPermissions(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            SettableFuture<Void> powerFuture = SettableFuture.create();
+
+            controller.setChannelMaxPowers(
+                    CHANNEL_MAX_POWERS, mExecutor, newOutcomeReceiver(powerFuture));
+            try {
+                assertThat(powerFuture.get()).isNull();
+            } catch (ExecutionException exception) {
+                ThreadNetworkException thrown = (ThreadNetworkException) exception.getCause();
+                assertThat(thrown.getErrorCode()).isEqualTo(ERROR_UNSUPPORTED_OPERATION);
+            }
+        }
+    }
+
+    @Test
+    public void setChannelMaxPowers_withoutPrivilegedPermission_throwsSecurityException()
+            throws Exception {
+        dropAllPermissions();
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            assertThrows(
+                    SecurityException.class,
+                    () -> controller.setChannelMaxPowers(CHANNEL_MAX_POWERS, mExecutor, v -> {}));
+        }
+    }
+
+    @Test
+    public void setChannelMaxPowers_invalidChannelOrPower_throwsIllegalArgumentException() {
+        final SparseIntArray INVALID_CHANNEL_ARRAY =
+                new SparseIntArray() {
+                    {
+                        put(10, 32767);
+                    }
+                };
+        final SparseIntArray INVALID_POWER_ARRAY =
+                new SparseIntArray() {
+                    {
+                        put(20, 32768);
+                    }
+                };
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            assertThrows(
+                    IllegalArgumentException.class,
+                    () -> controller.setChannelMaxPowers(new SparseIntArray(), mExecutor, v -> {}));
+            assertThrows(
+                    IllegalArgumentException.class,
+                    () ->
+                            controller.setChannelMaxPowers(
+                                    INVALID_CHANNEL_ARRAY, mExecutor, v -> {}));
+            assertThrows(
+                    IllegalArgumentException.class,
+                    () -> controller.setChannelMaxPowers(INVALID_POWER_ARRAY, mExecutor, v -> {}));
+        }
     }
 }
