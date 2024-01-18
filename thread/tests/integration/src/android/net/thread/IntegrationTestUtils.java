@@ -37,6 +37,7 @@ import com.android.testutils.TapPacketReader;
 import com.google.common.util.concurrent.SettableFuture;
 
 import java.io.FileDescriptor;
+import java.net.Inet6Address;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
@@ -168,6 +169,20 @@ public final class IntegrationTestUtils {
                 return false;
             }
             return Struct.parse(Icmpv6Header.class, buf).type == (short) type;
+        } catch (IllegalArgumentException ignored) {
+            // It's fine that the passed in packet is malformed because it's could be sent
+            // by anybody.
+        }
+        return false;
+    }
+
+    public static boolean isFromIpv6Source(byte[] packet, Inet6Address src) {
+        if (packet == null) {
+            return false;
+        }
+        ByteBuffer buf = ByteBuffer.wrap(packet);
+        try {
+            return Struct.parse(Ipv6Header.class, buf).srcIp.equals(src);
         } catch (IllegalArgumentException ignored) {
             // It's fine that the passed in packet is malformed because it's could be sent
             // by anybody.
