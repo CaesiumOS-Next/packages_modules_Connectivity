@@ -48,6 +48,7 @@ import com.android.networkstack.tethering.TetheringNotificationUpdater.RESTRICTE
 import com.android.networkstack.tethering.TetheringNotificationUpdater.ROAMING_NOTIFICATION_ID
 import com.android.networkstack.tethering.TetheringNotificationUpdater.VERIZON_CARRIER_ID
 import com.android.networkstack.tethering.TetheringNotificationUpdater.getSettingsPackageName
+import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.waitForIdle
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -80,7 +81,7 @@ const val TEST_NO_UPSTREAM_BUTTON = "Turn off hotspot"
 const val TEST_ROAMING_TITLE = "Hotspot is on"
 const val TEST_ROAMING_MESSAGE = "Additional charges may apply while roaming."
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(DevSdkIgnoreRunner::class)
 @SmallTest
 class TetheringNotificationUpdaterTest {
     // lateinit used here for mocks as they need to be reinitialized between each test and the test

@@ -31,6 +31,7 @@ import static org.junit.Assert.assertTrue;
 import android.annotation.NonNull;
 import android.net.InetAddresses;
 
+import com.android.testutils.DevSdkIgnoreRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -44,7 +45,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@RunWith(JUnit4.class)
+@RunWith(DevSdkIgnoreRunner.class)
 public class DnsSvcbPacketTest {
     private static final short TEST_TRANSACTION_ID = 0x4321;
     private static final byte[] TEST_DNS_RESPONSE_HEADER_FLAG =  new byte[] { (byte) 0x81, 0x00 };

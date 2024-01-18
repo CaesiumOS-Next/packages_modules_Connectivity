@@ -203,6 +203,7 @@ import com.android.networkstack.tethering.metrics.TetheringMetrics;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.MiscAsserts;
 
 import org.junit.After;
@@ -228,7 +229,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
 public class TetheringTest {
     @Rule public final DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();

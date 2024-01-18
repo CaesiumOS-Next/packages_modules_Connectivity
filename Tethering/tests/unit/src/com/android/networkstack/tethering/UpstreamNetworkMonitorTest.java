@@ -64,6 +64,7 @@ import com.android.networkstack.tethering.TestConnectivityManager.TestNetworkAge
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 
+import com.android.testutils.DevSdkIgnoreRunner;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -79,7 +80,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
 public class UpstreamNetworkMonitorTest {
     private static final boolean INCLUDES = true;
