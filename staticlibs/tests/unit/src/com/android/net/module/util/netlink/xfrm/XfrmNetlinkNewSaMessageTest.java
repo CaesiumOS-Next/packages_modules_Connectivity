@@ -41,7 +41,7 @@ import java.nio.ByteOrder;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class XfrmNetlinkNewSaMessageTest {
-    private static final String EXPECTED_HEX_STRING =
+    private static final String HEX_USERSA_INFO_KERNEL_32 =
             "2004000010000000000000003FE1D4B6"
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
@@ -56,8 +56,10 @@ public class XfrmNetlinkNewSaMessageTest {
                     + "00000000000000000000000000000000"
                     + "FD464C65000000000000000000000000"
                     + "00000000000000000000000000000000"
-                    + "024000000A0000000000000000000000"
-                    + "5C000100686D61632873686131290000"
+                    + "024000000A00000000000000";
+    private static final String HEX_USERSA_INFO_EXTRA_PADDINGS_KERNEL_64 = "00000000";
+    private static final String HEX_ATTRIBUTES =
+            "5C000100686D61632873686131290000"
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
@@ -110,8 +112,6 @@ public class XfrmNetlinkNewSaMessageTest {
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000";
 
-    private static final byte[] EXPECTED_HEX = HexDump.hexStringToByteArray(EXPECTED_HEX_STRING);
-
     private static final InetAddress DEST_ADDRESS =
             InetAddresses.parseNumericAddress("2001:db8::111");
     private static final InetAddress SOURCE_ADDRESS =
@@ -125,13 +125,13 @@ public class XfrmNetlinkNewSaMessageTest {
     private static final short FLAGS = 0;
     private static final byte[] BITMAP = new byte[512];
 
-    @Test
-    public void testDecode() throws Exception {
-        final ByteBuffer buffer = ByteBuffer.wrap(EXPECTED_HEX);
+    private void checkDecode(byte[] packet, boolean isKernel64Bit) throws Exception {
+        final ByteBuffer buffer = ByteBuffer.wrap(packet);
         buffer.order(ByteOrder.nativeOrder());
         final XfrmNetlinkNewSaMessage message =
-                (XfrmNetlinkNewSaMessage) NetlinkMessage.parse(buffer, NETLINK_XFRM);
-        final StructXfrmUsersaInfo xfrmUsersaInfo = message.getXfrmUsersaInfo();
+                (XfrmNetlinkNewSaMessage) NetlinkMessage.parse(buffer, NETLINK_XFRM, isKernel64Bit);
+        final StructXfrmUsersaInfo32 xfrmUsersaInfo =
+                message.getXfrmUsersaInfo().getXfrmUsersaInfo32();
 
         assertEquals(DEST_ADDRESS, xfrmUsersaInfo.getDestAddress());
         assertEquals(SOURCE_ADDRESS, xfrmUsersaInfo.getSrcAddress());
@@ -146,5 +146,22 @@ public class XfrmNetlinkNewSaMessageTest {
         assertArrayEquals(BITMAP, message.getBitmap());
         assertEquals(0L, message.getRxSequenceNumber());
         assertEquals(0L, message.getTxSequenceNumber());
+    }
+
+    @Test
+    public void testDecodeFor32BitKernel() throws Exception {
+        checkDecode(
+                HexDump.hexStringToByteArray(HEX_USERSA_INFO_KERNEL_32 + HEX_ATTRIBUTES),
+                false /* isKernel64Bit */);
+    }
+
+    @Test
+    public void testDecodeFor64BitKernel() throws Exception {
+        checkDecode(
+                HexDump.hexStringToByteArray(
+                        HEX_USERSA_INFO_KERNEL_32
+                                + HEX_USERSA_INFO_EXTRA_PADDINGS_KERNEL_64
+                                + HEX_ATTRIBUTES),
+                true /* isKernel64Bit */);
     }
 }

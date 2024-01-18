@@ -58,8 +58,8 @@ public class StructXfrmUsersaInfoTest {
                     + "00000000000000000000000000000000"
                     + "FD464C65000000000000000000000000"
                     + "00000000000000000000000000000000"
-                    + "024000000A0000000000000000000000";
-    private static final byte[] EXPECTED_HEX = HexDump.hexStringToByteArray(EXPECTED_HEX_STRING);
+                    + "024000000A00000000000000";
+    private static final String EXPECTED_HEX_STRING_EXTRA_PADDINGS_KERNEL_64 = "00000000";
 
     private static final InetAddress DEST_ADDRESS =
             InetAddresses.parseNumericAddress("2001:db8::111");
@@ -83,8 +83,7 @@ public class StructXfrmUsersaInfoTest {
         ADD_TIME = BigInteger.valueOf(timestampSeconds);
     }
 
-    @Test
-    public void testEncode() throws Exception {
+    private void checkEncode(byte[] expected, boolean isKernel64Bit) throws Exception {
         final StructXfrmUsersaInfo struct =
                 new StructXfrmUsersaInfo(
                         DEST_ADDRESS,
@@ -97,31 +96,57 @@ public class StructXfrmUsersaInfoTest {
                         PROTO,
                         MODE,
                         REPLAY_WINDOW_LEGACY,
-                        FLAGS);
+                        FLAGS,
+                        isKernel64Bit);
 
-        final ByteBuffer buffer = ByteBuffer.allocate(EXPECTED_HEX.length);
+        final ByteBuffer buffer = ByteBuffer.allocate(expected.length);
         buffer.order(ByteOrder.nativeOrder());
         struct.writeToByteBuffer(buffer);
 
-        assertArrayEquals(EXPECTED_HEX, buffer.array());
+        assertArrayEquals(expected, buffer.array());
     }
 
     @Test
-    public void testDecode() throws Exception {
-        final ByteBuffer buffer = ByteBuffer.wrap(EXPECTED_HEX);
+    public void checkEncodeFor32BitKernel() throws Exception {
+        checkEncode(HexDump.hexStringToByteArray(EXPECTED_HEX_STRING), false /* isKernel64Bit */);
+    }
+
+    @Test
+    public void checkEncodeFor64BitKernel() throws Exception {
+        checkEncode(
+                HexDump.hexStringToByteArray(
+                        EXPECTED_HEX_STRING + EXPECTED_HEX_STRING_EXTRA_PADDINGS_KERNEL_64),
+                true /* isKernel64Bit */);
+    }
+
+    private void checkDecode(byte[] packet, boolean isKernel64Bit) throws Exception {
+        final ByteBuffer buffer = ByteBuffer.wrap(packet);
         buffer.order(ByteOrder.nativeOrder());
 
-        final StructXfrmUsersaInfo struct =
-                StructXfrmUsersaInfo.parse(StructXfrmUsersaInfo.class, buffer);
+        final StructXfrmUsersaInfo struct = StructXfrmUsersaInfo.parse(buffer, isKernel64Bit);
+        final StructXfrmUsersaInfo32 struct32 = struct.getXfrmUsersaInfo32();
 
-        assertEquals(DEST_ADDRESS, struct.getDestAddress());
-        assertEquals(SOURCE_ADDRESS, struct.getSrcAddress());
-        assertEquals(SPI, struct.getSpi());
-        assertEquals(SEQ, struct.seq);
-        assertEquals(REQ_ID, struct.reqId);
-        assertEquals(FAMILY, struct.family);
-        assertEquals(MODE, struct.mode);
-        assertEquals(REPLAY_WINDOW_LEGACY, struct.replayWindowLegacy);
-        assertEquals(FLAGS, struct.flags);
+        assertEquals(DEST_ADDRESS, struct32.getDestAddress());
+        assertEquals(SOURCE_ADDRESS, struct32.getSrcAddress());
+        assertEquals(SPI, struct32.getSpi());
+        assertEquals(SEQ, struct32.seq);
+        assertEquals(REQ_ID, struct32.reqId);
+        assertEquals(FAMILY, struct32.family);
+        assertEquals(MODE, struct32.mode);
+        assertEquals(REPLAY_WINDOW_LEGACY, struct32.replayWindowLegacy);
+        assertEquals(FLAGS, struct32.flags);
+    }
+
+    @Test
+    public void checkDecodeFor32BitKernel() throws Exception {
+        checkDecode(HexDump.hexStringToByteArray(EXPECTED_HEX_STRING), false /* isKernel64Bit */);
+    }
+
+    @Test
+    public void checkDecodeFor64BitKernel() throws Exception {
+        checkDecode(
+                HexDump.hexStringToByteArray(
+                        EXPECTED_HEX_STRING + EXPECTED_HEX_STRING_EXTRA_PADDINGS_KERNEL_64),
+                true /* isKernel64Bit */);
     }
 }
