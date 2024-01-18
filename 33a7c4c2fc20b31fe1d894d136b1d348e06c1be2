@@ -66,6 +66,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d12eb3ef_a1f8e9e7",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2923,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-18T07:40:18Z",
+      "side": 1,
+      "message": "nits: I\u0027m wondering if it\u0027s cleaner that adding dump method to SkDestroyListener and call `mSkDestroyListener.dump` from NetworkStatsService.\nWDYT?",
+      "range": {
+        "startLine": 2923,
+        "startChar": 12,
+        "endLine": 2923,
+        "endChar": 34
+      },
+      "revId": "33a7c4c2fc20b31fe1d894d136b1d348e06c1be2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b19b118f_4a3dddae",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
         "patchSetId": 2
