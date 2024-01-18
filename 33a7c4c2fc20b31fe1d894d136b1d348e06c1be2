@@ -275,6 +275,30 @@
       },
       "revId": "33a7c4c2fc20b31fe1d894d136b1d348e06c1be2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5dd6c61_c6c76bf0",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2812,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-18T13:00:18Z",
+      "side": 1,
+      "message": "You can verify \"SkDestroyListener logs:\" exists.\nFeel free to ignore.",
+      "parentUuid": "41c36673_1efdfb87",
+      "range": {
+        "startLine": 2812,
+        "startChar": 8,
+        "endLine": 2812,
+        "endChar": 26
+      },
+      "revId": "33a7c4c2fc20b31fe1d894d136b1d348e06c1be2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
