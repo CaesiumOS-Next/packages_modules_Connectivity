@@ -34,6 +34,24 @@
       "parentUuid": "408c55a3_b3979a11",
       "revId": "4aeb9569a29be5491ff7513cd29c788d76ccd4aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13e58357_f2b62a28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-01-18T19:16:09Z",
+      "side": 1,
+      "message": "I\u0027m just pointing out this patch might simply not be required if we actually fix the real perf problems.\n\nThings should get a *lot* faster (at least on newer kernels)...  There\u0027s an opportunity to change roughly (max) 3*N+1 bpf system calls (we dump 1 map with up to N\u003d1000 entries, which requires 2 system calls per entry, plus 1 to terminate the iteration, and then for [almost] each entry do a lookup in a second map, which requires another bpf read map system call) into 1 bulk bpf map dump system call (with a little bit of caching of the 2nd map lookups)...\n\nI\u0027m planning/hoping to work on this once I\u0027m done with the bpfloader for V changes (so likely in late march) - see b/296623357",
+      "parentUuid": "00fc58f5_5638259b",
+      "revId": "4aeb9569a29be5491ff7513cd29c788d76ccd4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
