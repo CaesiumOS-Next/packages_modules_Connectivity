@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e6c74cd_0991cb85",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-18T09:03:09Z",
+      "side": 1,
+      "message": "nits: times(1) is a default so you don\u0027t need to specify.",
+      "range": {
+        "startLine": 104,
+        "startChar": 53,
+        "endLine": 104,
+        "endChar": 62
+      },
+      "revId": "d113c69ac6712ef7ed44000ddcc8faeb49555730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
