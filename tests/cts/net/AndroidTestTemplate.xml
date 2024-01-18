@@ -29,8 +29,8 @@
         <option name="test-file-name" value="{MODULE}.apk" />
         <option name="test-file-name" value="CtsCarrierServicePackage.apk" />
     </target_preparer>
-    <target_preparer class="com.android.testutils.ConnectivityTestTargetPreparer">
-    </target_preparer>
+    <!-- <target_preparer class="com.android.testutils.ConnectivityTestTargetPreparer">
+    </target_preparer> -->
     <target_preparer class="com.android.testutils.DisableConfigSyncTargetPreparer">
     </target_preparer>
     <test class="com.android.tradefed.testtype.AndroidJUnitTest" >

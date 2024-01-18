@@ -178,4 +178,11 @@ public class NetworkUtilsTest {
         assumeTrue(getVsrApiLevel() > Build.VERSION_CODES.TIRAMISU);
         assertTrue(NetworkUtils.isKernel64Bit());
     }
+
+    @Test
+    public void testIsKernelX86() {
+        final boolean isKernelX86 = NetworkUtils.isKernelX86();
+
+        android.util.Log.i("TEST", "isKernelX86 " + isKernelX86);
+    }
 }
