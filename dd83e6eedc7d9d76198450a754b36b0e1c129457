@@ -22,6 +22,30 @@
       },
       "revId": "dd83e6eedc7d9d76198450a754b36b0e1c129457",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7440cd05_b077f0d5",
+        "filename": "service-t/src/com/android/metrics/NetworkStatsMetricsLogger.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-18T09:26:44Z",
+      "side": 1,
+      "message": "Done.\nZero impact.\nThe statsDir here should be always valid theoratically.",
+      "parentUuid": "251a71b6_746f1f7a",
+      "range": {
+        "startLine": 122,
+        "startChar": 8,
+        "endLine": 122,
+        "endChar": 36
+      },
+      "revId": "dd83e6eedc7d9d76198450a754b36b0e1c129457",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
