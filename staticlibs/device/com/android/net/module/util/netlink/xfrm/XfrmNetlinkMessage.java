@@ -62,13 +62,16 @@ public abstract class XfrmNetlinkMessage extends NetlinkMessage {
      * @param nlmsghdr netlink message header.
      * @param byteBuffer the ByteBuffer instance that wraps the raw netlink message bytes. MUST be
      *                   host order
+     * @param isKernelX8632 true if the kernel is x86_32
      */
     @Nullable
     public static XfrmNetlinkMessage parseXfrmInternal(
-            @NonNull final StructNlMsgHdr nlmsghdr, @NonNull final ByteBuffer byteBuffer) {
+            @NonNull final StructNlMsgHdr nlmsghdr,
+            @NonNull final ByteBuffer byteBuffer,
+            boolean isKernelX8632) {
         switch (nlmsghdr.nlmsg_type) {
             case XFRM_MSG_NEWSA:
-                return XfrmNetlinkNewSaMessage.parseInternal(nlmsghdr, byteBuffer);
+                return XfrmNetlinkNewSaMessage.parseInternal(nlmsghdr, byteBuffer, isKernelX8632);
             case XFRM_MSG_GETSA:
                 return XfrmNetlinkGetSaMessage.parseInternal(nlmsghdr, byteBuffer);
             default:

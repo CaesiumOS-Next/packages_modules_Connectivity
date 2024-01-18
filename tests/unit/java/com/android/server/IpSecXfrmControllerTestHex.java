@@ -19,9 +19,10 @@ package com.android.server;
 import com.android.net.module.util.HexDump;
 
 public class IpSecXfrmControllerTestHex {
-    private static final String XFRM_NEW_SA_HEX_STRING =
-            "2003000010000000000000003FE1D4B6"
-                    + "00000000000000000000000000000000"
+    private static final String HEX_MSG_HDR_KERNEL_X86_32 = "1C04000010000000000000003FE1D4B6";
+    private static final String HEX_MSG_HDR_KERNEL_NOT_X86_32 = "2004000010000000000000003FE1D4B6";
+    private static final String HEX_USERSA_INFO_X86_32 =
+            "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
                     + "00000000000000000A00000000000000"
                     + "000000000000000020010DB800000000"
@@ -34,8 +35,10 @@ public class IpSecXfrmControllerTestHex {
                     + "00000000000000000000000000000000"
                     + "FD464C65000000000000000000000000"
                     + "00000000000000000000000000000000"
-                    + "024000000A0000000000000000000000"
-                    + "5C000100686D61632873686131290000"
+                    + "024000000A00000000000000";
+    private static final String HEX_USERSA_INFO_NOT_X86_32_EXTRA_PADDINGS = "00000000";
+    private static final String HEX_ATTRIBUTES =
+            "5C000100686D61632873686131290000"
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
@@ -52,8 +55,24 @@ public class IpSecXfrmControllerTestHex {
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
                     + "800000006AED4975ADF006D65C76F639"
-                    + "23A6265B1C0117004000000000000000"
-                    + "00000000000000000000000000080000"
+                    + "23A6265B1C0217008000000000000000"
+                    + "00000000000000000000000000100000"
+                    + "00000000000000000000000000000000"
+                    + "00000000000000000000000000000000"
+                    + "00000000000000000000000000000000"
+                    + "00000000000000000000000000000000"
+                    + "00000000000000000000000000000000"
+                    + "00000000000000000000000000000000"
+                    + "00000000000000000000000000000000"
+                    + "00000000000000000000000000000000"
+                    + "00000000000000000000000000000000"
+                    + "00000000000000000000000000000000"
+                    + "00000000000000000000000000000000"
+                    + "00000000000000000000000000000000"
+                    + "00000000000000000000000000000000"
+                    + "00000000000000000000000000000000"
+                    + "00000000000000000000000000000000"
+                    + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
@@ -71,8 +90,15 @@ public class IpSecXfrmControllerTestHex {
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000";
+    public static final byte[] XFRM_NEW_SA_HEX_X86_32 =
+            HexDump.hexStringToByteArray(
+                    HEX_MSG_HDR_KERNEL_X86_32 + HEX_USERSA_INFO_X86_32 + HEX_ATTRIBUTES);
     public static final byte[] XFRM_NEW_SA_HEX =
-            HexDump.hexStringToByteArray(XFRM_NEW_SA_HEX_STRING);
+            HexDump.hexStringToByteArray(
+                    HEX_MSG_HDR_KERNEL_NOT_X86_32
+                            + HEX_USERSA_INFO_X86_32
+                            + HEX_USERSA_INFO_NOT_X86_32_EXTRA_PADDINGS
+                            + HEX_ATTRIBUTES);
 
     private static final String XFRM_ESRCH_HEX_STRING =
             "3C0000000200000000000000A5060000"

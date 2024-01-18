@@ -29,6 +29,7 @@ import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.net.module.util.HexDump;
+import com.android.net.module.util.netlink.xfrm.StructXfrmUsersaInfo.StructXfrmUsersaInfoX8632;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,7 +45,7 @@ import java.util.concurrent.TimeUnit;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class StructXfrmUsersaInfoTest {
-    private static final String EXPECTED_HEX_STRING =
+    private static final String EXPECTED_HEX_STRING_X86_32 =
             "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
                     + "00000000000000000A00000000000000"
@@ -58,8 +59,8 @@ public class StructXfrmUsersaInfoTest {
                     + "00000000000000000000000000000000"
                     + "FD464C65000000000000000000000000"
                     + "00000000000000000000000000000000"
-                    + "024000000A0000000000000000000000";
-    private static final byte[] EXPECTED_HEX = HexDump.hexStringToByteArray(EXPECTED_HEX_STRING);
+                    + "024000000A00000000000000";
+    private static final String EXPECTED_HEX_STRING_EXTRA_PADDINGS = "00000000";
 
     private static final InetAddress DEST_ADDRESS =
             InetAddresses.parseNumericAddress("2001:db8::111");
@@ -83,8 +84,7 @@ public class StructXfrmUsersaInfoTest {
         ADD_TIME = BigInteger.valueOf(timestampSeconds);
     }
 
-    @Test
-    public void testEncode() throws Exception {
+    private void checkEncode(byte[] expected, boolean isKernelX8632) throws Exception {
         final StructXfrmUsersaInfo struct =
                 new StructXfrmUsersaInfo(
                         DEST_ADDRESS,
@@ -97,31 +97,61 @@ public class StructXfrmUsersaInfoTest {
                         PROTO,
                         MODE,
                         REPLAY_WINDOW_LEGACY,
-                        FLAGS);
+                        FLAGS,
+                        isKernelX8632);
 
-        final ByteBuffer buffer = ByteBuffer.allocate(EXPECTED_HEX.length);
+        final ByteBuffer buffer = ByteBuffer.allocate(expected.length);
         buffer.order(ByteOrder.nativeOrder());
         struct.writeToByteBuffer(buffer);
 
-        assertArrayEquals(EXPECTED_HEX, buffer.array());
+        assertArrayEquals(expected, buffer.array());
+        assertEquals(expected.length, struct.getStructSize());
     }
 
     @Test
-    public void testDecode() throws Exception {
-        final ByteBuffer buffer = ByteBuffer.wrap(EXPECTED_HEX);
+    public void checkEncode_x8632Kernel() throws Exception {
+        checkEncode(
+                HexDump.hexStringToByteArray(EXPECTED_HEX_STRING_X86_32), true /* isKernelX8632 */);
+    }
+
+    @Test
+    public void checkEncode_notX8632Kernel() throws Exception {
+        checkEncode(
+                HexDump.hexStringToByteArray(
+                        EXPECTED_HEX_STRING_X86_32 + EXPECTED_HEX_STRING_EXTRA_PADDINGS),
+                false /* isKernelX8632 */);
+    }
+
+    private void checkDecode(byte[] packet, boolean isKernelX8632) throws Exception {
+        final ByteBuffer buffer = ByteBuffer.wrap(packet);
         buffer.order(ByteOrder.nativeOrder());
 
-        final StructXfrmUsersaInfo struct =
-                StructXfrmUsersaInfo.parse(StructXfrmUsersaInfo.class, buffer);
+        final StructXfrmUsersaInfo struct = StructXfrmUsersaInfo.parse(buffer, isKernelX8632);
+        final StructXfrmUsersaInfoX8632 structx8632 = struct.getXfrmUsersaInfoX8632();
 
+        assertEquals(packet.length, struct.getStructSize());
         assertEquals(DEST_ADDRESS, struct.getDestAddress());
         assertEquals(SOURCE_ADDRESS, struct.getSrcAddress());
         assertEquals(SPI, struct.getSpi());
-        assertEquals(SEQ, struct.seq);
-        assertEquals(REQ_ID, struct.reqId);
-        assertEquals(FAMILY, struct.family);
-        assertEquals(MODE, struct.mode);
-        assertEquals(REPLAY_WINDOW_LEGACY, struct.replayWindowLegacy);
-        assertEquals(FLAGS, struct.flags);
+        assertEquals(SEQ, structx8632.seq);
+        assertEquals(REQ_ID, structx8632.reqId);
+        assertEquals(FAMILY, structx8632.family);
+        assertEquals(MODE, structx8632.mode);
+        assertEquals(REPLAY_WINDOW_LEGACY, structx8632.replayWindowLegacy);
+        assertEquals(FLAGS, structx8632.flags);
+    }
+
+    @Test
+    public void checkDecode_x8632Kernel() throws Exception {
+        checkDecode(
+                HexDump.hexStringToByteArray(EXPECTED_HEX_STRING_X86_32), true /* isKernelX8632 */);
+    }
+
+    @Test
+    public void checkDecode_notX8632Kernel() throws Exception {
+        checkDecode(
+                HexDump.hexStringToByteArray(
+                        EXPECTED_HEX_STRING_X86_32 + EXPECTED_HEX_STRING_EXTRA_PADDINGS),
+                false /* isKernelX8632 */);
     }
 }
