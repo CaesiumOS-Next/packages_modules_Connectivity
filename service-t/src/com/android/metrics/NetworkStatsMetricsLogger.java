@@ -118,8 +118,8 @@ public class NetworkStatsMetricsLogger {
         // See FileRotator#FileInfo for more detail.
         final Pattern pattern = Pattern.compile("^" + prefix + "\\.[0-9]+-[0-9]*$");
 
-        // Ensure that base path exists.
-        statsDir.mkdirs();
+        // Check that base path exists.
+        if (!statsDir.isDirectory()) return new Pair<>(0, 0);
 
         int totalFiles = 0;
         int totalBytes = 0;
