@@ -61,6 +61,7 @@ import androidx.test.runner.AndroidJUnit4;
 import com.android.net.module.util.CollectionUtils;
 import com.android.networkstack.tethering.MockTetheringService.MockTetheringConnector;
 
+import com.android.testutils.DevSdkIgnoreRunner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -73,7 +74,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
 public final class TetheringServiceTest {
     private static final String TEST_IFACE_NAME = "test_wlan0";

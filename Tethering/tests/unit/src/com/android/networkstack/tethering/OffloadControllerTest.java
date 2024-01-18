@@ -82,6 +82,7 @@ import com.android.net.module.util.SharedLog;
 import com.android.networkstack.tethering.OffloadHardwareInterface.OffloadHalCallback;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.TestableNetworkStatsProviderCbBinder;
 
 import org.junit.After;
@@ -99,7 +100,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
 public class OffloadControllerTest {
     @Rule

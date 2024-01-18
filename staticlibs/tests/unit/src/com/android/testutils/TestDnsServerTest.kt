@@ -40,7 +40,7 @@ import kotlin.test.assertTrue
 val TEST_V6_ADDR = InetAddressUtils.parseNumericAddress("2001:db8::3")
 const val TEST_DOMAIN = "hello.example.com"
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(DevSdkIgnoreRunner::class)
 @SmallTest
 class TestDnsServerTest {
     private val network = Mockito.mock(Network::class.java)

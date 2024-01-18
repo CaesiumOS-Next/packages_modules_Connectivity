@@ -54,6 +54,7 @@ import androidx.test.runner.AndroidJUnit4;
 import com.android.net.module.util.SharedLog;
 import com.android.networkstack.tethering.OffloadHardwareInterface.OffloadHalCallback;
 
+import com.android.testutils.DevSdkIgnoreRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -64,7 +65,7 @@ import org.mockito.MockitoAnnotations;
 import java.io.FileDescriptor;
 import java.util.ArrayList;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
 public final class OffloadHalAidlImplTest {
     private static final String RMNET0 = "test_rmnet_data0";

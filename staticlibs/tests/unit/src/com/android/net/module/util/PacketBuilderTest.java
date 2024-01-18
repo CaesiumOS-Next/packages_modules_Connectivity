@@ -47,6 +47,7 @@ import com.android.net.module.util.structs.Ipv6Header;
 import com.android.net.module.util.structs.TcpHeader;
 import com.android.net.module.util.structs.UdpHeader;
 
+import com.android.testutils.DevSdkIgnoreRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -55,7 +56,7 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.nio.ByteBuffer;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
 public class PacketBuilderTest {
     private static final MacAddress SRC_MAC = MacAddress.fromString("11:22:33:44:55:66");
