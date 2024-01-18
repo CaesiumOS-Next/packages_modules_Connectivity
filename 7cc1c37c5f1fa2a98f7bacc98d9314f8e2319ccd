@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65dcb2e1_73567575",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2024-01-18T18:45:42Z",
+      "side": 0,
+      "message": "Could you mark the relevant PROCESS_STATE_ constants being used as @TestApis instead of relying on hidden constants?",
+      "range": {
+        "startLine": 176,
+        "startChar": 35,
+        "endLine": 176,
+        "endChar": 67
+      },
+      "revId": "7cc1c37c5f1fa2a98f7bacc98d9314f8e2319ccd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
