@@ -56,7 +56,6 @@ import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 
 /** Tests for {@link MdnsDiscoveryManager}. */
-@DevSdkIgnoreRunner.MonitorThreadLeak
 @RunWith(DevSdkIgnoreRunner.class)
 @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
 public class MdnsDiscoveryManagerTests {

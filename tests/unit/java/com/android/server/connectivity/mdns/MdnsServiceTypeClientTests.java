@@ -87,7 +87,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 /** Tests for {@link MdnsServiceTypeClient}. */
-@DevSdkIgnoreRunner.MonitorThreadLeak
 @RunWith(DevSdkIgnoreRunner.class)
 @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
 public class MdnsServiceTypeClientTests {

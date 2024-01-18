@@ -51,7 +51,6 @@ private fun keepConnectedScore() =
 
 private fun defaultLnc() = FromS(LocalNetworkConfig.Builder().build())
 
-@DevSdkIgnoreRunner.MonitorThreadLeak
 @RunWith(DevSdkIgnoreRunner::class)
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.R)

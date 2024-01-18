@@ -27,7 +27,6 @@ import org.mockito.Mockito.verify
 private val LINKADDRV4 = LinkAddress("192.0.2.0/24")
 private val IFACE_IDX = 32
 
-@DevSdkIgnoreRunner.MonitorThreadLeak
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
 internal class SocketNetlinkMonitorTest {

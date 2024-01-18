@@ -95,7 +95,6 @@ const val TEST_TIMEOUT_MS = 10_000L
  * NetworkStack in a different test process.
  */
 @RunWith(DevSdkIgnoreRunner::class)
-@DevSdkIgnoreRunner.MonitorThreadLeak
 class ConnectivityServiceIntegrationTest {
     // lateinit used here for mocks as they need to be reinitialized between each test and the test
     // should crash if they are used before being initialized.

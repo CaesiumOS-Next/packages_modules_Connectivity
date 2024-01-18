@@ -66,10 +66,6 @@ class DevSdkIgnoreRunner(private val klass: Class<*>) : Runner(), Filterable, So
         override fun run(notifier: RunNotifier?) = wrapped.run(notifier)
     }
 
-    // Annotation for test classes to indicate the test runner should monitor thread leak.
-    // TODO(b/307693729): Remove this annotation and monitor thread leak by default.
-    annotation class MonitorThreadLeak
-
     private val baseRunner: RunnerWrapper<*>? = klass.let {
         val ignoreAfter = it.getAnnotation(IgnoreAfter::class.java)
         val ignoreUpTo = it.getAnnotation(IgnoreUpTo::class.java)

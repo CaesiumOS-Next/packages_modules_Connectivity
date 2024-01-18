@@ -63,7 +63,6 @@ private const val NETWORK_ACTIVITY_NO_UID = -1
 private const val PACKAGE_UID = 123
 private const val TIMEOUT_MS = 250L
 
-@DevSdkIgnoreRunner.MonitorThreadLeak
 @RunWith(DevSdkIgnoreRunner::class)
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)

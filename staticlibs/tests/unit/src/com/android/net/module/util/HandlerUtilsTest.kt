@@ -18,7 +18,6 @@ package com.android.net.module.util
 
 import android.os.HandlerThread
 import com.android.testutils.DevSdkIgnoreRunner
-import com.android.testutils.DevSdkIgnoreRunner.MonitorThreadLeak
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import org.junit.After
@@ -28,7 +27,6 @@ import org.junit.runner.RunWith
 const val THREAD_BLOCK_TIMEOUT_MS = 1000L
 const val TEST_REPEAT_COUNT = 100
 
-@MonitorThreadLeak
 @RunWith(DevSdkIgnoreRunner::class)
 class HandlerUtilsTest {
     val handlerThread = HandlerThread("HandlerUtilsTestHandlerThread").also {
