@@ -694,6 +694,18 @@ public class TetheringManager {
                 mBuilderParcel.exemptFromEntitlementCheck = false;
                 mBuilderParcel.showProvisioningUi = true;
                 mBuilderParcel.connectivityScope = getDefaultConnectivityScope(type);
+                mBuilderParcel.wifiP2pInterface = null;
+            }
+
+            /** Set WiFi P2P interface. This only work when
+            tetheringType is
+            * TETHERING_ WIFI_P2P*
+            */
+            @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED)
+            @NonNull
+            public Builder setWifiP2pInterface(@Nullable String iface) {
+                mBuilderParcel.wifiP2pInterface = iface;
+                return this;
             }
 
             /**
@@ -756,8 +768,19 @@ public class TetheringManager {
             /** Build {@link TetheringRequest} with the currently set configuration. */
             @NonNull
             public TetheringRequest build() {
+                if (mBuilderParcel.tetheringType != TETHERING_WIFI_P2P) {
+                    mBuilderParcel.wifiP2pInterface = null;
+                }
                 return new TetheringRequest(mBuilderParcel);
             }
+        }
+
+        /**
+         * Get wifi p2p interface
+         */
+        @Nullable
+        public String getWifiP2pInterface() {
+            return mRequestParcel.wifiP2pInterface;
         }
 
         /**
