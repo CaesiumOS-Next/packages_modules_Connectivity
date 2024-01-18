@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f253dc4f_1c7c4c37",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-18T06:55:38Z",
+      "side": 1,
+      "message": "Can we add handler to the argument of MulticastRoutingCoordinatorService constructor?\nI think this makes code a bit simpler.\n\n```\n@VisibleForTesting\npublic MulticastRoutingCoordinatorService(Handler h, Dependencies dependencies) {\n}\n\npublic MulticastRoutingCoordinatorService(Handler h) {\n   this(h, new Dependencies());\n}\n```",
+      "range": {
+        "startLine": 1430,
+        "startChar": 40,
+        "endLine": 1430,
+        "endChar": 41
+      },
+      "revId": "954d1758d98a2955dd6ec8a43ffd7c4622ccccb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a480d1c_813d89cb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1442,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-18T06:55:38Z",
+      "side": 1,
+      "message": "I think this log is a only log that we can know mMulticastRoutingCoordinatorService is null.\nAnd applyMulticastRoutingConfig silently fail if the kernel does not support multicast routing.\nFor future debugging,I think adding mMulticastRoutingCoordinatorService state to dump or adding error log to some places might be helpful.",
+      "range": {
+        "startLine": 1442,
+        "startChar": 0,
+        "endLine": 1442,
+        "endChar": 58
+      },
+      "revId": "954d1758d98a2955dd6ec8a43ffd7c4622ccccb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4fc0979_d5f388fe",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 33
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-18T06:55:38Z",
+      "side": 1,
+      "message": "Is this used?",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 119,
+        "endChar": 57
+      },
+      "revId": "954d1758d98a2955dd6ec8a43ffd7c4622ccccb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd6946e3_4c8be4f7",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 33
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-18T06:55:38Z",
+      "side": 1,
+      "message": "nits: Do we need this?\nIf we need, it would be better to expectCallback as testMulticastRoutingConfig is doing.",
+      "range": {
+        "startLine": 287,
+        "startChar": 8,
+        "endLine": 287,
+        "endChar": 21
+      },
+      "revId": "954d1758d98a2955dd6ec8a43ffd7c4622ccccb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e07007af_3b07dad8",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 33
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-18T06:55:38Z",
+      "side": 1,
+      "message": "nits: Do we need this?",
+      "range": {
+        "startLine": 420,
+        "startChar": 8,
+        "endLine": 420,
+        "endChar": 60
+      },
+      "revId": "954d1758d98a2955dd6ec8a43ffd7c4622ccccb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
