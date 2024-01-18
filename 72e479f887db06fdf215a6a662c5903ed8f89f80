@@ -3,6 +3,201 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "12cf75fa_21e910da",
+        "filename": "thread/service/java/com/android/server/thread/MdnsPublisher.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-18T05:30:24Z",
+      "side": 1,
+      "message": "Add documentation for this class",
+      "revId": "72e479f887db06fdf215a6a662c5903ed8f89f80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13d49c53_9a6b7b85",
+        "filename": "thread/service/java/com/android/server/thread/MdnsPublisher.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-18T05:30:24Z",
+      "side": 1,
+      "message": "Per offline discussion, you shouldn\u0027t depend on OtDaemon anyway",
+      "range": {
+        "startLine": 48,
+        "startChar": 65,
+        "endLine": 48,
+        "endChar": 83
+      },
+      "revId": "72e479f887db06fdf215a6a662c5903ed8f89f80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2a92da0_a2c5f9b0",
+        "filename": "thread/service/java/com/android/server/thread/MdnsPublisher.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-18T05:30:24Z",
+      "side": 1,
+      "message": "We need to track all the registered services and unregister all services when ot-daemon crashes.\n\nThis should be done in ThreadNetworkController, so MdnsPublisher should provide an API to do this, like: `UnregisterAllServices()`.",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 32
+      },
+      "revId": "72e479f887db06fdf215a6a662c5903ed8f89f80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b0e44cb_d431fff4",
+        "filename": "thread/service/java/com/android/server/thread/MdnsPublisher.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-18T05:30:24Z",
+      "side": 1,
+      "message": "If unregisterSerivce is called twice very quickly, the first callback will be overwritten and the it will never be called. So the unregistrationReceiver should be a list.",
+      "range": {
+        "startLine": 94,
+        "startChar": 24,
+        "endLine": 94,
+        "endChar": 77
+      },
+      "revId": "72e479f887db06fdf215a6a662c5903ed8f89f80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0396134_2db648fe",
+        "filename": "thread/service/java/com/android/server/thread/MdnsPublisher.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-18T05:30:24Z",
+      "side": 1,
+      "message": "nit: warn in `else` because this is unexpected",
+      "range": {
+        "startLine": 93,
+        "startChar": 20,
+        "endLine": 96,
+        "endChar": 21
+      },
+      "revId": "72e479f887db06fdf215a6a662c5903ed8f89f80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43056039_6a651b3d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-18T05:30:24Z",
+      "side": 1,
+      "message": "This is never used, please remove",
+      "range": {
+        "startLine": 150,
+        "startChar": 29,
+        "endLine": 150,
+        "endChar": 40
+      },
+      "revId": "72e479f887db06fdf215a6a662c5903ed8f89f80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7eea20cb_9f336cf3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-18T05:30:24Z",
+      "side": 1,
+      "message": "Make sure all dependencies of this class are listed here, so that we can mock them out in unit tests.\n\nFor example, `mMdnsPublisher` should be initialized this way.",
+      "range": {
+        "startLine": 176,
+        "startChar": 12,
+        "endLine": 182,
+        "endChar": 54
+      },
+      "revId": "72e479f887db06fdf215a6a662c5903ed8f89f80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8276e4b6_18b9ffc3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-18T05:30:24Z",
+      "side": 1,
+      "message": "You shouldn\u0027t need",
+      "range": {
+        "startLine": 320,
+        "startChar": 8,
+        "endLine": 320,
+        "endChar": 82
+      },
+      "revId": "72e479f887db06fdf215a6a662c5903ed8f89f80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6008a73_a927f902",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRouterTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-18T05:30:24Z",
+      "side": 1,
+      "message": "Add also test cases that verify the MeshCoP service can be updated due to Thread state or network info changes.",
+      "revId": "72e479f887db06fdf215a6a662c5903ed8f89f80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c1597334_0665de71",
         "filename": "thread/tests/integration/src/android/net/thread/BorderRouterTest.java",
         "patchSetId": 18
@@ -14,6 +209,29 @@
       "writtenOn": "2024-01-17T05:21:53Z",
       "side": 1,
       "message": "Per offline discussion, we should move this test case to a more general test suite. I\u0027ll do this in a later patchset.",
+      "revId": "72e479f887db06fdf215a6a662c5903ed8f89f80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e320e57_0690e625",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRouterTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-18T05:30:24Z",
+      "side": 1,
+      "message": "rename to: meshcopService_DiscoverableButNoNetworkInfo()?",
+      "range": {
+        "startLine": 188,
+        "startChar": 16,
+        "endLine": 188,
+        "endChar": 51
+      },
       "revId": "72e479f887db06fdf215a6a662c5903ed8f89f80",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
