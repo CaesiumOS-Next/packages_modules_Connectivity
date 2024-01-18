@@ -68,6 +68,7 @@ import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 
+import com.android.testutils.DevSdkIgnoreRunner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -79,7 +80,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.Arrays;
 import java.util.Iterator;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
 public class TetheringConfigurationTest {
     private final SharedLog mLog = new SharedLog("TetheringConfigurationTest");
