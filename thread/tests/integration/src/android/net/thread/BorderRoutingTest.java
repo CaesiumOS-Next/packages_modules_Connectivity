@@ -19,16 +19,23 @@ package android.net.thread;
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_LEADER;
+import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_STOPPED;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
 import static android.net.thread.utils.IntegrationTestUtils.JOIN_TIMEOUT;
+import static android.net.thread.utils.IntegrationTestUtils.LEAVE_TIMEOUT;
+import static android.net.thread.utils.IntegrationTestUtils.RESTART_JOIN_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.isExpectedIcmpv6Packet;
+import static android.net.thread.utils.IntegrationTestUtils.isFromIpv6Source;
 import static android.net.thread.utils.IntegrationTestUtils.isSimulatedThreadRadioSupported;
+import static android.net.thread.utils.IntegrationTestUtils.joinedMulticastGroup;
 import static android.net.thread.utils.IntegrationTestUtils.newPacketReader;
 import static android.net.thread.utils.IntegrationTestUtils.readPacketFrom;
 import static android.net.thread.utils.IntegrationTestUtils.waitFor;
 import static android.net.thread.utils.IntegrationTestUtils.waitForStateAnyOf;
 
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REPLY_TYPE;
+import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REQUEST_TYPE;
+import static com.android.testutils.DeviceInfoUtils.isKernelVersionAtLeast;
 import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
@@ -36,16 +43,19 @@ import static com.google.common.io.BaseEncoding.base16;
 import static com.google.common.util.concurrent.MoreExecutors.directExecutor;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assume.assumeNotNull;
 import static org.junit.Assume.assumeTrue;
 
 import android.content.Context;
+import android.net.InetAddresses;
 import android.net.LinkProperties;
 import android.net.MacAddress;
 import android.net.thread.utils.FullThreadDevice;
 import android.net.thread.utils.InfraNetworkDevice;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.SystemClock;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
@@ -61,7 +71,9 @@ import org.junit.runner.RunWith;
 
 import java.net.Inet6Address;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -75,6 +87,17 @@ public class BorderRoutingTest {
     private HandlerThread mHandlerThread;
     private Handler mHandler;
     private TestNetworkTracker mInfraNetworkTracker;
+    private List<FullThreadDevice> mFtds;
+
+    private static final String GROUP_ADDR_SCOPE_5_STR = "ff05::1234";
+    private static final String GROUP_ADDR_SCOPE_4_STR = "ff04::1234";
+    private static final String GROUP_ADDR_SCOPE_3_STR = "ff03::1234";
+    private static final Inet6Address GROUP_ADDR_SCOPE_5 =
+            (Inet6Address) InetAddresses.parseNumericAddress(GROUP_ADDR_SCOPE_5_STR);
+    private static final Inet6Address GROUP_ADDR_SCOPE_4 =
+            (Inet6Address) InetAddresses.parseNumericAddress(GROUP_ADDR_SCOPE_4_STR);
+    private static final Inet6Address GROUP_ADDR_SCOPE_3 =
+            (Inet6Address) InetAddresses.parseNumericAddress(GROUP_ADDR_SCOPE_3_STR);
 
     // A valid Thread Active Operational Dataset generated from OpenThread CLI "dataset init new".
     private static final byte[] DEFAULT_DATASET_TLVS =
@@ -89,6 +112,7 @@ public class BorderRoutingTest {
 
     @Before
     public void setUp() throws Exception {
+        assumeTrue(isSimulatedThreadRadioSupported());
         final ThreadNetworkManager manager = mContext.getSystemService(ThreadNetworkManager.class);
         if (manager != null) {
             mController = manager.getAllThreadNetworkControllers().get(0);
@@ -100,7 +124,463 @@ public class BorderRoutingTest {
         mHandlerThread = new HandlerThread(getClass().getSimpleName());
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
+        mFtds = new ArrayList<>();
 
+        setUpInfraNetwork();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        if (mController == null) {
+            return;
+        }
+
+        runAsShell(
+                PERMISSION_THREAD_NETWORK_PRIVILEGED,
+                NETWORK_SETTINGS,
+                () -> {
+                    CountDownLatch latch = new CountDownLatch(2);
+                    mController.setTestNetworkAsUpstream(
+                            null, directExecutor(), v -> latch.countDown());
+                    mController.leave(directExecutor(), v -> latch.countDown());
+                    latch.await(10, TimeUnit.SECONDS);
+                });
+        tearDownInfraNetwork();
+
+        mHandlerThread.quitSafely();
+        mHandlerThread.join();
+
+        for (var ftd : mFtds) {
+            ftd.stop();
+        }
+        mFtds.clear();
+    }
+
+    @Test
+    public void unicastRouting_infraDevicePingTheadDeviceOmr_replyReceived() throws Exception {
+        /*
+         * <pre>
+         * Topology:
+         *                 infra network                       Thread
+         * infra device -------------------- Border Router -------------- Full Thread device
+         *                                   (Cuttlefish)
+         * </pre>
+         */
+
+        // BR forms a network.
+        startBrLeader();
+
+        // Creates a Full Thread Device (FTD) and lets it join the network.
+        FullThreadDevice ftd = startFtdChild(5);
+        Inet6Address ftdOmr = ftd.getOmrAddress();
+        assertNotNull(ftdOmr);
+
+        // Creates a infra network device.
+        TapPacketReader infraNetworkReader =
+                newPacketReader(mInfraNetworkTracker.getTestIface(), mHandler);
+        InfraNetworkDevice infraDevice = startInfraDevice("1:2:3:4:5:6", infraNetworkReader);
+
+        // Infra device sends an echo request to FTD's OMR.
+        infraDevice.sendEchoRequest(ftdOmr);
+
+        // Infra device receives an echo reply sent by FTD.
+        assertNotNull(
+                readPacketFrom(
+                        infraNetworkReader,
+                        p -> isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)));
+    }
+
+    @Test
+    public void BBR_MlrRegistration_infraLinkJoinsGroup() throws Exception {
+        assumeTrue(isKernelVersionAtLeast("5.15.0"));
+        /*
+         * <pre>
+         * Topology:
+         *                 infra network                       Thread
+         * infra device -------------------- Border Router -------------- Full Thread device
+         *                                   (Cuttlefish)
+         * </pre>
+         */
+
+        // BR forms a network.
+        startBrLeader();
+
+        // Creates a Full Thread Device (FTD) and lets it join the network.
+        FullThreadDevice ftd = startFtdChild(6);
+        Inet6Address ftdOmr = ftd.getOmrAddress();
+        assertNotNull(ftdOmr);
+        // Subscribe to a scope 5 multicast address
+        ftd.subscribeMulticastAddress(GROUP_ADDR_SCOPE_5_STR);
+
+        assertInfraLinkJoinedGroup(GROUP_ADDR_SCOPE_5_STR);
+    }
+
+    @Test
+    public void multicastRouting_inboundForwarding_FtdRepliesSubscribedAddress() throws Exception {
+        assumeTrue(isKernelVersionAtLeast("5.15.0"));
+        /*
+         * <pre>
+         * Topology:
+         *                 infra network                       Thread
+         * infra device -------------------- Border Router -------------- Full Thread device
+         *                                   (Cuttlefish)
+         * </pre>
+         */
+
+        // BR forms a network.
+        startBrLeader();
+
+        // Creates a Full Thread Device (FTD) and lets it join the network.
+        FullThreadDevice ftd = startFtdChild(6);
+        Inet6Address ftdOmr = ftd.getOmrAddress();
+        assertNotNull(ftdOmr);
+        // Subscribe to a scope 5 multicast address
+        subscribeMulticastAddressAndWait(ftd, GROUP_ADDR_SCOPE_5_STR);
+
+        // Creates a infra network device.
+        TapPacketReader infraNetworkReader =
+                newPacketReader(mInfraNetworkTracker.getTestIface(), mHandler);
+        InfraNetworkDevice infraDevice = startInfraDevice("1:2:3:4:5:6", infraNetworkReader);
+
+        // Infra device sends an echo request to FTD's subscribed group address.
+        infraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_5);
+
+        // Infra device receives an echo reply sent by FTD.
+        assertNotNull(
+                readPacketFrom(
+                        infraNetworkReader,
+                        p ->
+                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)
+                                        && isFromIpv6Source(p, ftdOmr)));
+    }
+
+    @Test
+    public void multicastRouting_inboundForwarding_AfterBrRejoinFtdRepliesSubscribedAddress()
+            throws Exception {
+        assumeTrue(isKernelVersionAtLeast("5.15.0"));
+        /*
+         * <pre>
+         * Topology:
+         *                 infra network                       Thread
+         * infra device -------------------- Border Router -------------- Full Thread device
+         *                                   (Cuttlefish)
+         * </pre>
+         */
+
+        // BR forms a network.
+        startBrLeader();
+
+        // Creates a Full Thread Device (FTD) and lets it join the network.
+        FullThreadDevice ftd = startFtdChild(6);
+        Inet6Address ftdOmr = ftd.getOmrAddress();
+        assertNotNull(ftdOmr);
+        // Subscribe to a scope 5 multicast address
+        subscribeMulticastAddressAndWait(ftd, GROUP_ADDR_SCOPE_5_STR);
+
+        // Creates a infra network device.
+        TapPacketReader infraNetworkReader =
+                newPacketReader(mInfraNetworkTracker.getTestIface(), mHandler);
+        InfraNetworkDevice infraDevice = startInfraDevice("1:2:3:4:5:6", infraNetworkReader);
+
+        // BR leaves Thread network and rejoins
+        runAsShell(
+                PERMISSION_THREAD_NETWORK_PRIVILEGED,
+                () -> mController.leave(directExecutor(), result -> {}));
+        waitForStateAnyOf(mController, List.of(DEVICE_ROLE_STOPPED), LEAVE_TIMEOUT);
+
+        assertInfraLinkNotMemberOfGroup(GROUP_ADDR_SCOPE_5_STR);
+
+        // BR rejoins the Thread network
+        startBrLeader();
+
+        ftd.waitForStateAnyOf(List.of("child", "router"), JOIN_TIMEOUT);
+
+        // Ftd will get a new OMR address
+        waitFor(() -> ftd.getOmrAddress() != null && ftd.getOmrAddress() != ftdOmr, JOIN_TIMEOUT);
+        Inet6Address ftdOmrNew = ftd.getOmrAddress();
+
+        // Wait for network stabilize.
+        SystemClock.sleep(2000);
+
+        assertInfraLinkJoinedGroup(GROUP_ADDR_SCOPE_5_STR);
+
+        // Infra device sends an echo request to FTD's subscribed group address.
+        infraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_5);
+
+        // Infra device receives an echo reply sent by FTD.
+        assertNotNull(
+                readPacketFrom(
+                        infraNetworkReader,
+                        p ->
+                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)
+                                        && isFromIpv6Source(p, ftdOmrNew)));
+    }
+
+    @Test
+    public void multicastRouting_inboundForwarding_FtdNotReplyNotsubscribedAddress()
+            throws Exception {
+        assumeTrue(isKernelVersionAtLeast("5.15.0"));
+        /*
+         * <pre>
+         * Topology:
+         *                 infra network                       Thread
+         * infra device -------------------- Border Router -------------- Full Thread device
+         *                                   (Cuttlefish)
+         * </pre>
+         */
+
+        // BR forms a network.
+        startBrLeader();
+
+        // Creates a Full Thread Device (FTD) and lets it join the network.
+        FullThreadDevice ftd = startFtdChild(6);
+        Inet6Address ftdOmr = ftd.getOmrAddress();
+        assertNotNull(ftdOmr);
+
+        // Creates a infra network device.
+        TapPacketReader infraNetworkReader =
+                newPacketReader(mInfraNetworkTracker.getTestIface(), mHandler);
+        InfraNetworkDevice infraDevice = startInfraDevice("1:2:3:4:5:6", infraNetworkReader);
+
+        // Infra device sends an echo request to FTD's not subscribed group address.
+        infraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_3);
+
+        // Infra device doesn't receive an echo reply sent by FTD.
+        assertNull(
+                readPacketFrom(
+                        infraNetworkReader,
+                        p ->
+                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)
+                                        && isFromIpv6Source(p, ftdOmr)));
+
+        // Infra device sends an echo request to FTD's not subscribed group address.
+        infraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_4);
+
+        // Infra device doesn't receive an echo reply sent by FTD.
+        assertNull(
+                readPacketFrom(
+                        infraNetworkReader,
+                        p ->
+                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)
+                                        && isFromIpv6Source(p, ftdOmr)));
+    }
+
+    @Test
+    public void multicastRouting_inboundForwarding_multipleFtdsReplyToSubscribedAddresses()
+            throws Exception {
+        assumeTrue(isKernelVersionAtLeast("5.15.0"));
+        /*
+         * <pre>
+         * Topology:
+         *                 infra network                       Thread
+         * infra device -------------------- Border Router -------------- Full Thread device 1
+         *                                   (Cuttlefish)
+         *                                         |
+         *                                         | Thread
+         *                                         |
+         *                                  Full Thread device 2
+         * </pre>
+         */
+
+        // BR forms a network.
+        startBrLeader();
+
+        // Creates a Full Thread Device (FTD1) and lets it join the network.
+        FullThreadDevice ftd1 = startFtdChild(6);
+        Inet6Address ftdOmr1 = ftd1.getOmrAddress();
+        assertNotNull(ftdOmr1);
+        // Subscribe to a scope 5 multicast address
+        subscribeMulticastAddressAndWait(ftd1, GROUP_ADDR_SCOPE_5_STR);
+
+        // Creates a Full Thread Device (FTD2) and lets it join the network.
+        FullThreadDevice ftd2 = startFtdChild(7);
+        Inet6Address ftdOmr2 = ftd2.getOmrAddress();
+        assertNotNull(ftdOmr2);
+        // Subscribe to a scope 4 multicast address
+        subscribeMulticastAddressAndWait(ftd2, GROUP_ADDR_SCOPE_4_STR);
+
+        // Creates a infra network device.
+        TapPacketReader infraNetworkReader =
+                newPacketReader(mInfraNetworkTracker.getTestIface(), mHandler);
+        InfraNetworkDevice infraDevice = startInfraDevice("1:2:3:4:5:6", infraNetworkReader);
+
+        // Infra device sends an echo request to FTD1's subscribed group address.
+        infraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_5);
+
+        // Infra device receives an echo reply sent by FTD1.
+        assertNotNull(
+                readPacketFrom(
+                        infraNetworkReader,
+                        p ->
+                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)
+                                        && isFromIpv6Source(p, ftdOmr1)));
+        // FTD2 doesn't reply to the echo request
+        assertNull(
+                readPacketFrom(
+                        infraNetworkReader,
+                        p ->
+                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)
+                                        && isFromIpv6Source(p, ftdOmr2)));
+
+        // Infra device sends an echo request to FTD2's subscribed group address.
+        infraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_4);
+        // Infra device receives an echo reply sent by FTD2.
+        assertNotNull(
+                readPacketFrom(
+                        infraNetworkReader,
+                        p ->
+                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)
+                                        && isFromIpv6Source(p, ftdOmr2)));
+        // FTD1 doesn't reply to the echo request
+        assertNull(
+                readPacketFrom(
+                        infraNetworkReader,
+                        p ->
+                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)
+                                        && isFromIpv6Source(p, ftdOmr1)));
+
+        ftd1.unsubscribeMulticastAddress(GROUP_ADDR_SCOPE_5_STR);
+        ftd2.unsubscribeMulticastAddress(GROUP_ADDR_SCOPE_4_STR);
+    }
+
+    @Test
+    public void multicastRouting_outboundForwarding_ScopeLargerThan3IsForwarded() throws Exception {
+        assumeTrue(isKernelVersionAtLeast("5.15.0"));
+        /*
+         * <pre>
+         * Topology:
+         *                 infra network                       Thread
+         * infra device -------------------- Border Router -------------- Full Thread device
+         *                                   (Cuttlefish)
+         * </pre>
+         */
+
+        // BR forms a network.
+        startBrLeader();
+
+        // Creates a Full Thread Device (FTD) and lets it join the network.
+        FullThreadDevice ftd = startFtdChild(7);
+        Inet6Address ftdOmr = ftd.getOmrAddress();
+        assertNotNull(ftdOmr);
+
+        // Creates a infra network device.
+        TapPacketReader infraNetworkReader =
+                newPacketReader(mInfraNetworkTracker.getTestIface(), mHandler);
+
+        ftd.ping(GROUP_ADDR_SCOPE_5_STR, null, 100, 1);
+        ftd.ping(GROUP_ADDR_SCOPE_4_STR, null, 100, 1);
+
+        // Infra device receives an echo request sent by FTD.
+        assertNotNull(
+                readPacketFrom(
+                        infraNetworkReader,
+                        p ->
+                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REQUEST_TYPE)
+                                        && isFromIpv6Source(p, ftdOmr)));
+
+        // Infra device doesn't receive an echo reply sent by FTD.
+        assertNotNull(
+                readPacketFrom(
+                        infraNetworkReader,
+                        p ->
+                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REQUEST_TYPE)
+                                        && isFromIpv6Source(p, ftdOmr)));
+    }
+
+    @Test
+    public void multicastRouting_outboundForwarding_ScopeSmallerThan4IsNotForwarded()
+            throws Exception {
+        assumeTrue(isKernelVersionAtLeast("5.15.0"));
+        /*
+         * <pre>
+         * Topology:
+         *                 infra network                       Thread
+         * infra device -------------------- Border Router -------------- Full Thread device
+         *                                   (Cuttlefish)
+         * </pre>
+         */
+
+        // BR forms a network.
+        startBrLeader();
+
+        // Creates a Full Thread Device (FTD) and lets it join the network.
+        FullThreadDevice ftd = startFtdChild(7);
+        Inet6Address ftdOmr = ftd.getOmrAddress();
+        assertNotNull(ftdOmr);
+
+        // Creates a infra network device.
+        TapPacketReader infraNetworkReader =
+                newPacketReader(mInfraNetworkTracker.getTestIface(), mHandler);
+
+        ftd.ping(GROUP_ADDR_SCOPE_3_STR, null, 100, 1);
+
+        // Infra device doesn't receive an echo request sent by FTD.
+        assertNull(
+                readPacketFrom(
+                        infraNetworkReader,
+                        p ->
+                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REQUEST_TYPE)
+                                        && isFromIpv6Source(p, ftdOmr)));
+    }
+
+    @Test
+    public void multicastRouting_infraNetworkSwitch_FtdRepliesToSubscribedAddress()
+            throws Exception {
+        assumeTrue(isKernelVersionAtLeast("5.15.0"));
+        /*
+         * <pre>
+         * Topology:
+         *                 infra network                       Thread
+         * infra device -------------------- Border Router -------------- Full Thread device
+         *                                   (Cuttlefish)
+         * </pre>
+         */
+
+        // BR forms a network.
+        startBrLeader();
+
+        // Creates a Full Thread Device (FTD) and lets it join the network.
+        FullThreadDevice ftd = startFtdChild(6);
+        subscribeMulticastAddressAndWait(ftd, GROUP_ADDR_SCOPE_5_STR);
+        Inet6Address ftdOmr = ftd.getOmrAddress();
+        assertNotNull(ftdOmr);
+
+        // Creates a infra network device.
+        TapPacketReader infraNetworkReader =
+                newPacketReader(mInfraNetworkTracker.getTestIface(), mHandler);
+        InfraNetworkDevice infraDevice = startInfraDevice("1:2:3:4:5:6", infraNetworkReader);
+
+        // Infra device sends an echo request to FTD's subscribed group address.
+        infraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_5);
+
+        // Infra device receives an echo reply sent by FTD.
+        assertNotNull(
+                readPacketFrom(
+                        infraNetworkReader,
+                        p ->
+                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)
+                                        && isFromIpv6Source(p, ftdOmr)));
+
+        // Destroy infra link and re-create
+        tearDownInfraNetwork();
+        setUpInfraNetwork();
+
+        infraNetworkReader = newPacketReader(mInfraNetworkTracker.getTestIface(), mHandler);
+        infraDevice = startInfraDevice("1:2:3:4:5:6", infraNetworkReader);
+
+        // Infra device sends an echo request to FTD's subscribed group address.
+        infraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_5);
+
+        // Infra device receives an echo reply sent by FTD.
+        assertNotNull(
+                readPacketFrom(
+                        infraNetworkReader,
+                        p ->
+                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)
+                                        && isFromIpv6Source(p, ftdOmr)));
+    }
+
+    private void setUpInfraNetwork() {
         mInfraNetworkTracker =
                 runAsShell(
                         MANAGE_TEST_NETWORKS,
@@ -120,71 +600,62 @@ public class BorderRoutingTest {
                 });
     }
 
-    @After
-    public void tearDown() throws Exception {
-        if (mController == null) {
-            return;
-        }
-
-        runAsShell(
-                PERMISSION_THREAD_NETWORK_PRIVILEGED,
-                NETWORK_SETTINGS,
-                () -> {
-                    CountDownLatch latch = new CountDownLatch(2);
-                    mController.setTestNetworkAsUpstream(
-                            null, directExecutor(), v -> latch.countDown());
-                    mController.leave(directExecutor(), v -> latch.countDown());
-                    latch.await(10, TimeUnit.SECONDS);
-                });
+    private void tearDownInfraNetwork() {
         runAsShell(MANAGE_TEST_NETWORKS, () -> mInfraNetworkTracker.teardown());
-
-        mHandlerThread.quitSafely();
-        mHandlerThread.join();
     }
 
-    @Test
-    public void unicastRouting_infraDevicePingTheadDeviceOmr_replyReceived() throws Exception {
-        assumeTrue(isSimulatedThreadRadioSupported());
-
-        /*
-         * <pre>
-         * Topology:
-         *                 infra network                       Thread
-         * infra device -------------------- Border Router -------------- Full Thread device
-         *                                   (Cuttlefish)
-         * </pre>
-         */
-
-        // BR forms a network.
+    private void startBrLeader() throws Exception {
+        CompletableFuture<Void> joinFuture = new CompletableFuture<>();
         runAsShell(
                 PERMISSION_THREAD_NETWORK_PRIVILEGED,
-                () -> mController.join(DEFAULT_DATASET, directExecutor(), result -> {}));
-        waitForStateAnyOf(mController, List.of(DEVICE_ROLE_LEADER), JOIN_TIMEOUT);
+                () -> mController.join(DEFAULT_DATASET, directExecutor(), joinFuture::complete));
+        joinFuture.get(RESTART_JOIN_TIMEOUT.toSeconds(), TimeUnit.SECONDS);
+        waitForStateAnyOf(mController, List.of(DEVICE_ROLE_LEADER), RESTART_JOIN_TIMEOUT);
+    }
 
-        // Creates a Full Thread Device (FTD) and lets it join the network.
-        FullThreadDevice ftd = new FullThreadDevice(5 /* node ID */);
+    private FullThreadDevice startFtdChild(int nodeId) throws Exception {
+        FullThreadDevice ftd = new FullThreadDevice(nodeId /* node ID */);
         ftd.factoryReset();
         ftd.joinNetwork(DEFAULT_DATASET);
         ftd.waitForStateAnyOf(List.of("router", "child"), JOIN_TIMEOUT);
         waitFor(() -> ftd.getOmrAddress() != null, Duration.ofSeconds(60));
         Inet6Address ftdOmr = ftd.getOmrAddress();
         assertNotNull(ftdOmr);
+        mFtds.add(ftd);
 
-        // Creates a infra network device.
-        TapPacketReader infraNetworkReader =
-                newPacketReader(mInfraNetworkTracker.getTestIface(), mHandler);
+        return ftd;
+    }
+
+    private InfraNetworkDevice startInfraDevice(String macAddress, TapPacketReader tapPacketReader)
+            throws Exception {
         InfraNetworkDevice infraDevice =
-                new InfraNetworkDevice(MacAddress.fromString("1:2:3:4:5:6"), infraNetworkReader);
+                new InfraNetworkDevice(MacAddress.fromString(macAddress), tapPacketReader);
         infraDevice.runSlaac(Duration.ofSeconds(60));
         assertNotNull(infraDevice.ipv6Addr);
 
-        // Infra device sends an echo request to FTD's OMR.
-        infraDevice.sendEchoRequest(ftdOmr);
+        return infraDevice;
+    }
 
-        // Infra device receives an echo reply sent by FTD.
-        assertNotNull(
-                readPacketFrom(
-                        infraNetworkReader,
-                        p -> isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)));
+    private void assertInfraLinkJoinedGroup(String address) throws Exception {
+        waitFor(
+                () ->
+                        joinedMulticastGroup(
+                                mInfraNetworkTracker.getTestIface().getInterfaceName(), address),
+                Duration.ofSeconds(2));
+    }
+
+    private void assertInfraLinkNotMemberOfGroup(String address) throws Exception {
+        waitFor(
+                () ->
+                        !joinedMulticastGroup(
+                                mInfraNetworkTracker.getTestIface().getInterfaceName(), address),
+                Duration.ofSeconds(3));
+    }
+
+    private void subscribeMulticastAddressAndWait(FullThreadDevice ftd, String addressStr)
+            throws Exception {
+        ftd.subscribeMulticastAddress(addressStr);
+
+        assertInfraLinkJoinedGroup(addressStr);
     }
 }
