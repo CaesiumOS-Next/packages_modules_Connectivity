@@ -161,6 +161,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4fa52587_d437e866",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2923,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-18T12:59:15Z",
+      "side": 1,
+      "message": "+1 with motomu,\n where the output of listener can be mocked via dump().\n And the test verifies the service dump output contains dump of listener.\n IIUC you can make shareLog a private object inside listener.",
+      "parentUuid": "f7a53a7f_a8494219",
+      "range": {
+        "startLine": 2923,
+        "startChar": 12,
+        "endLine": 2923,
+        "endChar": 34
+      },
+      "revId": "33a7c4c2fc20b31fe1d894d136b1d348e06c1be2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b19b118f_4a3dddae",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
         "patchSetId": 2
