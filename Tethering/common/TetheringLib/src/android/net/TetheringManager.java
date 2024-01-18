@@ -735,6 +735,16 @@ public class TetheringManager {
                 mBuilderParcel.exemptFromEntitlementCheck = false;
                 mBuilderParcel.showProvisioningUi = true;
                 mBuilderParcel.connectivityScope = getDefaultConnectivityScope(type);
+                mBuilderParcel.interfaceName = null;
+            }
+
+            /** Set tethering interface Name
+            */
+            @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED)
+            @NonNull
+            public Builder setInterfaceName(@Nullable String iface) {
+                mBuilderParcel.interfaceName = iface;
+                return this;
             }
 
             /**
@@ -799,6 +809,14 @@ public class TetheringManager {
             public TetheringRequest build() {
                 return new TetheringRequest(mBuilderParcel);
             }
+        }
+
+        /**
+         * Get tethering interface name
+         */
+        @Nullable
+        public String getInterfaceName() {
+            return mRequestParcel.interfaceName;
         }
 
         /**
