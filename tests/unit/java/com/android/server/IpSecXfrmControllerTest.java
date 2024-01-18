@@ -18,11 +18,14 @@ package com.android.server;
 
 import static com.android.server.IpSecXfrmControllerTestHex.XFRM_ESRCH_HEX;
 import static com.android.server.IpSecXfrmControllerTestHex.XFRM_NEW_SA_HEX;
+import static com.android.server.IpSecXfrmControllerTestHex.XFRM_NEW_SA_HEX_X86_32;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
+import static org.junit.Assume.assumeTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.any;
@@ -31,6 +34,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.net.InetAddresses;
+import android.net.NetworkUtils;
 import android.system.ErrnoException;
 
 import androidx.test.filters.SmallTest;
@@ -59,6 +63,9 @@ public class IpSecXfrmControllerTest {
             InetAddresses.parseNumericAddress("2001:db8::111");
     private static final long SPI = 0xaabbccddL;
     private static final int ESRCH = -3;
+
+    private static final boolean IS_KERNEL_X86_32 =
+            !NetworkUtils.isKernel64Bit() && NetworkUtils.isKernelX86();
 
     private IpSecXfrmController mXfrmController;
     private FileDescriptor mDummyNetlinkSocket;
@@ -96,10 +103,9 @@ public class IpSecXfrmControllerTest {
         when(mockDeps.recvMessage(any(FileDescriptor.class))).thenReturn(buff);
     }
 
-    @Test
-    public void testIpSecGetSa() throws Exception {
+    private void checkIpSecGetSa(byte[] response) throws Exception {
         final int expectedReqLen = 40;
-        injectRxMessage(mMockDeps, XFRM_NEW_SA_HEX);
+        injectRxMessage(mMockDeps, response);
 
         final NetlinkMessage netlinkMessage = mXfrmController.ipSecGetSa(DEST_ADDRESS, SPI);
         final XfrmNetlinkNewSaMessage message = (XfrmNetlinkNewSaMessage) netlinkMessage;
@@ -113,6 +119,20 @@ public class IpSecXfrmControllerTest {
         assertEquals(expectedReqLen, request.length);
 
         verify(mMockDeps).recvMessage(eq(mDummyNetlinkSocket));
+    }
+
+    @Test
+    public void testIpSecGetSa_X8632() throws Exception {
+        assumeTrue(IS_KERNEL_X86_32);
+
+        checkIpSecGetSa(XFRM_NEW_SA_HEX_X86_32);
+    }
+
+    @Test
+    public void testIpSecGetSa_notX8632() throws Exception {
+        assumeFalse(IS_KERNEL_X86_32);
+
+        checkIpSecGetSa(XFRM_NEW_SA_HEX);
     }
 
     @Test

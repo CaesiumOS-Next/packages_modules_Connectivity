@@ -30,6 +30,7 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.android.net.module.util.HexDump;
 import com.android.net.module.util.netlink.NetlinkMessage;
+import com.android.net.module.util.netlink.xfrm.StructXfrmUsersaInfo.StructXfrmUsersaInfoX8632;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,7 +42,7 @@ import java.nio.ByteOrder;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class XfrmNetlinkNewSaMessageTest {
-    private static final String EXPECTED_HEX_STRING =
+    private static final String HEX_USERSA_INFO_KERNEL_X86_32 =
             "2004000010000000000000003FE1D4B6"
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
@@ -56,8 +57,10 @@ public class XfrmNetlinkNewSaMessageTest {
                     + "00000000000000000000000000000000"
                     + "FD464C65000000000000000000000000"
                     + "00000000000000000000000000000000"
-                    + "024000000A0000000000000000000000"
-                    + "5C000100686D61632873686131290000"
+                    + "024000000A00000000000000";
+    private static final String HEX_USERSA_INFO_EXTRA_PADDINGS = "00000000";
+    private static final String HEX_ATTRIBUTES =
+            "5C000100686D61632873686131290000"
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
@@ -110,8 +113,6 @@ public class XfrmNetlinkNewSaMessageTest {
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000";
 
-    private static final byte[] EXPECTED_HEX = HexDump.hexStringToByteArray(EXPECTED_HEX_STRING);
-
     private static final InetAddress DEST_ADDRESS =
             InetAddresses.parseNumericAddress("2001:db8::111");
     private static final InetAddress SOURCE_ADDRESS =
@@ -125,26 +126,45 @@ public class XfrmNetlinkNewSaMessageTest {
     private static final short FLAGS = 0;
     private static final byte[] BITMAP = new byte[512];
 
-    @Test
-    public void testDecode() throws Exception {
-        final ByteBuffer buffer = ByteBuffer.wrap(EXPECTED_HEX);
+    private void checkDecode(byte[] packet, boolean isKernelX8632) throws Exception {
+        final ByteBuffer buffer = ByteBuffer.wrap(packet);
         buffer.order(ByteOrder.nativeOrder());
         final XfrmNetlinkNewSaMessage message =
-                (XfrmNetlinkNewSaMessage) NetlinkMessage.parse(buffer, NETLINK_XFRM);
+                (XfrmNetlinkNewSaMessage) NetlinkMessage.parse(buffer, NETLINK_XFRM, isKernelX8632);
+
         final StructXfrmUsersaInfo xfrmUsersaInfo = message.getXfrmUsersaInfo();
+        final StructXfrmUsersaInfoX8632 xfrmUsersaInfoX8632 =
+                xfrmUsersaInfo.getXfrmUsersaInfoX8632();
 
         assertEquals(DEST_ADDRESS, xfrmUsersaInfo.getDestAddress());
         assertEquals(SOURCE_ADDRESS, xfrmUsersaInfo.getSrcAddress());
         assertEquals(SPI, xfrmUsersaInfo.getSpi());
-        assertEquals(SEQ, xfrmUsersaInfo.seq);
-        assertEquals(REQ_ID, xfrmUsersaInfo.reqId);
-        assertEquals(FAMILY, xfrmUsersaInfo.family);
-        assertEquals(MODE, xfrmUsersaInfo.mode);
-        assertEquals(REPLAY_WINDOW_LEGACY, xfrmUsersaInfo.replayWindowLegacy);
-        assertEquals(FLAGS, xfrmUsersaInfo.flags);
+        assertEquals(SEQ, xfrmUsersaInfoX8632.seq);
+        assertEquals(REQ_ID, xfrmUsersaInfoX8632.reqId);
+        assertEquals(FAMILY, xfrmUsersaInfoX8632.family);
+        assertEquals(MODE, xfrmUsersaInfoX8632.mode);
+        assertEquals(REPLAY_WINDOW_LEGACY, xfrmUsersaInfoX8632.replayWindowLegacy);
+        assertEquals(FLAGS, xfrmUsersaInfoX8632.flags);
 
         assertArrayEquals(BITMAP, message.getBitmap());
         assertEquals(0L, message.getRxSequenceNumber());
         assertEquals(0L, message.getTxSequenceNumber());
+    }
+
+    @Test
+    public void testDecode_x8632Kernel() throws Exception {
+        checkDecode(
+                HexDump.hexStringToByteArray(HEX_USERSA_INFO_KERNEL_X86_32 + HEX_ATTRIBUTES),
+                true /* isKernelX8632 */);
+    }
+
+    @Test
+    public void testDecode_notX8632Kernel() throws Exception {
+        checkDecode(
+                HexDump.hexStringToByteArray(
+                        HEX_USERSA_INFO_KERNEL_X86_32
+                                + HEX_USERSA_INFO_EXTRA_PADDINGS
+                                + HEX_ATTRIBUTES),
+                false /* isKernelX8632 */);
     }
 }

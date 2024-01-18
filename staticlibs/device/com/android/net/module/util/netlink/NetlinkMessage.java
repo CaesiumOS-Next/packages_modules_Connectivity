@@ -47,9 +47,22 @@ public class NetlinkMessage {
     /**
      * Parsing netlink messages for reserved control message or specific netlink message. The
      * netlink family is required for parsing specific netlink message. See man-pages/netlink.
+     *
+     * <p>This method MUST ONLY be called if kernel arch is irrelevant to the message parsing
+     * Otherwise, caller should call #parse(ByteBuffer, int, boolean)
      */
     @Nullable
     public static NetlinkMessage parse(@NonNull ByteBuffer byteBuffer, int nlFamily) {
+        return NetlinkMessage.parse(byteBuffer, nlFamily, false /* isKernelX8632 */);
+    }
+
+    /**
+     * Parsing netlink messages for reserved control message or specific netlink message. The
+     * netlink family is required for parsing specific netlink message. See man-pages/netlink.
+     */
+    @Nullable
+    public static NetlinkMessage parse(
+            @NonNull ByteBuffer byteBuffer, int nlFamily, boolean isKernelX8632) {
         final int startPosition = (byteBuffer != null) ? byteBuffer.position() : -1;
         final StructNlMsgHdr nlmsghdr = StructNlMsgHdr.parse(byteBuffer);
         if (nlmsghdr == null) {
@@ -81,7 +94,7 @@ public class NetlinkMessage {
         } else if (nlFamily == OsConstants.NETLINK_NETFILTER) {
             parsed = parseNfMessage(nlmsghdr, byteBuffer);
         } else if (nlFamily == NETLINK_XFRM) {
-            parsed = parseXfrmMessage(nlmsghdr, byteBuffer);
+            parsed = parseXfrmMessage(nlmsghdr, byteBuffer, isKernelX8632);
         } else {
             parsed = null;
         }
@@ -179,8 +192,11 @@ public class NetlinkMessage {
 
     @Nullable
     private static NetlinkMessage parseXfrmMessage(
-            @NonNull final StructNlMsgHdr nlmsghdr, @NonNull final ByteBuffer byteBuffer) {
-        return (NetlinkMessage) XfrmNetlinkMessage.parseXfrmInternal(nlmsghdr, byteBuffer);
+            @NonNull final StructNlMsgHdr nlmsghdr,
+            @NonNull final ByteBuffer byteBuffer,
+            boolean isKernelX8632) {
+        return (NetlinkMessage)
+                XfrmNetlinkMessage.parseXfrmInternal(nlmsghdr, byteBuffer, isKernelX8632);
     }
 
     /** A convenient method to create a ByteBuffer for encoding a new message */

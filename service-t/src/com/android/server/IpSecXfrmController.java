@@ -20,6 +20,7 @@ import static com.android.net.module.util.netlink.xfrm.XfrmNetlinkMessage.NETLIN
 import static com.android.net.module.util.netlink.xfrm.XfrmNetlinkMessage.XFRM_MSG_NEWSA;
 
 import android.annotation.TargetApi;
+import android.net.NetworkUtils;
 import android.os.Build;
 import android.system.ErrnoException;
 import android.util.Log;
@@ -60,6 +61,13 @@ public class IpSecXfrmController {
 
     private static final int TIMEOUT_MS = 500;
     private static final int DEFAULT_RECV_BUFSIZE = 8 * 1024;
+
+    private static final boolean IS_KERNEL_X86_32 =
+            !NetworkUtils.isKernel64Bit() && NetworkUtils.isKernelX86();
+
+    static {
+        Log.d(TAG, "IS_KERNEL_X86_32 " + IS_KERNEL_X86_32);
+    }
 
     @NonNull private final Dependencies mDependencies;
     @Nullable private FileDescriptor mNetlinkSocket;
@@ -146,7 +154,8 @@ public class IpSecXfrmController {
         logD(methodTag + ": receive response " + response.limit() + " bytes");
         logV(HexDump.dumpHexString(response.array(), 0 /* offset */, response.limit()));
 
-        final NetlinkMessage msg = XfrmNetlinkMessage.parse(response, NETLINK_XFRM);
+        final NetlinkMessage msg =
+                XfrmNetlinkMessage.parse(response, NETLINK_XFRM, IS_KERNEL_X86_32);
         if (msg == null) {
             throw new IOException("Fail to parse the response message");
         }

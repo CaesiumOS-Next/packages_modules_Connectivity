@@ -65,10 +65,12 @@ public abstract class XfrmNetlinkMessage extends NetlinkMessage {
      */
     @Nullable
     public static XfrmNetlinkMessage parseXfrmInternal(
-            @NonNull final StructNlMsgHdr nlmsghdr, @NonNull final ByteBuffer byteBuffer) {
+            @NonNull final StructNlMsgHdr nlmsghdr,
+            @NonNull final ByteBuffer byteBuffer,
+            boolean isKernelX8632) {
         switch (nlmsghdr.nlmsg_type) {
             case XFRM_MSG_NEWSA:
-                return XfrmNetlinkNewSaMessage.parseInternal(nlmsghdr, byteBuffer);
+                return XfrmNetlinkNewSaMessage.parseInternal(nlmsghdr, byteBuffer, isKernelX8632);
             case XFRM_MSG_GETSA:
                 return XfrmNetlinkGetSaMessage.parseInternal(nlmsghdr, byteBuffer);
             default:
