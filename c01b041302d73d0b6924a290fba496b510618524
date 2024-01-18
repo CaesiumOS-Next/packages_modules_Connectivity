@@ -116,6 +116,30 @@
       },
       "revId": "c01b041302d73d0b6924a290fba496b510618524",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41248b03_05d9054d",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-18T03:33:27Z",
+      "side": 1,
+      "message": "As we discussed, it\u0027s probably best to leave them as-is until the API flag is removed, since they\u0027re not supposed to be null before the new API is released",
+      "parentUuid": "c022459b_faf28896",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 5
+      },
+      "revId": "c01b041302d73d0b6924a290fba496b510618524",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
