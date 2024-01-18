@@ -17,16 +17,18 @@ package android.net.nsd;
 
 import android.annotation.LongDef;
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.time.Duration;
 import java.util.Objects;
 
 /**
  * Encapsulates parameters for {@link NsdManager#registerService}.
- * @hide
+ *
  */
 //@FlaggedApi(NsdManager.Flags.ADVERTISE_REQUEST_API)
 public final class AdvertisingRequest implements Parcelable {
@@ -46,7 +48,9 @@ public final class AdvertisingRequest implements Parcelable {
                             NsdServiceInfo.class.getClassLoader(), NsdServiceInfo.class);
                     final int protocolType = in.readInt();
                     final long advertiseConfig = in.readLong();
-                    return new AdvertisingRequest(serviceInfo, protocolType, advertiseConfig);
+                    final Duration ttlDuration = Duration.ofSeconds(in.readLong());
+                    return new AdvertisingRequest(
+                            serviceInfo, protocolType, advertiseConfig, ttlDuration);
                 }
 
                 @Override
@@ -59,6 +63,9 @@ public final class AdvertisingRequest implements Parcelable {
     private final int mProtocolType;
     // Bitmask of @AdvertisingConfig flags. Uses a long to allow 64 possible flags in the future.
     private final long mAdvertisingConfig;
+
+    @NonNull
+    private final Duration mTtlDuration;
 
     /**
      * @hide
@@ -73,10 +80,11 @@ public final class AdvertisingRequest implements Parcelable {
      * The constructor for the advertiseRequest
      */
     private AdvertisingRequest(@NonNull NsdServiceInfo serviceInfo, int protocolType,
-            long advertisingConfig) {
+            long advertisingConfig, @NonNull Duration ttlDuration) {
         mServiceInfo = serviceInfo;
         mProtocolType = protocolType;
         mAdvertisingConfig = advertisingConfig;
+        mTtlDuration = ttlDuration;
     }
 
     /**
@@ -101,12 +109,25 @@ public final class AdvertisingRequest implements Parcelable {
         return mAdvertisingConfig;
     }
 
+    /**
+     * Returns the time interval that the resource records may be cached on a DNS resolver or
+     * {@code null} if not specified.
+     *
+     * @hide
+     */
+    // @FlaggedApi(NsdManager.Flags.NSD_CUSTOM_TTL_ENABLED)
+    @NonNull
+    public Duration getTtlDuration() {
+        return mTtlDuration;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("serviceInfo: ").append(mServiceInfo)
                 .append(", protocolType: ").append(mProtocolType)
-                .append(", advertisingConfig: ").append(mAdvertisingConfig);
+                .append(", advertisingConfig: ").append(mAdvertisingConfig)
+                .append(", ttlDuration: ").append(mTtlDuration);
         return sb.toString();
     }
 
@@ -120,13 +141,14 @@ public final class AdvertisingRequest implements Parcelable {
             final AdvertisingRequest otherRequest = (AdvertisingRequest) other;
             return mServiceInfo.equals(otherRequest.mServiceInfo)
                     && mProtocolType == otherRequest.mProtocolType
-                    && mAdvertisingConfig == otherRequest.mAdvertisingConfig;
+                    && mAdvertisingConfig == otherRequest.mAdvertisingConfig
+                    && Objects.equals(mTtlDuration, otherRequest.mTtlDuration);
         }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mServiceInfo, mProtocolType, mAdvertisingConfig);
+        return Objects.hash(mServiceInfo, mProtocolType, mAdvertisingConfig, mTtlDuration);
     }
 
     @Override
@@ -139,6 +161,7 @@ public final class AdvertisingRequest implements Parcelable {
         dest.writeParcelable(mServiceInfo, flags);
         dest.writeInt(mProtocolType);
         dest.writeLong(mAdvertisingConfig);
+        dest.writeLong(mTtlDuration == null ? -1 : mTtlDuration.getSeconds());
     }
 
 //    @FlaggedApi(NsdManager.Flags.ADVERTISE_REQUEST_API)
@@ -151,6 +174,8 @@ public final class AdvertisingRequest implements Parcelable {
         private final NsdServiceInfo mServiceInfo;
         private final int mProtocolType;
         private long mAdvertisingConfig;
+        @NonNull
+        private Duration mTtlDuration;
         /**
          * Creates a new {@link Builder} object.
          */
@@ -170,11 +195,42 @@ public final class AdvertisingRequest implements Parcelable {
             return this;
         }
 
+        /**
+         * Sets the time interval that the resource records may be cached on a DNS resolver.
+         *
+         * If this method is not called or {@code ttlDuration#getSeconds()} is {@code 0}, default
+         * TTL values will be used for the service when it's registered. Otherwise, the {@code
+         * ttlDuration} will be used for all resource records of this service.
+         *
+         * When registering a service, {@link NsdManager#FAILURE_BAD_PARAMETERS} will be returned if
+         * {@code ttlDuration} is smaller than 30 seconds.
+         *
+         * Note: only number of seconds of {@code ttlDuration} is used.
+         *
+         * @param ttlDuration the maximum duration that the DNS resource records will be cached
+         *
+         * @see AdvertisingRequest#getTtlDuration
+         * @see NsdManager#registerService(NsdServiceInfo, int, RegistrationListener)
+         * @see NsdManager#registerService(NsdServiceInfo, int, Executor, RegistrationListener)
+         *
+         * @hide
+         */
+        // @FlaggedApi(NsdManager.Flags.NSD_CUSTOM_TTL_ENABLED)
+        public void setTtlDuration(@NonNull Duration ttlDuration) {
+            final long ttlSeconds = ttlDuration.getSeconds();
+            if (ttlSeconds < 0 || ttlSeconds > 0xffffffffL) {
+                throw new IllegalArgumentException(
+                        "ttlSeconds exceeds the allowed range (value = " + ttlSeconds
+                                + ", allowedRanged = [0, 0xffffffffL])");
+            }
+            mTtlDuration = Duration.ofSeconds(ttlSeconds);
+        }
+
 
         /** Creates a new {@link AdvertisingRequest} object. */
         @NonNull
         public AdvertisingRequest build() {
-            return new AdvertisingRequest(mServiceInfo, mProtocolType, mAdvertisingConfig);
+            return new AdvertisingRequest(mServiceInfo, mProtocolType, mAdvertisingConfig, mTtlDuration);
         }
     }
 }

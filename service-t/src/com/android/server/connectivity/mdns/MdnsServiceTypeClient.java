@@ -37,6 +37,7 @@ import com.android.server.connectivity.mdns.util.MdnsUtils;
 
 import java.net.Inet4Address;
 import java.net.Inet6Address;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -281,6 +282,7 @@ public class MdnsServiceTypeClient {
             textStrings = response.getTextRecord().getStrings();
             textEntries = response.getTextRecord().getEntries();
         }
+        Instant now = Instant.now();
         // TODO: Throw an error message if response doesn't have Inet6 or Inet4 address.
         return new MdnsServiceInfo(
                 serviceInstanceName,
@@ -294,7 +296,7 @@ public class MdnsServiceTypeClient {
                 textEntries,
                 response.getInterfaceIndex(),
                 response.getNetwork(),
-                response.getMinTtlSeconds());
+                now.plusMillis(response.getMinRemainingTtl(now.toEpochMilli())));
     }
 
     /**

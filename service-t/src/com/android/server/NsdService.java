@@ -114,6 +114,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -946,9 +947,9 @@ public class NsdService extends INsdManager.Stub {
                                 break;
                             }
 
-                            final long ttlSeconds = serviceInfo.getTtlSeconds();
+                            final long ttlSeconds = advertisingRequest.getTtlDuration().getSeconds();
                             final long minTtlSeconds = getMinTtlSecondsForClient(clientInfo);
-                            if (ttlSeconds != 0
+                            if (ttlSeconds > 0
                                     && (ttlSeconds < minTtlSeconds || ttlSeconds > 0xffffffffL)) {
                                 mServiceLogs.e("ttlSeconds exceeds allowed ranged (value = "
                                         + ttlSeconds + ", allowedRange = [" + minTtlSeconds
@@ -961,8 +962,10 @@ public class NsdService extends INsdManager.Stub {
                             serviceInfo.setSubtypes(subtypes);
                             maybeStartMonitoringSockets();
                             final MdnsAdvertisingOptions mdnsAdvertisingOptions =
-                                    MdnsAdvertisingOptions.newBuilder().setIsOnlyUpdate(
-                                            isUpdateOnly).build();
+                                    MdnsAdvertisingOptions.newBuilder()
+                                            .setIsOnlyUpdate(isUpdateOnly)
+                                            .setTtlDuration(advertisingRequest.getTtlDuration())
+                                            .build();
                             mAdvertiser.addOrUpdateService(transactionId, serviceInfo,
                                     mdnsAdvertisingOptions);
                             storeAdvertiserRequestMap(clientRequestId, transactionId, clientInfo,
@@ -1501,7 +1504,7 @@ public class NsdService extends INsdManager.Stub {
                         network == null ? INetd.LOCAL_NET_ID : network.netId,
                         serviceInfo.getInterfaceIndex());
                 servInfo.setSubtypes(dedupSubtypeLabels(serviceInfo.getSubtypes()));
-                servInfo.setTtlSeconds(serviceInfo.getTtlSeconds());
+                servInfo.setExpirationTime(serviceInfo.getExpirationTime());
                 return servInfo;
             }
 

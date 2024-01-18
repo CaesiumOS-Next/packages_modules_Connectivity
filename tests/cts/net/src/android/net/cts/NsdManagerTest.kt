@@ -53,6 +53,7 @@ import android.net.cts.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.Ser
 import android.net.cts.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.ServiceUpdatedLost
 import android.net.cts.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.UnregisterCallbackSucceeded
 import android.net.cts.util.CtsNetUtils
+import android.net.nsd.AdvertisingRequest
 import android.net.nsd.DiscoveryRequest
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
@@ -105,6 +106,8 @@ import java.net.NetworkInterface
 import java.net.ServerSocket
 import java.nio.ByteBuffer
 import java.nio.charset.StandardCharsets
+import java.time.Duration
+import java.time.Instant
 import java.util.Random
 import java.util.concurrent.Executor
 import kotlin.math.min
@@ -1422,19 +1425,20 @@ class NsdManagerTest {
     @Test
     fun testAdvertisingAndDiscovery_customTtlIsRespected() {
         val si = makeTestServiceInfo(network = testNetwork1.network)
-        si.ttlSeconds = 30
+        val request = AdvertisingRequest.Builder(si, PROTOCOL_DNS_SD)
+                .setDuration(Duration.ofSeconds(30)).build()
 
         val registrationRecord = NsdRegistrationRecord()
         val baseTypeDiscoveryRecord = NsdDiscoveryRecord()
         tryTest {
-            registerService(registrationRecord, si)
+            registerService(registrationRecord, request)
 
             nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD,
                     testNetwork1.network, Executor { it.run() }, baseTypeDiscoveryRecord)
 
             val serviceFound = baseTypeDiscoveryRecord.waitForServiceDiscovered(
                     serviceName, serviceType, testNetwork1.network)
-            assertEquals(30, serviceFound.getTtlSeconds())
+            assertFalse(serviceFound.expirationTime!!.isAfter(Instant.now().plusSeconds(30)))
         } cleanupStep {
             nsdManager.stopServiceDiscovery(baseTypeDiscoveryRecord)
             baseTypeDiscoveryRecord.expectCallback<DiscoveryStopped>()
@@ -1445,17 +1449,17 @@ class NsdManagerTest {
 
     @Test
     fun testAdvertising_invalidCustomTtl_failsWithBadParameters() {
-        runInvalidTtlValueTest(invalidTtlSeconds = -1)
         runInvalidTtlValueTest(invalidTtlSeconds = 29)
         runInvalidTtlValueTest(invalidTtlSeconds = 0xffffffffL + 1)
     }
 
     private fun runInvalidTtlValueTest(invalidTtlSeconds: Long) {
         val si = makeTestServiceInfo(network = testNetwork1.network)
-        si.ttlSeconds = invalidTtlSeconds
+        val request = AdvertisingRequest.Builder(si, PROTOCOL_DNS_SD)
+                .setDuration(Duration.ofSeconds(invalidTtlSeconds)).build()
 
         val record = NsdRegistrationRecord()
-        nsdManager.registerService(si, NsdManager.PROTOCOL_DNS_SD, Executor { it.run() }, record)
+        nsdManager.registerService(request, Executor { it.run() }, record)
 
         val failedCb = record.expectCallback<RegistrationFailed>(REGISTRATION_TIMEOUT_MS)
         assertEquals(NsdManager.FAILURE_BAD_PARAMETERS, failedCb.errorCode)
@@ -1470,6 +1474,21 @@ class NsdManagerTest {
         executor: Executor = Executor { it.run() }
     ): NsdServiceInfo {
         nsdManager.registerService(si, NsdManager.PROTOCOL_DNS_SD, executor, record)
+        // We may not always get the name that we tried to register;
+        // This events tells us the name that was registered.
+        val cb = record.expectCallback<ServiceRegistered>(REGISTRATION_TIMEOUT_MS)
+        return cb.serviceInfo
+    }
+
+    /**
+     * Register a service and return its registration record.
+     */
+    private fun registerService(
+        record: NsdRegistrationRecord,
+        request: AdvertisingRequest,
+        executor: Executor = Executor { it.run() }
+    ): NsdServiceInfo {
+        nsdManager.registerService(request, executor, record)
         // We may not always get the name that we tried to register;
         // This events tells us the name that was registered.
         val cb = record.expectCallback<ServiceRegistered>(REGISTRATION_TIMEOUT_MS)

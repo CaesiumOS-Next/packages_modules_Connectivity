@@ -28,6 +28,7 @@ import android.text.TextUtils;
 import com.android.net.module.util.ByteUtils;
 
 import java.nio.charset.Charset;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -63,7 +64,13 @@ public class MdnsServiceInfo implements Parcelable {
                             source.createTypedArrayList(TextEntry.CREATOR),
                             source.readInt(),
                             source.readParcelable(null),
-                            source.readLong());
+                            readInstant(source));
+                }
+
+                @Nullable
+                private static Instant readInstant(Parcel source) {
+                    final long seconds = source.readLong();
+                    return seconds < 0 ? null : Instant.ofEpochSecond(seconds);
                 }
 
                 @Override
@@ -90,7 +97,8 @@ public class MdnsServiceInfo implements Parcelable {
     @Nullable
     private final Network network;
 
-    private final long ttlSeconds;
+    @Nullable
+    private final Instant expirationTime;
 
     /** Constructs a {@link MdnsServiceInfo} object with default values. */
     public MdnsServiceInfo(
@@ -114,7 +122,7 @@ public class MdnsServiceInfo implements Parcelable {
                 /* textEntries= */ null,
                 /* interfaceIndex= */ INTERFACE_INDEX_UNSPECIFIED,
                 /* network= */ null,
-                /* ttlSeconds= */ 0);
+                /* expirationTime= */ null);
     }
 
     /** Constructs a {@link MdnsServiceInfo} object with default values. */
@@ -140,7 +148,7 @@ public class MdnsServiceInfo implements Parcelable {
                 textEntries,
                 /* interfaceIndex= */ INTERFACE_INDEX_UNSPECIFIED,
                 /* network= */ null,
-                /* ttlSeconds= */ 0);
+                /* expirationTime= */ null);
     }
 
     /**
@@ -171,7 +179,7 @@ public class MdnsServiceInfo implements Parcelable {
                 textEntries,
                 interfaceIndex,
                 /* network= */ null,
-                /* ttlSeconds= */ 0);
+                /* expirationTime= */ null);
     }
 
     /**
@@ -191,7 +199,7 @@ public class MdnsServiceInfo implements Parcelable {
             @Nullable List<TextEntry> textEntries,
             int interfaceIndex,
             @Nullable Network network,
-            long ttlSeconds) {
+            @Nullable Instant expirationTime) {
         this.serviceInstanceName = serviceInstanceName;
         this.serviceType = serviceType;
         this.subtypes = new ArrayList<>();
@@ -224,7 +232,7 @@ public class MdnsServiceInfo implements Parcelable {
         this.attributes = Collections.unmodifiableMap(attributes);
         this.interfaceIndex = interfaceIndex;
         this.network = network;
-        this.ttlSeconds = ttlSeconds;
+        this.expirationTime = expirationTime;
     }
 
     private static List<TextEntry> parseTextStrings(List<String> textStrings) {
@@ -321,9 +329,13 @@ public class MdnsServiceInfo implements Parcelable {
         return network;
     }
 
-    /** Returns the TTL value (in seconds) of the service records. */
-    public long getTtlSeconds() {
-        return ttlSeconds;
+    /**
+     * Returns the timestamp after when this service is expired or {@code null} if the expiration
+     * time is unknown.
+     */
+    @Nullable
+    public Instant getExpirationTime() {
+        return expirationTime;
     }
 
     /**
@@ -377,7 +389,7 @@ public class MdnsServiceInfo implements Parcelable {
         out.writeTypedList(textEntries);
         out.writeInt(interfaceIndex);
         out.writeParcelable(network, 0);
-        out.writeLong(ttlSeconds);
+        out.writeLong(expirationTime == null ? -1 : expirationTime.getEpochSecond());
     }
 
     @Override
@@ -392,7 +404,7 @@ public class MdnsServiceInfo implements Parcelable {
                 + ", network: " + network
                 + ", textStrings: " + textStrings
                 + ", textEntries: " + textEntries
-                + ", ttl: " + ttlSeconds;
+                + ", expirationTime: " + expirationTime;
     }
 
 

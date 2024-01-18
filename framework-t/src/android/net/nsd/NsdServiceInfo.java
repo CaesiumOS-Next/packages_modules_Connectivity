@@ -38,6 +38,7 @@ import com.android.net.module.util.InetAddressUtils;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -69,8 +70,9 @@ public final class NsdServiceInfo implements Parcelable {
 
     private int mInterfaceIndex;
 
-    // Represents the TTL of all resource records of a non-zero value is set
-    private long mTtlSeconds;
+    // The timestamp that all resource records associated with this service are considered invalid.
+    @Nullable
+    private Instant mExpirationTime;
 
     public NsdServiceInfo() {
         mSubtypes = new ArraySet<>();
@@ -99,6 +101,7 @@ public final class NsdServiceInfo implements Parcelable {
         mPort = other.getPort();
         mNetwork = other.getNetwork();
         mInterfaceIndex = other.getInterfaceIndex();
+        mExpirationTime = other.getExpirationTime();
     }
 
     /** Get the service name */
@@ -454,43 +457,33 @@ public final class NsdServiceInfo implements Parcelable {
     }
 
     /**
-     * Sets the time interval that the resource records may be cached on a DNS resolver before the
-     * source of the information should again be consulted.
+     * Sets the timestamp after when this service is expired.
      *
-     * If this method is not called or {@code ttlSeconds} is {@code 0}, default TTL values will be
-     * used for this service when it's registered. Otherwise, the {@code ttlSeconds} will be used
-     * for all resource records of this service.
+     * Note: only number of seconds of {@code expirationTime} is used.
      *
-     * When registering a service, {@link NsdManager#FAILURE_BAD_PARAMETERS} will be returned if
-     * {@code ttlSeconds} is smaller than {@link NsdManager#TTL_SECONDS_MIN}
-     *
-     * @param ttlSeconds the maximum time (in seconds) that the DNS resource records will be cached
-     *
-     * @see #getTtlSeconds
-     * @see NsdManager#registerService(NsdServiceInfo, int, RegistrationListener)
-     * @see NsdManager#registerService(NsdServiceInfo, int, Executor, RegistrationListener)
+     * @hide
      */
-    @FlaggedApi(NsdManager.Flags.NSD_CUSTOM_TTL_ENABLED)
-    public void setTtlSeconds(@IntRange(from = 0, to = 0xffffffffL) long ttlSeconds) {
-        if (ttlSeconds < 0 || ttlSeconds > 0xffffffffL) {
-            throw new IllegalArgumentException(
-                    "ttlSeconds exceeds the allowed range (value = " + ttlSeconds
-                            + ", allowedRanged = [0, 0xffffffffL])");
+    @Nullable
+    public void setExpirationTime(@Nullable Instant expirationTime) {
+        if (expirationTime == null) {
+            mExpirationTime = null;
+        } else {
+            mExpirationTime = Instant.ofEpochSecond(expirationTime.getEpochSecond());
         }
-        mTtlSeconds = ttlSeconds;
     }
 
     /**
-     * Returns the time interval that the resource records may be cached on a DNS resolver before
-     * the source of the information should again be consulted.
+     * Returns the timestamp after when this service is expired or {@code null} if the expiration
+     * time is unknown.
      *
-     * In case multiple resource records of this service have different TTL values, the minimum one
-     * is returned by this method.
+     * Clients that are depending on the refreshness of the service information should not continue
+     * use this service after the returned timestamp. Instead, clients may re-send queries for the
+     * service to get updated the service information.
      */
     @FlaggedApi(NsdManager.Flags.NSD_CUSTOM_TTL_ENABLED)
-    @IntRange(from = 0, to = 0xffffffffL)
-    public long getTtlSeconds() {
-        return mTtlSeconds;
+    @Nullable
+    public Instant getExpirationTime() {
+        return mExpirationTime;
     }
 
     @Override
@@ -502,7 +495,7 @@ public final class NsdServiceInfo implements Parcelable {
                 .append(", hostAddresses: ").append(TextUtils.join(", ", mHostAddresses))
                 .append(", port: ").append(mPort)
                 .append(", network: ").append(mNetwork)
-                .append(", ttl: ").append(mTtlSeconds);
+                .append(", expirationTime: ").append(mExpirationTime);
 
         byte[] txtRecord = getTxtRecord();
         sb.append(", txtRecord: ").append(new String(txtRecord, StandardCharsets.UTF_8));
@@ -541,7 +534,7 @@ public final class NsdServiceInfo implements Parcelable {
         for (InetAddress address : mHostAddresses) {
             InetAddressUtils.parcelInetAddress(dest, address, flags);
         }
-        dest.writeLong(mTtlSeconds);
+        dest.writeLong(mExpirationTime != null ? mExpirationTime.getEpochSecond() : -1);
     }
 
     /** Implement the Parcelable interface */
@@ -571,7 +564,9 @@ public final class NsdServiceInfo implements Parcelable {
                 for (int i = 0; i < size; i++) {
                     info.mHostAddresses.add(InetAddressUtils.unparcelInetAddress(in));
                 }
-                info.setTtlSeconds(in.readLong());
+                final long expirationTimeSeconds = in.readLong();
+                info.setExpirationTime(
+                        expirationTimeSeconds < 0 ? null : Instant.ofEpochSecond(expirationTimeSeconds));
                 return info;
             }
 

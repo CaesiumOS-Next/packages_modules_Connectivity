@@ -307,8 +307,11 @@ public final class NsdManager {
     /** Dns based service discovery protocol */
     public static final int PROTOCOL_DNS_SD = 0x0001;
 
-    /** The minimum TTL seconds which is allowed for a service registration. */
-    @FlaggedApi(Flags.NSD_CUSTOM_TTL_ENABLED)
+    /**
+     * The minimum TTL seconds which is allowed for a service registration.
+     *
+     * @hide
+     */
     public static final long TTL_SECONDS_MIN = 30L;
 
     private static final SparseArray<String> EVENT_NAMES = new SparseArray<>();

@@ -199,6 +199,7 @@ public class NsdServiceInfoTest {
         assertEquals(Set.of("_thread", "_matter"), info.getSubtypes());
     }
 
+    /* TODO: move to AdvertisingRequestTest
     @Test
     public void testTtl_validValues_success() {
         NsdServiceInfo info1 = new NsdServiceInfo();
@@ -222,4 +223,5 @@ public class NsdServiceInfoTest {
         assertThrows(IllegalArgumentException.class, () -> info1.setTtlSeconds(-1));
         assertThrows(IllegalArgumentException.class, () -> info2.setTtlSeconds(0x100000000L));
     }
+    */
 }
