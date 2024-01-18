@@ -91,8 +91,8 @@ public class PrivateAddressCoordinator {
         // Reserved static addresses for bluetooth and wifi p2p.
         mCachedAddresses.put(new AddressKey(TETHERING_BLUETOOTH, CONNECTIVITY_SCOPE_GLOBAL),
                 new LinkAddress(LEGACY_BLUETOOTH_IFACE_ADDRESS));
-        mCachedAddresses.put(new AddressKey(TETHERING_WIFI_P2P, CONNECTIVITY_SCOPE_LOCAL),
-                new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS));
+        // mCachedAddresses.put(new AddressKey(TETHERING_WIFI_P2P, CONNECTIVITY_SCOPE_LOCAL,ip),
+        //         new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS));
 
         mTetheringPrefixes = new ArrayList<>(Arrays.asList(new IpPrefix("192.168.0.0/16"),
             new IpPrefix("172.16.0.0/12"), new IpPrefix("10.0.0.0/8")));
@@ -173,12 +173,12 @@ public class PrivateAddressCoordinator {
     @Nullable
     public LinkAddress requestDownstreamAddress(final IpServer ipServer, final int scope,
             boolean useLastAddress) {
-        if (mConfig.shouldEnableWifiP2pDedicatedIp()
-                && ipServer.interfaceType() == TETHERING_WIFI_P2P) {
-            return new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS);
-        }
+        // if (mConfig.shouldEnableWifiP2pDedicatedIp()
+        //         && ipServer.interfaceType() == TETHERING_WIFI_P2P) {
+        //     return new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS);
+        // }
 
-        final AddressKey addrKey = new AddressKey(ipServer.interfaceType(), scope);
+        final AddressKey addrKey = new AddressKey(ipServer.interfaceType(), scope, ipServer.interfaceName());
         // This ensures that tethering isn't started on 2 different interfaces with the same type.
         // Once tethering could support multiple interface with the same type,
         // TetheringSoftApCallback would need to handle it among others.
@@ -420,10 +420,17 @@ public class PrivateAddressCoordinator {
     private static class AddressKey {
         private final int mTetheringType;
         private final int mScope;
+        private final String mTetheringiface;
 
         private AddressKey(int type, int scope) {
             mTetheringType = type;
             mScope = scope;
+            mTetheringiface = null;
+        }
+        private AddressKey(int type, int scope, String iface) {
+            mTetheringType = type;
+            mScope = scope;
+            mTetheringiface = iface;
         }
 
         @Override
@@ -435,7 +442,9 @@ public class PrivateAddressCoordinator {
         public boolean equals(@Nullable Object obj) {
             if (!(obj instanceof AddressKey)) return false;
             final AddressKey other = (AddressKey) obj;
-
+            if (other.mTetheringiface != null){
+                return mTetheringType == other.mTetheringType && mScope == other.mScope && other.mTetheringiface == mTetheringiface;
+            }
             return mTetheringType == other.mTetheringType && mScope == other.mScope;
         }
 
