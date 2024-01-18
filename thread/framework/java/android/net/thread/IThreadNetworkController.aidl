@@ -17,6 +17,7 @@
 package android.net.thread;
 
 import android.net.thread.ActiveOperationalDataset;
+import android.net.thread.ChannelTargetPower;
 import android.net.thread.IActiveOperationalDatasetReceiver;
 import android.net.thread.IOperationalDatasetCallback;
 import android.net.thread.IOperationReceiver;
@@ -39,6 +40,7 @@ interface IThreadNetworkController {
     void leave(in IOperationReceiver receiver);
 
     void setTestNetworkAsUpstream(in String testNetworkInterfaceName, in IOperationReceiver receiver);
+    void setChannelTargetPowers(in ChannelTargetPower[] channelTargetPowers, in IOperationReceiver receiver);
 
     int getThreadVersion();
     void createRandomizedDataset(String networkName, IActiveOperationalDatasetReceiver receiver);
