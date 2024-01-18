@@ -39,6 +39,7 @@ import android.system.StructTimeval;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.testutils.DevSdkIgnoreRunner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,7 +61,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @hide
  */
-@RunWith(AndroidJUnit4.class)
+@RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
 public class PacketReaderTest {
     static final InetAddress LOOPBACK6 = Inet6Address.getLoopbackAddress();

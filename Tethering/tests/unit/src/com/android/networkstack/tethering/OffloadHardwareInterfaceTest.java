@@ -56,6 +56,7 @@ import com.android.net.module.util.netlink.StructNlMsgHdr;
 import com.android.networkstack.tethering.OffloadHardwareInterface.ForwardedStats;
 import com.android.networkstack.tethering.OffloadHardwareInterface.OffloadHalCallback;
 
+import com.android.testutils.DevSdkIgnoreRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -67,7 +68,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
 public final class OffloadHardwareInterfaceTest {
     private static final String RMNET0 = "test_rmnet_data0";

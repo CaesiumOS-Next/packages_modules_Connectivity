@@ -84,6 +84,7 @@ import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.SharedLog;
 import com.android.testutils.DevSdkIgnoreRule;
 
+import com.android.testutils.DevSdkIgnoreRunner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -95,7 +96,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.MockitoSession;
 import org.mockito.quality.Strictness;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
 public final class EntitlementManagerTest {
 

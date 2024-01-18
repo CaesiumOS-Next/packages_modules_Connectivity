@@ -148,6 +148,7 @@ import com.android.networkstack.tethering.util.InterfaceSet;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.TestBpfMap;
 import com.android.testutils.TestableNetworkStatsProviderCbBinder;
 
@@ -175,7 +176,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
 public class BpfCoordinatorTest {
     @Rule

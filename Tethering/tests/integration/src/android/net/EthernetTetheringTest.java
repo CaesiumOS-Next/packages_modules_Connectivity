@@ -56,6 +56,7 @@ import com.android.net.module.util.structs.Ipv4Header;
 import com.android.net.module.util.structs.UdpHeader;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.NetworkStackModuleTest;
 import com.android.testutils.TapPacketReader;
 
@@ -78,7 +79,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(DevSdkIgnoreRunner.class)
 @LargeTest
 public class EthernetTetheringTest extends EthernetTetheringTestBase {
     @Rule

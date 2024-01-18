@@ -35,6 +35,7 @@ import androidx.test.runner.AndroidJUnit4;
 import com.android.net.module.util.Struct.Field;
 import com.android.net.module.util.Struct.Type;
 
+import com.android.testutils.DevSdkIgnoreRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -47,7 +48,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
 public class StructTest {
 
