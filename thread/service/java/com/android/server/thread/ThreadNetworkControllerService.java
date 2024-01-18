@@ -36,12 +36,14 @@ import static android.net.thread.ThreadNetworkException.ERROR_RESOURCE_EXHAUSTED
 import static android.net.thread.ThreadNetworkException.ERROR_RESPONSE_BAD_FORMAT;
 import static android.net.thread.ThreadNetworkException.ERROR_TIMEOUT;
 import static android.net.thread.ThreadNetworkException.ERROR_UNSUPPORTED_CHANNEL;
+import static android.net.thread.ThreadNetworkException.ERROR_UNSUPPORTED_OPERATION;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
 
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_ABORT;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_BUSY;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_DETACHED;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_INVALID_STATE;
+import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_NOT_IMPLEMENTED;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_NO_BUFS;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_PARSE;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_REASSEMBLY_TIMEOUT;
@@ -74,6 +76,7 @@ import android.net.RouteInfo;
 import android.net.TestNetworkSpecifier;
 import android.net.thread.ActiveOperationalDataset;
 import android.net.thread.ActiveOperationalDataset.SecurityPolicy;
+import android.net.thread.ChannelTargetPower;
 import android.net.thread.IActiveOperationalDatasetReceiver;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.IOperationalDatasetCallback;
@@ -97,6 +100,7 @@ import android.util.SparseArray;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.ServiceManagerWrapper;
 import com.android.server.thread.openthread.BorderRouterConfigurationParcel;
+import com.android.server.thread.openthread.ChannelTargetPowerParcel;
 import com.android.server.thread.openthread.IOtDaemon;
 import com.android.server.thread.openthread.IOtDaemonCallback;
 import com.android.server.thread.openthread.IOtStatusReceiver;
@@ -678,6 +682,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             case OT_ERROR_DETACHED:
             case OT_ERROR_INVALID_STATE:
                 return ERROR_FAILED_PRECONDITION;
+            case OT_ERROR_NOT_IMPLEMENTED:
+                return ERROR_UNSUPPORTED_OPERATION;
             case OT_ERROR_NO_BUFS:
                 return ERROR_RESOURCE_EXHAUSTED;
             case OT_ERROR_PARSE:
@@ -782,6 +788,49 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             getOtDaemon().setCountryCode(countryCode, newOtStatusReceiver(receiver));
         } catch (RemoteException e) {
             Log.e(TAG, "otDaemon.setCountryCode failed", e);
+            receiver.onError(ERROR_INTERNAL_ERROR, "Thread stack error");
+        }
+    }
+
+    private static ChannelTargetPowerParcel[] toChannelTargetPowerParcels(
+            @NonNull ChannelTargetPower[] channelTargetPowers) {
+        ChannelTargetPowerParcel[] powerArray =
+                new ChannelTargetPowerParcel[channelTargetPowers.length];
+
+        for (int i = 0; i < channelTargetPowers.length; i++) {
+            powerArray[i] = new ChannelTargetPowerParcel();
+            powerArray[i].channel = channelTargetPowers[i].channel;
+            powerArray[i].targetPower = channelTargetPowers[i].targetPower;
+        }
+
+        return powerArray;
+    }
+
+    @Override
+    @RequiresPermission(PERMISSION_THREAD_NETWORK_PRIVILEGED)
+    public void setChannelTargetPowers(
+            @NonNull ChannelTargetPower[] channelTargetPowers,
+            @NonNull IOperationReceiver receiver) {
+        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        mHandler.post(
+                () ->
+                        setChannelTargetPowersInternal(
+                                channelTargetPowers, new OperationReceiverWrapper(receiver)));
+    }
+
+    private void setChannelTargetPowersInternal(
+            @NonNull ChannelTargetPower[] channelTargetPowers,
+            @NonNull OperationReceiverWrapper receiver) {
+        checkOnHandlerThread();
+
+        try {
+            getOtDaemon()
+                    .setChannelTargetPowers(
+                            toChannelTargetPowerParcels(channelTargetPowers),
+                            newOtStatusReceiver(receiver));
+        } catch (RemoteException e) {
+            Log.e(TAG, "otDaemon.setChannelTargetPowers failed", e);
             receiver.onError(ERROR_INTERNAL_ERROR, "Thread stack error");
         }
     }
