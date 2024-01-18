@@ -145,6 +145,27 @@ public final class FullThreadDevice {
         }
     }
 
+    public void subscribeMulticastAddress(String address) {
+        executeCommand("ipmaddr add " + address);
+    }
+
+    public void unsubscribeMulticastAddress(String address) {
+        executeCommand("ipmaddr del " + address);
+    }
+
+    public void ping(String address, String source, int size, int count) {
+        String cmd =
+                "ping"
+                        + ((source == null) ? "" : " -I " + source)
+                        + " "
+                        + address
+                        + " "
+                        + size
+                        + " "
+                        + count;
+        executeCommand(cmd);
+    }
+
     private List<String> executeCommand(String command) {
         try {
             mWriter.write(command + "\n");
