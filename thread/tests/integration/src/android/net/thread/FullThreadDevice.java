@@ -23,6 +23,7 @@ import static org.junit.Assert.fail;
 
 import android.net.InetAddresses;
 import android.net.IpPrefix;
+import android.os.SystemClock;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -43,6 +44,8 @@ import java.util.concurrent.TimeoutException;
  * available commands.
  */
 public final class FullThreadDevice {
+    private static final Integer REGISTER_DELAY_MS = 5;
+
     private final Process mProcess;
     private final BufferedReader mReader;
     private final BufferedWriter mWriter;
@@ -143,6 +146,20 @@ public final class FullThreadDevice {
         } catch (IOException e) {
             throw new IllegalStateException("Failed to run factoryreset on ot-cli-ftd", e);
         }
+    }
+
+    public void subscribeMulticastAddress(String address) {
+        executeCommand("ipmaddr add " + address);
+        SystemClock.sleep(REGISTER_DELAY_MS);
+    }
+
+    public void unsubscribeMulticastAddress(String address) {
+        executeCommand("ipmaddr del " + address);
+        SystemClock.sleep(REGISTER_DELAY_MS);
+    }
+
+    public void ping(String address) {
+        executeCommand("ping " + address + " 100 1 1");
     }
 
     private List<String> executeCommand(String command) {
