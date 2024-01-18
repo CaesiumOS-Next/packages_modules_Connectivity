@@ -481,6 +481,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     @Nullable
     private final SkDestroyListener mSkDestroyListener;
 
+    private static final int MAX_SOCKET_DESTROY_LISTENER_LOGS = 20;
+
+    private final SharedLog mSkDestroyListenerLogs =
+            new SharedLog(MAX_SOCKET_DESTROY_LISTENER_LOGS, TAG);
+
     private static @NonNull Clock getDefaultClock() {
         return new BestClock(ZoneOffset.UTC, SystemClock.currentNetworkTimeClock(),
                 Clock.systemUTC());
@@ -646,7 +651,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         // on the experiment flag, BpfNetMaps starts C SkDestroyListener (existing code) or
         // NetworkStatsService starts Java SkDestroyListener (new code).
         final BpfNetMaps bpfNetMaps = mDeps.makeBpfNetMaps(mContext);
-        mSkDestroyListener = mDeps.makeSkDestroyListener(mCookieTagMap, mHandler);
+        mSkDestroyListener = mDeps.makeSkDestroyListener(mCookieTagMap, mHandler,
+                mSkDestroyListenerLogs);
         mHandler.post(mSkDestroyListener::start);
     }
 
@@ -879,8 +885,9 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
         /** Create a new SkDestroyListener. */
         public SkDestroyListener makeSkDestroyListener(
-                IBpfMap<CookieTagMapKey, CookieTagMapValue> cookieTagMap, Handler handler) {
-            return new SkDestroyListener(cookieTagMap, handler, new SharedLog(TAG));
+                IBpfMap<CookieTagMapKey, CookieTagMapValue> cookieTagMap, Handler handler,
+                final SharedLog log) {
+            return new SkDestroyListener(cookieTagMap, handler, log);
         }
 
         /**
@@ -2908,6 +2915,12 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             dumpStatsMapLocked(mStatsMapA, pw, "mStatsMapA");
             dumpStatsMapLocked(mStatsMapB, pw, "mStatsMapB");
             dumpIfaceStatsMapLocked(pw);
+            pw.decreaseIndent();
+
+            pw.println();
+            pw.println("SkDestroyListener logs:");
+            pw.increaseIndent();
+            mSkDestroyListenerLogs.dump(null, pw, null);
             pw.decreaseIndent();
         }
     }
