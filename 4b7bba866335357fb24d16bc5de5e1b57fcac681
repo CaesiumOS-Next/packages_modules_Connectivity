@@ -226,6 +226,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e05b74e2_230e7aad",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-18T08:19:53Z",
+      "side": 1,
+      "message": "Could you compare the registration hostname only once per registration ? You\u0027d need to swap the loops\n\n```\n -\u003e For each answer record\n   -\u003e For each registration\n     if (registration.hostname !\u003d record.hostname) continue\n     ...\n```",
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6d935373_ffc1ba1e",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
         "patchSetId": 17
