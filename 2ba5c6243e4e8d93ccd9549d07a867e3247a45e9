@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32d78e03_c62b1d07",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2024-01-18T16:02:05Z",
+      "side": 1,
+      "message": "Has already passed presubmits but lost +1 when reformatted Android.bp files.",
+      "revId": "2ba5c6243e4e8d93ccd9549d07a867e3247a45e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
