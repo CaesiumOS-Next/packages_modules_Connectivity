@@ -26,6 +26,7 @@ import android.annotation.RequiresPermission;
 import android.annotation.SuppressLint;
 import android.annotation.SystemApi;
 import android.content.Context;
+import android.net.wifi.SoftApConfiguration;
 import android.os.Bundle;
 import android.os.ConditionVariable;
 import android.os.IBinder;
@@ -735,6 +736,16 @@ public class TetheringManager {
                 mBuilderParcel.exemptFromEntitlementCheck = false;
                 mBuilderParcel.showProvisioningUi = true;
                 mBuilderParcel.connectivityScope = getDefaultConnectivityScope(type);
+                mBuilderParcel.interfaceName = null;
+            }
+
+            /** Set tethering interface Name
+            */
+            @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED)
+            @NonNull
+            public Builder setInterfaceName(@Nullable String iface) {
+                mBuilderParcel.interfaceName = iface;
+                return this;
             }
 
             /**
@@ -794,11 +805,30 @@ public class TetheringManager {
                 return this;
             }
 
+            /**
+             * Set the desired SoftApConfiguration of the request, if one was specified. This only
+             * applies to requests for TETHERING_WIFI.
+             */
+            @FlaggedApi(Flags.TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+            @NonNull
+            public Builder setSoftApConfiguration(@NonNull SoftApConfiguration softApConfig) {
+                mBuilderParcel.softApConfig = softApConfig;
+                return this;
+            }
+
             /** Build {@link TetheringRequest} with the currently set configuration. */
             @NonNull
             public TetheringRequest build() {
                 return new TetheringRequest(mBuilderParcel);
             }
+        }
+
+        /**
+         * Get tethering interface name
+         */
+        @Nullable
+        public String getInterfaceName() {
+            return mRequestParcel.interfaceName;
         }
 
         /**
@@ -875,6 +905,15 @@ public class TetheringManager {
         }
 
         /**
+         * Get the desired SoftApConfiguration of the request, if one was specified.
+         */
+        @FlaggedApi(Flags.TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+        @Nullable
+        public SoftApConfiguration getSoftApConfiguration() {
+            return mRequestParcel.softApConfig;
+        }
+
+        /**
          * Get a TetheringRequestParcel from the configuration
          * @hide
          */
@@ -887,9 +926,29 @@ public class TetheringManager {
             return "TetheringRequest [ type= " + mRequestParcel.tetheringType
                     + ", localIPv4Address= " + mRequestParcel.localIPv4Address
                     + ", staticClientAddress= " + mRequestParcel.staticClientAddress
-                    + ", exemptFromEntitlementCheck= "
-                    + mRequestParcel.exemptFromEntitlementCheck + ", showProvisioningUi= "
-                    + mRequestParcel.showProvisioningUi + " ]";
+                    + ", exemptFromEntitlementCheck= " + mRequestParcel.exemptFromEntitlementCheck
+                    + ", showProvisioningUi= " + mRequestParcel.showProvisioningUi
+                    + ", softApConfig= " + mRequestParcel.softApConfig
+                    + " ]";
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(getLocalIpv4Address(), getClientStaticIpv4Address(),
+                    getTetheringType(), getConnectivityScope(), isExemptFromEntitlementCheck(),
+                    getShouldShowEntitlementUi());
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj instanceof TetheringRequest otherRequest
+                    && Objects.equals(getLocalIpv4Address(), otherRequest.getLocalIpv4Address())
+                    && Objects.equals(
+                            getClientStaticIpv4Address(), otherRequest.getClientStaticIpv4Address())
+                    && getTetheringType() == otherRequest.getTetheringType()
+                    && getConnectivityScope() == otherRequest.getConnectivityScope()
+                    && isExemptFromEntitlementCheck() == otherRequest.isExemptFromEntitlementCheck()
+                    && getShouldShowEntitlementUi() == otherRequest.getShouldShowEntitlementUi();
         }
     }
 
