@@ -142,6 +142,7 @@ import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.net.module.util.BpfDump;
 import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.LocationPermissionChecker;
+import com.android.net.module.util.SharedLog;
 import com.android.net.module.util.Struct;
 import com.android.net.module.util.Struct.S32;
 import com.android.net.module.util.Struct.U8;
@@ -293,6 +294,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private Boolean mIsDebuggable;
     private HandlerThread mObserverHandlerThread;
     final TestDependencies mDeps = new TestDependencies();
+    private SharedLog mSkDestroyListenerLogsForTest;
 
     private class MockContext extends BroadcastInterceptingContext {
         private final Context mBaseContext;
@@ -564,7 +566,9 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
         @Override
         public SkDestroyListener makeSkDestroyListener(
-                IBpfMap<CookieTagMapKey, CookieTagMapValue> cookieTagMap, Handler handler) {
+                IBpfMap<CookieTagMapKey, CookieTagMapValue> cookieTagMap, Handler handler,
+                final SharedLog log) {
+            mSkDestroyListenerLogsForTest = log;
             return mSkDestroyListener;
         }
 
@@ -2801,5 +2805,13 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         setMobileRatTypeAndWaitForIdle(TelephonyManager.NETWORK_TYPE_UMTS);
         final String dump = getDump();
         assertDumpContains(dump, pollReasonNameOf(POLL_REASON_RAT_CHANGED));
+    }
+
+    @Test
+    public void testDumpSkDestroyListenerLogs() throws ErrnoException {
+        mSkDestroyListenerLogsForTest.i("Log for testing");
+
+        final String dump = getDump();
+        assertDumpContains(dump, "Log for testing");
     }
 }
