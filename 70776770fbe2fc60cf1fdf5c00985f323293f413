@@ -52,6 +52,24 @@
       "parentUuid": "56c8f920_5baeae69",
       "revId": "70776770fbe2fc60cf1fdf5c00985f323293f413",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8090a335_d6f0168d",
+        "filename": "Cronet/tests/mts/res/xml/network_security_config.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2024-01-18T11:30:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d3139ce_7d4eee42",
+      "revId": "70776770fbe2fc60cf1fdf5c00985f323293f413",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
