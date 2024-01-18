@@ -26,4 +26,12 @@
     -->
     <bool name="config_thread_location_use_for_country_code_enabled">true</bool>
 
+    <!-- Sets to {@code true} to enable Thread on the device by default.
+    -->
+    <bool name="config_thread_default_enabled">true</bool>
+
+    <!-- Sets to {@code true} to enable Thread Border Router on the device by default.
+    -->
+    <bool name="config_thread_border_router_default_enabled">true</bool>
+
 </resources>
