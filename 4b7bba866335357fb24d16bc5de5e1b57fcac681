@@ -1,0 +1,290 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc8f49f9_e565c618",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-18T08:17:03Z",
+      "side": 1,
+      "message": "Also there should be some checks for the hostname format\n\nIn particular, no more than 255 characters per label, non-empty if non-null; and see other restrictions in the RFC",
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5969085a_f4cf4a89",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-18T08:17:03Z",
+      "side": 1,
+      "message": "It may be simpler to not have to handle both empty and null strings, by also saying it\u0027s invalid if the string is empty",
+      "range": {
+        "startLine": 889,
+        "startChar": 33,
+        "endLine": 889,
+        "endChar": 63
+      },
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afd47014_3d54622d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-18T08:17:03Z",
+      "side": 1,
+      "message": "Why not ? If there\u0027s a good reason it would be best to describe it here\n\nAt least you could allow it for registrations that have a service record, as long as getOffloadPacket works for these",
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dce6c3b_6ea26494",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-18T08:17:03Z",
+      "side": 1,
+      "message": "What if the conflict happened after onRegisterServiceSucceeded ? Should there be a different callback in that case ? What is the expected behavior in OT ?\n\nAt least we should not keep advertising if that happens.\n\nThe code should take care of not calling onRegisterServiceFailed if onRegisterServiceSucceeded was called; if this is necessary, maybe we need another callback for onConflict ?",
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "335f6f93_ac624995",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-18T08:17:03Z",
+      "side": 1,
+      "message": "This only returns services that have a conflicting name, so with the current implementation that would be getNameConflictingService or similar",
+      "range": {
+        "startLine": 342,
+        "startChar": 12,
+        "endLine": 342,
+        "endChar": 33
+      },
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d1ccb6a_7912a048",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-18T08:17:03Z",
+      "side": 1,
+      "message": "That seems a bit complicated; would it be simpler to have mRecordRepository.getConflictingServices return a map of ID -\u003e conflict types ?",
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72e78f03_a5b2eb45",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-18T08:17:03Z",
+      "side": 1,
+      "message": "So it\u0027s not allowed for the hostname to have dots ? it\u0027s probably best to split it to be safe",
+      "range": {
+        "startLine": 213,
+        "startChar": 56,
+        "endLine": 213,
+        "endChar": 67
+      },
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7065abb3_947195c6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-18T08:17:03Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Check Contents: Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nLines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 104
+      },
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efcbd757_e1a34d2c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-18T08:17:03Z",
+      "side": 1,
+      "message": "it may be simpler / safer to have this method accept null as arguments",
+      "range": {
+        "startLine": 411,
+        "startChar": 33,
+        "endLine": 411,
+        "endChar": 52
+      },
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34656203_f144c2f3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-18T08:17:03Z",
+      "side": 1,
+      "message": "remove ?",
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c0b347f_b58ac71f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-18T08:17:03Z",
+      "side": 1,
+      "message": "Collections.emptyList() to reduce potential for NPE",
+      "range": {
+        "startLine": 566,
+        "startChar": 20,
+        "endLine": 566,
+        "endChar": 24
+      },
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d935373_ffc1ba1e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1088,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-18T08:17:03Z",
+      "side": 1,
+      "message": "See other comment about making this accept null too",
+      "range": {
+        "startLine": 1088,
+        "startChar": 37,
+        "endLine": 1088,
+        "endChar": 56
+      },
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40364cdd_c09ed73b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-18T08:17:03Z",
+      "side": 1,
+      "message": "Could you factor out a bit with something like:\n\n    forEachAddressRecord(hostname, RecordInfo\u003cMndsInetAddressRecord\u003e -\u003e Unit)\nOr:\n    `addAddressRecord(hostname, targetList\u003cT\u003e, RecordInfo\u003cMndsInetAddressRecord\u003e -\u003e T transform)`",
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74e801ac_934d6289",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1136,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-18T08:17:03Z",
+      "side": 1,
+      "message": "It might be more readable to have makeProbingInfo take the ServiceRegistration as argument directly, so you don\u0027t have 2 levels of null checks",
+      "range": {
+        "startLine": 1136,
+        "startChar": 15,
+        "endLine": 1136,
+        "endChar": 30
+      },
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
