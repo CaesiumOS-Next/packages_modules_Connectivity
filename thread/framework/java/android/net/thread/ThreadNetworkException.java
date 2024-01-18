@@ -122,6 +122,13 @@ public class ThreadNetworkException extends Exception {
      */
     public static final int ERROR_RESOURCE_EXHAUSTED = 10;
 
+    /**
+     * The operation failed because it is not supported by the platform. For example, some platforms
+     * may not support setting the target power of each channel. The caller should not retry and may
+     * return an error to the user.
+     */
+    public static final int ERROR_UNSUPPORTED_OPERATION = 11;
+
     private final int mErrorCode;
 
     /** Creates a new {@link ThreadNetworkException} object with given error code and message. */

@@ -21,6 +21,7 @@ import static android.net.thread.ThreadNetworkController.THREAD_VERSION_1_3;
 import static android.net.thread.ThreadNetworkException.ERROR_ABORTED;
 import static android.net.thread.ThreadNetworkException.ERROR_FAILED_PRECONDITION;
 import static android.net.thread.ThreadNetworkException.ERROR_REJECTED_BY_PEER;
+import static android.net.thread.ThreadNetworkException.ERROR_UNSUPPORTED_OPERATION;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
@@ -50,6 +51,7 @@ import android.net.thread.ThreadNetworkException;
 import android.net.thread.ThreadNetworkManager;
 import android.os.Build;
 import android.os.OutcomeReceiver;
+import android.util.SparseIntArray;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
@@ -85,6 +87,12 @@ public class ThreadNetworkControllerTest {
     private static final int CALLBACK_TIMEOUT_MILLIS = 1000;
     private static final String PERMISSION_THREAD_NETWORK_PRIVILEGED =
             "android.permission.THREAD_NETWORK_PRIVILEGED";
+    private static final SparseIntArray CHANNEL_TARGET_POWERS =
+            new SparseIntArray() {
+                {
+                    put(20, 32767);
+                }
+            };
 
     @Rule public DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
 
@@ -789,5 +797,71 @@ public class ThreadNetworkControllerTest {
         runAsShell(
                 permission.ACCESS_NETWORK_STATE, () -> assertThat(isAttached(controller)).isTrue());
         assertThat(networkFuture.get(NETWORK_CALLBACK_TIMEOUT_MILLIS, MILLISECONDS)).isNotNull();
+    }
+
+    @Test
+    public void setChannelTargetPowers_withPrivilegedPermission_success() throws Exception {
+        grantPermissions(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            SettableFuture<Void> powerFuture = SettableFuture.create();
+
+            controller.setChannelTargetPowers(
+                    CHANNEL_TARGET_POWERS, mExecutor, newOutcomeReceiver(powerFuture));
+            try {
+                assertThat(powerFuture.get()).isNull();
+            } catch (ExecutionException exception) {
+                ThreadNetworkException thrown = (ThreadNetworkException) exception.getCause();
+                assertThat(thrown.getErrorCode()).isEqualTo(ERROR_UNSUPPORTED_OPERATION);
+            }
+        }
+    }
+
+    @Test
+    public void setChannelTargetPowers_withoutPrivilegedPermission_throwsSecurityException()
+            throws Exception {
+        dropAllPermissions();
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            assertThrows(
+                    SecurityException.class,
+                    () ->
+                            controller.setChannelTargetPowers(
+                                    CHANNEL_TARGET_POWERS, mExecutor, v -> {}));
+        }
+    }
+
+    @Test
+    public void setChannelTargetPowers_invalidChannelOrPower_throwsIllegalArgumentException() {
+        final SparseIntArray INVALID_CHANNEL_ARRAY =
+                new SparseIntArray() {
+                    {
+                        put(10, 32767);
+                    }
+                };
+        final SparseIntArray INVALID_POWER_ARRAY =
+                new SparseIntArray() {
+                    {
+                        put(20, 32768);
+                    }
+                };
+
+        for (ThreadNetworkController controller : getAllControllers()) {
+            assertThrows(
+                    IllegalArgumentException.class,
+                    () ->
+                            controller.setChannelTargetPowers(
+                                    new SparseIntArray(), mExecutor, v -> {}));
+            assertThrows(
+                    IllegalArgumentException.class,
+                    () ->
+                            controller.setChannelTargetPowers(
+                                    INVALID_CHANNEL_ARRAY, mExecutor, v -> {}));
+            assertThrows(
+                    IllegalArgumentException.class,
+                    () ->
+                            controller.setChannelTargetPowers(
+                                    INVALID_POWER_ARRAY, mExecutor, v -> {}));
+        }
     }
 }

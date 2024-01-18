@@ -16,6 +16,8 @@
 
 package android.net.thread;
 
+import static android.annotation.SystemApi.Client.PRIVILEGED_APPS;
+
 import static java.util.Objects.requireNonNull;
 
 import android.Manifest.permission;
@@ -25,10 +27,12 @@ import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
+import android.annotation.Size;
 import android.annotation.SystemApi;
 import android.os.Binder;
 import android.os.OutcomeReceiver;
 import android.os.RemoteException;
+import android.util.SparseIntArray;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
@@ -81,6 +85,12 @@ public final class ThreadNetworkController {
 
     /** Thread standard version 1.3. */
     public static final int THREAD_VERSION_1_3 = 4;
+
+    /** Minimum value of target power in unit of 0.01dBm. */
+    private static final int TARGET_POWER_MIN = -32768;
+
+    /** Maximum value of target power in unit of 0.01dBm. */
+    private static final int TARGET_POWER_MAX = 32767;
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
@@ -524,6 +534,84 @@ public final class ThreadNetworkController {
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
+    }
+
+    /**
+     * Sets target power for each channel.
+     *
+     * <p>If not set, the default target power is set by the Thread HAL service or the Thread radio
+     * chip firmware.
+     *
+     * <p>On success, the Pending Dataset is successfully registered and persisted on the Leader and
+     * {@link OutcomeReceiver#onResult} of {@code receiver} will be called; When failed, {@link
+     * OutcomeReceiver#onError} will be called with a specific error:
+     *
+     * <ul>
+     *   <li>{@link ThreadNetworkException#ERROR_UNSUPPORTED_OPERATION} the operation is no
+     *       supported by the platform.
+     * </ul>
+     *
+     * @param channelTargetPowers SparseIntArray (key: channel, value: target power) consists of
+     *     channel and corresponding target power. Valid channel values should be between {@link
+     *     ActiveOperationalDataset#CHANNEL_MIN_24_GHZ} and {@link
+     *     ActiveOperationalDataset#CHANNEL_MAX_24_GHZ}. The unit of the target power is 0.01dBm.
+     *     Target power values should be between INT16_MIN (-32768) and INT16_MAX (32767). If the
+     *     target power is set to INT16_MAX, the corresponding channel is not supported.
+     * @param executor the executor to execute {@code receiver}.
+     * @param receiver the receiver to receive the result of this operation.
+     * @throws IllegalArgumentException if the size of {@code channelTargetPowers} is smaller than
+     *     1, or invalid channel or target power is configured.
+     * @hide
+     */
+    @SystemApi(client = PRIVILEGED_APPS)
+    @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED")
+    public final void setChannelTargetPowers(
+            @NonNull @Size(min = 1) SparseIntArray channelTargetPowers,
+            @NonNull @CallbackExecutor Executor executor,
+            @NonNull OutcomeReceiver<Void, ThreadNetworkException> receiver) {
+        requireNonNull(channelTargetPowers, "channelTargetPowers cannot be null");
+        requireNonNull(executor, "executor cannot be null");
+        requireNonNull(receiver, "receiver cannot be null");
+
+        if (channelTargetPowers.size() < 1) {
+            throw new IllegalArgumentException(
+                    "the size of channelTargetPowers must be greater than or equal to 1");
+        }
+
+        for (int i = 0; i < channelTargetPowers.size(); i++) {
+            int channel = channelTargetPowers.keyAt(i);
+            int targetPower = channelTargetPowers.get(channel);
+
+            if ((channel < ActiveOperationalDataset.CHANNEL_MIN_24_GHZ)
+                    || (channel > ActiveOperationalDataset.CHANNEL_MAX_24_GHZ)) {
+                throw new IllegalArgumentException("channel is invalid");
+            }
+
+            if ((targetPower < TARGET_POWER_MIN) || (targetPower > TARGET_POWER_MAX)) {
+                throw new IllegalArgumentException("target power is invalid");
+            }
+        }
+
+        try {
+            mControllerService.setChannelTargetPowers(
+                    toChannelTargetPowerArray(channelTargetPowers),
+                    new OperationReceiverProxy(executor, receiver));
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    private static ChannelTargetPower[] toChannelTargetPowerArray(
+            @NonNull SparseIntArray channelTargetPowers) {
+        final ChannelTargetPower[] powerArray = new ChannelTargetPower[channelTargetPowers.size()];
+
+        for (int i = 0; i < channelTargetPowers.size(); i++) {
+            powerArray[i] = new ChannelTargetPower();
+            powerArray[i].channel = channelTargetPowers.keyAt(i);
+            powerArray[i].targetPower = channelTargetPowers.get(powerArray[i].channel);
+        }
+
+        return powerArray;
     }
 
     private static <T> void propagateError(
