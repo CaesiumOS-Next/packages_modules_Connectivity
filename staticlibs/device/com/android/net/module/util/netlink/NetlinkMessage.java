@@ -19,10 +19,13 @@ package com.android.net.module.util.netlink;
 import static com.android.net.module.util.netlink.xfrm.XfrmNetlinkMessage.NETLINK_XFRM;
 
 import android.system.OsConstants;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
+import com.android.net.module.util.BpfUtils;
 import com.android.net.module.util.netlink.xfrm.XfrmNetlinkMessage;
 
 import java.nio.ByteBuffer;
@@ -43,6 +46,16 @@ import java.nio.ByteOrder;
  */
 public class NetlinkMessage {
     private static final String TAG = "NetlinkMessage";
+
+    private static final boolean IS_KERNEL_X86_32 =
+            BpfUtils.isKernel32Bit() && BpfUtils.isKernelX86();
+
+    static {
+        Log.d(TAG, "IS_KERNEL_X86_32 " + IS_KERNEL_X86_32);
+    }
+
+    // Non-final for unit tests
+    private static boolean sIsKernelX8632 = IS_KERNEL_X86_32;
 
     /**
      * Parsing netlink messages for reserved control message or specific netlink message. The
@@ -113,6 +126,21 @@ public class NetlinkMessage {
         // which inherits NetlinkMessage could override NetlinkMessage#toString and provide the
         // specific netlink family to StructNlMsgHdr#toString.
         return "NetlinkMessage{" + mHeader.toString() + "}";
+    }
+
+    /** Returns true if the kernel is X86_32 */
+    public static boolean isKernelX8632() {
+        return sIsKernelX8632;
+    }
+
+    @VisibleForTesting
+    public static void setIsKernelX8632(boolean isKernelX8632) {
+        sIsKernelX8632 = isKernelX8632;
+    }
+
+    @VisibleForTesting
+    public static void resetIsKernelX8632() {
+        sIsKernelX8632 = IS_KERNEL_X86_32;
     }
 
     @NonNull

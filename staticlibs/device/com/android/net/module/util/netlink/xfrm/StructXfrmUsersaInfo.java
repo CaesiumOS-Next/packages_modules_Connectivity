@@ -16,9 +16,12 @@
 
 package com.android.net.module.util.netlink.xfrm;
 
+import static com.android.net.module.util.netlink.NetlinkMessage.isKernelX8632;
+
 import android.system.OsConstants;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 import com.android.net.module.util.Struct;
 import com.android.net.module.util.Struct.Computed;
@@ -53,74 +56,31 @@ import java.nio.ByteOrder;
  * };
  * </pre>
  *
+ * <p>On a x86_32 kernel, this struct will have four fewer bytes of padding, compared with x86_64,
+ * ARM and RISC-V
+ *
  * @hide
  */
-public class StructXfrmUsersaInfo extends Struct {
-    private static final int NESTED_STRUCTS_SIZE =
-            StructXfrmSelector.STRUCT_SIZE
-                    + StructXfrmId.STRUCT_SIZE
-                    + StructXfrmAddressT.STRUCT_SIZE
-                    + StructXfrmLifetimeCfg.STRUCT_SIZE
-                    + StructXfrmLifetimeCur.STRUCT_SIZE
-                    + StructXfrmStats.STRUCT_SIZE;
+public class StructXfrmUsersaInfo {
+    private static final int KERNEL_NON_X86_32_EXTRA_PAD_SIZE = 4;
 
-    public static final int STRUCT_SIZE = NESTED_STRUCTS_SIZE + 20;
+    private final StructXfrmUsersaInfoX8632 mStructX8632;
 
-    @Computed private final StructXfrmSelector mXfrmSelector;
-    @Computed private final StructXfrmId mXfrmId;
-    @Computed private final StructXfrmAddressT mSourceXfrmAddressT;
-    @Computed private final StructXfrmLifetimeCfg mXfrmLifetime;
-    @Computed private final StructXfrmLifetimeCur mXfrmCurrentLifetime;
-    @Computed private final StructXfrmStats mXfrmStats;
+    /** Parse IpSecStructXfrmReplayStateEsn from ByteBuffer */
+    public static StructXfrmUsersaInfo parse(@NonNull final ByteBuffer byteBuffer) {
+        final StructXfrmUsersaInfoX8632 xfrmUsersaInfoX8632 =
+                StructXfrmUsersaInfoX8632.parse(StructXfrmUsersaInfoX8632.class, byteBuffer);
 
-    @Field(order = 0, type = Type.ByteArray, arraysize = NESTED_STRUCTS_SIZE)
-    public final byte[] nestedStructs;
+        if (!isKernelX8632()) {
+            // Cosume extra paddings
+            byteBuffer.get(new byte[KERNEL_NON_X86_32_EXTRA_PAD_SIZE]);
+        }
 
-    @Field(order = 1, type = Type.U32)
-    public final long seq;
+        return new StructXfrmUsersaInfo(xfrmUsersaInfoX8632);
+    }
 
-    @Field(order = 2, type = Type.U32)
-    public final long reqId;
-
-    @Field(order = 3, type = Type.U16)
-    public final int family;
-
-    @Field(order = 4, type = Type.U8)
-    public final short mode;
-
-    @Field(order = 5, type = Type.U8)
-    public final short replayWindowLegacy;
-
-    @Field(order = 6, type = Type.U8, padding = 7)
-    public final short flags;
-
-    // Constructor that allows Strutc.parse(Class<T>, ByteBuffer) to work
-    public StructXfrmUsersaInfo(
-            @NonNull final byte[] nestedStructs,
-            long seq,
-            long reqId,
-            int family,
-            short mode,
-            short replayWindowLegacy,
-            short flags) {
-        this.nestedStructs = nestedStructs.clone();
-        this.seq = seq;
-        this.reqId = reqId;
-        this.family = family;
-        this.mode = mode;
-        this.replayWindowLegacy = replayWindowLegacy;
-        this.flags = flags;
-
-        final ByteBuffer nestedStructsBuff = ByteBuffer.wrap(nestedStructs);
-        nestedStructsBuff.order(ByteOrder.nativeOrder());
-
-        // The parsing order matters
-        mXfrmSelector = Struct.parse(StructXfrmSelector.class, nestedStructsBuff);
-        mXfrmId = Struct.parse(StructXfrmId.class, nestedStructsBuff);
-        mSourceXfrmAddressT = Struct.parse(StructXfrmAddressT.class, nestedStructsBuff);
-        mXfrmLifetime = Struct.parse(StructXfrmLifetimeCfg.class, nestedStructsBuff);
-        mXfrmCurrentLifetime = Struct.parse(StructXfrmLifetimeCur.class, nestedStructsBuff);
-        mXfrmStats = Struct.parse(StructXfrmStats.class, nestedStructsBuff);
+    private StructXfrmUsersaInfo(@NonNull final StructXfrmUsersaInfoX8632 xfrmUsersaInfoX8632) {
+        mStructX8632 = xfrmUsersaInfoX8632;
     }
 
     // Constructor to build a new message for TESTING
@@ -136,33 +96,19 @@ public class StructXfrmUsersaInfo extends Struct {
             short mode,
             short replayWindowLegacy,
             short flags) {
-        this.seq = seq;
-        this.reqId = reqId;
-        this.family = dAddr instanceof Inet4Address ? OsConstants.AF_INET : OsConstants.AF_INET6;
-        this.mode = mode;
-        this.replayWindowLegacy = replayWindowLegacy;
-        this.flags = flags;
-
-        mXfrmSelector = new StructXfrmSelector(selectorFamily);
-        mXfrmId = new StructXfrmId(dAddr, spi, proto);
-        mSourceXfrmAddressT = new StructXfrmAddressT(sAddr);
-        mXfrmLifetime = new StructXfrmLifetimeCfg();
-        mXfrmCurrentLifetime =
-                new StructXfrmLifetimeCur(
-                        BigInteger.ZERO, BigInteger.ZERO, addTime, BigInteger.ZERO);
-        mXfrmStats = new StructXfrmStats();
-
-        final ByteBuffer nestedStructsBuff = ByteBuffer.allocate(NESTED_STRUCTS_SIZE);
-        nestedStructsBuff.order(ByteOrder.nativeOrder());
-
-        mXfrmSelector.writeToByteBuffer(nestedStructsBuff);
-        mXfrmId.writeToByteBuffer(nestedStructsBuff);
-        mSourceXfrmAddressT.writeToByteBuffer(nestedStructsBuff);
-        mXfrmLifetime.writeToByteBuffer(nestedStructsBuff);
-        mXfrmCurrentLifetime.writeToByteBuffer(nestedStructsBuff);
-        mXfrmStats.writeToByteBuffer(nestedStructsBuff);
-
-        this.nestedStructs = nestedStructsBuff.array();
+        mStructX8632 =
+                new StructXfrmUsersaInfoX8632(
+                        dAddr,
+                        sAddr,
+                        addTime,
+                        selectorFamily,
+                        spi,
+                        seq,
+                        reqId,
+                        proto,
+                        mode,
+                        replayWindowLegacy,
+                        flags);
     }
 
     // Constructor to build a new message
@@ -176,40 +122,188 @@ public class StructXfrmUsersaInfo extends Struct {
             short mode,
             short replayWindowLegacy,
             short flags) {
-        // Use AF_UNSPEC for all SAs selectors. In transport mode, kernel picks selector family
-        // based on usersa->family, while in tunnel mode, the XFRM_STATE_AF_UNSPEC flag allows
-        // dual-stack SAs.
-        this(
-                dAddr,
-                sAddr,
-                BigInteger.ZERO,
-                OsConstants.AF_UNSPEC,
-                spi,
-                seq,
-                reqId,
-                proto,
-                mode,
-                replayWindowLegacy,
-                flags);
+        mStructX8632 =
+                new StructXfrmUsersaInfoX8632(
+                        dAddr, sAddr, spi, seq, reqId, proto, mode, replayWindowLegacy, flags);
+    }
+
+    /** Convert the parsed object to ByteBuffer. */
+    public void writeToByteBuffer(@NonNull final ByteBuffer buf) {
+        mStructX8632.writeToByteBuffer(buf);
+        if (!isKernelX8632()) {
+            buf.put(new byte[KERNEL_NON_X86_32_EXTRA_PAD_SIZE]);
+        }
+    }
+
+    /** Return the struct size */
+    public int getStructSize() {
+        return StructXfrmUsersaInfoX8632.STRUCT_SIZE
+                + (isKernelX8632() ? 0 : KERNEL_NON_X86_32_EXTRA_PAD_SIZE);
     }
 
     /** Return the destination address */
     public InetAddress getDestAddress() {
-        return mXfrmId.getDestAddress(family);
+        return mStructX8632.mXfrmId.getDestAddress(mStructX8632.family);
     }
 
     /** Return the source address */
     public InetAddress getSrcAddress() {
-        return mSourceXfrmAddressT.getAddress(family);
+        return mStructX8632.mSourceXfrmAddressT.getAddress(mStructX8632.family);
     }
 
     /** Return the SPI */
     public long getSpi() {
-        return mXfrmId.spi;
+        return mStructX8632.mXfrmId.spi;
     }
 
     /** Return the current lifetime */
     public StructXfrmLifetimeCur getCurrentLifetime() {
-        return mXfrmCurrentLifetime;
+        return mStructX8632.mXfrmCurrentLifetime;
+    }
+
+    @VisibleForTesting
+    StructXfrmUsersaInfoX8632 getXfrmUsersaInfoX8632() {
+        return mStructX8632;
+    }
+
+    /** The xfrm_usersa_info struct for x86_32 kernel */
+    public static class StructXfrmUsersaInfoX8632 extends Struct {
+        private static final int NESTED_STRUCTS_SIZE =
+                StructXfrmSelector.STRUCT_SIZE
+                        + StructXfrmId.STRUCT_SIZE
+                        + StructXfrmAddressT.STRUCT_SIZE
+                        + StructXfrmLifetimeCfg.STRUCT_SIZE
+                        + StructXfrmLifetimeCur.STRUCT_SIZE
+                        + StructXfrmStats.STRUCT_SIZE;
+
+        public static final int STRUCT_SIZE = NESTED_STRUCTS_SIZE + 16;
+
+        @Computed private final StructXfrmSelector mXfrmSelector;
+        @Computed private final StructXfrmId mXfrmId;
+        @Computed private final StructXfrmAddressT mSourceXfrmAddressT;
+        @Computed private final StructXfrmLifetimeCfg mXfrmLifetime;
+        @Computed private final StructXfrmLifetimeCur mXfrmCurrentLifetime;
+        @Computed private final StructXfrmStats mXfrmStats;
+
+        @Field(order = 0, type = Type.ByteArray, arraysize = NESTED_STRUCTS_SIZE)
+        public final byte[] nestedStructs;
+
+        @Field(order = 1, type = Type.U32)
+        public final long seq;
+
+        @Field(order = 2, type = Type.U32)
+        public final long reqId;
+
+        @Field(order = 3, type = Type.U16)
+        public final int family;
+
+        @Field(order = 4, type = Type.U8)
+        public final short mode;
+
+        @Field(order = 5, type = Type.U8)
+        public final short replayWindowLegacy;
+
+        @Field(order = 6, type = Type.U8, padding = 3)
+        public final short flags;
+
+        // Constructor that allows Struct.parse(Class<T>, ByteBuffer) to work
+        public StructXfrmUsersaInfoX8632(
+                @NonNull final byte[] nestedStructs,
+                long seq,
+                long reqId,
+                int family,
+                short mode,
+                short replayWindowLegacy,
+                short flags) {
+            this.nestedStructs = nestedStructs.clone();
+            this.seq = seq;
+            this.reqId = reqId;
+            this.family = family;
+            this.mode = mode;
+            this.replayWindowLegacy = replayWindowLegacy;
+            this.flags = flags;
+
+            final ByteBuffer nestedStructsBuff = ByteBuffer.wrap(nestedStructs);
+            nestedStructsBuff.order(ByteOrder.nativeOrder());
+
+            // The parsing order matters
+            mXfrmSelector = Struct.parse(StructXfrmSelector.class, nestedStructsBuff);
+            mXfrmId = Struct.parse(StructXfrmId.class, nestedStructsBuff);
+            mSourceXfrmAddressT = Struct.parse(StructXfrmAddressT.class, nestedStructsBuff);
+            mXfrmLifetime = Struct.parse(StructXfrmLifetimeCfg.class, nestedStructsBuff);
+            mXfrmCurrentLifetime = Struct.parse(StructXfrmLifetimeCur.class, nestedStructsBuff);
+            mXfrmStats = Struct.parse(StructXfrmStats.class, nestedStructsBuff);
+        }
+
+        // Constructor to build a new message for TESTING
+        StructXfrmUsersaInfoX8632(
+                @NonNull final InetAddress dAddr,
+                @NonNull final InetAddress sAddr,
+                @NonNull final BigInteger addTime,
+                int selectorFamily,
+                long spi,
+                long seq,
+                long reqId,
+                short proto,
+                short mode,
+                short replayWindowLegacy,
+                short flags) {
+            this.seq = seq;
+            this.reqId = reqId;
+            this.family =
+                    dAddr instanceof Inet4Address ? OsConstants.AF_INET : OsConstants.AF_INET6;
+            this.mode = mode;
+            this.replayWindowLegacy = replayWindowLegacy;
+            this.flags = flags;
+
+            mXfrmSelector = new StructXfrmSelector(selectorFamily);
+            mXfrmId = new StructXfrmId(dAddr, spi, proto);
+            mSourceXfrmAddressT = new StructXfrmAddressT(sAddr);
+            mXfrmLifetime = new StructXfrmLifetimeCfg();
+            mXfrmCurrentLifetime =
+                    new StructXfrmLifetimeCur(
+                            BigInteger.ZERO, BigInteger.ZERO, addTime, BigInteger.ZERO);
+            mXfrmStats = new StructXfrmStats();
+
+            final ByteBuffer nestedStructsBuff = ByteBuffer.allocate(NESTED_STRUCTS_SIZE);
+            nestedStructsBuff.order(ByteOrder.nativeOrder());
+
+            mXfrmSelector.writeToByteBuffer(nestedStructsBuff);
+            mXfrmId.writeToByteBuffer(nestedStructsBuff);
+            mSourceXfrmAddressT.writeToByteBuffer(nestedStructsBuff);
+            mXfrmLifetime.writeToByteBuffer(nestedStructsBuff);
+            mXfrmCurrentLifetime.writeToByteBuffer(nestedStructsBuff);
+            mXfrmStats.writeToByteBuffer(nestedStructsBuff);
+
+            this.nestedStructs = nestedStructsBuff.array();
+        }
+
+        // Constructor to build a new message
+        public StructXfrmUsersaInfoX8632(
+                @NonNull final InetAddress dAddr,
+                @NonNull final InetAddress sAddr,
+                long spi,
+                long seq,
+                long reqId,
+                short proto,
+                short mode,
+                short replayWindowLegacy,
+                short flags) {
+            // Use AF_UNSPEC for all SAs selectors. In transport mode, kernel picks selector family
+            // based on usersa->family, while in tunnel mode, the XFRM_STATE_AF_UNSPEC flag allows
+            // dual-stack SAs.
+            this(
+                    dAddr,
+                    sAddr,
+                    BigInteger.ZERO,
+                    OsConstants.AF_UNSPEC,
+                    spi,
+                    seq,
+                    reqId,
+                    proto,
+                    mode,
+                    replayWindowLegacy,
+                    flags);
+        }
     }
 }
