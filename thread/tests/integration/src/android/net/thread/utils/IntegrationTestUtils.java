@@ -17,6 +17,7 @@ package android.net.thread.utils;
 
 import static android.system.OsConstants.IPPROTO_ICMPV6;
 
+import static com.android.compatibility.common.util.SystemUtil.runShellCommandOrThrow;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ND_OPTION_PIO;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_ADVERTISEMENT;
 
@@ -42,6 +43,7 @@ import java.io.FileDescriptor;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
@@ -182,6 +184,20 @@ public final class IntegrationTestUtils {
         return false;
     }
 
+    public static boolean isFromIpv6Source(byte[] packet, Inet6Address src) {
+        if (packet == null) {
+            return false;
+        }
+        ByteBuffer buf = ByteBuffer.wrap(packet);
+        try {
+            return Struct.parse(Ipv6Header.class, buf).srcIp.equals(src);
+        } catch (IllegalArgumentException ignored) {
+            // It's fine that the passed in packet is malformed because it's could be sent
+            // by anybody.
+        }
+        return false;
+    }
+
     /** Returns the Prefix Information Options (PIO) extracted from an ICMPv6 RA message. */
     public static List<PrefixInformationOption> getRaPios(byte[] raMsg) {
         final ArrayList<PrefixInformationOption> pioList = new ArrayList<>();
@@ -246,5 +262,16 @@ public final class IntegrationTestUtils {
 
             socket.send(packet);
         }
+    }
+
+    public static boolean joinedMulticastGroup(String interfaceName, String addressStr) {
+        final String cmd = "ip -6 maddr show dev " + interfaceName;
+        final String output = runShellCommandOrThrow(cmd);
+        for (final String line : output.split("\\n")) {
+            if (line.contains(addressStr)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
