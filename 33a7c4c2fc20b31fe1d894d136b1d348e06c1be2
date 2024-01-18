@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37f99a2b_49958d60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-18T07:31:00Z",
+      "side": 1,
+      "message": "LGTM Assuming comments are addressed",
+      "revId": "33a7c4c2fc20b31fe1d894d136b1d348e06c1be2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dadfde8_f96d48e9",
@@ -19,6 +36,29 @@
         "startChar": 4,
         "endLine": 486,
         "endChar": 11
+      },
+      "revId": "33a7c4c2fc20b31fe1d894d136b1d348e06c1be2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75b01e22_92a08711",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2923,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-18T07:31:00Z",
+      "side": 1,
+      "message": "nits: `reverseDump` might be better to follow other dump. I saw other log dumps use `reverseDump`.",
+      "range": {
+        "startLine": 2923,
+        "startChar": 35,
+        "endLine": 2923,
+        "endChar": 56
       },
       "revId": "33a7c4c2fc20b31fe1d894d136b1d348e06c1be2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
