@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Android Open Source Project
+ * Copyright (C) 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,20 +16,11 @@
 
 package com.android.net.module.util.netlink.xfrm;
 
-import android.system.OsConstants;
-
 import androidx.annotation.NonNull;
 
-import com.android.net.module.util.Struct;
-import com.android.net.module.util.Struct.Computed;
-import com.android.net.module.util.Struct.Field;
-import com.android.net.module.util.Struct.Type;
-
 import java.math.BigInteger;
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 
 /**
  * Struct xfrm_usersa_info
@@ -55,76 +46,33 @@ import java.nio.ByteOrder;
  *
  * @hide
  */
-public class StructXfrmUsersaInfo extends Struct {
-    private static final int NESTED_STRUCTS_SIZE =
-            StructXfrmSelector.STRUCT_SIZE
-                    + StructXfrmId.STRUCT_SIZE
-                    + StructXfrmAddressT.STRUCT_SIZE
-                    + StructXfrmLifetimeCfg.STRUCT_SIZE
-                    + StructXfrmLifetimeCur.STRUCT_SIZE
-                    + StructXfrmStats.STRUCT_SIZE;
+public class StructXfrmUsersaInfo {
+    private static final int KERNEL_64_EXTRA_PAD_SIZE = 4;
 
-    public static final int STRUCT_SIZE = NESTED_STRUCTS_SIZE + 20;
+    private final StructXfrmUsersaInfo32 mXfrmUsersaInfo32;
+    private final boolean mIsKernel64Bit;
 
-    @Computed private final StructXfrmSelector mXfrmSelector;
-    @Computed private final StructXfrmId mXfrmId;
-    @Computed private final StructXfrmAddressT mSourceXfrmAddressT;
-    @Computed private final StructXfrmLifetimeCfg mXfrmLifetime;
-    @Computed private final StructXfrmLifetimeCur mXfrmCurrentLifetime;
-    @Computed private final StructXfrmStats mXfrmStats;
+    public static StructXfrmUsersaInfo parse(
+            @NonNull final ByteBuffer byteBuffer, boolean isKernel64Bit) {
+        final StructXfrmUsersaInfo32 xfrmUsersaInfo32 =
+                StructXfrmUsersaInfo32.parse(StructXfrmUsersaInfo32.class, byteBuffer);
 
-    @Field(order = 0, type = Type.ByteArray, arraysize = NESTED_STRUCTS_SIZE)
-    public final byte[] nestedStructs;
+        if (isKernel64Bit) {
+            // Cosume extra paddings
+            byteBuffer.get(new byte[KERNEL_64_EXTRA_PAD_SIZE]);
+        }
 
-    @Field(order = 1, type = Type.U32)
-    public final long seq;
+        return new StructXfrmUsersaInfo(xfrmUsersaInfo32, isKernel64Bit);
+    }
 
-    @Field(order = 2, type = Type.U32)
-    public final long reqId;
-
-    @Field(order = 3, type = Type.U16)
-    public final int family;
-
-    @Field(order = 4, type = Type.U8)
-    public final short mode;
-
-    @Field(order = 5, type = Type.U8)
-    public final short replayWindowLegacy;
-
-    @Field(order = 6, type = Type.U8, padding = 7)
-    public final short flags;
-
-    // Constructor that allows Strutc.parse(Class<T>, ByteBuffer) to work
-    public StructXfrmUsersaInfo(
-            @NonNull final byte[] nestedStructs,
-            long seq,
-            long reqId,
-            int family,
-            short mode,
-            short replayWindowLegacy,
-            short flags) {
-        this.nestedStructs = nestedStructs.clone();
-        this.seq = seq;
-        this.reqId = reqId;
-        this.family = family;
-        this.mode = mode;
-        this.replayWindowLegacy = replayWindowLegacy;
-        this.flags = flags;
-
-        final ByteBuffer nestedStructsBuff = ByteBuffer.wrap(nestedStructs);
-        nestedStructsBuff.order(ByteOrder.nativeOrder());
-
-        // The parsing order matters
-        mXfrmSelector = Struct.parse(StructXfrmSelector.class, nestedStructsBuff);
-        mXfrmId = Struct.parse(StructXfrmId.class, nestedStructsBuff);
-        mSourceXfrmAddressT = Struct.parse(StructXfrmAddressT.class, nestedStructsBuff);
-        mXfrmLifetime = Struct.parse(StructXfrmLifetimeCfg.class, nestedStructsBuff);
-        mXfrmCurrentLifetime = Struct.parse(StructXfrmLifetimeCur.class, nestedStructsBuff);
-        mXfrmStats = Struct.parse(StructXfrmStats.class, nestedStructsBuff);
+    private StructXfrmUsersaInfo(
+            @NonNull final StructXfrmUsersaInfo32 xfrmUsersaInfo32, boolean isKernel64Bit) {
+        mXfrmUsersaInfo32 = xfrmUsersaInfo32;
+        mIsKernel64Bit = isKernel64Bit;
     }
 
     // Constructor to build a new message for TESTING
-    StructXfrmUsersaInfo(
+    public StructXfrmUsersaInfo(
             @NonNull final InetAddress dAddr,
             @NonNull final InetAddress sAddr,
             @NonNull final BigInteger addTime,
@@ -135,37 +83,24 @@ public class StructXfrmUsersaInfo extends Struct {
             short proto,
             short mode,
             short replayWindowLegacy,
-            short flags) {
-        this.seq = seq;
-        this.reqId = reqId;
-        this.family = dAddr instanceof Inet4Address ? OsConstants.AF_INET : OsConstants.AF_INET6;
-        this.mode = mode;
-        this.replayWindowLegacy = replayWindowLegacy;
-        this.flags = flags;
-
-        mXfrmSelector = new StructXfrmSelector(selectorFamily);
-        mXfrmId = new StructXfrmId(dAddr, spi, proto);
-        mSourceXfrmAddressT = new StructXfrmAddressT(sAddr);
-        mXfrmLifetime = new StructXfrmLifetimeCfg();
-        mXfrmCurrentLifetime =
-                new StructXfrmLifetimeCur(
-                        BigInteger.ZERO, BigInteger.ZERO, addTime, BigInteger.ZERO);
-        mXfrmStats = new StructXfrmStats();
-
-        final ByteBuffer nestedStructsBuff = ByteBuffer.allocate(NESTED_STRUCTS_SIZE);
-        nestedStructsBuff.order(ByteOrder.nativeOrder());
-
-        mXfrmSelector.writeToByteBuffer(nestedStructsBuff);
-        mXfrmId.writeToByteBuffer(nestedStructsBuff);
-        mSourceXfrmAddressT.writeToByteBuffer(nestedStructsBuff);
-        mXfrmLifetime.writeToByteBuffer(nestedStructsBuff);
-        mXfrmCurrentLifetime.writeToByteBuffer(nestedStructsBuff);
-        mXfrmStats.writeToByteBuffer(nestedStructsBuff);
-
-        this.nestedStructs = nestedStructsBuff.array();
+            short flags,
+            boolean isKernel64Bit) {
+        mXfrmUsersaInfo32 =
+                new StructXfrmUsersaInfo32(
+                        dAddr,
+                        sAddr,
+                        addTime,
+                        selectorFamily,
+                        spi,
+                        seq,
+                        reqId,
+                        proto,
+                        mode,
+                        replayWindowLegacy,
+                        flags);
+        mIsKernel64Bit = isKernel64Bit;
     }
 
-    // Constructor to build a new message
     public StructXfrmUsersaInfo(
             @NonNull final InetAddress dAddr,
             @NonNull final InetAddress sAddr,
@@ -175,41 +110,44 @@ public class StructXfrmUsersaInfo extends Struct {
             short proto,
             short mode,
             short replayWindowLegacy,
-            short flags) {
-        // Use AF_UNSPEC for all SAs selectors. In transport mode, kernel picks selector family
-        // based on usersa->family, while in tunnel mode, the XFRM_STATE_AF_UNSPEC flag allows
-        // dual-stack SAs.
-        this(
-                dAddr,
-                sAddr,
-                BigInteger.ZERO,
-                OsConstants.AF_UNSPEC,
-                spi,
-                seq,
-                reqId,
-                proto,
-                mode,
-                replayWindowLegacy,
-                flags);
+            short flags,
+            boolean isKernel64Bit) {
+        mXfrmUsersaInfo32 =
+                new StructXfrmUsersaInfo32(
+                        dAddr, sAddr, spi, seq, reqId, proto, mode, replayWindowLegacy, flags);
+        mIsKernel64Bit = isKernel64Bit;
+    }
+
+    /** Convert the parsed object to ByteBuffer. */
+    public void writeToByteBuffer(@NonNull final ByteBuffer buf) {
+        mXfrmUsersaInfo32.writeToByteBuffer(buf);
+        if (mIsKernel64Bit) {
+            buf.put(new byte[KERNEL_64_EXTRA_PAD_SIZE]);
+        }
+    }
+
+    /** Return the struct size */
+    public int getStructSize() {
+        return StructXfrmUsersaInfo32.STRUCT_SIZE + (mIsKernel64Bit ? KERNEL_64_EXTRA_PAD_SIZE : 0);
     }
 
     /** Return the destination address */
     public InetAddress getDestAddress() {
-        return mXfrmId.getDestAddress(family);
+        return mXfrmUsersaInfo32.getDestAddress();
     }
 
     /** Return the source address */
     public InetAddress getSrcAddress() {
-        return mSourceXfrmAddressT.getAddress(family);
+        return mXfrmUsersaInfo32.getSrcAddress();
     }
 
     /** Return the SPI */
     public long getSpi() {
-        return mXfrmId.spi;
+        return mXfrmUsersaInfo32.getSpi();
     }
 
     /** Return the current lifetime */
     public StructXfrmLifetimeCur getCurrentLifetime() {
-        return mXfrmCurrentLifetime;
+        return mXfrmUsersaInfo32.getCurrentLifetime();
     }
 }

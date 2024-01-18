@@ -23,7 +23,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.android.net.module.util.Struct;
 import com.android.net.module.util.netlink.StructNlAttr;
 import com.android.net.module.util.netlink.StructNlMsgHdr;
 
@@ -82,7 +81,7 @@ public class XfrmNetlinkNewSaMessage extends XfrmNetlinkMessage {
     static XfrmNetlinkNewSaMessage parseInternal(
             @NonNull final StructNlMsgHdr nlmsghdr, @NonNull final ByteBuffer byteBuffer) {
         final StructXfrmUsersaInfo xfrmUsersaInfo =
-                Struct.parse(StructXfrmUsersaInfo.class, byteBuffer);
+                StructXfrmUsersaInfo.parse(byteBuffer, true /* isKernel64Bit */);
         if (xfrmUsersaInfo == null) {
             Log.d(TAG, "parse: fail to parse xfrmUsersaInfo");
             return null;
@@ -91,7 +90,7 @@ public class XfrmNetlinkNewSaMessage extends XfrmNetlinkMessage {
         StructXfrmReplayStateEsn xfrmReplayStateEsn = null;
 
         final int payloadLen = nlmsghdr.nlmsg_len - StructNlMsgHdr.STRUCT_SIZE;
-        int parsedLength = StructXfrmUsersaInfo.STRUCT_SIZE;
+        int parsedLength = xfrmUsersaInfo.getStructSize();
         while (parsedLength < payloadLen) {
             final StructNlAttr attr = StructNlAttr.parse(byteBuffer);
 
