@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93656baa_04b276fb",
+        "filename": "Cronet/tests/mts/res/xml/network_security_config.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2024-01-18T11:10:05Z",
+      "side": 1,
+      "message": "Please fix the format. Same for other files.",
+      "revId": "70776770fbe2fc60cf1fdf5c00985f323293f413",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
