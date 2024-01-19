@@ -1,0 +1,1 @@
+per-file config_thread.xml,overlayable.xml = file:platform/packages/modules/Connectivity:main:/thread/OWNERS
