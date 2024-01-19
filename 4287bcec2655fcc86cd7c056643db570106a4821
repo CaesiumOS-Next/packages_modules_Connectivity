@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b675ce42_c4aa906e",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-19T02:16:19Z",
+      "side": 1,
+      "message": "Rename to:\n```suggestion\n    public void registerStateCallback_returnsUpdatedEnabledStates()\n```\n\nBecause permission is not what focused here.\n\n\nIn this test case, you should call setEnabled() multiple times and check all the state changes are expected from the state callback. Like:\n\n```\n\nregisterStateCallback(executor, stateCallbackRecordTracker);\nsetEnabled(false, newOutcomeReceiver(future));\nfuture.get();\nsetEnabled(true, newOutcomeReceiver(future));\nfuture.get();\n\nassertThat(stateCallbackRecordTracker.poll())isTrue();\nassertThat(stateCallbackRecordTracker.poll())isFalse();\nassertThat(stateCallbackRecordTracker.poll())isTrue();\n```",
+      "range": {
+        "startLine": 274,
+        "startChar": 16,
+        "endLine": 274,
+        "endChar": 82
+      },
+      "revId": "4287bcec2655fcc86cd7c056643db570106a4821",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
