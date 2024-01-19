@@ -52,6 +52,24 @@
       "parentUuid": "00fc58f5_5638259b",
       "revId": "4aeb9569a29be5491ff7513cd29c788d76ccd4aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "230de15d_c1a3a4ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-19T02:13:05Z",
+      "side": 1,
+      "message": "Thanks for the context.\nBut the fix is for a different reason, which is mentioned in the doc:\nhttps://docs.google.com/document/d/11_X93cw2jKmCYwyfwDCoMsJfsi8b9coF0QUqTLQlAQw/edit?usp\u003dsharing\nSo IIUC this is still needed.",
+      "parentUuid": "13e58357_f2b62a28",
+      "revId": "4aeb9569a29be5491ff7513cd29c788d76ccd4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df8a9261_5fcda40f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1984,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-19T02:13:05Z",
+      "side": 0,
+      "message": "Yeah it is what we are fixing in the new code at right hand side, right?\nWhere any type of cache miss will trigger nativeGetUidStat at l.1999, which actually get 4 values (returned in Entry object) in a row.\nOr I missed your point?",
+      "parentUuid": "189079f3_a9ed049e",
+      "range": {
+        "startLine": 1984,
+        "startChar": 36,
+        "endLine": 1984,
+        "endChar": 52
+      },
+      "revId": "fa467f9cf5050ca46a447669f7277a5a5efdde17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b94828df_96cffbae",
@@ -71,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbc89a72_9a17ea75",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1990,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-19T02:13:05Z",
+      "side": 0,
+      "message": "Acknowledged",
+      "parentUuid": "b94828df_96cffbae",
+      "range": {
+        "startLine": 1990,
+        "startChar": 41,
+        "endLine": 1990,
+        "endChar": 59
+      },
+      "revId": "fa467f9cf5050ca46a447669f7277a5a5efdde17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "740837fb_267c3f0f",
@@ -84,6 +132,30 @@
       "writtenOn": "2024-01-18T19:37:29Z",
       "side": 0,
       "message": "as is this one - since it\u0027s also  bpfGetIfaceStatsInternal",
+      "range": {
+        "startLine": 2022,
+        "startChar": 41,
+        "endLine": 2022,
+        "endChar": 59
+      },
+      "revId": "fa467f9cf5050ca46a447669f7277a5a5efdde17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "462d7630_4bdcaaa2",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2022,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-19T02:13:05Z",
+      "side": 0,
+      "message": "Acknowledged.",
+      "parentUuid": "740837fb_267c3f0f",
       "range": {
         "startLine": 2022,
         "startChar": 41,
