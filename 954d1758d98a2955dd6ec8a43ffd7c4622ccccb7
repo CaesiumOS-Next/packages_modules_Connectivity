@@ -189,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f930f7b5_f7a913a8",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 33
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-19T05:42:32Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c1eed364_5396629a",
+      "range": {
+        "startLine": 287,
+        "startChar": 8,
+        "endLine": 287,
+        "endChar": 21
+      },
+      "revId": "954d1758d98a2955dd6ec8a43ffd7c4622ccccb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e07007af_3b07dad8",
