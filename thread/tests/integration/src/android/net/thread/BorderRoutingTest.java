@@ -17,6 +17,7 @@
 package android.net.thread;
 
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
+import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.thread.IntegrationTestUtils.isExpectedIcmpv6Packet;
 import static android.net.thread.IntegrationTestUtils.newPacketReader;
 import static android.net.thread.IntegrationTestUtils.readPacketFrom;
@@ -99,6 +100,7 @@ public class BorderRoutingTest {
                                         mContext, new LinkProperties(), 5000 /* timeoutMs */));
         runAsShell(
                 PERMISSION_THREAD_NETWORK_PRIVILEGED,
+                NETWORK_SETTINGS,
                 () -> {
                     CountDownLatch latch = new CountDownLatch(1);
                     mThreadNetworkController.setTestNetworkAsUpstream(
@@ -115,6 +117,7 @@ public class BorderRoutingTest {
     public void tearDown() throws Exception {
         runAsShell(
                 PERMISSION_THREAD_NETWORK_PRIVILEGED,
+                NETWORK_SETTINGS,
                 () -> {
                     CountDownLatch latch = new CountDownLatch(2);
                     mThreadNetworkController.setTestNetworkAsUpstream(
@@ -130,7 +133,7 @@ public class BorderRoutingTest {
     }
 
     @Test
-    public void infraDevicePingTheadDeviceOmr_Succeeds() throws Exception {
+    public void unicastRouting_infraDevicePingTheadDeviceOmr_Succeeds() throws Exception {
         /*
          * <pre>
          * Topology:
