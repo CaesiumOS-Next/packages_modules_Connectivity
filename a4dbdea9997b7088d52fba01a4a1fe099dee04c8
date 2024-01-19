@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1bf82ad_06bbe1b7",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-19T07:20:57Z",
+      "side": 1,
+      "message": "Per offline discussion, it\u0027s not an API break to lower down the minimum value (e.g. 30 -\u003e 25).",
+      "parentUuid": "524cb42b_4c5dc065",
+      "range": {
+        "startLine": 312,
+        "startChar": 29,
+        "endLine": 312,
+        "endChar": 44
+      },
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68342e4b_9423233a",
@@ -78,6 +102,30 @@
       "writtenOn": "2024-01-12T11:12:17Z",
       "side": 1,
       "message": "Should we have a max ? It wouldn\u0027t be reasonable to have something very large, like an hour or more",
+      "range": {
+        "startLine": 465,
+        "startChar": 60,
+        "endLine": 465,
+        "endChar": 75
+      },
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "978e504b_01d310c1",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-19T07:20:57Z",
+      "side": 1,
+      "message": "For SRP advertising proxy, we need to support all the TTL value range (uint32) for compatibility.\n\nFor other use cases like Nearby, I don\u0027t have enough context here, so if you have a good MAX in mind, I am happy to apply in my CL",
+      "parentUuid": "68342e4b_9423233a",
       "range": {
         "startLine": 465,
         "startChar": 60,
@@ -119,6 +167,24 @@
       "side": 1,
       "message": "What about making the TTL hidden APIs? Do you have other use cases that requires custom TTL?",
       "parentUuid": "2414fd43_49b93b9e",
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e395fcd0_70c57f7b",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-19T07:20:57Z",
+      "side": 1,
+      "message": "Per offline discussion, we still want the public TTL API for nearby use cases.",
+      "parentUuid": "1cca7b96_de3475f9",
       "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -187,6 +253,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52171b9b_ad8208f0",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-19T07:20:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "baaf3f4e_08d2f08b",
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0158b4c3_bfe3ad9c",
@@ -248,6 +332,30 @@
       "side": 1,
       "message": "For Discovery Proxy, TTL value needs to be passed unmodified for long-lived query and DNS Push Notification. See https://www.rfc-editor.org/rfc/rfc8766.html#name-dns-ttl-limiting:\n\n\u003e For received Unicast DNS queries that use LLQ [RFC8764] or DNS Push Notifications [RFC8765], the Multicast DNS record\u0027s TTL SHOULD be returned unmodified, because the notification channel exists to inform the remote client as records come and go. For further details about Long-Lived Queries and its newer replacement, DNS Push Notifications, see Section 5.6.",
       "parentUuid": "3b219817_32325d20",
+      "range": {
+        "startLine": 492,
+        "startChar": 16,
+        "endLine": 492,
+        "endChar": 29
+      },
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78efc4f5_41cc4306",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-19T07:20:57Z",
+      "side": 1,
+      "message": "I think getExpirationTime() works for Thread.\n\nI moved setter to AdvertisingRequest.Builder as well.",
+      "parentUuid": "beda9a40_29482dd5",
       "range": {
         "startLine": 492,
         "startChar": 16,

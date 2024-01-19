@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df93a106_c28d88b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 72
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-19T07:20:57Z",
+      "side": 1,
+      "message": "@reminv@google.com API updated accordingly, PTAL",
+      "revId": "911518be10fefaa0717b36c4c10c6769dded70ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
