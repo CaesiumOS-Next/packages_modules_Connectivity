@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e59c4cd_04367364",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1442,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-19T05:08:38Z",
+      "side": 1,
+      "message": "Added to dump and added some logs in aosp/2919345",
+      "parentUuid": "0a480d1c_813d89cb",
+      "range": {
+        "startLine": 1442,
+        "startChar": 0,
+        "endLine": 1442,
+        "endChar": 58
+      },
+      "revId": "954d1758d98a2955dd6ec8a43ffd7c4622ccccb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4fc0979_d5f388fe",
