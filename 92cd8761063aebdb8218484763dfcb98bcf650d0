@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d21fed5a_6a6f471a",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:57:07Z",
+      "side": 1,
+      "message": "Mark as resolved because this public error code is removed.",
+      "parentUuid": "237cc565_3f5cc928",
+      "range": {
+        "startLine": 234,
+        "startChar": 113,
+        "endLine": 234,
+        "endChar": 151
+      },
+      "revId": "92cd8761063aebdb8218484763dfcb98bcf650d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57459aae_7c6bd708",

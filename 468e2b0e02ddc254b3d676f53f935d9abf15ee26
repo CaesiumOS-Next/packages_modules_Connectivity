@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7eb70153_5c786575",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:57:07Z",
+      "side": 1,
+      "message": "The error codes are removed.",
+      "parentUuid": "0062e25b_3d639c35",
+      "revId": "468e2b0e02ddc254b3d676f53f935d9abf15ee26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18aea079_594b60af",
@@ -48,6 +66,30 @@
       "writtenOn": "2024-01-18T03:33:27Z",
       "side": 1,
       "message": "Nit: \"different values\" is not very clear,\n\nThe exception for \"no conflict if the RDATA is the same\" only applies if that service is advertised by another device\n\nCould just say \"failed because another service with the same is already being advertised\"",
+      "range": {
+        "startLine": 857,
+        "startChar": 35,
+        "endLine": 858,
+        "endChar": 46
+      },
+      "revId": "468e2b0e02ddc254b3d676f53f935d9abf15ee26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "630eb7cf_7fe0d37f",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:57:07Z",
+      "side": 1,
+      "message": "The error codes are removed.",
+      "parentUuid": "18aea079_594b60af",
       "range": {
         "startLine": 857,
         "startChar": 35,
@@ -81,6 +123,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66781a9e_d37076af",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:57:07Z",
+      "side": 1,
+      "message": "The error codes are removed.",
+      "parentUuid": "3a4d0c22_632d2d4a",
+      "range": {
+        "startLine": 864,
+        "startChar": 35,
+        "endLine": 864,
+        "endChar": 41
+      },
+      "revId": "468e2b0e02ddc254b3d676f53f935d9abf15ee26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ddfe6bd8_83715a15",
@@ -94,6 +160,30 @@
       "writtenOn": "2024-01-18T03:33:27Z",
       "side": 1,
       "message": "`\u003e` ? At least until you can say \"hasKey || port \u003e 0\"",
+      "range": {
+        "startLine": 1699,
+        "startChar": 77,
+        "endLine": 1699,
+        "endChar": 79
+      },
+      "revId": "468e2b0e02ddc254b3d676f53f935d9abf15ee26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8de1c8d_6b1fa28f",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1699,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:57:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddfe6bd8_83715a15",
       "range": {
         "startLine": 1699,
         "startChar": 77,
@@ -127,6 +217,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b86f0e72_f91e6130",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1701,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:57:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cf6dbe4_219f1e35",
+      "range": {
+        "startLine": 1701,
+        "startChar": 25,
+        "endLine": 1701,
+        "endChar": 44
+      },
+      "revId": "468e2b0e02ddc254b3d676f53f935d9abf15ee26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9dcce588_f1188ab5",
@@ -140,6 +254,30 @@
       "writtenOn": "2024-01-18T03:33:27Z",
       "side": 1,
       "message": "Can you make this a bit more specific to guide apps to add service information ?\n\nMaybe \"No service info specified in NsdServiceInfo\" or similar ?",
+      "range": {
+        "startLine": 1706,
+        "startChar": 48,
+        "endLine": 1706,
+        "endChar": 67
+      },
+      "revId": "468e2b0e02ddc254b3d676f53f935d9abf15ee26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7d93261_6db7ed22",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1706,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:57:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dcce588_f1188ab5",
       "range": {
         "startLine": 1706,
         "startChar": 48,
@@ -173,6 +311,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a82d5f61_24f1af0b",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1710,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:57:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1b05be1_26ea79dd",
+      "range": {
+        "startLine": 1710,
+        "startChar": 48,
+        "endLine": 1710,
+        "endChar": 64
+      },
+      "revId": "468e2b0e02ddc254b3d676f53f935d9abf15ee26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76462e0a_2fce7b37",
@@ -192,6 +354,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63a8019d_87e80ced",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:57:07Z",
+      "side": 1,
+      "message": "For now I\u0027d just make this method only used for registration. In the future (probably next week) I\u0027ll send a CL to enable this field in discovery result.\n\nI added some more details in `setHostname()`.",
+      "parentUuid": "76462e0a_2fce7b37",
+      "revId": "468e2b0e02ddc254b3d676f53f935d9abf15ee26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f9bc0f1e_d801001c",
         "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
         "patchSetId": 13
@@ -203,6 +383,24 @@
       "writtenOn": "2024-01-18T03:33:27Z",
       "side": 1,
       "message": "Nit: generally we stick to the Gerrit line length limit in this test",
+      "revId": "468e2b0e02ddc254b3d676f53f935d9abf15ee26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9860fb88_d984af08",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 1429,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:57:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9bc0f1e_d801001c",
       "revId": "468e2b0e02ddc254b3d676f53f935d9abf15ee26",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -230,6 +428,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0effa3e_789e7d95",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 1740,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:57:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fec3a13b_d3720dd2",
+      "range": {
+        "startLine": 1740,
+        "startChar": 17,
+        "endLine": 1740,
+        "endChar": 24
+      },
+      "revId": "468e2b0e02ddc254b3d676f53f935d9abf15ee26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a4132f4_ae4bb4e2",
@@ -243,6 +465,24 @@
       "writtenOn": "2024-01-18T03:33:27Z",
       "side": 1,
       "message": "Nit: maybe also a test that it\u0027s valid to have a service and a hostname",
+      "revId": "468e2b0e02ddc254b3d676f53f935d9abf15ee26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92128c22_885a7ad2",
+        "filename": "tests/unit/java/android/net/nsd/NsdManagerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:57:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a4132f4_ae4bb4e2",
       "revId": "468e2b0e02ddc254b3d676f53f935d9abf15ee26",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
