@@ -183,6 +183,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ec17029_70c83bbd",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2923,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2024-01-19T17:05:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fa52587_d437e866",
+      "range": {
+        "startLine": 2923,
+        "startChar": 12,
+        "endLine": 2923,
+        "endChar": 34
+      },
+      "revId": "33a7c4c2fc20b31fe1d894d136b1d348e06c1be2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b19b118f_4a3dddae",
@@ -291,6 +315,30 @@
       "side": 1,
       "message": "You can verify \"SkDestroyListener logs:\" exists.\nFeel free to ignore.",
       "parentUuid": "41c36673_1efdfb87",
+      "range": {
+        "startLine": 2812,
+        "startChar": 8,
+        "endLine": 2812,
+        "endChar": 26
+      },
+      "revId": "33a7c4c2fc20b31fe1d894d136b1d348e06c1be2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ae096bd_d71561e5",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2812,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2024-01-19T17:05:20Z",
+      "side": 1,
+      "message": "IMHO, check the log line should be sufficient.",
+      "parentUuid": "c5dd6c61_c6c76bf0",
       "range": {
         "startLine": 2812,
         "startChar": 8,
