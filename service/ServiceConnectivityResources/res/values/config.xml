@@ -170,7 +170,7 @@
     <string translatable="false" name="config_ethernet_tcp_buffers">524288,1048576,3145728,524288,1048576,2097152</string>
 
     <!-- Configuration of Ethernet interfaces in the following format:
-         <interface name|mac address>;[Network Capabilities];[IP config];[Override Transport]
+         <interface name>;[Network Capabilities];[IP config];[Override Transport]
          Where
                [Network Capabilities] Optional. A comma separated list of network capabilities.
                    Values must be from NetworkCapabilities#NET_CAPABILITY_* constants.

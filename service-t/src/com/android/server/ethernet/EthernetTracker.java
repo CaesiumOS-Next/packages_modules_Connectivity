@@ -108,7 +108,7 @@ public class EthernetTracker {
      */
     private volatile boolean mIncludeTestInterfaces = false;
 
-    /** Mapping between {iface name | mac address} -> {NetworkCapabilities} */
+    /** Mapping between {iface name} -> {NetworkCapabilities} */
     private final ConcurrentHashMap<String, NetworkCapabilities> mNetworkCapabilities =
             new ConcurrentHashMap<>();
     private final ConcurrentHashMap<String, IpConfiguration> mIpConfigurations =
@@ -620,12 +620,8 @@ public class EthernetTracker {
 
         NetworkCapabilities nc = mNetworkCapabilities.get(iface);
         if (nc == null) {
-            // Try to resolve using mac address
-            nc = mNetworkCapabilities.get(hwAddress);
-            if (nc == null) {
-                final boolean isTestIface = iface.matches(TEST_IFACE_REGEXP);
-                nc = createDefaultNetworkCapabilities(isTestIface);
-            }
+            final boolean isTestIface = iface.matches(TEST_IFACE_REGEXP);
+            nc = createDefaultNetworkCapabilities(isTestIface);
         }
 
         IpConfiguration ipConfiguration = getOrCreateIpConfiguration(iface);
@@ -732,7 +728,7 @@ public class EthernetTracker {
      * Parses an Ethernet interface configuration
      *
      * @param configString represents an Ethernet configuration in the following format: {@code
-     * <interface name|mac address>;[Network Capabilities];[IP config];[Override Transport]}
+     * <interface name>;[Network Capabilities];[IP config];[Override Transport]}
      */
     private void parseEthernetConfig(String configString) {
         final EthernetTrackerConfig config = createEthernetTrackerConfig(configString);
