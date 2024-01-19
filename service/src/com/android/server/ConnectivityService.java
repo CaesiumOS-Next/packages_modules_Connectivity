@@ -4052,6 +4052,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         pw.increaseIndent();
         mNetworkActivityTracker.dump(pw);
         pw.decreaseIndent();
+
+        pw.println();
+        pw.println("Multicast routing supported: " +
+                (mMulticastRoutingCoordinatorService == null ? "No" : "Yes"));
     }
 
     private void dumpNetworks(IndentingPrintWriter pw) {
@@ -9151,7 +9155,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void applyMulticastRoutingConfig(@NonNull String localNetworkInterfaceName,
             @NonNull String upstreamNetworkInterfaceName,
             @NonNull final LocalNetworkConfig config) {
-        if (mMulticastRoutingCoordinatorService == null) return;
+        if (mMulticastRoutingCoordinatorService == null) {
+            log("Can't apply multicast routing config: Multicast routing is not supported");
+            return;
+        }
 
         mMulticastRoutingCoordinatorService.applyMulticastRoutingConfig(localNetworkInterfaceName,
                 upstreamNetworkInterfaceName, config.getUpstreamMulticastRoutingConfig());
@@ -9162,7 +9169,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void disableMulticastRouting(@NonNull String localNetworkInterfaceName,
             @NonNull String upstreamNetworkInterfaceName) {
-        if (mMulticastRoutingCoordinatorService == null) return;
+        if (mMulticastRoutingCoordinatorService == null) {
+            log("Can't update multicast routing config: Multicast routing is not supported");
+            return;
+        }
 
         mMulticastRoutingCoordinatorService.applyMulticastRoutingConfig(localNetworkInterfaceName,
                 upstreamNetworkInterfaceName, MulticastRoutingConfig.CONFIG_FORWARD_NONE);
