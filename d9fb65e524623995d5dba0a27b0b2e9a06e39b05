@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebe1b005_401963a0",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-19T09:33:36Z",
+      "side": 1,
+      "message": "Given that this is not a map, maybe mVifToInterface? Or mVirtualInterfaces? Or...?",
+      "revId": "d9fb65e524623995d5dba0a27b0b2e9a06e39b05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d091617d_0237aeac",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-19T09:33:36Z",
+      "side": 1,
+      "message": "Typo, Physical",
+      "range": {
+        "startLine": 111,
+        "startChar": 33,
+        "endLine": 111,
+        "endChar": 40
+      },
+      "revId": "d9fb65e524623995d5dba0a27b0b2e9a06e39b05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd2e543c_3b6d14d8",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-19T09:33:36Z",
+      "side": 1,
+      "message": "mIfindexToInterface? mInterfaces?",
+      "range": {
+        "startLine": 111,
+        "startChar": 32,
+        "endLine": 111,
+        "endChar": 56
+      },
+      "revId": "d9fb65e524623995d5dba0a27b0b2e9a06e39b05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7de9386f_d97ec44b",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-19T09:33:36Z",
+      "side": 1,
+      "message": "I think that if this gets called with FORWARD_NONE, and an iifName which has never been added to mPhysicalInterfaceNameMap, then getInterfaceIndex will return null and this will crash because null can\u0027t be cast to int.\n\nNot sure if this can happen though. It looks like for it to happen, oldConfig would have to have FORWARD_NONE but oldConfig.equals(newConfig) would have to return true. I\u0027m not sure if it\u0027s possible to construct such an object.\n\nFor safety I suppose you could do:\n\n    Integer iifIndex \u003d getInterfaceIndex(iifName);\n    if (iifIndex \u003d\u003d null) {\n        // This cannot happen unless the new config has FORWARD_NONE but is not\n        // the same as the old config. This is not possible in current code.\n        Log.wtf(\"Adding multicast configuration on null interface?\");\n    }\n\nbut if this really can\u0027t happen, then maybe this is fine.",
+      "range": {
+        "startLine": 187,
+        "startChar": 23,
+        "endLine": 187,
+        "endChar": 40
+      },
+      "revId": "d9fb65e524623995d5dba0a27b0b2e9a06e39b05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "710989a5_05f463ec",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-19T09:33:36Z",
+      "side": 1,
+      "message": "Per discussion, this method should return null if ifName is null. This is only used to match MFCs we get from the kernel to MFCs that we know about, and we always want to ignore all such MFCs.",
+      "range": {
+        "startLine": 274,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 9
+      },
+      "revId": "d9fb65e524623995d5dba0a27b0b2e9a06e39b05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ed46b56_ce423448",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-19T09:33:36Z",
+      "side": 1,
+      "message": "Consider renaming to maybeTrackInterface.",
+      "revId": "d9fb65e524623995d5dba0a27b0b2e9a06e39b05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41950288_f3dca94d",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-19T09:33:36Z",
+      "side": 1,
+      "message": "If the interface has been deleted, then getNetworkInterface will return null. A couple of things to note:\n\n1. Will passing a null interface to leaveGroup throw NPE? If so, we\u0027ll need to catch that here or the system will crash.\n2. Might want to add a TODO to move away from getNetworkInterface to directly calling IPV6_DROP_MEMBERSHIP. This takes an ipv6_mreq, which is trivial (just an IPv6 address and an interface index, so very easy to do with Struct and setSockoptBytes).",
+      "revId": "d9fb65e524623995d5dba0a27b0b2e9a06e39b05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d08793af_613144ee",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-19T09:33:36Z",
+      "side": 1,
+      "message": "If you address the comment above, I think this will have no callers and can be deleted?",
+      "range": {
+        "startLine": 800,
+        "startChar": 22,
+        "endLine": 800,
+        "endChar": 38
+      },
+      "revId": "d9fb65e524623995d5dba0a27b0b2e9a06e39b05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc4f8d89_9ad4da74",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-19T09:33:36Z",
+      "side": 1,
+      "message": "Per comment above, if we switch to using IPV6_(ADD|DROP)_MEMBERSHIP, then I think you can delete this.",
+      "revId": "d9fb65e524623995d5dba0a27b0b2e9a06e39b05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
