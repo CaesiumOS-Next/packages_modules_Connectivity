@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3b9ad6a_1bb8c249",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-19T02:54:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f253dc4f_1c7c4c37",
+      "range": {
+        "startLine": 1430,
+        "startChar": 40,
+        "endLine": 1430,
+        "endChar": 41
+      },
+      "revId": "954d1758d98a2955dd6ec8a43ffd7c4622ccccb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a480d1c_813d89cb",
@@ -70,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9aa8bd6_55d03b62",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 33
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-19T02:54:45Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "d4fc0979_d5f388fe",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 119,
+        "endChar": 57
+      },
+      "revId": "954d1758d98a2955dd6ec8a43ffd7c4622ccccb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd6946e3_4c8be4f7",
@@ -95,6 +143,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c1eed364_5396629a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 33
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-19T02:54:45Z",
+      "side": 1,
+      "message": "This is needed, and because there are 2 local networks sharing the same upstream network, when upstream is connected, it\u0027s unpredictable callback for which local network will come first. So I was not able to use expectCallback.",
+      "parentUuid": "cd6946e3_4c8be4f7",
+      "range": {
+        "startLine": 287,
+        "startChar": 8,
+        "endLine": 287,
+        "endChar": 21
+      },
+      "revId": "954d1758d98a2955dd6ec8a43ffd7c4622ccccb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e07007af_3b07dad8",
         "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
         "patchSetId": 33
@@ -106,6 +178,30 @@
       "writtenOn": "2024-01-18T06:55:38Z",
       "side": 1,
       "message": "nits: Do we need this?",
+      "range": {
+        "startLine": 420,
+        "startChar": 8,
+        "endLine": 420,
+        "endChar": 60
+      },
+      "revId": "954d1758d98a2955dd6ec8a43ffd7c4622ccccb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf441c8d_68eeca83",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 33
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-19T02:54:45Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "e07007af_3b07dad8",
       "range": {
         "startLine": 420,
         "startChar": 8,
