@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36102728_41aceeee",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 905,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-01-19T03:03:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8d2c83af_4f903091",
+      "range": {
+        "startLine": 905,
+        "startChar": 19,
+        "endLine": 905,
+        "endChar": 36
+      },
+      "revId": "32a16a7e9fe0311b1696ce3d53e276fef896f487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70081560_00057982",
@@ -226,6 +250,30 @@
       "side": 1,
       "message": "maybe unnecessary, per current implementation we treat xxxx:yyyy::/32 and xxxx:yyyy::/16 as two different prefixes, if the prefix set doesn\u0027t contains xxxx:yyyy::/32 then this function will return false. To simplify the maintenance of API, I think we don\u0027t need to consider the overlap between two same prefix with different length.",
       "parentUuid": "bdbc8302_c3a22983",
+      "range": {
+        "startLine": 916,
+        "startChar": 42,
+        "endLine": 916,
+        "endChar": 74
+      },
+      "revId": "32a16a7e9fe0311b1696ce3d53e276fef896f487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a524a0f_cb05cba4",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-01-19T03:03:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cf2f8c08_a708b015",
       "range": {
         "startLine": 916,
         "startChar": 42,
