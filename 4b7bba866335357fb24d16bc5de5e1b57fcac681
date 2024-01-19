@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2e01bf5_efd9930d",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc8f49f9_e565c618",
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5969085a_f4cf4a89",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-01-18T08:17:03Z",
       "side": 1,
       "message": "It may be simpler to not have to handle both empty and null strings, by also saying it\u0027s invalid if the string is empty",
+      "range": {
+        "startLine": 889,
+        "startChar": 33,
+        "endLine": 889,
+        "endChar": 63
+      },
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eca07a9f_0e5b7c8b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5969085a_f4cf4a89",
       "range": {
         "startLine": 889,
         "startChar": 33,
@@ -60,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9fe71e86_f4d80336",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:51:44Z",
+      "side": 1,
+      "message": "Given the CL size is already large and my limited context of offloading, I\u0027d leave this part to be implemented in the future.\n\nI added a TODO here.",
+      "parentUuid": "afd47014_3d54622d",
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7dce6c3b_6ea26494",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
         "patchSetId": 17
@@ -71,6 +131,24 @@
       "writtenOn": "2024-01-18T08:17:03Z",
       "side": 1,
       "message": "What if the conflict happened after onRegisterServiceSucceeded ? Should there be a different callback in that case ? What is the expected behavior in OT ?\n\nAt least we should not keep advertising if that happens.\n\nThe code should take care of not calling onRegisterServiceFailed if onRegisterServiceSucceeded was called; if this is necessary, maybe we need another callback for onConflict ?",
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4fe88c3_5e19dfee",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:51:44Z",
+      "side": 1,
+      "message": "As offline discussion, we\u0027ll just let host auto-rename in this CL. In the future we\u0027ll add a feature to disable auto-rename and report the conflict to API users.",
+      "parentUuid": "7dce6c3b_6ea26494",
       "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -98,6 +176,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c38b9ad0_a114abe4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "335f6f93_ac624995",
+      "range": {
+        "startLine": 342,
+        "startChar": 12,
+        "endLine": 342,
+        "endChar": 33
+      },
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d1ccb6a_7912a048",
@@ -115,6 +217,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "503d1bda_6293c738",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d1ccb6a_7912a048",
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72e78f03_a5b2eb45",
@@ -128,6 +248,30 @@
       "writtenOn": "2024-01-18T08:17:03Z",
       "side": 1,
       "message": "So it\u0027s not allowed for the hostname to have dots ? it\u0027s probably best to split it to be safe",
+      "range": {
+        "startLine": 213,
+        "startChar": 56,
+        "endLine": 213,
+        "endChar": 67
+      },
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88a772ef_ecdda6e6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72e78f03_a5b2eb45",
       "range": {
         "startLine": 213,
         "startChar": 56,
@@ -161,6 +305,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "837db98e_45fe35fc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7065abb3_947195c6",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 104
+      },
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "efcbd757_e1a34d2c",
@@ -174,6 +342,30 @@
       "writtenOn": "2024-01-18T08:17:03Z",
       "side": 1,
       "message": "it may be simpler / safer to have this method accept null as arguments",
+      "range": {
+        "startLine": 411,
+        "startChar": 33,
+        "endLine": 411,
+        "endChar": 52
+      },
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a52b71b8_37075a1b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efcbd757_e1a34d2c",
       "range": {
         "startLine": 411,
         "startChar": 33,
@@ -201,6 +393,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07e3bf15_b4d281d9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34656203_f144c2f3",
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c0b347f_b58ac71f",
@@ -214,6 +424,30 @@
       "writtenOn": "2024-01-18T08:17:03Z",
       "side": 1,
       "message": "Collections.emptyList() to reduce potential for NPE",
+      "range": {
+        "startLine": 566,
+        "startChar": 20,
+        "endLine": 566,
+        "endChar": 24
+      },
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "988cd370_d7aefe60",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c0b347f_b58ac71f",
       "range": {
         "startLine": 566,
         "startChar": 20,
@@ -241,6 +475,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b9eb4a8_5b0261e8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e05b74e2_230e7aad",
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d935373_ffc1ba1e",
@@ -254,6 +506,30 @@
       "writtenOn": "2024-01-18T08:17:03Z",
       "side": 1,
       "message": "See other comment about making this accept null too",
+      "range": {
+        "startLine": 1088,
+        "startChar": 37,
+        "endLine": 1088,
+        "endChar": 56
+      },
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "284f2193_cc25b6af",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1088,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d935373_ffc1ba1e",
       "range": {
         "startLine": 1088,
         "startChar": 37,
@@ -281,6 +557,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32f5db83_aea4b873",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40364cdd_c09ed73b",
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74e801ac_934d6289",
@@ -294,6 +588,30 @@
       "writtenOn": "2024-01-18T08:17:03Z",
       "side": 1,
       "message": "It might be more readable to have makeProbingInfo take the ServiceRegistration as argument directly, so you don\u0027t have 2 levels of null checks",
+      "range": {
+        "startLine": 1136,
+        "startChar": 15,
+        "endLine": 1136,
+        "endChar": 30
+      },
+      "revId": "4b7bba866335357fb24d16bc5de5e1b57fcac681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76cc409c_6ef70f8f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1136,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-19T06:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74e801ac_934d6289",
       "range": {
         "startLine": 1136,
         "startChar": 15,
