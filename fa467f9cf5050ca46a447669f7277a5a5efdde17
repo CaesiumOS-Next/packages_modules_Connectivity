@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "189079f3_a9ed049e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1984,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-01-19T00:21:40Z",
+      "side": 0,
+      "message": "One possible approach would be for RX BYTES to trigger a fetch+cache, and the other 3 to always use the cached value (or use the cached value if \u003c1s old)?\n\n[why rx bytes? because it\u0027s probably the most interesting value of the 4]",
+      "parentUuid": "88c50caa_4d4e87aa",
+      "range": {
+        "startLine": 1984,
+        "startChar": 36,
+        "endLine": 1984,
+        "endChar": 52
+      },
+      "revId": "fa467f9cf5050ca46a447669f7277a5a5efdde17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b94828df_96cffbae",
         "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
         "patchSetId": 7
