@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c33bb473_35dd24f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2024-01-19T18:50:50Z",
+      "side": 1,
+      "message": "I don\u0027t think we can remove this due to backwards compatibility. It\u0027s possible it is in use if an OEM patched a fix on their end. We also have an open bug (admittedly for too long) for this, that ironically is slated to be fixed in the next quarter.",
+      "revId": "7c608267cd38670bcc5fdf05aa3115c1fd696f12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
