@@ -31,12 +31,16 @@ java_defaults {
         "cts-net-utils",
         "ctstestrunner-axt",
         "modules-utils-build",
+        "net_flags_lib",
     ],
     libs: [
         "android.test.runner",
         "android.test.base",
     ],
-    srcs: ["src/**/*.java"],
+    srcs: [
+        "src/**/*.java",
+         ":ArgumentConstants",
+    ],
     // Tag this module as a cts test artifact
     test_suites: [
         "general-tests",
