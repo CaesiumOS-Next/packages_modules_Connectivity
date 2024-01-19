@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "02f22063_7956bb57",
+        "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-19T02:51:50Z",
+      "side": 1,
+      "message": "Added mapping between physical index to interface name.\n\nWe need name -\u003e physical index + virtual index at new config added;\nphysical index -\u003e virtual index at Nocache upcall received;\nphysical index -\u003e virtual index at multicast route dump;\n\nVif exists throughout active multicast config for an interface and is created/maintained only by MulticastRoutingCoordinator, maybe a follow up ticket to see if this can be refactored to use vif as the key (instead of ifName) for config storage after there are more e2e tests. b/321134489",
+      "parentUuid": "f537d654_cc20f1ca",
+      "range": {
+        "startLine": 135,
+        "startChar": 20,
+        "endLine": 135,
+        "endChar": 34
+      },
+      "revId": "5fbf5b3c8499f8a36f557815f9b91b9977ddb762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df59eaff_2543b76c",
         "filename": "service/src/com/android/server/connectivity/RoutingCoordinatorService.java",
         "patchSetId": 45

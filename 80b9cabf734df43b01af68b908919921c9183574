@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcdf864c_2858cf8e",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-19T02:51:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23bcee25_fe0da716",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 7
+      },
+      "revId": "80b9cabf734df43b01af68b908919921c9183574",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47d576f5_bdefdb7a",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-01-17T08:22:54Z",
       "side": 1,
       "message": "Optional: this contains the same information as the one above? if so, I think you can delete the one above. If you have an interface name, you can get the index by doing something like mVirtualInterfaceNameMap.keyAt(mVirtualInterfaceNameMap.indexOfValue(iface)).",
+      "range": {
+        "startLine": 109,
+        "startChar": 12,
+        "endLine": 109,
+        "endChar": 23
+      },
+      "revId": "80b9cabf734df43b01af68b908919921c9183574",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "119eb85b_42cb8e51",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-19T02:51:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47d576f5_bdefdb7a",
       "range": {
         "startLine": 109,
         "startChar": 12,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13c139d6_6f0d8ede",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-19T02:51:50Z",
+      "side": 1,
+      "message": "Added a physical index to name map to look this up.",
+      "parentUuid": "0701a259_d246e300",
+      "range": {
+        "startLine": 278,
+        "startChar": 55,
+        "endLine": 278,
+        "endChar": 68
+      },
+      "revId": "80b9cabf734df43b01af68b908919921c9183574",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe7d3828_2670b9dc",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-01-17T08:22:54Z",
       "side": 1,
       "message": "Per discussion, maybe add a TODO to dump unresolved multicast routes on the newly-added interface(s) and add MFCs for them?",
+      "range": {
+        "startLine": 337,
+        "startChar": 4,
+        "endLine": 337,
+        "endChar": 5
+      },
+      "revId": "80b9cabf734df43b01af68b908919921c9183574",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ce9cb18_624763da",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-19T02:51:50Z",
+      "side": 1,
+      "message": "Created a bug b/320783261 to follow this up.",
+      "parentUuid": "fe7d3828_2670b9dc",
       "range": {
         "startLine": 337,
         "startChar": 4,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "caf91930_62911310",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-19T02:51:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b6b9e09_97cd067b",
+      "range": {
+        "startLine": 626,
+        "startChar": 16,
+        "endLine": 626,
+        "endChar": 30
+      },
+      "revId": "80b9cabf734df43b01af68b908919921c9183574",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b286a19c_496267f0",
@@ -146,6 +266,30 @@
       "writtenOn": "2024-01-17T08:22:54Z",
       "side": 1,
       "message": "getNetworkInterface(physicalIndex)",
+      "range": {
+        "startLine": 804,
+        "startChar": 38,
+        "endLine": 804,
+        "endChar": 80
+      },
+      "revId": "80b9cabf734df43b01af68b908919921c9183574",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "365fa162_77448d06",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-19T02:51:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b286a19c_496267f0",
       "range": {
         "startLine": 804,
         "startChar": 38,
