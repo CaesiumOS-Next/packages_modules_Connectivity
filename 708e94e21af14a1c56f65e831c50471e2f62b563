@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8522b2fa_f473c9cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-21T12:32:29Z",
+      "side": 1,
+      "message": "Can the BBR receive multicast address updates when it\u0027s in SECONDARY mode?\n\nIf no, then we will not get the latest registered addresses when switched back to PRIMARY mode",
+      "range": {
+        "startLine": 10,
+        "startChar": 30,
+        "endLine": 16,
+        "endChar": 17
+      },
+      "revId": "708e94e21af14a1c56f65e831c50471e2f62b563",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
