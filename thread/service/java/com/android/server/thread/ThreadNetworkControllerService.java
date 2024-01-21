@@ -280,12 +280,12 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         return mOtDaemon;
     }
 
-    // TODO(b/309792480): restarts the OT daemon service
     private void onOtDaemonDied() {
-        Log.w(TAG, "OT daemon became dead, clean up...");
+        Log.w(TAG, "OT daemon became dead, clean up and restart...");
         OperationReceiverWrapper.onOtDaemonDied();
         mOtDaemonCallbackProxy.onOtDaemonDied();
         mOtDaemon = null;
+        initializeOtDaemon();
     }
 
     public void initialize() {
