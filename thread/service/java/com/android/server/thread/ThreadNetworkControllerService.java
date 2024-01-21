@@ -330,13 +330,13 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         @Override
         public void onAvailable(@NonNull Network network) {
             checkOnHandlerThread();
-            Log.i(TAG, "onAvailable: " + network);
+            Log.i(TAG, "Upstream network available: " + network);
         }
 
         @Override
         public void onLost(@NonNull Network network) {
             checkOnHandlerThread();
-            Log.i(TAG, "onLost: " + network);
+            Log.i(TAG, "Upstream network lost: " + network);
         }
 
         @Override
@@ -346,7 +346,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             Log.i(
                     TAG,
                     String.format(
-                            "onLinkPropertiesChanged: {network: %s, interface: %s}",
+                            "LinkProperties of upstream network changed: {network: %s, interface:"
+                                    + " %s}",
                             network, linkProperties.getInterfaceName()));
             mNetworkToInterface.put(network, linkProperties.getInterfaceName());
             if (network.equals(mUpstreamNetwork)) {
@@ -359,14 +360,20 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         @Override
         public void onAvailable(@NonNull Network network) {
             checkOnHandlerThread();
-            Log.i(TAG, "onAvailable: Thread network Available");
+            Log.i(TAG, "Thread network available: " + network);
         }
 
         @Override
         public void onLocalNetworkInfoChanged(
                 @NonNull Network network, @NonNull LocalNetworkInfo localNetworkInfo) {
             checkOnHandlerThread();
-            Log.i(TAG, "onLocalNetworkInfoChanged: " + localNetworkInfo);
+            Log.i(
+                    TAG,
+                    "LocalNetworkInfo of Thread network changed: {threadNetwork: "
+                            + network
+                            + ", localNetworkInfo: "
+                            + localNetworkInfo
+                            + "}");
             if (localNetworkInfo.getUpstreamNetwork() == null) {
                 mUpstreamNetwork = null;
                 return;
@@ -878,6 +885,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         if (isMulticastForwardingEnabled() == isEnabled) {
             return;
         }
+
+        Log.i(TAG, "Multicast forwaring is " + (isEnabled ? "enabled" : "disabled"));
+
         if (isEnabled) {
             // When multicast forwarding is enabled, setup upstream forwarding to any address
             // with minimal scope 4
@@ -893,10 +903,6 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             mDownstreamMulticastRoutingConfig = CONFIG_FORWARD_NONE;
         }
         sendLocalNetworkConfig();
-        Log.d(
-                TAG,
-                "Sent updated localNetworkConfig with multicast forwarding "
-                        + (isEnabled ? "enabled" : "disabled"));
     }
 
     private void handleMulticastForwardingAddressChanged(byte[] addressBytes, boolean isAdded) {
@@ -934,10 +940,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         if (!newDownstreamConfig.equals(mDownstreamMulticastRoutingConfig)) {
             Log.d(
                     TAG,
-                    "Multicast listening address "
-                            + address.getHostAddress()
-                            + " is "
-                            + (isAdded ? "added" : "removed"));
+                    (isAdded ? "Adding" : "Removing")
+                            + "multicast listening address "
+                            + address.getHostAddress());
             mDownstreamMulticastRoutingConfig = newDownstreamConfig;
             sendLocalNetworkConfig();
         }
