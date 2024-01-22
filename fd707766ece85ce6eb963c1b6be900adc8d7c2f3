@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aa3ea70_826337f5",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-22T04:11:33Z",
+      "side": 1,
+      "message": "@reminv@google.com I suppose we want long here because this is a bitmap.\n\nI make this change because `Builder#setAdvertisingConfig()` accepts a `long`",
+      "range": {
+        "startLine": 37,
+        "startChar": 24,
+        "endLine": 37,
+        "endChar": 28
+      },
+      "revId": "fd707766ece85ce6eb963c1b6be900adc8d7c2f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
