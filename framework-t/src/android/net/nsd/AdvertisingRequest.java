@@ -15,6 +15,7 @@
  */
 package android.net.nsd;
 
+import android.annotation.FlaggedApi;
 import android.annotation.LongDef;
 import android.annotation.NonNull;
 import android.os.Parcel;
@@ -26,15 +27,14 @@ import java.util.Objects;
 
 /**
  * Encapsulates parameters for {@link NsdManager#registerService}.
- * @hide
  */
-//@FlaggedApi(NsdManager.Flags.ADVERTISE_REQUEST_API)
+@FlaggedApi(NsdManager.Flags.ADVERTISE_REQUEST_API)
 public final class AdvertisingRequest implements Parcelable {
 
     /**
      * Only update the registration without sending exit and re-announcement.
      */
-    public static final int NSD_ADVERTISING_UPDATE_ONLY = 1;
+    public static final long NSD_ADVERTISING_UPDATE_ONLY = 1;
 
 
     @NonNull
@@ -141,11 +141,10 @@ public final class AdvertisingRequest implements Parcelable {
         dest.writeLong(mAdvertisingConfig);
     }
 
-//    @FlaggedApi(NsdManager.Flags.ADVERTISE_REQUEST_API)
     /**
      * The builder for creating new {@link AdvertisingRequest} objects.
-     * @hide
      */
+    @FlaggedApi(NsdManager.Flags.ADVERTISE_REQUEST_API)
     public static final class Builder {
         @NonNull
         private final NsdServiceInfo mServiceInfo;
@@ -169,7 +168,6 @@ public final class AdvertisingRequest implements Parcelable {
             mAdvertisingConfig = advertisingConfigFlags;
             return this;
         }
-
 
         /** Creates a new {@link AdvertisingRequest} object. */
         @NonNull

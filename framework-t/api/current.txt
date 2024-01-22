@@ -210,6 +210,22 @@ package android.net {
 
 package android.net.nsd {
 
+  @FlaggedApi("com.android.net.flags.advertise_request_api") public final class AdvertisingRequest implements android.os.Parcelable {
+    method public int describeContents();
+    method public long getAdvertisingConfig();
+    method public int getProtocolType();
+    method @NonNull public android.net.nsd.NsdServiceInfo getServiceInfo();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.nsd.AdvertisingRequest> CREATOR;
+    field public static final long NSD_ADVERTISING_UPDATE_ONLY = 1L; // 0x1L
+  }
+
+  @FlaggedApi("com.android.net.flags.advertise_request_api") public static final class AdvertisingRequest.Builder {
+    ctor public AdvertisingRequest.Builder(@NonNull android.net.nsd.NsdServiceInfo, int);
+    method @NonNull public android.net.nsd.AdvertisingRequest build();
+    method @NonNull public android.net.nsd.AdvertisingRequest.Builder setAdvertisingConfig(long);
+  }
+
   @FlaggedApi("com.android.net.flags.nsd_subtypes_support_enabled") public final class DiscoveryRequest implements android.os.Parcelable {
     method public int describeContents();
     method @Nullable public android.net.Network getNetwork();
