@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "68dfb8a2_fa5125f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-22T08:43:31Z",
+      "side": 1,
+      "message": "Given that this sysprop is defined by the platform, can we put it in platform code?I think the only other connectivity properties used by the connectivity modules are in system/libsysprop/srcs/android/sysprop/NetworkProperties.sysprop . Also, I think it\u0027s confusing to put it in mainline code because the property is part of the platform and will only be present on newer releases.",
+      "parentUuid": "c97ae0c7_b4b6a232",
+      "revId": "4d7a9494a2f245d7a2d73b24a99aca55a55e4a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b9cdbe0_4dd75fdc",
         "filename": "thread/sysprop/Android.bp",
         "patchSetId": 7
