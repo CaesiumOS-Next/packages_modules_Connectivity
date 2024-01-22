@@ -53,6 +53,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.DeviceConfigUtils;
 import com.android.networkstack.apishim.SettingsShimImpl;
 import com.android.networkstack.apishim.common.SettingsShim;
 
@@ -69,6 +70,8 @@ public class TetheringService extends Service {
 
     private TetheringConnector mConnector;
     private SettingsShim mSettingsShim;
+
+    public static final String TETHER_ENABLE_SYNC_SM = "tether_enable_sync_sm";
 
     @Override
     public void onCreate() {
@@ -321,6 +324,12 @@ public class TetheringService extends Service {
     @VisibleForTesting
     public TetheringDependencies makeTetheringDependencies() {
         return new TetheringDependencies() {
+            // If the flag is pushed while tethering is enabled, then it's possible for some
+            // IpServer(s) running the new sync state machine while others use the async state
+            // machine. Read the flag only once when TetheringDependencies created.
+            private final boolean mIsSyncSM = DeviceConfigUtils.isTetheringFeatureEnabled(
+                    TetheringService.this, TETHER_ENABLE_SYNC_SM);
+
             @Override
             public Looper makeTetheringLooper() {
                 final HandlerThread tetherThread = new HandlerThread("android.tethering");
@@ -350,6 +359,11 @@ public class TetheringService extends Service {
                                 cb.onDhcpServerCreated(STATUS_UNKNOWN_ERROR, null);
                             } catch (RemoteException re) { }
                         }
+                    }
+
+                    @Override
+                    public boolean isSyncSM() {
+                        return mIsSyncSM;
                     }
                 };
             }

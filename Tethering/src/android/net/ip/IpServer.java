@@ -33,7 +33,6 @@ import static android.system.OsConstants.RT_SCOPE_UNIVERSE;
 
 import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
 import static com.android.net.module.util.NetworkStackConstants.RFC7421_PREFIX_LENGTH;
-import static com.android.networkstack.tethering.TetheringConfiguration.USE_SYNC_SM;
 import static com.android.networkstack.tethering.UpstreamNetworkState.isVcnInterface;
 import static com.android.networkstack.tethering.util.PrefixUtils.asIpPrefix;
 import static com.android.networkstack.tethering.util.TetheringMessageBase.BASE_IPSERVER;
@@ -207,6 +206,11 @@ public class IpServer extends StateMachineShim {
         /** Create a DhcpServer instance to be used by IpServer. */
         public abstract void makeDhcpServer(String ifName, DhcpServingParamsParcel params,
                 DhcpServerCallbacks cb);
+
+        /** Indicate if IpServer is a synchronous or asynchronous state machine. */
+        public boolean isSyncSM() {
+            return false;
+        }
     }
 
     // request from the user that it wants to tether
@@ -325,7 +329,7 @@ public class IpServer extends StateMachineShim {
             @Nullable LateSdk<RoutingCoordinatorManager> routingCoordinator, Callback callback,
             TetheringConfiguration config, PrivateAddressCoordinator addressCoordinator,
             TetheringMetrics tetheringMetrics, Dependencies deps) {
-        super(ifaceName, USE_SYNC_SM ? null : handler.getLooper());
+        super(ifaceName, deps.isSyncSM() ? null : handler.getLooper());
         mHandler = handler;
         mLog = log.forSubComponent(ifaceName);
         mNetd = netd;
@@ -515,7 +519,7 @@ public class IpServer extends StateMachineShim {
 
         private void handleError() {
             mLastError = TETHER_ERROR_DHCPSERVER_ERROR;
-            if (USE_SYNC_SM) {
+            if (mDeps.isSyncSM()) {
                 sendMessage(CMD_SERVICE_FAILED_TO_START, TETHER_ERROR_DHCPSERVER_ERROR);
             } else {
                 sendMessageAtFrontOfQueueToAsyncSM(CMD_SERVICE_FAILED_TO_START,
@@ -1170,7 +1174,7 @@ public class IpServer extends StateMachineShim {
                 // in previous versions of the mainline module.
                 // TODO : remove sendMessageAtFrontOfQueueToAsyncSM after migrating to the Sync
                 // StateMachine.
-                if (USE_SYNC_SM) {
+                if (mDeps.isSyncSM()) {
                     sendSelfMessageToSyncSM(CMD_SERVICE_FAILED_TO_START, mLastError);
                 } else {
                     sendMessageAtFrontOfQueueToAsyncSM(CMD_SERVICE_FAILED_TO_START, mLastError);
