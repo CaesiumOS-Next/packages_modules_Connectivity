@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6eb521a9_c3bd44a3",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-22T07:14:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e42ddcfe_0fe85673",
+      "revId": "f12aa69c467dd3032a0c4b3b591619cbf8a5826f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1040a0a2_ec5f60ea",
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c17c3fb0_87fc5deb",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-22T07:14:32Z",
+      "side": 1,
+      "message": "Acknowledged, keep it open for tracking.",
+      "parentUuid": "1040a0a2_ec5f60ea",
+      "revId": "f12aa69c467dd3032a0c4b3b591619cbf8a5826f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "357e261f_542dbc67",
         "filename": "tests/cts/multidevices/snippet/Android.bp",
         "patchSetId": 8
@@ -65,6 +101,30 @@
       "writtenOn": "2024-01-22T03:18:55Z",
       "side": 1,
       "message": "Should that be android_test_helper_app instead ? (go/android.bp)",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 12
+      },
+      "revId": "f12aa69c467dd3032a0c4b3b591619cbf8a5826f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9790ab8_aa8db27c",
+        "filename": "tests/cts/multidevices/snippet/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-22T07:14:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "357e261f_542dbc67",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -98,6 +158,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a327082_164dc908",
+        "filename": "tests/cts/multidevices/snippet/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-22T07:14:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a7c1402_cce519bc",
+      "range": {
+        "startLine": 36,
+        "startChar": 22,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "f12aa69c467dd3032a0c4b3b591619cbf8a5826f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b0b9ebc_929244ee",
@@ -111,6 +195,24 @@
       "writtenOn": "2024-01-22T03:18:55Z",
       "side": 1,
       "message": "This files a request for cellular, which should be unregistered afterwards with disconnectFromCell.\n\nSo you probably need to have a pair of requestCellular / unrequestCellular methods. Note that some devices don\u0027t have cellular always on, so the request is necessary there.\n\nMaybe requestMobileDataAndEnsureDefault / unrequestMobileData ?",
+      "revId": "f12aa69c467dd3032a0c4b3b591619cbf8a5826f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63c4ae28_608b8661",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-22T07:14:32Z",
+      "side": 1,
+      "message": "Done but make it requestCellularAndEnsureDefault for naming consistency.",
+      "parentUuid": "2b0b9ebc_929244ee",
       "revId": "f12aa69c467dd3032a0c4b3b591619cbf8a5826f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -138,6 +240,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "790961ed_2a5fd8dc",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-22T07:14:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d27832e0_4218d53f",
+      "range": {
+        "startLine": 101,
+        "startChar": 11,
+        "endLine": 101,
+        "endChar": 34
+      },
+      "revId": "f12aa69c467dd3032a0c4b3b591619cbf8a5826f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f74ab19d_ddefa4fa",
@@ -151,6 +277,24 @@
       "writtenOn": "2024-01-22T03:18:55Z",
       "side": 1,
       "message": "ConnectUtil.ensureWifiValidated can do that, and returns the Network",
+      "revId": "f12aa69c467dd3032a0c4b3b591619cbf8a5826f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59886f9a_99ba41e6",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-22T07:14:32Z",
+      "side": 1,
+      "message": "Since we are listening to specific wifi with specifier.\nThis cannot be done with ensureWifiValidated since it takes 0 argument.\nOtherwise, devices with multiple wifi capability might fail.\nOr I missed your point?",
+      "parentUuid": "f74ab19d_ddefa4fa",
       "revId": "f12aa69c467dd3032a0c4b3b591619cbf8a5826f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
