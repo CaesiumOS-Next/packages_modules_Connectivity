@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d414206_0d4c135d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 63
+      },
+      "lineNbr": 5037,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-22T09:56:35Z",
+      "side": 1,
+      "message": "Per discussion, it would be good if we could do this only once. Maybe you could ensure that the code that iterates over all networks always includes |nai|, even if it\u0027s no longer in mNetworkAgentInfos? Roughly like:\n\n    Set\u003cNetworkAgentInfo\u003e nais \u003d mNetworkAgentInfos.clone();\n    nais.add(nai);\n    // existing code",
+      "range": {
+        "startLine": 5037,
+        "startChar": 8,
+        "endLine": 5037,
+        "endChar": 33
+      },
+      "revId": "5f469be349f536d319742acbf58fee98cb3a7f2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
