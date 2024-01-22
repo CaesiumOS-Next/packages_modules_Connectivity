@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66716cdc_ff04d7a2",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1537,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-22T02:19:58Z",
+      "side": 1,
+      "message": "I added the hostname for the resolved service info here and below. Not sure if that\u0027s sufficient.",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
