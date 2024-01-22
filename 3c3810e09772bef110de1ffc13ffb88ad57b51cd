@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dbceeef_943e5506",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-22T03:37:28Z",
+      "side": 1,
+      "message": "LGTM but as per comment the test isn\u0027t ready ?",
+      "revId": "3c3810e09772bef110de1ffc13ffb88ad57b51cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "098af95c_72664d13",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1664,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-22T03:37:28Z",
+      "side": 1,
+      "message": "Nit: it would be good to have some comment on what is generally accepted:\n\n - You can register only a hostname, or a full service\n - A hostname optionally has addresses\n - With a full service, (name, type, port) is mandatory\n - With a full service, hostname can optionally be specified",
+      "revId": "3c3810e09772bef110de1ffc13ffb88ad57b51cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79d46529_e3844ba9",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-22T03:37:28Z",
+      "side": 1,
+      "message": "Nit: maybe mention that this is the default",
+      "range": {
+        "startLine": 195,
+        "startChar": 33,
+        "endLine": 195,
+        "endChar": 34
+      },
+      "revId": "3c3810e09772bef110de1ffc13ffb88ad57b51cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "188b10db_1ef76190",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1436,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-22T03:37:28Z",
+      "side": 1,
+      "message": "Nit: `apply` is more convenient because you don\u0027t need to say `it.`",
+      "range": {
+        "startLine": 1436,
+        "startChar": 35,
+        "endLine": 1436,
+        "endChar": 39
+      },
+      "revId": "3c3810e09772bef110de1ffc13ffb88ad57b51cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b39ee454_711ee714",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1519,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-22T03:37:28Z",
+      "side": 1,
+      "message": "Nit: this would be a bit less confusing with serviceName3 for si3",
+      "range": {
+        "startLine": 1519,
+        "startChar": 29,
+        "endLine": 1519,
+        "endChar": 41
+      },
+      "revId": "3c3810e09772bef110de1ffc13ffb88ad57b51cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f9ae790_5e957f42",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1626,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-22T03:37:28Z",
+      "side": 1,
+      "message": "Other things to test, probably in another change:\n\n - Have a conflict on the hostname (see tests using buildConflictingAnnouncement below as example), and verify you get whatever callback\n - Same thing for a hostname that is registered without addresses",
+      "revId": "3c3810e09772bef110de1ffc13ffb88ad57b51cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
