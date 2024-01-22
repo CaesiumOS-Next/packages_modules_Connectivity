@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f56d60ff_ce2bd97f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-01-22T17:32:46Z",
+      "side": 1,
+      "message": "nit: line breaks",
+      "revId": "76e128d19a6098680f1d7828fab2cf6764177600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71321163_56b5710b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-01-22T17:32:46Z",
+      "side": 1,
+      "message": "This logic should be able to be removed after the addition of the List of active tethering requests.",
+      "range": {
+        "startLine": 677,
+        "startChar": 16,
+        "endLine": 678,
+        "endChar": 46
+      },
+      "revId": "76e128d19a6098680f1d7828fab2cf6764177600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d05f60d_5058db34",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-01-22T17:32:46Z",
+      "side": 1,
+      "message": "Type needs to be changed so that the request from list can be found.",
+      "range": {
+        "startLine": 702,
+        "startChar": 23,
+        "endLine": 702,
+        "endChar": 31
+      },
+      "revId": "76e128d19a6098680f1d7828fab2cf6764177600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8820e431_3f0fd509",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-01-22T17:32:46Z",
+      "side": 1,
+      "message": "Change input to request. Do not overload",
+      "range": {
+        "startLine": 725,
+        "startChar": 41,
+        "endLine": 725,
+        "endChar": 49
+      },
+      "revId": "76e128d19a6098680f1d7828fab2cf6764177600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f51a43c_19ec4242",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-01-22T17:32:46Z",
+      "side": 1,
+      "message": "Should return result",
+      "range": {
+        "startLine": 746,
+        "startChar": 20,
+        "endLine": 746,
+        "endChar": 38
+      },
+      "revId": "76e128d19a6098680f1d7828fab2cf6764177600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5aa1060_0b5e92a6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-01-22T17:32:46Z",
+      "side": 1,
+      "message": "Keep the same function structure as the other tethering calls above.",
+      "range": {
+        "startLine": 748,
+        "startChar": 20,
+        "endLine": 748,
+        "endChar": 39
+      },
+      "revId": "76e128d19a6098680f1d7828fab2cf6764177600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac722bd0_ebf35dcf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1055,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-01-22T17:32:46Z",
+      "side": 1,
+      "message": "Update after changing to List",
+      "range": {
+        "startLine": 1052,
+        "startChar": 12,
+        "endLine": 1055,
+        "endChar": 54
+      },
+      "revId": "76e128d19a6098680f1d7828fab2cf6764177600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
