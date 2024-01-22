@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ac2fb93_b7c5e2d1",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingBaseTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-22T09:07:18Z",
+      "side": 1,
+      "message": "2 thoughts:\n- Probably we can rename it to `BorderRouterTestBase` so that we can service discovery test cases can also use it.\n- I think the name should ends with `TestBase` instead of `BaseTest` otherwise code viewers may think it also contains test cases.",
+      "revId": "bd6f2d3d75c944a2b1660df54ea06d7d7de00e2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9e71668_248c7fbb",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-22T09:07:18Z",
+      "side": 1,
+      "message": "I don\u0027t think you need to manually do this.",
+      "revId": "bd6f2d3d75c944a2b1660df54ea06d7d7de00e2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af324e4f_8486a09c",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-22T09:07:18Z",
+      "side": 1,
+      "message": "I don\u0027t think you need to manually do this.",
+      "revId": "bd6f2d3d75c944a2b1660df54ea06d7d7de00e2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "840f7e41_a73a47d3",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-22T09:07:18Z",
+      "side": 1,
+      "message": "I don\u0027t think you need to manually do this.",
+      "revId": "bd6f2d3d75c944a2b1660df54ea06d7d7de00e2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6d4e079_a049e8b2",
+        "filename": "thread/tests/integration/src/android/net/thread/FullThreadDevice.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-22T09:07:18Z",
+      "side": 1,
+      "message": "Is there a way we can check the registration is complete?\n\nAlso probably we can put the delay in the test case. Sometimes there\u0027s a common delay can be reused by multiple steps.",
+      "revId": "bd6f2d3d75c944a2b1660df54ea06d7d7de00e2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91499ec8_fa6afe3a",
+        "filename": "thread/tests/integration/src/android/net/thread/FullThreadDevice.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-22T09:07:18Z",
+      "side": 1,
+      "message": "Probably make this command configurable.",
+      "revId": "bd6f2d3d75c944a2b1660df54ea06d7d7de00e2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01769e3b_bba9741f",
+        "filename": "thread/tests/integration/src/android/net/thread/MulticastBorderRoutingTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-22T09:07:18Z",
+      "side": 1,
+      "message": "At a quick glance, I think it\u0027s meaningful to have a scenario when there are multiple FTDs subscribing to different MGs.",
+      "revId": "bd6f2d3d75c944a2b1660df54ea06d7d7de00e2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
