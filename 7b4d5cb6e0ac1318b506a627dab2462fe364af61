@@ -33,6 +33,46 @@
       "message": "Per discussion, adding LOCAL_NETWORK as a default forbidden capability broke module rollback and we don\u0027t think it\u0027s a viable way forward. After discussion we think the right way forward is to introduce a new NetworkCallback flag that says that the app wants to see local networks as well. That flag will need to go into the same SDK extension release as the Thread code. Can you coordinate with @motomuman@google.com on that?",
       "revId": "7b4d5cb6e0ac1318b506a627dab2462fe364af61",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e881a8a0_f8f44dd0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-22T09:01:42Z",
+      "side": 1,
+      "message": "but actually, this CL in itself seems fine and actually seems useful/necessary as well. Apps that request Thread networks won\u0027t need to specify it (except if they want to run only on BRs, where the thread network is local) but it will still be useful to include this capability in local networks for general information purposes.\n\nWith that, LGTM assuming the javadoc is fixed.",
+      "revId": "7b4d5cb6e0ac1318b506a627dab2462fe364af61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eaff2b3_27a3d6ad",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-22T09:01:42Z",
+      "side": 1,
+      "message": "This text needs to be removed - removeForbiddenCapability is not a public API and will not be becoming public. Instead it should be updated to refer to the new NetworkCallback flag mentioned in my earlier comment.",
+      "range": {
+        "startLine": 725,
+        "startChar": 70,
+        "endLine": 729,
+        "endChar": 94
+      },
+      "revId": "7b4d5cb6e0ac1318b506a627dab2462fe364af61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
