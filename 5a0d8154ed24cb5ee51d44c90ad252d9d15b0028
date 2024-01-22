@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1cfc55b_739aa444",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-22T06:32:53Z",
+      "side": 1,
+      "message": "getFlags() ? Since it\u0027s already in an AdvertisingRequest, and that\u0027s more standard naming as per API design guidelines",
+      "range": {
+        "startLine": 215,
+        "startChar": 23,
+        "endLine": 215,
+        "endChar": 43
+      },
+      "revId": "5a0d8154ed24cb5ee51d44c90ad252d9d15b0028",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59ccda9d_7443c754",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-22T06:32:53Z",
+      "side": 1,
+      "message": "See the guidelines for flag setters at: https://android.googlesource.com/platform/developers/docs/+/975a589941f728f6c6ce6fbbd7517ca854bc61ba/api-guidelines/index.md#bitmask-accessors\n\nApparently there should be 2 setters",
+      "revId": "5a0d8154ed24cb5ee51d44c90ad252d9d15b0028",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "675309bd_87cab07b",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-22T06:32:53Z",
+      "side": 1,
+      "message": "This is probably our change to stop using mutable objects for the advertising requests, and stop sharing the same object for advertising and discovered services; so I\u0027m not sure about having NsdServiceInfo part of the API.\n\nCould we have setters for each NsdServiceInfo field, and getters in AdvertisingRequest instead ?",
+      "range": {
+        "startLine": 156,
+        "startChar": 23,
+        "endLine": 156,
+        "endChar": 58
+      },
+      "revId": "5a0d8154ed24cb5ee51d44c90ad252d9d15b0028",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
