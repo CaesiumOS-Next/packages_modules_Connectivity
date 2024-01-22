@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "591dfe02_567ff31a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-22T11:29:33Z",
+      "side": 1,
+      "message": "Currently all calls to ot-daemon are queued and each should complete with success (unless ot-daemon is not available).",
+      "parentUuid": "75546c1e_da7fb681",
+      "range": {
+        "startLine": 361,
+        "startChar": 12,
+        "endLine": 361,
+        "endChar": 85
+      },
+      "revId": "94d0cb22dd82f64a9271d71c1bc2e323b2bf2fb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4f1b1c02_88c8b43a",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 10
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "It will make the API inconsistent: the caller is told that setEnabled() failed via the API callback but the device eventually reboots into a success state.\n\nIf we want to make the persistent settings the source of truth of the enabled state, then we should remove the callback of the setEnabled API and assume OT daemon always success on setEnabled (it can fail only because OT daemon is crashed and the enabled state will be re-initialized when OT daemon is restarted).",
       "parentUuid": "4f1b1c02_88c8b43a",
+      "revId": "94d0cb22dd82f64a9271d71c1bc2e323b2bf2fb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50e56db3_54e17ffe",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-22T11:29:33Z",
+      "side": 1,
+      "message": "Updated to write persistent settings first. The call to ot-daemon should succeed unless ot-daemon is unavailable, in which case after reboot it will recover to the desired state.",
+      "parentUuid": "6189e5aa_90aa74bc",
       "revId": "94d0cb22dd82f64a9271d71c1bc2e323b2bf2fb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
