@@ -2049,6 +2049,15 @@ public class BpfCoordinator {
             maybeSetLimit(upstreamIndex);
             mBpfCoordinatorShim.tetherOffloadRuleAdd(UPSTREAM, upstream4Key, upstream4Value);
             mBpfCoordinatorShim.tetherOffloadRuleAdd(DOWNSTREAM, downstream4Key, downstream4Value);
+
+            // Between the conntrack event 'e' being generated and the above bpf map writes
+            // landing, a packet *may* have gone through the non-offloaded code path, thus
+            // the kernel conntrack timeout may have been lowered waiting for an upcoming ACK.
+
+            // are these args in the right order? do we need to update both directions?
+            updateConntrackTimeout(e.tupleOrig.protoNum,
+                e.tupleOrig.srcIp, e.tupleOrig.srcPort,
+                e.tupleOrig.dstIp, e.tupleOrig.dstPort);
         }
     }
 
