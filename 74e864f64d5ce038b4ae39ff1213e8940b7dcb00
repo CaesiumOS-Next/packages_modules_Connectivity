@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ebc9a52_4cda8c45",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-22T02:37:02Z",
+      "side": 1,
+      "message": "You are right, this is a behavior change, so revert this change first. Will create another change if this is fix is necessary.",
+      "parentUuid": "5db7fabd_505d3a18",
+      "range": {
+        "startLine": 112,
+        "startChar": 68,
+        "endLine": 113,
+        "endChar": 36
+      },
+      "revId": "74e864f64d5ce038b4ae39ff1213e8940b7dcb00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "902eae36_b930d716",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-01-17T11:28:40Z",
       "side": 1,
       "message": "This is not true anymore",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 200,
+        "endChar": 94
+      },
+      "revId": "74e864f64d5ce038b4ae39ff1213e8940b7dcb00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d95b2107_0f1989aa",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-22T02:37:02Z",
+      "side": 1,
+      "message": "Revert the change in `onNetworkUnrequested()`, so keep this comment.",
+      "parentUuid": "902eae36_b930d716",
       "range": {
         "startLine": 200,
         "startChar": 8,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1309928_61aaf535",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-22T02:37:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efef05f0_ac99930b",
+      "range": {
+        "startLine": 113,
+        "startChar": 51,
+        "endLine": 113,
+        "endChar": 62
+      },
+      "revId": "74e864f64d5ce038b4ae39ff1213e8940b7dcb00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30063e8a_48fc3c72",
@@ -100,6 +172,24 @@
       "writtenOn": "2024-01-17T11:37:11Z",
       "side": 1,
       "message": "It seems using 3 callbacks doesn\u0027t test much more than if there were 2. So how about having the 3rd callback request a null network, and get 2 sockets ? This would test that the callbacks happen properly even if there\u0027s another socket on that callback.",
+      "revId": "74e864f64d5ce038b4ae39ff1213e8940b7dcb00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ce1b618_98febac1",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-22T02:37:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30063e8a_48fc3c72",
       "revId": "74e864f64d5ce038b4ae39ff1213e8940b7dcb00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
