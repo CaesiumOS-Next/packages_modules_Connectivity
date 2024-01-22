@@ -16,6 +16,7 @@
 
 package com.android.networkstack.tethering;
 
+import static com.android.net.module.util.netlink.NetlinkUtils.SOCKET_RECV_BUFSIZE;
 import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_DUMP;
 import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_REQUEST;
 
@@ -199,6 +200,8 @@ public class OffloadHardwareInterface {
             final FileDescriptor fd;
             try {
                 fd = NetlinkUtils.netlinkSocketForProto(OsConstants.NETLINK_NETFILTER);
+                Os.setsockoptInt(fd, OsConstants.SOL_SOCKET, OsConstants.SO_RCVBUF,
+                        SOCKET_RECV_BUFSIZE);
             } catch (ErrnoException e) {
                 mLog.e("Unable to create conntrack socket " + e);
                 return null;

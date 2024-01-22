@@ -229,16 +229,14 @@ public class NetlinkUtils {
      * @throws ErrnoException if the FileDescriptor not connect to be created successfully
      */
     public static FileDescriptor netlinkSocketForProto(int nlProto) throws ErrnoException {
-        final FileDescriptor fd = Os.socket(AF_NETLINK, SOCK_DGRAM, nlProto);
-        Os.setsockoptInt(fd, SOL_SOCKET, SO_RCVBUF, SOCKET_RECV_BUFSIZE);
-        return fd;
+        return Os.socket(AF_NETLINK, SOCK_DGRAM | SOCK_CLOEXEC, nlProto);
     }
 
     /**
      * Construct a netlink inet_diag socket.
      */
     public static FileDescriptor createNetLinkInetDiagSocket() throws ErrnoException {
-        return Os.socket(AF_NETLINK, SOCK_DGRAM | SOCK_CLOEXEC, NETLINK_INET_DIAG);
+        return netlinkSocketForProto(NETLINK_INET_DIAG);
     }
 
     /**
