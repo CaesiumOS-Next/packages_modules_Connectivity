@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81072494_713442d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-22T06:15:17Z",
+      "side": 1,
+      "message": "Finished going through the code but not unit tests, as instructed",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66716cdc_ff04d7a2",
@@ -35,6 +52,47 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e99c07c2_34618c93",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1537,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-22T06:15:17Z",
+      "side": 1,
+      "message": "LGTM",
+      "parentUuid": "66716cdc_ff04d7a2",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "030a5dc8_ffa36551",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1719,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-22T06:15:17Z",
+      "side": 1,
+      "message": "There\u0027s a number of RFCs that completed this one and made hostnames more flexible in some cases.\n\nI\u0027m not sure it\u0027s very clear whether non-ASCII UTF-8 should be disallowed in the hostname, at least technically it is already in the qname for the SRV/TXT records (but the RFC says that\u0027s \"because they\u0027re not host names\").\n\nIn any case, you could mention that we only allow RFC1035 hostnames for now, and only alphanumerical characters.",
+      "range": {
+        "startLine": 1719,
+        "startChar": 59,
+        "endLine": 1719,
+        "endChar": 78
+      },
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0abc792a_dc2e31de",
@@ -48,6 +106,23 @@
       "writtenOn": "2024-01-22T04:46:25Z",
       "side": 1,
       "message": "I think there\u0027s already a regex for this somewhere in the API surface, but I couldn\u0027t find it... I think it was somewhere around the Uri or webkit APIs but need some more searching",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bc33c14_57c76bb3",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 2162,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-22T06:15:17Z",
+      "side": 1,
+      "message": "Could you call NsdManager#checkServiceInfoForRegistration before sending the message ?\n\nOtherwise some apps could craft binder queries that don\u0027t match the general expectations (for example missing port, no hostname and no service etc)",
       "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -288,6 +363,80 @@
         "endLine": 1055,
         "endChar": 43
       },
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59cad88d_8fe2f805",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1063,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-22T06:15:17Z",
+      "side": 1,
+      "message": "I think this should be considered a conflict anyway ? Because for example if you register a hostname with a key record, the advertiser should defend the name",
+      "range": {
+        "startLine": 1062,
+        "startChar": 68,
+        "endLine": 1063,
+        "endChar": 26
+      },
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6386f68e_ac409356",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1074,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-22T06:15:17Z",
+      "side": 1,
+      "message": "If the other comment above is implemented, this case doesn\u0027t need to be considered here",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9274f6a2_1e2d0dca",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-22T06:15:17Z",
+      "side": 1,
+      "message": "Nit: considering this is only used below, it may be simper to inline this in forEachServiceRegistrationWithHostname",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6c78c0f_8bc860e3",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-22T06:15:17Z",
+      "side": 1,
+      "message": "Nit: long line (also below)",
       "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
