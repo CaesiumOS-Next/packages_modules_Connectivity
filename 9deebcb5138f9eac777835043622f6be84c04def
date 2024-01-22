@@ -16,6 +16,42 @@
       "message": "I think you need to get the name from `mUpstreamNetwork`.\n\n```suggestion\n            String existingIfName \u003d mNetworkToInterface.get(mUpstreamNetwork);\n```",
       "revId": "9deebcb5138f9eac777835043622f6be84c04def",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e046301_2f998d3a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-22T04:38:26Z",
+      "side": 1,
+      "message": "Resolved via offline discussion. Here we don\u0027t care about the switching between networks. We only care about the interface name change of the same network.",
+      "parentUuid": "ddf258ec_e8d35c8b",
+      "revId": "9deebcb5138f9eac777835043622f6be84c04def",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8845a4a_b58367ea",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-22T04:38:26Z",
+      "side": 1,
+      "message": "Resolved via offline discussion. Here we don\u0027t care about the",
+      "parentUuid": "ddf258ec_e8d35c8b",
+      "revId": "9deebcb5138f9eac777835043622f6be84c04def",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
