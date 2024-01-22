@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddf258ec_e8d35c8b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-22T04:16:15Z",
+      "side": 1,
+      "message": "I think you need to get the name from `mUpstreamNetwork`.\n\n```suggestion\n            String existingIfName \u003d mNetworkToInterface.get(mUpstreamNetwork);\n```",
+      "revId": "9deebcb5138f9eac777835043622f6be84c04def",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
