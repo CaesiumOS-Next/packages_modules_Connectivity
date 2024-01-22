@@ -93,6 +93,30 @@
       },
       "revId": "57ee72d122fc82bf311728ca903253e440e57eb3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6093a17_0f779696",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2818,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2024-01-22T10:48:49Z",
+      "side": 1,
+      "message": "Do it in a follow-up commit aosp/2919647.",
+      "parentUuid": "33686276_b104b0ad",
+      "range": {
+        "startLine": 2818,
+        "startChar": 4,
+        "endLine": 2818,
+        "endChar": 5
+      },
+      "revId": "57ee72d122fc82bf311728ca903253e440e57eb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
