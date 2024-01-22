@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9197a035_e2571ead",
+        "filename": "service-t/src/com/android/server/net/SkDestroyListener.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2024-01-22T10:25:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6149d5a_15948a98",
+      "range": {
+        "startLine": 81,
+        "startChar": 16,
+        "endLine": 81,
+        "endChar": 27
+      },
+      "revId": "57ee72d122fc82bf311728ca903253e440e57eb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a29cd96c_618a58f6",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-22T02:44:29Z",
       "side": 1,
       "message": "nits: I think this test can verify the mSkDestroyListener.dump is called from NetworkStats.dump.\nAnd SkDestroyListenerTest can verify the mSkDestroyListener.dump calls mLog.reverseDump",
+      "range": {
+        "startLine": 2818,
+        "startChar": 4,
+        "endLine": 2818,
+        "endChar": 5
+      },
+      "revId": "57ee72d122fc82bf311728ca903253e440e57eb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33686276_b104b0ad",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2818,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2024-01-22T10:25:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a29cd96c_618a58f6",
       "range": {
         "startLine": 2818,
         "startChar": 4,
