@@ -229,8 +229,15 @@ public class NetlinkUtils {
      * @throws ErrnoException if the FileDescriptor not connect to be created successfully
      */
     public static FileDescriptor netlinkSocketForProto(int nlProto) throws ErrnoException {
-        final FileDescriptor fd = Os.socket(AF_NETLINK, SOCK_DGRAM, nlProto);
-        Os.setsockoptInt(fd, SOL_SOCKET, SO_RCVBUF, SOCKET_RECV_BUFSIZE);
+        final FileDescriptor fd = Os.socket(AF_NETLINK, SOCK_DGRAM | SOCK_CLOEXEC, nlProto);
+
+        final int bufferSize = Os.getsockoptInt(fd, SOL_SOCKET, SO_RCVBUF) / 2;
+        if (bufferSize < SOCKET_RECV_BUFSIZE) {
+            // TODO: add Log.wtf(TAG, "Unreasonably small socket buffer size, correcting"); if this
+            // will not be too verbose
+            Os.setsockoptInt(fd, SOL_SOCKET, SO_RCVBUF, SOCKET_RECV_BUFSIZE);
+        }
+
         return fd;
     }
 
@@ -238,7 +245,7 @@ public class NetlinkUtils {
      * Construct a netlink inet_diag socket.
      */
     public static FileDescriptor createNetLinkInetDiagSocket() throws ErrnoException {
-        return Os.socket(AF_NETLINK, SOCK_DGRAM | SOCK_CLOEXEC, NETLINK_INET_DIAG);
+        return netlinkSocketForProto(NETLINK_INET_DIAG);
     }
 
     /**
