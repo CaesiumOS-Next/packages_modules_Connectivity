@@ -16,6 +16,23 @@
       "message": "@wgtdkp@google.com Any idea how to solve this?\n\nhttps://android-build.corp.google.com/artifact/pending/P66765640/aosp_cheetah-trunk_staging-userdebug/latest/view/logs%2Fbuild_error.log",
       "revId": "7b4d5cb6e0ac1318b506a627dab2462fe364af61",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a50c6947_847bfd15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-22T08:53:36Z",
+      "side": 1,
+      "message": "Per discussion, adding LOCAL_NETWORK as a default forbidden capability broke module rollback and we don\u0027t think it\u0027s a viable way forward. After discussion we think the right way forward is to introduce a new NetworkCallback flag that says that the app wants to see local networks as well. That flag will need to go into the same SDK extension release as the Thread code. Can you coordinate with @motomuman@google.com on that?",
+      "revId": "7b4d5cb6e0ac1318b506a627dab2462fe364af61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
