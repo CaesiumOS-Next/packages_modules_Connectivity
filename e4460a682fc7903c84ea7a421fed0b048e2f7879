@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14fe3227_5d00a2f0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4058,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-22T00:58:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3b2790e_2d199e50",
+      "range": {
+        "startLine": 4058,
+        "startChar": 17,
+        "endLine": 4058,
+        "endChar": 60
+      },
+      "revId": "e4460a682fc7903c84ea7a421fed0b048e2f7879",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0d642e2_e713123a",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7402880d_96b19573",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9159,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-22T00:58:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0d642e2_e713123a",
+      "range": {
+        "startLine": 9159,
+        "startChar": 12,
+        "endLine": 9159,
+        "endChar": 92
+      },
+      "revId": "e4460a682fc7903c84ea7a421fed0b048e2f7879",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5d601c6_7b6c3c4b",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-01-19T06:34:15Z",
       "side": 1,
       "message": "If the local network does not try to configure multicast routing, I think it\u0027s not a error.\nSo maybe we don\u0027t need log?",
+      "range": {
+        "startLine": 9173,
+        "startChar": 0,
+        "endLine": 9173,
+        "endChar": 93
+      },
+      "revId": "e4460a682fc7903c84ea7a421fed0b048e2f7879",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "febb0f59_c0088552",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9173,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-22T00:58:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5d601c6_7b6c3c4b",
       "range": {
         "startLine": 9173,
         "startChar": 0,
