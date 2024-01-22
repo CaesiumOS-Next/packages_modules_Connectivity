@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1da47ba9_13b48f1d",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-22T13:11:51Z",
+      "side": 1,
+      "message": "nit:\n```suggestion\n    field public static final int STATE_DISABLED \u003d 0; // 0x0\n    field public static final int STATE_ENABLED \u003d 1; // 0x1\n```\n\nSuppose this API change is not reviewed by @lorenzo@google.com\n\nDon\u0027t we need a common prefix for the enabled state constants?",
+      "range": {
+        "startLine": 511,
+        "startChar": 0,
+        "endLine": 512,
+        "endChar": 53
+      },
+      "revId": "4a0a202d6455d8b7ac193a65bc4a3ab67ad99551",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
