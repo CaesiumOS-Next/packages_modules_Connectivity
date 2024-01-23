@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf0869db_ca0b380b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-23T08:34:37Z",
+      "side": 1,
+      "message": "Discussed with Kangpng today. It sounds like currently, most/all commands are processed immediately, but only enable/disable commands are queued? That seems difficult for an app to understand. If all commands are queued, this is easy to understand. If no commands are queued, that is also easy to understand. But if some are queued and some not, it\u0027s difficult to understand, because callbacks for later operations might be called before callbacks for earlier operations. Example: if I call enable; disable; enable; disable; enable; join, what should happen? I would expect the join to succeeed. But in practice, the enable/disable/enable commands are queued, and the join is not, so the join fails, and then the enable/disable/enable/... commands run.\n\nThis is confusing: generally the basic premise of an asynchronous interface is that if you do things in a given order, they happen in that order, not in whatever order the implementation wants.\n\nI would suggest instead doing a model where callers can predict what is going to happen:\n1. Either never queue any commands, or always queue all commands. (\"Never queue\" seems much easier to implement. Also, because some commands need to be able to interrupt other commands - for example, disable needs to be able to interrupt join, \"always queue\" isn\u0027t feasible at all.)\n2. Define a DISABLING state. If any command (including setEnabled(true) is called in this state, it fails with ERROR_THREAD_DISABLED or maybe a new ERROR_THREAD_DISABLING).\n3. Say in the documentation that any commands sent during DISABLING state will fail and that any app that wants to enable thread must wait until the state callback has told it that the state is DISABLED.\n\nAs for what to do with the OutcomeReceiver, I think there are two options. My initial suggestion was to clearly document that the outcomereceiver either reports an error, or reports that the operation *has started* (but not necessarily completed). I think that\u0027s still my preference, because I find it hard to imagine how an outcomereceiver should work when commands can overlap (as they can here - disable just \"takes longer\" than the other commands).\n\nThat said - I think that if you implement the comments above, then the OutcomeReceiver can simply wait until the command is complete and things might mostly make sense. There is still some confusion, for example if an app calls \"disable; join\" or \"disable; enable\" then the second command (join, or enable) will fail before the disable completes. But maybe this is fine.",
+      "parentUuid": "591dfe02_567ff31a",
+      "range": {
+        "startLine": 361,
+        "startChar": 12,
+        "endLine": 361,
+        "endChar": 85
+      },
+      "revId": "94d0cb22dd82f64a9271d71c1bc2e323b2bf2fb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4f1b1c02_88c8b43a",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 10
