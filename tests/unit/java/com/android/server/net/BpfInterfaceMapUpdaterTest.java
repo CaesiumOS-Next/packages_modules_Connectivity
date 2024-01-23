@@ -30,7 +30,6 @@ import static org.mockito.Mockito.when;
 
 import android.content.Context;
 import android.net.INetd;
-import android.net.MacAddress;
 import android.os.Build;
 import android.os.Handler;
 import android.os.test.TestLooper;
@@ -41,7 +40,6 @@ import androidx.test.filters.SmallTest;
 
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.IBpfMap;
-import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.Struct.S32;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
@@ -81,16 +79,13 @@ public final class BpfInterfaceMapUpdaterTest {
         }
 
         @Override
-        public InterfaceParams getInterfaceParams(String ifaceName) {
+        public int getInterfaceIndex(String ifaceName) {
             if (ifaceName.equals(TEST_INTERFACE_NAME)) {
-                return new InterfaceParams(TEST_INTERFACE_NAME, TEST_INDEX,
-                        MacAddress.ALL_ZEROS_ADDRESS);
+                return TEST_INDEX;
             } else if (ifaceName.equals(TEST_INTERFACE_NAME2)) {
-                return new InterfaceParams(TEST_INTERFACE_NAME2, TEST_INDEX2,
-                        MacAddress.ALL_ZEROS_ADDRESS);
+                return TEST_INDEX2;
             }
-
-            return null;
+            return 0;
         }
 
         @Override

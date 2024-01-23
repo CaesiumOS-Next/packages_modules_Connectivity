@@ -15,6 +15,7 @@
  */
 package com.android.server.net;
 
+import android.annotation.NonNull;
 import android.content.Context;
 import android.net.INetd;
 import android.os.Handler;
@@ -22,6 +23,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.system.ErrnoException;
+import android.system.Os;
 import android.util.IndentingPrintWriter;
 import android.util.Log;
 
@@ -30,8 +32,14 @@ import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.BpfDump;
 import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.IBpfMap;
-import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.Struct.S32;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.Thread;
+import java.nio.file.Path;
+import java.nio.file.Files;
+import java.util.Objects;
 
 /**
  * Monitor interface added (without removed) and right interface name and its index to bpf map.
@@ -74,9 +82,56 @@ public class BpfInterfaceMapUpdater {
             }
         }
 
-        /** Get InterfaceParams for giving interface name. */
-        public InterfaceParams getInterfaceParams(String ifaceName) {
-            return InterfaceParams.getByName(ifaceName);
+        /** Get index for the given interface name. 0 if error. */
+        public int getInterfaceIndex(@NonNull String ifaceName) {
+            Objects.requireNonNull(ifaceName);
+            // prevent spurious kernel network driver module loads for non-existing interfaces
+            String p = "/sys/class/net/" + ifaceName + "/ifindex";
+            File file = new File(p);
+            if (!file.exists()) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Log.e(TAG, "sleep1 busted");
+                }
+                if (file.exists()) {
+                    Log.e(TAG, "getInterfaceIndex for " + ifaceName + " called which *DID* not exist!!!");
+                } else {
+                    Log.e(TAG, "getInterfaceIndex for " + ifaceName + " called which still does not exist.");
+                }
+            }
+            if (!file.exists()) return 0;
+            int j = Os.if_nametoindex(ifaceName);
+            if (j == 0) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Log.e(TAG, "sleep2 busted");
+                }
+                j = Os.if_nametoindex(ifaceName);
+                if (j == 0) {
+                    Log.e(TAG, "if_nametoindex for " + ifaceName + " returned 0 twice (broken).");
+                } else {
+                    Log.e(TAG, "if_nametoindex for " + ifaceName + " returned 0 once (race fixed).");
+                }
+            }
+            if (j == 0) {
+                Path pth = Path.of(p);
+
+//        try (SeekableByteChannel sbc = Files.newByteChannel(pth);
+//             InputStream in = Channels.newInputStream(sbc)) {
+//            byte[] b = read(in, 32);
+//        }
+
+                try {
+                    String s = Files.newBufferedReader(pth).readLine();
+                    j = Integer.parseInt(s);
+                    Log.e(TAG, "readString " + pth + " returned " + s + " aka " + j);
+                } catch (IOException e) {
+                    Log.e(TAG, "ioEx " + e);
+                }
+            }
+            return j;
         }
 
         /** Get INetd binder object. */
@@ -119,14 +174,17 @@ public class BpfInterfaceMapUpdater {
     }
 
     private void addInterface(String ifaceName) {
-        final InterfaceParams iface = mDeps.getInterfaceParams(ifaceName);
-        if (iface == null) {
-            Log.e(TAG, "Unable to get InterfaceParams for " + ifaceName);
+        if (ifaceName == null) {
+            Log.e(TAG, "Unable to addInterface for null interface name");
             return;
         }
-
+        final int index = mDeps.getInterfaceIndex(ifaceName);
+        if (index == 0) {
+            Log.e(TAG, "Unable to get index for " + ifaceName);
+            return;
+        }
         try {
-            mIndexToIfaceBpfMap.updateEntry(new S32(iface.index), new InterfaceMapValue(ifaceName));
+            mIndexToIfaceBpfMap.updateEntry(new S32(index), new InterfaceMapValue(ifaceName));
         } catch (ErrnoException e) {
             Log.e(TAG, "Unable to update entry for " + ifaceName + ", " + e);
         }
