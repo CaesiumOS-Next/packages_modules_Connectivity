@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cf45f56_46d3bc1f",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 40
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-23T09:15:54Z",
+      "side": 1,
+      "message": "If we never implemented anything other than PROTOCOL_DNS_SD, and don\u0027t plan to implement anything other than that, then we should probably just remove this - especially since there is no setter for it in the builder.",
+      "range": {
+        "startLine": 216,
+        "startChar": 22,
+        "endLine": 216,
+        "endChar": 37
+      },
+      "revId": "a7622609801f10101988e9b06e8b53f273a8e28c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b238a3e8_70def2f3",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 40
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-23T09:15:54Z",
+      "side": 1,
+      "message": "Per discussion: since we don\u0027t plan to use this class to do anything than discover services, and the only way to discover services is to pass in a service type, this should be passed in to the constructor and setServiceType should be removed.",
+      "range": {
+        "startLine": 224,
+        "startChar": 41,
+        "endLine": 224,
+        "endChar": 56
+      },
+      "revId": "a7622609801f10101988e9b06e8b53f273a8e28c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
