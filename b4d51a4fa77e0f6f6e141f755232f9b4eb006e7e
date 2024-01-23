@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8c31364_0b47ef20",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-23T09:45:55Z",
+      "side": 1,
+      "message": "Instead of 2 nested loops you could do:\n```\n    for (knownAnswer : knownAnswers) {\n        final int idx \u003d answers.indexOf(knownAnswer);\n        if (idx \u003e\u003d 0 \u0026\u0026 knownAnswer.ttl \u003e answers.valueAt(idx).ttl / 2) {\n            answers.removeAt(idx);\n        }\n    }\n```",
+      "revId": "b4d51a4fa77e0f6f6e141f755232f9b4eb006e7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8d03446_99555e86",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-23T09:45:55Z",
+      "side": 1,
+      "message": "Nit: this might be slightly simpler as:\n\n```\nqueuingReply \u003d\u003d null ? reply.destination : getReplyDestination(...)\n```\n\nAnd arguments to getReplyDestination can be @NonNull",
+      "range": {
+        "startLine": 192,
+        "startChar": 20,
+        "endLine": 192,
+        "endChar": 39
+      },
+      "revId": "b4d51a4fa77e0f6f6e141f755232f9b4eb006e7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2341fd50_e46b8b1f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-23T09:45:55Z",
+      "side": 1,
+      "message": "Nit: that\u0027s really unexpected right ? Could this Log.wtf ?",
+      "revId": "b4d51a4fa77e0f6f6e141f755232f9b4eb006e7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5aaca24_f5b165fc",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsReplySenderTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-23T09:45:55Z",
+      "side": 1,
+      "message": "nit: `enableKAS \u003d true` is better than a comment since it fails building if it becomes out-of-sync",
+      "range": {
+        "startLine": 156,
+        "startChar": 39,
+        "endLine": 156,
+        "endChar": 44
+      },
+      "revId": "b4d51a4fa77e0f6f6e141f755232f9b4eb006e7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3afcff8e_0e76dbb2",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsReplySenderTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-23T09:45:55Z",
+      "side": 1,
+      "message": "Nit: maybe also check the count is the same to make sure there\u0027s no duplicate\n\nOr `assertEquals(mdnsPacket.answers.toSet(), remainingAnswers.toSet())` would give better error messages when it fails",
+      "revId": "b4d51a4fa77e0f6f6e141f755232f9b4eb006e7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4a01f29_898fd7b7",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsReplySenderTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-23T09:45:55Z",
+      "side": 1,
+      "message": "Nit:\n\n```\nval (handler, message) \u003d verifyMessageQueued(...)\n```\n\nwould be clearer",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 200,
+        "endChar": 40
+      },
+      "revId": "b4d51a4fa77e0f6f6e141f755232f9b4eb006e7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c895330_79e56ea6",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsReplySenderTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-23T09:45:55Z",
+      "side": 1,
+      "message": "Nit: this verifies it was only called 2 times, for the first 2 messages, but not the 3rd time because all answers are known ? If yes a comment would help make it clearer",
+      "revId": "b4d51a4fa77e0f6f6e141f755232f9b4eb006e7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
