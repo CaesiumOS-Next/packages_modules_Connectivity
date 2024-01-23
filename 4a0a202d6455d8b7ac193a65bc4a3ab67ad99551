@@ -22,6 +22,30 @@
       },
       "revId": "4a0a202d6455d8b7ac193a65bc4a3ab67ad99551",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84cadb98_291cf39b",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-23T02:57:04Z",
+      "side": 1,
+      "message": "A common prefix is a good idea. You can then define an IntDef for it with prefix \u003d \"STATE_\". You can look at FIREWALL_CHAIN_xxx constants for an example.\n\nIf this is specific to controllers, you can also call it CONTROLLER_STATE_ENABLED or CONTROLLER_STATE_DISABLED.",
+      "parentUuid": "1da47ba9_13b48f1d",
+      "range": {
+        "startLine": 511,
+        "startChar": 0,
+        "endLine": 512,
+        "endChar": 53
+      },
+      "revId": "4a0a202d6455d8b7ac193a65bc4a3ab67ad99551",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
