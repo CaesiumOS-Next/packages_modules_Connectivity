@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5069631c_898a7e72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-23T03:24:05Z",
+      "side": 1,
+      "message": "I have moved this CL to the `system/libsysprop/srcs/android/sysprop/`. Could you help review the new CL https://android-review.git.corp.google.com/c/platform/system/libsysprop/+/2923770 ?",
+      "parentUuid": "68dfb8a2_fa5125f9",
+      "revId": "4d7a9494a2f245d7a2d73b24a99aca55a55e4a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b9cdbe0_4dd75fdc",
         "filename": "thread/sysprop/Android.bp",
         "patchSetId": 7
