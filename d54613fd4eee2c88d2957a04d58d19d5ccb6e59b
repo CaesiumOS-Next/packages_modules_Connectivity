@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6fc69b3_a8792034",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-23T07:32:38Z",
+      "side": 0,
+      "message": "I think this will still happen with the latest patchset ?",
+      "revId": "d54613fd4eee2c88d2957a04d58d19d5ccb6e59b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
