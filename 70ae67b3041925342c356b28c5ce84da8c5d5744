@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b745039_bac4dd8b",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1552,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-23T09:55:26Z",
+      "side": 1,
+      "message": "Returning null would take a lot of time (the poll timeout); could you instead send another query after the previous 3, and verify that you get a reply for that one (before the first ones) ?\n\nAlso it would be useful to have a test that verifies getting a reply with only some of the records (because other records were known)",
+      "revId": "70ae67b3041925342c356b28c5ce84da8c5d5744",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
