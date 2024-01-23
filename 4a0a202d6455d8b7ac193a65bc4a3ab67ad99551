@@ -46,6 +46,30 @@
       },
       "revId": "4a0a202d6455d8b7ac193a65bc4a3ab67ad99551",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0feb2029_40e902c1",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-23T04:41:34Z",
+      "side": 1,
+      "message": "Thanks, added common prefix `STATE_`.",
+      "parentUuid": "84cadb98_291cf39b",
+      "range": {
+        "startLine": 511,
+        "startChar": 0,
+        "endLine": 512,
+        "endChar": 53
+      },
+      "revId": "4a0a202d6455d8b7ac193a65bc4a3ab67ad99551",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
