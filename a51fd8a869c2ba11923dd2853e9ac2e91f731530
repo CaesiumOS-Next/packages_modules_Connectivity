@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f45d4317_752b21b1",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T07:46:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01bc9613_d792da18",
+      "range": {
+        "startLine": 815,
+        "startChar": 47,
+        "endLine": 815,
+        "endChar": 50
+      },
+      "revId": "a51fd8a869c2ba11923dd2853e9ac2e91f731530",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca6924bd_9d3a966a",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cbbefba_03aac3e2",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T07:46:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca6924bd_9d3a966a",
+      "range": {
+        "startLine": 816,
+        "startChar": 47,
+        "endLine": 816,
+        "endChar": 54
+      },
+      "revId": "a51fd8a869c2ba11923dd2853e9ac2e91f731530",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8f50c6f_32ec41b7",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-01-22T05:26:58Z",
       "side": 1,
       "message": "It\u0027s also important to assert on the \"id\" TXT entry",
+      "range": {
+        "startLine": 842,
+        "startChar": 8,
+        "endLine": 843,
+        "endChar": 49
+      },
+      "revId": "a51fd8a869c2ba11923dd2853e9ac2e91f731530",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7d84242_c25a7203",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T07:46:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8f50c6f_32ec41b7",
       "range": {
         "startLine": 842,
         "startChar": 8,
