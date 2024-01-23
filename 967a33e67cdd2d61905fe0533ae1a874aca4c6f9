@@ -93,6 +93,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb710250_ab15af6d",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1719,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "030a5dc8_ffa36551",
+      "range": {
+        "startLine": 1719,
+        "startChar": 59,
+        "endLine": 1719,
+        "endChar": 78
+      },
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0abc792a_dc2e31de",
@@ -112,6 +136,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d6692f55_8663370c",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1727,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "I only found one here: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/framework/com/android/net/module/util/ProxyUtils.java;l\u003d47;drc\u003dc291b2137f9c8f68f67daafddb76c66b8cca3a66\n\nI doubt if it\u0027s usable by here because it contains dots.",
+      "parentUuid": "0abc792a_dc2e31de",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1bc33c14_57c76bb3",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 21
@@ -123,6 +165,24 @@
       "writtenOn": "2024-01-22T06:15:17Z",
       "side": 1,
       "message": "Could you call NsdManager#checkServiceInfoForRegistration before sending the message ?\n\nOtherwise some apps could craft binder queries that don\u0027t match the general expectations (for example missing port, no hostname and no service etc)",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "244dfd36_e6ea09f1",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 2162,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "To achieve this, I made `NsdManager#checkServiceInfoForRegistration` a @hide public static method. Let me know if I\u0027m not doing it appropriately.",
+      "parentUuid": "1bc33c14_57c76bb3",
       "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -150,6 +210,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "689d3415_f2fd491a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c58d334_d86bd4c0",
+      "range": {
+        "startLine": 155,
+        "startChar": 23,
+        "endLine": 155,
+        "endChar": 24
+      },
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fb0db2f_7f134481",
@@ -163,6 +247,24 @@
       "writtenOn": "2024-01-22T04:46:25Z",
       "side": 1,
       "message": "In the design doc for NSD APIs for thread there\u0027s this:\n\n```\nIf {@link #FLAG_NO_AUTO_RENAME} is used in {@code flags}, {@link #FAILURE_SERVICE_NAME_CONFLICT}\nwill be reported if the service name has already been registered by another device or app with\ndifferent UID on the same device; and {@link FAILURE_HOST_NAME_CONFLICT} will be reported only when\nthe same host name has been registered by another device (there won\u0027t be an error if it\u0027s registered\nby another app on the same device)\n```\n\nI don\u0027t remember why the last thing was written though; if one app can register the same hostname, adding addresses to it, then it could interfere with the service registration of the first app, sending its clients to a different server ?\n\nThat doesn\u0027t seem right; this should probably fail the registration if there\u0027s a conflict due to service hostname when the UID of the registration is different ?\n\nThat should be easy to achieve by putting the uid in the Registration, and passing it from NsdService",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f00f9f0_90d08706",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fb0db2f_7f134481",
       "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -184,6 +286,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3465e29c_61cf11fb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "Turned this into `updateForServiceConflict` and `updateForHostConflict` separately.",
+      "parentUuid": "f113f27f_63f8b0cd",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f39afcd7_b2c7408c",
@@ -197,6 +317,30 @@
       "writtenOn": "2024-01-22T04:46:25Z",
       "side": 1,
       "message": "This is the length in characters, but the limit is in bytes, so this only works because the hostname is ASCII. It may be safer to use truncateServiceName here too, otherwise if we start allowing more hostnames later we may forget to update this code path.",
+      "range": {
+        "startLine": 606,
+        "startChar": 38,
+        "endLine": 606,
+        "endChar": 47
+      },
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b472e95b_33f28e0e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f39afcd7_b2c7408c",
       "range": {
         "startLine": 606,
         "startChar": 38,
@@ -230,6 +374,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51c4ef70_cd2f413e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58453ca7_37adabe9",
+      "range": {
+        "startLine": 216,
+        "startChar": 36,
+        "endLine": 216,
+        "endChar": 51
+      },
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8515b5c5_db88b441",
@@ -249,6 +417,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b9c6fca_ed9c4a5e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "\u003e Could you call getInetAddressRecordsForHostname inside this condition instead ? You just need to pass the hostname or null as argument instead of addressRecords\n\nI agree. Updated.\n\n\u003e Also getInetAddressRecordsForHostname doesn\u0027t necessarily need to make a subcopy of the mGeneralRecords; \n\nI\u0027m not sure about this part. mGeneralRecords also contain PTR records but we only want the A/AAAA records in this case.",
+      "parentUuid": "8515b5c5_db88b441",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13ba61fe_6214610f",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
         "patchSetId": 21
@@ -260,6 +446,24 @@
       "writtenOn": "2024-01-22T04:46:25Z",
       "side": 1,
       "message": "How about the reverse address records ? (see the pointer records added in #updateAddresses).\n\nMaybe you can file a bug and take care of that in another CL.",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93e8e576_28296355",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "Filed a bug and added a TODO here.",
+      "parentUuid": "13ba61fe_6214610f",
       "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -287,6 +491,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4023fdbe_1d499db1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "608d670f_02ad9e34",
+      "range": {
+        "startLine": 899,
+        "startChar": 24,
+        "endLine": 899,
+        "endChar": 31
+      },
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bcbf9217_15fe059b",
@@ -300,6 +528,24 @@
       "writtenOn": "2024-01-22T04:46:25Z",
       "side": 1,
       "message": "At least add a TODO saying this isn\u0027t called with custom hostnames right now, but this needs fixing",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39a175c4_a1164cad",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcbf9217_15fe059b",
       "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -327,6 +573,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c10ee1dc_adc1db68",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f98602e_b5858342",
+      "range": {
+        "startLine": 954,
+        "startChar": 20,
+        "endLine": 954,
+        "endChar": 29
+      },
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "317d1288_c8bd4713",
@@ -344,6 +614,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e0a0e60_2cb2a8d8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "317d1288_c8bd4713",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7653d90b_eb8b5801",
@@ -357,6 +645,30 @@
       "writtenOn": "2024-01-22T04:46:25Z",
       "side": 1,
       "message": "This shouldn\u0027t be necessary if dots are not allowed; maybe it would be cheaper to compare hostname and `record.getName()[0]` ?\n\nOr alternatively have an overload of equalsDnsLabelIgnoreDnsCase that has a max number of labels",
+      "range": {
+        "startLine": 1055,
+        "startChar": 28,
+        "endLine": 1055,
+        "endChar": 43
+      },
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cb08b42_82fa7d72",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1055,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7653d90b_eb8b5801",
       "range": {
         "startLine": 1055,
         "startChar": 28,
@@ -390,6 +702,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d6051e9_02aa9ade",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1063,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "according to offline discussion it\u0027s OK",
+      "parentUuid": "59cad88d_8fe2f805",
+      "range": {
+        "startLine": 1062,
+        "startChar": 68,
+        "endLine": 1063,
+        "endChar": 26
+      },
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6386f68e_ac409356",
@@ -403,6 +739,24 @@
       "writtenOn": "2024-01-22T06:15:17Z",
       "side": 1,
       "message": "If the other comment above is implemented, this case doesn\u0027t need to be considered here",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ade2ced7_31bad6d4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1074,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "I\u0027ll keep it here because the we cannot simply return `mGeneralRecords` at the other comment\u0027s code.",
+      "parentUuid": "6386f68e_ac409356",
       "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -424,6 +778,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4bcb733_7baebdde",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9274f6a2_1e2d0dca",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6c78c0f_8bc860e3",
@@ -437,6 +809,58 @@
       "writtenOn": "2024-01-22T06:15:17Z",
       "side": 1,
       "message": "Nit: long line (also below)",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d76f0164_e053b98a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6c78c0f_8bc860e3",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6255b9e_562d11fe",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "also check additional answers in such test cases.",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2565245e_cb0f969b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:30Z",
+      "side": 1,
+      "message": "two services with the same host name and get reply\n\ncheck answers and additional records.\n\nservice 1: only A\nservice 2: only AAAA\n\nget reply with PTR query.",
       "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
