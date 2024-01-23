@@ -848,6 +848,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "959715fd_4ecd2c9e",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:58Z",
+      "side": 1,
+      "message": "Done in this push.",
+      "parentUuid": "d6255b9e_562d11fe",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2565245e_cb0f969b",
@@ -861,6 +879,24 @@
       "writtenOn": "2024-01-23T06:05:30Z",
       "side": 1,
       "message": "two services with the same host name and get reply\n\ncheck answers and additional records.\n\nservice 1: only A\nservice 2: only AAAA\n\nget reply with PTR query.",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2f4a397_f311869b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-23T06:05:58Z",
+      "side": 1,
+      "message": "Done in this patchset.",
+      "parentUuid": "2565245e_cb0f969b",
       "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
