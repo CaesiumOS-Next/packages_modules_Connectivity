@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f6ea1d9_0dbd2f29",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-24T06:37:00Z",
+      "side": 1,
+      "message": "I believe Lorenzo wants you to add the `prefix \u003d \"STATE_\"` to `IntDef` so it looks like below:\n```\n    @Retention(RetentionPolicy.SOURCE)\n    @IntDef(prefix \u003d { \"FORWARD_\" }, value \u003d {\n            FORWARD_NONE,\n            FORWARD_SELECTED,\n            FORWARD_WITH_MIN_SCOPE\n    })\n    public @interface MulticastForwardingMode {}\n```",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 37
+      },
+      "revId": "550daac8104207942f81c985e516415d1e5149ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
