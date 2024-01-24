@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c62c11fa_c6a1fb73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-01-24T03:15:31Z",
+      "side": 1,
+      "message": "IIUC these tests will never run on udc-mainline-prod. We can either skip the patch altogether or merge them as explicitly disabled. (I could merge the flag definition in udc-mainline-prod but it doesn\u0027t look to be defined there: https://source.corp.google.com/search?q\u003daconfig_declaration\u0026sq\u003d\u0026ss\u003dh%2Fgoogleplex-android%2Fplatform%2Fsuperproject%2Fudc%2F%2B%2Frefs%2Fheads%2Fudc-mainline-prod).\n\nWhich option is better depends on the details of the plan to migrate mainline on main.",
+      "revId": "18dadd460a748e3b22a5310814c2ab5fde9a2931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
