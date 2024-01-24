@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72653b42_4f1262f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-24T22:07:22Z",
+      "side": 1,
+      "message": "LGTM with nit.",
+      "revId": "fba1635e6d51c1f4f6f170eee808c9c17ce6a047",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca2e5bcb_0abfc9ed",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-24T22:07:22Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 48,
+        "startChar": 36,
+        "endLine": 48,
+        "endChar": 38
+      },
+      "revId": "fba1635e6d51c1f4f6f170eee808c9c17ce6a047",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
