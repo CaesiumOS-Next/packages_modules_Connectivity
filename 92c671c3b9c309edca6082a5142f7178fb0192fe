@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6717a7e_aa5b802a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 7466,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-24T04:14:12Z",
+      "side": 1,
+      "message": "Is it for allowing CarrierConfig app to file a request with subscriptionId?\nIs there any way to check if the caller is CarrierConfig app?",
+      "range": {
+        "startLine": 7466,
+        "startChar": 13,
+        "endLine": 7466,
+        "endChar": 42
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a55348d_f2d7f907",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 7771,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-24T04:14:12Z",
+      "side": 1,
+      "message": "nits: It would be easier to understand if we can have method for condition to skip enforceConnectivityRestrictedNetworksPermission check.",
+      "range": {
+        "startLine": 7771,
+        "startChar": 12,
+        "endLine": 7771,
+        "endChar": 13
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7af29895_57a79e34",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-24T04:14:12Z",
+      "side": 1,
+      "message": "Can this be final?",
+      "range": {
+        "startLine": 84,
+        "startChar": 12,
+        "endLine": 84,
+        "endChar": 19
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bb0cb77_8fdc9cd1",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-24T04:14:12Z",
+      "side": 1,
+      "message": "There is a possibility that `mRequestRestrictedWifiEnabled` in CarrierPrivilegeAuthenticator is different from the one in ConnectivityService.\nCan we pass mRequestRestrictedWifiEnabled from ConnectivityService?",
+      "range": {
+        "startLine": 99,
+        "startChar": 67,
+        "endLine": 99,
+        "endChar": 69
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5b59f10_a28b2b68",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-24T04:14:12Z",
+      "side": 1,
+      "message": "Is `mRequestRestrictedWifiEnabled \u0026\u0026 networkCapabilities.getSubscriptionIds().size() \u003d\u003d 1` only for WiFi?\nCan we merge with `getSubIdFromWifiTransportInfo`?\n\nWhen should we use `((WifiInfo) info).getSubscriptionId()` and `networkCapabilities.getSubscriptionIds()` respectively?",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 9
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "607f15dc_06333c5c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 17445,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-24T04:14:12Z",
+      "side": 1,
+      "message": "You don\u0027t need to move these tests.\nBut if you have new test for ConnectivityService, please add under `tests/unit/java/com/android/server/connectivityservice/`",
+      "range": {
+        "startLine": 17445,
+        "startChar": 4,
+        "endLine": 17445,
+        "endChar": 5
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
