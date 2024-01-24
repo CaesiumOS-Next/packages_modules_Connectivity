@@ -947,7 +947,8 @@ public class NsdService extends INsdManager.Stub {
                                 break;
                             }
 
-                            final long ttlSeconds = advertisingRequest.getTtlDuration().getSeconds();
+                            final long ttlSeconds =
+                                    advertisingRequest.getTtlDuration().getSeconds();
                             final long minTtlSeconds = getMinTtlSecondsForClient(clientInfo);
                             if (ttlSeconds > 0
                                     && (ttlSeconds < minTtlSeconds || ttlSeconds > 0xffffffffL)) {

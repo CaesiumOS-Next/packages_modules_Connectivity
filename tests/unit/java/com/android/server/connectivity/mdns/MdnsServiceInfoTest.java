@@ -203,7 +203,7 @@ public class MdnsServiceInfoTest {
                         /* textEntries= */ null,
                         /* interfaceIndex= */ 20,
                         network,
-                        100L /* ttlSeconds */);
+                        null /* expirationTime */);
 
         assertEquals(network, info2.getNetwork());
     }
@@ -227,7 +227,7 @@ public class MdnsServiceInfoTest {
                                 MdnsServiceInfo.TextEntry.fromString("test=")),
                         20 /* interfaceIndex */,
                         new Network(123),
-                        100L /* ttlSeconds */);
+                        null /* expirationTime */);
 
         beforeParcel.writeToParcel(parcel, 0);
         parcel.setDataPosition(0);
