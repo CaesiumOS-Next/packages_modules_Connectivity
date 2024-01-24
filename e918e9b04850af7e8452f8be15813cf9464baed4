@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c7714db_4c146dcb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-24T07:00:12Z",
+      "side": 1,
+      "message": "Could you add a little bit more background on why this new function is necessary in the commit message?",
+      "revId": "e918e9b04850af7e8452f8be15813cf9464baed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b4f95e7_cb49ae05",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-24T07:00:12Z",
+      "side": 1,
+      "message": "The code is generally looks fine to me but I feel some documentation is lacking.",
+      "revId": "e918e9b04850af7e8452f8be15813cf9464baed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c813149e_14a3cdc5",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkAddressMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-24T07:00:12Z",
+      "side": 1,
+      "message": "Its better to put a documentation link here to mention that IFA_LOCAL only valid for ipv4. IFA_BROADCAST is obvious, but IFA_LOCAL is not obvious to me until I did some more research. I will thought IFA_LOCAL is exist in IPv6 without any additional research.",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 168,
+        "endChar": 23
+      },
+      "revId": "e918e9b04850af7e8452f8be15813cf9464baed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
