@@ -1,5 +1,52 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36a80727_b8d18e9a",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-24T02:13:05Z",
+      "side": 1,
+      "message": "nit: IIUC this can be created by SkDestroyListener, while only TAG is passed in.\nNo strong opinion.",
+      "range": {
+        "startLine": 886,
+        "startChar": 47,
+        "endLine": 886,
+        "endChar": 56
+      },
+      "revId": "375d780c8eecceafc76544052a830ca8ad691a70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "249cb599_288ed358",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2916,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-24T02:13:05Z",
+      "side": 1,
+      "message": "nit: Maybe add comment to reference to bug id and brief description about why we are adding this.",
+      "range": {
+        "startLine": 2916,
+        "startChar": 15,
+        "endLine": 2916,
+        "endChar": 22
+      },
+      "revId": "375d780c8eecceafc76544052a830ca8ad691a70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
