@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09d380bf_22ee07ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T08:59:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3e1bff55_488b60c9",
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc156b25_8e3768e7",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-01-16T14:23:57Z",
       "side": 1,
       "message": "This doesn\u0027t need to check for support, there\u0027s an assertion just above that checks for FEATURE_WIFI.",
+      "range": {
+        "startLine": 873,
+        "startChar": 21,
+        "endLine": 873,
+        "endChar": 42
+      },
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "798b10d6_6eba8f80",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T08:59:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc156b25_8e3768e7",
       "range": {
         "startLine": 873,
         "startChar": 21,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a80d107a_fa6fb944",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T08:59:06Z",
+      "side": 1,
+      "message": "toggleWifi would be just 2 method calls, so replaced with just doing disableWifi and ensureWifiConnected here.\n\nThis call is to trigger reportNetworkInterfaceForTransports, which is called from updateLinkProperties -\u003e updateInterfaces, so that\u0027s independent from the broadcast.",
+      "parentUuid": "91aee496_e7f1fdd1",
+      "range": {
+        "startLine": 202,
+        "startChar": 21,
+        "endLine": 202,
+        "endChar": 42
+      },
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f26ce2b0_4d2a61cc",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-01-16T14:23:57Z",
       "side": 1,
       "message": "Just to confirm - this is a synchronous method, and when it returns the new value will immediately be used to create new NetworkMonitors?",
+      "range": {
+        "startLine": 138,
+        "startChar": 33,
+        "endLine": 138,
+        "endChar": 42
+      },
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "171b73f5_67d2c3ff",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T08:59:06Z",
+      "side": 1,
+      "message": "Yes that is the assumption, it waits for OnPropertiesChangedListener to make sure the property has been applied, and the assumption here (and in other tests using DeviceConfig) is that any NetworkMonitor started after that would get the new property",
+      "parentUuid": "f26ce2b0_4d2a61cc",
       "range": {
         "startLine": 138,
         "startChar": 33,
@@ -151,6 +241,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "281845f0_52a3f7e0",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T08:59:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37e58e67_09083be7",
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58c1c3ba_9905c244",
@@ -164,6 +272,30 @@
       "writtenOn": "2024-01-16T14:23:57Z",
       "side": 1,
       "message": "Please fix this WARNING reported by Check Contents: Prefer to use mContext.getSystemService(ConnectivityManager.class) instead to avoid the cast.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nPrefer to use mContext.getSystemService(ConnectivityManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 84,
+        "startChar": 14,
+        "endLine": 84,
+        "endChar": 62
+      },
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90357eb1_f631ca3d",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T08:59:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58c1c3ba_9905c244",
       "range": {
         "startLine": 84,
         "startChar": 14,
@@ -220,6 +352,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7703bc17_74195a02",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T08:59:06Z",
+      "side": 1,
+      "message": "Done in aosp/2926171",
+      "parentUuid": "7cf4399e_fdbdde71",
+      "range": {
+        "startLine": 180,
+        "startChar": 16,
+        "endLine": 180,
+        "endChar": 51
+      },
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceb559dd_c81bc6e9",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T08:59:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba6b41fe_7d7c70bb",
+      "range": {
+        "startLine": 180,
+        "startChar": 36,
+        "endLine": 180,
+        "endChar": 51
+      },
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d314b33_8c58a699",
@@ -233,6 +413,24 @@
       "writtenOn": "2024-01-16T14:23:57Z",
       "side": 1,
       "message": "The old code supported wifi being disabled when the test was run, but the new code doesn\u0027t. Any reason not to support that any more?\n\nAlso, it looks like disableWifi is a no-op if wifi is already disabled. So if wifi is already disabled, this method enables it, so it\u0027s not really \"toggling\" wifi. Similar comments for toggleWifiAndWaitForLegacyBroadcast above.",
+      "revId": "74f6320b998c3b40df423faa8094ab5547088929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ab3c27a_0dfe6665",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T08:59:06Z",
+      "side": 1,
+      "message": "There\u0027s no test that expected to do [initially off] -\u003e on -\u003e off, so better not have the dead code that supports it.\n\nRenamed to reconnectWifiIfSupported.",
+      "parentUuid": "2d314b33_8c58a699",
       "revId": "74f6320b998c3b40df423faa8094ab5547088929",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
