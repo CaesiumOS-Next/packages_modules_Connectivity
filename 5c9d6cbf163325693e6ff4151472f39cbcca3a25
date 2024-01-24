@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc5f5b83_778617b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-24T02:58:10Z",
+      "side": 1,
+      "message": "LGTM, assuming the comment has been addressed",
+      "revId": "5c9d6cbf163325693e6ff4151472f39cbcca3a25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4439e89b_660f702c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-24T02:58:10Z",
+      "side": 1,
+      "message": "As OffloadServiceInfo API definition, the priority of serivce should not be a negtive value. Maybe also add the `priority \u003e\u003d 0` check.",
+      "range": {
+        "startLine": 662,
+        "startChar": 16,
+        "endLine": 662,
+        "endChar": 24
+      },
+      "revId": "5c9d6cbf163325693e6ff4151472f39cbcca3a25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
