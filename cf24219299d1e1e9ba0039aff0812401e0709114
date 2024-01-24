@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb117ca4_0ffb8283",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1664,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-24T13:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b20b4d5_2db11f97",
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03042ade_bde0629d",
@@ -48,6 +66,30 @@
       "writtenOn": "2024-01-24T04:13:34Z",
       "side": 1,
       "message": "Nit: I think it\u0027s a bit uncommon to refer to the developer as \"You\", and more common to use passive form (so \"The following can be registered\" for example)",
+      "range": {
+        "startLine": 1665,
+        "startChar": 7,
+        "endLine": 1665,
+        "endChar": 10
+      },
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afdbf620_7b29e034",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1665,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-24T13:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03042ade_bde0629d",
       "range": {
         "startLine": 1665,
         "startChar": 7,
@@ -77,6 +119,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3eea80b7_ee2852af",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1694,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-24T13:29:34Z",
+      "side": 1,
+      "message": "Done. \nAdded in NsdService at `case NsdManager.REGISTER_SERVICE`",
+      "parentUuid": "f2108d77_5fa9111f",
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5ff45da7_ab93221c",
         "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
         "patchSetId": 18
@@ -88,6 +148,24 @@
       "writtenOn": "2024-01-24T04:13:34Z",
       "side": 1,
       "message": "Nit: this is not necessary anymore since the test is T+ (@IgnoreUpTo(Build.VERSION_CODES.S_V2) on the class)",
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43b8c243_43bdbfdf",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-24T13:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ff45da7_ab93221c",
       "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -115,6 +193,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95d7f821_3ae0527c",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-24T13:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e8c0c02_58227858",
+      "range": {
+        "startLine": 1200,
+        "startChar": 35,
+        "endLine": 1200,
+        "endChar": 37
+      },
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a70229bc_e4b895c9",
@@ -128,6 +230,30 @@
       "writtenOn": "2024-01-24T04:13:34Z",
       "side": 1,
       "message": "Is this comment incorrect ?",
+      "range": {
+        "startLine": 1238,
+        "startChar": 12,
+        "endLine": 1238,
+        "endChar": 78
+      },
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f318152_4089c6d2",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 1238,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-24T13:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a70229bc_e4b895c9",
       "range": {
         "startLine": 1238,
         "startChar": 12,
@@ -163,6 +289,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00e05afc_b7bce4b8",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-24T13:29:34Z",
+      "side": 1,
+      "message": "I initially looked at the wrong variable so I thought there are 3 announcements in total.\n\nWhat I meant here is to do the test steps after all announcements. Otherwise when we\u0027re updating the hostname, the SRV record in the repository will conflict with an announcement of the previous successful registration from itself. Such a conflict will make the service renamed as well.\n\nBut 8 announcements take a quite long time to finish. I agree that we shouldn\u0027t wait for all announcements to complete.",
+      "parentUuid": "56e887d4_396bb8f8",
+      "range": {
+        "startLine": 1348,
+        "startChar": 19,
+        "endLine": 1348,
+        "endChar": 21
+      },
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ee21d77_4c1d4d5f",
         "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
         "patchSetId": 18
@@ -174,6 +324,24 @@
       "writtenOn": "2024-01-24T04:13:34Z",
       "side": 1,
       "message": "Nit: long line (also in some other places)",
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3678dbcb_5bffe677",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 1358,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-24T13:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ee21d77_4c1d4d5f",
       "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -201,6 +369,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b06a3963_3052470f",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-24T13:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49e84276_575ec0a9",
+      "range": {
+        "startLine": 1378,
+        "startChar": 52,
+        "endLine": 1379,
+        "endChar": 44
+      },
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a71d316d_c22df776",
@@ -218,6 +410,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e24f626_58df2d43",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 1383,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-24T13:29:34Z",
+      "side": 1,
+      "message": "Done\n\nI removed the comments. They may not be so relevant.",
+      "parentUuid": "a71d316d_c22df776",
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bad11712_c26479e9",
@@ -231,6 +441,30 @@
       "writtenOn": "2024-01-24T04:13:34Z",
       "side": 1,
       "message": "Here you could do:\n\nit.serviceInfo.hostname.let { it !\u003d null \u0026\u0026 it.startsWith(customHostname) \u0026\u0026 ... }",
+      "range": {
+        "startLine": 1391,
+        "startChar": 47,
+        "endLine": 1391,
+        "endChar": 49
+      },
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5d15ea6_2ac93fb1",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 1391,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-24T13:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bad11712_c26479e9",
       "range": {
         "startLine": 1391,
         "startChar": 47,
@@ -264,6 +498,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b88c6768_a102045e",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 1446,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-24T13:29:34Z",
+      "side": 1,
+      "message": "Done.\n\nThat\u0027s a good point!",
+      "parentUuid": "20ef81e2_0d293d2b",
+      "range": {
+        "startLine": 1446,
+        "startChar": 36,
+        "endLine": 1446,
+        "endChar": 48
+      },
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "afd0c28c_006ac2b0",
@@ -277,6 +535,30 @@
       "writtenOn": "2024-01-24T04:13:34Z",
       "side": 1,
       "message": "Nit: invalidMissingHostnameWithAddresses, or something else more descriptive ?",
+      "range": {
+        "startLine": 387,
+        "startChar": 23,
+        "endLine": 387,
+        "endChar": 40
+      },
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d41d99d_84952af7",
+        "filename": "tests/unit/java/android/net/nsd/NsdManagerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-24T13:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afd0c28c_006ac2b0",
       "range": {
         "startLine": 387,
         "startChar": 23,
@@ -310,6 +592,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98ca3c55_03bfffe4",
+        "filename": "tests/unit/java/android/net/nsd/NsdManagerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-24T13:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c847fd0b_d9c6b495",
+      "range": {
+        "startLine": 388,
+        "startChar": 23,
+        "endLine": 388,
+        "endChar": 45
+      },
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72360aac_9a1429e0",
@@ -323,6 +629,30 @@
       "writtenOn": "2024-01-24T04:13:34Z",
       "side": 1,
       "message": "validServiceWithCustomHostAndAddresses ?",
+      "range": {
+        "startLine": 390,
+        "startChar": 23,
+        "endLine": 390,
+        "endChar": 49
+      },
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb509b7a_9936ae42",
+        "filename": "tests/unit/java/android/net/nsd/NsdManagerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-24T13:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72360aac_9a1429e0",
       "range": {
         "startLine": 390,
         "startChar": 23,
@@ -356,6 +686,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3485c43_45451e85",
+        "filename": "tests/unit/java/android/net/nsd/NsdManagerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-24T13:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79635a3c_cb3ec1e3",
+      "range": {
+        "startLine": 391,
+        "startChar": 23,
+        "endLine": 391,
+        "endChar": 54
+      },
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90d5b3e4_8dd32116",
@@ -369,6 +723,24 @@
       "writtenOn": "2024-01-24T04:13:34Z",
       "side": 1,
       "message": "Nit: it would be clearer with the setter next to each service creation.\n\nThis was not the case for setPort previously, but that\u0027s a lot easier to follow in that case because it just sets the same port on all services.",
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ea8c5c5_bd0648a9",
+        "filename": "tests/unit/java/android/net/nsd/NsdManagerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-24T13:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90d5b3e4_8dd32116",
       "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
