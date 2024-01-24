@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c97588a_5c321c9f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-24T22:05:56Z",
+      "side": 1,
+      "message": "LGTM with nit",
+      "revId": "30d148084b9a6030c2ec7234f4ffd2fdd5bb2aec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e21c5c5d_174f9ba4",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-24T22:05:56Z",
+      "side": 1,
+      "message": "\u0026\n```suggestion\nconst BpfMapRO\u003cuint32_t, IfaceValue\u003e\u0026 getIfaceIndexNameMap() {\n```",
+      "range": {
+        "startLine": 43,
+        "startChar": 36,
+        "endLine": 43,
+        "endChar": 37
+      },
+      "revId": "30d148084b9a6030c2ec7234f4ffd2fdd5bb2aec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
