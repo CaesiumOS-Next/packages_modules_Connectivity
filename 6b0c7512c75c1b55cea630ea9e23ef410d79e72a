@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fd2f52e_4669c03b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-01-24T07:29:42Z",
+      "side": 1,
+      "message": "I\u0027ll just remove this from the topic for now to unblock the frameworks/base change.",
+      "revId": "6b0c7512c75c1b55cea630ea9e23ef410d79e72a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
