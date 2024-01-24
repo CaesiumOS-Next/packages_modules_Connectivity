@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ac7e09a_82baf71b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T10:21:20Z",
+      "side": 1,
+      "message": "LGTM but the only reason I\u0027ve got owners is because I\u0027m in OWNERS_core_networking_xts; and I\u0027m only there for the following use-cases as written there:\n\n```\nIn addition to cherry-picks and flaky test fixes, also for incremental changes on NsdManager tests\nto increase coverage for existing behavior, and testing of bug fixes in NsdManager\n```\n\nSo this should actually be +1ed by Lorenzo. My understanding is that this is MTS and these tests are not in CTS.",
+      "revId": "10a41e608007a2f069f0b65881cdcb8ba54a9711",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
