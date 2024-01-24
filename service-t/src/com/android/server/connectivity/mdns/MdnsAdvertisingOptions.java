@@ -17,8 +17,10 @@
 package com.android.server.connectivity.mdns;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 
 import java.time.Duration;
+import java.util.Objects;
 
 /**
  * API configuration parameters for advertising the mDNS service.
@@ -72,6 +74,24 @@ public class MdnsAdvertisingOptions {
     @NonNull
     public Duration getTtlDuration() {
         return mTtlDuration;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else if (!(other instanceof MdnsAdvertisingOptions)) {
+            return false;
+        } else {
+            final MdnsAdvertisingOptions otherOptions = (MdnsAdvertisingOptions) other;
+            return mIsOnlyUpdate == otherOptions.mIsOnlyUpdate
+                    && mTtlDuration.equals(otherOptions.mTtlDuration);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mIsOnlyUpdate, mTtlDuration);
     }
 
     @Override

@@ -15,6 +15,8 @@
  */
 package android.net.nsd;
 
+import static java.util.Objects.requireNonNull;
+
 import android.annotation.LongDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -36,7 +38,7 @@ public final class AdvertisingRequest implements Parcelable {
     /**
      * Only update the registration without sending exit and re-announcement.
      */
-    public static final int NSD_ADVERTISING_UPDATE_ONLY = 1;
+    public static final long NSD_ADVERTISING_UPDATE_ONLY = 1;
 
 
     @NonNull
@@ -48,7 +50,9 @@ public final class AdvertisingRequest implements Parcelable {
                             NsdServiceInfo.class.getClassLoader(), NsdServiceInfo.class);
                     final int protocolType = in.readInt();
                     final long advertiseConfig = in.readLong();
-                    final Duration ttlDuration = Duration.ofSeconds(in.readLong());
+                    final long ttlSeconds = in.readLong();
+                    final Duration ttlDuration =
+                            ttlSeconds < 0 ? null : Duration.ofSeconds(ttlSeconds);
                     return new AdvertisingRequest(
                             serviceInfo, protocolType, advertiseConfig, ttlDuration);
                 }
@@ -64,7 +68,7 @@ public final class AdvertisingRequest implements Parcelable {
     // Bitmask of @AdvertisingConfig flags. Uses a long to allow 64 possible flags in the future.
     private final long mAdvertisingConfig;
 
-    @NonNull
+    @Nullable
     private final Duration mTtlDuration;
 
     /**
@@ -116,7 +120,7 @@ public final class AdvertisingRequest implements Parcelable {
      * @hide
      */
     // @FlaggedApi(NsdManager.Flags.NSD_CUSTOM_TTL_ENABLED)
-    @NonNull
+    @Nullable
     public Duration getTtlDuration() {
         return mTtlDuration;
     }
@@ -174,7 +178,7 @@ public final class AdvertisingRequest implements Parcelable {
         private final NsdServiceInfo mServiceInfo;
         private final int mProtocolType;
         private long mAdvertisingConfig;
-        @NonNull
+        @Nullable
         private Duration mTtlDuration;
         /**
          * Creates a new {@link Builder} object.
@@ -198,12 +202,12 @@ public final class AdvertisingRequest implements Parcelable {
         /**
          * Sets the time interval that the resource records may be cached on a DNS resolver.
          *
-         * If this method is not called or {@code ttlDuration#getSeconds()} is {@code 0}, default
-         * TTL values will be used for the service when it's registered. Otherwise, the {@code
-         * ttlDuration} will be used for all resource records of this service.
+         * If this method is not called or {@code ttlDuration} is {@code null}, default TTL values
+         * will be used for the service when it's registered. Otherwise, the {@code ttlDuration}
+         * will be used for all resource records of this service.
          *
-         * When registering a service, {@link NsdManager#FAILURE_BAD_PARAMETERS} will be returned if
-         * {@code ttlDuration} is smaller than 30 seconds.
+         * When registering a service, {@link NsdManager#FAILURE_BAD_PARAMETERS} will be returned
+         * if {@code ttlDuration} is smaller than 30 seconds.
          *
          * Note: only number of seconds of {@code ttlDuration} is used.
          *
@@ -214,7 +218,11 @@ public final class AdvertisingRequest implements Parcelable {
          */
         // @FlaggedApi(NsdManager.Flags.NSD_CUSTOM_TTL_ENABLED)
         @NonNull
-        public Builder setTtlDuration(@NonNull Duration ttlDuration) {
+        public Builder setTtlDuration(@Nullable Duration ttlDuration) {
+            if (ttlDuration == null) {
+                mTtlDuration = null;
+                return this;
+            }
             final long ttlSeconds = ttlDuration.getSeconds();
             if (ttlSeconds < 0 || ttlSeconds > 0xffffffffL) {
                 throw new IllegalArgumentException(
