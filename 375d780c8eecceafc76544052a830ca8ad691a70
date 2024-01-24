@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1311a71c_7332cc7d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2024-01-24T03:29:48Z",
+      "side": 1,
+      "message": "This commit is for debugging, I would prefer no refactor before the issue is clarified.",
+      "parentUuid": "36a80727_b8d18e9a",
+      "range": {
+        "startLine": 886,
+        "startChar": 47,
+        "endLine": 886,
+        "endChar": 56
+      },
+      "revId": "375d780c8eecceafc76544052a830ca8ad691a70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "249cb599_288ed358",
