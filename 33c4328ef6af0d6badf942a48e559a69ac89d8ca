@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ef2d858_bb6400b7",
+        "filename": "tests/unit/java/com/android/server/net/SkDestroyListenerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-24T05:05:45Z",
+      "side": 1,
+      "message": "nit: maybe /* argument name */",
+      "range": {
+        "startLine": 57,
+        "startChar": 50,
+        "endLine": 57,
+        "endChar": 54
+      },
+      "revId": "33c4328ef6af0d6badf942a48e559a69ac89d8ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
