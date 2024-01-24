@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34dab5b2_c3e6a4df",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-24T06:32:37Z",
+      "side": 1,
+      "message": "Correction:\n1. different commands are not queued; setEnabled(false) after unfinished setEnabled(false) are merged.\n\nAfter the updates, the OutcomeReceiver onResult means operation is completed, updated in docs.",
+      "parentUuid": "e6a94009_456ecabc",
+      "range": {
+        "startLine": 361,
+        "startChar": 12,
+        "endLine": 361,
+        "endChar": 85
+      },
+      "revId": "94d0cb22dd82f64a9271d71c1bc2e323b2bf2fb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4f1b1c02_88c8b43a",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 10
