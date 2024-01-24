@@ -60,6 +60,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f2108d77_5fa9111f",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1694,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:27:08Z",
+      "side": 1,
+      "message": "Actually this was allowed before if a service was registered (even if the addresses were unused), so we should keep allowing it, otherwise apps may crash with the newer version.\n\nYou could update NsdService#registerService to clear the addresses if the hostname is unset, instead",
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5ff45da7_ab93221c",
         "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
         "patchSetId": 18
