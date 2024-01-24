@@ -187,6 +187,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09eb348d_de3b1511",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 2162,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "LGTM",
+      "parentUuid": "244dfd36_e6ea09f1",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c58d334_d86bd4c0",
@@ -757,6 +775,24 @@
       "side": 1,
       "message": "I\u0027ll keep it here because the we cannot simply return `mGeneralRecords` at the other comment\u0027s code.",
       "parentUuid": "6386f68e_ac409356",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "913d6ae6_2688d535",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1074,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ade2ced7_31bad6d4",
       "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },

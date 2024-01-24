@@ -1,0 +1,353 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "116fe554_0effacea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "Generally LGTM, minor comments",
+      "revId": "b1280a27bc6267b006742e4791ef212e7fcc0080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c7ca58b_ca048a2f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "This should also check that it doesn\u0027t conflict with mDeviceHostname, which is used for services that don\u0027t have a custom hostname; otherwise one UID that uses custom hostnames could still use a hostname used by another UID that doesn\u0027t use custom hostnames",
+      "revId": "b1280a27bc6267b006742e4791ef212e7fcc0080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6329412e_6e897273",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "Could you change this to `!TextUtils.isEmpty(newInfo.getHostname() \u0026\u0026 ...` ? It would make it easier to show that this change is a no-op for existing clients that don\u0027t use the setHostname API.",
+      "revId": "b1280a27bc6267b006742e4791ef212e7fcc0080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2613cb8b_12f10d0f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "Nit: better have this check first as it\u0027s cheap and will be often false (devices generally don\u0027t have many services registered at the same time)",
+      "revId": "b1280a27bc6267b006742e4791ef212e7fcc0080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "734472b3_32d480bf",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s valid for 2 different apps on the device to register the same service, so this condition should probably not be accepted",
+      "revId": "b1280a27bc6267b006742e4791ef212e7fcc0080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2d8a4e2_be1e94fd",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "This should also compare hostname, since this is used to verify that a registration update only updates the subtype, and hostname updates are not currently supported.\n\nAlso can you rename it to something like `isSubtypeOnlyUpdate` and update the doc, to avoid the confusion?",
+      "range": {
+        "startLine": 589,
+        "startChar": 23,
+        "endLine": 589,
+        "endChar": 30
+      },
+      "revId": "b1280a27bc6267b006742e4791ef212e7fcc0080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d38e95eb_bbb32801",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "Could this not work in the case where additionalAnswerInfo and answerInfo both have identical address records, but they\u0027re not the same RecordInfo ?\n\nIt seems the whole usage of `Set\u003cRecordInfo\u003e?\u003e\u003e` isn\u0027t valid anymore, since with the introduction of custom hostname, there may be duplicates that are different instances.\n\nThis change is already large, so you could leave a TODO comment identifying in which case there may be duplicate address records, and how to fix it, and do it in another CL.",
+      "range": {
+        "startLine": 585,
+        "startChar": 29,
+        "endLine": 585,
+        "endChar": 38
+      },
+      "revId": "b1280a27bc6267b006742e4791ef212e7fcc0080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e51bb46_b393baad",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "Only for address records when custom hostname is used right ? In that case, better mention it here",
+      "range": {
+        "startLine": 590,
+        "startChar": 64,
+        "endLine": 590,
+        "endChar": 65
+      },
+      "revId": "b1280a27bc6267b006742e4791ef212e7fcc0080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e14fb822_482c72c6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 894,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "Nit: \"from\" general records would be clearer (it sounds like the addresses are getting added to the general records list otherwise)",
+      "range": {
+        "startLine": 894,
+        "startChar": 66,
+        "endLine": 894,
+        "endChar": 68
+      },
+      "revId": "b1280a27bc6267b006742e4791ef212e7fcc0080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "237fe8d3_839a7269",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "Could you leverage getInetAddressRecordsForHostname here ?\n\nThis also shows that this has a bug where exiting / probing services would also be included",
+      "revId": "b1280a27bc6267b006742e4791ef212e7fcc0080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d512b52e_1ff97462",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1025,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "This is not true anymore; generally this whole comment doesn\u0027t really apply anymore.\n\nYou could mention in `conflictForHost` that conflicts with the automatically chosen hostname are not checked, as there\u0027s nothing actionable in that case, and it\u0027s derived from a UUID supposed to be unique.",
+      "range": {
+        "startLine": 1025,
+        "startChar": 20,
+        "endLine": 1025,
+        "endChar": 87
+      },
+      "revId": "b1280a27bc6267b006742e4791ef212e7fcc0080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de2cc0d9_f52f7737",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "Nit: maybe explain why that\u0027s checked: there will be no conflict if no registration has addresses for that hostname",
+      "range": {
+        "startLine": 1070,
+        "startChar": 11,
+        "endLine": 1070,
+        "endChar": 54
+      },
+      "revId": "b1280a27bc6267b006742e4791ef212e7fcc0080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00e0cb36_217c54d5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "This should exclude existing services I think ?\n\nBetter rename `forEachServiceRegistrationWithHostname` -\u003e `forEachActiveServiceRegistrationWithHostname`, and have the check inside that method, to avoid forgetting it",
+      "range": {
+        "startLine": 1107,
+        "startChar": 25,
+        "endLine": 1107,
+        "endChar": 32
+      },
+      "revId": "b1280a27bc6267b006742e4791ef212e7fcc0080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34a4bc7e_0453f6a2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1117,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Error Prone: [UnusedTypeParameter] This type parameter is unused and can be removed.\n\nAnalyzer Description: Warnings generated by errorprone.\nOwner: farivar@google.com\n\n    [UnusedTypeParameter] This type parameter is unused and can be removed.\n        private static \u003cR\u003e void forEachAddressRecord(\n                        ^\n        (see https://errorprone.info/bugpattern/UnusedTypeParameter)\n      Did you mean \u0027private static  void forEachAddressRecord(\u0027?\n\nUse `m RUN_ERROR_PRONE\u003dtrue MyModule` to reproduce locally.\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P68604125/targets/errorprone-trunk_staging, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 1117,
+        "startChar": 0,
+        "endLine": 1117,
+        "endChar": 49
+      },
+      "revId": "b1280a27bc6267b006742e4791ef212e7fcc0080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6829ad32_f83b3daa",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "Nit: long line",
+      "revId": "b1280a27bc6267b006742e4791ef212e7fcc0080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd58eb5a_02d9b111",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "Typo: Additional (also for the test above)",
+      "range": {
+        "startLine": 631,
+        "startChar": 79,
+        "endLine": 631,
+        "endChar": 80
+      },
+      "revId": "b1280a27bc6267b006742e4791ef212e7fcc0080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8401cbc_830ad1de",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 1078,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 1,
+      "message": "Nit: unnecessary semicolon (also in other tests)",
+      "range": {
+        "startLine": 1078,
+        "startChar": 72,
+        "endLine": 1078,
+        "endChar": 73
+      },
+      "revId": "b1280a27bc6267b006742e4791ef212e7fcc0080",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

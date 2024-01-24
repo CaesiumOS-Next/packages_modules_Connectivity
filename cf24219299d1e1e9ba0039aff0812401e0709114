@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72a66bcb_1e6c8da6",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1632,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-24T07:28:27Z",
+      "side": 0,
+      "message": "See comment on the other change: we shouldn\u0027t disallow this (at least without a target SDK check), otherwise existing apps may break.",
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
