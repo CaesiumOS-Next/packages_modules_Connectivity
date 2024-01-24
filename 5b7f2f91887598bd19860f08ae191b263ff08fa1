@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28d50af4_a1fc7399",
+        "filename": "tests/unit/java/com/android/server/net/SkDestroyListenerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-24T03:30:39Z",
+      "side": 1,
+      "message": "Maybe also\n@DevSdkIgnoreRunner.MonitorThreadLeak\n@RunWith(DevSdkIgnoreRunner::class)",
+      "revId": "5b7f2f91887598bd19860f08ae191b263ff08fa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
