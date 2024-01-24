@@ -118,6 +118,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f2368d59_fa705337",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-24T06:05:29Z",
+      "side": 1,
+      "message": "Also, can isCarrierServiceUidForNetworkCapabilities return true if one of subId in getSubscriptionIds() satisfies `callingUid \u003d\u003d getCarrierServiceUidForSubId(subId)`",
+      "parentUuid": "e5b59f10_a28b2b68",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 9
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "607f15dc_06333c5c",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 15
