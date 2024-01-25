@@ -22,6 +22,30 @@
       },
       "revId": "fb38a31b7203f6cb609009500d2d96be2b67f7cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16ab3ec7_da3bc06e",
+        "filename": "nearby/service/java/com/android/server/nearby/managers/BluetoothFinderManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1870378
+      },
+      "writtenOn": "2024-01-25T01:36:38Z",
+      "side": 1,
+      "message": "And here is what we normally do to wire other components into the Nearbyserivce.\n\nA component only does some lightweight stuff (object allocation etc) in its constructor, and is initialized in PHASE_BOOT_COMPLETED [1] when all the systems services are ready.\n\n[1] https://source.corp.google.com/h/googleplex-android/platform/superproject/master/+/master:packages/modules/Connectivity/nearby/service/java/com/android/server/nearby/NearbyService.java;l\u003d163;drc\u003ddadd8bddfd3594696a80ff1a86927c9dd4a34e24",
+      "parentUuid": "4e63925e_625f2447",
+      "range": {
+        "startLine": 107,
+        "startChar": 13,
+        "endLine": 107,
+        "endChar": 34
+      },
+      "revId": "fb38a31b7203f6cb609009500d2d96be2b67f7cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
