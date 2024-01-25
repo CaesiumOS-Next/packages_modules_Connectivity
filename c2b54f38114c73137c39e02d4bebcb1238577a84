@@ -33,6 +33,24 @@
       "message": "I\u0027m not sure why this is necessary here ? It would be racy in any case, as there\u0027s no way to know if the query for resolveService or the packet from sendResponse is first",
       "revId": "c2b54f38114c73137c39e02d4bebcb1238577a84",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bb12e1a_a079fb60",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 1426,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-25T07:39:39Z",
+      "side": 1,
+      "message": "In this test case, there\u0027s no address associated with the hostname. Then the service is not resolvable because the address is missing. I had to send this packet to provide addresses.",
+      "parentUuid": "3a5c674f_d881740b",
+      "revId": "c2b54f38114c73137c39e02d4bebcb1238577a84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
