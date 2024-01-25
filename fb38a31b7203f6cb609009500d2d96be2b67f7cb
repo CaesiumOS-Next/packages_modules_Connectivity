@@ -70,6 +70,30 @@
       },
       "revId": "fb38a31b7203f6cb609009500d2d96be2b67f7cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2a76dc7_5e0365da",
+        "filename": "nearby/service/java/com/android/server/nearby/managers/BluetoothFinderManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1870378
+      },
+      "writtenOn": "2024-01-25T05:36:36Z",
+      "side": 1,
+      "message": "This a good point. Lazy initialization only when necessary leads to better utilization. Does a user turn off the feature by calling setPoweredOffFinderMode(false)?",
+      "parentUuid": "e8454963_b0155d46",
+      "range": {
+        "startLine": 107,
+        "startChar": 13,
+        "endLine": 107,
+        "endChar": 34
+      },
+      "revId": "fb38a31b7203f6cb609009500d2d96be2b67f7cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
