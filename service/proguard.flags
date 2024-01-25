@@ -15,3 +15,7 @@
     static final % EVENT_*;
 }
 
+# Ensure the callback methods are not stripped. b/313539492
+-keepclassmembers class **.ThreadNetworkControllerService$ThreadNetworkCallback {
+    *;
+}
