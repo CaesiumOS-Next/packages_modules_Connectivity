@@ -94,6 +94,30 @@
       },
       "revId": "fb38a31b7203f6cb609009500d2d96be2b67f7cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8cf2eaa_a5e1f1ec",
+        "filename": "nearby/service/java/com/android/server/nearby/managers/BluetoothFinderManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2027455
+      },
+      "writtenOn": "2024-01-25T05:54:12Z",
+      "side": 1,
+      "message": "The user turns off the feature by toggling it in Android security settings, setPoweredOffFinderMode(false) will be called among other things. But following this setPoweredOffFinderMode() won\u0027t be called again unless the user turns on the feature again. Note that setPoweredOffFinderMode(false) may be called also when the feature is on, for example if the user turns off location services.",
+      "parentUuid": "d2a76dc7_5e0365da",
+      "range": {
+        "startLine": 107,
+        "startChar": 13,
+        "endLine": 107,
+        "endChar": 34
+      },
+      "revId": "fb38a31b7203f6cb609009500d2d96be2b67f7cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
