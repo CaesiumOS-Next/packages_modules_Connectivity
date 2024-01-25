@@ -46,6 +46,30 @@
       },
       "revId": "bfb3a3c5b41a4323b117a9b3ff1305965fd5ebe0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ce6a9bf_0c1e5d6d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2214,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-01-25T08:01:37Z",
+      "side": 1,
+      "message": "ad 1) This is cheap... it\u0027s currently basically a if_nametoindex + bpf map write.\nThat\u0027s like 2 system calls.  With upcoming cache it should reduce to just the one.\n\nad 2) I\u0027m not sure how that matters here...\n\nThis is network stats registering the interface with the jni network stats code...\nso it doesn\u0027t seem CS is involved...?\n\nOr do you mean that solving (1) would break (2)",
+      "parentUuid": "3d74abd8_24d8bcfd",
+      "range": {
+        "startLine": 2214,
+        "startChar": 16,
+        "endLine": 2214,
+        "endChar": 35
+      },
+      "revId": "bfb3a3c5b41a4323b117a9b3ff1305965fd5ebe0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
