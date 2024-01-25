@@ -46,6 +46,30 @@
       },
       "revId": "fb38a31b7203f6cb609009500d2d96be2b67f7cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8454963_b0155d46",
+        "filename": "nearby/service/java/com/android/server/nearby/managers/BluetoothFinderManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2027455
+      },
+      "writtenOn": "2024-01-25T05:30:51Z",
+      "side": 1,
+      "message": "Thanks Chen.\nI followed here the way it is done in GRil (for all services, not just powered off finding), Isn\u0027t it wasteful to initializes the object on every device, even if the user has turned off the feature?\nRepeatedly calling this function returns immediately since it start with an mBluetoothFinder !\u003d null check.",
+      "parentUuid": "16ab3ec7_da3bc06e",
+      "range": {
+        "startLine": 107,
+        "startChar": 13,
+        "endLine": 107,
+        "endChar": 34
+      },
+      "revId": "fb38a31b7203f6cb609009500d2d96be2b67f7cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
