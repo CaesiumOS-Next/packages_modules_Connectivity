@@ -127,15 +127,19 @@ class DevSdkIgnoreRunner(private val klass: Class<*>) : Runner(), Filterable, So
         notifier.fireTestFinished(leakMonitorDesc)
     }
 
+    private fun maskTrailingDigits(input: String) = input.replace("\\d+$".toRegex(), "[number]")
+
     private fun getAllThreadNameCounts(): Map<String, Int> {
         // Get the counts of threads in the group per name.
         // Filter system thread groups.
+        // Merged threads with trailing digits, e.g. unnamed thread "Thread-<number>".
         // Also ignore threads with 1 count, this effectively filtered out threads created by the
         // test runner or other system components. e.g. hwuiTask*, queued-work-looper,
         // SurfaceSyncGroupTimer, RenderThread, Time-limited test, etc.
         return Thread.getAllStackTraces().keys
                 .filter { it.threadGroup?.name != "system" }
-                .groupingBy { it.name }.eachCount()
+                .groupingBy { maskTrailingDigits(it.name) }
+                .eachCount()
                 .filter { it.value != 1 }
     }
 
