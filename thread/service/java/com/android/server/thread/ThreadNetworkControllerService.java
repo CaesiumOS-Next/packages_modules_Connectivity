@@ -58,6 +58,7 @@ import android.annotation.RequiresPermission;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.InetAddresses;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
@@ -111,9 +112,12 @@ import java.net.UnknownHostException;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
+import java.util.Set;
 import java.util.function.Supplier;
 
 /**
@@ -163,6 +167,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     private BorderRouterConfigurationParcel mBorderRouterConfig;
 
+    private Set<Inet6Address> mListeningMulticastAddresses;
+
     @VisibleForTesting
     ThreadNetworkControllerService(
             Context context,
@@ -182,6 +188,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mUpstreamNetworkRequest = newUpstreamNetworkRequest();
         mNetworkToInterface = new HashMap<Network, String>();
         mBorderRouterConfig = new BorderRouterConfigurationParcel();
+        mListeningMulticastAddresses = new HashSet<>();
     }
 
     public static ThreadNetworkControllerService newInstance(Context context) {
@@ -884,8 +891,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             // setup downstream forwarding with addresses subscribed from Thread network
             mUpstreamMulticastRoutingConfig =
                     new MulticastRoutingConfig.Builder(FORWARD_WITH_MIN_SCOPE, 4).build();
-            mDownstreamMulticastRoutingConfig =
-                    new MulticastRoutingConfig.Builder(FORWARD_SELECTED).build();
+            mDownstreamMulticastRoutingConfig = buildDownstreamMulticastRoutingConfigSelected();
         } else {
             // When multicast forwarding is disabled, set both upstream and downstream
             // forwarding config to FORWARD_NONE.
@@ -899,8 +905,22 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                         + (isEnabled ? "enabled" : "disabled"));
     }
 
-    private void handleMulticastForwardingAddressChanged(byte[] addressBytes, boolean isAdded) {
-        Inet6Address address = bytesToInet6Address(addressBytes);
+    private MulticastRoutingConfig buildDownstreamMulticastRoutingConfigSelected() {
+        MulticastRoutingConfig.Builder builder =
+                new MulticastRoutingConfig.Builder(FORWARD_SELECTED);
+        for (Inet6Address listeningAddress : mListeningMulticastAddresses) {
+            builder.addListeningAddress(listeningAddress);
+        }
+        return builder.build();
+    }
+
+    private void handleMulticastForwardingAddressChanged(List<String> addresses) {
+        mListeningMulticastAddresses.clear();
+        for (var addressStr : addresses) {
+            mListeningMulticastAddresses.add(
+                    (Inet6Address) InetAddresses.parseNumericAddress(addressStr));
+        }
+
         MulticastRoutingConfig newDownstreamConfig;
         MulticastRoutingConfig.Builder builder;
 
@@ -913,31 +933,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             // Don't update the address set if downstream multicast forwarding is disabled.
             return;
         }
-        if (isAdded
-                == mDownstreamMulticastRoutingConfig.getListeningAddresses().contains(address)) {
-            return;
-        }
 
-        builder = new MulticastRoutingConfig.Builder(FORWARD_SELECTED);
-        for (Inet6Address listeningAddress :
-                mDownstreamMulticastRoutingConfig.getListeningAddresses()) {
-            builder.addListeningAddress(listeningAddress);
-        }
-
-        if (isAdded) {
-            builder.addListeningAddress(address);
-        } else {
-            builder.clearListeningAddress(address);
-        }
-
-        newDownstreamConfig = builder.build();
+        newDownstreamConfig = buildDownstreamMulticastRoutingConfigSelected();
         if (!newDownstreamConfig.equals(mDownstreamMulticastRoutingConfig)) {
-            Log.d(
-                    TAG,
-                    "Multicast listening address "
-                            + address.getHostAddress()
-                            + " is "
-                            + (isAdded ? "added" : "removed"));
             mDownstreamMulticastRoutingConfig = newDownstreamConfig;
             sendLocalNetworkConfig();
         }
@@ -1194,8 +1192,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
 
         @Override
-        public void onMulticastForwardingAddressChanged(byte[] address, boolean isAdded) {
-            mHandler.post(() -> handleMulticastForwardingAddressChanged(address, isAdded));
+        public void onMulticastForwardingAddressChanged(List<String> addresses) {
+            mHandler.post(() -> handleMulticastForwardingAddressChanged(addresses));
         }
     }
 }
