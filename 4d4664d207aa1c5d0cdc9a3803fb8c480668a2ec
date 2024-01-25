@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c94c4606_c7362bd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-25T14:03:12Z",
+      "side": 1,
+      "message": "LGTM with or without comment addressed.",
+      "revId": "4d4664d207aa1c5d0cdc9a3803fb8c480668a2ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afa5ef4d_84fe5fee",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-25T14:03:12Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 872,
+        "startChar": 0,
+        "endLine": 873,
+        "endChar": 43
+      },
+      "revId": "4d4664d207aa1c5d0cdc9a3803fb8c480668a2ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ec3c778_15bc9021",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-25T14:03:12Z",
+      "side": 1,
+      "message": "Out of curiosity, why not reconnectWifiAndWaitForConnectivityAction here? Given that wifi is connected it should be 100% the same. I guess it\u0027s fine either way though. Perhaps what you have here is faster because it doesn\u0027t wait for CONNECTIVITY_ACTION? Or maybe you don\u0027t want to wait because the broadcast is legacy?\n\n```suggestion\n        mCtsNetUtils.reconnectWifiAndWaitForConnectivityAction();\n\n        // Check wifi battery stats are updated.\n```",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 1
+      },
+      "revId": "4d4664d207aa1c5d0cdc9a3803fb8c480668a2ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
