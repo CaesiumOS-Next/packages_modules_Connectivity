@@ -118,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53140678_1ad0c05a",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-01-25T16:51:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7af29895_57a79e34",
+      "range": {
+        "startLine": 84,
+        "startChar": 12,
+        "endLine": 84,
+        "endChar": 19
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bb0cb77_8fdc9cd1",
@@ -131,6 +155,30 @@
       "writtenOn": "2024-01-24T04:14:12Z",
       "side": 1,
       "message": "There is a possibility that `mRequestRestrictedWifiEnabled` in CarrierPrivilegeAuthenticator is different from the one in ConnectivityService.\nCan we pass mRequestRestrictedWifiEnabled from ConnectivityService?",
+      "range": {
+        "startLine": 99,
+        "startChar": 67,
+        "endLine": 99,
+        "endChar": 69
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24f21bec_ab93332e",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-01-25T16:51:57Z",
+      "side": 1,
+      "message": "Both mRequestRestrictedWifiEnabled in CarrierPrivilegeAuthenticator and ConnectivityService are from the same flag defined in ConnectivityFlags.java, how could the values be different? We can not pass the flag from ConnectivityService to CarrierPrivilegeAuthenticator since ConnectivityService depends on CarrierPrivilegeAuthenticator, but we can do it the othe way around, defining a getter method in CarrierPrivilegeAuthenticator so that ConnectivityService can get the flag from CarrierPrivilegeAuthenticator, but frankly speaking I don\u0027t think that is a better way. What do you think?",
+      "parentUuid": "4bb0cb77_8fdc9cd1",
       "range": {
         "startLine": 99,
         "startChar": 67,
