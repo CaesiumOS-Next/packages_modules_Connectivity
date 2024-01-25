@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c1b4f8be_30682571",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-25T11:45:45Z",
+      "side": 1,
+      "message": "Update:\n1. commands are not queued, when Thread is in DISABLING state, any command with outcomeReceiver will fail with error.",
+      "parentUuid": "34dab5b2_c3e6a4df",
+      "range": {
+        "startLine": 361,
+        "startChar": 12,
+        "endLine": 361,
+        "endChar": 85
+      },
+      "revId": "94d0cb22dd82f64a9271d71c1bc2e323b2bf2fb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4f1b1c02_88c8b43a",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 10
