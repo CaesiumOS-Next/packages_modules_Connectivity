@@ -160,8 +160,8 @@ public final class IntegrationTestUtils {
      */
     public static byte[] readPacketFrom(TapPacketReader packetReader, Predicate<byte[]> filter) {
         byte[] packet;
-        while ((packet = packetReader.poll(3000 /* timeoutMs */)) != null) {
-            if (filter.test(packet)) return packet;
+        while ((packet = packetReader.poll(3000 /* timeoutMs */, filter)) != null) {
+            return packet;
         }
         return null;
     }
