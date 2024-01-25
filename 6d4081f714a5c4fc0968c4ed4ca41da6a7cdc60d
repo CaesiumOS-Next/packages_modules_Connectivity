@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "576d5e28_b45e8ff6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSearchOptions.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-25T07:46:29Z",
+      "side": 1,
+      "message": "Could you make this \"int queryMode\" instead ?",
+      "revId": "6d4081f714a5c4fc0968c4ed4ca41da6a7cdc60d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff7b4d1b_8824bbb6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-25T07:46:29Z",
+      "side": 1,
+      "message": "Also explain why this follow the DTIM interval: basically this tries to send one query per DTIM interval, to maximize the chances that a query will be received if devices are using a DTIM multiplier (in which case they only listen once every [multiplier] DTIM intervals)",
+      "revId": "6d4081f714a5c4fc0968c4ed4ca41da6a7cdc60d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5851418_0d377f9f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-25T07:46:29Z",
+      "side": 1,
+      "message": "Nit: else if",
+      "range": {
+        "startLine": 112,
+        "startChar": 10,
+        "endLine": 113,
+        "endChar": 12
+      },
+      "revId": "6d4081f714a5c4fc0968c4ed4ca41da6a7cdc60d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e84e417_81ee9d49",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-25T07:46:29Z",
+      "side": 1,
+      "message": "This is very similar to the method below; would it be possible to have one common method that changes based on the arguments, or the useAggressiveMode property ?",
+      "range": {
+        "startLine": 143,
+        "startChar": 28,
+        "endLine": 143,
+        "endChar": 51
+      },
+      "revId": "6d4081f714a5c4fc0968c4ed4ca41da6a7cdc60d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
