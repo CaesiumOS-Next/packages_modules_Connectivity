@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46d36676_e9b79717",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-25T09:23:17Z",
+      "side": 1,
+      "message": "This is fixing b/283053491; could you move this to another change ? Otherwise this change would introduce behavior changes even in the case where custom hostnames are not used, which would be unexpected (hard to track for the release)",
+      "revId": "62de4635c2c83ba0387b836f6ba86d27be1508d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

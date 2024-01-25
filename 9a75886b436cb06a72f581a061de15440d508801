@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2d9e61f_74809c2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 31
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-25T09:23:17Z",
+      "side": 1,
+      "message": "LGTM except for the behavior change fixing b/283053491; if you move that to another change I think we\u0027re good to go",
+      "revId": "9a75886b436cb06a72f581a061de15440d508801",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab86f79c_cd53fb6e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-25T09:23:17Z",
+      "side": 1,
+      "message": "Nit: that should be always false with your newest patchset",
+      "range": {
+        "startLine": 934,
+        "startChar": 58,
+        "endLine": 934,
+        "endChar": 84
+      },
+      "revId": "9a75886b436cb06a72f581a061de15440d508801",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
