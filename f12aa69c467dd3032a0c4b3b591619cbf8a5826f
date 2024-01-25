@@ -297,6 +297,24 @@
       "parentUuid": "f74ab19d_ddefa4fa",
       "revId": "f12aa69c467dd3032a0c4b3b591619cbf8a5826f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "078c776b_58f394e5",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-25T06:06:02Z",
+      "side": 1,
+      "message": "Oh sorry I missed that, LGTM",
+      "parentUuid": "59886f9a_99ba41e6",
+      "revId": "f12aa69c467dd3032a0c4b3b591619cbf8a5826f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
