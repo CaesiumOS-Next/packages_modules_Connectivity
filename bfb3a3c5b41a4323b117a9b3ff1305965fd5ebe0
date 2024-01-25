@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a811ae7_8218677e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2214,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-25T07:50:59Z",
+      "side": 1,
+      "message": "Question: Is it better to do this once in CS when a network just connected?\n1. It seems to me this runs every time for every interface, when CS notify any changes including meteredness change.\n2. For code health, this would be against our ultimate goal which is to decouple the need of synchronization between CS and NSS. More context at: https://docs.google.com/document/d/1zbVZZkS26JtbnQ2srn3BzKo1lF6uVoyFQwFGYIiiKpU/edit?usp\u003dsharing\u0026resourcekey\u003d0-MQ5SR8e9trJegBMn6u6aag",
+      "range": {
+        "startLine": 2214,
+        "startChar": 16,
+        "endLine": 2214,
+        "endChar": 35
+      },
+      "revId": "bfb3a3c5b41a4323b117a9b3ff1305965fd5ebe0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
