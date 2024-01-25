@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d323f616_6effea7a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-25T06:18:12Z",
+      "side": 1,
+      "message": "The code coverage of this CL is only 44% compared to the over all file coverage of 83%. I think this is because the dump change here is not tested. Can you add a unit test to verify that all countryCodeInfo present in the dumped message (for maintaining the coverage) ?",
+      "range": {
+        "startLine": 575,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 71
+      },
+      "revId": "160c40a9c6133c2c25acc20c5e696be13225106c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
