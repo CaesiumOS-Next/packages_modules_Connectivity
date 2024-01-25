@@ -19,8 +19,10 @@ package android.net.thread;
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_LEADER;
+import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_STOPPED;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
 import static android.net.thread.utils.IntegrationTestUtils.JOIN_TIMEOUT;
+import static android.net.thread.utils.IntegrationTestUtils.LEAVE_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.RESTART_JOIN_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.isExpectedIcmpv6Packet;
 import static android.net.thread.utils.IntegrationTestUtils.isFromIpv6Source;
@@ -56,8 +58,10 @@ import android.net.LinkProperties;
 import android.net.MacAddress;
 import android.net.thread.utils.FullThreadDevice;
 import android.net.thread.utils.InfraNetworkDevice;
+import android.net.thread.utils.OtDaemonController;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.SystemClock;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
@@ -78,6 +82,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /** Integration test cases for Thread Border Routing feature. */
 @RunWith(AndroidJUnit4.class)
@@ -92,6 +97,7 @@ public class BorderRoutingTest {
     private List<FullThreadDevice> mFtds;
     private TapPacketReader mInfraNetworkReader;
     private InfraNetworkDevice mInfraDevice;
+    private OtDaemonController mOtCtl;
 
     private static final int NUM_FTD = 2;
     private static final String KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED = "5.15.0";
@@ -128,6 +134,7 @@ public class BorderRoutingTest {
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
         mFtds = new ArrayList<>();
+        mOtCtl = new OtDaemonController();
 
         setUpInfraNetwork();
 
@@ -302,6 +309,50 @@ public class BorderRoutingTest {
         mInfraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_5);
         // Infra device receives an echo reply sent by FTD.
         assertNotNull(readPacket(ICMPV6_ECHO_REPLY_TYPE, ftd.getOmrAddress()));
+    }
+
+    @Test
+    public void multicastRouting_inboundForwarding_afterBrRejoinFtdRepliesSubscribedAddress()
+            throws Exception {
+        assumeTrue(isKernelVersionAtLeast("5.15.0"));
+        /*
+         * <pre>
+         * Topology:
+         *                 infra network                       Thread
+         * infra device -------------------- Border Router -------------- Full Thread device
+         *                                   (Cuttlefish)
+         * </pre>
+         */
+
+        // Let ftd join the network.
+        FullThreadDevice ftd = mFtds.get(0);
+        startFtdChild(ftd);
+        Inet6Address ftdOmr = ftd.getOmrAddress();
+        // Subscribe to a scope 5 multicast address
+        subscribeMulticastAddressAndWait(ftd, GROUP_ADDR_SCOPE_5);
+
+        // BR leaves Thread network and rejoins
+        runAsShell(
+                PERMISSION_THREAD_NETWORK_PRIVILEGED,
+                () -> mController.leave(directExecutor(), result -> {}));
+        waitForStateAnyOf(mController, List.of(DEVICE_ROLE_STOPPED), LEAVE_TIMEOUT);
+        assertInfraLinkNotMemberOfGroup(GROUP_ADDR_SCOPE_5);
+        // BR switches to secondary BBR
+        String output = mOtCtl.executeCommand("bbr state");
+        assertTrue(output.startsWith("Secondary"));
+        // BR rejoins the Thread network
+        startBrLeader();
+        ftd.waitForStateAnyOf(List.of("child", "router"), JOIN_TIMEOUT);
+        // Ftd will get a new OMR address
+        waitFor(() -> ftd.getOmrAddress() != null && ftd.getOmrAddress() != ftdOmr, JOIN_TIMEOUT);
+        Inet6Address ftdOmrNew = ftd.getOmrAddress();
+        // Wait for network stabilize.
+        waitForAddressReachable(ftdOmrNew, Duration.ofSeconds(5));
+
+        // Infra device sends an echo request to FTD's subscribed group address.
+        mInfraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_5);
+        // Infra device receives an echo reply sent by FTD.
+        assertNotNull(readPacket(ICMPV6_ECHO_REPLY_TYPE, ftdOmrNew));
     }
 
     @Test
@@ -607,5 +658,23 @@ public class BorderRoutingTest {
         return readPacketFrom(
                 mInfraNetworkReader,
                 p -> isExpectedIcmpv6Packet(p, type) && isFromIpv6Source(p, srcAddress));
+    }
+
+    private void waitForAddressReachable(Inet6Address toAddress, Duration timeout)
+            throws Exception {
+        final long intervalMills = 1000;
+        final long timeoutMills = timeout.toMillis();
+        for (long i = 0; i <= timeoutMills; i += intervalMills) {
+            mInfraDevice.sendEchoRequest(toAddress);
+            if (readPacket(ICMPV6_ECHO_REPLY_TYPE, null) != null) {
+                return;
+            }
+            if (i < timeoutMills) {
+                SystemClock.sleep(intervalMills);
+            }
+        }
+
+        throw new TimeoutException(
+                "Address " + toAddress.getHostAddress() + " not reachable in " + timeout);
     }
 }
