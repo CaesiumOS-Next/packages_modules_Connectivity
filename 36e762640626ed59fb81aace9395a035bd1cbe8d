@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d22b36b8_3a06d5e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-25T06:06:16Z",
+      "side": 1,
+      "message": "LGTM but Lorenzo should have a look for new CTS",
+      "revId": "36e762640626ed59fb81aace9395a035bd1cbe8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
