@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4bed927d_c04e0caf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 7466,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-01-25T00:28:36Z",
+      "side": 1,
+      "message": "This is simply to allow network request with subscription ID set, even if the APP doesn\u0027t have NETWORK_FACTORY permission. The check of whether the caller is CarrierConfig app has been done before this check when a network request with subID is received.",
+      "parentUuid": "a6717a7e_aa5b802a",
+      "range": {
+        "startLine": 7466,
+        "startChar": 13,
+        "endLine": 7466,
+        "endChar": 42
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a55348d_f2d7f907",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 15
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-24T04:14:12Z",
       "side": 1,
       "message": "nits: It would be easier to understand if we can have method for condition to skip enforceConnectivityRestrictedNetworksPermission check.",
+      "range": {
+        "startLine": 7771,
+        "startChar": 12,
+        "endLine": 7771,
+        "endChar": 13
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caaa839f_46801212",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 7771,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-01-25T00:28:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a55348d_f2d7f907",
       "range": {
         "startLine": 7771,
         "startChar": 12,
@@ -142,6 +190,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a68501f8_8408b53a",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-01-25T00:28:36Z",
+      "side": 1,
+      "message": "The new logic is for NetworkRequest with SubscriptionID, although our use case is only for restricted WiFi, but the new logic supports other networks too. getSubIdFromWifiTransportInfo is only for WiFi when SubscriptionID is not set in the network request.\n\nWe only allow 1 subID set in the NetworRequest, so if there are more than 1 subId we won\u0027t use any of them.",
+      "parentUuid": "f2368d59_fa705337",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 9
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "607f15dc_06333c5c",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 15
@@ -153,6 +225,30 @@
       "writtenOn": "2024-01-24T04:14:12Z",
       "side": 1,
       "message": "You don\u0027t need to move these tests.\nBut if you have new test for ConnectivityService, please add under `tests/unit/java/com/android/server/connectivityservice/`",
+      "range": {
+        "startLine": 17445,
+        "startChar": 4,
+        "endLine": 17445,
+        "endChar": 5
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9646f8b8_4e1432b4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 17445,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-01-25T00:28:36Z",
+      "side": 1,
+      "message": "I didn\u0027t see the comment before I added the new tests for \"Revoking NetworkRequests\" into the ConnectivityServiceTest.java. Also I need to use the MockNetworkFactory for those tests and I am not sure whether I can do that under tests/unit/java/com/android/server/connectivityservice/. I would suggest that we put the new tests in the ConnectivityServiceTest.java in this CL, and I can move them to tests/unit/java/com/android/server/connectivityservice/ in a follow up CL if it is feasible.",
+      "parentUuid": "607f15dc_06333c5c",
       "range": {
         "startLine": 17445,
         "startChar": 4,
