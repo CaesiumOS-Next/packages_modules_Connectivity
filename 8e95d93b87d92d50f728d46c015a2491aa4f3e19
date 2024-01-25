@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96839ad0_74fd3841",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-25T08:08:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aebe36f5_7e49d041",
+      "range": {
+        "startLine": 106,
+        "startChar": 4,
+        "endLine": 106,
+        "endChar": 35
+      },
+      "revId": "8e95d93b87d92d50f728d46c015a2491aa4f3e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7474c0cc_f290a4aa",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-25T07:23:29Z",
       "side": 1,
       "message": "```suggestion\n        StringWriter stringWriter \u003d new StringWriter();\n        PrintWriter printWriter \u003d new PrintWriter(stringWriter);\n        \n        mThreadNetworkCountryCode.dump(new FileDescriptor(), printWriter, null);\n        String outputString \u003d stringWriter.toString();\n        \n        assertThat(outputString).contains(\"mOverrideCountryCodeInfo\");\n        assertThat(outputString).contains(\"mTelephonyCountryCodeSlotInfoMap\");\n        assertThat(outputString).contains(\"mTelephonyCountryCodeInfo\");\n        assertThat(outputString).contains(\"mWifiCountryCodeInfo\");\n        assertThat(outputString).contains(\"mTelephonyLastCountryCodeInfo\");\n        assertThat(outputString).contains(\"mLocationCountryCodeInfo\");\n        assertThat(outputString).contains(\"mOemCountryCodeInfo\");\n        assertThat(outputString).contains(\"mCurrentCountryCodeInfo\");\n```",
+      "range": {
+        "startLine": 439,
+        "startChar": 8,
+        "endLine": 451,
+        "endChar": 69
+      },
+      "revId": "8e95d93b87d92d50f728d46c015a2491aa4f3e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "607e7c04_ff152612",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-25T08:08:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7474c0cc_f290a4aa",
       "range": {
         "startLine": 439,
         "startChar": 8,
