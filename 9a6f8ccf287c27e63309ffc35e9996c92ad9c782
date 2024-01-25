@@ -16,6 +16,24 @@
       "message": "How did you know that this was the erring LOC? The Logs from the ThreadMonitorLeakTest did not point to any. It simply said `java.lang.IllegalStateException: Unexpected thread changes: removed\u003d[] added\u003d[ThreadPoolForeg\u003d2] updated\u003d[]`. \n\nHow would I know what ThreadPoolForeg\u003d2 is referring to? Asking for the sake future investigations.",
       "revId": "9a6f8ccf287c27e63309ffc35e9996c92ad9c782",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95b616c3_eae1c4a3",
+        "filename": "Cronet/tests/cts/src/android/net/http/cts/HttpEngineTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-25T05:58:38Z",
+      "side": 0,
+      "message": "From my local reproduce it says \"ServerThread\" instead of \"ThreadPoolForeg\".\nFrom code search it is only created in CtsTestServer.\nhttps://osscs.corp.google.com/search?q\u003dServerThread\u0026sq\u003d\u0026ss\u003dandroid\nBy doing code review in HttpEngineTest, it seems HttpCtsTestServer is one we are looking for.\nNot sure if ThreadPoolForeg is another leak or indirectly caused by this.\nBut it is not reproducable here https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2916665/2?tab\u003dchecks if this CL is applied.\nWe can keep monitoring it if that happens again.",
+      "parentUuid": "8cf74c01_527b95a0",
+      "revId": "9a6f8ccf287c27e63309ffc35e9996c92ad9c782",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
