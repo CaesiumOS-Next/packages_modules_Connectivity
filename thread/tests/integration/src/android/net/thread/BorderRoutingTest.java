@@ -19,8 +19,10 @@ package android.net.thread;
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_LEADER;
+import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_STOPPED;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
 import static android.net.thread.utils.IntegrationTestUtils.JOIN_TIMEOUT;
+import static android.net.thread.utils.IntegrationTestUtils.LEAVE_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.RESTART_JOIN_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.isExpectedIcmpv6Packet;
 import static android.net.thread.utils.IntegrationTestUtils.isFromIpv6Source;
@@ -44,6 +46,7 @@ import static com.google.common.util.concurrent.MoreExecutors.directExecutor;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeNotNull;
 import static org.junit.Assume.assumeTrue;
 
@@ -296,6 +299,73 @@ public class BorderRoutingTest {
                         p ->
                                 isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)
                                         && isFromIpv6Source(p, ftdOmr)));
+    }
+
+    @Test
+    public void multicastRouting_inboundForwarding_AfterBrRejoinFtdRepliesSubscribedAddress()
+            throws Exception {
+        assumeTrue(isKernelVersionAtLeast("5.15.0"));
+        /*
+         * <pre>
+         * Topology:
+         *                 infra network                       Thread
+         * infra device -------------------- Border Router -------------- Full Thread device
+         *                                   (Cuttlefish)
+         * </pre>
+         */
+
+        // BR forms a network.
+        startBrLeader();
+
+        // Creates a Full Thread Device (FTD) and lets it join the network.
+        FullThreadDevice ftd = startFtdChild(6);
+        Inet6Address ftdOmr = ftd.getOmrAddress();
+        assertNotNull(ftdOmr);
+        // Subscribe to a scope 5 multicast address
+        subscribeMulticastAddressAndWait(ftd, GROUP_ADDR_SCOPE_5_STR);
+
+        // Creates a infra network device.
+        TapPacketReader infraNetworkReader =
+                newPacketReader(mInfraNetworkTracker.getTestIface(), mHandler);
+        InfraNetworkDevice infraDevice = startInfraDevice("1:2:3:4:5:6", infraNetworkReader);
+
+        // BR leaves Thread network and rejoins
+        runAsShell(
+                PERMISSION_THREAD_NETWORK_PRIVILEGED,
+                () -> mController.leave(directExecutor(), result -> {}));
+        waitForStateAnyOf(mController, List.of(DEVICE_ROLE_STOPPED), LEAVE_TIMEOUT);
+
+        assertInfraLinkNotMemberOfGroup(GROUP_ADDR_SCOPE_5_STR);
+
+        String output = mOtCtl.executeCommand("bbr state");
+        assertTrue(output.startsWith("Secondary"));
+
+        // BR rejoins the Thread network
+        startBrLeader();
+
+        ftd.waitForStateAnyOf(List.of("child", "router"), JOIN_TIMEOUT);
+
+        // Ftd will get a new OMR address
+        waitFor(() -> ftd.getOmrAddress() != null && ftd.getOmrAddress() != ftdOmr, JOIN_TIMEOUT);
+        Inet6Address ftdOmrNew = ftd.getOmrAddress();
+
+        // Wait for network stabilize.
+        waitFor(
+                () -> addressReachable(infraDevice, infraNetworkReader, ftdOmrNew),
+                Duration.ofSeconds(5));
+
+        assertInfraLinkJoinedGroup(GROUP_ADDR_SCOPE_5_STR);
+
+        // Infra device sends an echo request to FTD's subscribed group address.
+        infraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_5);
+
+        // Infra device receives an echo reply sent by FTD.
+        assertNotNull(
+                readPacketFrom(
+                        infraNetworkReader,
+                        p ->
+                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)
+                                        && isFromIpv6Source(p, ftdOmrNew)));
     }
 
     @Test
@@ -639,5 +709,16 @@ public class BorderRoutingTest {
         ftd.subscribeMulticastAddress(addressStr);
 
         assertInfraLinkJoinedGroup(addressStr);
+    }
+
+    private boolean addressReachable(
+            InfraNetworkDevice fromDevice, TapPacketReader reader, Inet6Address toAddress) {
+        try {
+            fromDevice.sendEchoRequest(toAddress);
+        } catch (Exception e) {
+            return false;
+        }
+        return (readPacketFrom(reader, p -> isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE))
+                != null);
     }
 }
