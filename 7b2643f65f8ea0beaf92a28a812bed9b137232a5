@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d14624e5_3114b037",
+        "filename": "service/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-25T11:27:23Z",
+      "side": 0,
+      "message": "I think you meant to remove the proguard in thread/service/Android.bp rather than here.",
+      "range": {
+        "startLine": 273,
+        "startChar": 3,
+        "endLine": 275,
+        "endChar": 6
+      },
+      "revId": "7b2643f65f8ea0beaf92a28a812bed9b137232a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
