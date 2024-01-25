@@ -130,12 +130,14 @@ class DevSdkIgnoreRunner(private val klass: Class<*>) : Runner(), Filterable, So
     private fun getAllThreadNameCounts(): Map<String, Int> {
         // Get the counts of threads in the group per name.
         // Filter system thread groups.
+        // Merged unnamed "Thread-<number>" threads.
         // Also ignore threads with 1 count, this effectively filtered out threads created by the
         // test runner or other system components. e.g. hwuiTask*, queued-work-looper,
         // SurfaceSyncGroupTimer, RenderThread, Time-limited test, etc.
         return Thread.getAllStackTraces().keys
                 .filter { it.threadGroup?.name != "system" }
-                .groupingBy { it.name }.eachCount()
+                .groupingBy { if (it.name.startsWith("Thread-")) "Unnamed Thread" else it.name }
+                .eachCount()
                 .filter { it.value != 1 }
     }
 
