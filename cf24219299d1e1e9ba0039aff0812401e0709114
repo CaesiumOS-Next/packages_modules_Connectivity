@@ -135,6 +135,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a40d1059_acc491de",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1694,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-25T07:09:44Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3eea80b7_ee2852af",
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ff45da7_ab93221c",
@@ -301,6 +319,30 @@
       "side": 1,
       "message": "I initially looked at the wrong variable so I thought there are 3 announcements in total.\n\nWhat I meant here is to do the test steps after all announcements. Otherwise when we\u0027re updating the hostname, the SRV record in the repository will conflict with an announcement of the previous successful registration from itself. Such a conflict will make the service renamed as well.\n\nBut 8 announcements take a quite long time to finish. I agree that we shouldn\u0027t wait for all announcements to complete.",
       "parentUuid": "56e887d4_396bb8f8",
+      "range": {
+        "startLine": 1348,
+        "startChar": 19,
+        "endLine": 1348,
+        "endChar": 21
+      },
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3513285_131019f1",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-25T07:09:44Z",
+      "side": 1,
+      "message": "That sounds like a bug: when the service goes back to probing, announcements should be cancelled; otherwise we\u0027re announcing a service that doesn\u0027t exist anymore, and conflicts with something else on the network. Could you do that in another change before adding this test ?\n\nI think we just need to have maybeRestartProbingForConflict call mAnnouncer.stop",
+      "parentUuid": "00e05afc_b7bce4b8",
       "range": {
         "startLine": 1348,
         "startChar": 19,

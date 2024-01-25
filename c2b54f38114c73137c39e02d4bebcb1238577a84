@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26c361df_1a4b3d89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-25T07:09:44Z",
+      "side": 1,
+      "message": "LGTM apart from the \"stop announcing on conflict\" thing",
+      "revId": "c2b54f38114c73137c39e02d4bebcb1238577a84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a5c674f_d881740b",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 1426,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-25T07:09:44Z",
+      "side": 1,
+      "message": "I\u0027m not sure why this is necessary here ? It would be racy in any case, as there\u0027s no way to know if the query for resolveService or the packet from sendResponse is first",
+      "revId": "c2b54f38114c73137c39e02d4bebcb1238577a84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
