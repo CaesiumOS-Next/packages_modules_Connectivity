@@ -353,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a8e6d8c_e2b27836",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-25T07:57:01Z",
+      "side": 1,
+      "message": "Updated.\n\nI removed the test case and added a TODO here.",
+      "parentUuid": "d3513285_131019f1",
+      "range": {
+        "startLine": 1348,
+        "startChar": 19,
+        "endLine": 1348,
+        "endChar": 21
+      },
+      "revId": "cf24219299d1e1e9ba0039aff0812401e0709114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ee21d77_4c1d4d5f",
