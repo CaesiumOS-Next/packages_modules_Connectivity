@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a458de3_bbd5ad09",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-26T02:54:41Z",
+      "side": 1,
+      "message": "Add a test case to cover the fix / issue",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 17
+      },
+      "revId": "f0c79a227cde17c2815ed8239907e3fc80e930aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "867d81f4_d9877e69",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-26T02:54:41Z",
+      "side": 1,
+      "message": "Should we set `mWifiCountryCodeInfo` to `null` if `countryCode` is invalid?",
+      "range": {
+        "startLine": 313,
+        "startChar": 16,
+        "endLine": 317,
+        "endChar": 17
+      },
+      "revId": "f0c79a227cde17c2815ed8239907e3fc80e930aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
