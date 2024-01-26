@@ -22,6 +22,29 @@
       },
       "revId": "d9ffcb31552b014b6dac00b6ca63ee02c55848fa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42e4f41f_f52c0fc1",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkCountryCodeTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-26T03:38:32Z",
+      "side": 1,
+      "message": "```suggestion\n        assertThat(mThreadNetworkCountryCode.getCountryCode()).isNotEqualTo(TEST_WIFI_DEFAULT_COUNTRY_CODE);\n```\n\nThe follow should follow the name of the test case.",
+      "range": {
+        "startLine": 273,
+        "startChar": 8,
+        "endLine": 273,
+        "endChar": 95
+      },
+      "revId": "d9ffcb31552b014b6dac00b6ca63ee02c55848fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
