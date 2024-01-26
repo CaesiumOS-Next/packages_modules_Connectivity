@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d7efe75c_1f1863b0",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 25
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-26T06:35:11Z",
+      "side": 1,
+      "message": "Can you remove this @NonNull? booleans can\u0027t be null.",
+      "range": {
+        "startLine": 503,
+        "startChar": 102,
+        "endLine": 503,
+        "endChar": 118
+      },
+      "revId": "4e54f44c3c52fa7158ce6751d4a794cc0afb5913",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "334d4270_cab07961",
         "filename": "framework-t/api/system-current.txt",
         "patchSetId": 25
