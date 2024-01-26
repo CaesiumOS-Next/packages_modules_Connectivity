@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "256a5388_b5b8bfe6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-26T07:50:21Z",
+      "side": 1,
+      "message": "Looks like it will cause a test failure. Please check.\nhttps://android-build.corp.google.com/test_investigate/?blocking\u003dblocking\u0026invocationId\u003dI07300010240552447\u0026status\u003dnone\u0026testResultId\u003dTR38429150182964310",
+      "revId": "3422136e3f55c9e6483c7e2f411200592dab04ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
