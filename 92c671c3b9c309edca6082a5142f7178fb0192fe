@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f44feed_d2c85a83",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 7466,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-26T11:11:26Z",
+      "side": 1,
+      "message": "\u003e  The check of whether the caller is CarrierConfig app has been done before this check when a network request with subID is received.\n\nDo you mean `enforceNetworkRequestPermissions`?\nI see `enforceNetworkRequestPermissions` is called only for Request type and `ensureSufficientPermissionsForRequest` is called for all network request including non-Request type.  \n\nI\u0027m not sure what is the purpose of this check.\n@benedictwong@google.com I saw this check was originally added by aosp/1652974.  \nDo you remember why we need this check?\nI\u0027m not sure if it\u0027s ok to skip this check always.",
+      "parentUuid": "4bed927d_c04e0caf",
+      "range": {
+        "startLine": 7466,
+        "startChar": 13,
+        "endLine": 7466,
+        "endChar": 42
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a55348d_f2d7f907",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 15
@@ -191,6 +215,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c587d386_45e7e38e",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-26T11:11:26Z",
+      "side": 1,
+      "message": "`isFeatureEnabled` [read the flag value from DeviceConfig](https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java;l\u003d211\n) and flag value is updated by flag push from server.\nSo If the flag value is updated between the two `isFeatureEnabled` calls, mRequestRestrictedWifiEnabled value could be different.  \nI think this should be very rare but I felt it\u0027s safe to call `isFeatureEnabled` only once for REQUEST_RESTRICTED_WIFI flag.\nI thought we can pass flag from the constructor of `CarrierPrivilegeAuthenticator`",
+      "parentUuid": "24f21bec_ab93332e",
+      "range": {
+        "startLine": 99,
+        "startChar": 67,
+        "endLine": 99,
+        "endChar": 69
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5b59f10_a28b2b68",
         "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
         "patchSetId": 15
@@ -262,6 +310,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80e10638_a11c73d3",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-26T11:11:26Z",
+      "side": 1,
+      "message": "I read the design again and understand what you mean.\n\nBefore your CL, isCarrierServiceUidForNetworkCapabilities can not return true for WiFi networkRequest but could return true for Cellular network request.\nThis is because transportInfo is not requestable but network specifier is requstable.\n\nYou added `networkCapabilities.getSubscriptionIds().size() \u003d\u003d 1` to support WiFi network request.\nBut this work for cell network request as well.\n\nIs this understanding correct?\nCould you add comment to explain why we are getting subId from multiple places.\n\n-----\nI think subId we use could change for some cases by your change.\nbefore your CL, subId comes from from networkSpecifier or TransportInfo\nafter your CL, subId could come from networkCapabilities if the size of nc.subIds is 1.\nIs it safe? If it\u0027s safe can we always use nc.getSubscriptionIds()?\nI saw the wtf log at L298 and I\u0027m wondering.",
+      "parentUuid": "a68501f8_8408b53a",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 9
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "607f15dc_06333c5c",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 15
@@ -297,6 +369,30 @@
       "side": 1,
       "message": "I didn\u0027t see the comment before I added the new tests for \"Revoking NetworkRequests\" into the ConnectivityServiceTest.java. Also I need to use the MockNetworkFactory for those tests and I am not sure whether I can do that under tests/unit/java/com/android/server/connectivityservice/. I would suggest that we put the new tests in the ConnectivityServiceTest.java in this CL, and I can move them to tests/unit/java/com/android/server/connectivityservice/ in a follow up CL if it is feasible.",
       "parentUuid": "607f15dc_06333c5c",
+      "range": {
+        "startLine": 17445,
+        "startChar": 4,
+        "endLine": 17445,
+        "endChar": 5
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92dcb957_c775a846",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 17445,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-26T11:11:26Z",
+      "side": 1,
+      "message": "ConnectivityServiceTest became too big and complicated.\nSo when we add new test, we are adding tests under connectivityservice/ with required helper tools.\nFor this CL, you don\u0027t need to move.",
+      "parentUuid": "9646f8b8_4e1432b4",
       "range": {
         "startLine": 17445,
         "startChar": 4,

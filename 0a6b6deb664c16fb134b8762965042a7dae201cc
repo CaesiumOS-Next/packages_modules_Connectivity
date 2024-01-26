@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b11aac4_7fdbd160",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-26T11:11:26Z",
+      "side": 1,
+      "message": "I realized that CarrierPrivilegeAuthenticator does not use ConnectivityService handler thread.\n`synchronized (mNetworkRequests)` does not work here since other code does not acquire lock to access mNetworkRequests.\nI think there are two solutions.\n\n1) Update CarrierPrivilegeAuthenticator to use ConnectivityService handler thread.\nBy doing this, onCarrierPrivilegesLost should run on ConnectivityService handler thread and you don\u0027t need to worry about the race.\n\n2) Update onCarrierPrivilegesLost to post message to ConnectivityService handler and go through mNetworkRequests from the handler thread.\n\nThe first solution is ideal but require some refactoring in CarrierPrivilegeAuthenticator.\nI think you can implement 2nd solution with TODO comment for the first solution.",
+      "range": {
+        "startLine": 1281,
+        "startChar": 26,
+        "endLine": 1281,
+        "endChar": 42
+      },
+      "revId": "0a6b6deb664c16fb134b8762965042a7dae201cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3043c95f_fb42c7a9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-26T11:11:26Z",
+      "side": 1,
+      "message": "I think we also need to implement \"Trigger a NetworkCapabilities update for the existing network, which will re-check CarrierConfig app status, and remove accessUids.\" (from the design doc)",
+      "range": {
+        "startLine": 1296,
+        "startChar": 8,
+        "endLine": 1296,
+        "endChar": 9
+      },
+      "revId": "0a6b6deb664c16fb134b8762965042a7dae201cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9a71ddc_db2bae3a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 7803,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-26T11:11:26Z",
+      "side": 1,
+      "message": "I think this changed the behavior when\n`networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)` is false\n`canBypassRestrictedNetworkPermissionCheck` is true.\n\nBefore this CL, neither of enforce permission was called.\nAfter this CL, `enforceChangePermission` is called.",
+      "range": {
+        "startLine": 7803,
+        "startChar": 95,
+        "endLine": 7803,
+        "endChar": 97
+      },
+      "revId": "0a6b6deb664c16fb134b8762965042a7dae201cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4678d57_e1ca3ea1",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-26T11:11:26Z",
+      "side": 1,
+      "message": "I think you need `@GuardedBy(\"mLock\")` and need to acquire lock when access mListeners.\nOr if you pass callback from the CarrierPrivilegeAuthenticator constructor, you don\u0027t need to acquire lock.",
+      "range": {
+        "startLine": 85,
+        "startChar": 48,
+        "endLine": 85,
+        "endChar": 58
+      },
+      "revId": "0a6b6deb664c16fb134b8762965042a7dae201cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "567892e0_def6b175",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-26T11:11:26Z",
+      "side": 1,
+      "message": "Should we call `notifyCarrierPrivilegesLost` only for the uid that is not added by L315?\n\n`updateCarrierServiceUid` is called only when `mUseCallbacksForServiceChanged` is false.\nAnd design says \"migration from broadcasts to callbacks for listening to carrier config app changes\" needs to be rolled out first.\nI thought migration is done by mUseCallbacksForServiceChanged\u003dtrue.\nIs there any reason we need to rollout migration first?",
+      "range": {
+        "startLine": 308,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 13
+      },
+      "revId": "0a6b6deb664c16fb134b8762965042a7dae201cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d7dbddf_c7d23513",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-26T11:11:26Z",
+      "side": 1,
+      "message": "nits: I think it would be helpful to add mRequestRestrictedWifiEnabled to the dump for future debugging.",
+      "range": {
+        "startLine": 398,
+        "startChar": 46,
+        "endLine": 398,
+        "endChar": 47
+      },
+      "revId": "0a6b6deb664c16fb134b8762965042a7dae201cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
