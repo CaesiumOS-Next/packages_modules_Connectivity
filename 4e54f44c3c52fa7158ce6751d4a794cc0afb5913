@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "334d4270_cab07961",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 25
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-26T06:34:21Z",
+      "side": 1,
+      "message": "onThreadEnableStateChanged?\n\nI don\u0027t think it matters too much; API council pod review will likely have opinions as well.",
+      "range": {
+        "startLine": 525,
+        "startChar": 31,
+        "endLine": 525,
+        "endChar": 53
+      },
+      "revId": "4e54f44c3c52fa7158ce6751d4a794cc0afb5913",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1d0ec5b_0afca240",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-26T06:34:21Z",
+      "side": 1,
+      "message": "the radio of this ThreadNetworkController.",
+      "range": {
+        "startLine": 126,
+        "startChar": 24,
+        "endLine": 126,
+        "endChar": 30
+      },
+      "revId": "4e54f44c3c52fa7158ce6751d4a794cc0afb5913",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3f028b8_d0e5d1a7",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-26T06:34:21Z",
+      "side": 1,
+      "message": "Put this on the first line, after \"Enables/disables Thread\".",
+      "range": {
+        "startLine": 137,
+        "startChar": 30,
+        "endLine": 138,
+        "endChar": 15
+      },
+      "revId": "4e54f44c3c52fa7158ce6751d4a794cc0afb5913",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
