@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c57b111_9ea55cff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-26T07:59:29Z",
+      "side": 1,
+      "message": "This works according to the decompiled bytecode.",
+      "parentUuid": "5ef6042b_ffd192e1",
+      "revId": "9f6b62f235cf915f907723f8d287706281f662fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "759417e1_ec19522e",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-01-26T07:04:31Z",
       "side": 1,
       "message": "Remi: Try removing this flag and see if it works.\n\nIf it doesn\u0027t work, make this a more general flag e.g. method `onLocalNetworkInfoChnaged` called in `NetworkCallback`.",
+      "revId": "9f6b62f235cf915f907723f8d287706281f662fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6837662_7839da46",
+        "filename": "service/proguard.flags",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-26T07:59:29Z",
+      "side": 1,
+      "message": "I can confirm that if we remove this flag, the callback method will be stripped, according to the decompiled bytecode.",
+      "parentUuid": "759417e1_ec19522e",
       "revId": "9f6b62f235cf915f907723f8d287706281f662fa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
