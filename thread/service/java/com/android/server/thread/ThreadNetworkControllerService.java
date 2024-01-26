@@ -98,6 +98,7 @@ import android.util.SparseArray;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.ServiceManagerWrapper;
 import com.android.server.thread.openthread.BorderRouterConfigurationParcel;
+import com.android.server.thread.openthread.IChannelMasksReceiver;
 import com.android.server.thread.openthread.IOtDaemon;
 import com.android.server.thread.openthread.IOtDaemonCallback;
 import com.android.server.thread.openthread.IOtStatusReceiver;
@@ -145,9 +146,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final InfraInterfaceController mInfraIfController;
     private final LinkProperties mLinkProperties = new LinkProperties();
     private final OtDaemonCallbackProxy mOtDaemonCallbackProxy = new OtDaemonCallbackProxy();
-
-    // TODO(b/308310823): read supported channel from Thread dameon
-    private final int mSupportedChannelMask = 0x07FFF800; // from channel 11 to 26
+    private final ChannelMasksReceiverProxy mChannelMasksReceiverProxy =
+            new ChannelMasksReceiverProxy();
 
     @Nullable private IOtDaemon mOtDaemon;
     @Nullable private NetworkAgent mNetworkAgent;
@@ -498,25 +498,15 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     public void createRandomizedDataset(
             String networkName, IActiveOperationalDatasetReceiver receiver) {
         mHandler.post(
-                () -> {
-                    ActiveOperationalDataset dataset =
-                            createRandomizedDatasetInternal(
-                                    networkName,
-                                    mSupportedChannelMask,
-                                    Instant.now(),
-                                    new Random(),
-                                    new SecureRandom());
-                    try {
-                        receiver.onSuccess(dataset);
-                    } catch (RemoteException e) {
-                        // The client is dead, do nothing
-                    }
-                });
+                () ->
+                        mChannelMasksReceiverProxy.registerRandomizedDatasetReceiver(
+                                networkName, receiver));
     }
 
     private static ActiveOperationalDataset createRandomizedDatasetInternal(
             String networkName,
             int supportedChannelMask,
+            int preferredChannelMask,
             Instant now,
             Random random,
             SecureRandom secureRandom) {
@@ -526,6 +516,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
         final SparseArray<byte[]> channelMask = new SparseArray<>(1);
         channelMask.put(CHANNEL_PAGE_24_GHZ, channelMaskToByteArray(supportedChannelMask));
+        final int channel = selectChannel(supportedChannelMask, preferredChannelMask, random);
 
         final byte[] securityFlags = new byte[] {(byte) 0xff, (byte) 0xf8};
 
@@ -536,13 +527,25 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 .setExtendedPanId(newRandomBytes(random, LENGTH_EXTENDED_PAN_ID))
                 .setPanId(panId)
                 .setNetworkName(networkName)
-                .setChannel(CHANNEL_PAGE_24_GHZ, selectRandomChannel(supportedChannelMask, random))
+                .setChannel(CHANNEL_PAGE_24_GHZ, channel)
                 .setChannelMask(channelMask)
                 .setPskc(newRandomBytes(secureRandom, LENGTH_PSKC))
                 .setNetworkKey(newRandomBytes(secureRandom, LENGTH_NETWORK_KEY))
                 .setMeshLocalPrefix(meshLocalPrefix)
                 .setSecurityPolicy(new SecurityPolicy(DEFAULT_ROTATION_TIME_HOURS, securityFlags))
                 .build();
+    }
+
+    private static int selectChannel(
+            int supportedChannelMask, int preferredChannelMask, Random random) {
+        // If the preferred channel mask is not empty, select a random channel from it, otherwise
+        // choose one from the supported channel mask.
+        preferredChannelMask = preferredChannelMask & supportedChannelMask;
+        if (preferredChannelMask == 0) {
+            preferredChannelMask = supportedChannelMask;
+        }
+
+        return selectRandomChannel(preferredChannelMask, random);
     }
 
     private static byte[] newRandomBytes(Random random, int length) {
@@ -1196,6 +1199,123 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         @Override
         public void onMulticastForwardingAddressChanged(byte[] address, boolean isAdded) {
             mHandler.post(() -> handleMulticastForwardingAddressChanged(address, isAdded));
+        }
+    }
+
+    private static final class RandomizedDatasetReceiverInfo {
+        public final String networkName;
+        public final IBinder.DeathRecipient deathRecipient;
+
+        RandomizedDatasetReceiverInfo(String networkName, IBinder.DeathRecipient deathRecipient) {
+            this.networkName = networkName;
+            this.deathRecipient = deathRecipient;
+        }
+    }
+
+    /**
+     * Handles and forwards Thread channel mask receivers. This class must be accessed from the
+     * thread of {@code mHandler}.
+     */
+    private final class ChannelMasksReceiverProxy extends IChannelMasksReceiver.Stub {
+        private final Map<IActiveOperationalDatasetReceiver, RandomizedDatasetReceiverInfo>
+                mRandomizedDatasetReceivers = new HashMap<>();
+
+        public void registerRandomizedDatasetReceiver(
+                String networkName, IActiveOperationalDatasetReceiver callback) {
+            checkOnHandlerThread();
+
+            if (mRandomizedDatasetReceivers.containsKey(callback)) {
+                throw new IllegalStateException(
+                        "Registering the same IActiveOperationalDatasetReceiver twice");
+            }
+
+            IBinder.DeathRecipient deathRecipient =
+                    () -> mHandler.post(() -> unlinkRandomizedDatasetDeathRecipient(callback));
+            RandomizedDatasetReceiverInfo callbackMetadata =
+                    new RandomizedDatasetReceiverInfo(networkName, deathRecipient);
+
+            synchronized ("ChannelMasksReceiverProxy.this") {
+                mRandomizedDatasetReceivers.put(callback, callbackMetadata);
+                try {
+                    callback.asBinder().linkToDeath(deathRecipient, 0);
+                } catch (RemoteException e) {
+                    mRandomizedDatasetReceivers.remove(callback);
+                }
+
+                try {
+                    getOtDaemon().getChannelMasks(this);
+                } catch (RemoteException e) {
+                    // oneway operation should never fail
+                }
+            }
+        }
+
+        private void unlinkRandomizedDatasetDeathRecipient(
+                IActiveOperationalDatasetReceiver receiver) {
+            checkOnHandlerThread();
+
+            synchronized ("ChannelMasksReceiverProxy.this") {
+                if (mRandomizedDatasetReceivers.containsKey(receiver)) {
+                    receiver.asBinder()
+                            .unlinkToDeath(
+                                    mRandomizedDatasetReceivers.remove(receiver).deathRecipient, 0);
+                }
+            }
+        }
+
+        @Override
+        public void onSuccess(int supportedChannelMask, int preferredChannelMask) {
+            mHandler.post(() -> onSuccessInternal(supportedChannelMask, preferredChannelMask));
+        }
+
+        @Override
+        public void onError(int errorCode, String errorMessage) {
+            mHandler.post(() -> onErrorInternal(errorCode, errorMessage));
+        }
+
+        private void onSuccessInternal(int supportedChannelMask, int preferredChannelMask) {
+            synchronized ("ChannelMasksReceiverProxy.this") {
+                for (var callbackEntry : mRandomizedDatasetReceivers.entrySet()) {
+                    IActiveOperationalDatasetReceiver receiver = callbackEntry.getKey();
+
+                    try {
+                        ActiveOperationalDataset dataset =
+                                createRandomizedDatasetInternal(
+                                        callbackEntry.getValue().networkName,
+                                        supportedChannelMask,
+                                        preferredChannelMask,
+                                        Instant.now(),
+                                        new Random(),
+                                        new SecureRandom());
+
+                        receiver.onSuccess(dataset);
+                    } catch (RemoteException ignored) {
+                        // do nothing if the client is dead
+                    }
+                    receiver.asBinder()
+                            .unlinkToDeath(
+                                    mRandomizedDatasetReceivers.remove(receiver).deathRecipient, 0);
+                }
+                mRandomizedDatasetReceivers.clear();
+            }
+        }
+
+        private void onErrorInternal(int errorCode, String errorMessage) {
+            synchronized ("ChannelMasksReceiverProxy.this") {
+                for (var callbackEntry : mRandomizedDatasetReceivers.entrySet()) {
+                    IActiveOperationalDatasetReceiver receiver = callbackEntry.getKey();
+
+                    try {
+                        receiver.onError(otErrorToAndroidError(errorCode), errorMessage);
+                    } catch (RemoteException ignored) {
+                        // do nothing if the client is dead
+                    }
+                    receiver.asBinder()
+                            .unlinkToDeath(
+                                    mRandomizedDatasetReceivers.remove(receiver).deathRecipient, 0);
+                }
+                mRandomizedDatasetReceivers.clear();
+            }
         }
     }
 }
