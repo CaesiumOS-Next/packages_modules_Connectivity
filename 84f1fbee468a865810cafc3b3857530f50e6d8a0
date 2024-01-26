@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e04bf3c3_362d1b19",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-26T05:37:03Z",
+      "side": 1,
+      "message": "```suggestion\n     * {@link ThreadNetworkController} APIs that return a {@link ThreadNetworkException} will fail with {ThreadNetworkException#ERROR_BUSY}\n```",
+      "range": {
+        "startLine": 131,
+        "startChar": 98,
+        "endLine": 132,
+        "endChar": 91
+      },
+      "revId": "84f1fbee468a865810cafc3b3857530f50e6d8a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
