@@ -16,6 +16,29 @@
       "message": "LGTM but Lorenzo should +2 for CTS changes when it\u0027s not flake fixes",
       "revId": "70fd1e5d540b4ff09f8abb33499855cf802f6c82",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63e36491_b5bfccbf",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-26T10:19:30Z",
+      "side": 1,
+      "message": "This removes all test coverage of NetworkCapablities allowedUids on platforms that don\u0027t have this feature. Can we retain some test coverage of those codepaths?\n\nLooking at NetworkAgentInfo#areAllowedUidsAcceptableFromNetworkAgent, it looks like there are some cases where the allowed UIDs can be passed from a NetworkAgent to CS:\n- On a network that only has TRANSPORT_TEST\n- On TEST|ETHERNET networks without INTERNET\n- On Ethernet networks on automotive platforms\n\nMaybe we could have a simple test to exercise these?",
+      "range": {
+        "startLine": 728,
+        "startChar": 8,
+        "endLine": 728,
+        "endChar": 18
+      },
+      "revId": "70fd1e5d540b4ff09f8abb33499855cf802f6c82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
