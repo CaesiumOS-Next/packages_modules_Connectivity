@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "530a6dbb_1262a15a",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 25
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-26T07:19:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7efe75c_1f1863b0",
+      "range": {
+        "startLine": 503,
+        "startChar": 102,
+        "endLine": 503,
+        "endChar": 118
+      },
+      "revId": "4e54f44c3c52fa7158ce6751d4a794cc0afb5913",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "334d4270_cab07961",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-26T06:34:21Z",
       "side": 1,
       "message": "onThreadEnableStateChanged?\n\nI don\u0027t think it matters too much; API council pod review will likely have opinions as well.",
+      "range": {
+        "startLine": 525,
+        "startChar": 31,
+        "endLine": 525,
+        "endChar": 53
+      },
+      "revId": "4e54f44c3c52fa7158ce6751d4a794cc0afb5913",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b55d956_bc0d50ad",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 25
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-26T07:19:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "334d4270_cab07961",
       "range": {
         "startLine": 525,
         "startChar": 31,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "895a21ea_d479b786",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-26T07:19:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1d0ec5b_0afca240",
+      "range": {
+        "startLine": 126,
+        "startChar": 24,
+        "endLine": 126,
+        "endChar": 30
+      },
+      "revId": "4e54f44c3c52fa7158ce6751d4a794cc0afb5913",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3f028b8_d0e5d1a7",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-01-26T06:34:21Z",
       "side": 1,
       "message": "Put this on the first line, after \"Enables/disables Thread\".",
+      "range": {
+        "startLine": 137,
+        "startChar": 30,
+        "endLine": 138,
+        "endChar": 15
+      },
+      "revId": "4e54f44c3c52fa7158ce6751d4a794cc0afb5913",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31eafb3a_5d8524a5",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-26T07:19:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3f028b8_d0e5d1a7",
       "range": {
         "startLine": 137,
         "startChar": 30,
