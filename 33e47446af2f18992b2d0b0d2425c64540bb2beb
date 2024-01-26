@@ -22,6 +22,30 @@
       },
       "revId": "33e47446af2f18992b2d0b0d2425c64540bb2beb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5582ea4d_f3af02b1",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-01-26T21:57:32Z",
+      "side": 1,
+      "message": "I\u0027d split this into 2 CLs:\n\n* first adds CLOEXEC flag - that\u0027s more-or-less obviously correct\n\n* second makes socket buffer size an argument to the constructor\nwith 0 meaning don\u0027t set it\n\nthen we should trivially see where all the callsite are, and we can discuss things on a per-call-site basis on that cl",
+      "parentUuid": "78d95c84_57c486a1",
+      "range": {
+        "startLine": 232,
+        "startChar": 72,
+        "endLine": 232,
+        "endChar": 73
+      },
+      "revId": "33e47446af2f18992b2d0b0d2425c64540bb2beb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
