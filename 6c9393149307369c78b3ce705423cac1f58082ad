@@ -16,6 +16,23 @@
       "message": "LGTM.",
       "revId": "6c9393149307369c78b3ce705423cac1f58082ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac95aa56_d99bcd9b",
+        "filename": "service-t/jni/com_android_server_net_NetworkStatsService.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-26T07:55:48Z",
+      "side": 1,
+      "message": "Should this be env-\u003eNewObject ? This looks a bit dangerous as AllocObject doesn\u0027t invoke the constructor, and when working on Java code we wouldn\u0027t expect that stuff initialized in the constructor wouldn\u0027t actually be initialized on instances created from JNI.",
+      "revId": "6c9393149307369c78b3ce705423cac1f58082ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
