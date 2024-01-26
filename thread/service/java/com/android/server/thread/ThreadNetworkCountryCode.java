@@ -310,8 +310,11 @@ public class ThreadNetworkCountryCode {
         public void onActiveCountryCodeChanged(String countryCode) {
             Log.d(TAG, "Wifi country code is changed to " + countryCode);
             synchronized ("ThreadNetworkCountryCode.this") {
-                mWifiCountryCodeInfo = new CountryCodeInfo(countryCode, COUNTRY_CODE_SOURCE_WIFI);
-                updateCountryCode(false /* forceUpdate */);
+                if (isValidCountryCode(countryCode)) {
+                    mWifiCountryCodeInfo =
+                            new CountryCodeInfo(countryCode, COUNTRY_CODE_SOURCE_WIFI);
+                    updateCountryCode(false /* forceUpdate */);
+                }
             }
         }
 
