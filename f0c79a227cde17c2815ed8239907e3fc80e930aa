@@ -45,6 +45,30 @@
       },
       "revId": "f0c79a227cde17c2815ed8239907e3fc80e930aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73ce2b1d_afb74da2",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-01-26T03:12:09Z",
+      "side": 1,
+      "message": "If the Wifi country code is invalid to Thread, we probably should fallback to the worldwide safe configuration.",
+      "parentUuid": "867d81f4_d9877e69",
+      "range": {
+        "startLine": 313,
+        "startChar": 16,
+        "endLine": 317,
+        "endChar": 17
+      },
+      "revId": "f0c79a227cde17c2815ed8239907e3fc80e930aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
