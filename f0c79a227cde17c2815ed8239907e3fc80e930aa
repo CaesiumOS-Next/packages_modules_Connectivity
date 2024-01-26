@@ -69,6 +69,30 @@
       },
       "revId": "f0c79a227cde17c2815ed8239907e3fc80e930aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09e6281a_f05c0697",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-26T03:17:10Z",
+      "side": 1,
+      "message": "It looks like wifi is using `00` to express a default value. If that\u0027s the case, we should represent an invalid value to default wifi country code value which is null.",
+      "parentUuid": "73ce2b1d_afb74da2",
+      "range": {
+        "startLine": 313,
+        "startChar": 16,
+        "endLine": 317,
+        "endChar": 17
+      },
+      "revId": "f0c79a227cde17c2815ed8239907e3fc80e930aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
