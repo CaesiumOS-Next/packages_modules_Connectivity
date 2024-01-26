@@ -33,6 +33,24 @@
       "message": "Should this be env-\u003eNewObject ? This looks a bit dangerous as AllocObject doesn\u0027t invoke the constructor, and when working on Java code we wouldn\u0027t expect that stuff initialized in the constructor wouldn\u0027t actually be initialized on instances created from JNI.",
       "revId": "6c9393149307369c78b3ce705423cac1f58082ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4de54c7d_83bc9f26",
+        "filename": "service-t/jni/com_android_server_net_NetworkStatsService.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-26T09:24:08Z",
+      "side": 1,
+      "message": "aosp/2929870",
+      "parentUuid": "ac95aa56_d99bcd9b",
+      "revId": "6c9393149307369c78b3ce705423cac1f58082ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
