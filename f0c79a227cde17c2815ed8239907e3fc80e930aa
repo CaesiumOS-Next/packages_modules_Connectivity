@@ -117,6 +117,54 @@
       },
       "revId": "f0c79a227cde17c2815ed8239907e3fc80e930aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0611b661_6359101d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-26T03:30:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0db736cf_adc4c7e5",
+      "range": {
+        "startLine": 313,
+        "startChar": 16,
+        "endLine": 317,
+        "endChar": 17
+      },
+      "revId": "f0c79a227cde17c2815ed8239907e3fc80e930aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "739835a6_5b07b362",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-01-26T03:30:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a458de3_bbd5ad09",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 17
+      },
+      "revId": "f0c79a227cde17c2815ed8239907e3fc80e930aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
