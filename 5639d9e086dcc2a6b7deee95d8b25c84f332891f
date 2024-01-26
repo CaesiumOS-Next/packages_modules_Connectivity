@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1f90f59_8157dc04",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-26T06:45:16Z",
+      "side": 1,
+      "message": "To be precise, the name should be \"assumeWifiConnected\"",
+      "range": {
+        "startLine": 912,
+        "startChar": 20,
+        "endLine": 912,
+        "endChar": 39
+      },
+      "revId": "5639d9e086dcc2a6b7deee95d8b25c84f332891f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a183938_a80d8f9f",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-26T06:45:16Z",
+      "side": 1,
+      "message": "```suggestion\n    private void assumeWifiDisconnected(Network network) {\n```",
+      "range": {
+        "startLine": 923,
+        "startChar": 17,
+        "endLine": 923,
+        "endChar": 39
+      },
+      "revId": "5639d9e086dcc2a6b7deee95d8b25c84f332891f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
