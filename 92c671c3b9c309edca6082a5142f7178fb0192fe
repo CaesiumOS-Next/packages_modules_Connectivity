@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd3b2f98_6db4bde9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 7466,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2024-01-26T20:35:21Z",
+      "side": 1,
+      "message": "I believe there does need to be a carveout here, given that it is checked for both requests and callbacks.\n\nThat said, we should probably use the \"canBypassRestrictedNetworkPermissionCheck\" to determine whether a user should be allowed to set subscription IDs, otherwise we\u0027ll pass the CONNECTIVITY_USE_RESTRICTED_NETWORKS check, and then fail the NETOWRK_FACTORY check here.",
+      "parentUuid": "9f44feed_d2c85a83",
+      "range": {
+        "startLine": 7466,
+        "startChar": 13,
+        "endLine": 7466,
+        "endChar": 42
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a55348d_f2d7f907",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 15
@@ -239,6 +263,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6cb19750_8cbf6ceb",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2024-01-26T20:35:21Z",
+      "side": 1,
+      "message": "Driveby comments, I\u0027ll trust Motomu\u0027s insight as the owner more than mine:\n\nI suspect that\u0027s impossible in practice; both of these are created exclusively at system server startup, prior to even system app startup (including GMS, which would write the deviceconfig flags). That said, there is a theoretical race.\n\nFrom an architectural standpoint, churning the constructor seems less than ideal, I\u0027d suggest maybe merging this into ConnectivityFlags, and passing that around as a central source of truth.",
+      "parentUuid": "c587d386_45e7e38e",
+      "range": {
+        "startLine": 99,
+        "startChar": 67,
+        "endLine": 99,
+        "endChar": 69
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5b59f10_a28b2b68",
         "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
         "patchSetId": 15
@@ -321,6 +369,30 @@
       "writtenOn": "2024-01-26T11:11:26Z",
       "side": 1,
       "message": "I read the design again and understand what you mean.\n\nBefore your CL, isCarrierServiceUidForNetworkCapabilities can not return true for WiFi networkRequest but could return true for Cellular network request.\nThis is because transportInfo is not requestable but network specifier is requstable.\n\nYou added `networkCapabilities.getSubscriptionIds().size() \u003d\u003d 1` to support WiFi network request.\nBut this work for cell network request as well.\n\nIs this understanding correct?\nCould you add comment to explain why we are getting subId from multiple places.\n\n-----\nI think subId we use could change for some cases by your change.\nbefore your CL, subId comes from from networkSpecifier or TransportInfo\nafter your CL, subId could come from networkCapabilities if the size of nc.subIds is 1.\nIs it safe? If it\u0027s safe can we always use nc.getSubscriptionIds()?\nI saw the wtf log at L298 and I\u0027m wondering.",
+      "parentUuid": "a68501f8_8408b53a",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 9
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b61cd60b_fbfb0b09",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2024-01-26T20:35:21Z",
+      "side": 1,
+      "message": "Yeah, the hope is to always switch to using nc.getSubscriptionIds().\n\nBut the only issue is that because telephony is not a mainline module, some other OEMs might have not populated it, so we do need a fallback. This is the reason for the wtf. Verifying that the subscriptionIds set is populated should be sufficient, but I would suggest putting it as the last in that priority:\n\nTelephonyNetworkSpecifier -\u003e WifiTransportInfo -\u003e NetworkCapabilities.SubscriptionIds\n\nThat way, we maintain where we pull the data from in all the existing cases that do work, and pull from a new source only if those fail:\n\n```\n        if (networkCapabilities.hasSingleTransportBesidesTest(TRANSPORT_CELLULAR)) {\n            subId \u003d getSubIdFromTelephonySpecifier(networkCapabilities.getNetworkSpecifier());\n        } else if (networkCapabilities.hasSingleTransportBesidesTest(TRANSPORT_WIFI)) {\n            subId \u003d getSubIdFromWifiTransportInfo(networkCapabilities.getTransportInfo());\n        } else {\n            if (mRequestRestrictedWifiEnabled \u0026\u0026 networkCapabilities.getSubscriptionIds().size() \u003d\u003d 1) {\n                subId \u003d networkCapabilities.getSubscriptionIds().toArray(new Integer[0])[0];\n            } else {\n                subId \u003d SubscriptionManager.INVALID_SUBSCRIPTION_ID;\n            }\n        }\n```\n\nAlternatively, we could check if the requestor is the carrier config app for ALL UIDs contained in the subscriptionIds set. I don\u0027t particularly see a reason why it /has/ to be limited to one, as long as all satisfy the same requirement.",
       "parentUuid": "a68501f8_8408b53a",
       "range": {
         "startLine": 240,
