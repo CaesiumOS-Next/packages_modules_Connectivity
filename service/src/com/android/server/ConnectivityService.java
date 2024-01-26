@@ -353,7 +353,6 @@ import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.Inet4Address;
-import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
@@ -837,6 +836,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     private static final int EVENT_UID_FROZEN_STATE_CHANGED = 61;
 
+    /** Event to inform the ConnectivityService handler when a uid has lost carrier privileges. */
+    private static final int EVENT_UID_CARRIER_PRIVILEGES_LOST = 62;
+
     /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
      * should be shown.
@@ -1284,21 +1286,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     class CarrierPrivilegesLostListenerImpl implements CarrierPrivilegesLostListener {
         @Override
         public void onCarrierPrivilegesLost(int uid) {
-            synchronized (mNetworkRequests) {
-                // A NetworkRequest needs to be revoked when all the conditions are met
-                //   1. It requests restricted network
-                //   2. The requestor uid matches the uid with the callback
-                //   3. The app doesn't have Carrier Privileges
-                //   4. The app doesn't have permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS
-                for (final NetworkRequest nr : mNetworkRequests.keySet()) {
-                    if (!nr.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)
-                            && nr.getRequestorUid() == uid
-                            && !hasCarrierPrivilegeForNetworkCaps(uid, nr.networkCapabilities)
-                            && !checkConnectivityRestrictedNetworksPermission(uid, true)) {
-                        declareNetworkRequestUnfulfillable(nr);
-                    }
-                }
-            }
+            mHandler.obtainMessage(EVENT_UID_CARRIER_PRIVILEGES_LOST, uid).sendToTarget();
         }
     }
     final LocalPriorityDump mPriorityDumper = new LocalPriorityDump();
@@ -6438,6 +6426,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     UidFrozenStateChangedArgs args = (UidFrozenStateChangedArgs) msg.obj;
                     handleFrozenUids(args.mUids, args.mFrozenStates);
                     break;
+                case EVENT_UID_CARRIER_PRIVILEGES_LOST:
+                    {
+                        final int uid = msg.arg1;
+                        handleUidCarrierPrivilegesLost(uid);
+                        break;
+                    }
             }
         }
     }
@@ -9089,6 +9083,38 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // updateNetworkInfo will mix in the suspended info from the capabilities and
             // take appropriate action for the network having possibly changed state.
             updateNetworkInfo(nai, nai.networkInfo);
+        }
+    }
+
+    private handleUidCarrierPrivilegesLost(int uid) {
+        // A NetworkRequest needs to be revoked when all the conditions are met
+        //   1. It requests restricted network
+        //   2. The requestor uid matches the uid with the callback
+        //   3. The app doesn't have Carrier Privileges
+        //   4. The app doesn't have permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS
+        for (final NetworkRequest nr : mNetworkRequests.keySet()) {
+            if (!nr.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                    && nr.getRequestorUid() == uid
+                    && !hasCarrierPrivilegeForNetworkCaps(uid, nr.networkCapabilities)
+                    && !checkConnectivityRestrictedNetworksPermission(uid, true)) {
+                declareNetworkRequestUnfulfillable(nr);
+            }
+        }
+
+        // A NetworkAgent's allowedUids may need to be updated if the app has lost carrier config
+        // status
+        for (final NetworkAgentInfo info : mNetworkAgentInfos) {
+            if (info.networkCapabilities.getAllowedUidsNoCopy().contains(uid)) {
+                // Reuse NETWORK_CAPAIBLITIES_CHANGED for all the safety checks, including the
+                // allowedUids checks.
+                // This will transitively also clear the routing rules that would otherwise continue
+                // allowing the
+                // app access to the network, even if requests are removed.
+                mHandler.obtainMessage(
+                                NetworkAgent.EVENT_NETWORK_CAPABILITIES_CHANGED,
+                                new Pair<>(info, info.nc))
+                        .sendToTarget();
+            }
         }
     }
 
