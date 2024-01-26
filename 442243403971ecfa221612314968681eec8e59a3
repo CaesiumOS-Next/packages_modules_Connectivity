@@ -540,6 +540,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48babfce_96caf944",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-26T08:25:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fd373174_e28684e5",
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb289ce2_38c0a532",
@@ -1199,6 +1217,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5ab2f26_34357404",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-26T08:25:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f00cf642_c5b5f2c1",
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44697948_67618c86",
@@ -1617,6 +1653,24 @@
       "side": 1,
       "message": "Follow up ticket: b/321662159",
       "parentUuid": "00f11ffe_6463030f",
+      "revId": "442243403971ecfa221612314968681eec8e59a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f34c0d7_a4ebc955",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-26T08:25:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b88beb7f_08f5a0d3",
       "revId": "442243403971ecfa221612314968681eec8e59a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
