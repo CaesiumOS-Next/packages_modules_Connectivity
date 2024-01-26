@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78d95c84_57c486a1",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-26T06:23:57Z",
+      "side": 1,
+      "message": "This is correct for the InetDiag code because we are basically doing the same thing it does. What about other callers? I took a quick look and it looks like most of them set various socket buffers.\n\nThere\u0027s no downside to having a socket buffer that is *larger* than what the previous code did, because the kernel won\u0027t actually use extra memory unless it\u0027s needed. But there is a downside to have the socket buffer be *smaller*.\n\nUnfortunately the default socket buffer is difficult to predict as it varies from device to device. Could you look at existing callers to see what buffer sizes they set, if any? Then we can decide what to do here. One thing we could do is:\n\n    // Ensure a mininum-sized buffer, even if the device configures a small size.\n    // Divide by 2 because getsockopt always reports twice the buffer size set by setsockopt.\n    final int bufferSize \u003d Os.getsockoptInt(SOL_SOCKET, SO_RCVBUF) / 2;\n    if (bufferSize \u003c SOCKET_RECV_BUFSIZE) {\n        // Optionally, complain?\n        Log.wtf(\"Unreasonably small socket buffer size, correcting\");\n        Os.setsockoptInt(SOL_SOCKET, SO_RCVBUF, SOCKET_RECV_BUFSIZE);\n    }\n\nDepending on the callers, though, we might not need this at all. For example, if all the callers of this method just send a one-shot message and get back an ACK, and if they always set their socket buffer to 8kB and only do one read, then setting a larger buffer is useless.\n\n@maze@google.com any thoughts? For context, the rationale for this CL is that the InetDiag code which is starting to use this method previously did not set the buffer size at all, so it would get the default buffer size. The concern in this comment is that if we remove the call to set the buffer size to this code, we might potentially lower the buffer size for other code that might depend for correctness on larger sizes.",
+      "range": {
+        "startLine": 232,
+        "startChar": 72,
+        "endLine": 232,
+        "endChar": 73
+      },
+      "revId": "33e47446af2f18992b2d0b0d2425c64540bb2beb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
