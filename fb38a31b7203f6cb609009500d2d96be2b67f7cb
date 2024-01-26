@@ -118,6 +118,30 @@
       },
       "revId": "fb38a31b7203f6cb609009500d2d96be2b67f7cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ce582e6_669a7a79",
+        "filename": "nearby/service/java/com/android/server/nearby/managers/BluetoothFinderManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1870378
+      },
+      "writtenOn": "2024-01-26T22:30:43Z",
+      "side": 1,
+      "message": "Thanks for the explanation! Can we assume mBluetoothFinder should be initialized if Android security settings are turned on?",
+      "parentUuid": "a8cf2eaa_a5e1f1ec",
+      "range": {
+        "startLine": 107,
+        "startChar": 13,
+        "endLine": 107,
+        "endChar": 34
+      },
+      "revId": "fb38a31b7203f6cb609009500d2d96be2b67f7cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
