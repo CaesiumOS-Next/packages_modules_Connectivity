@@ -800,6 +800,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c3a1ec0_ba88f5dc",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-26T03:28:26Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ca0179b2_4d2c3cf9",
+      "range": {
+        "startLine": 828,
+        "startChar": 44,
+        "endLine": 828,
+        "endChar": 72
+      },
+      "revId": "a90466ba0a83390516b63a536e3cbc59103e3f05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dfe4429_f23a7a99",
