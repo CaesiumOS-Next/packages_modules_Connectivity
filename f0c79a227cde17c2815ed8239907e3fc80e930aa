@@ -93,6 +93,30 @@
       },
       "revId": "f0c79a227cde17c2815ed8239907e3fc80e930aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0db736cf_adc4c7e5",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-26T03:18:24Z",
+      "side": 1,
+      "message": "For example, if Wifi country code changed from \"US\" to \"00\", this should mean the device is not in \"US\" now. So Thread should follow this meaning.",
+      "parentUuid": "09e6281a_f05c0697",
+      "range": {
+        "startLine": 313,
+        "startChar": 16,
+        "endLine": 317,
+        "endChar": 17
+      },
+      "revId": "f0c79a227cde17c2815ed8239907e3fc80e930aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
