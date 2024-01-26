@@ -152,6 +152,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33cf7632_43c85b04",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1727,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-26T07:00:18Z",
+      "side": 1,
+      "message": "We found it but we cannot use this one because DOMAIN_LABEL also allows IP address.\n\nOur use case is more similar to IRI_LABEL but it also allows UCS chars.\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/util/Patterns.java;l\u003d354;drc\u003d4839541ad2cceb87b45ec1e638e9cec8a0ee661e",
+      "parentUuid": "d6692f55_8663370c",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1bc33c14_57c76bb3",
@@ -447,6 +465,24 @@
       "side": 1,
       "message": "\u003e Could you call getInetAddressRecordsForHostname inside this condition instead ? You just need to pass the hostname or null as argument instead of addressRecords\n\nI agree. Updated.\n\n\u003e Also getInetAddressRecordsForHostname doesn\u0027t necessarily need to make a subcopy of the mGeneralRecords; \n\nI\u0027m not sure about this part. mGeneralRecords also contain PTR records but we only want the A/AAAA records in this case.",
       "parentUuid": "8515b5c5_db88b441",
+      "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d32550b_ff67c271",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-26T07:00:18Z",
+      "side": 1,
+      "message": "Remi: that\u0027s fine.",
+      "parentUuid": "3b9c6fca_ed9c4a5e",
       "revId": "967a33e67cdd2d61905fe0533ae1a874aca4c6f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
