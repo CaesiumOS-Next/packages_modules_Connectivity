@@ -16,17 +16,22 @@
 
 package com.android.server.thread;
 
+import static android.net.thread.ActiveOperationalDataset.CHANNEL_PAGE_24_GHZ;
+import static android.net.thread.ThreadNetworkException.ERROR_FAILED_PRECONDITION;
 import static android.net.thread.ThreadNetworkException.ERROR_INTERNAL_ERROR;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
 
+import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_INVALID_STATE;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static com.google.common.io.BaseEncoding.base16;
 import static com.google.common.truth.Truth.assertThat;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -38,8 +43,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkAgent;
 import android.net.NetworkProvider;
 import android.net.thread.ActiveOperationalDataset;
+import android.net.thread.IActiveOperationalDatasetReceiver;
 import android.net.thread.IOperationReceiver;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
 import android.os.test.TestLooper;
@@ -53,6 +60,8 @@ import com.android.server.thread.openthread.testing.FakeOtDaemon;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -80,6 +89,11 @@ public final class ThreadNetworkControllerServiceTest {
                                     + "B9D351B40C0402A0FFF8");
     private static final ActiveOperationalDataset DEFAULT_ACTIVE_DATASET =
             ActiveOperationalDataset.fromThreadTlvs(DEFAULT_ACTIVE_DATASET_TLVS);
+    private static final String DEFAULT_NETWORK_NAME = "thread-wpan0";
+    private static final int OT_ERROR_NONE = 0;
+    private int DEFAULT_SUPPORTED_CHANNEL_MASK = 0x07FFF800; // from channel 11 to 26
+    private int DEFAULT_PREFERRED_CHANNEL_MASK = 0x00000800; // channel 11
+    private int DEFAULT_SELECTED_CHANNEL = 11;
 
     @Mock private ConnectivityManager mMockConnectivityManager;
     @Mock private NetworkAgent mMockNetworkAgent;
@@ -87,10 +101,13 @@ public final class ThreadNetworkControllerServiceTest {
     @Mock private ParcelFileDescriptor mMockTunFd;
     @Mock private InfraInterfaceController mMockInfraIfController;
     @Mock private ThreadPersistentSettings mMockPersistentSettings;
+    @Mock private IBinder mIBinder;
     private Context mContext;
     private TestLooper mTestLooper;
     private FakeOtDaemon mFakeOtDaemon;
     private ThreadNetworkControllerService mService;
+    private ActiveOperationalDataset mActiveDataset;
+    @Captor private ArgumentCaptor<ActiveOperationalDataset> mActiveDatasetCaptor;
 
     @Before
     public void setUp() {
@@ -164,5 +181,44 @@ public final class ThreadNetworkControllerServiceTest {
 
         verify(mockReceiver, times(1)).onSuccess();
         verify(mMockNetworkAgent, times(1)).register();
+    }
+
+    @Test
+    public void createRandomizedDataset_succeed_activeDatasetCreated() throws Exception {
+        final IActiveOperationalDatasetReceiver mockReceiver =
+                mock(IActiveOperationalDatasetReceiver.class);
+        mFakeOtDaemon.setChannelMasks(
+                DEFAULT_SUPPORTED_CHANNEL_MASK, DEFAULT_PREFERRED_CHANNEL_MASK);
+        mFakeOtDaemon.setChannelMasksReceiverOtError(OT_ERROR_NONE);
+
+        mService.createRandomizedDataset(DEFAULT_NETWORK_NAME, mockReceiver);
+        mTestLooper.dispatchAll();
+
+        verify(mockReceiver, never()).onError(anyInt(), anyString());
+        verify(mockReceiver, times(1)).onSuccess(mActiveDatasetCaptor.capture());
+        assertThat(mActiveDatasetCaptor.getValue().getNetworkName())
+                .isEqualTo(DEFAULT_NETWORK_NAME);
+        assertThat(mActiveDatasetCaptor.getValue().getChannelMask().size()).isEqualTo(1);
+        assertThat(mActiveDatasetCaptor.getValue().getChannelMask().get(CHANNEL_PAGE_24_GHZ))
+                .isEqualTo(
+                        ThreadNetworkControllerService.channelMaskToByteArray(
+                                DEFAULT_SUPPORTED_CHANNEL_MASK));
+        assertThat(mActiveDatasetCaptor.getValue().getChannel())
+                .isEqualTo(DEFAULT_SELECTED_CHANNEL);
+    }
+
+    @Test
+    public void createRandomizedDataset_otDaemonRemoteFailure_returnsPreconditionError()
+            throws Exception {
+        final IActiveOperationalDatasetReceiver mockReceiver =
+                mock(IActiveOperationalDatasetReceiver.class);
+        mFakeOtDaemon.setChannelMasksReceiverOtError(OT_ERROR_INVALID_STATE);
+        when(mockReceiver.asBinder()).thenReturn(mIBinder);
+
+        mService.createRandomizedDataset(DEFAULT_NETWORK_NAME, mockReceiver);
+        mTestLooper.dispatchAll();
+
+        verify(mockReceiver, never()).onSuccess(any(ActiveOperationalDataset.class));
+        verify(mockReceiver, times(1)).onError(eq(ERROR_FAILED_PRECONDITION), anyString());
     }
 }
