@@ -142,6 +142,30 @@
       },
       "revId": "fb38a31b7203f6cb609009500d2d96be2b67f7cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26b02780_ef18fe5e",
+        "filename": "nearby/service/java/com/android/server/nearby/managers/BluetoothFinderManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2027455
+      },
+      "writtenOn": "2024-01-27T17:14:59Z",
+      "side": 1,
+      "message": "I\u0027m not sure what \"Android security settings\" is. Can you please point me to the correct place?\n\nIs it wrong to do the lazy initialization as it is now?",
+      "parentUuid": "8ce582e6_669a7a79",
+      "range": {
+        "startLine": 107,
+        "startChar": 13,
+        "endLine": 107,
+        "endChar": 34
+      },
+      "revId": "fb38a31b7203f6cb609009500d2d96be2b67f7cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
