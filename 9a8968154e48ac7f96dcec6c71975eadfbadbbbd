@@ -22,6 +22,30 @@
       },
       "revId": "9a8968154e48ac7f96dcec6c71975eadfbadbbbd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3067fc2e_2678b168",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-01-27T01:36:09Z",
+      "side": 1,
+      "message": "Since I have added the logic assuming that there could be more than 1 listener, I will keep it as this unless you have a strong option to make it a single listener.",
+      "parentUuid": "e68e86ac_ed324a94",
+      "range": {
+        "startLine": 85,
+        "startChar": 12,
+        "endLine": 85,
+        "endChar": 16
+      },
+      "revId": "9a8968154e48ac7f96dcec6c71975eadfbadbbbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
