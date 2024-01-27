@@ -35,6 +35,7 @@ import static com.google.common.io.BaseEncoding.base16;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assume.assumeNotNull;
 import static org.junit.Assume.assumeTrue;
 
 import android.content.Context;
@@ -68,8 +69,6 @@ import java.util.concurrent.TimeUnit;
 public class BorderRoutingTest {
     private static final String TAG = BorderRoutingTest.class.getSimpleName();
     private final Context mContext = ApplicationProvider.getApplicationContext();
-    private final ThreadNetworkManager mThreadNetworkManager =
-            mContext.getSystemService(ThreadNetworkManager.class);
     private ThreadNetworkController mThreadNetworkController;
     private HandlerThread mHandlerThread;
     private Handler mHandler;
@@ -91,9 +90,14 @@ public class BorderRoutingTest {
         mHandlerThread = new HandlerThread(getClass().getSimpleName());
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
-        var threadControllers = mThreadNetworkManager.getAllThreadNetworkControllers();
-        assertEquals(threadControllers.size(), 1);
-        mThreadNetworkController = threadControllers.get(0);
+
+        final ThreadNetworkManager threadNetworkManager =
+                mContext.getSystemService(ThreadNetworkManager.class);
+
+        // Run the tests on only devices where the Thread feature is available
+        assumeNotNull(threadNetworkManager);
+        mThreadNetworkController = threadNetworkManager.getAllThreadNetworkControllers().get(0);
+
         mInfraNetworkTracker =
                 runAsShell(
                         MANAGE_TEST_NETWORKS,
