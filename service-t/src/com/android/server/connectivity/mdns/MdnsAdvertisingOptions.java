@@ -33,14 +33,16 @@ public class MdnsAdvertisingOptions {
 
     private static MdnsAdvertisingOptions sDefaultOptions;
     private final boolean mIsOnlyUpdate;
+    private final boolean mAutoRenameEnabled;
     @Nullable
     private final Duration mTtlDuration;
 
     /**
      * Parcelable constructs for a {@link MdnsAdvertisingOptions}.
      */
-    MdnsAdvertisingOptions(boolean isOnlyUpdate, @Nullable Duration ttlDuration) {
+    private MdnsAdvertisingOptions(boolean isOnlyUpdate, boolean autoRenameEnabled, @Nullable Duration ttlDuration) {
         this.mIsOnlyUpdate = isOnlyUpdate;
+        this.mAutoRenameEnabled = autoRenameEnabled;
         this.mTtlDuration = ttlDuration;
     }
 
@@ -69,6 +71,13 @@ public class MdnsAdvertisingOptions {
     }
 
     /**
+     * Returns {@code true} if auto rename for service or host is enabled.s
+     */
+    public boolean isAutoRenameEnabled() {
+        return mAutoRenameEnabled;
+    }
+
+    /**
      * Returns the TTL duration for all records in a service.
      */
     @Nullable
@@ -85,19 +94,21 @@ public class MdnsAdvertisingOptions {
         } else {
             final MdnsAdvertisingOptions otherOptions = (MdnsAdvertisingOptions) other;
             return mIsOnlyUpdate == otherOptions.mIsOnlyUpdate
+                    && mAutoRenameEnabled == otherOptions.mAutoRenameEnabled
                     && Objects.equals(mTtlDuration, otherOptions.mTtlDuration);
         }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mIsOnlyUpdate, mTtlDuration);
+        return Objects.hash(mIsOnlyUpdate, mAutoRenameEnabled, mTtlDuration);
     }
 
     @Override
     public String toString() {
-        return "MdnsAdvertisingOptions{" + "mIsOnlyUpdate=" + mIsOnlyUpdate + ", mTtlDuration="
-                + mTtlDuration + '}';
+        return "MdnsAdvertisingOptions{" + "mIsOnlyUpdate=" + mIsOnlyUpdate
+                + ", autoRenameEnabled=" + mAutoRenameEnabled + ", mTtlDuration=" + mTtlDuration
+                + '}';
     }
 
     /**
@@ -105,6 +116,7 @@ public class MdnsAdvertisingOptions {
      */
     public static final class Builder {
         private boolean mIsOnlyUpdate = false;
+        private boolean mAutoRenameEnabled = true;
         @Nullable
         private Duration mTtlDuration;
 
@@ -120,6 +132,14 @@ public class MdnsAdvertisingOptions {
         }
 
         /**
+         * Sets if automatical rename is enabled.
+         */
+        public Builder setAutoRenameEnabled(boolean enabled) {
+            this.mAutoRenameEnabled = enabled;
+            return this;
+        }
+
+        /**
          * Sets the TTL duration for all records of the service.
          */
         public Builder setTtlDuration(@Nullable Duration ttlDuration) {
@@ -131,7 +151,7 @@ public class MdnsAdvertisingOptions {
          * Builds a {@link MdnsAdvertisingOptions} with the arguments supplied to this builder.
          */
         public MdnsAdvertisingOptions build() {
-            return new MdnsAdvertisingOptions(mIsOnlyUpdate, mTtlDuration);
+            return new MdnsAdvertisingOptions(mIsOnlyUpdate, mAutoRenameEnabled, mTtlDuration);
         }
     }
 }
