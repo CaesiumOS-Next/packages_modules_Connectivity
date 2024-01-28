@@ -281,7 +281,7 @@ public class InetDiagMessage extends NetlinkMessage {
         int uid = INVALID_UID;
         FileDescriptor fd = null;
         try {
-            fd = NetlinkUtils.netlinkSocketForProto(NETLINK_INET_DIAG);
+            fd = NetlinkUtils.netlinkSocketForProto(NETLINK_INET_DIAG, 0);
             connectToKernel(fd);
             uid = lookupUid(protocol, local, remote, fd);
         } catch (ErrnoException | SocketException | IllegalArgumentException
