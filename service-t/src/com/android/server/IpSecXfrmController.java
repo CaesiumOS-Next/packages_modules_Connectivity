@@ -106,7 +106,8 @@ public class IpSecXfrmController {
     public static class Dependencies {
         /** Get a new XFRM netlink socket and connect it */
         public FileDescriptor newNetlinkSocket() throws ErrnoException, SocketException {
-            final FileDescriptor fd = NetlinkUtils.netlinkSocketForProto(NETLINK_XFRM);
+            final FileDescriptor fd =
+                    NetlinkUtils.netlinkSocketForProto(NETLINK_XFRM, 0);
             NetlinkUtils.connectToKernel(fd);
             return fd;
         }
