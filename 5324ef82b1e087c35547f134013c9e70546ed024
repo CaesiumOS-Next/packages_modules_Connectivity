@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83224173_171f2071",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-01-29T21:19:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1892ef4_a9d4312f",
+      "range": {
+        "startLine": 1278,
+        "startChar": 5,
+        "endLine": 1278,
+        "endChar": 22
+      },
+      "revId": "5324ef82b1e087c35547f134013c9e70546ed024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5050eb39_8283111b",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-29T11:16:42Z",
       "side": 1,
       "message": "nits: Could you add `ensureRunningOnConnectivityServiceThread();` to make sure this is running on ConnectivityService thread?",
+      "range": {
+        "startLine": 9069,
+        "startChar": 57,
+        "endLine": 9069,
+        "endChar": 58
+      },
+      "revId": "5324ef82b1e087c35547f134013c9e70546ed024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5146876_fac4dc8e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 9069,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-01-29T21:19:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5050eb39_8283111b",
       "range": {
         "startLine": 9069,
         "startChar": 57,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0b6f251_3358924c",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-01-29T21:19:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "614a29a3_83719ad4",
+      "range": {
+        "startLine": 85,
+        "startChar": 16,
+        "endLine": 85,
+        "endChar": 26
+      },
+      "revId": "5324ef82b1e087c35547f134013c9e70546ed024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e20ceafe_2b168588",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-01-29T11:16:42Z",
       "side": 1,
       "message": "Can be final.",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 11
+      },
+      "revId": "5324ef82b1e087c35547f134013c9e70546ed024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "442ee44c_8ce423f9",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-01-29T21:19:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e20ceafe_2b168588",
       "range": {
         "startLine": 86,
         "startChar": 4,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "438da3ca_db51fd31",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-01-29T21:19:39Z",
+      "side": 1,
+      "message": "That is a good point, we actually don\u0027t need this API in the test to verify the listener count since we do verify the correct behavior of the listener itself",
+      "parentUuid": "d6d2d65c_1a0f0e91",
+      "range": {
+        "startLine": 339,
+        "startChar": 4,
+        "endLine": 339,
+        "endChar": 5
+      },
+      "revId": "5324ef82b1e087c35547f134013c9e70546ed024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a8667b4_a0f12864",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-01-29T11:16:42Z",
       "side": 1,
       "message": "For the verification of allowedUid update, can we use Network callback?\nThis is a way that usual app can know the network change.\nI think we can do something similar to `testAllowedUids`.",
+      "range": {
+        "startLine": 17471,
+        "startChar": 0,
+        "endLine": 17472,
+        "endChar": 41
+      },
+      "revId": "5324ef82b1e087c35547f134013c9e70546ed024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6e53f7d_69d967a8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 17472,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-01-29T21:19:39Z",
+      "side": 1,
+      "message": "This test is different from testAllowedUids. testAllowedUids manually modifies the allowedUids in the NetworkCapabilities and post it to the network callback, so that it can verify the allowedUids received by the network callback is the same as the manually set value. This new test is to verify that, the allowedUids will be modified as a result of the onCarrierPrivilegesLost callback, the network callback is actually irrelevant (which has already been covered by testAllowedUids and other network callback related tests). I tried to use the Network callback just like the testAllowedUids, but I realized that the network callbacks need to be verified in order, which means I need to first expect the Available, and then CapabilititesUpdate, and then Unavailable, etc, which makes the test complicated but didn\u0027t help on the logic which we actually want to test. So I would suggest don\u0027t use Network Callback for this test. Another reason why I made the test this way, is that we do want to also verify that the onCarrierPrivilegesLost callback does trigger the update to the NetworkAgentInfo.networkCapabilities.",
+      "parentUuid": "9a8667b4_a0f12864",
       "range": {
         "startLine": 17471,
         "startChar": 0,

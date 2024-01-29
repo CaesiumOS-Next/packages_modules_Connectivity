@@ -70,6 +70,30 @@
       },
       "revId": "9a8968154e48ac7f96dcec6c71975eadfbadbbbd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7816f4d4_eabadaca",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-01-29T21:19:39Z",
+      "side": 1,
+      "message": "I didn\u0027t use Consumer type before, so if \"using Consumer type\" is only to make the code simpler, how about we keep the code as is since this is also a standard way of implementing callback listeners. We can change that to Consumer in a follow up CL if you really prefer that.",
+      "parentUuid": "195fc1a2_6beec8b9",
+      "range": {
+        "startLine": 85,
+        "startChar": 12,
+        "endLine": 85,
+        "endChar": 16
+      },
+      "revId": "9a8968154e48ac7f96dcec6c71975eadfbadbbbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
