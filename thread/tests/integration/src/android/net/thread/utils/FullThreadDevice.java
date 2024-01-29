@@ -31,10 +31,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Inet6Address;
+import java.net.InetAddress;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A class that launches and controls a simulation Full Thread Device (FTD).
@@ -94,6 +97,12 @@ public final class FullThreadDevice {
         return null;
     }
 
+    /** Returns the Mesh-local EID address on this device if any. */
+    public Inet6Address getMlEid() {
+        List<String> addresses = executeCommand("ipaddr mleid");
+        return (Inet6Address) InetAddresses.parseNumericAddress(addresses.get(0));
+    }
+
     /**
      * Joins the Thread network using the given {@link ActiveOperationalDataset}.
      *
@@ -130,6 +139,33 @@ public final class FullThreadDevice {
      */
     public String getState() {
         return executeCommand("state").get(0);
+    }
+
+    /** Closes the UDP socket. */
+    public void udpClose() {
+        executeCommand("udp close");
+    }
+
+    /** Opens the UDP socket. */
+    public void udpOpen() {
+        executeCommand("udp open");
+    }
+
+    /** Opens the UDP socket and binds it to a specific address and port. */
+    public void listenUdp(Inet6Address address, int port) {
+        udpClose();
+        udpOpen();
+        executeCommand(String.format("udp bind %s %d", toString(address), port));
+    }
+
+    /** Returns the message received on the UDP socket. */
+    public String receiveUdpMessage() throws IOException {
+        Pattern pattern =
+                Pattern.compile("> (\\d+) bytes from ([\\da-f:]+) (\\d+) ([\\x00-\\x7F]+)");
+        Matcher matcher = pattern.matcher(mReader.readLine());
+        matcher.matches();
+
+        return matcher.group(4);
     }
 
     /** Runs the "factoryreset" command on the device. */
@@ -178,5 +214,11 @@ public final class FullThreadDevice {
             }
         }
         return result;
+    }
+
+    private static String toString(InetAddress address) {
+        // InetAddress.toString() contains a '/' at the beginning of the string which is not desired
+        // in our use case.
+        return address.toString().substring(1);
     }
 }
