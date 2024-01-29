@@ -135,6 +135,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e65c28aa_24ad78d5",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-01-29T20:50:23Z",
+      "side": 1,
+      "message": "this one doesn\u0027t look necessarily safe...\ngetAndProcessNetlinkDumpMessagesWithFd - sends one message - and then loops and gets back many \u003c\u003d8kB responses... (though 64KB may also be too small...)\n\nnote that this has 2 callers,  getIpv6MulticastRoutes and  processNetlinkDumpAndDestroySockets from\npackages/modules/Connectivity/staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java\nthat latter one could get a fair number of sockets potentially...",
+      "parentUuid": "eb55f3af_c1459fea",
+      "range": {
+        "startLine": 382,
+        "startChar": 64,
+        "endLine": 382,
+        "endChar": 67
+      },
+      "revId": "c5cfff7b2f4979d9fb429fb2b879da442ecc68a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88c3287d_bc6b40cb",
         "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
         "patchSetId": 6
