@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "231d2bb1_df2a4f71",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-29T03:52:28Z",
+      "side": 1,
+      "message": "This kind of proxy is only needed for callbacks rather than receivers. The difference is that callbacks are registered to the controller and can be called for multiple times, they are typically registered with \"registerXxxxCallback()\" API. Receivers are called for only once and automatically unregistered when it\u0027s ever called. Receivers are typically registered with an async API, like the \"getRandomizedDataset()\" API here.\n\nYou should follow the pattern of \"setCountryCode()\"",
+      "range": {
+        "startLine": 1290,
+        "startChar": 23,
+        "endLine": 1290,
+        "endChar": 50
+      },
+      "revId": "17e1b8c961c5dd200603c90ddb881a7e4504effd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad213de4_5b625ab4",
         "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
         "patchSetId": 3
