@@ -66,6 +66,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b278310_745b584e",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-01-29T20:44:39Z",
+      "side": 1,
+      "message": "should be fine",
+      "range": {
+        "startLine": 162,
+        "startChar": 65,
+        "endLine": 162,
+        "endChar": 66
+      },
+      "revId": "c5cfff7b2f4979d9fb429fb2b879da442ecc68a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "63d7c672_ae421432",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 6
@@ -105,6 +128,29 @@
         "startChar": 64,
         "endLine": 382,
         "endChar": 67
+      },
+      "revId": "c5cfff7b2f4979d9fb429fb2b879da442ecc68a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88c3287d_bc6b40cb",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-01-29T20:44:39Z",
+      "side": 1,
+      "message": "this one is indeed write only",
+      "range": {
+        "startLine": 64,
+        "startChar": 82,
+        "endLine": 64,
+        "endChar": 83
       },
       "revId": "c5cfff7b2f4979d9fb429fb2b879da442ecc68a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
