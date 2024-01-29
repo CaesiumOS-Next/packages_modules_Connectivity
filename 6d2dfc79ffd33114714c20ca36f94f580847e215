@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21c7ed2c_e558e696",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-29T05:29:13Z",
+      "side": 1,
+      "message": "LGTM if you have another change that removes/fixes the CTS TODOs",
+      "revId": "6d2dfc79ffd33114714c20ca36f94f580847e215",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e87b3ce_9e26dd86",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-29T05:29:13Z",
+      "side": 1,
+      "message": "Can you upload a change that does that (ideally in the topic) ? This is a bug in the current implementation, and we shouldn\u0027t leave TODOs and commented out checks in CTS unless there\u0027s a ready fix for it",
+      "revId": "6d2dfc79ffd33114714c20ca36f94f580847e215",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "116fdf8f_8fad72b9",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 1349,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-29T05:29:13Z",
+      "side": 1,
+      "message": "Similarly can you upload a change for that one ?",
+      "revId": "6d2dfc79ffd33114714c20ca36f94f580847e215",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
