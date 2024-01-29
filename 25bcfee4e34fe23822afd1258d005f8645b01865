@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "781886a0_2cd95342",
+        "filename": "thread/tests/integration/AndroidTest.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-29T11:55:24Z",
+      "side": 1,
+      "message": "You may need to skip Guava tests.\n```xml\n        \u003c!-- Ignores tests introduced by guava-android-testlib --\u003e\n        \u003coption name\u003d\"exclude-annotation\" value\u003d\"org.junit.Ignore\"/\u003e\n```",
+      "revId": "25bcfee4e34fe23822afd1258d005f8645b01865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
