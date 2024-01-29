@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad213de4_5b625ab4",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-29T03:47:35Z",
+      "side": 1,
+      "message": "This test case failed to cover the changes in ThreadNetworkControllerService.java because it can pass without those changes.\n\nYou need to follow https://android-review.git.corp.google.com/c/platform/external/ot-br-posix/+/2929771/comment/157c9ffd_d028318c/ and change the tests here to steps like below:\n```\n\n```\n```suggestion\n        final IActiveOperationalDatasetReceiver mockReceiver \u003d\n                mock(IActiveOperationalDatasetReceiver.class);\n        mFakeOtDaemon.setChannelMasks(0x0FFFFFF00, 0x07AABB800);\n        when(mockReceiver.asBinder()).thenReturn(mIBinder);\n\n        mService.createRandomizedDataset(DEFAULT_NETWORK_NAME, mockReceiver);\n        mTestLooper.dispatchAll();\n\n        verify(mockReceiver, never()).onError(anyInt(), anyString());\n        verify(mockReceiver, times(1)).onSuccess(datasetCaptor.capture());\n        assertThat(datasetCaptor.getValue().getChannelMask()).isEqualTo(0x07AABB800);\n```",
+      "range": {
+        "startLine": 178,
+        "startChar": 8,
+        "endLine": 187,
+        "endChar": 86
+      },
+      "revId": "17e1b8c961c5dd200603c90ddb881a7e4504effd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
