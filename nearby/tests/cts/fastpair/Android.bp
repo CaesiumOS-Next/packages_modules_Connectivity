@@ -33,6 +33,7 @@ android_test {
         "framework-bluetooth.stubs.module_lib",
         "framework-configinfrastructure",
         "framework-connectivity-t.impl",
+        "framework-location",
     ],
     srcs: ["src/**/*.java"],
     test_suites: [
