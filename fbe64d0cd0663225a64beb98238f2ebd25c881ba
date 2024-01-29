@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70f49dff_db61ed4c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSearchOptions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-29T01:54:25Z",
+      "side": 1,
+      "message": "nit: `\u003d PASSIVE_QUERY_MODE` would be clearer, otherwise one has to check the constant to see that PASSIVE_QUERY_MODE \u003d\u003d 0 to know the default\n```suggestion\n        private int queryMode \u003d PASSIVE_QUERY_MODE;\n```",
+      "range": {
+        "startLine": 184,
+        "startChar": 29,
+        "endLine": 184,
+        "endChar": 30
+      },
+      "revId": "fbe64d0cd0663225a64beb98238f2ebd25c881ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
