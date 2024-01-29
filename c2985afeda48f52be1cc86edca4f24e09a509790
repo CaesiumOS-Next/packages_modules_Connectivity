@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6b65a99_5b10c32c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-29T03:58:35Z",
+      "side": 1,
+      "message": "Thanks, added!",
+      "parentUuid": "664df340_5359b328",
+      "revId": "c2985afeda48f52be1cc86edca4f24e09a509790",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98aede88_49aa1779",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23672447_091a8ea0",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-29T03:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98aede88_49aa1779",
+      "revId": "c2985afeda48f52be1cc86edca4f24e09a509790",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb88687d_f06a8e64",
@@ -48,6 +84,24 @@
       "writtenOn": "2024-01-29T02:50:40Z",
       "side": 1,
       "message": "I think L121 makes sure this is not null so we don\u0027t have to check it here?",
+      "revId": "c2985afeda48f52be1cc86edca4f24e09a509790",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f99a0d3c_ff9738a7",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-01-29T03:58:35Z",
+      "side": 1,
+      "message": "tearDown() is executed even when the assume in setUp() fails :)",
+      "parentUuid": "eb88687d_f06a8e64",
       "revId": "c2985afeda48f52be1cc86edca4f24e09a509790",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
