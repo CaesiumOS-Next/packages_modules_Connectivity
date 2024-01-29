@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "961b1de2_499b5a21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-29T07:38:38Z",
+      "side": 1,
+      "message": "0 means don\u0027t set the buffer size, keep socket default value (which is not same as SOCKET_RECV_BUFSIZE).\n\nWe could add a 1-arg version that doesn\u0027t set the buffer size, but maybe explicitly setting it can force new callers to keep this difference in mind?",
+      "parentUuid": "7812d590_e0b0b5e2",
+      "revId": "8e78a45b9b130ea0b124fb2fa297ae2d5604b7b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad4dae11_bbdc7d1a",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-01-29T05:21:27Z",
       "side": 1,
       "message": "shouldn\u0027t this be bufferSize?",
+      "range": {
+        "startLine": 238,
+        "startChar": 56,
+        "endLine": 238,
+        "endChar": 75
+      },
+      "revId": "8e78a45b9b130ea0b124fb2fa297ae2d5604b7b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29467027_7dbbe75b",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-29T07:38:38Z",
+      "side": 1,
+      "message": "Ops, fixed, and added test for it in NetlinkUtilsTest.",
+      "parentUuid": "ad4dae11_bbdc7d1a",
       "range": {
         "startLine": 238,
         "startChar": 56,
