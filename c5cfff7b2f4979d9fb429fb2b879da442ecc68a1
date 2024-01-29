@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae2ebd52_0eb68fbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-01-29T20:38:19Z",
+      "side": 1,
+      "message": "I\u0027m not at all saying this is wrong...\nBut I\u0027m just not convinced it\u0027s right...\n\nAlthough I do think it is likely that the default buffer size is actually \u003e\u003d64kiB, however I believe that comes from a sysctl and thus cannot be guaranteed...\n\n---\n\nAlso note:\n    public static final int DEFAULT_RECV_BUFSIZE \u003d 8 * 1024;\n    public static final int SOCKET_RECV_BUFSIZE \u003d 64 * 1024;\n\njust because read buffer is limited to 8kb, it doesn\u0027t mean we don\u0027t need to buffer more than 1 packet if we read in a loop.  ie. a single send [dump request to kernel] could result in multiple messages needing to be read back.  so it needs to be deeply analyzed for each case.",
+      "revId": "c5cfff7b2f4979d9fb429fb2b879da442ecc68a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80e59bbb_7659b0e7",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-01-29T20:38:19Z",
+      "side": 1,
+      "message": "I think I\u0027m convinced this one is ok.",
+      "range": {
+        "startLine": 284,
+        "startChar": 71,
+        "endLine": 284,
+        "endChar": 72
+      },
+      "revId": "c5cfff7b2f4979d9fb429fb2b879da442ecc68a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63d7c672_ae421432",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-01-29T20:38:19Z",
+      "side": 1,
+      "message": "every \", 0\" you added, besides this one, is a change in behaviour.\n\nIs that what you intended?  Why is that safe to do?\n\nIf it\u0027s safe, then that should be explained in the commit message.",
+      "range": {
+        "startLine": 247,
+        "startChar": 54,
+        "endLine": 247,
+        "endChar": 57
+      },
+      "revId": "c5cfff7b2f4979d9fb429fb2b879da442ecc68a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb55f3af_c1459fea",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-01-29T20:38:19Z",
+      "side": 1,
+      "message": "why is it ok to not set the buffer size here?\nwhat is the default?\nie. why is the default sufficient?",
+      "range": {
+        "startLine": 382,
+        "startChar": 64,
+        "endLine": 382,
+        "endChar": 67
+      },
+      "revId": "c5cfff7b2f4979d9fb429fb2b879da442ecc68a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
