@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "909e626f_feccb6fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-29T06:45:28Z",
+      "side": 1,
+      "message": "Also this needs maybeRestartProbingForConflict to call `mAnnouncer.stop(serviceId)`",
+      "revId": "6502bc5f33a6d202bf6b5b0a1983927bb8d941e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
