@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34aedc7d_39a7cdb5",
+        "filename": "service/ServiceConnectivityResources/res/values/OWNERS",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-29T08:41:42Z",
+      "side": 1,
+      "message": "Files in res/X/ subdirectories are generally expected to be resource files, I\u0027m not sure it\u0027s a good idea to have an OWNERS file there\n\nCould you move this up to service/ServiceConnectivityResources/OWNERS ? That would be safer to make sure the resource compiling doesn\u0027t try to package this (or IDEs don\u0027t get confused)",
+      "revId": "7aa036d2345593433bb4ac9609e6a7c54533231f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
