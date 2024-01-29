@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b49f2b24_c4ad852b",
+        "filename": "tests/unit/java/android/net/NetworkUtilsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-29T03:41:06Z",
+      "side": 1,
+      "message": "nits: This part can be function and `testSetSockOptBytes` can call twice with `3000` and `5000`.",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 48
+      },
+      "revId": "bde1e60a19d9f715eafd9d072d1e4f3d92118b96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
