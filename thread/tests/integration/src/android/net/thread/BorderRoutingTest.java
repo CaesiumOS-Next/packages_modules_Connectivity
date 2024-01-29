@@ -21,10 +21,12 @@ import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_LEADER;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
 import static android.net.thread.utils.IntegrationTestUtils.JOIN_TIMEOUT;
+import static android.net.thread.utils.IntegrationTestUtils.RESTART_JOIN_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.isExpectedIcmpv6Packet;
 import static android.net.thread.utils.IntegrationTestUtils.isSimulatedThreadRadioSupported;
 import static android.net.thread.utils.IntegrationTestUtils.newPacketReader;
 import static android.net.thread.utils.IntegrationTestUtils.readPacketFrom;
+import static android.net.thread.utils.IntegrationTestUtils.sendUdpMessage;
 import static android.net.thread.utils.IntegrationTestUtils.waitFor;
 import static android.net.thread.utils.IntegrationTestUtils.waitForStateAnyOf;
 
@@ -35,9 +37,12 @@ import static com.android.testutils.TestPermissionUtil.runAsShell;
 import static com.google.common.io.BaseEncoding.base16;
 import static com.google.common.util.concurrent.MoreExecutors.directExecutor;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assume.assumeNotNull;
 import static org.junit.Assume.assumeTrue;
+
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 import android.content.Context;
 import android.net.LinkProperties;
@@ -62,6 +67,7 @@ import org.junit.runner.RunWith;
 import java.net.Inet6Address;
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -86,6 +92,8 @@ public class BorderRoutingTest {
                                     + "B9D351B40C0402A0FFF8");
     private static final ActiveOperationalDataset DEFAULT_DATASET =
             ActiveOperationalDataset.fromThreadTlvs(DEFAULT_DATASET_TLVS);
+    private static final int BR_JOIN_NETWORK_TIMEOUT_SECONDS = 40;
+    private static final int FTD_JOIN_NETWORK_TIMEOUT_SECONDS = 20;
 
     @Before
     public void setUp() throws Exception {
@@ -163,8 +171,8 @@ public class BorderRoutingTest {
 
         // Creates a Full Thread Device (FTD) and lets it join the network.
         FullThreadDevice ftd = new FullThreadDevice(5 /* node ID */);
-        ftd.factoryReset();
         ftd.joinNetwork(DEFAULT_DATASET);
+        ftd.factoryReset();
         ftd.waitForStateAnyOf(List.of("router", "child"), JOIN_TIMEOUT);
         waitFor(() -> ftd.getOmrAddress() != null, Duration.ofSeconds(60));
         Inet6Address ftdOmr = ftd.getOmrAddress();
@@ -186,5 +194,45 @@ public class BorderRoutingTest {
                 readPacketFrom(
                         infraNetworkReader,
                         p -> isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)));
+    }
+
+    @Test
+    public void unicastRouting_borderRouterSendsUdpToThreadDevice_datagramReceived()
+            throws Exception {
+        assumeTrue(isSimulatedThreadRadioSupported());
+
+        /*
+         * <pre>
+         * Topology:
+         *                   Thread
+         * Border Router -------------- Full Thread device
+         *  (Cuttlefish)
+         * </pre>
+         */
+
+        // BR forms a network.
+        CompletableFuture<Void> joinFuture = new CompletableFuture<>();
+        runAsShell(
+                PERMISSION_THREAD_NETWORK_PRIVILEGED,
+                () -> mController.join(DEFAULT_DATASET, directExecutor(), joinFuture::complete));
+        joinFuture.get(RESTART_JOIN_TIMEOUT.toMillis(), MILLISECONDS);
+
+        // Creates a Full Thread Device (FTD) and lets it join the network.
+        FullThreadDevice ftd = new FullThreadDevice(6 /* node ID */);
+        ftd.joinNetwork(DEFAULT_DATASET);
+        ftd.waitForStateAnyOf(List.of("router", "child"), JOIN_TIMEOUT);
+        waitFor(() -> ftd.getOmrAddress() != null, Duration.ofSeconds(60));
+        Inet6Address ftdOmr = ftd.getOmrAddress();
+        assertNotNull(ftdOmr);
+        Inet6Address ftdMlEid = ftd.getMlEid();
+        assertNotNull(ftdMlEid);
+
+        ftd.listenUdp(ftdOmr, 12345);
+        sendUdpMessage(ftdOmr, 12345, "aaaaaaaa");
+        assertEquals("aaaaaaaa", ftd.receiveUdpMessage());
+
+        ftd.listenUdp(ftdMlEid, 12345);
+        sendUdpMessage(ftdMlEid, 12345, "bbbbbbbb");
+        assertEquals("bbbbbbbb", ftd.receiveUdpMessage());
     }
 }
