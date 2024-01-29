@@ -166,6 +166,30 @@
       },
       "revId": "fb38a31b7203f6cb609009500d2d96be2b67f7cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f69b904c_4d226e09",
+        "filename": "nearby/service/java/com/android/server/nearby/managers/BluetoothFinderManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1870378
+      },
+      "writtenOn": "2024-01-29T23:19:44Z",
+      "side": 1,
+      "message": "I copied \"Android security settings\" from your previous response \"The user turns off the feature by toggling it in Android security settings\".\n\nYes, the lazy initialization works fine to me. I am trying to learn and get better understanding of the background together with your implementation.",
+      "parentUuid": "26b02780_ef18fe5e",
+      "range": {
+        "startLine": 107,
+        "startChar": 13,
+        "endLine": 107,
+        "endChar": 34
+      },
+      "revId": "fb38a31b7203f6cb609009500d2d96be2b67f7cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
