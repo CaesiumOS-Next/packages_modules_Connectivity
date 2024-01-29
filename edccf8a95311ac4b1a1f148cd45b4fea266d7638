@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a950735a_62e2225a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-29T06:49:00Z",
+      "side": 1,
+      "message": "Nit: this is used below too so you could use a variable",
+      "range": {
+        "startLine": 405,
+        "startChar": 20,
+        "endLine": 405,
+        "endChar": 52
+      },
+      "revId": "edccf8a95311ac4b1a1f148cd45b4fea266d7638",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
