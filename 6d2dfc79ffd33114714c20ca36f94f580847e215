@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1bd64bb_7057a235",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-29T06:27:02Z",
+      "side": 1,
+      "message": "Added aosp/2931332",
+      "parentUuid": "5e87b3ce_9e26dd86",
+      "revId": "6d2dfc79ffd33114714c20ca36f94f580847e215",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "116fdf8f_8fad72b9",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-01-29T05:29:13Z",
       "side": 1,
       "message": "Similarly can you upload a change for that one ?",
+      "revId": "6d2dfc79ffd33114714c20ca36f94f580847e215",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "241b81dd_f6a9ed9b",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 1349,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-01-29T06:27:02Z",
+      "side": 1,
+      "message": "Added aosp/2931331",
+      "parentUuid": "116fdf8f_8fad72b9",
       "revId": "6d2dfc79ffd33114714c20ca36f94f580847e215",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
