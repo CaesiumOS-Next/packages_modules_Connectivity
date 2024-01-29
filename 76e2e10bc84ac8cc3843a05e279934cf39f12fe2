@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e97d7ebb_0de8ccf0",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1054,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-29T03:07:23Z",
+      "side": 1,
+      "message": "Nit: it would be clearer to do: `isAggressiveQueryModeEnabled() ? AGGRESSIVE : PASSIVE`\n\nOtherwise you\u0027d need to look at the value getting overridden to notice that it\u0027s not always passive",
+      "range": {
+        "startLine": 1054,
+        "startChar": 58,
+        "endLine": 1054,
+        "endChar": 76
+      },
+      "revId": "76e2e10bc84ac8cc3843a05e279934cf39f12fe2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08c4ea82_d98de086",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSearchOptions.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-29T03:07:23Z",
+      "side": 1,
+      "message": "That\u0027s true at first, but the active mode scans once every 20sec at most, while this goes up to once every 1min. So in a long session, it actually scans less, and about as much as the PASSIVE_QUERY_MODE (3 queries per minute).\n\nSo you could say it scans more frequently than the active mode at first, and sends both unicast and multicast queries simultaneously, but in long sessions it eventually sends as many queries as the PASSIVE mode ?",
+      "range": {
+        "startLine": 47,
+        "startChar": 29,
+        "endLine": 47,
+        "endChar": 50
+      },
+      "revId": "76e2e10bc84ac8cc3843a05e279934cf39f12fe2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c250c9ff_665b8797",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-29T03:07:23Z",
+      "side": 1,
+      "message": "Better rename this to `MAX_TIME_BETWEEN_ACTIVE_PASSIVE_BURSTS_MS` or similar; and have `MAX_TIME_BETWEEN_BURSTS_MS` be `MAX_TIME_BETWEEN_AGGRESSIVE_BURSTS_MS`",
+      "range": {
+        "startLine": 39,
+        "startChar": 29,
+        "endLine": 39,
+        "endChar": 51
+      },
+      "revId": "76e2e10bc84ac8cc3843a05e279934cf39f12fe2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d805da49_453a453b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-29T03:07:23Z",
+      "side": 1,
+      "message": "Nit: `INITIAL_AGGRESSIVE_TIME_BETWEEN_BURSTS_MS` since it\u0027s only the initial value",
+      "range": {
+        "startLine": 48,
+        "startChar": 21,
+        "endLine": 48,
+        "endChar": 54
+      },
+      "revId": "76e2e10bc84ac8cc3843a05e279934cf39f12fe2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c69f498f_1154ce17",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-29T03:07:23Z",
+      "side": 1,
+      "message": "Nit: typical DTIM interval; since it\u0027s not always 100ms, but that\u0027s a common number",
+      "range": {
+        "startLine": 50,
+        "startChar": 49,
+        "endLine": 50,
+        "endChar": 50
+      },
+      "revId": "76e2e10bc84ac8cc3843a05e279934cf39f12fe2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed8e4384_396dd3b2",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1697,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-29T03:07:23Z",
+      "side": 1,
+      "message": "Is there a test that checks that it maxes out at 1min ? Otherwise can you add that ?",
+      "revId": "76e2e10bc84ac8cc3843a05e279934cf39f12fe2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

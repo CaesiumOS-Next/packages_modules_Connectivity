@@ -163,6 +163,30 @@
       },
       "revId": "6d4081f714a5c4fc0968c4ed4ca41da6a7cdc60d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90208ec1_164c7ada",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-29T03:07:23Z",
+      "side": 1,
+      "message": "Hmm I think this hasn\u0027t changed apart from renaming ?\n\nI meant factoring out most of the code from this method and the one below to a common method.\n\nThe previous naming actually looked better as it\u0027s getting a config, not actually using it.\n\nThis logic is really hard to follow because it sets variables to some defaults and then overwrites the values; but in the end it calculates:\n - newDelayUntilNextTaskWithoutBackoffMs\n - newExpectUnicastResponse\n - newTimeBetweenBurstsInMs\n\nI think it would be clearer if you can refactor it to use methods like:\n\n```\nlong getDelayUntilNextTask(isFirstBurst, isFirstQueryInBurst, isLastQueryInBurst) {\n    if (isFirstQueryInBurst \u0026\u0026 queryMode \u003d\u003d AGGRESSIVE) {\n        return 0;\n    }\n    if (isLastQueryInBurst) {\n        return timeBetweenBurstsInMs;\n    }\n    return queryMode \u003d\u003d AGGRESSIVE\n        ? TIME_BETWEEN_RETRANSMISSION_QUERIES_IN_BURST_MS\n        : TIME_BETWEEN_QUERIES_IN_BURST_MS;\n}\n\nboolean getNextExpectUnicastResponse(isFirstQueryInBurst) {\n    if (alwaysAskForUnicastResponse) {\n        return true;\n    }\n    return queryMode \u003d\u003d AGGRESSIVE \u0026\u0026 isFirstQueryInBurst;\n}\n\nlong getNextTimeBetweenBurstsMs(boolean isLastQueryInBurst) {\n    if (!isLastQueryInBurst) {\n        return timeBetweenBurstsInMs;\n    }\n    final long maxTimeBetweenBursts \u003d queryMode \u003d\u003d AGGRESSIVE\n            ? MAX_TIME_BETWEEN_BURSTS_MS : TIME_BETWEEN_BURSTS_MS);\n    return Math.min(maxTimeBetweenBursts, timeBetweenBurstsInMs * 2);\n}\n```\n\nThen you should be able to use mostly common code for `isFirstBurst`, and `burstCounter`",
+      "parentUuid": "7043a55a_d44664ca",
+      "range": {
+        "startLine": 143,
+        "startChar": 28,
+        "endLine": 143,
+        "endChar": 51
+      },
+      "revId": "6d4081f714a5c4fc0968c4ed4ca41da6a7cdc60d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
