@@ -46,6 +46,30 @@
       },
       "revId": "33e47446af2f18992b2d0b0d2425c64540bb2beb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27ce755d_c5644cf9",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-29T01:55:44Z",
+      "side": 1,
+      "message": "Good suggestion, thanks, I\u0027ve splitted to 2 CLs.\n\nFor the callers of this method, \n* OffloadHardwareInterface creates NETLINK_NETFILTER socket, it passes in the 64k buffer size.\n\nThe other callers use default buffer size:\n* InetDiag as it used to be\n* multicast route dump \n* IpSecXfrmController creates NETLINK_XFRM socket, seems to expect read buffer size to be 8k\n* TunInterfaceController creates NETLINK_ROUTE socket, it\u0027s currently used to write not read.",
+      "parentUuid": "78d95c84_57c486a1",
+      "range": {
+        "startLine": 232,
+        "startChar": 72,
+        "endLine": 232,
+        "endChar": 73
+      },
+      "revId": "33e47446af2f18992b2d0b0d2425c64540bb2beb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
