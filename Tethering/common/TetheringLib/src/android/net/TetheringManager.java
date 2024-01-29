@@ -28,6 +28,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.ConditionVariable;
 import android.os.IBinder;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.os.RemoteException;
 import android.os.ResultReceiver;
 import android.util.ArrayMap;
@@ -673,12 +675,38 @@ public class TetheringManager {
     /**
      *  Use with {@link #startTethering} to specify additional parameters when starting tethering.
      */
-    public static class TetheringRequest {
+    public static class TetheringRequest implements Parcelable {
         /** A configuration set for TetheringRequest. */
         private final TetheringRequestParcel mRequestParcel;
 
         private TetheringRequest(final TetheringRequestParcel request) {
             mRequestParcel = request;
+        }
+
+        protected TetheringRequest(@NonNull Parcel in) {
+            mRequestParcel = in.readParcelable(TetheringRequestParcel.class.getClassLoader());
+        }
+
+        public static final Creator<TetheringRequest> CREATOR = new Creator<TetheringRequest>() {
+            @Override
+            public TetheringRequest createFromParcel(@NonNull Parcel in) {
+                return new TetheringRequest(in);
+            }
+
+            @Override
+            public TetheringRequest[] newArray(int size) {
+                return new TetheringRequest[size];
+            }
+        };
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(@NonNull Parcel dest, int flags) {
+            dest.writeParcelable(mRequestParcel, flags);
         }
 
         /** Builder used to create TetheringRequest. */
