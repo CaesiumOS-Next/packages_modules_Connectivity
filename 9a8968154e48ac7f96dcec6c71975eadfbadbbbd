@@ -46,6 +46,30 @@
       },
       "revId": "9a8968154e48ac7f96dcec6c71975eadfbadbbbd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "195fc1a2_6beec8b9",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-29T11:16:42Z",
+      "side": 1,
+      "message": "I don\u0027t have strong opinion to make it a single listener so I\u0027m fine to keep List.\n\nWhat do you think about using Consumer type?\nI thought this makes code simpler.",
+      "parentUuid": "3067fc2e_2678b168",
+      "range": {
+        "startLine": 85,
+        "startChar": 12,
+        "endLine": 85,
+        "endChar": 16
+      },
+      "revId": "9a8968154e48ac7f96dcec6c71975eadfbadbbbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

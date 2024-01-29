@@ -324,6 +324,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a5c0c58_048d795e",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-29T11:16:42Z",
+      "side": 1,
+      "message": "Thank you for the clarification.  \nHaving multiple flag combination is not great.\nSo if we can first finish rollout mUseCallbacksForServiceChanged, it would be great.",
+      "parentUuid": "02d45e62_31317a3e",
+      "range": {
+        "startLine": 308,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 13
+      },
+      "revId": "0a6b6deb664c16fb134b8762965042a7dae201cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d7dbddf_c7d23513",

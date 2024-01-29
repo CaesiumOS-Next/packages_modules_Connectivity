@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5125a5da_222a0c43",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 7466,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-29T11:16:42Z",
+      "side": 1,
+      "message": "If the `mRequestRestrictedWifiEnabled` is true, enforceNetworkFactoryPermission is always skipped still.\n\nBased on the comment from Benedict, does the following make sense?\n```\nbool skipNetworkFactoryPermissionForRequest(nc) {\n  If (nc.getSubscriptionIds().isEmpty()) {\n      return true;\n  }\n\n  If (mRequestRestrictedWifiEnabled \n        \u0026\u0026 canBypassRestrictedNetworkPermissionCheck) {\n     return true;\n  }\n  \n  return PermissionUtils.checkAnyPermissionOf(mContext,\n                android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS);\n   \n}\n\n\nif (!skipNetworkFactoryPermissionForRequest) {\n   enforceNetworkFactoryPermission();\n}\n```",
+      "parentUuid": "14494369_a5b33407",
+      "range": {
+        "startLine": 7466,
+        "startChar": 13,
+        "endLine": 7466,
+        "endChar": 42
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a55348d_f2d7f907",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 15
@@ -323,6 +347,30 @@
       "side": 1,
       "message": "I also feel that it is not a good idea to add the flag into the constructor, especially because we will need to remove it later. I am not sure whether moving those logic into ConnectivityFlags is a good idea either since there is no existing logic like that, so doing that means we need to copy part of the ConnectivityService#Dependencies logic into ConnectivityFlags.\n\n@motomuman@google.com which one do you prefer?\n1. Keep 2 flags as they are now\n2. Add the flag into the constructor of CarrierPrivilegeAuthenticator\n3. Do the similar things as ConnectivityService#Dependencies in ConnectivityFlags",
       "parentUuid": "6cb19750_8cbf6ceb",
+      "range": {
+        "startLine": 99,
+        "startChar": 67,
+        "endLine": 99,
+        "endChar": 69
+      },
+      "revId": "92c671c3b9c309edca6082a5142f7178fb0192fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12c45640_21086f97",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-29T11:16:42Z",
+      "side": 1,
+      "message": "I agree that reading flag value twice should not be the issue with the current flag update/rollback logic.  \nBut I still prefer not to depend on how the flag is updated or rollbacked currently and in the future.  \n\nCan we move all the flag check to ConnectivityService?  \nCurrent usage of mRequestRestrictedWifiEnabled in CarrierPrivilegeAuthenticator is callback handling and isCarrierServiceUidForNetworkCapabilities.\nFor callback handling, If ConnectivityService register the callback only when mRequestRestrictedWifiEnabled is true, I think this check is enough.\n\nFor isCarrierServiceUidForNetworkCapabilities, I think ConnectivityService can pass mRequestRestrictedWifiEnabled as an argument.\n\n-----\nIf you don\u0027t like above proposal, I think we can do what Ying proposed on earlier comment (ConnectivityService call CarrierPrivilegeAuthenticator method to check if the feature is enabled or not) or we can pass flag into the CarrierPrivilegeAuthenticator constructor.\n\nFor ConnectivityFlags, I think we will need some work to use this for our use case and currently ConnectivityFlags is used to read only the single flag not used to read flags in general.\nSo I prefer the other options.",
+      "parentUuid": "e7d58bb3_bbbe94c6",
       "range": {
         "startLine": 99,
         "startChar": 67,

@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1892ef4_a9d4312f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-29T11:16:42Z",
+      "side": 1,
+      "message": "From the test, can we get callback from `registerCarrierPrivilegesLostListener`?\nI think it\u0027s more realistic to use the callback which is registered.\nYou can do something similar to getRegisteredNetdUnsolicitedEventListener in ConnectivityServiceTest.",
+      "range": {
+        "startLine": 1278,
+        "startChar": 5,
+        "endLine": 1278,
+        "endChar": 22
+      },
+      "revId": "5324ef82b1e087c35547f134013c9e70546ed024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5050eb39_8283111b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 9069,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-29T11:16:42Z",
+      "side": 1,
+      "message": "nits: Could you add `ensureRunningOnConnectivityServiceThread();` to make sure this is running on ConnectivityService thread?",
+      "range": {
+        "startLine": 9069,
+        "startChar": 57,
+        "endLine": 9069,
+        "endChar": 58
+      },
+      "revId": "5324ef82b1e087c35547f134013c9e70546ed024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "614a29a3_83719ad4",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-29T11:16:42Z",
+      "side": 1,
+      "message": "nits: I prefer to use `mLock` so that we can avoid deadlock without thinking about the order of lock.",
+      "range": {
+        "startLine": 85,
+        "startChar": 16,
+        "endLine": 85,
+        "endChar": 26
+      },
+      "revId": "5324ef82b1e087c35547f134013c9e70546ed024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e20ceafe_2b168588",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-29T11:16:42Z",
+      "side": 1,
+      "message": "Can be final.",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 11
+      },
+      "revId": "5324ef82b1e087c35547f134013c9e70546ed024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6d2d65c_1a0f0e91",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-29T11:16:42Z",
+      "side": 1,
+      "message": "It seems this is used only for verifying the number of listeners.\nI saw the test also verifies if the listener is called.\nSo I think it\u0027s fine not to check the number of listeners and we can remove getCarrierPrivilegesLostListener.\n\nIf you want to keep `getCarrierPrivilegesLostListener`.  \nIt\u0027s not great to return the mListeners to the caller directly since accessing mListeners should acquire the lock.\nIt would be better to return the defensive copy of mListeners or just return the number of listeners.",
+      "range": {
+        "startLine": 339,
+        "startChar": 4,
+        "endLine": 339,
+        "endChar": 5
+      },
+      "revId": "5324ef82b1e087c35547f134013c9e70546ed024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a8667b4_a0f12864",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 17472,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-01-29T11:16:42Z",
+      "side": 1,
+      "message": "For the verification of allowedUid update, can we use Network callback?\nThis is a way that usual app can know the network change.\nI think we can do something similar to `testAllowedUids`.",
+      "range": {
+        "startLine": 17471,
+        "startChar": 0,
+        "endLine": 17472,
+        "endChar": 41
+      },
+      "revId": "5324ef82b1e087c35547f134013c9e70546ed024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
