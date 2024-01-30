@@ -127,6 +127,8 @@ public class ConnectivityManager {
                 "com.android.net.flags.support_is_uid_networking_blocked";
         static final String BASIC_BACKGROUND_RESTRICTIONS_ENABLED =
                 "com.android.net.flags.basic_background_restrictions_enabled";
+        static final String FLAG_LOCAL_NETWORK_COMPATIBLE =
+                "com.android.net.flags.flag_local_network_compatible";
     }
 
     /**
@@ -3926,18 +3928,35 @@ public class ConnectivityManager {
         // this flag if the app targets SDK < S (to maintain backwards compatibility).
         public static final int FLAG_INCLUDE_LOCATION_INFO = 1 << 0;
 
+        /**
+         * This flag is no-op for apps targeting Android 15.0 (API level 35) or higher.
+         * For apps targeting older version, specifying this flag allow request to be satisfied by
+         * local networks.
+         * If this flag is not specified and capability does not contain
+         * {@link NetworkCapabilities#NET_CAPABILITY_LOCAL_NETWORK},
+         * {@link NetworkCapabilities#NET_CAPABILITY_LOCAL_NETWORK} is added to forbiddenCapability
+         * and request will not be satisfied by local networks.
+         * If this flag is specified, no modification is done for
+         * {@link NetworkCapabilities#NET_CAPABILITY_LOCAL_NETWORK}.
+         *
+         */
+        @FlaggedApi(Flags.FLAG_LOCAL_NETWORK_COMPATIBLE)
+        public static final int FLAG_LOCAL_NETWORK_COMPATIBLE = 1 << 1;
+
         /** @hide */
         @Retention(RetentionPolicy.SOURCE)
         @IntDef(flag = true, prefix = "FLAG_", value = {
                 FLAG_NONE,
-                FLAG_INCLUDE_LOCATION_INFO
+                FLAG_INCLUDE_LOCATION_INFO,
+                FLAG_LOCAL_NETWORK_COMPATIBLE
         })
         public @interface Flag { }
 
         /**
          * All the valid flags for error checking.
          */
-        private static final int VALID_FLAGS = FLAG_INCLUDE_LOCATION_INFO;
+        private static final int VALID_FLAGS = FLAG_INCLUDE_LOCATION_INFO
+                | FLAG_LOCAL_NETWORK_COMPATIBLE;
 
         public NetworkCallback() {
             this(FLAG_NONE);
