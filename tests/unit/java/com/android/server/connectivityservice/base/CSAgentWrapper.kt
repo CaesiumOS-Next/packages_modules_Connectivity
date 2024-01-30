@@ -18,6 +18,7 @@ package com.android.server
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.ConnectivityManager.NetworkCallback.FLAG_LOCAL_NETWORK_COMPATIBLE
 import android.net.INetworkMonitor
 import android.net.INetworkMonitorCallbacks
 import android.net.LinkProperties
@@ -37,6 +38,9 @@ import android.os.HandlerThread
 import com.android.testutils.RecorderCallback.CallbackEntry.Available
 import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.TestableNetworkCallback
+import java.util.concurrent.atomic.AtomicInteger
+import kotlin.test.assertEquals
+import kotlin.test.fail
 import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyInt
@@ -44,9 +48,6 @@ import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doNothing
 import org.mockito.Mockito.verify
 import org.mockito.stubbing.Answer
-import java.util.concurrent.atomic.AtomicInteger
-import kotlin.test.assertEquals
-import kotlin.test.fail
 
 const val SHORT_TIMEOUT_MS = 200L
 
@@ -134,7 +135,7 @@ class CSAgentWrapper(
             clearCapabilities()
             if (nc.transportTypes.isNotEmpty()) addTransportType(nc.transportTypes[0])
         }.build()
-        val cb = TestableNetworkCallback()
+        val cb = TestableNetworkCallback(flags = FLAG_LOCAL_NETWORK_COMPATIBLE)
         mgr.registerNetworkCallback(request, cb)
         agent.markConnected()
         if (null == cb.poll { it is Available && agent.network == it.network }) {
@@ -160,7 +161,8 @@ class CSAgentWrapper(
             clearCapabilities()
             if (nc.transportTypes.isNotEmpty()) addTransportType(nc.transportTypes[0])
         }.build()
-        val cb = TestableNetworkCallback(timeoutMs = SHORT_TIMEOUT_MS)
+        val cb = TestableNetworkCallback(timeoutMs = SHORT_TIMEOUT_MS,
+                flags = FLAG_LOCAL_NETWORK_COMPATIBLE)
         mgr.registerNetworkCallback(request, cb)
         cb.eventuallyExpect<Available> { it.network == agent.network }
         agent.unregister()
