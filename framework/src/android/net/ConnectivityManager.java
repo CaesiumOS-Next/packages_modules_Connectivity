@@ -127,6 +127,8 @@ public class ConnectivityManager {
                 "com.android.net.flags.support_is_uid_networking_blocked";
         static final String BASIC_BACKGROUND_RESTRICTIONS_ENABLED =
                 "com.android.net.flags.basic_background_restrictions_enabled";
+        static final String FLAG_REQUEST_LOCAL_NETWORK =
+                "com.android.net.flags.flag_request_local_network";
     }
 
     /**
@@ -3926,18 +3928,31 @@ public class ConnectivityManager {
         // this flag if the app targets SDK < S (to maintain backwards compatibility).
         public static final int FLAG_INCLUDE_LOCATION_INFO = 1 << 0;
 
+        /**
+         * Specifying this flag allow request to match with LOCAL_NETWORK.
+         * If this flag is not specified, {@link NetworkCapabilities#NET_CAPABILITY_LOCAL_NETWORK}
+         * is added to forbiddenCapability and request will not be satisfied by networks that have
+         * {@link NetworkCapabilities#NET_CAPABILITY_LOCAL_NETWORK}.
+         * If this flag is specified, no modification will be done for
+         * {@link NetworkCapabilities#NET_CAPABILITY_LOCAL_NETWORK}.
+         */
+        @FlaggedApi(Flags.FLAG_REQUEST_LOCAL_NETWORK)
+        public static final int FLAG_REQUEST_LOCAL_NETWORK = 1 << 1;
+
         /** @hide */
         @Retention(RetentionPolicy.SOURCE)
         @IntDef(flag = true, prefix = "FLAG_", value = {
                 FLAG_NONE,
-                FLAG_INCLUDE_LOCATION_INFO
+                FLAG_INCLUDE_LOCATION_INFO,
+                FLAG_REQUEST_LOCAL_NETWORK
         })
         public @interface Flag { }
 
         /**
          * All the valid flags for error checking.
          */
-        private static final int VALID_FLAGS = FLAG_INCLUDE_LOCATION_INFO;
+        private static final int VALID_FLAGS = FLAG_INCLUDE_LOCATION_INFO
+                | FLAG_REQUEST_LOCAL_NETWORK;
 
         public NetworkCallback() {
             this(FLAG_NONE);
