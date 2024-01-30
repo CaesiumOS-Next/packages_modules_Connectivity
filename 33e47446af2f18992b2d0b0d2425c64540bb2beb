@@ -94,6 +94,30 @@
       },
       "revId": "33e47446af2f18992b2d0b0d2425c64540bb2beb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2f48c9f_b8a942e3",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-30T14:32:40Z",
+      "side": 1,
+      "message": "Added to commit message.",
+      "parentUuid": "ee1e12d8_8f1e44c5",
+      "range": {
+        "startLine": 232,
+        "startChar": 72,
+        "endLine": 232,
+        "endChar": 73
+      },
+      "revId": "33e47446af2f18992b2d0b0d2425c64540bb2beb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
