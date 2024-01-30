@@ -190,6 +190,30 @@
       },
       "revId": "fb38a31b7203f6cb609009500d2d96be2b67f7cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c77518d_b06e88e6",
+        "filename": "nearby/service/java/com/android/server/nearby/managers/BluetoothFinderManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2027455
+      },
+      "writtenOn": "2024-01-30T05:35:08Z",
+      "side": 1,
+      "message": "Oops. It is Android \"Find My Device\" settings. The user turns on \"Find My Device\" (default) and than sets \"Find your offline devices\" to one of the two \"with network\" options (one of them is the default).\n\nWe cannot assume that mBluetoothFinder should be initialized when these toggles are on because: (1) most Android devices still do not have the hardware capability for this feature and won\u0027t have this HAL API, and (2) even when this toggle is on, there is no need to initialize mBluetoothFinder if Bluetooth is off, location services are off, or if the user hasn\u0027t complete the setup process of Find My Device network.",
+      "parentUuid": "f69b904c_4d226e09",
+      "range": {
+        "startLine": 107,
+        "startChar": 13,
+        "endLine": 107,
+        "endChar": 34
+      },
+      "revId": "fb38a31b7203f6cb609009500d2d96be2b67f7cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
