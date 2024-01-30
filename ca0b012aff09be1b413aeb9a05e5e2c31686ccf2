@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92b30ae4_09fc8ae8",
+        "filename": "nearby/framework/java/android/nearby/NearbyManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1961270
+      },
+      "writtenOn": "2024-01-30T10:02:46Z",
+      "side": 1,
+      "message": "nit: public @PoweredOffFindingMode int getPoweredOffFindingMode() {",
+      "range": {
+        "startLine": 607,
+        "startChar": 0,
+        "endLine": 609,
+        "endChar": 0
+      },
+      "revId": "ca0b012aff09be1b413aeb9a05e5e2c31686ccf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
