@@ -16,6 +16,7 @@
 
 package com.android.server
 
+import android.net.ConnectivityManager.NetworkCallback.FLAG_LOCAL_NETWORK_COMPATIBLE
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Build
@@ -51,7 +52,10 @@ class CSNetworkRequestStateStatsMetricsTests : CSTest() {
 
     @Test
     fun testRequestTypeNRProduceMetrics() {
-        cm.requestNetwork(CELL_INTERNET_NOT_METERED_NR, TestableNetworkCallback())
+        // Specify FLAG_LOCAL_NETWORK_COMPATIBLE to avoid NET_CAPABILITY_LOCAL_NETWORK is added to
+        // forbiddenCapabilities
+        cm.requestNetwork(CELL_INTERNET_NOT_METERED_NR,
+                TestableNetworkCallback(flags = FLAG_LOCAL_NETWORK_COMPATIBLE))
         waitForIdle()
 
         verify(networkRequestStateStatsMetrics).onNetworkRequestReceived(
@@ -68,7 +72,9 @@ class CSNetworkRequestStateStatsMetricsTests : CSTest() {
 
     @Test
     fun testRemoveRequestTypeNRProduceMetrics() {
-        val cb = TestableNetworkCallback()
+        // Specify FLAG_LOCAL_NETWORK_COMPATIBLE to avoid NET_CAPABILITY_LOCAL_NETWORK is added to
+        // forbiddenCapabilities
+        val cb = TestableNetworkCallback(flags = FLAG_LOCAL_NETWORK_COMPATIBLE)
         cm.requestNetwork(CELL_INTERNET_NOT_METERED_NR, cb)
 
         waitForIdle()
