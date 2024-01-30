@@ -50,6 +50,8 @@ import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
 import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DEFAULT;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
+import static android.net.ConnectivityManager.NetworkCallback.FLAG_NONE;
+import static android.net.ConnectivityManager.NetworkCallback.FLAG_REQUEST_LOCAL_NETWORK;
 import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE;
 import static android.net.ConnectivityManager.TYPE_BLUETOOTH;
 import static android.net.ConnectivityManager.TYPE_ETHERNET;
@@ -69,6 +71,7 @@ import static android.net.ConnectivitySettingsManager.setUidsAllowedOnRestricted
 import static android.net.NetworkCapabilities.NET_CAPABILITY_FOREGROUND;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_IMS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_PARTIAL_CONNECTIVITY;
@@ -76,6 +79,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
+import static android.net.NetworkScore.KEEP_CONNECTED_LOCAL_NETWORK;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.cts.util.CtsNetUtils.ConnectivityActionReceiver;
 import static android.net.cts.util.CtsNetUtils.HTTP_PORT;
@@ -146,6 +150,7 @@ import android.net.NetworkInfo.DetailedState;
 import android.net.NetworkInfo.State;
 import android.net.NetworkProvider;
 import android.net.NetworkRequest;
+import android.net.NetworkScore;
 import android.net.NetworkSpecifier;
 import android.net.NetworkStateSnapshot;
 import android.net.OemNetworkPreferences;
@@ -3749,4 +3754,93 @@ public class ConnectivityManagerTest {
         mCmShim.requestBackgroundNetwork(request, callback, handler);
         mRegisteredCallbacks.add(callback);
     }
+
+    private NetworkAgent createLocalNetworkAgent() {
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .addTransportType(NetworkCapabilities.TRANSPORT_THREAD)
+                .addTransportType(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK)
+                .build();
+        final NetworkAgent agent = new NetworkAgent(mContext, Looper.getMainLooper(), TAG, nc,
+                new LinkProperties(),
+                new NetworkScore.Builder()
+                        .setKeepConnectedReason(KEEP_CONNECTED_LOCAL_NETWORK)
+                        .build() ,
+                new NetworkAgentConfig.Builder().build(),
+                new NetworkProvider(mContext, Looper.getMainLooper(), TAG)) {};
+        runWithShellPermissionIdentity(agent::register,
+                android.Manifest.permission.MANAGE_TEST_NETWORKS);
+        agent.markConnected();
+
+        return agent;
+    }
+
+    private void doTestRequestLocalNetwork(
+            NetworkRequest request, int callbackFlag, boolean expectCallback) {
+        final TestableNetworkCallback listenCb = new TestableNetworkCallback(callbackFlag);
+        final TestableNetworkCallback requestCb = new TestableNetworkCallback(callbackFlag);
+        mCm.registerNetworkCallback(request, listenCb);
+        mCm.requestNetwork(request, requestCb);
+        NetworkAgent agent = createLocalNetworkAgent();
+
+        try {
+            if (expectCallback) {
+                requestCb.expectAvailableCallbacks(agent.getNetwork());
+                listenCb.expectAvailableCallbacks(agent.getNetwork());
+            } else {
+                requestCb.assertNoCallback();
+                listenCb.assertNoCallback();
+            }
+        } finally {
+            mCm.unregisterNetworkCallback(listenCb);
+            mCm.unregisterNetworkCallback(requestCb);
+            agent.unregister();
+        }
+    }
+
+    public void testLocalNetworkRequest_withoutFlag() {
+        doTestRequestLocalNetwork(
+                new NetworkRequest.Builder().build(),
+                FLAG_NONE,
+                false /* expectCallback */);
+    }
+
+    public void testLocalNetworkRequest_withoutFlag_withCapability() {
+        doTestRequestLocalNetwork(
+                new NetworkRequest.Builder().addCapability(NET_CAPABILITY_LOCAL_NETWORK).build(),
+                FLAG_NONE,
+                true /* expectCallback */);
+    }
+
+    public void testLocalNetworkRequest_withoutFlag_withForbiddenCapability() {
+        doTestRequestLocalNetwork(
+                new NetworkRequest.Builder()
+                        .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                        .build(),
+                FLAG_NONE,
+                false /* expectCallback */);
+    }
+
+    public void testLocalNetworkRequest_withFlag() {
+        doTestRequestLocalNetwork(
+                new NetworkRequest.Builder().build(),
+                FLAG_REQUEST_LOCAL_NETWORK,
+                true /* expectCallback */);
+    }
+
+    public void testLocalNetworkRequest_withFlag_withCapability() {
+        doTestRequestLocalNetwork(
+                new NetworkRequest.Builder().addCapability(NET_CAPABILITY_LOCAL_NETWORK).build(),
+                FLAG_REQUEST_LOCAL_NETWORK,
+                true /* expectCallback */);
+    }
+
+    public void testLocalNetworkRequest_withFlag_withForbiddenCapability() {
+        doTestRequestLocalNetwork(
+                new NetworkRequest.Builder()
+                        .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                        .build(),
+                FLAG_REQUEST_LOCAL_NETWORK,
+                false /* expectCallback */);
+    }
+
 }

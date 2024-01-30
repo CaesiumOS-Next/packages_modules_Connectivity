@@ -351,7 +351,6 @@ import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.Inet4Address;
-import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
@@ -2954,6 +2953,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void restrictBackgroundRequestForCaller(NetworkCapabilities nc) {
         if (!mPermissionMonitor.hasUseBackgroundNetworksPermission(mDeps.getCallingUid())) {
             nc.addCapability(NET_CAPABILITY_FOREGROUND);
+        }
+    }
+
+    private void restrictLocalNetworkRequest(NetworkCapabilities nc, int callbackFlags) {
+        // If NET_CAPABILITY_LOCAL_NETWORK is not added to capability and FLAG_REQUEST_LOCAL_NETWORK
+        // is not specified, request should not be satisfied by networks that have
+        // NET_CAPABILITY_LOCAL_NETWORK capabilities.
+        if (!nc.hasCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                && (callbackFlags & NetworkCallback.FLAG_REQUEST_LOCAL_NETWORK) == 0) {
+            nc.addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK);
         }
     }
 
@@ -7618,10 +7627,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 //  the state of the app when the request is filed, but we never change the
                 //  request if the app changes network state. http://b/29964605
                 enforceMeteredApnPolicy(networkCapabilities);
+                restrictLocalNetworkRequest(networkCapabilities, callbackFlags);
                 break;
             case LISTEN_FOR_BEST:
                 enforceAccessPermission();
                 networkCapabilities = new NetworkCapabilities(networkCapabilities);
+                restrictLocalNetworkRequest(networkCapabilities, callbackFlags);
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported request type " + reqType);
@@ -7643,6 +7654,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // Also set the requester UID and package name in the request.
         restrictRequestUidsForCallerAndSetRequestorInfo(networkCapabilities,
                 callingUid, callingPackageName);
+
 
         if (timeoutMs < 0) {
             throw new IllegalArgumentException("Bad timeout specified");
@@ -7914,6 +7926,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // There is no need to do this for requests because an app without CHANGE_NETWORK_STATE
         // can't request networks.
         restrictBackgroundRequestForCaller(nc);
+        restrictLocalNetworkRequest(nc, callbackFlags);
         ensureListenableCapabilities(nc);
 
         NetworkRequest networkRequest = new NetworkRequest(nc, TYPE_NONE, nextNetworkRequestId(),
