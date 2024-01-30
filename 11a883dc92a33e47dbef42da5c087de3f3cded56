@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae4743b8_98a3a277",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-30T06:19:48Z",
+      "side": 1,
+      "message": "LGTM, no need to address comments in this change since it\u0027s already treehugged",
+      "revId": "11a883dc92a33e47dbef42da5c087de3f3cded56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db720764_3dc47d9f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-30T06:19:48Z",
+      "side": 1,
+      "message": "timeBetweenBurstsInMs can\u0027t be \u003e maxTimeBetweenBursts, since it\u0027s always increased by doing `Math.min(timeBetweenBurstsInMs * 2, maxTimeBetweenBursts)`.\n\nSo this check is the same as:\n```\ntimeBetweenBurstsInMs !\u003d maxTimeBetweenBursts\n    ? Math.min(timeBetweenBurstsInMs * 2, maxTimeBetweenBursts)\n    : timeBetweenBurstsInMs;\n```\n\nWhich is just the same as `return Math.min(timeBetweenBurstsInMs * 2, maxTimeBetweenBursts)`;",
+      "revId": "11a883dc92a33e47dbef42da5c087de3f3cded56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3889715a_0645aae3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-30T06:19:48Z",
+      "side": 1,
+      "message": "Nit: instead of reassigning, I think it would be a bit clearer as `isFirstBurst \u0026\u0026 !isLastQueryInBurst`",
+      "revId": "11a883dc92a33e47dbef42da5c087de3f3cded56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "809ee58d_4b944c24",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1697,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-30T06:19:48Z",
+      "side": 1,
+      "message": "Similarly, this should probably be just a Math.min",
+      "revId": "11a883dc92a33e47dbef42da5c087de3f3cded56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
