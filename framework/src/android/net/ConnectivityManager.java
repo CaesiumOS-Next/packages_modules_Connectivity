@@ -3926,18 +3926,23 @@ public class ConnectivityManager {
         // this flag if the app targets SDK < S (to maintain backwards compatibility).
         public static final int FLAG_INCLUDE_LOCATION_INFO = 1 << 0;
 
+
+        public static final int FLAG_REQUEST_LOCAL_NETWORK = 1 << 1;
+
         /** @hide */
         @Retention(RetentionPolicy.SOURCE)
         @IntDef(flag = true, prefix = "FLAG_", value = {
                 FLAG_NONE,
-                FLAG_INCLUDE_LOCATION_INFO
+                FLAG_INCLUDE_LOCATION_INFO,
+                FLAG_REQUEST_LOCAL_NETWORK
         })
         public @interface Flag { }
 
         /**
          * All the valid flags for error checking.
          */
-        private static final int VALID_FLAGS = FLAG_INCLUDE_LOCATION_INFO;
+        private static final int VALID_FLAGS = FLAG_INCLUDE_LOCATION_INFO
+                | FLAG_REQUEST_LOCAL_NETWORK;
 
         public NetworkCallback() {
             this(FLAG_NONE);
