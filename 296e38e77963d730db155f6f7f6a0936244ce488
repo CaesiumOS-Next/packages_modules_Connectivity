@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cb33193_0341a936",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-30T07:21:11Z",
+      "side": 1,
+      "message": "LGTM, but I found a separate bug that requires a fix.",
+      "revId": "296e38e77963d730db155f6f7f6a0936244ce488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c71a7765_f0ef36fb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-30T07:21:11Z",
+      "side": 1,
+      "message": "Not for this change. IIUC, there is a bug affecting single searchOptions when two listeners request different sub-types. The later searchOptions will override the previous one. Like \n```\noptionsA \u003d MdnsSearchOptions.newBuilder().addSubtype(\"subA\").build();\noptionsB \u003d MdnsSearchOptions.newBuilder().addSubtype(\"subB\").build();\n\n-\u003e startSendAndReceive(listenerA, optionsA) -\u003e startSendAndReceive(listenerB, optionsB)\n```\n\nBecause of this, we are only sending the question for subB, potentially preventing subA from ever being matched.",
+      "range": {
+        "startLine": 338,
+        "startChar": 8,
+        "endLine": 338,
+        "endChar": 43
+      },
+      "revId": "296e38e77963d730db155f6f7f6a0936244ce488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed49cb12_d2b16a3f",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1538,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-30T07:21:11Z",
+      "side": 1,
+      "message": "Nit: _othersub",
+      "range": {
+        "startLine": 1538,
+        "startChar": 33,
+        "endLine": 1538,
+        "endChar": 41
+      },
+      "revId": "296e38e77963d730db155f6f7f6a0936244ce488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fa9d24d_4182a840",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1577,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-30T07:21:11Z",
+      "side": 1,
+      "message": "Nit: Can you verify that two searchOptions with different sub-types can successfully receive callbacks?",
+      "range": {
+        "startLine": 1577,
+        "startChar": 3,
+        "endLine": 1577,
+        "endChar": 5
+      },
+      "revId": "296e38e77963d730db155f6f7f6a0936244ce488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
