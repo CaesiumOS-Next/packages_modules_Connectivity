@@ -16,6 +16,8 @@
 
 package com.android.server
 
+import android.net.ConnectivityManager.NetworkCallback.FLAG_LOCAL_NETWORK_COMPATIBLE
+import android.net.ConnectivityManager.NetworkCallback.FLAG_NONE
 import android.net.IpPrefix
 import android.net.LinkAddress
 import android.net.LinkProperties
@@ -39,6 +41,8 @@ import android.net.NetworkScore.KEEP_CONNECTED_FOR_TEST
 import android.net.NetworkScore.KEEP_CONNECTED_LOCAL_NETWORK
 import android.net.RouteInfo
 import android.os.Build
+import android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+import android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.RecorderCallback.CallbackEntry.LocalInfoChanged
@@ -47,7 +51,9 @@ import com.android.testutils.TestableNetworkCallback
 import kotlin.test.assertFailsWith
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito.clearInvocations
+import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.eq
 import org.mockito.Mockito.inOrder
 import org.mockito.Mockito.never
@@ -88,10 +94,10 @@ private fun keepScore() = FromS(
 class CSLocalAgentTests : CSTest() {
     val multicastRoutingConfigMinScope =
                 MulticastRoutingConfig.Builder(MulticastRoutingConfig.FORWARD_WITH_MIN_SCOPE, 4)
-                .build();
+                .build()
     val multicastRoutingConfigSelected =
                 MulticastRoutingConfig.Builder(MulticastRoutingConfig.FORWARD_SELECTED)
-                .build();
+                .build()
     val upstreamSelectorAny = NetworkRequest.Builder()
                 .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
                 .build()
@@ -124,7 +130,7 @@ class CSLocalAgentTests : CSTest() {
     fun testStructuralConstraintViolation() {
         deps.setBuildSdk(VERSION_V)
 
-        val cb = TestableNetworkCallback()
+        val cb = TestableNetworkCallback(flags = FLAG_LOCAL_NETWORK_COMPATIBLE)
         cm.requestNetwork(NetworkRequest.Builder()
                 .clearCapabilities()
                 .build(),
@@ -153,7 +159,7 @@ class CSLocalAgentTests : CSTest() {
     fun testUpdateLocalAgentConfig() {
         deps.setBuildSdk(VERSION_V)
 
-        val cb = TestableNetworkCallback()
+        val cb = TestableNetworkCallback(flags = FLAG_LOCAL_NETWORK_COMPATIBLE)
         cm.requestNetwork(NetworkRequest.Builder()
                 .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
                 .build(),
@@ -205,6 +211,9 @@ class CSLocalAgentTests : CSTest() {
                 nc = nc(TRANSPORT_THREAD, NET_CAPABILITY_LOCAL_NETWORK),
                 lp = lp(name),
                 lnc = localNetworkConfig,
+                score = FromS(NetworkScore.Builder()
+                        .setKeepConnectedReason(KEEP_CONNECTED_LOCAL_NETWORK)
+                        .build())
         )
         return localAgent
     }
@@ -219,9 +228,12 @@ class CSLocalAgentTests : CSTest() {
                 nc = nc(TRANSPORT_CELLULAR, NET_CAPABILITY_INTERNET))
     }
 
-    private fun sendLocalNetworkConfig(localAgent: CSAgentWrapper,
-                upstreamSelector: NetworkRequest?, upstreamConfig: MulticastRoutingConfig,
-                downstreamConfig: MulticastRoutingConfig) {
+    private fun sendLocalNetworkConfig(
+            localAgent: CSAgentWrapper,
+            upstreamSelector: NetworkRequest?,
+            upstreamConfig: MulticastRoutingConfig,
+            downstreamConfig: MulticastRoutingConfig
+    ) {
         val newLnc = LocalNetworkConfig.Builder()
                 .setUpstreamSelector(upstreamSelector)
                 .setUpstreamMulticastRoutingConfig(upstreamConfig)
@@ -233,7 +245,7 @@ class CSLocalAgentTests : CSTest() {
     @Test
     fun testMulticastRoutingConfig() {
         deps.setBuildSdk(VERSION_V)
-        val cb = TestableNetworkCallback()
+        val cb = TestableNetworkCallback(flags = FLAG_LOCAL_NETWORK_COMPATIBLE)
         cm.registerNetworkCallback(NetworkRequest.Builder().clearCapabilities().build(), cb)
         val inOrder = inOrder(multicastRoutingCoordinatorService)
 
@@ -309,7 +321,7 @@ class CSLocalAgentTests : CSTest() {
     @Test
     fun testMulticastRoutingConfig_UpstreamNetworkCellToWifi() {
         deps.setBuildSdk(VERSION_V)
-        val cb = TestableNetworkCallback()
+        val cb = TestableNetworkCallback(flags = FLAG_LOCAL_NETWORK_COMPATIBLE)
         cm.registerNetworkCallback(NetworkRequest.Builder().clearCapabilities()
                         .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
                         .build(), cb)
@@ -361,7 +373,7 @@ class CSLocalAgentTests : CSTest() {
     @Test
     fun testMulticastRoutingConfig_UpstreamSelectorCellToWifi() {
         deps.setBuildSdk(VERSION_V)
-        val cb = TestableNetworkCallback()
+        val cb = TestableNetworkCallback(flags = FLAG_LOCAL_NETWORK_COMPATIBLE)
         cm.registerNetworkCallback(NetworkRequest.Builder().clearCapabilities()
                         .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
                         .build(), cb)
@@ -413,7 +425,7 @@ class CSLocalAgentTests : CSTest() {
     @Test
     fun testMulticastRoutingConfig_UpstreamSelectorWifiToNull() {
         deps.setBuildSdk(VERSION_V)
-        val cb = TestableNetworkCallback()
+        val cb = TestableNetworkCallback(flags = FLAG_LOCAL_NETWORK_COMPATIBLE)
         cm.registerNetworkCallback(NetworkRequest.Builder().clearCapabilities()
                         .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
                         .build(), cb)
@@ -458,7 +470,6 @@ class CSLocalAgentTests : CSTest() {
         wifiAgent.disconnect()
     }
 
-
     @Test
     fun testUnregisterUpstreamAfterReplacement_SameIfaceName() {
         doTestUnregisterUpstreamAfterReplacement(true)
@@ -471,7 +482,7 @@ class CSLocalAgentTests : CSTest() {
 
     fun doTestUnregisterUpstreamAfterReplacement(sameIfaceName: Boolean) {
         deps.setBuildSdk(VERSION_V)
-        val cb = TestableNetworkCallback()
+        val cb = TestableNetworkCallback(flags = FLAG_LOCAL_NETWORK_COMPATIBLE)
         cm.registerNetworkCallback(NetworkRequest.Builder().clearCapabilities().build(), cb)
 
         // Set up a local agent that should forward its traffic to the best wifi upstream.
@@ -536,7 +547,7 @@ class CSLocalAgentTests : CSTest() {
     @Test
     fun testUnregisterUpstreamAfterReplacement_neverReplaced() {
         deps.setBuildSdk(VERSION_V)
-        val cb = TestableNetworkCallback()
+        val cb = TestableNetworkCallback(flags = FLAG_LOCAL_NETWORK_COMPATIBLE)
         cm.registerNetworkCallback(NetworkRequest.Builder().clearCapabilities().build(), cb)
 
         // Set up a local agent that should forward its traffic to the best wifi upstream.
@@ -579,13 +590,13 @@ class CSLocalAgentTests : CSTest() {
     fun testUnregisterLocalAgentAfterReplacement() {
         deps.setBuildSdk(VERSION_V)
 
-        val localCb = TestableNetworkCallback()
+        val localCb = TestableNetworkCallback(flags = FLAG_LOCAL_NETWORK_COMPATIBLE)
         cm.requestNetwork(NetworkRequest.Builder().clearCapabilities()
                 .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
                 .build(),
                 localCb)
 
-        val cb = TestableNetworkCallback()
+        val cb = TestableNetworkCallback(flags = FLAG_LOCAL_NETWORK_COMPATIBLE)
         cm.registerNetworkCallback(NetworkRequest.Builder().clearCapabilities().build(), cb)
 
         val localNc = nc(TRANSPORT_WIFI, NET_CAPABILITY_LOCAL_NETWORK)
@@ -631,7 +642,7 @@ class CSLocalAgentTests : CSTest() {
     @Test
     fun testDestroyedNetworkAsSelectedUpstream() {
         deps.setBuildSdk(VERSION_V)
-        val cb = TestableNetworkCallback()
+        val cb = TestableNetworkCallback(flags = FLAG_LOCAL_NETWORK_COMPATIBLE)
         cm.registerNetworkCallback(NetworkRequest.Builder().clearCapabilities().build(), cb)
 
         val wifiAgent = Agent(lp = lp("wifi0"), nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_INTERNET))
@@ -694,7 +705,7 @@ class CSLocalAgentTests : CSTest() {
         val wifiAgentDun = Agent(score = keepScore(), lp = lp("wifi1"),
                 nc = nc(TRANSPORT_WIFI, NET_CAPABILITY_INTERNET, NET_CAPABILITY_DUN))
 
-        val cb = TestableNetworkCallback()
+        val cb = TestableNetworkCallback(flags = FLAG_LOCAL_NETWORK_COMPATIBLE)
         cm.registerNetworkCallback(NetworkRequest.Builder()
                 .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
                 .build(),
@@ -787,9 +798,9 @@ class CSLocalAgentTests : CSTest() {
         deps.setBuildSdk(VERSION_V)
 
         val nr = NetworkRequest.Builder().addCapability(NET_CAPABILITY_LOCAL_NETWORK).build()
-        val requestCb = TestableNetworkCallback()
+        val requestCb = TestableNetworkCallback(flags = FLAG_LOCAL_NETWORK_COMPATIBLE)
         cm.requestNetwork(nr, requestCb)
-        val listenCb = TestableNetworkCallback()
+        val listenCb = TestableNetworkCallback(flags = FLAG_LOCAL_NETWORK_COMPATIBLE)
         cm.registerNetworkCallback(nr, listenCb)
 
         val upstream = if (haveUpstream) {
@@ -823,5 +834,125 @@ class CSLocalAgentTests : CSTest() {
         cm.unregisterNetworkCallback(requestCb)
 
         listenCb.expect<Lost>()
+    }
+
+    fun doTestLocalNetworkRequest(
+            targetSdk: Int,
+            request: NetworkRequest,
+            callbackFlag: Int,
+            expectCallback: Boolean
+    ) {
+        deps.setBuildSdk(VERSION_V)
+        doReturn(targetSdk).`when`(packageManager).getTargetSdkVersion(anyString())
+
+        val requestCb = TestableNetworkCallback(flag = callbackFlag)
+        val listenCb = TestableNetworkCallback(flag = callbackFlag)
+        cm.requestNetwork(request, requestCb)
+        cm.registerNetworkCallback(request, listenCb)
+
+        val localAgent = createLocalAgent("local0", FromS(LocalNetworkConfig.Builder().build()))
+        localAgent.connect()
+
+        if (expectCallback) {
+            requestCb.expectAvailableCallbacks(localAgent.network, validated = false)
+            listenCb.expectAvailableCallbacks(localAgent.network, validated = false)
+        } else {
+            requestCb.assertNoCallback()
+            listenCb.assertNoCallback()
+        }
+        localAgent.disconnect()
+    }
+
+    @Test
+    fun testLocalNetworkRequest_withoutFlag() {
+        val request = NetworkRequest.Builder().build()
+        // Apps targeting U or lower don't receive callback from local network
+        doTestLocalNetworkRequest(
+                UPSIDE_DOWN_CAKE,
+                request,
+                FLAG_NONE,
+                false /* expectCallback */)
+        // Apps targeting V and higher receive callback from local network
+        doTestLocalNetworkRequest(
+                VANILLA_ICE_CREAM,
+                request,
+                FLAG_NONE,
+                true /* expectCallback */)
+    }
+
+    @Test
+    fun testLocalNetworkRequest_withoutFlag_withCapability() {
+        val request = NetworkRequest.Builder().addCapability(NET_CAPABILITY_LOCAL_NETWORK).build()
+        doTestLocalNetworkRequest(
+                UPSIDE_DOWN_CAKE,
+                request,
+                FLAG_NONE,
+                true /* expectCallback */)
+        doTestLocalNetworkRequest(
+                VANILLA_ICE_CREAM,
+                request,
+                FLAG_NONE,
+                true /* expectCallback */)
+    }
+    @Test
+    fun testLocalNetworkRequest_withoutFlag_withForbiddenCapability() {
+        val request = NetworkRequest.Builder()
+                .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                .build()
+        doTestLocalNetworkRequest(
+                UPSIDE_DOWN_CAKE,
+                request,
+                FLAG_NONE,
+                false /* expectCallback */)
+        doTestLocalNetworkRequest(
+                VANILLA_ICE_CREAM,
+                request,
+                FLAG_NONE,
+                false /* expectCallback */)
+    }
+
+    @Test
+    fun testLocalNetworkRequest_withFlag() {
+        val request = NetworkRequest.Builder().build()
+        doTestLocalNetworkRequest(
+                UPSIDE_DOWN_CAKE,
+                request,
+                FLAG_LOCAL_NETWORK_COMPATIBLE,
+                true /* expectCallback */)
+        doTestLocalNetworkRequest(
+                VANILLA_ICE_CREAM,
+                request,
+                FLAG_LOCAL_NETWORK_COMPATIBLE,
+                true /* expectCallback */)
+    }
+    @Test
+    fun testLocalNetworkRequest_withFlag_withCapability() {
+        val request = NetworkRequest.Builder().addCapability(NET_CAPABILITY_LOCAL_NETWORK).build()
+        doTestLocalNetworkRequest(
+                UPSIDE_DOWN_CAKE,
+                request,
+                FLAG_LOCAL_NETWORK_COMPATIBLE,
+                true /* expectCallback */)
+        doTestLocalNetworkRequest(
+                VANILLA_ICE_CREAM,
+                request,
+                FLAG_LOCAL_NETWORK_COMPATIBLE,
+                true /* expectCallback */)
+    }
+    @Test
+    fun testLocalNetworkRequest_withFlag_withForbiddenCapability() {
+        val request = NetworkRequest.Builder()
+                .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                .build()
+        doTestLocalNetworkRequest(
+                UPSIDE_DOWN_CAKE,
+                request,
+                FLAG_LOCAL_NETWORK_COMPATIBLE,
+                false /* expectCallback */)
+        doTestLocalNetworkRequest(
+                VANILLA_ICE_CREAM,
+                request,
+                FLAG_LOCAL_NETWORK_COMPATIBLE,
+                false /* expectCallback */)
     }
 }
