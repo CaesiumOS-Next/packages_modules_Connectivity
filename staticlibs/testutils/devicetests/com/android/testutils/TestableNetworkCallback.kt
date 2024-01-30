@@ -44,11 +44,35 @@ object NULL_NETWORK : Network(-1)
 object ANY_NETWORK : Network(-2)
 fun anyNetwork() = ANY_NETWORK
 
-open class RecorderCallback private constructor(
+open class RecorderCallback : NetworkCallback {
     private val backingRecord: ArrayTrackRecord<CallbackEntry>
-) : NetworkCallback() {
+    val history: ArrayTrackRecord<CallbackEntry>.ReadHead
+
+    private constructor(
+            backingRecord: ArrayTrackRecord<CallbackEntry>
+    ) : super() {
+        this.backingRecord = backingRecord
+        this.history = this.backingRecord.newReadHead()
+    }
+
+    // Having separated constructor with flags since NetworkCallback constructor on R devices does
+    // not take NetworkCallback flags
+    private constructor(
+            backingRecord: ArrayTrackRecord<CallbackEntry>,
+            flags: Int,
+    ) : super(flags) {
+        this.backingRecord = backingRecord
+        this.history = this.backingRecord.newReadHead()
+    }
+
     public constructor() : this(ArrayTrackRecord())
+
+    public constructor(flags: Int) : this(ArrayTrackRecord(), flags)
+
     protected constructor(src: RecorderCallback?) : this(src?.backingRecord ?: ArrayTrackRecord())
+
+    protected constructor(src: RecorderCallback?, flags: Int) :
+            this(src?.backingRecord ?: ArrayTrackRecord(), flags)
 
     private val TAG = this::class.simpleName
 
@@ -118,7 +142,6 @@ open class RecorderCallback private constructor(
         }
     }
 
-    val history = backingRecord.newReadHead()
     val mark get() = history.mark
 
     override fun onAvailable(network: Network) {
@@ -185,12 +208,34 @@ private val NOOP = Runnable {}
 /**
  * See comments on the public constructor below for a description of the arguments.
  */
-open class TestableNetworkCallback private constructor(
-    src: TestableNetworkCallback?,
-    val defaultTimeoutMs: Long = DEFAULT_TIMEOUT,
-    val defaultNoCallbackTimeoutMs: Long = DEFAULT_NO_CALLBACK_TIMEOUT,
-    val waiterFunc: Runnable = NOOP // "() -> Unit" would forbid calling with a void func from Java
-) : RecorderCallback(src) {
+open class TestableNetworkCallback : RecorderCallback {
+    val defaultTimeoutMs: Long
+    val defaultNoCallbackTimeoutMs: Long
+    val waiterFunc: Runnable
+
+    private constructor(
+            src: RecorderCallback?,
+            timeoutMs: Long = DEFAULT_TIMEOUT,
+            noCallbackTimeoutMs: Long = DEFAULT_NO_CALLBACK_TIMEOUT,
+            waiterFunc: Runnable = NOOP
+    ) : super(src) {
+        this.defaultTimeoutMs = timeoutMs
+        this.defaultNoCallbackTimeoutMs = noCallbackTimeoutMs
+        this.waiterFunc = waiterFunc
+    }
+
+    private constructor(
+            src: RecorderCallback?,
+            timeoutMs: Long = DEFAULT_TIMEOUT,
+            noCallbackTimeoutMs: Long = DEFAULT_NO_CALLBACK_TIMEOUT,
+            waiterFunc: Runnable = NOOP,
+            flags: Int
+    ) : super(src, flags) {
+        this.defaultTimeoutMs = timeoutMs
+        this.defaultNoCallbackTimeoutMs = noCallbackTimeoutMs
+        this.waiterFunc = waiterFunc
+    }
+
     /**
      * Construct a testable network callback.
      * @param timeoutMs the default timeout for expecting a callback. Default 30 seconds. This
@@ -214,6 +259,33 @@ open class TestableNetworkCallback private constructor(
         noCallbackTimeoutMs: Long = DEFAULT_NO_CALLBACK_TIMEOUT,
         waiterFunc: Runnable = NOOP
     ) : this(null, timeoutMs, noCallbackTimeoutMs, waiterFunc)
+
+    /**
+     * Construct a testable network callback.
+     * @param timeoutMs the default timeout for expecting a callback. Default 30 seconds. This
+     *                  should be long in most cases, because the success case doesn't incur
+     *                  the wait.
+     * @param noCallbackTimeoutMs the timeout for expecting that no callback is received. Default
+     *                            200ms. Because the success case does incur the timeout, this
+     *                            should be short in most cases, but not so short as to frequently
+     *                            time out before an incorrect callback is received.
+     * @param waiterFunc a function to use before asserting no callback. For some specific tests,
+     *                   it is useful to run test-specific code before asserting no callback to
+     *                   increase the likelihood that a spurious callback is correctly detected.
+     *                   As an example, a unit test using mock loopers may want to use this to
+     *                   make sure the loopers are drained before asserting no callback, since
+     *                   one of them may cause a callback to be called. @see ConnectivityServiceTest
+     *                   for such an example.
+     * @param flags NetworkCallback flags.
+     *              See {@link android.net.ConnectivityManager#NetworkCallback}.
+     */
+    @JvmOverloads
+    constructor(
+            timeoutMs: Long = DEFAULT_TIMEOUT,
+            noCallbackTimeoutMs: Long = DEFAULT_NO_CALLBACK_TIMEOUT,
+            waiterFunc: Runnable = NOOP,
+            flags: Int,
+    ) : this(null, timeoutMs, noCallbackTimeoutMs, waiterFunc, flags)
 
     fun createLinkedCopy() = TestableNetworkCallback(
             this, defaultTimeoutMs, defaultNoCallbackTimeoutMs, waiterFunc)
