@@ -351,7 +351,6 @@ import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.Inet4Address;
-import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
@@ -7258,7 +7257,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 @NonNull final NetworkRequest requestForCallback, @Nullable final PendingIntent pi,
                 @Nullable String callingAttributionTag, final int preferenceOrder) {
             ensureAllNetworkRequestsHaveType(r);
-            mRequests = initializeRequests(r);
+            mRequests = initializeRequests(r, NetworkCallback.FLAG_NONE);
             mNetworkRequestForCallback = requestForCallback;
             mPendingIntent = pi;
             mMessenger = null;
@@ -7292,7 +7291,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 @Nullable String callingAttributionTag) {
             super();
             ensureAllNetworkRequestsHaveType(r);
-            mRequests = initializeRequests(r);
+            mRequests = initializeRequests(r, callbackFlags);
             mNetworkRequestForCallback = requestForCallback;
             mMessenger = m;
             mBinder = binder;
@@ -7312,7 +7311,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 @NonNull final List<NetworkRequest> r) {
             super();
             ensureAllNetworkRequestsHaveType(r);
-            mRequests = initializeRequests(r);
+            mRequests = initializeRequests(r, NetworkCallback.FLAG_NONE);
             mNetworkRequestForCallback = nri.getNetworkRequestForCallback();
             final NetworkAgentInfo satisfier = nri.getSatisfier();
             if (null != satisfier) {
@@ -7369,10 +7368,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return mRequests.size() > 1;
         }
 
-        private List<NetworkRequest> initializeRequests(List<NetworkRequest> r) {
+        private List<NetworkRequest> initializeRequests(List<NetworkRequest> r,
+                final int callbackFlags) {
             // Creating a defensive copy to prevent the sender from modifying the list being
             // reflected in the return value of this method.
             final List<NetworkRequest> tempRequests = new ArrayList<>(r);
+            // If FLAG_REQUEST_LOCAL_NETWORK is not specified, request should not be satisfied by
+            // networks that have NET_CAPABILITY_LOCAL_NETWORK capabilities.
+            if ((callbackFlags & NetworkCallback.FLAG_REQUEST_LOCAL_NETWORK) == 0) {
+                for (NetworkRequest req: tempRequests) {
+                    req.networkCapabilities.addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK);
+                }
+            }
             return Collections.unmodifiableList(tempRequests);
         }
 
