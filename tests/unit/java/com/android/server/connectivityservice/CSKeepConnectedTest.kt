@@ -16,6 +16,7 @@
 
 package com.android.server
 
+import android.net.ConnectivityManager.NetworkCallback.FLAG_LOCAL_NETWORK_COMPATIBLE
 import android.net.LocalNetworkConfig
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK
@@ -64,7 +65,7 @@ class CSKeepConnectedTest : CSTest() {
     }
 
     fun doTestKeepConnected(keepAgent: CSAgentWrapper, dontKeepAgent: CSAgentWrapper) {
-        val cb = TestableNetworkCallback()
+        val cb = TestableNetworkCallback(flag = FLAG_LOCAL_NETWORK_COMPATIBLE)
         cm.registerNetworkCallback(NetworkRequest.Builder().clearCapabilities().build(), cb)
 
         keepAgent.connect()
