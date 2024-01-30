@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0095b904_908274d3",
+        "filename": "framework-t/src/android/app/usage/NetworkStatsManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-01-30T03:12:25Z",
+      "side": 1,
+      "message": "Should you also doc @return",
+      "range": {
+        "startLine": 531,
+        "startChar": 7,
+        "endLine": 531,
+        "endChar": 8
+      },
+      "revId": "2e7b9a1e5560e11219da19f1d36e6c894d312892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
