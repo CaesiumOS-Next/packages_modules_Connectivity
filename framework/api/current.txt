@@ -153,6 +153,7 @@ package android.net {
     method public void onLost(@NonNull android.net.Network);
     method public void onUnavailable();
     field public static final int FLAG_INCLUDE_LOCATION_INFO = 1; // 0x1
+    field @FlaggedApi("com.android.net.flags.flag_request_local_network") public static final int FLAG_REQUEST_LOCAL_NETWORK = 2; // 0x2
   }
 
   public static interface ConnectivityManager.OnNetworkActiveListener {

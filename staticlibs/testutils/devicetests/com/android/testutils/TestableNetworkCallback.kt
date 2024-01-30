@@ -17,6 +17,7 @@
 package com.android.testutils
 
 import android.net.ConnectivityManager.NetworkCallback
+import android.net.ConnectivityManager.NetworkCallback.FLAG_NONE
 import android.net.LinkProperties
 import android.net.LocalNetworkInfo
 import android.net.Network
@@ -45,10 +46,12 @@ object ANY_NETWORK : Network(-2)
 fun anyNetwork() = ANY_NETWORK
 
 open class RecorderCallback private constructor(
-    private val backingRecord: ArrayTrackRecord<CallbackEntry>
-) : NetworkCallback() {
-    public constructor() : this(ArrayTrackRecord())
-    protected constructor(src: RecorderCallback?) : this(src?.backingRecord ?: ArrayTrackRecord())
+    private val backingRecord: ArrayTrackRecord<CallbackEntry>,
+    flag: Int
+) : NetworkCallback(flag) {
+    public constructor() : this(ArrayTrackRecord(), FLAG_NONE)
+    protected constructor(src: RecorderCallback?, flag: Int) :
+            this(src?.backingRecord ?: ArrayTrackRecord(), flag)
 
     private val TAG = this::class.simpleName
 
@@ -189,8 +192,9 @@ open class TestableNetworkCallback private constructor(
     src: TestableNetworkCallback?,
     val defaultTimeoutMs: Long = DEFAULT_TIMEOUT,
     val defaultNoCallbackTimeoutMs: Long = DEFAULT_NO_CALLBACK_TIMEOUT,
-    val waiterFunc: Runnable = NOOP // "() -> Unit" would forbid calling with a void func from Java
-) : RecorderCallback(src) {
+    val waiterFunc: Runnable = NOOP, // "() -> Unit" would forbid calling with a void func from Java
+    flag: Int
+) : RecorderCallback(src, flag) {
     /**
      * Construct a testable network callback.
      * @param timeoutMs the default timeout for expecting a callback. Default 30 seconds. This
@@ -212,11 +216,12 @@ open class TestableNetworkCallback private constructor(
     constructor(
         timeoutMs: Long = DEFAULT_TIMEOUT,
         noCallbackTimeoutMs: Long = DEFAULT_NO_CALLBACK_TIMEOUT,
-        waiterFunc: Runnable = NOOP
-    ) : this(null, timeoutMs, noCallbackTimeoutMs, waiterFunc)
+        waiterFunc: Runnable = NOOP,
+        flag: Int = FLAG_NONE
+    ) : this(null, timeoutMs, noCallbackTimeoutMs, waiterFunc, flag)
 
     fun createLinkedCopy() = TestableNetworkCallback(
-            this, defaultTimeoutMs, defaultNoCallbackTimeoutMs, waiterFunc)
+            this, defaultTimeoutMs, defaultNoCallbackTimeoutMs, waiterFunc, FLAG_NONE)
 
     // The last available network, or null if any network was lost since the last call to
     // onAvailable. TODO : fix this by fixing the tests that rely on this behavior
