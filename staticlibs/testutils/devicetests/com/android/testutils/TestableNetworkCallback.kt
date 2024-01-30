@@ -44,11 +44,35 @@ object NULL_NETWORK : Network(-1)
 object ANY_NETWORK : Network(-2)
 fun anyNetwork() = ANY_NETWORK
 
-open class RecorderCallback private constructor(
+open class RecorderCallback : NetworkCallback {
     private val backingRecord: ArrayTrackRecord<CallbackEntry>
-) : NetworkCallback() {
+    val history: ArrayTrackRecord<CallbackEntry>.ReadHead
+
+    // Having separated constructor with flag since NetworkCallback constructor on R devices does
+    // not take NetworkCallbackFlag
+    private constructor(
+            backingRecord: ArrayTrackRecord<CallbackEntry>,
+            flag: Int,
+    ) : super(flag) {
+        this.backingRecord = backingRecord
+        this.history = this.backingRecord.newReadHead()
+    }
+
+    private constructor(
+            backingRecord: ArrayTrackRecord<CallbackEntry>
+    ) : super() {
+        this.backingRecord = backingRecord
+        this.history = this.backingRecord.newReadHead()
+    }
+
+    public constructor(flag: Int) : this(ArrayTrackRecord(), flag)
     public constructor() : this(ArrayTrackRecord())
-    protected constructor(src: RecorderCallback?) : this(src?.backingRecord ?: ArrayTrackRecord())
+
+    protected constructor(src: RecorderCallback?, flag: Int) :
+            this(src?.backingRecord ?: ArrayTrackRecord(), flag)
+
+    protected constructor(src: RecorderCallback?) :
+            this(src?.backingRecord ?: ArrayTrackRecord())
 
     private val TAG = this::class.simpleName
 
@@ -118,7 +142,6 @@ open class RecorderCallback private constructor(
         }
     }
 
-    val history = backingRecord.newReadHead()
     val mark get() = history.mark
 
     override fun onAvailable(network: Network) {
@@ -185,12 +208,34 @@ private val NOOP = Runnable {}
 /**
  * See comments on the public constructor below for a description of the arguments.
  */
-open class TestableNetworkCallback private constructor(
-    src: TestableNetworkCallback?,
-    val defaultTimeoutMs: Long = DEFAULT_TIMEOUT,
-    val defaultNoCallbackTimeoutMs: Long = DEFAULT_NO_CALLBACK_TIMEOUT,
-    val waiterFunc: Runnable = NOOP // "() -> Unit" would forbid calling with a void func from Java
-) : RecorderCallback(src) {
+open class TestableNetworkCallback : RecorderCallback {
+    val defaultTimeoutMs: Long
+    val defaultNoCallbackTimeoutMs: Long
+    val waiterFunc: Runnable
+
+    private constructor(
+            src: RecorderCallback?,
+            timeoutMs: Long = DEFAULT_TIMEOUT,
+            noCallbackTimeoutMs: Long = DEFAULT_NO_CALLBACK_TIMEOUT,
+            waiterFunc: Runnable = NOOP,
+    ) : super(src) {
+        this.defaultTimeoutMs = timeoutMs
+        this.defaultNoCallbackTimeoutMs = noCallbackTimeoutMs
+        this.waiterFunc = waiterFunc
+    }
+
+    private constructor(
+            src: RecorderCallback?,
+            timeoutMs: Long = DEFAULT_TIMEOUT,
+            noCallbackTimeoutMs: Long = DEFAULT_NO_CALLBACK_TIMEOUT,
+            waiterFunc: Runnable = NOOP,
+            flag: Int
+    ) : super(src, flag) {
+        this.defaultTimeoutMs = timeoutMs
+        this.defaultNoCallbackTimeoutMs = noCallbackTimeoutMs
+        this.waiterFunc = waiterFunc
+    }
+
     /**
      * Construct a testable network callback.
      * @param timeoutMs the default timeout for expecting a callback. Default 30 seconds. This
@@ -212,8 +257,16 @@ open class TestableNetworkCallback private constructor(
     constructor(
         timeoutMs: Long = DEFAULT_TIMEOUT,
         noCallbackTimeoutMs: Long = DEFAULT_NO_CALLBACK_TIMEOUT,
-        waiterFunc: Runnable = NOOP
+        waiterFunc: Runnable = NOOP,
     ) : this(null, timeoutMs, noCallbackTimeoutMs, waiterFunc)
+
+    @JvmOverloads
+    constructor(
+            timeoutMs: Long = DEFAULT_TIMEOUT,
+            noCallbackTimeoutMs: Long = DEFAULT_NO_CALLBACK_TIMEOUT,
+            waiterFunc: Runnable = NOOP,
+            flag: Int,
+    ) : this(null, timeoutMs, noCallbackTimeoutMs, waiterFunc, flag)
 
     fun createLinkedCopy() = TestableNetworkCallback(
             this, defaultTimeoutMs, defaultNoCallbackTimeoutMs, waiterFunc)
