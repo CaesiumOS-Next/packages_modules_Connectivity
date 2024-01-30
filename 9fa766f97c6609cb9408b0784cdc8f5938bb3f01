@@ -22,6 +22,30 @@
       },
       "revId": "9fa766f97c6609cb9408b0784cdc8f5938bb3f01",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "946264b2_41224a75",
+        "filename": "nearby/framework/java/android/nearby/NearbyManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 2027455
+      },
+      "writtenOn": "2024-01-30T19:53:58Z",
+      "side": 1,
+      "message": "Thank you! Done.",
+      "parentUuid": "6366d31b_eec0f555",
+      "range": {
+        "startLine": 522,
+        "startChar": 11,
+        "endLine": 522,
+        "endChar": 23
+      },
+      "revId": "9fa766f97c6609cb9408b0784cdc8f5938bb3f01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
