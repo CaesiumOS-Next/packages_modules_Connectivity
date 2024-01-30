@@ -1,6 +1,92 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15261ea5_b041ba32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-01-30T03:30:11Z",
+      "side": 1,
+      "message": "Some doc are pre-existing description.  I am not sure if they\u0027re good docs. Feel free to ignore if you think it\u0027s OK.",
+      "revId": "2e7b9a1e5560e11219da19f1d36e6c894d312892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "817a2840_7aab5934",
+        "filename": "framework-t/src/android/app/usage/NetworkStatsManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-01-30T03:30:11Z",
+      "side": 1,
+      "message": "Nit: This is the network type that I would like to query for the usage, right? But I cannot understand this easily from this doc. or I should say I only know this is the network type but I do not know what it\u0027s used for.  (though this may copy from the other existing APIs...)",
+      "range": {
+        "startLine": 513,
+        "startChar": 26,
+        "endLine": 513,
+        "endChar": 67
+      },
+      "revId": "2e7b9a1e5560e11219da19f1d36e6c894d312892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2877b60_69402396",
+        "filename": "framework-t/src/android/app/usage/NetworkStatsManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-01-30T03:30:11Z",
+      "side": 1,
+      "message": "This is `can` or `should`?",
+      "range": {
+        "startLine": 519,
+        "startChar": 75,
+        "endLine": 519,
+        "endChar": 78
+      },
+      "revId": "2e7b9a1e5560e11219da19f1d36e6c894d312892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f49eb347_f848de1d",
+        "filename": "framework-t/src/android/app/usage/NetworkStatsManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-01-30T03:30:11Z",
+      "side": 1,
+      "message": "Nit: I am not sure if we should describe like this. It looks to me a clear doc will only need to describe what restriction in this API level. Also, this doc does not help me to understand how to use it since I do not know what the restriction is actually.  (though this may copy from the other existing APIs...)",
+      "range": {
+        "startLine": 518,
+        "startChar": 52,
+        "endLine": 519,
+        "endChar": 39
+      },
+      "revId": "2e7b9a1e5560e11219da19f1d36e6c894d312892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0095b904_908274d3",
