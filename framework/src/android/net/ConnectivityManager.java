@@ -127,6 +127,8 @@ public class ConnectivityManager {
                 "com.android.net.flags.support_is_uid_networking_blocked";
         static final String BASIC_BACKGROUND_RESTRICTIONS_ENABLED =
                 "com.android.net.flags.basic_background_restrictions_enabled";
+        static final String FLAG_LOCAL_NETWORK_COMPATIBLE =
+                "com.android.net.flags.flag_local_network_compatible";
     }
 
     /**
@@ -3926,18 +3928,34 @@ public class ConnectivityManager {
         // this flag if the app targets SDK < S (to maintain backwards compatibility).
         public static final int FLAG_INCLUDE_LOCATION_INFO = 1 << 0;
 
+        /**
+         * Apps targeting lower than V need to specify this flag to match local networks
+         *
+         * Apps targeting lower than {@link android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM} need
+         * to add {@link NetworkCapabilities#NET_CAPABILITY_LOCAL_NETWORK} to
+         * {@link NetworkCapabilities} or specify this flag to receive callback from local networks.
+         * Otherwise, request will not be satisfied by local networks.
+         *
+         * This flag is no-op for apps targeting
+         * {@link android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM} or higher.
+         */
+        @FlaggedApi(Flags.FLAG_LOCAL_NETWORK_COMPATIBLE)
+        public static final int FLAG_LOCAL_NETWORK_COMPATIBLE = 1 << 1;
+
         /** @hide */
         @Retention(RetentionPolicy.SOURCE)
         @IntDef(flag = true, prefix = "FLAG_", value = {
                 FLAG_NONE,
-                FLAG_INCLUDE_LOCATION_INFO
+                FLAG_INCLUDE_LOCATION_INFO,
+                FLAG_LOCAL_NETWORK_COMPATIBLE
         })
         public @interface Flag { }
 
         /**
          * All the valid flags for error checking.
          */
-        private static final int VALID_FLAGS = FLAG_INCLUDE_LOCATION_INFO;
+        private static final int VALID_FLAGS = FLAG_INCLUDE_LOCATION_INFO
+                | FLAG_LOCAL_NETWORK_COMPATIBLE;
 
         public NetworkCallback() {
             this(FLAG_NONE);
