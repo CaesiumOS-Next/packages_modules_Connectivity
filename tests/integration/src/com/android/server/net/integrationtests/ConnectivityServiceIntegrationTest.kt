@@ -222,6 +222,7 @@ class ConnectivityServiceIntegrationTest {
         override fun getSystemProperties() = mock(MockableSystemProperties::class.java)
         override fun makeNetIdManager() = TestNetIdManager()
         override fun getBpfNetMaps(context: Context?, netd: INetd?) = mock(BpfNetMaps::class.java)
+        override fun isChangeEnabled(changeId: Long, uid: Int) = true
 
         override fun makeMultinetworkPolicyTracker(
             c: Context,
