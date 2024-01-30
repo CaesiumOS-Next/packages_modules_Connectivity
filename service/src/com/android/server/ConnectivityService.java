@@ -97,6 +97,8 @@ import static android.net.NetworkRequest.Type.LISTEN_FOR_BEST;
 import static android.net.NetworkScore.POLICY_TRANSPORT_PRIMARY;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST_ONLY;
+import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_MATCH_LOCAL_NETWORK;
+import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION;
 import static android.os.Process.INVALID_UID;
 import static android.os.Process.VPN_UID;
 import static android.system.OsConstants.ETH_P_ALL;
@@ -215,7 +217,6 @@ import android.net.UnderlyingNetworkInfo;
 import android.net.Uri;
 import android.net.VpnManager;
 import android.net.VpnTransportInfo;
-import android.net.connectivity.ConnectivityCompatChanges;
 import android.net.metrics.IpConnectivityLog;
 import android.net.metrics.NetworkEvent;
 import android.net.netd.aidl.NativeUidRangeConfig;
@@ -3029,6 +3030,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void restrictBackgroundRequestForCaller(NetworkCapabilities nc) {
         if (!mPermissionMonitor.hasUseBackgroundNetworksPermission(mDeps.getCallingUid())) {
             nc.addCapability(NET_CAPABILITY_FOREGROUND);
+        }
+    }
+
+    private void maybeDisableLocalNetworkMatching(
+            NetworkCapabilities nc, int callbackFlags, int callingUid) {
+        if (mDeps.isChangeEnabled(ENABLE_MATCH_LOCAL_NETWORK, callingUid)) {
+            return;
+        }
+        // If NET_CAPABILITY_LOCAL_NETWORK is not added to capability, request should not be
+        // satisfied by local networks.
+        if (!nc.hasCapability(NET_CAPABILITY_LOCAL_NETWORK)) {
+            nc.addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK);
         }
     }
 
@@ -7715,10 +7728,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 //  the state of the app when the request is filed, but we never change the
                 //  request if the app changes network state. http://b/29964605
                 enforceMeteredApnPolicy(networkCapabilities);
+                maybeDisableLocalNetworkMatching(networkCapabilities, callbackFlags, callingUid);
                 break;
             case LISTEN_FOR_BEST:
                 enforceAccessPermission();
                 networkCapabilities = new NetworkCapabilities(networkCapabilities);
+                maybeDisableLocalNetworkMatching(networkCapabilities, callbackFlags, callingUid);
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported request type " + reqType);
@@ -7805,7 +7820,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final UserHandle user = UserHandle.getUserHandleForUid(callingUid);
         // Only run the check if the change is enabled.
         if (!mDeps.isChangeEnabled(
-                ConnectivityCompatChanges.ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION,
+                ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION,
                 callingPackageName, user)) {
             return false;
         }
@@ -7959,6 +7974,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 Binder.getCallingPid(), callingUid, callingPackageName);
         restrictRequestUidsForCallerAndSetRequestorInfo(networkCapabilities,
                 callingUid, callingPackageName);
+        maybeDisableLocalNetworkMatching(networkCapabilities,
+                NetworkCallback.FLAG_NONE, callingUid);
 
         NetworkRequest networkRequest = new NetworkRequest(networkCapabilities, TYPE_NONE,
                 nextNetworkRequestId(), NetworkRequest.Type.REQUEST);
@@ -8025,6 +8042,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // There is no need to do this for requests because an app without CHANGE_NETWORK_STATE
         // can't request networks.
         restrictBackgroundRequestForCaller(nc);
+        maybeDisableLocalNetworkMatching(nc, callbackFlags, callingUid);
         ensureListenableCapabilities(nc);
 
         NetworkRequest networkRequest = new NetworkRequest(nc, TYPE_NONE, nextNetworkRequestId(),
@@ -8052,6 +8070,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 Binder.getCallingPid(), callingUid, callingPackageName);
         final NetworkCapabilities nc = new NetworkCapabilities(networkCapabilities);
         restrictRequestUidsForCallerAndSetRequestorInfo(nc, callingUid, callingPackageName);
+        maybeDisableLocalNetworkMatching(nc, NetworkCallback.FLAG_NONE, callingUid);
 
         NetworkRequest networkRequest = new NetworkRequest(nc, TYPE_NONE, nextNetworkRequestId(),
                 NetworkRequest.Type.LISTEN);
