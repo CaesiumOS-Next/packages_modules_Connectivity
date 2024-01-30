@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12083ab2_6581cfbd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-30T07:40:29Z",
+      "side": 1,
+      "message": "Thanks, Yes it seems we stll have rooms to make the doc more clear.\nBut would like to merge it as is to keep consistency with other docs for now.\nWill address them in separate CLs.",
+      "parentUuid": "15261ea5_b041ba32",
+      "revId": "2e7b9a1e5560e11219da19f1d36e6c894d312892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "817a2840_7aab5934",
