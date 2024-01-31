@@ -58,7 +58,7 @@ private const val TIMEOUT_MS = 200L
 private const val MEDIUM_TIMEOUT_MS = 1_000L
 private const val LONG_TIMEOUT_MS = 5_000
 
-private fun nc(transport: Int, vararg caps: Int) = NetworkCapabilities.Builder().apply {
+fun nc(transport: Int, vararg caps: Int) = NetworkCapabilities.Builder().apply {
     addTransportType(transport)
     caps.forEach {
         addCapability(it)
@@ -70,7 +70,7 @@ private fun nc(transport: Int, vararg caps: Int) = NetworkCapabilities.Builder()
     addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
 }.build()
 
-private fun lp(iface: String) = LinkProperties().apply {
+fun lp(iface: String) = LinkProperties().apply {
     interfaceName = iface
     addLinkAddress(LinkAddress(LOCAL_IPV4_ADDRESS, 32))
     addRoute(RouteInfo(IpPrefix("0.0.0.0/0"), null, null))
@@ -78,7 +78,7 @@ private fun lp(iface: String) = LinkProperties().apply {
 
 // This allows keeping all the networks connected without having to file individual requests
 // for them.
-private fun keepScore() = FromS(
+fun keepScore() = FromS(
         NetworkScore.Builder().setKeepConnectedReason(KEEP_CONNECTED_FOR_TEST).build()
 )
 
@@ -88,10 +88,10 @@ private fun keepScore() = FromS(
 class CSLocalAgentTests : CSTest() {
     val multicastRoutingConfigMinScope =
                 MulticastRoutingConfig.Builder(MulticastRoutingConfig.FORWARD_WITH_MIN_SCOPE, 4)
-                .build();
+                .build()
     val multicastRoutingConfigSelected =
                 MulticastRoutingConfig.Builder(MulticastRoutingConfig.FORWARD_SELECTED)
-                .build();
+                .build()
     val upstreamSelectorAny = NetworkRequest.Builder()
                 .addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK)
                 .build()
