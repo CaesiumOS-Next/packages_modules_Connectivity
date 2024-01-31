@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package android.net.thread;
+package android.net.thread.utils;
 
-import static android.net.thread.IntegrationTestUtils.getRaPios;
-import static android.net.thread.IntegrationTestUtils.readPacketFrom;
-import static android.net.thread.IntegrationTestUtils.waitFor;
+import static android.net.thread.utils.IntegrationTestUtils.getRaPios;
+import static android.net.thread.utils.IntegrationTestUtils.readPacketFrom;
+import static android.net.thread.utils.IntegrationTestUtils.waitFor;
 
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ND_OPTION_SLLA;
 import static com.android.net.module.util.NetworkStackConstants.IPV6_ADDR_ALL_ROUTERS_MULTICAST;

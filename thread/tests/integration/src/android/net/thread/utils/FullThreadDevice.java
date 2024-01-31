@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package android.net.thread;
+package android.net.thread.utils;
 
-import static android.net.thread.IntegrationTestUtils.waitFor;
+import static android.net.thread.utils.IntegrationTestUtils.waitFor;
 
 import static com.google.common.io.BaseEncoding.base16;
 
@@ -23,6 +23,7 @@ import static org.junit.Assert.fail;
 
 import android.net.InetAddresses;
 import android.net.IpPrefix;
+import android.net.thread.ActiveOperationalDataset;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

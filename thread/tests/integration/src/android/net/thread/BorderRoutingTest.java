@@ -18,14 +18,14 @@ package android.net.thread;
 
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.Manifest.permission.NETWORK_SETTINGS;
-import static android.net.thread.IntegrationTestUtils.isExpectedIcmpv6Packet;
-import static android.net.thread.IntegrationTestUtils.isSimulatedThreadRadioSupported;
-import static android.net.thread.IntegrationTestUtils.newPacketReader;
-import static android.net.thread.IntegrationTestUtils.readPacketFrom;
-import static android.net.thread.IntegrationTestUtils.waitFor;
-import static android.net.thread.IntegrationTestUtils.waitForStateAnyOf;
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_LEADER;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
+import static android.net.thread.utils.IntegrationTestUtils.isExpectedIcmpv6Packet;
+import static android.net.thread.utils.IntegrationTestUtils.isSimulatedThreadRadioSupported;
+import static android.net.thread.utils.IntegrationTestUtils.newPacketReader;
+import static android.net.thread.utils.IntegrationTestUtils.readPacketFrom;
+import static android.net.thread.utils.IntegrationTestUtils.waitFor;
+import static android.net.thread.utils.IntegrationTestUtils.waitForStateAnyOf;
 
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REPLY_TYPE;
 import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
@@ -41,6 +41,8 @@ import static org.junit.Assume.assumeTrue;
 import android.content.Context;
 import android.net.LinkProperties;
 import android.net.MacAddress;
+import android.net.thread.utils.FullThreadDevice;
+import android.net.thread.utils.InfraNetworkDevice;
 import android.os.Handler;
 import android.os.HandlerThread;
 
