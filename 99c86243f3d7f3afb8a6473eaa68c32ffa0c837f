@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1420056_ed5e2a9b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 19288,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-31T02:08:48Z",
+      "side": 1,
+      "message": "You might need to follow this note and add in CSTest instead.\nProbably it is better to add in a standalone test.",
+      "range": {
+        "startLine": 19287,
+        "startChar": 4,
+        "endLine": 19288,
+        "endChar": 85
+      },
+      "revId": "99c86243f3d7f3afb8a6473eaa68c32ffa0c837f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
