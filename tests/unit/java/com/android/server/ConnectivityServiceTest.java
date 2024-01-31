@@ -134,6 +134,7 @@ import static android.net.NetworkCapabilities.REDACT_NONE;
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
+import static android.net.NetworkCapabilities.TRANSPORT_SATELLITE;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
@@ -166,6 +167,7 @@ import static com.android.server.ConnectivityService.MAX_NETWORK_REQUESTS_PER_SY
 import static com.android.server.ConnectivityService.PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED;
 import static com.android.server.ConnectivityService.PREFERENCE_ORDER_OEM;
 import static com.android.server.ConnectivityService.PREFERENCE_ORDER_PROFILE;
+import static com.android.server.ConnectivityService.PREFERENCE_ORDER_SATELLITE_FALLBACK_PREFERRED;
 import static com.android.server.ConnectivityService.PREFERENCE_ORDER_VPN;
 import static com.android.server.ConnectivityService.createDeliveryGroupKeyForConnectivityAction;
 import static com.android.server.ConnectivityService.makeNflogPrefix;
@@ -420,6 +422,7 @@ import com.android.server.connectivity.NetworkNotificationManager;
 import com.android.server.connectivity.NetworkNotificationManager.NotificationType;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
+import com.android.server.connectivity.SatelliteAccessController;
 import com.android.server.connectivity.TcpKeepaliveController;
 import com.android.server.connectivity.UidRangeUtils;
 import com.android.server.connectivity.VpnProfileStore;
@@ -590,6 +593,7 @@ public class ConnectivityServiceTest {
     private TestNetworkAgentWrapper mWiFiAgent;
     private TestNetworkAgentWrapper mCellAgent;
     private TestNetworkAgentWrapper mEthernetAgent;
+    private TestNetworkAgentWrapper mSatelliteAgent;
     private final List<TestNetworkAgentWrapper> mCreatedAgents = new ArrayList<>();
     private MockVpn mMockVpn;
     private Context mContext;
@@ -641,6 +645,7 @@ public class ConnectivityServiceTest {
     @Mock DestroySocketsWrapper mDestroySocketsWrapper;
     @Mock SubscriptionManager mSubscriptionManager;
     @Mock KeepaliveTracker.Dependencies mMockKeepaliveTrackerDependencies;
+    @Mock SatelliteAccessController mSatelliteAccessController;
 
     // BatteryStatsManager is final and cannot be mocked with regular mockito, so just mock the
     // underlying binder calls.
@@ -2055,6 +2060,13 @@ public class ConnectivityServiceTest {
                 @NonNull final Context context,
                 @NonNull final TelephonyManager tm) {
             return mDeps.isAtLeastT() ? mCarrierPrivilegeAuthenticator : null;
+        }
+
+        @Override
+        public SatelliteAccessController makeSatelliteAccessController(
+                @NonNull final Context context,
+                ConnectivityService.OnUpdateSatelliteNetworkPreferenceUids callback) {
+            return mDeps.isAtLeastV() ? mSatelliteAccessController : null;
         }
 
         @Override
@@ -18011,6 +18023,251 @@ public class ConnectivityServiceTest {
                             mService.updateMobileDataPreferredUids();
                             waitForIdle();
                         }));
+    }
+
+    private void assertCreateMultiLayerNrisFromSatelliteNetworkPreferredUids(Set<Integer> uids) {
+        final Set<NetworkRequestInfo> nris =
+                mService.createMultiLayerNrisFromSatelliteNetworkPreferredUids(uids);
+        final NetworkRequestInfo nri = nris.iterator().next();
+        // Verify that one NRI is created with multilayer requests. Because one NRI can contain
+        // multiple uid ranges, so it only need create one NRI here.
+        assertEquals(1, nris.size());
+        assertTrue(nri.isMultilayerRequest());
+        assertEquals(nri.getUids(), uidRangesForUids(uids));
+        assertEquals(PREFERENCE_ORDER_SATELLITE_FALLBACK_PREFERRED, nri.mPreferenceOrder);
+    }
+
+    /**
+     * Test createMultiLayerNrisFromSatelliteNetworkPreferredUids returns correct
+     * NetworkRequestInfo.
+     */
+    @Test
+    public void testCreateMultiLayerNrisFromSatelliteNetworkPreferredUids() {
+        // Verify that empty uid set should not create any NRI for it.
+        final Set<NetworkRequestInfo> nrisNoUid =
+                mService.createMultiLayerNrisFromSatelliteNetworkPreferredUids(new ArraySet<>());
+        assertEquals(0, nrisNoUid.size());
+
+        final int uid1 = PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID);
+        final int uid2 = PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID2);
+        final int uid3 = SECONDARY_USER_HANDLE.getUid(TEST_PACKAGE_UID);
+        assertCreateMultiLayerNrisFromSatelliteNetworkPreferredUids(Set.of(uid1));
+        assertCreateMultiLayerNrisFromSatelliteNetworkPreferredUids(Set.of(uid1, uid3));
+        assertCreateMultiLayerNrisFromSatelliteNetworkPreferredUids(Set.of(uid1, uid2));
+    }
+
+    private void setAndUpdateSatelliteNetworkPreferredUids(Set<Integer> uids) {
+        doReturn(uids).when(mSatelliteAccessController).getSatelliteNetworkPreferredUids();
+        mService.updateSatelliteNetworkPreferenceUids();
+        waitForIdle();
+    }
+
+    /**
+     * Test that SATELLITE_NETWORK_PREFERENCE_UIDS changes will send correct net id and uid ranges
+     * to netd.
+     */
+    @Test
+    public void testSatelliteNetworkPreferredUidsChanged() throws Exception {
+        final InOrder inorder = inOrder(mMockNetd);
+        registerDefaultNetworkCallbacks();
+        mSatelliteAgent = new TestNetworkAgentWrapper(TRANSPORT_SATELLITE);
+        mSatelliteAgent.connect(true);
+        mDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mSatelliteAgent);
+        mTestPackageDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mSatelliteAgent);
+
+        final int satelliteNetId = mSatelliteAgent.getNetwork().netId;
+        inorder.verify(mMockNetd, times(1)).networkCreate(nativeNetworkConfigPhysical(
+                satelliteNetId, INetd.PERMISSION_NONE));
+
+        final int uid1 = PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID);
+        final int uid2 = PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID2);
+        final int uid3 = SECONDARY_USER_HANDLE.getUid(TEST_PACKAGE_UID);
+
+        // Initial satellite network preferred uids status.
+        setAndUpdateSatelliteNetworkPreferredUids(Set.of());
+        inorder.verify(mMockNetd, never()).networkAddUidRangesParcel(any());
+        inorder.verify(mMockNetd, never()).networkRemoveUidRangesParcel(any());
+
+        // Set SATELLITE_NETWORK_PREFERENCE_UIDS setting and verify that net id and uid ranges
+        // send to netd
+        Set<Integer> uids = Set.of(uid1, uid2, uid3);
+        final UidRangeParcel[] uidRanges1 = toUidRangeStableParcels(uidRangesForUids(uids));
+        final NativeUidRangeConfig config1 = new NativeUidRangeConfig(satelliteNetId, uidRanges1,
+                PREFERENCE_ORDER_SATELLITE_FALLBACK_PREFERRED);
+
+        setAndUpdateSatelliteNetworkPreferredUids(uids);
+        inorder.verify(mMockNetd, times(1)).networkAddUidRangesParcel(config1);
+        inorder.verify(mMockNetd, never()).networkRemoveUidRangesParcel(any());
+
+        // Set SATELLITE_NETWORK_PREFERENCE_UIDS setting again and verify that old rules are removed
+        // and new rules are added.
+        uids = Set.of(uid1);
+        final UidRangeParcel[] uidRanges2 = toUidRangeStableParcels(uidRangesForUids(uids));
+        final NativeUidRangeConfig config2 = new NativeUidRangeConfig(satelliteNetId, uidRanges2,
+                PREFERENCE_ORDER_SATELLITE_FALLBACK_PREFERRED);
+        setAndUpdateSatelliteNetworkPreferredUids(uids);
+        inorder.verify(mMockNetd, times(1)).networkRemoveUidRangesParcel(config1);
+        inorder.verify(mMockNetd, times(1)).networkAddUidRangesParcel(config2);
+    }
+
+    /**
+     * Make sure mobile data preferred uids feature and satellite network preferred uids feature
+     * when created with multi layer request behaves correctly as per preference order set.
+     */
+    @Test
+    public void testMultiLayerNetworkRequest() throws Exception {
+        final int uid1 = PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID);
+        final int uid2 = PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID2);
+        final NetworkProvider restrictedSatelliteProvider = new NetworkProvider(mServiceContext,
+                mCsHandlerThread.getLooper(), "Restricted satellite provider");
+        final NetworkProvider cellProvider = new NetworkProvider(mServiceContext,
+                mCsHandlerThread.getLooper(), "Cell provider");
+        final NetworkProvider wifiProvider = new NetworkProvider(mServiceContext,
+                mCsHandlerThread.getLooper(), "Wifi provider");
+
+        mCm.registerNetworkProvider(restrictedSatelliteProvider);
+        mCm.registerNetworkProvider(cellProvider);
+        mCm.registerNetworkProvider(wifiProvider);
+
+        final NetworkScore restrictedCellScore = new NetworkScore.Builder().build();
+        final NetworkScore wifiScore = new NetworkScore.Builder().build();
+        final NetworkScore cellScore = new NetworkScore.Builder().build();
+        final NetworkCapabilities restrictedSatelliteCaps = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_SATELLITE)
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                .addCapability(NET_CAPABILITY_TRUSTED)
+                .addCapability(NET_CAPABILITY_NOT_VPN)
+                .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                .build();
+        final NetworkCapabilities wifiCaps = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_WIFI)
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                .addCapability(NET_CAPABILITY_TRUSTED)
+                .addCapability(NET_CAPABILITY_NOT_VPN)
+                .build();
+        final NetworkCapabilities cellCaps = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                .addCapability(NET_CAPABILITY_TRUSTED)
+                .addCapability(NET_CAPABILITY_NOT_VPN)
+                .build();
+        final TestableNetworkOfferCallback restrictedSatelliteCallback =
+                new TestableNetworkOfferCallback(TIMEOUT_MS /* timeout */,
+                        TEST_CALLBACK_TIMEOUT_MS /* noCallbackTimeout */);
+        final TestableNetworkOfferCallback wifiCallback =
+                new TestableNetworkOfferCallback(TIMEOUT_MS /* timeout */,
+                        TEST_CALLBACK_TIMEOUT_MS /* noCallbackTimeout */);
+        final TestableNetworkOfferCallback cellCallback =
+                new TestableNetworkOfferCallback(TIMEOUT_MS /* timeout */,
+                        TEST_CALLBACK_TIMEOUT_MS /* noCallbackTimeout */);
+
+        // Offer callbacks will run on the CS handler thread in this test.
+        restrictedSatelliteProvider.registerNetworkOffer(
+                restrictedCellScore, restrictedSatelliteCaps, r -> r.run(),
+                restrictedSatelliteCallback);
+        wifiProvider.registerNetworkOffer(wifiScore, wifiCaps, r -> r.run(), wifiCallback);
+        wifiProvider.registerNetworkOffer(cellScore, cellCaps, r -> r.run(), cellCallback);
+
+        final NetworkCapabilities defaultCaps = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                .build();
+
+        // RestrictedCell provider does not receive the default request.
+        restrictedSatelliteCallback.assertNoCallback();
+        wifiCallback.expectOnNetworkNeeded(defaultCaps);
+        cellCallback.expectOnNetworkNeeded(defaultCaps);
+
+        // Register default network callback for uid1 (target uid of multi layer requests)
+        final TestNetworkCallback appDefaultNetworkCallback = new TestNetworkCallback();
+        withPermission(NETWORK_SETTINGS, () -> mCm.registerDefaultNetworkCallbackForUid(
+                uid1, appDefaultNetworkCallback,
+                new Handler(ConnectivityThread.getInstanceLooper())));
+        final TestNetworkCallback defaultNetworkCallback = new TestNetworkCallback();
+        mCm.registerDefaultNetworkCallback(defaultNetworkCallback);
+
+        // RestrictedCell provider does not receive the default request for app
+        restrictedSatelliteCallback.assertNoCallback();
+        wifiCallback.expectOnNetworkNeeded(defaultCaps);
+        cellCallback.expectOnNetworkNeeded(defaultCaps);
+
+        // Bring up cell
+        mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR,
+                new LinkProperties(), null /* ncTemplate */, cellProvider);
+        mCellAgent.connect(false);
+        appDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(mCellAgent);
+        defaultNetworkCallback.expectAvailableCallbacksUnvalidated(mCellAgent);
+
+        // Bring up wifi (default network is switched to wifi)
+        mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI,
+                new LinkProperties(), null /* ncTemplate */, wifiProvider);
+        mWiFiAgent.connect(false);
+        appDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(mWiFiAgent);
+        defaultNetworkCallback.expectAvailableCallbacksUnvalidated(mWiFiAgent);
+
+        // file 2 multilayer requests
+        setAndUpdateMobileDataPreferredUids(Set.of(uid1));
+        setAndUpdateSatelliteNetworkPreferredUids(Set.of(uid1));
+
+        // Only app default is switched to cell due to mobileDataPreferred
+        appDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(mCellAgent);
+        defaultNetworkCallback.assertNoCallback();
+
+        restrictedSatelliteCallback.assertNoCallback();
+
+        mWiFiAgent.disconnect();
+        mCellAgent.disconnect();
+        appDefaultNetworkCallback.expect(LOST, mCellAgent);
+        defaultNetworkCallback.expect(LOST, mWiFiAgent);
+
+        // satellite provider should receive 2nd request in multi-layer request
+        restrictedSatelliteCallback.expectOnNetworkNeeded(restrictedSatelliteCaps);
+
+        // Bring up restricted satellite, app default network is satisfied by this network.
+        TestNetworkAgentWrapper restrictedSatelliteAgent = new TestNetworkAgentWrapper(
+                TRANSPORT_SATELLITE,
+                new LinkProperties(), restrictedSatelliteCaps, restrictedSatelliteProvider);
+        restrictedSatelliteAgent.connect(false);
+
+        // appDefaultNetworkCallback does not receive onAvailable for restrictedCellAgent yet since
+        // MobileDataPreferred has higher priority
+        appDefaultNetworkCallback.assertNoCallback();
+        assertNull(mCm.getActiveNetworkForUid(uid1));
+
+        // After removing MobileDataPreferred, appDefaultNetworkCallback receive onAvailable
+        setAndUpdateMobileDataPreferredUids(Set.of());
+        appDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(restrictedSatelliteAgent);
+        assertEquals(restrictedSatelliteAgent.getNetwork(), mCm.getActiveNetworkForUid(uid1));
+
+        // Bring up wifi again
+        mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI,
+                new LinkProperties(), null /* ncTemplate */, wifiProvider);
+        mWiFiAgent.connect(false);
+        appDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(mWiFiAgent);
+
+        // satellite provider receive unneeded, since first request(TRACK_DEFAULT) in multi-layer
+        // request is satisfied by wifi
+        restrictedSatelliteCallback.expectOnNetworkUnneeded(restrictedSatelliteCaps);
+
+        // Remove satellite network preference for target uid1
+        setAndUpdateSatelliteNetworkPreferredUids(Set.of());
+
+        // After satellite network preference added with new target uid2, multi layer request
+        // created with new target uid
+        setAndUpdateSatelliteNetworkPreferredUids(Set.of(uid2));
+        appDefaultNetworkCallback.assertNoCallback();
+
+        // On Wifi disconnect, first request(TRACK_DEFAULT) in multi-layer request is no more
+        // satisfied,
+        mWiFiAgent.disconnect();
+        appDefaultNetworkCallback.expect(LOST, mWiFiAgent);
+
+        // satellite provider should receive restricted satellite
+        restrictedSatelliteCallback.expectOnNetworkNeeded(restrictedSatelliteCaps);
+        appDefaultNetworkCallback.assertNoCallback();
     }
 
     @Test
