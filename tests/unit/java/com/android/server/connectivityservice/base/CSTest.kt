@@ -67,6 +67,7 @@ import com.android.server.connectivity.MultinetworkPolicyTrackerTestDependencies
 import com.android.server.connectivity.NetworkRequestStateStatsMetrics
 import com.android.server.connectivity.ProxyTracker
 import com.android.server.connectivity.RoutingCoordinatorService
+import com.android.server.connectivity.SatelliteAccessController
 import com.android.testutils.visibleOnHandlerThread
 import com.android.testutils.waitForIdle
 import java.util.concurrent.Executors
@@ -77,6 +78,7 @@ import org.mockito.AdditionalAnswers.delegatesTo
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
+import java.util.function.Consumer
 
 internal const val HANDLER_TIMEOUT_MS = 2_000
 internal const val BROADCAST_TIMEOUT_MS = 3_000L
@@ -173,6 +175,8 @@ open class CSTest {
     }
 
     val multicastRoutingCoordinatorService = mock<MulticastRoutingCoordinatorService>()
+    var satellitePreferredUidUpdate: Consumer<Set<Int>>? = null
+    val satelliteAccessController = mock<SatelliteAccessController>()
 
     val deps = CSDeps()
     val service = makeConnectivityService(context, netd, deps).also { it.systemReadyInternal() }
@@ -202,6 +206,15 @@ open class CSTest {
                 context: Context,
                 tm: TelephonyManager
         ) = if (SdkLevel.isAtLeastT()) mock<CarrierPrivilegeAuthenticator>() else null
+
+        override fun makeSatelliteAccessController(
+            context: Context,
+            updateSatelliteNetworkPreferredUid: Consumer<Set<Int>>?,
+            connectivityServiceInternalHandler: Handler
+        ): SatelliteAccessController? = if (SdkLevel.isAtLeastU()) {
+            satellitePreferredUidUpdate = updateSatelliteNetworkPreferredUid
+            satelliteAccessController
+        } else null
 
         private inner class AOOKTDeps(c: Context) : AutomaticOnOffKeepaliveTracker.Dependencies(c) {
             override fun isTetheringFeatureNotChickenedOut(name: String): Boolean {
