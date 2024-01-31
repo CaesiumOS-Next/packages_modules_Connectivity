@@ -53,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c897097_483dcabe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-31T08:54:14Z",
+      "side": 1,
+      "message": "AI: Add ATP config to do that.",
+      "parentUuid": "90f2db3c_5148c3db",
+      "revId": "36e762640626ed59fb81aace9395a035bd1cbe8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d29b0f73_ff8dcf22",
