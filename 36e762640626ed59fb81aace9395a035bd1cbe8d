@@ -16,6 +16,46 @@
       "message": "LGTM but Lorenzo should have a look for new CTS",
       "revId": "36e762640626ed59fb81aace9395a035bd1cbe8d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efe3b339_c8eceb06",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-31T06:31:10Z",
+      "side": 1,
+      "message": "Very nice!\n\nIs it possible to run this in presubmit, or is it postsubmit only?",
+      "revId": "36e762640626ed59fb81aace9395a035bd1cbe8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d29b0f73_ff8dcf22",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-01-31T06:31:10Z",
+      "side": 1,
+      "message": "Nit: I think [:1] is the same as [0] here, so maybe just use [0]?\n\nIn general, [0] is not the same as [:1], because [0] throws if the list is empty and [:1] does not. But here the list can\u0027t be empty because we know it contains \"--\", so I think they are the same.\n```suggestion\n    sys.argv \u003d sys.argv[0] + sys.argv[index + 1 :]\n```",
+      "range": {
+        "startLine": 109,
+        "startChar": 23,
+        "endLine": 109,
+        "endChar": 27
+      },
+      "revId": "36e762640626ed59fb81aace9395a035bd1cbe8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
