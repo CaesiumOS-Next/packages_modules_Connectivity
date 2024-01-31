@@ -130,6 +130,8 @@ public final class NetworkCapabilities implements Parcelable {
                 "com.android.net.flags.forbidden_capability";
         static final String FLAG_NET_CAPABILITY_LOCAL_NETWORK =
                 "com.android.net.flags.net_capability_local_network";
+        static final String SUPPORT_TRANSPORT_SATELLITE =
+                "com.android.net.flags.support_transport_satellite";
     }
 
     /**
@@ -1253,6 +1255,7 @@ public final class NetworkCapabilities implements Parcelable {
             TRANSPORT_TEST,
             TRANSPORT_USB,
             TRANSPORT_THREAD,
+            TRANSPORT_SATELLITE,
     })
     public @interface Transport { }
 
@@ -1309,10 +1312,16 @@ public final class NetworkCapabilities implements Parcelable {
      */
     public static final int TRANSPORT_THREAD = 9;
 
+    /**
+     * Indicates this network uses a Satellite transport.
+     */
+    @FlaggedApi(Flags.SUPPORT_TRANSPORT_SATELLITE)
+    public static final int TRANSPORT_SATELLITE = 10;
+
     /** @hide */
     public static final int MIN_TRANSPORT = TRANSPORT_CELLULAR;
     /** @hide */
-    public static final int MAX_TRANSPORT = TRANSPORT_THREAD;
+    public static final int MAX_TRANSPORT = TRANSPORT_SATELLITE;
 
     private static final int ALL_VALID_TRANSPORTS;
     static {
@@ -1339,6 +1348,7 @@ public final class NetworkCapabilities implements Parcelable {
         "TEST",
         "USB",
         "THREAD",
+        "SATELLITE",
     };
 
     /**
