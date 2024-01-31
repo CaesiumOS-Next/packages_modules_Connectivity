@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1233e06c_9cca7653",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-31T09:20:31Z",
+      "side": 1,
+      "message": "LGTM.",
+      "revId": "2c607bd8cd8cf90ac024aec48ad9a1dc5d9fdbae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e7761d0_e174da76",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-31T09:20:31Z",
+      "side": 1,
+      "message": "I\u0027m not sure whether this should send all subtypes or just the subtype the listener requested. However, since NsdService doesn\u0027t currently use this value, it might not matter.\"",
+      "range": {
+        "startLine": 160,
+        "startChar": 47,
+        "endLine": 160,
+        "endChar": 55
+      },
+      "revId": "2c607bd8cd8cf90ac024aec48ad9a1dc5d9fdbae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
