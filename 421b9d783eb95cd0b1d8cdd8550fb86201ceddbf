@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4bfd6a9_70f7b4b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-31T09:36:25Z",
+      "side": 1,
+      "message": "LGTM with some nits.",
+      "revId": "421b9d783eb95cd0b1d8cdd8550fb86201ceddbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4bc3f8c_e90c529f",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1569,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-31T09:36:25Z",
+      "side": 1,
+      "message": "Nit: Rename to `otherSubtype` or `othersub`? It\u0027s really confused that `subtype` matches to `_othersub` and you also have `_subtype`",
+      "range": {
+        "startLine": 1569,
+        "startChar": 21,
+        "endLine": 1569,
+        "endChar": 28
+      },
+      "revId": "421b9d783eb95cd0b1d8cdd8550fb86201ceddbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10b07d59_688c3acb",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1591,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-31T09:36:25Z",
+      "side": 1,
+      "message": "Nit: Now is `_othersub`",
+      "range": {
+        "startLine": 1591,
+        "startChar": 33,
+        "endLine": 1591,
+        "endChar": 41
+      },
+      "revId": "421b9d783eb95cd0b1d8cdd8550fb86201ceddbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16202b7a_56eda997",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1605,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-31T09:36:25Z",
+      "side": 1,
+      "message": "Nit: subtype",
+      "range": {
+        "startLine": 1605,
+        "startChar": 61,
+        "endLine": 1605,
+        "endChar": 72
+      },
+      "revId": "421b9d783eb95cd0b1d8cdd8550fb86201ceddbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54c4c885_a30ad42a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1620,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-31T09:36:25Z",
+      "side": 1,
+      "message": "Nit: Now is `_subtype`",
+      "range": {
+        "startLine": 1620,
+        "startChar": 33,
+        "endLine": 1620,
+        "endChar": 42
+      },
+      "revId": "421b9d783eb95cd0b1d8cdd8550fb86201ceddbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "092ad5d2_1a4959b9",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1634,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-31T09:36:25Z",
+      "side": 1,
+      "message": "Nit: subtype",
+      "range": {
+        "startLine": 1634,
+        "startChar": 61,
+        "endLine": 1634,
+        "endChar": 72
+      },
+      "revId": "421b9d783eb95cd0b1d8cdd8550fb86201ceddbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
