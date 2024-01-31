@@ -13,24 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package android.net.thread;
+package android.net.thread.utils;
 
-import static android.net.thread.IntegrationTestUtils.waitFor;
+import static android.net.thread.utils.IntegrationTestUtils.waitFor;
 
 import static com.google.common.io.BaseEncoding.base16;
 
-import static org.junit.Assert.fail;
-
 import android.net.InetAddresses;
 import android.net.IpPrefix;
+import android.net.thread.ActiveOperationalDataset;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.Inet6Address;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
@@ -42,10 +35,8 @@ import java.util.concurrent.TimeoutException;
  * href="https://github.com/openthread/openthread/blob/main/src/cli/README.md">this page</a> for
  * available commands.
  */
-public final class FullThreadDevice {
-    private final Process mProcess;
-    private final BufferedReader mReader;
-    private final BufferedWriter mWriter;
+public final class FullThreadDevice extends ThreadCommandLine {
+    private static final String OT_CLI_FTD = "/system/bin/ot-cli-ftd";
 
     private ActiveOperationalDataset mActiveOperationalDataset;
 
@@ -61,13 +52,7 @@ public final class FullThreadDevice {
      *     device.
      */
     public FullThreadDevice(int nodeId) {
-        try {
-            mProcess = Runtime.getRuntime().exec("/system/bin/ot-cli-ftd " + nodeId);
-        } catch (IOException e) {
-            throw new IllegalStateException("Failed to start ot-cli-ftd (id=" + nodeId + ")", e);
-        }
-        mReader = new BufferedReader(new InputStreamReader(mProcess.getInputStream()));
-        mWriter = new BufferedWriter(new OutputStreamWriter(mProcess.getOutputStream()));
+        super(OT_CLI_FTD + " " + nodeId);
         mActiveOperationalDataset = null;
     }
 
@@ -130,51 +115,10 @@ public final class FullThreadDevice {
         return executeCommand("state").get(0);
     }
 
-    /** Runs the "factoryreset" command on the device. */
+    @Override
     public void factoryReset() {
-        try {
-            mWriter.write("factoryreset\n");
-            mWriter.flush();
-            // fill the input buffer to avoid truncating next command
-            for (int i = 0; i < 1000; ++i) {
-                mWriter.write("\n");
-            }
-            mWriter.flush();
-        } catch (IOException e) {
-            throw new IllegalStateException("Failed to run factoryreset on ot-cli-ftd", e);
-        }
-    }
-
-    private List<String> executeCommand(String command) {
-        try {
-            mWriter.write(command + "\n");
-            mWriter.flush();
-        } catch (IOException e) {
-            throw new IllegalStateException(
-                    "Failed to write the command " + command + " to ot-cli-ftd", e);
-        }
-        try {
-            return readUntilDone();
-        } catch (IOException e) {
-            throw new IllegalStateException(
-                    "Failed to read the ot-cli-ftd output of command: " + command, e);
-        }
-    }
-
-    private List<String> readUntilDone() throws IOException {
-        ArrayList<String> result = new ArrayList<>();
-        String line;
-        while ((line = mReader.readLine()) != null) {
-            if (line.equals("Done")) {
-                break;
-            }
-            if (line.startsWith("Error:")) {
-                fail("ot-cli-ftd reported an error: " + line);
-            }
-            if (!line.startsWith("> ")) {
-                result.add(line);
-            }
-        }
-        return result;
+        writeCommand("factoryreset\n");
+        // fill the input buffer to avoid truncating next command
+        writeCommand("\n".repeat(1000));
     }
 }

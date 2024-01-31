@@ -29,6 +29,7 @@ java_defaults {
         "net-utils-device-common",
         "net-utils-device-common-bpf",
         "testables",
+        "truth",
     ],
     libs: [
         "android.test.runner",
