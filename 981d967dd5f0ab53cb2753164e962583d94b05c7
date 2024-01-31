@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d91170b_8eb39a7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-01-31T22:27:12Z",
+      "side": 1,
+      "message": "git_main-linux-aosp_cf_x86_64_only_phone-trunk_staging-userdebug\n\nI init    : processing action (sys.init.perf_lsm_hooks\u003d1 \u0026\u0026 load_bpf_programs) from (/system/etc/init/hw/init.rc:1241)\nI init    : processing action (load_bpf_programs) from (/system/etc/init/netbpfload.rc:17)\nI init    : starting service \u0027bpfloader\u0027...\nI init    : ... started service \u0027bpfloader\u0027 has pid 506\nI init    : SVC_EXEC service \u0027bpfloader\u0027 pid 506 (uid 0 gid 0+7 context default) started; waiting...\nE rename_netiface: Failed to get interface (buried_eth0) index, trying alternate.\nI         : virtio_net virtio32 buried_eth0: renamed from eth0\nI NetBpfLoad: NetBpfLoad \u0027/system/bin/netbpfload\u0027 starting...\nI NetBpfLoad: NetBpfLoad api:10000/34 kver:6010019 platform:1 mainline:0\nE Spectre V2: WARNING: Unprivileged eBPF is enabled with eIBRS on, data leaks possible via Spectre v2 BHB attacks!\nD NetBpfLoader: Loading optional ELF object /apex/com.android.tethering/etc/bpf/test.o with license Apache 2.0",
+      "revId": "981d967dd5f0ab53cb2753164e962583d94b05c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
