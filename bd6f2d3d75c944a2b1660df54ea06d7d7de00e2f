@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ef8a337_96bc8d53",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingBaseTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-31T05:52:14Z",
+      "side": 1,
+      "message": "Moved multicast test to BorderRoutingTest.java, so this file is not needed anymore.",
+      "parentUuid": "5ac2fb93_b7c5e2d1",
+      "revId": "bd6f2d3d75c944a2b1660df54ea06d7d7de00e2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9e71668_248c7fbb",
@@ -52,6 +70,42 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "330a75c9_04353db2",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-31T05:52:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e9e71668_248c7fbb",
+      "revId": "bd6f2d3d75c944a2b1660df54ea06d7d7de00e2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8de8ec1_b8fc0b57",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-31T05:52:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "af324e4f_8486a09c",
+      "revId": "bd6f2d3d75c944a2b1660df54ea06d7d7de00e2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "840f7e41_a73a47d3",
@@ -65,6 +119,24 @@
       "writtenOn": "2024-01-22T09:07:18Z",
       "side": 1,
       "message": "I don\u0027t think you need to manually do this.",
+      "revId": "bd6f2d3d75c944a2b1660df54ea06d7d7de00e2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22f21efe_30d0ea25",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-31T05:52:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "840f7e41_a73a47d3",
       "revId": "bd6f2d3d75c944a2b1660df54ea06d7d7de00e2f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -86,6 +158,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8b2253d_77085c30",
+        "filename": "thread/tests/integration/src/android/net/thread/FullThreadDevice.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-31T05:52:14Z",
+      "side": 1,
+      "message": "Added a check for the infra link has joined the registered group.",
+      "parentUuid": "a6d4e079_a049e8b2",
+      "revId": "bd6f2d3d75c944a2b1660df54ea06d7d7de00e2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91499ec8_fa6afe3a",
@@ -103,6 +193,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15864316_29668167",
+        "filename": "thread/tests/integration/src/android/net/thread/FullThreadDevice.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-31T05:52:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91499ec8_fa6afe3a",
+      "revId": "bd6f2d3d75c944a2b1660df54ea06d7d7de00e2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01769e3b_bba9741f",
@@ -116,6 +224,24 @@
       "writtenOn": "2024-01-22T09:07:18Z",
       "side": 1,
       "message": "At a quick glance, I think it\u0027s meaningful to have a scenario when there are multiple FTDs subscribing to different MGs.",
+      "revId": "bd6f2d3d75c944a2b1660df54ea06d7d7de00e2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b83deaf8_c686ece0",
+        "filename": "thread/tests/integration/src/android/net/thread/MulticastBorderRoutingTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-01-31T05:52:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01769e3b_bba9741f",
       "revId": "bd6f2d3d75c944a2b1660df54ea06d7d7de00e2f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
