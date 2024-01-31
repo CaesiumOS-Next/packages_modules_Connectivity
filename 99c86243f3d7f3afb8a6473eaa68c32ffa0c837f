@@ -22,6 +22,29 @@
       },
       "revId": "99c86243f3d7f3afb8a6473eaa68c32ffa0c837f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31742f74_f2db3eea",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-31T02:10:14Z",
+      "side": 1,
+      "message": "For the new test you will need to write in kotlin.",
+      "range": {
+        "startLine": 54,
+        "startChar": 13,
+        "endLine": 54,
+        "endChar": 42
+      },
+      "revId": "99c86243f3d7f3afb8a6473eaa68c32ffa0c837f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
