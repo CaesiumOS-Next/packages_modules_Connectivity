@@ -337,6 +337,7 @@ import com.android.server.connectivity.ProfileNetworkPreferenceInfo;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
 import com.android.server.connectivity.RoutingCoordinatorService;
+import com.android.server.connectivity.SatelliteAccessController;
 import com.android.server.connectivity.UidRangeUtils;
 import com.android.server.connectivity.VpnNetworkPreferenceInfo;
 import com.android.server.connectivity.wear.CompanionDeviceManagerProxyService;
@@ -375,6 +376,7 @@ import java.util.StringJoiner;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 /**
  * @hide
@@ -564,6 +566,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // See {@link ConnectivitySettingsManager#setMobileDataPreferredUids}
     @VisibleForTesting
     static final int PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED = 30;
+    // Order of setting satellite network preference fallback when default message application
+    // with role_sms role and android.permission.SATELLITE_COMMUNICATION permission detected
+    @VisibleForTesting
+    static final int PREFERENCE_ORDER_SATELLITE_FALLBACK = 40;
     // Preference order that signifies the network shouldn't be set as a default network for
     // the UIDs, only give them access to it. TODO : replace this with a boolean
     // in NativeUidRangeConfig
@@ -922,6 +928,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private final QosCallbackTracker mQosCallbackTracker;
     private final NetworkNotificationManager mNotifier;
     private final LingerMonitor mLingerMonitor;
+    private final SatelliteAccessController mSatelliteAccessController;
 
     // sequence number of NetworkRequests
     private int mNextNetworkRequestId = NetworkRequest.FIRST_REQUEST_ID;
@@ -1484,9 +1491,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         /**
          * @see CarrierPrivilegeAuthenticator
-         *
-         * This method returns null in versions before T, where carrier privilege
-         * authentication is not supported.
          */
         @Nullable
         public CarrierPrivilegeAuthenticator makeCarrierPrivilegeAuthenticator(
@@ -1496,6 +1500,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
             } else {
                 return null;
             }
+        }
+
+        /**
+         * @see SatelliteAccessController
+         */
+        @Nullable
+        public SatelliteAccessController makeSatelliteAccessController(
+                @NonNull final Context context,
+                Consumer<Set<Integer>> updateSatellitePreferredUid,
+                @NonNull final Handler connectivityServiceInternalHandler) {
+            return new SatelliteAccessController(context, updateSatellitePreferredUid,
+                    connectivityServiceInternalHandler);
         }
 
         /**
@@ -1764,6 +1780,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mCarrierPrivilegeAuthenticator =
                 mDeps.makeCarrierPrivilegeAuthenticator(mContext, mTelephonyManager);
 
+        if (mDeps.isAtLeastU()
+                && mDeps
+                .isFeatureNotChickenedOut(mContext, ALLOW_SATALLITE_NETWORK_PREFERRED_UID)) {
+            mSatelliteAccessController = mDeps.makeSatelliteAccessController(
+                    mContext, this::updateSatelliteNetworkPreferenceUids, mHandler);
+        } else {
+            mSatelliteAccessController = null;
+        }
+
         // To ensure uid state is synchronized with Network Policy, register for
         // NetworkPolicyManagerService events must happen prior to NetworkPolicyManagerService
         // reading existing policy from disk.
@@ -2030,6 +2055,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
             @NonNull final ProxyInfo proxyInfo) {
         Message.obtain(mHandler, EVENT_PAC_PROXY_HAS_CHANGED,
                 new Pair<>(network, proxyInfo)).sendToTarget();
+    }
+
+    /**
+     * Called when satellite network preferred uids at {@link SatelliteAccessController}
+     * cache was updated based on {@link
+     * android.app.role.OnRoleHoldersChangedListener#onRoleHoldersChanged(String, UserHandle)},
+     * to create multilayer request with preference order
+     * {@link #PREFERENCE_ORDER_SATELLITE_FALLBACK} there on.
+     *
+     */
+    private void updateSatelliteNetworkPreferenceUids(Set<Integer> satellitePreferredUids) {
+        handleSetSatelliteNetworkPreference(satellitePreferredUids);
     }
 
     private void handleAlwaysOnNetworkRequest(
@@ -3371,6 +3408,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     public static final String LOG_BPF_RC = "log_bpf_rc_force_disable";
 
+    public static final String ALLOW_SATALLITE_NETWORK_PREFERRED_UID =
+            "allow_satallite_networ_preferred_uid";
+
     private void enforceInternetPermission() {
         mContext.enforceCallingOrSelfPermission(
                 android.Manifest.permission.INTERNET,
@@ -3729,6 +3769,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // the uids rules on netd.
         if (!ConnectivitySettingsManager.getMobileDataPreferredUids(mContext).isEmpty()) {
             updateMobileDataPreferredUids();
+        }
+
+        if (mSatelliteAccessController != null) {
+            mSatelliteAccessController.start();
         }
 
         // On T+ devices, register callback for statsd to pull NETWORK_BPF_MAP_INFO atom
@@ -12664,31 +12708,43 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     @VisibleForTesting
     @NonNull
-    ArraySet<NetworkRequestInfo> createNrisFromMobileDataPreferredUids(
-            @NonNull final Set<Integer> uids) {
+    ArraySet<NetworkRequestInfo> createNrisForPreferenceOrder(@NonNull final Set<Integer> uids,
+            final int preferenceOrder) {
         final ArraySet<NetworkRequestInfo> nris = new ArraySet<>();
         if (uids.size() == 0) {
             // Should not create NetworkRequestInfo if no preferences. Without uid range in
             // NetworkRequestInfo, makeDefaultForApps() would treat it as a illegal NRI.
-            if (DBG) log("Don't create NetworkRequestInfo because no preferences");
             return nris;
         }
-
         final List<NetworkRequest> requests = new ArrayList<>();
-        // The NRI should be comprised of two layers:
-        // - The request for the mobile network preferred.
-        // - The request for the default network, for fallback.
-        requests.add(createDefaultInternetRequestForTransport(
-                TRANSPORT_CELLULAR, NetworkRequest.Type.REQUEST));
-        requests.add(createDefaultInternetRequestForTransport(
-                TYPE_NONE, NetworkRequest.Type.TRACK_DEFAULT));
+        if (preferenceOrder == PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED) {
+            // The NRI should be comprised of two layers:
+            // - The request for the mobile network preferred.
+            // - The request for the default network, for fallback.
+            requests.add(createDefaultInternetRequestForTransport(
+                    TRANSPORT_CELLULAR, NetworkRequest.Type.REQUEST));
+            requests.add(createDefaultInternetRequestForTransport(
+                    TYPE_NONE, NetworkRequest.Type.TRACK_DEFAULT));
+        } else if (preferenceOrder == PREFERENCE_ORDER_SATELLITE_FALLBACK) {
+            // request: track default(unrestricted internet network)
+            requests.add(createDefaultInternetRequestForTransport(
+                    TYPE_NONE, NetworkRequest.Type.TRACK_DEFAULT));
+
+            // request: restricted Satellite internet
+            final NetworkCapabilities cap = new NetworkCapabilities.Builder()
+                    .addCapability(NET_CAPABILITY_INTERNET)
+                    .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                    .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                    .addTransportType(NetworkCapabilities.TRANSPORT_SATELLITE)
+                    .build();
+            requests.add(createNetworkRequest(NetworkRequest.Type.REQUEST, cap));
+        }
         final Set<UidRange> ranges = new ArraySet<>();
         for (final int uid : uids) {
             ranges.add(new UidRange(uid, uid));
         }
         setNetworkRequestUids(requests, ranges);
-        nris.add(new NetworkRequestInfo(Process.myUid(), requests,
-                PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED));
+        nris.add(new NetworkRequestInfo(Process.myUid(), requests, preferenceOrder));
         return nris;
     }
 
@@ -12696,7 +12752,19 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mMobileDataPreferredUids = ConnectivitySettingsManager.getMobileDataPreferredUids(mContext);
         removeDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED);
         addPerAppDefaultNetworkRequests(
-                createNrisFromMobileDataPreferredUids(mMobileDataPreferredUids));
+                createNrisForPreferenceOrder(mMobileDataPreferredUids,
+                        PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED));
+        // Finally, rematch.
+        rematchAllNetworksAndRequests();
+    }
+
+    private void handleSetSatelliteNetworkPreference(
+            @NonNull final Set<Integer> satelliteNetworkPreferredUids) {
+        removeDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_SATELLITE_FALLBACK);
+        addPerAppDefaultNetworkRequests(
+                createNrisForPreferenceOrder(satelliteNetworkPreferredUids,
+                        PREFERENCE_ORDER_SATELLITE_FALLBACK)
+        );
         // Finally, rematch.
         rematchAllNetworksAndRequests();
     }

@@ -157,6 +157,7 @@ import static android.system.OsConstants.IPPROTO_TCP;
 import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_HIGH;
 import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_LOW;
 
+import static com.android.server.ConnectivityService.ALLOW_SATALLITE_NETWORK_PREFERRED_UID;
 import static com.android.server.ConnectivityService.DELAY_DESTROY_FROZEN_SOCKETS_VERSION;
 import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
 import static com.android.server.ConnectivityService.ALLOW_SYSUI_CONNECTIVITY_REPORTS;
@@ -2162,6 +2163,8 @@ public class ConnectivityServiceTest {
                 case ALLOW_SYSUI_CONNECTIVITY_REPORTS:
                     return true;
                 case LOG_BPF_RC:
+                    return true;
+                case ALLOW_SATALLITE_NETWORK_PREFERRED_UID:
                     return true;
                 default:
                     return super.isFeatureNotChickenedOut(context, name);
@@ -17763,7 +17766,8 @@ public class ConnectivityServiceTest {
 
     private void assertCreateNrisFromMobileDataPreferredUids(Set<Integer> uids) {
         final Set<NetworkRequestInfo> nris =
-                mService.createNrisFromMobileDataPreferredUids(uids);
+                mService.createNrisForPreferenceOrder(uids,
+                        PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED);
         final NetworkRequestInfo nri = nris.iterator().next();
         // Verify that one NRI is created with multilayer requests. Because one NRI can contain
         // multiple uid ranges, so it only need create one NRI here.
@@ -17780,7 +17784,8 @@ public class ConnectivityServiceTest {
     public void testCreateNrisFromMobileDataPreferredUids() {
         // Verify that empty uid set should not create any NRI for it.
         final Set<NetworkRequestInfo> nrisNoUid =
-                mService.createNrisFromMobileDataPreferredUids(new ArraySet<>());
+                mService.createNrisForPreferenceOrder(new ArraySet<>(),
+                        PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED);
         assertEquals(0, nrisNoUid.size());
 
         final int uid1 = PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID);
