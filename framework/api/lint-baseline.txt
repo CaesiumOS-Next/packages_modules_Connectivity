@@ -15,5 +15,9 @@ RequiresPermission: android.net.http.UrlRequest.Builder#setTrafficStatsUid(int):
     Method 'setTrafficStatsUid' documentation mentions permissions without declaring @RequiresPermission
 
 
+UnflaggedApi: android.net.NetworkCapabilities#TRANSPORT_SATELLITE:
+    New API must be flagged with @FlaggedApi: field android.net.NetworkCapabilities.TRANSPORT_SATELLITE
+
+
 VisiblySynchronized: android.net.NetworkInfo#toString():
     Internal locks must not be exposed (synchronizing on this or class is still
