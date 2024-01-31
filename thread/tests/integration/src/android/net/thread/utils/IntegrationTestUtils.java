@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package android.net.thread;
+package android.net.thread.utils;
 
 import static android.system.OsConstants.IPPROTO_ICMPV6;
 
@@ -23,6 +23,7 @@ import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_AD
 import static com.google.common.util.concurrent.MoreExecutors.directExecutor;
 
 import android.net.TestNetworkInterface;
+import android.net.thread.ThreadNetworkController;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.os.SystemProperties;
