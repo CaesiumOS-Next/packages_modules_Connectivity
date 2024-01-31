@@ -60,6 +60,7 @@ import com.android.server.connectivity.ConnectivityResources
 import com.android.server.connectivity.MockableSystemProperties
 import com.android.server.connectivity.MultinetworkPolicyTracker
 import com.android.server.connectivity.ProxyTracker
+import com.android.server.connectivity.SatelliteAccessController
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.DeviceInfoUtils
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
@@ -249,6 +250,12 @@ class ConnectivityServiceIntegrationTest {
                 },
                 tm, TelephonyManagerShimImpl.newInstance(tm))
         }
+
+        override fun makeSatelliteAccessController(
+            context: Context,
+            callback: ConnectivityService.OnUpdateSatelliteNetworkPreferenceUids?
+        ): SatelliteAccessController? = mock(
+            SatelliteAccessController::class.java)
     }
 
     @After
