@@ -30,8 +30,6 @@ import static android.net.thread.ThreadNetworkException.ERROR_FAILED_PRECONDITIO
 import static android.net.thread.ThreadNetworkException.ERROR_REJECTED_BY_PEER;
 import static android.net.thread.ThreadNetworkException.ERROR_THREAD_DISABLED;
 
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -78,9 +76,7 @@ import org.junit.runner.RunWith;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -106,12 +102,8 @@ public class ThreadNetworkControllerTest {
     private ExecutorService mExecutor;
     private ThreadNetworkController mController;
 
-    private Set<String> mGrantedPermissions;
-
     @Before
     public void setUp() throws Exception {
-
-        mGrantedPermissions = new HashSet<String>();
         mExecutor = Executors.newSingleThreadExecutor();
         ThreadNetworkManager manager = mContext.getSystemService(ThreadNetworkManager.class);
         if (manager != null) {
@@ -127,13 +119,12 @@ public class ThreadNetworkControllerTest {
 
     @After
     public void tearDown() throws Exception {
-        if (mController != null) {
-            grantPermissions(THREAD_NETWORK_PRIVILEGED);
-            CompletableFuture<Void> future = new CompletableFuture<>();
-            mController.leave(mExecutor, future::complete);
-            future.get(LEAVE_TIMEOUT_MILLIS, MILLISECONDS);
+        if (mController == null) {
+            return;
         }
-        dropAllPermissions();
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        leave(mController, newOutcomeReceiver(future));
+        future.get(LEAVE_TIMEOUT_MILLIS, MILLISECONDS);
     }
 
     @Test
@@ -190,8 +181,6 @@ public class ThreadNetworkControllerTest {
 
     @Test
     public void registerStateCallback_noPermissions_throwsSecurityException() throws Exception {
-        dropAllPermissions();
-
         assertThrows(
                 SecurityException.class,
                 () -> mController.registerStateCallback(mExecutor, role -> {}));
@@ -200,11 +189,11 @@ public class ThreadNetworkControllerTest {
     @Test
     public void registerStateCallback_alreadyRegistered_throwsIllegalArgumentException()
             throws Exception {
-        grantPermissions(ACCESS_NETWORK_STATE);
         CompletableFuture<Integer> deviceRole = new CompletableFuture<>();
         StateCallback callback = role -> deviceRole.complete(role);
 
-        mController.registerStateCallback(mExecutor, callback);
+        runAsShell(
+                ACCESS_NETWORK_STATE, () -> mController.registerStateCallback(mExecutor, callback));
 
         assertThrows(
                 IllegalArgumentException.class,
@@ -219,7 +208,6 @@ public class ThreadNetworkControllerTest {
                 ACCESS_NETWORK_STATE, () -> mController.registerStateCallback(mExecutor, callback));
 
         try {
-            dropAllPermissions();
             assertThrows(
                     SecurityException.class, () -> mController.unregisterStateCallback(callback));
         } finally {
@@ -229,12 +217,15 @@ public class ThreadNetworkControllerTest {
 
     @Test
     public void unregisterStateCallback_callbackRegistered_success() throws Exception {
-        grantPermissions(ACCESS_NETWORK_STATE);
         CompletableFuture<Integer> deviceRole = new CompletableFuture<>();
         StateCallback callback = role -> deviceRole.complete(role);
 
-        assertDoesNotThrow(() -> mController.registerStateCallback(mExecutor, callback));
-        mController.unregisterStateCallback(callback);
+        assertDoesNotThrow(
+                () ->
+                        runAsShell(
+                                ACCESS_NETWORK_STATE,
+                                () -> mController.registerStateCallback(mExecutor, callback)));
+        runAsShell(ACCESS_NETWORK_STATE, () -> mController.unregisterStateCallback(callback));
     }
 
     @Test
@@ -251,39 +242,49 @@ public class ThreadNetworkControllerTest {
     @Test
     public void unregisterStateCallback_alreadyUnregistered_throwsIllegalArgumentException()
             throws Exception {
-        grantPermissions(ACCESS_NETWORK_STATE);
         CompletableFuture<Integer> deviceRole = new CompletableFuture<>();
         StateCallback callback = deviceRole::complete;
-        mController.registerStateCallback(mExecutor, callback);
-        mController.unregisterStateCallback(callback);
+        runAsShell(
+                ACCESS_NETWORK_STATE,
+                () -> {
+                    mController.registerStateCallback(mExecutor, callback);
+                    mController.unregisterStateCallback(callback);
+                });
 
         assertThrows(
                 IllegalArgumentException.class,
-                () -> mController.unregisterStateCallback(callback));
+                () ->
+                        runAsShell(
+                                ACCESS_NETWORK_STATE,
+                                () -> mController.unregisterStateCallback(callback)));
     }
 
     @Test
     public void registerOperationalDatasetCallback_permissionsGranted_returnsCurrentStates()
             throws Exception {
-        grantPermissions(ACCESS_NETWORK_STATE, THREAD_NETWORK_PRIVILEGED);
         CompletableFuture<ActiveOperationalDataset> activeFuture = new CompletableFuture<>();
         CompletableFuture<PendingOperationalDataset> pendingFuture = new CompletableFuture<>();
         var callback = newDatasetCallback(activeFuture, pendingFuture);
 
         try {
-            mController.registerOperationalDatasetCallback(mExecutor, callback);
+            runAsShell(
+                    ACCESS_NETWORK_STATE,
+                    THREAD_NETWORK_PRIVILEGED,
+                    () -> mController.registerOperationalDatasetCallback(mExecutor, callback));
 
             assertThat(activeFuture.get(CALLBACK_TIMEOUT_MILLIS, MILLISECONDS)).isNull();
             assertThat(pendingFuture.get(CALLBACK_TIMEOUT_MILLIS, MILLISECONDS)).isNull();
         } finally {
-            mController.unregisterOperationalDatasetCallback(callback);
+            runAsShell(
+                    ACCESS_NETWORK_STATE,
+                    THREAD_NETWORK_PRIVILEGED,
+                    () -> mController.unregisterOperationalDatasetCallback(callback));
         }
     }
 
     @Test
     public void registerOperationalDatasetCallback_noPermissions_throwsSecurityException()
             throws Exception {
-        dropAllPermissions();
         CompletableFuture<ActiveOperationalDataset> activeFuture = new CompletableFuture<>();
         CompletableFuture<PendingOperationalDataset> pendingFuture = new CompletableFuture<>();
         var callback = newDatasetCallback(activeFuture, pendingFuture);
@@ -295,13 +296,20 @@ public class ThreadNetworkControllerTest {
 
     @Test
     public void unregisterOperationalDatasetCallback_callbackRegistered_success() throws Exception {
-        grantPermissions(ACCESS_NETWORK_STATE, THREAD_NETWORK_PRIVILEGED);
         CompletableFuture<ActiveOperationalDataset> activeFuture = new CompletableFuture<>();
         CompletableFuture<PendingOperationalDataset> pendingFuture = new CompletableFuture<>();
         var callback = newDatasetCallback(activeFuture, pendingFuture);
-        mController.registerOperationalDatasetCallback(mExecutor, callback);
+        runAsShell(
+                ACCESS_NETWORK_STATE,
+                THREAD_NETWORK_PRIVILEGED,
+                () -> mController.registerOperationalDatasetCallback(mExecutor, callback));
 
-        assertDoesNotThrow(() -> mController.unregisterOperationalDatasetCallback(callback));
+        assertDoesNotThrow(
+                () ->
+                        runAsShell(
+                                ACCESS_NETWORK_STATE,
+                                THREAD_NETWORK_PRIVILEGED,
+                                () -> mController.unregisterOperationalDatasetCallback(callback)));
     }
 
     @Test
@@ -316,7 +324,6 @@ public class ThreadNetworkControllerTest {
                 () -> mController.registerOperationalDatasetCallback(mExecutor, callback));
 
         try {
-            dropAllPermissions();
             assertThrows(
                     SecurityException.class,
                     () -> mController.unregisterOperationalDatasetCallback(callback));
@@ -359,7 +366,6 @@ public class ThreadNetworkControllerTest {
 
     @Test
     public void join_withoutPrivilegedPermission_throwsSecurityException() throws Exception {
-        dropAllPermissions();
         ActiveOperationalDataset activeDataset = newRandomizedDataset("TestNet", mController);
 
         assertThrows(
@@ -430,8 +436,6 @@ public class ThreadNetworkControllerTest {
 
     @Test
     public void leave_withoutPrivilegedPermission_throwsSecurityException() {
-        dropAllPermissions();
-
         assertThrows(SecurityException.class, () -> mController.leave(mExecutor, v -> {}));
     }
 
@@ -466,7 +470,6 @@ public class ThreadNetworkControllerTest {
 
     @Test
     public void scheduleMigration_withPrivilegedPermission_newDatasetApplied() throws Exception {
-        grantPermissions(ACCESS_NETWORK_STATE, THREAD_NETWORK_PRIVILEGED);
         ActiveOperationalDataset activeDataset1 =
                 new ActiveOperationalDataset.Builder(newRandomizedDataset("TestNet", mController))
                         .setActiveTimestamp(new OperationalDatasetTimestamp(1L, 0, false))
@@ -484,11 +487,16 @@ public class ThreadNetworkControllerTest {
                         Duration.ofSeconds(30));
         CompletableFuture<Void> joinFuture = new CompletableFuture<>();
         CompletableFuture<Void> migrateFuture = new CompletableFuture<>();
-        mController.join(activeDataset1, mExecutor, newOutcomeReceiver(joinFuture));
+        runAsShell(
+                THREAD_NETWORK_PRIVILEGED,
+                () -> mController.join(activeDataset1, mExecutor, newOutcomeReceiver(joinFuture)));
         joinFuture.get(JOIN_TIMEOUT_MILLIS, MILLISECONDS);
 
-        mController.scheduleMigration(
-                pendingDataset2, mExecutor, newOutcomeReceiver(migrateFuture));
+        runAsShell(
+                THREAD_NETWORK_PRIVILEGED,
+                () ->
+                        mController.scheduleMigration(
+                                pendingDataset2, mExecutor, newOutcomeReceiver(migrateFuture)));
         migrateFuture.get(CALLBACK_TIMEOUT_MILLIS, MILLISECONDS);
 
         CompletableFuture<Boolean> dataset2IsApplied = new CompletableFuture<>();
@@ -511,18 +519,25 @@ public class ThreadNetworkControllerTest {
                         }
                     }
                 };
-        mController.registerOperationalDatasetCallback(directExecutor(), datasetCallback);
+        runAsShell(
+                ACCESS_NETWORK_STATE,
+                THREAD_NETWORK_PRIVILEGED,
+                () ->
+                        mController.registerOperationalDatasetCallback(
+                                directExecutor(), datasetCallback));
         try {
             assertThat(dataset2IsApplied.get(MIGRATION_TIMEOUT_MILLIS, MILLISECONDS)).isTrue();
             assertThat(pendingDatasetIsRemoved.get(CALLBACK_TIMEOUT_MILLIS, MILLISECONDS)).isTrue();
         } finally {
-            mController.unregisterOperationalDatasetCallback(datasetCallback);
+            runAsShell(
+                    ACCESS_NETWORK_STATE,
+                    THREAD_NETWORK_PRIVILEGED,
+                    () -> mController.unregisterOperationalDatasetCallback(datasetCallback));
         }
     }
 
     @Test
     public void scheduleMigration_whenNotAttached_failWithPreconditionError() throws Exception {
-        grantPermissions(ACCESS_NETWORK_STATE, THREAD_NETWORK_PRIVILEGED);
         PendingOperationalDataset pendingDataset =
                 new PendingOperationalDataset(
                         newRandomizedDataset("TestNet", mController),
@@ -530,7 +545,11 @@ public class ThreadNetworkControllerTest {
                         Duration.ofSeconds(30));
         CompletableFuture<Void> migrateFuture = new CompletableFuture<>();
 
-        mController.scheduleMigration(pendingDataset, mExecutor, newOutcomeReceiver(migrateFuture));
+        runAsShell(
+                THREAD_NETWORK_PRIVILEGED,
+                () ->
+                        mController.scheduleMigration(
+                                pendingDataset, mExecutor, newOutcomeReceiver(migrateFuture)));
 
         ThreadNetworkException thrown =
                 (ThreadNetworkException)
@@ -541,7 +560,6 @@ public class ThreadNetworkControllerTest {
     @Test
     public void scheduleMigration_secondRequestHasSmallerTimestamp_rejectedByLeader()
             throws Exception {
-        grantPermissions(ACCESS_NETWORK_STATE, THREAD_NETWORK_PRIVILEGED);
         final ActiveOperationalDataset activeDataset =
                 new ActiveOperationalDataset.Builder(newRandomizedDataset("testNet", mController))
                         .setActiveTimestamp(new OperationalDatasetTimestamp(1L, 0, false))
@@ -569,14 +587,22 @@ public class ThreadNetworkControllerTest {
         CompletableFuture<Void> joinFuture = new CompletableFuture<>();
         CompletableFuture<Void> migrateFuture1 = new CompletableFuture<>();
         CompletableFuture<Void> migrateFuture2 = new CompletableFuture<>();
-        mController.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
+        runAsShell(
+                THREAD_NETWORK_PRIVILEGED,
+                () -> mController.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture)));
         joinFuture.get(JOIN_TIMEOUT_MILLIS, MILLISECONDS);
 
-        mController.scheduleMigration(
-                pendingDataset1, mExecutor, newOutcomeReceiver(migrateFuture1));
+        runAsShell(
+                THREAD_NETWORK_PRIVILEGED,
+                () ->
+                        mController.scheduleMigration(
+                                pendingDataset1, mExecutor, newOutcomeReceiver(migrateFuture1)));
         migrateFuture1.get(CALLBACK_TIMEOUT_MILLIS, MILLISECONDS);
-        mController.scheduleMigration(
-                pendingDataset2, mExecutor, newOutcomeReceiver(migrateFuture2));
+        runAsShell(
+                THREAD_NETWORK_PRIVILEGED,
+                () ->
+                        mController.scheduleMigration(
+                                pendingDataset2, mExecutor, newOutcomeReceiver(migrateFuture2)));
 
         ThreadNetworkException thrown =
                 (ThreadNetworkException)
@@ -587,7 +613,6 @@ public class ThreadNetworkControllerTest {
     @Test
     public void scheduleMigration_secondRequestHasLargerTimestamp_newDatasetApplied()
             throws Exception {
-        grantPermissions(ACCESS_NETWORK_STATE, THREAD_NETWORK_PRIVILEGED);
         final ActiveOperationalDataset activeDataset =
                 new ActiveOperationalDataset.Builder(newRandomizedDataset("validName", mController))
                         .setActiveTimestamp(new OperationalDatasetTimestamp(1L, 0, false))
@@ -615,14 +640,22 @@ public class ThreadNetworkControllerTest {
         CompletableFuture<Void> joinFuture = new CompletableFuture<>();
         CompletableFuture<Void> migrateFuture1 = new CompletableFuture<>();
         CompletableFuture<Void> migrateFuture2 = new CompletableFuture<>();
-        mController.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture));
+        runAsShell(
+                THREAD_NETWORK_PRIVILEGED,
+                () -> mController.join(activeDataset, mExecutor, newOutcomeReceiver(joinFuture)));
         joinFuture.get(JOIN_TIMEOUT_MILLIS, MILLISECONDS);
 
-        mController.scheduleMigration(
-                pendingDataset1, mExecutor, newOutcomeReceiver(migrateFuture1));
+        runAsShell(
+                THREAD_NETWORK_PRIVILEGED,
+                () ->
+                        mController.scheduleMigration(
+                                pendingDataset1, mExecutor, newOutcomeReceiver(migrateFuture1)));
         migrateFuture1.get(CALLBACK_TIMEOUT_MILLIS, MILLISECONDS);
-        mController.scheduleMigration(
-                pendingDataset2, mExecutor, newOutcomeReceiver(migrateFuture2));
+        runAsShell(
+                THREAD_NETWORK_PRIVILEGED,
+                () ->
+                        mController.scheduleMigration(
+                                pendingDataset2, mExecutor, newOutcomeReceiver(migrateFuture2)));
         migrateFuture2.get(CALLBACK_TIMEOUT_MILLIS, MILLISECONDS);
 
         CompletableFuture<Boolean> dataset2IsApplied = new CompletableFuture<>();
@@ -645,12 +678,20 @@ public class ThreadNetworkControllerTest {
                         }
                     }
                 };
-        mController.registerOperationalDatasetCallback(directExecutor(), datasetCallback);
+        runAsShell(
+                ACCESS_NETWORK_STATE,
+                THREAD_NETWORK_PRIVILEGED,
+                () ->
+                        mController.registerOperationalDatasetCallback(
+                                directExecutor(), datasetCallback));
         try {
             assertThat(dataset2IsApplied.get(MIGRATION_TIMEOUT_MILLIS, MILLISECONDS)).isTrue();
             assertThat(pendingDatasetIsRemoved.get(CALLBACK_TIMEOUT_MILLIS, MILLISECONDS)).isTrue();
         } finally {
-            mController.unregisterOperationalDatasetCallback(datasetCallback);
+            runAsShell(
+                    ACCESS_NETWORK_STATE,
+                    THREAD_NETWORK_PRIVILEGED,
+                    () -> mController.unregisterOperationalDatasetCallback(datasetCallback));
         }
     }
 
@@ -798,19 +839,6 @@ public class ThreadNetworkControllerTest {
 
         assertThat(isAttached(mController)).isTrue();
         assertThat(networkFuture.get(NETWORK_CALLBACK_TIMEOUT_MILLIS, MILLISECONDS)).isNotNull();
-    }
-
-    private void grantPermissions(String... permissions) {
-        for (String permission : permissions) {
-            mGrantedPermissions.add(permission);
-        }
-        String[] allPermissions = new String[mGrantedPermissions.size()];
-        mGrantedPermissions.toArray(allPermissions);
-        getInstrumentation().getUiAutomation().adoptShellPermissionIdentity(allPermissions);
-    }
-
-    private static void dropAllPermissions() {
-        getInstrumentation().getUiAutomation().dropShellPermissionIdentity();
     }
 
     private static ActiveOperationalDataset newRandomizedDataset(
