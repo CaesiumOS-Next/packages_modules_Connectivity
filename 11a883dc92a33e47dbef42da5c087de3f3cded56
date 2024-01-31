@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6d888a7_6c9ed603",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-31T08:32:23Z",
+      "side": 1,
+      "message": "I see. Updated accordingly.",
+      "parentUuid": "db720764_3dc47d9f",
+      "revId": "11a883dc92a33e47dbef42da5c087de3f3cded56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3889715a_0645aae3",
@@ -52,6 +70,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ca4e4cb_6853837b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-31T08:32:23Z",
+      "side": 1,
+      "message": "Done in aosp/2938999.",
+      "parentUuid": "3889715a_0645aae3",
+      "revId": "11a883dc92a33e47dbef42da5c087de3f3cded56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "809ee58d_4b944c24",
@@ -65,6 +101,24 @@
       "writtenOn": "2024-01-30T06:19:48Z",
       "side": 1,
       "message": "Similarly, this should probably be just a Math.min",
+      "revId": "11a883dc92a33e47dbef42da5c087de3f3cded56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2a0535d_ad82e952",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1697,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-01-31T08:32:23Z",
+      "side": 1,
+      "message": "Done in aosp/2938999.",
+      "parentUuid": "809ee58d_4b944c24",
       "revId": "11a883dc92a33e47dbef42da5c087de3f3cded56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
