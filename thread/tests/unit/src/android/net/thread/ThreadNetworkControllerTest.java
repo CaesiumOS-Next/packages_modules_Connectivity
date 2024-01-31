@@ -17,6 +17,7 @@
 package android.net.thread;
 
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_CHILD;
+import static android.net.thread.ThreadNetworkException.ERROR_BUSY;
 import static android.net.thread.ThreadNetworkException.ERROR_UNAVAILABLE;
 import static android.net.thread.ThreadNetworkException.ERROR_UNSUPPORTED_CHANNEL;
 import static android.os.Process.SYSTEM_UID;
@@ -25,6 +26,7 @@ import static com.google.common.io.BaseEncoding.base16;
 import static com.google.common.truth.Truth.assertThat;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doAnswer;
 
@@ -119,6 +121,10 @@ public final class ThreadNetworkControllerTest {
     private static IOperationalDatasetCallback getOperationalDatasetCallback(
             InvocationOnMock invocation) {
         return (IOperationalDatasetCallback) invocation.getArguments()[0];
+    }
+
+    private static IOperationReceiver getSetEnabledReceiver(InvocationOnMock invocation) {
+        return (IOperationReceiver) invocation.getArguments()[1];
     }
 
     @Test
@@ -381,5 +387,46 @@ public final class ThreadNetworkControllerTest {
 
         assertThat(callbackUid.get()).isNotEqualTo(SYSTEM_UID);
         assertThat(callbackUid.get()).isEqualTo(Process.myUid());
+    }
+
+    @Test
+    public void setEnabled_callbackIsInvokedWithCallingAppIdentity() throws Exception {
+        setBinderUid(SYSTEM_UID);
+        AtomicInteger successCallbackUid = new AtomicInteger(0);
+        AtomicInteger errorCallbackUid = new AtomicInteger(0);
+
+        doAnswer(
+                        invoke -> {
+                            getSetEnabledReceiver(invoke).onSuccess();
+                            return null;
+                        })
+                .when(mMockService)
+                .setEnabled(anyBoolean(), any(IOperationReceiver.class));
+        mController.setEnabled(
+                true, Runnable::run, v -> successCallbackUid.set(Binder.getCallingUid()));
+        doAnswer(
+                        invoke -> {
+                            getSetEnabledReceiver(invoke).onError(ERROR_BUSY, "");
+                            return null;
+                        })
+                .when(mMockService)
+                .setEnabled(anyBoolean(), any(IOperationReceiver.class));
+        mController.setEnabled(
+                true,
+                Runnable::run,
+                new OutcomeReceiver<>() {
+                    @Override
+                    public void onResult(Void unused) {}
+
+                    @Override
+                    public void onError(ThreadNetworkException e) {
+                        errorCallbackUid.set(Binder.getCallingUid());
+                    }
+                });
+
+        assertThat(successCallbackUid.get()).isNotEqualTo(SYSTEM_UID);
+        assertThat(successCallbackUid.get()).isEqualTo(Process.myUid());
+        assertThat(errorCallbackUid.get()).isNotEqualTo(SYSTEM_UID);
+        assertThat(errorCallbackUid.get()).isEqualTo(Process.myUid());
     }
 }

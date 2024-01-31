@@ -165,4 +165,18 @@ public final class ThreadNetworkControllerServiceTest {
         verify(mockReceiver, times(1)).onSuccess();
         verify(mMockNetworkAgent, times(1)).register();
     }
+
+    @Test
+    public void setEnabled_succeed() throws Exception {
+        mService.initialize();
+        final IOperationReceiver mockReceiver = mock(IOperationReceiver.class);
+
+        runAsShell(
+                PERMISSION_THREAD_NETWORK_PRIVILEGED,
+                () -> mService.setEnabled(true, mockReceiver));
+
+        mTestLooper.dispatchAll();
+
+        verify(mockReceiver, times(1)).onSuccess();
+    }
 }
