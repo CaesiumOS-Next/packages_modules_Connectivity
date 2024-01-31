@@ -241,13 +241,10 @@ public class MdnsAdvertiser {
         }
 
         @Override
-        public void onDestroyed(@NonNull MdnsInterfaceSocket socket) {
-            for (int i = mAdvertiserRequests.size() - 1; i >= 0; i--) {
-                if (mAdvertiserRequests.valueAt(i).onAdvertiserDestroyed(socket)) {
-                    mAdvertiserRequests.removeAt(i);
-                }
-            }
-            mAllAdvertisers.remove(socket);
+        public void onAllServicesRemoved(@NonNull MdnsInterfaceSocket socket) {
+            if (DBG) { mSharedLog.i("onAllServicesRemoved: " + socket); }
+            // Try destroying the advertiser if all services has been removed
+            destroyAdvertiser(socket, false /* forceDestroy */);
         }
     };
 
@@ -318,6 +315,33 @@ public class MdnsAdvertiser {
     }
 
     /**
+     * Destroys the advertiser for the interface indicated by {@code socket}.
+     *
+     * If {@code forceDestroy} is {@code true}, the advertiser will be destroyed even when there
+     * are still pending service registrations; this is typically for destroying the advertiser
+     * when the underlying network is disconnected.
+     */
+    private void destroyAdvertiser(MdnsInterfaceSocket socket, boolean forceDestroy) {
+        boolean destroyed = false;
+        List<Integer> deletedRequests = new ArrayList<>();
+        InterfaceAdvertiserRequest advertiserRequest;
+        for (int i = mAdvertiserRequests.size() - 1; i >= 0; i--) {
+            advertiserRequest = mAdvertiserRequests.valueAt(i);
+            destroyed |= advertiserRequest.destroyAdvertiser(socket, forceDestroy);
+            if (forceDestroy || advertiserRequest.mAdvertisers.size() == 0) {
+                if (DBG) { mSharedLog.i("AdvertiserRequest is removed: " + advertiserRequest); }
+                deletedRequests.add(i);
+            }
+        }
+        if (destroyed) {
+            mAllAdvertisers.remove(socket);
+        }
+        for (int i : deletedRequests) {
+            mAdvertiserRequests.removeAt(i);
+        }
+    }
+
+    /**
      * A request for a {@link MdnsInterfaceAdvertiser}.
      *
      * This class tracks services to be advertised on all sockets provided via a registered
@@ -336,15 +360,30 @@ public class MdnsAdvertiser {
         }
 
         /**
-         * Called when an advertiser was destroyed, after all services were unregistered and it sent
-         * exit announcements, or the interface is gone.
+         * Called when all services were unregistered and it sent exit announcements, or the
+         * interface is gone.
          *
-         * @return true if this {@link InterfaceAdvertiserRequest} should now be deleted.
+         * If {@code forceDestroy} is {@code true}, the advertiser will be destroyed even when
+         * there are still pending service registrations; this is typically for destroying the
+         * advertiser when the underlying network is disconnected.
+         *
+         * @return true if the interface advertiser has been destroyed
          */
-        boolean onAdvertiserDestroyed(@NonNull MdnsInterfaceSocket socket) {
-            final MdnsInterfaceAdvertiser removedAdvertiser = mAdvertisers.remove(socket);
-            if (mMdnsFeatureFlags.mIsMdnsOffloadFeatureEnabled && removedAdvertiser != null) {
-                final String interfaceName = removedAdvertiser.getSocketInterfaceName();
+        boolean destroyAdvertiser(@NonNull MdnsInterfaceSocket socket, boolean forceDestroy) {
+            if (!forceDestroy && mPendingRegistrations.size() > 0) {
+                return false;
+            }
+            final MdnsInterfaceAdvertiser advertiser = mAdvertisers.get(socket);
+            if (advertiser == null) {
+                return false;
+            }
+
+            advertiser.destroyNow();
+            mAdvertisers.remove(socket);
+            if (DBG) { mSharedLog.i("MdnsInterfaceAdvertiser is destroyed: " + advertiser); }
+
+            if (mMdnsFeatureFlags.mIsMdnsOffloadFeatureEnabled && advertiser != null) {
+                final String interfaceName = advertiser.getSocketInterfaceName();
                 // If the interface is destroyed, stop all hardware offloading on that
                 // interface.
                 final List<OffloadServiceInfoWrapper> offloadServiceInfoWrappers =
@@ -358,14 +397,13 @@ public class MdnsAdvertiser {
                 }
             }
 
-            if (mAdvertisers.size() == 0 && mPendingRegistrations.size() == 0) {
+            if (mAdvertisers.size() == 0) {
                 // No advertiser is using sockets from this request anymore (in particular for exit
                 // announcements), and there is no registration so newer sockets will not be
                 // necessary, so the request can be unregistered.
                 mSocketProvider.unrequestSocket(this);
-                return true;
             }
-            return false;
+            return true;
         }
 
         /**
@@ -527,7 +565,7 @@ public class MdnsAdvertiser {
         public void onInterfaceDestroyed(@NonNull SocketKey socketKey,
                 @NonNull MdnsInterfaceSocket socket) {
             final MdnsInterfaceAdvertiser advertiser = mAdvertisers.get(socket);
-            if (advertiser != null) advertiser.destroyNow();
+            if (advertiser != null) destroyAdvertiser(socket, true /* forceDestroy */);
         }
 
         @Override
