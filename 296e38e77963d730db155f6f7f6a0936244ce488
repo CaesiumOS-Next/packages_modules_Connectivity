@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf5df77a_858b02c4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-31T08:31:08Z",
+      "side": 1,
+      "message": "Fixed in aosp/2939001",
+      "parentUuid": "c71a7765_f0ef36fb",
+      "range": {
+        "startLine": 338,
+        "startChar": 8,
+        "endLine": 338,
+        "endChar": 43
+      },
+      "revId": "296e38e77963d730db155f6f7f6a0936244ce488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed49cb12_d2b16a3f",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b974eee3_eed768d4",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1538,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-31T08:31:08Z",
+      "side": 1,
+      "message": "Done in aosp/2939002",
+      "parentUuid": "ed49cb12_d2b16a3f",
+      "range": {
+        "startLine": 1538,
+        "startChar": 33,
+        "endLine": 1538,
+        "endChar": 41
+      },
+      "revId": "296e38e77963d730db155f6f7f6a0936244ce488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fa9d24d_4182a840",
@@ -77,6 +125,30 @@
       "writtenOn": "2024-01-30T07:21:11Z",
       "side": 1,
       "message": "Nit: Can you verify that two searchOptions with different sub-types can successfully receive callbacks?",
+      "range": {
+        "startLine": 1577,
+        "startChar": 3,
+        "endLine": 1577,
+        "endChar": 5
+      },
+      "revId": "296e38e77963d730db155f6f7f6a0936244ce488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "606506c3_2c55e0be",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1577,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-01-31T08:31:08Z",
+      "side": 1,
+      "message": "Done in aosp/2939002",
+      "parentUuid": "6fa9d24d_4182a840",
       "range": {
         "startLine": 1577,
         "startChar": 3,
