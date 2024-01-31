@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "212ce89f_9dc053bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-31T08:51:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b41e151_ef575bb6",
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e43a7840_66fc7213",
         "filename": "TEST_MAPPING",
         "patchSetId": 4
@@ -295,6 +313,30 @@
       "writtenOn": "2024-01-10T02:19:14Z",
       "side": 1,
       "message": "Not sure what is the correct way to do this.\nMight need wifi expert for input.",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 21
+      },
+      "revId": "c9ff16011bf11dce3285fbc10c4ab474a74e343c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f9d55e7_31cb56a9",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-31T08:51:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d18c12fb_fac370bf",
       "range": {
         "startLine": 71,
         "startChar": 8,

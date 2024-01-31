@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90f2db3c_5148c3db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-31T08:51:46Z",
+      "side": 1,
+      "message": "Thanks~\n\nSadly it is for postsubmit only, given that:\n 1. TEST_MAPPING does not support multiple device (bt easoncylee@)\n 2. presubmit only supports cuttlefish (go/test-mapping-mainline-user-guide#limitations-and-known-issues)",
+      "parentUuid": "efe3b339_c8eceb06",
+      "revId": "36e762640626ed59fb81aace9395a035bd1cbe8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d29b0f73_ff8dcf22",
@@ -48,6 +66,30 @@
       "writtenOn": "2024-01-31T06:31:10Z",
       "side": 1,
       "message": "Nit: I think [:1] is the same as [0] here, so maybe just use [0]?\n\nIn general, [0] is not the same as [:1], because [0] throws if the list is empty and [:1] does not. But here the list can\u0027t be empty because we know it contains \"--\", so I think they are the same.\n```suggestion\n    sys.argv \u003d sys.argv[0] + sys.argv[index + 1 :]\n```",
+      "range": {
+        "startLine": 109,
+        "startChar": 23,
+        "endLine": 109,
+        "endChar": 27
+      },
+      "revId": "36e762640626ed59fb81aace9395a035bd1cbe8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d3fca2d_ea91c829",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-01-31T08:51:46Z",
+      "side": 1,
+      "message": "Nah.\n[:1] returns an array of 1 element, while [0] gives you the value itself, which cannot be added to another array.\nThus, prefer to keep it as is.\nReopen if any other idea.",
+      "parentUuid": "d29b0f73_ff8dcf22",
       "range": {
         "startLine": 109,
         "startChar": 23,
