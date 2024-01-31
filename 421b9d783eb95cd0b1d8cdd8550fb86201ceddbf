@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aec850bf_422478a9",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1569,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-01-31T22:23:16Z",
+      "side": 1,
+      "message": "+1 here. we have both \"subtype\" string and subtype \u003d \"_othersub\", it is very confusing.",
+      "parentUuid": "e4bc3f8c_e90c529f",
+      "range": {
+        "startLine": 1569,
+        "startChar": 21,
+        "endLine": 1569,
+        "endChar": 28
+      },
+      "revId": "421b9d783eb95cd0b1d8cdd8550fb86201ceddbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "10b07d59_688c3acb",
         "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
         "patchSetId": 1
