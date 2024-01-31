@@ -102,12 +102,15 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
                 @NonNull MdnsInterfaceAdvertiser advertiser, int serviceId, int conflictType);
 
         /**
-         * Called by the advertiser when it destroyed itself.
+         * Called when all services on this interface advertiser has already been removed and exit
+         * announcements have been sent.
          *
-         * This can happen after a call to {@link #destroyNow()}, or after all services were
-         * unregistered and the advertiser finished sending exit announcements.
+         * <p>It's guaranteed that there are no service registrations in the
+         * MdnsInterfaceAdvertiser when this callback is invoked.
+         *
+         * <p>This is typically listened by the {@link MdnsAdvertiser} to release the resources
          */
-        void onDestroyed(@NonNull MdnsInterfaceSocket socket);
+        void onAllServicesRemoved(@NonNull MdnsInterfaceSocket socket);
     }
 
     /**
@@ -149,10 +152,11 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         public void onFinished(@NonNull BaseAnnouncementInfo info) {
             if (info instanceof MdnsAnnouncer.ExitAnnouncementInfo) {
                 mRecordRepository.removeService(info.getServiceId());
-
-                if (mRecordRepository.getServicesCount() == 0) {
-                    destroyNow();
-                }
+                mCbHandler.post(() -> {
+                    if (mRecordRepository.getServicesCount() == 0) {
+                        mCb.onAllServicesRemoved(mSocket);
+                    }
+                });
             }
         }
     }
@@ -234,8 +238,7 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
      * Start the advertiser.
      *
      * The advertiser will stop itself when all services are removed and exit announcements sent,
-     * notifying via {@link Callback#onDestroyed}. This can also be triggered manually via
-     * {@link #destroyNow()}.
+     * notifying via {@link Callback#onAllServicesRemoved}.
      */
     public void start() {
         mSocket.addPacketHandler(this);
@@ -295,7 +298,7 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
             // No exit announcement necessary: remove the service immediately.
             mRecordRepository.removeService(id);
             if (mRecordRepository.getServicesCount() == 0) {
-                destroyNow();
+                mCbHandler.post(() -> mCb.onAllServicesRemoved(mSocket));
             }
         }
     }
@@ -330,7 +333,8 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
     /**
      * Destroy the advertiser immediately, not sending any exit announcement.
      *
-     * <p>Useful when the underlying network went away. This will trigger an onDestroyed callback.
+     * <p>This is typically called when all services on the interface are removed or when the
+     * underlying network went away.
      */
     public void destroyNow() {
         for (int serviceId : mRecordRepository.clearServices()) {
@@ -339,7 +343,6 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         }
         mReplySender.cancelAll();
         mSocket.removePacketHandler(this);
-        mCbHandler.post(() -> mCb.onDestroyed(mSocket));
     }
 
     /**
