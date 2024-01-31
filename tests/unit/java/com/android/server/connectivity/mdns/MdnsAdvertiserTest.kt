@@ -285,7 +285,6 @@ class MdnsAdvertiserTest {
 
         postSync { socketCb.onInterfaceDestroyed(TEST_SOCKETKEY_1, mockSocket1) }
         verify(mockInterfaceAdvertiser1).destroyNow()
-        postSync { intAdvCbCaptor.value.onDestroyed(mockSocket1) }
         verify(cb).onOffloadStop(eq(TEST_INTERFACE1), eq(OFFLOAD_SERVICEINFO_NO_SUBTYPE2))
     }
 
@@ -363,10 +362,10 @@ class MdnsAdvertiserTest {
         verify(cb).onOffloadStop(eq(TEST_INTERFACE1), eq(OFFLOAD_SERVICEINFO))
         verify(cb).onOffloadStop(eq(TEST_INTERFACE2), eq(OFFLOAD_SERVICEINFO))
 
-        // Interface advertisers call onDestroyed after sending exit announcements
-        postSync { intAdvCbCaptor1.value.onDestroyed(mockSocket1) }
+        // Interface advertisers call onAllServicesRemoved after sending exit announcements
+        postSync { intAdvCbCaptor1.value.onAllServicesRemoved(mockSocket1) }
         verify(socketProvider, never()).unrequestSocket(any())
-        postSync { intAdvCbCaptor2.value.onDestroyed(mockSocket2) }
+        postSync { intAdvCbCaptor2.value.onAllServicesRemoved(mockSocket2) }
         verify(socketProvider).unrequestSocket(socketCb)
     }
 
