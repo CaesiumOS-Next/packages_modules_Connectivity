@@ -157,6 +157,7 @@ import static android.system.OsConstants.IPPROTO_TCP;
 import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_HIGH;
 import static android.telephony.DataConnectionRealTimeInfo.DC_POWER_STATE_LOW;
 
+import static com.android.server.ConnectivityService.ALLOW_SATALLITE_NETWORK_PREFERRED_UID;
 import static com.android.server.ConnectivityService.DELAY_DESTROY_FROZEN_SOCKETS_VERSION;
 import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
 import static com.android.server.ConnectivityService.ALLOW_SYSUI_CONNECTIVITY_REPORTS;
@@ -2162,6 +2163,8 @@ public class ConnectivityServiceTest {
                 case ALLOW_SYSUI_CONNECTIVITY_REPORTS:
                     return true;
                 case LOG_BPF_RC:
+                    return true;
+                case ALLOW_SATALLITE_NETWORK_PREFERRED_UID:
                     return true;
                 default:
                     return super.isFeatureNotChickenedOut(context, name);
