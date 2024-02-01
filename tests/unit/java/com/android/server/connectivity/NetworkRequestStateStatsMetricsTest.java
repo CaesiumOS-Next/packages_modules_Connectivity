@@ -24,7 +24,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyLong;
-import static org.mockito.Mockito.clearInvocations;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
@@ -45,6 +45,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -53,12 +54,11 @@ import org.mockito.MockitoAnnotations;
 public class NetworkRequestStateStatsMetricsTest {
     @Mock
     private NetworkRequestStateStatsMetrics.Dependencies mNRStateStatsDeps;
-    @Mock
-    private NetworkRequestStateInfo.Dependencies mNRStateInfoDeps;
     @Captor
     private ArgumentCaptor<Handler> mHandlerCaptor;
     @Captor
     private ArgumentCaptor<Integer> mMessageWhatCaptor;
+    private InOrder mInOrder;
 
     private NetworkRequestStateStatsMetrics mNetworkRequestStateStatsMetrics;
     private HandlerThread mHandlerThread;
@@ -77,18 +77,18 @@ public class NetworkRequestStateStatsMetricsTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        mHandlerThread = new HandlerThread("NetworkRequestStateStatsMetrics");
-        Mockito.when(mNRStateStatsDeps.makeHandlerThread("NetworkRequestStateStatsMetrics"))
-                .thenReturn(mHandlerThread);
-        Mockito.when(mNRStateStatsDeps.getMillisSinceEvent(anyLong())).thenReturn(0L);
+        Mockito.doReturn(0L).when(mNRStateStatsDeps).getElapsedRealtime();
         Mockito.doAnswer(invocation -> {
             mHandlerCaptor.getValue().sendMessage(
                     Message.obtain(mHandlerCaptor.getValue(), mMessageWhatCaptor.getValue()));
             return null;
         }).when(mNRStateStatsDeps).sendMessageDelayed(
                 mHandlerCaptor.capture(), mMessageWhatCaptor.capture(), anyLong());
+        mHandlerThread = new HandlerThread("NetworkRequestStateStatsMetrics");
+        mHandlerThread.start();
         mNetworkRequestStateStatsMetrics = new NetworkRequestStateStatsMetrics(
-                mNRStateStatsDeps, mNRStateInfoDeps);
+                mHandlerThread, true, mNRStateStatsDeps);
+        mInOrder = inOrder(mNRStateStatsDeps);
     }
 
     @Test
@@ -96,12 +96,15 @@ public class NetworkRequestStateStatsMetricsTest {
         final long nrStartTime = 1L;
         final long nrEndTime = 101L;
         // This call will be used to calculate NR received time
-        Mockito.when(mNRStateInfoDeps.getElapsedRealtime()).thenReturn(nrStartTime);
+        Mockito.doReturn(nrStartTime).when(mNRStateStatsDeps).getElapsedRealtime();
         mNetworkRequestStateStatsMetrics.onNetworkRequestReceived(NOT_METERED_WIFI_NETWORK_REQUEST);
+        // This call will be used to calculate NR removed time
+        Mockito.doReturn(nrEndTime).when(mNRStateStatsDeps).getElapsedRealtime();
+        mNetworkRequestStateStatsMetrics.onNetworkRequestRemoved(NOT_METERED_WIFI_NETWORK_REQUEST);
 
         ArgumentCaptor<NetworkRequestStateInfo> networkRequestStateInfoCaptor =
                 ArgumentCaptor.forClass(NetworkRequestStateInfo.class);
-        verify(mNRStateStatsDeps, timeout(TIMEOUT_MS))
+        mInOrder.verify(mNRStateStatsDeps, timeout(TIMEOUT_MS))
                 .writeStats(networkRequestStateInfoCaptor.capture());
 
         NetworkRequestStateInfo nrStateInfoSent = networkRequestStateInfoCaptor.getValue();
@@ -114,12 +117,7 @@ public class NetworkRequestStateStatsMetricsTest {
         assertFalse(nrStateInfoSent.getNetCapabilityInternet());
         assertEquals(0, nrStateInfoSent.getNetworkRequestDurationMillis());
 
-        clearInvocations(mNRStateStatsDeps);
-        // This call will be used to calculate NR removed time
-        Mockito.when(mNRStateInfoDeps.getElapsedRealtime()).thenReturn(nrEndTime);
-        mNetworkRequestStateStatsMetrics.onNetworkRequestRemoved(NOT_METERED_WIFI_NETWORK_REQUEST);
-
-        verify(mNRStateStatsDeps, timeout(TIMEOUT_MS))
+        mInOrder.verify(mNRStateStatsDeps, timeout(TIMEOUT_MS))
                 .writeStats(networkRequestStateInfoCaptor.capture());
 
         nrStateInfoSent = networkRequestStateInfoCaptor.getValue();
@@ -144,23 +142,25 @@ public class NetworkRequestStateStatsMetricsTest {
     @Test
     public void testNoMessagesWhenNetworkRequestReceived() {
         mNetworkRequestStateStatsMetrics.onNetworkRequestReceived(NOT_METERED_WIFI_NETWORK_REQUEST);
-        verify(mNRStateStatsDeps, timeout(TIMEOUT_MS))
-                .writeStats(any(NetworkRequestStateInfo.class));
-
-        clearInvocations(mNRStateStatsDeps);
         mNetworkRequestStateStatsMetrics.onNetworkRequestReceived(NOT_METERED_WIFI_NETWORK_REQUEST);
         HandlerUtils.waitForIdle(mHandlerThread, TIMEOUT_MS);
-        verify(mNRStateStatsDeps, never())
+
+        mInOrder.verify(mNRStateStatsDeps, timeout(TIMEOUT_MS))
                 .writeStats(any(NetworkRequestStateInfo.class));
+        mInOrder.verifyNoMoreInteractions();
     }
 
     @Test
     public void testMessageQueueSizeLimitNotExceeded() {
-        // Imitate many events (MAX_QUEUED_REQUESTS) are coming together at once while
+        // Imitate many events (MAX_QUEUED_REQUESTS + 1) are coming together at once while
         // the other event is being processed.
+
         final ConditionVariable cv = new ConditionVariable();
+        // Block Handler thread to simulate a case of full queue.
         mHandlerThread.getThreadHandler().post(() -> cv.block());
-        for (int i = 0; i < NetworkRequestStateStatsMetrics.MAX_QUEUED_REQUESTS / 2; i++) {
+
+        // Send MAX_QUEUED_REQUESTS events (should be processed).
+        for (int i = 0; 2 * i < NetworkRequestStateStatsMetrics.MAX_QUEUED_REQUESTS + 1; i++) {
             mNetworkRequestStateStatsMetrics.onNetworkRequestReceived(new NetworkRequest(
                     new NetworkCapabilities().setRequestorUid(TEST_PACKAGE_UID),
                     0, i + 1, NetworkRequest.Type.REQUEST));
@@ -168,7 +168,6 @@ public class NetworkRequestStateStatsMetricsTest {
                     new NetworkCapabilities().setRequestorUid(TEST_PACKAGE_UID),
                     0, i + 1, NetworkRequest.Type.REQUEST));
         }
-
         // When event queue is full, all other events should be dropped.
         mNetworkRequestStateStatsMetrics.onNetworkRequestReceived(new NetworkRequest(
                 new NetworkCapabilities().setRequestorUid(TEST_PACKAGE_UID),
