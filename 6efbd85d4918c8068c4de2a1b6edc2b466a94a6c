@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "925859fd_5377366d",
+        "filename": "thread/tests/integration/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-01T03:28:12Z",
+      "side": 1,
+      "message": "nit: keep the libs in alphabetic order",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 40
+      },
+      "revId": "6efbd85d4918c8068c4de2a1b6edc2b466a94a6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c729586a_d8cdf48c",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-01T03:28:12Z",
+      "side": 1,
+      "message": "nit: move the helper method to the end of a test file because they are less important (in test classes we focus on the test cases)",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 5
+      },
+      "revId": "6efbd85d4918c8068c4de2a1b6edc2b466a94a6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "905cff7c_495b15f4",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-01T03:28:12Z",
+      "side": 1,
+      "message": "All border routing test cases need simulation radio support, so please move this to `setUp()`",
+      "range": {
+        "startLine": 238,
+        "startChar": 8,
+        "endLine": 238,
+        "endChar": 54
+      },
+      "revId": "6efbd85d4918c8068c4de2a1b6edc2b466a94a6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba8f3f28_e2c36c85",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-01T03:28:12Z",
+      "side": 1,
+      "message": "Please try splitting those test steps into multiple test cases as they have different outcome expect. Split into multiple tests avoids side effects between test steps so it\u0027s much easier to debug when a single test case failed in the future, it also makes the test cases easier to read/follow.",
+      "range": {
+        "startLine": 265,
+        "startChar": 8,
+        "endLine": 298,
+        "endChar": 64
+      },
+      "revId": "6efbd85d4918c8068c4de2a1b6edc2b466a94a6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
