@@ -17,6 +17,7 @@
 package android.net;
 
 import android.net.LinkAddress;
+import android.net.wifi.SoftApConfiguration;
 
 /**
  * Configuration details for requesting tethering.
