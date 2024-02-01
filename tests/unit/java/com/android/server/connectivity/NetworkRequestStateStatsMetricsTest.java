@@ -53,8 +53,6 @@ import org.mockito.MockitoAnnotations;
 public class NetworkRequestStateStatsMetricsTest {
     @Mock
     private NetworkRequestStateStatsMetrics.Dependencies mNRStateStatsDeps;
-    @Mock
-    private NetworkRequestStateInfo.Dependencies mNRStateInfoDeps;
     @Captor
     private ArgumentCaptor<Handler> mHandlerCaptor;
     @Captor
@@ -80,15 +78,14 @@ public class NetworkRequestStateStatsMetricsTest {
         mHandlerThread = new HandlerThread("NetworkRequestStateStatsMetrics");
         Mockito.when(mNRStateStatsDeps.makeHandlerThread("NetworkRequestStateStatsMetrics"))
                 .thenReturn(mHandlerThread);
-        Mockito.when(mNRStateStatsDeps.getMillisSinceEvent(anyLong())).thenReturn(0L);
+        Mockito.when(mNRStateStatsDeps.getElapsedRealtime()).thenReturn(0L);
         Mockito.doAnswer(invocation -> {
             mHandlerCaptor.getValue().sendMessage(
                     Message.obtain(mHandlerCaptor.getValue(), mMessageWhatCaptor.getValue()));
             return null;
         }).when(mNRStateStatsDeps).sendMessageDelayed(
                 mHandlerCaptor.capture(), mMessageWhatCaptor.capture(), anyLong());
-        mNetworkRequestStateStatsMetrics = new NetworkRequestStateStatsMetrics(
-                mNRStateStatsDeps, mNRStateInfoDeps);
+        mNetworkRequestStateStatsMetrics = new NetworkRequestStateStatsMetrics(mNRStateStatsDeps);
     }
 
     @Test
@@ -96,7 +93,7 @@ public class NetworkRequestStateStatsMetricsTest {
         final long nrStartTime = 1L;
         final long nrEndTime = 101L;
         // This call will be used to calculate NR received time
-        Mockito.when(mNRStateInfoDeps.getElapsedRealtime()).thenReturn(nrStartTime);
+        Mockito.when(mNRStateStatsDeps.getElapsedRealtime()).thenReturn(nrStartTime);
         mNetworkRequestStateStatsMetrics.onNetworkRequestReceived(NOT_METERED_WIFI_NETWORK_REQUEST);
 
         ArgumentCaptor<NetworkRequestStateInfo> networkRequestStateInfoCaptor =
@@ -116,7 +113,7 @@ public class NetworkRequestStateStatsMetricsTest {
 
         clearInvocations(mNRStateStatsDeps);
         // This call will be used to calculate NR removed time
-        Mockito.when(mNRStateInfoDeps.getElapsedRealtime()).thenReturn(nrEndTime);
+        Mockito.when(mNRStateStatsDeps.getElapsedRealtime()).thenReturn(nrEndTime);
         mNetworkRequestStateStatsMetrics.onNetworkRequestRemoved(NOT_METERED_WIFI_NETWORK_REQUEST);
 
         verify(mNRStateStatsDeps, timeout(TIMEOUT_MS))
