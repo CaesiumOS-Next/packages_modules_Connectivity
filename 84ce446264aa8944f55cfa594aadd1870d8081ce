@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd036979_40e90379",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-01T07:08:00Z",
+      "side": 1,
+      "message": "Not related to this CL, this will log and continue to execute, shall we be more defensive and throw here?",
+      "revId": "84ce446264aa8944f55cfa594aadd1870d8081ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc94d238_98df1ca8",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-01T07:08:00Z",
+      "side": 1,
+      "message": "may not need to mention factoryreset here as this simulates the crash/restart.\n```suggestion\n    public void otDaemonRestart_deviceRoleIsStopped() throws Exception {\n```",
+      "range": {
+        "startLine": 116,
+        "startChar": 16,
+        "endLine": 116,
+        "endChar": 67
+      },
+      "revId": "84ce446264aa8944f55cfa594aadd1870d8081ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8b5c1f8_ef297411",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-01T07:08:00Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 125,
+        "startChar": 16,
+        "endLine": 125,
+        "endChar": 64
+      },
+      "revId": "84ce446264aa8944f55cfa594aadd1870d8081ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
