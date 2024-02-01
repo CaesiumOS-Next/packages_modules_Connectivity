@@ -233,6 +233,10 @@ public class Tethering {
     // to be used after the interface comes up asynchronously.
     private final SparseArray<TetheringRequestParcel> mActiveTetheringRequests =
             new SparseArray<>();
+    // Currently pending StartTetheringCallbacks which we haven't sent a result to yet, mapped by
+    // tethering type.
+    private final SparseArray<IIntResultListener> mPendingStartTetheringCallbacks =
+            new SparseArray<>();
 
     private final Context mContext;
     private final ArrayMap<String, TetherState> mTetherStates;
@@ -725,7 +729,20 @@ public class Tethering {
                 result = TETHER_ERROR_UNKNOWN_TYPE;
         }
 
-        if (request.tetheringType != TETHERING_BLUETOOTH) {
+        if (enable && request.tetheringType == TETHERING_WIFI && result == TETHER_ERROR_NO_ERROR) {
+            // setWifiTethering succeeded, but don't return success until AP is up and we've started
+            // IP serving. This is because AP bring-up may still fail later, and we won't trigger
+            // TetheringEventCallback for it.
+            IIntResultListener listener = mPendingStartTetheringCallbacks.get(TETHERING_WIFI);
+            if (listener != null) {
+                Log.wtf(TAG, "setTetheredHotspot returned success, but we already have a pending"
+                        + " StartTetheringCallback!");
+                try {
+                    listener.onResult(TETHER_ERROR_INTERNAL_ERROR);
+                } catch (RemoteException e) { }
+            }
+            mPendingStartTetheringCallbacks.put(TETHERING_WIFI, listener);
+        } else if (request.tetheringType != TETHERING_BLUETOOTH) {
             // The result of Bluetooth tethering will be sent by #setBluetoothTethering.
             sendTetherResult(listener, result, request.tetheringType);
         }
@@ -1474,6 +1491,13 @@ public class Tethering {
         // Regardless of whether we requested this transition, the AP has gone
         // down.  Don't try to tether again unless we're requested to do so.
         mWifiTetherRequested = false;
+        IIntResultListener listener = mPendingStartTetheringCallbacks.get(TETHERING_WIFI);
+        if (listener != null) {
+            try {
+                listener.onResult(TETHER_ERROR_INTERNAL_ERROR);
+            } catch (RemoteException e) { }
+            mPendingStartTetheringCallbacks.remove(TETHERING_WIFI);
+        }
 
         mLog.log("Canceling WiFi tethering request - interface=" + ifname + " state=" + apState);
 
@@ -1533,6 +1557,13 @@ public class Tethering {
             enableIpServing(type, ifname, ipServingMode);
         } else {
             mLog.e("Cannot enable IP serving on missing interface name");
+        }
+        IIntResultListener listener = mPendingStartTetheringCallbacks.get(TETHERING_WIFI);
+        if (listener != null) {
+            try {
+                listener.onResult(TETHER_ERROR_NO_ERROR);
+            } catch (RemoteException e) { }
+            mPendingStartTetheringCallbacks.remove(TETHERING_WIFI);
         }
     }
 
