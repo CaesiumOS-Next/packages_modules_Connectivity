@@ -348,6 +348,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee7df617_5e64bd80",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-01T13:44:04Z",
+      "side": 1,
+      "message": "tracked in b/323331973",
+      "parentUuid": "e2bc13e6_c5cea747",
+      "range": {
+        "startLine": 663,
+        "startChar": 20,
+        "endLine": 663,
+        "endChar": 75
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d65b9446_8a08117c",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkService.java",
         "patchSetId": 80
@@ -359,6 +383,30 @@
       "writtenOn": "2023-11-07T07:52:14Z",
       "side": 1,
       "message": "Strictly speaking this returns an incorrect value because it\u0027s been called too early, and apps can see this\n\nMaybe using PHASE_DEVICE_SPECIFIC_SERVICES_READY or PHASE_ACTIVITY_MANAGER_READY are a better match for l.47 ; it should be as early as you can.\n\nAnother way is to block until it\u0027s ready, but it\u0027s pretty annoying to write and possibly dangerous because you don\u0027t really know what thread you are blocking",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 9
+      },
+      "revId": "dcdcd2ec0ce98c644330ff88bc9685818f2a86ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b0eebe9_90a91918",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-01T13:44:04Z",
+      "side": 1,
+      "message": "fixed in aosp/2899288",
+      "parentUuid": "d65b9446_8a08117c",
       "range": {
         "startLine": 55,
         "startChar": 0,
