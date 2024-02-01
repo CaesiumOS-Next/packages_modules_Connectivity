@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "458e192b_5885757f",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/OtDaemonController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T05:40:21Z",
+      "side": 1,
+      "message": "nit: SystemClock.sleep()",
+      "revId": "6c64900aeb58f3e7bd51415c18d4b56bee4aa173",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
