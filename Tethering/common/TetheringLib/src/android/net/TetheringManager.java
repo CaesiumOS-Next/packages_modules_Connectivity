@@ -900,6 +900,25 @@ public class TetheringManager {
                     + mRequestParcel.exemptFromEntitlementCheck + ", showProvisioningUi= "
                     + mRequestParcel.showProvisioningUi + " ]";
         }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(getLocalIpv4Address(), getClientStaticIpv4Address(),
+                    getTetheringType(), getConnectivityScope(), isExemptFromEntitlementCheck(),
+                    getShouldShowEntitlementUi());
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj instanceof TetheringRequest otherRequest
+                    && Objects.equals(getLocalIpv4Address(), otherRequest.getLocalIpv4Address())
+                    && Objects.equals(
+                            getClientStaticIpv4Address(), otherRequest.getClientStaticIpv4Address())
+                    && getTetheringType() == otherRequest.getTetheringType()
+                    && getConnectivityScope() == otherRequest.getConnectivityScope()
+                    && isExemptFromEntitlementCheck() == otherRequest.isExemptFromEntitlementCheck()
+                    && getShouldShowEntitlementUi() == otherRequest.getShouldShowEntitlementUi();
+        }
     }
 
     /**
