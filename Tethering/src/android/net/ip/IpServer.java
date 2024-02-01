@@ -427,6 +427,9 @@ public class IpServer extends StateMachineShim {
 
     /** Enable this IpServer. IpServer state machine will be tethered or localHotspot state. */
     public void enable(final int requestedState, final TetheringRequestParcel request) {
+        if (request != null) {
+            mTetheringRequest = new TetheringManager.TetheringRequest(request);
+        }
         sendMessage(CMD_TETHER_REQUESTED, requestedState, 0, request);
     }
 
@@ -1111,7 +1114,6 @@ public class IpServer extends StateMachineShim {
 
         mStaticIpv4ServerAddr = request.localIPv4Address;
         mStaticIpv4ClientAddr = request.staticClientAddress;
-        mTetheringRequest = new TetheringManager.TetheringRequest(request);
     }
 
     class InitialState extends State {
