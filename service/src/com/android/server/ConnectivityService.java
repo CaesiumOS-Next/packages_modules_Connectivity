@@ -1464,13 +1464,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
          * @see NetworkRequestStateStatsMetrics
          */
         public NetworkRequestStateStatsMetrics makeNetworkRequestStateStatsMetrics(
-                Context context) {
+                Context context, HandlerThread handlerThread) {
             // We currently have network requests metric for Watch devices only
-            if (context.getPackageManager().hasSystemFeature(FEATURE_WATCH)) {
-                return new NetworkRequestStateStatsMetrics();
-            } else {
-                return null;
-            }
+            return new NetworkRequestStateStatsMetrics(
+                    handlerThread,
+                    context.getPackageManager().hasSystemFeature(FEATURE_WATCH));
         }
 
         /**
@@ -1723,7 +1721,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 new RequestInfoPerUidCounter(MAX_NETWORK_REQUESTS_PER_SYSTEM_UID - 1);
 
         mMetricsLog = logger;
-        mNetworkRequestStateStatsMetrics = mDeps.makeNetworkRequestStateStatsMetrics(mContext);
         final NetworkRequest defaultInternetRequest = createDefaultRequest();
         mDefaultRequest = new NetworkRequestInfo(
                 Process.myUid(), defaultInternetRequest, null,
@@ -1804,6 +1801,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mCarrierPrivilegeAuthenticator = mDeps.makeCarrierPrivilegeAuthenticator(
                 mContext, mTelephonyManager, mRequestRestrictedWifiEnabled,
                 this::handleUidCarrierPrivilegesLost, mHandler);
+        mNetworkRequestStateStatsMetrics = mDeps.makeNetworkRequestStateStatsMetrics(
+                mContext, mHandlerThread);
 
         if (mDeps.isAtLeastU()
                 && mDeps
