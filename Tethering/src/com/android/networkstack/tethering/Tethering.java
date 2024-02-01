@@ -238,6 +238,11 @@ public class Tethering {
     // ready for IP serving.
     private final SparseArray<TetheringRequestParcel> mPendingTetheringRequests =
             new SparseArray<>();
+    // Currently pending StartTetheringCallback for Wifi tethering, which is deferred until
+    // WIFI_AP_STATE_CHANGED action gives us the result of Soft AP start.
+    // Note that we only need one pending callback since only one tethering AP is available at a
+    // time, and concurrent requests are always rejected.
+    private IIntResultListener mPendingWifiStartTetheringCallback;
 
     private final Context mContext;
     private final ArrayMap<String, TetherState> mTetherStates;
@@ -677,12 +682,20 @@ public class Tethering {
             if (existingRequest == null) {
                 existingRequest = mActiveTetheringRequests.get(request.tetheringType);
             }
-            // If tethering is already enabled with a different request,
-            // disable before re-enabling.
-            if (existingRequest != null
-                    && !TetheringUtils.isTetheringRequestEquals(existingRequest, request)) {
-                enableTetheringInternal(existingRequest, false /* disabled */, null);
-                mEntitlementMgr.stopProvisioningIfNeeded(request.tetheringType);
+            if (existingRequest != null) {
+                if (request.tetheringType == TETHERING_WIFI) {
+                    // Only one WIFI request is allowed at a time.
+                    try {
+                        listener.onResult(TETHER_ERROR_UNAVAIL_IFACE);
+                    } catch (RemoteException e) { }
+                    return;
+                }
+                // If tethering is already enabled with a different request,
+                // disable before re-enabling.
+                if (!TetheringUtils.isTetheringRequestEquals(existingRequest, request)) {
+                    enableTetheringInternal(existingRequest, false /* disabled */, null);
+                    mEntitlementMgr.stopProvisioningIfNeeded(request.tetheringType);
+                }
             }
             if (request.exemptFromEntitlementCheck) {
                 mEntitlementMgr.setExemptedDownstreamType(request.tetheringType);
@@ -733,7 +746,12 @@ public class Tethering {
                 result = TETHER_ERROR_UNKNOWN_TYPE;
         }
 
-        if (request.tetheringType != TETHERING_BLUETOOTH) {
+        if (enable && request.tetheringType == TETHERING_WIFI && result == TETHER_ERROR_NO_ERROR) {
+            // setWifiTethering succeeded, but don't return success until AP is up and we've started
+            // IP serving. This is because AP bring-up may still fail later, and we won't trigger
+            // TetheringEventCallback for it.
+            mPendingWifiStartTetheringCallback = listener;
+        } else if (request.tetheringType != TETHERING_BLUETOOTH) {
             // The result of Bluetooth tethering will be sent by #setBluetoothTethering.
             sendTetherResult(listener, result, request.tetheringType);
         }
@@ -1482,6 +1500,12 @@ public class Tethering {
         // Regardless of whether we requested this transition, the AP has gone
         // down.  Don't try to tether again unless we're requested to do so.
         mWifiTetherRequested = false;
+        if (mPendingWifiStartTetheringCallback != null) {
+            try {
+                mPendingWifiStartTetheringCallback.onResult(TETHER_ERROR_INTERNAL_ERROR);
+            } catch (RemoteException e) { }
+            mPendingWifiStartTetheringCallback = null;
+        }
 
         mLog.log("Canceling WiFi tethering request - interface=" + ifname + " state=" + apState);
 
@@ -1541,6 +1565,12 @@ public class Tethering {
             enableIpServing(type, ifname, ipServingMode);
         } else {
             mLog.e("Cannot enable IP serving on missing interface name");
+        }
+        if (mPendingWifiStartTetheringCallback != null) {
+            try {
+                mPendingWifiStartTetheringCallback.onResult(TETHER_ERROR_NO_ERROR);
+            } catch (RemoteException e) { }
+            mPendingWifiStartTetheringCallback = null;
         }
     }
 
