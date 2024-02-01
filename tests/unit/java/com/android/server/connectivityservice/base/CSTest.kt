@@ -296,7 +296,7 @@ open class CSTest {
                         MultinetworkPolicyTrackerTestDependencies(connResources.get())
                 )
 
-        override fun makeNetworkRequestStateStatsMetrics(c: Context) =
+        override fun makeNetworkRequestStateStatsMetrics(c: Context, t: HandlerThread) =
                 this@CSTest.networkRequestStateStatsMetrics
 
         // All queried features must be mocked, because the test cannot hold the

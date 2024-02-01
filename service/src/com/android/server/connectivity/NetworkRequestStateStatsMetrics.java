@@ -49,31 +49,35 @@ public class NetworkRequestStateStatsMetrics {
     private static final int CMD_SEND_PENDING_NETWORK_REQUEST_STATE_METRIC = 0;
     private static final int CMD_SEND_MAYBE_ENQUEUE_NETWORK_REQUEST_STATE_METRIC = 1;
 
+    private static boolean sIsWatchDevice = false;
+
     @VisibleForTesting
     static final int MAX_QUEUED_REQUESTS = 20;
 
-    // Stats logging frequency is limited to 10 ms at least, 500ms are taken as a safely margin
-    // for cases of longer periods of frequent network requests.
+    // Stats logging frequency is limited to 10 ms at least (events logged more often will be
+    // dropped), 500ms are taken as a safety margin for cases of longer periods
+    // of frequent network requests.
     private static final int ATOM_INTERVAL_MS = 500;
+
+    @NonNull
     private final StatsLoggingHandler mStatsLoggingHandler;
 
+    @NonNull
     private final Dependencies mDependencies;
 
-    private final NetworkRequestStateInfo.Dependencies mNRStateInfoDeps;
+    @NonNull
     private final SparseArray<NetworkRequestStateInfo> mNetworkRequestsActive;
 
-    public NetworkRequestStateStatsMetrics() {
-        this(new Dependencies(), new NetworkRequestStateInfo.Dependencies());
+    public NetworkRequestStateStatsMetrics(HandlerThread handlerThread, boolean isWatchDevice) {
+        this(handlerThread, isWatchDevice, new Dependencies());
     }
 
     @VisibleForTesting
-    NetworkRequestStateStatsMetrics(Dependencies deps,
-            NetworkRequestStateInfo.Dependencies nrStateInfoDeps) {
+    NetworkRequestStateStatsMetrics(
+            HandlerThread handlerThread, boolean isWatchDevice, @NonNull Dependencies deps) {
         mNetworkRequestsActive = new SparseArray<>();
+        sIsWatchDevice = isWatchDevice;
         mDependencies = deps;
-        mNRStateInfoDeps = nrStateInfoDeps;
-        HandlerThread handlerThread = mDependencies.makeHandlerThread(TAG);
-        handlerThread.start();
         mStatsLoggingHandler = new StatsLoggingHandler(handlerThread.getLooper());
     }
 
@@ -82,21 +86,24 @@ public class NetworkRequestStateStatsMetrics {
      *
      * @param networkRequest network request received
      */
-    public void onNetworkRequestReceived(NetworkRequest networkRequest) {
+    public void onNetworkRequestReceived(@NonNull NetworkRequest networkRequest) {
+        // We currently have network requests metric for Watch devices only
+        if (!sIsWatchDevice) return;
+
         if (mNetworkRequestsActive.contains(networkRequest.requestId)) {
             Log.w(TAG, "Received already registered network request, id = "
                     + networkRequest.requestId);
-        } else {
-            Log.d(TAG, "Registered nr with ID = " + networkRequest.requestId
-                    + ", package_uid = " + networkRequest.networkCapabilities.getRequestorUid());
-            NetworkRequestStateInfo networkRequestStateInfo = new NetworkRequestStateInfo(
-                    networkRequest, mNRStateInfoDeps);
-            mNetworkRequestsActive.put(networkRequest.requestId, networkRequestStateInfo);
-            mStatsLoggingHandler.sendMessage(Message.obtain(
-                    mStatsLoggingHandler,
-                    CMD_SEND_MAYBE_ENQUEUE_NETWORK_REQUEST_STATE_METRIC,
-                    networkRequestStateInfo));
+            return;
         }
+        Log.d(TAG, "Registered nr with ID = " + networkRequest.requestId
+                + ", package_uid = " + networkRequest.networkCapabilities.getRequestorUid());
+        NetworkRequestStateInfo networkRequestStateInfo = new NetworkRequestStateInfo(
+                networkRequest, mDependencies.getElapsedRealtime());
+        mNetworkRequestsActive.put(networkRequest.requestId, networkRequestStateInfo);
+        mStatsLoggingHandler.sendMessage(Message.obtain(
+                mStatsLoggingHandler,
+                CMD_SEND_MAYBE_ENQUEUE_NETWORK_REQUEST_STATE_METRIC,
+                networkRequestStateInfo));
     }
 
     /**
@@ -104,7 +111,10 @@ public class NetworkRequestStateStatsMetrics {
      *
      * @param networkRequest network request removed
      */
-    public void onNetworkRequestRemoved(NetworkRequest networkRequest) {
+    public void onNetworkRequestRemoved(@NonNull NetworkRequest networkRequest) {
+        // We currently have network requests metric for Watch devices only
+        if (!sIsWatchDevice) return;
+
         NetworkRequestStateInfo networkRequestStateInfo = mNetworkRequestsActive.get(
                 networkRequest.requestId);
         if (networkRequestStateInfo == null) {
@@ -113,7 +123,7 @@ public class NetworkRequestStateStatsMetrics {
             Log.d(TAG, "Removed nr with ID = " + networkRequest.requestId);
             mNetworkRequestsActive.remove(networkRequest.requestId);
             networkRequestStateInfo = new NetworkRequestStateInfo(networkRequestStateInfo);
-            networkRequestStateInfo.setNetworkRequestRemoved();
+            networkRequestStateInfo.setNetworkRequestRemoved(mDependencies.getElapsedRealtime());
             mStatsLoggingHandler.sendMessage(Message.obtain(
                     mStatsLoggingHandler,
                     CMD_SEND_MAYBE_ENQUEUE_NETWORK_REQUEST_STATE_METRIC,
@@ -124,28 +134,16 @@ public class NetworkRequestStateStatsMetrics {
     /** Dependency class */
     public static class Dependencies {
         /**
-         * Creates a thread with provided tag.
-         *
-         * @param tag for the thread.
-         */
-        public HandlerThread makeHandlerThread(@NonNull final String tag) {
-            return new HandlerThread(tag);
-        }
-
-        /**
          * @see Handler#sendMessageDelayed(Message, long)
          */
         public void sendMessageDelayed(@NonNull Handler handler, int what, long delayMillis) {
             handler.sendMessageDelayed(Message.obtain(handler, what), delayMillis);
         }
 
-        /**
-         * Gets number of millis since event.
-         *
-         * @param eventTimeMillis long timestamp in millis when the event occurred.
-         */
-        public long getMillisSinceEvent(long eventTimeMillis) {
-            return SystemClock.elapsedRealtime() - eventTimeMillis;
+        // Returns a timestamp with the time base of SystemClock.elapsedRealtime to keep durations
+        // relative to start time and avoid timezone change, including time spent in deep sleep.
+        public long getElapsedRealtime() {
+            return SystemClock.elapsedRealtime();
         }
 
         /**
@@ -153,7 +151,7 @@ public class NetworkRequestStateStatsMetrics {
          *
          * @param networkRequestStateInfo NetworkRequestStateInfo containing network request info.
          */
-        public void writeStats(NetworkRequestStateInfo networkRequestStateInfo) {
+        public void writeStats(@NonNull NetworkRequestStateInfo networkRequestStateInfo) {
             ConnectivityStatsLog.write(
                     NETWORK_REQUEST_STATE_CHANGED,
                     networkRequestStateInfo.getPackageUid(),
@@ -172,11 +170,12 @@ public class NetworkRequestStateStatsMetrics {
 
         private long mLastLogTime = 0;
 
-        StatsLoggingHandler(Looper looper) {
+        StatsLoggingHandler(@NonNull Looper looper) {
             super(looper);
         }
 
-        private void maybeEnqueueStatsMessage(NetworkRequestStateInfo networkRequestStateInfo) {
+        private void maybeEnqueueStatsMessage(
+                @NonNull NetworkRequestStateInfo networkRequestStateInfo) {
             if (mPendingState.size() < MAX_QUEUED_REQUESTS) {
                 mPendingState.add(networkRequestStateInfo);
             } else {
@@ -188,9 +187,9 @@ public class NetworkRequestStateStatsMetrics {
             if (hasMessages(CMD_SEND_PENDING_NETWORK_REQUEST_STATE_METRIC)) {
                 return;
             }
-            long millisSinceLastLog = mDependencies.getMillisSinceEvent(mLastLogTime);
+            long millisSinceLastLog = mDependencies.getElapsedRealtime() - mLastLogTime;
 
-            if (millisSinceLastLog >= ATOM_INTERVAL_MS) {
+            if (mLastLogTime == 0 || millisSinceLastLog >= ATOM_INTERVAL_MS) {
                 sendMessage(
                         Message.obtain(this, CMD_SEND_PENDING_NETWORK_REQUEST_STATE_METRIC));
             } else {
@@ -202,7 +201,7 @@ public class NetworkRequestStateStatsMetrics {
         }
 
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(@NonNull Message msg) {
             NetworkRequestStateInfo loggingInfo;
             switch (msg.what) {
                 case CMD_SEND_MAYBE_ENQUEUE_NETWORK_REQUEST_STATE_METRIC:
@@ -221,7 +220,8 @@ public class NetworkRequestStateStatsMetrics {
                         }
                     }
                     break;
-                default: // fall out
+                default:
+                    Log.wtf(TAG, "Unexpected message: " + msg);
             }
         }
     }
