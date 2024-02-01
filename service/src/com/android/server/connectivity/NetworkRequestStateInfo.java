@@ -22,7 +22,6 @@ import static com.android.server.ConnectivityStatsLog.NETWORK_REQUEST_STATE_CHAN
 
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
-import android.os.SystemClock;
 
 import com.android.net.module.util.BitUtils;
 
@@ -37,19 +36,15 @@ class NetworkRequestStateInfo {
     }
     private NetworkRequestState mNetworkRequestState;
     private int mNetworkRequestDurationMillis;
-    private final Dependencies mDependencies;
 
-    NetworkRequestStateInfo(NetworkRequest networkRequest,
-            Dependencies deps) {
-        mDependencies = deps;
+    NetworkRequestStateInfo(NetworkRequest networkRequest, long networkRequestReceivedTime) {
         mNetworkRequest = networkRequest;
-        mNetworkRequestReceivedTime = mDependencies.getElapsedRealtime();
+        mNetworkRequestReceivedTime = networkRequestReceivedTime;
         mNetworkRequestDurationMillis = 0;
         mNetworkRequestState = NetworkRequestState.RECEIVED;
     }
 
     NetworkRequestStateInfo(NetworkRequestStateInfo anotherNetworkRequestStateInfo) {
-        mDependencies = anotherNetworkRequestStateInfo.mDependencies;
         mNetworkRequest = new NetworkRequest(anotherNetworkRequestStateInfo.mNetworkRequest);
         mNetworkRequestReceivedTime = anotherNetworkRequestStateInfo.mNetworkRequestReceivedTime;
         mNetworkRequestDurationMillis =
@@ -57,10 +52,10 @@ class NetworkRequestStateInfo {
         mNetworkRequestState = anotherNetworkRequestStateInfo.mNetworkRequestState;
     }
 
-    public void setNetworkRequestRemoved() {
+    public void setNetworkRequestRemoved(long networkRequestRemovedTime) {
         mNetworkRequestState = NetworkRequestState.REMOVED;
         mNetworkRequestDurationMillis = (int) (
-                mDependencies.getElapsedRealtime() - mNetworkRequestReceivedTime);
+                networkRequestRemovedTime - mNetworkRequestReceivedTime);
     }
 
     public int getNetworkRequestStateStatsType() {
@@ -97,12 +92,4 @@ class NetworkRequestStateInfo {
         return mNetworkRequestDurationMillis;
     }
 
-    /** Dependency class */
-    public static class Dependencies {
-        // Returns a timestamp with the time base of SystemClock.elapsedRealtime to keep durations
-        // relative to start time and avoid timezone change, including time spent in deep sleep.
-        public long getElapsedRealtime() {
-            return SystemClock.elapsedRealtime();
-        }
-    }
 }
