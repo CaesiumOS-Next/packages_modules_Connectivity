@@ -112,9 +112,9 @@ import java.util.regex.Pattern;
  *                                 | Connect to a service
  *                                 | from list ?
  *                                 |
- *                          resolveService()
+ *                     registerServiceInfoCallback() <-- Resolves the service
  *                                 |
- *                         onServiceResolved()
+ *                         onServiceUpdated() <-- Service information obtained
  *                                 |
  *                     Establish connection to service
  *                     with the host and port information
@@ -137,6 +137,28 @@ import java.util.regex.Pattern;
  * initiate a resolve with {@link #resolveService} to resolve the attributes, host, and port
  * details. A successful resolve is notified on {@link ResolveListener#onServiceResolved} and a
  * failure is notified on {@link ResolveListener#onResolveFailed}.
+ *
+ * <p> To discover or advertise services on Wi-Fi, before
+ * <a href="{@docRoot}guide/sdk-extensions">T extension 8</a>, applications must acquire the
+ * {@link android.net.wifi.WifiManager.MulticastLock}. This is not necessary for T extension 8
+ * and above, unless the application is in the background, as multicast filtering will automatically
+ * be configured to allow {@link NsdManager} while maximizing battery life.
+ *
+ * <p> Applications can implement the above with patterns such as:
+ *
+ * <code>
+ * val lock = if (SdkExtensions.getExtensionVersion(Build.VERSION_CODES.TIRAMISU) < 8) {
+ *     getSystemService(WifiManager::class.java).createMulticastLock("MyAppComponent")
+ * } else {
+ *     null
+ * }
+ * lock?.acquire()
+ *
+ * // ... register or discover services via NsdManager
+ *
+ * // After stopping registration or discovery
+ * lock?.release()
+ * </code>
  *
  * Applications can reserve for a service type at
  * http://www.iana.org/form/ports-service. Existing services can be found at
