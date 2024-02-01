@@ -31,9 +31,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Inet6Address;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -132,6 +134,47 @@ public final class FullThreadDevice {
         return executeCommand("state").get(0);
     }
 
+    /** Enables the SRP client and run in autostart mode. */
+    public void autoStartSrpClient() {
+        executeCommand("srp client autostart enable");
+    }
+
+    /** Sets the hostname (e.g. "MyHost") for the SRP client. */
+    public void setSrpHostname(String hostname) {
+        executeCommand("srp client host name " + hostname);
+    }
+
+    /** Sets the host addresses for the SRP client. */
+    public void setSrpHostAddresses(List<String> addresses) {
+        executeCommand("srp client host address " + String.join(" ", addresses));
+    }
+
+    /**
+     * Adds an SRP service for the SRP client.
+     *
+     * @param serviceName the service name like "MyService"
+     * @param serviceType the service type like "_test._tcp"
+     * @param subtypes the service subtypes like "_sub1"
+     * @param port the port number in range [1, 65535]
+     * @param txtMap the map of TXT names and values
+     */
+    public void addSrpService(
+            String serviceName,
+            String serviceType,
+            List<String> subtypes,
+            int port,
+            Map<String, byte[]> txtMap) {
+        executeCommand(
+                String.format(
+                        "srp client service add %s %s %d %d %d %s",
+                        serviceName,
+                        serviceType,
+                        port,
+                        0 /* priority */,
+                        0 /* weight */,
+                        txtMapToHexString(txtMap)));
+    }
+
     /** Runs the "factoryreset" command on the device. */
     public void factoryReset() {
         try {
@@ -170,7 +213,7 @@ public final class FullThreadDevice {
             if (line.equals("Done")) {
                 break;
             }
-            if (line.startsWith("Error:")) {
+            if (line.startsWith("Error")) {
                 fail("ot-cli-ftd reported an error: " + line);
             }
             if (!line.startsWith("> ")) {
@@ -178,5 +221,32 @@ public final class FullThreadDevice {
             }
         }
         return result;
+    }
+
+    private static String txtMapToHexString(Map<String, byte[]> txtMap) {
+        if (txtMap == null) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, byte[]> entry : txtMap.entrySet()) {
+            int length = entry.getKey().length() + entry.getValue().length + 1;
+            sb.append(String.format("%02x", length));
+            sb.append(toHexString(entry.getKey()));
+            sb.append(toHexString("="));
+            sb.append(toHexString(entry.getValue()));
+        }
+        return sb.toString();
+    }
+
+    private static String toHexString(String s) {
+        return toHexString(s.getBytes(StandardCharsets.UTF_8));
+    }
+
+    private static String toHexString(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for (byte b : bytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
     }
 }
