@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d15fcd7_09ee679d",
+        "filename": "thread/service/java/com/android/server/thread/NsdPublisher.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T11:08:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec3d0cb1_02bbb2a5",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 73
+      },
+      "revId": "4310c4824804a14094a2a28cbeeec995b2a514c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71285fe1_476b5b37",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-01T07:34:26Z",
       "side": 1,
       "message": "Use the variant that takes an additional `executor` and use the HandlerExecutor for it. You can create mHandlerExecutor to `new HandlerExecutor(mHandler)`\n```suggestion\n            mNsdManager.registerService(serviceInfo, PROTOCOL_DNS_SD, mHandlerExecutor, listener);\n```\n\nSo that you don\u0027t need to post again in the callback / receiver",
+      "range": {
+        "startLine": 123,
+        "startChar": 12,
+        "endLine": 123,
+        "endChar": 80
+      },
+      "revId": "4310c4824804a14094a2a28cbeeec995b2a514c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb42935e_8eef4133",
+        "filename": "thread/service/java/com/android/server/thread/NsdPublisher.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T11:08:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71285fe1_476b5b37",
       "range": {
         "startLine": 123,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9194d98_72607357",
+        "filename": "thread/service/java/com/android/server/thread/NsdPublisher.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T11:08:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "562df481_b9fa97fa",
+      "range": {
+        "startLine": 124,
+        "startChar": 17,
+        "endLine": 124,
+        "endChar": 33
+      },
+      "revId": "4310c4824804a14094a2a28cbeeec995b2a514c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "591e15fa_d354f002",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-02-01T07:34:26Z",
       "side": 1,
       "message": "Please log also the service name? My ex",
+      "range": {
+        "startLine": 136,
+        "startChar": 8,
+        "endLine": 136,
+        "endChar": 72
+      },
+      "revId": "4310c4824804a14094a2a28cbeeec995b2a514c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2be94a0_7d156ba7",
+        "filename": "thread/service/java/com/android/server/thread/NsdPublisher.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T11:08:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "591e15fa_d354f002",
       "range": {
         "startLine": 136,
         "startChar": 8,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8714e4f_f77cd5ec",
+        "filename": "thread/service/java/com/android/server/thread/NsdPublisher.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T11:08:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12dc42de_543078bf",
+      "range": {
+        "startLine": 138,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 43
+      },
+      "revId": "4310c4824804a14094a2a28cbeeec995b2a514c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "467095cf_716b07eb",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-02-01T07:34:26Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 142,
+        "startChar": 21,
+        "endLine": 142,
+        "endChar": 39
+      },
+      "revId": "4310c4824804a14094a2a28cbeeec995b2a514c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fa40e11_766c7aeb",
+        "filename": "thread/service/java/com/android/server/thread/NsdPublisher.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T11:08:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "467095cf_716b07eb",
       "range": {
         "startLine": 142,
         "startChar": 21,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "daef97e0_157e8639",
+        "filename": "thread/service/java/com/android/server/thread/NsdPublisher.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T11:08:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ebe210b_fe3be110",
+      "range": {
+        "startLine": 183,
+        "startChar": 4,
+        "endLine": 183,
+        "endChar": 31
+      },
+      "revId": "4310c4824804a14094a2a28cbeeec995b2a514c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93bde8a2_aa5cedba",
@@ -175,6 +343,30 @@
       "writtenOn": "2024-02-01T07:34:26Z",
       "side": 1,
       "message": "The test name mentions \"Thread enabled but not joined\", but there is no code in the test body which clearly ensure the condition is true.\n\nYou should call setEnabled() and leave() explicitly even this is duplicated with code in setUp() or tearDown()",
+      "range": {
+        "startLine": 1033,
+        "startChar": 31,
+        "endLine": 1033,
+        "endChar": 56
+      },
+      "revId": "4310c4824804a14094a2a28cbeeec995b2a514c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86085b1f_c353a8a7",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T11:08:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93bde8a2_aa5cedba",
       "range": {
         "startLine": 1033,
         "startChar": 31,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63189760_a8646067",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 1052,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T11:08:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "058e7744_4a492f72",
+      "range": {
+        "startLine": 1052,
+        "startChar": 31,
+        "endLine": 1052,
+        "endChar": 42
+      },
+      "revId": "4310c4824804a14094a2a28cbeeec995b2a514c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cb2f287_4f7a663c",
@@ -221,6 +437,30 @@
       "writtenOn": "2024-02-01T07:34:26Z",
       "side": 1,
       "message": "nit: make the matcher shorter, e.g matches only the networkName. For the rest of the fields, use `assertThat()`",
+      "range": {
+        "startLine": 1067,
+        "startChar": 16,
+        "endLine": 1077,
+        "endChar": 17
+      },
+      "revId": "4310c4824804a14094a2a28cbeeec995b2a514c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aa3baf0_88cd9c41",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 1077,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T11:08:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cb2f287_4f7a663c",
       "range": {
         "startLine": 1067,
         "startChar": 16,
@@ -254,6 +494,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10aabfe1_38690ac6",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T11:08:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5132dda7_3335c284",
+      "range": {
+        "startLine": 1086,
+        "startChar": 8,
+        "endLine": 1091,
+        "endChar": 90
+      },
+      "revId": "4310c4824804a14094a2a28cbeeec995b2a514c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b90ddc77_d088bf6f",
@@ -267,6 +531,30 @@
       "writtenOn": "2024-02-01T07:34:26Z",
       "side": 1,
       "message": "nit: use a `makeTxtAttribute(String, byte[])` helper method",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "4310c4824804a14094a2a28cbeeec995b2a514c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72754453_d48b7bc2",
+        "filename": "thread/tests/unit/src/com/android/server/thread/NsdPublisherTest.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T11:08:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b90ddc77_d088bf6f",
       "range": {
         "startLine": 70,
         "startChar": 8,
@@ -300,6 +588,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a4c7a9a_86db6695",
+        "filename": "thread/tests/unit/src/com/android/server/thread/NsdPublisherTest.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T11:08:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de0ac728_6d19433f",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 116,
+        "endChar": 34
+      },
+      "revId": "4310c4824804a14094a2a28cbeeec995b2a514c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be1b2f5e_08f43d08",
@@ -313,6 +625,30 @@
       "writtenOn": "2024-02-01T07:34:26Z",
       "side": 1,
       "message": "ditto, put the actions together.",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 168,
+        "endChar": 34
+      },
+      "revId": "4310c4824804a14094a2a28cbeeec995b2a514c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b2d299a_a04ec47a",
+        "filename": "thread/tests/unit/src/com/android/server/thread/NsdPublisherTest.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T11:08:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be1b2f5e_08f43d08",
       "range": {
         "startLine": 167,
         "startChar": 8,
@@ -346,6 +682,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5732b744_d7d70fa1",
+        "filename": "thread/tests/unit/src/com/android/server/thread/NsdPublisherTest.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T11:08:04Z",
+      "side": 1,
+      "message": "This cannot be written like \n``` java\nwhen(mMockNsdManager.unregisterService(actualRegistrationListener))\n```\nbecause `mMockNsdManager.unregisterService` returns a `void` which cannot be placed in `when`.",
+      "parentUuid": "e70c41c4_c3f6946e",
+      "range": {
+        "startLine": 337,
+        "startChar": 8,
+        "endLine": 340,
+        "endChar": 0
+      },
+      "revId": "4310c4824804a14094a2a28cbeeec995b2a514c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91f2a7d4_1b83aa94",
@@ -359,6 +719,30 @@
       "writtenOn": "2024-02-01T07:34:26Z",
       "side": 1,
       "message": "nit: remove it. We don\u0027t need to verify the registration here - it\u0027s covered in other test cases already. Here we focus on only the unregistration behavior,",
+      "range": {
+        "startLine": 370,
+        "startChar": 0,
+        "endLine": 378,
+        "endChar": 80
+      },
+      "revId": "4310c4824804a14094a2a28cbeeec995b2a514c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bf10f52_7e21c340",
+        "filename": "thread/tests/unit/src/com/android/server/thread/NsdPublisherTest.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T11:08:04Z",
+      "side": 1,
+      "message": "Here what I really wanted to do is to capture the argument passed in `registerService` so that I can manipulate it.",
+      "parentUuid": "91f2a7d4_1b83aa94",
       "range": {
         "startLine": 370,
         "startChar": 0,
