@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebfc91e6_c7f49d39",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-01T07:25:29Z",
+      "side": 1,
+      "message": "not for this CL, maybe also a test to test address is added when interface becomes up?\n```suggestion\n\n    @Test\n    public void otDaemonRestart_otCtlFactoryReset_addressesAdded() throws Exception {\n        joinAndWait(mController, DEFAULT_DATASET);\n\n        String ifconfig \u003d runShellCommand(\"ifconfig thread-wpan\");\n\n        assertThat(ifconfig).contains(\"inet6 addr\");\n    }\n\n```",
+      "revId": "ddec563a293f8b6b71a1b54f0d523dc1a1a7c9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
