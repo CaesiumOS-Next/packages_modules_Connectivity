@@ -118,6 +118,30 @@
       },
       "revId": "33e47446af2f18992b2d0b0d2425c64540bb2beb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a3ca7ea_8627131a",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-01T02:37:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2f48c9f_b8a942e3",
+      "range": {
+        "startLine": 232,
+        "startChar": 72,
+        "endLine": 232,
+        "endChar": 73
+      },
+      "revId": "33e47446af2f18992b2d0b0d2425c64540bb2beb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
