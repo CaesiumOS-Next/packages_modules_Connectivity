@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94ac96d4_32c60fce",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetServiceImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-01T07:25:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "316638f2_a1ce5f29",
+      "range": {
+        "startLine": 75,
+        "startChar": 20,
+        "endLine": 75,
+        "endChar": 25
+      },
+      "revId": "198f3dd0899549a7fd19075872ac64140d3f20c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6159c54_5060e49b",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-01T03:41:03Z",
       "side": 1,
       "message": "Rename to `hasSettingsPermission` and all `check***` methods below should be renamed too.",
+      "range": {
+        "startLine": 3479,
+        "startChar": 20,
+        "endLine": 3479,
+        "endChar": 25
+      },
+      "revId": "198f3dd0899549a7fd19075872ac64140d3f20c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c33cd054_25f1fc13",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3479,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-01T07:25:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6159c54_5060e49b",
       "range": {
         "startLine": 3479,
         "startChar": 20,
