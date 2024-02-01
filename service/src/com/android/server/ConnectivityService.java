@@ -108,13 +108,11 @@ import static com.android.net.module.util.BpfUtils.BPF_CGROUP_INET_EGRESS;
 import static com.android.net.module.util.BpfUtils.BPF_CGROUP_INET_INGRESS;
 import static com.android.net.module.util.BpfUtils.BPF_CGROUP_INET_SOCK_CREATE;
 import static com.android.net.module.util.NetworkMonitorUtils.isPrivateDnsValidationRequired;
-import static com.android.net.module.util.PermissionUtils.checkAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermission;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermissionOr;
+import static com.android.net.module.util.PermissionUtils.hasAnyPermissionOf;
 import static com.android.server.ConnectivityStatsLog.CONNECTIVITY_STATE_SAMPLE;
-
-import static java.util.Map.Entry;
 
 import android.Manifest;
 import android.annotation.NonNull;
@@ -351,7 +349,6 @@ import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.Inet4Address;
-import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
@@ -2705,7 +2702,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private boolean canSeeAllowedUids(final int pid, final int uid, final int netOwnerUid) {
         return Process.SYSTEM_UID == uid
-                || checkAnyPermissionOf(mContext, pid, uid,
+                || hasAnyPermissionOf(mContext, pid, uid,
                         android.Manifest.permission.NETWORK_FACTORY);
     }
 
@@ -2725,7 +2722,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (newNc.getNetworkSpecifier() != null) {
             newNc.setNetworkSpecifier(newNc.getNetworkSpecifier().redact());
         }
-        if (!checkAnyPermissionOf(mContext, callerPid, callerUid,
+        if (!hasAnyPermissionOf(mContext, callerPid, callerUid,
                 android.Manifest.permission.NETWORK_STACK,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK)) {
             newNc.setAdministratorUids(new int[0]);
@@ -3480,8 +3477,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private boolean checkSettingsPermission() {
-        return PermissionUtils.checkAnyPermissionOf(mContext,
-                android.Manifest.permission.NETWORK_SETTINGS,
+        return hasAnyPermissionOf(mContext, android.Manifest.permission.NETWORK_SETTINGS,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
     }
 
@@ -3523,24 +3519,22 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private boolean checkNetworkStackPermission() {
-        return PermissionUtils.checkAnyPermissionOf(mContext,
-                android.Manifest.permission.NETWORK_STACK,
+        return hasAnyPermissionOf(mContext, android.Manifest.permission.NETWORK_STACK,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
     }
 
     private boolean checkNetworkStackPermission(int pid, int uid) {
-        return checkAnyPermissionOf(mContext, pid, uid,
-                android.Manifest.permission.NETWORK_STACK,
+        return hasAnyPermissionOf(mContext, pid, uid, android.Manifest.permission.NETWORK_STACK,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
     }
 
     private boolean checkSystemBarServicePermission(int pid, int uid) {
-        return checkAnyPermissionOf(mContext, pid, uid,
+        return hasAnyPermissionOf(mContext, pid, uid,
                 android.Manifest.permission.STATUS_BAR_SERVICE);
     }
 
     private boolean checkNetworkSignalStrengthWakeupPermission(int pid, int uid) {
-        return checkAnyPermissionOf(mContext, pid, uid,
+        return hasAnyPermissionOf(mContext, pid, uid,
                 android.Manifest.permission.NETWORK_SIGNAL_STRENGTH_WAKEUP,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
                 android.Manifest.permission.NETWORK_SETTINGS);
@@ -3548,7 +3542,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private boolean checkConnectivityRestrictedNetworksPermission(int callingUid,
             boolean checkUidsAllowedList) {
-        if (PermissionUtils.checkAnyPermissionOf(mContext,
+        if (hasAnyPermissionOf(mContext,
                 android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS)) {
             return true;
         }
@@ -3556,8 +3550,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // fallback to ConnectivityInternalPermission
         // TODO: Remove this fallback check after all apps have declared
         //  CONNECTIVITY_USE_RESTRICTED_NETWORKS.
-        if (PermissionUtils.checkAnyPermissionOf(mContext,
-                android.Manifest.permission.CONNECTIVITY_INTERNAL)) {
+        if (hasAnyPermissionOf(mContext, android.Manifest.permission.CONNECTIVITY_INTERNAL)) {
             return true;
         }
 
@@ -5697,7 +5690,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private RequestInfoPerUidCounter getRequestCounter(NetworkRequestInfo nri) {
-        return checkAnyPermissionOf(mContext,
+        return hasAnyPermissionOf(mContext,
                 nri.mPid, nri.mUid, NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK)
                 ? mSystemNetworkRequestCounter : mNetworkRequestCounter;
     }

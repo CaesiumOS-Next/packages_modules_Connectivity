@@ -73,7 +73,7 @@ public class EthernetServiceImpl extends IEthernetManager.Stub {
     }
 
     private boolean checkUseRestrictedNetworksPermission() {
-        return PermissionUtils.checkAnyPermissionOf(mContext,
+        return PermissionUtils.hasAnyPermissionOf(mContext,
                 android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS);
     }
 
@@ -187,7 +187,7 @@ public class EthernetServiceImpl extends IEthernetManager.Stub {
     @Override
     protected void dump(FileDescriptor fd, PrintWriter writer, String[] args) {
         final IndentingPrintWriter pw = new IndentingPrintWriter(writer, "  ");
-        if (!PermissionUtils.checkDumpPermission(mContext, TAG, pw)) return;
+        if (!PermissionUtils.hasDumpPermission(mContext, TAG, pw)) return;
 
         pw.println("Current Ethernet state: ");
         pw.increaseIndent();
