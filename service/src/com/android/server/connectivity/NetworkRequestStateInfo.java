@@ -20,36 +20,39 @@ import static com.android.server.ConnectivityStatsLog.NETWORK_REQUEST_STATE_CHAN
 import static com.android.server.ConnectivityStatsLog.NETWORK_REQUEST_STATE_CHANGED__STATE__NETWORK_REQUEST_STATE_REMOVED;
 import static com.android.server.ConnectivityStatsLog.NETWORK_REQUEST_STATE_CHANGED__STATE__NETWORK_REQUEST_STATE_UNKNOWN;
 
+import android.annotation.NonNull;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
-import android.os.SystemClock;
 
 import com.android.net.module.util.BitUtils;
 
 
 class NetworkRequestStateInfo {
+    @NonNull
     private final NetworkRequest mNetworkRequest;
+
+    @NonNull
     private final long mNetworkRequestReceivedTime;
 
     private enum NetworkRequestState {
         RECEIVED,
         REMOVED
     }
-    private NetworkRequestState mNetworkRequestState;
-    private int mNetworkRequestDurationMillis;
-    private final Dependencies mDependencies;
 
-    NetworkRequestStateInfo(NetworkRequest networkRequest,
-            Dependencies deps) {
-        mDependencies = deps;
+    @NonNull
+    private NetworkRequestState mNetworkRequestState;
+
+    @NonNull
+    private int mNetworkRequestDurationMillis;
+
+    NetworkRequestStateInfo(NetworkRequest networkRequest, long networkRequestReceivedTime) {
         mNetworkRequest = networkRequest;
-        mNetworkRequestReceivedTime = mDependencies.getElapsedRealtime();
+        mNetworkRequestReceivedTime = networkRequestReceivedTime;
         mNetworkRequestDurationMillis = 0;
         mNetworkRequestState = NetworkRequestState.RECEIVED;
     }
 
     NetworkRequestStateInfo(NetworkRequestStateInfo anotherNetworkRequestStateInfo) {
-        mDependencies = anotherNetworkRequestStateInfo.mDependencies;
         mNetworkRequest = new NetworkRequest(anotherNetworkRequestStateInfo.mNetworkRequest);
         mNetworkRequestReceivedTime = anotherNetworkRequestStateInfo.mNetworkRequestReceivedTime;
         mNetworkRequestDurationMillis =
@@ -57,10 +60,10 @@ class NetworkRequestStateInfo {
         mNetworkRequestState = anotherNetworkRequestStateInfo.mNetworkRequestState;
     }
 
-    public void setNetworkRequestRemoved() {
+    public void setNetworkRequestRemoved(long networkRequestRemovedTime) {
         mNetworkRequestState = NetworkRequestState.REMOVED;
         mNetworkRequestDurationMillis = (int) (
-                mDependencies.getElapsedRealtime() - mNetworkRequestReceivedTime);
+                networkRequestRemovedTime - mNetworkRequestReceivedTime);
     }
 
     public int getNetworkRequestStateStatsType() {
@@ -97,12 +100,4 @@ class NetworkRequestStateInfo {
         return mNetworkRequestDurationMillis;
     }
 
-    /** Dependency class */
-    public static class Dependencies {
-        // Returns a timestamp with the time base of SystemClock.elapsedRealtime to keep durations
-        // relative to start time and avoid timezone change, including time spent in deep sleep.
-        public long getElapsedRealtime() {
-            return SystemClock.elapsedRealtime();
-        }
-    }
 }

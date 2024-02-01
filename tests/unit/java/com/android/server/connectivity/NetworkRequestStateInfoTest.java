@@ -31,16 +31,11 @@ import com.android.testutils.DevSdkIgnoreRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 public class NetworkRequestStateInfoTest {
-
-    @Mock
-    private NetworkRequestStateInfo.Dependencies mDependencies;
 
     @Before
     public void setup() {
@@ -59,13 +54,11 @@ public class NetworkRequestStateInfoTest {
         );
 
         // This call will be used to calculate NR received time
-        Mockito.when(mDependencies.getElapsedRealtime()).thenReturn(nrStartTime);
         NetworkRequestStateInfo networkRequestStateInfo = new NetworkRequestStateInfo(
-                notMeteredWifiNetworkRequest, mDependencies);
+                notMeteredWifiNetworkRequest, nrStartTime);
 
         // This call will be used to calculate NR removed time
-        Mockito.when(mDependencies.getElapsedRealtime()).thenReturn(nrEndTime);
-        networkRequestStateInfo.setNetworkRequestRemoved();
+        networkRequestStateInfo.setNetworkRequestRemoved(nrEndTime);
         assertEquals(
                 nrEndTime - nrStartTime,
                 networkRequestStateInfo.getNetworkRequestDurationMillis());
@@ -77,7 +70,7 @@ public class NetworkRequestStateInfoTest {
     public void testCheckInitialState() {
         NetworkRequestStateInfo networkRequestStateInfo = new NetworkRequestStateInfo(
                 new NetworkRequest(new NetworkCapabilities(), 0, 1, NetworkRequest.Type.REQUEST),
-                mDependencies);
+                0);
         assertEquals(networkRequestStateInfo.getNetworkRequestStateStatsType(),
                 NETWORK_REQUEST_STATE_CHANGED__STATE__NETWORK_REQUEST_STATE_RECEIVED);
     }
