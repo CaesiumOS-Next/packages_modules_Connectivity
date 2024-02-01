@@ -129,11 +129,15 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
         this.perSocketServiceTypeClients = new PerSocketServiceTypeClients();
         this.mdnsFeatureFlags = mdnsFeatureFlags;
         this.discoveryExecutor = new DiscoveryExecutor(socketClient.getLooper());
-
-        // The very first posted task is to initialize the service cache, so it will be always
-        // set in other tasks running on the handler
-        discoveryExecutor.execute(() ->
-                serviceCache = new MdnsServiceCache(Looper.myLooper(), mdnsFeatureFlags));
+        if (socketClient.getLooper() != null) {
+            serviceCache = new MdnsServiceCache(socketClient.getLooper(), mdnsFeatureFlags);
+        } else {
+            // The very first posted task is to initialize the service cache, so it will be always
+            // set in other tasks running on the looper thread, which was just created by the
+            // DiscoveryExecutor.
+            discoveryExecutor.execute(() ->
+                    serviceCache = new MdnsServiceCache(Looper.myLooper(), mdnsFeatureFlags));
+        }
     }
 
     private static class DiscoveryExecutor implements Executor {
