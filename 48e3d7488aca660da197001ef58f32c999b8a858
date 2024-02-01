@@ -3,6 +3,63 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "48ebbc64_879eac5a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T10:05:54Z",
+      "side": 1,
+      "message": "nit: Should it be info level? I feel it\u0027s not a very frequent event and may provide useful debugging information.",
+      "revId": "48e3d7488aca660da197001ef58f32c999b8a858",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1a09c0e_743f938d",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T10:05:54Z",
+      "side": 1,
+      "message": "Similarly, should we also add a test case that the it doesn\u0027t become attached if it wasn\u0027t in a network before restart?",
+      "revId": "48e3d7488aca660da197001ef58f32c999b8a858",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e037821_ae0cb305",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T10:05:54Z",
+      "side": 1,
+      "message": "nit: may also mention it\u0027s re-joined",
+      "range": {
+        "startLine": 102,
+        "startChar": 56,
+        "endLine": 102,
+        "endChar": 69
+      },
+      "revId": "48e3d7488aca660da197001ef58f32c999b8a858",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c69408ed_c49626fb",
         "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.java",
         "patchSetId": 16
