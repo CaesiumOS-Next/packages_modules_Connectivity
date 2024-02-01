@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33150068_0e8f9a42",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 3932,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-01T09:48:59Z",
+      "side": 1,
+      "message": "Nit: I think the version number and API level are not really fixed yet for V, so it may be better to just refer to `{@link android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM}`",
+      "range": {
+        "startLine": 3932,
+        "startChar": 57,
+        "endLine": 3932,
+        "endChar": 76
+      },
+      "revId": "c331dded9de1d79c45efcd94ce5e4a87c9b0a13d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "482d9f62_6cdcaa34",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 3935,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-01T09:48:59Z",
+      "side": 1,
+      "message": "Nit: {@link NetworkCapabilities} to be more clear on what that is",
+      "range": {
+        "startLine": 3935,
+        "startChar": 45,
+        "endLine": 3935,
+        "endChar": 55
+      },
+      "revId": "c331dded9de1d79c45efcd94ce5e4a87c9b0a13d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c06ecbf_94baabed",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 3937,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-01T09:48:59Z",
+      "side": 1,
+      "message": "#addForbiddenCapability is @hide, so this won\u0027t be understandable for developers looking at the SDK documentation. I think you can just say that local networks will not match the request.",
+      "range": {
+        "startLine": 3937,
+        "startChar": 68,
+        "endLine": 3937,
+        "endChar": 99
+      },
+      "revId": "c331dded9de1d79c45efcd94ce5e4a87c9b0a13d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5990d720_57aaa9cb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 2962,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-01T09:48:59Z",
+      "side": 1,
+      "message": "This isn\u0027t actually how target SDKs should be checked in recent releases; you should follow go/nonsdk/dev/compat-framework#define-a-change-id\n\nSee for example https://r.android.com/2452427",
+      "revId": "c331dded9de1d79c45efcd94ce5e4a87c9b0a13d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "178a6d18_8867a322",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 7866,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-01T09:48:59Z",
+      "side": 1,
+      "message": "Also here ?\n\nI looked at what calls ensureRequestableCapabilities and  ensureListenableCapabilities",
+      "revId": "c331dded9de1d79c45efcd94ce5e4a87c9b0a13d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85e6f9ab_af7256cb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 7961,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-01T09:48:59Z",
+      "side": 1,
+      "message": "Should restrictLocalNetwork be called here too ?",
+      "revId": "c331dded9de1d79c45efcd94ce5e4a87c9b0a13d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
