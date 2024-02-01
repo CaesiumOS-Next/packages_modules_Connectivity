@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f50b3d3_e30a0fd8",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-01T18:38:09Z",
+      "side": 1,
+      "message": "I think this update need to be in a separate CL and I think we need to keep both old and new document and explain why we recommend the new APIs.",
+      "range": {
+        "startLine": 115,
+        "startChar": 23,
+        "endLine": 115,
+        "endChar": 50
+      },
+      "revId": "67f96a35602e1fb8751c31a6e6fc80d1d2289eb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5aac5c8d_89a4f819",
         "filename": "framework-t/src/android/net/nsd/NsdManager.java",
         "patchSetId": 2
