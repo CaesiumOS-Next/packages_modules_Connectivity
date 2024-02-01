@@ -55,23 +55,24 @@ public class NetworkRequestStateStatsMetrics {
     // Stats logging frequency is limited to 10 ms at least, 500ms are taken as a safely margin
     // for cases of longer periods of frequent network requests.
     private static final int ATOM_INTERVAL_MS = 500;
+
+    @NonNull
     private final StatsLoggingHandler mStatsLoggingHandler;
 
+    @NonNull
     private final Dependencies mDependencies;
 
-    private final NetworkRequestStateInfo.Dependencies mNRStateInfoDeps;
+    @NonNull
     private final SparseArray<NetworkRequestStateInfo> mNetworkRequestsActive;
 
     public NetworkRequestStateStatsMetrics() {
-        this(new Dependencies(), new NetworkRequestStateInfo.Dependencies());
+        this(new Dependencies());
     }
 
     @VisibleForTesting
-    NetworkRequestStateStatsMetrics(Dependencies deps,
-            NetworkRequestStateInfo.Dependencies nrStateInfoDeps) {
+    NetworkRequestStateStatsMetrics(Dependencies deps) {
         mNetworkRequestsActive = new SparseArray<>();
         mDependencies = deps;
-        mNRStateInfoDeps = nrStateInfoDeps;
         HandlerThread handlerThread = mDependencies.makeHandlerThread(TAG);
         handlerThread.start();
         mStatsLoggingHandler = new StatsLoggingHandler(handlerThread.getLooper());
@@ -90,7 +91,7 @@ public class NetworkRequestStateStatsMetrics {
             Log.d(TAG, "Registered nr with ID = " + networkRequest.requestId
                     + ", package_uid = " + networkRequest.networkCapabilities.getRequestorUid());
             NetworkRequestStateInfo networkRequestStateInfo = new NetworkRequestStateInfo(
-                    networkRequest, mNRStateInfoDeps);
+                    networkRequest, mDependencies.getElapsedRealtime());
             mNetworkRequestsActive.put(networkRequest.requestId, networkRequestStateInfo);
             mStatsLoggingHandler.sendMessage(Message.obtain(
                     mStatsLoggingHandler,
@@ -113,7 +114,7 @@ public class NetworkRequestStateStatsMetrics {
             Log.d(TAG, "Removed nr with ID = " + networkRequest.requestId);
             mNetworkRequestsActive.remove(networkRequest.requestId);
             networkRequestStateInfo = new NetworkRequestStateInfo(networkRequestStateInfo);
-            networkRequestStateInfo.setNetworkRequestRemoved();
+            networkRequestStateInfo.setNetworkRequestRemoved(mDependencies.getElapsedRealtime());
             mStatsLoggingHandler.sendMessage(Message.obtain(
                     mStatsLoggingHandler,
                     CMD_SEND_MAYBE_ENQUEUE_NETWORK_REQUEST_STATE_METRIC,
@@ -139,13 +140,10 @@ public class NetworkRequestStateStatsMetrics {
             handler.sendMessageDelayed(Message.obtain(handler, what), delayMillis);
         }
 
-        /**
-         * Gets number of millis since event.
-         *
-         * @param eventTimeMillis long timestamp in millis when the event occurred.
-         */
-        public long getMillisSinceEvent(long eventTimeMillis) {
-            return SystemClock.elapsedRealtime() - eventTimeMillis;
+        // Returns a timestamp with the time base of SystemClock.elapsedRealtime to keep durations
+        // relative to start time and avoid timezone change, including time spent in deep sleep.
+        public long getElapsedRealtime() {
+            return SystemClock.elapsedRealtime();
         }
 
         /**
@@ -170,7 +168,7 @@ public class NetworkRequestStateStatsMetrics {
 
         private final ArrayDeque<NetworkRequestStateInfo> mPendingState = new ArrayDeque<>();
 
-        private long mLastLogTime = 0;
+        private long mLastLogTime = -1;
 
         StatsLoggingHandler(Looper looper) {
             super(looper);
@@ -188,7 +186,7 @@ public class NetworkRequestStateStatsMetrics {
             if (hasMessages(CMD_SEND_PENDING_NETWORK_REQUEST_STATE_METRIC)) {
                 return;
             }
-            long millisSinceLastLog = mDependencies.getMillisSinceEvent(mLastLogTime);
+            long millisSinceLastLog = mDependencies.getElapsedRealtime() - mLastLogTime;
 
             if (millisSinceLastLog >= ATOM_INTERVAL_MS) {
                 sendMessage(
