@@ -20,6 +20,7 @@ import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.NETWORK_STACK;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
+import static android.Manifest.permission.WRITE_SETTINGS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ACCESS_TETHERING_PERMISSION;
@@ -167,7 +168,7 @@ public class TetheringService extends Service {
                     callback.onCallbackStopped(TETHER_ERROR_NO_ACCESS_TETHERING_PERMISSION);
                     return;
                 }
-                mTethering.registerTetheringEventCallback(callback);
+                mTethering.registerTetheringEventCallback(callback, callerPkg);
             } catch (RemoteException e) { }
         }
 
