@@ -60,6 +60,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "47f6b27b_405dbdbb",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T10:07:07Z",
+      "side": 1,
+      "message": "```suggestion\n    public void tunInterface_joinedNetwork_otAddressesAddedToTunInterface() throws Exception {\n```\nnit",
+      "revId": "48e3d7488aca660da197001ef58f32c999b8a858",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c69408ed_c49626fb",
         "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.java",
         "patchSetId": 16
