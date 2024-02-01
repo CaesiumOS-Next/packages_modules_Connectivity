@@ -22,6 +22,30 @@
       },
       "revId": "708e94e21af14a1c56f65e831c50471e2f62b563",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3df4cfa3_e4cbb0b4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-01T02:33:29Z",
+      "side": 1,
+      "message": "Yes that\u0027s possible, changed to have ot-daemon send full list of addresses when there is an update to the addresses.",
+      "parentUuid": "8522b2fa_f473c9cd",
+      "range": {
+        "startLine": 10,
+        "startChar": 30,
+        "endLine": 16,
+        "endChar": 17
+      },
+      "revId": "708e94e21af14a1c56f65e831c50471e2f62b563",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
