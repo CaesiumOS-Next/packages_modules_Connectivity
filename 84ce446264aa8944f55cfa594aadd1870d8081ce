@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ebf194e_c346d9c2",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-01T08:25:35Z",
+      "side": 1,
+      "message": "SGTM. Can you create a Cl for this?",
+      "parentUuid": "dd036979_40e90379",
+      "revId": "84ce446264aa8944f55cfa594aadd1870d8081ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc94d238_98df1ca8",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4f89ece_272bab79",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-01T08:25:35Z",
+      "side": 1,
+      "message": "Renamed to \"otDaemonFactoryReset_**\"",
+      "parentUuid": "dc94d238_98df1ca8",
+      "range": {
+        "startLine": 116,
+        "startChar": 16,
+        "endLine": 116,
+        "endChar": 67
+      },
+      "revId": "84ce446264aa8944f55cfa594aadd1870d8081ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8b5c1f8_ef297411",
@@ -54,6 +96,30 @@
       "writtenOn": "2024-02-01T07:08:00Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 125,
+        "startChar": 16,
+        "endLine": 125,
+        "endChar": 64
+      },
+      "revId": "84ce446264aa8944f55cfa594aadd1870d8081ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d790fac3_dd04795f",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-01T08:25:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8b5c1f8_ef297411",
       "range": {
         "startLine": 125,
         "startChar": 16,
