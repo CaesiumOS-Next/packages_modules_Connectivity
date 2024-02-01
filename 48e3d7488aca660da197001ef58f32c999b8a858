@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c69408ed_c49626fb",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-01T10:05:23Z",
+      "side": 1,
+      "message": "nit: by\n```suggestion\n    // every 5 seconds, followed by 4 Parent Request every second. So this value needs to be 40\n```",
+      "range": {
+        "startLine": 55,
+        "startChar": 33,
+        "endLine": 55,
+        "endChar": 35
+      },
+      "revId": "48e3d7488aca660da197001ef58f32c999b8a858",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
