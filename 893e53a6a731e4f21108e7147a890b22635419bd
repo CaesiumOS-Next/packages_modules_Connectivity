@@ -16,6 +16,24 @@
       "message": "This is failing after the first run because the discoverServices/resolveService returns the stale service instance.",
       "revId": "893e53a6a731e4f21108e7147a890b22635419bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ea48b73_06b2bbe2",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T05:28:14Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "83aa0603_285cf53f",
+      "revId": "893e53a6a731e4f21108e7147a890b22635419bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
