@@ -463,7 +463,8 @@ public final class TetheringServiceTest {
     private void runRegisterTetheringEventCallback() throws Exception {
         mTetheringConnector.registerTetheringEventCallback(mITetheringEventCallback,
                 TEST_CALLER_PKG);
-        verify(mTethering).registerTetheringEventCallback(eq(mITetheringEventCallback));
+        verify(mTethering).registerTetheringEventCallback(eq(mITetheringEventCallback),
+                TEST_PACKAGE);
     }
 
     @Test
@@ -631,7 +632,7 @@ public final class TetheringServiceTest {
                 callbacks.add((ITetheringEventCallback) args[0]);
                 registeredCv.open();
                 return null;
-            }).when(mTethering).registerTetheringEventCallback(any());
+            }).when(mTethering).registerTetheringEventCallback(any(), TEST_PACKAGE);
 
             doAnswer((invocation) -> {
                 final Object[] args = invocation.getArguments();
