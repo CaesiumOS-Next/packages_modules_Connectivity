@@ -18,6 +18,8 @@ package com.android.networkstack.tethering;
 
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.NETWORK_STACK;
+import static android.Manifest.permission.TETHER_PRIVILEGED;
+import static android.Manifest.permission.WRITE_SETTINGS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.hardware.usb.UsbManager.USB_CONFIGURED;
 import static android.hardware.usb.UsbManager.USB_CONNECTED;
@@ -219,10 +221,17 @@ public class Tethering {
      * Cookie added when registering {@link android.net.TetheringManager.TetheringEventCallback}.
      */
     private static class CallbackCookie {
+        public final boolean hasTetherPrivilegedPermission;
         public final boolean hasListClientsPermission;
+        public final int callerUid;
+        public final String callerPkg;
 
-        private CallbackCookie(boolean hasListClientsPermission) {
+        private CallbackCookie(boolean hasTetherPrivilegedPermission,
+                boolean hasListClientsPermission, int callerUid, String callerPkg) {
+            this.hasTetherPrivilegedPermission = hasTetherPrivilegedPermission;
             this.hasListClientsPermission = hasListClientsPermission;
+            this.callerUid = callerUid;
+            this.callerPkg = callerPkg;
         }
     }
 
@@ -1161,6 +1170,49 @@ public class Tethering {
         mNotificationUpdater.onDownstreamChanged(downstreamTypesMask);
     }
 
+    private TetherStatesParcel buildTetherStatesParcelForUid(
+            int uid,
+            @Nullable String packageName,
+            final ArrayList<TetheringInterface> available,
+            final ArrayList<TetheringInterface> localOnly,
+            final ArrayList<TetheringInterface> tethered,
+            final ArrayList<TetheringInterface> errored,
+            final ArrayList<Integer> lastErrors) {
+        final TetherStatesParcel parcel = new TetherStatesParcel();
+
+        for (TetheringInterface iface : available) {
+            TetheringRequest request = iface.getTetheringRequest();
+            if (request.getRequesterUid() == uid
+                    && Objects.equals(request.getRequesterPackageName(), packageName)) {
+            }
+        }
+        parcel.availableList = available.toArray(new TetheringInterface[0]);
+        parcel.tetheredList = tethered.toArray(new TetheringInterface[0]);
+        parcel.localOnlyList = localOnly.toArray(new TetheringInterface[0]);
+        parcel.erroredIfaceList = errored.toArray(new TetheringInterface[0]);
+        parcel.lastErrorList = new int[lastErrors.size()];
+        for (int i = 0; i < lastErrors.size(); i++) {
+            parcel.lastErrorList[i] = lastErrors.get(i);
+        }
+
+        // Only include TetheringRequest for callers that own it, or are privileged.
+        for (int i = 0; i < parcel.availableList.length; i++) {
+            TetheringInterface iface = parcel.availableList[i];
+            TetheringRequest request = iface.getTetheringRequest();
+            if (request == null) {
+                continue;
+            }
+            if ()
+            if (request.getRequesterUid() != uid
+                    || !Objects.equals(request.getRequesterPackageName(), packageName)) {
+                parcel.availableList[i] = new TetheringInterface(
+                        iface.getType(), iface.getInterface());
+            }
+        }
+
+        return parcel;
+    }
+
     private TetherStatesParcel buildTetherStatesParcel(
             final ArrayList<TetheringInterface> available,
             final ArrayList<TetheringInterface> localOnly,
@@ -1179,6 +1231,21 @@ public class Tethering {
         }
 
         return parcel;
+    }
+
+    private TetherStatesParcel redactTetherStatesParcel(
+            TetherStatesParcel states, int callerUid, @Nullable String callerPkg) {
+        TetherStatesParcel redacted = new TetherStatesParcel();
+        for (TetheringInterface iface : states.tetheredList) {
+            
+        }
+
+        redacted.availableList = Arrays.copyOf(states.availableList, states.availableList.length);
+        redacted.tetheredList = Arrays.copyOf(states.tetheredList, states.tetheredList.length);
+        redacted.localOnlyList = Arrays.copyOf(states.localOnlyList, states.localOnlyList.length);
+        redacted.erroredIfaceList = Arrays.copyOf(states.erroredIfaceList,
+                states.erroredIfaceList.length);
+        redacted.lastErrorList = Arrays.copyOf(states.lastErrorList, states.lastErrorList.length);
     }
 
     private Intent buildStateChangeIntent(final ArrayList<TetheringInterface> available,
@@ -2428,13 +2495,15 @@ public class Tethering {
     }
 
     /** Register tethering event callback */
-    void registerTetheringEventCallback(ITetheringEventCallback callback) {
+    void registerTetheringEventCallback(ITetheringEventCallback callback, String callerPkg) {
         final boolean hasListPermission =
                 hasCallingPermission(NETWORK_SETTINGS)
                         || hasCallingPermission(PERMISSION_MAINLINE_NETWORK_STACK)
                         || hasCallingPermission(NETWORK_STACK);
         mHandler.post(() -> {
-            mTetheringEventCallbacks.register(callback, new CallbackCookie(hasListPermission));
+            mTetheringEventCallbacks.register(callback, new CallbackCookie(
+                    hasCallingPermission(TETHER_PRIVILEGED), hasListPermission,
+                    Binder.getCallingUid(), callerPkg));
             final TetheringCallbackStartedParcel parcel = new TetheringCallbackStartedParcel();
             parcel.supportedTypes = mSupportedTypeBitmap;
             parcel.upstreamNetwork = mTetherUpstream;
@@ -2530,7 +2599,15 @@ public class Tethering {
         try {
             for (int i = 0; i < length; i++) {
                 try {
-                    mTetheringEventCallbacks.getBroadcastItem(i).onTetherStatesChanged(states);
+                    ITetheringEventCallback callback = mTetheringEventCallbacks.getBroadcastItem(i);
+                    CallbackCookie cookie =
+                            (CallbackCookie) mTetheringEventCallbacks.getBroadcastCookie(i);
+                    if (!cookie.hasTetherPrivilegedPermission) {
+                        callback.onTetherStatesChanged(redactTetherStatesParcel(
+                                states, cookie.callerUid, cookie.callerPkg));
+                        continue;
+                    }
+                    callback.onTetherStatesChanged(states);
                 } catch (RemoteException e) {
                     // Not really very much to do here.
                 }
