@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b0188d9_ca3d45f2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-01T15:00:52Z",
+      "side": 1,
+      "message": "nits: Can we remove this and make private?",
+      "range": {
+        "startLine": 1281,
+        "startChar": 5,
+        "endLine": 1281,
+        "endChar": 22
+      },
+      "revId": "0b4f5cdf8d7e76c7370627852812ccc2ca51c314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "313d9775_0882978e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 7497,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-01T15:00:52Z",
+      "side": 1,
+      "message": "nits: This should be renamed since this is now used to skip NetworkFactoryPermission check as well.",
+      "range": {
+        "startLine": 7497,
+        "startChar": 28,
+        "endLine": 7497,
+        "endChar": 60
+      },
+      "revId": "0b4f5cdf8d7e76c7370627852812ccc2ca51c314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98853203_29410a6b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 9087,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-01T15:00:52Z",
+      "side": 1,
+      "message": "I think this code could release valid LISTEN request.\nFor example if app has NetworkFactory permission, LISTEN request should be valid.",
+      "range": {
+        "startLine": 9087,
+        "startChar": 8,
+        "endLine": 9087,
+        "endChar": 9
+      },
+      "revId": "0b4f5cdf8d7e76c7370627852812ccc2ca51c314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3eb7b5a_6aa6e48b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 9103,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-01T15:00:52Z",
+      "side": 1,
+      "message": "@lorenzo@google.com\nCould you help to review this method which handles carrier privilege lost?\nEspecially I\u0027m not so sure if it\u0027s ok to post `EVENT_NETWORK_CAPABILITIES_CHANGED` with internal networkCapabilities from ConnectivityService. But I\u0027m not sure if we have better way to update networkCapabilities.",
+      "range": {
+        "startLine": 9103,
+        "startChar": 4,
+        "endLine": 9103,
+        "endChar": 5
+      },
+      "revId": "0b4f5cdf8d7e76c7370627852812ccc2ca51c314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59787980_dd37c9b4",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-01T15:00:52Z",
+      "side": 1,
+      "message": "nits: From the previous comment, I think flag check in ConnectivityService is enough for onCarrierPrivilegesLost callback.",
+      "range": {
+        "startLine": 157,
+        "startChar": 16,
+        "endLine": 157,
+        "endChar": 45
+      },
+      "revId": "0b4f5cdf8d7e76c7370627852812ccc2ca51c314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99067cba_d35d2652",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-01T15:00:52Z",
+      "side": 1,
+      "message": "I\u0027m not so sure when [ACTION_MULTI_SIM_CONFIG_CHANGED](https://developer.android.com/reference/android/telephony/TelephonyManager#ACTION_MULTI_SIM_CONFIG_CHANGED) is broadcasted.\nBut if the `simConfigChanged` is called, all the current CarrierPrivilege app will lose the Privilege.\nDo all the app actually lose the Privilege when `ACTION_MULTI_SIM_CONFIG_CHANGED` is broadcasted?\nIs it possible that some apps keep having CarrierPrivilege even after simConfigChanged?",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 179,
+        "endChar": 5
+      },
+      "revId": "0b4f5cdf8d7e76c7370627852812ccc2ca51c314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7e0e293_0fd133c2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 17369,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-01T15:00:52Z",
+      "side": 1,
+      "message": "Does this test fail on T+ devices?",
+      "range": {
+        "startLine": 17369,
+        "startChar": 5,
+        "endLine": 17369,
+        "endChar": 16
+      },
+      "revId": "0b4f5cdf8d7e76c7370627852812ccc2ca51c314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3880765b_08d43a13",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 17387,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-01T15:00:52Z",
+      "side": 1,
+      "message": "Does this test fail on T+ devices?",
+      "range": {
+        "startLine": 17387,
+        "startChar": 5,
+        "endLine": 17387,
+        "endChar": 16
+      },
+      "revId": "0b4f5cdf8d7e76c7370627852812ccc2ca51c314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7750d690_1e3c4244",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 17529,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-01T15:00:52Z",
+      "side": 1,
+      "message": "from the test name, should this be Process.myUid()?",
+      "range": {
+        "startLine": 17529,
+        "startChar": 62,
+        "endLine": 17529,
+        "endChar": 81
+      },
+      "revId": "0b4f5cdf8d7e76c7370627852812ccc2ca51c314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d337b5e0_5f8a06af",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 17560,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-01T15:00:52Z",
+      "side": 1,
+      "message": "should this be Process.myUid()?",
+      "range": {
+        "startLine": 17560,
+        "startChar": 62,
+        "endLine": 17560,
+        "endChar": 81
+      },
+      "revId": "0b4f5cdf8d7e76c7370627852812ccc2ca51c314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f59faa5_43b84621",
+        "filename": "tests/unit/java/com/android/server/connectivity/CarrierPrivilegeAuthenticatorTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-01T15:00:52Z",
+      "side": 1,
+      "message": "I feel this test is strange, I don\u0027t think mCarrierConfigPkgUid loses the CarrierPrivilege since packageManager#getApplicationInfo still returns mCarrierConfigPkgUid.\nMaybe we don\u0027t have this case on the real device?\nI think this is related to my comment on `simConfigChanged`",
+      "range": {
+        "startLine": 259,
+        "startChar": 4,
+        "endLine": 259,
+        "endChar": 5
+      },
+      "revId": "0b4f5cdf8d7e76c7370627852812ccc2ca51c314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

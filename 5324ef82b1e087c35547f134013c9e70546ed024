@@ -281,6 +281,30 @@
       },
       "revId": "5324ef82b1e087c35547f134013c9e70546ed024",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2c2e048_724d6f26",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 17472,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-01T15:00:52Z",
+      "side": 1,
+      "message": "We should make sure [onUnavailable](https://developer.android.com/reference/android/net/ConnectivityManager.NetworkCallback#onUnavailable()) is called.\nThis callback tell apps that the request is removed.\n\nonUnavailable is called from new code path you added.\nSo I want to make sure this.\n\nI think required change is the following and not complex.\n```\n   mWiFiAgent.connect(true);\n+  callback.expectAvailableThenValidatedCallbacks(mWiFiAgent);\n\n   carrierPrivilegesLostListener.onCarrierPrivilegesLost(Process.myUid());\n+  callback.expect(UNAVAILABLE);\n```",
+      "parentUuid": "e6e53f7d_69d967a8",
+      "range": {
+        "startLine": 17471,
+        "startChar": 0,
+        "endLine": 17472,
+        "endChar": 41
+      },
+      "revId": "5324ef82b1e087c35547f134013c9e70546ed024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
