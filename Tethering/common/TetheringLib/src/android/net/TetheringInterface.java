@@ -16,6 +16,7 @@
 
 package android.net;
 
+import android.annotation.FlaggedApi;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SystemApi;
@@ -33,15 +34,25 @@ import java.util.Objects;
 public final class TetheringInterface implements Parcelable {
     private final int mType;
     private final String mInterface;
+    @Nullable
+    private final TetheringManager.TetheringRequest mTetheringRequest;
 
     public TetheringInterface(@TetheringType int type, @NonNull String iface) {
+        this(type, iface, null);
+    }
+
+    @FlaggedApi(TetheringManager.Flags.TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+    public TetheringInterface(@TetheringType int type, @NonNull String iface,
+            @Nullable TetheringManager.TetheringRequest tetheringRequest) {
         Objects.requireNonNull(iface);
         mType = type;
         mInterface = iface;
+        mTetheringRequest = tetheringRequest;
     }
 
     private TetheringInterface(@NonNull Parcel in) {
-        this(in.readInt(), in.readString());
+        this(in.readInt(), in.readString(), in.readParcelable(
+                TetheringManager.TetheringRequest.class.getClassLoader()));
     }
 
     /** Get tethering type. */
@@ -55,10 +66,18 @@ public final class TetheringInterface implements Parcelable {
         return mInterface;
     }
 
+    /** Get the TetheringRequest that requested this interface, if any. */
+    @FlaggedApi(TetheringManager.Flags.TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+    @Nullable
+    public TetheringManager.TetheringRequest getTetheringRequest() {
+        return mTetheringRequest;
+    }
+
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeInt(mType);
         dest.writeString(mInterface);
+        dest.writeParcelable(mTetheringRequest, flags);
     }
 
     @Override

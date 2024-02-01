@@ -923,8 +923,8 @@ public class TetheringTest {
         mTethering.startTethering(request, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
 
-        assertEquals(1, mTethering.getActiveTetheringRequests().size());
-        assertEquals(request, mTethering.getActiveTetheringRequests().get(TETHERING_USB));
+        assertEquals(1, mTethering.getPendingTetheringRequests().size());
+        assertEquals(request, mTethering.getPendingTetheringRequests().get(TETHERING_USB));
 
         if (mTethering.getTetheringConfiguration().isUsingNcm()) {
             verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NCM);
@@ -934,6 +934,9 @@ public class TetheringTest {
             mTethering.interfaceStatusChanged(TEST_RNDIS_IFNAME, true);
         }
 
+        assertEquals(0, mTethering.getPendingTetheringRequests().size());
+        assertEquals(1, mTethering.getActiveTetheringRequests().size());
+        assertEquals(request, mTethering.getActiveTetheringRequests().get(TETHERING_USB));
     }
 
     @Test

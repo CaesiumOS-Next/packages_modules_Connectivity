@@ -21,8 +21,10 @@ package android.net {
 
   public final class TetheringInterface implements android.os.Parcelable {
     ctor public TetheringInterface(int, @NonNull String);
+    ctor @FlaggedApi("com.android.net.flags.tethering_request_with_soft_ap_config") public TetheringInterface(int, @NonNull String, @Nullable android.net.TetheringManager.TetheringRequest);
     method public int describeContents();
     method @NonNull public String getInterface();
+    method @FlaggedApi("com.android.net.flags.tethering_request_with_soft_ap_config") @Nullable public android.net.TetheringManager.TetheringRequest getTetheringRequest();
     method public int getType();
     method public void writeToParcel(@NonNull android.os.Parcel, int);
     field @NonNull public static final android.os.Parcelable.Creator<android.net.TetheringInterface> CREATOR;
@@ -95,13 +97,17 @@ package android.net {
     method public default void onUpstreamChanged(@Nullable android.net.Network);
   }
 
-  public static class TetheringManager.TetheringRequest {
+  public static class TetheringManager.TetheringRequest implements android.os.Parcelable {
+    ctor protected TetheringManager.TetheringRequest(@NonNull android.os.Parcel);
+    method @FlaggedApi("com.android.net.flags.tethering_request_with_soft_ap_config") public int describeContents();
     method @Nullable public android.net.LinkAddress getClientStaticIpv4Address();
     method public int getConnectivityScope();
     method @Nullable public android.net.LinkAddress getLocalIpv4Address();
     method public boolean getShouldShowEntitlementUi();
     method public int getTetheringType();
     method public boolean isExemptFromEntitlementCheck();
+    method @FlaggedApi("com.android.net.flags.tethering_request_with_soft_ap_config") public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @FlaggedApi("com.android.net.flags.tethering_request_with_soft_ap_config") @NonNull public static final android.os.Parcelable.Creator<android.net.TetheringManager.TetheringRequest> CREATOR;
   }
 
   public static class TetheringManager.TetheringRequest.Builder {
