@@ -54,7 +54,7 @@ cc_binary {
     required: ["bpfloader"],
 }
 
-// Versioned netbpfload init rc: init system will process it only on api V/35+ devices
+// Versioned netbpfload init rc: init system will process it only on api U/34+ devices
 // (TODO: consider reducing to T/33+ - adjust the comment up above in line 43 as well)
 // Note: S[31] Sv2[32] T[33] U[34] V[35])
 //
@@ -63,6 +63,6 @@ cc_binary {
 prebuilt_etc {
     name: "netbpfload.mainline.rc",
     src: "netbpfload.mainline.rc",
-    filename: "netbpfload.35rc",
+    filename: "netbpfload.34rc",
     installable: false,
 }
