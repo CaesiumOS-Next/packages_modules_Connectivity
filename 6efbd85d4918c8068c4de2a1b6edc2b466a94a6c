@@ -26,6 +26,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d797515_edcdb84d",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T06:27:04Z",
+      "side": 1,
+      "message": "nit: Br\n```suggestion\n    private void startBrLeader() throws Exception {\n```",
+      "revId": "6efbd85d4918c8068c4de2a1b6edc2b466a94a6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c729586a_d8cdf48c",
         "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
         "patchSetId": 8
@@ -43,6 +60,23 @@
         "endLine": 159,
         "endChar": 5
       },
+      "revId": "6efbd85d4918c8068c4de2a1b6edc2b466a94a6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3cbb050_7fc6e6c5",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T06:27:04Z",
+      "side": 1,
+      "message": "nit\n```suggestion\n        setUpInfraNetwork();\n```",
       "revId": "6efbd85d4918c8068c4de2a1b6edc2b466a94a6c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -89,6 +123,46 @@
         "endLine": 298,
         "endChar": 64
       },
+      "revId": "6efbd85d4918c8068c4de2a1b6edc2b466a94a6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7da6c6d6_ec3819aa",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T06:27:04Z",
+      "side": 1,
+      "message": "In the test case it\u0027s using multiple FTDs instead of EDs.",
+      "range": {
+        "startLine": 302,
+        "startChar": 59,
+        "endLine": 302,
+        "endChar": 61
+      },
+      "revId": "6efbd85d4918c8068c4de2a1b6edc2b466a94a6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0338b702_17851140",
+        "filename": "thread/tests/integration/src/android/net/thread/FullThreadDevice.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-01T06:27:04Z",
+      "side": 1,
+      "message": "```suggestion\n                        + ((source \u003d\u003d null) ? \"\" : (\" -I \" + source))\n```\nTo avoid confusion",
       "revId": "6efbd85d4918c8068c4de2a1b6edc2b466a94a6c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
