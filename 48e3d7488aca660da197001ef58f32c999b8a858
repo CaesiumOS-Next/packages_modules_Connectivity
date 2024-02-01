@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8baaaeec_dc50bb53",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-01T13:49:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48ebbc64_879eac5a",
+      "revId": "48e3d7488aca660da197001ef58f32c999b8a858",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1a09c0e_743f938d",
@@ -58,6 +76,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56396041_8429b235",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-01T13:49:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e037821_ae0cb305",
+      "range": {
+        "startLine": 102,
+        "startChar": 56,
+        "endLine": 102,
+        "endChar": 69
+      },
+      "revId": "48e3d7488aca660da197001ef58f32c999b8a858",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea8c51ff_5b78fdac",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-01T13:49:50Z",
+      "side": 1,
+      "message": "Added, but there is a race condition that I need to add a sleep() to workaround this. See b/323331973",
+      "parentUuid": "d1a09c0e_743f938d",
+      "revId": "48e3d7488aca660da197001ef58f32c999b8a858",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47f6b27b_405dbdbb",
@@ -75,6 +135,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeca738d_f4a24885",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-01T13:49:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47f6b27b_405dbdbb",
+      "revId": "48e3d7488aca660da197001ef58f32c999b8a858",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c69408ed_c49626fb",
@@ -88,6 +166,30 @@
       "writtenOn": "2024-02-01T10:05:23Z",
       "side": 1,
       "message": "nit: by\n```suggestion\n    // every 5 seconds, followed by 4 Parent Request every second. So this value needs to be 40\n```",
+      "range": {
+        "startLine": 55,
+        "startChar": 33,
+        "endLine": 55,
+        "endChar": 35
+      },
+      "revId": "48e3d7488aca660da197001ef58f32c999b8a858",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0caf6e0_3cf6fca0",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-01T13:49:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c69408ed_c49626fb",
       "range": {
         "startLine": 55,
         "startChar": 33,
