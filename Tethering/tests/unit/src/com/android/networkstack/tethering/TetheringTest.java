@@ -768,7 +768,7 @@ public class TetheringTest {
     @NonNull
     private TestTetheringEventCallback registerTetheringEventCallback() {
         TestTetheringEventCallback callback = new TestTetheringEventCallback();
-        mTethering.registerTetheringEventCallback(callback);
+        mTethering.registerTetheringEventCallback(callback, TEST_PACKAGE);
         mLooper.dispatchAll();
         // Pull the first event which is filed immediately after the callback registration.
         callback.expectUpstreamChanged(NULL_NETWORK);
@@ -2438,7 +2438,7 @@ public class TetheringTest {
                 TETHERING_WIFI, TEST_WLAN_IFNAME, tetheringRequest);
 
         // 1. Register one callback before running any tethering.
-        mTethering.registerTetheringEventCallback(callback);
+        mTethering.registerTetheringEventCallback(callback, TEST_PACKAGE);
         mLooper.dispatchAll();
         callback.expectTetheredClientChanged(Collections.emptyList());
         callback.expectUpstreamChanged(NULL_NETWORK);
@@ -2465,7 +2465,7 @@ public class TetheringTest {
         callback.expectOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STARTED);
 
         // 3. Register second callback.
-        mTethering.registerTetheringEventCallback(callback2);
+        mTethering.registerTetheringEventCallback(callback2, TEST_PACKAGE);
         mLooper.dispatchAll();
         callback2.expectTetheredClientChanged(Collections.emptyList());
         callback2.expectUpstreamChanged(upstreamState.network);
@@ -2499,7 +2499,7 @@ public class TetheringTest {
         initTetheringOnTestThread();
         final UpstreamNetworkState upstreamState = buildMobileDualStackUpstreamState();
         TestTetheringEventCallback callback = new TestTetheringEventCallback();
-        mTethering.registerTetheringEventCallback(callback);
+        mTethering.registerTetheringEventCallback(callback, TEST_PACKAGE);
         mLooper.dispatchAll();
         callback.expectOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STOPPED);
 
@@ -3145,7 +3145,7 @@ public class TetheringTest {
         initTetheringOnTestThread();
         TestTetheringEventCallback callback = new TestTetheringEventCallback();
         runAsShell(NETWORK_SETTINGS, () -> {
-            mTethering.registerTetheringEventCallback(callback);
+            mTethering.registerTetheringEventCallback(callback, TEST_PACKAGE);
             mLooper.dispatchAll();
         });
         callback.expectTetheredClientChanged(Collections.emptyList());
@@ -3183,7 +3183,7 @@ public class TetheringTest {
         // Test onStarted callback that register second callback when tethering is running.
         TestTetheringEventCallback callback2 = new TestTetheringEventCallback();
         runAsShell(NETWORK_SETTINGS, () -> {
-            mTethering.registerTetheringEventCallback(callback2);
+            mTethering.registerTetheringEventCallback(callback2, TEST_PACKAGE);
             mLooper.dispatchAll();
         });
         callback2.expectTetheredClientChanged(connectedClients);
@@ -3195,7 +3195,7 @@ public class TetheringTest {
         initTetheringOnTestThread();
         TestTetheringEventCallback callback = new TestTetheringEventCallback();
         runAsShell(NETWORK_SETTINGS, () -> {
-            mTethering.registerTetheringEventCallback(callback);
+            mTethering.registerTetheringEventCallback(callback, TEST_PACKAGE);
             mLooper.dispatchAll();
         });
         callback.expectTetheredClientChanged(Collections.emptyList());
@@ -3228,7 +3228,7 @@ public class TetheringTest {
         initTetheringOnTestThread();
         TestTetheringEventCallback callback = new TestTetheringEventCallback();
         runAsShell(NETWORK_SETTINGS, () -> {
-            mTethering.registerTetheringEventCallback(callback);
+            mTethering.registerTetheringEventCallback(callback, TEST_PACKAGE);
             mLooper.dispatchAll();
         });
         callback.expectTetheredClientChanged(Collections.emptyList());
@@ -3654,7 +3654,7 @@ public class TetheringTest {
         final ArraySet<Integer> expectedTypes = getAllSupportedTetheringTypes();
         // Check tethering is supported after initialization.
         TestTetheringEventCallback callback = new TestTetheringEventCallback();
-        mTethering.registerTetheringEventCallback(callback);
+        mTethering.registerTetheringEventCallback(callback, TEST_PACKAGE);
         mLooper.dispatchAll();
         verifySupported(callback, expectedTypes);
 
