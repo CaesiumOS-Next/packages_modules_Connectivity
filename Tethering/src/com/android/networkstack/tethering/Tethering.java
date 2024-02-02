@@ -727,7 +727,7 @@ public class Tethering {
         int result = TETHER_ERROR_NO_ERROR;
         switch (request.tetheringType) {
             case TETHERING_WIFI:
-                result = setWifiTethering(enable);
+                result = setWifiTethering(enable, request);
                 break;
             case TETHERING_USB:
                 result = setUsbTethering(enable);
@@ -777,7 +777,7 @@ public class Tethering {
         }
     }
 
-    private int setWifiTethering(final boolean enable) {
+    private int setWifiTethering(final boolean enable, TetheringRequestParcel request) {
         final long ident = Binder.clearCallingIdentity();
         try {
             final WifiManager mgr = getWifiManager();
@@ -785,7 +785,7 @@ public class Tethering {
                 mLog.e("setWifiTethering: failed to get WifiManager!");
                 return TETHER_ERROR_SERVICE_UNAVAIL;
             }
-            if ((enable && mgr.startTetheredHotspot(null /* use existing softap config */))
+            if ((enable && mgr.startTetheredHotspot(request.softApConfig))
                     || (!enable && mgr.stopSoftAp())) {
                 mWifiTetherRequested = enable;
                 return TETHER_ERROR_NO_ERROR;
