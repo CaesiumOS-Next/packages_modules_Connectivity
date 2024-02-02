@@ -26,6 +26,7 @@ import android.annotation.RequiresPermission;
 import android.annotation.SuppressLint;
 import android.annotation.SystemApi;
 import android.content.Context;
+import android.net.wifi.SoftApConfiguration;
 import android.os.Bundle;
 import android.os.ConditionVariable;
 import android.os.IBinder;
@@ -799,6 +800,17 @@ public class TetheringManager {
                 return this;
             }
 
+            /**
+             * Set the desired SoftApConfiguration of the request, if one was specified. This only
+             * applies to requests for TETHERING_WIFI.
+             */
+            @FlaggedApi(Flags.TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+            @NonNull
+            public Builder setSoftApConfiguration(@NonNull SoftApConfiguration softApConfig) {
+                mBuilderParcel.softApConfig = softApConfig;
+                return this;
+            }
+
             /** Build {@link TetheringRequest} with the currently set configuration. */
             @NonNull
             public TetheringRequest build() {
@@ -877,6 +889,15 @@ public class TetheringManager {
         private static boolean checkConnectivityScope(int type, int scope) {
             if (scope == CONNECTIVITY_SCOPE_GLOBAL) return true;
             return type == TETHERING_USB || type == TETHERING_ETHERNET || type == TETHERING_NCM;
+        }
+
+        /**
+         * Get the desired SoftApConfiguration of the request, if one was specified.
+         */
+        @FlaggedApi(Flags.TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+        @Nullable
+        public SoftApConfiguration getSoftApConfiguration() {
+            return mRequestParcel.softApConfig;
         }
 
         /**
