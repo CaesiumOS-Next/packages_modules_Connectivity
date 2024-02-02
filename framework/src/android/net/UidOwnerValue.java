@@ -32,8 +32,17 @@ public class UidOwnerValue extends Struct {
     @Field(order = 1, type = Type.U32)
     public final long rule;
 
-    public UidOwnerValue(final int iif, final long rule) {
+    // ...
+    @Field(order = 2, type = Type.U32)
+    public final long unblocked_tag;
+
+    public UidOwnerValue(final int iif, final long rule, final long unblocked_tag) {
         this.iif = iif;
         this.rule = rule;
+        this.unblocked_tag = unblocked_tag;
+    }
+
+    public UidOwnerValue(final int iif, final long rule) {
+        this(iif, rule, 0);
     }
 }
