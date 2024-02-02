@@ -34,10 +34,15 @@
 
 using android::bpf::bpfGetUidStats;
 using android::bpf::bpfGetIfaceStats;
+using android::bpf::bpfInit;
 using android::bpf::bpfRegisterIface;
 using android::bpf::NetworkTraceHandler;
 
 namespace android {
+
+static void nativeInit(JNIEnv* env, jclass clazz) {
+    bpfInit();
+}
 
 static void nativeRegisterIface(JNIEnv* env, jclass clazz, jstring iface) {
     ScopedUtfChars iface8(env, iface);
@@ -113,6 +118,11 @@ static void nativeInitNetworkTracing(JNIEnv* env, jclass clazz) {
 }
 
 static const JNINativeMethod gMethods[] = {
+        {
+            "nativeInit",
+            "()V",
+            (void*)nativeInit
+        },
         {
             "nativeRegisterIface",
             "(Ljava/lang/String;)V",
