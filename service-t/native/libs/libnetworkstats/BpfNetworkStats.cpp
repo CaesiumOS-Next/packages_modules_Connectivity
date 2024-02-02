@@ -45,8 +45,8 @@ BpfMap<uint32_t, IfaceValue>& getIfaceIndexNameMap() {
     return ifaceIndexNameMap;
 }
 
-const BpfMapRO<uint32_t, StatsValue>& getIfaceStatsMap() {
-    static BpfMapRO<uint32_t, StatsValue> ifaceStatsMap(IFACE_STATS_MAP_PATH);
+BpfMap<uint32_t, StatsValue>& getIfaceStatsMap() {
+    static BpfMap<uint32_t, StatsValue> ifaceStatsMap(IFACE_STATS_MAP_PATH);
     return ifaceStatsMap;
 }
 
@@ -67,6 +67,17 @@ void bpfRegisterIface(const char* iface) {
     IfaceValue ifname = {};
     strlcpy(ifname.name, iface, sizeof(ifname.name));
     getIfaceIndexNameMap().writeValue(ifindex, ifname, BPF_ANY);
+}
+
+void bpfInit(void) {
+    static bool initialized = false;
+    if (initialized) abort();
+
+    getIfaceStatsMap().clear();
+    getIfaceIndexNameMap().clear();
+    bpfRegisterIface("lo");
+
+    initialized = true;
 }
 
 int bpfGetUidStatsInternal(uid_t uid, StatsValue* stats,

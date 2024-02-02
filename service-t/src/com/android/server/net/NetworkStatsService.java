@@ -618,6 +618,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         if (!mStatsDir.exists()) {
             throw new IllegalStateException("Persist data directory does not exist: " + mStatsDir);
         }
+        nativeInit();
 
         final HandlerThread handlerThread = mDeps.makeHandlerThread();
         handlerThread.start();
@@ -3414,7 +3415,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
     }
 
-    // TODO: Read stats by using BpfNetMapsReader.
+    // Note: nativeInit clears the maps
+    private static native void nativeInit();
     private static native void nativeRegisterIface(String iface);
     @Nullable
     private static native NetworkStats.Entry nativeGetTotalStat();
