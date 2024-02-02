@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10d6929e_f0b880f8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-02T17:50:19Z",
+      "side": 1,
+      "message": "You are right, changed to private",
+      "parentUuid": "2cfe2150_13355b93",
+      "range": {
+        "startLine": 1281,
+        "startChar": 5,
+        "endLine": 1281,
+        "endChar": 22
+      },
+      "revId": "0b4f5cdf8d7e76c7370627852812ccc2ca51c314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "313d9775_0882978e",
@@ -297,6 +321,30 @@
       "side": 1,
       "message": "`isCarrierServiceUidForNetworkCapabilities` returns false while temporary CarrierPrivilege lost.\nThis is the existing issue.\n\nHowever, after your change, every temporary lost will call `onCarrierPrivilegesLost` callback and network requests are removed, in my understanding.\n\nshould we avoid calling `onCarrierPrivilegesLost` for temporary loss?\nOtherwise, request from CarrierPrivilege app is removed and network could be turn down.\nOr we don\u0027t need to worry about this?\n\nI thought we can fix this by calling notifyCarrierPrivilegesLost from simConfigChanged instead of unregisterCarrierPrivilegesListeners.\n```\n    private void simConfigChanged() {\n        synchronized (mLock) {\n            // copy the current uids\n            SparseIntArray oldCarrierServiceUid \u003d mCarrierServiceUid.clone();\n            \n            unregisterCarrierPrivilegesListeners();\n            mModemCount \u003d mTelephonyManager.getActiveModemCount();\n            registerCarrierPrivilegesListeners(mModemCount);\n            updateCarrierServiceUid();\n            \n            // call notifyCarrierPrivilegesLost for uids that lost CarrierPrivilege\n        }\n    }\n\n```",
       "parentUuid": "3cd84b89_dd1523fc",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 179,
+        "endChar": 5
+      },
+      "revId": "0b4f5cdf8d7e76c7370627852812ccc2ca51c314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4e14f11_6f004623",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-02T17:50:19Z",
+      "side": 1,
+      "message": "Since we plan to only enable this new feature after the \"mUseCallbacksForServiceChanged\" is rolled out, it doesn\u0027t make sense to do the notifyCarrierPrivilegesLost in simConfigChanged. Because once \"mUseCallbacksForServiceChanged\" is rolled out, we will not call updateCarrierServiceUid() in simConfigChanged, instead we will simply clear all the mCarrierServiceUid, register the listener and rely on the callbacks to update the mCarrierServiceUid. My proposal is that we should still do the notifyCarrierPrivilegesLost in the unregisterCarrierPrivilegesListeners, even though the Carrier Privileges would be lost temporarily, it may take some time for it to comes back, so it makes sense to me to bring down the restricted network which belongs to that Carrier app. Changing the sim config will result in reloading all the SIM profiles, so it actually makes sense to assume that the Carrier Privileges is lost during that period.",
+      "parentUuid": "cead1ad6_95f658d0",
       "range": {
         "startLine": 179,
         "startChar": 4,

@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0e21ea6_06abd371",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 9081,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-02T17:50:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "979e1835_ba72665a",
+      "range": {
+        "startLine": 9081,
+        "startChar": 16,
+        "endLine": 9081,
+        "endChar": 55
+      },
+      "revId": "5b26bfab2829cdb7c953427ed1f585529fe4828b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a9483b7_cc3443ef",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26620f64_f104204f",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-02T17:50:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a9483b7_cc3443ef",
+      "range": {
+        "startLine": 166,
+        "startChar": 16,
+        "endLine": 166,
+        "endChar": 45
+      },
+      "revId": "5b26bfab2829cdb7c953427ed1f585529fe4828b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33c4ad7a_056482f4",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-02-02T13:50:13Z",
       "side": 1,
       "message": "ditto, we can remove this flag check as well.",
+      "range": {
+        "startLine": 220,
+        "startChar": 13,
+        "endLine": 220,
+        "endChar": 42
+      },
+      "revId": "5b26bfab2829cdb7c953427ed1f585529fe4828b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb864277_d4558bf3",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-02T17:50:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33c4ad7a_056482f4",
       "range": {
         "startLine": 220,
         "startChar": 13,
