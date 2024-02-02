@@ -159,9 +159,11 @@ import android.net.dhcp.IDhcpServer;
 import android.net.ip.DadProxy;
 import android.net.ip.IpServer;
 import android.net.ip.RouterAdvertisementDaemon;
+import android.net.wifi.SoftApConfiguration;
 import android.net.wifi.WifiClient;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.SoftApCallback;
+import android.net.wifi.WifiSsid;
 import android.net.wifi.p2p.WifiP2pGroup;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
@@ -219,6 +221,7 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -743,12 +746,13 @@ public class TetheringTest {
     }
 
     private TetheringRequestParcel createTetheringRequestParcel(final int type) {
-        return createTetheringRequestParcel(type, null, null, false, CONNECTIVITY_SCOPE_GLOBAL);
+        return createTetheringRequestParcel(type, null, null, false, CONNECTIVITY_SCOPE_GLOBAL,
+                null);
     }
 
     private TetheringRequestParcel createTetheringRequestParcel(final int type,
             final LinkAddress serverAddr, final LinkAddress clientAddr, final boolean exempt,
-            final int scope) {
+            final int scope, final SoftApConfiguration softApConfig) {
         final TetheringRequestParcel request = new TetheringRequestParcel();
         request.tetheringType = type;
         request.localIPv4Address = serverAddr;
@@ -756,6 +760,7 @@ public class TetheringTest {
         request.exemptFromEntitlementCheck = exempt;
         request.showProvisioningUi = false;
         request.connectivityScope = scope;
+        request.softApConfig = softApConfig;
 
         return request;
     }
@@ -1999,12 +2004,16 @@ public class TetheringTest {
         initTetheringOnTestThread();
         when(mWifiManager.startTetheredHotspot(any())).thenReturn(true);
         ResultListener resultListener = new ResultListener(TETHER_ERROR_NO_ERROR);
-        TetheringRequestParcel tetheringRequest = createTetheringRequestParcel(TETHERING_WIFI);
+        SoftApConfiguration softApConfig = new SoftApConfiguration.Builder()
+                .setWifiSsid(WifiSsid.fromBytes("I'm a Soft AP config!".getBytes(
+                        StandardCharsets.UTF_8))).build();
+        TetheringRequestParcel tetheringRequest =  createTetheringRequestParcel(TETHERING_WIFI,
+                null, null, true, CONNECTIVITY_SCOPE_GLOBAL, softApConfig);
 
         // Emulate pressing the WiFi tethering button.
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, resultListener);
         mLooper.dispatchAll();
-        verify(mWifiManager, times(1)).startTetheredHotspot(null);
+        verify(mWifiManager, times(1)).startTetheredHotspot(softApConfig);
 
         // Another start tethering call happens before Soft AP is started. startTetheredHotspot
         // returns false here as Wifi will reject any new tethered hotspot requests if hotspot is
@@ -2013,7 +2022,7 @@ public class TetheringTest {
         ResultListener resultListener2 = new ResultListener(TETHER_ERROR_INTERNAL_ERROR);
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, resultListener2);
         mLooper.dispatchAll();
-        verify(mWifiManager, times(2)).startTetheredHotspot(null);
+        verify(mWifiManager, times(2)).startTetheredHotspot(softApConfig);
         verifyNoMoreInteractions(mWifiManager);
         verifyNoMoreInteractions(mNetd);
         resultListener2.assertHasResult();
@@ -2041,24 +2050,31 @@ public class TetheringTest {
         initTetheringOnTestThread();
         when(mWifiManager.startTetheredHotspot(any())).thenReturn(true);
         ResultListener resultListener = new ResultListener(TETHER_ERROR_NO_ERROR);
-        TetheringRequestParcel tetheringRequest = createTetheringRequestParcel(TETHERING_WIFI);
+        SoftApConfiguration softApConfig = new SoftApConfiguration.Builder().setWifiSsid(
+                WifiSsid.fromBytes("I'm a Soft AP config!".getBytes(StandardCharsets.UTF_8)))
+                .build();
+        TetheringRequestParcel tetheringRequest =  createTetheringRequestParcel(TETHERING_WIFI,
+                null, null, true, CONNECTIVITY_SCOPE_GLOBAL, softApConfig);
 
         // Emulate pressing the WiFi tethering button.
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, resultListener);
         mLooper.dispatchAll();
-        verify(mWifiManager, times(1)).startTetheredHotspot(null);
+        verify(mWifiManager, times(1)).startTetheredHotspot(softApConfig);
         verifyNoMoreInteractions(mNetd);
 
         // Another start tethering call happens before Soft AP is started. startTetheredHotspot
         // returns false here as Wifi will reject any new tethered hotspot requests if hotspot is
         // already enabled/enabling, causing the second request to fail.
+        SoftApConfiguration softApConfig2 = new SoftApConfiguration.Builder().setWifiSsid(
+                WifiSsid.fromBytes("I'm another Soft AP config!".getBytes(StandardCharsets.UTF_8)))
+                .build();
         TetheringRequestParcel tetheringRequest2 = createTetheringRequestParcel(TETHERING_WIFI,
-                null, null, true, CONNECTIVITY_SCOPE_GLOBAL);
+                null, null, true, CONNECTIVITY_SCOPE_GLOBAL, softApConfig2);
         when(mWifiManager.startTetheredHotspot(any())).thenReturn(false);
         ResultListener resultListener2 = new ResultListener(TETHER_ERROR_INTERNAL_ERROR);
         mTethering.startTethering(tetheringRequest2, TEST_CALLER_PKG, resultListener2);
         mLooper.dispatchAll();
-        verify(mWifiManager, times(2)).startTetheredHotspot(null);
+        verify(mWifiManager, times(1)).startTetheredHotspot(softApConfig2);
         verifyNoMoreInteractions(mWifiManager);
         verifyNoMoreInteractions(mNetd);
         resultListener2.assertHasResult();
@@ -2768,7 +2784,7 @@ public class TetheringTest {
         // Enable USB tethering with a different request and expect that USB is stopped and
         // started.
         mTethering.startTethering(createTetheringRequestParcel(TETHERING_USB,
-                  serverLinkAddr, clientLinkAddr, false, CONNECTIVITY_SCOPE_GLOBAL),
+                  serverLinkAddr, clientLinkAddr, false, CONNECTIVITY_SCOPE_GLOBAL, null),
                   TEST_CALLER_PKG, thirdResult);
         mLooper.dispatchAll();
         thirdResult.assertHasResult();
@@ -2799,7 +2815,7 @@ public class TetheringTest {
         final ArgumentCaptor<DhcpServingParamsParcel> dhcpParamsCaptor =
                 ArgumentCaptor.forClass(DhcpServingParamsParcel.class);
         mTethering.startTethering(createTetheringRequestParcel(TETHERING_USB,
-                  serverLinkAddr, clientLinkAddr, false, CONNECTIVITY_SCOPE_GLOBAL),
+                  serverLinkAddr, clientLinkAddr, false, CONNECTIVITY_SCOPE_GLOBAL, null),
                   TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
         verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_NCM);
@@ -2928,7 +2944,7 @@ public class TetheringTest {
         setupForRequiredProvisioning();
         final TetheringRequestParcel wifiNotExemptRequest =
                 createTetheringRequestParcel(TETHERING_WIFI, null, null, false,
-                        CONNECTIVITY_SCOPE_GLOBAL);
+                        CONNECTIVITY_SCOPE_GLOBAL, null);
         mTethering.startTethering(wifiNotExemptRequest, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
         verify(mEntitleMgr).startProvisioningIfNeeded(TETHERING_WIFI, false);
@@ -2942,7 +2958,7 @@ public class TetheringTest {
         setupForRequiredProvisioning();
         final TetheringRequestParcel wifiExemptRequest =
                 createTetheringRequestParcel(TETHERING_WIFI, null, null, true,
-                        CONNECTIVITY_SCOPE_GLOBAL);
+                        CONNECTIVITY_SCOPE_GLOBAL, null);
         mTethering.startTethering(wifiExemptRequest, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
         verify(mEntitleMgr, never()).startProvisioningIfNeeded(TETHERING_WIFI, false);
