@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54091f68_9bc22ca3",
+        "filename": "thread/service/java/com/android/server/thread/NsdPublisher.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-02T06:23:58Z",
+      "side": 1,
+      "message": "better to throw",
+      "range": {
+        "startLine": 177,
+        "startChar": 2,
+        "endLine": 182,
+        "endChar": 49
+      },
+      "revId": "30168aef32abe9733b959f1a989b1d0c90c4fe11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
