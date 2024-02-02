@@ -682,7 +682,8 @@ public class Tethering {
                 if (request.tetheringType != TETHERING_WIFI) {
                     // Wifi will handle teardown/bringup of Soft AP through startTetheredHotspot, so
                     // don't call stopSoftAP for this.
-                    enableTetheringInternal(request.tetheringType, false /* disabled */, null);
+                    enableTetheringInternal(request.tetheringType, false, request,
+                            /* disabled */  null);
                 }
                 mEntitlementMgr.stopProvisioningIfNeeded(request.tetheringType);
             }
@@ -694,7 +695,7 @@ public class Tethering {
                 mEntitlementMgr.startProvisioningIfNeeded(request.tetheringType,
                         request.showProvisioningUi);
             }
-            enableTetheringInternal(request.tetheringType, true /* enabled */, listener);
+            enableTetheringInternal(request.tetheringType, true, request,  /* enabled */  listener);
             mTetheringMetrics.createBuilder(request.tetheringType, callerPkg);
         });
     }
@@ -705,7 +706,7 @@ public class Tethering {
         });
     }
     void stopTetheringInternal(int type) {
-        enableTetheringInternal(type, false /* disabled */, null);
+        enableTetheringInternal(type, false,  /* request */  null,  /* disabled */  null);
         mEntitlementMgr.stopProvisioningIfNeeded(type);
     }
 
@@ -714,11 +715,12 @@ public class Tethering {
      * schedule provisioning rechecks for the specified interface.
      */
     private void enableTetheringInternal(int type, boolean enable,
+            @Nullable TetheringRequestParcel request,
             final IIntResultListener listener) {
         int result = TETHER_ERROR_NO_ERROR;
         switch (type) {
             case TETHERING_WIFI:
-                result = setWifiTethering(enable);
+                result = setWifiTethering(enable, request);
                 break;
             case TETHERING_USB:
                 result = setUsbTethering(enable);
@@ -767,7 +769,7 @@ public class Tethering {
         }
     }
 
-    private int setWifiTethering(final boolean enable) {
+    private int setWifiTethering(final boolean enable, TetheringRequestParcel request) {
         final long ident = Binder.clearCallingIdentity();
         try {
             final WifiManager mgr = getWifiManager();
@@ -775,7 +777,7 @@ public class Tethering {
                 mLog.e("setWifiTethering: failed to get WifiManager!");
                 return TETHER_ERROR_SERVICE_UNAVAIL;
             }
-            if ((enable && mgr.startTetheredHotspot(null /* use existing softap config */))
+            if ((enable && mgr.startTetheredHotspot(request.softApConfig))
                     || (!enable && mgr.stopSoftAp())) {
                 mWifiTetherRequested = enable;
                 return TETHER_ERROR_NO_ERROR;
@@ -2220,7 +2222,7 @@ public class Tethering {
                     case EVENT_REQUEST_CHANGE_DOWNSTREAM: {
                         final int tetheringType = message.arg1;
                         final Boolean enabled = (Boolean) message.obj;
-                        enableTetheringInternal(tetheringType, enabled, null);
+                        enableTetheringInternal(tetheringType, enabled, null, null);
                         break;
                     }
                     default:
