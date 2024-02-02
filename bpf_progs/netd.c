@@ -398,7 +398,8 @@ static __always_inline inline bool ingress_should_discard(struct __sk_buff* skb,
     return true;  // disallowed interface
 }
 
-static __always_inline inline int bpf_owner_match(struct __sk_buff* skb, uint32_t uid,
+static __always_inline inline int bpf_owner_match(struct __sk_buff* skb,
+                                                  uint32_t uid, uint32_t tag,
                                                   const struct egress_bool egress,
                                                   const struct kver_uint kver) {
     if (is_system_uid(uid)) return PASS;
@@ -410,6 +411,12 @@ static __always_inline inline int bpf_owner_match(struct __sk_buff* skb, uint32_
     UidOwnerValue* uidEntry = bpf_uid_owner_map_lookup_elem(&uid);
     uint32_t uidRules = uidEntry ? uidEntry->rule : 0;
     uint32_t allowed_iif = uidEntry ? uidEntry->iif : 0;
+    uint32_t unblocked_tag = uidEntry ? uidEntry->unblocked_tag : 0;
+
+    if (uidRules & HARDBLOCK_MATCH) {
+        if (!unblocked_tag) return DROP;
+        if (unblocked_tag != tag) return DROP;
+    }
 
     if (isBlockedByUidRules(enabledRules, uidRules)) return DROP;
 
@@ -464,7 +471,7 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb,
     // CLAT daemon receives via an untagged AF_PACKET socket.
     if (egress.egress && uid == AID_CLAT) return PASS;
 
-    int match = bpf_owner_match(skb, sock_uid, egress, kver);
+    int match = bpf_owner_match(skb, sock_uid, tag, egress, kver);
 
 // Workaround for secureVPN with VpnIsolation enabled, refer to b/159994981 for details.
 // Keep TAG_SYSTEM_DNS in sync with DnsResolver/include/netd_resolv/resolv.h

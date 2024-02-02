@@ -192,7 +192,8 @@ enum UidOwnerMatchType {
     OEM_DENY_1_MATCH = (1 << 9),
     OEM_DENY_2_MATCH = (1 << 10),
     OEM_DENY_3_MATCH = (1 << 11),
-    BACKGROUND_MATCH = (1 << 12)
+    BACKGROUND_MATCH = (1 << 12),
+    HARDBLOCK_MATCH = (1 << 13),
 };
 // LINT.ThenChange(../framework/src/android/net/BpfNetMapsConstants.java)
 
@@ -218,8 +219,10 @@ typedef struct {
     uint32_t iif;
     // A bitmask of enum values in UidOwnerMatchType.
     uint32_t rule;
+    // A socket tag value for this uid which isn't blocked.
+    uint32_t unblocked_tag;
 } UidOwnerValue;
-STRUCT_SIZE(UidOwnerValue, 2 * 4);  // 8
+STRUCT_SIZE(UidOwnerValue, 3 * 4);  // 12
 
 typedef struct {
     // The destination ip of the incoming packet.  IPv4 uses IPv4-mapped IPv6 address format.
