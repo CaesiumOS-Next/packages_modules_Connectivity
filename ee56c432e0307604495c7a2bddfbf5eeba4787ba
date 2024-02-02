@@ -16,6 +16,24 @@
       "message": "Leaving this is the right thing to do, but it doesn\u0027t match the downstream change which removed it.\n\nCould you make another change in main to put it back ? Or alternatively you can revert the previous change in main, wait for the TH builds on main to include the revert, and merge this one without a Merged-In so it just flows down.",
       "revId": "ee56c432e0307604495c7a2bddfbf5eeba4787ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2975309_094dea83",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1535516
+      },
+      "writtenOn": "2024-02-02T02:08:10Z",
+      "side": 1,
+      "message": "Yes, I\u0027ll do a diff of connectivity on aosp vs internal and try to bring them back in line with each other.",
+      "parentUuid": "374891c3_184eaa17",
+      "revId": "ee56c432e0307604495c7a2bddfbf5eeba4787ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
