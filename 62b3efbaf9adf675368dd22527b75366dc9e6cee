@@ -22,6 +22,30 @@
       },
       "revId": "62b3efbaf9adf675368dd22527b75366dc9e6cee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d99607a8_9a48f2f0",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-02T01:33:20Z",
+      "side": 1,
+      "message": "Hmm no I think this will have the whole string list in the fail assertion\n\nSince the fail message should be something like:\n\n```\nSome callbacks had errors: [\"TetheringEventCallback got error X on iface Y\", \"Should only call callback that takes a Set\u003cTetheringInterface\u003e\"]\n```",
+      "parentUuid": "c37baa51_927fbaba",
+      "range": {
+        "startLine": 290,
+        "startChar": 49,
+        "endLine": 290,
+        "endChar": 64
+      },
+      "revId": "62b3efbaf9adf675368dd22527b75366dc9e6cee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
