@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c43ff0b1_7101cbd7",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1569,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-02T01:56:13Z",
+      "side": 1,
+      "message": "Renamed all to _subtype1 and _subtype2, this should be clearer",
+      "parentUuid": "aec850bf_422478a9",
+      "range": {
+        "startLine": 1569,
+        "startChar": 21,
+        "endLine": 1569,
+        "endChar": 28
+      },
+      "revId": "421b9d783eb95cd0b1d8cdd8550fb86201ceddbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10b07d59_688c3acb",
@@ -78,6 +102,30 @@
       "writtenOn": "2024-01-31T09:36:25Z",
       "side": 1,
       "message": "Nit: Now is `_othersub`",
+      "range": {
+        "startLine": 1591,
+        "startChar": 33,
+        "endLine": 1591,
+        "endChar": 41
+      },
+      "revId": "421b9d783eb95cd0b1d8cdd8550fb86201ceddbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a00d1bbc_1ac3b919",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1591,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-02T01:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10b07d59_688c3acb",
       "range": {
         "startLine": 1591,
         "startChar": 33,
@@ -111,6 +159,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3557e2a0_4c7ae2c5",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1605,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-02T01:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16202b7a_56eda997",
+      "range": {
+        "startLine": 1605,
+        "startChar": 61,
+        "endLine": 1605,
+        "endChar": 72
+      },
+      "revId": "421b9d783eb95cd0b1d8cdd8550fb86201ceddbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54c4c885_a30ad42a",
@@ -134,6 +206,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5515d37_0db26a07",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1620,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-02T01:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54c4c885_a30ad42a",
+      "range": {
+        "startLine": 1620,
+        "startChar": 33,
+        "endLine": 1620,
+        "endChar": 42
+      },
+      "revId": "421b9d783eb95cd0b1d8cdd8550fb86201ceddbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "092ad5d2_1a4959b9",
@@ -147,6 +243,30 @@
       "writtenOn": "2024-01-31T09:36:25Z",
       "side": 1,
       "message": "Nit: subtype",
+      "range": {
+        "startLine": 1634,
+        "startChar": 61,
+        "endLine": 1634,
+        "endChar": 72
+      },
+      "revId": "421b9d783eb95cd0b1d8cdd8550fb86201ceddbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b75623c_49d4dc23",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1634,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-02T01:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "092ad5d2_1a4959b9",
       "range": {
         "startLine": 1634,
         "startChar": 61,
