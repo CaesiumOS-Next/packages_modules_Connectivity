@@ -42,6 +42,7 @@ import android.net.thread.IOperationReceiver;
 import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
+import android.os.UserManager;
 import android.os.test.TestLooper;
 
 import androidx.test.core.app.ApplicationProvider;
@@ -88,6 +89,7 @@ public final class ThreadNetworkControllerServiceTest {
     @Mock private InfraInterfaceController mMockInfraIfController;
     @Mock private ThreadPersistentSettings mMockPersistentSettings;
     @Mock private NsdPublisher mMockNsdPublisher;
+    @Mock private UserManager mMockUserManager;
     private Context mContext;
     private TestLooper mTestLooper;
     private FakeOtDaemon mFakeOtDaemon;
@@ -119,7 +121,8 @@ public final class ThreadNetworkControllerServiceTest {
                         mMockTunIfController,
                         mMockInfraIfController,
                         mMockPersistentSettings,
-                        mMockNsdPublisher);
+                        mMockNsdPublisher,
+                        mMockUserManager);
         mService.setTestNetworkAgent(mMockNetworkAgent);
     }
 
@@ -133,6 +136,17 @@ public final class ThreadNetworkControllerServiceTest {
         verify(mMockTunIfController, times(1)).createTunInterface();
         assertThat(mFakeOtDaemon.getTunFd()).isEqualTo(mMockTunFd);
         assertThat(mFakeOtDaemon.getNsdPublisher()).isEqualTo(mMockNsdPublisher);
+    }
+
+    @Test
+    public void initialize_tunInterfaceSetToOtDaemon() throws Exception {
+        when(mMockTunIfController.getTunFd()).thenReturn(mMockTunFd);
+
+        mService.initialize();
+        mTestLooper.dispatchAll();
+
+        verify(mMockTunIfController, times(1)).createTunInterface();
+        assertThat(mFakeOtDaemon.getTunFd()).isEqualTo(mMockTunFd);
     }
 
     @Test
