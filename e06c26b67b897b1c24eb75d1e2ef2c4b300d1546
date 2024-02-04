@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78a4172f_4e47ab66",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-04T14:00:11Z",
+      "side": 1,
+      "message": "Can this callback takes list of sms app uids and post uids to handler?\nAlso, can we use `java.util.function.Consumer` for callback type instead of `OnUpdateSatelliteNetworkPreferenceUids`?",
+      "range": {
+        "startLine": 1013,
+        "startChar": 0,
+        "endLine": 1013,
+        "endChar": 49
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "855052bb_1f20a972",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2086,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-04T14:00:11Z",
+      "side": 1,
+      "message": "Can we remove this and annotation VisibleForTesting?\nDo we need `updateSatelliteNetworkPreferenceUids`?\nI think test can call updateSatelliteNetworkPreferenceUids which is passed to `makeSatelliteAccessController`",
+      "range": {
+        "startLine": 2086,
+        "startChar": 4,
+        "endLine": 2086,
+        "endChar": 10
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3869936_9059d55d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 3801,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-04T14:00:11Z",
+      "side": 1,
+      "message": "Do we need to call this?\nI think mSatelliteAccessController calls callback if there are any update.",
+      "range": {
+        "startLine": 3798,
+        "startChar": 0,
+        "endLine": 3801,
+        "endChar": 9
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24d2cee2_118ab234",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 7236,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-04T14:00:11Z",
+      "side": 1,
+      "message": "Can you add `package com.android.server` to CSSatelliteNetworkPreferredTest and revert visibility change?\nI think current visibility should be enough since we already have tests for other multi layer requests.",
+      "range": {
+        "startLine": 7236,
+        "startChar": 4,
+        "endLine": 7236,
+        "endChar": 7
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32e85270_2b519d31",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 12788,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-04T14:00:11Z",
+      "side": 1,
+      "message": "Can we remove public and annotation @VisibleForTesting?",
+      "range": {
+        "startLine": 12788,
+        "startChar": 4,
+        "endLine": 12788,
+        "endChar": 10
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b33eab46_67511684",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-04T14:00:11Z",
+      "side": 1,
+      "message": "Please add required helper method to CSSatelliteNetworkPreferredTest.kt and not to use from CSLocalAgentTests.kt.\nIf some methods are useful in general, they should be in CSTest or CSTestHelpers",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 6
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df3d0665_f9671d6a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-04T14:00:11Z",
+      "side": 1,
+      "message": "Could you avoid wildcard import?",
+      "range": {
+        "startLine": 17,
+        "startChar": 19,
+        "endLine": 17,
+        "endChar": 20
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1017b4b9_c433bd87",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-04T14:00:11Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 25,
+        "startChar": 26,
+        "endLine": 25,
+        "endChar": 27
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f11cb192_bbf5dc6c",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-04T14:00:11Z",
+      "side": 1,
+      "message": "Could you remove this?\nType declaration is not required when it can be inferred",
+      "range": {
+        "startLine": 46,
+        "startChar": 21,
+        "endLine": 46,
+        "endChar": 66
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17641fcf_d79c9a85",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-04T14:00:11Z",
+      "side": 1,
+      "message": "nits: emptySet()",
+      "range": {
+        "startLine": 48,
+        "startChar": 16,
+        "endLine": 48,
+        "endChar": 24
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14380af4_86e5e00b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-04T14:00:11Z",
+      "side": 1,
+      "message": "Could you remove this?",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 29
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8744b86_78836c45",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-04T14:00:11Z",
+      "side": 1,
+      "message": "ditto this can be removed.",
+      "range": {
+        "startLine": 71,
+        "startChar": 28,
+        "endLine": 71,
+        "endChar": 31
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "459342c1_fbee95d1",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-04T14:00:11Z",
+      "side": 1,
+      "message": "nits: you don\u0027t need to specify, times(1) is a default.",
+      "range": {
+        "startLine": 108,
+        "startChar": 31,
+        "endLine": 108,
+        "endChar": 49
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8155baa3_30ed1609",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-04T14:00:11Z",
+      "side": 1,
+      "message": "Could you declare them above CSSatelliteNetworkPreferredTest.\nPlease check other kotlin tests for example CSLocalAgentTests",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 5
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

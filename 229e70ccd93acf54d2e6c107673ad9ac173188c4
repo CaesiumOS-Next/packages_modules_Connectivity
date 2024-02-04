@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c154856e_b5f2378f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1541,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-04T14:00:11Z",
+      "side": 1,
+      "message": "Don\u0027t we need to enable feature on U+?\nIf we will enable this only on V+, I don\u0027t think we need to ship this API via sdk extension?",
+      "range": {
+        "startLine": 1541,
+        "startChar": 16,
+        "endLine": 1541,
+        "endChar": 28
+      },
+      "revId": "229e70ccd93acf54d2e6c107673ad9ac173188c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
