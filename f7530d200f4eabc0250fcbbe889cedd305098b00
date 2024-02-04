@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bc72a99_985ffc2a",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1320,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-04T11:49:35Z",
+      "side": 1,
+      "message": "We need to have FlaggedAPI annotation.\nYou can do the same thing with ConnectivityManager API.\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/framework/src/android/net/ConnectivityManager.java;l\u003d123-130;drc\u003df304823023168db9a674437bc727e7213817364a",
+      "range": {
+        "startLine": 1320,
+        "startChar": 0,
+        "endLine": 1320,
+        "endChar": 80
+      },
+      "revId": "f7530d200f4eabc0250fcbbe889cedd305098b00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
