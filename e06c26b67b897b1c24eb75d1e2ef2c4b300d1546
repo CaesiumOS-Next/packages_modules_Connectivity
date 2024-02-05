@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "113f2d14_b303955b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T13:32:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "78a4172f_4e47ab66",
+      "range": {
+        "startLine": 1013,
+        "startChar": 0,
+        "endLine": 1013,
+        "endChar": 49
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d650cebb_a23fe26a",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-05T05:43:55Z",
       "side": 1,
       "message": "U",
+      "range": {
+        "startLine": 1532,
+        "startChar": 55,
+        "endLine": 1532,
+        "endChar": 56
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34736989_7d2a8744",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T13:32:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d650cebb_a23fe26a",
       "range": {
         "startLine": 1532,
         "startChar": 55,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06be5f9f_457df8b8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2086,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T13:32:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "855052bb_1f20a972",
+      "range": {
+        "startLine": 2086,
+        "startChar": 4,
+        "endLine": 2086,
+        "endChar": 10
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3869936_9059d55d",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-02-04T14:00:11Z",
       "side": 1,
       "message": "Do we need to call this?\nI think mSatelliteAccessController calls callback if there are any update.",
+      "range": {
+        "startLine": 3798,
+        "startChar": 0,
+        "endLine": 3801,
+        "endChar": 9
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96244cdd_6f109231",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 3801,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T13:32:38Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "f3869936_9059d55d",
       "range": {
         "startLine": 3798,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e18edba_2ae1b52a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 7236,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T13:32:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "24d2cee2_118ab234",
+      "range": {
+        "startLine": 7236,
+        "startChar": 4,
+        "endLine": 7236,
+        "endChar": 7
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32e85270_2b519d31",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-02-04T14:00:11Z",
       "side": 1,
       "message": "Can we remove public and annotation @VisibleForTesting?",
+      "range": {
+        "startLine": 12788,
+        "startChar": 4,
+        "endLine": 12788,
+        "endChar": 10
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43d19e3d_ffba658e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 12788,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T13:32:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "32e85270_2b519d31",
       "range": {
         "startLine": 12788,
         "startChar": 4,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "322618da_63b2a40a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T13:32:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b33eab46_67511684",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 6
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df3d0665_f9671d6a",
@@ -175,6 +343,30 @@
       "writtenOn": "2024-02-04T14:00:11Z",
       "side": 1,
       "message": "Could you avoid wildcard import?",
+      "range": {
+        "startLine": 17,
+        "startChar": 19,
+        "endLine": 17,
+        "endChar": 20
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56bdcd8e_67eeef05",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T13:32:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "df3d0665_f9671d6a",
       "range": {
         "startLine": 17,
         "startChar": 19,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "378074db_5f21072b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T13:32:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1017b4b9_c433bd87",
+      "range": {
+        "startLine": 25,
+        "startChar": 26,
+        "endLine": 25,
+        "endChar": 27
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f11cb192_bbf5dc6c",
@@ -221,6 +437,30 @@
       "writtenOn": "2024-02-04T14:00:11Z",
       "side": 1,
       "message": "Could you remove this?\nType declaration is not required when it can be inferred",
+      "range": {
+        "startLine": 46,
+        "startChar": 21,
+        "endLine": 46,
+        "endChar": 66
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46088d7f_5db1431b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T13:32:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f11cb192_bbf5dc6c",
       "range": {
         "startLine": 46,
         "startChar": 21,
@@ -254,6 +494,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd7dc1ee_6d6945ed",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T13:32:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "17641fcf_d79c9a85",
+      "range": {
+        "startLine": 48,
+        "startChar": 16,
+        "endLine": 48,
+        "endChar": 24
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14380af4_86e5e00b",
@@ -267,6 +531,30 @@
       "writtenOn": "2024-02-04T14:00:11Z",
       "side": 1,
       "message": "Could you remove this?",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 29
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f58b623b_dd22b200",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T13:32:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "14380af4_86e5e00b",
       "range": {
         "startLine": 64,
         "startChar": 4,
@@ -300,6 +588,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31cc3e0b_038b401f",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T13:32:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f8744b86_78836c45",
+      "range": {
+        "startLine": 71,
+        "startChar": 28,
+        "endLine": 71,
+        "endChar": 31
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "459342c1_fbee95d1",
@@ -313,6 +625,30 @@
       "writtenOn": "2024-02-04T14:00:11Z",
       "side": 1,
       "message": "nits: you don\u0027t need to specify, times(1) is a default.",
+      "range": {
+        "startLine": 108,
+        "startChar": 31,
+        "endLine": 108,
+        "endChar": 49
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "408ad326_e7ff5d3a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T13:32:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "459342c1_fbee95d1",
       "range": {
         "startLine": 108,
         "startChar": 31,
@@ -346,6 +682,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84c1202d_e56f6e12",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T13:32:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a6231f3d_da396bf1",
+      "range": {
+        "startLine": 124,
+        "startChar": 12,
+        "endLine": 124,
+        "endChar": 14
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8155baa3_30ed1609",
@@ -359,6 +719,30 @@
       "writtenOn": "2024-02-04T14:00:11Z",
       "side": 1,
       "message": "Could you declare them above CSSatelliteNetworkPreferredTest.\nPlease check other kotlin tests for example CSLocalAgentTests",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 5
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f7bde54_29dba118",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T13:32:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8155baa3_30ed1609",
       "range": {
         "startLine": 166,
         "startChar": 0,
