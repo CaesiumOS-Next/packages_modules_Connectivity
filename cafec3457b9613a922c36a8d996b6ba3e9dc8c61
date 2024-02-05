@@ -22,6 +22,30 @@
       },
       "revId": "cafec3457b9613a922c36a8d996b6ba3e9dc8c61",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6fc4924_571bf5a8",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1323,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-05T05:56:46Z",
+      "side": 1,
+      "message": "We try to maintain all the flagged APIs under `packages/modules/Connectivity`.\nSo I prefer to use the separate one for this API.\nAnd this flag should not be used from platform code.\nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Connectivity/common/flags.aconfig",
+      "parentUuid": "285f2a30_367dc759",
+      "range": {
+        "startLine": 1323,
+        "startChar": 4,
+        "endLine": 1323,
+        "endChar": 50
+      },
+      "revId": "cafec3457b9613a922c36a8d996b6ba3e9dc8c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
