@@ -20,7 +20,7 @@ java_defaults {
     name: "CtsNetTestCasesDefaults",
     defaults: [
         "cts_defaults",
-        "framework-connectivity-test-defaults",
+        "framework-connectivity-internal-test-defaults",
     ],
 
     // Include both the 32 and 64 bit versions
@@ -43,7 +43,7 @@ java_defaults {
         "src/**/*.kt",
         ":ike-aes-xcbc",
     ],
-    jarjar_rules: "jarjar-rules-shared.txt",
+    jarjar_rules: ":CtsNetJarJarRules",
     static_libs: [
         "bouncycastle-unbundled",
         "FrameworksNetCommonTests",
@@ -90,6 +90,17 @@ android_test {
         "cts",
         "general-tests",
     ],
+}
+
+genrule {
+    name: "CtsNetJarJarRules",
+    defaults: ["jarjar-rules-combine-defaults"],
+    srcs: [
+        "jarjar-rules-shared.txt",
+        ":connectivity-jarjar-rules",
+    ],
+    out: ["jarjar-rules-cts-net.txt"],
+    visibility: ["//visibility:private"],
 }
 
 java_defaults {
