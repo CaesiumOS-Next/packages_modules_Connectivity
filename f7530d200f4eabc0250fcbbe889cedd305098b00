@@ -22,6 +22,30 @@
       },
       "revId": "f7530d200f4eabc0250fcbbe889cedd305098b00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45da961d_e4d77c78",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1320,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T04:56:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8bc72a99_985ffc2a",
+      "range": {
+        "startLine": 1320,
+        "startChar": 0,
+        "endLine": 1320,
+        "endChar": 80
+      },
+      "revId": "f7530d200f4eabc0250fcbbe889cedd305098b00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
