@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b15baf30_fd58adf9",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 3932,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-05T01:59:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33150068_0e8f9a42",
+      "range": {
+        "startLine": 3932,
+        "startChar": 57,
+        "endLine": 3932,
+        "endChar": 76
+      },
+      "revId": "c331dded9de1d79c45efcd94ce5e4a87c9b0a13d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "482d9f62_6cdcaa34",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-01T09:48:59Z",
       "side": 1,
       "message": "Nit: {@link NetworkCapabilities} to be more clear on what that is",
+      "range": {
+        "startLine": 3935,
+        "startChar": 45,
+        "endLine": 3935,
+        "endChar": 55
+      },
+      "revId": "c331dded9de1d79c45efcd94ce5e4a87c9b0a13d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b24ac4a_4e9ce17f",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 3935,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-05T01:59:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "482d9f62_6cdcaa34",
       "range": {
         "startLine": 3935,
         "startChar": 45,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48eef394_7b16063b",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 3937,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-05T01:59:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c06ecbf_94baabed",
+      "range": {
+        "startLine": 3937,
+        "startChar": 68,
+        "endLine": 3937,
+        "endChar": 99
+      },
+      "revId": "c331dded9de1d79c45efcd94ce5e4a87c9b0a13d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5990d720_57aaa9cb",
@@ -83,6 +155,24 @@
       "writtenOn": "2024-02-01T09:48:59Z",
       "side": 1,
       "message": "This isn\u0027t actually how target SDKs should be checked in recent releases; you should follow go/nonsdk/dev/compat-framework#define-a-change-id\n\nSee for example https://r.android.com/2452427",
+      "revId": "c331dded9de1d79c45efcd94ce5e4a87c9b0a13d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7bd4f75_98ddc1d0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 2962,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-05T01:59:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5990d720_57aaa9cb",
       "revId": "c331dded9de1d79c45efcd94ce5e4a87c9b0a13d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -104,6 +194,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3781962_4562b398",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 7866,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-05T01:59:28Z",
+      "side": 1,
+      "message": "Thanks, I missed this since pendingRequestForNetwork does not have callback flag.\nI added `restrictLocalNetwork` with FLAG_NONE.",
+      "parentUuid": "178a6d18_8867a322",
+      "revId": "c331dded9de1d79c45efcd94ce5e4a87c9b0a13d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85e6f9ab_af7256cb",
@@ -117,6 +225,24 @@
       "writtenOn": "2024-02-01T09:48:59Z",
       "side": 1,
       "message": "Should restrictLocalNetwork be called here too ?",
+      "revId": "c331dded9de1d79c45efcd94ce5e4a87c9b0a13d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ec82c8c_69a31832",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 7961,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-05T01:59:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85e6f9ab_af7256cb",
       "revId": "c331dded9de1d79c45efcd94ce5e4a87c9b0a13d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
