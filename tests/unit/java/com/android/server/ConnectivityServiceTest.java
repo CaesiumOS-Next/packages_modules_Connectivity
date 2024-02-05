@@ -4846,6 +4846,28 @@ public class ConnectivityServiceTest {
     }
 
     @Test
+    public void testCaptivePortalApp_Reevaluate_Nopermission() throws Exception {
+        final TestNetworkCallback captivePortalCallback = new TestNetworkCallback();
+        final NetworkRequest captivePortalRequest = new NetworkRequest.Builder()
+                .addCapability(NET_CAPABILITY_CAPTIVE_PORTAL).build();
+        mCm.registerNetworkCallback(captivePortalRequest, captivePortalCallback);
+
+        mWiFiAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
+        mWiFiAgent.connectWithCaptivePortal(TEST_REDIRECT_URL, false);
+        captivePortalCallback.expectAvailableCallbacksUnvalidated(mWiFiAgent);
+
+        final Intent signInIntent = startCaptivePortalApp(mWiFiAgent);
+        // Remove the granted permissions
+        mServiceContext.setPermission(NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
+                PERMISSION_DENIED);
+        mServiceContext.setPermission(NETWORK_STACK, PERMISSION_DENIED);
+        final CaptivePortal captivePortal = signInIntent
+                .getParcelableExtra(ConnectivityManager.EXTRA_CAPTIVE_PORTAL);
+
+        assertThrows(SecurityException.class, () -> captivePortal.reevaluateNetwork());
+    }
+
+    @Test
     public void testCaptivePortalApp_IgnoreNetwork() throws Exception {
         final TestNetworkCallback captivePortalCallback = new TestNetworkCallback();
         final NetworkRequest captivePortalRequest = new NetworkRequest.Builder()
