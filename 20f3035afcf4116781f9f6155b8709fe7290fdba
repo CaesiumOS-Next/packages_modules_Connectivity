@@ -16,6 +16,24 @@
       "message": "Hi Yahav, please also run `atest NearbyUnitTests` to make sure all the unit tests pass as well.\nThank you!",
       "revId": "20f3035afcf4116781f9f6155b8709fe7290fdba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b843dc9_b7d8a775",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2027455
+      },
+      "writtenOn": "2024-02-05T20:56:50Z",
+      "side": 1,
+      "message": "Done. All tests passed. Thanks.",
+      "parentUuid": "149b986e_569462e4",
+      "revId": "20f3035afcf4116781f9f6155b8709fe7290fdba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
