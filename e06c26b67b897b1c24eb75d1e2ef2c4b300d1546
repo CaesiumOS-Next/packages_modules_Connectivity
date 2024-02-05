@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d650cebb_a23fe26a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-02-05T05:43:55Z",
+      "side": 1,
+      "message": "U",
+      "range": {
+        "startLine": 1532,
+        "startChar": 55,
+        "endLine": 1532,
+        "endChar": 56
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "855052bb_1f20a972",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 13
@@ -295,6 +318,29 @@
         "startChar": 31,
         "endLine": 108,
         "endChar": 49
+      },
+      "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6231f3d_da396bf1",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-02-05T05:43:55Z",
+      "side": 1,
+      "message": "why dont you use enum here",
+      "range": {
+        "startLine": 124,
+        "startChar": 12,
+        "endLine": 124,
+        "endChar": 14
       },
       "revId": "e06c26b67b897b1c24eb75d1e2ef2c4b300d1546",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
