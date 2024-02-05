@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f54de925_10b8778c",
+        "filename": "Tethering/AndroidManifest.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Based on tests, meet security exception if not defined @ Manifest: \n01-25 06:45:07.111 10109  8034  8049 I SatelliteAccessController: Could not register satellite controller listener due to java.lang.SecurityException: addOnRoleHoldersChangedListenerAsUser: Neither user 10109 nor current process has android.permission.OBSERVE_ROLE_HOLDERS.\n\n01-25 06:45:07.111 10109  8034 11025 I SatelliteAccessController: Could not get package name at role sms change update due to: java.lang.SecurityException: getRoleHoldersAsUser: Neither user 10109 nor current process has android.permission.MANAGE_ROLE_HOLDERS",
+      "parentUuid": "b10bef2c_63c9891a",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 0
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "816a545f_b1b15c5b",
         "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
         "patchSetId": 9
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-04T13:49:26Z",
       "side": 1,
       "message": "Can we remove this if this is not used?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 44
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6972a20b_12b907d9",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "816a545f_b1b15c5b",
       "range": {
         "startLine": 46,
         "startChar": 0,
@@ -64,6 +112,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1689a2b3_9cd4c708",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ee868c70_e0e48c2f",
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88b96e8a_476db20e",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-02-05T04:43:19Z",
       "side": 1,
       "message": "Could you use ConnectivityHandler thread for executor?",
+      "range": {
+        "startLine": 72,
+        "startChar": 24,
+        "endLine": 72,
+        "endChar": 50
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8c02d6a_3a13e3d7",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "88b96e8a_476db20e",
       "range": {
         "startLine": 72,
         "startChar": 24,
@@ -104,6 +194,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2fb704e_b6e8a96e",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "dd17f0a5_0fbd03a4",
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "286b8cdd_2477f3ce",
@@ -127,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d0c69b5_bd54dcf9",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "286b8cdd_2477f3ce",
+      "range": {
+        "startLine": 78,
+        "startChar": 20,
+        "endLine": 78,
+        "endChar": 30
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d73ebf99_55ba1756",
@@ -140,6 +272,30 @@
       "writtenOn": "2024-02-04T13:49:26Z",
       "side": 1,
       "message": "Could you use Dependencies pattern for testing?\nDependencies can have methods under RoleManagerAdapter and test can pass mocked Dependencies.\n\nYou can see [CarrierPrivilegeAuthenticator](https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java) and [ConnectivityService](https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java;l\u003d1335?q\u003df:ConnectivityService.java\u0026ss\u003dh%2Fandroid%2Fplatform%2Fsuperproject%2Fmain%2F%2B%2Fmain) for the reference.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 41
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41e21a43_c22aa958",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d73ebf99_55ba1756",
       "range": {
         "startLine": 91,
         "startChar": 0,
@@ -175,6 +331,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c740f445_f0802a25",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "0612c8d4_0612f75f",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 47
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c84c1e61_c640ad1e",
         "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
         "patchSetId": 9
@@ -186,6 +366,30 @@
       "writtenOn": "2024-02-04T13:49:26Z",
       "side": 1,
       "message": "Should we have null check for mPackageManager?\nI saw getUidForPackage has null check for mPackageManager.",
+      "range": {
+        "startLine": 161,
+        "startChar": 15,
+        "endLine": 161,
+        "endChar": 30
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4af7bf30_a72a6a34",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c84c1e61_c640ad1e",
       "range": {
         "startLine": 161,
         "startChar": 15,
@@ -219,6 +423,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ff52f75_dacd0550",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "069ee246_413a30c3",
+      "range": {
+        "startLine": 162,
+        "startChar": 16,
+        "endLine": 162,
+        "endChar": 60
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eee34a05_36d560d9",
@@ -232,6 +460,30 @@
       "writtenOn": "2024-02-04T13:49:26Z",
       "side": 1,
       "message": "Can this be private?",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 166,
+        "endChar": 7
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52bd8c0b_8cdc2764",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "eee34a05_36d560d9",
       "range": {
         "startLine": 166,
         "startChar": 4,
@@ -265,6 +517,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79ffb440_eb3d36f3",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "38a7e2fb_1386b692",
+      "range": {
+        "startLine": 184,
+        "startChar": 5,
+        "endLine": 184,
+        "endChar": 22
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef99ad5b_ed977377",
@@ -278,6 +554,24 @@
       "writtenOn": "2024-02-04T13:49:26Z",
       "side": 1,
       "message": "I think you can write\n`return !mSatelliteNetworkPreferredUidCache.containsAll(previousSatellitePreferredUid)`",
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6eca43e9_13277b2f",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ef99ad5b_ed977377",
       "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -305,6 +599,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f4673a2_72b0e6c8",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0a15ebfd_059020b2",
+      "range": {
+        "startLine": 232,
+        "startChar": 15,
+        "endLine": 232,
+        "endChar": 17
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50cf7d37_f33ce9e6",
@@ -318,6 +636,30 @@
       "writtenOn": "2024-02-04T13:49:26Z",
       "side": 1,
       "message": "Can we add uids to the argument of callback from ConnectivityService and remove this method?\nIf we want to keep this method, we need to acquire lock since mSatelliteNetworkPreferredUidCache is accessed from multiple threads.",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 5
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c182a724_e2433e21",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "50cf7d37_f33ce9e6",
       "range": {
         "startLine": 244,
         "startChar": 0,
@@ -353,6 +695,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c0ba3353_6e17de4a",
+        "filename": "tests/unit/AndroidManifest.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Based on tests, meet security exception if not defined @ Manifest: \n01-25 06:45:07.111 10109  8034  8049 I SatelliteAccessController: Could not register satellite controller listener due to java.lang.SecurityException: addOnRoleHoldersChangedListenerAsUser: Neither user 10109 nor current process has android.permission.OBSERVE_ROLE_HOLDERS.\n\n01-25 06:45:07.111 10109  8034 11025 I SatelliteAccessController: Could not get package name at role sms change update due to: java.lang.SecurityException: getRoleHoldersAsUser: Neither user 10109 nor current process has android.permission.MANAGE_ROLE_HOLDERS",
+      "parentUuid": "28c73e14_65b930a3",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 77
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ede1707a_97e7f989",
         "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
         "patchSetId": 9
@@ -364,6 +730,30 @@
       "writtenOn": "2024-02-04T13:49:26Z",
       "side": 1,
       "message": "Could you import the methods this test is using?\ne.g. \n```\nimport org.mockito.Mockito.mock\nimport org.mockito.ArgumentMatchers.eq\nimport org.mockito.ArgumentMatchers.anyInt\n```",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 34
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d609198_74ccfdd5",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ede1707a_97e7f989",
       "range": {
         "startLine": 34,
         "startChar": 0,
@@ -397,6 +787,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1206aafa_3fe108b4",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "32ab0c1c_ce15c61f",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 85
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0747c75a_d7cf2646",
@@ -410,6 +824,30 @@
       "writtenOn": "2024-02-04T13:49:26Z",
       "side": 1,
       "message": "Could you use [captor to get the registered listener](https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt;l\u003d72-76;drc\u003d8792a72e8ebbed396e737fb0ed2ef39671d9c1ab)?",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 85,
+        "endChar": 57
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a09730cb_9f56d3e0",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0747c75a_d7cf2646",
       "range": {
         "startLine": 79,
         "startChar": 8,
@@ -443,6 +881,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf280193_422496b3",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6dfa013b_97baee79",
+      "range": {
+        "startLine": 91,
+        "startChar": 32,
+        "endLine": 91,
+        "endChar": 35
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2d9a36d_2a866832",
@@ -456,6 +918,30 @@
       "writtenOn": "2024-02-04T13:49:26Z",
       "side": 1,
       "message": "I think you don\u0027t need eq here.",
+      "range": {
+        "startLine": 92,
+        "startChar": 12,
+        "endLine": 92,
+        "endChar": 32
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b53c8aa5_f195065c",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e2d9a36d_2a866832",
       "range": {
         "startLine": 92,
         "startChar": 12,
@@ -489,6 +975,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "860689cb_bbcc613f",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "38ef4b61_98c16f08",
+      "range": {
+        "startLine": 98,
+        "startChar": 25,
+        "endLine": 98,
+        "endChar": 29
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5d35471_d4719e2c",
@@ -512,6 +1022,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd60eb45_8310dae6",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f5d35471_d4719e2c",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 13
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d7880cf_cad4d4ad",
@@ -525,6 +1059,30 @@
       "writtenOn": "2024-02-04T13:49:26Z",
       "side": 1,
       "message": "Could you declare them above `SatelliteAccessControllerTest`?\nPlease check other kotlin tests for example [CSLocalAgentTests](https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt)",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 59
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1272ef24_9b35f78a",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-05T19:04:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9d7880cf_cad4d4ad",
       "range": {
         "startLine": 189,
         "startChar": 0,
