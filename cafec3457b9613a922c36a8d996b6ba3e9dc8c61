@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "285f2a30_367dc759",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1323,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-02-05T05:33:09Z",
+      "side": 1,
+      "message": "why dont we use the existing telephony satellite carrier flag\n\n\"com.android.internal.telephony.flags.carrier_enabled_satellite_flag\";",
+      "range": {
+        "startLine": 1323,
+        "startChar": 4,
+        "endLine": 1323,
+        "endChar": 50
+      },
+      "revId": "cafec3457b9613a922c36a8d996b6ba3e9dc8c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
