@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd5706cc_4ccad61b",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 3932,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-05T03:51:43Z",
+      "side": 1,
+      "message": "Nit: same as above for the javadoc format; the first line will appear in the API summary table in the developer docs (so \"This flag is a no-op for apps targeting\" would not really describe it, although I think it includes a bit more if there\u0027s no empty line)",
+      "revId": "72766f905d6e2a74bbba1ac680e13b8110183fc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9b7d559_3abe5cae",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-05T03:51:43Z",
+      "side": 1,
+      "message": "Nit: especially for javadoc used for publicly documentation like change IDs, there should be a short description that fits in the first line, and the rest of the description after a line break.",
+      "revId": "72766f905d6e2a74bbba1ac680e13b8110183fc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f042393_9d14eb5e",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSKeepConnectedTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-05T03:51:43Z",
+      "side": 1,
+      "message": "Also here, would it be possible to run this with the ChangeId enabled ?",
+      "revId": "72766f905d6e2a74bbba1ac680e13b8110183fc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b4b681c_765916da",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-05T03:51:43Z",
+      "side": 1,
+      "message": "Same thing for tests in this file",
+      "revId": "72766f905d6e2a74bbba1ac680e13b8110183fc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d350756_2a1f8b1b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-05T03:51:43Z",
+      "side": 1,
+      "message": "Nit: in Kotlin, better use named arguments that will be checked at build time: `enableMatchLocalNetwork\u003dfalse`",
+      "range": {
+        "startLine": 873,
+        "startChar": 25,
+        "endLine": 873,
+        "endChar": 48
+      },
+      "revId": "72766f905d6e2a74bbba1ac680e13b8110183fc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8a0947d_184a578d",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-05T03:51:43Z",
+      "side": 1,
+      "message": "Instead of adding the flag, would it be possible to make tests generally enable the ChangeId ? Since long-term that should be the general state.",
+      "revId": "72766f905d6e2a74bbba1ac680e13b8110183fc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
