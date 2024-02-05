@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2304e087_cedc2d57",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-05T02:52:45Z",
+      "side": 1,
+      "message": "Is that expected to happen in general ? If not you could consider having a Log.wtf instead, this way we can get error reports when something is wrong with ot daemon. \n\nIdeally you\u0027d be able to also include some error messages from the daemon...",
+      "revId": "3deddc7b3fb9e83a59e42d4239823cdc33b1955c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
