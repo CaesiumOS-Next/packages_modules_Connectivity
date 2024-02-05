@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8470642_d53ba4df",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkExceptionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-05T02:56:31Z",
+      "side": 1,
+      "message": "You might want to make this a bit larger, otherwise if some new error codes are added in the future in a mainline update, already released CTS test packages will start to fail.\n\nThat should be fixed by mCTS, but since mCTS is not in place yet, it\u0027s best to be safe",
+      "revId": "86a70b499224cb0333b48f8ad377add2f9a95d35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
