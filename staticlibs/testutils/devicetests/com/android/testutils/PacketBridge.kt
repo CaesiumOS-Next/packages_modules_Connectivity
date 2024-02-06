@@ -40,7 +40,8 @@ import libcore.io.IoUtils
 class PacketBridge(
     context: Context,
     addresses: List<LinkAddress>,
-    dnsAddr: InetAddress
+    dnsAddr: InetAddress,
+    portMapping: List<Pair<Int, Int>>
 ) {
     private val binder = Binder()
 
@@ -56,6 +57,8 @@ class PacketBridge(
     // Register test networks to ConnectivityService.
     private val internalNetworkCallback: TestableNetworkCallback
     private val externalNetworkCallback: TestableNetworkCallback
+    private val translationMap = TranslationMap(portMapping)
+
     val internalNetwork: Network
     val externalNetwork: Network
     init {
@@ -71,12 +74,22 @@ class PacketBridge(
     private val internalFd = internalIface.fileDescriptor.fileDescriptor
     private val externalFd = externalIface.fileDescriptor.fileDescriptor
 
-    private val pr1 = PacketForwarder(internalFd, 1500, externalFd)
-    private val pr2 = PacketForwarder(externalFd, 1500, internalFd)
+    private val pr1 = InternalPacketForwarder(
+        internalFd,
+        1500,
+        externalFd,
+        translationMap
+    )
+    private val pr2 = ExternalPacketForwarder(
+        externalFd,
+        1500,
+        internalFd,
+        translationMap
+    )
 
     fun start() {
-        IoUtils.setBlocking(internalFd, true /* blocking */)
-        IoUtils.setBlocking(externalFd, true /* blocking */)
+        IoUtils.setBlocking(internalFd, true)
+        IoUtils.setBlocking(externalFd, true)
         pr1.start()
         pr2.start()
     }
@@ -110,10 +123,63 @@ class PacketBridge(
             interfaceName = testIface.interfaceName
             addDnsServer(dnsAddr)
         }
-        tnm.setupTestNetwork(lp, true /* isMetered */, binder)
+        tnm.setupTestNetwork(lp, true, binder)
 
         // Wait for available before return.
         val network = testCb.expect<Available>().network
         return testCb to network
+    }
+
+    /**
+     * A helper class to maintain the mappings between internal addresses/ports and external
+     * ports.
+     *
+     * This class only maps the predefined port and translate the address.
+     *
+     * Note that this class is not thread-safe. The instance of the class needs to be
+     * synchronized in the callers when being used in multiple threads.
+     */
+    class TranslationMap(portMap: List<Pair<Int, Int>>){
+        data class AddressInfo(val address: InetAddress, val port: Int)
+        private val mToExternalMap = HashMap<Int, Int>()
+        private val mToInternalMap = HashMap<Int, AddressInfo>()
+
+        init {
+            for (mapping in portMap) {
+                mToExternalMap[mapping.first] = mapping.second
+            }
+        }
+
+        /**
+         * Translate internal port to external port, and store
+         * internal address for external to internal lookup.
+         * return null if no matched translation port
+          */
+        fun toExternalPort(addr: InetAddress, port: Int): Int? {
+            // record the internal address
+            val addrInfo = AddressInfo(addr, port)
+
+            // Return original port if no matching translation
+            if (!mToExternalMap.containsKey(port)) {
+                return null
+            }
+
+            val extPort: Int? = mToExternalMap[port]
+            mToInternalMap[extPort!!] = addrInfo
+            return extPort
+        }
+
+        /**
+         * Translate external to internal port.
+         * return null if no matched translation information
+         */
+        fun toInternalAddrInfo(port: Int): AddressInfo? {
+            if (!mToInternalMap.containsKey(port)) {
+                return null
+            }
+
+            val addrInfo = mToInternalMap[port]!!
+            return addrInfo
+        }
     }
 }
