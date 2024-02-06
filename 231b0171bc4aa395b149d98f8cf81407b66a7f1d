@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eead61d_947c4bec",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 3936,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T07:10:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afe8fb86_28ecc4f1",
+      "range": {
+        "startLine": 3935,
+        "startChar": 75,
+        "endLine": 3936,
+        "endChar": 41
+      },
+      "revId": "231b0171bc4aa395b149d98f8cf81407b66a7f1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5fe23c1_a8859e92",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-06T02:55:00Z",
       "side": 1,
       "message": "I don\u0027t think this is a good name, because it is not clear what is or is not \"compatible\". Something like FLAG_MATCH_LOCAL_NETWORKS or FLAG_INCLUDE_LOCAL_NETWORKS would be better I think (MATCH seems best).",
+      "range": {
+        "startLine": 3943,
+        "startChar": 32,
+        "endLine": 3943,
+        "endChar": 61
+      },
+      "revId": "231b0171bc4aa395b149d98f8cf81407b66a7f1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48182c0b_17c441bc",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 3943,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T07:10:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5fe23c1_a8859e92",
       "range": {
         "startLine": 3943,
         "startChar": 32,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28dfbdfe_1b21ef9c",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T07:10:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf97faa7_bbae9011",
+      "range": {
+        "startLine": 92,
+        "startChar": 83,
+        "endLine": 93,
+        "endChar": 49
+      },
+      "revId": "231b0171bc4aa395b149d98f8cf81407b66a7f1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57f3a69b_2542e35b",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-02-06T02:55:00Z",
       "side": 1,
       "message": "blank line before here?",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 11
+      },
+      "revId": "231b0171bc4aa395b149d98f8cf81407b66a7f1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba8b2d96_8a93fcf7",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T07:10:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57f3a69b_2542e35b",
       "range": {
         "startLine": 102,
         "startChar": 4,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9bb5d39_566ea847",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 2965,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T07:10:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5072a361_19d464c5",
+      "range": {
+        "startLine": 2965,
+        "startChar": 11,
+        "endLine": 2965,
+        "endChar": 40
+      },
+      "revId": "231b0171bc4aa395b149d98f8cf81407b66a7f1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d54d6a83_fc1f6813",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b91ec48_538633b7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 7639,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T07:10:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d54d6a83_fc1f6813",
+      "range": {
+        "startLine": 7639,
+        "startChar": 16,
+        "endLine": 7639,
+        "endChar": 36
+      },
+      "revId": "231b0171bc4aa395b149d98f8cf81407b66a7f1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0c1f6f8_b30aac08",
@@ -152,6 +296,30 @@
       "writtenOn": "2024-02-06T02:55:00Z",
       "side": 1,
       "message": "Per discussion, this sounds like it\u0027s a bug in the TestableNetworkAgent, not in this code? Maybe TestableNetworkAgent can ensure that its callback always passes the flag?",
+      "range": {
+        "startLine": 855,
+        "startChar": 42,
+        "endLine": 855,
+        "endChar": 43
+      },
+      "revId": "231b0171bc4aa395b149d98f8cf81407b66a7f1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed34adac_49a119f5",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 31
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T07:10:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0c1f6f8_b30aac08",
       "range": {
         "startLine": 855,
         "startChar": 42,
