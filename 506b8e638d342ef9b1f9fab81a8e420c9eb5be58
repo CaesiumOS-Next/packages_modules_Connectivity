@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a312b71f_fa076874",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-06T07:59:54Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "be53afbc_ab0431e9",
+      "range": {
+        "startLine": 46,
+        "startChar": 26,
+        "endLine": 46,
+        "endChar": 35
+      },
+      "revId": "506b8e638d342ef9b1f9fab81a8e420c9eb5be58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30e909f5_eb1a6540",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-06T07:08:39Z",
       "side": 1,
       "message": "If we use `UserHandle.SYSTEM`, can we receive callback for all users on the device?\nI can see some code passes `UserHandle.ALL` so I\u0027m confirming just in case.",
+      "range": {
+        "startLine": 72,
+        "startChar": 76,
+        "endLine": 72,
+        "endChar": 82
+      },
+      "revId": "506b8e638d342ef9b1f9fab81a8e420c9eb5be58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0feae5c9_1713d4ae",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-06T07:59:54Z",
+      "side": 1,
+      "message": "This is more to do with broadcast side .\n\nUserHandle.SYSTEM : A user handle to indicate the \"system\" user of the device\nUserHandle.ALL : A user handle to indicate all users on the device \n\nSince connectivity is System Service , Do we need UserHandle.All?\n\nUserHandle.SYSTEM is suggested, when your code needs to perform privileged system-level tasks or if the operation targets the core Android system affecting all users.\n\nFor On Role SMS Change for which currently it is being monitored , UserHandle.System should Work fine .",
+      "parentUuid": "30e909f5_eb1a6540",
       "range": {
         "startLine": 72,
         "startChar": 76,
@@ -96,6 +144,24 @@
       "side": 1,
       "message": "Constructor with Dependencies should not be called from outside except testing.\nSo I wanted to make that clear.",
       "parentUuid": "731d72a5_b352ad73",
+      "revId": "506b8e638d342ef9b1f9fab81a8e420c9eb5be58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "322206c1_2cad03e8",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-06T07:59:54Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "99adface_1ecc1141",
       "revId": "506b8e638d342ef9b1f9fab81a8e420c9eb5be58",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -160,6 +226,30 @@
       "writtenOn": "2024-02-06T05:52:07Z",
       "side": 1,
       "message": "I meant `.toString()` can be removed.",
+      "parentUuid": "af543280_4cdbb1f5",
+      "range": {
+        "startLine": 168,
+        "startChar": 56,
+        "endLine": 168,
+        "endChar": 67
+      },
+      "revId": "506b8e638d342ef9b1f9fab81a8e420c9eb5be58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4be4e9ed_98ec83e1",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-06T07:59:54Z",
+      "side": 1,
+      "message": "Acknowledged",
       "parentUuid": "af543280_4cdbb1f5",
       "range": {
         "startLine": 168,
