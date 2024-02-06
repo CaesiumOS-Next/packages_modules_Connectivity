@@ -791,6 +791,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f15deaa3_f57f63ca",
+        "filename": "tests/unit/AndroidManifest.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-06T04:45:07Z",
+      "side": 1,
+      "message": "Ref :  \nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2939960/13/service/src/com/android/server/connectivity/SatelliteAccessController.java#193\n\nThis was tested with earlier code of Interfaces . Will modify the code and retest removing these and will update on the test",
+      "parentUuid": "f95cd863_b3f0c366",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 77
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ede1707a_97e7f989",
         "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
         "patchSetId": 9
