@@ -1,5 +1,115 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40053e28_afeb0d71",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T03:59:54Z",
+      "side": 1,
+      "message": "Would be good to explain what happens if the limit is hit. Are extra events buffered and sent in the future? Are they dropped? The code is not super easy to follow.",
+      "range": {
+        "startLine": 56,
+        "startChar": 63,
+        "endLine": 56,
+        "endChar": 64
+      },
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84be7172_3729adae",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T03:59:54Z",
+      "side": 1,
+      "message": "Can we avoid creating a new handler thread here? Is there any downside if we just run this code on the main ConnectivityService handler thread?",
+      "range": {
+        "startLine": 75,
+        "startChar": 52,
+        "endLine": 75,
+        "endChar": 69
+      },
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ef5d484_a9b4b04d",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T03:59:54Z",
+      "side": 1,
+      "message": "Nit: prefer \"return\" over \"else\" to reduce indentation.",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 16
+      },
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32d6bc0f_b97cdc87",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T03:59:54Z",
+      "side": 1,
+      "message": "Why define a message whose only result is to send another message? Could this code simply be run inline on the handler thread?",
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29942a65_10f35f6e",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T03:59:54Z",
+      "side": 1,
+      "message": "If this really can\u0027t happen, a Log.wtf would be appropriate.\n```suggestion\n                default:\n                    Log.wtf(TAG, \"Unexpected message: \" + msg);\n```",
+      "range": {
+        "startLine": 224,
+        "startChar": 25,
+        "endLine": 224,
+        "endChar": 36
+      },
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
