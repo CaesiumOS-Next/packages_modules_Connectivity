@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afe8fb86_28ecc4f1",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 3936,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T02:55:00Z",
+      "side": 1,
+      "message": "see comment above",
+      "range": {
+        "startLine": 3935,
+        "startChar": 75,
+        "endLine": 3936,
+        "endChar": 41
+      },
+      "revId": "231b0171bc4aa395b149d98f8cf81407b66a7f1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5fe23c1_a8859e92",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 3943,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T02:55:00Z",
+      "side": 1,
+      "message": "I don\u0027t think this is a good name, because it is not clear what is or is not \"compatible\". Something like FLAG_MATCH_LOCAL_NETWORKS or FLAG_INCLUDE_LOCAL_NETWORKS would be better I think (MATCH seems best).",
+      "range": {
+        "startLine": 3943,
+        "startChar": 32,
+        "endLine": 3943,
+        "endChar": 61
+      },
+      "revId": "231b0171bc4aa395b149d98f8cf81407b66a7f1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf97faa7_bbae9011",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T02:55:00Z",
+      "side": 1,
+      "message": "to the {@link android.net.NetworkCapabilities} of the {@link android.net.NetworkRequest} or\n```suggestion\n     * to add {@link android.net.NetworkCapabilities#NET_CAPABILITY_LOCAL_NETWORK} to the\n     * {@link android.net.NetworkCapabilities} of the {@link android.net.NetworkRequest} or specify\n```",
+      "range": {
+        "startLine": 92,
+        "startChar": 83,
+        "endLine": 93,
+        "endChar": 49
+      },
+      "revId": "231b0171bc4aa395b149d98f8cf81407b66a7f1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57f3a69b_2542e35b",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T02:55:00Z",
+      "side": 1,
+      "message": "blank line before here?",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 11
+      },
+      "revId": "231b0171bc4aa395b149d98f8cf81407b66a7f1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5072a361_19d464c5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 2965,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T02:55:00Z",
+      "side": 1,
+      "message": "Don\u0027t forget to rename this if you change the flag name in the API.",
+      "range": {
+        "startLine": 2965,
+        "startChar": 11,
+        "endLine": 2965,
+        "endChar": 40
+      },
+      "revId": "231b0171bc4aa395b149d98f8cf81407b66a7f1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d54d6a83_fc1f6813",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 7639,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T02:55:00Z",
+      "side": 1,
+      "message": "This doesn\u0027t really restrict the network, it just prevents it from matching. Also it doesn\u0027t always restrict, it only restricts if the flag is not set. Can you rename this to maybeDisableLocalNetworkMatching? Or maybeForbidLocalNetworkCapability?",
+      "range": {
+        "startLine": 7639,
+        "startChar": 16,
+        "endLine": 7639,
+        "endChar": 36
+      },
+      "revId": "231b0171bc4aa395b149d98f8cf81407b66a7f1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0c1f6f8_b30aac08",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 31
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T02:55:00Z",
+      "side": 1,
+      "message": "Per discussion, this sounds like it\u0027s a bug in the TestableNetworkAgent, not in this code? Maybe TestableNetworkAgent can ensure that its callback always passes the flag?",
+      "range": {
+        "startLine": 855,
+        "startChar": 42,
+        "endLine": 855,
+        "endChar": 43
+      },
+      "revId": "231b0171bc4aa395b149d98f8cf81407b66a7f1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
