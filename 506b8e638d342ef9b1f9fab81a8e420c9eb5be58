@@ -61,6 +61,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99adface_1ecc1141",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T05:52:07Z",
+      "side": 1,
+      "message": "Constructor with Dependencies should not be called from outside except testing.\nSo I wanted to make that clear.",
+      "parentUuid": "731d72a5_b352ad73",
+      "revId": "506b8e638d342ef9b1f9fab81a8e420c9eb5be58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "57d33cb8_c576eca8",
         "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
         "patchSetId": 13
@@ -96,6 +114,30 @@
       "side": 1,
       "message": "https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2939960/13/service/src/com/android/server/connectivity/SatelliteAccessController.java#168 \u003d\u003d\u003e This log print will be useful to check the corresponding uid passed for multilayer request",
       "parentUuid": "57d33cb8_c576eca8",
+      "range": {
+        "startLine": 168,
+        "startChar": 56,
+        "endLine": 168,
+        "endChar": 67
+      },
+      "revId": "506b8e638d342ef9b1f9fab81a8e420c9eb5be58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f9c0ae9_ba8983b1",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T05:52:07Z",
+      "side": 1,
+      "message": "I meant `.toString()` can be removed.",
+      "parentUuid": "af543280_4cdbb1f5",
       "range": {
         "startLine": 168,
         "startChar": 56,
