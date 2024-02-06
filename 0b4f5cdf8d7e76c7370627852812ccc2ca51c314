@@ -215,6 +215,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f2ec1717_dc51d0dd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 9103,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T09:05:06Z",
+      "side": 1,
+      "message": "Yes, I don\u0027t think we can do that. Looking at the code that implements EVENT_NETWORK_CAPABILITIES_CHANGED, I think it\u0027s clear that that message should only be processed when the capabilities change comes from a NetworkAgent.\n\nFor example, it calls setDeclaredCapabilities which is explictly used only to set the capabilities set by the agent (as opposed to the capabilities that are maintained by CS by mixing in agent capabilities with locally-stored capabilities). Not sure what to do instead. Maybe we can make NetworkAgentInfo#restrictCapabilitiesFromNetworkAgent static and call that from here?\n\nAlso, why post another message? This code is already running on the CS handler thread, so it should just perform the operation inline.",
+      "parentUuid": "d3eb7b5a_6aa6e48b",
+      "range": {
+        "startLine": 9103,
+        "startChar": 4,
+        "endLine": 9103,
+        "endChar": 5
+      },
+      "revId": "0b4f5cdf8d7e76c7370627852812ccc2ca51c314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "59787980_dd37c9b4",
         "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
         "patchSetId": 20
