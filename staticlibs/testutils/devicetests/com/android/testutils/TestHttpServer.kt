@@ -25,8 +25,10 @@ import java.io.IOException
  * A minimal HTTP server running on a random available port.
  *
  * @param host The host to listen to, or null to listen on all hosts
+ * @param port The port to listen to, or null to auto select
  */
-class TestHttpServer(host: String? = null) : NanoHTTPD(host, 0 /* auto-select the port */) {
+class TestHttpServer
+    @JvmOverloads constructor(host: String? = null, port: Int? = 0) : NanoHTTPD(host, port!!) {
     // Map of URL path -> HTTP response code
     private val responses = HashMap<Request, Response>()
 
@@ -58,9 +60,17 @@ class TestHttpServer(host: String? = null) : NanoHTTPD(host, 0 /* auto-select th
         headers: Map<String, String>? = null,
         content: String = ""
     ) {
-        addResponse(Request(uri.path
-                ?: "", Method.GET, uri.query ?: ""),
-                statusCode, headers, content)
+        addResponse(
+            Request(
+                uri.path
+                ?: "",
+                Method.GET,
+                uri.query ?: ""
+            ),
+            statusCode,
+            headers,
+            content
+        )
     }
 
     /**
@@ -80,8 +90,12 @@ class TestHttpServer(host: String? = null) : NanoHTTPD(host, 0 /* auto-select th
     }
 
     override fun serve(session: IHTTPSession): Response {
-        val request = Request(session.uri
-                ?: "", session.method, session.queryParameterString ?: "")
+        val request = Request(
+            session.uri
+                ?: "",
+            session.method,
+            session.queryParameterString ?: ""
+        )
         requestsRecord.add(request)
 
         // For PUT and POST, call parseBody to read InputStream before responding.
