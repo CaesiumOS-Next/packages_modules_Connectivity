@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "829305c4_64696c46",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-06T07:58:22Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3012884b_c10eaa08",
+      "range": {
+        "startLine": 570,
+        "startChar": 21,
+        "endLine": 570,
+        "endChar": 66
+      },
+      "revId": "75225a4aa7198219992d820c64aa1c2cbe30acdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "668abd9e_2296de89",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-06T06:44:56Z",
       "side": 1,
       "message": "Could you add `mDeps.isFeatureNotChickenedOut` to the condition so that we can disable this feature in some urgent situation (kill switch)?\n\nMaybe we can do\n```\nif (mDeps.isAtLeastT() \u0026\u0026 mDeps.isFeatureNotChickenedOut(...)) {\n    mSatelliteAccessController \u003d mDeps.makeSatelliteAccessController(....)\n} else {\n    mSatelliteAccessController \u003d null;\n}\n```",
+      "range": {
+        "startLine": 1799,
+        "startChar": 8,
+        "endLine": 1799,
+        "endChar": 34
+      },
+      "revId": "75225a4aa7198219992d820c64aa1c2cbe30acdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10d3dd06_b3cab5f8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1799,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-06T07:58:22Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "668abd9e_2296de89",
       "range": {
         "startLine": 1799,
         "startChar": 8,
