@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e64a2a7e_c26c4049",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T09:50:26Z",
+      "side": 1,
+      "message": "Add SatelliteAccessController class to support messaging on Satellite Internet",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 2
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48379e19_c2a9004c",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T09:50:26Z",
+      "side": 1,
+      "message": "Package names are not unique, they\u0027re only unique within a given user. I think this code might work for a device with only one user. Maybe you can fix this in a follow-up CL?",
+      "range": {
+        "startLine": 116,
+        "startChar": 74,
+        "endLine": 116,
+        "endChar": 86
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c75788e9_28bf32fd",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T09:50:26Z",
+      "side": 1,
+      "message": "I think this will not work on U. I can\u0027t remember the exact proble, but IIRC when yuyanghuang@ tried to add a new signature permission in U for MDNS hardware offload, he had to revert it due to a CTS failure.",
+      "range": {
+        "startLine": 130,
+        "startChar": 40,
+        "endLine": 130,
+        "endChar": 63
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10626d7d_ed4d9af5",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T09:50:26Z",
+      "side": 1,
+      "message": "I think this code is not multi-user aware. For apps in other users I think you might need to do something like:\n\n    mContext.createContextAsUser().getPackageManager()\n\nand use that packagemanager to check the permissions.",
+      "range": {
+        "startLine": 130,
+        "startChar": 65,
+        "endLine": 130,
+        "endChar": 76
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b66423d1_55e99d8e",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T09:50:26Z",
+      "side": 1,
+      "message": "Per discussion, this needs to get the user from onRoleHoldersChanged. When the same app is installed on multiple user profiles, it will have the same package name in each UserHandle, but distinct UIDs.",
+      "range": {
+        "startLine": 155,
+        "startChar": 70,
+        "endLine": 155,
+        "endChar": 73
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46e37a63_905a964c",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T09:50:26Z",
+      "side": 1,
+      "message": "On Android, prefer ArraySet over HashSet for small sets because it\u0027s more memory-efficient.",
+      "range": {
+        "startLine": 158,
+        "startChar": 57,
+        "endLine": 158,
+        "endChar": 64
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5bfaa54_4217b972",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T09:50:26Z",
+      "side": 1,
+      "message": "Per discussion - to make this code multi-user aware we can\u0027t clear the set here. Maybe maintain one set for each user?",
+      "range": {
+        "startLine": 161,
+        "startChar": 43,
+        "endLine": 161,
+        "endChar": 48
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bfc8106_4b30b4af",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T09:50:26Z",
+      "side": 1,
+      "message": "What if it is null? Is that an error? Can it ever happen? If not, probably want to Log.wtf if it does happen.",
+      "range": {
+        "startLine": 163,
+        "startChar": 25,
+        "endLine": 163,
+        "endChar": 32
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba313658_f210d770",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T09:50:26Z",
+      "side": 1,
+      "message": "These are Sets, aren\u0027t they? Can\u0027t you just use equals() instead of writing a custom method?",
+      "range": {
+        "startLine": 180,
+        "startChar": 20,
+        "endLine": 180,
+        "endChar": 62
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4a8b6da_486d826a",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T09:50:26Z",
+      "side": 1,
+      "message": "Can this happen? If not, maybe this should be wtf instead of e?",
+      "range": {
+        "startLine": 194,
+        "startChar": 16,
+        "endLine": 194,
+        "endChar": 17
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

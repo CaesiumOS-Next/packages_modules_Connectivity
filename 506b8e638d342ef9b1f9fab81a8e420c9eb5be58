@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb2f1f50_8e4112e6",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-06T09:50:26Z",
+      "side": 1,
+      "message": "UserHandle.ALL will probably be more correct for devices that have more than one user. Can you set up another user under Settings \u003e System \u003e Users \u003e Multiple users, enable phone and SMS, and see whether that user has a default messaging app as well? I assume it will, and that we want that to work.",
+      "parentUuid": "0feae5c9_1713d4ae",
+      "range": {
+        "startLine": 72,
+        "startChar": 76,
+        "endLine": 72,
+        "endChar": 82
+      },
+      "revId": "506b8e638d342ef9b1f9fab81a8e420c9eb5be58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b27316ab_67145c27",
         "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
         "patchSetId": 13
