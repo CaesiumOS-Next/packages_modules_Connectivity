@@ -30,6 +30,8 @@ import android.system.ErrnoException;
 import android.system.Os;
 import android.util.Log;
 
+import androidx.annotation.GuardedBy;
+
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.Objects;
@@ -57,8 +59,9 @@ import java.util.Objects;
  * from the http server, the same mechanism is applied but in a different direction,
  * where the source and destination will be swapped.
  */
-public class PacketForwarder extends Thread {
+public abstract class PacketForwarderBase extends Thread {
     private static final String TAG = "PacketForwarder";
+    static final int DESTINATION_PORT_OFFSET = 2;
 
     // The source fd to read packets from.
     @NonNull
@@ -69,9 +72,11 @@ public class PacketForwarder extends Thread {
     // The destination fd to write packets to.
     @NonNull
     final FileDescriptor mDstFd;
-
+    @GuardedBy("mTranslationMap")
+    @NonNull
+    final PacketBridge.TranslationMap mTranslationMap;
     /**
-     * Construct a {@link PacketForwarder}.
+     * Construct a {@link PacketForwarderBase}.
      *
      * This class reads packets from {@code srcFd} of a {@link TestNetworkInterface}, and
      * forwards them to the {@code dstFd} of another {@link TestNetworkInterface}.
@@ -82,14 +87,24 @@ public class PacketForwarder extends Thread {
      * @param srcFd   {@link FileDescriptor} to read packets from.
      * @param mtu     MTU of the test network.
      * @param dstFd   {@link FileDescriptor} to write packets to.
+     * @param translationMap    address/port translation map
      */
-    public PacketForwarder(@NonNull FileDescriptor srcFd, int mtu,
-                           @NonNull FileDescriptor dstFd) {
+    public PacketForwarderBase(@NonNull FileDescriptor srcFd, int mtu,
+                           @NonNull FileDescriptor dstFd,
+                           @NonNull PacketBridge.TranslationMap translationMap) {
         super(TAG);
         mSrcFd = Objects.requireNonNull(srcFd);
         mBuf = new byte[mtu];
         mDstFd = Objects.requireNonNull(dstFd);
+        mTranslationMap = Objects.requireNonNull(translationMap);
     }
+
+    /**
+     * A method to prepare forwarding packets between two instances of {@link TestNetworkInterface},
+     * which includes re-write addresses, ports and fix up checksums.
+     * Subclasses should override this method to implement a simple NAT.
+     */
+    abstract void preparePacketForForwarding(@NonNull byte[] buf, int len, int version, int proto);
 
     private void forwardPacket(@NonNull byte[] buf, int len) {
         try {
@@ -142,8 +157,8 @@ public class PacketForwarder extends Thread {
         if (len < ipHdrLen + transportHdrLen) {
             throw new IllegalStateException("Unexpected buffer length: " + len);
         }
-        // Swap addresses.
-        PacketReflectorUtil.swapAddresses(mBuf, version);
+        // Swap addresses and translate port.
+        preparePacketForForwarding(mBuf, len, version, proto);
 
         // Send the packet to the destination fd.
         forwardPacket(mBuf, len);
