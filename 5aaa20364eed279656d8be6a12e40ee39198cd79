@@ -183,6 +183,30 @@
       },
       "revId": "5aaa20364eed279656d8be6a12e40ee39198cd79",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f62f25ba_69913f30",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T15:04:49Z",
+      "side": 1,
+      "message": "When does the mapping of \"slot -\u003e subId\" change?\nIs there any relationship with simConfigChanged or onCarrierServiceChanged?\n\nIf there are no relationship, I think we can use `getSubscriptionId` to get subId and call Connectivity callback with pair of uid and subId so that ConnectivityService does not need to call back CarrierPrivilegeAuthenticator from `handleUidCarrierPrivilegesLost` \n\nIf there are relationship, we need to be careful not to get the wrong subId.\nIn this case, \"move CarrierPrivilegeAuthenticator to the CS handler thread\" option could be easier than getting correct uid and subId pair.",
+      "parentUuid": "d3abc9a9_5e126d33",
+      "range": {
+        "startLine": 210,
+        "startChar": 64,
+        "endLine": 210,
+        "endChar": 66
+      },
+      "revId": "5aaa20364eed279656d8be6a12e40ee39198cd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
