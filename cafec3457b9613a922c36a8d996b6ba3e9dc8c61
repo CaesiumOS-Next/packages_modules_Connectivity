@@ -46,6 +46,30 @@
       },
       "revId": "cafec3457b9613a922c36a8d996b6ba3e9dc8c61",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99a143fe_a8af73b6",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1323,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-06T17:06:50Z",
+      "side": 1,
+      "message": "New Flag Added as per comment",
+      "parentUuid": "d6fc4924_571bf5a8",
+      "range": {
+        "startLine": 1323,
+        "startChar": 4,
+        "endLine": 1323,
+        "endChar": 50
+      },
+      "revId": "cafec3457b9613a922c36a8d996b6ba3e9dc8c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
