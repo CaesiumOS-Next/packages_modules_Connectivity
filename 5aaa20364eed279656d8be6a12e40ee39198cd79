@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af4dbdc7_95aeb403",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 23
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-06T22:50:35Z",
+      "side": 1,
+      "message": "That is a good point. It is not our intention not to have the getter, and I don\u0027t think subscription IDs are redacted (see this example https://screenshot.googleplex.com/4M7zaKLhNYZaRgz). I have added a public getter just like other getters in NetworkRequest.",
+      "parentUuid": "a0fee1ac_ce468ffc",
+      "range": {
+        "startLine": 307,
+        "startChar": 21,
+        "endLine": 307,
+        "endChar": 40
+      },
+      "revId": "5aaa20364eed279656d8be6a12e40ee39198cd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c857fcf7_f3c39416",
@@ -37,6 +61,54 @@
       "writtenOn": "2024-02-06T09:05:06Z",
       "side": 1,
       "message": "This method name is a bit misleading. There are many permissions checks in this file. Maybe call this canRequestRestrictedNetworkDueToCarrierPrivileges?",
+      "range": {
+        "startLine": 7812,
+        "startChar": 20,
+        "endLine": 7812,
+        "endChar": 52
+      },
+      "revId": "5aaa20364eed279656d8be6a12e40ee39198cd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a112ea17_46489b3a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 7812,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-06T22:50:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c857fcf7_f3c39416",
+      "range": {
+        "startLine": 7812,
+        "startChar": 20,
+        "endLine": 7812,
+        "endChar": 52
+      },
+      "revId": "5aaa20364eed279656d8be6a12e40ee39198cd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f31e795_c6970244",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 7812,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-06T22:50:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c857fcf7_f3c39416",
       "range": {
         "startLine": 7812,
         "startChar": 20,
@@ -70,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48497a04_9830fdf4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 9106,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-06T22:50:35Z",
+      "side": 1,
+      "message": "I double checked the code, and I believe the overlap between canBypassNetworkPermissionsCheck and handleUidCarrierPrivilegesLost is that they both call hasCarrierPrivilegeForNetworkCaps(), the rest are different, since now we removed hasCarrierPrivilegeForNetworkCaps() in handleUidCarrierPrivilegesLost, I don\u0027t think there are more code to be shared between the two methods",
+      "parentUuid": "458aabca_cd281846",
+      "range": {
+        "startLine": 9106,
+        "startChar": 28,
+        "endLine": 9106,
+        "endChar": 52
+      },
+      "revId": "5aaa20364eed279656d8be6a12e40ee39198cd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2418f937_305614d9",
@@ -83,6 +179,30 @@
       "writtenOn": "2024-02-06T09:05:06Z",
       "side": 1,
       "message": "There is a race condition here: this code calls synchronously into CarrierPrivilegeAuthenticator based on state (the uid being passed into the method) that is no longer current in CarrierPrivilegeAuthenticator.\n\nAs an example of possibly-incorrect behaviour: if a UID loses and then immediately re-gains carrier privilege, then we might not declare its request unfulfillable because by the time handleUidCarrierPrivilegesLost is called for that UID, hasCarrierPrivilegeForNetwork might have already started returning true for that UID. This behaviour sounds relatively harmless but there are probably other issues that may be more severe.\n\nIn order to fix these races for good I think we\u0027ll have to move CarrierPrivilegeAuthenticator to the ConnectivityService handler thread, which I think it something we should do anyway.\n\nPer discussion, if we just want a simple change for now we might be able simply to remove the call to hasCarrierPrivilegeForNetworkCaps.",
+      "range": {
+        "startLine": 9115,
+        "startChar": 24,
+        "endLine": 9115,
+        "endChar": 57
+      },
+      "revId": "5aaa20364eed279656d8be6a12e40ee39198cd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9aa18c6_aa5cbef5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 9115,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-06T22:50:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2418f937_305614d9",
       "range": {
         "startLine": 9115,
         "startChar": 24,
@@ -116,6 +236,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ef7a15a_2f7dcb78",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 9123,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-06T22:50:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f95055c5_36d0455e",
+      "range": {
+        "startLine": 9123,
+        "startChar": 36,
+        "endLine": 9123,
+        "endChar": 40
+      },
+      "revId": "5aaa20364eed279656d8be6a12e40ee39198cd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3283fe0d_efed23bf",
@@ -139,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "888a741a_4f6dcc3d",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-06T22:50:35Z",
+      "side": 1,
+      "message": "I changed the implementation to only support one listener which will be passed in through the constructor. I didn\u0027t change the listener into Consumer because I didn\u0027t use that before, so I need to check some example code in order to do that. I can draft another CL for that if you insist.",
+      "parentUuid": "3283fe0d_efed23bf",
+      "range": {
+        "startLine": 84,
+        "startChar": 18,
+        "endLine": 84,
+        "endChar": 22
+      },
+      "revId": "5aaa20364eed279656d8be6a12e40ee39198cd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0d96aef_7fddfad0",
@@ -152,6 +320,30 @@
       "writtenOn": "2024-02-06T09:05:06Z",
       "side": 1,
       "message": "Just passing in the UID is not useful here, because without knowing the subId, CS cannot determine which network(s) the UID lost privileges on. You might be able to fix this by passing both the UID and the subId it lost privileges on.\n\nOr, you could just pass in nothing at all and have CS recalculate everything. I think that to do this, you\u0027ll need to move CarrierPrivilegeAuthenticator to the CS handler thread (see comment below). That\u0027s a larger change though; not sure if we want to do that in this CL.\n\nIdeally, we would have moved CarrierPrivilegeAuthenticator to the CS handler thread *first*, and then made this change. But if we need to submit this CL soon, then maybe we can fix the problem in this CL by passing in both subId and uid, and then move CarrierPrivilegeAuthenticator to the CS handler thread in another CL?",
+      "range": {
+        "startLine": 151,
+        "startChar": 37,
+        "endLine": 151,
+        "endChar": 44
+      },
+      "revId": "5aaa20364eed279656d8be6a12e40ee39198cd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7c08e2e_d3b47135",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-06T22:50:35Z",
+      "side": 1,
+      "message": "I believe our intention is, whenever the UID loses Carrier Privileges, we want to clear all the restricted network requests which are owned by the UID, and also remove the UID from the allowedUiD list of the corresponding networks. Since a Carrier app should only be allowed to access its own restricted networks, cleaning all the requests owned by the UID should be enough?",
+      "parentUuid": "a0d96aef_7fddfad0",
       "range": {
         "startLine": 151,
         "startChar": 37,
@@ -199,6 +391,30 @@
       "side": 1,
       "message": "When does the mapping of \"slot -\u003e subId\" change?\nIs there any relationship with simConfigChanged or onCarrierServiceChanged?\n\nIf there are no relationship, I think we can use `getSubscriptionId` to get subId and call Connectivity callback with pair of uid and subId so that ConnectivityService does not need to call back CarrierPrivilegeAuthenticator from `handleUidCarrierPrivilegesLost` \n\nIf there are relationship, we need to be careful not to get the wrong subId.\nIn this case, \"move CarrierPrivilegeAuthenticator to the CS handler thread\" option could be easier than getting correct uid and subId pair.",
       "parentUuid": "d3abc9a9_5e126d33",
+      "range": {
+        "startLine": 210,
+        "startChar": 64,
+        "endLine": 210,
+        "endChar": 66
+      },
+      "revId": "5aaa20364eed279656d8be6a12e40ee39198cd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d97f90b_2768d458",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-06T22:50:35Z",
+      "side": 1,
+      "message": "see my reponse to Lorenzo\u0027s comments above.",
+      "parentUuid": "f62f25ba_69913f30",
       "range": {
         "startLine": 210,
         "startChar": 64,
