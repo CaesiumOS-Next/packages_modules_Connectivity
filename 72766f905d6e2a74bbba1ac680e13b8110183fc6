@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df6ba8ab_5f80ad33",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 3932,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T02:04:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd5706cc_4ccad61b",
+      "revId": "72766f905d6e2a74bbba1ac680e13b8110183fc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9b7d559_3abe5cae",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-02-05T03:51:43Z",
       "side": 1,
       "message": "Nit: especially for javadoc used for publicly documentation like change IDs, there should be a short description that fits in the first line, and the rest of the description after a line break.",
+      "revId": "72766f905d6e2a74bbba1ac680e13b8110183fc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0759c4f2_cbbc7fc6",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T02:04:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9b7d559_3abe5cae",
       "revId": "72766f905d6e2a74bbba1ac680e13b8110183fc6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1daf21c6_d34c8e71",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSKeepConnectedTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T02:04:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f042393_9d14eb5e",
+      "revId": "72766f905d6e2a74bbba1ac680e13b8110183fc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b4b681c_765916da",
@@ -65,6 +119,24 @@
       "writtenOn": "2024-02-05T03:51:43Z",
       "side": 1,
       "message": "Same thing for tests in this file",
+      "revId": "72766f905d6e2a74bbba1ac680e13b8110183fc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32e5f0c8_853fd70b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T02:04:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b4b681c_765916da",
       "revId": "72766f905d6e2a74bbba1ac680e13b8110183fc6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -92,6 +164,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4a6c38f_d09f9370",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T02:04:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d350756_2a1f8b1b",
+      "range": {
+        "startLine": 873,
+        "startChar": 25,
+        "endLine": 873,
+        "endChar": 48
+      },
+      "revId": "72766f905d6e2a74bbba1ac680e13b8110183fc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8a0947d_184a578d",
@@ -105,6 +201,24 @@
       "writtenOn": "2024-02-05T03:51:43Z",
       "side": 1,
       "message": "Instead of adding the flag, would it be possible to make tests generally enable the ChangeId ? Since long-term that should be the general state.",
+      "revId": "72766f905d6e2a74bbba1ac680e13b8110183fc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92bb985a_71930c4c",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T02:04:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8a0947d_184a578d",
       "revId": "72766f905d6e2a74bbba1ac680e13b8110183fc6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
