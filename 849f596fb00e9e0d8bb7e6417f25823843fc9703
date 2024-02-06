@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ea3f006e_fd73ad47",
+        "filename": "Tethering/AndroidManifest.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T04:26:47Z",
+      "side": 1,
+      "message": "per discussion, could you try removing permission only from `Tethering/AndroidManifest.xml` and you face the issue.\n`SatelliteAccessController` is called from ConnectivityService which is running from system_server.\nSo I don\u0027t think modifying AndroidManifest for Tethering.apk change any behavior.",
+      "parentUuid": "f54de925_10b8778c",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 0
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "816a545f_b1b15c5b",
         "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
         "patchSetId": 9
@@ -343,6 +367,30 @@
       "side": 1,
       "message": "Updated",
       "parentUuid": "0612c8d4_0612f75f",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 47
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67bb66b3_c0010dc0",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T04:26:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c740f445_f0802a25",
       "range": {
         "startLine": 142,
         "startChar": 0,
@@ -707,6 +755,30 @@
       "side": 1,
       "message": "Based on tests, meet security exception if not defined @ Manifest: \n01-25 06:45:07.111 10109  8034  8049 I SatelliteAccessController: Could not register satellite controller listener due to java.lang.SecurityException: addOnRoleHoldersChangedListenerAsUser: Neither user 10109 nor current process has android.permission.OBSERVE_ROLE_HOLDERS.\n\n01-25 06:45:07.111 10109  8034 11025 I SatelliteAccessController: Could not get package name at role sms change update due to: java.lang.SecurityException: getRoleHoldersAsUser: Neither user 10109 nor current process has android.permission.MANAGE_ROLE_HOLDERS",
       "parentUuid": "28c73e14_65b930a3",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 77
+      },
+      "revId": "849f596fb00e9e0d8bb7e6417f25823843fc9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f95cd863_b3f0c366",
+        "filename": "tests/unit/AndroidManifest.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T04:26:47Z",
+      "side": 1,
+      "message": "Do you know which line of the code throw this exception?\nFrom the test, access to RoleManager is mocked by Dependencies.\nSo I\u0027m wondering why you face this issue.",
+      "parentUuid": "c0ba3353_6e17de4a",
       "range": {
         "startLine": 55,
         "startChar": 0,
