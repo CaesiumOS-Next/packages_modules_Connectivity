@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01c09425_48d97d08",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1800,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T04:32:08Z",
+      "side": 1,
+      "message": "I think now this callback is called from Connectivity handler thread.\nIf so, we can directly call `handleSetSatelliteNetworkPreference` and remove `EVENT_SET_SATELLITE_NETWORK_PREFERENCE_UIDS`",
+      "range": {
+        "startLine": 1800,
+        "startChar": 32,
+        "endLine": 1800,
+        "endChar": 68
+      },
+      "revId": "4761ea118895970660af39c87dd1a3e70c843e33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "828681da_608ba878",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 3793,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T04:32:08Z",
+      "side": 1,
+      "message": "nits: I think we don\u0027t need this since if isAtLeastU is false, mSatelliteAccessController is null.",
+      "range": {
+        "startLine": 3793,
+        "startChar": 12,
+        "endLine": 3793,
+        "endChar": 33
+      },
+      "revId": "4761ea118895970660af39c87dd1a3e70c843e33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8e39732_91083eac",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 12819,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T04:32:08Z",
+      "side": 1,
+      "message": "Could you add `ensureRunningOnConnectivityServiceThread` in the first line to make sure this method is running in Connectivity thread?",
+      "range": {
+        "startLine": 12819,
+        "startChar": 71,
+        "endLine": 12819,
+        "endChar": 72
+      },
+      "revId": "4761ea118895970660af39c87dd1a3e70c843e33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f58a9c7_e7c504d2",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T04:32:08Z",
+      "side": 1,
+      "message": "You don\u0027t need to do this in this CL.\nBut, the following test case would be helpful.\n1. Register MockNetworkFactory for satellite network\n2. File Satellite multi layer request\n3. Verify network factory receives the request\n4. create and register wifi network agent\n5. Verify the request is removed from network factory\n6. disconnect wifi network agent\n7. Verify network factory receives the request\n\nWe can see `testMobileDataAlwaysOn` and `testMultilayerRequestsOfSetMobileDataPreferredUids` as reference.",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 1
+      },
+      "revId": "4761ea118895970660af39c87dd1a3e70c843e33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efed5908_8825897a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-06T04:32:08Z",
+      "side": 1,
+      "message": "nits: Can we move this in CSDep?",
+      "range": {
+        "startLine": 178,
+        "startChar": 8,
+        "endLine": 178,
+        "endChar": 35
+      },
+      "revId": "4761ea118895970660af39c87dd1a3e70c843e33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
