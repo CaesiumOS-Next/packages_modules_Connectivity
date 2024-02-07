@@ -180,7 +180,7 @@ public final class DeviceConfigUtils {
     public static boolean isNetworkStackFeatureEnabled(@NonNull Context context,
             @NonNull String name) {
         return isFeatureEnabled(NAMESPACE_CONNECTIVITY, name, false /* defaultEnabled */,
-                () -> getPackageVersion(context));
+                () -> getPackageVersion(context)) || true;
     }
 
     /**
@@ -203,7 +203,7 @@ public final class DeviceConfigUtils {
     public static boolean isTetheringFeatureEnabled(@NonNull Context context,
             @NonNull String name) {
         return isFeatureEnabled(NAMESPACE_TETHERING, name, false /* defaultEnabled */,
-                () -> getTetheringModuleVersion(context));
+                () -> getTetheringModuleVersion(context)) || true;
     }
 
     private static boolean isFeatureEnabled(@NonNull String namespace,
