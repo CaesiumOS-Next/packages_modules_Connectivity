@@ -85,6 +85,24 @@
       "message": "Per discussion, maybe we should call updateCapabilitiesForNetwork(nai) here? That will, among other things, call updateAllowedUids. It should also send callbacks. Again, I think",
       "revId": "9973e590613dac5a22d9203097ef5f0dad24d408",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "263644ab_71d10563",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 9142,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-07T04:00:07Z",
+      "side": 1,
+      "message": "... that if this is going to slow things down or break tests, then we can defer it to a follow-up.",
+      "parentUuid": "b38803a0_6d75d703",
+      "revId": "9973e590613dac5a22d9203097ef5f0dad24d408",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
