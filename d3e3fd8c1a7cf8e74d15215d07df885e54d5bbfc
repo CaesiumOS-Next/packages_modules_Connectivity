@@ -140,6 +140,30 @@
       },
       "revId": "d3e3fd8c1a7cf8e74d15215d07df885e54d5bbfc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7906a118_f76d6ef6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 12781,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-07T06:50:43Z",
+      "side": 1,
+      "message": "\u003e You could pass in the requests and the preference order (in addition to the UID ranges) \n\nnits: I think passing requests from the caller is easier to read.  \n```\nArraySet\u003cNetworkRequestInfo\u003e createNrisForPreferenceOrder(\n       @NonNull final Set\u003cInteger\u003e uids,\n       List\u003cNetworkRequest\u003e requests,\n       final int preferenceOrder) {\n//\n}\n\nArraySet\u003cNetworkRequestInfo\u003e createNrisFromMobileDataPreferredUids(\n            @NonNull final Set\u003cInteger\u003e uids) {\n      final List\u003cNetworkRequest\u003e requests \u003d new ArrayList\u003c\u003e();\n      // The NRI should be comprised of two layers:\n      // - The request for the mobile network preferred.\n      // - The request for the default network, for fallback.\n      requests.add(createDefaultInternetRequestForTransport(\n              TRANSPORT_CELLULAR, NetworkRequest.Type.REQUEST));\n      requests.add(createDefaultInternetRequestForTransport(\n              TYPE_NONE, NetworkRequest.Type.TRACK_DEFAULT));            \n     return createNrisForPreferenceOrder(uids, requests, PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED);       \n}\n\nArraySet\u003cNetworkRequestInfo\u003e createMultiLayerNrisFromSatelliteNetworkPreferredUids(\n            @NonNull final Set\u003cInteger\u003e uids) {\n       final List\u003cNetworkRequest\u003e requests \u003d new ArrayList\u003c\u003e();\n           \n       // request: track default(unrestricted internet network)\n       requests.add(createDefaultInternetRequestForTransport(\n                    TYPE_NONE, NetworkRequest.Type.TRACK_DEFAULT));\n\n       // request: restricted Satellite internet\n       final NetworkCapabilities cap \u003d new NetworkCapabilities.Builder()\n                    .addCapability(NET_CAPABILITY_INTERNET)\n                    .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)\n                    .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)\n                    .addTransportType(NetworkCapabilities.TRANSPORT_SATELLITE)\n                    .build();\n       requests.add(createNetworkRequest(NetworkRequest.Type.REQUEST, cap)); \n       \n     return createNrisForPreferenceOrder(uids, requests, PREFERENCE_ORDER_SATELLITE_FALLBACK); \n}           \n\n```",
+      "parentUuid": "6c885290_8cfa759e",
+      "range": {
+        "startLine": 12781,
+        "startChar": 12,
+        "endLine": 12781,
+        "endChar": 83
+      },
+      "revId": "d3e3fd8c1a7cf8e74d15215d07df885e54d5bbfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
