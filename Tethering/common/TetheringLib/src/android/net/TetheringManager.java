@@ -689,7 +689,11 @@ public class TetheringManager {
         /** A configuration set for TetheringRequest. */
         private final TetheringRequestParcel mRequestParcel;
 
-        private TetheringRequest(@NonNull final TetheringRequestParcel request) {
+        /**
+         * @hide
+         */
+        @FlaggedApi(Flags.TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+        public TetheringRequest(@NonNull final TetheringRequestParcel request) {
             mRequestParcel = request;
         }
 
@@ -721,6 +725,31 @@ public class TetheringManager {
         @Override
         public void writeToParcel(@NonNull Parcel dest, int flags) {
             dest.writeParcelable(mRequestParcel, flags);
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof TetheringRequest that)) return false;
+            return getTetheringType() == that.getTetheringType()
+                    && Objects.equals(getLocalIpv4Address(), that.getLocalIpv4Address())
+                    && Objects.equals(
+                            getClientStaticIpv4Address(), that.getClientStaticIpv4Address())
+                    && isExemptFromEntitlementCheck() == that.isExemptFromEntitlementCheck()
+                    && getShouldShowEntitlementUi() == that.getShouldShowEntitlementUi()
+                    && getConnectivityScope() == that.getConnectivityScope();
+        }
+
+        @Override
+        public int hashCode() {
+            return Arrays.hashCode(new int[]{
+                    getTetheringType(),
+                    getConnectivityScope(),
+                    isExemptFromEntitlementCheck() ? 1231 : 1237,
+                    getShouldShowEntitlementUi() ? 1231 : 1237,
+                    getLocalIpv4Address() == null ? 0 : getLocalIpv4Address().hashCode(),
+                    getClientStaticIpv4Address() == null ? 0
+                            : getClientStaticIpv4Address().hashCode()});
         }
 
         /** Builder used to create TetheringRequest. */

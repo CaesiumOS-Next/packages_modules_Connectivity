@@ -311,7 +311,8 @@ public final class TetheringServiceTest {
                 result);
         verify(mTethering).isTetheringSupported();
         verify(mTethering).isTetheringAllowed();
-        verify(mTethering).startTethering(eq(request), eq(TEST_CALLER_PKG), eq(result));
+        verify(mTethering).startTethering(eq(new TetheringManager.TetheringRequest(request)),
+                eq(TEST_CALLER_PKG), eq(result));
     }
 
     @Test
