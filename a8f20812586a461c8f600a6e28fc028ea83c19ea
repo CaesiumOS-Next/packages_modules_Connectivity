@@ -51,6 +51,24 @@
       "message": "I guess this adds test for the OffloadServiceInfo constructor, while there were already tests for the offload engine functionality in NsdManagerTest ?",
       "revId": "a8f20812586a461c8f600a6e28fc028ea83c19ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29dc4c62_39818123",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-07T08:52:31Z",
+      "side": 1,
+      "message": "Technically it is already tested in NsdManagerTest, which means I don\u0027t understand why the following two bug is created.....\n\nBug: 323464655\nBug: 323464223",
+      "parentUuid": "7903603c_e7f5d338",
+      "revId": "a8f20812586a461c8f600a6e28fc028ea83c19ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
