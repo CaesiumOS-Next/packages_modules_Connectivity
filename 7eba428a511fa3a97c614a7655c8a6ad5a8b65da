@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d33cd480_67c7ddb5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T07:02:53Z",
+      "side": 1,
+      "message": "Found permission is already added/part of U , Ref : https://googleplex-android-review.git.corp.google.com/c/platform/frameworks/base/+/21075053 .\n\nAnd this feature is targeted from U onwards , is there any concern here?",
+      "parentUuid": "0baf7942_816c72ca",
+      "range": {
+        "startLine": 568,
+        "startChar": 49,
+        "endLine": 568,
+        "endChar": 72
+      },
+      "revId": "7eba428a511fa3a97c614a7655c8a6ad5a8b65da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2cf06621_e9156fc6",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 22
@@ -152,6 +176,30 @@
       "writtenOn": "2024-02-07T06:50:43Z",
       "side": 1,
       "message": "nits: now this logic was outside of `makeSatelliteAccessController`",
+      "range": {
+        "startLine": 215,
+        "startChar": 40,
+        "endLine": 215,
+        "endChar": 67
+      },
+      "revId": "7eba428a511fa3a97c614a7655c8a6ad5a8b65da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdfa1d11_9cad5b0d",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T07:02:53Z",
+      "side": 1,
+      "message": "Found permission is already added/part of U , Ref : https://googleplex-android-review.git.corp.google.com/c/platform/frameworks/base/+/21075053 .\n\nAnd this feature is targeted from U onwards , is there any concern here?",
+      "parentUuid": "7b74f5bc_2a0a181f",
       "range": {
         "startLine": 215,
         "startChar": 40,
