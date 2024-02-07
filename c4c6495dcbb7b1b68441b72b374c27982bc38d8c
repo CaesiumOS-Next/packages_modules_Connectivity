@@ -16,6 +16,24 @@
       "message": "Lorenzo points to\n  https://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:vendor/unbundled_google/modules/TetheringGooglePrebuilt/.prebuilt_info/prebuilt_info_com_google_android_tethering_apks.asciipb\n\n    build_id: \"T1008638\"",
       "revId": "c4c6495dcbb7b1b68441b72b374c27982bc38d8c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95fa3df3_65475882",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-02-07T01:00:24Z",
+      "side": 1,
+      "message": "T1008638 which leads to:\nhttps://android-build.corp.google.com/build_explorer/branch_dashboard/mainline-train-builds/build_id/T1008638/?activeTarget\u003dtrain_build\n\nhttps://android-build.corp.google.com/build_explorer/branch_dashboard/git_mainline-tethering-release/build_id/10903015/?activeTarget\u003dmainline_modules-user\n\nsays aml_tet_341112070 that looks suspiciously like november\n\n... which is the only one that\u0027s technically allowed since there was no M-2023-12 and M-2024-01 is not 100% rolled out yet",
+      "parentUuid": "4e3662a0_34d2c6ec",
+      "revId": "c4c6495dcbb7b1b68441b72b374c27982bc38d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
