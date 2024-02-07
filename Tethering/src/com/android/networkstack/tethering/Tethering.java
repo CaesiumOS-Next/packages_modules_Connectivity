@@ -228,10 +228,10 @@ public class Tethering {
     private final SharedLog mLog = new SharedLog(TAG);
     private final RemoteCallbackList<ITetheringEventCallback> mTetheringEventCallbacks =
             new RemoteCallbackList<>();
-    // Currently active tethering requests per tethering type. Only one of each type can be
+    // Currently pending tethering requests per tethering type. Only one of each type can be
     // requested at a time. After a tethering type is requested, the map keeps tethering parameters
     // to be used after the interface comes up asynchronously.
-    private final SparseArray<TetheringRequestParcel> mActiveTetheringRequests =
+    private final SparseArray<TetheringRequestParcel> mPendingTetheringRequests =
             new SparseArray<>();
 
     private final Context mContext;
@@ -668,7 +668,7 @@ public class Tethering {
     void startTethering(final TetheringRequestParcel request, final String callerPkg,
             final IIntResultListener listener) {
         mHandler.post(() -> {
-            final TetheringRequestParcel unfinishedRequest = mActiveTetheringRequests.get(
+            final TetheringRequestParcel unfinishedRequest = mPendingTetheringRequests.get(
                     request.tetheringType);
             // If tethering is already enabled with a different request,
             // disable before re-enabling.
@@ -677,7 +677,7 @@ public class Tethering {
                 enableTetheringInternal(request.tetheringType, false /* disabled */, null);
                 mEntitlementMgr.stopProvisioningIfNeeded(request.tetheringType);
             }
-            mActiveTetheringRequests.put(request.tetheringType, request);
+            mPendingTetheringRequests.put(request.tetheringType, request);
 
             if (request.exemptFromEntitlementCheck) {
                 mEntitlementMgr.setExemptedDownstreamType(request.tetheringType);
@@ -696,7 +696,7 @@ public class Tethering {
         });
     }
     void stopTetheringInternal(int type) {
-        mActiveTetheringRequests.remove(type);
+        mPendingTetheringRequests.remove(type);
 
         enableTetheringInternal(type, false /* disabled */, null);
         mEntitlementMgr.stopProvisioningIfNeeded(type);
@@ -747,7 +747,7 @@ public class Tethering {
         // If changing tethering fail, remove corresponding request
         // no matter who trigger the start/stop.
         if (result != TETHER_ERROR_NO_ERROR) {
-            mActiveTetheringRequests.remove(type);
+            mPendingTetheringRequests.remove(type);
             mTetheringMetrics.updateErrorCode(type, result);
             mTetheringMetrics.sendReport(type);
         }
@@ -1005,9 +1005,9 @@ public class Tethering {
         //
         // This code cannot race with untether() because they both run on the handler thread.
         final int type = tetherState.ipServer.interfaceType();
-        final TetheringRequestParcel request = mActiveTetheringRequests.get(type, null);
+        final TetheringRequestParcel request = mPendingTetheringRequests.get(type, null);
         if (request != null) {
-            mActiveTetheringRequests.delete(type);
+            mPendingTetheringRequests.delete(type);
         }
         tetherState.ipServer.enable(requestedState, request);
         return TETHER_ERROR_NO_ERROR;
@@ -1062,7 +1062,7 @@ public class Tethering {
     }
 
     private int getRequestedState(int type) {
-        final TetheringRequestParcel request = mActiveTetheringRequests.get(type);
+        final TetheringRequestParcel request = mPendingTetheringRequests.get(type);
 
         // The request could have been deleted before we had a chance to complete it.
         // If so, assume that the scope is the default scope for this tethering type.
@@ -1099,7 +1099,8 @@ public class Tethering {
             final TetherState tetherState = mTetherStates.valueAt(i);
             final int type = tetherState.ipServer.interfaceType();
             final String iface = mTetherStates.keyAt(i);
-            final TetheringInterface tetheringIface = new TetheringInterface(type, iface);
+            final TetheringInterface tetheringIface = new TetheringInterface(type, iface,
+                    tetherState.ipServer.getTetheringRequest());
             if (tetherState.lastError != TETHER_ERROR_NO_ERROR) {
                 errored.add(tetheringIface);
                 lastErrors.add(tetherState.lastError);
@@ -1368,8 +1369,8 @@ public class Tethering {
     }
 
     @VisibleForTesting
-    SparseArray<TetheringRequestParcel> getActiveTetheringRequests() {
-        return mActiveTetheringRequests;
+    SparseArray<TetheringRequestParcel> getPendingTetheringRequests() {
+        return mPendingTetheringRequests;
     }
 
     @VisibleForTesting
