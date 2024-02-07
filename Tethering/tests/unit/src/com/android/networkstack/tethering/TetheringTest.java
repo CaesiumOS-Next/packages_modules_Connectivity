@@ -932,7 +932,6 @@ public class TetheringTest {
             verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_RNDIS);
             mTethering.interfaceStatusChanged(TEST_RNDIS_IFNAME, true);
         }
-
     }
 
     @Test
@@ -2327,7 +2326,7 @@ public class TetheringTest {
         // 2. Enable wifi tethering.
         UpstreamNetworkState upstreamState = buildMobileDualStackUpstreamState();
         initTetheringUpstream(upstreamState);
-        when(mWifiManager.startTetheredHotspot(any(SoftApConfiguration.class))).thenReturn(true);
+        when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
         mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
         mLooper.dispatchAll();
         tetherState = callback.pollTetherStatesChanged();
@@ -2365,6 +2364,77 @@ public class TetheringTest {
         }
         tetherState = callback2.pollTetherStatesChanged();
         assertArrayEquals(tetherState.availableList, new TetheringInterface[] {wifiIface});
+        mLooper.dispatchAll();
+        callback2.expectUpstreamChanged(NULL_NETWORK);
+        callback2.expectOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STOPPED);
+        callback.assertNoCallback();
+    }
+
+    @Test
+    public void testSoftApConfigurationIncludedInTetheringEventCallback() throws Exception {
+        initTetheringOnTestThread();
+        TestTetheringEventCallback callback = new TestTetheringEventCallback();
+        TestTetheringEventCallback callback2 = new TestTetheringEventCallback();
+        final TetheringRequest tetheringRequest = createTetheringRequest(TETHERING_WIFI);
+        final TetheringInterface wifiIfaceWithoutRequest = new TetheringInterface(
+                TETHERING_WIFI, TEST_WLAN_IFNAME, null);
+        final TetheringInterface wifiIfaceWithRequest = new TetheringInterface(
+                TETHERING_WIFI, TEST_WLAN_IFNAME, tetheringRequest.getSoftApConfiguration());
+
+        // 1. Register one callback before running any tethering.
+        mTethering.registerTetheringEventCallback(callback);
+        mLooper.dispatchAll();
+        callback.expectTetheredClientChanged(Collections.emptyList());
+        callback.expectUpstreamChanged(NULL_NETWORK);
+        callback.expectConfigurationChanged(
+                mTethering.getTetheringConfiguration().toStableParcelable());
+        TetherStatesParcel tetherState = callback.pollTetherStatesChanged();
+        assertTetherStatesNotNullButEmpty(tetherState);
+        callback.expectOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STOPPED);
+        // 2. Enable wifi tethering.
+        UpstreamNetworkState upstreamState = buildMobileDualStackUpstreamState();
+        initTetheringUpstream(upstreamState);
+        when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
+        mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
+        mLooper.dispatchAll();
+        tetherState = callback.pollTetherStatesChanged();
+        assertArrayEquals(new TetheringInterface[] {wifiIfaceWithoutRequest},
+                tetherState.availableList);
+
+        mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, null);
+        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        tetherState = callback.pollTetherStatesChanged();
+        assertArrayEquals(new TetheringInterface[] {wifiIfaceWithRequest},
+                tetherState.tetheredList);
+        callback.expectUpstreamChanged(upstreamState.network);
+        callback.expectOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STARTED);
+
+        // 3. Register second callback.
+        mTethering.registerTetheringEventCallback(callback2);
+        mLooper.dispatchAll();
+        callback2.expectTetheredClientChanged(Collections.emptyList());
+        callback2.expectUpstreamChanged(upstreamState.network);
+        callback2.expectConfigurationChanged(
+                mTethering.getTetheringConfiguration().toStableParcelable());
+        tetherState = callback2.pollTetherStatesChanged();
+        assertEquals(new TetheringInterface[] {wifiIfaceWithRequest},
+                tetherState.tetheredList);
+        callback2.expectOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STARTED);
+
+        // 4. Unregister first callback and disable wifi tethering
+        mTethering.unregisterTetheringEventCallback(callback);
+        mLooper.dispatchAll();
+        mTethering.stopTethering(TETHERING_WIFI);
+        sendWifiApStateChanged(WIFI_AP_STATE_DISABLED);
+        if (isAtLeastT()) {
+            // After T, tethering doesn't support WIFI_AP_STATE_DISABLED with null interface name.
+            callback2.assertNoStateChangeCallback();
+            sendWifiApStateChanged(WIFI_AP_STATE_DISABLED, TEST_WLAN_IFNAME,
+                    IFACE_IP_MODE_TETHERED);
+        }
+        tetherState = callback2.pollTetherStatesChanged();
+        assertArrayEquals(new TetheringInterface[] {wifiIfaceWithRequest},
+                tetherState.availableList);
         mLooper.dispatchAll();
         callback2.expectUpstreamChanged(NULL_NETWORK);
         callback2.expectOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STOPPED);
