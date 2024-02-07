@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5dfb428_7048f7f3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 2063,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-07T12:25:57Z",
+      "side": 1,
+      "message": "I think you wanted to add the following?\nCurrently, makeSatelliteAccessController does not check the sdkLevel and jus return satelliteAccessController.\n```\n        @Override\n        public SatelliteAccessController makeSatelliteAccessController(\n                @NonNull final Context context,\n                Consumer\u003cSet\u003cInteger\u003e\u003e updateSatelliteNetworkFallbackUidCallback,\n                @NonNull final Handler connectivityServiceInternalHandler) {\n            return mSatelliteAccessController\n        }\n```",
+      "range": {
+        "startLine": 2063,
+        "startChar": 41,
+        "endLine": 2063,
+        "endChar": 66
+      },
+      "revId": "2b1887dfcf523f387f1cee7c5ba4c5b4a5b577ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
