@@ -315,6 +315,8 @@ public class IpServer extends StateMachineShim {
 
     private LinkAddress mIpv4Address;
 
+    private TetheringManager.TetheringRequest mTetheringRequest;
+
     private final TetheringMetrics mTetheringMetrics;
     private final Handler mHandler;
 
@@ -408,6 +410,12 @@ public class IpServer extends StateMachineShim {
     /** The address which IpServer is using. */
     public LinkAddress getAddress() {
         return mIpv4Address;
+    }
+
+    /** Get the TetheringRequest that this IP server was enabled with */
+    @Nullable
+    public TetheringManager.TetheringRequest getTetheringRequest() {
+        return mTetheringRequest;
     }
 
     /**
@@ -1093,12 +1101,17 @@ public class IpServer extends StateMachineShim {
     }
 
     private void maybeConfigureStaticIp(final TetheringRequestParcel request) {
-        // Ignore static address configuration if they are invalid or null. In theory, static
+        if (request == null) {
+            return;
+        }
+        mTetheringRequest = new TetheringManager.TetheringRequest(request);
+
+        // Ignore static address configuration if they are invalid. In theory, static
         // addresses should not be invalid here because TetheringManager do not allow caller to
         // specify invalid static address configuration.
-        if (request == null || request.localIPv4Address == null
-                || request.staticClientAddress == null || !checkStaticAddressConfiguration(
-                request.localIPv4Address, request.staticClientAddress)) {
+        if (request.localIPv4Address == null || request.staticClientAddress == null
+                || !checkStaticAddressConfiguration(
+                        request.localIPv4Address, request.staticClientAddress)) {
             return;
         }
 
@@ -1109,6 +1122,7 @@ public class IpServer extends StateMachineShim {
     class InitialState extends State {
         @Override
         public void enter() {
+            mTetheringRequest = null;
             sendInterfaceState(STATE_AVAILABLE);
         }
 
