@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ace472e2_f7c186e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T13:15:22Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e64a2a7e_c26c4049",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 2
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48379e19_c2a9004c",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-06T09:50:26Z",
       "side": 1,
       "message": "Package names are not unique, they\u0027re only unique within a given user. I think this code might work for a device with only one user. Maybe you can fix this in a follow-up CL?",
+      "range": {
+        "startLine": 116,
+        "startChar": 74,
+        "endLine": 116,
+        "endChar": 86
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "147a60b5_9087f265",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T13:15:22Z",
+      "side": 1,
+      "message": "To be fixed at followup CL",
+      "parentUuid": "48379e19_c2a9004c",
       "range": {
         "startLine": 116,
         "startChar": 74,
