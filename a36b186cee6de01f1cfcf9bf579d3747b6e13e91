@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eabf5050_cf00e2f8",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T14:44:42Z",
+      "side": 1,
+      "message": "As per commented above",
+      "parentUuid": "147a60b5_9087f265",
+      "range": {
+        "startLine": 116,
+        "startChar": 74,
+        "endLine": 116,
+        "endChar": 86
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c75788e9_28bf32fd",
@@ -165,6 +189,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d52aa109_bac16f3c",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T14:44:42Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "10626d7d_ed4d9af5",
+      "range": {
+        "startLine": 130,
+        "startChar": 65,
+        "endLine": 130,
+        "endChar": 76
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78981b46_17b9e0e9",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T14:44:42Z",
+      "side": 1,
+      "message": "As commented above . Not to be changed",
+      "parentUuid": "4441133c_8f3bc967",
+      "range": {
+        "startLine": 130,
+        "startChar": 40,
+        "endLine": 130,
+        "endChar": 63
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b66423d1_55e99d8e",
@@ -202,6 +274,30 @@
       "side": 1,
       "message": "To be delivered at follow up CL",
       "parentUuid": "b66423d1_55e99d8e",
+      "range": {
+        "startLine": 155,
+        "startChar": 70,
+        "endLine": 155,
+        "endChar": 73
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdde5b6c_a886f9db",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T14:44:42Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "43751097_5956bc58",
       "range": {
         "startLine": 155,
         "startChar": 70,
@@ -306,6 +402,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec03c961_1f44b5df",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T14:44:42Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "51936af6_ea03c57d",
+      "range": {
+        "startLine": 161,
+        "startChar": 43,
+        "endLine": 161,
+        "endChar": 48
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8bfc8106_4b30b4af",
@@ -343,6 +463,30 @@
       "side": 1,
       "message": "Occurs when Security Exception can occur at getRoleHolders(), Logging Added with Log.wtf",
       "parentUuid": "8bfc8106_4b30b4af",
+      "range": {
+        "startLine": 163,
+        "startChar": 25,
+        "endLine": 163,
+        "endChar": 32
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ada73423_102ee42e",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T14:44:42Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6cec5436_2920d667",
       "range": {
         "startLine": 163,
         "startChar": 25,

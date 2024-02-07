@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4b11c91_aeed6d96",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T14:44:42Z",
+      "side": 1,
+      "message": "To to be fixed at next CL",
+      "parentUuid": "8fa64d71_e48df53e",
+      "range": {
+        "startLine": 74,
+        "startChar": 20,
+        "endLine": 74,
+        "endChar": 21
+      },
+      "revId": "719e6bb4d2dfe7507f47f7fa55447ede46b79bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbc4c114_9de043e2",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-07T13:52:30Z",
       "side": 1,
       "message": "nits: I think this wtf is duplicated.\n\npackageNames will be null only when `mDeps.getRoleHolders` throws.\nAnd `getRoleSmsChangedPackageName` already log wtf when `mDeps.getRoleHolders` throws.",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 9
+      },
+      "revId": "719e6bb4d2dfe7507f47f7fa55447ede46b79bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bdcd4c3_a63d91ce",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T14:44:42Z",
+      "side": 1,
+      "message": "To to be fixed at next CL",
+      "parentUuid": "bbc4c114_9de043e2",
       "range": {
         "startLine": 167,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a155f6aa_4335b3e5",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T14:44:42Z",
+      "side": 1,
+      "message": "To to be fixed at next CL",
+      "parentUuid": "aed6802e_60f2df3b",
+      "range": {
+        "startLine": 61,
+        "startChar": 43,
+        "endLine": 61,
+        "endChar": 52
+      },
+      "revId": "719e6bb4d2dfe7507f47f7fa55447ede46b79bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d231f0be_5b9a5b80",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-02-07T13:52:30Z",
       "side": 1,
       "message": "nits: can we use \"!!\" so that this line fails if mRoleHolderChangedListener is null.",
+      "range": {
+        "startLine": 104,
+        "startChar": 34,
+        "endLine": 104,
+        "endChar": 35
+      },
+      "revId": "719e6bb4d2dfe7507f47f7fa55447ede46b79bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29aff63a_be928fdd",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T14:44:42Z",
+      "side": 1,
+      "message": "To to be fixed at next CL",
+      "parentUuid": "d231f0be_5b9a5b80",
       "range": {
         "startLine": 104,
         "startChar": 34,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9da22962_76781a3d",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T14:44:42Z",
+      "side": 1,
+      "message": "To to be fixed at next CL",
+      "parentUuid": "7c2cfbfe_e6704564",
+      "range": {
+        "startLine": 105,
+        "startChar": 58,
+        "endLine": 105,
+        "endChar": 67
+      },
+      "revId": "719e6bb4d2dfe7507f47f7fa55447ede46b79bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5390add9_2f4026a2",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47e8d698_34d5262c",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T14:44:42Z",
+      "side": 1,
+      "message": "To to be fixed at next CL",
+      "parentUuid": "5390add9_2f4026a2",
+      "range": {
+        "startLine": 112,
+        "startChar": 12,
+        "endLine": 112,
+        "endChar": 41
+      },
+      "revId": "719e6bb4d2dfe7507f47f7fa55447ede46b79bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "895d12f5_e62bbf78",
@@ -152,6 +296,30 @@
       "writtenOn": "2024-02-07T13:52:30Z",
       "side": 1,
       "message": "nits: This is fine. but if `mCallback` is never called, you don\u0027t need to use captor.\nYou can write \n```\n        verify(mCallback, never()).accept(any())\n```",
+      "range": {
+        "startLine": 154,
+        "startChar": 42,
+        "endLine": 154,
+        "endChar": 80
+      },
+      "revId": "719e6bb4d2dfe7507f47f7fa55447ede46b79bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9df6070_1caf975c",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T14:44:42Z",
+      "side": 1,
+      "message": "To to be fixed at next CL",
+      "parentUuid": "895d12f5_e62bbf78",
       "range": {
         "startLine": 154,
         "startChar": 42,
