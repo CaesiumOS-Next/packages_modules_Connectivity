@@ -56,6 +56,9 @@ java_sdk_library {
     hostdex: true, // for hiddenapi check
     permitted_packages: ["android.net"],
     lint: { strict_updatability_linting: true },
+    aconfig_declarations: [
+        "com.android.net.flags-aconfig",
+    ],
 }
 
 java_library {
