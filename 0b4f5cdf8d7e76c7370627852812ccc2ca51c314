@@ -216,6 +216,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "426e6525_5ed1d5ad",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 9087,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-07T03:58:29Z",
+      "side": 1,
+      "message": "That said - if cancelling the listens will break tests or otherwise slow down this CL, I think it\u0027s OK to defer that to a follow-up CL.",
+      "parentUuid": "f255ca58_540b24a0",
+      "range": {
+        "startLine": 9087,
+        "startChar": 8,
+        "endLine": 9087,
+        "endChar": 9
+      },
+      "revId": "0b4f5cdf8d7e76c7370627852812ccc2ca51c314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3eb7b5a_6aa6e48b",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 20
