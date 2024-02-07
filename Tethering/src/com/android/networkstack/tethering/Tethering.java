@@ -1607,6 +1607,12 @@ public class Tethering {
             return TETHER_ERROR_SERVICE_UNAVAIL;
         }
 
+        if (!hasSystemFeature(PackageManager.FEATURE_USB_HOST) &&
+                !hasSystemFeature(PackageManager.FEATURE_USB_ACCESSORY)) {
+            Log.w(TAG, "setUsbTethering is not applicable since device has no usb host nor accessory feature");
+            return TETHER_ERROR_SERVICE_UNAVAIL;
+        }
+
         final long usbFunction = mConfig.isUsingNcm()
                 ? UsbManager.FUNCTION_NCM : UsbManager.FUNCTION_RNDIS;
         usbManager.setCurrentFunctions(enable ? usbFunction : UsbManager.FUNCTION_NONE);
