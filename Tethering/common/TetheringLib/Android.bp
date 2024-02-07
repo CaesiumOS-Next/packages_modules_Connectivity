@@ -104,6 +104,9 @@ java_defaults {
         "framework-connectivity.stubs.module_lib",
         "sdk_module-lib_current_framework-wifi",
     ],
+    static_libs: [
+            "modules-utils-build",
+    ],
     aidl: {
         include_dirs: [
             "packages/modules/Connectivity/framework/aidl-export",
