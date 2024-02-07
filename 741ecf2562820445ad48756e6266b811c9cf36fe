@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd4539ae_333e5de5",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-07T08:15:18Z",
+      "side": 1,
+      "message": "If you address https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2936050/comment/5d6113e6_9cbd1302/ , then this needs to be updated to say that apps that target an SDK before {@link Build.VERSION_CODES.VANILLA_ICE_CREAM} will not see networks with this capability unless they explicitly set the NET_CAPABILITY_LOCAL_NETWORK in their NetworkRequests.",
+      "range": {
+        "startLine": 721,
+        "startChar": 7,
+        "endLine": 721,
+        "endChar": 84
+      },
+      "revId": "741ecf2562820445ad48756e6266b811c9cf36fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
