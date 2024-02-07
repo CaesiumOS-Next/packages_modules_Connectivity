@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fa64d71_e48df53e",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-07T13:52:30Z",
+      "side": 1,
+      "message": "nits: Maybe this also should be wtf if we don\u0027t expect this happens.",
+      "range": {
+        "startLine": 74,
+        "startChar": 20,
+        "endLine": 74,
+        "endChar": 21
+      },
+      "revId": "719e6bb4d2dfe7507f47f7fa55447ede46b79bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbc4c114_9de043e2",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-07T13:52:30Z",
+      "side": 1,
+      "message": "nits: I think this wtf is duplicated.\n\npackageNames will be null only when `mDeps.getRoleHolders` throws.\nAnd `getRoleSmsChangedPackageName` already log wtf when `mDeps.getRoleHolders` throws.",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 9
+      },
+      "revId": "719e6bb4d2dfe7507f47f7fa55447ede46b79bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aed6802e_60f2df3b",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-07T13:52:30Z",
+      "side": 1,
+      "message": "nits: I think lazy is not needed now.",
+      "range": {
+        "startLine": 61,
+        "startChar": 43,
+        "endLine": 61,
+        "endChar": 52
+      },
+      "revId": "719e6bb4d2dfe7507f47f7fa55447ede46b79bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d231f0be_5b9a5b80",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-07T13:52:30Z",
+      "side": 1,
+      "message": "nits: can we use \"!!\" so that this line fails if mRoleHolderChangedListener is null.",
+      "range": {
+        "startLine": 104,
+        "startChar": 34,
+        "endLine": 104,
+        "endChar": 35
+      },
+      "revId": "719e6bb4d2dfe7507f47f7fa55447ede46b79bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c2cfbfe_e6704564",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-07T13:52:30Z",
+      "side": 1,
+      "message": "nits: maybe rename to something like `satelliteNetworkFallbackUidsCaptor`",
+      "range": {
+        "startLine": 105,
+        "startChar": 58,
+        "endLine": 105,
+        "endChar": 67
+      },
+      "revId": "719e6bb4d2dfe7507f47f7fa55447ede46b79bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5390add9_2f4026a2",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-07T13:52:30Z",
+      "side": 1,
+      "message": "nits: maybe rename to something like `satelliteNetworkFallbackUids`",
+      "range": {
+        "startLine": 112,
+        "startChar": 12,
+        "endLine": 112,
+        "endChar": 41
+      },
+      "revId": "719e6bb4d2dfe7507f47f7fa55447ede46b79bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "895d12f5_e62bbf78",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-07T13:52:30Z",
+      "side": 1,
+      "message": "nits: This is fine. but if `mCallback` is never called, you don\u0027t need to use captor.\nYou can write \n```\n        verify(mCallback, never()).accept(any())\n```",
+      "range": {
+        "startLine": 154,
+        "startChar": 42,
+        "endLine": 154,
+        "endChar": 80
+      },
+      "revId": "719e6bb4d2dfe7507f47f7fa55447ede46b79bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
