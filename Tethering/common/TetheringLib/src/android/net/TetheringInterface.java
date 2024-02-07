@@ -16,12 +16,18 @@
 
 package android.net;
 
+import android.annotation.FlaggedApi;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.RequiresPermission;
+import android.annotation.SuppressLint;
 import android.annotation.SystemApi;
 import android.net.TetheringManager.TetheringType;
+import android.net.wifi.SoftApConfiguration;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.android.net.flags.Flags;
 
 import java.util.Objects;
 
@@ -33,15 +39,23 @@ import java.util.Objects;
 public final class TetheringInterface implements Parcelable {
     private final int mType;
     private final String mInterface;
+    @Nullable
+    private final SoftApConfiguration mSoftApConfig;
 
     public TetheringInterface(@TetheringType int type, @NonNull String iface) {
         Objects.requireNonNull(iface);
         mType = type;
         mInterface = iface;
+        mSoftApConfig = null;
     }
 
-    private TetheringInterface(@NonNull Parcel in) {
-        this(in.readInt(), in.readString());
+    @FlaggedApi(Flags.FLAG_TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+    public TetheringInterface(@TetheringType int type, @NonNull String iface,
+            @Nullable SoftApConfiguration softApConfig) {
+        Objects.requireNonNull(iface);
+        mType = type;
+        mInterface = iface;
+        mSoftApConfig = softApConfig;
     }
 
     /** Get tethering type. */
@@ -55,22 +69,36 @@ public final class TetheringInterface implements Parcelable {
         return mInterface;
     }
 
+    /**
+     * Get the SoftApConfiguration provided for this interface, if any. This will only be populated
+     * for apps with the same uid that specified the configuration, or apps with permission
+     * {@link android.Manifest.permission.NETWORK_SETTINGS}.
+     */
+    @FlaggedApi(Flags.FLAG_TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+    @RequiresPermission(value = android.Manifest.permission.NETWORK_SETTINGS, conditional = true)
+    @Nullable
+    public SoftApConfiguration getSoftApConfiguration() {
+        return mSoftApConfig;
+    }
+
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeInt(mType);
         dest.writeString(mInterface);
+        dest.writeParcelable(mSoftApConfig, flags);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mType, mInterface);
+        return Objects.hash(mType, mInterface, mSoftApConfig);
     }
 
     @Override
     public boolean equals(@Nullable Object obj) {
         if (!(obj instanceof TetheringInterface)) return false;
         final TetheringInterface other = (TetheringInterface) obj;
-        return mType == other.mType && mInterface.equals(other.mInterface);
+        return mType == other.mType && mInterface.equals(other.mInterface)
+                && Objects.equals(mSoftApConfig, other.mSoftApConfig);
     }
 
     @Override
@@ -82,8 +110,10 @@ public final class TetheringInterface implements Parcelable {
     public static final Creator<TetheringInterface> CREATOR = new Creator<TetheringInterface>() {
         @NonNull
         @Override
+        @SuppressLint("UnflaggedApi")
         public TetheringInterface createFromParcel(@NonNull Parcel in) {
-            return new TetheringInterface(in);
+            return new TetheringInterface(in.readInt(), in.readString(),
+                    in.readParcelable(SoftApConfiguration.class.getClassLoader()));
         }
 
         @NonNull
@@ -97,6 +127,7 @@ public final class TetheringInterface implements Parcelable {
     @Override
     public String toString() {
         return "TetheringInterface {mType=" + mType
-                + ", mInterface=" + mInterface + "}";
+                + ", mInterface=" + mInterface
+                + ", mSoftApConfig=" + mSoftApConfig + "}";
     }
 }
