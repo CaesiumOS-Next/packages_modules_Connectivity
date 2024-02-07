@@ -2628,7 +2628,7 @@ public class ConnectivityManagerTest {
             // enabling the hotspot.
             mCtsNetUtils.disableWifi();
 
-            tetherUtils.startWifiTethering(tetherEventCallback);
+            tetherUtils.startWifiTethering(tetherEventCallback, null);
             // Update setting to verify the behavior.
             setAirplaneMode(true);
             // Verify softap lost to make sure airplane mode takes effect. This could
@@ -2638,7 +2638,7 @@ public class ConnectivityManagerTest {
             tetherUtils.expectSoftApDisabled();
 
             // start wifi tethering
-            tetherUtils.startWifiTethering(tetherEventCallback);
+            tetherUtils.startWifiTethering(tetherEventCallback, null);
 
             ConnectivitySettingsManager.setPrivateDnsMode(mContext,
                     ConnectivitySettingsManager.PRIVATE_DNS_MODE_OFF);

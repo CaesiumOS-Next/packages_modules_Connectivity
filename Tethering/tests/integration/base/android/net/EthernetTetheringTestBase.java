@@ -109,6 +109,10 @@ public abstract class EthernetTetheringTestBase {
     private static final int TETHER_REACHABILITY_ATTEMPTS = 20;
     protected static final long WAIT_RA_TIMEOUT_MS = 2000;
 
+    protected static final TetheringRequest TEST_TETHERING_REQUEST =
+            new TetheringRequest.Builder(TETHERING_ETHERNET).setShouldShowEntitlementUi(false)
+                    .build();
+
     // Address and NAT prefix definition.
     protected static final MacAddress TEST_MAC = MacAddress.fromString("1:2:3:4:5:6");
     protected static final LinkAddress TEST_IP4_ADDR = new LinkAddress("10.0.0.1/24");
@@ -353,15 +357,18 @@ public abstract class EthernetTetheringTestBase {
         // seconds. See b/289881008.
         private static final int EXPANDED_TIMEOUT_MS = 30000;
 
-        MyTetheringEventCallback(String iface) {
-            mIface = new TetheringInterface(TETHERING_ETHERNET, iface);
+        MyTetheringEventCallback(String iface, TetheringRequest request) {
+            mIface = new TetheringInterface(TETHERING_ETHERNET, iface,
+                    request.getSoftApConfiguration());
             mExpectedUpstream = null;
             mAcceptAnyUpstream = true;
         }
 
-        MyTetheringEventCallback(String iface, @NonNull Network expectedUpstream) {
+        MyTetheringEventCallback(String iface, @NonNull Network expectedUpstream,
+                TetheringRequest request) {
             Objects.requireNonNull(expectedUpstream);
-            mIface = new TetheringInterface(TETHERING_ETHERNET, iface);
+            mIface = new TetheringInterface(TETHERING_ETHERNET, iface,
+                    request.getSoftApConfiguration());
             mExpectedUpstream = expectedUpstream;
             mAcceptAnyUpstream = false;
         }
@@ -528,9 +535,9 @@ public abstract class EthernetTetheringTestBase {
         // after etherent tethering started.
         final MyTetheringEventCallback callback;
         if (expectedUpstream != null) {
-            callback = new MyTetheringEventCallback(iface, expectedUpstream);
+            callback = new MyTetheringEventCallback(iface, expectedUpstream, request);
         } else {
-            callback = new MyTetheringEventCallback(iface);
+            callback = new MyTetheringEventCallback(iface, request);
         }
         runAsShell(NETWORK_SETTINGS, () -> {
             sTm.registerTetheringEventCallback(c -> c.run() /* executor */, callback);
@@ -578,9 +585,7 @@ public abstract class EthernetTetheringTestBase {
 
     protected static MyTetheringEventCallback enableEthernetTethering(String iface,
             Network expectedUpstream) throws Exception {
-        return enableEthernetTethering(iface,
-                new TetheringRequest.Builder(TETHERING_ETHERNET)
-                .setShouldShowEntitlementUi(false).build(), expectedUpstream);
+        return enableEthernetTethering(iface, TEST_TETHERING_REQUEST, expectedUpstream);
     }
 
     protected int getMTU(TestNetworkInterface iface) throws SocketException {

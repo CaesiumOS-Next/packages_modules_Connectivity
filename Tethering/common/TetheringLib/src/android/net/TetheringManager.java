@@ -689,7 +689,11 @@ public class TetheringManager {
         /** A configuration set for TetheringRequest. */
         private final TetheringRequestParcel mRequestParcel;
 
-        private TetheringRequest(@NonNull final TetheringRequestParcel request) {
+        /**
+         * @hide
+         */
+        @FlaggedApi(Flags.TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+        public TetheringRequest(@NonNull final TetheringRequestParcel request) {
             mRequestParcel = request;
         }
 

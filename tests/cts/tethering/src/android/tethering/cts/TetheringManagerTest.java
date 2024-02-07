@@ -205,7 +205,7 @@ public class TetheringManagerTest {
             tetherEventCallback.expectNoTetheringActive();
 
             final String[] wifiRegexs = mTM.getTetherableWifiRegexs();
-            mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
+            mCtsTetheringUtils.startWifiTethering(tetherEventCallback, null);
 
             mTetherChangeReceiver.expectTethering(true /* active */, wifiRegexs);
 
@@ -278,10 +278,14 @@ public class TetheringManagerTest {
             tetherEventCallback.assumeWifiTetheringSupported(mContext);
             tetherEventCallback.expectNoTetheringActive();
 
+            SoftApConfiguration softApConfig = new SoftApConfiguration.Builder()
+                    .setWifiSsid(WifiSsid.fromBytes("This is an SSID!"
+                            .getBytes(StandardCharsets.UTF_8))).build();
             final TetheringInterface tetheredIface =
-                    mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
+                    mCtsTetheringUtils.startWifiTethering(tetherEventCallback, softApConfig);
 
             assertNotNull(tetheredIface);
+            assertEquals(softApConfig, tetheredIface.getSoftApConfiguration());
             final String wifiTetheringIface = tetheredIface.getInterface();
 
             mCtsTetheringUtils.stopWifiTethering(tetherEventCallback);
@@ -338,7 +342,7 @@ public class TetheringManagerTest {
             // TODO: start ethernet tethering here when TetheringManagerTest is moved to
             // TetheringIntegrationTest.
 
-            mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
+            mCtsTetheringUtils.startWifiTethering(tetherEventCallback, null);
 
             mCtsTetheringUtils.stopAllTethering();
             tetherEventCallback.expectNoTetheringActive();
@@ -476,7 +480,7 @@ public class TetheringManagerTest {
 
             assertTrue(activeNetCap.hasTransport(TRANSPORT_CELLULAR));
 
-            mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
+            mCtsTetheringUtils.startWifiTethering(tetherEventCallback, null);
 
             final int expectedCap = isTetheringApnRequired()
                     ? NET_CAPABILITY_DUN : NET_CAPABILITY_INTERNET;
