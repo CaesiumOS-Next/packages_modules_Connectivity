@@ -315,6 +315,8 @@ public class IpServer extends StateMachineShim {
 
     private LinkAddress mIpv4Address;
 
+    private TetheringManager.TetheringRequest mTetheringRequest;
+
     private final TetheringMetrics mTetheringMetrics;
     private final Handler mHandler;
 
@@ -408,6 +410,11 @@ public class IpServer extends StateMachineShim {
     /** The address which IpServer is using. */
     public LinkAddress getAddress() {
         return mIpv4Address;
+    }
+
+    /** Get the TetheringRequest that this IP server was enabled with */
+    public TetheringManager.TetheringRequest getTetheringRequest() {
+        return mTetheringRequest;
     }
 
     /**
@@ -1104,6 +1111,7 @@ public class IpServer extends StateMachineShim {
 
         mStaticIpv4ServerAddr = request.localIPv4Address;
         mStaticIpv4ClientAddr = request.staticClientAddress;
+        mTetheringRequest = new TetheringManager.TetheringRequest(request);
     }
 
     class InitialState extends State {
