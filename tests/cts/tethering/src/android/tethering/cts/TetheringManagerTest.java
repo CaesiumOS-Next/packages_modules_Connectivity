@@ -22,6 +22,9 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
+import static android.net.TetheringManager.TETHERING_BLUETOOTH;
+import static android.net.TetheringManager.TETHERING_ETHERNET;
+import static android.net.TetheringManager.TETHERING_NCM;
 import static android.net.TetheringManager.TETHERING_USB;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
@@ -275,10 +278,8 @@ public class TetheringManagerTest {
                     .setSsid("This is an SSID!")
                     .build();
         }
-        for (int type = 0; type <= TetheringManager.MAX_TETHERING_TYPE; type++) {
-            if (type == TETHERING_WIFI) {
-                continue;
-            }
+        for (int type : List.of(TETHERING_USB, TETHERING_BLUETOOTH, TETHERING_WIFI_P2P,
+                TETHERING_NCM, TETHERING_ETHERNET)) {
             try {
                 new TetheringRequest.Builder(type).setSoftApConfiguration(softApConfiguration);
                 fail("Was able to set SoftApConfiguration for tethering type " + type);
@@ -327,10 +328,14 @@ public class TetheringManagerTest {
             tetherEventCallback.assumeWifiTetheringSupported(mContext);
             tetherEventCallback.expectNoTetheringActive();
 
+            SoftApConfiguration softApConfig = new SoftApConfiguration.Builder()
+                    .setWifiSsid(WifiSsid.fromBytes("This is an SSID!"
+                            .getBytes(StandardCharsets.UTF_8))).build();
             final TetheringInterface tetheredIface =
-                    mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
+                    mCtsTetheringUtils.startWifiTethering(tetherEventCallback, softApConfig);
 
             assertNotNull(tetheredIface);
+            assertEquals(softApConfig, tetheredIface.getSoftApConfiguration());
             final String wifiTetheringIface = tetheredIface.getInterface();
 
             mCtsTetheringUtils.stopWifiTethering(tetherEventCallback);
