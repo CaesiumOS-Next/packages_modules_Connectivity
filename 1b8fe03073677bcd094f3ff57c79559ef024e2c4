@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2227918_ea0f9f80",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringRequestParcel.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2024-02-07T00:26:14Z",
+      "side": 1,
+      "message": "should be just iface\n\niface index would be better",
+      "range": {
+        "startLine": 32,
+        "startChar": 11,
+        "endLine": 32,
+        "endChar": 27
+      },
+      "revId": "1b8fe03073677bcd094f3ff57c79559ef024e2c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
