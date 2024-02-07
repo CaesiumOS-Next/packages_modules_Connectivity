@@ -213,6 +213,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09fa81c6_93ca868e",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkPreferredTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-07T13:33:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "bfa71bd4_b66aeb1c",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 1
+      },
+      "revId": "4761ea118895970660af39c87dd1a3e70c843e33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "efed5908_8825897a",
