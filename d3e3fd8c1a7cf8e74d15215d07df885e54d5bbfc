@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dc6e8a5_5b2795e6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1509,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T03:50:10Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "920336cf_39b50171",
+      "range": {
+        "startLine": 1509,
+        "startChar": 23,
+        "endLine": 1509,
+        "endChar": 35
+      },
+      "revId": "d3e3fd8c1a7cf8e74d15215d07df885e54d5bbfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84f5c071_6845444f",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd850915_a98cb7e0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1789,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T03:50:10Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "84f5c071_6845444f",
+      "range": {
+        "startLine": 1789,
+        "startChar": 0,
+        "endLine": 1789,
+        "endChar": 101
+      },
+      "revId": "d3e3fd8c1a7cf8e74d15215d07df885e54d5bbfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6a673ef_151e2bd9",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-02-06T09:42:54Z",
       "side": 1,
       "message": "This doesn\u0027t seem very useful, remove?\n\nAlso, looks like the whole function is almost identical to createNrisFromMobileDataPreferredUids. Can we refactor that method so that the new codepath can share code with the existing use case? You could pass in the requests and the preference order (in addition to the UID ranges) and all the code would be the same.",
+      "range": {
+        "startLine": 12781,
+        "startChar": 12,
+        "endLine": 12781,
+        "endChar": 83
+      },
+      "revId": "d3e3fd8c1a7cf8e74d15215d07df885e54d5bbfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c885290_8cfa759e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 12781,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T03:50:10Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b6a673ef_151e2bd9",
       "range": {
         "startLine": 12781,
         "startChar": 12,
