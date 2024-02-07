@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d6113e6_9cbd1302",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 3932,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-07T08:13:39Z",
+      "side": 1,
+      "message": "Sorry to say this so late, but looking at this now, it feels like the NetworkCallback isn\u0027t the right place for it. Callbacks are what inform the app of what happens, they don\u0027t affect matching. A better place for matching is actually NetworkRequest. A couple of examples:\n- What if an app called registerDefaultNetworkCallback and passed in a callback with this flag? It wouldn\u0027t really make sense.\n- An app that uses the PendingIntent versions of requestNetwork and registerDefaultNetworkCallback can\u0027t pass in these flags because there is no NetworkCallback.\n\nCould we do something like this?\n\n\n    class NetworkRequest {\n\n        static class Builder {\n            /**\n             * Specifies whether this {@code NetworkRequest} will match networks with the \n             * {@link NetworkCapabilities#NET_CAPABILITY_LOCAL} capability.\n             * This is true for default for apps targeting SDK {@link VERSION_CODES#VANILLA_ICE_CREAM}\n             * and above, and false for apps targeting previous SDK versions.\n             */\n            public void setMatchLocalNetworks(boolean matchLocalNetworks);\n        }\n\n        /**\n         * Specifies whether this {@code NetworkRequest} will match networks with the \n         * {@link NetworkCapabilities#NET_CAPABILITY_LOCAL} capability.\n         */\n        public boolean getMatchLocalNetworks();\n    }\n\nI think it makes sense to evaluate this on input to ConnectivityService and not to persist it within NetworkRequest itself... though to pass it from CM to CS you\u0027ll need to add something to writeToParcel and readFromParcel.\n\nIt feels natural for the implementation of this method to just add/remove LOCAL_NETWORK from the request\u0027s forbidden capabilities, but I don\u0027t think we can do that because otherwise we\u0027ll hit the same jobscheduler request persistence issues that we hit in our previous attempt to do this. So we have to store it somewhere else in the NetworkRequest.\n\n\nOr maybe, even simpler... can we just say, \"apps that target V will always see local networks, if apps targeting pre-V want to see local networks, then it must pass in NET_CAPABILITY_LOCAL_NETWORK\". This doesn\u0027t give apps targeting pre-V a way to say, \"I want to see all networks, both local and not\". And it doesn\u0027t give apps targeting V+ a way to say \"I don\u0027t want to see local networks\". But that seems pretty easy to do by passing in INTERNET anyway.\n\nMaybe for now we can just do this latter, simpler, option? Then later, if we feel that it is needed, we can add the APIs on NetworkRequest that I suggest in this comment.",
+      "range": {
+        "startLine": 3932,
+        "startChar": 11,
+        "endLine": 3932,
+        "endChar": 15
+      },
+      "revId": "a3e0df2875930d315374b63d3c75e0e5418fe58f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18830b17_1e4a19cd",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 3932,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-07T08:13:39Z",
+      "side": 1,
+      "message": "Build.VERSION_CODES...",
+      "range": {
+        "startLine": 3932,
+        "startChar": 37,
+        "endLine": 3932,
+        "endChar": 39
+      },
+      "revId": "a3e0df2875930d315374b63d3c75e0e5418fe58f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
