@@ -491,14 +491,24 @@ public final class CtsTetheringUtils {
         }
     }
 
+    /**
+     * Starts Wi-Fi tethering.
+     */
     public TetheringInterface startWifiTethering(final TestTetheringEventCallback callback)
+            throws InterruptedException {
+        return startWifiTethering(new TetheringRequest.Builder(TETHERING_WIFI)
+                .setShouldShowEntitlementUi(false).build(), callback);
+    }
+
+    /**
+     * Starts Wi-Fi tethering with the specified TetheringRequest.
+     */
+    public TetheringInterface startWifiTethering(final TetheringRequest request,
+            final TestTetheringEventCallback callback)
             throws InterruptedException {
         final List<String> wifiRegexs = getWifiTetherableInterfaceRegexps(callback);
 
         final StartTetheringCallback startTetheringCallback = new StartTetheringCallback();
-        final TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI)
-                .setShouldShowEntitlementUi(false).build();
-
         return runAsShell(TETHER_PRIVILEGED, () -> {
             mTm.startTethering(request, c -> c.run() /* executor */, startTetheringCallback);
             startTetheringCallback.verifyTetheringStarted();

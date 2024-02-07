@@ -48,7 +48,6 @@ import android.net.RouteInfo;
 import android.net.RoutingCoordinatorManager;
 import android.net.TetheredClient;
 import android.net.TetheringManager;
-import android.net.TetheringRequestParcel;
 import android.net.dhcp.DhcpLeaseParcelable;
 import android.net.dhcp.DhcpServerCallbacks;
 import android.net.dhcp.DhcpServingParamsParcel;
@@ -315,6 +314,8 @@ public class IpServer extends StateMachineShim {
 
     private LinkAddress mIpv4Address;
 
+    private TetheringManager.TetheringRequest mTetheringRequest;
+
     private final TetheringMetrics mTetheringMetrics;
     private final Handler mHandler;
 
@@ -410,6 +411,12 @@ public class IpServer extends StateMachineShim {
         return mIpv4Address;
     }
 
+    /** Get the TetheringRequest that this IP server was enabled with */
+    @Nullable
+    public TetheringManager.TetheringRequest getTetheringRequest() {
+        return mTetheringRequest;
+    }
+
     /**
      * Get the latest list of DHCP leases that was reported. Must be called on the IpServer looper
      * thread.
@@ -419,7 +426,7 @@ public class IpServer extends StateMachineShim {
     }
 
     /** Enable this IpServer. IpServer state machine will be tethered or localHotspot state. */
-    public void enable(final int requestedState, final TetheringRequestParcel request) {
+    public void enable(final int requestedState, final TetheringManager.TetheringRequest request) {
         sendMessage(CMD_TETHER_REQUESTED, requestedState, 0, request);
     }
 
@@ -1092,18 +1099,23 @@ public class IpServer extends StateMachineShim {
         mLinkProperties.setInterfaceName(mIfaceName);
     }
 
-    private void maybeConfigureStaticIp(final TetheringRequestParcel request) {
-        // Ignore static address configuration if they are invalid or null. In theory, static
-        // addresses should not be invalid here because TetheringManager do not allow caller to
-        // specify invalid static address configuration.
-        if (request == null || request.localIPv4Address == null
-                || request.staticClientAddress == null || !checkStaticAddressConfiguration(
-                request.localIPv4Address, request.staticClientAddress)) {
+    private void maybeConfigureStaticIp(final TetheringManager.TetheringRequest request) {
+        if (request == null) {
             return;
         }
 
-        mStaticIpv4ServerAddr = request.localIPv4Address;
-        mStaticIpv4ClientAddr = request.staticClientAddress;
+        // Ignore static address configuration if they are invalid. In theory, static
+        // addresses should not be invalid here because TetheringManager do not allow caller to
+        // specify invalid static address configuration.
+        LinkAddress localIpv4Address = request.getLocalIpv4Address();
+        LinkAddress clientStaticIpv4Address = request.getClientStaticIpv4Address();
+        if (localIpv4Address == null || clientStaticIpv4Address == null
+                || !checkStaticAddressConfiguration(localIpv4Address, clientStaticIpv4Address)) {
+            return;
+        }
+
+        mStaticIpv4ServerAddr = localIpv4Address;
+        mStaticIpv4ClientAddr = clientStaticIpv4Address;
     }
 
     class InitialState extends State {
@@ -1118,13 +1130,14 @@ public class IpServer extends StateMachineShim {
             switch (message.what) {
                 case CMD_TETHER_REQUESTED:
                     mLastError = TETHER_ERROR_NO_ERROR;
+                    mTetheringRequest = (TetheringManager.TetheringRequest) message.obj;
                     switch (message.arg1) {
                         case STATE_LOCAL_ONLY:
-                            maybeConfigureStaticIp((TetheringRequestParcel) message.obj);
+                            maybeConfigureStaticIp(mTetheringRequest);
                             transitionTo(mLocalHotspotState);
                             break;
                         case STATE_TETHERED:
-                            maybeConfigureStaticIp((TetheringRequestParcel) message.obj);
+                            maybeConfigureStaticIp(mTetheringRequest);
                             transitionTo(mTetheredState);
                             break;
                         default:
