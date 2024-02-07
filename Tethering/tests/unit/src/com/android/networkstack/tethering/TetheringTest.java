@@ -934,6 +934,8 @@ public class TetheringTest {
             mTethering.interfaceStatusChanged(TEST_RNDIS_IFNAME, true);
         }
 
+        assertEquals(1, mTethering.getActiveTetheringRequests().size());
+        assertEquals(request, mTethering.getActiveTetheringRequests().get(TETHERING_USB));
     }
 
     @Test
@@ -2312,8 +2314,12 @@ public class TetheringTest {
         initTetheringOnTestThread();
         TestTetheringEventCallback callback = new TestTetheringEventCallback();
         TestTetheringEventCallback callback2 = new TestTetheringEventCallback();
+        final TetheringRequestParcel tetheringRequestParcel =
+                createTetheringRequestParcel(TETHERING_WIFI);
+        final TetheringManager.TetheringRequest tetheringRequest =
+                new TetheringManager.TetheringRequest(tetheringRequestParcel);
         final TetheringInterface wifiIface = new TetheringInterface(
-                TETHERING_WIFI, TEST_WLAN_IFNAME);
+                TETHERING_WIFI, TEST_WLAN_IFNAME, tetheringRequest);
 
         // 1. Register one callback before running any tethering.
         mTethering.registerTetheringEventCallback(callback);
@@ -2334,8 +2340,7 @@ public class TetheringTest {
         tetherState = callback.pollTetherStatesChanged();
         assertArrayEquals(tetherState.availableList, new TetheringInterface[] {wifiIface});
 
-        mTethering.startTethering(createTetheringRequestParcel(TETHERING_WIFI), TEST_CALLER_PKG,
-                null);
+        mTethering.startTethering(tetheringRequestParcel, TEST_CALLER_PKG, null);
         sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
         tetherState = callback.pollTetherStatesChanged();
         assertArrayEquals(tetherState.tetheredList, new TetheringInterface[] {wifiIface});
