@@ -69,6 +69,24 @@
       "parentUuid": "7903603c_e7f5d338",
       "revId": "a8f20812586a461c8f600a6e28fc028ea83c19ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7154a0d5_3f6389c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-07T08:54:07Z",
+      "side": 1,
+      "message": "No, actually I confirmed in NsdManagerTest. It only check the contents of OffloadServiceInfo and never call the constructor for it in the CTS. So yes, this test cases is necessary for API test coverage.",
+      "parentUuid": "29dc4c62_39818123",
+      "revId": "a8f20812586a461c8f600a6e28fc028ea83c19ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
