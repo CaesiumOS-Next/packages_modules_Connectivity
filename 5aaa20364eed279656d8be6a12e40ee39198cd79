@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8483bd10_9cd5f5c2",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 23
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-07T03:36:53Z",
+      "side": 1,
+      "message": "I think it\u0027s OK to add it to NetworkRequest. But we should probably add it to NetworkCapabilities as well?\n\nCurrently what this CL does is it allows apps to request a subscription ID (by putting it NetworkRequest.Builder), but it doesn\u0027t allow apps to get the subscription ID of a network that\u0027s currently connected.",
+      "parentUuid": "ee87f9e1_07d525b5",
+      "range": {
+        "startLine": 307,
+        "startChar": 21,
+        "endLine": 307,
+        "endChar": 40
+      },
+      "revId": "5aaa20364eed279656d8be6a12e40ee39198cd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c857fcf7_f3c39416",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 23
@@ -416,6 +440,30 @@
       "side": 1,
       "message": "If you insert 2 SIMs of the same carrier into a DSDS device, then maybe the same UID could have priviledge on both subIds (and slots). In this case, if the Carrier App filed 2 restricted network requests for the two subIDs and lost one of it, then both restricted network requests will be cleared. I don\u0027t think it is a good idea to call SubscriptionManager.getSubscriptionId(mLogicalSlot) because it may give you the new subID which belongs to another UID. \n\nI don\u0027t understand how moving CarrierPrivilegeAuthenticator to the CS handler thread could solve this issue, since when CarrierPrivilegeAuthenticator got the notification that uid0 has lost the CarrierPrivilege on slot0, the corresponding subID of slot0 should have disappeared.",
       "parentUuid": "4cd93e74_9e7e4895",
+      "range": {
+        "startLine": 151,
+        "startChar": 37,
+        "endLine": 151,
+        "endChar": 44
+      },
+      "revId": "5aaa20364eed279656d8be6a12e40ee39198cd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b92eabb_d9a838e2",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-07T03:36:53Z",
+      "side": 1,
+      "message": "Per discussion today: it looks like the best thing we can do in this code is to store the slot -\u003e subId mapping locally in CarrierPrivilegeAuthenticator. The way this would work is:\n- Every time telephony tells us that a carrier service UID for slot X changed from U1 to U2, while the callback is running we would call SubscriptionManager to find out which subId Y2 that slot corresponds to. (The subId corresponding to U1 would have been set to Y1 by a previous callback, if any.)\n- We would then store the mapping from X to Y2 locally in CarrierPrivilegeAuthenticator.\n- If Y2 was non-empty, then we inform ConnectivityService to fail any requests from U1 for subId Y2, without making any further calls into SubscriptionManager. This would require changing the callback from CPA to CS to send both the UID and the subId.\n\nFor this to work, we need to ensure that telephony calls the callback to clear the carrier service UID when the SIM card is unplugged. If it doesn\u0027t, this scheme won\u0027t work, but arguably we have bigger problems.\n\nGiven that we need to check in the API changes today, we can defer that to another CL that we can submit in the coming days.",
+      "parentUuid": "1666b5c9_3a2375b0",
       "range": {
         "startLine": 151,
         "startChar": 37,

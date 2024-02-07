@@ -192,6 +192,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f255ca58_540b24a0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 9087,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-07T03:36:53Z",
+      "side": 1,
+      "message": "Per discussion: I susect the reason we are not allowing apps to file listens with subIds is that they can use these listens to find out if a network with that subId is connected or not (they can just file a request with an arbitrary subId and then see if they get onAvailable). This is an information leak because generally apps can\u0027t get the subIds for connected networks (they are redacted).\n\nIf we believe that the subIds should continue to be redacted, and that this is still an information leak, then we probably have to release these listens as well.\n\nAlternatively, if this is not an information leak, and subIds don\u0027t need to be redacted, then we can leave these listens standing.\n\nIt looks like the subIds were put behind NETWORK_FACTORY when they went from public API to system API. Perhaps this was only done because system APIs require a permission; the original request from the VCN team was to make them public.\n\nGiven that we are now making getSubscriptionIds a public API, we can re-evaluate whether the subIds should be available to unprivileged apps or not.\n- If we think the subIds should be available to unprivileged apps, then we need to remove the redaction code for them, and not cancel these listens.\n- If we think the subIds should not be available to unprivileged apps, then we should leave the redaction code as is and cancel the listens.\n\nWe should ask the telephony team for input on whether the subIds should be redacted or not.\n\nIn the meantime, for this CL we should probably cancel the listens, since that is consistent with the rest of the implementation.",
+      "parentUuid": "1a8a78f4_204bf03f",
+      "range": {
+        "startLine": 9087,
+        "startChar": 8,
+        "endLine": 9087,
+        "endChar": 9
+      },
+      "revId": "0b4f5cdf8d7e76c7370627852812ccc2ca51c314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3eb7b5a_6aa6e48b",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 20

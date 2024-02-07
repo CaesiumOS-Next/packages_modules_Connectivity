@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6eca8e2_c92ecf76",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 2764,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-07T03:36:53Z",
+      "side": 1,
+      "message": "This will return false even if callerUid is the carrier service UID for this network. We might want to fix that, so that the carrier service UID can at least see the subscription UIDs.\n\nThe owner UID still needs to be redacted for location reasons, see comment in testGetRedactedNetworkCapabilitiesForPackage at https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java;l\u003d828\n\nThat said - I think fixing this risks breaking released CTS versions which check that the subscription UIDs are redacted. So we probably don\u0027t want to do that in this CL. First let\u0027s find out what policy we should apply to subIds and then change this code accordingly.",
+      "range": {
+        "startLine": 2764,
+        "startChar": 13,
+        "endLine": 2764,
+        "endChar": 30
+      },
+      "revId": "9973e590613dac5a22d9203097ef5f0dad24d408",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
