@@ -696,8 +696,6 @@ public class Tethering {
         });
     }
     void stopTetheringInternal(int type) {
-        mActiveTetheringRequests.remove(type);
-
         enableTetheringInternal(type, false /* disabled */, null);
         mEntitlementMgr.stopProvisioningIfNeeded(type);
     }
@@ -1099,7 +1097,8 @@ public class Tethering {
             final TetherState tetherState = mTetherStates.valueAt(i);
             final int type = tetherState.ipServer.interfaceType();
             final String iface = mTetherStates.keyAt(i);
-            final TetheringInterface tetheringIface = new TetheringInterface(type, iface);
+            final TetheringInterface tetheringIface = new TetheringInterface(type, iface,
+                    tetherState.ipServer.getTetheringRequest());
             if (tetherState.lastError != TETHER_ERROR_NO_ERROR) {
                 errored.add(tetheringIface);
                 lastErrors.add(tetherState.lastError);
