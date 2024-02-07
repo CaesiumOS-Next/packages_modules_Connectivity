@@ -52,4 +52,7 @@
         <package android:name="android" />
     </queries>
 
+    <instrumentation android:name="androidx.test.runner.AndroidJUnitRunner"
+                     android:targetPackage="com.android.cts.net.hostside.app2"/>
+
 </manifest>
