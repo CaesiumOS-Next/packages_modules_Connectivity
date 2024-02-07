@@ -30,7 +30,6 @@ android_test_helper_app {
         "CtsHostsideNetworkTestsAidl",
         "androidx.test.ext.junit",
         "androidx.test.rules",
-        "androidx.test.uiautomator_uiautomator",
         "compatibility-device-util-axt",
         "cts-net-utils",
         "ctstestrunner-axt",
