@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee87f9e1_07d525b5",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 23
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-07T02:07:00Z",
+      "side": 1,
+      "message": "Looks like we do redact them, in networkCapabilitiesRestrictedForCallerPermissions? If so, then maybe we should just move getSubscriptionIds from system to public?",
+      "parentUuid": "a0fee1ac_ce468ffc",
+      "range": {
+        "startLine": 307,
+        "startChar": 21,
+        "endLine": 307,
+        "endChar": 40
+      },
+      "revId": "5aaa20364eed279656d8be6a12e40ee39198cd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c857fcf7_f3c39416",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 23
