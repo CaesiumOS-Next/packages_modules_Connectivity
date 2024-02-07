@@ -498,6 +498,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86e72e4d_8ba12aaa",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-07T12:12:12Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7b92eabb_d9a838e2",
+      "range": {
+        "startLine": 151,
+        "startChar": 37,
+        "endLine": 151,
+        "endChar": 44
+      },
+      "revId": "5aaa20364eed279656d8be6a12e40ee39198cd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3abc9a9_5e126d33",
@@ -559,6 +583,30 @@
       "side": 1,
       "message": "see my reponse to Lorenzo\u0027s comments above.",
       "parentUuid": "f62f25ba_69913f30",
+      "range": {
+        "startLine": 210,
+        "startChar": 64,
+        "endLine": 210,
+        "endChar": 66
+      },
+      "revId": "5aaa20364eed279656d8be6a12e40ee39198cd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e60c4a3_390c1d03",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-07T12:12:12Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9d97f90b_2768d458",
       "range": {
         "startLine": 210,
         "startChar": 64,
