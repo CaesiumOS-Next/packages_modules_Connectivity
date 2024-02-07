@@ -34,6 +34,23 @@
       "parentUuid": "a552842e_bc079670",
       "revId": "a8f20812586a461c8f600a6e28fc028ea83c19ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7903603c_e7f5d338",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-07T08:46:56Z",
+      "side": 1,
+      "message": "I guess this adds test for the OffloadServiceInfo constructor, while there were already tests for the offload engine functionality in NsdManagerTest ?",
+      "revId": "a8f20812586a461c8f600a6e28fc028ea83c19ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
