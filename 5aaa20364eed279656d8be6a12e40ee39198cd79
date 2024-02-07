@@ -356,6 +356,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4cd93e74_9e7e4895",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-07T01:29:25Z",
+      "side": 1,
+      "message": "When device has two slot and for example,\nslot1 is linked to subId1, uid0\nslot2 is linked to subId2, uid0\n\nif the slot1’s uid is updated to uid1, should not uid0 keep the CarrierPrivilege for subId2?\nOr is it impossible that the single uid has privilege for multiple subIds?",
+      "parentUuid": "d7c08e2e_d3b47135",
+      "range": {
+        "startLine": 151,
+        "startChar": 37,
+        "endLine": 151,
+        "endChar": 44
+      },
+      "revId": "5aaa20364eed279656d8be6a12e40ee39198cd79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3abc9a9_5e126d33",
         "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
         "patchSetId": 23
