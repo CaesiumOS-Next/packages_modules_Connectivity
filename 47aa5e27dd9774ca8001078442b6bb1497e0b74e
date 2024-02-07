@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbb4770b_6cc7a693",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 17462,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-07T08:33:40Z",
+      "side": 1,
+      "message": "nits: Maybe the callback should not receive callback for `NETWORK_CAPS_UPDATED` since this request is already lose the privilege to see this network information.",
+      "range": {
+        "startLine": 17461,
+        "startChar": 8,
+        "endLine": 17462,
+        "endChar": 45
+      },
+      "revId": "47aa5e27dd9774ca8001078442b6bb1497e0b74e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
