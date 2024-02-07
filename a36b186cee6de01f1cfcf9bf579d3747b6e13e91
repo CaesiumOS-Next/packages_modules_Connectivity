@@ -95,6 +95,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4441133c_8f3bc967",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T13:12:28Z",
+      "side": 1,
+      "message": "This permission is added/part of  U , Ref : https://googleplex-android-review.git.corp.google.com/c/platform/frameworks/base/+/21075053 .\n\nAnd this feature is targeted from U onwards , is there any concern here?",
+      "parentUuid": "c75788e9_28bf32fd",
+      "range": {
+        "startLine": 130,
+        "startChar": 40,
+        "endLine": 130,
+        "endChar": 63
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b66423d1_55e99d8e",
         "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
         "patchSetId": 15
@@ -118,6 +142,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "43751097_5956bc58",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T13:12:28Z",
+      "side": 1,
+      "message": "To be delivered at follow up CL",
+      "parentUuid": "b66423d1_55e99d8e",
+      "range": {
+        "startLine": 155,
+        "startChar": 70,
+        "endLine": 155,
+        "endChar": 73
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "46e37a63_905a964c",
         "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
         "patchSetId": 15
@@ -129,6 +177,30 @@
       "writtenOn": "2024-02-06T09:50:26Z",
       "side": 1,
       "message": "On Android, prefer ArraySet over HashSet for small sets because it\u0027s more memory-efficient.",
+      "range": {
+        "startLine": 158,
+        "startChar": 57,
+        "endLine": 158,
+        "endChar": 64
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99d5aa3c_80b76077",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T13:12:28Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "46e37a63_905a964c",
       "range": {
         "startLine": 158,
         "startChar": 57,
@@ -164,6 +236,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "51936af6_ea03c57d",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T13:12:28Z",
+      "side": 1,
+      "message": "To be delivered at follow up CL",
+      "parentUuid": "a5bfaa54_4217b972",
+      "range": {
+        "startLine": 161,
+        "startChar": 43,
+        "endLine": 161,
+        "endChar": 48
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8bfc8106_4b30b4af",
         "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
         "patchSetId": 15
@@ -175,6 +271,30 @@
       "writtenOn": "2024-02-06T09:50:26Z",
       "side": 1,
       "message": "What if it is null? Is that an error? Can it ever happen? If not, probably want to Log.wtf if it does happen.",
+      "range": {
+        "startLine": 163,
+        "startChar": 25,
+        "endLine": 163,
+        "endChar": 32
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cec5436_2920d667",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T13:12:28Z",
+      "side": 1,
+      "message": "Occurs when Security Exception can occur at getRoleHolders(), Logging Added with Log.wtf",
+      "parentUuid": "8bfc8106_4b30b4af",
       "range": {
         "startLine": 163,
         "startChar": 25,
@@ -208,6 +328,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ccf11a3_33db653a",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T13:12:28Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ba313658_f210d770",
+      "range": {
+        "startLine": 180,
+        "startChar": 20,
+        "endLine": 180,
+        "endChar": 62
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4a8b6da_486d826a",
@@ -221,6 +365,30 @@
       "writtenOn": "2024-02-06T09:50:26Z",
       "side": 1,
       "message": "Can this happen? If not, maybe this should be wtf instead of e?",
+      "range": {
+        "startLine": 194,
+        "startChar": 16,
+        "endLine": 194,
+        "endChar": 17
+      },
+      "revId": "a36b186cee6de01f1cfcf9bf579d3747b6e13e91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aad54a40_fb8e8d5a",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T13:12:28Z",
+      "side": 1,
+      "message": "Updated to Log.wtf()",
+      "parentUuid": "a4a8b6da_486d826a",
       "range": {
         "startLine": 194,
         "startChar": 16,
