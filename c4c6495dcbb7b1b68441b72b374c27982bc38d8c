@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e3662a0_34d2c6ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-02-07T00:45:27Z",
+      "side": 1,
+      "message": "Lorenzo points to\n  https://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:vendor/unbundled_google/modules/TetheringGooglePrebuilt/.prebuilt_info/prebuilt_info_com_google_android_tethering_apks.asciipb\n\n    build_id: \"T1008638\"",
+      "revId": "c4c6495dcbb7b1b68441b72b374c27982bc38d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
