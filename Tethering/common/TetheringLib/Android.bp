@@ -56,9 +56,16 @@ java_sdk_library {
 
     hostdex: true, // for hiddenapi check
     permitted_packages: ["android.net"],
+<<<<<<< PATCH SET (697d6a Make TetheringRequest parcelable)
+    lint: { strict_updatability_linting: true },
+    aconfig_declarations: [
+        "com.android.net.flags-aconfig",
+    ],
+=======
     lint: {
         strict_updatability_linting: true,
     },
+>>>>>>> BASE      (2b55cd Merge "Allow more characters in subtypes" into main)
 }
 
 java_library {
