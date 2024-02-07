@@ -1089,7 +1089,9 @@ public class Tethering {
             final TetherState tetherState = mTetherStates.valueAt(i);
             final int type = tetherState.ipServer.interfaceType();
             final String iface = mTetherStates.keyAt(i);
-            final TetheringInterface tetheringIface = new TetheringInterface(type, iface);
+            TetheringRequest request = tetherState.ipServer.getTetheringRequest();
+            final TetheringInterface tetheringIface = new TetheringInterface(type, iface,
+                    request != null ? request.getSoftApConfiguration() : null);
             if (tetherState.lastError != TETHER_ERROR_NO_ERROR) {
                 errored.add(tetheringIface);
                 lastErrors.add(tetherState.lastError);

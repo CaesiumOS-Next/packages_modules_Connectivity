@@ -114,7 +114,7 @@ public class TetheringModuleTest {
                 // Because of race inside tethering module, there is no guarantee wifi tethering
                 // would restart successfully. If tethering don't auto restarted, restarting it
                 // manually. TODO(b/242649651): remove this when tethering auto restart is reliable.
-                newIface = mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
+                newIface = mCtsTetheringUtils.startWifiTethering(tetherEventCallback, null);
             }
 
             nif = NetworkInterface.getByName(newIface.getInterface());
