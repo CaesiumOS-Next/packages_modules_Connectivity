@@ -446,8 +446,19 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb,
                                                       const struct egress_bool egress,
                                                       const bool enable_tracing,
                                                       const struct kver_uint kver) {
+    // sock_uid will be 'overflowuid' if !sk_fullsock(sk_to_full_sk(skb->sk))
     uint32_t sock_uid = bpf_get_socket_uid(skb);
-    uint64_t cookie = bpf_get_socket_cookie(skb);
+    uint64_t cookie = bpf_get_socket_cookie(skb);  // 0 iff !skb->sk
+
+    // kernel's DEFAULT_OVERFLOWUID is 65534, this is the overflow 'nobody' uid,
+    // usually this being returned means that skb->sk is NULL during RX
+    // (early decap socket lookup failure), which commonly happens for incoming
+    // packets to an unconnected udp socket.
+    // But it can also happen for egress from a timewait socket.
+    // Additionally bpf_get_socket_cookie() returns 0 if skb->sk is NULL
+    // Let's treat such cases as 'root' which is_system_uid()
+    if ((sock_uid == 65534) && !cookie) sock_uid = 0;
+
     UidTagValue* utag = bpf_cookie_tag_map_lookup_elem(&cookie);
     uint32_t uid, tag;
     if (utag) {
