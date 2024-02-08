@@ -175,7 +175,7 @@ public class NetworkRequestTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S)
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
     public void testSubscriptionIds() {
         int[] subIds = {1, 2};
         assertTrue(
