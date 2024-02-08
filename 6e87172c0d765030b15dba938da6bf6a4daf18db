@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0abeb4e9_e04f972b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-08T10:44:28Z",
+      "side": 1,
+      "message": "Generally LGTM, but I\u0027m wondering if this will be handled properly in the SDK extension. Will ask mainline SDK team in chat.",
+      "revId": "6e87172c0d765030b15dba938da6bf6a4daf18db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b5f2b9f_6750935a",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-08T10:44:28Z",
+      "side": 1,
+      "message": "Does this constructor need to be API ? I don\u0027t think anyone can usefully rely on it, since the contents of the Parcel should be opaque to any external caller",
+      "revId": "6e87172c0d765030b15dba938da6bf6a4daf18db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
