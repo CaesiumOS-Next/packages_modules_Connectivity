@@ -175,7 +175,7 @@ public class NetworkRequestTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S)
+    @IgnoreUpTo(VANILLA_ICE_CREAM)
     public void testSubscriptionIds() {
         int[] subIds = {1, 2};
         assertTrue(
