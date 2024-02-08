@@ -21,9 +21,11 @@ import android.app.role.RoleManager
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.content.pm.UserInfo
 import android.os.Build
 import android.os.Handler
 import android.os.UserHandle
+import com.android.server.makeMockUserManager
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
 import org.junit.Before
@@ -40,14 +42,26 @@ import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import java.util.concurrent.Executor
 import java.util.function.Consumer
+import kotlin.collections.ArrayList
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
+const val USER = 0
+const val USER1 = 1
+const val USER2 = 2
+val USER_INFO = UserInfo(USER, "" /* name */, UserInfo.FLAG_PRIMARY)
+val USER_HANDLE = UserHandle(USER)
+private val userHandle1 = UserHandle.of(USER1)
+private val userHandle2 = UserHandle.of(USER2)
 private const val DEFAULT_MESSAGING_APP1 = "default_messaging_app_1"
 private const val DEFAULT_MESSAGING_APP2 = "default_messaging_app_2"
+private const val DEFAULT_MESSAGING_APP3 = "default_messaging_app_3"
+private const val DEFAULT_MESSAGING_APP4 = "default_messaging_app_4"
 private const val DEFAULT_MESSAGING_APP1_UID = 1234
 private const val DEFAULT_MESSAGING_APP2_UID = 5678
+private const val DEFAULT_MESSAGING_APP3_UID = 9999
+private const val DEFAULT_MESSAGING_APP4_UID = 8888
 
 @RunWith(DevSdkIgnoreRunner::class)
 @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
@@ -58,19 +72,28 @@ class SatelliteAccessControllerTest {
     private val mRoleManager =
         mock(SatelliteAccessController.Dependencies::class.java)
     private val mCallback = mock(Consumer::class.java) as Consumer<Set<Int>>
-    private val mSatelliteAccessController by lazy {
-        SatelliteAccessController(context, mRoleManager, mCallback, mHandler)}
-    private var mRoleHolderChangedListener: OnRoleHoldersChangedListener? = null
+    private val mSatelliteAccessController =
+        SatelliteAccessController(context, mRoleManager, mCallback, mHandler)
+    private lateinit var mRoleHolderChangedListener: OnRoleHoldersChangedListener
     @Before
     @Throws(PackageManager.NameNotFoundException::class)
     fun setup() {
+        makeMockUserManager(USER_INFO, USER_HANDLE)
+        doReturn(context).`when`(context).createContextAsUser(any(), anyInt())
         doReturn(mPackageManager).`when`(context).packageManager
+
         doReturn(PackageManager.PERMISSION_GRANTED)
             .`when`(mPackageManager)
             .checkPermission(Manifest.permission.SATELLITE_COMMUNICATION, DEFAULT_MESSAGING_APP1)
         doReturn(PackageManager.PERMISSION_GRANTED)
             .`when`(mPackageManager)
             .checkPermission(Manifest.permission.SATELLITE_COMMUNICATION, DEFAULT_MESSAGING_APP2)
+        doReturn(PackageManager.PERMISSION_GRANTED)
+            .`when`(mPackageManager)
+            .checkPermission(Manifest.permission.SATELLITE_COMMUNICATION, DEFAULT_MESSAGING_APP3)
+        doReturn(PackageManager.PERMISSION_GRANTED)
+            .`when`(mPackageManager)
+            .checkPermission(Manifest.permission.SATELLITE_COMMUNICATION, DEFAULT_MESSAGING_APP4)
 
         // Initialise default message application package1
         val applicationInfo1 = ApplicationInfo()
@@ -86,6 +109,20 @@ class SatelliteAccessControllerTest {
             .`when`(mPackageManager)
             .getApplicationInfo(eq(DEFAULT_MESSAGING_APP2), anyInt())
 
+        // Initialise default message application package2
+        val applicationInfo3 = ApplicationInfo()
+        applicationInfo3.uid = DEFAULT_MESSAGING_APP3_UID
+        doReturn(applicationInfo3)
+            .`when`(mPackageManager)
+            .getApplicationInfo(eq(DEFAULT_MESSAGING_APP3), anyInt())
+
+        // Initialise default message application package2
+        val applicationInfo4 = ApplicationInfo()
+        applicationInfo4.uid = DEFAULT_MESSAGING_APP4_UID
+        doReturn(applicationInfo4)
+            .`when`(mPackageManager)
+            .getApplicationInfo(eq(DEFAULT_MESSAGING_APP4), anyInt())
+
         // Get registered listener using captor
         val listenerCaptor = ArgumentCaptor.forClass(
             OnRoleHoldersChangedListener::class.java
@@ -97,80 +134,174 @@ class SatelliteAccessControllerTest {
     }
 
     @Test
-    fun test_onRoleHoldersChanged_SatellitePreferredUid_Changed() {
-        doReturn(listOf<String>()).`when`(mRoleManager).getRoleHolders(RoleManager.ROLE_SMS)
-        val satelliteNetworkPreferredSet =
+    fun test_onRoleHoldersChanged_SatelliteFallbackUid_Changed_SingleUser() {
+        doReturn(listOf<String>()).`when`(mRoleManager).getRoleHoldersAsUser(RoleManager.ROLE_SMS,
+            userHandle1)
+        val satelliteNetworkFallbackUidsCaptor =
             ArgumentCaptor.forClass(Set::class.java) as ArgumentCaptor<Set<Int>>
-        mRoleHolderChangedListener?.onRoleHoldersChanged(RoleManager.ROLE_SMS, UserHandle.ALL)
-        verify(mCallback, never()).accept(satelliteNetworkPreferredSet.capture())
+        mRoleHolderChangedListener.onRoleHoldersChanged(RoleManager.ROLE_SMS, userHandle1)
+        verify(mCallback, never()).accept(any())
 
-        // check DEFAULT_MESSAGING_APP1 is available as satellite network preferred uid
+        // check DEFAULT_MESSAGING_APP1 is available as satellite network fallback uid
         doReturn(listOf(DEFAULT_MESSAGING_APP1))
-            .`when`(mRoleManager).getRoleHolders(RoleManager.ROLE_SMS)
-        mRoleHolderChangedListener?.onRoleHoldersChanged(RoleManager.ROLE_SMS, UserHandle.ALL)
-        verify(mCallback).accept(satelliteNetworkPreferredSet.capture())
-        var satelliteNetworkPreferredUids = satelliteNetworkPreferredSet.value
-        assertEquals(1, satelliteNetworkPreferredUids.size)
-        assertTrue(satelliteNetworkPreferredUids.contains(DEFAULT_MESSAGING_APP1_UID))
-        assertFalse(satelliteNetworkPreferredUids.contains(DEFAULT_MESSAGING_APP2_UID))
+            .`when`(mRoleManager).getRoleHoldersAsUser(RoleManager.ROLE_SMS, userHandle1)
+        mRoleHolderChangedListener.onRoleHoldersChanged(RoleManager.ROLE_SMS, userHandle1)
+        verify(mCallback).accept(satelliteNetworkFallbackUidsCaptor.capture())
+        var satelliteNetworkFallbackUids = satelliteNetworkFallbackUidsCaptor.value
+        assertEquals(1, satelliteNetworkFallbackUids.size)
+        assertTrue(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP1_UID))
+        assertFalse(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP2_UID))
 
         // check DEFAULT_MESSAGING_APP1 and DEFAULT_MESSAGING_APP2 is available
-        // as satellite network preferred uid
+        // as satellite network Fallback uid
         val dmas: MutableList<String> = ArrayList()
         dmas.add(DEFAULT_MESSAGING_APP1)
         dmas.add(DEFAULT_MESSAGING_APP2)
-        doReturn(dmas).`when`(mRoleManager).getRoleHolders(RoleManager.ROLE_SMS)
-        mRoleHolderChangedListener?.onRoleHoldersChanged(RoleManager.ROLE_SMS, UserHandle.ALL)
+        doReturn(dmas).`when`(mRoleManager).getRoleHoldersAsUser(RoleManager.ROLE_SMS, userHandle1)
+        mRoleHolderChangedListener.onRoleHoldersChanged(RoleManager.ROLE_SMS, userHandle1)
         verify(mCallback, times(2))
-            .accept(satelliteNetworkPreferredSet.capture())
-        satelliteNetworkPreferredUids = satelliteNetworkPreferredSet.value
-        assertEquals(2, satelliteNetworkPreferredUids.size)
-        assertTrue(satelliteNetworkPreferredUids.contains(DEFAULT_MESSAGING_APP1_UID))
-        assertTrue(satelliteNetworkPreferredUids.contains(DEFAULT_MESSAGING_APP2_UID))
+            .accept(satelliteNetworkFallbackUidsCaptor.capture())
+        satelliteNetworkFallbackUids = satelliteNetworkFallbackUidsCaptor.value
+        assertEquals(2, satelliteNetworkFallbackUids.size)
+        assertTrue(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP1_UID))
+        assertTrue(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP2_UID))
 
-        // check no uid is available as satellite network preferred uid
-        doReturn(listOf<String>()).`when`(mRoleManager).getRoleHolders(RoleManager.ROLE_SMS)
-        mRoleHolderChangedListener?.onRoleHoldersChanged(RoleManager.ROLE_SMS, UserHandle.ALL)
+        // check no uid is available as satellite network fallback uid
+        doReturn(listOf<String>()).`when`(mRoleManager).getRoleHoldersAsUser(RoleManager.ROLE_SMS,
+            userHandle1)
+        mRoleHolderChangedListener.onRoleHoldersChanged(RoleManager.ROLE_SMS, userHandle1)
         verify(mCallback, times(3))
-            .accept(satelliteNetworkPreferredSet.capture())
-        satelliteNetworkPreferredUids = satelliteNetworkPreferredSet.value
-        assertEquals(0, satelliteNetworkPreferredUids.size)
-        assertFalse(satelliteNetworkPreferredUids.contains(DEFAULT_MESSAGING_APP1_UID))
-        assertFalse(satelliteNetworkPreferredUids.contains(DEFAULT_MESSAGING_APP2_UID))
+            .accept(satelliteNetworkFallbackUidsCaptor.capture())
+        satelliteNetworkFallbackUids = satelliteNetworkFallbackUidsCaptor.value
+        assertEquals(0, satelliteNetworkFallbackUids.size)
+        assertFalse(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP1_UID))
+        assertFalse(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP2_UID))
 
         // No Change received at OnRoleSmsChanged, check callback not triggered
-        doReturn(listOf<String>()).`when`(mRoleManager).getRoleHolders(RoleManager.ROLE_SMS)
-        mRoleHolderChangedListener?.onRoleHoldersChanged(RoleManager.ROLE_SMS, UserHandle.ALL)
+        doReturn(listOf<String>()).`when`(mRoleManager).getRoleHoldersAsUser(RoleManager.ROLE_SMS,
+            userHandle1)
+        mRoleHolderChangedListener.onRoleHoldersChanged(RoleManager.ROLE_SMS,
+            userHandle1)
         verify(mCallback, times(3))
-            .accept(satelliteNetworkPreferredSet.capture())
+            .accept(satelliteNetworkFallbackUidsCaptor.capture())
     }
 
     @Test
     fun test_onRoleHoldersChanged_NoSatelliteCommunicationPermission() {
-        doReturn(listOf<Any>()).`when`(mRoleManager).getRoleHolders(RoleManager.ROLE_SMS)
-        val satelliteNetworkPreferredSet =
-            ArgumentCaptor.forClass(Set::class.java) as ArgumentCaptor<Set<Int>>
-        mRoleHolderChangedListener?.onRoleHoldersChanged(RoleManager.ROLE_SMS, UserHandle.ALL)
-        verify(mCallback, never()).accept(satelliteNetworkPreferredSet.capture())
+        doReturn(listOf<Any>()).`when`(mRoleManager).getRoleHoldersAsUser(RoleManager.ROLE_SMS,
+            userHandle1)
+        mRoleHolderChangedListener.onRoleHoldersChanged(RoleManager.ROLE_SMS, userHandle1)
+        verify(mCallback, never()).accept(any())
 
-        // check DEFAULT_MESSAGING_APP1 is not available as satellite network preferred uid
+        // check DEFAULT_MESSAGING_APP1 is not available as satellite network fallback uid
         // since satellite communication permission not available.
         doReturn(PackageManager.PERMISSION_DENIED)
             .`when`(mPackageManager)
-            .checkPermission(Manifest.permission.SATELLITE_COMMUNICATION, DEFAULT_MESSAGING_APP1)
+            .checkPermission(Manifest.permission.SATELLITE_COMMUNICATION,
+                DEFAULT_MESSAGING_APP1)
         doReturn(listOf(DEFAULT_MESSAGING_APP1))
-            .`when`(mRoleManager).getRoleHolders(RoleManager.ROLE_SMS)
-        mRoleHolderChangedListener?.onRoleHoldersChanged(RoleManager.ROLE_SMS, UserHandle.ALL)
-        verify(mCallback, never()).accept(satelliteNetworkPreferredSet.capture())
+            .`when`(mRoleManager).getRoleHoldersAsUser(RoleManager.ROLE_SMS, userHandle1)
+        mRoleHolderChangedListener.onRoleHoldersChanged(RoleManager.ROLE_SMS, userHandle1)
+        verify(mCallback, never()).accept(any())
     }
 
     @Test
     fun test_onRoleHoldersChanged_RoleSms_NotAvailable() {
         doReturn(listOf(DEFAULT_MESSAGING_APP1))
-            .`when`(mRoleManager).getRoleHolders(RoleManager.ROLE_SMS)
-        val satelliteNetworkPreferredSet =
+            .`when`(mRoleManager).getRoleHoldersAsUser(RoleManager.ROLE_SMS, userHandle1)
+        mRoleHolderChangedListener.onRoleHoldersChanged(RoleManager.ROLE_BROWSER, userHandle1)
+        verify(mCallback, never()).accept(any())
+    }
+
+    @Test
+    fun test_onRoleHoldersChanged_SatelliteNetworkFallbackUid_Changed_multiUser() {
+        doReturn(listOf<String>()).`when`(mRoleManager).getRoleHoldersAsUser(RoleManager.ROLE_SMS,
+            userHandle1)
+        val satelliteNetworkFallbackUidsCaptor =
             ArgumentCaptor.forClass(Set::class.java) as ArgumentCaptor<Set<Int>>
-        mRoleHolderChangedListener?.onRoleHoldersChanged(RoleManager.ROLE_BROWSER, UserHandle.ALL)
-        verify(mCallback, never()).accept(satelliteNetworkPreferredSet.capture())
+        mRoleHolderChangedListener.onRoleHoldersChanged(RoleManager.ROLE_SMS, userHandle1)
+        verify(mCallback, never()).accept(any())
+
+        // check DEFAULT_MESSAGING_APP1 is available as satellite network fallback user id1
+        doReturn(listOf(DEFAULT_MESSAGING_APP1))
+            .`when`(mRoleManager).getRoleHoldersAsUser(RoleManager.ROLE_SMS, userHandle1)
+        mRoleHolderChangedListener.onRoleHoldersChanged(RoleManager.ROLE_SMS, userHandle1)
+        verify(mCallback).accept(satelliteNetworkFallbackUidsCaptor.capture())
+        var satelliteNetworkFallbackUids = satelliteNetworkFallbackUidsCaptor.value
+        assertEquals(1, satelliteNetworkFallbackUids.size)
+        assertTrue(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP1_UID))
+        assertFalse(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP2_UID))
+
+        // check DEFAULT_MESSAGING_APP1 and DEFAULT_MESSAGING_APP2 is available
+        // as satellite network fallback user id1
+        val dmasUser1: MutableList<String> = ArrayList()
+        dmasUser1.add(DEFAULT_MESSAGING_APP1)
+        dmasUser1.add(DEFAULT_MESSAGING_APP2)
+        doReturn(dmasUser1).`when`(mRoleManager).getRoleHoldersAsUser(RoleManager.ROLE_SMS,
+            userHandle1)
+        mRoleHolderChangedListener.onRoleHoldersChanged(RoleManager.ROLE_SMS, userHandle1)
+        verify(mCallback, times(2))
+            .accept(satelliteNetworkFallbackUidsCaptor.capture())
+        satelliteNetworkFallbackUids = satelliteNetworkFallbackUidsCaptor.value
+        assertEquals(2, satelliteNetworkFallbackUids.size)
+        assertTrue(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP1_UID))
+        assertTrue(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP2_UID))
+
+        // check DEFAULT_MESSAGING_APP1 and DEFAULT_MESSAGING_APP2 is available
+        // as satellite network fallback user id2
+        val dmasUser2: MutableList<String> = ArrayList()
+        dmasUser2.add(DEFAULT_MESSAGING_APP3)
+        dmasUser2.add(DEFAULT_MESSAGING_APP4)
+        doReturn(dmasUser2).`when`(mRoleManager).getRoleHoldersAsUser(RoleManager.ROLE_SMS,
+            userHandle2)
+        mRoleHolderChangedListener.onRoleHoldersChanged(RoleManager.ROLE_SMS, userHandle2)
+        verify(mCallback, times(3))
+            .accept(satelliteNetworkFallbackUidsCaptor.capture())
+        satelliteNetworkFallbackUids = satelliteNetworkFallbackUidsCaptor.value
+        assertEquals(4, satelliteNetworkFallbackUids.size)
+        assertTrue(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP1_UID))
+        assertTrue(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP2_UID))
+        assertTrue(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP3_UID))
+        assertTrue(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP4_UID))
+
+        // check no uid is available as satellite network fallback user id1
+        doReturn(listOf<String>()).`when`(mRoleManager).getRoleHoldersAsUser(RoleManager.ROLE_SMS,
+            userHandle1)
+        mRoleHolderChangedListener.onRoleHoldersChanged(RoleManager.ROLE_SMS,
+            userHandle1)
+        verify(mCallback, times(4))
+            .accept(satelliteNetworkFallbackUidsCaptor.capture())
+        satelliteNetworkFallbackUids = satelliteNetworkFallbackUidsCaptor.value
+        assertEquals(2, satelliteNetworkFallbackUids.size)
+        assertFalse(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP1_UID))
+        assertFalse(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP2_UID))
+        assertTrue(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP3_UID))
+        assertTrue(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP4_UID))
+
+        // check DEFAULT_MESSAGING_APP3 is available as satellite network fallback user id2
+        doReturn(listOf(DEFAULT_MESSAGING_APP3))
+            .`when`(mRoleManager).getRoleHoldersAsUser(RoleManager.ROLE_SMS, userHandle2)
+        mRoleHolderChangedListener.onRoleHoldersChanged(RoleManager.ROLE_SMS, userHandle2)
+        verify(mCallback, times(5))
+            .accept(satelliteNetworkFallbackUidsCaptor.capture())
+        satelliteNetworkFallbackUids = satelliteNetworkFallbackUidsCaptor.value
+        assertEquals(1, satelliteNetworkFallbackUids.size)
+        assertFalse(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP1_UID))
+        assertFalse(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP2_UID))
+        assertTrue(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP3_UID))
+        assertFalse(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP4_UID))
+
+        // check no uid is available as satellite network fallback user id2
+        doReturn(listOf<String>()).`when`(mRoleManager).getRoleHoldersAsUser(RoleManager.ROLE_SMS,
+            userHandle2)
+        mRoleHolderChangedListener.onRoleHoldersChanged(RoleManager.ROLE_SMS, userHandle2)
+        verify(mCallback, times(6))
+            .accept(satelliteNetworkFallbackUidsCaptor.capture())
+        satelliteNetworkFallbackUids = satelliteNetworkFallbackUidsCaptor.value
+        assertEquals(0, satelliteNetworkFallbackUids.size)
+        assertFalse(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP1_UID))
+        assertFalse(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP2_UID))
+        assertFalse(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP3_UID))
+        assertFalse(satelliteNetworkFallbackUids.contains(DEFAULT_MESSAGING_APP4_UID))
     }
 }
