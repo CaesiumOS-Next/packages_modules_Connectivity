@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25095e85_7ab7e9f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-02-08T07:09:50Z",
+      "side": 1,
+      "message": "fails: CtsNetTestCases android.net.cts ConnectivityManagerTest testFirewallBlockingBackground\n\njava.lang.AssertionError: Expect to be blocked by firewall but sending packet was not blocked: chain\u003d6 chainEnabled\u003dtrue uid\u003d10111 uidFirewallRule\u003d2\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat android.net.cts.ConnectivityManagerTest.checkFirewallBlocking(ConnectivityManagerTest.java:3457)\n\tat android.net.cts.ConnectivityManagerTest.lambda$doTestFirewallBlocking$118(ConnectivityManagerTest.java:3499)\n\tat android.net.cts.ConnectivityManagerTest.$r8$lambda$P5aB15Zgm_DTZFppFPZXDDVSghg(Unknown Source:0)\n\tat android.net.cts.ConnectivityManagerTest$$ExternalSyntheticLambda58.run(D8$$SyntheticClass:0)\n\tat com.android.testutils.Cleanup$testAndCleanup$4.get(Cleanup.kt:124)\n\tat com.android.testutils.Cleanup$testAndCleanup$4.get(Cleanup.kt:124)\n\tat com.android.testutils.Cleanup$testAndCleanup$1.invoke(Cleanup.kt:119)\n\tat com.android.testutils.Cleanup.tryTest(Cleanup.kt:79)\n\tat com.android.testutils.Cleanup.testAndCleanup(Cleanup.kt:119)\n\tat com.android.testutils.Cleanup.testAndCleanup(Cleanup.kt:124)\n\tat android.net.cts.ConnectivityManagerTest.lambda$doTestFirewallBlocking$122(ConnectivityManagerTest.java:3484)\n\tat android.net.cts.ConnectivityManagerTest.$r8$lambda$JDgAvEE-1JhjXpRlvApHF9VdJ64(Unknown Source:0)\n\tat android.net.cts.ConnectivityManagerTest$$ExternalSyntheticLambda96.run(D8$$SyntheticClass:0)\n\tat com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity(SystemUtil.java:286)\n\tat com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity(SystemUtil.java:262)\n\tat android.net.cts.ConnectivityManagerTest.doTestFirewallBlocking(ConnectivityManagerTest.java:3478)\n\tat android.net.cts.ConnectivityManagerTest.testFirewallBlockingBackground(ConnectivityManagerTest.java:3542)",
+      "revId": "7585bdf1b3bece356a25db29628da7b8b6a94095",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
