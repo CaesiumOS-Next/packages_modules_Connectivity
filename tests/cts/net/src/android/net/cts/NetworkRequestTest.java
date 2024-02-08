@@ -180,10 +180,12 @@ public class NetworkRequestTest {
         int[] subIds = {1, 2};
         assertTrue(
                 new NetworkRequest.Builder().build()
+                        .networkCapabilities
                         .getSubscriptionIds().isEmpty());
         assertThat(new NetworkRequest.Builder()
                 .setSubscriptionIds(Set.of(subIds[0], subIds[1]))
                 .build()
+                .networkCapabilities
                 .getSubscriptionIds())
                 .containsExactly(subIds[0], subIds[1]);
     }
