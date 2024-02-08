@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d41bbf2_bcc9cd74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-02-08T11:12:32Z",
+      "side": 1,
+      "message": "This is targeting V SDK, do we still need to consider the SDK extension in this case?",
+      "parentUuid": "0abeb4e9_e04f972b",
+      "revId": "6e87172c0d765030b15dba938da6bf6a4daf18db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7b5f2b9f_6750935a",
         "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2024-02-08T10:44:28Z",
       "side": 1,
       "message": "Does this constructor need to be API ? I don\u0027t think anyone can usefully rely on it, since the contents of the Parcel should be opaque to any external caller",
+      "revId": "6e87172c0d765030b15dba938da6bf6a4daf18db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b75d2aa1_3e1ee995",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-02-08T11:12:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b5f2b9f_6750935a",
       "revId": "6e87172c0d765030b15dba938da6bf6a4daf18db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
