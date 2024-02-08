@@ -92,6 +92,7 @@ import com.android.metrics.NetworkNsdReportedMetrics;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.DeviceConfigUtils;
+import com.android.net.module.util.HandlerUtils;
 import com.android.net.module.util.InetAddressUtils;
 import com.android.net.module.util.PermissionUtils;
 import com.android.net.module.util.SharedLog;
@@ -272,7 +273,7 @@ public class NsdService extends INsdManager.Stub {
     }
 
     @VisibleForTesting
-    static class MdnsListener implements MdnsServiceBrowserListener {
+    abstract static class MdnsListener implements MdnsServiceBrowserListener {
         protected final int mClientRequestId;
         protected final int mTransactionId;
         @NonNull
@@ -318,6 +319,10 @@ public class NsdService extends INsdManager.Stub {
 
         @Override
         public void onFailedToParseMdnsResponse(int receivedPacketNumber, int errorCode) { }
+
+        // Ensure toString gets overridden
+        @NonNull
+        public abstract String toString();
     }
 
     private class DiscoveryListener extends MdnsListener {
@@ -348,13 +353,21 @@ public class NsdService extends INsdManager.Stub {
             mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
                     DISCOVERY_QUERY_SENT_CALLBACK, new MdnsEvent(mClientRequestId));
         }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return "DiscoveryListener (" + getListenedServiceType() + ")";
+        }
     }
 
     private class ResolutionListener extends MdnsListener {
+        private final String mServiceName;
 
         ResolutionListener(int clientRequestId, int transactionId,
-                @NonNull String listenServiceType) {
+                @NonNull String listenServiceType, @NonNull String serviceName) {
             super(clientRequestId, transactionId, listenServiceType);
+            mServiceName = serviceName;
         }
 
         @Override
@@ -370,13 +383,21 @@ public class NsdService extends INsdManager.Stub {
             mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
                     DISCOVERY_QUERY_SENT_CALLBACK, new MdnsEvent(mClientRequestId));
         }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return "ResolutionListener (" + mServiceName + "." + getListenedServiceType() + ")";
+        }
     }
 
     private class ServiceInfoListener extends MdnsListener {
+        private final String mServiceName;
 
         ServiceInfoListener(int clientRequestId, int transactionId,
-                @NonNull String listenServiceType) {
+                @NonNull String listenServiceType, @NonNull String serviceName) {
             super(clientRequestId, transactionId, listenServiceType);
+            this.mServiceName = serviceName;
         }
 
         @Override
@@ -406,6 +427,12 @@ public class NsdService extends INsdManager.Stub {
                 int sentQueryTransactionId) {
             mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
                     DISCOVERY_QUERY_SENT_CALLBACK, new MdnsEvent(mClientRequestId));
+        }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return "ServiceInfoListener (" + mServiceName + "." + getListenedServiceType() + ")";
         }
     }
 
@@ -1066,7 +1093,7 @@ public class NsdService extends INsdManager.Stub {
 
                             maybeStartMonitoringSockets();
                             final MdnsListener listener = new ResolutionListener(clientRequestId,
-                                    transactionId, resolveServiceType);
+                                    transactionId, resolveServiceType, info.getServiceName());
                             final MdnsSearchOptions options = MdnsSearchOptions.newBuilder()
                                     .setNetwork(info.getNetwork())
                                     .setQueryMode(mMdnsFeatureFlags.isAggressiveQueryModeEnabled()
@@ -1166,7 +1193,7 @@ public class NsdService extends INsdManager.Stub {
 
                         maybeStartMonitoringSockets();
                         final MdnsListener listener = new ServiceInfoListener(clientRequestId,
-                                transactionId, resolveServiceType);
+                                transactionId, resolveServiceType, info.getServiceName());
                         final MdnsSearchOptions options = MdnsSearchOptions.newBuilder()
                                 .setNetwork(info.getNetwork())
                                 .setQueryMode(mMdnsFeatureFlags.isAggressiveQueryModeEnabled()
@@ -2511,6 +2538,16 @@ public class NsdService extends INsdManager.Stub {
         // Dump state machine logs
         mNsdStateMachine.dump(fd, pw, args);
 
+        // Dump clients
+        pw.println("Clients:");
+        pw.increaseIndent();
+        HandlerUtils.runWithScissorsForDump(mNsdStateMachine.getHandler(), () -> {
+            for (ClientInfo clientInfo : mClients.values()) {
+                pw.println(clientInfo.toString());
+            }
+        }, 10_000);
+        pw.increaseIndent();
+
         // Dump service and clients logs
         pw.println();
         pw.println("Logs:");
@@ -2575,6 +2612,21 @@ public class NsdService extends INsdManager.Stub {
         public int getSentQueryCount() {
             return mSentQueryCount;
         }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return getRequestDescriptor() + " {" + mTransactionId
+                    + ", startTime " + mStartTimeMs
+                    + ", foundServices " + mFoundServiceCount
+                    + ", lostServices " + mLostServiceCount
+                    + ", fromCache " + mIsServiceFromCache
+                    + ", sentQueries " + mSentQueryCount
+                    + "}";
+        }
+
+        @NonNull
+        protected abstract String getRequestDescriptor();
     }
 
     private static class LegacyClientRequest extends ClientRequest {
@@ -2583,6 +2635,12 @@ public class NsdService extends INsdManager.Stub {
         private LegacyClientRequest(int transactionId, int requestCode, long startTimeMs) {
             super(transactionId, startTimeMs);
             mRequestCode = requestCode;
+        }
+
+        @NonNull
+        @Override
+        protected String getRequestDescriptor() {
+            return "Legacy (" + mRequestCode + ")";
         }
     }
 
@@ -2607,6 +2665,12 @@ public class NsdService extends INsdManager.Stub {
                 long startTimeMs) {
             super(transactionId, requestedNetwork, startTimeMs);
         }
+
+        @NonNull
+        @Override
+        public String getRequestDescriptor() {
+            return getClass().getSimpleName() + " (net=" + getRequestedNetwork() + ")";
+        }
     }
 
     private static class DiscoveryManagerRequest extends JavaBackendClientRequest {
@@ -2617,6 +2681,13 @@ public class NsdService extends INsdManager.Stub {
                 @Nullable Network requestedNetwork, long startTimeMs) {
             super(transactionId, requestedNetwork, startTimeMs);
             mListener = listener;
+        }
+
+        @NonNull
+        @Override
+        public String getRequestDescriptor() {
+            return "DiscoveryManagerRequest/" + mListener
+                    + " (net=" + getRequestedNetwork() + ")";
         }
     }
 
@@ -2654,17 +2725,14 @@ public class NsdService extends INsdManager.Stub {
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
-            sb.append("mResolvedService ").append(mResolvedService).append("\n");
-            sb.append("mIsLegacy ").append(mIsPreSClient).append("\n");
-            sb.append("mUseJavaBackend ").append(mUseJavaBackend).append("\n");
-            sb.append("mUid ").append(mUid).append("\n");
+            sb.append("mResolvedService ").append(mResolvedService).append(", ");
+            sb.append("mIsLegacy ").append(mIsPreSClient).append(", ");
+            sb.append("mUseJavaBackend ").append(mUseJavaBackend).append(", ");
+            sb.append("mUid ").append(mUid).append(", mClientRequests:\n");
             for (int i = 0; i < mClientRequests.size(); i++) {
                 int clientRequestId = mClientRequests.keyAt(i);
-                sb.append("clientRequestId ")
-                        .append(clientRequestId)
-                        .append(" transactionId ").append(mClientRequests.valueAt(i).mTransactionId)
-                        .append(" type ").append(
-                                mClientRequests.valueAt(i).getClass().getSimpleName())
+                sb.append("  ").append(clientRequestId)
+                        .append(": ").append(mClientRequests.valueAt(i).toString())
                         .append("\n");
             }
             return sb.toString();
