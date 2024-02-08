@@ -31,10 +31,12 @@ import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 /**
  * Tracks the uid of all the default messaging application which are role_sms role and
@@ -44,12 +46,14 @@ import java.util.function.Consumer;
  */
 public class SatelliteAccessController {
     private static final String TAG = SatelliteAccessController.class.getSimpleName();
-    private final PackageManager mPackageManager;
+    private final Context mContext;
     private final Dependencies mDeps;
     private final DefaultMessageRoleListener mDefaultMessageRoleListener;
     private final Consumer<Set<Integer>> mCallback;
-    private final Set<Integer> mSatelliteNetworkPreferredUidCache = new ArraySet<>();
+    private final Set<Integer> mSatelliteNetworkFallbackUidCache = new ArraySet<>();
     private final Handler mConnectivityServiceHandler;
+    private final HashMap<Integer, Set<Integer>> mUserIDSatelliteNetworkFallbackCache =
+            new HashMap<>();
 
     /**
      *  Monitor {@link android.app.role.OnRoleHoldersChangedListener#onRoleHoldersChanged(String,
@@ -62,7 +66,7 @@ public class SatelliteAccessController {
         public void onRoleHoldersChanged(String role, UserHandle user) {
             if (RoleManager.ROLE_SMS.equals(role)) {
                 Log.i(TAG, "ROLE_SMS Change detected ");
-                onRoleSmsChanged();
+                onRoleSmsChanged(user);
             }
         }
 
@@ -71,7 +75,7 @@ public class SatelliteAccessController {
                 mDeps.addOnRoleHoldersChangedListenerAsUser(
                         mConnectivityServiceHandler::post, this, UserHandle.ALL);
             } catch (RuntimeException e) {
-                Log.e(TAG, "Could not register satellite controller listener due to " + e);
+                Log.wtf(TAG, "Could not register satellite controller listener due to " + e);
             }
         }
     }
@@ -105,40 +109,46 @@ public class SatelliteAccessController {
     SatelliteAccessController(@NonNull final Context c, @NonNull final Dependencies deps,
             Consumer<Set<Integer>> callback,
             @NonNull final Handler connectivityServiceInternalHandler) {
+        mContext = c;
         mDeps = deps;
-        mPackageManager = c.getPackageManager();
         mDefaultMessageRoleListener = new DefaultMessageRoleListener();
         mCallback = callback;
         mConnectivityServiceHandler = connectivityServiceInternalHandler;
     }
 
-    private void updateSatelliteNetworkPreferredUidListCache(List<String> packageNames) {
-        for (String packageName : packageNames) {
-            // Check if SATELLITE_COMMUNICATION permission is enabled for default sms application
-            // package before adding it part of satellite network preferred uid cache list.
-            if (isSatellitePermissionEnabled(packageName)) {
-                mSatelliteNetworkPreferredUidCache.add(getUidForPackage(packageName));
+    private void updateSatelliteNetworkFallbackUidListCache(List<String> packageNames,
+            @NonNull UserHandle userHandle) {
+        PackageManager pm =
+                mContext.createContextAsUser(userHandle, 0).getPackageManager();
+        if (pm != null) {
+            for (String packageName : packageNames) {
+                // Check if SATELLITE_COMMUNICATION permission is enabled for default sms
+                // application package before adding it part of satellite network fallback uid
+                // cache list.
+                if (isSatellitePermissionEnabled(pm, packageName)) {
+                    mSatelliteNetworkFallbackUidCache.add(getUidForPackage(pm, packageName));
+                }
             }
+        } else {
+            Log.wtf(TAG, "package manager found null");
         }
     }
 
     //Check if satellite communication is enabled for the package
-    private boolean isSatellitePermissionEnabled(String packageName) {
-        if (mPackageManager != null) {
-            return mPackageManager.checkPermission(
-                    Manifest.permission.SATELLITE_COMMUNICATION, packageName)
-                    == PackageManager.PERMISSION_GRANTED;
-        }
-        return false;
+    private boolean isSatellitePermissionEnabled(PackageManager packageManager,
+            String packageName) {
+        return packageManager.checkPermission(
+                Manifest.permission.SATELLITE_COMMUNICATION, packageName)
+                == PackageManager.PERMISSION_GRANTED;
     }
 
-    private int getUidForPackage(String pkgName) {
+    private int getUidForPackage(PackageManager packageManager, String pkgName) {
         if (pkgName == null) {
             return Process.INVALID_UID;
         }
         try {
-            if (mPackageManager != null) {
-                ApplicationInfo applicationInfo = mPackageManager.getApplicationInfo(pkgName, 0);
+            if (packageManager != null) {
+                ApplicationInfo applicationInfo = packageManager.getApplicationInfo(pkgName, 0);
                 if (applicationInfo != null) {
                     return applicationInfo.uid;
                 }
@@ -150,30 +160,44 @@ public class SatelliteAccessController {
     }
 
     //on Role sms change triggered by OnRoleHoldersChangedListener()
-    private void onRoleSmsChanged() {
+    private void onRoleSmsChanged(@NonNull UserHandle userHandle) {
+        final int userId = userHandle.getIdentifier();
         final List<String> packageNames = getRoleSmsChangedPackageName();
+        Set<Integer> currUserPreviousSatelliteFallbackUid = new ArraySet<>();
 
-        // Create a new Set
-        Set<Integer> previousSatellitePreferredUid = new ArraySet<>(
-                mSatelliteNetworkPreferredUidCache);
+        // Store previous satellite fallback uid available
+        if (mUserIDSatelliteNetworkFallbackCache.containsKey(userId)) {
+            currUserPreviousSatelliteFallbackUid =
+                    new ArraySet<>(mUserIDSatelliteNetworkFallbackCache.get(userId));
+        }
 
-        mSatelliteNetworkPreferredUidCache.clear();
-
+        // On Role change listener, update the satellite network fallback uid cache list
+        mSatelliteNetworkFallbackUidCache.clear();
         if (packageNames != null) {
-            Log.i(TAG, "role_sms_packages: " + packageNames);
-            // On Role change listener, update the satellite network preferred uid cache list
-            updateSatelliteNetworkPreferredUidListCache(packageNames);
-            Log.i(TAG, "satellite_preferred_uid: " + mSatelliteNetworkPreferredUidCache);
-        } else {
-            Log.wtf(TAG, "package name was found null");
+            Log.i(TAG, "currentUser : role_sms_packages: " + userId + " : " + packageNames);
+            updateSatelliteNetworkFallbackUidListCache(packageNames, userHandle);
+            Log.i(TAG, "satellite_fallback_uid: " + mSatelliteNetworkFallbackUidCache);
         }
 
         // on Role change, update the multilayer request at ConnectivityService with updated
-        // satellite network preferred uid cache list if changed or to revoke for previous default
-        // sms app
-        if (!mSatelliteNetworkPreferredUidCache.equals(previousSatellitePreferredUid)) {
-            Log.i(TAG, "update multi layer request");
-            mCallback.accept(mSatelliteNetworkPreferredUidCache);
+        // satellite network fallback uid cache list of multiple users as applicable and if changed
+        // or to revoke for previous default sms app
+        if (!mSatelliteNetworkFallbackUidCache.equals(currUserPreviousSatelliteFallbackUid)) {
+            // Current user uids for satellite fallback
+            mUserIDSatelliteNetworkFallbackCache.put(userId,
+                    new ArraySet<>(mSatelliteNetworkFallbackUidCache));
+
+            // Merge all uids of multiple users available
+            Set<Integer> mergedSatelliteNetworkFallbackUidCache =
+                    mUserIDSatelliteNetworkFallbackCache.values()
+                    .stream()
+                    .flatMap(Set::stream)
+                    .collect(Collectors.toSet());
+            Log.i(TAG, "merged uid list for multi layer request : "
+                    + mergedSatelliteNetworkFallbackUidCache);
+
+            // trigger multiple layer request for satellite network fallback of multi user uids
+            mCallback.accept(mergedSatelliteNetworkFallbackUidCache);
         }
     }
 
@@ -188,7 +212,7 @@ public class SatelliteAccessController {
 
     /** Register OnRoleHoldersChangedListener */
     public void start() {
-        mConnectivityServiceHandler.post(this::onRoleSmsChanged);
+        mConnectivityServiceHandler.post(() -> onRoleSmsChanged(UserHandle.ALL));
         mDefaultMessageRoleListener.register();
     }
 }
