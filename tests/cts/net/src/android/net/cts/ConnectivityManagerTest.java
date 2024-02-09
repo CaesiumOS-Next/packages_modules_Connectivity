@@ -1552,6 +1552,42 @@ public class ConnectivityManagerTest {
         }
     }
 
+    @Test
+    public void testSetBackgroundNetworkingShellCommand() throws Exception {
+        final int testUid = 54352;
+        runShellCommand("cmd connectivity set-background-networking-enabled-for-uid " + testUid
+                + " true");
+        int rule = callWithShellPermissionIdentity(
+                () -> mCm.getUidFirewallRule(FIREWALL_CHAIN_BACKGROUND, testUid), NETWORK_SETTINGS);
+        assertEquals(rule, FIREWALL_RULE_ALLOW);
+
+        runShellCommand("cmd connectivity set-background-networking-enabled-for-uid " + testUid
+                + " false");
+        rule = callWithShellPermissionIdentity(
+                () -> mCm.getUidFirewallRule(FIREWALL_CHAIN_BACKGROUND, testUid), NETWORK_SETTINGS);
+        assertEquals(rule, FIREWALL_RULE_DENY);
+    }
+
+    @Test
+    public void testGetBackgroundNetworkingShellCommand() {
+        final int testUid = 54312;
+        runWithShellPermissionIdentity(
+                () -> mCm.setUidFirewallRule(FIREWALL_CHAIN_BACKGROUND, testUid,
+                        FIREWALL_RULE_ALLOW),
+                NETWORK_SETTINGS);
+        String output = runShellCommand(
+                "cmd connectivity get-background-networking-enabled-for-uid " + testUid);
+        assertTrue(output.contains("allow"));
+
+        runWithShellPermissionIdentity(
+                () -> mCm.setUidFirewallRule(FIREWALL_CHAIN_BACKGROUND, testUid,
+                        FIREWALL_RULE_DEFAULT),
+                NETWORK_SETTINGS);
+        output = runShellCommand(
+                "cmd connectivity get-background-networking-enabled-for-uid " + testUid);
+        assertTrue(output.contains("deny"));
+    }
+
     // TODO: move the following socket keep alive test to dedicated test class.
     /**
      * Callback used in tcp keepalive offload that allows caller to wait callback fires.
