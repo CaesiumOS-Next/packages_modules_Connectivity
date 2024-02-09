@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba7fb899_bc345745",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2672,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-09T03:29:31Z",
+      "side": 1,
+      "message": "AdvertiserClientRequest, otherwise this would include the enclosing class name",
+      "range": {
+        "startLine": 2672,
+        "startChar": 19,
+        "endLine": 2672,
+        "endChar": 45
+      },
+      "revId": "8632c8163f192858fa7ac8f781013ce848b3673b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
