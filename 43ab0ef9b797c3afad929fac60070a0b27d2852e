@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b97aa6b5_4c707c3f",
+        "filename": "bpf_progs/clatd-install.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1604493
+      },
+      "writtenOn": "2024-02-09T07:30:56Z",
+      "side": 1,
+      "message": ", ndisc6",
+      "revId": "43ab0ef9b797c3afad929fac60070a0b27d2852e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64653617_c93e7344",
         "filename": "bpf_progs/clatd-install.sh",
         "patchSetId": 1
@@ -14,6 +31,29 @@
       "writtenOn": "2024-02-09T07:29:42Z",
       "side": 1,
       "message": "probably should\n  echo 2 \u003e \"/proc/sys/net/ipv6/conf/${DEV}/accept_ra\"\n  \nif it is 1 otherwise it disables due to forwarding",
+      "revId": "43ab0ef9b797c3afad929fac60070a0b27d2852e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a5a59bf_0816fa3c",
+        "filename": "bpf_progs/clatd-install.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1604493
+      },
+      "writtenOn": "2024-02-09T07:30:56Z",
+      "side": 1,
+      "message": "should call ndisc6 to populate our switch here to prevent waiting on proxy ndp NS reply delay which can be ~1 second",
+      "range": {
+        "startLine": 229,
+        "startChar": 0,
+        "endLine": 229,
+        "endChar": 2
+      },
       "revId": "43ab0ef9b797c3afad929fac60070a0b27d2852e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
