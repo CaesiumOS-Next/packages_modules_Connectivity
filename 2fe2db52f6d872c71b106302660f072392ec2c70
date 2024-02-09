@@ -16,6 +16,23 @@
       "message": "block more testing",
       "revId": "2fe2db52f6d872c71b106302660f072392ec2c70",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5eb9d79_206eb31d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-02-09T02:41:04Z",
+      "side": 1,
+      "message": "bluejay-next-userdebug\n\ngoogle/bluejay/bluejay:14/MAIN/eng.maze.20240208.170459:userdebug/dev-keys\n\n$ adb shell logcat -d | egrep -i \u0027netbpfload\u0027\n02-09 02:38:56.129     1     1 I init    : Parsing file /system/etc/init/netbpfload.rc...\n02-09 02:38:57.946     1     1 I init    : processing action (load_bpf_programs) from (/system/etc/init/netbpfload.rc:17)\n02-09 02:38:57.957   843   843 I NetBpfLoad: NetBpfLoad \u0027/system/bin/netbpfload\u0027 starting...\n02-09 02:38:57.957   843   843 I NetBpfLoad: NetBpfLoad api:10000/34 kver:50a00c6 platform:1 mainline:0\n02-09 02:38:57.957   843   843 W NetBpfLoad: exec \u0027/apex/com.android.tethering/bin/netbpfload\u0027 fail: 2[No such file or directory]\n02-09 02:38:57.958   843   843 D NetBpfLoader: Loading optional ELF object /apex/com.android.tethering/etc/bpf/test.o with license Apache 2.0\n...\n\nand it boots up, so missing works.",
+      "revId": "2fe2db52f6d872c71b106302660f072392ec2c70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
