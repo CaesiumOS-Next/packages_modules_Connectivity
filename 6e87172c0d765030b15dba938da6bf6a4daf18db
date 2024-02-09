@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2a9cb2db_58f548c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-02-09T02:27:19Z",
+      "side": 1,
+      "message": "Based on Paul Duffin\u0027s repsonse, added a @FlaggedApi annotation to TetheringRequest itself.",
+      "parentUuid": "9d41bbf2_bcc9cd74",
+      "revId": "6e87172c0d765030b15dba938da6bf6a4daf18db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7b5f2b9f_6750935a",
         "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
         "patchSetId": 1
