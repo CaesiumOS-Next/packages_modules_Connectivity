@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1582d823_69f38e43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2009995
+      },
+      "writtenOn": "2024-02-09T14:17:19Z",
+      "side": 1,
+      "message": "(This is an easy, small, and deletion-only review! Choosing the two of you as OWNERS because Gerrit indicates that you are available in the coming hours, whereas everyone else is unavailable until after the weekend.)",
+      "revId": "b1872c83d3d15d45cc88bcc6d0f8d4e3dc7de1d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
