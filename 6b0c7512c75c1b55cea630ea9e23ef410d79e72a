@@ -16,6 +16,23 @@
       "message": "I\u0027ll just remove this from the topic for now to unblock the frameworks/base change.",
       "revId": "6b0c7512c75c1b55cea630ea9e23ef410d79e72a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e4e0ad7_36b8c140",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-02-09T02:46:51Z",
+      "side": 1,
+      "message": "Blocked on b/322115994. Will likely take a while.",
+      "revId": "6b0c7512c75c1b55cea630ea9e23ef410d79e72a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
