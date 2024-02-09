@@ -22,6 +22,30 @@
       },
       "revId": "dc8ca87b0e1ca7268b598607373157fbad768c05",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "760ddc93_77bd9d31",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1560,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-02-09T09:44:49Z",
+      "side": 1,
+      "message": "Done.\nFWIW, I see both being used in the file.",
+      "parentUuid": "a1c7afe1_fe282c55",
+      "range": {
+        "startLine": 1560,
+        "startChar": 19,
+        "endLine": 1560,
+        "endChar": 50
+      },
+      "revId": "dc8ca87b0e1ca7268b598607373157fbad768c05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
