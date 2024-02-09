@@ -2623,7 +2623,7 @@ public class NsdService extends INsdManager.Stub {
     /* Information tracked per client */
     private class ClientInfo {
 
-        private static final int MAX_LIMIT = 10;
+        private static final int MAX_LIMIT = 200;
         private final INsdManagerCallback mCb;
         /* Remembers a resolved service until getaddrinfo completes */
         private NsdServiceInfo mResolvedService;
