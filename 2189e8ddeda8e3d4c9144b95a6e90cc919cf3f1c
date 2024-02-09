@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "446d8372_a292db3e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2626,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-09T17:40:38Z",
+      "side": 1,
+      "message": "better to have some documentation about why we raise limit to 200 and why 200 is enough for now.",
+      "revId": "2189e8ddeda8e3d4c9144b95a6e90cc919cf3f1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e4981b5_ac822616",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-09T17:40:38Z",
+      "side": 1,
+      "message": "never used?",
+      "range": {
+        "startLine": 740,
+        "startChar": 0,
+        "endLine": 740,
+        "endChar": 28
+      },
+      "revId": "2189e8ddeda8e3d4c9144b95a6e90cc919cf3f1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
