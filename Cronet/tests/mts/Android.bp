@@ -63,5 +63,6 @@ android_test {
         "general-tests",
         "mts-tethering",
     ],
+    host_required: ["chromium_android_test_runner"],
     data: [":cronet_javatests_resources"],
 }

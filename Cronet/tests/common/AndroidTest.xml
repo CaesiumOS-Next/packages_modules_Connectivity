@@ -30,7 +30,7 @@
             class="com.android.tradefed.testtype.suite.module.Sdk31ModuleController" />
     <option name="config-descriptor:metadata" key="mainline-param"
             value="CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex" />
-    <test class="com.android.tradefed.testtype.AndroidJUnitTest" >
+    <test class="com.android.tests.chromium.device.ChromiumAndroidJUnitTestRunner" >
         <option name="package" value="com.android.net.http.tests.coverage" />
         <option name="runner" value="androidx.test.runner.AndroidJUnitRunner" />
         <!-- b/298380508 -->
