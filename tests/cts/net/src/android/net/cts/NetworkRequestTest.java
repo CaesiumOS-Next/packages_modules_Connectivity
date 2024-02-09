@@ -64,6 +64,7 @@ import com.android.networkstack.apishim.ConstantsShim;
 import com.android.networkstack.apishim.NetworkRequestShimImpl;
 import com.android.networkstack.apishim.common.NetworkRequestShim;
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
+import com.android.testutils.ConnectivityModuleTest;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 
@@ -176,6 +177,7 @@ public class NetworkRequestTest {
 
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.S)
+    @ConnectivityModuleTest
     public void testSubscriptionIds() {
         int[] subIds = {1, 2};
         assertTrue(
