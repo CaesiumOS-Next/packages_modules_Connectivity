@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5868203_63cc6d83",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-09T04:20:28Z",
+      "side": 1,
+      "message": "Per comments on b/324367069 , this test should pass on Sv2 (and S) devices as well. This looks like a presubmit infra error.",
+      "revId": "1ab5e88d1cedcf29e9888dcfddf51a200f69e3e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
