@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64653617_c93e7344",
+        "filename": "bpf_progs/clatd-install.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1604493
+      },
+      "writtenOn": "2024-02-09T07:29:42Z",
+      "side": 1,
+      "message": "probably should\n  echo 2 \u003e \"/proc/sys/net/ipv6/conf/${DEV}/accept_ra\"\n  \nif it is 1 otherwise it disables due to forwarding",
+      "revId": "43ab0ef9b797c3afad929fac60070a0b27d2852e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
