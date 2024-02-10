@@ -256,6 +256,7 @@ import android.stats.connectivity.RequestType;
 import android.stats.connectivity.ValidatedState;
 import android.sysprop.NetworkProperties;
 import android.system.ErrnoException;
+import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.ArrayMap;
@@ -1291,10 +1292,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private class CarrierPrivilegesLostListenerImpl implements CarrierPrivilegesLostListener {
         @Override
-        public void onCarrierPrivilegesLost(int uid) {
+        public void onCarrierPrivilegesLost(int uid, int subId) {
             if (mRequestRestrictedWifiEnabled) {
                 mHandler.sendMessage(mHandler.obtainMessage(
-                        EVENT_UID_CARRIER_PRIVILEGES_LOST, uid, 0 /* arg2 */));
+                        EVENT_UID_CARRIER_PRIVILEGES_LOST, uid, subId));
             }
         }
     }
@@ -5400,6 +5401,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return false;
     }
 
+    private int getSubscriptionIdFromNetworkCaps(@NonNull final NetworkCapabilities caps) {
+        if (mCarrierPrivilegeAuthenticator != null) {
+            return mCarrierPrivilegeAuthenticator.getSubIdFromNetworkCapabilities(caps);
+        }
+        return SubscriptionManager.INVALID_SUBSCRIPTION_ID;
+    }
+
     private void handleRegisterNetworkRequestWithIntent(@NonNull final Message msg) {
         final NetworkRequestInfo nri = (NetworkRequestInfo) (msg.obj);
         // handleRegisterNetworkRequestWithIntent() doesn't apply to multilayer requests.
@@ -6491,7 +6499,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     handleFrozenUids(args.mUids, args.mFrozenStates);
                     break;
                 case EVENT_UID_CARRIER_PRIVILEGES_LOST:
-                    handleUidCarrierPrivilegesLost(msg.arg1);
+                    handleUidCarrierPrivilegesLost(msg.arg1, msg.arg2);
                     break;
             }
         }
@@ -9154,7 +9162,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    private void handleUidCarrierPrivilegesLost(int uid) {
+    private void handleUidCarrierPrivilegesLost(int uid, int subId) {
         ensureRunningOnConnectivityServiceThread();
         // A NetworkRequest needs to be revoked when all the conditions are met
         //   1. It requests restricted network
@@ -9165,6 +9173,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if ((nr.isRequest() || nr.isListen())
                     && !nr.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)
                     && nr.getRequestorUid() == uid
+                    && getSubscriptionIdFromNetworkCaps(nr.networkCapabilities) == subId
                     && !hasConnectivityRestrictedNetworksPermission(uid, true)) {
                 declareNetworkRequestUnfulfillable(nr);
             }
@@ -9173,7 +9182,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // A NetworkAgent's allowedUids may need to be updated if the app has lost
         // carrier config
         for (final NetworkAgentInfo nai : mNetworkAgentInfos) {
-            if (nai.networkCapabilities.getAllowedUidsNoCopy().contains(uid)) {
+            if (nai.networkCapabilities.getAllowedUidsNoCopy().contains(uid)
+                    && getSubscriptionIdFromNetworkCaps(nai.networkCapabilities) == subId) {
                 final NetworkCapabilities nc = new NetworkCapabilities(nai.networkCapabilities);
                 NetworkAgentInfo.restrictCapabilitiesFromNetworkAgent(
                         nc,
