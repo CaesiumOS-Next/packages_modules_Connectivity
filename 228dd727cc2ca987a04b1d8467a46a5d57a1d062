@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ed2ac2a_64edaa0f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 11389,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-02-10T00:36:30Z",
+      "side": 1,
+      "message": "We only return and accept DENY and ALLOW in the methods. I want to be explicit about the behavior - that it is denied when returning from the shell command.",
+      "parentUuid": "dbc852c6_b9c20bba",
+      "range": {
+        "startLine": 11389,
+        "startChar": 67,
+        "endLine": 11389,
+        "endChar": 75
+      },
+      "revId": "228dd727cc2ca987a04b1d8467a46a5d57a1d062",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "035bb76d_46eaa3b6",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-02-09T23:48:21Z",
       "side": 1,
       "message": "would it perhaps make sense for this case to print default",
+      "range": {
+        "startLine": 11404,
+        "startChar": 66,
+        "endLine": 11404,
+        "endChar": 95
+      },
+      "revId": "228dd727cc2ca987a04b1d8467a46a5d57a1d062",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81d46b4a_aa9ecce2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 11404,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-02-10T00:36:30Z",
+      "side": 1,
+      "message": "I want the shell command to explicit print out the behavior of the firewall, even when it is default (no bit set).\n\nWe can leave this responsibility on the (get|set)UidFirewallRule methods, but I\u0027m just copying the pattern in the above command to be consistent here.",
+      "parentUuid": "035bb76d_46eaa3b6",
       "range": {
         "startLine": 11404,
         "startChar": 66,
