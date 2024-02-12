@@ -218,6 +218,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "31b00b6c_c2d2ba83",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-02-12T21:39:49Z",
+      "side": 1,
+      "message": "But in this case doesn\u0027t it mean that in this case: \n```\nmillisSinceLastLog \u003d currentTimestampMillis - mLastLogTime \u003d currentTimestampMillis - 0 \u003d currentTimestampMillis\n```\n?\nI guess ATOM_INTERVAL_MS can never be as high as timestamp..am I missing something?",
+      "parentUuid": "8f7beedb_78dd91d2",
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "303234ec_5e48657b",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 11

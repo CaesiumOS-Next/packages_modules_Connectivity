@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a0aaca0_99e88a4f",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-02-12T21:39:49Z",
+      "side": 1,
+      "message": "Sorry, bad wording and spelling: we are delaying sending not network requests, but network request log events we need to sent to statsd (to construct metrics). We are are delaying them not to overload the statsd because if the event frequency is too high part of the events will be dropped and we will lose this network request data.",
+      "parentUuid": "8dc0faab_289afb1d",
+      "range": {
+        "startLine": 75,
+        "startChar": 52,
+        "endLine": 75,
+        "endChar": 69
+      },
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3ef5d484_a9b4b04d",
         "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
         "patchSetId": 17
@@ -196,6 +220,24 @@
       "side": 1,
       "message": "During the CMD_SEND_MAYBE_ENQUEUE_NETWORK_REQUEST_STATE_METRIC processing we also calculate delay until the next event to be sent to statsd. If this calculation is done in a separate thread, it can be inaccurate due to race condition: NR2 received by the main thread when NR1 is being processed in the handler thread, but before millisSinceLastLog is updated.",
       "parentUuid": "32d6bc0f_b97cdc87",
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58d8ec66_47505c14",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-02-12T21:39:49Z",
+      "side": 1,
+      "message": "Sorry, bad wording: delay not until the next message, but from the previous log to statsd to the current moment (when the new event need to be logged) and compare it with ATOM_INTERVAL_MS threshold.",
+      "parentUuid": "f5936fd5_92aa9117",
       "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
