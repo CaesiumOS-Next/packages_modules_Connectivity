@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e734a57_6e1f44bf",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-02-12T21:40:44Z",
+      "side": 1,
+      "message": "Fix of https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2890277/comment/3ef5d484_a9b4b04d/",
+      "revId": "95c30497c14ed136945308b68ee3eede505c4e92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a87d304_3a70d443",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-02-12T21:40:44Z",
+      "side": 1,
+      "message": "Fix of https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2890277/comment/29942a65_10f35f6e/",
+      "revId": "95c30497c14ed136945308b68ee3eede505c4e92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3083c91_14919909",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-02-12T21:40:44Z",
+      "side": 1,
+      "message": "Fixed using https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2890277/comment/44f2dff2_afdce795/ instead of https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2890277/comment/82cf94ee_78683192/",
+      "revId": "95c30497c14ed136945308b68ee3eede505c4e92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bfbd445_c90f45cf",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-02-12T21:40:44Z",
+      "side": 1,
+      "message": "Fix of https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2890277/comment/44f2dff2_afdce795/",
+      "revId": "95c30497c14ed136945308b68ee3eede505c4e92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
