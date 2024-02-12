@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d737441_2beba2bf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1434,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-02-12T15:36:23Z",
+      "side": 1,
+      "message": "The metrics upload part is not the most heavy here I think. Form factor filtering was primarily done because each new Network Request produce a message to statsd which if sent too often may cause some metrics to be dropped. Taking into account that the number of apps on phone is much higher compared to watch we came to conclusion that network request events will either fill all the statsd quota or we will have to drop most of this events which will make the analysis on phones quite useless. \n\nWith current implementation I think it should be quite safe to instantiate NetworkRequestStateStatsMetrics object (as we are quite conservative in statsd messages rate limiting) + we won\u0027t rollout the metric for the phones, but I\u0027m not sure how good it is to add load for statsd without the need..",
+      "parentUuid": "98d6591e_0a92842d",
+      "range": {
+        "startLine": 1434,
+        "startChar": 16,
+        "endLine": 1434,
+        "endChar": 61
+      },
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "40053e28_afeb0d71",
         "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
         "patchSetId": 17
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a165505_b4f7343a",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-02-12T15:36:23Z",
+      "side": 1,
+      "message": "Yes, they\u0027re dropped, will add a comment.",
+      "parentUuid": "40053e28_afeb0d71",
+      "range": {
+        "startLine": 56,
+        "startChar": 63,
+        "endLine": 56,
+        "endChar": 64
+      },
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84be7172_3729adae",
         "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
         "patchSetId": 17
@@ -60,6 +108,30 @@
       "writtenOn": "2024-02-06T03:59:54Z",
       "side": 1,
       "message": "Can we avoid creating a new handler thread here? Is there any downside if we just run this code on the main ConnectivityService handler thread?",
+      "range": {
+        "startLine": 75,
+        "startChar": 52,
+        "endLine": 75,
+        "endChar": 69
+      },
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dc0faab_289afb1d",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-02-12T15:36:23Z",
+      "side": 1,
+      "message": "To avoid sending events to statsd too often (otherwise the events will be dropped) we are delaying certain number of NRs (not too loose NR info during certain busy time periods like the boot). In order to implement the delay we\u0027re using sendMessageDelayed(). I\u0027m not sure in how to implement such a delay without extra threads...",
+      "parentUuid": "84be7172_3729adae",
       "range": {
         "startLine": 75,
         "startChar": 52,
@@ -106,6 +178,24 @@
       "writtenOn": "2024-02-06T03:59:54Z",
       "side": 1,
       "message": "Why define a message whose only result is to send another message? Could this code simply be run inline on the handler thread?",
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5936fd5_92aa9117",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-02-12T15:36:23Z",
+      "side": 1,
+      "message": "During the CMD_SEND_MAYBE_ENQUEUE_NETWORK_REQUEST_STATE_METRIC processing we also calculate delay until the next event to be sent to statsd. If this calculation is done in a separate thread, it can be inaccurate due to race condition: NR2 received by the main thread when NR1 is being processed in the handler thread, but before millisSinceLastLog is updated.",
+      "parentUuid": "32d6bc0f_b97cdc87",
       "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
