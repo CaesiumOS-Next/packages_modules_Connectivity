@@ -16,6 +16,69 @@
       "message": "for NetlinkMessage.java",
       "revId": "922527ff971507b562e9136e53829c0cbd31c69d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb988b83_81956362",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2024-02-12T23:40:54Z",
+      "side": 1,
+      "message": "Yeah... after giving this more review, the high level comment is that I think the flag for X86_32 should probably just be made some kind of a \"global\" static so that it isn\u0027t passed all around creation for a single local use. Normally that\u0027s not a great pattern, but in this case I think it\u0027s warranted.",
+      "revId": "922527ff971507b562e9136e53829c0cbd31c69d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5c3e94f_bc1d3419",
+        "filename": "service-t/src/com/android/server/IpSecXfrmController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2024-02-12T23:40:54Z",
+      "side": 1,
+      "message": "Is the _only_ purpose of this to pass the value into NetlinkMessage? This seems to be more generic than XFRM, so if there is another place to put it, I might put it there. Otherwise, if it\u0027s only used in NetlinkMessage, consider doing the static generation there? That avoids the plumbing.\n\nOf course, these kinds of statics are generally naughty, but if it\u0027s a JVM-startup-time constant, it also really shouldn\u0027t be passed around since that creates an opportunity for mistakes.",
+      "range": {
+        "startLine": 65,
+        "startChar": 33,
+        "endLine": 65,
+        "endChar": 49
+      },
+      "revId": "922527ff971507b562e9136e53829c0cbd31c69d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3c99f56_15899ed1",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/StructXfrmUsersaInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2024-02-12T23:40:54Z",
+      "side": 1,
+      "message": "nit: consume extra padding. If you can point to something explaining why the padding exists, that would be helpful.",
+      "range": {
+        "startLine": 75,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 36
+      },
+      "revId": "922527ff971507b562e9136e53829c0cbd31c69d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
