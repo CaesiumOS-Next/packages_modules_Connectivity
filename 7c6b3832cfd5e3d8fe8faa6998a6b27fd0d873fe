@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c152809f_c43a678e",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2027455
+      },
+      "writtenOn": "2024-02-13T08:55:59Z",
+      "side": 1,
+      "message": "Actually \"framework-location\" is not defined in \"git_udc-mainline-prod\".",
+      "parentUuid": "b7806841_15955f7d",
+      "range": {
+        "startLine": 120,
+        "startChar": 9,
+        "endLine": 120,
+        "endChar": 27
+      },
+      "revId": "7c6b3832cfd5e3d8fe8faa6998a6b27fd0d873fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a119d258_08bc606d",
