@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "98ac659e_c52f9e81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-02-13T10:10:08Z",
+      "side": 1,
+      "message": "Flagging TetheringRequest itself leads to some metalava failures. Paul Duffin said we can just merge it without the flag for now.",
+      "parentUuid": "2a9cb2db_58f548c7",
+      "revId": "6e87172c0d765030b15dba938da6bf6a4daf18db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7b5f2b9f_6750935a",
         "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
         "patchSetId": 1
