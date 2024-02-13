@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7806841_15955f7d",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2027455
+      },
+      "writtenOn": "2024-02-13T07:57:14Z",
+      "side": 1,
+      "message": "Done. Also in he other Android.bp files",
+      "parentUuid": "d00fc82b_8254f948",
+      "range": {
+        "startLine": 120,
+        "startChar": 9,
+        "endLine": 120,
+        "endChar": 27
+      },
+      "revId": "7c6b3832cfd5e3d8fe8faa6998a6b27fd0d873fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a119d258_08bc606d",
@@ -58,6 +82,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a073d8f5_b3e5880d",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 2027455
+      },
+      "writtenOn": "2024-02-13T07:57:14Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "a119d258_08bc606d",
+      "revId": "7c6b3832cfd5e3d8fe8faa6998a6b27fd0d873fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30c0d81b_a5fd18cc",
@@ -71,6 +113,24 @@
       "writtenOn": "2024-02-13T06:13:19Z",
       "side": 1,
       "message": "After https://r.android.com/2927450 which refactors our API flags lands, the flag should be added to an aconfig flag config (could be in a separate file for Nearby flags, as is currently the plan for thread flags)\n\nCould you file a bug for that ?",
+      "revId": "7c6b3832cfd5e3d8fe8faa6998a6b27fd0d873fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5330590c_cc748f55",
+        "filename": "nearby/framework/java/android/nearby/NearbyManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2027455
+      },
+      "writtenOn": "2024-02-13T07:57:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30c0d81b_a5fd18cc",
       "revId": "7c6b3832cfd5e3d8fe8faa6998a6b27fd0d873fe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
