@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "366dd30c_20dfc091",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-13T09:29:08Z",
+      "side": 1,
+      "message": "1.mUserIDSatelliteNetworkFallbackCache this is having uids for eaxh of the users.\n2.mSatelliteNetworkFallbackUidCache this is having uid of current user received at onRoleSmsChanged() and used locally for each user.\n3.currUserPreviousSatelliteFallbackUid this as old uids of current user(retreived @ \nmUserIDSatelliteNetworkFallbackCache.get(userId)) @ Ref : https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2954926/2/service/src/com/android/server/connectivity/SatelliteAccessController.java#169",
+      "parentUuid": "e91e1df0_23881e31",
+      "range": {
+        "startLine": 53,
+        "startChar": 83,
+        "endLine": 53,
+        "endChar": 84
+      },
+      "revId": "232573c7b4504849f62d7a4516c9d95dde38fed9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c42711ef_2012af18",
         "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-13T08:53:03Z",
       "side": 1,
       "message": "SparseArray would be preferable for small map with int key.",
+      "range": {
+        "startLine": 56,
+        "startChar": 16,
+        "endLine": 56,
+        "endChar": 23
+      },
+      "revId": "232573c7b4504849f62d7a4516c9d95dde38fed9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c20e041d_534191c8",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-13T09:29:08Z",
+      "side": 1,
+      "message": "Good Point , incase of int key sparse array can be used , but it may not give all extended functions unlike HashMap which leads to adding for loop etc .. is it ok ?",
+      "parentUuid": "c42711ef_2012af18",
       "range": {
         "startLine": 56,
         "startChar": 16,
@@ -95,6 +143,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b799b246_eaafd407",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-13T09:29:08Z",
+      "side": 1,
+      "message": "Ideally this Set\u003cInteger\u003e is used to process each of the User locally when received onRoleSmsChanged() at updateSatelliteNetworkFallbackUidListCache() and finally the data is transfered to mUserIDSatelliteNetworkFallbackCache, which holds all the user information and its corresponding valid fallback uids) \n\nRef:\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2954926/2/service/src/com/android/server/connectivity/SatelliteAccessController.java#187",
+      "parentUuid": "68b9875a_e963552c",
+      "range": {
+        "startLine": 175,
+        "startChar": 8,
+        "endLine": 175,
+        "endChar": 41
+      },
+      "revId": "232573c7b4504849f62d7a4516c9d95dde38fed9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "29c544ab_d63e4789",
         "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
         "patchSetId": 2
@@ -106,6 +178,30 @@
       "writtenOn": "2024-02-13T08:53:03Z",
       "side": 1,
       "message": "I think this is wrong since we are comparing the \"old uids for the all users\" and \"new uids for the single user\"",
+      "range": {
+        "startLine": 185,
+        "startChar": 93,
+        "endLine": 185,
+        "endChar": 94
+      },
+      "revId": "232573c7b4504849f62d7a4516c9d95dde38fed9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea75805d_d9e30fe0",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-13T09:29:08Z",
+      "side": 1,
+      "message": "1.mUserIDSatelliteNetworkFallbackCache this is having uids for eaxh of the users.\n2.mSatelliteNetworkFallbackUidCache this is having uid of current user received at onRoleSmsChanged() and used locally for each user.\n3.currUserPreviousSatelliteFallbackUid this as old uids of current user(retreived @ \nmUserIDSatelliteNetworkFallbackCache.get(userId)) @ Ref : https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2954926/2/service/src/com/android/server/connectivity/SatelliteAccessController.java#169",
+      "parentUuid": "29c544ab_d63e4789",
       "range": {
         "startLine": 185,
         "startChar": 93,
@@ -152,6 +248,30 @@
       "writtenOn": "2024-02-13T08:53:03Z",
       "side": 1,
       "message": "If I read correctly, `UserHandle.ALL.getIdentifier()` would return `USER_ALL`(-1).\nSo I don\u0027t think `onRoleSmsChanged(UserHandle.ALL)` can handle the case where the device has multiple users and each users have different app for default messaging app.",
+      "range": {
+        "startLine": 215,
+        "startChar": 47,
+        "endLine": 215,
+        "endChar": 79
+      },
+      "revId": "232573c7b4504849f62d7a4516c9d95dde38fed9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4868c54c_c3a50c1d",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-13T09:29:08Z",
+      "side": 1,
+      "message": "You are right , Also adding this here is not usefull since , user id was -1, when tested at device:\n02-12 17:09:26.823177  1000  1483  3118 I SatelliteAccessController: currentUser : role_sms_packages: -1 : []\n02-12 17:09:26.823316  1000  1483  3118 I SatelliteAccessController: satellite_fallback_uid: {}",
+      "parentUuid": "258ae234_f0556836",
       "range": {
         "startLine": 215,
         "startChar": 47,
