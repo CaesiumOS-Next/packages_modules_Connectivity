@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "557e8427_f24f6c79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-13T06:13:19Z",
+      "side": 1,
+      "message": "framework-t/Android.bp changes LGTM",
+      "revId": "7c6b3832cfd5e3d8fe8faa6998a6b27fd0d873fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d00fc82b_8254f948",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-13T06:13:19Z",
+      "side": 1,
+      "message": "Just \"framework-location\" should be fine here (like framework-bluetooth and framework-wifi), since framework-connectivity-t-defaults already sets the sdk_version to module_current\n\nCan be done in a followup",
+      "range": {
+        "startLine": 120,
+        "startChar": 9,
+        "endLine": 120,
+        "endChar": 27
+      },
+      "revId": "7c6b3832cfd5e3d8fe8faa6998a6b27fd0d873fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a119d258_08bc606d",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-13T06:13:19Z",
+      "side": 1,
+      "message": "(also here)",
+      "revId": "7c6b3832cfd5e3d8fe8faa6998a6b27fd0d873fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30c0d81b_a5fd18cc",
+        "filename": "nearby/framework/java/android/nearby/NearbyManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-13T06:13:19Z",
+      "side": 1,
+      "message": "After https://r.android.com/2927450 which refactors our API flags lands, the flag should be added to an aconfig flag config (could be in a separate file for Nearby flags, as is currently the plan for thread flags)\n\nCould you file a bug for that ?",
+      "revId": "7c6b3832cfd5e3d8fe8faa6998a6b27fd0d873fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
