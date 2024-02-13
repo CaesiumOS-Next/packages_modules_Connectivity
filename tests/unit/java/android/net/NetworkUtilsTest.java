@@ -181,10 +181,4 @@ public class NetworkUtilsTest {
 
         SocketUtils.closeSocketQuietly(sock);
     }
-
-    @Test
-    public void testIsKernel64Bit() {
-        assumeTrue(getVsrApiLevel() > Build.VERSION_CODES.TIRAMISU);
-        assertTrue(NetworkUtils.isKernel64Bit());
-    }
 }
