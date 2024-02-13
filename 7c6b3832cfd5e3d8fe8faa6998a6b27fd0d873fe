@@ -100,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07feb2c0_02207724",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 2027455
+      },
+      "writtenOn": "2024-02-13T08:13:18Z",
+      "side": 1,
+      "message": "Actually this one creates a dependency cycle.",
+      "parentUuid": "a073d8f5_b3e5880d",
+      "revId": "7c6b3832cfd5e3d8fe8faa6998a6b27fd0d873fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30c0d81b_a5fd18cc",
