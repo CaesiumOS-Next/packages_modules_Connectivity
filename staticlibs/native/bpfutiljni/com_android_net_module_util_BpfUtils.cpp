@@ -25,6 +25,7 @@
 #include <sys/socket.h>
 
 #include "BpfSyscallWrappers.h"
+#include "bpf/KernelUtils.h"
 
 namespace android {
 
@@ -52,6 +53,14 @@ static jint com_android_net_module_util_BpfUtil_getProgramIdFromCgroup(JNIEnv *e
     return id;  // may return 0 meaning none
 }
 
+static jboolean android_net_utils_isKernel64Bit(JNIEnv *env, jclass clazz) {
+    return bpf::isKernel64Bit();
+}
+
+static jboolean android_net_utils_isKernelX86(JNIEnv *env, jclass clazz) {
+    return bpf::isX86();
+}
+
 
 /*
  * JNI registration.
@@ -60,6 +69,8 @@ static const JNINativeMethod gMethods[] = {
     /* name, signature, funcPtr */
     { "native_getProgramIdFromCgroup", "(ILjava/lang/String;)I",
         (void*) com_android_net_module_util_BpfUtil_getProgramIdFromCgroup },
+    { "isKernel64Bit", "()Z", (void*) android_net_utils_isKernel64Bit },
+    { "isKernelX86", "()Z", (void*) android_net_utils_isKernelX86 },
 };
 
 int register_com_android_net_module_util_BpfUtils(JNIEnv* env, char const* class_name) {

@@ -19,6 +19,7 @@ package com.android.net.module.util.netlink.xfrm;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.android.net.module.util.BpfUtils;
 import com.android.net.module.util.netlink.NetlinkMessage;
 import com.android.net.module.util.netlink.StructNlMsgHdr;
 
@@ -51,6 +52,8 @@ public abstract class XfrmNetlinkMessage extends NetlinkMessage {
 
     public XfrmNetlinkMessage(@NonNull final StructNlMsgHdr header) {
         super(header);
+        android.util.Log.i("TEST", "isKernel64Bit " + BpfUtils.isKernel64Bit());
+        android.util.Log.i("TEST", "isKernelX86 " + BpfUtils.isKernelX86());
     }
 
     /**

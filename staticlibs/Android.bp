@@ -208,6 +208,7 @@ java_library {
         // statically link here because callers of this library might already have a static
         // version linked.
         "net-utils-device-common-struct",
+        "net-utils-device-common-bpf",
     ],
     apex_available: [
         "com.android.tethering",
