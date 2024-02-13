@@ -24,6 +24,7 @@ namespace android {
 
 int register_com_android_net_module_util_BpfMap(JNIEnv* env, char const* class_name);
 int register_com_android_net_module_util_TcUtils(JNIEnv* env, char const* class_name);
+int register_com_android_net_module_util_KernelUtils(JNIEnv* env, char const* class_name);
 
 extern "C" jint JNI_OnLoad(JavaVM* vm, void*) {
     JNIEnv *env;
@@ -37,6 +38,9 @@ extern "C" jint JNI_OnLoad(JavaVM* vm, void*) {
 
     if (register_com_android_net_module_util_TcUtils(env,
             "android/net/frameworktests/util/TcUtils") < 0) return JNI_ERR;
+
+    if (register_com_android_net_module_util_KernelUtils(env,
+            "android/net/frameworktests/util/KernelUtils") < 0) return JNI_ERR;
 
     return JNI_VERSION_1_6;
 }
