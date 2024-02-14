@@ -33,6 +33,24 @@
       "message": "As mentioned in chat you should probably have some very simple CTS test that parcels/unparcels/checks fields equal close to: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java;drc\u003dee2699379f0c2ce751442c318a1961ee8ef5732d;l\u003d216",
       "revId": "7bfeae647b2704e8971876d9fc055168f5406589",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3020d0df_46a31bc6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-02-14T08:31:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3ff151c_aa350c36",
+      "revId": "7bfeae647b2704e8971876d9fc055168f5406589",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
