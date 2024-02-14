@@ -16,6 +16,24 @@
       "message": "Similarly to the other file can you split this out from here into another change to land after https://r.android.com/q/topic:%22split_aconfig%22 ?",
       "revId": "2369aedd31b4b5b59070aa054dc4fb1bbce248f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ceb7dc0_219ba487",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-02-14T07:22:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b04dc5b9_fa96e493",
+      "revId": "2369aedd31b4b5b59070aa054dc4fb1bbce248f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
