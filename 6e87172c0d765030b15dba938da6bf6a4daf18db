@@ -159,6 +159,24 @@
       "parentUuid": "541181e0_53e6c587",
       "revId": "6e87172c0d765030b15dba938da6bf6a4daf18db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74d9dc01_c2227280",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-02-14T04:52:22Z",
+      "side": 1,
+      "message": "I\u0027m confused -- isn\u0027t it expected that it\u0027s not part of the txt since it\u0027s @hide? And IIUC @hide still needs to be flagged if its part of a new feature: go/android-flags-howto-apis#faq",
+      "parentUuid": "64edc950_6eb65aca",
+      "revId": "6e87172c0d765030b15dba938da6bf6a4daf18db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
