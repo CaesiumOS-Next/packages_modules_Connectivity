@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d46f026c_b8031786",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-14T04:21:38Z",
+      "side": 1,
+      "message": "SparseArray would be preferable for small map with int key since this is more memory-efficient",
+      "range": {
+        "startLine": 76,
+        "startChar": 16,
+        "endLine": 76,
+        "endChar": 23
+      },
+      "revId": "bc1857ba791d85dbc67b3ffe1096096a529acbfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5f0a621_06e3fbf4",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-14T04:21:38Z",
+      "side": 1,
+      "message": "Could you also update to use BiConsumer?\nYou can see [SatelliteAccessController](https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/src/com/android/server/connectivity/SatelliteAccessController.java;l\u003d50;drc\u003d33c7da366181531f60d11ab8447b4b09d407c2c1) for the reference.\nSatelliteAccessController takes the callback from ConnectivityService using the consumer which is basically the same with what CarrierPrivilegesLostListener does.",
+      "range": {
+        "startLine": 157,
+        "startChar": 4,
+        "endLine": 157,
+        "endChar": 5
+      },
+      "revId": "bc1857ba791d85dbc67b3ffe1096096a529acbfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39c15e05_d29ce111",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-14T04:21:38Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this since `mLogicalSlot` is int.\nSame for other lines.",
+      "range": {
+        "startLine": 212,
+        "startChar": 56,
+        "endLine": 212,
+        "endChar": 71
+      },
+      "revId": "bc1857ba791d85dbc67b3ffe1096096a529acbfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23172981_8c15d852",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 17374,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-14T04:21:38Z",
+      "side": 1,
+      "message": "Do we pass subId which is different from `Process.myUid()`?\nIn this CL, I think all the callers still passing `Process.myUid()`.\nIf so maybe we can leave the current code",
+      "range": {
+        "startLine": 17374,
+        "startChar": 27,
+        "endLine": 17374,
+        "endChar": 64
+      },
+      "revId": "bc1857ba791d85dbc67b3ffe1096096a529acbfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd44154b_d1f16fcc",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 17556,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-14T04:21:38Z",
+      "side": 1,
+      "message": "It seems only this line is different from `testRequestNotRemoved_MismatchSubI`.\nAlso, `testRequestNotRemoved_` tests have most lines in common.\nCan we have helper method and can tests call the helper method with different args ?",
+      "range": {
+        "startLine": 17556,
+        "startChar": 15,
+        "endLine": 17556,
+        "endChar": 54
+      },
+      "revId": "bc1857ba791d85dbc67b3ffe1096096a529acbfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2376ee43_60089dc2",
+        "filename": "tests/unit/java/com/android/server/connectivity/CarrierPrivilegeAuthenticatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-14T04:21:38Z",
+      "side": 1,
+      "message": "nits: This is existing before this CL but you don\u0027t need `eq` if all the arguments don\u0027t need matcher.",
+      "range": {
+        "startLine": 242,
+        "startChar": 20,
+        "endLine": 242,
+        "endChar": 23
+      },
+      "revId": "bc1857ba791d85dbc67b3ffe1096096a529acbfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
