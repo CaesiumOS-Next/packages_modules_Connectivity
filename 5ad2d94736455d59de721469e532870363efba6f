@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b1ed017_34addd1d",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-02-14T04:34:57Z",
+      "side": 1,
+      "message": "Actually I needed this to reference for later Tethering service changes, but we don\u0027t need it for this change. I\u0027ll revert it back to private for now.",
+      "parentUuid": "516d4839_dc1be63d",
+      "revId": "5ad2d94736455d59de721469e532870363efba6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "daacd1fd_bbb2c164",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cfedb9e_dd7b334c",
+        "filename": "common/flags.aconfig",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-02-14T04:34:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "daacd1fd_bbb2c164",
+      "range": {
+        "startLine": 52,
+        "startChar": 49,
+        "endLine": 52,
+        "endChar": 98
+      },
+      "revId": "5ad2d94736455d59de721469e532870363efba6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77a4b136_5350b81d",
@@ -54,6 +96,24 @@
       "writtenOn": "2024-02-14T03:37:42Z",
       "side": 1,
       "message": "This should be done after https://r.android.com/q/topic:%22split_aconfig%22 lands; before that, com.android.net.flags-aconfig in AOSP are flags from the platform defined in frameworks/base, not the flags.aconfig file you modified above.\n\nCan you split this out of this change and merge it after that topic lands ? (that topic only needs to get treehugged at this point so that should be very soon)",
+      "revId": "5ad2d94736455d59de721469e532870363efba6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cc772f6_2b693ccc",
+        "filename": "framework/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-02-14T04:34:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77a4b136_5350b81d",
       "revId": "5ad2d94736455d59de721469e532870363efba6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

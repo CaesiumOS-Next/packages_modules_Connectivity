@@ -141,6 +141,24 @@
       "parentUuid": "b75d2aa1_3e1ee995",
       "revId": "6e87172c0d765030b15dba938da6bf6a4daf18db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64edc950_6eb65aca",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-02-14T04:34:57Z",
+      "side": 1,
+      "message": "Updated the api txt",
+      "parentUuid": "541181e0_53e6c587",
+      "revId": "6e87172c0d765030b15dba938da6bf6a4daf18db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
