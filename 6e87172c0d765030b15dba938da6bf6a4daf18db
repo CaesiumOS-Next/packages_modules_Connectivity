@@ -72,6 +72,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7014660f_f65607e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-14T03:37:42Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "98ac659e_c52f9e81",
+      "revId": "6e87172c0d765030b15dba938da6bf6a4daf18db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b5f2b9f_6750935a",
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "7b5f2b9f_6750935a",
+      "revId": "6e87172c0d765030b15dba938da6bf6a4daf18db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "541181e0_53e6c587",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-14T03:37:42Z",
+      "side": 1,
+      "message": "Hmm this is not in the api .txt but it\u0027s still @FlaggedApi in the code",
+      "parentUuid": "b75d2aa1_3e1ee995",
       "revId": "6e87172c0d765030b15dba938da6bf6a4daf18db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
