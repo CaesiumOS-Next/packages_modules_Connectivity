@@ -177,6 +177,24 @@
       "parentUuid": "64edc950_6eb65aca",
       "revId": "6e87172c0d765030b15dba938da6bf6a4daf18db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ccd85e3_c7a2b779",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-14T06:56:56Z",
+      "side": 1,
+      "message": "Flags in packages/modules/Connectivity should be used strictly to guard APIs, as there is no good support for guarding code in mainline modules at the moment. So if it is not an API this shouldn\u0027t be marked @FlaggedApi.\n\nI think when the FAQ says \"New features should be flag-guarded regardless if its new APIs are hidden or not.\", that does not mean that hidden symbols should be marked @FlaggedApi (otherwise you would mark every method @FlaggedApi if it is involved in a new feature); it just means that even if there is no new API, there should be flag checks in the code (which isn\u0027t really relevant to this CL which only adds APIs).\n\nAlso I don\u0027t think this constructor should be used from outside this class ? It should probably be private. If someone wants to read/write a TetheringRequest from/to a parcel they should just use `readParcelable(TetheringRequest.class.getClassLoader())` or `writeParcelable(tetheringRequest)`, since it\u0027s now parcelable.",
+      "parentUuid": "74d9dc01_c2227280",
+      "revId": "6e87172c0d765030b15dba938da6bf6a4daf18db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
