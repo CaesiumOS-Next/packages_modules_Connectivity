@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8b3d209_5604ae5d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-14T05:55:57Z",
+      "side": 1,
+      "message": "If we do this, what will be the target SDK versions of released CTS or MCTS versions?\n\nPresumably it\u0027s inappropriate for it to be 10000. But if it\u0027s not 10000, then what should it be set to?\n\nAPK modules like NetworkStack and CaptivePortalLogin have explicit target SDK versions set. This ensures ensure that any changes gated on target SDK version can be tested before the target SDK is increased. Should we do the same here?",
+      "range": {
+        "startLine": 16,
+        "startChar": 12,
+        "endLine": 20,
+        "endChar": 39
+      },
+      "revId": "60cf1bc5a56f691eaf34eb666776ab4ba5b9cd7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
