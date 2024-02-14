@@ -22,6 +22,30 @@
       },
       "revId": "60cf1bc5a56f691eaf34eb666776ab4ba5b9cd7d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d65b5701_38c571dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-14T09:23:12Z",
+      "side": 1,
+      "message": "More accurately the target SDK is set to the branch SDK, which for CTS releases ends up being 34 for a U branch, for example. This is identical to what we\u0027ve always done for CTS cuts.\n\nFor MTS/MCTS, it would be either 10000 or the SDK of the release config, if it is a release config that has a finalized SDK (for example \"next\" is finalized U), depending on the release config used for MTS / MCTS modules. I think for our purposes either is fine though: target SDK 10000 just means our code should not apply any backwards compatibility measures when running CtsNetTestCases. And it makes sense that MTS/MCTS would use target SDK 10000 for an in-development release configuration like trunk_staging, (while right now \"next\" would use its own finalized SDK).\n\nThe target SDK on the modules is a different story I think: for tests we\u0027d want target SDK to be bumped as soon as possible, otherwise we\u0027re calling our APIs in compatibility mode instead of testing behavior on the latest target SDK. Tests that want to check behavior with older target SDK should explicitly use the CtsNetTestCasesTargetSdkXX variants and not rely on what the whole suite declares.\n\nFor modules, we\u0027re trying to defend against non-connectivity APIs behaving differently on the newer target SDK, so we should use compatibility mode until manually bumped because the objective (contrary to tests for connectivity APIs) is not to start failing when platform APIs behavior change.\n\nAdded more details to the commit message",
+      "parentUuid": "c8b3d209_5604ae5d",
+      "range": {
+        "startLine": 16,
+        "startChar": 12,
+        "endLine": 20,
+        "endChar": 39
+      },
+      "revId": "60cf1bc5a56f691eaf34eb666776ab4ba5b9cd7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
