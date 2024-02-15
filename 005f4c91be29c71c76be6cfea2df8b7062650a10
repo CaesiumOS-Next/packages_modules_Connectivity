@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adb37ca0_3dfb7da2",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-15T00:57:37Z",
+      "side": 1,
+      "message": "https://g3doc.corp.google.com/company/teams/android-api-council/guidelines/index.md?cl\u003dhead#framework-parcelable-final says parcelable implementations should be final. It also says: \"Note about backward compatibility: if your class historically wasn’t final, but didn’t have a publicly available constructor, you still can mark it final.\"\n\nIt doesn\u0027t look like there are any backwards compatibility implications here. So maybe we can just mark it final?\n```suggestion\n    public static final class TetheringRequest implements Parcelable {\n```",
+      "range": {
+        "startLine": 687,
+        "startChar": 4,
+        "endLine": 687,
+        "endChar": 23
+      },
+      "revId": "005f4c91be29c71c76be6cfea2df8b7062650a10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
