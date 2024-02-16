@@ -60,10 +60,10 @@ Result<void> Firewall::addRule(uint32_t uid, UidOwnerMatchType match, uint32_t i
     // iif should be non-zero if and only if match == MATCH_IIF
     if (match == IIF_MATCH && iif == 0) {
         return Errorf("Interface match {} must have nonzero interface index",
-                      static_cast<int>(match));
+                      static_cast<uint32_t>(match));
     } else if (match != IIF_MATCH && iif != 0) {
         return Errorf("Non-interface match {} must have zero interface index",
-                      static_cast<int>(match));
+                      static_cast<uint32_t>(match));
     }
 
     std::lock_guard guard(mMutex);
@@ -71,14 +71,22 @@ Result<void> Firewall::addRule(uint32_t uid, UidOwnerMatchType match, uint32_t i
     if (oldMatch.ok()) {
         UidOwnerValue newMatch = {
                 .iif = iif ? iif : oldMatch.value().iif,
+<<<<<<< PATCH SET (a3a76d eliminate some casts)
+                .rule = oldMatch.value().rule | match,
+=======
                 .rule = static_cast<uint32_t>(oldMatch.value().rule | match),
+>>>>>>> BASE      (17dd9e Merge "Use uint_32 for UidOwnerMatchType" into main)
         };
         auto res = mUidOwnerMap.writeValue(uid, newMatch, BPF_ANY);
         if (!res.ok()) return Errorf("Failed to update rule: {}", res.error().message());
     } else {
         UidOwnerValue newMatch = {
                 .iif = iif,
+<<<<<<< PATCH SET (a3a76d eliminate some casts)
+                .rule = match,
+=======
                 .rule = static_cast<uint32_t>(match),
+>>>>>>> BASE      (17dd9e Merge "Use uint_32 for UidOwnerMatchType" into main)
         };
         auto res = mUidOwnerMap.writeValue(uid, newMatch, BPF_ANY);
         if (!res.ok()) return Errorf("Failed to add rule: {}", res.error().message());
@@ -93,7 +101,11 @@ Result<void> Firewall::removeRule(uint32_t uid, UidOwnerMatchType match) {
 
     UidOwnerValue newMatch = {
             .iif = (match == IIF_MATCH) ? 0 : oldMatch.value().iif,
+<<<<<<< PATCH SET (a3a76d eliminate some casts)
+            .rule = oldMatch.value().rule & ~match,
+=======
             .rule = static_cast<uint32_t>(oldMatch.value().rule & ~match),
+>>>>>>> BASE      (17dd9e Merge "Use uint_32 for UidOwnerMatchType" into main)
     };
     if (newMatch.rule == 0) {
         auto res = mUidOwnerMap.deleteValue(uid);
