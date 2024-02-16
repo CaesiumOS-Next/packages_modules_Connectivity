@@ -175,10 +175,13 @@ ASSERT_STRING_EQUAL(XT_BPF_DENYLIST_PROG_PATH,  BPF_NETD_PATH "prog_netd_skfilte
 #define PACKET_TRACE_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_packet_trace_enabled_map"
 #define DATA_SAVER_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_data_saver_enabled_map"
 
+#define ENUM(name, basetype) enum class name : basetype
+#else // __cplusplus
+#define ENUM(name, basetype) enum name
 #endif // __cplusplus
 
 // LINT.IfChange(match_type)
-enum UidOwnerMatchType {
+ENUM(UidOwnerMatchType, uint32_t) {
     NO_MATCH = 0,
     HAPPY_BOX_MATCH = (1 << 0),
     PENALTY_BOX_MATCH = (1 << 1),
@@ -196,14 +199,14 @@ enum UidOwnerMatchType {
 };
 // LINT.ThenChange(../framework/src/android/net/BpfNetMapsConstants.java)
 
-enum BpfPermissionMatch {
+ENUM(BpfPermissionMatch, uint8_t) {
     BPF_PERMISSION_INTERNET = 1 << 2,
     BPF_PERMISSION_UPDATE_DEVICE_STATS = 1 << 3,
 };
 // In production we use two identical stats maps to record per uid stats and
 // do swap and clean based on the configuration specified here. The statsMapType
 // value in configuration map specified which map is currently in use.
-enum StatsMapType {
+ENUM(StatsMapType, uint32_t) {
     SELECT_MAP_A,
     SELECT_MAP_B,
 };
