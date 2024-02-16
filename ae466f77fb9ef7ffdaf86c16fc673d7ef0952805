@@ -16,6 +16,24 @@
       "message": "This test might be OK for coverage purposes, but it doesn\u0027t seem to actually check any functionality.\n\nWe should have a test that exercises the functionality - creates an IpsecTransform, applies it, sends and receives some packets, and calls the API to check that the values match. Do we have such a test already? If not, we should write one because otherwise we have no confidence that this API will work end-to-end and will not regress.\n\nFrom an implementation perspective it\u0027s probably easiest to do this on loopback. But perhaps we could use PacketReflector as well. Simulating packet loss is a bit trickier, but it should be possible using TAP interfaces (using PacketReflector) by dropping some of the packets.",
       "revId": "ae466f77fb9ef7ffdaf86c16fc673d7ef0952805",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaf2dd2e_0a52dd40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2024-02-16T00:50:17Z",
+      "side": 1,
+      "message": "Right this is only for coverage purpose. I\u0027m right now working the CTS that really tests the functionality as you proposed. I\u0027ll CC you as soon as the CL is uploaded.",
+      "parentUuid": "3bd33aed_df8eaae8",
+      "revId": "ae466f77fb9ef7ffdaf86c16fc673d7ef0952805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
