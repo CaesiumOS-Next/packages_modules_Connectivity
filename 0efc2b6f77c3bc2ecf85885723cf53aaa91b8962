@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07dd9116_fd4c7e5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-02-16T01:27:54Z",
+      "side": 1,
+      "message": "patchset 1 fails with\n\nIn file included from packages/modules/Connectivity/DnsResolver/DnsHelper.cpp:19:\nIn file included from packages/modules/Connectivity/DnsResolver/DnsBpfHelper.h:22:\npackages/modules/Connectivity/bpf_progs/netd.h:260:28: error: use of undeclared identifier \u0027STANDBY_MATCH\u0027\n  260 |     return enabledRules \u0026 (DROP_IF_SET | DROP_IF_UNSET) \u0026 (uidRules ^ DROP_IF_UNSET);\n      |                            ^\npackages/modules/Connectivity/bpf_progs/netd.h:249:22: note: expanded from macro \u0027DROP_IF_SET\u0027\n  249 | #define DROP_IF_SET (STANDBY_MATCH | OEM_DENY_1_MATCH | OEM_DENY_2_MATCH | OEM_DENY_3_MATCH)\n  \nI guess C++ \u0027enum class\u0027 is it\u0027s own namespace...",
+      "revId": "0efc2b6f77c3bc2ecf85885723cf53aaa91b8962",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
