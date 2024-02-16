@@ -25,14 +25,6 @@ flag {
   bug: "304347838"
 }
 
-# TODO: Remove this flag since this flag is used in platform
-flag {
-  name: "register_nsd_offload_engine"
-  namespace: "android_core_networking"
-  description: "The flag controls the access for registerOffloadEngine API in NsdManager"
-  bug: "294777050"
-}
-
 flag {
   name: "ipsec_transform_state"
   namespace: "android_core_networking_ipsec"
