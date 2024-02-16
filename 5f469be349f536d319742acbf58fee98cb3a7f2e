@@ -22,6 +22,30 @@
       },
       "revId": "5f469be349f536d319742acbf58fee98cb3a7f2e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe4dc9ce_44446cf8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 63
+      },
+      "lineNbr": 5037,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-16T02:35:39Z",
+      "side": 1,
+      "message": "I have updated to call `updateIngressToVpnAddressFiltering` only from `destroyNativeNetwork`.\nOne behavior change is that rules are updated after Lost callback.\nI think this is fine since apps don\u0027t need to know that rules for disconnected interface is already removed or not.\nAlso, all the cleanup in `destroyNativeNetwork` is currenly hapenning after Lost.",
+      "parentUuid": "0d414206_0d4c135d",
+      "range": {
+        "startLine": 5037,
+        "startChar": 8,
+        "endLine": 5037,
+        "endChar": 33
+      },
+      "revId": "5f469be349f536d319742acbf58fee98cb3a7f2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
