@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43df058a_b0c9719e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1295,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-16T08:38:54Z",
+      "side": 1,
+      "message": "I think you can remove `intValue()`.",
+      "range": {
+        "startLine": 1295,
+        "startChar": 59,
+        "endLine": 1295,
+        "endChar": 69
+      },
+      "revId": "8e4e3a7fc53a7106e0138bb10c7795a941311ff8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09ba88b0_9ee18d4e",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-16T08:38:54Z",
+      "side": 1,
+      "message": "Is it possible that subId changes? `(oldPair.mSubId !\u003d subId)`\n\nAlso, is it better to have `\u0026\u0026 oldPair.mSubId !\u003d INVALID_SUBSCRIPTION_ID` as well?",
+      "range": {
+        "startLine": 207,
+        "startChar": 60,
+        "endLine": 207,
+        "endChar": 63
+      },
+      "revId": "8e4e3a7fc53a7106e0138bb10c7795a941311ff8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb4de158_6c9c4c0c",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-16T08:38:54Z",
+      "side": 1,
+      "message": "Can we use `mCarrierServiceUid.clone()`?",
+      "range": {
+        "startLine": 335,
+        "startChar": 12,
+        "endLine": 340,
+        "endChar": 13
+      },
+      "revId": "8e4e3a7fc53a7106e0138bb10c7795a941311ff8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f899b74e_2a330725",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-16T08:38:54Z",
+      "side": 1,
+      "message": "ditto: Is it possible that subId changes?",
+      "range": {
+        "startLine": 353,
+        "startChar": 95,
+        "endLine": 353,
+        "endChar": 96
+      },
+      "revId": "8e4e3a7fc53a7106e0138bb10c7795a941311ff8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

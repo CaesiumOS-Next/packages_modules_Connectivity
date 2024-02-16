@@ -238,6 +238,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c8f2382_b910af3b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 17556,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-16T08:38:54Z",
+      "side": 1,
+      "message": "I agree that readability is more important in tests.\nBut when I first see these tests, It took time for me to understand what are the difference between tests and what is the main part each tests want to verify.\n\nConnectivityServiceTest does this pattern in many tests. e.g. [doTestPreferBadWifi](https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/unit/java/com/android/server/ConnectivityServiceTest.java;l\u003d6256-6330;drc\u003d804aa2326d46f4c76db17d8c89cea58ed5f367a2).  \nSo If the number of argument is not too many, I prefer to have helper method and avoid duplicated codes.\n\n\nI think you can do something like the following\n\n```\npublic void doTestNetworkRequestWithCarrierPrivilegesLost(\n            int restrictedNetworkPermissionState,\n            boolean lostPrivilegeUid,\n            boolean lostPrivilegeSubId,\n            boolean expectRemoved) throws Exception {\n.....\n.....\n  if (expectRemoved) {\n    assertTrue(nai.networkCapabilities.getAllowedUidsNoCopy().isEmpty());\n    networkCallback.expect(NETWORK_CAPS_UPDATED);\n    networkCallback.expect(UNAVAILABLE);\n  } else {\n    assertFalse(nai.networkCapabilities.getAllowedUidsNoCopy().isEmpty());\n    networkCallback.assertNoCallback();\n  }\n}\n\n```\n\nAlso, can we define `TEST_SUBSCRIPTION_ID`/`TEST_CARRIER_PKG_UID` and use them instead of `Process.Uid()` as CarrierPrivilegeAuthenticatorTest does?",
+      "parentUuid": "d38d31f9_293ba842",
+      "range": {
+        "startLine": 17556,
+        "startChar": 15,
+        "endLine": 17556,
+        "endChar": 54
+      },
+      "revId": "bc1857ba791d85dbc67b3ffe1096096a529acbfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2376ee43_60089dc2",
         "filename": "tests/unit/java/com/android/server/connectivity/CarrierPrivilegeAuthenticatorTest.java",
         "patchSetId": 5
