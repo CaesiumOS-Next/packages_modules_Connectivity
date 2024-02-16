@@ -23,6 +23,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import android.annotation.SuppressLint;
 import android.net.InetAddresses;
@@ -33,8 +34,10 @@ import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.net.module.util.Struct.Field;
+import com.android.net.module.util.Struct.KernelArch;
 import com.android.net.module.util.Struct.Type;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -82,11 +85,25 @@ public class StructTest {
     private static final Inet6Address TEST_IPV6_ADDRESS =
             (Inet6Address) InetAddresses.parseNumericAddress("2001:db8:3:4:5:6:7:8");
 
+    private static final int PAD_SIZE_DEFAULT = 7;
+    private static final int PAD_SIZE_X86_32 = 3;
+    private static final int PAD_SIZE_X86_64 = 11;
+    private static final String STRUCT_WITH_FIELD_PADDING_HEX = "0100000000000000";
+
+    @After
+    public void tearDown() {
+        Struct.setKernelArch(KernelArch.ArchUnknown);
+    }
+
     private <T> T doParsingMessageTest(final String hexString, final Class<T> clazz,
             final ByteOrder order) {
         final ByteBuffer buf = toByteBuffer(hexString);
         buf.order(order);
         return Struct.parse(clazz, buf);
+    }
+
+    private <T> T doParsingMessageTest(final String hexString, final Class<T> clazz) {
+        return doParsingMessageTest(hexString, clazz, ByteOrder.LITTLE_ENDIAN);
     }
 
     public static class HeaderMsgWithConstructor extends Struct {
@@ -1079,5 +1096,114 @@ public class StructTest {
         msg = doParsingMessageTest("20010db80003000400050006", InvalidByteArray.class,
                 ByteOrder.BIG_ENDIAN);
         assertArrayEquals(TEST_PREFIX64, msg.bytes);
+    }
+
+    public static class StructWithFP extends Struct {
+        @FieldPadding(kernelArch = KernelArch.X86_32, padding = PAD_SIZE_X86_32)
+        @FieldPadding(kernelArch = KernelArch.X86_64, padding = PAD_SIZE_X86_64)
+        @Field(order = 0, type = Type.U8, padding = PAD_SIZE_DEFAULT)
+        public final short u8;
+
+        StructWithFP(final short u8) {
+            this.u8 = u8;
+        }
+    }
+
+    private void verifyStructWithFP(KernelArch kernelArch, int expectedPadSize) {
+        Struct.setKernelArch(kernelArch);
+
+        String paddingHex = "";
+        for (int i = 0; i < expectedPadSize; i++) {
+            paddingHex += "00";
+        }
+
+        final StructWithFP struct = doParsingMessageTest("01" + paddingHex, StructWithFP.class);
+
+        assertEquals((short) 1, struct.u8);
+
+        Struct.setKernelArch(KernelArch.ArchUnknown);
+    }
+
+    @Test
+    public void testFieldPadding_UseKernelSpecificPadding() {
+        verifyStructWithFP(KernelArch.X86_32, PAD_SIZE_X86_32);
+        verifyStructWithFP(KernelArch.X86_64, PAD_SIZE_X86_64);
+    }
+
+    @Test
+    public void testFieldPadding_UseDefaultPadding() {
+        verifyStructWithFP(KernelArch.Arm32, PAD_SIZE_DEFAULT);
+        verifyStructWithFP(KernelArch.Arm64, PAD_SIZE_DEFAULT);
+        verifyStructWithFP(KernelArch.RiscV, PAD_SIZE_DEFAULT);
+    }
+
+    @Test
+    public void testFieldPadding_KernelArchUnset() {
+        try {
+            verifyStructWithFP(KernelArch.ArchUnknown, PAD_SIZE_DEFAULT);
+            fail("Expected to fail because kernel arch is not set");
+        } catch (Exception expected) {
+
+        }
+    }
+
+    public static class StructWithFPMissingField extends Struct {
+        @FieldPadding(kernelArch = KernelArch.X86_32, padding = PAD_SIZE_X86_32)
+        public final short u8;
+
+        StructWithFPMissingField(final short u8) {
+            this.u8 = u8;
+        }
+    }
+
+    @Test
+    public void testFieldPadding_MissingField() throws Exception {
+        try {
+            doParsingMessageTest(STRUCT_WITH_FIELD_PADDING_HEX, StructWithFPMissingField.class);
+            fail("Expected to fail because @FieldPadding is used without @Field");
+        } catch (Exception expected) {
+
+        }
+    }
+
+    public static class StructWithFPArchUnknown extends Struct {
+        @FieldPadding(kernelArch = KernelArch.ArchUnknown, padding = PAD_SIZE_X86_32)
+        @Field(order = 0, type = Type.U8, padding = PAD_SIZE_DEFAULT)
+        public final short u8;
+
+        StructWithFPArchUnknown(final short u8) {
+            this.u8 = u8;
+        }
+    }
+
+    @Test
+    public void testFieldPadding_ArchUnknown() throws Exception {
+        try {
+            doParsingMessageTest(STRUCT_WITH_FIELD_PADDING_HEX, StructWithFPArchUnknown.class);
+            fail("Expected to fail because ArchUnknown is used");
+        } catch (Exception expected) {
+
+        }
+    }
+
+    public static class StructWithFPDupArch extends Struct {
+        @FieldPadding(kernelArch = KernelArch.X86_32, padding = PAD_SIZE_X86_32)
+        @FieldPadding(kernelArch = KernelArch.X86_32, padding = PAD_SIZE_X86_64)
+        @Field(order = 0, type = Type.U8, padding = PAD_SIZE_DEFAULT)
+        public final short u8;
+
+        StructWithFPDupArch(final short u8) {
+            this.u8 = u8;
+        }
+    }
+
+    @Test
+    public void testFieldPadding_DuplicateKernelArch() throws Exception {
+        try {
+            doParsingMessageTest(STRUCT_WITH_FIELD_PADDING_HEX, StructWithFPDupArch.class);
+            fail("Expected to fail due to duplicate configurations for the same kernel");
+        } catch (Exception expected) {
+
+        }
     }
 }
