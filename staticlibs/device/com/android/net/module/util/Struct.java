@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
@@ -37,6 +38,9 @@ import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -124,6 +128,42 @@ public class Struct {
         Ipv6Address, // IPv6 address in network order
     }
 
+    /** Enum to indicate the architecture of the underlying linux kernel */
+    public enum KernelArch {
+        ArchUnknown,
+        Arm32,
+        Arm64,
+        X86_32,
+        X86_64,
+        RiscV,
+    }
+
+    /** Indicates the architecture of the underlying linux kernel */
+    // Ideally this should be a compile time constant. However due to the build system complexity,
+    // the "net-utils-device-common-struct" library cannot depend on a JNI library that queries the
+    // kernel architecture. Instead, it relies on an external caller (e.g. IpSecXfrmController) to
+    // query and set the info before performing netlink communications.
+    private static KernelArch sKernelArch = KernelArch.ArchUnknown;
+
+    /**
+     * Set the kernel architecture
+     *
+     * <p>If the netlink messages have kernel-specific format, caller MUST call this method to make
+     * sure the success of the netlink communications.
+     */
+    public static void setKernelArch(@NonNull final KernelArch kernelArch) {
+        sKernelArch = kernelArch;
+    }
+
+    /**
+     * Return the kernel architecture
+     *
+     * <p>Allow subclasses to calculate the struct size
+     */
+    protected static KernelArch getKernelArch() {
+        return sKernelArch;
+    }
+
     /**
      * Indicate that the field marked with this annotation will automatically be managed by this
      * class (e.g., will be parsed by #parse).
@@ -154,15 +194,57 @@ public class Struct {
     @Target(ElementType.FIELD)
     public @interface Computed {}
 
+    /**
+     * Indicates that this field has kernel-arch-specific paddings
+     *
+     * <p>@FieldPadding can only be used together with @Field. If @FieldPadding is absent, this
+     * field will be formatted with the paddings specified in @Field.
+     *
+     * <pre>
+     * kernelArch: The architecture of the kernel.
+     * padding:    Padding bytes appear after the field for alignment.
+     * </pre>
+     *
+     * <p>@FieldPadding requires both kernelArch and padding to be set
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
+    @Repeatable(FieldPaddingGroup.class)
+    public @interface FieldPadding {
+        KernelArch kernelArch();
+
+        int padding();
+    }
+
+    /** Required container annotation to store the repeating FieldPadding annotations */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
+    public @interface FieldPaddingGroup {
+        FieldPadding[] value();
+    }
+
     private static class FieldInfo {
         @NonNull
         public final Field annotation;
         @NonNull
         public final java.lang.reflect.Field field;
+        @NonNull
+        public final Map<KernelArch, Integer> fieldPaddings;
 
-        FieldInfo(final Field annotation, final java.lang.reflect.Field field) {
+        FieldInfo(
+                final Field annotation,
+                final java.lang.reflect.Field field,
+                final Map<KernelArch, Integer> fieldPaddings) {
             this.annotation = annotation;
             this.field = field;
+            this.fieldPaddings = Collections.unmodifiableMap(fieldPaddings);
+        }
+
+        int padding() {
+            if (fieldPaddings.containsKey(sKernelArch)) {
+                return fieldPaddings.get(sKernelArch);
+            }
+            return annotation.padding();
         }
     }
     private static ConcurrentHashMap<Class, FieldInfo[]> sFieldCache = new ConcurrentHashMap();
@@ -215,7 +297,8 @@ public class Struct {
                 + " for annotation type: " + annotation.type());
     }
 
-    private static int getFieldLength(final Field annotation) {
+    private static int getFieldLength(final FieldInfo fieldInfo) {
+        final Field annotation = fieldInfo.annotation;
         int length = 0;
         switch (annotation.type()) {
             case U8:
@@ -254,7 +337,8 @@ public class Struct {
             default:
                 throw new IllegalArgumentException("Unknown type" + annotation.type());
         }
-        return length + annotation.padding();
+
+        return length + fieldInfo.padding();
     }
 
     private static boolean isStructSubclass(final Class clazz) {
@@ -439,8 +523,8 @@ public class Struct {
         }
 
         // Skip the padding data for alignment if any.
-        if (fieldInfo.annotation.padding() > 0) {
-            buf.position(buf.position() + fieldInfo.annotation.padding());
+        if (fieldInfo.padding() > 0) {
+            buf.position(buf.position() + fieldInfo.padding());
         }
         return value;
     }
@@ -527,7 +611,7 @@ public class Struct {
         }
 
         // padding zero after field value for alignment.
-        for (int i = 0; i < fieldInfo.annotation.padding(); i++) output.put((byte) 0);
+        for (int i = 0; i < fieldInfo.padding(); i++) output.put((byte) 0);
     }
 
     private static FieldInfo[] getClassFieldInfo(final Class clazz) {
@@ -550,7 +634,15 @@ public class Struct {
             if (Modifier.isStatic(field.getModifiers())) continue;
             if (field.getAnnotation(Computed.class) != null) continue;
 
+            final Map<KernelArch, Integer> fieldPaddings =
+                    getAndValidateFieldPaddingsOrThrow(field);
             final Field annotation = field.getAnnotation(Field.class);
+
+            if (!fieldPaddings.isEmpty() && annotation == null) {
+                throw new IllegalArgumentException(
+                        "Field " + field.getName() + " has @FieldPadding but not @Field");
+            }
+
             if (annotation == null) {
                 throw new IllegalArgumentException("Field " + field.getName()
                         + " is missing the " + Field.class.getSimpleName()
@@ -564,10 +656,44 @@ public class Struct {
                 throw new IllegalArgumentException("Duplicated annotation order: "
                         + annotation.order());
             }
-            annotationFields[annotation.order()] = new FieldInfo(annotation, field);
+            annotationFields[annotation.order()] = new FieldInfo(annotation, field, fieldPaddings);
         }
         sFieldCache.putIfAbsent(clazz, annotationFields);
         return annotationFields;
+    }
+
+    private static Map<KernelArch, Integer> getAndValidateFieldPaddingsOrThrow(
+            java.lang.reflect.Field field) {
+        final FieldPadding[] fieldPaddings = field.getAnnotationsByType(FieldPadding.class);
+
+        final Map<KernelArch, Integer> result = new HashMap<>();
+        for (FieldPadding fp : fieldPaddings) {
+            final KernelArch arch = fp.kernelArch();
+            switch (arch) {
+                case ArchUnknown:
+                    throw new IllegalArgumentException("ArchUnknown is not allowed to be set");
+                case Arm32: // fall through
+                case Arm64: // fall through
+                case X86_32: // fall through
+                case X86_64: // fall through
+                case RiscV:
+                    if (result.containsKey(arch)) {
+                        throw new IllegalArgumentException(
+                                "Duplicate padding configurations for kernel arch " + arch);
+                    }
+                    result.put(arch, fp.padding());
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown kernel arch " + arch);
+            }
+        }
+
+        if (!result.isEmpty() && sKernelArch == KernelArch.ArchUnknown) {
+            throw new IllegalArgumentException(
+                    "The Struct has kernel-specific paddings but kernel arch is not set");
+        }
+
+        return result;
     }
 
     /**
@@ -619,7 +745,7 @@ public class Struct {
     private static int getSizeInternal(final FieldInfo[] fieldInfos) {
         int size = 0;
         for (FieldInfo fi : fieldInfos) {
-            size += getFieldLength(fi.annotation);
+            size += getFieldLength(fi);
         }
         return size;
     }
