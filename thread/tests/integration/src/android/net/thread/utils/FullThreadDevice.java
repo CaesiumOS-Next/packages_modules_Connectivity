@@ -99,6 +99,40 @@ public final class FullThreadDevice {
     }
 
     /**
+     * Returns the link-local address of the device.
+     *
+     * <p>This methods goes through all unicast addresses on the device and returns the address that
+     * begins with fe80.
+     */
+    public Inet6Address getLinkLocalAddress() {
+        List<String> addresses = executeCommand("ipaddr");
+        for (String address : addresses) {
+            if (address.startsWith("fe80:")) {
+                return (Inet6Address) InetAddresses.parseNumericAddress(address);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns the mesh-local address of the device.
+     *
+     * <p>This methods goes through all unicast addresses on the device and returns the address that
+     * begins with mesh-local prefix.
+     */
+    public Inet6Address getMeshLocalAddress() {
+        List<String> addresses = executeCommand("ipaddr");
+        IpPrefix meshLocalPrefix = mActiveOperationalDataset.getMeshLocalPrefix();
+        for (String address : addresses) {
+            Inet6Address addr = (Inet6Address) InetAddresses.parseNumericAddress(address);
+            if (meshLocalPrefix.contains(addr)) {
+                return addr;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Joins the Thread network using the given {@link ActiveOperationalDataset}.
      *
      * @param dataset the Active Operational Dataset
