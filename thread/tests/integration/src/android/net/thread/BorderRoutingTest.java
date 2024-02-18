@@ -569,6 +569,76 @@ public class BorderRoutingTest {
     }
 
     @Test
+    public void multicastRouting_outboundForwarding_LlaToScope4IsNotForwarded() throws Exception {
+        assumeTrue(isKernelVersionAtLeast("5.15.0"));
+        /*
+         * <pre>
+         * Topology:
+         *                 infra network                       Thread
+         * infra device -------------------- Border Router -------------- Full Thread device
+         *                                   (Cuttlefish)
+         * </pre>
+         */
+
+        // BR forms a network.
+        startBrLeader();
+
+        // Creates a Full Thread Device (FTD) and lets it join the network.
+        FullThreadDevice ftd = startFtdChild(7);
+        Inet6Address ftdLla = ftd.getLinkLocalAddress();
+        assertNotNull(ftdLla);
+
+        // Creates a infra network device.
+        TapPacketReader infraNetworkReader =
+                newPacketReader(mInfraNetworkTracker.getTestIface(), mHandler);
+
+        ftd.ping(GROUP_ADDR_SCOPE_4_STR, ftdLla.getHostAddress(), 100, 1);
+
+        // Infra device doesn't receive an echo request sent by FTD.
+        assertNull(
+                readPacketFrom(
+                        infraNetworkReader,
+                        p ->
+                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REQUEST_TYPE)
+                                        && isFromIpv6Source(p, ftdLla)));
+    }
+
+    @Test
+    public void multicastRouting_outboundForwarding_MlaToScope4IsNotForwarded() throws Exception {
+        assumeTrue(isKernelVersionAtLeast("5.15.0"));
+        /*
+         * <pre>
+         * Topology:
+         *                 infra network                       Thread
+         * infra device -------------------- Border Router -------------- Full Thread device
+         *                                   (Cuttlefish)
+         * </pre>
+         */
+
+        // BR forms a network.
+        startBrLeader();
+
+        // Creates a Full Thread Device (FTD) and lets it join the network.
+        FullThreadDevice ftd = startFtdChild(7);
+        Inet6Address ftdMla = ftd.getMeshLocalAddress();
+        assertNotNull(ftdMla);
+
+        // Creates a infra network device.
+        TapPacketReader infraNetworkReader =
+                newPacketReader(mInfraNetworkTracker.getTestIface(), mHandler);
+
+        ftd.ping(GROUP_ADDR_SCOPE_4_STR, ftdMla.getHostAddress(), 100, 1);
+
+        // Infra device doesn't receive an echo request sent by FTD.
+        assertNull(
+                readPacketFrom(
+                        infraNetworkReader,
+                        p ->
+                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REQUEST_TYPE)
+                                        && isFromIpv6Source(p, ftdMla)));
+    }
+
+    @Test
     public void multicastRouting_infraNetworkSwitch_FtdRepliesToSubscribedAddress()
             throws Exception {
         assumeTrue(isKernelVersionAtLeast("5.15.0"));
