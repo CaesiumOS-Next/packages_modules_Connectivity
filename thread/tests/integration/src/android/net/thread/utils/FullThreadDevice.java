@@ -107,6 +107,41 @@ public final class FullThreadDevice {
     }
 
     /**
+     * Returns the link-local address of the device.
+     *
+     * <p>This methods goes through all unicast addresses on the device and returns the address that
+     * begins with fe80.
+     */
+    public Inet6Address getLinkLocalAddress() {
+        List<String> addresses = executeCommand("ipaddr");
+        for (String address : addresses) {
+            if (address.startsWith("fe80:")) {
+                return (Inet6Address) InetAddresses.parseNumericAddress(address);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns the mesh-local address of the device.
+     *
+     * <p>This methods goes through all unicast addresses on the device and returns the address that
+     * begins with mesh-local prefix.
+     */
+    public List<Inet6Address> getMeshLocalAddresses() {
+        List<String> addresses = executeCommand("ipaddr");
+        List<Inet6Address> meshLocalAddresses = new ArrayList<>();
+        IpPrefix meshLocalPrefix = mActiveOperationalDataset.getMeshLocalPrefix();
+        for (String address : addresses) {
+            Inet6Address addr = (Inet6Address) InetAddresses.parseNumericAddress(address);
+            if (meshLocalPrefix.contains(addr)) {
+                meshLocalAddresses.add(addr);
+            }
+        }
+        return meshLocalAddresses;
+    }
+
+    /**
      * Joins the Thread network using the given {@link ActiveOperationalDataset}.
      *
      * @param dataset the Active Operational Dataset
@@ -190,10 +225,10 @@ public final class FullThreadDevice {
         executeCommand("ipmaddr add " + address.getHostAddress());
     }
 
-    public void ping(Inet6Address address, String source, int size, int count) {
+    public void ping(Inet6Address address, Inet6Address source, int size, int count) {
         String cmd =
                 "ping"
-                        + ((source == null) ? "" : (" -I " + source))
+                        + ((source == null) ? "" : (" -I " + source.getHostAddress()))
                         + " "
                         + address.getHostAddress()
                         + " "
