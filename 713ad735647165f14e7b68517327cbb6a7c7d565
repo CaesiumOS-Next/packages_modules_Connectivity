@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbdd4dee_f651ffc6",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-19T05:02:34Z",
+      "side": 1,
+      "message": "This is generally discouraged - unconditional wait is a major source of flaky tests. What\u0027s the condition that you think the network becomes stable? Can you wait for that condition being satisfied?",
+      "range": {
+        "startLine": 302,
+        "startChar": 0,
+        "endLine": 303,
+        "endChar": 32
+      },
+      "revId": "713ad735647165f14e7b68517327cbb6a7c7d565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
