@@ -19,6 +19,8 @@ package com.android.server
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.INetworkMonitor
+import android.net.INetworkMonitor.NETWORK_VALIDATION_PROBE_DNS
+import android.net.INetworkMonitor.NETWORK_VALIDATION_PROBE_HTTP
 import android.net.INetworkMonitorCallbacks
 import android.net.LinkProperties
 import android.net.LocalNetworkConfig
@@ -79,6 +81,10 @@ class CSAgentWrapper(
     private val agent: NetworkAgent
     private val nmCallbacks: INetworkMonitorCallbacks
     val networkMonitor = mock<INetworkMonitor>()
+    private var mNmValidationRedirectUrl: String? = null
+    private var mNmValidationResult = 0
+    private var mProbesCompleted = 0
+    private var mProbesSucceeded = 0
 
     override val network: Network get() = agent.network!!
 
@@ -120,10 +126,10 @@ class CSAgentWrapper(
         }
         nmCallbacks.notifyProbeStatusChanged(0 /* completed */, 0 /* succeeded */)
         val p = NetworkTestResultParcelable()
-        p.result = VALIDATION_RESULT_INVALID
-        p.probesAttempted = 0
-        p.probesSucceeded = 0
-        p.redirectUrl = null
+        p.result = mNmValidationResult
+        p.probesAttempted = mProbesCompleted
+        p.probesSucceeded = mProbesSucceeded
+        p.redirectUrl = mNmValidationRedirectUrl
         p.timestampMillis = VALIDATION_TIMESTAMP
         nmCallbacks.notifyNetworkTestedWithExtras(p)
     }
@@ -171,4 +177,25 @@ class CSAgentWrapper(
 
     fun sendLocalNetworkConfig(lnc: LocalNetworkConfig) = agent.sendLocalNetworkConfig(lnc)
     fun sendNetworkCapabilities(nc: NetworkCapabilities) = agent.sendNetworkCapabilities(nc)
+
+    fun connectWithCaptivePortal(redirectUrl: String) {
+        setNetworkPortal(redirectUrl)
+        connect()
+    }
+
+    fun setProbesStatus(probesCompleted: Int, probesSucceeded: Int) {
+        mProbesCompleted = probesCompleted
+        mProbesSucceeded = probesSucceeded
+    }
+
+    fun setNetworkPortal(redirectUrl: String) {
+        mNmValidationResult = VALIDATION_RESULT_INVALID
+        mNmValidationRedirectUrl = redirectUrl
+        // Suppose the portal is found when NetworkMonitor probes NETWORK_VALIDATION_PROBE_HTTP
+        // in the beginning, so the NETWORK_VALIDATION_PROBE_HTTPS hasn't probed yet.
+        var probesCompleted = NETWORK_VALIDATION_PROBE_DNS or NETWORK_VALIDATION_PROBE_HTTP
+        val probesSucceeded = VALIDATION_RESULT_INVALID
+
+        setProbesStatus(probesCompleted, probesSucceeded)
+    }
 }
