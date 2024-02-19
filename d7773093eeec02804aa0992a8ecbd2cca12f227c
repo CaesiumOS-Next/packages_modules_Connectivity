@@ -34,6 +34,24 @@
       "parentUuid": "8fb12782_035fa791",
       "revId": "d7773093eeec02804aa0992a8ecbd2cca12f227c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29ad859f_12a5355a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-19T05:10:30Z",
+      "side": 0,
+      "message": "It looks like tests in aosp/2919225 don\u0027t cover the case described in the commit message?",
+      "parentUuid": "00e1e829_e5e29109",
+      "revId": "d7773093eeec02804aa0992a8ecbd2cca12f227c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
