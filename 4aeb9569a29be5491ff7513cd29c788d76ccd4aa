@@ -70,6 +70,92 @@
       "parentUuid": "13e58357_f2b62a28",
       "revId": "4aeb9569a29be5491ff7513cd29c788d76ccd4aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b528cadb_3e621107",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-19T06:25:41Z",
+      "side": 1,
+      "message": "Can we provide way to disable or decrease cache timeout for testing?\nIf all the tests that rely on network stats need to wait 1sec, that increase the test duration.",
+      "revId": "4aeb9569a29be5491ff7513cd29c788d76ccd4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6869d36_a58766a9",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1999,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-19T06:25:41Z",
+      "side": 1,
+      "message": "Can nativeGetUidStat return null?",
+      "range": {
+        "startLine": 1999,
+        "startChar": 53,
+        "endLine": 1999,
+        "endChar": 69
+      },
+      "revId": "4aeb9569a29be5491ff7513cd29c788d76ccd4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb254b64_f27a344a",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2007,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-19T06:25:41Z",
+      "side": 1,
+      "message": "If apps call this API with random iface, will it keep increasing mTrafficStatsIfaceCache?\nIf so, we may need to prevent that.",
+      "range": {
+        "startLine": 2007,
+        "startChar": 63,
+        "endLine": 2007,
+        "endChar": 64
+      },
+      "revId": "4aeb9569a29be5491ff7513cd29c788d76ccd4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afa9a794_71c71f01",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2058,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-19T06:25:41Z",
+      "side": 1,
+      "message": "nits: If the apps call `getTotalStats` with invalid type, cache is not used and `nativeGetTotalStat` will be called everytime.",
+      "range": {
+        "startLine": 2058,
+        "startChar": 12,
+        "endLine": 2058,
+        "endChar": 13
+      },
+      "revId": "4aeb9569a29be5491ff7513cd29c788d76ccd4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
