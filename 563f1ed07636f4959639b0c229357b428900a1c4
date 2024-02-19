@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffd06dc5_2ff435ef",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketBridge.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-19T05:56:45Z",
+      "side": 1,
+      "message": "Why we change this line?",
+      "range": {
+        "startLine": 91,
+        "startChar": 40,
+        "endLine": 91,
+        "endChar": 44
+      },
+      "revId": "563f1ed07636f4959639b0c229357b428900a1c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a5cd436_738ebd7a",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketBridge.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-19T05:56:45Z",
+      "side": 1,
+      "message": "Why we change this line?",
+      "range": {
+        "startLine": 126,
+        "startChar": 38,
+        "endLine": 126,
+        "endChar": 39
+      },
+      "revId": "563f1ed07636f4959639b0c229357b428900a1c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c672bfe_91720492",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketBridge.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-19T05:56:45Z",
+      "side": 1,
+      "message": "Question: why we need this?",
+      "range": {
+        "startLine": 155,
+        "startChar": 11,
+        "endLine": 155,
+        "endChar": 59
+      },
+      "revId": "563f1ed07636f4959639b0c229357b428900a1c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd038cad_b07cda30",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketBridge.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-19T05:56:45Z",
+      "side": 1,
+      "message": "Question: Why we need this?",
+      "range": {
+        "startLine": 176,
+        "startChar": 12,
+        "endLine": 176,
+        "endChar": 30
+      },
+      "revId": "563f1ed07636f4959639b0c229357b428900a1c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdaa0ab5_21135a9d",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketForwarderBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-19T05:56:45Z",
+      "side": 1,
+      "message": "We don\u0027t need to modify this list right?\nMaybe make a local copy so this is not needed?",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 32
+      },
+      "revId": "563f1ed07636f4959639b0c229357b428900a1c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c16d36da_863355ea",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestHttpServer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-19T05:56:45Z",
+      "side": 1,
+      "message": "Can it be port: Int \u003d 0 ?\nUsing !! is discouraged.",
+      "range": {
+        "startLine": 31,
+        "startChar": 58,
+        "endLine": 31,
+        "endChar": 62
+      },
+      "revId": "563f1ed07636f4959639b0c229357b428900a1c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d6e0649_10bae043",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestHttpServer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-19T05:56:45Z",
+      "side": 1,
+      "message": "No actual modification?\nMaybe revert format change?",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 5
+      },
+      "revId": "563f1ed07636f4959639b0c229357b428900a1c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d30a846d_bf623066",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestHttpServer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-19T05:56:45Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 9
+      },
+      "revId": "563f1ed07636f4959639b0c229357b428900a1c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
