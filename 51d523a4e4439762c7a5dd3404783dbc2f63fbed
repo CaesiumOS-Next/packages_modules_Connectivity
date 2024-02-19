@@ -22,6 +22,30 @@
       },
       "revId": "51d523a4e4439762c7a5dd3404783dbc2f63fbed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "daa1ed1b_20dd141b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 19053,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-19T10:33:18Z",
+      "side": 1,
+      "message": "Done. Add to new CSCaptivePortalAppTest since this test does not fit into any existing new test file",
+      "parentUuid": "dcfad9f7_544f3cee",
+      "range": {
+        "startLine": 19052,
+        "startChar": 3,
+        "endLine": 19053,
+        "endChar": 85
+      },
+      "revId": "51d523a4e4439762c7a5dd3404783dbc2f63fbed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
