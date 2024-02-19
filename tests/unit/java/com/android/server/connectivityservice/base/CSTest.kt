@@ -47,6 +47,7 @@ import android.os.BatteryStatsManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
+import android.os.Process
 import android.os.UserHandle
 import android.os.UserManager
 import android.telephony.TelephonyManager
@@ -300,13 +301,55 @@ open class CSTest {
         val pacProxyManager = mock<PacProxyManager>()
         val networkPolicyManager = mock<NetworkPolicyManager>()
 
+        // Map of permission name -> PermissionManager.Permission_{GRANTED|DENIED} constant
+        // For permissions granted across the board, the key is only the permission name.
+        // For permissions only granted to a combination of uid/pid, the key
+        // is "<permission name>,<pid>,<uid>". PID+UID permissions have priority over generic ones.
+        private val mMockedPermissions: HashMap<String, Int> = HashMap()
         override fun getPackageManager() = this@CSTest.packageManager
         override fun getContentResolver() = this@CSTest.contentResolver
 
         // TODO : buff up the capabilities of this permission scheme to allow checking for
         // permission rejections
         override fun checkPermission(permission: String, pid: Int, uid: Int) = PERMISSION_GRANTED
-        override fun checkCallingOrSelfPermission(permission: String) = PERMISSION_GRANTED
+
+        override fun enforceCallingOrSelfPermission(permission: String, message: String?) {
+            val granted = checkMockedPermission(permission, Process.myPid(), Process.myUid(),
+                PERMISSION_GRANTED)
+            if (!granted.equals(PERMISSION_GRANTED)) {
+                throw SecurityException("[Test] permission denied: " + permission)
+            }
+        }
+
+        override fun checkCallingOrSelfPermission(permission: String): Int {
+            return checkMockedPermission(permission, Process.myPid(), Process.myUid(),
+                PERMISSION_GRANTED)
+        }
+
+        private fun checkMockedPermission(permission: String, pid: Int, uid: Int, result: Int):
+                Int {
+            val granted: Int? = mMockedPermissions.get("$permission,$pid,$uid")
+            if (null != granted) {
+                return granted
+            }
+            val allGranted: Int? = mMockedPermissions.get(permission)
+            return allGranted ?: result
+        }
+
+        /**
+         * Mock checks for the specified permission, and have them behave as per `granted`.
+         *
+         * This will apply to all calls no matter what the checked UID and PID are.
+         *
+         *
+         * Passing null reverts to default behavior, which does a real permission check on the
+         * test package.
+         * @param granted One of [PackageManager.PERMISSION_GRANTED] or
+         * [PackageManager.PERMISSION_DENIED].
+         */
+        fun setPermission(permission: String, granted: Int) {
+            mMockedPermissions.put(permission, granted)
+        }
 
         // Necessary for MultinetworkPolicyTracker, which tries to register a receiver for
         // all users. The test can't do that since it doesn't hold INTERACT_ACROSS_USERS.
