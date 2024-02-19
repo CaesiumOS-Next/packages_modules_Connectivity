@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41a6dd52_14229230",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-19T03:26:44Z",
+      "side": 1,
+      "message": "https://openthread.io/guides/thread-primer/ipv6-addressing\n\nIt\u0027s ML-EID instead of MLE-ID.",
+      "parentUuid": "30147c48_f43b5f83",
+      "range": {
+        "startLine": 225,
+        "startChar": 21,
+        "endLine": 225,
+        "endChar": 29
+      },
+      "revId": "85874918f0628936c1ccc0aed340b9fd37a9f18c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6591745_fe401a88",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-19T03:19:10Z",
       "side": 1,
       "message": "nit: rename to \"udpBind\"?",
+      "range": {
+        "startLine": 155,
+        "startChar": 16,
+        "endLine": 155,
+        "endChar": 25
+      },
+      "revId": "85874918f0628936c1ccc0aed340b9fd37a9f18c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0477985a_7aea97ad",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-19T03:26:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6591745_fe401a88",
       "range": {
         "startLine": 155,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b71f9e03_b7c3c5a1",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-19T03:26:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6981974e_3779a6d8",
+      "range": {
+        "startLine": 162,
+        "startChar": 18,
+        "endLine": 162,
+        "endChar": 35
+      },
+      "revId": "85874918f0628936c1ccc0aed340b9fd37a9f18c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69ff9fe9_109e15b9",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-02-19T03:19:10Z",
       "side": 1,
       "message": "You can use `InetAddress#getHostAddress()`:\n\nhttps://developer.android.com/reference/java/net/InetAddress#getHostAddress()",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 5
+      },
+      "revId": "85874918f0628936c1ccc0aed340b9fd37a9f18c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ae712d1_2d72c8a1",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-19T03:26:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69ff9fe9_109e15b9",
       "range": {
         "startLine": 219,
         "startChar": 0,
