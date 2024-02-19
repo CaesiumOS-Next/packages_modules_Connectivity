@@ -52,6 +52,24 @@
       "parentUuid": "00e1e829_e5e29109",
       "revId": "d7773093eeec02804aa0992a8ecbd2cca12f227c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33b99b6b_18cfd692",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-19T05:28:18Z",
+      "side": 0,
+      "message": "`multicastRouting_inboundForwarding_AfterBrRejoinFtdRepliesSubscribedAddress` tests the case when BBR changes from primary to secondary and then back to primary. Without this change the originally subscribed multicast address will be lost. Will update the commit message to describe this better.",
+      "parentUuid": "29ad859f_12a5355a",
+      "revId": "d7773093eeec02804aa0992a8ecbd2cca12f227c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
