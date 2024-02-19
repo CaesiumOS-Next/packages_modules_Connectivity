@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac64ae3e_b6ca5c39",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-19T06:25:14Z",
+      "side": 1,
+      "message": "service-connectivity uses R8 which will automatically strip out unused classes; so you can just use \"net-utils-device-common-struct\" which already contains these structs.\n\nGenerally for libraries included in service-connectivity, the intent is to limit the number of individual libs, and instead include a big lib that has all that is OK to use, using R8 to strip out what is unnecessary.",
+      "revId": "4e8fac03427fad0b3fb965ae213f200355b1cf81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
