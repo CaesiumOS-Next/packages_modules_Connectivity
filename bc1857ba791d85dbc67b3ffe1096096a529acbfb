@@ -260,6 +260,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36abb20b_b11df41f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 17556,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-19T03:40:32Z",
+      "side": 1,
+      "message": "Defined TEST_SUBSCRIPTION_ID. TEST_CARRIER_PKG_UID is not needed since it is supposed to be the OwnerUid of the network request",
+      "parentUuid": "8c8f2382_b910af3b",
+      "range": {
+        "startLine": 17556,
+        "startChar": 15,
+        "endLine": 17556,
+        "endChar": 54
+      },
+      "revId": "bc1857ba791d85dbc67b3ffe1096096a529acbfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2376ee43_60089dc2",
