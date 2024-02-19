@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c60b4d53_a535ece5",
+        "filename": "service-t/src/com/android/server/net/TrafficStatsRateLimitCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-19T06:25:51Z",
+      "side": 1,
+      "message": "Do we need callerUid in the key?",
+      "range": {
+        "startLine": 47,
+        "startChar": 25,
+        "endLine": 47,
+        "endChar": 34
+      },
+      "revId": "fa467f9cf5050ca46a447669f7277a5a5efdde17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32a3f0df_1826a6dd",
+        "filename": "service-t/src/com/android/server/net/TrafficStatsRateLimitCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-19T06:25:51Z",
+      "side": 1,
+      "message": "nits: `@GuardedBy(\"mMap\")` would be helpful.",
+      "revId": "fa467f9cf5050ca46a447669f7277a5a5efdde17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
