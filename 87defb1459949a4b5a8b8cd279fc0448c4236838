@@ -136,6 +136,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eccf473_69e1bafe",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-20T16:59:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "460b7188_43cb10fe",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 88
+      },
+      "revId": "87defb1459949a4b5a8b8cd279fc0448c4236838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "118d10cd_d7c35ece",
