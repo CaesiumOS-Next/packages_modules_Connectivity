@@ -599,16 +599,11 @@ public class MdnsRecordRepository {
         // to the additional answer section).
         additionalAnswerInfo.removeAll(answerInfo);
 
-        final List<MdnsRecord> additionalAnswerRecords =
-                new ArrayList<>(additionalAnswerInfo.size());
+        final Set<MdnsRecord> additionalAnswerRecordSet = new LinkedHashSet<>();
         for (RecordInfo<?> info : additionalAnswerInfo) {
-            // Different RecordInfos may contain the same record.
-            // For example, when there are multiple services referring to the same custom host,
-            // there are multiple RecordInfos containing the same address record.
-            if (!additionalAnswerRecords.contains(info.record)) {
-                additionalAnswerRecords.add(info.record);
-            }
+            additionalAnswerRecordSet.add(info.record);
         }
+        final List<MdnsRecord> additionalAnswerRecords = new ArrayList<>(additionalAnswerRecordSet);
 
         // RFC6762 6.1: negative responses
         // "On receipt of a question for a particular name, rrtype, and rrclass, for which a
@@ -670,20 +665,18 @@ public class MdnsRecordRepository {
         }
 
         // Build the list of answer records from their RecordInfo
-        final ArrayList<MdnsRecord> answerRecords = new ArrayList<>(answerInfo.size());
+        final Set<MdnsRecord> answerRecords = new LinkedHashSet<>(answerInfo.size());
         for (RecordInfo<?> info : answerInfo) {
             // TODO: consider actual packet send delay after response aggregation
             info.lastSentTimeMs = now + delayMs;
             if (!replyUnicast) {
                 info.lastAdvertisedTimeMs = info.lastSentTimeMs;
             }
-            // Different RecordInfos may the contain the same record
-            if (!answerRecords.contains(info.record)) {
-                answerRecords.add(info.record);
-            }
+            answerRecords.add(info.record);
         }
 
-        return new MdnsReplyInfo(answerRecords, additionalAnswerRecords, delayMs, dest, src,
+        return new MdnsReplyInfo(new ArrayList<>(answerRecords),
+                new ArrayList<>(additionalAnswerRecords), delayMs, dest, src,
                 new ArrayList<>(packet.answers));
     }
 
