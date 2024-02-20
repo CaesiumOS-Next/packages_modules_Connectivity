@@ -17,12 +17,6 @@
 package android.net.cts;
 
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
-import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -34,21 +28,9 @@ import android.net.cts.util.CtsNetUtils;
 import android.platform.test.annotations.AppModeFull;
 import android.system.ErrnoException;
 import android.system.OsConstants;
+import android.test.AndroidTestCase;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.platform.app.InstrumentationRegistry;
-
-import com.android.testutils.DeviceConfigRule;
-
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-@RunWith(AndroidJUnit4.class)
-public class MultinetworkApiTest {
-    @Rule
-    public final DeviceConfigRule mDeviceConfigRule = new DeviceConfigRule();
+public class MultinetworkApiTest extends AndroidTestCase {
 
     static {
         System.loadLibrary("nativemultinetwork_jni");
@@ -76,17 +58,20 @@ public class MultinetworkApiTest {
     private CtsNetUtils mCtsNetUtils;
     private String mOldMode;
     private String mOldDnsSpecifier;
-    private Context mContext;
 
-    @Before
-    public void setUp() throws Exception {
-        mContext = InstrumentationRegistry.getInstrumentation().getContext();
-        mCM = mContext.getSystemService(ConnectivityManager.class);
-        mCR = mContext.getContentResolver();
-        mCtsNetUtils = new CtsNetUtils(mContext);
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        mCM = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        mCR = getContext().getContentResolver();
+        mCtsNetUtils = new CtsNetUtils(getContext());
     }
 
-    @Test
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+    }
+
     public void testGetaddrinfo() throws ErrnoException {
         for (Network network : mCtsNetUtils.getTestableNetworks()) {
             int errno = runGetaddrinfoCheck(network.getNetworkHandle());
@@ -97,7 +82,6 @@ public class MultinetworkApiTest {
         }
     }
 
-    @Test
     @AppModeFull(reason = "CHANGE_NETWORK_STATE permission can't be granted to instant apps")
     public void testSetprocnetwork() throws ErrnoException {
         // Hopefully no prior test in this process space has set a default network.
@@ -141,7 +125,6 @@ public class MultinetworkApiTest {
         }
     }
 
-    @Test
     @AppModeFull(reason = "CHANGE_NETWORK_STATE permission can't be granted to instant apps")
     public void testSetsocknetwork() throws ErrnoException {
         for (Network network : mCtsNetUtils.getTestableNetworks()) {
@@ -153,7 +136,6 @@ public class MultinetworkApiTest {
         }
     }
 
-    @Test
     public void testNativeDatagramTransmission() throws ErrnoException {
         for (Network network : mCtsNetUtils.getTestableNetworks()) {
             int errno = runDatagramCheck(network.getNetworkHandle());
@@ -164,7 +146,6 @@ public class MultinetworkApiTest {
         }
     }
 
-    @Test
     public void testNoSuchNetwork() {
         final Network eNoNet = new Network(54321);
         assertNull(mCM.getNetworkInfo(eNoNet));
@@ -177,7 +158,6 @@ public class MultinetworkApiTest {
         // assertEquals(-OsConstants.ENONET, runGetaddrinfoCheck(eNoNetHandle));
     }
 
-    @Test
     public void testNetworkHandle() {
         // Test Network -> NetworkHandle -> Network results in the same Network.
         for (Network network : mCtsNetUtils.getTestableNetworks()) {
@@ -201,7 +181,6 @@ public class MultinetworkApiTest {
         } catch (IllegalArgumentException e) {}
     }
 
-    @Test
     public void testResNApi() throws Exception {
         final Network[] testNetworks = mCtsNetUtils.getTestableNetworks();
 
@@ -222,21 +201,9 @@ public class MultinetworkApiTest {
         }
     }
 
-    @Test
     @AppModeFull(reason = "WRITE_SECURE_SETTINGS permission can't be granted to instant apps")
-    public void testResNApiNXDomainPrivateDns() throws Exception {
-        // Use async private DNS resolution to avoid flakes due to races applying the setting
-        mDeviceConfigRule.setConfig(NAMESPACE_CONNECTIVITY,
-                "networkmonitor_async_privdns_resolution", "1");
-        mCtsNetUtils.reconnectWifiIfSupported();
-        mCtsNetUtils.reconnectCellIfSupported();
-
+    public void testResNApiNXDomainPrivateDns() throws InterruptedException {
         mCtsNetUtils.storePrivateDnsSetting();
-
-        mDeviceConfigRule.runAfterNextCleanup(() -> {
-            mCtsNetUtils.reconnectWifiIfSupported();
-            mCtsNetUtils.reconnectCellIfSupported();
-        });
         // Enable private DNS strict mode and set server to dns.google before doing NxDomain test.
         // b/144521720
         try {
