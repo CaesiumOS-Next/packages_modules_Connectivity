@@ -36,6 +36,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.RouteInfo.RTN_UNICAST;
 import static android.net.TetheringManager.ACTION_TETHER_STATE_CHANGED;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
+import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.EXTRA_ACTIVE_LOCAL_ONLY;
 import static android.net.TetheringManager.EXTRA_ACTIVE_TETHER;
 import static android.net.TetheringManager.EXTRA_AVAILABLE_TETHER;
@@ -181,6 +182,7 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.test.mock.MockContentResolver;
 import android.util.ArraySet;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -743,13 +745,13 @@ public class TetheringTest {
         doReturn(upstreamState).when(mUpstreamNetworkMonitor).selectPreferredUpstreamType(any());
     }
 
-    private TetheringRequestParcel createTetheringRequestParcel(final int type) {
-        return createTetheringRequestParcel(type, null, null, false, CONNECTIVITY_SCOPE_GLOBAL);
+    private TetheringRequestParcel createTetheringRequestParcel(final int type, final String iface) {
+        return createTetheringRequestParcel(type, null, null, false, CONNECTIVITY_SCOPE_GLOBAL,iface);
     }
 
     private TetheringRequestParcel createTetheringRequestParcel(final int type,
             final LinkAddress serverAddr, final LinkAddress clientAddr, final boolean exempt,
-            final int scope) {
+            final int scope,final String iface) {
         final TetheringRequestParcel request = new TetheringRequestParcel();
         request.tetheringType = type;
         request.localIPv4Address = serverAddr;
@@ -757,6 +759,7 @@ public class TetheringTest {
         request.exemptFromEntitlementCheck = exempt;
         request.showProvisioningUi = false;
         request.connectivityScope = scope;
+        request.interfaceName = iface;
 
         return request;
     }
@@ -911,7 +914,7 @@ public class TetheringTest {
 
     private void prepareNcmTethering() {
         // Emulate startTethering(TETHERING_NCM) called
-        mTethering.startTethering(createTetheringRequestParcel(TETHERING_NCM), TEST_CALLER_PKG,
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_NCM, TEST_NCM_IFNAME), TEST_CALLER_PKG,
                 null);
         mLooper.dispatchAll();
         verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_NCM);
@@ -919,17 +922,19 @@ public class TetheringTest {
 
     private void prepareUsbTethering() {
         // Emulate pressing the USB tethering button in Settings UI.
-        final TetheringRequestParcel request = createTetheringRequestParcel(TETHERING_USB);
+        final TetheringRequestParcel request = createTetheringRequestParcel(TETHERING_USB, TEST_RNDIS_IFNAME);
         mTethering.startTethering(request, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
 
         assertEquals(1, mTethering.getActiveTetheringRequests().size());
-        assertEquals(request, mTethering.getActiveTetheringRequests().get(TETHERING_USB));
+        assertEquals(request, mTethering.getActiveTetheringRequests().get(TEST_RNDIS_IFNAME));
 
         if (mTethering.getTetheringConfiguration().isUsingNcm()) {
+            Log.d("kadalisa","NCM");
             verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NCM);
             mTethering.interfaceStatusChanged(TEST_NCM_IFNAME, true);
         } else {
+            Log.d("kadalisa","RNDIS");
             verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_RNDIS);
             mTethering.interfaceStatusChanged(TEST_RNDIS_IFNAME, true);
         }
@@ -1909,7 +1914,7 @@ public class TetheringTest {
         when(mWifiManager.startTetheredHotspot(any(SoftApConfiguration.class))).thenReturn(true);
 
         // Emulate pressing the WiFi tethering button.
-        mTethering.startTethering(createTetheringRequestParcel(TETHERING_WIFI), TEST_CALLER_PKG,
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_WIFI, TEST_WLAN_IFNAME), TEST_CALLER_PKG,
                 null);
         mLooper.dispatchAll();
         verify(mWifiManager, times(1)).startTetheredHotspot(null);
@@ -1938,7 +1943,7 @@ public class TetheringTest {
         when(mWifiManager.startTetheredHotspot(any(SoftApConfiguration.class))).thenReturn(true);
 
         // Emulate pressing the WiFi tethering button.
-        mTethering.startTethering(createTetheringRequestParcel(TETHERING_WIFI), TEST_CALLER_PKG,
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_WIFI, TEST_WLAN_IFNAME), TEST_CALLER_PKG,
                 null);
         mLooper.dispatchAll();
         verify(mWifiManager, times(1)).startTetheredHotspot(null);
@@ -1988,7 +1993,7 @@ public class TetheringTest {
         doThrow(new RemoteException()).when(mNetd).ipfwdEnableForwarding(TETHERING_NAME);
 
         // Emulate pressing the WiFi tethering button.
-        mTethering.startTethering(createTetheringRequestParcel(TETHERING_WIFI), TEST_CALLER_PKG,
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_WIFI, TEST_WLAN_IFNAME), TEST_CALLER_PKG,
                 null);
         mLooper.dispatchAll();
         verify(mWifiManager, times(1)).startTetheredHotspot(null);
@@ -2132,6 +2137,7 @@ public class TetheringTest {
 
     @Test
     public void testUntetherUsbWhenRestrictionIsOn() throws Exception {
+        Log.d("kadalisa","testUntetherUsbWhenRestrictionIsOn");
         initTetheringOnTestThread();
         // Start usb tethering and check that usb interface is tethered.
         final UpstreamNetworkState upstreamState = buildMobileIPv4UpstreamState();
@@ -2334,7 +2340,7 @@ public class TetheringTest {
         tetherState = callback.pollTetherStatesChanged();
         assertArrayEquals(tetherState.availableList, new TetheringInterface[] {wifiIface});
 
-        mTethering.startTethering(createTetheringRequestParcel(TETHERING_WIFI), TEST_CALLER_PKG,
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_WIFI, TEST_WLAN_IFNAME), TEST_CALLER_PKG,
                 null);
         sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
         tetherState = callback.pollTetherStatesChanged();
@@ -2430,11 +2436,11 @@ public class TetheringTest {
         initTetheringOnTestThread();
         final TetheredInterfaceRequest mockRequest = mock(TetheredInterfaceRequest.class);
         when(mEm.requestTetheredInterface(any(), any())).thenReturn(mockRequest);
-        mTethering.startTethering(createTetheringRequestParcel(TETHERING_ETHERNET), TEST_CALLER_PKG,
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_ETHERNET, TEST_ETH_IFNAME), TEST_CALLER_PKG,
                 null);
         mLooper.dispatchAll();
         verify(mEm, times(1)).requestTetheredInterface(any(), any());
-        mTethering.startTethering(createTetheringRequestParcel(TETHERING_ETHERNET), TEST_CALLER_PKG,
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_ETHERNET, TEST_ETH_IFNAME), TEST_CALLER_PKG,
                 null);
         mLooper.dispatchAll();
         verifyNoMoreInteractions(mEm);
@@ -2448,11 +2454,18 @@ public class TetheringTest {
 
     private void workingWifiP2pGroupOwner(
             boolean emulateInterfaceStatusChanged) throws Exception {
+        Log.d("kadalisa","workingWifiP2pGroupOwner");
         initTetheringOnTestThread();
         if (emulateInterfaceStatusChanged) {
-            mTethering.interfaceStatusChanged(TEST_P2P_IFNAME, true);
+            Log.d("kadalisa","emulateInterfaceStatusChanged :"+emulateInterfaceStatusChanged);
+            // mTethering.interfaceStatusChanged(TEST_P2P_IFNAME, true);
+            mTethering.startTethering(createTetheringRequestParcel(TETHERING_WIFI_P2P,
+            null,null,false,CONNECTIVITY_SCOPE_LOCAL,TEST_P2P_IFNAME), TEST_CALLER_PKG,
+            null);
+            mLooper.dispatchAll();
+            Log.d("kadalisa", "startTethering is called for Tethering wifi p2p");
         }
-        sendWifiP2pConnectionChanged(true, true, TEST_P2P_IFNAME);
+        // sendWifiP2pConnectionChanged(true, true, TEST_P2P_IFNAME);
 
         verifyInterfaceServingModeStarted(TEST_P2P_IFNAME);
         verifyTetheringBroadcast(TEST_P2P_IFNAME, EXTRA_AVAILABLE_TETHER);
@@ -2468,6 +2481,7 @@ public class TetheringTest {
 
         // Emulate externally-visible WifiP2pManager effects, when wifi p2p group
         // is being removed.
+        // mTethering.enableTetheringInternal(TETHERING_WIFI_P2P,false, null,TEST_P2P_IFNAME);
         sendWifiP2pConnectionChanged(false, true, TEST_P2P_IFNAME);
         mTethering.interfaceRemoved(TEST_P2P_IFNAME);
 
@@ -2524,6 +2538,7 @@ public class TetheringTest {
 
     @Test
     public void workingWifiP2pGroupOwnerSansIfaceChanged() throws Exception {
+        Log.d("kadalisa","workingWifiP2pGroupOwnerSansIfaceChanged : false");
         workingWifiP2pGroupOwner(false);
     }
 
@@ -2635,6 +2650,7 @@ public class TetheringTest {
 
     @Test
     public void testMultipleStartTethering() throws Exception {
+        Log.d("kadalisa","testMultipleStartTethering");
         initTetheringOnTestThread();
         final LinkAddress serverLinkAddr = new LinkAddress("192.168.20.1/24");
         final LinkAddress clientLinkAddr = new LinkAddress("192.168.20.42/24");
@@ -2644,7 +2660,7 @@ public class TetheringTest {
         final ResultListener thirdResult = new ResultListener(TETHER_ERROR_NO_ERROR);
 
         // Enable USB tethering and check that Tethering starts USB.
-        mTethering.startTethering(createTetheringRequestParcel(TETHERING_USB), TEST_CALLER_PKG,
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_USB, TEST_RNDIS_IFNAME), TEST_CALLER_PKG,
                 firstResult);
         mLooper.dispatchAll();
         firstResult.assertHasResult();
@@ -2652,7 +2668,7 @@ public class TetheringTest {
         verifyNoMoreInteractions(mUsbManager);
 
         // Enable USB tethering again with the same request and expect no change to USB.
-        mTethering.startTethering(createTetheringRequestParcel(TETHERING_USB), TEST_CALLER_PKG,
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_USB, TEST_RNDIS_IFNAME), TEST_CALLER_PKG,
                 secondResult);
         mLooper.dispatchAll();
         secondResult.assertHasResult();
@@ -2662,7 +2678,7 @@ public class TetheringTest {
         // Enable USB tethering with a different request and expect that USB is stopped and
         // started.
         mTethering.startTethering(createTetheringRequestParcel(TETHERING_USB,
-                  serverLinkAddr, clientLinkAddr, false, CONNECTIVITY_SCOPE_GLOBAL),
+                  serverLinkAddr, clientLinkAddr, false, CONNECTIVITY_SCOPE_GLOBAL, TEST_RNDIS_IFNAME),
                   TEST_CALLER_PKG, thirdResult);
         mLooper.dispatchAll();
         thirdResult.assertHasResult();
@@ -2679,6 +2695,7 @@ public class TetheringTest {
 
     @Test
     public void testRequestStaticIp() throws Exception {
+        Log.d("kadalisa","testRequestStaticIp");
         initTetheringOnTestThread();
         when(mResources.getInteger(R.integer.config_tether_usb_functions)).thenReturn(
                 TetheringConfiguration.TETHER_USB_NCM_FUNCTION);
@@ -2693,7 +2710,7 @@ public class TetheringTest {
         final ArgumentCaptor<DhcpServingParamsParcel> dhcpParamsCaptor =
                 ArgumentCaptor.forClass(DhcpServingParamsParcel.class);
         mTethering.startTethering(createTetheringRequestParcel(TETHERING_USB,
-                  serverLinkAddr, clientLinkAddr, false, CONNECTIVITY_SCOPE_GLOBAL),
+                  serverLinkAddr, clientLinkAddr, false, CONNECTIVITY_SCOPE_GLOBAL, TEST_NCM_IFNAME),
                   TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
         verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_NCM);
@@ -2822,7 +2839,7 @@ public class TetheringTest {
         setupForRequiredProvisioning();
         final TetheringRequestParcel wifiNotExemptRequest =
                 createTetheringRequestParcel(TETHERING_WIFI, null, null, false,
-                        CONNECTIVITY_SCOPE_GLOBAL);
+                        CONNECTIVITY_SCOPE_GLOBAL, TEST_WLAN_IFNAME);
         mTethering.startTethering(wifiNotExemptRequest, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
         verify(mEntitleMgr).startProvisioningIfNeeded(TETHERING_WIFI, false);
@@ -2836,7 +2853,7 @@ public class TetheringTest {
         setupForRequiredProvisioning();
         final TetheringRequestParcel wifiExemptRequest =
                 createTetheringRequestParcel(TETHERING_WIFI, null, null, true,
-                        CONNECTIVITY_SCOPE_GLOBAL);
+                        CONNECTIVITY_SCOPE_GLOBAL, TEST_WLAN_IFNAME);
         mTethering.startTethering(wifiExemptRequest, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
         verify(mEntitleMgr, never()).startProvisioningIfNeeded(TETHERING_WIFI, false);
@@ -2954,7 +2971,7 @@ public class TetheringTest {
         when(mEm.requestTetheredInterface(any(), any())).thenReturn(mockRequest);
         final ArgumentCaptor<TetheredInterfaceCallback> callbackCaptor =
                 ArgumentCaptor.forClass(TetheredInterfaceCallback.class);
-        mTethering.startTethering(createTetheringRequestParcel(TETHERING_ETHERNET),
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_ETHERNET, TEST_ETH_IFNAME),
                 TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
         verify(mEm).requestTetheredInterface(any(), callbackCaptor.capture());
@@ -3020,6 +3037,7 @@ public class TetheringTest {
 
     @Test
     public void testUpdateConnectedClients() throws Exception {
+        Log.d("kadalisa","testUpdateConnectedClients");
         initTetheringOnTestThread();
         TestTetheringEventCallback callback = new TestTetheringEventCallback();
         runAsShell(NETWORK_SETTINGS, () -> {
@@ -3032,8 +3050,10 @@ public class TetheringTest {
         final ArgumentCaptor<IDhcpEventCallbacks> dhcpEventCbsCaptor =
                  ArgumentCaptor.forClass(IDhcpEventCallbacks.class);
         // Run local only tethering.
-        mTethering.interfaceStatusChanged(TEST_P2P_IFNAME, true);
-        sendWifiP2pConnectionChanged(true, true, TEST_P2P_IFNAME);
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_WIFI_P2P,
+                null,null,false,CONNECTIVITY_SCOPE_LOCAL,TEST_P2P_IFNAME), TEST_CALLER_PKG,
+                null);
+        mLooper.dispatchAll();
         verify(mDhcpServer, timeout(DHCPSERVER_START_TIMEOUT_MS)).startWithCallbacks(
                 any(), dhcpEventCbsCaptor.capture());
         eventCallbacks = dhcpEventCbsCaptor.getValue();
@@ -3235,7 +3255,7 @@ public class TetheringTest {
 
         final ResultListener result = new ResultListener(TETHER_ERROR_NO_ERROR);
         mockBluetoothSettings(true /* bluetoothOn */, true /* tetheringOn */);
-        mTethering.startTethering(createTetheringRequestParcel(TETHERING_BLUETOOTH),
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_BLUETOOTH, TEST_BT_IFNAME),
                 TEST_CALLER_PKG, result);
         mLooper.dispatchAll();
         verifySetBluetoothTethering(true /* enable */, true /* bindToPanService */);
@@ -3272,7 +3292,7 @@ public class TetheringTest {
 
         final ResultListener result = new ResultListener(TETHER_ERROR_NO_ERROR);
         mockBluetoothSettings(true /* bluetoothOn */, true /* tetheringOn */);
-        mTethering.startTethering(createTetheringRequestParcel(TETHERING_BLUETOOTH),
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_BLUETOOTH,TEST_BT_IFNAME),
                 TEST_CALLER_PKG, result);
         mLooper.dispatchAll();
         verifySetBluetoothTethering(true /* enable */, true /* bindToPanService */);
@@ -3294,7 +3314,7 @@ public class TetheringTest {
         // already bound.
         mockBluetoothSettings(true /* bluetoothOn */, true /* tetheringOn */);
         final ResultListener secondResult = new ResultListener(TETHER_ERROR_NO_ERROR);
-        mTethering.startTethering(createTetheringRequestParcel(TETHERING_BLUETOOTH),
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_BLUETOOTH,TEST_BT_IFNAME),
                 TEST_CALLER_PKG, secondResult);
         mLooper.dispatchAll();
         verifySetBluetoothTethering(true /* enable */, false /* bindToPanService */);
@@ -3317,7 +3337,7 @@ public class TetheringTest {
         initTetheringOnTestThread();
         final ResultListener result = new ResultListener(TETHER_ERROR_NO_ERROR);
         mockBluetoothSettings(true /* bluetoothOn */, true /* tetheringOn */);
-        mTethering.startTethering(createTetheringRequestParcel(TETHERING_BLUETOOTH),
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_BLUETOOTH,TEST_BT_IFNAME),
                 TEST_CALLER_PKG, result);
         mLooper.dispatchAll();
         ServiceListener panListener = verifySetBluetoothTethering(true /* enable */,
@@ -3469,6 +3489,7 @@ public class TetheringTest {
 
     @Test
     public void testUsbFunctionConfigurationChange() throws Exception {
+        Log.d("kadalisa","testUsbFunctionConfigurationChange");
         initTetheringOnTestThread();
         // Run TETHERING_NCM.
         runNcmTethering();
@@ -3487,7 +3508,7 @@ public class TetheringTest {
         // If TETHERING_USB is forced to use ncm function, TETHERING_NCM would no longer be
         // available.
         final ResultListener ncmResult = new ResultListener(TETHER_ERROR_SERVICE_UNAVAIL);
-        mTethering.startTethering(createTetheringRequestParcel(TETHERING_NCM), TEST_CALLER_PKG,
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_NCM, TEST_NCM_IFNAME), TEST_CALLER_PKG,
                 ncmResult);
         mLooper.dispatchAll();
         ncmResult.assertHasResult();
