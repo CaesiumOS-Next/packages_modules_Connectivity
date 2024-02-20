@@ -70,6 +70,30 @@
       },
       "revId": "ee21f60e93a6c623424603fee70b438a1357dc9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "090906d5_097421b6",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-20T08:46:03Z",
+      "side": 1,
+      "message": "Added the check when registering the service.",
+      "parentUuid": "35291975_3e380799",
+      "range": {
+        "startLine": 215,
+        "startChar": 29,
+        "endLine": 215,
+        "endChar": 55
+      },
+      "revId": "ee21f60e93a6c623424603fee70b438a1357dc9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
