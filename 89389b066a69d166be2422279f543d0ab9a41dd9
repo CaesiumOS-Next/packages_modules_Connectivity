@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70fc3fd2_ca114116",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-20T07:59:13Z",
+      "side": 1,
+      "message": "This CL is skipped also in udc-mainline-prod by this.\nYou can check the automerger link below \"Submit Requirements\"\n\nI think you need to another CL for internal branches.",
+      "range": {
+        "startLine": 15,
+        "startChar": 11,
+        "endLine": 15,
+        "endChar": 52
+      },
+      "revId": "89389b066a69d166be2422279f543d0ab9a41dd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
