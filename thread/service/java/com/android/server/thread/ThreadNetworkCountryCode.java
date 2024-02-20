@@ -251,6 +251,21 @@ public class ThreadNetworkCountryCode {
         registerTelephonyCountryCodeCallback();
         updateTelephonyCountryCodeFromSimCard();
         updateCountryCode(false /* forceUpdate */);
+        registerThreadNetworkControllerCallback();
+    }
+
+    private synchronized void registerThreadNetworkControllerCallback() {
+        ThreadNetworkControllerService.ControllerCallback callback =
+                new ThreadNetworkControllerService.ControllerCallback() {
+                    @Override
+                    public void onOtDaemonStarted() {
+                        // If the otDaemon is restarted, the previously set country code will be
+                        // lost. Reset the country code after the otDaemon is started.
+                        updateCountryCode(true /* forceUpdate */);
+                    }
+                };
+
+        mThreadNetworkControllerService.registerControllerCallback(callback);
     }
 
     private synchronized void registerGeocoderCountryCodeCallback() {

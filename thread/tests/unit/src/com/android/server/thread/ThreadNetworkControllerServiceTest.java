@@ -332,4 +332,16 @@ public final class ThreadNetworkControllerServiceTest {
         verify(mockReceiver, never()).onSuccess(any(ActiveOperationalDataset.class));
         verify(mockReceiver, times(1)).onError(eq(ERROR_INTERNAL_ERROR), anyString());
     }
+
+    @Test
+    public void registerControllerCallback_callbackIsCalledWhenOtDaemonStarts() throws Exception {
+        mService.initialize();
+        final ThreadNetworkControllerService.ControllerCallback mockCallback =
+                mock(ThreadNetworkControllerService.ControllerCallback.class);
+
+        mService.registerControllerCallback(mockCallback);
+        mTestLooper.dispatchAll();
+
+        verify(mockCallback, times(1)).onOtDaemonStarted();
+    }
 }
