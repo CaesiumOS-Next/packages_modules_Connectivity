@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b2e7b41_8c8ea2b6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 9186,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-20T04:42:41Z",
+      "side": 1,
+      "message": "Actually CapabilitiesChanged callback will only be triggered if the nC was updated, the previous failure is because I added the Restricted_network Permission check but you suggest that I should remove it, but I forgot to update the test.",
+      "parentUuid": "b112934d_12525d14",
+      "range": {
+        "startLine": 9186,
+        "startChar": 16,
+        "endLine": 9186,
+        "endChar": 18
+      },
+      "revId": "87defb1459949a4b5a8b8cd279fc0448c4236838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1826475d_68f6409c",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-02-20T04:12:57Z",
       "side": 1,
       "message": "nits: please fix the linter warning. could you remove this?",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 88
+      },
+      "revId": "87defb1459949a4b5a8b8cd279fc0448c4236838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "546fe780_724ea1a4",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-20T04:42:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1826475d_68f6409c",
       "range": {
         "startLine": 166,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfa8b87a_69b4f5d7",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-20T04:42:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "118d10cd_d7c35ece",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 40
+      },
+      "revId": "87defb1459949a4b5a8b8cd279fc0448c4236838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62119faa_37ac2c52",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-02-20T04:12:57Z",
       "side": 1,
       "message": "nits: I think `!(obj instanceof CarrierServiceUidWithSubId)` is enough, this should return true for null case.",
+      "range": {
+        "startLine": 173,
+        "startChar": 15,
+        "endLine": 173,
+        "endChar": 77
+      },
+      "revId": "87defb1459949a4b5a8b8cd279fc0448c4236838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "953f10e8_6ff715da",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-20T04:42:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62119faa_37ac2c52",
       "range": {
         "startLine": 173,
         "startChar": 15,
