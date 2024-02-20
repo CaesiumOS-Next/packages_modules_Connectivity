@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f06bd7f_5c551107",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T03:00:17Z",
+      "side": 1,
+      "message": "Maybe also describe the behavior for perms not in the map.",
+      "range": {
+        "startLine": 304,
+        "startChar": 33,
+        "endLine": 304,
+        "endChar": 36
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f319eff_155979db",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T03:00:17Z",
+      "side": 1,
+      "message": "Is it easy to mock this as well and remove the todo?\nIIUC it is 1-line change?",
+      "range": {
+        "startLine": 314,
+        "startChar": 21,
+        "endLine": 314,
+        "endChar": 36
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50f44635_34c5a6ac",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T03:00:17Z",
+      "side": 1,
+      "message": "Maybe checkCallingOrSelfPermission(permission: String) \u003d ....",
+      "range": {
+        "startLine": 325,
+        "startChar": 12,
+        "endLine": 325,
+        "endChar": 18
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50e7b09f_d253ac14",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T03:00:17Z",
+      "side": 1,
+      "message": "Can this be simplified? e.g.\nprivate fun checkMockedPermission(permission: String, pid: Int, uid: Int, result: Int): Int {\n    val processSpecificKey \u003d \"$permission,$pid,$uid\"\n    return mMockedPermissions[processSpecificKey] ?: mMockedPermissions[permission] ?: result\n}",
+      "range": {
+        "startLine": 329,
+        "startChar": 20,
+        "endLine": 329,
+        "endChar": 41
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1838e0f7_b0695e76",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T03:00:17Z",
+      "side": 1,
+      "message": "This is default value instead of result, right?\nIf so maybe rename it.",
+      "range": {
+        "startLine": 329,
+        "startChar": 82,
+        "endLine": 329,
+        "endChar": 88
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef958f38_87a88323",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T03:00:17Z",
+      "side": 1,
+      "message": "Maybe grantedForAllPidUid?",
+      "range": {
+        "startLine": 335,
+        "startChar": 16,
+        "endLine": 335,
+        "endChar": 26
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75495a1e_0555c25f",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T03:00:17Z",
+      "side": 1,
+      "message": "This is not accurate since the method could also make the permission check denied or do real permission check, right?",
+      "range": {
+        "startLine": 340,
+        "startChar": 52,
+        "endLine": 340,
+        "endChar": 91
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9a24526_2ca98495",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T03:00:17Z",
+      "side": 1,
+      "message": "This is not true from l.319 and l.320, right?\nOr I missed something?",
+      "range": {
+        "startLine": 345,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 24
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd5d93e0_cf9c2e40",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T03:00:17Z",
+      "side": 1,
+      "message": "{@link ...}?",
+      "range": {
+        "startLine": 347,
+        "startChar": 33,
+        "endLine": 347,
+        "endChar": 34
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
