@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc2fb8c1_ba0052c1",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSCaptivePortalAppTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T02:29:39Z",
+      "side": 1,
+      "message": "Do we have somewhere test the permission granted cases?\nIf yes, maybe add comment to reference it somewhere.\nIf no, maybe consider add that case.",
+      "range": {
+        "startLine": 100,
+        "startChar": 45,
+        "endLine": 100,
+        "endChar": 62
+      },
+      "revId": "2d58f561e844b42b8dd6ffc80c5d4a7748997634",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
