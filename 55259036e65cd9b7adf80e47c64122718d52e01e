@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "786b2349_550fdd81",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-20T07:58:28Z",
+      "side": 1,
+      "message": "No. The same mainline code needs to run on Android U as well. Given the UserManager#DISALLOW_THREAD_NETWORK symbol doesn\u0027t exist on Android U devices, we can\u0027t switch it. Unless we dropped support for Android U in the future",
+      "parentUuid": "5a8bd09e_0eb869fb",
+      "revId": "55259036e65cd9b7adf80e47c64122718d52e01e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51a351d9_9b9a56a1",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-02-20T07:43:59Z",
       "side": 1,
       "message": "```suggestion\n     * on Android U devices.\n```",
+      "range": {
+        "startLine": 87,
+        "startChar": 7,
+        "endLine": 87,
+        "endChar": 16
+      },
+      "revId": "55259036e65cd9b7adf80e47c64122718d52e01e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29545072_1a3d30e4",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-20T07:58:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51a351d9_9b9a56a1",
       "range": {
         "startLine": 87,
         "startChar": 7,
