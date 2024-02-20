@@ -54,6 +54,7 @@ import static android.net.NetworkCapabilities.REDACT_FOR_NETWORK_SETTINGS;
 import static android.net.NetworkCapabilities.SIGNAL_STRENGTH_UNSPECIFIED;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
+import static android.net.NetworkCapabilities.TRANSPORT_SATELLITE;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_USB;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
@@ -758,6 +759,48 @@ public class NetworkCapabilitiesTest {
         assertThrows("Cannot set a second TransportType of a network which has a NetworkSpecifier!",
                 IllegalStateException.class,
                 () -> nc2.addTransportType(TRANSPORT_WIFI));
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testSetNetworkSpecifierWithCellularAndSatelliteMultiTransportNc() {
+        final NetworkSpecifier specifier =
+                CompatUtil.makeEthernetNetworkSpecifier("rmnet0");
+        NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .addTransportType(TRANSPORT_SATELLITE)
+                .setNetworkSpecifier(specifier)
+                .build();
+        // Adding a specifier did not crash with 2 transports if it is cellular + satellite
+        assertEquals(specifier, nc.getNetworkSpecifier());
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testSetNetworkSpecifierWithWifiAndSatelliteMultiTransportNc() {
+        NetworkCapabilities.Builder nc1 = new NetworkCapabilities.Builder();
+        nc1.addTransportType(TRANSPORT_SATELLITE).addTransportType(TRANSPORT_WIFI);
+        final NetworkSpecifier specifier = CompatUtil.makeEthernetNetworkSpecifier("eth0");
+        // Adding multiple transports specifier to crash, apartfrom cellular + satellite
+        // combination
+        assertThrows("Cannot set NetworkSpecifier on a NetworkCapability with multiple transports!",
+                IllegalStateException.class,
+                () -> nc1.build().setNetworkSpecifier(specifier));
+        assertThrows("Cannot set NetworkSpecifier on a NetworkCapability with multiple transports!",
+                IllegalStateException.class,
+                () -> nc1.setNetworkSpecifier(specifier));
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testSetNetworkSpecifierOnTestWithCellularAndSatelliteMultiTransportNc() {
+        final NetworkSpecifier specifier = CompatUtil.makeEthernetNetworkSpecifier("rmnet0");
+        NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_TEST)
+                .addTransportType(TRANSPORT_CELLULAR)
+                .addTransportType(TRANSPORT_SATELLITE)
+                .setNetworkSpecifier(specifier)
+                .build();
+        // Adding a specifier did not crash with 3 transports , TEST + CELLULAR + SATELLITE and if
+        // one is test
+        assertEquals(specifier, nc.getNetworkSpecifier());
     }
 
     @Test
