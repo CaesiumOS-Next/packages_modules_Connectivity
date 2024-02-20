@@ -2767,12 +2767,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    private boolean canSeeAllowedUids(final int pid, final int uid, final int netOwnerUid) {
-        return Process.SYSTEM_UID == uid
-                || hasAnyPermissionOf(mContext, pid, uid,
-                        android.Manifest.permission.NETWORK_FACTORY);
-    }
-
     @VisibleForTesting
     NetworkCapabilities networkCapabilitiesRestrictedForCallerPermissions(
             NetworkCapabilities nc, int callerPid, int callerUid) {
@@ -2793,10 +2787,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 android.Manifest.permission.NETWORK_STACK,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK)) {
             newNc.setAdministratorUids(new int[0]);
-        }
-        if (!canSeeAllowedUids(callerPid, callerUid, newNc.getOwnerUid())) {
-            newNc.setAllowedUids(new ArraySet<>());
-            newNc.setSubscriptionIds(Collections.emptySet());
         }
         redactUnderlyingNetworksForCapabilities(newNc, callerPid, callerUid);
 
