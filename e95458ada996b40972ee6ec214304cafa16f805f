@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f35dc5d0_45c4b921",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ExternalPacketForwarder.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-02-20T07:37:18Z",
+      "side": 1,
+      "message": "Sure, renamed as forwardMap.",
+      "parentUuid": "f7e04a17_f4efbe0f",
+      "range": {
+        "startLine": 25,
+        "startChar": 33,
+        "endLine": 25,
+        "endChar": 44
+      },
+      "revId": "e95458ada996b40972ee6ec214304cafa16f805f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4dda975_2f32c56d",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-20T03:41:40Z",
       "side": 1,
       "message": "If we pass a HashMap(portBeforeRemap, portAfterRemap) into the class, Can we refactor these into a method in the base class? e.g. int getRemappedPort(buf, version, mapForPortRemap)",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 43,
+        "endChar": 61
+      },
+      "revId": "e95458ada996b40972ee6ec214304cafa16f805f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34800433_2c6cbef3",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ExternalPacketForwarder.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-02-20T07:37:18Z",
+      "side": 1,
+      "message": "Extract the common part to base class. \nI\u0027ll keep the current 2 child class for now to override preparePacketForForwarding.\nIt can still have only 1 base class with extra flag to indicate if it needs to map source port or destination port (e.g. boolean isSrc).",
+      "parentUuid": "e4dda975_2f32c56d",
       "range": {
         "startLine": 36,
         "startChar": 7,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39b8a080_e68d8440",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/InternalPacketForwarder.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-02-20T07:37:18Z",
+      "side": 1,
+      "message": "Update the comment for both base and child classes.",
+      "parentUuid": "0476581e_34cfa94b",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 7
+      },
+      "revId": "e95458ada996b40972ee6ec214304cafa16f805f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d47482dd_08bb6da1",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-02-20T03:41:40Z",
       "side": 1,
       "message": "It seems to me to have a dedicated class and shared object for this is not necessary.\nGiven that we don\u0027t really provide additional functionality other than HashMap.\nAnd we don\u0027t need to access the same object in two classes.\nIs it better if we just create and pass two different hashmap into 2 object?",
+      "range": {
+        "startLine": 60,
+        "startChar": 33,
+        "endLine": 60,
+        "endChar": 47
+      },
+      "revId": "e95458ada996b40972ee6ec214304cafa16f805f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb82cf51_58343a15",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketBridge.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-02-20T07:37:18Z",
+      "side": 1,
+      "message": "Sure, directly use 2 hashmap to replace this dedicated class.",
+      "parentUuid": "d47482dd_08bb6da1",
       "range": {
         "startLine": 60,
         "startChar": 33,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50c8e888_f85c656a",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketForwarderBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-02-20T07:37:18Z",
+      "side": 1,
+      "message": "Yes, updated the comment.",
+      "parentUuid": "b25af6a6_84414d84",
+      "range": {
+        "startLine": 103,
+        "startChar": 67,
+        "endLine": 103,
+        "endChar": 71
+      },
+      "revId": "e95458ada996b40972ee6ec214304cafa16f805f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4a1402e_a9eaad2b",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da8e2845_06fe90b4",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketForwarderBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-02-20T07:37:18Z",
+      "side": 1,
+      "message": "Updated the description.",
+      "parentUuid": "c4a1402e_a9eaad2b",
+      "range": {
+        "startLine": 158,
+        "startChar": 30,
+        "endLine": 158,
+        "endChar": 39
+      },
+      "revId": "e95458ada996b40972ee6ec214304cafa16f805f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9643ba4a_5c84b0d6",
@@ -152,6 +296,30 @@
       "writtenOn": "2024-02-20T03:41:40Z",
       "side": 1,
       "message": "0 ?",
+      "range": {
+        "startLine": 28,
+        "startChar": 41,
+        "endLine": 28,
+        "endChar": 45
+      },
+      "revId": "e95458ada996b40972ee6ec214304cafa16f805f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "558104a1_99833b09",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestHttpServer.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-02-20T07:37:18Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "9643ba4a_5c84b0d6",
       "range": {
         "startLine": 28,
         "startChar": 41,
