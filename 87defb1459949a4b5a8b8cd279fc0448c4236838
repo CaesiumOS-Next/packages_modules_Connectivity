@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "460b7188_43cb10fe",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-20T08:58:05Z",
+      "side": 1,
+      "message": "nits: This was not removed.",
+      "parentUuid": "546fe780_724ea1a4",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 88
+      },
+      "revId": "87defb1459949a4b5a8b8cd279fc0448c4236838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "118d10cd_d7c35ece",
         "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
         "patchSetId": 9

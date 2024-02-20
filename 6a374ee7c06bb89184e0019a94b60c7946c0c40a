@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22cd5b01_9d74ac7a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 17492,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-20T08:58:05Z",
+      "side": 1,
+      "message": "nits: I think you can write as follows\n```\nif (expectCallback) {\n   networkCallback.expect(NETWORK_CAPS_UPDATED);\n}\nif (expectRemoved) {\n   networkCallback.expect(UNAVAILABLE);\n}\nnetworkCallback.assertNoCallback();\n```\n\nAlso, I feel naming of `expectCallback` is a bit unclear since UNAVAILABLE is also callback.\nI would rename to something like `expectUnavailable` and `expectCapChanged`",
+      "range": {
+        "startLine": 17492,
+        "startChar": 8,
+        "endLine": 17492,
+        "endChar": 9
+      },
+      "revId": "6a374ee7c06bb89184e0019a94b60c7946c0c40a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
