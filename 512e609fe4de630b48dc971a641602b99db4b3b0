@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9e1c1cc_e1430d52",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-20T08:32:41Z",
+      "side": 1,
+      "message": "Things not in the map means no match. The way to handle no match cases depend on how each method handles them. The comment you want seems better fit into checkCallingOrSelfPermission() method, instead of mentioning that here.\n\nUpdate the comment in checkCallingOrSelfPermission() and enforceCallingOrSelfPermission().",
+      "parentUuid": "8f06bd7f_5c551107",
+      "range": {
+        "startLine": 304,
+        "startChar": 33,
+        "endLine": 304,
+        "endChar": 36
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f319eff_155979db",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66b212f8_6a0c2094",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-20T08:32:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f319eff_155979db",
+      "range": {
+        "startLine": 314,
+        "startChar": 21,
+        "endLine": 314,
+        "endChar": 36
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50f44635_34c5a6ac",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-02-20T03:00:17Z",
       "side": 1,
       "message": "Maybe checkCallingOrSelfPermission(permission: String) \u003d ....",
+      "range": {
+        "startLine": 325,
+        "startChar": 12,
+        "endLine": 325,
+        "endChar": 18
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03cf750b_ff287476",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-20T08:32:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50f44635_34c5a6ac",
       "range": {
         "startLine": 325,
         "startChar": 12,
@@ -116,6 +188,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88e2201d_f521155b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-20T08:32:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1838e0f7_b0695e76",
+      "range": {
+        "startLine": 329,
+        "startChar": 82,
+        "endLine": 329,
+        "endChar": 88
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a4c6081_4245fd8e",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-20T08:32:41Z",
+      "side": 1,
+      "message": "This does not consider allPidUid case. I think this does not work.",
+      "parentUuid": "50e7b09f_d253ac14",
+      "range": {
+        "startLine": 329,
+        "startChar": 20,
+        "endLine": 329,
+        "endChar": 41
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef958f38_87a88323",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-02-20T03:00:17Z",
       "side": 1,
       "message": "Maybe grantedForAllPidUid?",
+      "range": {
+        "startLine": 335,
+        "startChar": 16,
+        "endLine": 335,
+        "endChar": 26
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee315b9a_b008dc6b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-20T08:32:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef958f38_87a88323",
       "range": {
         "startLine": 335,
         "startChar": 16,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3700d15_b15cbbe4",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-20T08:32:41Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "75495a1e_0555c25f",
+      "range": {
+        "startLine": 340,
+        "startChar": 52,
+        "endLine": 340,
+        "endChar": 91
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9a24526_2ca98495",
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4b9a4a8_1d6341dd",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-20T08:32:41Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "d9a24526_2ca98495",
+      "range": {
+        "startLine": 345,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 24
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd5d93e0_cf9c2e40",
@@ -198,6 +390,30 @@
       "writtenOn": "2024-02-20T03:00:17Z",
       "side": 1,
       "message": "{@link ...}?",
+      "range": {
+        "startLine": 347,
+        "startChar": 33,
+        "endLine": 347,
+        "endChar": 34
+      },
+      "revId": "512e609fe4de630b48dc971a641602b99db4b3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6aa850ba_07014667",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-20T08:32:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd5d93e0_cf9c2e40",
       "range": {
         "startLine": 347,
         "startChar": 33,
