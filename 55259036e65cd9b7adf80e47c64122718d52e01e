@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a8bd09e_0eb869fb",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-20T07:43:59Z",
+      "side": 1,
+      "message": "will we switch to UserManager.DISALLOW_THREAD_NETWORK for android V+?",
+      "revId": "55259036e65cd9b7adf80e47c64122718d52e01e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51a351d9_9b9a56a1",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-20T07:43:59Z",
+      "side": 1,
+      "message": "```suggestion\n     * on Android U devices.\n```",
+      "range": {
+        "startLine": 87,
+        "startChar": 7,
+        "endLine": 87,
+        "endChar": 16
+      },
+      "revId": "55259036e65cd9b7adf80e47c64122718d52e01e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
