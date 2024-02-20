@@ -35,6 +35,7 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -465,5 +466,26 @@ public class ThreadNetworkCountryCodeTest {
         assertThat(outputString).contains("mLocationCountryCodeInfo");
         assertThat(outputString).contains("mOemCountryCodeInfo");
         assertThat(outputString).contains("mCurrentCountryCodeInfo");
+    }
+
+    @Test
+    public void onOtDaemonStarted_resetCountryCode() {
+        Answer setControllerCallback =
+                invocation -> {
+                    Object[] args = invocation.getArguments();
+                    ThreadNetworkControllerService.ControllerCallback cb =
+                            (ThreadNetworkControllerService.ControllerCallback) args[0];
+
+                    cb.onOtDaemonStarted();
+                    return new Object();
+                };
+        doAnswer(setControllerCallback)
+                .when(mThreadNetworkControllerService)
+                .registerControllerCallback(
+                        any(ThreadNetworkControllerService.ControllerCallback.class));
+        mThreadNetworkCountryCode.initialize();
+
+        verify(mThreadNetworkControllerService, times(2))
+                .setCountryCode(eq(DEFAULT_COUNTRY_CODE), mOperationReceiverCaptor.capture());
     }
 }
