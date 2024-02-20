@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7e04a17_f4efbe0f",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ExternalPacketForwarder.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T03:41:40Z",
+      "side": 1,
+      "message": "Generally I think translate or translation is too ambiguous of what you are trying to do.\nMaybe use more specific term like \"forward\" or \"remap\"?",
+      "range": {
+        "startLine": 25,
+        "startChar": 33,
+        "endLine": 25,
+        "endChar": 44
+      },
+      "revId": "e95458ada996b40972ee6ec214304cafa16f805f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4dda975_2f32c56d",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ExternalPacketForwarder.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T03:41:40Z",
+      "side": 1,
+      "message": "If we pass a HashMap(portBeforeRemap, portAfterRemap) into the class, Can we refactor these into a method in the base class? e.g. int getRemappedPort(buf, version, mapForPortRemap)",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 43,
+        "endChar": 61
+      },
+      "revId": "e95458ada996b40972ee6ec214304cafa16f805f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0476581e_34cfa94b",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/InternalPacketForwarder.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T03:41:40Z",
+      "side": 1,
+      "message": "AI generated revise, apply some if you think it is better:\n\n/**\n * Prepares outgoing packets from the internal interface for forwarding to the external interface.\n \n * This includes:\n *   1.Address Swapping: Swaps source and destination IP addresses.\n *   2.Port Remapping: Remap port if necessary.\n *   3.Checksum Recalculation: Updates IP and transport layer checksums to reflect changes.\n *\n * Example:\n * An outgoing packet from the internal interface with source 1.2.3.4:1234 and destination 8.8.8.8:80 might be translated to 8.8.8.8:1234 -\u003e 1.2.3.4:8080 before forwarding.\n *\n * @param buf      The packet data as a byte array.\n * @param len      The length of the valid packet data.\n * @param version  The IP version (4 for IPv4, 6 for IPv6).\n * @param proto    The transport layer protocol (e.g., TCP, UDP).\n */",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 7
+      },
+      "revId": "e95458ada996b40972ee6ec214304cafa16f805f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d47482dd_08bb6da1",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketBridge.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T03:41:40Z",
+      "side": 1,
+      "message": "It seems to me to have a dedicated class and shared object for this is not necessary.\nGiven that we don\u0027t really provide additional functionality other than HashMap.\nAnd we don\u0027t need to access the same object in two classes.\nIs it better if we just create and pass two different hashmap into 2 object?",
+      "range": {
+        "startLine": 60,
+        "startChar": 33,
+        "endLine": 60,
+        "endChar": 47
+      },
+      "revId": "e95458ada996b40972ee6ec214304cafa16f805f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b25af6a6_84414d84",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketForwarderBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T03:41:40Z",
+      "side": 1,
+      "message": "We do not have NAT, right?\nJust simple port remapping?",
+      "range": {
+        "startLine": 103,
+        "startChar": 67,
+        "endLine": 103,
+        "endChar": 71
+      },
+      "revId": "e95458ada996b40972ee6ec214304cafa16f805f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4a1402e_a9eaad2b",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketForwarderBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T03:41:40Z",
+      "side": 1,
+      "message": "remapping?",
+      "range": {
+        "startLine": 158,
+        "startChar": 30,
+        "endLine": 158,
+        "endChar": 39
+      },
+      "revId": "e95458ada996b40972ee6ec214304cafa16f805f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9643ba4a_5c84b0d6",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestHttpServer.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T03:41:40Z",
+      "side": 1,
+      "message": "0 ?",
+      "range": {
+        "startLine": 28,
+        "startChar": 41,
+        "endLine": 28,
+        "endChar": 45
+      },
+      "revId": "e95458ada996b40972ee6ec214304cafa16f805f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
