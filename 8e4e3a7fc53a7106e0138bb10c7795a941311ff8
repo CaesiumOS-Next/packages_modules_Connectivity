@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c32ffaf4_ef382104",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-20T00:36:50Z",
+      "side": 1,
+      "message": "You are right, clone should work here",
+      "parentUuid": "1cc2ce3c_0db10fcf",
+      "range": {
+        "startLine": 335,
+        "startChar": 12,
+        "endLine": 340,
+        "endChar": 13
+      },
+      "revId": "8e4e3a7fc53a7106e0138bb10c7795a941311ff8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f899b74e_2a330725",

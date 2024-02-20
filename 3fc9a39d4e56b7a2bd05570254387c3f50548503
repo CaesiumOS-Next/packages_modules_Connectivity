@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57ba969f_ec5f4150",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9179,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-20T00:36:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef9c0555_f16cad79",
+      "range": {
+        "startLine": 9179,
+        "startChar": 24,
+        "endLine": 9179,
+        "endChar": 67
+      },
+      "revId": "3fc9a39d4e56b7a2bd05570254387c3f50548503",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7535711_f34e7c56",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "248f5217_f1b6e789",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-20T00:36:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7535711_f34e7c56",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 22
+      },
+      "revId": "3fc9a39d4e56b7a2bd05570254387c3f50548503",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ffb6070_cdbe4e12",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-02-19T07:46:39Z",
       "side": 1,
       "message": "nits: I don\u0027t think `newPair \u003d\u003d null` check is required.\noldPair.equal(newPair) returns false if newPair is null.\nSo the following check is enough?\n```\nif (oldPair.mUid !\u003d Process.INVALID_UID\n  \u0026\u0026 oldPair.mSubId !\u003d SubscriptionManager.INVALID_SUBSCRIPTION_ID\n  \u0026\u0026 !oldPair.equals(newPair)) {\n...\n}\n```",
+      "range": {
+        "startLine": 363,
+        "startChar": 20,
+        "endLine": 366,
+        "endChar": 60
+      },
+      "revId": "3fc9a39d4e56b7a2bd05570254387c3f50548503",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a04601f4_4c35c934",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-20T00:36:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ffb6070_cdbe4e12",
       "range": {
         "startLine": 363,
         "startChar": 20,
