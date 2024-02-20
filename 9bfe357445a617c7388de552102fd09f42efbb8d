@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af85e4d7_bcd91d52",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ExternalPacketForwarder.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T07:54:29Z",
+      "side": 1,
+      "message": "style: exceed 80 chars.",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 114
+      },
+      "revId": "9bfe357445a617c7388de552102fd09f42efbb8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "839aab8a_047af2ff",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/InternalPacketForwarder.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T07:54:29Z",
+      "side": 1,
+      "message": "While the rule is specified in the constructor, it is more like \"the specified port remapping rules\", instead of internal rules?\nAlso for the other class.",
+      "range": {
+        "startLine": 28,
+        "startChar": 95,
+        "endLine": 28,
+        "endChar": 103
+      },
+      "revId": "9bfe357445a617c7388de552102fd09f42efbb8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59ef7baf_a76e301d",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/InternalPacketForwarder.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T07:54:29Z",
+      "side": 1,
+      "message": "style: exceed line limit. Try make it \u003c\u003d 80",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 6
+      },
+      "revId": "9bfe357445a617c7388de552102fd09f42efbb8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96cfaa98_c4fc6a19",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketForwarderBase.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T07:54:29Z",
+      "side": 1,
+      "message": "nit: If the map is specific for port, maybe name it more speficially, e.g. portRemapMap, portRemapRules, etc.\nOnly if you think that is better.",
+      "range": {
+        "startLine": 89,
+        "startChar": 14,
+        "endLine": 89,
+        "endChar": 24
+      },
+      "revId": "9bfe357445a617c7388de552102fd09f42efbb8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a97ad20_5fb48358",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/PacketForwarderBase.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T07:54:29Z",
+      "side": 1,
+      "message": "nit: If this is specific for port remap as described in the javadoc.\nMaybe rename it accordingly, e.g. maybeRemapPort",
+      "range": {
+        "startLine": 115,
+        "startChar": 18,
+        "endLine": 115,
+        "endChar": 44
+      },
+      "revId": "9bfe357445a617c7388de552102fd09f42efbb8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
