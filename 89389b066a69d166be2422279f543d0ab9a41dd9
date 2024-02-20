@@ -22,6 +22,30 @@
       },
       "revId": "89389b066a69d166be2422279f543d0ab9a41dd9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4a585f4_3456c3c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-20T09:18:28Z",
+      "side": 1,
+      "message": "Uploaded ag/26290731. PTAL",
+      "parentUuid": "70fc3fd2_ca114116",
+      "range": {
+        "startLine": 15,
+        "startChar": 11,
+        "endLine": 15,
+        "endChar": 52
+      },
+      "revId": "89389b066a69d166be2422279f543d0ab9a41dd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
