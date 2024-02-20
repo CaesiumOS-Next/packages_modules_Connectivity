@@ -121,7 +121,9 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.SecureRandom;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
@@ -174,6 +176,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final ThreadPersistentSettings mPersistentSettings;
     private final UserManager mUserManager;
     private boolean mUserRestricted;
+    private final List<ControllerCallback> mControllerCallbackList;
 
     private BorderRouterConfigurationParcel mBorderRouterConfig;
 
@@ -202,6 +205,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mPersistentSettings = persistentSettings;
         mNsdPublisher = nsdPublisher;
         mUserManager = userManager;
+        mControllerCallbackList = new ArrayList<ControllerCallback>();
     }
 
     public static ThreadNetworkControllerService newInstance(
@@ -257,6 +261,33 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 LinkAddress.LIFETIME_PERMANENT /* expirationTime */);
     }
 
+    /** Callbacks for the {@link ThreadNetworkControllerService} instance. */
+    public interface ControllerCallback {
+        /** Invoked when otDaemon is started. */
+        public void onOtDaemonStarted();
+    }
+
+    /**
+     * Register callback for receiving {@link ThreadNetworkControllerService} events.
+     *
+     * @param callback the listener for {@link ThreadNetworkControllerService} events.
+     */
+    @RequiresPermission(PERMISSION_THREAD_NETWORK_PRIVILEGED)
+    void registerControllerCallback(ControllerCallback callback) {
+        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+        synchronized ("ThreadNetworkControllerService.this") {
+            if (!mControllerCallbackList.contains(callback)) {
+                mControllerCallbackList.add(callback);
+            }
+        }
+    }
+
+    private void onOtDaemonStarted() {
+        for (ControllerCallback callback : mControllerCallbackList) {
+            callback.onOtDaemonStarted();
+        }
+    }
+
     private NetworkRequest newUpstreamNetworkRequest() {
         NetworkRequest.Builder builder = new NetworkRequest.Builder().clearCapabilities();
 
@@ -302,6 +333,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         otDaemon.registerStateCallback(mOtDaemonCallbackProxy, -1);
         otDaemon.asBinder().linkToDeath(() -> mHandler.post(this::onOtDaemonDied), 0);
         mOtDaemon = otDaemon;
+        onOtDaemonStarted();
         return mOtDaemon;
     }
 
