@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0a53e99_2af380a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2024-02-20T08:17:10Z",
+      "side": 1,
+      "message": "Just found a minor bug that the new code passes ns to logValidationProbe() while it should have been us.\n\n```\n\n```\n        @Override\n        void onQueryDone(@NonNull String queryName, @NonNull List\u003cInetAddress\u003e answer,\n                int lastRCode, long elapsedNanos) {\n            ...\n            logValidationProbe(elapsedNanos, PROBE_PRIVDNS, success ? DNS_SUCCESS : DNS_FAILURE);\n        }\n```\n```",
+      "revId": "5450f5e39f418487ad22ef5e1efef4b913ea6cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
