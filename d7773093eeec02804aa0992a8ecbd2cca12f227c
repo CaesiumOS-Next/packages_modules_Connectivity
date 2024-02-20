@@ -88,6 +88,24 @@
       "parentUuid": "33b99b6b_18cfd692",
       "revId": "d7773093eeec02804aa0992a8ecbd2cca12f227c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a09601ed_8902302a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-20T03:48:44Z",
+      "side": 0,
+      "message": "1. Can you move that test case to this CL? It\u0027s easier to review the changes with the tests in the same commit.\n2. In that test case, you called `leave()` which set the BBR state to disabled but not secondary. Can we use OT CLI commands to force set the BBR state to secondary and verify that behavior?",
+      "parentUuid": "8c097ede_e789f97c",
+      "revId": "d7773093eeec02804aa0992a8ecbd2cca12f227c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
