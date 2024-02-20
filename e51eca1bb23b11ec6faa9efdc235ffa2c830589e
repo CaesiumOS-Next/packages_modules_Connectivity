@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54020e86_edc8c80a",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-20T15:06:38Z",
+      "side": 1,
+      "message": "nit: -\u003e TAG?",
+      "range": {
+        "startLine": 143,
+        "startChar": 43,
+        "endLine": 143,
+        "endChar": 69
+      },
+      "revId": "e51eca1bb23b11ec6faa9efdc235ffa2c830589e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9327d533_dd002d03",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-20T15:06:38Z",
+      "side": 1,
+      "message": "nit: unify the synchronizartion mechanism. etc, always use CompletableFuture\u003c\u003e",
+      "range": {
+        "startLine": 170,
+        "startChar": 20,
+        "endLine": 170,
+        "endChar": 65
+      },
+      "revId": "e51eca1bb23b11ec6faa9efdc235ffa2c830589e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df5b5bb7_61ceff6c",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-20T15:06:38Z",
+      "side": 1,
+      "message": "Use non-empty subtypes",
+      "range": {
+        "startLine": 217,
+        "startChar": 20,
+        "endLine": 217,
+        "endChar": 43
+      },
+      "revId": "e51eca1bb23b11ec6faa9efdc235ffa2c830589e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3c553ba_3764baf2",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-20T15:06:38Z",
+      "side": 1,
+      "message": "```suggestion\n            assertThat(resolvedService.getHostAddresses())\n                    .containsExactly(\n                                    parseNumericAddress(\"2001:db8::\" + (2 * i + 1)),\n                                    parseNumericAddress(\"2001:db8::\" + (2 * i + 2)));\n```",
+      "range": {
+        "startLine": 237,
+        "startChar": 12,
+        "endLine": 241,
+        "endChar": 86
+      },
+      "revId": "e51eca1bb23b11ec6faa9efdc235ffa2c830589e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35030363_7309f93d",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-20T15:06:38Z",
+      "side": 1,
+      "message": "Should the simulated devices be factoryreset or destroyed as well? I assume the device continues running after the test case is teardown given they are not cleaned up in tearDown().\n\nI think FTDs should be cleaned up in tearDown().",
+      "range": {
+        "startLine": 244,
+        "startChar": 8,
+        "endLine": 247,
+        "endChar": 9
+      },
+      "revId": "e51eca1bb23b11ec6faa9efdc235ffa2c830589e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e04bb569_1ce57ab5",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-20T15:06:38Z",
+      "side": 1,
+      "message": "This checks are not necessary given they are covered in `advertisingProxy_multipleSrpClientsRegisterServices_servicesResolvableByMdns`. This test case should focus on the updates.",
+      "range": {
+        "startLine": 285,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 69
+      },
+      "revId": "e51eca1bb23b11ec6faa9efdc235ffa2c830589e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79c70b9a_2aa86a59",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-20T15:06:38Z",
+      "side": 1,
+      "message": "How about updating the host address and service info at the same time? And then do the checks together.",
+      "range": {
+        "startLine": 301,
+        "startChar": 8,
+        "endLine": 323,
+        "endChar": 21
+      },
+      "revId": "e51eca1bb23b11ec6faa9efdc235ffa2c830589e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64d990c2_f70d1a38",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-20T15:06:38Z",
+      "side": 1,
+      "message": "```suggestion\n    private static final class TestNetworkTracker {\n```",
+      "range": {
+        "startLine": 408,
+        "startChar": 12,
+        "endLine": 408,
+        "endChar": 19
+      },
+      "revId": "e51eca1bb23b11ec6faa9efdc235ffa2c830589e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e3fe80d_39b67021",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-20T15:06:38Z",
+      "side": 1,
+      "message": "it\u0027s better to move this class to its own source file (similar to FullThreadDevice).",
+      "range": {
+        "startLine": 408,
+        "startChar": 25,
+        "endLine": 408,
+        "endChar": 43
+      },
+      "revId": "e51eca1bb23b11ec6faa9efdc235ffa2c830589e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
