@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56ba4cb5_7637012c",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-20T04:26:06Z",
+      "side": 1,
+      "message": "Variables renamed for better readability and mSatelliteNetworkFallbackUidCache is now local as we discussed .",
+      "parentUuid": "366dd30c_20dfc091",
+      "range": {
+        "startLine": 53,
+        "startChar": 83,
+        "endLine": 53,
+        "endChar": 84
+      },
+      "revId": "232573c7b4504849f62d7a4516c9d95dde38fed9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c42711ef_2012af18",
@@ -95,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "583b38d0_ca6b9a8a",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-20T04:26:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c20e041d_534191c8",
+      "range": {
+        "startLine": 56,
+        "startChar": 16,
+        "endLine": 56,
+        "endChar": 23
+      },
+      "revId": "232573c7b4504849f62d7a4516c9d95dde38fed9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f4df4e2_6fefe879",
@@ -108,6 +156,30 @@
       "writtenOn": "2024-02-13T08:53:03Z",
       "side": 1,
       "message": "Now the packageManager is nonNull since null check is done in caller side.  \nWe can remove this null check.",
+      "range": {
+        "startLine": 150,
+        "startChar": 12,
+        "endLine": 150,
+        "endChar": 41
+      },
+      "revId": "232573c7b4504849f62d7a4516c9d95dde38fed9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de7d6ddf_a734f839",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-20T04:26:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1f4df4e2_6fefe879",
       "range": {
         "startLine": 150,
         "startChar": 12,
@@ -165,6 +237,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "037b6597_3c0f43a5",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-20T04:26:06Z",
+      "side": 1,
+      "message": "Variables renamed for better readability and mSatelliteNetworkFallbackUidCache is now local as we discussed .",
+      "parentUuid": "b799b246_eaafd407",
+      "range": {
+        "startLine": 175,
+        "startChar": 8,
+        "endLine": 175,
+        "endChar": 41
+      },
+      "revId": "232573c7b4504849f62d7a4516c9d95dde38fed9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29c544ab_d63e4789",
@@ -212,6 +308,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c417847_2acf5052",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-20T04:26:06Z",
+      "side": 1,
+      "message": "Variables renamed for better readability and mSatelliteNetworkFallbackUidCache is now local as we discussed .",
+      "parentUuid": "ea75805d_d9e30fe0",
+      "range": {
+        "startLine": 185,
+        "startChar": 93,
+        "endLine": 185,
+        "endChar": 94
+      },
+      "revId": "232573c7b4504849f62d7a4516c9d95dde38fed9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80d6b759_3169a336",
@@ -225,6 +345,30 @@
       "writtenOn": "2024-02-13T08:53:03Z",
       "side": 1,
       "message": "Generally streams are not recommended due to memory overhead.\nLoop is preferable",
+      "range": {
+        "startLine": 193,
+        "startChar": 20,
+        "endLine": 195,
+        "endChar": 49
+      },
+      "revId": "232573c7b4504849f62d7a4516c9d95dde38fed9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47af2030_0cd4818d",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-20T04:26:06Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "80d6b759_3169a336",
       "range": {
         "startLine": 193,
         "startChar": 20,
@@ -272,6 +416,30 @@
       "side": 1,
       "message": "You are right , Also adding this here is not usefull since , user id was -1, when tested at device:\n02-12 17:09:26.823177  1000  1483  3118 I SatelliteAccessController: currentUser : role_sms_packages: -1 : []\n02-12 17:09:26.823316  1000  1483  3118 I SatelliteAccessController: satellite_fallback_uid: {}",
       "parentUuid": "258ae234_f0556836",
+      "range": {
+        "startLine": 215,
+        "startChar": 47,
+        "endLine": 215,
+        "endChar": 79
+      },
+      "revId": "232573c7b4504849f62d7a4516c9d95dde38fed9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f581eca_e66c4926",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-20T04:26:06Z",
+      "side": 1,
+      "message": "Code Refactored to support Multi User",
+      "parentUuid": "4868c54c_c3a50c1d",
       "range": {
         "startLine": 215,
         "startChar": 47,
