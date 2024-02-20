@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77660d3b_3428b46b",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/NetworkStackInstrumentationService.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-20T08:57:51Z",
+      "side": 1,
+      "message": "Maybe add comment about why?",
+      "range": {
+        "startLine": 95,
+        "startChar": 28,
+        "endLine": 95,
+        "endChar": 33
+      },
+      "revId": "92e820db65be6f3a7d6ae5cfaefda7c10f2d1ebd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
