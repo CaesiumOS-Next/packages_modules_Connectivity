@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5c29fb2_55309afb",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1780,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-21T05:30:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "403197d7_5f5dccee",
+      "range": {
+        "startLine": 1780,
+        "startChar": 8,
+        "endLine": 1780,
+        "endChar": 9
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "888d6399_fdaa1489",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-02-20T10:19:45Z",
       "side": 1,
       "message": "When new users are added, is the callback called with the roles for the new user even if we don\u0027t update default message app for new user?",
+      "range": {
+        "startLine": 76,
+        "startChar": 80,
+        "endLine": 76,
+        "endChar": 81
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd72b81a_459d221b",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-21T05:30:24Z",
+      "side": 1,
+      "message": "Updated comment with logs @ https://buganizer.corp.google.com/issues/324347502#comment2\n\nAdding new User , callback will not be called with the roles for the new user.\nOnly on Switching the User which is expected to update default message app for the new user , callback will be called with the roles for the new user.\n\nNote: \n1.Wrt to Delete user scenario , on deleting see that callback with the roles changed may need to be handled with seperate listner (UserLifecycleListener) which gives information about user removed.\n\n2.On Bootup, although delete User information is removed from cache since no user exists on query all users, but when delete user was done before reboot, cache was not updated\n\n3.This scenario would like to go with follow Up CL. (Delete User Case)",
+      "parentUuid": "888d6399_fdaa1489",
       "range": {
         "startLine": 76,
         "startChar": 80,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a15e4efd_70dd0d05",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-21T05:30:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "167d9db4_a3cf7db5",
+      "range": {
+        "startLine": 98,
+        "startChar": 32,
+        "endLine": 98,
+        "endChar": 46
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "682e7847_3c5551fc",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-02-20T10:19:45Z",
       "side": 1,
       "message": "It seems the return value of getApplicationInfo is NonNull.\nIf so, I don\u0027t think you need null check.\notherwise, we will have too many null checks.",
+      "range": {
+        "startLine": 160,
+        "startChar": 58,
+        "endLine": 160,
+        "endChar": 59
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e97b187_7641522e",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-21T05:30:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "682e7847_3c5551fc",
       "range": {
         "startLine": 160,
         "startChar": 58,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6da850e2_05db6cad",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-21T05:30:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "93ce085e_2a8e6b5c",
+      "range": {
+        "startLine": 163,
+        "startChar": 16,
+        "endLine": 163,
+        "endChar": 19
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0024455_afded634",
@@ -146,6 +266,30 @@
       "writtenOn": "2024-02-20T10:19:45Z",
       "side": 1,
       "message": "Is this required?",
+      "range": {
+        "startLine": 169,
+        "startChar": 12,
+        "endLine": 169,
+        "endChar": 24
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6767fc8c_b52f9c8f",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-21T05:30:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a0024455_afded634",
       "range": {
         "startLine": 169,
         "startChar": 12,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b51b54c_13395674",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-21T05:30:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "356305c7_371798df",
+      "range": {
+        "startLine": 178,
+        "startChar": 21,
+        "endLine": 178,
+        "endChar": 22
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f688adf3_0879cdc3",
@@ -192,6 +360,30 @@
       "writtenOn": "2024-02-20T10:19:45Z",
       "side": 1,
       "message": "Can we write as follows?\nI feel this is simpler.\n\n```\nfinal Set\u003cInteger\u003e currUserPreviousSatelliteFallbackUids \n         \u003d mAllUsersSatelliteNetworkFallbackUidCache.get(userId, new ArraySet\u003c\u003e());\n```",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 9
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b707c1b_b4929fff",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-21T05:30:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f688adf3_0879cdc3",
       "range": {
         "startLine": 180,
         "startChar": 0,
@@ -225,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ae9468c_c24a91a3",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-21T05:30:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "da601898_0680bd7c",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 9
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "470a10dd_6af2733b",
@@ -238,6 +454,30 @@
       "writtenOn": "2024-02-20T10:19:45Z",
       "side": 1,
       "message": "L196 and L197 are duplicated?\nAlso, I prefer early return here.\n\n```\nif (CurrUserUpdatedSatelliteFallbackUids.equals(currUserPreviousSatelliteFallbackUids)) {\n  return;\n}\n\n// do further process and call callback.\n\n```",
+      "range": {
+        "startLine": 197,
+        "startChar": 11,
+        "endLine": 197,
+        "endChar": 16
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2152a07_f44cb0d5",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-21T05:30:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "470a10dd_6af2733b",
       "range": {
         "startLine": 197,
         "startChar": 11,
@@ -271,6 +511,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6951aa2_7ce8c56b",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-21T05:30:24Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "cf8eb0b4_1d08a692",
+      "range": {
+        "startLine": 200,
+        "startChar": 24,
+        "endLine": 200,
+        "endChar": 39
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a1e6e8b_276137f9",
@@ -284,6 +548,30 @@
       "writtenOn": "2024-02-20T10:19:45Z",
       "side": 1,
       "message": "Can we directly call `mAllUsersSatelliteNetworkFallbackUidCache.valueAt(i)` here?",
+      "range": {
+        "startLine": 207,
+        "startChar": 28,
+        "endLine": 207,
+        "endChar": 81
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33bad39e_104c9dff",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-21T05:30:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7a1e6e8b_276137f9",
       "range": {
         "startLine": 207,
         "startChar": 28,
@@ -317,6 +605,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a362678b_98ae90e9",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-21T05:30:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a260241c_4ab4c1d2",
+      "range": {
+        "startLine": 229,
+        "startChar": 0,
+        "endLine": 229,
+        "endChar": 35
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf6df5e2_0455fe39",
@@ -330,6 +642,30 @@
       "writtenOn": "2024-02-20T10:19:45Z",
       "side": 1,
       "message": "nits: `(true /* excludeDying */);`",
+      "range": {
+        "startLine": 234,
+        "startChar": 68,
+        "endLine": 234,
+        "endChar": 75
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e8d5d80_28c6e2d9",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-21T05:30:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "bf6df5e2_0455fe39",
       "range": {
         "startLine": 234,
         "startChar": 68,
@@ -363,6 +699,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e2ec9ce_3b6a4eb8",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-21T05:30:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0c53e20d_f62dc12c",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 80
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32431801_77feecce",
@@ -376,6 +736,30 @@
       "writtenOn": "2024-02-20T10:19:45Z",
       "side": 1,
       "message": "Can we define user handles for each users and use that from tests?\ne.g. `val userHandle1 \u003d UserHandle.of(1)`\n\nThis is easier to understand.",
+      "range": {
+        "startLine": 130,
+        "startChar": 12,
+        "endLine": 130,
+        "endChar": 28
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14195de0_ea55920b",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-21T05:30:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "32431801_77feecce",
       "range": {
         "startLine": 130,
         "startChar": 12,
