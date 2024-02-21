@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20033198_ae5a4248",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 89
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-21T08:21:29Z",
+      "side": 1,
+      "message": "The Android API guideline prefers java.time.*:\n```\nPrefer java.time.* types where possible\n```\n\nSee go/android-api-guidelines#time-types.\n\nI think the benefit of Duration and Instant is that it\u0027s hard for clients to make mistakes with the time unit (etc. some API uses seconds while others use milliseconds).\n\nI see also the use of Duration in https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/framework/src/android/net/ConnectivitySettingsManager.java",
+      "parentUuid": "287a723a_072eb53a",
+      "range": {
+        "startLine": 72,
+        "startChar": 18,
+        "endLine": 72,
+        "endChar": 26
+      },
+      "revId": "b9dcc4302d2608df08e12d855a085c2606c2b0f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a997e3e3_10668bb2",
         "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
         "patchSetId": 89
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-21T08:12:13Z",
       "side": 1,
       "message": "Whats the benefit of using Instant here?",
+      "range": {
+        "startLine": 80,
+        "startChar": 12,
+        "endLine": 80,
+        "endChar": 19
+      },
+      "revId": "b9dcc4302d2608df08e12d855a085c2606c2b0f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba6aa4db_717d2359",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 89
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-21T08:21:29Z",
+      "side": 1,
+      "message": "ditto. It\u0027s per the Android API guideline: go/android-api-guidelines#time-types",
+      "parentUuid": "a997e3e3_10668bb2",
       "range": {
         "startLine": 80,
         "startChar": 12,
