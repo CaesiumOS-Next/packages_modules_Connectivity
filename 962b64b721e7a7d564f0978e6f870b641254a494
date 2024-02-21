@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a108e9cb_8ae686f1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:57:52Z",
+      "side": 1,
+      "message": "This condition is too complicated.\n\nIs it possible to refactor it into 3 if statement to check condition 1,2,3 ?",
+      "range": {
+        "startLine": 418,
+        "startChar": 23,
+        "endLine": 421,
+        "endChar": 96
+      },
+      "revId": "962b64b721e7a7d564f0978e6f870b641254a494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02a5ee4a_483d8f0d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsKeyRecord.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:57:52Z",
+      "side": 1,
+      "message": "Do we need all those constructor methods? \n\nFor example I think MdnsKeyRecord can never have isQuestion \u003d true?",
+      "range": {
+        "startLine": 35,
+        "startChar": 73,
+        "endLine": 35,
+        "endChar": 83
+      },
+      "revId": "962b64b721e7a7d564f0978e6f870b641254a494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "602dd725_03181c8c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsKeyRecord.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:57:52Z",
+      "side": 1,
+      "message": "better to have Hexdump.toHexString()",
+      "range": {
+        "startLine": 77,
+        "startChar": 25,
+        "endLine": 77,
+        "endChar": 47
+      },
+      "revId": "962b64b721e7a7d564f0978e6f870b641254a494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4192dfe5_ef39b956",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:57:52Z",
+      "side": 1,
+      "message": "Its better to have those variable stay final.\n\nHow about the following?\n\n```\nfinal String[] serviceType \u003d hasService ? splitServiceType(serviceInfo) : null.\n```\n\nsame for serviceName",
+      "range": {
+        "startLine": 229,
+        "startChar": 12,
+        "endLine": 229,
+        "endChar": 32
+      },
+      "revId": "962b64b721e7a7d564f0978e6f870b641254a494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a0905fb_a75edbaf",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:57:52Z",
+      "side": 1,
+      "message": "Need a comment here to mention why we need additional check for  serviceInfo.getPort() \u003e 0",
+      "range": {
+        "startLine": 235,
+        "startChar": 16,
+        "endLine": 235,
+        "endChar": 55
+      },
+      "revId": "962b64b721e7a7d564f0978e6f870b641254a494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a1a163e_7ecde7be",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:57:52Z",
+      "side": 1,
+      "message": "Do we really need the if statement?\n\nIt seems we can initialize `this.keyRecords \u003d new ArrayList\u003c\u003e();` anyway recardless of hasKey \u003d\u003d true or not.",
+      "range": {
+        "startLine": 316,
+        "startChar": 12,
+        "endLine": 320,
+        "endChar": 13
+      },
+      "revId": "962b64b721e7a7d564f0978e6f870b641254a494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8adb0123_f77845b8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:57:52Z",
+      "side": 1,
+      "message": "why we are setting the serviceKeyRecord \u003d null and hostKeyRecord \u003d null in the context here.\n\nIt seems we are use them in the conflict check.\n\nHowever, the logic is not obvious, if we need special state for the check, maybe we can consider use another boolean variable?",
+      "range": {
+        "startLine": 333,
+        "startChar": 16,
+        "endLine": 333,
+        "endChar": 45
+      },
+      "revId": "962b64b721e7a7d564f0978e6f870b641254a494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21a7080a_6f6c73f8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:57:52Z",
+      "side": 1,
+      "message": "deserve two helper functions `isBothSrvRecord()`, `isBothKeyRecord()` and with comments.",
+      "range": {
+        "startLine": 444,
+        "startChar": 17,
+        "endLine": 444,
+        "endChar": 72
+      },
+      "revId": "962b64b721e7a7d564f0978e6f870b641254a494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
