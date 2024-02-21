@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6907b8ed_068e297e",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-21T10:31:12Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "f8ec7fea_f28a16a7",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 24
+      },
+      "revId": "1cd4dd085d9e47afcee268a650792feda197da61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89a915d8_0cfe1597",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-02-21T08:23:12Z",
       "side": 1,
       "message": "nit: Can we use this @IntDef?\nhttps://osscs.corp.google.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/content/pm/PackageManager.java;l\u003d1275?q\u003dPERMISSION_DENIED\u0026ss\u003dandroid\u0026start\u003d11\n\nIf so we can just say @param granted One of PackageManager#PERMISSION_*?",
+      "range": {
+        "startLine": 363,
+        "startChar": 65,
+        "endLine": 363,
+        "endChar": 66
+      },
+      "revId": "1cd4dd085d9e47afcee268a650792feda197da61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3911cfd1_39062117",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-21T10:31:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89a915d8_0cfe1597",
       "range": {
         "startLine": 363,
         "startChar": 65,
