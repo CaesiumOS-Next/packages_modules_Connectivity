@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "103f2745_b7eb273d",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecTransformStateTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2024-02-21T18:15:56Z",
+      "side": 1,
+      "message": "What should happen if TX and RX are both set on the same instance?",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 0
+      },
+      "revId": "a89418d8044ea3e53f1e89d867ce6fb4c76e0a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "455e32d1_2c7cc98e",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecTransformStateTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2024-02-21T18:15:56Z",
+      "side": 1,
+      "message": "Genuinely, all of this could happen in the same millisecond.\n\nI noticed that you also have \"or equals\" in the code comment.\n\nAlso, I\u0027m a little confused. Is the idea that the time stamp is either automatically set OR set by the builder?",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 71
+      },
+      "revId": "a89418d8044ea3e53f1e89d867ce6fb4c76e0a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec82d077_349104fc",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecTransformStateTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2024-02-21T18:15:56Z",
+      "side": 1,
+      "message": "the more-meaningful test of the timestamp seems to be what\u0027s currently done in the verify() method. Perhaps testing that the inner logic will grab a timestamp is the thing worthy of a separate test and the verifyBuild() method can just use the static value?",
+      "range": {
+        "startLine": 104,
+        "startChar": 44,
+        "endLine": 104,
+        "endChar": 60
+      },
+      "revId": "a89418d8044ea3e53f1e89d867ce6fb4c76e0a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
