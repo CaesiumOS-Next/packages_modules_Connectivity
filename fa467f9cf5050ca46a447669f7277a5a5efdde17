@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "752d599a_85b5172c",
+        "filename": "service-t/src/com/android/server/net/TrafficStatsRateLimitCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-21T09:43:46Z",
+      "side": 1,
+      "message": "Removed.\nFor getUidStats uid always equals to callerUid or system uid, so there is no different answer for different callerUid queries the same uid.\nFor getIfaceStats and getTotalStats, every caller sees the same result,\nso callerUid is not needed as well.\nNice catch.",
+      "parentUuid": "c60b4d53_a535ece5",
+      "range": {
+        "startLine": 47,
+        "startChar": 25,
+        "endLine": 47,
+        "endChar": 34
+      },
+      "revId": "fa467f9cf5050ca46a447669f7277a5a5efdde17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32a3f0df_1826a6dd",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-02-19T06:25:51Z",
       "side": 1,
       "message": "nits: `@GuardedBy(\"mMap\")` would be helpful.",
+      "revId": "fa467f9cf5050ca46a447669f7277a5a5efdde17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91bf6a72_fdf297ad",
+        "filename": "service-t/src/com/android/server/net/TrafficStatsRateLimitCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-21T09:43:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32a3f0df_1826a6dd",
       "revId": "fa467f9cf5050ca46a447669f7277a5a5efdde17",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
