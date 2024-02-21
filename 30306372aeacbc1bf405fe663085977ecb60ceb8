@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd091df3_c58621b8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-21T10:18:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "711838a7_012613de",
+      "range": {
+        "startLine": 218,
+        "startChar": 63,
+        "endLine": 218,
+        "endChar": 65
+      },
+      "revId": "30306372aeacbc1bf405fe663085977ecb60ceb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22c1aca7_694012d5",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc6e2dde_a8af2706",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-21T10:18:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22c1aca7_694012d5",
+      "revId": "30306372aeacbc1bf405fe663085977ecb60ceb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7031646_c5c439ae",
@@ -54,6 +96,24 @@
       "writtenOn": "2024-02-21T08:36:57Z",
       "side": 1,
       "message": "Please fix the errorProne in this file.",
+      "revId": "30306372aeacbc1bf405fe663085977ecb60ceb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b8d6a66_484307ca",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 1551,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-21T10:18:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7031646_c5c439ae",
       "revId": "30306372aeacbc1bf405fe663085977ecb60ceb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
