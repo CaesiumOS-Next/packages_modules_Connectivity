@@ -70,6 +70,30 @@
       },
       "revId": "e521ae306aa96e142ffa325f40df2c233591f53a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ac2c93c_50ca661d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-21T09:37:31Z",
+      "side": 0,
+      "message": "SGTM. Also suddenly I realized that this CL doesn\u0027t fully resolve the referenced issue. I\u0027ll improve it and get back later.",
+      "parentUuid": "e6988954_c5fae556",
+      "range": {
+        "startLine": 608,
+        "startChar": 12,
+        "endLine": 608,
+        "endChar": 63
+      },
+      "revId": "e521ae306aa96e142ffa325f40df2c233591f53a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
