@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "781a02d1_8608a6f5",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-21T14:37:05Z",
+      "side": 1,
+      "message": "```suggestion\n    private void createRandomizedDatasetInternal(\n```\n\nBecause what it does is creating a new random dataset",
+      "range": {
+        "startLine": 599,
+        "startChar": 17,
+        "endLine": 599,
+        "endChar": 40
+      },
+      "revId": "e90e9bd796dc3f5bd71f3376787a1ebd672e46de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff0b5c40_73fef894",
         "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
         "patchSetId": 6
@@ -42,6 +65,52 @@
         "startChar": 0,
         "endLine": 125,
         "endChar": 52
+      },
+      "revId": "e90e9bd796dc3f5bd71f3376787a1ebd672e46de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d34f1517_f04a9f62",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-21T14:37:05Z",
+      "side": 1,
+      "message": "```suggestion\n        ActiveOperationalDataset activeDataset \u003d mActiveDatasetCaptor.getValue();\n        assertThat(activeDataset.getNetworkName()).isEqualTo(DEFAULT_NETWORK_NAME);\n```\n\nUse a local variable to avoid multiple-lines for a single check to improve readability.\n\nPlease update the other checks as well.",
+      "range": {
+        "startLine": 314,
+        "startChar": 8,
+        "endLine": 315,
+        "endChar": 49
+      },
+      "revId": "e90e9bd796dc3f5bd71f3376787a1ebd672e46de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bbdf32f_7bba524b",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-21T14:37:05Z",
+      "side": 1,
+      "message": "If there is a bug in channelMaskToByteArray(), this test case won\u0027t be able to catch it. Please use hard code byte[].",
+      "range": {
+        "startLine": 319,
+        "startChar": 24,
+        "endLine": 320,
+        "endChar": 63
       },
       "revId": "e90e9bd796dc3f5bd71f3376787a1ebd672e46de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
