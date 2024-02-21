@@ -29,7 +29,10 @@ import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.net.module.util.HexDump;
+import com.android.net.module.util.Struct;
+import com.android.net.module.util.Struct.KernelArch;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -44,7 +47,7 @@ import java.util.concurrent.TimeUnit;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class StructXfrmUsersaInfoTest {
-    private static final String EXPECTED_HEX_STRING =
+    private static final String EXPECTED_HEX_STRING_NOT_PADDED =
             "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
                     + "00000000000000000A00000000000000"
@@ -58,8 +61,11 @@ public class StructXfrmUsersaInfoTest {
                     + "00000000000000000000000000000000"
                     + "FD464C65000000000000000000000000"
                     + "00000000000000000000000000000000"
-                    + "024000000A0000000000000000000000";
-    private static final byte[] EXPECTED_HEX = HexDump.hexStringToByteArray(EXPECTED_HEX_STRING);
+                    + "024000000A00000000";
+    private static final byte[] EXPECTED_HEX_X86_32 =
+            HexDump.hexStringToByteArray(EXPECTED_HEX_STRING_NOT_PADDED + "000000");
+    private static final byte[] EXPECTED_HEX_NOT_X86_32 =
+            HexDump.hexStringToByteArray(EXPECTED_HEX_STRING_NOT_PADDED + "00000000000000");
 
     private static final InetAddress DEST_ADDRESS =
             InetAddresses.parseNumericAddress("2001:db8::111");
@@ -83,8 +89,14 @@ public class StructXfrmUsersaInfoTest {
         ADD_TIME = BigInteger.valueOf(timestampSeconds);
     }
 
-    @Test
-    public void testEncode() throws Exception {
+    @After
+    public void tearDown() {
+        Struct.setKernelArch(KernelArch.ArchUnknown);
+    }
+
+    private void checkEncode(byte[] expected, KernelArch kernelArch) throws Exception {
+        Struct.setKernelArch(kernelArch);
+
         final StructXfrmUsersaInfo struct =
                 new StructXfrmUsersaInfo(
                         DEST_ADDRESS,
@@ -99,21 +111,34 @@ public class StructXfrmUsersaInfoTest {
                         REPLAY_WINDOW_LEGACY,
                         FLAGS);
 
-        final ByteBuffer buffer = ByteBuffer.allocate(EXPECTED_HEX.length);
+        final ByteBuffer buffer = ByteBuffer.allocate(expected.length);
         buffer.order(ByteOrder.nativeOrder());
         struct.writeToByteBuffer(buffer);
 
-        assertArrayEquals(EXPECTED_HEX, buffer.array());
+        assertArrayEquals(expected, buffer.array());
+        assertEquals(expected.length, struct.getStructSize());
     }
 
     @Test
-    public void testDecode() throws Exception {
-        final ByteBuffer buffer = ByteBuffer.wrap(EXPECTED_HEX);
+    public void checkEncode_x8632Kernel() throws Exception {
+        checkEncode(EXPECTED_HEX_X86_32, KernelArch.X86_32);
+    }
+
+    @Test
+    public void checkEncode_notX8632Kernel() throws Exception {
+        checkEncode(EXPECTED_HEX_NOT_X86_32, KernelArch.Arm64 /* an arbitrary non-x86_32 arch */);
+    }
+
+    private void checkDecode(byte[] packet, KernelArch kernelArch) throws Exception {
+        Struct.setKernelArch(kernelArch);
+
+        final ByteBuffer buffer = ByteBuffer.wrap(packet);
         buffer.order(ByteOrder.nativeOrder());
 
         final StructXfrmUsersaInfo struct =
                 StructXfrmUsersaInfo.parse(StructXfrmUsersaInfo.class, buffer);
 
+        assertEquals(packet.length, struct.getStructSize());
         assertEquals(DEST_ADDRESS, struct.getDestAddress());
         assertEquals(SOURCE_ADDRESS, struct.getSrcAddress());
         assertEquals(SPI, struct.getSpi());
@@ -123,5 +148,15 @@ public class StructXfrmUsersaInfoTest {
         assertEquals(MODE, struct.mode);
         assertEquals(REPLAY_WINDOW_LEGACY, struct.replayWindowLegacy);
         assertEquals(FLAGS, struct.flags);
+    }
+
+    @Test
+    public void checkDecode_x8632Kernel() throws Exception {
+        checkDecode(EXPECTED_HEX_X86_32, KernelArch.X86_32);
+    }
+
+    @Test
+    public void checkDecode_notX8632Kernel() throws Exception {
+        checkDecode(EXPECTED_HEX_NOT_X86_32, KernelArch.Arm64 /* an arbitrary non-x86_32 arch */);
     }
 }

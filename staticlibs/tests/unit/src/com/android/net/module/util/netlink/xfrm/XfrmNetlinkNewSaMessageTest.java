@@ -29,8 +29,11 @@ import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.net.module.util.HexDump;
+import com.android.net.module.util.Struct;
+import com.android.net.module.util.Struct.KernelArch;
 import com.android.net.module.util.netlink.NetlinkMessage;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -41,9 +44,10 @@ import java.nio.ByteOrder;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class XfrmNetlinkNewSaMessageTest {
-    private static final String EXPECTED_HEX_STRING =
-            "2004000010000000000000003FE1D4B6"
-                    + "00000000000000000000000000000000"
+    private static final String HEX_MSG_HDR_KERNEL_X86_32 = "1C04000010000000000000003FE1D4B6";
+    private static final String HEX_MSG_HDR_KERNEL_NOT_X86_32 = "2004000010000000000000003FE1D4B6";
+    private static final String HEX_USERSA_INFO_NOT_PADDED =
+            "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
                     + "00000000000000000A00000000000000"
                     + "000000000000000020010DB800000000"
@@ -56,8 +60,12 @@ public class XfrmNetlinkNewSaMessageTest {
                     + "00000000000000000000000000000000"
                     + "FD464C65000000000000000000000000"
                     + "00000000000000000000000000000000"
-                    + "024000000A0000000000000000000000"
-                    + "5C000100686D61632873686131290000"
+                    + "024000000A00000000";
+    private static final String HEX_USERSA_INFO_X86_32 = HEX_USERSA_INFO_NOT_PADDED + "000000";
+    private static final String HEX_USERSA_INFO_NOT_X86_32 =
+            HEX_USERSA_INFO_NOT_PADDED + "00000000000000";
+    private static final String HEX_ATTRIBUTES =
+            "5C000100686D61632873686131290000"
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000"
@@ -110,7 +118,18 @@ public class XfrmNetlinkNewSaMessageTest {
                     + "00000000000000000000000000000000"
                     + "00000000000000000000000000000000";
 
-    private static final byte[] EXPECTED_HEX = HexDump.hexStringToByteArray(EXPECTED_HEX_STRING);
+    public static final byte[] EXPECTED_HEX_X86_32 =
+            HexDump.hexStringToByteArray(
+                    HEX_MSG_HDR_KERNEL_X86_32
+                            + HEX_USERSA_INFO_NOT_PADDED
+                            + "000000"
+                            + HEX_ATTRIBUTES);
+    public static final byte[] EXPECTED_HEX_NOT_X86_32 =
+            HexDump.hexStringToByteArray(
+                    HEX_MSG_HDR_KERNEL_NOT_X86_32
+                            + HEX_USERSA_INFO_NOT_PADDED
+                            + "00000000000000"
+                            + HEX_ATTRIBUTES);
 
     private static final InetAddress DEST_ADDRESS =
             InetAddresses.parseNumericAddress("2001:db8::111");
@@ -125,9 +144,15 @@ public class XfrmNetlinkNewSaMessageTest {
     private static final short FLAGS = 0;
     private static final byte[] BITMAP = new byte[512];
 
-    @Test
-    public void testDecode() throws Exception {
-        final ByteBuffer buffer = ByteBuffer.wrap(EXPECTED_HEX);
+    @After
+    public void tearDown() {
+        Struct.setKernelArch(KernelArch.ArchUnknown);
+    }
+
+    private void checkDecode(byte[] packet, KernelArch kernelArch) throws Exception {
+        Struct.setKernelArch(kernelArch);
+
+        final ByteBuffer buffer = ByteBuffer.wrap(packet);
         buffer.order(ByteOrder.nativeOrder());
         final XfrmNetlinkNewSaMessage message =
                 (XfrmNetlinkNewSaMessage) NetlinkMessage.parse(buffer, NETLINK_XFRM);
@@ -146,5 +171,15 @@ public class XfrmNetlinkNewSaMessageTest {
         assertArrayEquals(BITMAP, message.getBitmap());
         assertEquals(0L, message.getRxSequenceNumber());
         assertEquals(0L, message.getTxSequenceNumber());
+    }
+
+    @Test
+    public void testDecode_x8632Kernel() throws Exception {
+        checkDecode(EXPECTED_HEX_X86_32, KernelArch.X86_32);
+    }
+
+    @Test
+    public void testDecode_notX8632Kernel() throws Exception {
+        checkDecode(EXPECTED_HEX_NOT_X86_32, KernelArch.Arm64 /* an arbitrary non-x86_32 arch */);
     }
 }

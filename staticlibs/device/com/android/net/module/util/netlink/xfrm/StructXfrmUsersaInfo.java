@@ -23,6 +23,8 @@ import androidx.annotation.NonNull;
 import com.android.net.module.util.Struct;
 import com.android.net.module.util.Struct.Computed;
 import com.android.net.module.util.Struct.Field;
+import com.android.net.module.util.Struct.FieldPadding;
+import com.android.net.module.util.Struct.KernelArch;
 import com.android.net.module.util.Struct.Type;
 
 import java.math.BigInteger;
@@ -64,7 +66,9 @@ public class StructXfrmUsersaInfo extends Struct {
                     + StructXfrmLifetimeCur.STRUCT_SIZE
                     + StructXfrmStats.STRUCT_SIZE;
 
-    public static final int STRUCT_SIZE = NESTED_STRUCTS_SIZE + 20;
+    private static final int UNPADDED_STRUCT_SIZE = NESTED_STRUCTS_SIZE + 13;
+    private static final int PAD_SIZE_DEFAULT = 7;
+    private static final int PAD_SIZE_X86_32 = 3;
 
     @Computed private final StructXfrmSelector mXfrmSelector;
     @Computed private final StructXfrmId mXfrmId;
@@ -91,7 +95,8 @@ public class StructXfrmUsersaInfo extends Struct {
     @Field(order = 5, type = Type.U8)
     public final short replayWindowLegacy;
 
-    @Field(order = 6, type = Type.U8, padding = 7)
+    @FieldPadding(kernelArch = KernelArch.X86_32, padding = PAD_SIZE_X86_32)
+    @Field(order = 6, type = Type.U8, padding = PAD_SIZE_DEFAULT)
     public final short flags;
 
     // Constructor that allows Strutc.parse(Class<T>, ByteBuffer) to work
@@ -191,6 +196,14 @@ public class StructXfrmUsersaInfo extends Struct {
                 mode,
                 replayWindowLegacy,
                 flags);
+    }
+
+    /** Return the struct size */
+    public static int getStructSize() {
+        return UNPADDED_STRUCT_SIZE
+                + (Struct.getKernelArch() == KernelArch.X86_32
+                        ? PAD_SIZE_X86_32
+                        : PAD_SIZE_DEFAULT);
     }
 
     /** Return the destination address */

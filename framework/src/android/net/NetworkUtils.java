@@ -443,4 +443,7 @@ public class NetworkUtils {
 
     /** Returns whether the Linux Kernel is x86 */
     public static native boolean isKernelX86();
+
+    /** Returns whether the Linux Kernel is RiscV */
+    public static native boolean isKernelRiscV();
 }
