@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3180f37f_19795dbf",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-21T07:55:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "140339e1_f45f4332",
+      "range": {
+        "startLine": 209,
+        "startChar": 12,
+        "endLine": 209,
+        "endChar": 83
+      },
+      "revId": "63802a2a2ed151aff74d05340262e81dbfb5034d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d64a414c_cd13254e",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-21T06:21:50Z",
       "side": 1,
       "message": "Use `containsExactly()` as well?",
+      "range": {
+        "startLine": 211,
+        "startChar": 12,
+        "endLine": 213,
+        "endChar": 71
+      },
+      "revId": "63802a2a2ed151aff74d05340262e81dbfb5034d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba2a737d_4f16ed20",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-21T07:55:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d64a414c_cd13254e",
       "range": {
         "startLine": 211,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31c9ddcb_aa5fb60a",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-21T07:55:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afb0b640_e93e2895",
+      "range": {
+        "startLine": 269,
+        "startChar": 8,
+        "endLine": 269,
+        "endChar": 77
+      },
+      "revId": "63802a2a2ed151aff74d05340262e81dbfb5034d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82f1aa68_25542ece",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-02-21T06:21:50Z",
       "side": 1,
       "message": "Comment to explain why this check ensures that the network has usable address? And what it means in this context. Add TODO or refer to the original code if you don\u0027t know",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 27
+      },
+      "revId": "63802a2a2ed151aff74d05340262e81dbfb5034d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19d73243_526adce6",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/TestNetworkTracker.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-21T07:55:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82f1aa68_25542ece",
       "range": {
         "startLine": 173,
         "startChar": 0,
