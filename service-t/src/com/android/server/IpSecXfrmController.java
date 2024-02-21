@@ -21,6 +21,7 @@ import static com.android.net.module.util.netlink.xfrm.XfrmNetlinkMessage.NETLIN
 import static com.android.net.module.util.netlink.xfrm.XfrmNetlinkMessage.XFRM_MSG_NEWSA;
 
 import android.annotation.TargetApi;
+import android.net.NetworkUtils;
 import android.os.Build;
 import android.system.ErrnoException;
 import android.util.Log;
@@ -31,6 +32,8 @@ import androidx.annotation.Nullable;
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.HexDump;
+import com.android.net.module.util.Struct;
+import com.android.net.module.util.Struct.KernelArch;
 import com.android.net.module.util.netlink.NetlinkConstants;
 import com.android.net.module.util.netlink.NetlinkErrorMessage;
 import com.android.net.module.util.netlink.NetlinkMessage;
@@ -68,6 +71,16 @@ public class IpSecXfrmController {
     @VisibleForTesting
     public IpSecXfrmController(@NonNull Dependencies dependencies) {
         mDependencies = dependencies;
+
+        if (NetworkUtils.isKernelRiscV()) {
+            Struct.setKernelArch(KernelArch.RiscV);
+        } else if (NetworkUtils.isKernelX86()) {
+            Struct.setKernelArch(
+                    NetworkUtils.isKernel64Bit() ? KernelArch.X86_64 : KernelArch.X86_32);
+        } else {
+            Struct.setKernelArch(
+                    NetworkUtils.isKernel64Bit() ? KernelArch.Arm64 : KernelArch.Arm32);
+        }
     }
 
     public IpSecXfrmController() {

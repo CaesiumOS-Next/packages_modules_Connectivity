@@ -228,8 +228,7 @@ public class Struct {
         public final Field annotation;
         @NonNull
         public final java.lang.reflect.Field field;
-        @NonNull
-        public final Map<KernelArch, Integer> fieldPaddings;
+        @NonNull public final Map<KernelArch, Integer> fieldPaddings;
 
         FieldInfo(
                 final Field annotation,
