@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17d06708_0bdb2286",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-21T10:41:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9656f05b_fae361d7",
+      "range": {
+        "startLine": 417,
+        "startChar": 31,
+        "endLine": 417,
+        "endChar": 36
+      },
+      "revId": "413265fa9b69fafbdd7d13087a981a34ad30dba7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "086153ae_94f3b93a",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-21T09:14:37Z",
       "side": 1,
       "message": "Maybe not to ignore the case if it is not expected?",
+      "range": {
+        "startLine": 424,
+        "startChar": 13,
+        "endLine": 425,
+        "endChar": 13
+      },
+      "revId": "413265fa9b69fafbdd7d13087a981a34ad30dba7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "604c8166_8c6ce2b3",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-21T10:41:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "086153ae_94f3b93a",
       "range": {
         "startLine": 424,
         "startChar": 13,
