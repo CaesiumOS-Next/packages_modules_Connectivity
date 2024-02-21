@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00bb8c73_8318dc4d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-21T17:58:54Z",
+      "side": 1,
+      "message": "I believe the conclusion is to make the subscriptionId fully public so it is not just the owner but everyone can see it",
+      "range": {
+        "startLine": 805,
+        "startChar": 21,
+        "endLine": 805,
+        "endChar": 32
+      },
+      "revId": "6efc5ef2e3414892cd23420494706033610aa9f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
