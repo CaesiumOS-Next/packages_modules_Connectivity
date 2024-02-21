@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c34d4e51_b869af5a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T09:26:04Z",
+      "side": 0,
+      "message": "I confused, why the !additionalAnswerRecords.contains(info.record) doesn\u0027t work and by using Set it works?",
+      "range": {
+        "startLine": 608,
+        "startChar": 12,
+        "endLine": 608,
+        "endChar": 63
+      },
+      "revId": "e521ae306aa96e142ffa325f40df2c233591f53a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
