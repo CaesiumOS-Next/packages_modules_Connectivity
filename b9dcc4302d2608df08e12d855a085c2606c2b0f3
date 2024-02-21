@@ -74,6 +74,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3cb93d5c_2cdf5ead",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 89
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:35:35Z",
+      "side": 1,
+      "message": "maybe also better to rename it to `mCustomeTtlDuration`",
+      "range": {
+        "startLine": 125,
+        "startChar": 15,
+        "endLine": 125,
+        "endChar": 27
+      },
+      "revId": "b9dcc4302d2608df08e12d855a085c2606c2b0f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a48eca1e_23bde784",
         "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
         "patchSetId": 89
