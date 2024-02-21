@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "828e521e_4431d280",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 1965,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T09:04:01Z",
+      "side": 1,
+      "message": "Then I think we need to read the raw packet from the Tap device and check if the key is advertised properly or not..... Otherwise, we don\u0027t know if the key we advertised matched the key we set.",
+      "parentUuid": "8e79ef24_0c42d316",
+      "range": {
+        "startLine": 1965,
+        "startChar": 87,
+        "endLine": 1965,
+        "endChar": 95
+      },
+      "revId": "8dc9e1de69ea91c39e8893b41df4448e07c1ebbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4e521ce9_bbfc6ad4",
         "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
         "patchSetId": 8
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "There\u0027re two reasons not doing so:\n1. `NsdManager` doesn\u0027t yet support resolving a host which doesn\u0027t have a service.\n2. The purpose of this test case is to verify the KEY RR is announced but not about the registration of the custom hosts.\n\nTo verify that the resolved host is as expected I\u0027ll need to add a service associated with the host in this test case. Would you suggest to do so?",
       "parentUuid": "4e521ce9_bbfc6ad4",
+      "range": {
+        "startLine": 2071,
+        "startChar": 15,
+        "endLine": 2071,
+        "endChar": 28
+      },
+      "revId": "8dc9e1de69ea91c39e8893b41df4448e07c1ebbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01612c3c_29866adf",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 2071,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T09:04:01Z",
+      "side": 1,
+      "message": "I see, in this case, we will need a comment in the test case to mention the test purpose and why we don\u0027t verify the custom host here.",
+      "parentUuid": "7b6648eb_4f7f60ec",
       "range": {
         "startLine": 2071,
         "startChar": 15,
