@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "287a723a_072eb53a",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 89
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:12:13Z",
+      "side": 1,
+      "message": "Why we use Duration class here? It seems it create additional complexity in the API. mTtlDuration \u003d\u003d null means using default value -1 is also not obvious.",
+      "range": {
+        "startLine": 72,
+        "startChar": 18,
+        "endLine": 72,
+        "endChar": 26
+      },
+      "revId": "b9dcc4302d2608df08e12d855a085c2606c2b0f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a997e3e3_10668bb2",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 89
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:12:13Z",
+      "side": 1,
+      "message": "Whats the benefit of using Instant here?",
+      "range": {
+        "startLine": 80,
+        "startChar": 12,
+        "endLine": 80,
+        "endChar": 19
+      },
+      "revId": "b9dcc4302d2608df08e12d855a085c2606c2b0f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
