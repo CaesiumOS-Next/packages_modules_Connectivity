@@ -120,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e8ca1030_c92021cc",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 89
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-21T08:39:45Z",
+      "side": 1,
+      "message": "\u003e But setTtlDuration(null) means use default Duration is confusing...\n\nThis is equivalent to that the user never calls `setTltDuration()`, which is the default behavior of existing service registration APIs.\n\nWhen the custom TTL duration is not set, the default behavior is that SRV, TXT and A/AAAA will use different TTL values, so it\u0027s probably not easy to use a non-null TTL duration to represent the default behavior. Using a `@Nullable Duration mTltDuration;` is straight forward, and it is generally suggested by the API guideline that @nullable properties should access @nullable arugment in the setter (to keep symmetric with the getter): see go/android-api-guidelines#builders-optional-nullable-setters",
+      "parentUuid": "a48eca1e_23bde784",
+      "range": {
+        "startLine": 222,
+        "startChar": 16,
+        "endLine": 222,
+        "endChar": 35
+      },
+      "revId": "b9dcc4302d2608df08e12d855a085c2606c2b0f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a997e3e3_10668bb2",
         "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
         "patchSetId": 89
