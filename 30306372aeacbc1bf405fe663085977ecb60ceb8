@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "711838a7_012613de",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:36:57Z",
+      "side": 1,
+      "message": "Hmm, the ttlDuration \u003d\u003d null means -1 which means the default value conversion is super confusing ... \n\nCan we check \n\n```\nIf (customeTtlDuration \u003d\u003d null) {\n...\n} else {\n...\n}\n\n```",
+      "range": {
+        "startLine": 218,
+        "startChar": 63,
+        "endLine": 218,
+        "endChar": 65
+      },
+      "revId": "30306372aeacbc1bf405fe663085977ecb60ceb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22c1aca7_694012d5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:36:57Z",
+      "side": 1,
+      "message": "Please check the lint warning to see if it can be fixed.",
+      "revId": "30306372aeacbc1bf405fe663085977ecb60ceb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7031646_c5c439ae",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 1551,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:36:57Z",
+      "side": 1,
+      "message": "Please fix the errorProne in this file.",
+      "revId": "30306372aeacbc1bf405fe663085977ecb60ceb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
