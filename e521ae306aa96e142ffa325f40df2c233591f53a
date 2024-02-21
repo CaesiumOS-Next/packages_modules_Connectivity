@@ -46,6 +46,30 @@
       },
       "revId": "e521ae306aa96e142ffa325f40df2c233591f53a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6988954_c5fae556",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T09:36:22Z",
+      "side": 0,
+      "message": "I see, I think the additionalAnswerRecord list only contains very small number of items. So maybe the performance efficiency check here is very minimal. I am not quite sure the performance lost due to  `new LinkedHashSet\u003c\u003e()` memory allocation is out weight the performance gain for switch to using the Set for duplication... I feel it might be better to put this patch onhold until we really see the performance hit here.",
+      "parentUuid": "32f07e23_27231983",
+      "range": {
+        "startLine": 608,
+        "startChar": 12,
+        "endLine": 608,
+        "endChar": 63
+      },
+      "revId": "e521ae306aa96e142ffa325f40df2c233591f53a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
