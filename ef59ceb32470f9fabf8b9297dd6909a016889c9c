@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d09a208c_93f793bf",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-21T07:54:29Z",
+      "side": 1,
+      "message": "Will we access it from different threads?\nIf yes we might need to consider thread-safe here.",
+      "range": {
+        "startLine": 308,
+        "startChar": 20,
+        "endLine": 308,
+        "endChar": 38
+      },
+      "revId": "ef59ceb32470f9fabf8b9297dd6909a016889c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fabf7f2_3d2df012",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-21T07:54:29Z",
+      "side": 1,
+      "message": "Maybe implement setPermission with pid uid as well, given that the functionality is ready but no setter.",
+      "range": {
+        "startLine": 353,
+        "startChar": 8,
+        "endLine": 353,
+        "endChar": 9
+      },
+      "revId": "ef59ceb32470f9fabf8b9297dd6909a016889c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
