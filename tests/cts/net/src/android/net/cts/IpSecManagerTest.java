@@ -53,6 +53,7 @@ import static android.system.OsConstants.IPPROTO_UDP;
 
 import static com.android.compatibility.common.util.PropertyUtil.getFirstApiLevel;
 import static com.android.compatibility.common.util.PropertyUtil.getVendorApiLevel;
+import static com.android.net.module.util.FeatureVersions.FEATURE_TRAFFIC_STATS_RATE_LIMIT_CACHE;
 import static com.android.testutils.DeviceInfoUtils.isKernelVersionAtLeast;
 import static com.android.testutils.MiscAsserts.assertThrows;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
@@ -79,6 +80,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.DeviceConfigUtils;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.SkipMainlinePresubmit;
@@ -417,6 +419,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         private static long ifaceRxBytes;
         private static long ifaceTxPackets;
         private static long ifaceRxPackets;
+        private static boolean shouldClearTrafficStatsCache;
 
         /**
          * This method counts the number of incoming packets, polling intermittently up to
@@ -426,6 +429,11 @@ public class IpSecManagerTest extends IpSecBaseTest {
             long uidTxDelta = 0;
             long uidRxDelta = 0;
             for (int i = 0; i < 100; i++) {
+                // Clear TrafficStats cache is needed to avoid rate-limit caching for
+                // TrafficStats API results.
+                if (shouldClearTrafficStatsCache) {
+                    runAsShell(NETWORK_SETTINGS, () -> TrafficStats.clearRateLimitCaches());
+                }
                 uidTxDelta = TrafficStats.getUidTxPackets(Os.getuid()) - uidTxPackets;
                 uidRxDelta = TrafficStats.getUidRxPackets(Os.getuid()) - uidRxPackets;
 
@@ -500,6 +508,13 @@ public class IpSecManagerTest extends IpSecBaseTest {
         }
 
         private static void initStatsChecker() throws Exception {
+            // Clear TrafficStats cache is needed to avoid rate-limit caching for
+            // TrafficStats API results.
+            shouldClearTrafficStatsCache = DeviceConfigUtils.isFeatureSupported(
+                    InstrumentationRegistry.getContext(), FEATURE_TRAFFIC_STATS_RATE_LIMIT_CACHE);
+            if (shouldClearTrafficStatsCache) {
+                runAsShell(NETWORK_SETTINGS, () -> TrafficStats.clearRateLimitCaches());
+            }
             uidTxBytes = TrafficStats.getUidTxBytes(Os.getuid());
             uidRxBytes = TrafficStats.getUidRxBytes(Os.getuid());
             uidTxPackets = TrafficStats.getUidTxPackets(Os.getuid());

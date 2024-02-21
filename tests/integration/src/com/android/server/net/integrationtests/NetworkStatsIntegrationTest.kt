@@ -38,6 +38,8 @@ import android.net.TrafficStats
 import android.os.Build
 import android.os.Process
 import androidx.test.platform.app.InstrumentationRegistry
+import com.android.net.module.util.DeviceConfigUtils
+import com.android.net.module.util.FeatureVersions
 import com.android.server.net.integrationtests.NetworkStatsIntegrationTest.Direction.DOWNLOAD
 import com.android.server.net.integrationtests.NetworkStatsIntegrationTest.Direction.UPLOAD
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
@@ -56,14 +58,14 @@ import java.net.HttpURLConnection.HTTP_OK
 import java.net.InetSocketAddress
 import java.net.URL
 import java.nio.charset.Charset
-import kotlin.math.ceil
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 import org.junit.After
 import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.math.ceil
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 private const val TEST_TAG = 0xF00D
 
@@ -214,6 +216,12 @@ class NetworkStatsIntegrationTest {
         // In practice, for one way 10k download payload, the download usage is about
         // 11222~12880 bytes, with 14~17 packets. And the upload usage is about 1279~1626 bytes
         // with 14~17 packets, which is majorly contributed by TCP ACK packets.
+        // Clear TrafficStats cache is needed to avoid rate-limit caching for
+        // TrafficStats API results.
+        if (DeviceConfigUtils.isFeatureSupported(context,
+                FeatureVersions.FEATURE_TRAFFIC_STATS_RATE_LIMIT_CACHE)) {
+            TrafficStats.clearRateLimitCaches()
+        }
         val snapshotAfterDownload = StatsSnapshot(context, internalInterfaceName)
         val (expectedDownloadLower, expectedDownloadUpper) = getExpectedStatsBounds(
             TEST_DOWNLOAD_SIZE,
@@ -236,6 +244,10 @@ class NetworkStatsIntegrationTest {
         )
 
         // Verify upload data usage accounting.
+        if (DeviceConfigUtils.isFeatureSupported(context,
+                FeatureVersions.FEATURE_TRAFFIC_STATS_RATE_LIMIT_CACHE)) {
+            TrafficStats.clearRateLimitCaches()
+        }
         val snapshotAfterUpload = StatsSnapshot(context, internalInterfaceName)
         val (expectedUploadLower, expectedUploadUpper) = getExpectedStatsBounds(
             TEST_UPLOAD_SIZE,
