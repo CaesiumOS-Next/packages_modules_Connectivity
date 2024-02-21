@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b31ae6fc_9a9438d7",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1787,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:03:09Z",
+      "side": 1,
+      "message": "Its better to put the public key in the error message as well\n```suggestion\n            throw new IllegalArgumentException(\"The public key is invalid: \"\n                    + serviceInfo.getPublicKey());\n```",
+      "range": {
+        "startLine": 1787,
+        "startChar": 22,
+        "endLine": 1787,
+        "endChar": 46
+      },
+      "revId": "8dc9e1de69ea91c39e8893b41df4448e07c1ebbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45506c7e_1d56a182",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 1965,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:03:09Z",
+      "side": 1,
+      "message": "Do we need also check the resolvedInfo1 contains the key that was adversied?",
+      "range": {
+        "startLine": 1965,
+        "startChar": 87,
+        "endLine": 1965,
+        "endChar": 95
+      },
+      "revId": "8dc9e1de69ea91c39e8893b41df4448e07c1ebbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e521ce9_bbfc6ad4",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 2071,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:03:09Z",
+      "side": 1,
+      "message": "check the custom host in the resolverInfo as well?",
+      "range": {
+        "startLine": 2071,
+        "startChar": 15,
+        "endLine": 2071,
+        "endChar": 28
+      },
+      "revId": "8dc9e1de69ea91c39e8893b41df4448e07c1ebbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
