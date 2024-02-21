@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9656f05b_fae361d7",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-21T09:14:37Z",
+      "side": 1,
+      "message": "If we don\u0027t check the return value maybe put is less errorprone?",
+      "range": {
+        "startLine": 417,
+        "startChar": 31,
+        "endLine": 417,
+        "endChar": 36
+      },
+      "revId": "413265fa9b69fafbdd7d13087a981a34ad30dba7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "086153ae_94f3b93a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-21T09:14:37Z",
+      "side": 1,
+      "message": "Maybe not to ignore the case if it is not expected?",
+      "range": {
+        "startLine": 424,
+        "startChar": 13,
+        "endLine": 425,
+        "endChar": 13
+      },
+      "revId": "413265fa9b69fafbdd7d13087a981a34ad30dba7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
