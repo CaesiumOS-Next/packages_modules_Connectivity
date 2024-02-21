@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53c9e685_d903c51c",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecTransformStateTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2024-02-21T20:31:57Z",
+      "side": 1,
+      "message": "We allow setting TX and RX on the same instance. Although in reality you should not apply a SA to both directions, in tests you can do that (e.g. we do that in IpSecManagerTest).\n\nPreviously I was thinking that if someone takes CTS as examples of using APIs, they may be confused by seeing a IpSecTransformState has both TX and RX. But it\u0027s probably fine because those setters are for tests. In tests, setting TX and RX on the same instance are valid use cases.",
+      "parentUuid": "103f2745_b7eb273d",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 0
+      },
+      "revId": "a89418d8044ea3e53f1e89d867ce6fb4c76e0a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "455e32d1_2c7cc98e",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f01d5eb7_b0cbb72a",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecTransformStateTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2024-02-21T20:31:57Z",
+      "side": 1,
+      "message": "\u003e  Is the idea that the time stamp is either automatically set OR set by the builder?\n\nYes. In real use cases, the builder should self generated the timestamp. But in tests, developer may want to set it.",
+      "parentUuid": "455e32d1_2c7cc98e",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 71
+      },
+      "revId": "a89418d8044ea3e53f1e89d867ce6fb4c76e0a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec82d077_349104fc",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-02-21T18:15:56Z",
       "side": 1,
       "message": "the more-meaningful test of the timestamp seems to be what\u0027s currently done in the verify() method. Perhaps testing that the inner logic will grab a timestamp is the thing worthy of a separate test and the verifyBuild() method can just use the static value?",
+      "range": {
+        "startLine": 104,
+        "startChar": 44,
+        "endLine": 104,
+        "endChar": 60
+      },
+      "revId": "a89418d8044ea3e53f1e89d867ce6fb4c76e0a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d261804_205cb807",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecTransformStateTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2024-02-21T20:31:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec82d077_349104fc",
       "range": {
         "startLine": 104,
         "startChar": 44,
