@@ -48,6 +48,53 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1f817c7_029d41fa",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 89
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:30:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "20033198_ae5a4248",
+      "range": {
+        "startLine": 72,
+        "startChar": 18,
+        "endLine": 72,
+        "endChar": 26
+      },
+      "revId": "b9dcc4302d2608df08e12d855a085c2606c2b0f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a48eca1e_23bde784",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 89
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:30:36Z",
+      "side": 1,
+      "message": "I can understand using the Duration is recommend by the API guidline now. But setTtlDuration(null) means use default Duration is confusing...\n\nShall we consider the following two API?\n\n```\nsetTtlDuration(@NonNull Duration ttlDuration)\n\nsetDefaultTtlDuration()\n```",
+      "range": {
+        "startLine": 222,
+        "startChar": 16,
+        "endLine": 222,
+        "endChar": 35
+      },
+      "revId": "b9dcc4302d2608df08e12d855a085c2606c2b0f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a997e3e3_10668bb2",
@@ -85,6 +132,30 @@
       "side": 1,
       "message": "ditto. It\u0027s per the Android API guideline: go/android-api-guidelines#time-types",
       "parentUuid": "a997e3e3_10668bb2",
+      "range": {
+        "startLine": 80,
+        "startChar": 12,
+        "endLine": 80,
+        "endChar": 19
+      },
+      "revId": "b9dcc4302d2608df08e12d855a085c2606c2b0f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d4f4d95_306c58ec",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 89
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-21T08:30:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ba6aa4db_717d2359",
       "range": {
         "startLine": 80,
         "startChar": 12,
