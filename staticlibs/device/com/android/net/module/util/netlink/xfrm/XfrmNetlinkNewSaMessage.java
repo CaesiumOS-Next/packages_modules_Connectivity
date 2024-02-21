@@ -91,7 +91,7 @@ public class XfrmNetlinkNewSaMessage extends XfrmNetlinkMessage {
         StructXfrmReplayStateEsn xfrmReplayStateEsn = null;
 
         final int payloadLen = nlmsghdr.nlmsg_len - StructNlMsgHdr.STRUCT_SIZE;
-        int parsedLength = StructXfrmUsersaInfo.STRUCT_SIZE;
+        int parsedLength = StructXfrmUsersaInfo.getStructSize();
         while (parsedLength < payloadLen) {
             final StructNlAttr attr = StructNlAttr.parse(byteBuffer);
 
