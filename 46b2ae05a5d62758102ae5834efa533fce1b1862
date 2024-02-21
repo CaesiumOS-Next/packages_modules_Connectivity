@@ -16,6 +16,23 @@
       "message": "Friendly ping",
       "revId": "46b2ae05a5d62758102ae5834efa533fce1b1862",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cefdd196_b63bc4f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-02-21T06:56:33Z",
+      "side": 1,
+      "message": "LGTM, assuming you\u0027ll fix the tests that are broken. The current patch breaks some tests, like the ConnectivityCoverageTests.",
+      "revId": "46b2ae05a5d62758102ae5834efa533fce1b1862",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
