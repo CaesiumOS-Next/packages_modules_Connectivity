@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37161b37_2233fa5a",
+        "filename": "service-t/src/com/android/server/IpSecXfrmController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2024-02-21T19:31:55Z",
+      "side": 1,
+      "message": "aosp/2969316 added static setter and getter in Struct to avoid passing through the kernel arch. However, due to the complexity of the build system, NetlinkMessage or Struct will not be able to directly query the kernel arch.",
+      "parentUuid": "a5c3e94f_bc1d3419",
+      "range": {
+        "startLine": 65,
+        "startChar": 33,
+        "endLine": 65,
+        "endChar": 49
+      },
+      "revId": "922527ff971507b562e9136e53829c0cbd31c69d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3c99f56_15899ed1",
@@ -71,6 +95,30 @@
       "writtenOn": "2024-02-12T23:40:54Z",
       "side": 1,
       "message": "nit: consume extra padding. If you can point to something explaining why the padding exists, that would be helpful.",
+      "range": {
+        "startLine": 75,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 36
+      },
+      "revId": "922527ff971507b562e9136e53829c0cbd31c69d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15e50509_a6ac2aee",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/xfrm/StructXfrmUsersaInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2024-02-21T19:31:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f3c99f56_15899ed1",
       "range": {
         "startLine": 75,
         "startChar": 12,
