@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "395f2f31_a439e335",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-22T14:31:52Z",
+      "side": 1,
+      "message": "Should we print more information about each listener?",
+      "range": {
+        "startLine": 754,
+        "startChar": 18,
+        "endLine": 754,
+        "endChar": 27
+      },
+      "revId": "55f943e57b2580530e197a65304df0859d95d59a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
