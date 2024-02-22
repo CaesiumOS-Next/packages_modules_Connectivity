@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69204f67_c541d2d4",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-22T10:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e55bd67_6a991e49",
+      "range": {
+        "startLine": 84,
+        "startChar": 16,
+        "endLine": 84,
+        "endChar": 40
+      },
+      "revId": "3d92a1a04e09f3b7197e593a9d4e2e919f925b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90bc259f_7ada8a7f",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-22T09:10:01Z",
       "side": 1,
       "message": "setCaptivePortal? Only if you think that is better.",
+      "range": {
+        "startLine": 191,
+        "startChar": 8,
+        "endLine": 191,
+        "endChar": 24
+      },
+      "revId": "3d92a1a04e09f3b7197e593a9d4e2e919f925b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "007f56df_2b3a95b8",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-22T10:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90bc259f_7ada8a7f",
       "range": {
         "startLine": 191,
         "startChar": 8,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "569ecb7b_f2f5cc2e",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-22T10:39:25Z",
+      "side": 1,
+      "message": "Here explains why completed probes contain no https probe. result(invalid) + url means captive portal by its definition. I think this does not need to specify in particular. WDYT?",
+      "parentUuid": "15ce40c6_af402410",
+      "range": {
+        "startLine": 194,
+        "startChar": 8,
+        "endLine": 195,
+        "endChar": 85
+      },
+      "revId": "3d92a1a04e09f3b7197e593a9d4e2e919f925b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52758b3b_fa723d79",
         "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
         "patchSetId": 10
@@ -83,6 +155,30 @@
       "writtenOn": "2024-02-22T09:10:01Z",
       "side": 1,
       "message": "Maybe just inline these values?",
+      "range": {
+        "startLine": 196,
+        "startChar": 8,
+        "endLine": 197,
+        "endChar": 55
+      },
+      "revId": "3d92a1a04e09f3b7197e593a9d4e2e919f925b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a361c6c_bc0997a8",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-22T10:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52758b3b_fa723d79",
       "range": {
         "startLine": 196,
         "startChar": 8,
