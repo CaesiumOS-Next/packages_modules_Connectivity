@@ -88,6 +88,24 @@
       "parentUuid": "b4a020ca_55c9461e",
       "revId": "f51610abdde8e74cad31cff9bdabd29c2b0b78da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e4dc38a_4ab987b5",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-22T03:35:45Z",
+      "side": 1,
+      "message": "Oh, I just realized that OT_ERROR_FAIELD is newly added here 😮 (I wanted to use it to internal errors but gave it up).\n\nI reverted OT_ERROR_FAIELD now, PTAL.",
+      "parentUuid": "5e568568_33e85899",
+      "revId": "f51610abdde8e74cad31cff9bdabd29c2b0b78da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
