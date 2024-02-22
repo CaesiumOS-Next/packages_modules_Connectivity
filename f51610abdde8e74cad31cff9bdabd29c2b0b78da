@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e04fd838_72cadf28",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-22T03:01:10Z",
+      "side": 1,
+      "message": "nit: is it necessary to list these errors when they fall through the default ERROR_INTERNAL_ERROR? There are more errors in error.h that are not listed here.",
+      "revId": "f51610abdde8e74cad31cff9bdabd29c2b0b78da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
