@@ -16,6 +16,24 @@
       "message": "I thought we need to use this permission for setFastPairScanEnabled?",
       "revId": "4cb9cfa3a1c50d99b448754bd6a16321b3c43401",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "503fb8a9_a6a784ae",
+        "filename": "nearby/tests/cts/fastpair/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1900995
+      },
+      "writtenOn": "2024-02-22T23:42:01Z",
+      "side": 0,
+      "message": "Right, see our discussion in ag/23596000.\n\nWe used to delete the code get/setFastPairScanEnabled in NearbyManager when deleting FastPair AOSP code. Then we found the Android 13 CTS test code already launched so CTS would fail after deleting NearbyManager get/setFastPairScanEnabled. So we decided to put the code back.\n\nNow they are testing Android 14 CTS, the test would fail (I am thinking if in that build the NearbyManager already delete the get/setFastPairScanEnabled code so I didn\u0027t change it here.\n\nIn the [discussion](https://buganizer.corp.google.com/issues/319046559#comment11) the Google team already talking about the signature issue so maybe I first fix together with deleting get/setFastPairScanEnabled on main branch to avoid  Dr.No.",
+      "parentUuid": "2016fb5c_d27c7c6b",
+      "revId": "4cb9cfa3a1c50d99b448754bd6a16321b3c43401",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
