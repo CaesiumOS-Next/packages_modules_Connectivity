@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d541513b_d413db08",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6282,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-22T05:58:42Z",
+      "side": 1,
+      "message": "Could you look at why this doesn\u0027t trigger failures in NetworkStackService, which calls this without check (although only for a shell command) ?",
+      "revId": "a1c7a414e1637b0bfa1b699f34fac03b07789901",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
