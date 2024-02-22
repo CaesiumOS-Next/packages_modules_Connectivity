@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cf4119d_27431f74",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1779,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-22T15:47:10Z",
+      "side": 1,
+      "message": "this line should be\n\nboolean hasValidPublicKey \u003d true;\n\n\nBecause the validation already happened",
+      "range": {
+        "startLine": 1779,
+        "startChar": 16,
+        "endLine": 1779,
+        "endChar": 28
+      },
+      "revId": "84fc8d07a97723bb4a09458fe45bbf1c90be53d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "178f738f_cb1d6c70",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1786,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-22T15:47:10Z",
+      "side": 1,
+      "message": "I think this check should be move up to the line below 1774?",
+      "range": {
+        "startLine": 1786,
+        "startChar": 7,
+        "endLine": 1786,
+        "endChar": 58
+      },
+      "revId": "84fc8d07a97723bb4a09458fe45bbf1c90be53d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c9cac16_82f2f07c",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1788,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-22T15:47:10Z",
+      "side": 1,
+      "message": "errorprone\n\n```\npackages/modules/Connectivity/framework-t/src/android/net/nsd/NsdManager.java:1788: error: [ArrayToString] Calling toString on an array does not provide useful information\n                    \"The public key is invalid: \" + serviceInfo.getPublicKey());\n```",
+      "range": {
+        "startLine": 1787,
+        "startChar": 12,
+        "endLine": 1788,
+        "endChar": 80
+      },
+      "revId": "84fc8d07a97723bb4a09458fe45bbf1c90be53d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20bf1d95_76b5d950",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1802,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-22T15:47:10Z",
+      "side": 1,
+      "message": "I lost myself into this logic for at least 3 times now. I think we should try to simplify it (even though it can make the logic verbose. \n\n1. We really need to document all the valid combination. Or document all the invalid combination. basically try to summarize the following document in the code comment.\nhttps://docs.google.com/document/d/1f7KH0th4ULwj7-9nLzTeeIkZP_DFCV3xvHYCd6fQwvE/edit?tab\u003dt.0#heading\u003dh.q7jgdo6dxi32\n\n```\nStates of service/host/key\n\nService\n\nValid service: getServiceName() and getServiceType() aren’t empty,     getPort()\u003e 0, getTxtRecord() could be empty\n\n0-port service: getServiceName() and getServiceType() aren’t empty,    getPort() \u003d 0, getTxtRecord() is empty\n\nNo service: getServiceName() and getServiceType() are empty, getPort() \u003d 0, getTxtRecord() is empty\n\nInvalid service: none of above\n\nHost\n\nCustom host: getHostname() isn’t empty, getHostAddresses() isn’t empty\n\nNo-address host: getHostname() isn’t empty, getHostAddresses() is empty\n\nDefault host: getHostname() is empty, getHostAddresses() is empty\n\nInvalid host: getHostname() is empty, getHostAddresses() isn’t empty\n\nKey\nValid key: getPublicKey() isn’t empty\n\nNo key: getPublicKey() is empty \n\n\n(valid service, custom host, valid key): register service with custom host, register host, register key for both service and host\n(valid service, custom host, no key): register service with custom host, register host\n(valid service, no-address host, valid key): register service with custom host, register key for both service and host\n(valid service, no-address host, no key): register service with custom host\n(valid service, default host, valid key): register service with default host, register a key for the service\n(valid service, default host, no key): register service with default host.\n(0-port service, custom host, valid key): register custom host, register key for service and host\n(0-port service, custom host, no key): invalid because it’s not meaningful to specify a 0-port service without a key\n(0-port service, no-address host, valid key): register key for service and host\n(0-port service, no-address host, no key): invalid \n(0-port service, default host, valid key): register key for the service who uses the default host\n(0-port service, default host, no key): invalid because it’s not meaningful to specify a 0-port service without a key\n(no service, custom host, valid key): register host, register key\n(no service, custom host, no key): register custom host\n(no service, no-address host, valid key): register key for custom host\n(no service, no-address host, no key): invalid\n(no service, default host, valid key): register key for the default host\n(no service, default host, no key): invalid\n\n```\n\n\n\n2. I feel in the code, I think we should do multiple level check\n\n```\nenum ServiceValidationType { VALID, ZERO_PORT, NO_SERVICE }\n\nServiceValidationType sType \u003d validateService(...) // validateService will throw exception if its invalid.\n\nenum HostValidationType { CUSTOM, NO_ADDRESS, DEFAULT }\n\nHostValidationType hType \u003d validateHost(...) // validateHost will throw if invalid.\n\n\nif (!hasValidKey) {\n// check all the invalid combination.\n}\n```",
+      "range": {
+        "startLine": 1791,
+        "startChar": 5,
+        "endLine": 1802,
+        "endChar": 9
+      },
+      "revId": "84fc8d07a97723bb4a09458fe45bbf1c90be53d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
