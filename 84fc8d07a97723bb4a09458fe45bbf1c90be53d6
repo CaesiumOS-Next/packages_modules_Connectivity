@@ -91,6 +91,30 @@
       },
       "revId": "84fc8d07a97723bb4a09458fe45bbf1c90be53d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "319da030_20508e8a",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1802,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-22T15:51:00Z",
+      "side": 1,
+      "message": "Also, I\u0027d suggest to have a separate test case in NsdManagerTest.java to test all the combination to make sure the checkServiceInfoForRegistration() throw when it should throw.",
+      "parentUuid": "20bf1d95_76b5d950",
+      "range": {
+        "startLine": 1791,
+        "startChar": 5,
+        "endLine": 1802,
+        "endChar": 9
+      },
+      "revId": "84fc8d07a97723bb4a09458fe45bbf1c90be53d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
