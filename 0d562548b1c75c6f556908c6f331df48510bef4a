@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "757c8547_49879da9",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1777,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-22T10:46:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6a7eb1a2_e13845eb",
+      "range": {
+        "startLine": 1777,
+        "startChar": 19,
+        "endLine": 1777,
+        "endChar": 90
+      },
+      "revId": "0d562548b1c75c6f556908c6f331df48510bef4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "168d9ef2_d02a7eab",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-22T07:59:03Z",
       "side": 1,
       "message": "Could you add test case to NetworkCapabilitiesTest.java?\nYou can check `testSetNetworkSpecifierOnMultiTransportNc` as reference.",
+      "range": {
+        "startLine": 1785,
+        "startChar": 3,
+        "endLine": 1785,
+        "endChar": 5
+      },
+      "revId": "0d562548b1c75c6f556908c6f331df48510bef4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "957629ee_f1eb5014",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1785,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-22T10:46:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "168d9ef2_d02a7eab",
       "range": {
         "startLine": 1785,
         "startChar": 3,
