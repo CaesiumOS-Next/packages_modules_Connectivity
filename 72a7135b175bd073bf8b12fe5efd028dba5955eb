@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5421c967_6877d400",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 56
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-22T15:02:32Z",
+      "side": 1,
+      "message": "It seems based on this logic, if the non system server set the value to 29 second, it will silently adjust it to 30. Will it be better to add some logging here?\n\nOr maybe we should send them the onRegisterServiceFailedImmediately() is better?",
+      "range": {
+        "startLine": 753,
+        "startChar": 16,
+        "endLine": 754,
+        "endChar": 91
+      },
+      "revId": "72a7135b175bd073bf8b12fe5efd028dba5955eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6227ae30_f2d9adb2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 56
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-22T15:02:32Z",
+      "side": 1,
+      "message": "Maybe better have a comment here:\n\nIf customize TTL is set, it is expected both `nonNameRecordsTtlMillis` and `nameRecordsTtlMillis` will be use that TTL. (maybe also link to RFC)",
+      "range": {
+        "startLine": 221,
+        "startChar": 16,
+        "endLine": 221,
+        "endChar": 64
+      },
+      "revId": "72a7135b175bd073bf8b12fe5efd028dba5955eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de39018f_8e4e164b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 56
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-22T15:02:32Z",
+      "side": 1,
+      "message": "Sorry, I forgot if I asked the questions in other CLs before or not.\n\nIs it expected to change NON_NAME_RECORDS_TTL_MILLIS -\u003e nameRecordsTtlMillis ?\n\nIf yes, maybe it worth a comment here",
+      "range": {
+        "startLine": 279,
+        "startChar": 32,
+        "endLine": 279,
+        "endChar": 52
+      },
+      "revId": "72a7135b175bd073bf8b12fe5efd028dba5955eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab21cfdd_16a3905b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 56
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-22T15:02:32Z",
+      "side": 1,
+      "message": "Build error:\n\n```\npackages/modules/Connectivity/service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java:66: Error: Call requires API level 33 (current min is 30): android.os.Parcel#readParcelable [NewApi]\n                            source.readParcelable(Network.class.getClassLoader(), Network.class),\n```",
+      "revId": "72a7135b175bd073bf8b12fe5efd028dba5955eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9abe218_e4a9c23d",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 56
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-22T15:02:32Z",
+      "side": 1,
+      "message": "This line wrap doesn\u0027t trigger `repo upload .` format error?",
+      "range": {
+        "startLine": 575,
+        "startChar": 8,
+        "endLine": 575,
+        "endChar": 104
+      },
+      "revId": "72a7135b175bd073bf8b12fe5efd028dba5955eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
