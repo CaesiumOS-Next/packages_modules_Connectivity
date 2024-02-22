@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2016fb5c_d27c7c6b",
+        "filename": "nearby/tests/cts/fastpair/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1060529
+      },
+      "writtenOn": "2024-02-22T01:36:54Z",
+      "side": 0,
+      "message": "I thought we need to use this permission for setFastPairScanEnabled?",
+      "revId": "4cb9cfa3a1c50d99b448754bd6a16321b3c43401",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
