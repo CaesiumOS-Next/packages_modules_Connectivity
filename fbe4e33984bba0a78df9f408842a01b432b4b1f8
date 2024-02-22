@@ -16,6 +16,24 @@
       "message": "Is this for requests, or is only needed because TelephonyNetworkFactory needs to declare a capability filter? Generally specifiers are tightly coupled to transports so in general it would be better if we could avoid supporting specifiers on multi-transport networks.",
       "revId": "fbe4e33984bba0a78df9f408842a01b432b4b1f8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1f19cf0_c59827a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-22T15:49:47Z",
+      "side": 1,
+      "message": "Thanks for the feedback , it is to receive network requests(at this case\nfor newly added satellite transport network request) from connectivity toTelephonyNetworkFactory.\n\nThese are network request filter used by this factory.\nRef : https://googleplex-android-review.git.corp.google.com/c/platform/frameworks/opt/telephony/+/26188732/44/src/java/com/android/internal/telephony/data/TelephonyNetworkFactory.java#131",
+      "parentUuid": "3ff2d8ed_84b53007",
+      "revId": "fbe4e33984bba0a78df9f408842a01b432b4b1f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
