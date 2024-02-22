@@ -34,6 +34,24 @@
       "parentUuid": "2016fb5c_d27c7c6b",
       "revId": "4cb9cfa3a1c50d99b448754bd6a16321b3c43401",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed3363a3_696eb13c",
+        "filename": "nearby/tests/cts/fastpair/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1060529
+      },
+      "writtenOn": "2024-02-22T23:49:10Z",
+      "side": 0,
+      "message": "A couple questions:\n\n1) the fix is for the cts failure caused by signature issues?\n2) could / should we delete the cts tests that would use get/setFastPairScanEnabled so won\u0027t need to worry about using this privileged signature anymore?",
+      "parentUuid": "503fb8a9_a6a784ae",
+      "revId": "4cb9cfa3a1c50d99b448754bd6a16321b3c43401",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
