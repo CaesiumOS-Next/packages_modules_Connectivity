@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "612b623d_defb3d2c",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-22T10:11:36Z",
+      "side": 1,
+      "message": "Thank you for verifying these scenarios, I also tried this locally.\n\n\u003e Only on Switching the User which is expected to update default message app for the new user , callback will be called with the roles for the new user.\n\nIt seems the new user setup is done when we first switch to new users.\nSo I assume this behavior is fine.\n\nAs for delete scenario, it\u0027s not great to keep increasing the map size but this should be a minor issue since it\u0027s not usual to create thousands of users and delete them without reboot.\nCould you add a TODO comment to explain the delete user scenario?",
+      "parentUuid": "dd72b81a_459d221b",
+      "range": {
+        "startLine": 76,
+        "startChar": 80,
+        "endLine": 76,
+        "endChar": 81
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "167d9db4_a3cf7db5",
         "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
         "patchSetId": 4
