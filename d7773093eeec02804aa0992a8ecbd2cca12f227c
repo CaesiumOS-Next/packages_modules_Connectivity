@@ -106,6 +106,24 @@
       "parentUuid": "8c097ede_e789f97c",
       "revId": "d7773093eeec02804aa0992a8ecbd2cca12f227c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "452709ae_3acd6605",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-22T01:30:55Z",
+      "side": 0,
+      "message": "1. Done\n2. \"An active BBR function is always in one of two operational state - Primary or Secondary\". After leave() the BR became secondary BBR, added a check in the test to verify this.",
+      "parentUuid": "a09601ed_8902302a",
+      "revId": "d7773093eeec02804aa0992a8ecbd2cca12f227c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
