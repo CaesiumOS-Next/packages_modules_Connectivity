@@ -138,6 +138,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1b44f7ce_6157295f",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-22T16:59:22Z",
+      "side": 1,
+      "message": "max number of users allowed to be created is Owner + 3 users Only . \n\nDelete scenario to be handled because : \n- User1 and User2 uid is part of ML Request.\n\n- If User2 is deleted , there is no callback about user2 has been deleted, until \n  SatelliteAccessController finds out at Reboot and keep the updated cache list.\n  \n- Hence at the scenario, using UserLifecycleListener , callback can be received \n  when user removed , and this can be used to update uid list @ \n  SatelliteAccessController and ML Layer request can also be updated.\n  \nTODO Buganiser created @ b/326373613",
+      "parentUuid": "612b623d_defb3d2c",
+      "range": {
+        "startLine": 76,
+        "startChar": 80,
+        "endLine": 76,
+        "endChar": 81
+      },
+      "revId": "d3049e5a89dce35563117cd256e512dc9f2c6ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "167d9db4_a3cf7db5",
         "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
         "patchSetId": 4
