@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb6be9f1_79b71590",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-22T15:47:40Z",
+      "side": 1,
+      "message": "What will this do on Android U where the permission does not exist? Will it return true for any app that puts the permission in its manifest, even if the system does not know about it? Will the packagemanager allow an app to define this permission?",
+      "range": {
+        "startLine": 146,
+        "startChar": 15,
+        "endLine": 147,
+        "endChar": 73
+      },
+      "revId": "055f410f826afa128a7f868bf1cc9a66eb14a07d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
