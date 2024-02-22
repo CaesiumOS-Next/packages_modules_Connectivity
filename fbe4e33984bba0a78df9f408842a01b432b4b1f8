@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ff2d8ed_84b53007",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-22T15:36:11Z",
+      "side": 1,
+      "message": "Is this for requests, or is only needed because TelephonyNetworkFactory needs to declare a capability filter? Generally specifiers are tightly coupled to transports so in general it would be better if we could avoid supporting specifiers on multi-transport networks.",
+      "revId": "fbe4e33984bba0a78df9f408842a01b432b4b1f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
