@@ -34,6 +34,24 @@
       "parentUuid": "e04fd838_72cadf28",
       "revId": "f51610abdde8e74cad31cff9bdabd29c2b0b78da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bc569c8_9057271d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-22T03:15:41Z",
+      "side": 1,
+      "message": "can OT_ERROR_FAILED and OT_ERROR_DETACHED be returned by the IOtDaemon APIs? Is there a reason to add them to the IOtDaemon API?",
+      "parentUuid": "b8cbf4c6_efaa11e5",
+      "revId": "f51610abdde8e74cad31cff9bdabd29c2b0b78da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
