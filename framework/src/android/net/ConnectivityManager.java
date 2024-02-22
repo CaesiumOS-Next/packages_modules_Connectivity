@@ -6278,7 +6278,8 @@ public class ConnectivityManager {
     // Only the system server process and the network stack have access.
     @FlaggedApi(Flags.SUPPORT_IS_UID_NETWORKING_BLOCKED)
     @SystemApi(client = MODULE_LIBRARIES)
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)  // BPF maps were only mainlined in T
+    // Note b/326143935 kernel bug can trigger crash on some T device.
+    @RequiresApi(VERSION_CODES.UPSIDE_DOWN_CAKE)
     @RequiresPermission(NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK)
     public boolean isUidNetworkingBlocked(int uid, boolean isNetworkMetered) {
         final BpfNetMapsReader reader = BpfNetMapsReader.getInstance();
