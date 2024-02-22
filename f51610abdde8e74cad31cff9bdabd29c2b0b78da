@@ -70,6 +70,24 @@
       "parentUuid": "8bc569c8_9057271d",
       "revId": "f51610abdde8e74cad31cff9bdabd29c2b0b78da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e568568_33e85899",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-22T03:30:23Z",
+      "side": 1,
+      "message": "I\u0027m just trying to understand why OT_ERROR_FAILED was explicitly added here. If they are not used I\u0027d prefer OT_ERROR_FAILED and OT_ERROR_DETACHED are removed from here, OT_ERROR_FAILED not added in aosp/2971100 and OT_ERROR_DETACHED removed from IOtDaemon (in a separate CL).",
+      "parentUuid": "b4a020ca_55c9461e",
+      "revId": "f51610abdde8e74cad31cff9bdabd29c2b0b78da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
