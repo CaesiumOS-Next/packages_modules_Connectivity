@@ -52,6 +52,24 @@
       "parentUuid": "b8cbf4c6_efaa11e5",
       "revId": "f51610abdde8e74cad31cff9bdabd29c2b0b78da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4a020ca_55c9461e",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-22T03:23:22Z",
+      "side": 1,
+      "message": "This cl is trying to make sure all OT_ERROR_* added to IOtDaemon is explicitly checked and converted in this method.\n\nI added OT_ERROR_DETACHED and OT_ERROR_FAILED to IOtDaemon because I thought they will be returned in OT APIs used in OtDaemonServer, but it turns out they are not explicitly returned in current code.\n\nAre you suggesting removing OT_ERROR_DETACHED, OT_ERROR_FAILED or adding all OT_ERROR_* to IOtDaemon and list them here?  I am okay if you want me to remove them from IOtDaemon but it\u0027s not directly related to this CL :)",
+      "parentUuid": "8bc569c8_9057271d",
+      "revId": "f51610abdde8e74cad31cff9bdabd29c2b0b78da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
