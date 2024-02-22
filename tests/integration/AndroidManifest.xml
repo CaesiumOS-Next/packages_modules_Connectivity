@@ -27,9 +27,11 @@
     <!-- ConnectivityService sends notifications to BatteryStats -->
     <uses-permission android:name="android.permission.UPDATE_DEVICE_STATS"/>
     <!-- Reading network status -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.NETWORK_FACTORY"/>
+    <uses-permission android:name="android.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS"/>
     <!-- Obtain LinkProperties callbacks with sensitive fields -->
     <uses-permission android:name="android.permission.NETWORK_SETTINGS" />
     <uses-permission android:name="android.permission.NETWORK_STACK"/>
