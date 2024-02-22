@@ -106,6 +106,24 @@
       "parentUuid": "5e568568_33e85899",
       "revId": "f51610abdde8e74cad31cff9bdabd29c2b0b78da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00fad681_45c8ce7a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-22T03:36:40Z",
+      "side": 1,
+      "message": "LGTM, thanks",
+      "parentUuid": "8e4dc38a_4ab987b5",
+      "revId": "f51610abdde8e74cad31cff9bdabd29c2b0b78da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
