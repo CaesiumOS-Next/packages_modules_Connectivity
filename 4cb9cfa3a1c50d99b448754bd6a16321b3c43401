@@ -52,6 +52,24 @@
       "parentUuid": "503fb8a9_a6a784ae",
       "revId": "4cb9cfa3a1c50d99b448754bd6a16321b3c43401",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65dd17fd_ec83a8c9",
+        "filename": "nearby/tests/cts/fastpair/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1900995
+      },
+      "writtenOn": "2024-02-22T23:59:35Z",
+      "side": 0,
+      "message": "I only deleted the permission in this change is because in CTS we are not calling setFastPairScanEnabled, is WRITE_SECURE_SETTINGS permission still needed in the AndroidManifest.xml?",
+      "parentUuid": "503fb8a9_a6a784ae",
+      "revId": "4cb9cfa3a1c50d99b448754bd6a16321b3c43401",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
