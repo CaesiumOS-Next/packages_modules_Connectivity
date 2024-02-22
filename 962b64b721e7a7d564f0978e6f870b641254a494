@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7649388d_becd9331",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsKeyRecord.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-22T15:56:50Z",
+      "side": 1,
+      "message": "I think we are missing unit test for this test cases. It is tested as part of other unit tests. But I do think we should add unit test for these classes. Could you add a unit test for `MdnsKeyRecord` first?",
+      "parentUuid": "eea8cc7d_37ab82d5",
+      "range": {
+        "startLine": 35,
+        "startChar": 73,
+        "endLine": 35,
+        "endChar": 83
+      },
+      "revId": "962b64b721e7a7d564f0978e6f870b641254a494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "602dd725_03181c8c",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsKeyRecord.java",
         "patchSetId": 8
