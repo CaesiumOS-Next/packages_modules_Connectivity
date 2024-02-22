@@ -16,6 +16,24 @@
       "message": "Should this throw or at least WTF before U ? So we\u0027re sure this isn\u0027t called by mistake, and not caught until it runs on an affected device",
       "revId": "f714ef829f2b231a8cb6a91feb1f2deb76aef403",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb451bb6_a2ef3bb9",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6285,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-22T09:36:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "888ead52_07d05a5f",
+      "revId": "f714ef829f2b231a8cb6a91feb1f2deb76aef403",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

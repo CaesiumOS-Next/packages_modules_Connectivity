@@ -16,6 +16,24 @@
       "message": "Could you look at why this doesn\u0027t trigger failures in NetworkStackService, which calls this without check (although only for a shell command) ?",
       "revId": "a1c7a414e1637b0bfa1b699f34fac03b07789901",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45e28e7c_e4a1411f",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6282,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-22T09:36:31Z",
+      "side": 1,
+      "message": "I think that might be related to this change, where I can\u0027t see the symbol without it, but no failure with it.\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/NetworkStack/+/2736277/comment/cb756fd3_a27d846f/\nAny idea of how to check this?",
+      "parentUuid": "d541513b_d413db08",
+      "revId": "a1c7a414e1637b0bfa1b699f34fac03b07789901",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
