@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e76c596c_9e01e9ae",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-22T03:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a108e9cb_8ae686f1",
+      "range": {
+        "startLine": 418,
+        "startChar": 23,
+        "endLine": 421,
+        "endChar": 96
+      },
+      "revId": "962b64b721e7a7d564f0978e6f870b641254a494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02a5ee4a_483d8f0d",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-21T08:57:52Z",
       "side": 1,
       "message": "Do we need all those constructor methods? \n\nFor example I think MdnsKeyRecord can never have isQuestion \u003d true?",
+      "range": {
+        "startLine": 35,
+        "startChar": 73,
+        "endLine": 35,
+        "endChar": 83
+      },
+      "revId": "962b64b721e7a7d564f0978e6f870b641254a494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eea8cc7d_37ab82d5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsKeyRecord.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-22T03:00:18Z",
+      "side": 1,
+      "message": "Just realized that I didn\u0027t implement parsing a key record. \n\nI added it in `service-t/src/com/android/server/connectivity/mdns/MdnsPacket.java`. Is there any test case I should add for it?",
+      "parentUuid": "02a5ee4a_483d8f0d",
       "range": {
         "startLine": 35,
         "startChar": 73,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "704359a2_99e1f1f3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsKeyRecord.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-22T03:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "602dd725_03181c8c",
+      "range": {
+        "startLine": 77,
+        "startChar": 25,
+        "endLine": 77,
+        "endChar": 47
+      },
+      "revId": "962b64b721e7a7d564f0978e6f870b641254a494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4192dfe5_ef39b956",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02b2e8fe_68cb6247",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-22T03:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4192dfe5_ef39b956",
+      "range": {
+        "startLine": 229,
+        "startChar": 12,
+        "endLine": 229,
+        "endChar": 32
+      },
+      "revId": "962b64b721e7a7d564f0978e6f870b641254a494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a0905fb_a75edbaf",
@@ -106,6 +202,30 @@
       "writtenOn": "2024-02-21T08:57:52Z",
       "side": 1,
       "message": "Need a comment here to mention why we need additional check for  serviceInfo.getPort() \u003e 0",
+      "range": {
+        "startLine": 235,
+        "startChar": 16,
+        "endLine": 235,
+        "endChar": 55
+      },
+      "revId": "962b64b721e7a7d564f0978e6f870b641254a494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb8159dc_5ebba41d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-22T03:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a0905fb_a75edbaf",
       "range": {
         "startLine": 235,
         "startChar": 16,
@@ -141,6 +261,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66149aad_ae302aac",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-22T03:00:18Z",
+      "side": 1,
+      "message": "Seems the convention was trying to avoid memory allocation by using `Collections.emptyList()` when there aren\u0027t any records (e.g. `ptrRecords`). Is it fine to create a new `ArrayList` here?",
+      "parentUuid": "9a1a163e_7ecde7be",
+      "range": {
+        "startLine": 316,
+        "startChar": 12,
+        "endLine": 320,
+        "endChar": 13
+      },
+      "revId": "962b64b721e7a7d564f0978e6f870b641254a494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8adb0123_f77845b8",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
         "patchSetId": 8
@@ -152,6 +296,30 @@
       "writtenOn": "2024-02-21T08:57:52Z",
       "side": 1,
       "message": "why we are setting the serviceKeyRecord \u003d null and hostKeyRecord \u003d null in the context here.\n\nIt seems we are use them in the conflict check.\n\nHowever, the logic is not obvious, if we need special state for the check, maybe we can consider use another boolean variable?",
+      "range": {
+        "startLine": 333,
+        "startChar": 16,
+        "endLine": 333,
+        "endChar": 45
+      },
+      "revId": "962b64b721e7a7d564f0978e6f870b641254a494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af37d141_d6983e95",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-22T03:00:18Z",
+      "side": 1,
+      "message": "Key RR is optional for the service name and hostname respectively. \n\nDo you mean we add booleans like `hasServiceKeyRecord` and `hasHostKeyRecord`\n\nCould you elaborate why booleans are better than null check?",
+      "parentUuid": "8adb0123_f77845b8",
       "range": {
         "startLine": 333,
         "startChar": 16,
