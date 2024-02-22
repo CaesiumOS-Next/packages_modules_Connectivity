@@ -16,6 +16,24 @@
       "message": "nit: is it necessary to list these errors when they fall through the default ERROR_INTERNAL_ERROR? There are more errors in error.h that are not listed here.",
       "revId": "f51610abdde8e74cad31cff9bdabd29c2b0b78da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8cbf4c6_efaa11e5",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-22T03:03:08Z",
+      "side": 1,
+      "message": "The errors not listed here can not be returned by the IOtDaemon APIs, they are typically OT internal errors.",
+      "parentUuid": "e04fd838_72cadf28",
+      "revId": "f51610abdde8e74cad31cff9bdabd29c2b0b78da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
