@@ -119,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "948a5d62_8941ae48",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 1965,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-22T02:59:58Z",
+      "side": 1,
+      "message": "Added the check about the advertised KEY RR.",
+      "parentUuid": "828e521e_4431d280",
+      "range": {
+        "startLine": 1965,
+        "startChar": 87,
+        "endLine": 1965,
+        "endChar": 95
+      },
+      "revId": "8dc9e1de69ea91c39e8893b41df4448e07c1ebbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e521ce9_bbfc6ad4",
@@ -180,6 +204,30 @@
       "side": 1,
       "message": "I see, in this case, we will need a comment in the test case to mention the test purpose and why we don\u0027t verify the custom host here.",
       "parentUuid": "7b6648eb_4f7f60ec",
+      "range": {
+        "startLine": 2071,
+        "startChar": 15,
+        "endLine": 2071,
+        "endChar": 28
+      },
+      "revId": "8dc9e1de69ea91c39e8893b41df4448e07c1ebbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "026fc721_0f5a2f04",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 2071,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-22T02:59:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01612c3c_29866adf",
       "range": {
         "startLine": 2071,
         "startChar": 15,
