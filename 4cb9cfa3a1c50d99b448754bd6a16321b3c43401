@@ -70,6 +70,24 @@
       "parentUuid": "503fb8a9_a6a784ae",
       "revId": "4cb9cfa3a1c50d99b448754bd6a16321b3c43401",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3abf32f0_611c7446",
+        "filename": "nearby/tests/cts/fastpair/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1060529
+      },
+      "writtenOn": "2024-02-23T00:13:32Z",
+      "side": 0,
+      "message": "okay let\u0027s remove it then. I don\u0027t think other tests should use this.",
+      "parentUuid": "65dd17fd_ec83a8c9",
+      "revId": "4cb9cfa3a1c50d99b448754bd6a16321b3c43401",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
