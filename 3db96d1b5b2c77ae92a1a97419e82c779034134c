@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ac70544_23c48b21",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T11:42:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c75826e_80bd4acc",
+      "revId": "3db96d1b5b2c77ae92a1a97419e82c779034134c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d2f1d74_3cc4638f",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-02-23T10:53:55Z",
       "side": 1,
       "message": "The comment and assertion don\u0027t match.",
+      "range": {
+        "startLine": 419,
+        "startChar": 0,
+        "endLine": 420,
+        "endChar": 68
+      },
+      "revId": "3db96d1b5b2c77ae92a1a97419e82c779034134c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "995e5fc3_7c0fd8a2",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T11:42:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d2f1d74_3cc4638f",
       "range": {
         "startLine": 419,
         "startChar": 0,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1091075b_b91b936f",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T11:42:14Z",
+      "side": 1,
+      "message": "oh, this is covered by joinFuture so I guess we can remove it.",
+      "parentUuid": "ea306a33_1c7a5dd9",
+      "range": {
+        "startLine": 507,
+        "startChar": 0,
+        "endLine": 507,
+        "endChar": 90
+      },
+      "revId": "3db96d1b5b2c77ae92a1a97419e82c779034134c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03306ba0_9e93d1a5",
@@ -81,6 +147,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcb0c778_d4643ff4",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T11:42:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03306ba0_9e93d1a5",
+      "revId": "3db96d1b5b2c77ae92a1a97419e82c779034134c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d17f916_240be525",
@@ -94,6 +178,30 @@
       "writtenOn": "2024-02-23T10:53:55Z",
       "side": 1,
       "message": "To make it less ambiguous, what about renaming it to `pollForPacketOnInfraNetwork` or something similar? Probably you can also rename `readPacketFrom()` in `IntegrationTestUtils`.",
+      "range": {
+        "startLine": 552,
+        "startChar": 19,
+        "endLine": 552,
+        "endChar": 29
+      },
+      "revId": "3db96d1b5b2c77ae92a1a97419e82c779034134c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65e038d4_21d260f3",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T11:42:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d17f916_240be525",
       "range": {
         "startLine": 552,
         "startChar": 19,
