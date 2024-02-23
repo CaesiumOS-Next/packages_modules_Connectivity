@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c7df03d_d79c559e",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-23T05:37:11Z",
+      "side": 1,
+      "message": "A caveat here: when I was implementing the advertising proxy test aosp/2943146, I noticed that the processes created in `@Test` may be already stopped before `tearDown()`. Probably that\u0027s because `@Test` and `@Before` `@After` are not run in the same thread and the thread running `@Test` may already be destroyed when running `@After`.\n\nIf we\u0027d do more clean up steps using `ot-cli-ftd` commands we probably need to create the processes in `@Before`.",
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
