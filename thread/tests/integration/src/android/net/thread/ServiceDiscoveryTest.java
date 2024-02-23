@@ -18,6 +18,7 @@ package android.net.thread;
 
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.InetAddresses.parseNumericAddress;
+import static android.net.nsd.NsdManager.PROTOCOL_DNS_SD;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
 import static android.net.thread.utils.IntegrationTestUtils.JOIN_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.RESTART_JOIN_TIMEOUT;
@@ -46,6 +47,7 @@ import android.content.Context;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.net.thread.utils.FullThreadDevice;
+import android.net.thread.utils.OtDaemonController;
 import android.net.thread.utils.TapTestNetworkTracker;
 import android.os.HandlerThread;
 
@@ -69,6 +71,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 /** Integration test cases for Service Discovery feature. */
@@ -82,9 +85,11 @@ public class ServiceDiscoveryTest {
 
     private HandlerThread mHandlerThread;
     private ThreadNetworkController mController;
+    private OtDaemonController mOtCtl;
     private NsdManager mNsdManager;
     private TapTestNetworkTracker mTestNetworkTracker;
     private List<FullThreadDevice> mFtds;
+    private List<RegistrationListener> mRegistrationListeners = new ArrayList<>();
 
     // A valid Thread Active Operational Dataset generated from OpenThread CLI "dataset init new".
     private static final byte[] DEFAULT_DATASET_TLVS =
@@ -109,6 +114,8 @@ public class ServiceDiscoveryTest {
 
         // Run the tests on only devices where the Thread feature is available.
         assumeNotNull(mController);
+
+        mOtCtl = new OtDaemonController();
 
         // Run the tests only when the device uses simulated Thread radio.
         assumeTrue(isSimulatedThreadRadioSupported());
@@ -155,6 +162,9 @@ public class ServiceDiscoveryTest {
         }
         if (!isSimulatedThreadRadioSupported()) {
             return;
+        }
+        for (RegistrationListener listener : mRegistrationListeners) {
+            unregisterService(listener);
         }
         for (FullThreadDevice ftd : mFtds) {
             // Clear registered SRP hosts and services
@@ -340,6 +350,182 @@ public class ServiceDiscoveryTest {
             mNsdManager.stopServiceDiscovery(listener);
         }
         assertThrows(TimeoutException.class, () -> discoverService(mNsdManager, "_test._udp"));
+    }
+
+    @Test
+    public void discoveryProxy_multipleClientsBrowseAndResolveServiceOverMdns() throws Exception {
+        /*
+         * <pre>
+         * Topology:
+         *                    Thread
+         *  Border Router -------------- Full Thread device
+         *  (Cuttlefish)
+         * </pre>
+         */
+
+        RegistrationListener listener = new RegistrationListener();
+        NsdServiceInfo info = new NsdServiceInfo();
+        info.setServiceType("_testservice._tcp");
+        info.setServiceName("test-service");
+        info.setPort(12345);
+        info.setHostname("testhost");
+        info.setHostAddresses(List.of(parseNumericAddress("2001::1")));
+        info.setAttribute("key1", bytes(0x01, 0x02));
+        info.setAttribute("key2", bytes(0x03));
+        registerService(info, listener);
+        mRegistrationListeners.add(listener);
+        for (int i = 0; i < NUM_FTD; ++i) {
+            FullThreadDevice ftd = mFtds.get(i);
+            ftd.joinNetwork(DEFAULT_DATASET);
+            ftd.waitForStateAnyOf(List.of("router", "child"), JOIN_TIMEOUT);
+            ftd.setDnsServerAddress(mOtCtl.getMlEid().getHostAddress());
+        }
+        final ArrayList<NsdServiceInfo> browsedServices = new ArrayList<>();
+        final ArrayList<NsdServiceInfo> resolvedServices = new ArrayList<>();
+        final ArrayList<Thread> threads = new ArrayList<>();
+        for (int i = 0; i < NUM_FTD; ++i) {
+            browsedServices.add(null);
+            resolvedServices.add(null);
+        }
+        for (int i = 0; i < NUM_FTD; ++i) {
+            final FullThreadDevice ftd = mFtds.get(i);
+            final int index = i;
+            Runnable task =
+                    () -> {
+                        browsedServices.set(
+                                index,
+                                ftd.browseService("_testservice._tcp.default.service.arpa."));
+                        resolvedServices.set(
+                                index,
+                                ftd.resolveService(
+                                        "test-service", "_testservice._tcp.default.service.arpa."));
+                    };
+            threads.add(new Thread(task));
+        }
+        for (Thread thread : threads) {
+            thread.start();
+        }
+        for (Thread thread : threads) {
+            thread.join();
+        }
+
+        for (int i = 0; i < NUM_FTD; ++i) {
+            NsdServiceInfo browsedService = browsedServices.get(i);
+            assertThat(browsedService.getServiceName()).isEqualTo("test-service");
+            assertThat(browsedService.getPort()).isEqualTo(12345);
+            assertThat(browsedService.getHostname()).isEqualTo("testhost.default.service.arpa.");
+            assertThat(browsedService.getHostAddresses())
+                    .containsExactly(parseNumericAddress("2001::1"));
+            assertThat(browsedService.getAttributes())
+                    .comparingValuesUsing(BYTE_ARRAY_EQUALITY)
+                    .containsExactly("key1", bytes(0x01, 0x02), "key2", bytes(3));
+
+            NsdServiceInfo resolvedService = resolvedServices.get(i);
+            assertThat(resolvedService.getServiceName()).isEqualTo("test-service");
+            assertThat(resolvedService.getPort()).isEqualTo(12345);
+            assertThat(resolvedService.getHostname()).isEqualTo("testhost.default.service.arpa.");
+            assertThat(resolvedService.getHostAddresses())
+                    .containsExactly(parseNumericAddress("2001::1"));
+            assertThat(resolvedService.getAttributes())
+                    .comparingValuesUsing(BYTE_ARRAY_EQUALITY)
+                    .containsExactly("key1", bytes(0x01, 0x02), "key2", bytes(3));
+        }
+    }
+
+    @Test
+    public void discoveryProxy_browseAndResolveServiceAtSrpServer() throws Exception {
+        /*
+         * <pre>
+         * Topology:
+         *                    Thread
+         *  Border Router -------+------ SRP client
+         *  (Cuttlefish)         |
+         *                       +------ DNS client
+         *
+         * </pre>
+         */
+        FullThreadDevice srpClient = mFtds.get(0);
+        srpClient.joinNetwork(DEFAULT_DATASET);
+        srpClient.waitForStateAnyOf(List.of("router", "child"), JOIN_TIMEOUT);
+        srpClient.setSrpHostname("my-host");
+        srpClient.setSrpHostAddresses(List.of((Inet6Address) parseNumericAddress("2001::1")));
+        srpClient.addSrpService(
+                "my-service",
+                "_test._udp",
+                List.of("_sub1"),
+                12345 /* port */,
+                Map.of("key1", bytes(0x01, 0x02), "key2", bytes(0x03)));
+
+        FullThreadDevice dnsClient = mFtds.get(1);
+        dnsClient.joinNetwork(DEFAULT_DATASET);
+        dnsClient.waitForStateAnyOf(List.of("router", "child"), JOIN_TIMEOUT);
+        dnsClient.setDnsServerAddress(mOtCtl.getMlEid().getHostAddress());
+
+        NsdServiceInfo browsedService = dnsClient.browseService("_test._udp.default.service.arpa.");
+        assertThat(browsedService.getServiceName()).isEqualTo("my-service");
+        assertThat(browsedService.getPort()).isEqualTo(12345);
+        assertThat(browsedService.getHostname()).isEqualTo("my-host.default.service.arpa.");
+        assertThat(browsedService.getHostAddresses())
+                .containsExactly(parseNumericAddress("2001::1"));
+        assertThat(browsedService.getAttributes())
+                .comparingValuesUsing(BYTE_ARRAY_EQUALITY)
+                .containsExactly("key1", bytes(0x01, 0x02), "key2", bytes(3));
+
+        NsdServiceInfo resolvedService =
+                dnsClient.resolveService("my-service", "_test._udp.default.service.arpa.");
+        assertThat(resolvedService.getServiceName()).isEqualTo("my-service");
+        assertThat(resolvedService.getPort()).isEqualTo(12345);
+        assertThat(resolvedService.getHostname()).isEqualTo("my-host.default.service.arpa.");
+        assertThat(resolvedService.getHostAddresses())
+                .containsExactly(parseNumericAddress("2001::1"));
+        assertThat(resolvedService.getAttributes())
+                .comparingValuesUsing(BYTE_ARRAY_EQUALITY)
+                .containsExactly("key1", bytes(0x01, 0x02), "key2", bytes(3));
+    }
+
+    private void registerService(NsdServiceInfo serviceInfo, RegistrationListener listener)
+            throws InterruptedException, ExecutionException, TimeoutException {
+        mNsdManager.registerService(serviceInfo, PROTOCOL_DNS_SD, listener);
+        listener.waitForRegistered();
+    }
+
+    private void unregisterService(RegistrationListener listener)
+            throws InterruptedException, ExecutionException, TimeoutException {
+        mNsdManager.unregisterService(listener);
+        listener.waitForUnregistered();
+    }
+
+    private static class RegistrationListener implements NsdManager.RegistrationListener {
+        private final CompletableFuture<Void> mRegisteredFuture = new CompletableFuture<>();
+        private final CompletableFuture<Void> mUnRegisteredFuture = new CompletableFuture<>();
+
+        RegistrationListener() {}
+
+        @Override
+        public void onRegistrationFailed(NsdServiceInfo serviceInfo, int errorCode) {}
+
+        @Override
+        public void onUnregistrationFailed(NsdServiceInfo serviceInfo, int errorCode) {}
+
+        @Override
+        public void onServiceRegistered(NsdServiceInfo serviceInfo) {
+            mRegisteredFuture.complete(null);
+        }
+
+        @Override
+        public void onServiceUnregistered(NsdServiceInfo serviceInfo) {
+            mUnRegisteredFuture.complete(null);
+        }
+
+        public void waitForRegistered()
+                throws InterruptedException, ExecutionException, TimeoutException {
+            mRegisteredFuture.get(SERVICE_DISCOVERY_TIMEOUT.toMillis(), MILLISECONDS);
+        }
+
+        public void waitForUnregistered()
+                throws InterruptedException, ExecutionException, TimeoutException {
+            mUnRegisteredFuture.get(SERVICE_DISCOVERY_TIMEOUT.toMillis(), MILLISECONDS);
+        }
     }
 
     private static byte[] bytes(int... byteInts) {
