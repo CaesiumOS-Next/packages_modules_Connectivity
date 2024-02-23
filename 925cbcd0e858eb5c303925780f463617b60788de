@@ -54,6 +54,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88c30970_342ce2d9",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-23T06:21:54Z",
+      "side": 1,
+      "message": "```suggestion\n    public void multicastRouting_endDeviceSubscribedMulticastAddress_infraLinkJoinsMulticastGroup() throws Exception {\n```",
+      "range": {
+        "startLine": 236,
+        "startChar": 16,
+        "endLine": 236,
+        "endChar": 55
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cf532548_bd86907a",
         "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
         "patchSetId": 19
@@ -70,6 +93,98 @@
         "startChar": 8,
         "endLine": 253,
         "endChar": 30
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d485646e_bb4befc9",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-23T06:21:54Z",
+      "side": 1,
+      "message": "```suggestion\n        Inet6Address ftdOmr \u003d ftd.getOmrAddress();\n```\n\nIt\u0027s already checked in the startFtdChild() method, so don\u0027t repeat it here.",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 30
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e53c71bd_ea17036c",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-23T06:21:54Z",
+      "side": 1,
+      "message": "```suggestion\n    public void multicastRouting_endDeviceSubscribedMulticastAddress_canPingfromInfraLink() throws Exception {\n```",
+      "range": {
+        "startLine": 261,
+        "startChar": 16,
+        "endLine": 261,
+        "endChar": 78
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "906c5746_5d4307a2",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-23T06:21:54Z",
+      "side": 1,
+      "message": "Move them to setUp(). It\u0027s okay that some of the tests may don\u0027t need one of the objects.",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 285,
+        "endChar": 93
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bcbbac9_429832f6",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-23T06:21:54Z",
+      "side": 1,
+      "message": "Please spend sometime to read go/unit-testing-practices#structure to understand how to make good unit test structure.\n\nNote that I still take this as a unit test even though the test involves multiple parties. Because this test focus on a single function / feature under given conditions and the rest result is deterministic by the feature under test. So we should follow the unit test guideline in the tests.",
+      "range": {
+        "startLine": 299,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 5
       },
       "revId": "925cbcd0e858eb5c303925780f463617b60788de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -114,6 +229,29 @@
       "range": {
         "startLine": 391,
         "startChar": 8,
+        "endLine": 403,
+        "endChar": 74
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7e4e46f_8bef7e1f",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-23T06:21:54Z",
+      "side": 1,
+      "message": "We shouldn\u0027t check this in this test case.\n\nFirst, this is not expressed in the test name \"multicastRouting_inboundForwarding_multipleFtdsReplyToSubscribedAddresses\". Second, it\u0027s already covered in test \"multicastRouting_inboundForwarding_FtdNotReplyNotsubscribedAddress\", the checks shouldn\u0027t be repeated.",
+      "range": {
+        "startLine": 397,
+        "startChar": 0,
         "endLine": 403,
         "endChar": 74
       },
@@ -209,6 +347,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "57a1780e_2c46196b",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-23T06:21:54Z",
+      "side": 1,
+      "message": "```suggestion\n    public void multicastRouting_infraNetworkSwitch_ftdRepliesToSubscribedAddress()\n```",
+      "range": {
+        "startLine": 507,
+        "startChar": 16,
+        "endLine": 507,
+        "endChar": 81
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80d6a40d_21bb440a",
         "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
         "patchSetId": 19
@@ -225,6 +386,29 @@
         "startChar": 20,
         "endLine": 579,
         "endChar": 34
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d20a29f_718d0b89",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-23T06:21:54Z",
+      "side": 1,
+      "message": "Handa uses the name \"exit()\" in aosp/2943805 :) \n\nI think both \"exit\" and \"stop\" have the issue that it conflicts with existing OT CLI command. Better use \"destroy()\"",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 5
       },
       "revId": "925cbcd0e858eb5c303925780f463617b60788de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
