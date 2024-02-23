@@ -402,6 +402,7 @@ public class IpSecManager {
      * @param transform a transport mode {@code IpSecTransform}
      * @throws IOException indicating that the transform could not be applied
      */
+    @RequiresPermission(android.Manifest.permission.INTERNET)
     public void applyTransportModeTransform(@NonNull Socket socket,
             @PolicyDirection int direction, @NonNull IpSecTransform transform) throws IOException {
         // Ensure creation of FD. See b/77548890 for more details.
@@ -439,6 +440,7 @@ public class IpSecManager {
      * @param transform a transport mode {@code IpSecTransform}
      * @throws IOException indicating that the transform could not be applied
      */
+    @RequiresPermission(android.Manifest.permission.INTERNET)
     public void applyTransportModeTransform(@NonNull DatagramSocket socket,
             @PolicyDirection int direction, @NonNull IpSecTransform transform) throws IOException {
         applyTransportModeTransform(socket.getFileDescriptor$(), direction, transform);
@@ -486,6 +488,7 @@ public class IpSecManager {
      * @param transform a transport mode {@code IpSecTransform}
      * @throws IOException indicating that the transform could not be applied
      */
+    @RequiresPermission(android.Manifest.permission.INTERNET)
     public void applyTransportModeTransform(@NonNull FileDescriptor socket,
             @PolicyDirection int direction, @NonNull IpSecTransform transform) throws IOException {
         // We dup() the FileDescriptor here because if we don't, then the ParcelFileDescriptor()

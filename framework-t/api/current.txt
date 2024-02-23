@@ -95,9 +95,9 @@ package android.net {
   public class IpSecManager {
     method @NonNull public android.net.IpSecManager.SecurityParameterIndex allocateSecurityParameterIndex(@NonNull java.net.InetAddress) throws android.net.IpSecManager.ResourceUnavailableException;
     method @NonNull public android.net.IpSecManager.SecurityParameterIndex allocateSecurityParameterIndex(@NonNull java.net.InetAddress, int) throws android.net.IpSecManager.ResourceUnavailableException, android.net.IpSecManager.SpiUnavailableException;
-    method public void applyTransportModeTransform(@NonNull java.net.Socket, int, @NonNull android.net.IpSecTransform) throws java.io.IOException;
-    method public void applyTransportModeTransform(@NonNull java.net.DatagramSocket, int, @NonNull android.net.IpSecTransform) throws java.io.IOException;
-    method public void applyTransportModeTransform(@NonNull java.io.FileDescriptor, int, @NonNull android.net.IpSecTransform) throws java.io.IOException;
+    method @RequiresPermission(android.Manifest.permission.INTERNET) public void applyTransportModeTransform(@NonNull java.net.Socket, int, @NonNull android.net.IpSecTransform) throws java.io.IOException;
+    method @RequiresPermission(android.Manifest.permission.INTERNET) public void applyTransportModeTransform(@NonNull java.net.DatagramSocket, int, @NonNull android.net.IpSecTransform) throws java.io.IOException;
+    method @RequiresPermission(android.Manifest.permission.INTERNET) public void applyTransportModeTransform(@NonNull java.io.FileDescriptor, int, @NonNull android.net.IpSecTransform) throws java.io.IOException;
     method @NonNull public android.net.IpSecManager.UdpEncapsulationSocket openUdpEncapsulationSocket(int) throws java.io.IOException, android.net.IpSecManager.ResourceUnavailableException;
     method @NonNull public android.net.IpSecManager.UdpEncapsulationSocket openUdpEncapsulationSocket() throws java.io.IOException, android.net.IpSecManager.ResourceUnavailableException;
     method public void removeTransportModeTransforms(@NonNull java.net.Socket) throws java.io.IOException;
@@ -132,7 +132,7 @@ package android.net {
 
   public static class IpSecTransform.Builder {
     ctor public IpSecTransform.Builder(@NonNull android.content.Context);
-    method @NonNull public android.net.IpSecTransform buildTransportModeTransform(@NonNull java.net.InetAddress, @NonNull android.net.IpSecManager.SecurityParameterIndex) throws java.io.IOException, android.net.IpSecManager.ResourceUnavailableException, android.net.IpSecManager.SpiUnavailableException;
+    method @NonNull @RequiresPermission(android.Manifest.permission.INTERNET) public android.net.IpSecTransform buildTransportModeTransform(@NonNull java.net.InetAddress, @NonNull android.net.IpSecManager.SecurityParameterIndex) throws java.io.IOException, android.net.IpSecManager.ResourceUnavailableException, android.net.IpSecManager.SpiUnavailableException;
     method @NonNull public android.net.IpSecTransform.Builder setAuthenticatedEncryption(@NonNull android.net.IpSecAlgorithm);
     method @NonNull public android.net.IpSecTransform.Builder setAuthentication(@NonNull android.net.IpSecAlgorithm);
     method @NonNull public android.net.IpSecTransform.Builder setEncryption(@NonNull android.net.IpSecAlgorithm);

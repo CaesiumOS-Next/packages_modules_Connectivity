@@ -75,6 +75,7 @@ import android.util.ArraySet;
 
 import androidx.test.filters.SmallTest;
 
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.netlink.xfrm.XfrmNetlinkNewSaMessage;
 import com.android.server.IpSecService.TunnelInterfaceRecord;
 import com.android.testutils.DevSdkIgnoreRule;
@@ -154,6 +155,12 @@ public class IpSecServiceParameterizedTest {
                 android.Manifest.permission.NETWORK_STACK,
                 android.Manifest.permission.ACCESS_NETWORK_STATE,
                 PERMISSION_MAINLINE_NETWORK_STACK));
+
+        TestContext() {
+            if (SdkLevel.isAtLeastV()) {
+                mAllowedPermissions.add(android.Manifest.permission.INTERNET);
+            }
+        }
 
         private void setAllowedPermissions(String... permissions) {
             mAllowedPermissions = new ArraySet<>(permissions);

@@ -1725,6 +1725,12 @@ public class IpSecService extends IIpSecService.Stub {
         }
     }
 
+    private void enforceInternetPermission() {
+        if (SdkLevel.isAtLeastV()) {
+            mContext.enforceCallingOrSelfPermission(android.Manifest.permission.INTERNET, TAG);
+        }
+    }
+
     private void createOrUpdateTransform(
             IpSecConfig c, int resourceId, SpiRecord spiRecord, EncapSocketRecord socketRecord)
             throws RemoteException {
@@ -1782,7 +1788,10 @@ public class IpSecService extends IIpSecService.Stub {
         Objects.requireNonNull(c);
         if (c.getMode() == IpSecTransform.MODE_TUNNEL) {
             enforceTunnelFeatureAndPermissions(callingPackage);
+        } else if (c.getMode() == IpSecTransform.MODE_TRANSPORT) {
+            enforceInternetPermission();
         }
+
         checkIpSecConfig(c);
         Objects.requireNonNull(binder, "Null Binder passed to createTransform");
         final int resourceId = mNextResourceId++;
@@ -1920,6 +1929,8 @@ public class IpSecService extends IIpSecService.Stub {
     @Override
     public synchronized void applyTransportModeTransform(
             ParcelFileDescriptor socket, int direction, int resourceId) throws RemoteException {
+        enforceInternetPermission();
+
         int callingUid = Binder.getCallingUid();
         UserRecord userRecord = mUserResourceTracker.getUserRecord(callingUid);
         checkDirection(direction);
