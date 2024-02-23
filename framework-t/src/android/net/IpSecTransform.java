@@ -370,6 +370,7 @@ public final class IpSecTransform implements AutoCloseable {
          * @throws IOException indicating other errors
          */
         @NonNull
+        @RequiresPermission(android.Manifest.permission.INTERNET)
         public IpSecTransform buildTransportModeTransform(
                 @NonNull InetAddress sourceAddress,
                 @NonNull IpSecManager.SecurityParameterIndex spi)
