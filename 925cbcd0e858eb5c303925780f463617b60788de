@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "603bf81a_d9d2c3d8",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Moved creation to @Before",
+      "parentUuid": "3c7df03d_d79c559e",
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfaa243f_5e1bd58c",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-02-23T06:09:09Z",
       "side": 1,
       "message": "nit: keep the `/* node ID */` comment \n```suggestion\n        FullThreadDevice ftd \u003d startFtdChild(5 /* node ID */);\n```",
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c28502b_e8ffc1ff",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cfaa243f_5e1bd58c",
       "revId": "925cbcd0e858eb5c303925780f463617b60788de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -65,6 +101,48 @@
       "writtenOn": "2024-02-23T06:21:54Z",
       "side": 1,
       "message": "```suggestion\n    public void multicastRouting_endDeviceSubscribedMulticastAddress_infraLinkJoinsMulticastGroup() throws Exception {\n```",
+      "range": {
+        "startLine": 236,
+        "startChar": 16,
+        "endLine": 236,
+        "endChar": 55
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e1bdecf_f17f522d",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e448c902_a14cde39",
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "602bf9e5_9c44e97c",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88c30970_342ce2d9",
       "range": {
         "startLine": 236,
         "startChar": 16,
@@ -121,6 +199,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "181874cf_1fcb3848",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d485646e_bb4befc9",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 30
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65572718_36e116a1",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf532548_bd86907a",
+      "range": {
+        "startLine": 252,
+        "startChar": 8,
+        "endLine": 253,
+        "endChar": 30
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e53c71bd_ea17036c",
@@ -134,6 +260,30 @@
       "writtenOn": "2024-02-23T06:21:54Z",
       "side": 1,
       "message": "```suggestion\n    public void multicastRouting_endDeviceSubscribedMulticastAddress_canPingfromInfraLink() throws Exception {\n```",
+      "range": {
+        "startLine": 261,
+        "startChar": 16,
+        "endLine": 261,
+        "endChar": 78
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ec90766_76a98b24",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e53c71bd_ea17036c",
       "range": {
         "startLine": 261,
         "startChar": 16,
@@ -167,6 +317,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5080f5ed_8ecf9503",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14619a85_cc46f624",
+      "range": {
+        "startLine": 280,
+        "startChar": 8,
+        "endLine": 280,
+        "endChar": 70
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "906c5746_5d4307a2",
@@ -180,6 +354,30 @@
       "writtenOn": "2024-02-23T06:21:54Z",
       "side": 1,
       "message": "Move them to setUp(). It\u0027s okay that some of the tests may don\u0027t need one of the objects.",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 285,
+        "endChar": 93
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9271d73_89496e78",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "The infraDevice runSlaac() function requires BR started, and since this whole suite is about BR test, I moved ` startBrLeader();` to setUp() too.",
+      "parentUuid": "906c5746_5d4307a2",
       "range": {
         "startLine": 282,
         "startChar": 0,
@@ -213,6 +411,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd151b43_d4e11a3f",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b9e64d3_6b44354a",
+      "range": {
+        "startLine": 296,
+        "startChar": 63,
+        "endLine": 296,
+        "endChar": 69
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1bcbbac9_429832f6",
@@ -236,6 +458,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5ebd38a_bc09a18c",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bcbbac9_429832f6",
+      "range": {
+        "startLine": 299,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 5
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2928789_851e52da",
@@ -249,6 +495,30 @@
       "writtenOn": "2024-02-23T06:09:09Z",
       "side": 1,
       "message": "nit: probably make this version string a constant",
+      "range": {
+        "startLine": 351,
+        "startChar": 42,
+        "endLine": 351,
+        "endChar": 50
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b6b3326_aeb9925b",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2928789_851e52da",
       "range": {
         "startLine": 351,
         "startChar": 42,
@@ -305,6 +575,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "391c8cfa_1a109d6f",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Removed the null checks from this test.",
+      "parentUuid": "5eb776d3_c19b0acd",
+      "range": {
+        "startLine": 391,
+        "startChar": 8,
+        "endLine": 403,
+        "endChar": 74
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4990c164_2bfde215",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7e4e46f_8bef7e1f",
+      "range": {
+        "startLine": 397,
+        "startChar": 0,
+        "endLine": 403,
+        "endChar": 74
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40b0aad1_6a44205c",
@@ -351,6 +669,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2422b80_34883d10",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40b0aad1_6a44205c",
+      "range": {
+        "startLine": 450,
+        "startChar": 0,
+        "endLine": 451,
+        "endChar": 55
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da29e77f_cc60ef0c",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d071b2f0_7d33b91f",
+      "range": {
+        "startLine": 451,
+        "startChar": 0,
+        "endLine": 451,
+        "endChar": 39
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c24ca6cc_265e6194",
@@ -364,6 +730,30 @@
       "writtenOn": "2024-02-23T06:09:09Z",
       "side": 1,
       "message": "nit: make this a helper method.",
+      "range": {
+        "startLine": 455,
+        "startChar": 16,
+        "endLine": 459,
+        "endChar": 71
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36f1c6ed_789bab0f",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c24ca6cc_265e6194",
       "range": {
         "startLine": 455,
         "startChar": 16,
@@ -391,6 +781,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf5d3cd9_ce99fd1d",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Added multicastRouting_ftdSubscribedScope3MulticastAddress_cannotPingfromInfraLink()",
+      "parentUuid": "32a16163_1dd3deb2",
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57a1780e_2c46196b",
@@ -404,6 +812,30 @@
       "writtenOn": "2024-02-23T06:21:54Z",
       "side": 1,
       "message": "```suggestion\n    public void multicastRouting_infraNetworkSwitch_ftdRepliesToSubscribedAddress()\n```",
+      "range": {
+        "startLine": 507,
+        "startChar": 16,
+        "endLine": 507,
+        "endChar": 81
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "018fa5cf_0ac8b882",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57a1780e_2c46196b",
       "range": {
         "startLine": 507,
         "startChar": 16,
@@ -437,6 +869,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "104fbc2e_3c68c1a8",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80d6a40d_21bb440a",
+      "range": {
+        "startLine": 574,
+        "startChar": 20,
+        "endLine": 579,
+        "endChar": 34
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d20a29f_718d0b89",
@@ -460,6 +916,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e226b75_742f1647",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d20a29f_718d0b89",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 5
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c136c007_d8ed46d1",
@@ -473,6 +953,30 @@
       "writtenOn": "2024-02-23T06:09:09Z",
       "side": 1,
       "message": "What about `hasMulticastGroup` or `isInMulticastGroup`? `joined` first makes me think it\u0027s an action.",
+      "range": {
+        "startLine": 267,
+        "startChar": 26,
+        "endLine": 267,
+        "endChar": 46
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fb2b1f7_34b6d3af",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c136c007_d8ed46d1",
       "range": {
         "startLine": 267,
         "startChar": 26,
