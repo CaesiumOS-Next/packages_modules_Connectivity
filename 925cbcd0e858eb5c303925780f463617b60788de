@@ -146,6 +146,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14619a85_cc46f624",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-23T06:28:32Z",
+      "side": 1,
+      "message": "Some of the helper method takes address in  format of a string, while others take InetAddress, can we unify them to InetAddress?",
+      "range": {
+        "startLine": 280,
+        "startChar": 8,
+        "endLine": 280,
+        "endChar": 70
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "906c5746_5d4307a2",
         "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
         "patchSetId": 19
@@ -162,6 +185,29 @@
         "startChar": 0,
         "endLine": 285,
         "endChar": 93
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b9e64d3_6b44354a",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-23T06:28:32Z",
+      "side": 1,
+      "message": "given \"ftdOmr\" is used only once in this test, \n```suggestion\n                                        \u0026\u0026 isFromIpv6Source(p, ftd.getOmrAddress())));\n```",
+      "range": {
+        "startLine": 296,
+        "startChar": 63,
+        "endLine": 296,
+        "endChar": 69
       },
       "revId": "925cbcd0e858eb5c303925780f463617b60788de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
