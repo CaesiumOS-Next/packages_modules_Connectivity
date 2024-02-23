@@ -24,6 +24,7 @@ import static org.junit.Assert.fail;
 
 import android.net.InetAddresses;
 import android.net.IpPrefix;
+import android.net.nsd.NsdServiceInfo;
 import android.net.thread.ActiveOperationalDataset;
 
 import java.io.BufferedReader;
@@ -318,6 +319,48 @@ public final class FullThreadDevice {
         return false;
     }
 
+    /** Sets the DNS server address. */
+    public void setDnsServerAddress(String address) {
+        executeCommand("dns config " + address);
+    }
+
+    /** Returns the first browsed service instance of {@code serviceType}. */
+    public NsdServiceInfo browseService(String serviceType) {
+        // Output:
+        // DNS browse response for _testservice._tcp.default.service.arpa.
+        // test-service
+        //    Port:12345, Priority:0, Weight:0, TTL:10
+        //    Host:testhost.default.service.arpa.
+        //    HostAddress:2001:0:0:0:0:0:0:1 TTL:10
+        //    TXT:[key1=0102, key2=03] TTL:10
+        List<String> result = executeCommand("dns browse " + serviceType);
+
+        NsdServiceInfo info = new NsdServiceInfo();
+
+        info.setServiceName(result.get(1));
+        info.setServiceType(serviceType);
+        info.setPort(Integer.parseInt(firstMatchOf(result.get(2), "Port:(\\d+)").group(1)));
+        info.setHostname(firstMatchOf(result.get(3), "Host:(.+)").group(1));
+        info.setHostAddresses(
+                List.of(
+                        InetAddresses.parseNumericAddress(
+                                firstMatchOf(result.get(4), "HostAddress:([^ ]+)").group(1))));
+        String txtString = firstMatchOf(result.get(5), "TXT:\\[([^\\]]+)\\]").group(1);
+        for (String txtEntry : txtString.split(",")) {
+            String[] nameAndValue = txtEntry.split("=");
+            String name = nameAndValue[0];
+            String value = nameAndValue[1];
+            byte[] bytes = new byte[value.length() / 2];
+            for (int i = 0; i < value.length(); i += 2) {
+                byte b = (byte) ((value.charAt(i) - '0') << 4 | (value.charAt(i + 1) - '0'));
+                bytes[i / 2] = b;
+            }
+            info.setAttribute(name, bytes);
+        }
+
+        return info;
+    }
+
     /** Runs the "factoryreset" command on the device. */
     public void factoryReset() {
         try {
@@ -412,5 +455,11 @@ public final class FullThreadDevice {
 
     private static String toHexString(byte[] bytes) {
         return base16().encode(bytes);
+    }
+
+    private static Matcher firstMatchOf(String input, String regex) {
+        Matcher matcher = Pattern.compile(regex).matcher(input);
+        matcher.find();
+        return matcher;
     }
 }
