@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c75826e_80bd4acc",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-23T10:53:55Z",
+      "side": 1,
+      "message": "Is it necessary?",
+      "revId": "3db96d1b5b2c77ae92a1a97419e82c779034134c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d2f1d74_3cc4638f",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-23T10:53:55Z",
+      "side": 1,
+      "message": "The comment and assertion don\u0027t match.",
+      "range": {
+        "startLine": 419,
+        "startChar": 0,
+        "endLine": 420,
+        "endChar": 68
+      },
+      "revId": "3db96d1b5b2c77ae92a1a97419e82c779034134c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea306a33_1c7a5dd9",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-23T10:53:55Z",
+      "side": 1,
+      "message": "nit: is this needed?",
+      "range": {
+        "startLine": 507,
+        "startChar": 0,
+        "endLine": 507,
+        "endChar": 90
+      },
+      "revId": "3db96d1b5b2c77ae92a1a97419e82c779034134c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03306ba0_9e93d1a5",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-23T10:53:55Z",
+      "side": 1,
+      "message": "Should we just `initInfraDevice` for the `mInfraDevice` instead of returning it? This is to ensure only one infra device exists.\n\nMy concern is that it may not work well when creating multiple infra devices because they\u0027ll share the same packet reader.",
+      "revId": "3db96d1b5b2c77ae92a1a97419e82c779034134c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d17f916_240be525",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-23T10:53:55Z",
+      "side": 1,
+      "message": "To make it less ambiguous, what about renaming it to `pollForPacketOnInfraNetwork` or something similar? Probably you can also rename `readPacketFrom()` in `IntegrationTestUtils`.",
+      "range": {
+        "startLine": 552,
+        "startChar": 19,
+        "endLine": 552,
+        "endChar": 29
+      },
+      "revId": "3db96d1b5b2c77ae92a1a97419e82c779034134c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
