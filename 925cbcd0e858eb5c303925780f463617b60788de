@@ -16,6 +16,241 @@
       "message": "A caveat here: when I was implementing the advertising proxy test aosp/2943146, I noticed that the processes created in `@Test` may be already stopped before `tearDown()`. Probably that\u0027s because `@Test` and `@Before` `@After` are not run in the same thread and the thread running `@Test` may already be destroyed when running `@After`.\n\nIf we\u0027d do more clean up steps using `ot-cli-ftd` commands we probably need to create the processes in `@Before`.",
       "revId": "925cbcd0e858eb5c303925780f463617b60788de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfaa243f_5e1bd58c",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-23T06:09:09Z",
+      "side": 1,
+      "message": "nit: keep the `/* node ID */` comment \n```suggestion\n        FullThreadDevice ftd \u003d startFtdChild(5 /* node ID */);\n```",
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e448c902_a14cde39",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-23T06:09:09Z",
+      "side": 1,
+      "message": "Here and below, please keep the first letter in lowercase for every part of the test case name.\n```suggestion\n    public void bbr_mlrRegistration_infraLinkJoinsGroup() throws Exception {\n```",
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf532548_bd86907a",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-23T06:09:09Z",
+      "side": 1,
+      "message": "Are they necessary?",
+      "range": {
+        "startLine": 252,
+        "startChar": 8,
+        "endLine": 253,
+        "endChar": 30
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2928789_851e52da",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-23T06:09:09Z",
+      "side": 1,
+      "message": "nit: probably make this version string a constant",
+      "range": {
+        "startLine": 351,
+        "startChar": 42,
+        "endLine": 351,
+        "endChar": 50
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5eb776d3_c19b0acd",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-23T06:09:09Z",
+      "side": 1,
+      "message": "Here and below, I think the verification step is kind of depending on the order of packets. \n\nSay that if both FTDs replied, you may consume both packets in the first assertion then the second verification can pass as unexpected.\n\nProbably you can send another echo request and then check FTD2 doesn\u0027t reply.",
+      "range": {
+        "startLine": 391,
+        "startChar": 8,
+        "endLine": 403,
+        "endChar": 74
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40b0aad1_6a44205c",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-23T06:09:09Z",
+      "side": 1,
+      "message": "Probably add comments indicating what the arguments means. You can also make them constants.",
+      "range": {
+        "startLine": 450,
+        "startChar": 0,
+        "endLine": 451,
+        "endChar": 55
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d071b2f0_7d33b91f",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-23T06:09:09Z",
+      "side": 1,
+      "message": "Since you\u0027re using the same arguments for `ping`, probably you can provide a `ping()` without parameters for convenience.",
+      "range": {
+        "startLine": 451,
+        "startChar": 0,
+        "endLine": 451,
+        "endChar": 39
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c24ca6cc_265e6194",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-23T06:09:09Z",
+      "side": 1,
+      "message": "nit: make this a helper method.",
+      "range": {
+        "startLine": 455,
+        "startChar": 16,
+        "endLine": 459,
+        "endChar": 71
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32a16163_1dd3deb2",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-23T06:09:09Z",
+      "side": 1,
+      "message": "Should there also be a test case for inbound forwarding that FTD tries to subscribe to an MG \u003c 4 and the packets won\u0027t be forwarded inbound?\n\nPS: The AI generated suggestion looks pretty nice so I added it here.\n```suggestion\n\n    @Test\n    public void multicastRouting_inboundForwarding_FtdNotReplyNotsubscribedAddress()\n            throws Exception {\n        assumeTrue(isKernelVersionAtLeast(\"5.15.0\"));\n        /*\n         * \u003cpre\u003e\n         * Topology:\n         *                 infra network                       Thread\n         * infra device -------------------- Border Router -------------- Full Thread device\n         *                                   (Cuttlefish)\n         * \u003c/pre\u003e\n         */\n\n        // BR forms a network.\n        startBrLeader();\n\n        // Creates a Full Thread Device (FTD) and lets it join the network.\n        FullThreadDevice ftd \u003d startFtdChild(6);\n        Inet6Address ftdOmr \u003d ftd.getOmrAddress();\n        assertNotNull(ftdOmr);\n\n        // Creates a infra network device.\n        TapPacketReader infraNetworkReader \u003d\n                newPacketReader(mInfraNetworkTracker.getTestIface(), mHandler);\n        InfraNetworkDevice infraDevice \u003d startInfraDevice(\"1:2:3:4:5:6\", infraNetworkReader);\n\n        // Infra device sends an echo request to FTD\u0027s not subscribed group address.\n        infraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_3);\n\n        // Infra device doesn\u0027t receive an echo reply sent by FTD.\n        assertNull(\n                readPacketFrom(\n                        infraNetworkReader,\n                        p -\u003e\n                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)\n                                        \u0026\u0026 isFromIpv6Source(p, ftdOmr)));\n\n        // Infra device sends an echo request to FTD\u0027s not subscribed group address.\n        infraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_4);\n\n        // Infra device doesn\u0027t receive an echo reply sent by FTD.\n        assertNull(\n                readPacketFrom(\n                        infraNetworkReader,\n                        p -\u003e\n                                isExpectedIcmpv6Packet(p, ICMPV6_ECHO_REPLY_TYPE)\n                                        \u0026\u0026 isFromIpv6Source(p, ftdOmr)));\n    }\n```",
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80d6a40d_21bb440a",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-23T06:09:09Z",
+      "side": 1,
+      "message": "nit: use `CompletableFuture`\n```suggestion\n                    CompletableFuture\u003cVoid\u003e latch \u003d new CompletableFuture\u003c\u003e();\n                    mController.setTestNetworkAsUpstream(\n                            mInfraNetworkTracker.getTestIface().getInterfaceName(),\n                            directExecutor(),\n                            v -\u003e latch.complete(null));\n                    latch.get(10, TimeUnit.SECONDS);\n```",
+      "range": {
+        "startLine": 574,
+        "startChar": 20,
+        "endLine": 579,
+        "endChar": 34
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c136c007_d8ed46d1",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-23T06:09:09Z",
+      "side": 1,
+      "message": "What about `hasMulticastGroup` or `isInMulticastGroup`? `joined` first makes me think it\u0027s an action.",
+      "range": {
+        "startLine": 267,
+        "startChar": 26,
+        "endLine": 267,
+        "endChar": 46
+      },
+      "revId": "925cbcd0e858eb5c303925780f463617b60788de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
