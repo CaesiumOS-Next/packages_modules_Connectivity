@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2116acf6_2f7e62c1",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:33:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ffb3ee4_dad8e1d6",
+      "range": {
+        "startLine": 558,
+        "startChar": 8,
+        "endLine": 558,
+        "endChar": 56
+      },
+      "revId": "ea6ce9a70ef85fb11b6cf23712ec839c082dea98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9226362_410e91d8",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-23T06:36:48Z",
       "side": 1,
       "message": "ditto, it\u0027s errorprone that people may use ftdMla.toString() but it doesn\u0027t work.",
+      "range": {
+        "startLine": 565,
+        "startChar": 41,
+        "endLine": 565,
+        "endChar": 64
+      },
+      "revId": "ea6ce9a70ef85fb11b6cf23712ec839c082dea98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39b99e45_642918b6",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-23T10:33:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9226362_410e91d8",
       "range": {
         "startLine": 565,
         "startChar": 41,
