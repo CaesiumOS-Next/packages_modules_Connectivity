@@ -21,6 +21,7 @@ import static android.net.nsd.NsdManager.PROTOCOL_DNS_SD;
 import android.annotation.NonNull;
 import android.content.Context;
 import android.net.InetAddresses;
+import android.net.Network;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.os.Handler;
@@ -33,13 +34,18 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.thread.openthread.DnsTxtAttribute;
 import com.android.server.thread.openthread.INsdPublisher;
 import com.android.server.thread.openthread.INsdStatusReceiver;
+import com.android.server.thread.openthread.INsdDiscoverServiceCallback;
+import com.android.server.thread.openthread.INsdResolveServiceCallback;
 
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executor;
 
 /**
@@ -195,6 +201,51 @@ public final class NsdPublisher extends INsdPublisher.Stub {
                         + registrationListener.mServiceInfo);
         registrationListener.addUnregistrationReceiver(receiver);
         mNsdManager.unregisterService(registrationListener);
+    }
+
+    @Override
+    public void discoverService(String type, INsdDiscoverServiceCallback callback, int listenerId) {
+        mHandler.post(() -> discoverServiceInternal(type, callback, listenerId));
+    }
+
+    private void discoverServiceInternal(
+            String type, INsdDiscoverServiceCallback callback, int listenerId) {
+        checkOnHandlerThread();
+        Log.i(
+                TAG,
+                "Discovering services."
+                        + " Listener ID: "
+                        + listenerId
+                        + ", service type: "
+                        + type);
+        mNsdManager.discoverServices(
+                type, PROTOCOL_DNS_SD, (Network) null, mExecutor, new DiscoveryListener(callback));
+    }
+
+    @Override
+    public void resolveService(
+            String name, String type, INsdResolveServiceCallback callback, int listenerId) {
+        mHandler.post(() -> resolveServiceInternal(name, type, callback, listenerId));
+    }
+
+    private void resolveServiceInternal(
+            String name, String type, INsdResolveServiceCallback callback, int listenerId) {
+        checkOnHandlerThread();
+
+        NsdServiceInfo serviceInfo = new NsdServiceInfo();
+        serviceInfo.setServiceName(name);
+        serviceInfo.setServiceType(type);
+        serviceInfo.setNetwork(null);
+        Log.i(
+                TAG,
+                "Resolving service."
+                        + " Listener ID: "
+                        + listenerId
+                        + ", service info: "
+                        + serviceInfo);
+
+        mNsdManager.registerServiceInfoCallback(
+                serviceInfo, mExecutor, new ServiceInfoCallback(callback));
     }
 
     private void checkOnHandlerThread() {
@@ -357,5 +408,95 @@ public final class NsdPublisher extends INsdPublisher.Stub {
             mRegistrationListeners.remove(mListenerId);
             popAndRunNext();
         }
+    }
+
+    private final class DiscoveryListener implements NsdManager.DiscoveryListener {
+        private final INsdDiscoverServiceCallback mDiscoverServiceCallback;
+
+        DiscoveryListener(INsdDiscoverServiceCallback discoverServiceCallback) {
+            mDiscoverServiceCallback = discoverServiceCallback;
+        }
+
+        @Override
+        public void onStartDiscoveryFailed(String serviceType, int errorCode) {}
+
+        @Override
+        public void onStopDiscoveryFailed(String serviceType, int errorCode) {}
+
+        @Override
+        public void onDiscoveryStarted(String serviceType) {}
+
+        @Override
+        public void onDiscoveryStopped(String serviceType) {}
+
+        @Override
+        public void onServiceFound(NsdServiceInfo serviceInfo) {
+            try {
+                mDiscoverServiceCallback.onServiceDiscovered(
+                        serviceInfo.getServiceName(), serviceInfo.getServiceType(), true);
+            } catch (RemoteException e) {
+                // ignore
+            }
+        }
+
+        @Override
+        public void onServiceLost(NsdServiceInfo serviceInfo) {
+            try {
+                mDiscoverServiceCallback.onServiceDiscovered(
+                        serviceInfo.getServiceName(), serviceInfo.getServiceType(), false);
+            } catch (RemoteException e) {
+                // ignore
+            }
+        }
+    }
+
+    private final class ServiceInfoCallback implements NsdManager.ServiceInfoCallback {
+        private final INsdResolveServiceCallback mResolveServiceCallback;
+
+        ServiceInfoCallback(INsdResolveServiceCallback resolveServiceCallback) {
+            mResolveServiceCallback = resolveServiceCallback;
+        }
+
+        @Override
+        public void onServiceInfoCallbackRegistrationFailed(int errorCode) {}
+
+        @Override
+        public void onServiceUpdated(@NonNull NsdServiceInfo serviceInfo) {
+            try {
+                List<String> addresses = new ArrayList<>();
+                for (InetAddress address : serviceInfo.getHostAddresses()) {
+                    if (address instanceof Inet6Address) {
+                        if (address.isLinkLocalAddress()) {
+                            continue;
+                        }
+                        addresses.add(address.getHostAddress());
+                    }
+                }
+                List<DnsTxtAttribute> txtList = new ArrayList<>();
+                for (Map.Entry<String, byte[]> entry : serviceInfo.getAttributes().entrySet()) {
+                    DnsTxtAttribute attribute = new DnsTxtAttribute();
+                    attribute.name = entry.getKey();
+                    attribute.value = Arrays.copyOf(entry.getValue(), entry.getValue().length);
+                    txtList.add(attribute);
+                }
+
+                mResolveServiceCallback.onServiceResolved(
+                        serviceInfo.getHostname(),
+                        serviceInfo.getServiceName(),
+                        serviceInfo.getServiceType(),
+                        serviceInfo.getPort(),
+                        addresses,
+                        txtList);
+
+            } catch (RemoteException e) {
+                // ignored
+            }
+        }
+
+        @Override
+        public void onServiceLost() {}
+
+        @Override
+        public void onServiceInfoCallbackUnregistered() {}
     }
 }
