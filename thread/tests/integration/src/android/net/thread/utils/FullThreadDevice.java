@@ -24,6 +24,7 @@ import static org.junit.Assert.fail;
 
 import android.net.InetAddresses;
 import android.net.IpPrefix;
+import android.net.nsd.NsdServiceInfo;
 import android.net.thread.ActiveOperationalDataset;
 
 import com.google.errorprone.annotations.FormatMethod;
@@ -34,6 +35,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Inet6Address;
+import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -320,6 +322,55 @@ public final class FullThreadDevice {
         return false;
     }
 
+    /** Sets the DNS server address. */
+    public void setDnsServerAddress(String address) {
+        executeCommand("dns config " + address);
+    }
+
+    /** Returns the first browsed service instance of {@code serviceType}. */
+    public NsdServiceInfo browseService(String serviceType) {
+        // CLI output:
+        // DNS browse response for _testservice._tcp.default.service.arpa.
+        // test-service
+        //    Port:12345, Priority:0, Weight:0, TTL:10
+        //    Host:testhost.default.service.arpa.
+        //    HostAddress:2001:0:0:0:0:0:0:1 TTL:10
+        //    TXT:[key1=0102, key2=03] TTL:10
+
+        List<String> lines = executeCommand("dns browse " + serviceType);
+        NsdServiceInfo info = new NsdServiceInfo();
+        info.setServiceName(lines.get(1));
+        info.setServiceType(serviceType);
+        info.setPort(parsePort(lines.get(2)));
+        info.setHostname(parseHostname(lines.get(3)));
+        info.setHostAddresses(List.of(parseHostAddress(lines.get(4))));
+        parseTxtIntoServiceInfo(lines.get(5), info);
+
+        return info;
+    }
+
+    /** Returns the resolved service instance. */
+    public NsdServiceInfo resolveService(String serviceName, String serviceType) {
+        // CLI output:
+        // DNS service resolution response for test-service for service
+        // _test._tcp.default.service.arpa.
+        // Port:12345, Priority:0, Weight:0, TTL:10
+        // Host:Android.default.service.arpa.
+        // HostAddress:0:0:0:0:0:0:0:0 TTL:0
+        // TXT:[key1=0102, key2=03] TTL:10
+
+        List<String> lines = executeCommand("dns service %s %s", serviceName, serviceType);
+        NsdServiceInfo info = new NsdServiceInfo();
+        info.setServiceName(serviceName);
+        info.setServiceType(serviceType);
+        info.setPort(parsePort(lines.get(1)));
+        info.setHostname(parseHostname(lines.get(2)));
+        info.setHostAddresses(List.of(parseHostAddress(lines.get(3))));
+        parseTxtIntoServiceInfo(lines.get(4), info);
+
+        return info;
+    }
+
     /** Runs the "factoryreset" command on the device. */
     public void factoryReset() {
         try {
@@ -415,5 +466,39 @@ public final class FullThreadDevice {
 
     private static String toHexString(byte[] bytes) {
         return base16().encode(bytes);
+    }
+
+    private static Matcher firstMatchOf(String input, String regex) {
+        Matcher matcher = Pattern.compile(regex).matcher(input);
+        matcher.find();
+        return matcher;
+    }
+
+    private static int parsePort(String line) {
+        return Integer.parseInt(firstMatchOf(line, "Port:(\\d+)").group(1));
+    }
+
+    private static String parseHostname(String line) {
+        return firstMatchOf(line, "Host:(.+)").group(1);
+    }
+
+    private static InetAddress parseHostAddress(String line) {
+        return InetAddresses.parseNumericAddress(
+                firstMatchOf(line, "HostAddress:([^ ]+)").group(1));
+    }
+
+    private static void parseTxtIntoServiceInfo(String line, NsdServiceInfo serviceInfo) {
+        String txtString = firstMatchOf(line, "TXT:\\[([^\\]]+)\\]").group(1);
+        for (String txtEntry : txtString.split(",")) {
+            String[] nameAndValue = txtEntry.trim().split("=");
+            String name = nameAndValue[0];
+            String value = nameAndValue[1];
+            byte[] bytes = new byte[value.length() / 2];
+            for (int i = 0; i < value.length(); i += 2) {
+                byte b = (byte) ((value.charAt(i) - '0') << 4 | (value.charAt(i + 1) - '0'));
+                bytes[i / 2] = b;
+            }
+            serviceInfo.setAttribute(name, bytes);
+        }
     }
 }
