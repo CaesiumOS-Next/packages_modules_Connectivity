@@ -22,6 +22,30 @@
       },
       "revId": "55f943e57b2580530e197a65304df0859d95d59a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b7c0994_103a65d3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-02-23T03:40:07Z",
+      "side": 1,
+      "message": "I\u0027ve added this log specifically to dump ServiceTypeClient information for memory leak checks. I\u0027m not sure what specific listener information would be most helpful to you (perhaps subtype?). Please let me know if you\u0027d like additional logs added for debugging purposes – I\u0027m happy to include them in a follow-up change.",
+      "parentUuid": "395f2f31_a439e335",
+      "range": {
+        "startLine": 754,
+        "startChar": 18,
+        "endLine": 754,
+        "endChar": 27
+      },
+      "revId": "55f943e57b2580530e197a65304df0859d95d59a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
