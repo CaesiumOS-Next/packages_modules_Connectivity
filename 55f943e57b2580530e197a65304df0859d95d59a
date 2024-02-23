@@ -46,6 +46,30 @@
       },
       "revId": "55f943e57b2580530e197a65304df0859d95d59a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05aabc72_de30f087",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-23T13:22:13Z",
+      "side": 1,
+      "message": "Acked, I think we should discuss what info should be dump in the Nsd sync meeting. I agree it should be follow up change.",
+      "parentUuid": "6b7c0994_103a65d3",
+      "range": {
+        "startLine": 754,
+        "startChar": 18,
+        "endLine": 754,
+        "endChar": 27
+      },
+      "revId": "55f943e57b2580530e197a65304df0859d95d59a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
