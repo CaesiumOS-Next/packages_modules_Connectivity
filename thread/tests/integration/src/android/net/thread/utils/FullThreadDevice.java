@@ -25,6 +25,7 @@ import static org.junit.Assert.fail;
 import android.net.InetAddresses;
 import android.net.IpPrefix;
 import android.net.thread.ActiveOperationalDataset;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -316,6 +317,20 @@ public final class FullThreadDevice {
             return line.contains("Registered");
         }
         return false;
+    }
+
+    /** Sets the DNS server address. */
+    public void setDnsServerAddress(String address) {
+        executeCommand("dns config " + address);
+    }
+
+    /** Browses services by DNS. */
+    public void browseServices(String serviceType) {
+        List<String> result = executeCommand("dns browse " + serviceType);
+
+        for (String line : result) {
+            Log.i("servicediscovery", "browseServices: " + line);
+        }
     }
 
     /** Runs the "factoryreset" command on the device. */
