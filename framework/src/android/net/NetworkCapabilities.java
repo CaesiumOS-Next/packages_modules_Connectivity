@@ -1061,6 +1061,18 @@ public final class NetworkCapabilities implements Parcelable {
     }
 
     /**
+     * Tests for the presence of one or more capabilities on this instance.
+     *
+     * @param capabilityMask a bitmask of capabilities to be tested for.
+     * @return {@code true} if at least one capability is set on this instance.
+     * @hide
+     */
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    public boolean hasAnyCapability(long capabilityMask) {
+        return (mNetworkCapabilities & capabilityMask) != 0;
+    }
+
+    /**
      * Tests for the presence of a forbidden capability on this instance.
      *
      * @param capability the capability to be tested for.
