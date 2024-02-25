@@ -80,3 +80,10 @@ flag {
   description: "Flag for API to register nsd offload engine"
   bug: "301713539"
 }
+
+flag {
+  name: "has_any_capability_api"
+  namespace: "android_core_networking"
+  description: "Flag for API to check if one or more network capabilities are set"
+  bug: "326744138"
+}
