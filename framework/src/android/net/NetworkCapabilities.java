@@ -134,6 +134,8 @@ public final class NetworkCapabilities implements Parcelable {
                 "com.android.net.flags.request_restricted_wifi";
         static final String SUPPORT_TRANSPORT_SATELLITE =
                 "com.android.net.flags.support_transport_satellite";
+        static final String HAS_ANY_CAPABILITY_API =
+                "com.android.net.flags.has_any_capability_api";
     }
 
     /**
@@ -1058,6 +1060,19 @@ public final class NetworkCapabilities implements Parcelable {
     public boolean hasCapability(@NetCapability int capability) {
         return isValidCapability(capability)
                 && ((mNetworkCapabilities & (1L << capability)) != 0);
+    }
+
+    /**
+     * Tests for the presence of one or more capabilities on this instance.
+     *
+     * @param capabilityMask a bitmask of capabilities to be tested for.
+     * @return {@code true} if at least one capability is set on this instance.
+     * @hide
+     */
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    @FlaggedApi(Flags.HAS_ANY_CAPABILITY_API)
+    public boolean hasAnyCapability(long capabilityMask) {
+        return (mNetworkCapabilities & capabilityMask) != 0;
     }
 
     /**
