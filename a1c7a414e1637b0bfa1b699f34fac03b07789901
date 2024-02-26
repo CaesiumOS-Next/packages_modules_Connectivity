@@ -34,6 +34,24 @@
       "parentUuid": "d541513b_d413db08",
       "revId": "a1c7a414e1637b0bfa1b699f34fac03b07789901",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56e72c80_d545ffff",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6282,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-26T02:04:07Z",
+      "side": 1,
+      "message": "Mark it resolved to merge this CL first.\nWill keep tracking as follow-up.",
+      "parentUuid": "45e28e7c_e4a1411f",
+      "revId": "a1c7a414e1637b0bfa1b699f34fac03b07789901",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
