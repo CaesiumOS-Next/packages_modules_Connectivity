@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "39eabb17_088102eb",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 56
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-26T03:06:00Z",
+      "side": 1,
+      "message": "\u003e It seems based on this logic, if the non system server set the value to 29 second, it will silently adjust it to 30. Will it be better to add some logging here?\n\nI don\u0027t think is true. we have a test case `testAdvertiseCustomTtl_invalidTtl_FailsWithBadParameters` in NsdServiceTest to ensure that FAILURE_BAD_PARAMETERS is returned for such case.",
+      "parentUuid": "5421c967_6877d400",
+      "range": {
+        "startLine": 753,
+        "startChar": 16,
+        "endLine": 754,
+        "endChar": 91
+      },
+      "revId": "72a7135b175bd073bf8b12fe5efd028dba5955eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6227ae30_f2d9adb2",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
         "patchSetId": 56
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-22T15:02:32Z",
       "side": 1,
       "message": "Maybe better have a comment here:\n\nIf customize TTL is set, it is expected both `nonNameRecordsTtlMillis` and `nameRecordsTtlMillis` will be use that TTL. (maybe also link to RFC)",
+      "range": {
+        "startLine": 221,
+        "startChar": 16,
+        "endLine": 221,
+        "endChar": 64
+      },
+      "revId": "72a7135b175bd073bf8b12fe5efd028dba5955eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "178b9620_7fed0559",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 56
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-26T03:06:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6227ae30_f2d9adb2",
       "range": {
         "startLine": 221,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7fa8dad_63ba1ce2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 56
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-26T03:06:00Z",
+      "side": 1,
+      "message": "Thanks for catching this, it\u0027s a copy-paste mistake.",
+      "parentUuid": "de39018f_8e4e164b",
+      "range": {
+        "startLine": 279,
+        "startChar": 32,
+        "endLine": 279,
+        "endChar": 52
+      },
+      "revId": "72a7135b175bd073bf8b12fe5efd028dba5955eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab21cfdd_16a3905b",
@@ -87,6 +159,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aee1191c_e7540f8e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 56
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-26T03:06:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab21cfdd_16a3905b",
+      "revId": "72a7135b175bd073bf8b12fe5efd028dba5955eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9abe218_e4a9c23d",
@@ -100,6 +190,30 @@
       "writtenOn": "2024-02-22T15:02:32Z",
       "side": 1,
       "message": "This line wrap doesn\u0027t trigger `repo upload .` format error?",
+      "range": {
+        "startLine": 575,
+        "startChar": 8,
+        "endLine": 575,
+        "endChar": 104
+      },
+      "revId": "72a7135b175bd073bf8b12fe5efd028dba5955eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f82ea4c_f4bc7eb6",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 56
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-26T03:06:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9abe218_e4a9c23d",
       "range": {
         "startLine": 575,
         "startChar": 8,
