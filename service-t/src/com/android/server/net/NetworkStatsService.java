@@ -2301,8 +2301,14 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     }
 
     private static int getSubIdForMobile(@NonNull NetworkStateSnapshot state) {
-        if (!state.getNetworkCapabilities().hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-            throw new IllegalArgumentException("Mobile state need capability TRANSPORT_CELLULAR");
+        if (!state.getNetworkCapabilities().hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+                // Both cellular and satellite are 2 different network transport at Mobile using
+                // same telephony network specifier. So adding satellite transport to consider
+                // for, when satellite network is active at mobile.
+                && !state.getNetworkCapabilities().hasTransport(
+                NetworkCapabilities.TRANSPORT_SATELLITE)) {
+            throw new IllegalArgumentException(
+                    "Mobile state need capability TRANSPORT_CELLULAR or TRANSPORT_SATELLITE");
         }
 
         final NetworkSpecifier spec = state.getNetworkCapabilities().getNetworkSpecifier();
