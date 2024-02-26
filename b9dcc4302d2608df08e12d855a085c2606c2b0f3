@@ -179,6 +179,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c4bfafe_7afacb03",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 89
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-26T05:59:59Z",
+      "side": 1,
+      "message": "If you refactor this I think this shouldn\u0027t say \"duration\", since that\u0027s redundant with \"TTL\" (it ends up being \"get time to live duration\"). \"getTtl\" or \"getAdvertisedTtl\" would be enough I think. And the type is also Duration already.\n\nSince this is still @hide no need to change this CL at this point though.",
+      "parentUuid": "4f7867b8_e7611fde",
+      "range": {
+        "startLine": 125,
+        "startChar": 15,
+        "endLine": 125,
+        "endChar": 27
+      },
+      "revId": "b9dcc4302d2608df08e12d855a085c2606c2b0f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a48eca1e_23bde784",
         "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
         "patchSetId": 89
