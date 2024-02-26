@@ -356,6 +356,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1cd3a34d_aef542ee",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-26T08:54:39Z",
+      "side": 1,
+      "message": "If you comment this line, does test fail?\n\n`makeMockUserManager` returns mocked UserManager.\nBut this line does not use returned mocked UserManager.\n\n\nI think you wanted to do the following?\n\n```\nval userManager \u003d makeMockUserManager(USER_INFO, USER_HANDLE)\ndoReturn(userManager).`when`(context).getSystemService(...)\n```\n\nOr you can move `mUserManager.getUserHandles` to the dependencies.\n\nThough currently getUserHandles is not called since mHandler is mocked and `mUserManager.getUserHandles` is not called from this test.",
+      "parentUuid": "fc2c3c0b_6218c5a8",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 51
+      },
+      "revId": "e9dd5ed906afe547b650e73541ea04d031052dba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd5c5edd_649fe3fc",
         "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
         "patchSetId": 9
@@ -391,6 +415,30 @@
       "side": 1,
       "message": "Any concern with argument captors ?\n\nAlso with the said method , we cannot really assert how many times() the callback was triggered.\n\nWhen tried with suggested code, verify(mCallback, times()).accept(\u003cExpected UID\u003e ) \u003d\u003d\u003e FailOnTimeout\n\nHence keeping just verify(callback).accept(\u003cExpected UID\u003e) and avoiding times()\n\nNote: With verify(mCallback, times()).accept(\u003cArgumentCaptor\u003e) there is no time out issue as such previously",
       "parentUuid": "bd5c5edd_649fe3fc",
+      "range": {
+        "startLine": 149,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 86
+      },
+      "revId": "e9dd5ed906afe547b650e73541ea04d031052dba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a31b9fb1_2f13e688",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-26T08:54:39Z",
+      "side": 1,
+      "message": "captors also works but I feel specifying expected argument is much simpler and easier to understand.",
+      "parentUuid": "b1af3bd6_6957aac9",
       "range": {
         "startLine": 149,
         "startChar": 8,

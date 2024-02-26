@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dffaf33d_8c00048f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-26T08:54:39Z",
+      "side": 1,
+      "message": "LGTM.\nFor comments on test code, feel free to fix by the followup CLs.",
+      "revId": "87ed8d72cc8a1acc589d13006dff070d7f9d031b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a63cf27d_7a7812c7",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-26T08:54:39Z",
+      "side": 1,
+      "message": "You can write as follows since updateSatelliteNetworkFallbackUidListCache returns empty list if packageNames is empty.\n```\nfinal Set\u003cInteger\u003e newUidsForUser \u003d  updateSatelliteNetworkFallbackUidListCache(packageNames, userHandle);\n```",
+      "range": {
+        "startLine": 187,
+        "startChar": 8,
+        "endLine": 189,
+        "endChar": 35
+      },
+      "revId": "87ed8d72cc8a1acc589d13006dff070d7f9d031b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d93eb2da_ebf90a50",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-26T08:54:39Z",
+      "side": 1,
+      "message": "Do we need this?\nCan not we use PRIMARY_USER?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 34
+      },
+      "revId": "87ed8d72cc8a1acc589d13006dff070d7f9d031b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "721101cf_fc67e8a1",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-26T08:54:39Z",
+      "side": 1,
+      "message": "This is existing code, but I realized we are not verifying `start()` since we are mocking handler.\nYou don\u0027t need to fix this in this CL but could you add the test case for startup?\nAt start up, SatelliteAccessController must call CS callback with existing users\u0027 default messaging apps uids.",
+      "range": {
+        "startLine": 73,
+        "startChar": 16,
+        "endLine": 73,
+        "endChar": 52
+      },
+      "revId": "87ed8d72cc8a1acc589d13006dff070d7f9d031b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "628e1d7d_82700915",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-26T08:54:39Z",
+      "side": 1,
+      "message": "This should be mDeps.",
+      "range": {
+        "startLine": 74,
+        "startChar": 16,
+        "endLine": 74,
+        "endChar": 28
+      },
+      "revId": "87ed8d72cc8a1acc589d13006dff070d7f9d031b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd861a78_342886f4",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-26T08:54:39Z",
+      "side": 1,
+      "message": "nits: I think having packageManagers for each user is more realistic and easier to understand.",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 85,
+        "endChar": 64
+      },
+      "revId": "87ed8d72cc8a1acc589d13006dff070d7f9d031b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
