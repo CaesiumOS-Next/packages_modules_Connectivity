@@ -16,14 +16,13 @@
 
 package com.android.server.thread;
 
+import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static android.net.thread.ThreadNetworkController.STATE_DISABLED;
 import static android.net.thread.ThreadNetworkController.STATE_ENABLED;
 import static android.net.thread.ThreadNetworkException.ERROR_FAILED_PRECONDITION;
 import static android.net.thread.ThreadNetworkException.ERROR_INTERNAL_ERROR;
 import static android.net.thread.ThreadNetworkManager.DISALLOW_THREAD_NETWORK;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
-
-import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static com.google.common.io.BaseEncoding.base16;
 import static com.google.common.truth.Truth.assertThat;
@@ -33,6 +32,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
@@ -114,6 +114,15 @@ public final class ThreadNetworkControllerServiceTest {
         MockitoAnnotations.initMocks(this);
 
         mContext = spy(ApplicationProvider.getApplicationContext());
+
+        doNothing()
+                .when(mContext)
+                .enforceCallingOrSelfPermission(eq(ACCESS_NETWORK_STATE), anyString());
+        doNothing()
+                .when(mContext)
+                .enforceCallingOrSelfPermission(
+                        eq(PERMISSION_THREAD_NETWORK_PRIVILEGED), anyString());
+
         mTestLooper = new TestLooper();
         final Handler handler = new Handler(mTestLooper.getLooper());
         NetworkProvider networkProvider =
@@ -158,9 +167,7 @@ public final class ThreadNetworkControllerServiceTest {
         final IOperationReceiver mockReceiver = mock(IOperationReceiver.class);
         mFakeOtDaemon.setJoinException(new RemoteException("ot-daemon join() throws"));
 
-        runAsShell(
-                PERMISSION_THREAD_NETWORK_PRIVILEGED,
-                () -> mService.join(DEFAULT_ACTIVE_DATASET, mockReceiver));
+        mService.join(DEFAULT_ACTIVE_DATASET, mockReceiver);
         mTestLooper.dispatchAll();
 
         verify(mockReceiver, never()).onSuccess();
@@ -172,9 +179,7 @@ public final class ThreadNetworkControllerServiceTest {
         mService.initialize();
         final IOperationReceiver mockReceiver = mock(IOperationReceiver.class);
 
-        runAsShell(
-                PERMISSION_THREAD_NETWORK_PRIVILEGED,
-                () -> mService.join(DEFAULT_ACTIVE_DATASET, mockReceiver));
+        mService.join(DEFAULT_ACTIVE_DATASET, mockReceiver);
         // Here needs to call Testlooper#dispatchAll twices because TestLooper#moveTimeForward
         // operates on only currently enqueued messages but the delayed message is posted from
         // another Handler task.
@@ -258,9 +263,7 @@ public final class ThreadNetworkControllerServiceTest {
         mService.initialize();
 
         CompletableFuture<Void> setEnabledFuture = new CompletableFuture<>();
-        runAsShell(
-                PERMISSION_THREAD_NETWORK_PRIVILEGED,
-                () -> mService.setEnabled(true, newOperationReceiver(setEnabledFuture)));
+        mService.setEnabled(true, newOperationReceiver(setEnabledFuture));
         mTestLooper.dispatchAll();
 
         var thrown = assertThrows(ExecutionException.class, () -> setEnabledFuture.get());
