@@ -307,6 +307,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9c819b7_a9168e70",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-26T01:41:21Z",
+      "side": 1,
+      "message": "Acked, discussed on  phone call, we can keep as it",
+      "parentUuid": "66149aad_ae302aac",
+      "range": {
+        "startLine": 316,
+        "startChar": 12,
+        "endLine": 320,
+        "endChar": 13
+      },
+      "revId": "962b64b721e7a7d564f0978e6f870b641254a494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8adb0123_f77845b8",
