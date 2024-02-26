@@ -378,6 +378,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fdaf233_df70af11",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-26T09:50:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1cd3a34d_aef542ee",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 51
+      },
+      "revId": "e9dd5ed906afe547b650e73541ea04d031052dba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd5c5edd_649fe3fc",
@@ -439,6 +463,30 @@
       "side": 1,
       "message": "captors also works but I feel specifying expected argument is much simpler and easier to understand.",
       "parentUuid": "b1af3bd6_6957aac9",
+      "range": {
+        "startLine": 149,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 86
+      },
+      "revId": "e9dd5ed906afe547b650e73541ea04d031052dba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "191d07a3_497daaa7",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-26T09:50:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a31b9fb1_2f13e688",
       "range": {
         "startLine": 149,
         "startChar": 8,

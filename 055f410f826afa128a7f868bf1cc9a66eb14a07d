@@ -46,6 +46,30 @@
       },
       "revId": "055f410f826afa128a7f868bf1cc9a66eb14a07d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4c03b04_ebb1255c",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-26T09:50:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d7307a0f_bdc0e274",
+      "range": {
+        "startLine": 146,
+        "startChar": 15,
+        "endLine": 147,
+        "endChar": 73
+      },
+      "revId": "055f410f826afa128a7f868bf1cc9a66eb14a07d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
