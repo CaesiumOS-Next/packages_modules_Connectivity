@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b69b64b5_c54d5756",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 90
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-26T06:37:37Z",
+      "side": 1,
+      "message": "Expiration is actually per-record, not per-service, so this documentation isn\u0027t very accurate: there should probably be more details about what it represents, for example is it the earliest expiration time at which some of the service attributes (could be address or service name or ...) will expire ?\n\nIs this actually enough for Thread integration ? Or do you actually need per-record expiration time ?",
+      "range": {
+        "startLine": 518,
+        "startChar": 40,
+        "endLine": 518,
+        "endChar": 63
+      },
+      "revId": "261bbd2e8ab7a2b1841a0c1aefbbfcea4a9574b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
