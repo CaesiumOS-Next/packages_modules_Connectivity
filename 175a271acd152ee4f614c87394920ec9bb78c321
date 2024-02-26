@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5046f39_75f35547",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-26T01:40:01Z",
+      "side": 1,
+      "message": "Comment: this keyRecords is used to build the annoucement info/reply info.",
+      "range": {
+        "startLine": 172,
+        "startChar": 53,
+        "endLine": 172,
+        "endChar": 63
+      },
+      "revId": "175a271acd152ee4f614c87394920ec9bb78c321",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "682c2933_565346ec",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-26T01:40:01Z",
+      "side": 1,
+      "message": "Comment: serviceKeyRecord and hostKeyRecord is used in the conflict check.",
+      "range": {
+        "startLine": 174,
+        "startChar": 4,
+        "endLine": 176,
+        "endChar": 61
+      },
+      "revId": "175a271acd152ee4f614c87394920ec9bb78c321",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
