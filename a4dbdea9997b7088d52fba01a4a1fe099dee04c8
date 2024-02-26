@@ -136,6 +136,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "287cb7c2_be41f2d5",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-26T09:37:45Z",
+      "side": 1,
+      "message": "Close this for now as this is not required for SRP.",
+      "parentUuid": "978e504b_01d310c1",
+      "range": {
+        "startLine": 465,
+        "startChar": 60,
+        "endLine": 465,
+        "endChar": 75
+      },
+      "revId": "a4dbdea9997b7088d52fba01a4a1fe099dee04c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2414fd43_49b93b9e",

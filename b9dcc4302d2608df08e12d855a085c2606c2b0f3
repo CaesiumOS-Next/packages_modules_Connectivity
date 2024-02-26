@@ -201,6 +201,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c1e006d_f8feaba5",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 89
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-26T09:37:45Z",
+      "side": 1,
+      "message": "Thanks all. I will keep it is to get this merged. Let\u0027s look at this again when making it public API",
+      "parentUuid": "3c4bfafe_7afacb03",
+      "range": {
+        "startLine": 125,
+        "startChar": 15,
+        "endLine": 125,
+        "endChar": 27
+      },
+      "revId": "b9dcc4302d2608df08e12d855a085c2606c2b0f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a48eca1e_23bde784",

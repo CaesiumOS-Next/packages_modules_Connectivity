@@ -22,6 +22,30 @@
       },
       "revId": "261bbd2e8ab7a2b1841a0c1aefbbfcea4a9574b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05f7a786_6bfb0049",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 90
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-26T09:37:45Z",
+      "side": 1,
+      "message": "I updated the doc to say that \"A service is considered expired if any of its DNS record is expired\".\n\nFor Thread, I think the discovery proxy spec requires per-record expiration but I also think it\u0027s  a bit over complicated to return a per-record TTL given the fact that TTL will be capped to 10 seconds (which I think happens for the 99% real world use cases). Secondly, I think it\u0027s still useful to have a per-service level expiration for clients to know for how long they can safely refer to the info in the discovered NsdServiceInfo.\n\nSo I am keeping the API signature unchanged here. Let\u0027s look back at this if there are real discovery proxy issues with this.",
+      "parentUuid": "b69b64b5_c54d5756",
+      "range": {
+        "startLine": 518,
+        "startChar": 40,
+        "endLine": 518,
+        "endChar": 63
+      },
+      "revId": "261bbd2e8ab7a2b1841a0c1aefbbfcea4a9574b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
