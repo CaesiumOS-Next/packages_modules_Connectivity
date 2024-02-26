@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f4ccf3e_5fae8a6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-26T08:53:55Z",
+      "side": 1,
+      "message": "This needs a refactor to split out Struct.java from \"net-utils-device-common-bpf\", but as a temporary solution this should at least remove unnecessary structs from framework-connectivity",
+      "revId": "4e8fac03427fad0b3fb965ae213f200355b1cf81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8b7c282_ec281497",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-26T08:53:55Z",
+      "side": 1,
+      "message": "Similarly to the lib below, add a comment saying this requires \"net-utils-device-common-bpf\"",
+      "revId": "4e8fac03427fad0b3fb965ae213f200355b1cf81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac64ae3e_b6ca5c39",
@@ -32,6 +66,57 @@
       "side": 1,
       "message": "Including `net-utils-device-common-struct` directly gives me a `CIRCULAR REFERENCE` build error.\n```\n[CIRCULAR REFERENCE: com.android.tools.r8.internal.g: Library class android.net.connectivity.android.net.UidOwnerValue extends program class androi\nd.net.connectivity.com.android.net.module.util.Struct]\n```\n\nAny suggestion how to solve this?",
       "parentUuid": "ac64ae3e_b6ca5c39",
+      "revId": "4e8fac03427fad0b3fb965ae213f200355b1cf81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ba2d355_e8dc46b7",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-26T08:53:55Z",
+      "side": 1,
+      "message": "Could you rename this to be more specific than \"custom\" (there\u0027s a lot of other \"custom\" structs), for example \"net-utils-multicast-forwarding-structs\" ?",
+      "revId": "4e8fac03427fad0b3fb965ae213f200355b1cf81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c51f94b_9475b97c",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-26T08:53:55Z",
+      "side": 1,
+      "message": "Technically users of this lib don\u0027t have net-utils-device-common-struct in their bootclasspath, since you\u0027re removing it; they only have `net-utils-device-common-bpf` (which also includes struct.java).\n\nSo could you replace this with `net-utils-device-common-bpf` ? Maybe adding a comment saying that in practice only Struct.java is used from that lib ?",
+      "revId": "4e8fac03427fad0b3fb965ae213f200355b1cf81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d62b0cec_ed67c087",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-26T08:53:55Z",
+      "side": 1,
+      "message": "Is this necessary ? If it builds without it can you remove it ?",
       "revId": "4e8fac03427fad0b3fb965ae213f200355b1cf81",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
