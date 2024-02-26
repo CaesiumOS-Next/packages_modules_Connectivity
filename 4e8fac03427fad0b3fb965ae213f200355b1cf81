@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c8c4140_dc31b6b4",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-26T10:45:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8b7c282_ec281497",
+      "revId": "4e8fac03427fad0b3fb965ae213f200355b1cf81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac64ae3e_b6ca5c39",
@@ -87,6 +105,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90939a8a_1e42926d",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-26T10:45:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ba2d355_e8dc46b7",
+      "revId": "4e8fac03427fad0b3fb965ae213f200355b1cf81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c51f94b_9475b97c",
@@ -104,6 +140,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2acafc46_978d5303",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-26T10:45:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c51f94b_9475b97c",
+      "revId": "4e8fac03427fad0b3fb965ae213f200355b1cf81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d62b0cec_ed67c087",
@@ -117,6 +171,24 @@
       "writtenOn": "2024-02-26T08:53:55Z",
       "side": 1,
       "message": "Is this necessary ? If it builds without it can you remove it ?",
+      "revId": "4e8fac03427fad0b3fb965ae213f200355b1cf81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d30a28f1_cc638d92",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-26T10:45:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d62b0cec_ed67c087",
       "revId": "4e8fac03427fad0b3fb965ae213f200355b1cf81",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
