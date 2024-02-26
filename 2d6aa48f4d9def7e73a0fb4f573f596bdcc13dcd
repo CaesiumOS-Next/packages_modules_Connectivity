@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18129668_a65cc6be",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-26T03:02:38Z",
+      "side": 1,
+      "message": "nit: It is unclear to me what is the meaning if this is 0.\nAdd comment or use constant if feasible.\nNo strong opinion.",
+      "range": {
+        "startLine": 85,
+        "startChar": 37,
+        "endLine": 85,
+        "endChar": 38
+      },
+      "revId": "2d6aa48f4d9def7e73a0fb4f573f596bdcc13dcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
