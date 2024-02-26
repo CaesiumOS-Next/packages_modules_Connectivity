@@ -142,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "039c36f9_b2392084",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-02-26T02:57:38Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "569ecb7b_f2f5cc2e",
+      "range": {
+        "startLine": 194,
+        "startChar": 8,
+        "endLine": 195,
+        "endChar": 85
+      },
+      "revId": "3d92a1a04e09f3b7197e593a9d4e2e919f925b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52758b3b_fa723d79",
