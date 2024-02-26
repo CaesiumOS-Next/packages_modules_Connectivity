@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e996579_106028d9",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-26T04:05:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec9c0bb6_abdf7ef5",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 57
+      },
+      "revId": "488b92291bbabc5c42640a9692ffbc914a59e7e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db1187d7_c31f315f",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-25T07:34:32Z",
       "side": 1,
       "message": "ditto:\n```suggestion\n        FullThreadDevice ftd \u003d mFtds.get(0);\n        startFtdChild(ftd);\n\n        ftd.subscribeMulticastAddress(GROUP_ADDR_SCOPE_3);\n\n        assertInfraLinkNotMemberOfGroup(GROUP_ADDR_SCOPE_3);\n```",
+      "range": {
+        "startLine": 267,
+        "startChar": 0,
+        "endLine": 274,
+        "endChar": 60
+      },
+      "revId": "488b92291bbabc5c42640a9692ffbc914a59e7e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9279dbee_a0319c9d",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-26T04:05:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db1187d7_c31f315f",
       "range": {
         "startLine": 267,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f0859c3_f2bcec77",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-26T04:05:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "780f064f_b75d991c",
+      "range": {
+        "startLine": 290,
+        "startChar": 0,
+        "endLine": 300,
+        "endChar": 96
+      },
+      "revId": "488b92291bbabc5c42640a9692ffbc914a59e7e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f50656fb_4557a21f",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-02-25T07:34:32Z",
       "side": 1,
       "message": "```suggestion\n        FullThreadDevice ftd \u003d mFtds.get(0);\n        startFtdChild(ftd);\n        ftd.subscribeMulticastAddress(GROUP_ADDR_SCOPE_3);\n\n        mInfraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_3);\n        \n        assertNull(pollForPacketOnInfraNetwork(ICMPV6_ECHO_REPLY_TYPE, ftd.getOmrAddress()));\n```",
+      "range": {
+        "startLine": 316,
+        "startChar": 0,
+        "endLine": 326,
+        "endChar": 93
+      },
+      "revId": "488b92291bbabc5c42640a9692ffbc914a59e7e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62810d4e_640eb577",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-26T04:05:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f50656fb_4557a21f",
       "range": {
         "startLine": 316,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc03e95e_2388c97a",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-26T04:05:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da6f8c81_9e87d31c",
+      "range": {
+        "startLine": 342,
+        "startChar": 0,
+        "endLine": 350,
+        "endChar": 80
+      },
+      "revId": "488b92291bbabc5c42640a9692ffbc914a59e7e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da2cd5c9_1042b558",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-02-25T07:34:32Z",
       "side": 1,
       "message": "It\u0027s also useful to test that two devices which subscribed to the same MA can be pinged, because this is the the primary use case of multicast routing.",
+      "range": {
+        "startLine": 354,
+        "startChar": 16,
+        "endLine": 354,
+        "endChar": 96
+      },
+      "revId": "488b92291bbabc5c42640a9692ffbc914a59e7e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70df36bb_b3ceaef8",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-26T04:05:21Z",
+      "side": 1,
+      "message": "added multicastRouting_multipleFtdsSubscribedSameMulticastAddresses_canPingFromInfraDevice",
+      "parentUuid": "da2cd5c9_1042b558",
       "range": {
         "startLine": 354,
         "startChar": 16,
@@ -185,6 +329,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79a401b8_04936acd",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-26T04:05:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e86b5a8_7ad7f720",
+      "range": {
+        "startLine": 383,
+        "startChar": 0,
+        "endLine": 391,
+        "endChar": 84
+      },
+      "revId": "488b92291bbabc5c42640a9692ffbc914a59e7e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33ba8de8_b7cb68b5",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-26T04:05:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b5f4deb_5fdf4bcc",
+      "range": {
+        "startLine": 370,
+        "startChar": 0,
+        "endLine": 391,
+        "endChar": 84
+      },
+      "revId": "488b92291bbabc5c42640a9692ffbc914a59e7e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b2595f6_05f79dfb",
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51b72983_c743c897",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-26T04:05:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b2595f6_05f79dfb",
+      "range": {
+        "startLine": 414,
+        "startChar": 0,
+        "endLine": 417,
+        "endChar": 85
+      },
+      "revId": "488b92291bbabc5c42640a9692ffbc914a59e7e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7969d5f_06576f65",
@@ -221,6 +437,30 @@
       "writtenOn": "2024-02-25T07:34:32Z",
       "side": 1,
       "message": "What about the reverse direction?",
+      "range": {
+        "startLine": 444,
+        "startChar": 52,
+        "endLine": 444,
+        "endChar": 81
+      },
+      "revId": "488b92291bbabc5c42640a9692ffbc914a59e7e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb8a8920_bd4e6fa1",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-26T04:05:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7969d5f_06576f65",
       "range": {
         "startLine": 444,
         "startChar": 52,
