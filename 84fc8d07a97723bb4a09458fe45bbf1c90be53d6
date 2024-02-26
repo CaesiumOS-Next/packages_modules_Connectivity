@@ -132,6 +132,30 @@
       },
       "revId": "84fc8d07a97723bb4a09458fe45bbf1c90be53d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0acdd67c_73801e5f",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1802,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-26T01:34:09Z",
+      "side": 1,
+      "message": "As discussed on the phone call, we can just check all the invalid combination. The rest of the case is valid.",
+      "parentUuid": "319da030_20508e8a",
+      "range": {
+        "startLine": 1791,
+        "startChar": 5,
+        "endLine": 1802,
+        "endChar": 9
+      },
+      "revId": "84fc8d07a97723bb4a09458fe45bbf1c90be53d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
