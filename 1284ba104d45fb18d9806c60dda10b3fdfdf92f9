@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15887e59_9d0e58b6",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1781,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-26T09:01:28Z",
+      "side": 1,
+      "message": "Could you add comment to explain why `cellular + satellite transport` is allowed but other combinations are not allowed?\nI think this is allowed since each transport type has corresponding network specifier and `TRANSPORT_CELLULAR` and `TRANSPORT_SATELLITE` use the same specifier, `TelephonyNetworkSpecifier`.",
+      "range": {
+        "startLine": 1781,
+        "startChar": 8,
+        "endLine": 1781,
+        "endChar": 9
+      },
+      "revId": "1284ba104d45fb18d9806c60dda10b3fdfdf92f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "030d3867_d6d1c2b3",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-26T09:01:28Z",
+      "side": 1,
+      "message": "Do we need this? Does this test fail on older devices?",
+      "range": {
+        "startLine": 764,
+        "startChar": 10,
+        "endLine": 764,
+        "endChar": 51
+      },
+      "revId": "1284ba104d45fb18d9806c60dda10b3fdfdf92f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4defd6ff_69e224ca",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-26T09:01:28Z",
+      "side": 1,
+      "message": "Can we use `TelephonyNetworkSpecifier`?\nWe should use `TelephonyNetworkSpecifier` for cellular or satellite, right?",
+      "range": {
+        "startLine": 767,
+        "startChar": 27,
+        "endLine": 767,
+        "endChar": 55
+      },
+      "revId": "1284ba104d45fb18d9806c60dda10b3fdfdf92f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8708d1e_81af97d0",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-26T09:01:28Z",
+      "side": 1,
+      "message": "ditto: can we use TelephonyNetworkSpecifier?",
+      "range": {
+        "startLine": 794,
+        "startChar": 54,
+        "endLine": 794,
+        "endChar": 82
+      },
+      "revId": "1284ba104d45fb18d9806c60dda10b3fdfdf92f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
