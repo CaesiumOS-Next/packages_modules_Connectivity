@@ -1,0 +1,192 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cad2530d_4d4e9285",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-27T08:48:51Z",
+      "side": 1,
+      "message": "is this necessary since the ftds are destroyed in tearDown()? If this is needed it could be moved to tearDown before destroy().",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c059ae7_e123457a",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-27T08:48:51Z",
+      "side": 1,
+      "message": "can we use the Ftd\u0027s OMR and MLEID as host addresses? This simulates the cert test case DH2.1",
+      "range": {
+        "startLine": 199,
+        "startChar": 20,
+        "endLine": 199,
+        "endChar": 85
+      },
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbcb80eb_72faae26",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-27T08:48:51Z",
+      "side": 1,
+      "message": "is it possible that 2 ftds use the same type like `_test._tcp`?",
+      "range": {
+        "startLine": 202,
+        "startChar": 20,
+        "endLine": 202,
+        "endChar": 42
+      },
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f24c96a0_b5726aef",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-27T08:48:51Z",
+      "side": 1,
+      "message": "Add comment to the args to help read\n```suggestion\n                    12345, /* port */\n```",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2328bb3_23ee31ea",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-27T08:48:51Z",
+      "side": 1,
+      "message": "move to tearDown if needed?",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "413fa50f_56351c57",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-27T08:48:51Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "233d889c_e2df5d47",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-27T08:48:51Z",
+      "side": 1,
+      "message": "would be useful to have another 2 test cases:\n1. initially add OMR and Mleid in the host addresses, and then update to be only Mleid, and verify resolved host addresses don\u0027t contain OMR, as this is part of cert DH2.1 test case.\n2. initially add OMR in the host address, and then update to be Mleid and another address with OMR prefix, and verify resolved addresses are updated. This is part of cert DH2.13 test case.",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e19b23d_ac7bd8fc",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-27T08:48:51Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "142e8982_7278a3e9",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-27T08:48:51Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "932d1c99_7d809c5c",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-27T08:48:51Z",
+      "side": 1,
+      "message": "can we use InetAddress here instead of String? Other helper functions use the address class, and the caller doesn\u0027t have to parse address from string when comparing the resolved service.",
+      "range": {
+        "startLine": 221,
+        "startChar": 41,
+        "endLine": 221,
+        "endChar": 47
+      },
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
