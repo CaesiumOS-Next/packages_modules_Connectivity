@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12b1a86f_67439cf7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketClient.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-27T11:03:12Z",
+      "side": 1,
+      "message": "This may be used in multiple threads, and the `synchronized (packetQueueToUse)` is not necessarily locking always on the same object depending on useSeparateSocketForUnicast\n\nuseSeparateSocketForUnicast is always false though, so if you clean that up you could add @GuardedBy(\"multicastPacketQueue\") to packetCreationBuffer and it would be correct",
+      "range": {
+        "startLine": 261,
+        "startChar": 72,
+        "endLine": 261,
+        "endChar": 92
+      },
+      "revId": "a6e95f54f422e4e591e6bcd9a88839719d4434bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beb89294_4a6a7d8f",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-27T11:03:12Z",
+      "side": 1,
+      "message": "Is this unused now ?",
+      "revId": "a6e95f54f422e4e591e6bcd9a88839719d4434bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c97d8f7_db864576",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-27T11:03:12Z",
+      "side": 1,
+      "message": "Nit: pkt ?",
+      "range": {
+        "startLine": 169,
+        "startChar": 37,
+        "endLine": 169,
+        "endChar": 40
+      },
+      "revId": "a6e95f54f422e4e591e6bcd9a88839719d4434bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
