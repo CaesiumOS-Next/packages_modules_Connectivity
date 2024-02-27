@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b30a0458_691cd0df",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-27T06:01:18Z",
+      "side": 1,
+      "message": "Policy of metered and unmetered remains same as Transport Cellular at the moment, currently dont see any requirement changes related to it \n\nIdeally we should support NetworkStatsService record data usage for satellite network also . Can we take this up with follow up CL, since this CL is requried to address the stability issue which is more important at the moment .\n\n@sasindran@google.com\nAny different opinion about this?",
+      "parentUuid": "c1fea22d_60bf7324",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 9,
+        "endChar": 21
+      },
+      "revId": "dc3a2010b6303c7a8b6fa4b501e5c3dca63bf654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "25f196e4_343cdf94",
         "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-27T02:38:57Z",
       "side": 1,
       "message": "Stupid question: Does it count for mobile interface?",
+      "range": {
+        "startLine": 2240,
+        "startChar": 20,
+        "endLine": 2240,
+        "endChar": 32
+      },
+      "revId": "dc3a2010b6303c7a8b6fa4b501e5c3dca63bf654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec7d308f_1b17ce16",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2240,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-27T06:01:18Z",
+      "side": 1,
+      "message": "Yes, it as iface same as cellular",
+      "parentUuid": "25f196e4_343cdf94",
       "range": {
         "startLine": 2240,
         "startChar": 20,
