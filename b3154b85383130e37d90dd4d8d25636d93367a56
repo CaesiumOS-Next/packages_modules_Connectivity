@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b9332f3d_8ca7f170",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-27T03:03:10Z",
+      "side": 1,
+      "message": "I added a max value of 10 hours. PTAL",
+      "parentUuid": "60377484_62e2fa2f",
+      "revId": "b3154b85383130e37d90dd4d8d25636d93367a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "979dee30_ee706a60",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
         "patchSetId": 57
@@ -31,6 +49,24 @@
       "writtenOn": "2024-02-26T07:06:34Z",
       "side": 1,
       "message": "Nit: instead of adding arguments to addService, and members to Registration  for every MdnsAdvertisingOptions parameter we add going forward, it may be better to just pass in the whole MdnsAdvertisingOptions to the advertiser",
+      "revId": "b3154b85383130e37d90dd4d8d25636d93367a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24d1bf38_4c2cc1ae",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-27T03:03:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "979dee30_ee706a60",
       "revId": "b3154b85383130e37d90dd4d8d25636d93367a56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b044def1_f5546e6c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-27T03:03:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f52917ec_ed1108be",
+      "revId": "b3154b85383130e37d90dd4d8d25636d93367a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04e3c3a4_b6b64d47",
@@ -69,6 +123,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "587b17d2_39fcc1b3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertisingOptions.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-27T03:03:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04e3c3a4_b6b64d47",
+      "revId": "b3154b85383130e37d90dd4d8d25636d93367a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "499d8446_68ebd299",
@@ -82,6 +154,30 @@
       "writtenOn": "2024-02-26T07:06:34Z",
       "side": 1,
       "message": "Typo: specified",
+      "range": {
+        "startLine": 221,
+        "startChar": 34,
+        "endLine": 221,
+        "endChar": 44
+      },
+      "revId": "b3154b85383130e37d90dd4d8d25636d93367a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc0c872b_f3166981",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-27T03:03:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "499d8446_68ebd299",
       "range": {
         "startLine": 221,
         "startChar": 34,
@@ -115,6 +211,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "241c3b89_22500123",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-27T03:03:10Z",
+      "side": 1,
+      "message": "You are right. Actually, this is outdated and not used in the code. The getMinRemainingTtl() method is used in MdnsServiceTypeClient to build the MdnsServiceInfo.\n\nI removed this method.",
+      "parentUuid": "f8dfa908_35f693ab",
+      "range": {
+        "startLine": 275,
+        "startChar": 32,
+        "endLine": 275,
+        "endChar": 38
+      },
+      "revId": "b3154b85383130e37d90dd4d8d25636d93367a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "488173f6_729555c6",
@@ -132,6 +252,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "422e4a09_3d5b8a76",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-27T03:03:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "488173f6_729555c6",
+      "revId": "b3154b85383130e37d90dd4d8d25636d93367a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56548335_2c038c02",
@@ -145,6 +283,30 @@
       "writtenOn": "2024-02-26T07:06:34Z",
       "side": 1,
       "message": "Similarly to the parent CL, this isn\u0027t really accurate; it should explain that this is the minimum expiration time for at least some of the records.\n\nAnd need to confirm whether that\u0027s enough for the SRP use-case",
+      "range": {
+        "startLine": 333,
+        "startChar": 29,
+        "endLine": 333,
+        "endChar": 63
+      },
+      "revId": "b3154b85383130e37d90dd4d8d25636d93367a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac0b1ed0_0e28c0ea",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-27T03:03:10Z",
+      "side": 1,
+      "message": "Added one line explanation that the service is considered expired when any of its DNS record is expired.",
+      "parentUuid": "56548335_2c038c02",
       "range": {
         "startLine": 333,
         "startChar": 29,
