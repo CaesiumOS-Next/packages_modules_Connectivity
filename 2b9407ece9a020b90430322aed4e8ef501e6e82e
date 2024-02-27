@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d57ddd46_79bd8b16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 60
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-27T11:13:14Z",
+      "side": 1,
+      "message": "LGTM but @reminv@google.com also need to take a look.",
+      "revId": "2b9407ece9a020b90430322aed4e8ef501e6e82e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b20b118_e51b5518",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 60
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-27T11:13:14Z",
+      "side": 1,
+      "message": "Please fix the linter warning. Basically, you will able to catch it early if you run `repo upload .`",
+      "range": {
+        "startLine": 263,
+        "startChar": 4,
+        "endLine": 263,
+        "endChar": 110
+      },
+      "revId": "2b9407ece9a020b90430322aed4e8ef501e6e82e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

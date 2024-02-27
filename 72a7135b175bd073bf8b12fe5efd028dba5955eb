@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6beb3e3c_6afc5858",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 56
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-02-27T11:13:14Z",
+      "side": 1,
+      "message": "Ah Ok, I do see the check here. I might looking at wrong version when I write this comment.\n\n```\n if (!checkTtl(advertisingRequest.getTtl(), clientInfo)) {\n                                clientInfo.onRegisterServiceFailedImmediately(clientRequestId,\n                                    NsdManager.FAILURE_BAD_PARAMETERS, false /* isLegacy */);\n``",
+      "parentUuid": "39eabb17_088102eb",
+      "range": {
+        "startLine": 753,
+        "startChar": 16,
+        "endLine": 754,
+        "endChar": 91
+      },
+      "revId": "72a7135b175bd073bf8b12fe5efd028dba5955eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6227ae30_f2d9adb2",
