@@ -125,7 +125,6 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
 
     private static final int TIMEOUT_MS = 500;
 
-    private static final int REPLAY_BITMAP_LEN_BYTE = 512;
     private static final int PACKET_COUNT = 5000;
 
     // Static state to reduce setup/teardown
@@ -1736,60 +1735,6 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     public void testMigrateTransformTunnelV6InV6UdpEncap() throws Exception {
         assumeExperimentalIpv6UdpEncapSupported();
         doTestMigrateTunnelModeTransform(AF_INET6, AF_INET6, true, false);
-    }
-
-    private static class TransformStateReceiver
-            implements OutcomeReceiver<IpSecTransformState, RuntimeException> {
-        private CompletableFuture<IpSecTransformState> mFutureIpSecTransform =
-                new CompletableFuture<>();
-
-        @Override
-        public void onResult(IpSecTransformState state) {
-            mFutureIpSecTransform.complete(state);
-        }
-
-        @Override
-        public void onError(RuntimeException error) {
-            // Do nothing
-        }
-
-        public IpSecTransformState awaitIpSecTransformState() throws Exception {
-            return mFutureIpSecTransform.get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
-        }
-    }
-
-    private void checkTransformState(
-            IpSecTransform transform,
-            long txHighestSeqNum,
-            long rxHighestSeqNum,
-            long packetCnt,
-            long byteCnt,
-            byte[] replayBitmap)
-            throws Exception {
-        final TransformStateReceiver transformStateReceiver = new TransformStateReceiver();
-        transform.requestIpSecTransformState(
-                Executors.newSingleThreadExecutor(), transformStateReceiver);
-
-        final IpSecTransformState transformState =
-                transformStateReceiver.awaitIpSecTransformState();
-
-        assertEquals(txHighestSeqNum, transformState.getTxHighestSequenceNumber());
-        assertEquals(rxHighestSeqNum, transformState.getRxHighestSequenceNumber());
-        assertEquals(packetCnt, transformState.getPacketCount());
-        assertEquals(byteCnt, transformState.getByteCount());
-        assertArrayEquals(replayBitmap, transformState.getReplayBitmap());
-    }
-
-    private void checkTransformStateNoTraffic(IpSecTransform transform) throws Exception {
-        checkTransformState(transform, 0L, 0L, 0L, 0L, newReplayBitmap(0));
-    }
-
-    private static byte[] newReplayBitmap(int receivedPktCnt) {
-        final BitSet bitSet = new BitSet(REPLAY_BITMAP_LEN_BYTE * 8);
-        for (int i = 0; i < receivedPktCnt; i++) {
-            bitSet.set(i);
-        }
-        return Arrays.copyOf(bitSet.toByteArray(), REPLAY_BITMAP_LEN_BYTE);
     }
 
     private class RequestStateOnTxTransformTestRunnable extends IpSecTunnelTestRunnable {
