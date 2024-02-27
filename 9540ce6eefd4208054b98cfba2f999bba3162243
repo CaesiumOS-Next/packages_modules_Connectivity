@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73a62a7c_85aae412",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2770,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-27T06:50:08Z",
+      "side": 1,
+      "message": "Could you allow owner to see the allowedUid?\nOriginally aosp/2405720 allowed owner to see the allowedUid.\nBut we have reverted by aosp/2854709 and aosp/2862525 due to cts failure.",
+      "range": {
+        "startLine": 2770,
+        "startChar": 20,
+        "endLine": 2770,
+        "endChar": 37
+      },
+      "revId": "9540ce6eefd4208054b98cfba2f999bba3162243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
