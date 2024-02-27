@@ -17341,21 +17341,7 @@ public class ConnectivityServiceTest {
     }
 
     @Test
-    public void testSubIdsClearedWithoutNetworkFactoryPermission() throws Exception {
-        mServiceContext.setPermission(NETWORK_FACTORY, PERMISSION_DENIED);
-        final NetworkCapabilities nc = new NetworkCapabilities();
-        nc.setSubscriptionIds(Collections.singleton(Process.myUid()));
-
-        final NetworkCapabilities result =
-                mService.networkCapabilitiesRestrictedForCallerPermissions(
-                        nc, Process.myPid(), Process.myUid());
-        assertTrue(result.getSubscriptionIds().isEmpty());
-    }
-
-    @Test
-    public void testSubIdsExistWithNetworkFactoryPermission() throws Exception {
-        mServiceContext.setPermission(NETWORK_FACTORY, PERMISSION_GRANTED);
-
+    public void testSubIdsExist() throws Exception {
         final Set<Integer> subIds = Collections.singleton(Process.myUid());
         final NetworkCapabilities nc = new NetworkCapabilities();
         nc.setSubscriptionIds(subIds);
@@ -17547,11 +17533,47 @@ public class ConnectivityServiceTest {
                 false /* expectUnavailable */,
                 true /* expectCapChanged */);
     }
+
     @Test
-    public void testAllowedUids() throws Exception {
+    public void testAllowedUidsExistWithNetworkFactoryPermission() throws Exception {
+        mServiceContext.setPermission(NETWORK_FACTORY, PERMISSION_GRANTED);
+        mServiceContext.setPermission(MANAGE_TEST_NETWORKS, PERMISSION_GRANTED);
+        final TestNetworkCallback cb = new TestNetworkCallback();
+        mCm.requestNetwork(new NetworkRequest.Builder()
+                        .clearCapabilities()
+                        .addTransportType(TRANSPORT_TEST)
+                        .addTransportType(TRANSPORT_CELLULAR)
+                        .build(),
+                cb);
+
+        final ArraySet<Integer> uids = new ArraySet<>();
+        uids.add(200);
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_TEST)
+                .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                .setAllowedUids(uids)
+                .setOwnerUid(Process.myUid() + 1)
+                .setAdministratorUids(new int[] {Process.myUid() + 1})
+                .build();
+        final TestNetworkAgentWrapper agent = new TestNetworkAgentWrapper(TRANSPORT_TEST,
+                new LinkProperties(), nc);
+        agent.connect(true);
+        cb.expectAvailableThenValidatedCallbacks(agent);
+
+        uids.add(300);
+        uids.add(400);
+        nc.setAllowedUids(uids);
+        agent.setNetworkCapabilities(nc, true /* sendToConnectivityService */);
+        if (mDeps.isAtLeastT()) {
+            cb.expectCaps(agent, c -> c.getAllowedUids().equals(uids));
+        } else {
+            cb.assertNoCallback();
+        }
+    }
+    @Test
+    public void testAllowedUidsExistWithOwnerUid() throws Exception {
         final int preferenceOrder =
                 ConnectivityService.PREFERENCE_ORDER_IRRELEVANT_BECAUSE_NOT_DEFAULT;
-        mServiceContext.setPermission(NETWORK_FACTORY, PERMISSION_GRANTED);
         mServiceContext.setPermission(MANAGE_TEST_NETWORKS, PERMISSION_GRANTED);
         final TestNetworkCallback cb = new TestNetworkCallback();
         mCm.requestNetwork(new NetworkRequest.Builder()
