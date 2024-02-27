@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3169dc45_25fd7f82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-27T08:46:18Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed",
+      "revId": "64e0ef77fdf83c64bbd5a7674a9c0c8cf3f3cd69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09eda19a_214b7280",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-27T08:46:18Z",
+      "side": 1,
+      "message": "We should also do this for the other records (A, AAAA, TXT, SRV); but that would be another change",
+      "range": {
+        "startLine": 178,
+        "startChar": 32,
+        "endLine": 178,
+        "endChar": 43
+      },
+      "revId": "64e0ef77fdf83c64bbd5a7674a9c0c8cf3f3cd69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24dd1f1f_7b75ecd7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-27T08:46:18Z",
+      "side": 1,
+      "message": "Technically, I think this shouldn\u0027t be done if we know about a subtype PTR, but we\u0027re not querying that subtype (e.g. known answers should only be included for what is queried ?)\n\nSo you\u0027d probably want to add a check like:\n\n```\nif (!CollectionUtils.any(questions,\n    q -\u003e q instanceof MdnsPointerRecord\n        \u0026\u0026 MdnsUtils.equalsIgnoreCase(q.getName(), ptrRecord.getName()))) {\n    continue;\n}\n```\n\n... and have a test for that, but you could add the test in another change",
+      "revId": "64e0ef77fdf83c64bbd5a7674a9c0c8cf3f3cd69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b88d4a5_2b2b7f50",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1846,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-27T08:46:18Z",
+      "side": 1,
+      "message": "This doesn\u0027t match what the code verifies",
+      "range": {
+        "startLine": 1846,
+        "startChar": 11,
+        "endLine": 1846,
+        "endChar": 64
+      },
+      "revId": "64e0ef77fdf83c64bbd5a7674a9c0c8cf3f3cd69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46144651_1d9ee470",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1966,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-27T08:46:18Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 1966,
+        "startChar": 19,
+        "endLine": 1966,
+        "endChar": 24
+      },
+      "revId": "64e0ef77fdf83c64bbd5a7674a9c0c8cf3f3cd69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
