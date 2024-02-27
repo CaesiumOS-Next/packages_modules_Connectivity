@@ -33,8 +33,8 @@ import android.os.Build;
 import android.test.mock.MockContext;
 import android.util.SparseArray;
 
-import androidx.test.filters.SmallTest;
 import androidx.test.InstrumentationRegistry;
+import androidx.test.filters.SmallTest;
 
 import com.android.internal.net.VpnProfile;
 import com.android.internal.util.MessageUtils;
@@ -144,5 +144,24 @@ public class VpnManagerTest {
         for (int i = VpnManager.TYPE_VPN_SERVICE; i < vmVpnTypes.size(); i++) {
             assertEquals(vmVpnTypes.get(i), "TYPE_VPN_" + nativeVpnType.get(i));
         }
+    }
+
+    @Test
+    public void testVpnProfileStoreApi() throws Exception {
+        final String name = PKG_NAME;
+        final VpnProfile vpnProfile = new VpnProfile(PKG_NAME);
+        final byte[] encodedProfile = vpnProfile.encode();
+
+        mVpnManager.getVpnProfile(name);
+        verify(mMockService).getVpnProfile(name);
+
+        mVpnManager.putVpnProfile(name, encodedProfile);
+        verify(mMockService).putVpnProfile(name, encodedProfile);
+
+        mVpnManager.removeVpnProfile(name);
+        verify(mMockService).removeVpnProfile(name);
+
+        mVpnManager.listVpnProfile(name);
+        verify(mMockService).listVpnProfile(name);
     }
 }
