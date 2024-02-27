@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "321f1c5a_26a589d0",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1836153
+      },
+      "writtenOn": "2024-02-27T10:19:00Z",
+      "side": 1,
+      "message": "right now we are not able to uncomment the code , this results in compilation errors. As of now we are not using the request data from IP server . This is something specific to Google use case",
+      "range": {
+        "startLine": 430,
+        "startChar": 7,
+        "endLine": 432,
+        "endChar": 12
+      },
+      "revId": "7277b426fffc151d8b01867e8af6a0c0e7ab8b7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "787165ed_d55f53f9",
         "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
         "patchSetId": 16
@@ -14,6 +37,30 @@
       "writtenOn": "2024-02-27T05:48:13Z",
       "side": 1,
       "message": "Address should come from iface",
+      "range": {
+        "startLine": 175,
+        "startChar": 25,
+        "endLine": 175,
+        "endChar": 32
+      },
+      "revId": "7277b426fffc151d8b01867e8af6a0c0e7ab8b7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "debd6c2e_07b31463",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1836153
+      },
+      "writtenOn": "2024-02-27T10:19:00Z",
+      "side": 1,
+      "message": "we are adding another parameter i,e ifaceName in AddressKey to distinguish the Address key based on the iface . Removing type may need to change the static bluetooth IP addressing Ref line number : 92",
+      "parentUuid": "787165ed_d55f53f9",
       "range": {
         "startLine": 175,
         "startChar": 25,

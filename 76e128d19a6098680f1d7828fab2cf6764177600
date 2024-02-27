@@ -61,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "60052dc0_96aadb41",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1836153
+      },
+      "writtenOn": "2024-02-27T10:19:00Z",
+      "side": 1,
+      "message": "This logic is retained as we are maintaining the interface specific tethering requests",
+      "parentUuid": "71321163_56b5710b",
+      "range": {
+        "startLine": 677,
+        "startChar": 16,
+        "endLine": 678,
+        "endChar": 46
+      },
+      "revId": "76e128d19a6098680f1d7828fab2cf6764177600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8d05f60d_5058db34",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 4
@@ -72,6 +96,30 @@
       "writtenOn": "2024-01-22T17:32:46Z",
       "side": 1,
       "message": "Type needs to be changed so that the request from list can be found.",
+      "range": {
+        "startLine": 702,
+        "startChar": 23,
+        "endLine": 702,
+        "endChar": 31
+      },
+      "revId": "76e128d19a6098680f1d7828fab2cf6764177600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7bdc50d_dcb9807f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1836153
+      },
+      "writtenOn": "2024-02-27T10:19:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8d05f60d_5058db34",
       "range": {
         "startLine": 702,
         "startChar": 23,
@@ -105,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5d739a3_9ef3e06c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1836153
+      },
+      "writtenOn": "2024-02-27T10:19:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8820e431_3f0fd509",
+      "range": {
+        "startLine": 725,
+        "startChar": 41,
+        "endLine": 725,
+        "endChar": 49
+      },
+      "revId": "76e128d19a6098680f1d7828fab2cf6764177600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f51a43c_19ec4242",
@@ -118,6 +190,30 @@
       "writtenOn": "2024-01-22T17:32:46Z",
       "side": 1,
       "message": "Should return result",
+      "range": {
+        "startLine": 746,
+        "startChar": 20,
+        "endLine": 746,
+        "endChar": 38
+      },
+      "revId": "76e128d19a6098680f1d7828fab2cf6764177600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5037838c_cdb0423f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1836153
+      },
+      "writtenOn": "2024-02-27T10:19:00Z",
+      "side": 1,
+      "message": "result handling is not required for p2p handling same as bluetooth",
+      "parentUuid": "8f51a43c_19ec4242",
       "range": {
         "startLine": 746,
         "startChar": 20,
@@ -151,6 +247,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "113980d6_e5be3f50",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1836153
+      },
+      "writtenOn": "2024-02-27T10:19:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d5aa1060_0b5e92a6",
+      "range": {
+        "startLine": 748,
+        "startChar": 20,
+        "endLine": 748,
+        "endChar": 39
+      },
+      "revId": "76e128d19a6098680f1d7828fab2cf6764177600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac722bd0_ebf35dcf",
@@ -164,6 +284,30 @@
       "writtenOn": "2024-01-22T17:32:46Z",
       "side": 1,
       "message": "Update after changing to List",
+      "range": {
+        "startLine": 1052,
+        "startChar": 12,
+        "endLine": 1055,
+        "endChar": 54
+      },
+      "revId": "76e128d19a6098680f1d7828fab2cf6764177600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f483e83e_29b17ade",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1055,
+      "author": {
+        "id": 1836153
+      },
+      "writtenOn": "2024-02-27T10:19:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ac722bd0_ebf35dcf",
       "range": {
         "startLine": 1052,
         "startChar": 12,
