@@ -318,6 +318,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "330ec1a2_a324e544",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T05:38:06Z",
+      "side": 1,
+      "message": "1. It seems that the NsdManager is not able to resolve a service that\u0027s without an address.\n2. Re-advertising a host with a smaller set of addresses seems to cause undesired name conflicts at the NsdManager. This will let the test fail. I\u0027ve filed b/327304356 to track this issue.",
+      "parentUuid": "233d889c_e2df5d47",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9ecfb54e_3d5167b7",
         "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
         "patchSetId": 19
