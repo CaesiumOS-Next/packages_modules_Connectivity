@@ -16,6 +16,23 @@
       "message": "Trying to verify the flakiness is resolved: https://android-build.corp.google.com/builds/abtd/run/L71100030002233600",
       "revId": "edf6fa643bdf6dd64321da2a4bf3c0a9a814fa12",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ca769e7_fad62d2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T08:48:33Z",
+      "side": 1,
+      "message": "\u003e No mcts-\u003cmodule\u003e tag found for test_suites in line 32 of Android.bp file. If you tag the test as both cts and mts-\u003cmodule\u003e, then you must also add a corresponding mcts-\u003cmodule\u003e tag.\n\nThis will be resolved in b/327091762",
+      "revId": "edf6fa643bdf6dd64321da2a4bf3c0a9a814fa12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
