@@ -50,6 +50,24 @@
       "message": "Shouldn\u0027t this file be moved rather than copied?",
       "revId": "edf6fa643bdf6dd64321da2a4bf3c0a9a814fa12",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b163c4f3_f310140a",
+        "filename": "thread/tests/utils/src/android/net/thread/utils/TapTestNetworkTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T08:59:21Z",
+      "side": 1,
+      "message": "The CL aosp/2943805 who introduced this class hasn\u0027t been merged.",
+      "parentUuid": "f6058462_a3407bcb",
+      "revId": "edf6fa643bdf6dd64321da2a4bf3c0a9a814fa12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
