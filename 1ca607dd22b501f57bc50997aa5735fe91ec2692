@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4032f4a9_d257dcc9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-28T03:04:50Z",
+      "side": 1,
+      "message": "Please create a new bug for adding those tests back",
+      "revId": "1ca607dd22b501f57bc50997aa5735fe91ec2692",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
