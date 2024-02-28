@@ -33,6 +33,23 @@
       "message": "\u003e No mcts-\u003cmodule\u003e tag found for test_suites in line 32 of Android.bp file. If you tag the test as both cts and mts-\u003cmodule\u003e, then you must also add a corresponding mcts-\u003cmodule\u003e tag.\n\nThis will be resolved in b/327091762",
       "revId": "edf6fa643bdf6dd64321da2a4bf3c0a9a814fa12",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6058462_a3407bcb",
+        "filename": "thread/tests/utils/src/android/net/thread/utils/TapTestNetworkTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-28T08:58:03Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this file be moved rather than copied?",
+      "revId": "edf6fa643bdf6dd64321da2a4bf3c0a9a814fa12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
