@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d62bd563_4da08722",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T08:57:30Z",
+      "side": 1,
+      "message": "Deleting the request from mAdvertiserRequests should go in pair with mSocketProvider.unrequestSocket; but the condition here isn\u0027t the same as the one in advertiserRequest.destroyAdvertiser: if forceDestroy\u003dtrue and mAdvertisers.size() \u003e 0, it would be removed from mAdvertiserRequests without calling unrequestSocket.\n\nHaving condition checks in 2 places that should be identical is error-prone, so I think it\u0027s best to keep the previous scheme that returned true when unrequestSocket has been called and the advertiser is to be deleted (if you implement the comment below \"return true if the interface advertiser has been destroyed\" would be always true).",
+      "revId": "de1893f6f16f70511cba3080078928e967b817ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad160dc3_37a3f948",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T08:57:30Z",
+      "side": 1,
+      "message": "If the advertiser was removed from any of the requests, it is removed from mAllAdvertisers\n\nBut possibly it remains in some of the requests; so it shouldn\u0027t be removed ?\n\nFor example,\n - AdvertiserRequest A has a pending registration and uses the advertiser\n - AdvertiserRequest B has no pending registration and uses the advertiser\n \n--\u003e The advertiser is removed from B but not from A\n--\u003e The advertiser is removed from mAllAdvertisers, even though it is still in A\n\nIf you implement the comment in MdnsInterfaceAdvertiser, the advertiser should always be destroyed when destroyAdvertiser is called (since mPendingRegistrations should be guaranteed to be empty), so you could remove from mAllAdvertisers inconditionally",
+      "revId": "de1893f6f16f70511cba3080078928e967b817ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ff59bea_7108e194",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T08:57:30Z",
+      "side": 1,
+      "message": "Why do you need to put indexes to remove in a separate list ? Considering that mAdvertiserRequests is being iterated from the end, would it work to just delete directly inside the loop ?",
+      "revId": "de1893f6f16f70511cba3080078928e967b817ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8aaa876b_bc04e36c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T08:57:30Z",
+      "side": 1,
+      "message": "If you implement the comment in MdnsInterfaceAdvertiser, I think this should never happen, so you could Log.wtf here",
+      "range": {
+        "startLine": 373,
+        "startChar": 16,
+        "endLine": 373,
+        "endChar": 65
+      },
+      "revId": "de1893f6f16f70511cba3080078928e967b817ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "316d23a0_2db6e2e1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T08:57:30Z",
+      "side": 1,
+      "message": "Could you do the check for getServicesCount() inside the Runnable, instead of before posting ? This would guarantee that when onAllServicesRemoved is called (on the handler thread), there is indeed no service in the MdnsInterfaceAdvertiser. In that case it would be good to also document that guarantee on the callback javadoc.\n\nOtherwise there may actually be services (that were added later) while the callback is getting called, which is error-prone, although I think your current code handles it by double-checking mPendingRegistrations in MdnsAdvertiser.\n\n(see what I had in aosp/2401041 with postDestroyIfEmpty, which is similar to your change apart from that point)",
+      "revId": "de1893f6f16f70511cba3080078928e967b817ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
