@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb7384ca_1c85d8f8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1434,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T10:01:10Z",
+      "side": 1,
+      "message": "When we discussed this change with Lorenzo, I think the idea was that instead of having NetworkRequestStateStatsMetrics null in ConnectivityService on phones, it would be non-null everywhere, but it\u0027s just mDeps.writeStats that would only be called on watches.\n\nThat means unnecessary processing is happening on other form factors yes, but it should be very cheap.\n\nThe concern is that we may break this code, or have bugs that we never notice until watches pick up a new version of the module, and then it would be very hard to figure out because watches may have picked up the newer module at the last minute long after the changes were written for other form factors.",
+      "parentUuid": "2d737441_2beba2bf",
+      "range": {
+        "startLine": 1434,
+        "startChar": 16,
+        "endLine": 1434,
+        "endChar": 61
+      },
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "40053e28_afeb0d71",
         "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
         "patchSetId": 17
@@ -156,6 +180,30 @@
       "side": 1,
       "message": "Sorry, bad wording and spelling: we are delaying sending not network requests, but network request log events we need to sent to statsd (to construct metrics). We are are delaying them not to overload the statsd because if the event frequency is too high part of the events will be dropped and we will lose this network request data.",
       "parentUuid": "8dc0faab_289afb1d",
+      "range": {
+        "startLine": 75,
+        "startChar": 52,
+        "endLine": 75,
+        "endChar": 69
+      },
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9061b63_190139a5",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T10:01:10Z",
+      "side": 1,
+      "message": "I think what Lorenzo meant is: you could use the ConnectivityService existing Looper (you need a handler, but you don\u0027t necessarily need a new thread; you can create a handler on the existing ConnectivityService looper/thread)",
+      "parentUuid": "5a0aaca0_99e88a4f",
       "range": {
         "startLine": 75,
         "startChar": 52,

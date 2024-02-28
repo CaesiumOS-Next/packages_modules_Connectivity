@@ -236,6 +236,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1fd8ef3a_2721d0f4",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T10:01:10Z",
+      "side": 1,
+      "message": "Right, that\u0027s why this is just a \"supernit\" because I doubt the device can boot within 1s (so that currentTimestampMillis \u003c\u003d ATOM_INTERVAL_MS); but technically it\u0027s best to check it in case someone devices to increase ATOM_INTERVAL_MS to a higher number, or to copy-paste the code for something similar that has a higher interval",
+      "parentUuid": "31b00b6c_c2d2ba83",
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "303234ec_5e48657b",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 11
