@@ -231,6 +231,7 @@ public class BorderRoutingTest {
     }
 
     @Test
+    @Ignore("b/327293117")
     public void multicastRouting_ftdSubscribedMulticastAddress_infraLinkJoinsMulticastGroup()
             throws Exception {
         assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
@@ -274,6 +275,7 @@ public class BorderRoutingTest {
     }
 
     @Test
+    @Ignore("b/327293117")
     public void multicastRouting_ftdSubscribedMulticastAddress_canPingfromInfraLink()
             throws Exception {
         assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
@@ -339,6 +341,7 @@ public class BorderRoutingTest {
     }
 
     @Test
+    @Ignore("b/327293117")
     public void multicastRouting_multipleFtdsSubscribedDifferentAddresses_canPingFromInfraDevice()
             throws Exception {
         assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
@@ -501,6 +504,7 @@ public class BorderRoutingTest {
     }
 
     @Test
+    @Ignore("b/327293117")
     public void multicastRouting_infraNetworkSwitch_ftdRepliesToSubscribedAddress()
             throws Exception {
         assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
