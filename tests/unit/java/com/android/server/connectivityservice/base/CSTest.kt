@@ -234,7 +234,8 @@ open class CSTest {
                 context: Context,
                 tm: TelephonyManager,
                 requestRestrictedWifiEnabled: Boolean,
-                listener: BiConsumer<Int, Int>
+                listener: BiConsumer<Int, Int>,
+                handler: Handler
         ) = if (SdkLevel.isAtLeastT()) mock<CarrierPrivilegeAuthenticator>() else null
 
         var satelliteNetworkFallbackUidUpdate: Consumer<Set<Int>>? = null
@@ -426,7 +427,7 @@ open class CSTest {
             Context.NETWORK_POLICY_SERVICE -> networkPolicyManager
             Context.ALARM_SERVICE -> alarmManager
             Context.USER_SERVICE -> userManager
-            Context.ACTIVITY_SERVICE -> activityManager
+            Context.ACTIVITY_SERVICE -> activityManage
             Context.SYSTEM_CONFIG_SERVICE -> systemConfigManager
             Context.TELEPHONY_SERVICE -> telephonyManager
             Context.TELEPHONY_SUBSCRIPTION_SERVICE -> subscriptionManager
