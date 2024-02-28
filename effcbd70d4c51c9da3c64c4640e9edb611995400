@@ -334,6 +334,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0a030fe_506aa24b",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T06:13:36Z",
+      "side": 1,
+      "message": "Via offline discussion, I\u0027ll add a unicast DNS querying a service without an address in a following CL",
+      "parentUuid": "330ec1a2_a324e544",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ecfb54e_3d5167b7",
