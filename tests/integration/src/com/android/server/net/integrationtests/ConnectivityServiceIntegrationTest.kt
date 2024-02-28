@@ -50,7 +50,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.android.compatibility.common.util.SystemUtil
 import com.android.connectivity.resources.R
 import com.android.net.module.util.BpfUtils
-import com.android.networkstack.apishim.TelephonyManagerShimImpl
 import com.android.server.BpfNetMaps
 import com.android.server.ConnectivityService
 import com.android.server.NetworkAgentWrapper
@@ -66,6 +65,8 @@ import com.android.testutils.DeviceInfoUtils
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.tryTest
+import java.util.function.BiConsumer
+import java.util.function.Consumer
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
@@ -87,8 +88,6 @@ import org.mockito.Mockito.eq
 import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
 import org.mockito.Spy
-import java.util.function.Consumer
-import java.util.function.BiConsumer
 
 const val SERVICE_BIND_TIMEOUT_MS = 5_000L
 const val TEST_TIMEOUT_MS = 10_000L
@@ -245,15 +244,11 @@ class ConnectivityServiceIntegrationTest {
             context: Context,
             tm: TelephonyManager,
             requestRestrictedWifiEnabled: Boolean,
-            listener: BiConsumer<Int, Int>
+            listener: BiConsumer<Int, Int>,
+            handler: Handler
         ): CarrierPrivilegeAuthenticator {
-            return CarrierPrivilegeAuthenticator(context,
-                object : CarrierPrivilegeAuthenticator.Dependencies() {
-                    override fun makeHandlerThread(): HandlerThread =
-                        super.makeHandlerThread().also { handlerThreads.add(it) }
-                },
-                tm, TelephonyManagerShimImpl.newInstance(tm),
-                requestRestrictedWifiEnabled, listener)
+            return CarrierPrivilegeAuthenticator(context, tm, requestRestrictedWifiEnabled,
+                    listener, handler)
         }
 
         override fun makeSatelliteAccessController(
