@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "091b4d5f_f035ce16",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T10:54:38Z",
+      "side": 1,
+      "message": "This is a rather significant change in packet building, and behavior sending multiple packets per query; could you add a flag for this ?",
+      "range": {
+        "startLine": 233,
+        "startChar": 63,
+        "endLine": 233,
+        "endChar": 89
+      },
+      "revId": "f3865dd5d78861e2ac805e6a3836310ad5872e78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "501ed97e_545eca27",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T10:54:38Z",
+      "side": 1,
+      "message": "Nit: I think it would be a bit clearer to do `packetQueueToUse.size() + datagramPackets.length \u003e mdnsPacketQueueMaxSize`, as it translates more clearly to \"loop as long as adding these packets would make the queue over size\"",
+      "range": {
+        "startLine": 266,
+        "startChar": 19,
+        "endLine": 266,
+        "endChar": 22
+      },
+      "revId": "f3865dd5d78861e2ac805e6a3836310ad5872e78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3d92a38_36699fb8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T10:54:38Z",
+      "side": 1,
+      "message": "Could you add unit tests for this behavior ? That\u0027s also important for line coverage",
+      "revId": "f3865dd5d78861e2ac805e6a3836310ad5872e78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "830f28ed_ec6ebc2e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T10:54:38Z",
+      "side": 1,
+      "message": "Could you add another method to set the position ? It looks a bit weird / hard to follow otherwise",
+      "range": {
+        "startLine": 278,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 0
+      },
+      "revId": "f3865dd5d78861e2ac805e6a3836310ad5872e78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

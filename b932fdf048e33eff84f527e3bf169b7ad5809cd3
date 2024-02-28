@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "873b0f2c_bc27b406",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T10:54:38Z",
+      "side": 1,
+      "message": "Typo: MdnsSocketClient",
+      "range": {
+        "startLine": 9,
+        "startChar": 30,
+        "endLine": 9,
+        "endChar": 45
+      },
+      "revId": "b932fdf048e33eff84f527e3bf169b7ad5809cd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
