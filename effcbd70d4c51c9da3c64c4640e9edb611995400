@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5fe5842_caff8002",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-28T03:59:03Z",
+      "side": 1,
+      "message": "Overall looks good to me, thanks!",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cad2530d_4d4e9285",
@@ -14,6 +31,29 @@
       "writtenOn": "2024-02-27T08:48:51Z",
       "side": 1,
       "message": "is this necessary since the ftds are destroyed in tearDown()? If this is needed it could be moved to tearDown before destroy().",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c22b7ff_65d2cf69",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-28T03:59:03Z",
+      "side": 1,
+      "message": "nit: move to setUp()",
+      "range": {
+        "startLine": 196,
+        "startChar": 12,
+        "endLine": 196,
+        "endChar": 37
+      },
       "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -134,6 +174,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9ecfb54e_3d5167b7",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-28T03:59:03Z",
+      "side": 1,
+      "message": "```suggestion\n        // Update the SRP host and service\n        ftd.setSrpHostAddresses(List.of(\"2001:db8::1\", \"2001:db8::2\"));\n        ftd.updateSrpService(\n```",
+      "range": {
+        "startLine": 254,
+        "startChar": 8,
+        "endLine": 257,
+        "endChar": 29
+      },
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1e19b23d_ac7bd8fc",
         "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
         "patchSetId": 19
@@ -168,6 +231,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6313dbf7_5064ec27",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-28T03:59:03Z",
+      "side": 1,
+      "message": "nit:\n```suggestion\n        assertThat(discoverService(mNsdManager, \"_test._udp\")).isNotNull();\n```",
+      "range": {
+        "startLine": 307,
+        "startChar": 8,
+        "endLine": 309,
+        "endChar": 50
+      },
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "932d1c99_7d809c5c",
         "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
         "patchSetId": 19
@@ -184,6 +270,52 @@
         "startChar": 41,
         "endLine": 221,
         "endChar": 47
+      },
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37465955_fb884645",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-28T03:59:03Z",
+      "side": 1,
+      "message": "nit: change `executeCommand()` to support format string",
+      "range": {
+        "startLine": 251,
+        "startChar": 8,
+        "endLine": 251,
+        "endChar": 22
+      },
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e01df314_92a6d2f4",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-28T03:59:03Z",
+      "side": 1,
+      "message": "you can use `BaseEncoding.base16().encode()`\n\nBetter statically import `BaseEncoding.base16`",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 413,
+        "endChar": 5
       },
       "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
