@@ -16,6 +16,23 @@
       "message": "You ca force-submit if \"WebViewSandboxTestSdk.java:82: error\" is the only presubmit failure.",
       "revId": "bb1edc032429d0fa1998aacd5d7d2511ef51b659",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1bb3f9b_263fc2e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-28T05:56:31Z",
+      "side": 1,
+      "message": "Wondering if the test will still be marked flaky when it\u0027s ignored. If true, it will still be blocking b/292948064",
+      "revId": "bb1edc032429d0fa1998aacd5d7d2511ef51b659",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
