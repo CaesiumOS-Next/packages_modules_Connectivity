@@ -34,6 +34,24 @@
       "parentUuid": "097d6eae_fe256120",
       "revId": "bd447266b91a95ce924940361b3e936d43cc40c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38f8724c_9ead6e1a",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-28T03:38:37Z",
+      "side": 0,
+      "message": "Good idea 😊, done",
+      "parentUuid": "8778519c_6634427c",
+      "revId": "bd447266b91a95ce924940361b3e936d43cc40c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
