@@ -35,6 +35,46 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50aa47b9_8abb24be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-28T09:09:08Z",
+      "side": 1,
+      "message": "LGTM, as long as this solves the flaky issue",
+      "revId": "edf6fa643bdf6dd64321da2a4bf3c0a9a814fa12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27e5e67b_e0eda39f",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-28T09:09:08Z",
+      "side": 1,
+      "message": "Resource leak. the handler thread should be created in setUp().\n\nI pref actually calling setUpTestNetwork() in setUp() and tearDownTestNetwork() in tearDown(). In your current set up, if the meshcop test case fails tearDownTestNetwork() will not be executed hence may affect other test cases.\n\nIt\u0027s okay to create the Test network in setUp() even many test cases don\u0027t need this.",
+      "range": {
+        "startLine": 1165,
+        "startChar": 8,
+        "endLine": 1166,
+        "endChar": 30
+      },
+      "revId": "edf6fa643bdf6dd64321da2a4bf3c0a9a814fa12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6058462_a3407bcb",
