@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed86b3e9_c5393e89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T08:47:39Z",
+      "side": 1,
+      "message": "Trying to verify the flakiness is resolved: https://android-build.corp.google.com/builds/abtd/run/L71100030002233600",
+      "revId": "edf6fa643bdf6dd64321da2a4bf3c0a9a814fa12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
