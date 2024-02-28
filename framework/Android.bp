@@ -191,6 +191,7 @@ java_sdk_library {
         "//packages/modules/IPsec/tests/iketests",
         "//packages/modules/NetworkStack/tests:__subpackages__",
         "//packages/modules/Wifi/service/tests/wifitests",
+        "//frameworks/base/tests/FrameworksVpnTests",
     ],
     lint: {
         baseline_filename: "lint-baseline.xml",

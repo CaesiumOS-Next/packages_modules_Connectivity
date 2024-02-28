@@ -194,6 +194,7 @@ java_sdk_library {
         "//packages/modules/IPsec/tests/iketests",
         "//packages/modules/NetworkStack/tests:__subpackages__",
         "//packages/modules/Wifi/service/tests/wifitests",
+        "//frameworks/base/tests/FrameworksVpnTests",
     ],
     aconfig_declarations: [
         "com.android.net.flags-aconfig",
