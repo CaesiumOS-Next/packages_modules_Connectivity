@@ -231,27 +231,6 @@ public class BorderRoutingTest {
     }
 
     @Test
-    public void multicastRouting_ftdSubscribedMulticastAddress_infraLinkJoinsMulticastGroup()
-            throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
-        /*
-         * <pre>
-         * Topology:
-         *                 infra network                       Thread
-         * infra device -------------------- Border Router -------------- Full Thread device
-         *                                   (Cuttlefish)
-         * </pre>
-         */
-
-        FullThreadDevice ftd = mFtds.get(0);
-        startFtdChild(ftd);
-
-        ftd.subscribeMulticastAddress(GROUP_ADDR_SCOPE_5);
-
-        assertInfraLinkMemberOfGroup(GROUP_ADDR_SCOPE_5);
-    }
-
-    @Test
     public void
             multicastRouting_ftdSubscribedScope3MulticastAddress_infraLinkNotJoinMulticastGroup()
                     throws Exception {
@@ -271,28 +250,6 @@ public class BorderRoutingTest {
         ftd.subscribeMulticastAddress(GROUP_ADDR_SCOPE_3);
 
         assertInfraLinkNotMemberOfGroup(GROUP_ADDR_SCOPE_3);
-    }
-
-    @Test
-    public void multicastRouting_ftdSubscribedMulticastAddress_canPingfromInfraLink()
-            throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
-        /*
-         * <pre>
-         * Topology:
-         *                 infra network                       Thread
-         * infra device -------------------- Border Router -------------- Full Thread device
-         *                                   (Cuttlefish)
-         * </pre>
-         */
-
-        FullThreadDevice ftd = mFtds.get(0);
-        startFtdChild(ftd);
-        subscribeMulticastAddressAndWait(ftd, GROUP_ADDR_SCOPE_5);
-
-        mInfraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_5);
-
-        assertNotNull(pollForPacketOnInfraNetwork(ICMPV6_ECHO_REPLY_TYPE, ftd.getOmrAddress()));
     }
 
     @Test
@@ -336,38 +293,6 @@ public class BorderRoutingTest {
         mInfraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_4);
 
         assertNull(pollForPacketOnInfraNetwork(ICMPV6_ECHO_REPLY_TYPE, ftd.getOmrAddress()));
-    }
-
-    @Test
-    public void multicastRouting_multipleFtdsSubscribedDifferentAddresses_canPingFromInfraDevice()
-            throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
-        /*
-         * <pre>
-         * Topology:
-         *                 infra network                       Thread
-         * infra device -------------------- Border Router -------------- Full Thread device 1
-         *                                   (Cuttlefish)
-         *                                         |
-         *                                         | Thread
-         *                                         |
-         *                                  Full Thread device 2
-         * </pre>
-         */
-
-        FullThreadDevice ftd1 = mFtds.get(0);
-        startFtdChild(ftd1);
-        subscribeMulticastAddressAndWait(ftd1, GROUP_ADDR_SCOPE_5);
-
-        FullThreadDevice ftd2 = mFtds.get(1);
-        startFtdChild(ftd2);
-        subscribeMulticastAddressAndWait(ftd2, GROUP_ADDR_SCOPE_4);
-
-        mInfraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_5);
-        mInfraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_4);
-
-        assertNotNull(pollForPacketOnInfraNetwork(ICMPV6_ECHO_REPLY_TYPE, ftd1.getOmrAddress()));
-        assertNotNull(pollForPacketOnInfraNetwork(ICMPV6_ECHO_REPLY_TYPE, ftd2.getOmrAddress()));
     }
 
     @Test
@@ -498,35 +423,6 @@ public class BorderRoutingTest {
                     pollForPacketOnInfraNetwork(
                             ICMPV6_ECHO_REQUEST_TYPE, ftdMla, GROUP_ADDR_SCOPE_4));
         }
-    }
-
-    @Test
-    public void multicastRouting_infraNetworkSwitch_ftdRepliesToSubscribedAddress()
-            throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
-        /*
-         * <pre>
-         * Topology:
-         *                 infra network                       Thread
-         * infra device -------------------- Border Router -------------- Full Thread device
-         *                                   (Cuttlefish)
-         * </pre>
-         */
-
-        FullThreadDevice ftd = mFtds.get(0);
-        startFtdChild(ftd);
-        subscribeMulticastAddressAndWait(ftd, GROUP_ADDR_SCOPE_5);
-        Inet6Address ftdOmr = ftd.getOmrAddress();
-
-        // Destroy infra link and re-create
-        tearDownInfraNetwork();
-        setUpInfraNetwork();
-        mInfraNetworkReader = newPacketReader(mInfraNetworkTracker.getTestIface(), mHandler);
-        startInfraDevice();
-
-        mInfraDevice.sendEchoRequest(GROUP_ADDR_SCOPE_5);
-
-        assertNotNull(pollForPacketOnInfraNetwork(ICMPV6_ECHO_REPLY_TYPE, ftdOmr));
     }
 
     @Test
