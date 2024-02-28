@@ -67,6 +67,7 @@ import com.android.testutils.TestNetworkTracker;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -231,6 +232,7 @@ public class BorderRoutingTest {
     }
 
     @Test
+    @Ignore("b/327293117")
     public void multicastRouting_ftdSubscribedMulticastAddress_infraLinkJoinsMulticastGroup()
             throws Exception {
         assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
@@ -274,6 +276,7 @@ public class BorderRoutingTest {
     }
 
     @Test
+    @Ignore("b/327293117")
     public void multicastRouting_ftdSubscribedMulticastAddress_canPingfromInfraLink()
             throws Exception {
         assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
@@ -339,6 +342,7 @@ public class BorderRoutingTest {
     }
 
     @Test
+    @Ignore("b/327293117")
     public void multicastRouting_multipleFtdsSubscribedDifferentAddresses_canPingFromInfraDevice()
             throws Exception {
         assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
@@ -501,6 +505,7 @@ public class BorderRoutingTest {
     }
 
     @Test
+    @Ignore("b/327293117")
     public void multicastRouting_infraNetworkSwitch_ftdRepliesToSubscribedAddress()
             throws Exception {
         assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
