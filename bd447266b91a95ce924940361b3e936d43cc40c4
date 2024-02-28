@@ -16,6 +16,24 @@
       "message": "What about using `@Ignore` instead of removing all the code?",
       "revId": "bd447266b91a95ce924940361b3e936d43cc40c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8778519c_6634427c",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-28T03:25:16Z",
+      "side": 0,
+      "message": "+1\n\nUse: @Ignore(b/xxxx)",
+      "parentUuid": "097d6eae_fe256120",
+      "revId": "bd447266b91a95ce924940361b3e936d43cc40c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
