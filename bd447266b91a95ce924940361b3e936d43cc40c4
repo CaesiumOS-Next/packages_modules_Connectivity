@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "097d6eae_fe256120",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T03:05:28Z",
+      "side": 0,
+      "message": "What about using `@Ignore` instead of removing all the code?",
+      "revId": "bd447266b91a95ce924940361b3e936d43cc40c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
