@@ -45,6 +45,7 @@ import android.content.pm.PackageManager;
 import android.net.NetworkCapabilities;
 import android.net.TelephonyNetworkSpecifier;
 import android.os.Build;
+import android.os.Handler;
 import android.os.HandlerThread;
 import android.telephony.TelephonyManager;
 
@@ -97,13 +98,15 @@ public class CarrierPrivilegeAuthenticatorTest {
     private final String mTestPkg = "com.android.server.connectivity.test";
     private final BroadcastReceiver mMultiSimBroadcastReceiver;
     @NonNull private final HandlerThread mHandlerThread;
+    @NonNull private final HandlerThread mConnectivityHandlerThread;
 
     public class TestCarrierPrivilegeAuthenticator extends CarrierPrivilegeAuthenticator {
         TestCarrierPrivilegeAuthenticator(@NonNull final Context c,
                 @NonNull final Dependencies deps,
-                @NonNull final TelephonyManager t) {
+                @NonNull final TelephonyManager t,
+                @NonNull final Handler handler) {
             super(c, deps, t, mTelephonyManagerShim, true /* requestRestrictedWifiEnabled */,
-                    mListener);
+                    mListener, handler);
         }
         @Override
         protected int getSubId(int slotIndex) {
@@ -114,6 +117,7 @@ public class CarrierPrivilegeAuthenticatorTest {
     @After
     public void tearDown() {
         mHandlerThread.quit();
+        mConnectivityHandlerThread.quit();
     }
 
     /** Parameters to test both using callbacks or the old broadcast */
@@ -141,8 +145,11 @@ public class CarrierPrivilegeAuthenticatorTest {
         final ApplicationInfo applicationInfo = new ApplicationInfo();
         applicationInfo.uid = mCarrierConfigPkgUid;
         doReturn(applicationInfo).when(mPackageManager).getApplicationInfo(eq(mTestPkg), anyInt());
-        mCarrierPrivilegeAuthenticator =
-                new TestCarrierPrivilegeAuthenticator(mContext, deps, mTelephonyManager);
+        mConnectivityHandlerThread = new HandlerThread(
+                CarrierPrivilegeAuthenticatorTest.class.getSimpleName() + "ConnectivityThread");
+        mConnectivityHandlerThread.start();
+        mCarrierPrivilegeAuthenticator = new TestCarrierPrivilegeAuthenticator(mContext, deps,
+                mTelephonyManager, new Handler(mConnectivityHandlerThread.getLooper()));
         final ArgumentCaptor<BroadcastReceiver> receiverCaptor =
                 ArgumentCaptor.forClass(BroadcastReceiver.class);
         verify(mContext).registerReceiver(receiverCaptor.capture(), argThat(filter ->
