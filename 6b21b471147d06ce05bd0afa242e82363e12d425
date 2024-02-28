@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d7548aa_5bcc4cd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 65
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T09:37:59Z",
+      "side": 1,
+      "message": "LGTM assuming you can followup on the comments other changes (especially the MdnsServiceInfo constructor and the additional testing)",
+      "revId": "6b21b471147d06ce05bd0afa242e82363e12d425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8163017e_b837c195",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 65
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T09:37:59Z",
+      "side": 1,
+      "message": "We should get some end-to-end (CTS) test for this in NsdManagerTest.kt, but this requires having AdvertisingRequest API because of the jarjar rules.\n\nCould you handle that in another change ? I think the API in AdvertisingRequest shouldn\u0027t be hard to get approved",
+      "revId": "6b21b471147d06ce05bd0afa242e82363e12d425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07da5212_47213e44",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 65
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T09:37:59Z",
+      "side": 1,
+      "message": "It\u0027s worth noting that with the current changes, a service remaining TTL would always be \u003c the provided TTL if it\u0027s higher than name records TTL\n\nOr in other words, it\u0027s impossible to have a service TTL higher than DEFAULT_NAME_RECORDS_TTL_MILLIS\n\nAnd if you try that, you\u0027ll get a service in cache that has no address records after DEFAULT_NAME_RECORDS_TTL_MILLIS, which some implementations may not be very happy about\n\nMaybe something to consider for a followup ?",
+      "revId": "6b21b471147d06ce05bd0afa242e82363e12d425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69e47e0f_b8b8ddda",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 65
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T09:37:59Z",
+      "side": 1,
+      "message": "Can you remove this constructor ? I don\u0027t think there\u0027s a valid use-case for it, is there ?\n\nSame for the one below",
+      "revId": "6b21b471147d06ce05bd0afa242e82363e12d425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e689d977_ad1ec741",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 65
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T09:37:59Z",
+      "side": 1,
+      "message": "There should be at least a test that verifies addService with a non-null TTL",
+      "revId": "6b21b471147d06ce05bd0afa242e82363e12d425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
