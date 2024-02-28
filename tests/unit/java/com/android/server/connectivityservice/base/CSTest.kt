@@ -75,8 +75,8 @@ import com.android.testutils.waitForIdle
 import java.util.concurrent.Executors
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.TimeUnit
-import java.util.function.Consumer
 import java.util.function.BiConsumer
+import java.util.function.Consumer
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.fail
@@ -227,7 +227,8 @@ open class CSTest {
                 context: Context,
                 tm: TelephonyManager,
                 requestRestrictedWifiEnabled: Boolean,
-                listener: BiConsumer<Int, Int>
+                listener: BiConsumer<Int, Int>,
+                handler: Handler
         ) = if (SdkLevel.isAtLeastT()) mock<CarrierPrivilegeAuthenticator>() else null
 
         var satelliteNetworkFallbackUidUpdate: Consumer<Set<Int>>? = null
