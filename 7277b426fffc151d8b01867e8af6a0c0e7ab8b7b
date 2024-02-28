@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "270bb380_4eed5e71",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-28T01:01:38Z",
+      "side": 1,
+      "message": "Why does this (and hashCode above) not consider the softApConfig?",
+      "range": {
+        "startLine": 943,
+        "startChar": 23,
+        "endLine": 943,
+        "endChar": 29
+      },
+      "revId": "7277b426fffc151d8b01867e8af6a0c0e7ab8b7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "321f1c5a_26a589d0",
         "filename": "Tethering/src/android/net/ip/IpServer.java",
         "patchSetId": 16
@@ -84,6 +107,30 @@
       "side": 1,
       "message": "we are adding another parameter i,e ifaceName in AddressKey to distinguish the Address key based on the iface . Removing type may need to change the static bluetooth IP addressing Ref line number : 92",
       "parentUuid": "787165ed_d55f53f9",
+      "range": {
+        "startLine": 175,
+        "startChar": 25,
+        "endLine": 175,
+        "endChar": 32
+      },
+      "revId": "7277b426fffc151d8b01867e8af6a0c0e7ab8b7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b5a4e4a_33967a1d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-02-28T01:01:38Z",
+      "side": 1,
+      "message": "Given that every IpServer will soon have a TetheringRequest, can we use the TetheringRequest here instead, and get rid of AddressKey entirely?",
+      "parentUuid": "debd6c2e_07b31463",
       "range": {
         "startLine": 175,
         "startChar": 25,
