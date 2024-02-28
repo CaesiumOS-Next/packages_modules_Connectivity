@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3edbae0a_d086c748",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T04:52:49Z",
+      "side": 1,
+      "message": "Removed `factoryReset()`.",
+      "parentUuid": "cad2530d_4d4e9285",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c22b7ff_65d2cf69",
@@ -58,6 +76,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17b042da_544e758d",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T04:52:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c22b7ff_65d2cf69",
+      "range": {
+        "startLine": 196,
+        "startChar": 12,
+        "endLine": 196,
+        "endChar": 37
+      },
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c059ae7_e123457a",
@@ -71,6 +113,30 @@
       "writtenOn": "2024-02-27T08:48:51Z",
       "side": 1,
       "message": "can we use the Ftd\u0027s OMR and MLEID as host addresses? This simulates the cert test case DH2.1",
+      "range": {
+        "startLine": 199,
+        "startChar": 20,
+        "endLine": 199,
+        "endChar": 85
+      },
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3a6c6c3_81048bd8",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T04:52:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c059ae7_e123457a",
       "range": {
         "startLine": 199,
         "startChar": 20,
@@ -106,6 +172,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a80bda40_1c40f96c",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T04:52:49Z",
+      "side": 1,
+      "message": "Yes. But that\u0027s going to be harder to verify the test result. I need to iterate through the discovered services and map them to the registered services.",
+      "parentUuid": "bbcb80eb_72faae26",
+      "range": {
+        "startLine": 202,
+        "startChar": 20,
+        "endLine": 202,
+        "endChar": 42
+      },
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f24c96a0_b5726aef",
         "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
         "patchSetId": 19
@@ -117,6 +207,24 @@
       "writtenOn": "2024-02-27T08:48:51Z",
       "side": 1,
       "message": "Add comment to the args to help read\n```suggestion\n                    12345, /* port */\n```",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cdf6454_0e45fd28",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T04:52:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f24c96a0_b5726aef",
       "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -138,6 +246,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3543f275_e14fc29f",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T04:52:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2328bb3_23ee31ea",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "413fa50f_56351c57",
@@ -151,6 +277,24 @@
       "writtenOn": "2024-02-27T08:48:51Z",
       "side": 1,
       "message": "ditto",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05ed7d67_cea9fb57",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T04:52:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "413fa50f_56351c57",
       "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -195,6 +339,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e7238f6_e0392427",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T04:52:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ecfb54e_3d5167b7",
+      "range": {
+        "startLine": 254,
+        "startChar": 8,
+        "endLine": 257,
+        "endChar": 29
+      },
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e19b23d_ac7bd8fc",
@@ -208,6 +376,24 @@
       "writtenOn": "2024-02-27T08:48:51Z",
       "side": 1,
       "message": "ditto",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c79e527_28e05266",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T04:52:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e19b23d_ac7bd8fc",
       "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -229,6 +415,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a00fd973_0e452eb2",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T04:52:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "142e8982_7278a3e9",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6313dbf7_5064ec27",
@@ -242,6 +446,30 @@
       "writtenOn": "2024-02-28T03:59:03Z",
       "side": 1,
       "message": "nit:\n```suggestion\n        assertThat(discoverService(mNsdManager, \"_test._udp\")).isNotNull();\n```",
+      "range": {
+        "startLine": 307,
+        "startChar": 8,
+        "endLine": 309,
+        "endChar": 50
+      },
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88c2c917_4e63cced",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T04:52:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6313dbf7_5064ec27",
       "range": {
         "startLine": 307,
         "startChar": 8,
@@ -275,6 +503,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "085dc34f_916116cf",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T04:52:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "932d1c99_7d809c5c",
+      "range": {
+        "startLine": 221,
+        "startChar": 41,
+        "endLine": 221,
+        "endChar": 47
+      },
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37465955_fb884645",
@@ -298,6 +550,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f488ddc7_a4d07d67",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T04:52:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37465955_fb884645",
+      "range": {
+        "startLine": 251,
+        "startChar": 8,
+        "endLine": 251,
+        "endChar": 22
+      },
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e01df314_92a6d2f4",
@@ -311,6 +587,30 @@
       "writtenOn": "2024-02-28T03:59:03Z",
       "side": 1,
       "message": "you can use `BaseEncoding.base16().encode()`\n\nBetter statically import `BaseEncoding.base16`",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 413,
+        "endChar": 5
+      },
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfc8337f_fd2da6e1",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T04:52:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e01df314_92a6d2f4",
       "range": {
         "startLine": 407,
         "startChar": 0,
