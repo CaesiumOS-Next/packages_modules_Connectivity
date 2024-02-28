@@ -76,6 +76,7 @@ java_library {
     ],
     visibility: [
         "//frameworks/base/tests/vcn",
+        "//frameworks/base/tests/VpnTests",
         "//packages/modules/Connectivity/service",
         "//packages/modules/Connectivity/tests:__subpackages__",
         "//packages/modules/IPsec/tests/iketests",
