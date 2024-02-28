@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "223ae460_6fe38f16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-28T03:02:23Z",
+      "side": 1,
+      "message": "The change provides some helper functions that are used by other changes, so there is merge conflict in this revert.\n\nCreated a CL to remove the failing tests instead: aosp/2981591",
+      "revId": "924ae981ea34acd01afc66589f68247ee86470cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
