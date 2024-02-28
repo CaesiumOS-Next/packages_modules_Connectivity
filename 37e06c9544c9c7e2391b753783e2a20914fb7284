@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa861012_4fecaee9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T10:01:36Z",
+      "side": 1,
+      "message": "LGTM but see other comments on the original change, regarding the comments that weren\u0027t handled here.",
+      "revId": "37e06c9544c9c7e2391b753783e2a20914fb7284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80645c6d_fcf30cf3",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-28T10:01:36Z",
+      "side": 1,
+      "message": "(See reply in aosp/2890277 regarding what I meant in the previous log time initialization comment)",
+      "revId": "37e06c9544c9c7e2391b753783e2a20914fb7284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
