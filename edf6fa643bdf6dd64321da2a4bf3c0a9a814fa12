@@ -135,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73c6caf6_df3d80d4",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T14:29:33Z",
+      "side": 1,
+      "message": "discussed offline that setting up test network in every test case is acceptable.",
+      "parentUuid": "8c61fb57_800afb29",
+      "range": {
+        "startLine": 1165,
+        "startChar": 8,
+        "endLine": 1166,
+        "endChar": 30
+      },
+      "revId": "edf6fa643bdf6dd64321da2a4bf3c0a9a814fa12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6058462_a3407bcb",
