@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac8b1ed5_37434bd6",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-28T06:46:24Z",
+      "side": 1,
+      "message": "This test case doesn\u0027t cover the actual failure case because the single BBR hasn\u0027t been in the secondary state. leave() will force the bbr state to secondary.\n\nWe should test the case that BBR is still active (i.e. still attached to a Thread network) but the BBR is set to secondary state and reset back to primary. Given this is not testable with current infra. I refer skipping the test body with a TODO comments saying what should be tested here.\n\n```suggestion\n    @Test\n    public void multicastRouting_bbrBecomesSecondaryAndBackToPrimary_canPingAllFtdMulticastAddresses()\n            throws Exception {\n        // TODO (b/xxxx): xxxxx\n    }\n```",
+      "range": {
+        "startLine": 307,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 5
+      },
+      "revId": "5ea2ff103e2caa00da80e5ee46a3958b4be0e42f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
