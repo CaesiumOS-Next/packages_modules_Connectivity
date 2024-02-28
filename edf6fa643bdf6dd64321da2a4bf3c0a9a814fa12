@@ -77,6 +77,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c61fb57_800afb29",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-02-28T09:33:33Z",
+      "side": 1,
+      "message": "Not sure about the cost of setUpTestNetwork. I\u0027ll setup the test network in test cases and teardown it in the `tearDown`.",
+      "parentUuid": "27e5e67b_e0eda39f",
+      "range": {
+        "startLine": 1165,
+        "startChar": 8,
+        "endLine": 1166,
+        "endChar": 30
+      },
+      "revId": "edf6fa643bdf6dd64321da2a4bf3c0a9a814fa12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6058462_a3407bcb",
         "filename": "thread/tests/utils/src/android/net/thread/utils/TapTestNetworkTracker.java",
         "patchSetId": 3
