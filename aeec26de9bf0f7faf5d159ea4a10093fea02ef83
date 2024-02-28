@@ -16,6 +16,24 @@
       "message": "what is the convention of using Threadnetwork vs ThreadNetwork?",
       "revId": "aeec26de9bf0f7faf5d159ea4a10093fea02ef83",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bcb5369_d7ff1674",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-28T08:54:37Z",
+      "side": 1,
+      "message": "It should be \"ThreadNetwork\" in compilable code, it\u0027s legacy code I copied here. Fixed.",
+      "parentUuid": "93244d2c_87b87950",
+      "revId": "aeec26de9bf0f7faf5d159ea4a10093fea02ef83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
