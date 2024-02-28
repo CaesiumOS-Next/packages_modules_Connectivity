@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60fc68eb_b620b2a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-02-28T12:59:24Z",
+      "side": 1,
+      "message": "This could cause device boot failures, but not unrelated test failures in APF which TH is finding.  Those are just known flakes.",
+      "revId": "a0b201c4335b5715338008aecec5dab88e2b51d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
