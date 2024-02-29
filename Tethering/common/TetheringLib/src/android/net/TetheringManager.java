@@ -688,6 +688,7 @@ public class TetheringManager {
     public static final class TetheringRequest implements Parcelable {
         /** A configuration set for TetheringRequest. */
         private final TetheringRequestParcel mRequestParcel;
+        private boolean mIsServing;
 
         /**
          * @hide
@@ -925,6 +926,25 @@ public class TetheringManager {
         }
 
         /**
+         * Whether the request is currently being served.
+         * @hide
+         */
+        @FlaggedApi(Flags.TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+        public boolean isServing() {
+            return mIsServing;
+        }
+
+        /**
+         * Sets the serving state.
+         * @see #isServing()
+         * @hide
+         */
+        @FlaggedApi(Flags.TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+        public boolean setIsServing(boolean isServing) {
+            return mIsServing = isServing;
+        }
+
+        /**
          * Get a TetheringRequestParcel from the configuration
          * @hide
          */
@@ -1028,10 +1048,6 @@ public class TetheringManager {
      * <p>Without {@link android.Manifest.permission.TETHER_PRIVILEGED} permission, the call will
      * fail if a tethering entitlement check is required.
      */
-    @RequiresPermission(anyOf = {
-            android.Manifest.permission.TETHER_PRIVILEGED,
-            android.Manifest.permission.WRITE_SETTINGS
-    })
     public void stopTethering(@TetheringType final int type) {
         final String callerPkg = mContext.getOpPackageName();
         Log.i(TAG, "stopTethering caller:" + callerPkg);
@@ -1046,6 +1062,28 @@ public class TetheringManager {
                 // results in a TETHER_STATE_CHANGE broadcast.
             }
         }));
+    }
+
+    /**
+     * Stops tethering for the given request. The results will be conveyed via
+     * {@link TetheringEventCallback}.
+     */
+    @RequiresPermission(anyOf = {
+            android.Manifest.permission.TETHER_PRIVILEGED,
+            android.Manifest.permission.WRITE_SETTINGS
+    })
+    @FlaggedApi(Flags.TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+    public void stopTethering(@NonNull TetheringRequest request) {
+        final String callerPkg = mContext.getOpPackageName();
+        Log.i(TAG, "stopTethering(TetheringRequest) caller:" + callerPkg);
+
+        getConnector(c -> c.stopTetheringRequest(request, callerPkg, getAttributionTag(),
+                new IIntResultListener.Stub() {
+                    @Override
+                    public void onResult(int resultCode) {
+                        // No-op.
+                    }
+                }));
     }
 
     /**
