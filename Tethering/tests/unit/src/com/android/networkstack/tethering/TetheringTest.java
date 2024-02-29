@@ -2362,7 +2362,17 @@ public class TetheringTest {
         // 4. Unregister first callback and disable wifi tethering
         mTethering.unregisterTetheringEventCallback(callback);
         mLooper.dispatchAll();
-        mTethering.stopTethering(TETHERING_WIFI);
+        mTethering.stopTetheringRequest(new TetheringRequest.Builder(TETHERING_WIFI)
+                .setConnectivityScope(IFACE_IP_MODE_LOCAL_ONLY).build());
+
+        // Verify that stopping a tethering request that doesn't match the current Wi-Fi request
+        // will be ignored.
+        verify(mWifiManager, never()).stopSoftAp();
+
+        // Verify stopping with the actual request will bring down soft AP.
+        mTethering.stopTetheringRequest(tetheringRequest);
+        verify(mWifiManager).stopSoftAp();
+
         sendWifiApStateChanged(WIFI_AP_STATE_DISABLED);
         if (isAtLeastT()) {
             // After T, tethering doesn't support WIFI_AP_STATE_DISABLED with null interface name.
