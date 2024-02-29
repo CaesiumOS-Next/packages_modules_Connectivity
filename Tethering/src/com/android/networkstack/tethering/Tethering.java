@@ -662,18 +662,27 @@ public class Tethering {
         processInterfaceStateChange(iface, false /* enabled */);
     }
 
+    private boolean registerTetheringRequest(final TetheringRequest request) {
+        // TODO(qal): Return false here to avoid undocumented no-ops for duplicate requests, such as
+        //            when USB tethering is requested twice.
+        final TetheringRequest existingRequest = mActiveTetheringRequests.get(
+                request.getTetheringType());
+        // If tethering is already pending with a different request, disable before re-enabling.
+        if (existingRequest != null && !existingRequest.isServing()
+                && !existingRequest.equals(request)) {
+            enableTetheringInternal(request.getTetheringType(), false /* disabled */, null);
+            mEntitlementMgr.stopProvisioningIfNeeded(request.getTetheringType());
+        }
+        mActiveTetheringRequests.put(request.getTetheringType(), request);
+        return true;
+    }
+
     void startTethering(final TetheringRequest request, final String callerPkg,
             final IIntResultListener listener) {
         mHandler.post(() -> {
-            final TetheringRequest unfinishedRequest = mActiveTetheringRequests.get(
-                    request.getTetheringType());
-            // If tethering is already enabled with a different request,
-            // disable before re-enabling.
-            if (unfinishedRequest != null && !unfinishedRequest.equals(request)) {
-                enableTetheringInternal(request.getTetheringType(), false /* disabled */, null);
-                mEntitlementMgr.stopProvisioningIfNeeded(request.getTetheringType());
+            if (!registerTetheringRequest(request)) {
+                sendTetherResult(listener, TETHER_ERROR_INTERNAL_ERROR, request.getTetheringType());
             }
-            mActiveTetheringRequests.put(request.getTetheringType(), request);
 
             if (request.isExemptFromEntitlementCheck()) {
                 mEntitlementMgr.setExemptedDownstreamType(request.getTetheringType());
@@ -691,6 +700,20 @@ public class Tethering {
             stopTetheringInternal(type);
         });
     }
+
+    void stopTetheringRequest(TetheringRequest request) {
+        mHandler.post(() -> {
+            TetheringRequest existingRequest =
+                    mActiveTetheringRequests.get(request.getTetheringType());
+            if (existingRequest == null || !request.equals(existingRequest)) {
+                // Request doesn't match any active requests, ignore.
+                return;
+            }
+            // Request matches the active request, stop tethering.
+            stopTetheringInternal(request.getTetheringType());
+        });
+    }
+
     void stopTetheringInternal(int type) {
         mActiveTetheringRequests.remove(type);
 
@@ -1004,6 +1027,7 @@ public class Tethering {
         final TetheringRequest request = mActiveTetheringRequests.get(type, null);
         if (request != null) {
             mActiveTetheringRequests.delete(type);
+            request.setIsServing(true);
         }
         tetherState.ipServer.enable(requestedState, request);
         return TETHER_ERROR_NO_ERROR;
