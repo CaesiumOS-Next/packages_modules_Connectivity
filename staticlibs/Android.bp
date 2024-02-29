@@ -278,7 +278,6 @@ java_library {
         "//frameworks/opt/net/ike",
         "//frameworks/opt/telephony",
         "//frameworks/base/wifi:__subpackages__",
-        "//frameworks/base/packages/Connectivity:__subpackages__",
         "//packages/modules/Connectivity:__subpackages__",
         "//packages/modules/NetworkStack:__subpackages__",
         "//packages/modules/CaptivePortalLogin",
