@@ -261,6 +261,14 @@ public class TetheringManager {
     public @interface StartTetheringError {
     }
 
+    /** @hide */
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef(value = {
+            TETHER_ERROR_UNKNOWN_REQUEST,
+    })
+    public @interface StopTetheringError {
+    }
+
     public static final int TETHER_ERROR_NO_ERROR = 0;
     public static final int TETHER_ERROR_UNKNOWN_IFACE = 1;
     public static final int TETHER_ERROR_SERVICE_UNAVAIL = 2;
@@ -280,6 +288,8 @@ public class TetheringManager {
     public static final int TETHER_ERROR_UNKNOWN_TYPE = 16;
     @FlaggedApi(Flags.FLAG_MULTIPLE_TETHERING_REQUESTS_PER_TYPE)
     public static final int TETHER_ERROR_DUPLICATE_REQUEST = 17;
+    @FlaggedApi(Flags.FLAG_TETHERING_WITH_SOFT_AP_CONFIG)
+    public static final int TETHER_ERROR_UNKNOWN_REQUEST = 18;
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
@@ -724,6 +734,7 @@ public class TetheringManager {
     public static final class TetheringRequest implements Parcelable {
         /** A configuration set for TetheringRequest. */
         private final TetheringRequestParcel mRequestParcel;
+        private boolean mIsServing;
 
         /**
          * @hide
@@ -1073,6 +1084,24 @@ public class TetheringManager {
     }
 
     /**
+     * Callback for use with {@link #stopTethering} to find out whether stop tethering succeeded.
+     */
+    @FlaggedApi(Flags.FLAG_TETHERING_WITH_SOFT_AP_CONFIG)
+    public interface StopTetheringCallback {
+        /**
+         * Called when tethering has been successfully stopped.
+         */
+        default void onStopTetheringSucceeded() {}
+
+        /**
+         * Called when starting tethering failed.
+         *
+         * @param error The error that caused the failure.
+         */
+        default void onStopTetheringFailed(@StopTetheringError final int error) {}
+    }
+
+    /**
      * Starts tethering and runs tether provisioning for the given type if needed. If provisioning
      * fails, stopTethering will be called automatically.
      *
@@ -1139,10 +1168,6 @@ public class TetheringManager {
      * <p>Without {@link android.Manifest.permission.TETHER_PRIVILEGED} permission, the call will
      * fail if a tethering entitlement check is required.
      */
-    @RequiresPermission(anyOf = {
-            android.Manifest.permission.TETHER_PRIVILEGED,
-            android.Manifest.permission.WRITE_SETTINGS
-    })
     public void stopTethering(@TetheringType final int type) {
         final String callerPkg = mContext.getOpPackageName();
         Log.i(TAG, "stopTethering caller:" + callerPkg);
@@ -1157,6 +1182,38 @@ public class TetheringManager {
                 // results in a TETHER_STATE_CHANGE broadcast.
             }
         }));
+    }
+
+    /**
+     * Stops tethering for the given request. Operation will fail with
+     * {@link #TETHER_ERROR_UNKNOWN_REQUEST} if there is no request that matches in
+     *     1) Tethering type.
+     *     2) Connectivity scope.
+     *     3) SoftApConfiguration.
+     */
+    @RequiresPermission(anyOf = {
+            android.Manifest.permission.TETHER_PRIVILEGED,
+            android.Manifest.permission.WRITE_SETTINGS
+    })
+    @FlaggedApi(Flags.FLAG_TETHERING_WITH_SOFT_AP_CONFIG)
+    public void stopTethering(@NonNull TetheringRequest request,
+            @NonNull final Executor executor, @NonNull final StopTetheringCallback callback) {
+        final String callerPkg = mContext.getOpPackageName();
+        Log.i(TAG, "stopTethering(TetheringRequest) caller:" + callerPkg);
+
+        getConnector(c -> c.stopTetheringRequest(request, callerPkg, getAttributionTag(),
+                new IIntResultListener.Stub() {
+                    @Override
+                    public void onResult(final int resultCode) {
+                        executor.execute(() -> {
+                            if (resultCode == TETHER_ERROR_NO_ERROR) {
+                                callback.onStopTetheringSucceeded();
+                            } else {
+                                callback.onStopTetheringFailed(resultCode);
+                            }
+                        });
+                    }
+                }));
     }
 
     /**
