@@ -194,6 +194,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6128ec2_ca7c854f",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-29T06:55:10Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a80bda40_1c40f96c",
+      "range": {
+        "startLine": 202,
+        "startChar": 20,
+        "endLine": 202,
+        "endChar": 42
+      },
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f24c96a0_b5726aef",
@@ -347,6 +371,24 @@
       "writtenOn": "2024-02-28T06:13:36Z",
       "side": 1,
       "message": "Via offline discussion, I\u0027ll add a unicast DNS querying a service without an address in a following CL",
+      "parentUuid": "330ec1a2_a324e544",
+      "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f9481bb_6c7da421",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-29T06:55:10Z",
+      "side": 1,
+      "message": "Acknowledged",
       "parentUuid": "330ec1a2_a324e544",
       "revId": "effcbd70d4c51c9da3c64c4640e9edb611995400",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
