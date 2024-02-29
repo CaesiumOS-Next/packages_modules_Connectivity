@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f30ffa40_7853d7ef",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2024-02-29T22:59:51Z",
+      "side": 1,
+      "message": "Need to be interface otherwise I cannot use lambda",
+      "range": {
+        "startLine": 263,
+        "startChar": 12,
+        "endLine": 263,
+        "endChar": 21
+      },
+      "revId": "e2867d517e186a52a0f65589f4fdbcaeff9dd61e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
