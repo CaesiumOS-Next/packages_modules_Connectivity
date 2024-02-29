@@ -123,6 +123,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fbb7a1a_dd2d9a87",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-02-29T01:48:16Z",
+      "side": 1,
+      "message": "Splitting out Struct.java from \"net-utils-device-common-bpf\" will be done in a follow up CL.",
+      "parentUuid": "1df5d827_bf99afd0",
+      "revId": "4e8fac03427fad0b3fb965ae213f200355b1cf81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c51f94b_9475b97c",
