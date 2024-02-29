@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27d8c2dc_085b2527",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-29T02:41:34Z",
+      "side": 1,
+      "message": "Put the controller availability check at the beginning of setUp() to ensure that no code is executed if Thread is not supported.\n```suggestion\n    public void setUp() throws Exception {\n        ThreadNetworkManager manager \u003d mContext.getSystemService(ThreadNetworkManager.class);\n        if (manager !\u003d null) {\n            mController \u003d manager.getAllThreadNetworkControllers().get(0);\n        }\n\n        // TODO: we will also need it in tearDown(), it\u0027s better to have a Rule to skip\n        // tests if a feature is not available.\n        assumeNotNull(mController);\n\n        mGrantedPermissions \u003d new HashSet\u003cString\u003e();\n        mExecutor \u003d Executors.newSingleThreadExecutor();\n        mNsdManager \u003d mContext.getSystemService(NsdManager.class);\n        mHandlerThread \u003d new HandlerThread(this.getClass().getSimpleName());\n        mHandlerThread.start();\n\n        setEnabledAndWait(mController, true);\n```",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 31
+      },
+      "revId": "8104771cbe8f720aeca6dc85503a62829e61aa89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdd06430_feff97f9",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-29T02:41:34Z",
+      "side": 1,
+      "message": "Put  controller availability at the beginning of tearDown() to ensure no code is executed when Thread is not supported.\n```suggestion\n        if (mController \u003d\u003d null) {\n            return;\n        }\n        \n        runAsShell(THREAD_NETWORK_PRIVILEGED, () -\u003e leaveAndWait(mController));\n        tearDownTestNetwork();\n        dropAllPermissions();\n```",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 30
+      },
+      "revId": "8104771cbe8f720aeca6dc85503a62829e61aa89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
