@@ -50,6 +50,7 @@ import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_SERVICE_UNAVAIL;
 import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_IFACE;
+import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_REQUEST;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_FAILED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STARTED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STOPPED;
@@ -2432,6 +2433,37 @@ public class TetheringTest {
         callback.expectUpstreamChanged(NULL_NETWORK);
         callback.expectOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STOPPED);
         callback.assertNoCallback();
+    }
+
+    @Test
+    public void testStopTetheringStopsCorrectRequest() throws Exception {
+        initTetheringOnTestThread();
+        UpstreamNetworkState upstreamState = buildMobileDualStackUpstreamState();
+        initTetheringUpstream(upstreamState);
+        when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
+
+        // Enable wifi tethering.
+        SoftApConfiguration softApConfig = new SoftApConfiguration.Builder().setWifiSsid(
+                WifiSsid.fromBytes("SoftApConfig".getBytes(StandardCharsets.UTF_8))).build();
+        final TetheringRequest tetheringRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setSoftApConfiguration(softApConfig).build();
+        mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, null);
+
+        // Stop tethering with non-matching request. Should be ignored.
+        SoftApConfiguration softApConfig2 = new SoftApConfiguration.Builder().setWifiSsid(
+                WifiSsid.fromBytes("SoftApConfig2".getBytes(StandardCharsets.UTF_8))).build();
+        IIntResultListener stopListener = mock(IIntResultListener.class);
+        mTethering.stopTetheringRequest(new TetheringRequest.Builder(TETHERING_WIFI)
+                .setSoftApConfiguration(softApConfig2).build(), stopListener);
+        mLooper.dispatchAll();
+        verify(stopListener).onResult(eq(TETHER_ERROR_UNKNOWN_REQUEST));
+        verify(mWifiManager, never()).stopSoftAp();
+
+        // Stop tethering with matching request. Should succeed.
+        mTethering.stopTetheringRequest(tetheringRequest, stopListener);
+        mLooper.dispatchAll();
+        verify(stopListener).onResult(eq(TETHER_ERROR_NO_ERROR));
+        verify(mWifiManager).stopSoftAp();
     }
 
     @Test

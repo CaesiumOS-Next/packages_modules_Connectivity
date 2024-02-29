@@ -49,6 +49,7 @@ import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_SERVICE_UNAVAIL;
 import static android.net.TetheringManager.TETHER_ERROR_UNAVAIL_IFACE;
 import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_IFACE;
+import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_REQUEST;
 import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_TYPE;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_FAILED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STARTED;
@@ -687,6 +688,17 @@ public class Tethering {
         return requests;
     }
 
+    private boolean isTetheringRequestFuzzyMatch(
+            final TetheringRequest r1, final TetheringRequest r2) {
+        if (r1.getTetheringType() != r2.getTetheringType()) return false;
+        if (r1.getConnectivityScope() != r2.getConnectivityScope()) return false;
+        if (!Objects.equals(r1.getSoftApConfiguration(), r2.getSoftApConfiguration())) return false;
+        // TODO(b/296063280): Check if the interface name matches.
+        // TODO(b/216524590): Check uid for non-privileged callers once they're allowed to
+        //                    start/stop tethering.
+        return true;
+    }
+
     void startTethering(final TetheringRequest request, final String callerPkg,
             final IIntResultListener listener) {
         mHandler.post(() -> {
@@ -727,6 +739,26 @@ public class Tethering {
     void stopTethering(int type) {
         mHandler.post(() -> {
             stopTetheringInternal(type);
+        });
+    }
+
+    void stopTetheringRequest(TetheringRequest request, final IIntResultListener listener) {
+        mHandler.post(() -> {
+            for (TetheringRequest existingRequest
+                    : mActiveTetheringRequests.get(request.getTetheringType())) {
+                if (isTetheringRequestFuzzyMatch(request, existingRequest)) {
+                    // Request matches the active request, stop tethering.
+                    stopTetheringInternal(request.getTetheringType());
+                    try {
+                        listener.onResult(TETHER_ERROR_NO_ERROR);
+                    } catch (RemoteException ignored) { }
+                    return;
+                }
+            }
+            // Request doesn't match any active requests, ignore.
+            try {
+                listener.onResult(TETHER_ERROR_UNKNOWN_REQUEST);
+            } catch (RemoteException ignored) { }
         });
     }
 
