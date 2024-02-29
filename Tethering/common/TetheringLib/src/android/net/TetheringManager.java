@@ -1370,7 +1370,22 @@ public class TetheringManager {
     @FlaggedApi(Flags.FLAG_TETHERING_WITH_SOFT_AP_CONFIG)
     public void stopTethering(@NonNull TetheringRequest request,
             @NonNull final Executor executor, @NonNull final StopTetheringCallback callback) {
-        throw new UnsupportedOperationException();
+        final String callerPkg = mContext.getOpPackageName();
+        Log.i(TAG, "stopTethering(TetheringRequest) caller:" + callerPkg);
+
+        getConnector(c -> c.stopTetheringRequest(request, callerPkg, getAttributionTag(),
+                new IIntResultListener.Stub() {
+                    @Override
+                    public void onResult(final int resultCode) {
+                        executor.execute(() -> {
+                            if (resultCode == TETHER_ERROR_NO_ERROR) {
+                                callback.onStopTetheringSucceeded();
+                            } else {
+                                callback.onStopTetheringFailed(resultCode);
+                            }
+                        });
+                    }
+                }));
     }
 
     /**
