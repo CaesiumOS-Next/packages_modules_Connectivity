@@ -22,6 +22,7 @@ import static android.Manifest.permission.NETWORK_STACK;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
+import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ACCESS_TETHERING_PERMISSION;
 import static android.net.TetheringManager.TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
@@ -145,6 +146,14 @@ public class TetheringService extends Service {
                     listener)) {
                 return;
             }
+            // Non-system callers can only start tethering as Wifi with a SoftApConfiguration.
+            if (!hasTetherPrivilegedPermission()
+                    && request.tetheringType != TETHERING_WIFI || request.softApConfig == null) {
+                try {
+                    listener.onResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+                } catch (RemoteException e) { }
+                return;
+            }
             TetheringRequest external = new TetheringRequest(request);
             external.setUid(getBinderCallingUid());
             external.setPackageName(callerPkg);
@@ -160,6 +169,16 @@ public class TetheringService extends Service {
                 mTethering.stopTethering(type);
                 listener.onResult(TETHER_ERROR_NO_ERROR);
             } catch (RemoteException e) { }
+        }
+
+        @Override
+        public void stopTetheringRequest(TetheringRequest request,
+                String callerPkg, String callingAttributionTag,
+                IIntResultListener listener) {
+            if (checkAndNotifyCommonError(callerPkg, callingAttributionTag, listener)) return;
+            request.setUid(getBinderCallingUid());
+            request.setPackageName(callerPkg);
+            mTethering.stopTetheringRequest(request, listener);
         }
 
         @Override
