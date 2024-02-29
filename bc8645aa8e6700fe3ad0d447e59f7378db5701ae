@@ -39,6 +39,30 @@
       },
       "revId": "bc8645aa8e6700fe3ad0d447e59f7378db5701ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ada3e474_4d4e78c8",
+        "filename": "tests/integration/AndroidManifest.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-02-29T02:03:18Z",
+      "side": 1,
+      "message": "This adds permission for the test to access the test network created by PacketBridge. \nIt\u0027ll report the following error if not added.\n\"ConnectivityService: user 10109 has no permission to access restricted network.\"",
+      "parentUuid": "b2eda9c2_a93a6d24",
+      "range": {
+        "startLine": 47,
+        "startChar": 54,
+        "endLine": 47,
+        "endChar": 90
+      },
+      "revId": "bc8645aa8e6700fe3ad0d447e59f7378db5701ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
