@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "272a2ece_5458da7d",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-29T03:18:12Z",
+      "side": 1,
+      "message": "leaveAndWait() doesn\u0027t have the permission to run",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 34
+      },
+      "revId": "c4638c5a1129a258ba5ee5ea08cee4cf007248a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
