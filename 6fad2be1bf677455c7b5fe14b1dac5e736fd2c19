@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a6323ce_4bb8e34c",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-29T04:33:58Z",
+      "side": 1,
+      "message": "Do not check here.",
+      "range": {
+        "startLine": 1169,
+        "startChar": 8,
+        "endLine": 1175,
+        "endChar": 9
+      },
+      "revId": "6fad2be1bf677455c7b5fe14b1dac5e736fd2c19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
