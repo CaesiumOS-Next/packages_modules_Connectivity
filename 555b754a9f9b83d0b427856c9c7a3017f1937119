@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8cef492_ae1fd886",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-02-29T17:51:42Z",
+      "side": 1,
+      "message": "Don\u0027t use member variable naming for local var.\n\nChanged cachedAddress to cachedAddresses and mLinkAddress to cachedAddress",
+      "range": {
+        "startLine": 182,
+        "startChar": 25,
+        "endLine": 182,
+        "endChar": 37
+      },
+      "revId": "555b754a9f9b83d0b427856c9c7a3017f1937119",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33ab3d42_04b1177a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-02-29T17:51:42Z",
+      "side": 1,
+      "message": "Same as above, don\u0027t use member variable naming for local vars.",
+      "revId": "555b754a9f9b83d0b427856c9c7a3017f1937119",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
