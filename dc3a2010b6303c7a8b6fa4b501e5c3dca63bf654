@@ -167,6 +167,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04877326_7ea613b2",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2240,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-29T03:01:44Z",
+      "side": 1,
+      "message": "Let\u0027s fix it in another CL.",
+      "parentUuid": "92aab978_fe1fce47",
+      "range": {
+        "startLine": 2240,
+        "startChar": 20,
+        "endLine": 2240,
+        "endChar": 32
+      },
+      "revId": "dc3a2010b6303c7a8b6fa4b501e5c3dca63bf654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f540f9bb_2c156db9",
@@ -252,6 +276,30 @@
       "side": 1,
       "message": "As discussed updated to getSubIdForCellularOrSatellite",
       "parentUuid": "cef0cf3b_550a4785",
+      "range": {
+        "startLine": 2303,
+        "startChar": 23,
+        "endLine": 2303,
+        "endChar": 40
+      },
+      "revId": "dc3a2010b6303c7a8b6fa4b501e5c3dca63bf654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4be249a0_9a6f310d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2303,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-02-29T03:01:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b37fa74d_90ea4ee6",
       "range": {
         "startLine": 2303,
         "startChar": 23,
