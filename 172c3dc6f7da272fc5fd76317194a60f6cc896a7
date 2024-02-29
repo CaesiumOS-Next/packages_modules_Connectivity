@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b260182_1e09b063",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 17568,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-02-29T06:44:34Z",
+      "side": 1,
+      "message": "nits:\nCould you add comment to explain why allowedUids is not removed or update test case to explain this? something like `testNetworkOwnerAllowedUids`.",
+      "range": {
+        "startLine": 17568,
+        "startChar": 0,
+        "endLine": 17568,
+        "endChar": 71
+      },
+      "revId": "172c3dc6f7da272fc5fd76317194a60f6cc896a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
