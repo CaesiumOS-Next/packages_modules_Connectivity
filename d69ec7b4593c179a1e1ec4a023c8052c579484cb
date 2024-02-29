@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62e6d398_f08122cd",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecBaseTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2024-02-29T23:52:32Z",
+      "side": 1,
+      "message": "I think that\u0027s a good point about the readability of the test failure. sgtm.",
+      "parentUuid": "6e71ab85_d3a9144d",
+      "range": {
+        "startLine": 133,
+        "startChar": 27,
+        "endLine": 133,
+        "endChar": 49
+      },
+      "revId": "d69ec7b4593c179a1e1ec4a023c8052c579484cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ddd1d92b_d37ab54f",
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Updated. I feel cleaner to just use IpSecTunnelTestRunnable",
       "parentUuid": "8418d456_d8226633",
+      "range": {
+        "startLine": 303,
+        "startChar": 16,
+        "endLine": 303,
+        "endChar": 19
+      },
+      "revId": "d69ec7b4593c179a1e1ec4a023c8052c579484cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cee04b77_be1ff9e4",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2024-02-29T23:52:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "912b2ecd_d213d663",
       "range": {
         "startLine": 303,
         "startChar": 16,
