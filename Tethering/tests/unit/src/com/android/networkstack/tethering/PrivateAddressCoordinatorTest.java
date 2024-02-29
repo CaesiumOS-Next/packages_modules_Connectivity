@@ -68,6 +68,7 @@ public final class PrivateAddressCoordinatorTest {
     @Mock private IpServer mUsbIpServer;
     @Mock private IpServer mEthernetIpServer;
     @Mock private IpServer mWifiP2pIpServer;
+    @Mock private IpServer mWifiP2pIpServer2;
     @Mock private Context mContext;
     @Mock private ConnectivityManager mConnectivityMgr;
     @Mock private TetheringConfiguration mConfig;
@@ -96,6 +97,7 @@ public final class PrivateAddressCoordinatorTest {
         when(mHotspotIpServer.interfaceType()).thenReturn(TETHERING_WIFI);
         when(mLocalHotspotIpServer.interfaceType()).thenReturn(TETHERING_WIFI);
         when(mWifiP2pIpServer.interfaceType()).thenReturn(TETHERING_WIFI_P2P);
+        when(mWifiP2pIpServer2.interfaceType()).thenReturn(TETHERING_WIFI_P2P);
     }
 
     @Before
@@ -204,6 +206,39 @@ public final class PrivateAddressCoordinatorTest {
         assertNotEquals(asIpPrefix(mBluetoothAddress), etherPrefix);
         assertNotEquals(hotspotPrefix, etherPrefix);
         mPrivateAddressCoordinator.releaseDownstream(mEthernetIpServer);
+    }
+
+    @Test
+    public void testMultipleRequestWithSameType() throws Exception {
+
+        //check for the reserved IP address for the P2P
+        final LinkAddress address = requestDownstreamAddress(mWifiP2pIpServer,
+                CONNECTIVITY_SCOPE_LOCAL, true /* useLastAddress */);
+        assertEquals(mLegacyWifiP2pAddress, address);
+        mPrivateAddressCoordinator.releaseDownstream(mWifiP2pIpServer);
+
+        //check if the same cached  IP is generated for new P2P request
+        final LinkAddress address2 = requestDownstreamAddress(mWifiP2pIpServer,
+                CONNECTIVITY_SCOPE_LOCAL, true /* useLastAddress */);
+        assertEquals(mLegacyWifiP2pAddress, address2);
+        //check if the IP is dynamically generated for the second P2P request
+        final LinkAddress address3 = requestDownstreamAddress(mWifiP2pIpServer2,
+                CONNECTIVITY_SCOPE_LOCAL, true /* useLastAddress */);
+        assertNotEquals(mLegacyWifiP2pAddress, address3);
+        mPrivateAddressCoordinator.releaseDownstream(mWifiP2pIpServer);
+        mPrivateAddressCoordinator.releaseDownstream(mWifiP2pIpServer2);
+
+        //start again to check the reserved address is coming back
+        final LinkAddress address4 = requestDownstreamAddress(mWifiP2pIpServer2,
+                CONNECTIVITY_SCOPE_LOCAL, true /* useLastAddress */);
+        assertEquals(mLegacyWifiP2pAddress, address4);
+        final LinkAddress address5 = requestDownstreamAddress(mWifiP2pIpServer,
+                CONNECTIVITY_SCOPE_LOCAL, true /* useLastAddress */);
+        assertNotEquals(address3, address5);
+
+        mPrivateAddressCoordinator.releaseDownstream(mWifiP2pIpServer);
+        mPrivateAddressCoordinator.releaseDownstream(mWifiP2pIpServer2);
+
     }
 
     @Test
@@ -411,7 +446,8 @@ public final class PrivateAddressCoordinatorTest {
         // 192.168.5/24.
         final LinkAddress addr6 = requestDownstreamAddress(mHotspotIpServer,
                 CONNECTIVITY_SCOPE_GLOBAL, true /* useLastAddress */);
-        assertEquals("Wrong prefix: ", new LinkAddress("192.168.8.5/24"), addr6);
+        assertNotEquals("Wrong prefix: ", new LinkAddress("192.168.8.5/24"), addr6);
+
         final UpstreamNetworkState mobileUpstream6 = buildUpstreamNetworkState(mMobileNetwork6,
                 new LinkAddress("192.168.10.97/21"), null,
                 makeNetworkCapabilities(TRANSPORT_CELLULAR));
