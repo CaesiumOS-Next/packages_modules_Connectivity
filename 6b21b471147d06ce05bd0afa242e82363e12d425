@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b098911b_1c7035e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 65
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-29T17:12:08Z",
+      "side": 1,
+      "message": "Follow up in b/327619631",
+      "parentUuid": "8d7548aa_5bcc4cd3",
+      "revId": "6b21b471147d06ce05bd0afa242e82363e12d425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8163017e_b837c195",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-02-28T09:37:59Z",
       "side": 1,
       "message": "We should get some end-to-end (CTS) test for this in NsdManagerTest.kt, but this requires having AdvertisingRequest API because of the jarjar rules.\n\nCould you handle that in another change ? I think the API in AdvertisingRequest shouldn\u0027t be hard to get approved",
+      "revId": "6b21b471147d06ce05bd0afa242e82363e12d425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ab8081c_c091274b",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 65
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-29T17:12:08Z",
+      "side": 1,
+      "message": "Follow up in b/327619631",
+      "parentUuid": "8163017e_b837c195",
       "revId": "6b21b471147d06ce05bd0afa242e82363e12d425",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a73b8b7f_85894e62",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 65
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-29T17:12:08Z",
+      "side": 1,
+      "message": "Follow up in b/327619631",
+      "parentUuid": "07da5212_47213e44",
+      "revId": "6b21b471147d06ce05bd0afa242e82363e12d425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69e47e0f_b8b8ddda",
@@ -69,6 +123,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a14aad85_d9b79e54",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 65
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-29T17:12:08Z",
+      "side": 1,
+      "message": "Follow up in b/327619631",
+      "parentUuid": "69e47e0f_b8b8ddda",
+      "revId": "6b21b471147d06ce05bd0afa242e82363e12d425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e689d977_ad1ec741",
@@ -82,6 +154,24 @@
       "writtenOn": "2024-02-28T09:37:59Z",
       "side": 1,
       "message": "There should be at least a test that verifies addService with a non-null TTL",
+      "revId": "6b21b471147d06ce05bd0afa242e82363e12d425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "590275db_4de41e0d",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 65
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-29T17:12:08Z",
+      "side": 1,
+      "message": "Follow up in b/327619631",
+      "parentUuid": "e689d977_ad1ec741",
       "revId": "6b21b471147d06ce05bd0afa242e82363e12d425",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
