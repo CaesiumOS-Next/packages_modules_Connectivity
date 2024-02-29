@@ -389,6 +389,15 @@ public final class TetheringServiceTest {
         result.assertResult(TETHER_ERROR_NO_ERROR);
     }
 
+    private void runStopTetheringRequest(final TetheringRequest request,
+            final TestTetheringResult result) throws Exception {
+        mTetheringConnector.stopTetheringRequest(request, TEST_CALLER_PKG,
+                TEST_ATTRIBUTION_TAG, result);
+        verify(mTethering).isTetheringSupported();
+        verify(mTethering).isTetheringAllowed();
+        verify(mTethering).stopTetheringRequest(request, result);
+    }
+
     @Test
     public void testStopTethering() throws Exception {
         runAsNoPermission((result) -> {
@@ -412,6 +421,39 @@ public final class TetheringServiceTest {
 
         runAsTetheringDisallowed((result) -> {
             mTetheringConnector.stopTethering(TETHERING_WIFI, TEST_CALLER_PKG,
+                    TEST_ATTRIBUTION_TAG, result);
+            verify(mTethering).isTetheringSupported();
+            verify(mTethering).isTetheringAllowed();
+            result.assertResult(TETHER_ERROR_UNSUPPORTED);
+            verifyNoMoreInteractionsForTethering();
+        });
+    }
+
+    @Test
+    public void testStopTetheringRequest() throws Exception {
+        final TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI).build();
+
+        runAsNoPermission((result) -> {
+            mTetheringConnector.stopTetheringRequest(request, TEST_CALLER_PKG,
+                    TEST_ATTRIBUTION_TAG, result);
+            verify(mTethering).isTetherProvisioningRequired();
+            result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+            verifyNoMoreInteractionsForTethering();
+        });
+
+        runAsTetherPrivileged((result) -> {
+            runStopTetheringRequest(request, result);
+            verifyNoMoreInteractionsForTethering();
+        });
+
+        runAsWriteSettings((result) -> {
+            runStopTetheringRequest(request, result);
+            verify(mTethering).isTetherProvisioningRequired();
+            verifyNoMoreInteractionsForTethering();
+        });
+
+        runAsTetheringDisallowed((result) -> {
+            mTetheringConnector.stopTetheringRequest(request, TEST_CALLER_PKG,
                     TEST_ATTRIBUTION_TAG, result);
             verify(mTethering).isTetheringSupported();
             verify(mTethering).isTetheringAllowed();
