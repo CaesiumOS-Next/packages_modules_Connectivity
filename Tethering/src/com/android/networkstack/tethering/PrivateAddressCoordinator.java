@@ -51,6 +51,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.Iterator;
 
 /**
  * This class coordinate IP addresses conflict problem.
@@ -78,7 +79,7 @@ public class PrivateAddressCoordinator {
     private final ConnectivityManager mConnectivityMgr;
     private final TetheringConfiguration mConfig;
     // keyed by downstream type(TetheringManager.TETHERING_*).
-    private final ArrayMap<AddressKey, LinkAddress> mCachedAddresses;
+    private final ArrayMap<AddressKey, List<LinkAddress>> mCachedAddresses;
     private final Random mRandom;
 
     public PrivateAddressCoordinator(Context context, TetheringConfiguration config) {
@@ -87,12 +88,12 @@ public class PrivateAddressCoordinator {
         mConnectivityMgr = (ConnectivityManager) context.getSystemService(
                 Context.CONNECTIVITY_SERVICE);
         mConfig = config;
-        mCachedAddresses = new ArrayMap<AddressKey, LinkAddress>();
+        mCachedAddresses = new ArrayMap<AddressKey, List<LinkAddress>>();
         // Reserved static addresses for bluetooth and wifi p2p.
         mCachedAddresses.put(new AddressKey(TETHERING_BLUETOOTH, CONNECTIVITY_SCOPE_GLOBAL),
-                new LinkAddress(LEGACY_BLUETOOTH_IFACE_ADDRESS));
+                new ArrayList<>(Arrays.asList(new LinkAddress(LEGACY_BLUETOOTH_IFACE_ADDRESS))));
         mCachedAddresses.put(new AddressKey(TETHERING_WIFI_P2P, CONNECTIVITY_SCOPE_LOCAL),
-                new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS));
+                new ArrayList<>(Arrays.asList(new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS))));
 
         mTetheringPrefixes = new ArrayList<>(Arrays.asList(new IpPrefix("192.168.0.0/16"),
             new IpPrefix("172.16.0.0/12"), new IpPrefix("10.0.0.0/8")));
@@ -173,20 +174,25 @@ public class PrivateAddressCoordinator {
     @Nullable
     public LinkAddress requestDownstreamAddress(final IpServer ipServer, final int scope,
             boolean useLastAddress) {
-        if (mConfig.shouldEnableWifiP2pDedicatedIp()
-                && ipServer.interfaceType() == TETHERING_WIFI_P2P) {
-            return new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS);
-        }
 
         final AddressKey addrKey = new AddressKey(ipServer.interfaceType(), scope);
         // This ensures that tethering isn't started on 2 different interfaces with the same type.
         // Once tethering could support multiple interface with the same type,
         // TetheringSoftApCallback would need to handle it among others.
-        final LinkAddress cachedAddress = mCachedAddresses.get(addrKey);
-        if (useLastAddress && cachedAddress != null
-                && !isConflictWithUpstream(asIpPrefix(cachedAddress))) {
-            mDownstreams.add(ipServer);
-            return cachedAddress;
+        final List<LinkAddress> cachedAddresses = mCachedAddresses.get(addrKey);
+        if (cachedAddresses != null) {
+            Iterator<LinkAddress> iterator = cachedAddresses.iterator();
+            while (iterator.hasNext()) {
+                LinkAddress cachedAddress = iterator.next();
+                if (useLastAddress && cachedAddress != null) {
+                       if (isConflictWithUpstream(asIpPrefix(cachedAddress))) {
+                        iterator.remove();
+                       } else if (!IsDownstreamInUse(asIpPrefix(cachedAddress))) {
+                            mDownstreams.add(ipServer);
+                            return cachedAddress;
+                       }
+                }
+            }
         }
 
         final int prefixIndex = getStartedPrefixIndex();
@@ -196,7 +202,7 @@ public class PrivateAddressCoordinator {
             final LinkAddress newAddress = chooseDownstreamAddress(prefixRange);
             if (newAddress != null) {
                 mDownstreams.add(ipServer);
-                mCachedAddresses.put(addrKey, newAddress);
+                mCachedAddresses.computeIfAbsent(addrKey, k -> new ArrayList<>()).add(newAddress);
                 return newAddress;
             }
         }
@@ -205,6 +211,13 @@ public class PrivateAddressCoordinator {
         return null;
     }
 
+    private boolean IsDownstreamInUse(final IpPrefix prefix) {
+        for (IpServer downstream : mDownstreams) {
+            final IpPrefix target = getDownstreamPrefix(downstream);
+            if (isConflictPrefix(prefix, target)) return true;
+        }
+        return false;
+    }
     private int getStartedPrefixIndex() {
         if (!mConfig.isRandomPrefixBaseEnabled()) return 0;
 
@@ -395,8 +408,11 @@ public class PrivateAddressCoordinator {
     // downstream addresses(reserved for next time) and static addresses(e.g. bluetooth, wifi p2p).
     private IpPrefix getInUseDownstreamPrefix(final IpPrefix prefix) {
         for (int i = 0; i < mCachedAddresses.size(); i++) {
-            final IpPrefix downstream = asIpPrefix(mCachedAddresses.valueAt(i));
-            if (isConflictPrefix(prefix, downstream)) return downstream;
+            for (LinkAddress cachedAddress : mCachedAddresses.valueAt(i)) {
+                final IpPrefix downstream = asIpPrefix(cachedAddress);
+                if (isConflictPrefix(prefix, downstream))
+                    return downstream;
+            }
         }
 
         // IpServer may use manually-defined address (mStaticIpv4ServerAddr) which does not include
@@ -435,7 +451,6 @@ public class PrivateAddressCoordinator {
         public boolean equals(@Nullable Object obj) {
             if (!(obj instanceof AddressKey)) return false;
             final AddressKey other = (AddressKey) obj;
-
             return mTetheringType == other.mTetheringType && mScope == other.mScope;
         }
 
