@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4241b791_9f9606da",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1912,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-29T03:32:07Z",
+      "side": 1,
+      "message": "We often had problems with listeners asking for all networks vs. listeners asking for a specific network: it would probably be useful to have a listener for \"all\" networks too ?",
+      "range": {
+        "startLine": 1912,
+        "startChar": 16,
+        "endLine": 1912,
+        "endChar": 36
+      },
+      "revId": "b9799ba1ecf6b18352441a55db16fc89e068f83d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88c64e7c_8445921e",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1928,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-29T03:32:07Z",
+      "side": 1,
+      "message": "But then the test shouldn\u0027t run at all ? Did you actually observe that ?",
+      "revId": "b9799ba1ecf6b18352441a55db16fc89e068f83d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba13f47e_4d001fd5",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1965,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-29T03:32:07Z",
+      "side": 1,
+      "message": "This looks a bit strange, if the input is:\n\n```\nSomeText\n   ServiceTypeClient: STC1Data\n   ServiceTypeClient: STC2Data\nMoreText\n```\n\nThen would output contain this ?\n\n```\n0: SomeText\\n\n1: STC1Data\n2: STC2Data\\nMoreText\n```\n\nIf yes that\u0027s a bit hard to work with (and the loop below wouldn\u0027t work well with the first entry).\n\nMaybe you could split lines like NetworkAgentTest: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/cts/net/src/android/net/cts/NetworkAgentTest.kt;drc\u003d2ee2498b083590c25cc7772f3e282da58be27e2e;l\u003d765\n\nFor example:\n\n```\nrunShellCommand(command).split(\"\\n\").mapNotNull { line -\u003e\n    line.indexOf(\"ServiceTypeClient:\").let { idx -\u003e\n        if (idx \u003d\u003d -1) null\n        else line.substring(idx)\n    }\n}\n```",
+      "range": {
+        "startLine": 1965,
+        "startChar": 25,
+        "endLine": 1965,
+        "endChar": 30
+      },
+      "revId": "b9799ba1ecf6b18352441a55db16fc89e068f83d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dac331d_98e4b7ff",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1967,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-02-29T03:32:07Z",
+      "side": 1,
+      "message": "Nit: it would be helpful to have a comment here with sample output",
+      "revId": "b9799ba1ecf6b18352441a55db16fc89e068f83d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
