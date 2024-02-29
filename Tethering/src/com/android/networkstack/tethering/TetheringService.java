@@ -161,6 +161,16 @@ public class TetheringService extends Service {
         }
 
         @Override
+        public void stopTetheringRequest(TetheringRequest request,
+                String callerPkg, String callingAttributionTag,
+                IIntResultListener listener) {
+            if (checkAndNotifyCommonError(callerPkg, callingAttributionTag, listener)) return;
+            request.setUid(getBinderCallingUid());
+            request.setPackageName(callerPkg);
+            mTethering.stopTetheringRequest(request, listener);
+        }
+
+        @Override
         public void requestLatestTetheringEntitlementResult(int type, ResultReceiver receiver,
                 boolean showEntitlementUi, String callerPkg, String callingAttributionTag) {
             IIntResultListener listener = new IIntResultListener() {
