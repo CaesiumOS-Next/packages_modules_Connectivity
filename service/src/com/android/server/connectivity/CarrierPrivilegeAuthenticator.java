@@ -99,13 +99,13 @@ public class CarrierPrivilegeAuthenticator {
         mUseCallbacksForServiceChanged = deps.isFeatureEnabled(
                 c, CARRIER_SERVICE_CHANGED_USE_CALLBACK);
         mRequestRestrictedWifiEnabled = requestRestrictedWifiEnabled;
-        if (requestRestrictedWifiEnabled) {
-            mHandler = connectivityServiceHandler;
-        } else {
+//        if (requestRestrictedWifiEnabled) {
+//            mHandler = connectivityServiceHandler;
+//        } else {
             final HandlerThread thread = deps.makeHandlerThread();
             thread.start();
             mHandler = new Handler(thread.getLooper());
-        }
+//        }
         mListener = listener;
         final IntentFilter filter = new IntentFilter();
         filter.addAction(TelephonyManager.ACTION_MULTI_SIM_CONFIG_CHANGED);
