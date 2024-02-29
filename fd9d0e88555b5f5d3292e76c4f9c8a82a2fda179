@@ -22,6 +22,30 @@
       },
       "revId": "fd9d0e88555b5f5d3292e76c4f9c8a82a2fda179",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b989c725_3313af19",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2799,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2024-02-29T18:19:59Z",
+      "side": 0,
+      "message": "I don\u0027t follow your comments. which line or check did you refer to? This comment is associated with the line \"newNc.setSubscriptionIds(Collections.emptySet());\" which has been removed, so I assume that you referred to a different check? I checked aosp/1652974, and tried to make some guess, are you suggesting that, we need to update the line \"enforceNetworkFactoryPermission();\" in function ensureSufficientPermissionsForRequest into something below?\n\n\n if (nc.getOwnerUid() \u003d\u003d callerUid) {\n     return;\n }\n enforceNetworkFactoryPermission();",
+      "parentUuid": "61cc19df_2cd53762",
+      "range": {
+        "startLine": 2799,
+        "startChar": 0,
+        "endLine": 2799,
+        "endChar": 61
+      },
+      "revId": "fd9d0e88555b5f5d3292e76c4f9c8a82a2fda179",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
