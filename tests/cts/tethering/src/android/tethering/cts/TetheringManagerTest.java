@@ -98,7 +98,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
@@ -456,15 +455,78 @@ public class TetheringManagerTest {
     }
 
     @Test
-    public void testStopTetheringRequest() throws Exception {
-        TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI).build();
-        Executor executor = Runnable::run;
-        TetheringManager.StopTetheringCallback callback =
-                new TetheringManager.StopTetheringCallback() {};
+    public void testStopTetheringRequestNoMatchFailure() throws Exception {
+        final TestTetheringEventCallback tetherEventCallback =
+                mCtsTetheringUtils.registerTetheringEventCallback();
         try {
-            mTM.stopTethering(request, executor, callback);
-            fail("stopTethering should throw UnsupportedOperationException");
-        } catch (UnsupportedOperationException expect) { }
+            tetherEventCallback.assumeWifiTetheringSupported(mContext);
+
+            SoftApConfiguration softApConfig = new SoftApConfiguration.Builder()
+                    .setWifiSsid(WifiSsid.fromBytes("This is one config"
+                            .getBytes(StandardCharsets.UTF_8))).build();
+            mCtsTetheringUtils.startWifiTethering(tetherEventCallback, softApConfig);
+
+            // Stopping a non-matching request should have no effect
+            TetheringRequest nonMatchingRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                    .setSoftApConfiguration(new SoftApConfiguration.Builder()
+                            .setWifiSsid(WifiSsid.fromBytes("This is a different config"
+                                    .getBytes(StandardCharsets.UTF_8))).build())
+                    .build();
+            mCtsTetheringUtils.stopTethering(nonMatchingRequest, false /* success */);
+        } finally {
+            mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
+        }
+    }
+
+    @Test
+    public void testStopTetheringRequestMatchSuccess() throws Exception {
+        final TestTetheringEventCallback tetherEventCallback =
+                mCtsTetheringUtils.registerTetheringEventCallback();
+        try {
+            tetherEventCallback.assumeWifiTetheringSupported(mContext);
+
+            SoftApConfiguration softApConfig = new SoftApConfiguration.Builder()
+                    .setWifiSsid(WifiSsid.fromBytes("This is one config"
+                            .getBytes(StandardCharsets.UTF_8))).build();
+            mCtsTetheringUtils.startWifiTethering(tetherEventCallback, softApConfig);
+
+            // Stopping the active request should stop tethering.
+            TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI)
+                    .setSoftApConfiguration(softApConfig)
+                    .build();
+            mCtsTetheringUtils.stopTethering(request, true /* success */);
+            tetherEventCallback.expectNoTetheringActive();
+        } finally {
+            mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
+        }
+    }
+
+    @Test
+    public void testStopTetheringRequestFuzzyMatchSuccess() throws Exception {
+        final TestTetheringEventCallback tetherEventCallback =
+                mCtsTetheringUtils.registerTetheringEventCallback();
+        try {
+            tetherEventCallback.assumeWifiTetheringSupported(mContext);
+
+            SoftApConfiguration softApConfig = new SoftApConfiguration.Builder()
+                    .setWifiSsid(WifiSsid.fromBytes("This is one config"
+                            .getBytes(StandardCharsets.UTF_8))).build();
+            mCtsTetheringUtils.startWifiTethering(tetherEventCallback, softApConfig);
+
+            // Stopping with a fuzzy matching request should stop tethering.
+            final LinkAddress localAddr = new LinkAddress("192.168.24.5/24");
+            final LinkAddress clientAddr = new LinkAddress("192.168.24.100/24");
+            TetheringRequest fuzzyMatchingRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                    .setSoftApConfiguration(softApConfig)
+                    .setShouldShowEntitlementUi(true)
+                    .setExemptFromEntitlementCheck(true)
+                    .setStaticIpv4Addresses(localAddr, clientAddr)
+                    .build();
+            mCtsTetheringUtils.stopTethering(fuzzyMatchingRequest, true /* success */);
+            tetherEventCallback.expectNoTetheringActive();
+        } finally {
+            mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
+        }
     }
 
     private boolean isTetheringWithSoftApConfigEnabled() {
