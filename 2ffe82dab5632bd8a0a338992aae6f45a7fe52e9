@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e56ec2d3_941598dc",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 93
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-29T17:12:25Z",
+      "side": 1,
+      "message": "Follow up in b/327619631",
+      "parentUuid": "e80f2153_171cc373",
+      "revId": "2ffe82dab5632bd8a0a338992aae6f45a7fe52e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad07d377_99a4a5a5",
@@ -48,6 +66,30 @@
       "writtenOn": "2024-02-28T09:10:37Z",
       "side": 1,
       "message": "Nit: -1L",
+      "range": {
+        "startLine": 166,
+        "startChar": 39,
+        "endLine": 166,
+        "endChar": 40
+      },
+      "revId": "2ffe82dab5632bd8a0a338992aae6f45a7fe52e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4f87228_e88729f9",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 93
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-29T17:12:25Z",
+      "side": 1,
+      "message": "Follow up in b/327619631",
+      "parentUuid": "ad07d377_99a4a5a5",
       "range": {
         "startLine": 166,
         "startChar": 39,
@@ -81,6 +123,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28cb8d3c_6d1a7291",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 93
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-29T17:12:25Z",
+      "side": 1,
+      "message": "Follow up in b/327619631",
+      "parentUuid": "171121c1_d4b5d19f",
+      "range": {
+        "startLine": 210,
+        "startChar": 17,
+        "endLine": 210,
+        "endChar": 62
+      },
+      "revId": "2ffe82dab5632bd8a0a338992aae6f45a7fe52e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d36c91e4_343a50fb",
@@ -94,6 +160,30 @@
       "writtenOn": "2024-02-28T09:10:37Z",
       "side": 1,
       "message": "Nit: some ?\n\n(probably more like \"The timestamp at which some of the resource records [...] will be considered invalid\")",
+      "range": {
+        "startLine": 78,
+        "startChar": 26,
+        "endLine": 78,
+        "endChar": 29
+      },
+      "revId": "2ffe82dab5632bd8a0a338992aae6f45a7fe52e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bec36b49_19d0a165",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 93
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-29T17:12:25Z",
+      "side": 1,
+      "message": "Follow up in b/327619631",
+      "parentUuid": "d36c91e4_343a50fb",
       "range": {
         "startLine": 78,
         "startChar": 26,
@@ -121,6 +211,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c37f07c_f6ca89c0",
+        "filename": "tests/unit/java/android/net/nsd/AdvertisingRequestTest.kt",
+        "patchSetId": 93
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-29T17:12:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e8ff175_a789a0c6",
+      "revId": "2ffe82dab5632bd8a0a338992aae6f45a7fe52e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf19ed8c_7cd68a79",
@@ -134,6 +242,24 @@
       "writtenOn": "2024-02-28T09:10:37Z",
       "side": 1,
       "message": "Nit: since there isn\u0027t really assertions specific to TTL here, you could just call the test \"testRegisterServiceWithAdvertisingRequest\" or similar",
+      "revId": "2ffe82dab5632bd8a0a338992aae6f45a7fe52e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0bb4bca_3cb77fec",
+        "filename": "tests/unit/java/android/net/nsd/NsdManagerTest.java",
+        "patchSetId": 93
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-02-29T17:12:25Z",
+      "side": 1,
+      "message": "Follow up in b/327619631",
+      "parentUuid": "bf19ed8c_7cd68a79",
       "revId": "2ffe82dab5632bd8a0a338992aae6f45a7fe52e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
