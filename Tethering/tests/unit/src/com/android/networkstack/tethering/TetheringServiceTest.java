@@ -21,6 +21,7 @@ import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
 import static android.Manifest.permission.WRITE_SETTINGS;
 import static android.content.pm.PackageManager.PERMISSION_DENIED;
+import static android.net.TetheringManager.TETHERING_ETHERNET;
 import static android.net.TetheringManager.TETHERING_VIRTUAL;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ACCESS_TETHERING_PERMISSION;
@@ -54,6 +55,7 @@ import android.net.TetheringManager;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.TetheringRequestParcel;
 import android.net.ip.IpServer;
+import android.net.wifi.SoftApConfiguration;
 import android.os.Bundle;
 import android.os.ConditionVariable;
 import android.os.Handler;
@@ -401,24 +403,6 @@ public final class TetheringServiceTest {
             verifyNoMoreInteractionsForTethering();
         });
 
-        runAsDeviceOwner((result) -> {
-            mTetheringConnector.startTethering(request, TEST_WRONG_PACKAGE,
-                    TEST_ATTRIBUTION_TAG, result);
-            verify(mTethering, never()).startTethering(
-                    eq(new TetheringRequest(request)), eq(TEST_WRONG_PACKAGE), eq(result));
-            result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
-            verifyNoMoreInteractionsForTethering();
-        });
-
-        runAsCarrierPrivileges((result) -> {
-            mTetheringConnector.startTethering(request, TEST_WRONG_PACKAGE,
-                    TEST_ATTRIBUTION_TAG, result);
-            verify(mTethering, never()).startTethering(
-                    eq(new TetheringRequest(request)), eq(TEST_WRONG_PACKAGE), eq(result));
-            result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
-            verifyNoMoreInteractionsForTethering();
-        });
-
         runAsTetherPrivileged((result) -> {
             mTetheringConnector.startTethering(request, TEST_WRONG_PACKAGE,
                     TEST_ATTRIBUTION_TAG, result);
@@ -454,6 +438,82 @@ public final class TetheringServiceTest {
             verify(mTethering).isTetheringSupported();
             verify(mTethering).isTetheringAllowed();
             result.assertResult(TETHER_ERROR_UNSUPPORTED);
+            verifyNoMoreInteractionsForTethering();
+        });
+    }
+
+    @Test
+    public void testStartTetheringAsDeviceOwner() throws Exception {
+        // on-Wifi -> FAIL
+        final TetheringRequestParcel ethernetRequest = new TetheringRequestParcel();
+        ethernetRequest.tetheringType = TETHERING_ETHERNET;
+        runAsDeviceOwner((result) -> {
+            mTetheringConnector.startTethering(ethernetRequest, TEST_WRONG_PACKAGE,
+                    TEST_ATTRIBUTION_TAG, result);
+            verify(mTethering, never()).startTethering(
+                    eq(new TetheringRequest(ethernetRequest)), eq(TEST_WRONG_PACKAGE),
+                    eq(result));
+            result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+            verifyNoMoreInteractionsForTethering();
+        });
+
+        // Wifi without SoftApConfiguration -> FAIL
+        final TetheringRequestParcel wifiRequestWithoutConfig = new TetheringRequestParcel();
+        wifiRequestWithoutConfig.tetheringType = TETHERING_WIFI;
+        runAsDeviceOwner((result) -> {
+            mTetheringConnector.startTethering(wifiRequestWithoutConfig, TEST_WRONG_PACKAGE,
+                    TEST_ATTRIBUTION_TAG, result);
+            verify(mTethering, never()).startTethering(
+                    eq(new TetheringRequest(wifiRequestWithoutConfig)), eq(TEST_WRONG_PACKAGE),
+                    eq(result));
+            result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+            verifyNoMoreInteractionsForTethering();
+        });
+
+        // Wifi with SoftApConfiguration -> SUCCESS
+        final TetheringRequestParcel wifiRequestWithConfig = new TetheringRequestParcel();
+        wifiRequestWithConfig.tetheringType = TETHERING_WIFI;
+        wifiRequestWithConfig.softApConfig = new SoftApConfiguration.Builder().build();
+        runAsDeviceOwner((result) -> {
+            runStartTethering(result, wifiRequestWithConfig);
+            verifyNoMoreInteractionsForTethering();
+        });
+    }
+
+    @Test
+    public void testStartTetheringWithCarrierPrivileges() throws Exception {
+        // on-Wifi -> FAIL
+        final TetheringRequestParcel ethernetRequest = new TetheringRequestParcel();
+        ethernetRequest.tetheringType = TETHERING_ETHERNET;
+        runAsCarrierPrivileges((result) -> {
+            mTetheringConnector.startTethering(ethernetRequest, TEST_WRONG_PACKAGE,
+                    TEST_ATTRIBUTION_TAG, result);
+            verify(mTethering, never()).startTethering(
+                    eq(new TetheringRequest(ethernetRequest)), eq(TEST_WRONG_PACKAGE),
+                    eq(result));
+            result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+            verifyNoMoreInteractionsForTethering();
+        });
+
+        // Wifi without SoftApConfiguration -> FAIL
+        final TetheringRequestParcel wifiRequestWithoutConfig = new TetheringRequestParcel();
+        wifiRequestWithoutConfig.tetheringType = TETHERING_WIFI;
+        runAsCarrierPrivileges((result) -> {
+            mTetheringConnector.startTethering(wifiRequestWithoutConfig, TEST_WRONG_PACKAGE,
+                    TEST_ATTRIBUTION_TAG, result);
+            verify(mTethering, never()).startTethering(
+                    eq(new TetheringRequest(wifiRequestWithoutConfig)), eq(TEST_WRONG_PACKAGE),
+                    eq(result));
+            result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+            verifyNoMoreInteractionsForTethering();
+        });
+
+        // Wifi with SoftApConfiguration -> SUCCESS
+        final TetheringRequestParcel wifiRequestWithConfig = new TetheringRequestParcel();
+        wifiRequestWithConfig.tetheringType = TETHERING_WIFI;
+        wifiRequestWithConfig.softApConfig = new SoftApConfiguration.Builder().build();
+        runAsCarrierPrivileges((result) -> {
+            runStartTethering(result, wifiRequestWithConfig);
             verifyNoMoreInteractionsForTethering();
         });
     }
@@ -523,6 +583,15 @@ public final class TetheringServiceTest {
         result.assertResult(TETHER_ERROR_NO_ERROR);
     }
 
+    private void runStopTetheringRequest(final TetheringRequest request,
+            final TestTetheringResult result) throws Exception {
+        mTetheringConnector.stopTetheringRequest(request, TEST_CALLER_PKG,
+                TEST_ATTRIBUTION_TAG, result);
+        verify(mTethering).isTetheringSupported();
+        verify(mTethering).isTetheringAllowed();
+        verify(mTethering).stopTetheringRequest(request, result);
+    }
+
     @Test
     public void testStopTethering() throws Exception {
         runAsNoPermission((result) -> {
@@ -555,6 +624,49 @@ public final class TetheringServiceTest {
 
         runAsTetheringDisallowed((result) -> {
             mTetheringConnector.stopTethering(TETHERING_WIFI, TEST_CALLER_PKG,
+                    TEST_ATTRIBUTION_TAG, result);
+            verify(mTethering).isTetheringSupported();
+            verify(mTethering).isTetheringAllowed();
+            result.assertResult(TETHER_ERROR_UNSUPPORTED);
+            verifyNoMoreInteractionsForTethering();
+        });
+    }
+
+    @Test
+    public void testStopTetheringRequest() throws Exception {
+        final TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI).build();
+
+        runAsNoPermission((result) -> {
+            mTetheringConnector.stopTetheringRequest(request, TEST_CALLER_PKG,
+                    TEST_ATTRIBUTION_TAG, result);
+            verify(mTethering).isTetherProvisioningRequired();
+            result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+            verifyNoMoreInteractionsForTethering();
+        });
+
+        runAsDeviceOwner((result) -> {
+            runStopTetheringRequest(request, result);
+            verifyNoMoreInteractionsForTethering();
+        });
+
+        runAsCarrierPrivileges((result) -> {
+            runStopTetheringRequest(request, result);
+            verifyNoMoreInteractionsForTethering();
+        });
+
+        runAsTetherPrivileged((result) -> {
+            runStopTetheringRequest(request, result);
+            verifyNoMoreInteractionsForTethering();
+        });
+
+        runAsWriteSettings((result) -> {
+            runStopTetheringRequest(request, result);
+            verify(mTethering).isTetherProvisioningRequired();
+            verifyNoMoreInteractionsForTethering();
+        });
+
+        runAsTetheringDisallowed((result) -> {
+            mTetheringConnector.stopTetheringRequest(request, TEST_CALLER_PKG,
                     TEST_ATTRIBUTION_TAG, result);
             verify(mTethering).isTetheringSupported();
             verify(mTethering).isTetheringAllowed();
