@@ -50,6 +50,7 @@ import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_SERVICE_UNAVAIL;
 import static android.net.TetheringManager.TETHER_ERROR_UNAVAIL_IFACE;
 import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_IFACE;
+import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_REQUEST;
 import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_TYPE;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_FAILED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STARTED;
@@ -762,6 +763,26 @@ public class Tethering {
 
                 stopTetheringInternal(request);
             }
+        });
+    }
+
+    void stopTetheringRequest(TetheringRequest request, final IIntResultListener listener) {
+        mHandler.post(() -> {
+            for (TetheringRequest existingRequest : getAllTetheringRequests()) {
+                if (!existingRequest.fuzzyMatches(request)) continue;
+
+                // Request matches the active request, stop tethering.
+                stopTetheringInternal(existingRequest);
+                try {
+                    listener.onResult(TETHER_ERROR_NO_ERROR);
+                } catch (RemoteException ignored) { }
+                return;
+            }
+
+            // Request doesn't match any active requests, ignore.
+            try {
+                listener.onResult(TETHER_ERROR_UNKNOWN_REQUEST);
+            } catch (RemoteException ignored) { }
         });
     }
 
