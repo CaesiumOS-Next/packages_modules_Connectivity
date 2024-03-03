@@ -39,6 +39,24 @@
       "message": "Same as above, don\u0027t use member variable naming for local vars.",
       "revId": "555b754a9f9b83d0b427856c9c7a3017f1937119",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba18f6cb_cdb3955d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 3309520
+      },
+      "writtenOn": "2024-03-03T19:02:29Z",
+      "side": 1,
+      "message": "Done\n```suggestion\n            for (LinkAddress mLinkedAddress : mCachedAddresses.valueAt(i)) {\n```",
+      "parentUuid": "33ab3d42_04b1177a",
+      "revId": "555b754a9f9b83d0b427856c9c7a3017f1937119",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
