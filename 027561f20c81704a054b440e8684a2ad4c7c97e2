@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a46136ef_48e7fccd",
+        "filename": "tests/unit/java/com/android/metrics/ConnectivitySampleMetricsTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-04T06:07:51Z",
+      "side": 1,
+      "message": "Nit: since `i` is unused, `repeat(requestCount)` is a bit easier to read",
+      "revId": "027561f20c81704a054b440e8684a2ad4c7c97e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "663f9835_153d1004",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-04T06:07:51Z",
+      "side": 1,
+      "message": "I don\u0027t understand why mocking getSystemService(APP_OPS_SERVICE) is necessary for this change: can you explain it in the commit message ?",
+      "revId": "027561f20c81704a054b440e8684a2ad4c7c97e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
