@@ -1,5 +1,52 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52badec0_6224f6e5",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-04T08:45:29Z",
+      "side": 1,
+      "message": "This may only start returning true after the V SDK is finalized. Have you checked what this does on current trunkfood devices?",
+      "range": {
+        "startLine": 187,
+        "startChar": 29,
+        "endLine": 187,
+        "endChar": 66
+      },
+      "revId": "041be52b0831a9bacf3d8ba23b4fcdb7495a5497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a71a4dfa_28a137eb",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-04T08:45:29Z",
+      "side": 1,
+      "message": "Nit: %b",
+      "range": {
+        "startLine": 189,
+        "startChar": 51,
+        "endLine": 189,
+        "endChar": 53
+      },
+      "revId": "041be52b0831a9bacf3d8ba23b4fcdb7495a5497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
