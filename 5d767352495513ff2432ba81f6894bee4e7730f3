@@ -22,6 +22,30 @@
       },
       "revId": "5d767352495513ff2432ba81f6894bee4e7730f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f36341e0_b5196389",
+        "filename": "nearby/tests/unit/src/com/android/server/nearby/managers/BluetoothFinderManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2027455
+      },
+      "writtenOn": "2024-03-04T18:16:46Z",
+      "side": 1,
+      "message": "The @RequiresApi is because we are using android.os.ServiceManager#waitForDeclaredService, which required API level 33.\nChecking that SdkLevel is at least V is an optimization, so we won\u0027t try to connect to a service that is not there.\n\nWe could set @RequiredApi to VANILLA_ICE_CREAM, but it will make no difference and it will prevent the auto merge to udc-mainline-prod.",
+      "parentUuid": "7e9ad745_143c7177",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 42
+      },
+      "revId": "5d767352495513ff2432ba81f6894bee4e7730f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
