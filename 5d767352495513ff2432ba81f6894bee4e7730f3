@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e9ad745_143c7177",
+        "filename": "nearby/tests/unit/src/com/android/server/nearby/managers/BluetoothFinderManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1900995
+      },
+      "writtenOn": "2024-03-04T17:58:59Z",
+      "side": 1,
+      "message": "What is the difference between this and `@RequiresApi` annotation in front of the class?",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 42
+      },
+      "revId": "5d767352495513ff2432ba81f6894bee4e7730f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
