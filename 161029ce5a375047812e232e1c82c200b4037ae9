@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19b3b2ab_f12edbfd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-04T07:28:07Z",
+      "side": 1,
+      "message": "LGTM only nits.",
+      "revId": "161029ce5a375047812e232e1c82c200b4037ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e66464f_f818f663",
@@ -82,6 +99,29 @@
         "startChar": 45,
         "endLine": 435,
         "endChar": 57
+      },
+      "revId": "161029ce5a375047812e232e1c82c200b4037ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef04c3ba_92efa19f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2546,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-04T07:28:07Z",
+      "side": 1,
+      "message": "Nit: Active clients?",
+      "range": {
+        "startLine": 2546,
+        "startChar": 20,
+        "endLine": 2546,
+        "endChar": 27
       },
       "revId": "161029ce5a375047812e232e1c82c200b4037ae9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
