@@ -134,6 +134,8 @@ public final class NetworkCapabilities implements Parcelable {
                 "com.android.net.flags.request_restricted_wifi";
         static final String SUPPORT_TRANSPORT_SATELLITE =
                 "com.android.net.flags.support_transport_satellite";
+        static final String HAS_ANY_CAPABILITY_API =
+                "com.android.net.flags.has_any_capability_api";
     }
 
     /**
