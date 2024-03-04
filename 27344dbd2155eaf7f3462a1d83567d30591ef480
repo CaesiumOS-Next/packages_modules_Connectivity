@@ -16,6 +16,24 @@
       "message": "I\u0027m not sure this change is necessary given that there\u0027s also aosp/2983560: from go/agame Branch merge paths, `android13-tests-dev (full)` automerges to `android14-tests-dev (full)`",
       "revId": "27344dbd2155eaf7f3462a1d83567d30591ef480",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "716d766f_2ca0cba0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-04T06:35:12Z",
+      "side": 1,
+      "message": "I was not sure if automerger will do that since I could not see android14-tests-dev when I clicked \"automerger\" link in aosp/2983560.\nI will first merge aosp/2983560 and see if auto-merger will merge to android14-tests-dev",
+      "parentUuid": "aced13b1_84914b58",
+      "revId": "27344dbd2155eaf7f3462a1d83567d30591ef480",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
