@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5adfb7df_7e8f4007",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-04T06:12:51Z",
+      "side": 1,
+      "message": "LGTM but Lorenzo should also +1 for CTS change",
+      "revId": "1f1357b0ef4e53091e2649aeac73303ec0c23c07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
