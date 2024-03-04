@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85839ad5_1caf8423",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-04T06:11:39Z",
+      "side": 1,
+      "message": "LGTM as cherry-pick of aosp/2969479",
+      "revId": "ca2aded8073111167e0654f8c87b0b4cf3a9d3f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
