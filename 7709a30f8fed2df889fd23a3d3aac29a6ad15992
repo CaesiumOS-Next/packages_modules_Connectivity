@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35491a33_59d135a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-04T02:37:06Z",
+      "side": 1,
+      "message": "The static initialization optimization LGTM but I\u0027m not sure about having a new API for optimizing inferRestrictedCapability (and that would require CTS tests)",
+      "revId": "7709a30f8fed2df889fd23a3d3aac29a6ad15992",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47398519_eb286ee2",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1074,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-04T02:37:06Z",
+      "side": 1,
+      "message": "This seems a bit separate from the optimization around packBitList; should this be in another change ?\n\nWhat kind of use-case is there for this API ?\n\nThis is only module API but one disadvantage is that it is difficult to keep backwards compatibility for users calling hasAnyCapability(-1) with newer capabilities being possibly added in newer Android versions.\n\n(if we do add a new API it also needs CTS tests)",
+      "revId": "7709a30f8fed2df889fd23a3d3aac29a6ad15992",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b16fe486_26df7e6d",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-04T02:37:06Z",
+      "side": 1,
+      "message": "I guess this method is why the new API was needed,\n\nit seems this is only called when building a NetworkRequest (NetworkRequest.java), or when cellular capabilities changed (DataNetwork.java), which shouldn\u0027t happen often. So adding a new API just for that may be a bit too much ?\n\nI\u0027m not sure what is costly in unpackBits; it should be very fast, maybe it\u0027s the new array allocation ? If we want to optimize that, maybe having some forEachBit(bitmask, lambda) util could make it cheaper ?",
+      "revId": "7709a30f8fed2df889fd23a3d3aac29a6ad15992",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
