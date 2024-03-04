@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2955ecd9_4a1a62da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-04T06:19:32Z",
+      "side": 1,
+      "message": "in what way is this a security improvement? Apps can\u0027t apply a transform if they don\u0027t have the internet permission, can they? Applying a transform requires a socket to apply it to, and apps that don\u0027t have the internet permission can\u0027t create sockets.",
+      "revId": "28d613d672e84c9584a5d2a5b3c53595f3f4c449",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
