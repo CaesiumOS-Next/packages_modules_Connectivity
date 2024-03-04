@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69ddab0b_d0b34bea",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2024-03-04T10:44:46Z",
+      "side": 1,
+      "message": "Seems I can\u0027t call this from here?\n```\n\"out/soong/.intermediates/packages/modules/Connectivity/staticlibs/net-utils-framework-common/android_common/javac/classes\"\npackages/modules/Connectivity/staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java:159: error: cannot find symbol\n        long capabilities \u003d nc.getCapabilitiesInternal();\n                              ^\n  symbol:   method getCapabilitiesInternal()\n  location: variable nc of type NetworkCapabilities\npackages/modules/Connectivity/staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java:161: error: bad operand types for binary operator \u0027\u0026\u0027\n        if (capabilities \u0026 FORCE_RESTRICTED_CAPABILITIES !\u003d 0) {\n                         ^\n  first type:  long\n  second type: boolean\npackages/modules/Connectivity/staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java:167: error: bad operand types for binary operator \u0027\u0026\u0027\n        if (capabilities \u0026 UNRESTRICTED_CAPABILITIES !\u003d 0) {\n                         ^\n  first type:  long\n  second type: boolean\npackages/modules/Connectivity/staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java:172: error: bad operand types for binary operator \u0027\u0026\u0027\n        if (capabilities \u0026 RESTRICTED_CAPABILITIES !\u003d 0) {\n                         ^\n  first type:  long\n  second type: boolean\n4 errors\n```",
+      "revId": "605b251d033cdc1b318a036fb41768fcf4eab740",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
