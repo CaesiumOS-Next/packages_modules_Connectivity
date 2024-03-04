@@ -16,6 +16,23 @@
       "message": "LGTM but Lorenzo should also +1 for CTS change",
       "revId": "1f1357b0ef4e53091e2649aeac73303ec0c23c07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0e60138_adcde5b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-04T06:23:03Z",
+      "side": 1,
+      "message": "LGTM. Is there a reason to keep CtsTetheringTestLatestSdk? Do we still need it?",
+      "revId": "1f1357b0ef4e53091e2649aeac73303ec0c23c07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
