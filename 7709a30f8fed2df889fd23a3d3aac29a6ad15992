@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4be068f2_dda78a94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2024-03-04T13:36:56Z",
+      "side": 1,
+      "message": "I took this as a go-ahead to apply the same change to the other similar static initializers. PTAL.",
+      "parentUuid": "35491a33_59d135a7",
+      "revId": "7709a30f8fed2df889fd23a3d3aac29a6ad15992",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "47398519_eb286ee2",
         "filename": "framework/src/android/net/NetworkCapabilities.java",
         "patchSetId": 8
