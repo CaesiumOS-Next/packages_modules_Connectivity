@@ -22,6 +22,30 @@
       },
       "revId": "0ea00dd7c8aea5be99da8a7c434e45baff7b4949",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5fb393c_577a5db8",
+        "filename": "nearby/flags/nearby_flags.aconfig",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2027455
+      },
+      "writtenOn": "2024-03-04T18:19:51Z",
+      "side": 1,
+      "message": "Why is it different than packages/modules/Connectivity/common/flags.aconfig and packages/modules/Connectivity/common/thread_flags.aconfig, both having \"system\" container?",
+      "parentUuid": "78cefe3b_eed00695",
+      "range": {
+        "startLine": 2,
+        "startChar": 12,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "0ea00dd7c8aea5be99da8a7c434e45baff7b4949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
