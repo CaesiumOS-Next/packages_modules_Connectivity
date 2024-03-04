@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78cefe3b_eed00695",
+        "filename": "nearby/flags/nearby_flags.aconfig",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1944425
+      },
+      "writtenOn": "2024-03-04T17:30:55Z",
+      "side": 1,
+      "message": "So this flag is defined and belongs to the mainline module Connectivity right? If so the container shouldn\u0027t be `system`, but should be the module",
+      "range": {
+        "startLine": 2,
+        "startChar": 12,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "0ea00dd7c8aea5be99da8a7c434e45baff7b4949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
