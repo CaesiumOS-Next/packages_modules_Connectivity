@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91ae9c7d_55f536f6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2396,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-03-04T02:48:36Z",
+      "side": 1,
+      "message": "If the caller uses TetheringManager#registerTetheringEventCallback, the ITetheringEventCallback shouldn\u0027t be null. The only explanation I can think of is that the caller is using reflection to call ITetheringConnector#registerTetheringEventCallback directly. Having null protection seems like a good idea, but ITetheringConnector#registerTetheringEventCallback is a one-way binder. So what happens if we throw an exception from the one-way binder? I don\u0027t think the exception will reach the caller\u0027s process. In that case, throwing an exception is pointless.",
+      "range": {
+        "startLine": 2396,
+        "startChar": 12,
+        "endLine": 2396,
+        "endChar": 20
+      },
+      "revId": "52776a3c8c83eb0e9860085fba57ca8a918ea272",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
