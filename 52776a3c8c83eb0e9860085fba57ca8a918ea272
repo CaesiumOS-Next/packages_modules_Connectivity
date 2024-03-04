@@ -22,6 +22,30 @@
       },
       "revId": "52776a3c8c83eb0e9860085fba57ca8a918ea272",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "629930b6_8e602d54",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2396,
+      "author": {
+        "id": 3330635
+      },
+      "writtenOn": "2024-03-04T19:28:51Z",
+      "side": 1,
+      "message": "Found the system crash during testing with \"adb shell service call tethering 7\". Initially, just tried to catch the NullPointerException with try{}, but noticed that this exception was thrown in unregisterCallbacks, so made it consistent here.",
+      "parentUuid": "91ae9c7d_55f536f6",
+      "range": {
+        "startLine": 2396,
+        "startChar": 12,
+        "endLine": 2396,
+        "endChar": 20
+      },
+      "revId": "52776a3c8c83eb0e9860085fba57ca8a918ea272",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
