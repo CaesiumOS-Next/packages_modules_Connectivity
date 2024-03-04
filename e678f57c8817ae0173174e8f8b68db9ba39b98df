@@ -16,6 +16,24 @@
       "message": "Argh...\n\nlogs/build_error.log on branch git_udc-mainline-prod on target mainline_modules_x86_64-userdebug at P70938090\nDownload\nView full file\nFAILED: out/soong/bp2build_files_marker\ncd \"$(dirname \"out/host/linux-x86/bin/soong_build\")\" \u0026\u0026 BUILDER\u003d\"$PWD/$(basename \"out/host/linux-x86/bin/soong_build\")\" \u0026\u0026 cd / \u0026\u0026 env -i  \"$BUILDER\"     --top \"$TOP\"     --soong_out \"out/soong\"     --out \"out\"     --bp2build_marker out/soong/bp2build_files_marker --globListDir bp2build_files --globFile out/soong/globs-bp2build_files.ninja -t -l out/.module_paths/Android.bp.list --available_env out/soong/soong.environment.available --used_env out/soong/soong.environment.used.bp2build_files Android.bp\nerror: packages/modules/Connectivity/netbpfload/Android.bp:21:1: unrecognized module type \"install_symlink\"\nninja: build stopped: subcommand failed.\n07:05:32 soong bootstrap failed with: exit status 1\nDumping rbe metrics...\n\nRBE Stats: ↓ 0 B, ↑ 0 B,\n\nright that\u0027s why install_symlink was in system/netd in the first place...\nbecause udc-mainline-prod is ancient...",
       "revId": "e678f57c8817ae0173174e8f8b68db9ba39b98df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6bc7b51_2bf274f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-04T07:17:53Z",
+      "side": 1,
+      "message": "That appears to have been added in https://android-review.git.corp.google.com/c/platform/build/soong/+/2736901 and should be cherrypicked into udc-mainline-prod by https://googleplex-android-review.git.corp.google.com/c/platform/build/soong/+/25136680",
+      "parentUuid": "af8709d0_9fd9fa9e",
+      "revId": "e678f57c8817ae0173174e8f8b68db9ba39b98df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
