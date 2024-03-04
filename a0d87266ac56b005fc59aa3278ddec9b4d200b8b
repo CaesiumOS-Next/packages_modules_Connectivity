@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6004b7d_262a454f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/PrivateAddressCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-03-04T21:13:39Z",
+      "side": 1,
+      "message": "Expand this test or add a new one. Check that 1st prefix for type is reserved but 2nd is created dynamically.\n\nAlso test reprovisioning. Issue 2 start requests for same type, check above, then stop both. Issue start again and check that the reserved and cached prefix are issued again in the same order.",
+      "range": {
+        "startLine": 177,
+        "startChar": 16,
+        "endLine": 177,
+        "endChar": 34
+      },
+      "revId": "a0d87266ac56b005fc59aa3278ddec9b4d200b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "469dc406_e5fc5176",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/PrivateAddressCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-03-04T21:13:39Z",
+      "side": 1,
+      "message": "Change the assert then. assertNotEquals.",
+      "range": {
+        "startLine": 414,
+        "startChar": 10,
+        "endLine": 414,
+        "endChar": 22
+      },
+      "revId": "a0d87266ac56b005fc59aa3278ddec9b4d200b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
