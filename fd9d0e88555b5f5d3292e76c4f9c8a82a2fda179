@@ -46,6 +46,30 @@
       },
       "revId": "fd9d0e88555b5f5d3292e76c4f9c8a82a2fda179",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ee483ee_e2368b4e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2799,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-04T08:31:02Z",
+      "side": 0,
+      "message": "In my understanding, aosp/1652974 added `enforceNetworkFactoryPermission` in `ensureSufficientPermissionsForRequest` to prevent app from knowing if there are network with specific subIds by requesting network with subIds.\nHowever, after your CL, apps can register callback and see subIds in network callbacks.\n\nSo, check in `ensureSufficientPermissionsForRequest` will be meaningless and I think we can remove following code from `ensureSufficientPermissionsForRequest`\n```\n        if (nc.getSubscriptionIds().isEmpty()) {\n            return;\n        }\n        if (mRequestRestrictedWifiEnabled\n                \u0026\u0026 canRequestRestrictedNetworkDueToCarrierPrivileges(nc, callerUid)) {\n            return;\n        }\n        enforceNetworkFactoryPermission();\n```",
+      "parentUuid": "b989c725_3313af19",
+      "range": {
+        "startLine": 2799,
+        "startChar": 0,
+        "endLine": 2799,
+        "endChar": 61
+      },
+      "revId": "fd9d0e88555b5f5d3292e76c4f9c8a82a2fda179",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
