@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8acc1fe1_f6772c8a",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-04T05:45:23Z",
+      "side": 1,
+      "message": "supernit: callbacks ? (also on L.94)\n\nIt\u0027s also probably useful to refer to NetworkCallbacks to indicate what kind of callback this is",
+      "range": {
+        "startLine": 89,
+        "startChar": 58,
+        "endLine": 89,
+        "endChar": 66
+      },
+      "revId": "8c99dd329f082d715c48e001b788eca5392784c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e14ae76_6959c47f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 12027,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-04T05:45:23Z",
+      "side": 1,
+      "message": "Should this auto-add the capability too ?",
+      "revId": "8c99dd329f082d715c48e001b788eca5392784c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6744268_6bee87e6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 12045,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-04T05:45:23Z",
+      "side": 1,
+      "message": "It seems the code paths where the capability should be removed are the same as the callers for this method. Maybe it would be safer to factor out a common method to  \"modify the incoming request according to the caller\", so that we don\u0027t forget to do some of the work in some code paths ?",
+      "range": {
+        "startLine": 12045,
+        "startChar": 8,
+        "endLine": 12045,
+        "endChar": 55
+      },
+      "revId": "8c99dd329f082d715c48e001b788eca5392784c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18bb733a_f4baa7ef",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 40
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-04T05:45:23Z",
+      "side": 1,
+      "message": "Nit: this will wait for 200ms after the previous call already waited for 200ms; you could set the timeout to 0 instead.\n\n(is there any way to make sure the looper is idle and avoid waiting ?)",
+      "range": {
+        "startLine": 858,
+        "startChar": 21,
+        "endLine": 858,
+        "endChar": 37
+      },
+      "revId": "8c99dd329f082d715c48e001b788eca5392784c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
