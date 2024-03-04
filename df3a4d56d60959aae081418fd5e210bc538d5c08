@@ -16,6 +16,24 @@
       "message": "I\u0027ll leave it up to Remi...\n\nbut... personally I think:\n\n(a) this is a *lot* of complexity\n\n(a1) The performance of Struct.java is kind of critical to the performance of our code.\nThe arch-ness of userspace/kernel should be figured out *once* in some Struct singleton class, and then padding should be adjusted during Struct class creation (ie. once per Class instance) and not constantly...\n\n(a2) It seems a bit pointless to add this for a single use case...\n\nespecially since we now have VTS tests that block x86 32-bit kernels, and indeed even bpfloader (which is mainlined, and thus not normally mutable by oem/vendor) does:\n\nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Connectivity/netbpfload/NetBpfLoad.cpp;drc\u003d7f6a42672ddbd8910a63c344c1882a554cef241c;l\u003d304\n\nif (isAtLeastV \u0026\u0026 android::bpf::isX86() \u0026\u0026 !android::bpf::isKernel64Bit()) {\n        ALOGE(\"Android V requires X86 kernel to be 64-bit.\");\n        return 1;\n        \nwhich means V+ can\u0027t hit a 32-bit x86 kernel.\n\n(b) this isn\u0027t enough complexity: as is, it doesn\u0027t actually work...\n\nThere aren\u0027t 5 supported archs - there\u0027s actually in practice 7...:\n  (arm,x86,riscv) x (32 vs 64-bit kernel) x (32 vs 64-bit userspace)\nof these 3*2*2\u003d12, some combinations are invalid:\n- we don\u0027t support 32-bit riscV (- 3)\n- can\u0027t run 64-bit userspace on a 32-bit kernel (- 2)\nthus 12 - 3 - 2 \u003d 7\n\nAdditionally layout may depend on the actual version of the kernel,\nie. 4.9 vs 4.14, possibly even the LTS version, or even if it is an ACK kernel or a non-ACK Linux kernel.\n\nThere were some \u0027just fail the api if 32-bit userspace tries to use it on a 64-bit kernel\u0027 upstream that were reverted in Android kernels...\n\nThere were some fixes that landed upstream only in newer kernels to add compat code for struct layouts (so 32-bit userspace on a 64-bit kernel would behave like on a 32-bit kernel)... that we then reverted in Android, so our newer kernels would behave the same as older ones...\n\nIn general there\u0027s a moratorium on 32-bit kernels even with arm for new launch devices on U+, so 32-bit is almost dead...\n\n(there\u0027s VTS tests for this on newer kernel versions like 6.2+ or something)\n\n---\n\nAs such I think I\u0027d prefer to just not support this...",
       "revId": "df3a4d56d60959aae081418fd5e210bc538d5c08",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee75acda_d20c5c7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-04T11:01:42Z",
+      "side": 1,
+      "message": "If x86_32 isn\u0027t actually supported by other parts of the system, I guess the structs shouldn\u0027t need to worry about it. And aosp/2912434 only needs a different padding for that architecture, so maybe we don\u0027t need this change at all in that case ?\n\nWe may want to land it later when we have other structs that need this though; in which case we\u0027d need to address Maze\u0027s comment b) about the arch not being enough (maybe one way would be to have some per-struct list of formats that don\u0027t necessarily map 1:1 with architectures, with some static getter in the struct to define the format to use ?).\n\nBut maybe we don\u0027t need to merge this until the use-case is here then ?",
+      "parentUuid": "680c0e92_7a5db591",
+      "revId": "df3a4d56d60959aae081418fd5e210bc538d5c08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
