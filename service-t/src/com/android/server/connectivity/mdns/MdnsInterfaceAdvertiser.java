@@ -280,7 +280,9 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
     public void removeService(int id) {
         if (!mRecordRepository.hasActiveService(id)) return;
         mProber.stop(id);
-        mAnnouncer.stop(id);
+        for (int serviceId : mRecordRepository.getActiveServicesWithSameHostname(id)) {
+            mAnnouncer.stop(serviceId);
+        }
         final MdnsAnnouncer.ExitAnnouncementInfo exitInfo = mRecordRepository.exitService(id);
         if (exitInfo != null) {
             // This effectively schedules destroyNow(), as it is to be called when the exit
