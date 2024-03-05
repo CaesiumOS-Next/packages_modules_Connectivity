@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ace69f4_66420fe6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-05T13:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d62bd563_4da08722",
+      "revId": "de1893f6f16f70511cba3080078928e967b817ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad160dc3_37a3f948",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "474386f4_749c006e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-05T13:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad160dc3_37a3f948",
+      "revId": "de1893f6f16f70511cba3080078928e967b817ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ff59bea_7108e194",
@@ -48,6 +84,24 @@
       "writtenOn": "2024-02-28T08:57:30Z",
       "side": 1,
       "message": "Why do you need to put indexes to remove in a separate list ? Considering that mAdvertiserRequests is being iterated from the end, would it work to just delete directly inside the loop ?",
+      "revId": "de1893f6f16f70511cba3080078928e967b817ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1e25095_70b264ed",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-05T13:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ff59bea_7108e194",
       "revId": "de1893f6f16f70511cba3080078928e967b817ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -75,6 +129,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62b81682_5d272825",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-05T13:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8aaa876b_bc04e36c",
+      "range": {
+        "startLine": 373,
+        "startChar": 16,
+        "endLine": 373,
+        "endChar": 65
+      },
+      "revId": "de1893f6f16f70511cba3080078928e967b817ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "316d23a0_2db6e2e1",
@@ -88,6 +166,24 @@
       "writtenOn": "2024-02-28T08:57:30Z",
       "side": 1,
       "message": "Could you do the check for getServicesCount() inside the Runnable, instead of before posting ? This would guarantee that when onAllServicesRemoved is called (on the handler thread), there is indeed no service in the MdnsInterfaceAdvertiser. In that case it would be good to also document that guarantee on the callback javadoc.\n\nOtherwise there may actually be services (that were added later) while the callback is getting called, which is error-prone, although I think your current code handles it by double-checking mPendingRegistrations in MdnsAdvertiser.\n\n(see what I had in aosp/2401041 with postDestroyIfEmpty, which is similar to your change apart from that point)",
+      "revId": "de1893f6f16f70511cba3080078928e967b817ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88009b9e_11de350f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-05T13:25:21Z",
+      "side": 1,
+      "message": "Make sense, updated",
+      "parentUuid": "316d23a0_2db6e2e1",
       "revId": "de1893f6f16f70511cba3080078928e967b817ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
