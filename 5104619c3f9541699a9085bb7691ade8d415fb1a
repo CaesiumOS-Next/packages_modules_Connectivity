@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1075945e_b1dae282",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-05T09:37:55Z",
+      "side": 1,
+      "message": "This takes at most 60 seconds to run, can it be reduced to 30 seconds? @handaw@google.com",
+      "range": {
+        "startLine": 568,
+        "startChar": 8,
+        "endLine": 568,
+        "endChar": 27
+      },
+      "revId": "5104619c3f9541699a9085bb7691ade8d415fb1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
