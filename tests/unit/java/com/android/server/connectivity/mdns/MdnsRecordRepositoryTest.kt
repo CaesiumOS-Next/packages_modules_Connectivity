@@ -469,6 +469,26 @@ class MdnsRecordRepositoryTest {
     }
 
     @Test
+    fun testMakeAnnouncementInfo() {
+        val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME, makeFlags())
+        val expectedAnnouncementInfo = repository.initWithService(TEST_SERVICE_ID_1, TEST_SERVICE_1,
+                setOf(TEST_SUBTYPE, TEST_SUBTYPE2))
+        val actualAnnouncementInfo = repository.makeAnnouncementInfo(TEST_SERVICE_ID_1)
+
+        val expectedPacket = expectedAnnouncementInfo.getPacket(0)
+        val actualPacket = actualAnnouncementInfo.getPacket(0)
+
+        // Verify that the announcement packet returned by `onProbingSucceeded()` and
+        // `makeAnnouncementInfo()` are the same
+        assertEquals(expectedPacket.transactionId, actualPacket.transactionId)
+        assertEquals(expectedPacket.flags, actualPacket.flags)
+        assertEquals(expectedPacket.questions.size, actualPacket.questions.size)
+        assertEquals(expectedPacket.authorityRecords.size, actualPacket.authorityRecords.size)
+        assertEquals(expectedPacket.answers, actualPacket.answers)
+        assertEquals(expectedPacket.additionalRecords, actualPacket.additionalRecords)
+    }
+
+    @Test
     fun testGetOffloadPacket() {
         val repository = MdnsRecordRepository(thread.looper, deps, TEST_HOSTNAME, makeFlags())
         repository.initWithService(TEST_SERVICE_ID_1, TEST_SERVICE_1)

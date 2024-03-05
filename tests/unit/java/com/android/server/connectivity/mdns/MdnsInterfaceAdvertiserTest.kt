@@ -18,7 +18,6 @@ package com.android.server.connectivity.mdns
 
 import android.net.InetAddresses.parseNumericAddress
 import android.net.LinkAddress
-import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
 import android.os.Build
 import android.os.HandlerThread
@@ -48,6 +47,7 @@ import org.mockito.Mockito.any
 import org.mockito.Mockito.anyInt
 import org.mockito.Mockito.anyString
 import org.mockito.Mockito.argThat
+import org.mockito.Mockito.atLeastOnce
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.eq
@@ -65,6 +65,7 @@ private val TEST_HOSTNAME = arrayOf("Android_test", "local")
 
 private const val TEST_SERVICE_ID_1 = 42
 private const val TEST_SERVICE_ID_DUPLICATE = 43
+private const val TEST_SERVICE_ID_2 = 44
 private val TEST_SERVICE_1 = NsdServiceInfo().apply {
     serviceType = "_testservice._tcp"
     serviceName = "MyTestService"
@@ -75,6 +76,13 @@ private val TEST_SERVICE_1_SUBTYPE = NsdServiceInfo().apply {
     subtypes = setOf("_sub")
     serviceType = "_testservice._tcp"
     serviceName = "MyTestService"
+    port = 12345
+}
+
+private val TEST_SERVICE_1_CUSTOM_HOST = NsdServiceInfo().apply {
+    serviceType = "_testservice._tcp"
+    serviceName = "MyTestService"
+    hostname = "MyTestHost"
     port = 12345
 }
 
@@ -180,6 +188,35 @@ class MdnsInterfaceAdvertiserTest {
         announceCb.onFinished(testExitInfo)
         thread.waitForIdle(TIMEOUT_MS)
         verify(cb).onAllServicesRemoved(socket)
+    }
+
+    @Test
+    fun testAddRemoveServiceWithCustomHost() {
+        val customHost1 = NsdServiceInfo().apply {
+            hostname = "MyTestHost"
+            hostAddresses = listOf(
+                    parseNumericAddress("192.0.2.23"),
+                    parseNumericAddress("2001:db8::1"))
+        }
+        addServiceAndFinishProbing(TEST_SERVICE_ID_1, customHost1)
+        val announcementInfo =
+                addServiceAndFinishProbing(TEST_SERVICE_ID_2, TEST_SERVICE_1_CUSTOM_HOST)
+
+        verify(announcer).startSending(TEST_SERVICE_ID_2, announcementInfo,
+                0L /* initialDelayMs */)
+
+        doReturn(listOf(TEST_SERVICE_ID_1, TEST_SERVICE_ID_2))
+                .`when`(repository).getReadyToAnnounceServicesWithSameHostname(TEST_SERVICE_ID_1)
+
+        // Remove the custom host: the custom host's announcement is stopped and the service which
+        // uses that hostname is re-announced.
+        advertiser.removeService(TEST_SERVICE_ID_1)
+
+        verify(prober).stop(TEST_SERVICE_ID_1)
+        verify(announcer, atLeastOnce()).stop(TEST_SERVICE_ID_1)
+        verify(announcer).stop(TEST_SERVICE_ID_2)
+        verify(announcer).startSending(TEST_SERVICE_ID_2,
+                repository.makeAnnouncementInfo(TEST_SERVICE_ID_2), 0 /* initialDelayMs */)
     }
 
     @Test
