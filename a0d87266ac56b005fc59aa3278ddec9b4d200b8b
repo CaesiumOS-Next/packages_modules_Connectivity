@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6523a8a0_8f3678cf",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/PrivateAddressCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1836153
+      },
+      "writtenOn": "2024-03-05T06:36:32Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d6004b7d_262a454f",
+      "range": {
+        "startLine": 177,
+        "startChar": 16,
+        "endLine": 177,
+        "endChar": 34
+      },
+      "revId": "a0d87266ac56b005fc59aa3278ddec9b4d200b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "469dc406_e5fc5176",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-04T21:13:39Z",
       "side": 1,
       "message": "Change the assert then. assertNotEquals.",
+      "range": {
+        "startLine": 414,
+        "startChar": 10,
+        "endLine": 414,
+        "endChar": 22
+      },
+      "revId": "a0d87266ac56b005fc59aa3278ddec9b4d200b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d45debfa_7f897ec3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/PrivateAddressCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1836153
+      },
+      "writtenOn": "2024-03-05T06:36:32Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "469dc406_e5fc5176",
       "range": {
         "startLine": 414,
         "startChar": 10,
