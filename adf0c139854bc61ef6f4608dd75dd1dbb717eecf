@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa1b2187_6f14a9b7",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 2162,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-05T10:11:02Z",
+      "side": 1,
+      "message": "Will address this in a followup change.",
+      "parentUuid": "2a60ceef_77c9deb6",
+      "range": {
+        "startLine": 2162,
+        "startChar": 8,
+        "endLine": 2162,
+        "endChar": 11
+      },
+      "revId": "adf0c139854bc61ef6f4608dd75dd1dbb717eecf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec8f4af5_608d6e78",
@@ -84,6 +108,30 @@
       "writtenOn": "2024-03-05T06:20:07Z",
       "side": 1,
       "message": "Nit: better use getNetId().toString() here: the format of the Network toString isn\u0027t guaranteed to be stable (although it\u0027s probably a bad idea to try to change it at this point)",
+      "range": {
+        "startLine": 2166,
+        "startChar": 33,
+        "endLine": 2166,
+        "endChar": 41
+      },
+      "revId": "adf0c139854bc61ef6f4608dd75dd1dbb717eecf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcdabeb0_0add56bb",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 2166,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-05T10:11:02Z",
+      "side": 1,
+      "message": "Will address this in a followup change.",
+      "parentUuid": "ec8f4af5_608d6e78",
       "range": {
         "startLine": 2166,
         "startChar": 33,
