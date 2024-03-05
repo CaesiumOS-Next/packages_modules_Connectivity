@@ -34,6 +34,24 @@
       "parentUuid": "69ddab0b_d0b34bea",
       "revId": "605b251d033cdc1b318a036fb41768fcf4eab740",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f30b2b5a_c076d455",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2024-03-05T08:21:31Z",
+      "side": 1,
+      "message": "It\u0027s not the GC cost. I see in the profile that significant time is spent inside android.net.NetworkCapabilities.maybeMarkCapabilitiesRestricted, which really probably means that it\u0027s spent in inferRestrictedCapability that gets inlined at the call site (as maybeMarkCapabilitiesRestricted is the only caller).\nYou can disassemble the code with oatdump to confirm that this is the dex2oat behavior in release builds. Or you can try it in godbolt.org (my team added ART support; under language select Android Java).\n\nGC wouldn\u0027t happen inside the frame that allocated the memory. It happens in a runtime thread, in native ART frames.\n\nI don\u0027t know exactly which lines in android.net.NetworkCapabilities.maybeMarkCapabilitiesRestricted are implicated. The debuginfo in this build of the watch doesn\u0027t have line info. Adding line info to the build will alter the measurements too much to the extent that I won\u0027t be able to trust them anymore (it increases binary size and prevents some compiler optimizations).\n\nIs there a way to expose an internal-only method from NetworkCapabilities to the utils static lib?",
+      "parentUuid": "b22de525_586c0f05",
+      "revId": "605b251d033cdc1b318a036fb41768fcf4eab740",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
