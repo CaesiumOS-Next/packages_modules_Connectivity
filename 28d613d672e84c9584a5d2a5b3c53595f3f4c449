@@ -16,6 +16,24 @@
       "message": "in what way is this a security improvement? Apps can\u0027t apply a transform if they don\u0027t have the internet permission, can they? Applying a transform requires a socket to apply it to, and apps that don\u0027t have the internet permission can\u0027t create sockets.",
       "revId": "28d613d672e84c9584a5d2a5b3c53595f3f4c449",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e28bd251_f0b911a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2024-03-05T02:03:04Z",
+      "side": 1,
+      "message": "Hi Lorenzo,\n\nThe main purpose is to add permission to transform creation. It is to address the security reviewer\u0027s concerns of not protecting `requrestIpSecTransformState`.\n\nBy requiring permission for creating transform we achieve following things:\n- Added a permission protection to`requrestIpSecTransformState` (since transforms are UID-exclusive object)\n- Created consistent permission models for transport and tunnel mode:\n  - Permission is required for creating a tunnel mode transform and subsequently for all operations on this object. E.g. `requrestIpSecTransformState`\n  \nWe\u0027ve also considered about requiring `ACCESS_NETWORK_STATE` for `requrestIpSecTransformState` but then it would be redundant for tunnel mode transform.\n\nAs for applying transform, I added permission for consistency. If you believe this is unnecessary, I\u0027m happy to remove it.",
+      "parentUuid": "2955ecd9_4a1a62da",
+      "revId": "28d613d672e84c9584a5d2a5b3c53595f3f4c449",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
