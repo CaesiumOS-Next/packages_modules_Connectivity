@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "168010e7_981f9a94",
+        "filename": "tests/unit/java/com/android/metrics/ConnectivitySampleMetricsTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-05T06:15:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a46136ef_48e7fccd",
+      "revId": "027561f20c81704a054b440e8684a2ad4c7c97e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "663f9835_153d1004",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-03-04T06:07:51Z",
       "side": 1,
       "message": "I don\u0027t understand why mocking getSystemService(APP_OPS_SERVICE) is necessary for this change: can you explain it in the commit message ?",
+      "revId": "027561f20c81704a054b440e8684a2ad4c7c97e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dee6d32_ee68aaa4",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-05T06:15:29Z",
+      "side": 1,
+      "message": "Updated the commit message.\nI have updated to return mocked appOpsManager so that test can file network request as SYSTEM_UID.\nPossibly I can alternatively mock context#getOpPackageName to return package name that belongs to SYSTEM_UID.\nBut I saw ConnectivityServiceTest mocks appOpsManager so I choose to do the same thing.",
+      "parentUuid": "663f9835_153d1004",
       "revId": "027561f20c81704a054b440e8684a2ad4c7c97e2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
