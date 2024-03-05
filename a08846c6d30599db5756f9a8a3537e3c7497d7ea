@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2f9cbb0_ef8c3ee4",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-05T04:02:07Z",
+      "side": 1,
+      "message": "Does this mean that after this CL, packets received by unconnected UDP sockets will always be allowed through all firewall chains, because they now have UID 0? And if so, does that mean that before, all such packets were always dropped by firewall chains?\n\nThat said - my memory is hazy, but IIRC at least in the cgroup filter, this code runs in the input path late enough that even if early demux fails, the socket is always known and UID lookup will always succeed if the socket actually exists. So maybe we can just remove mention of unconnected UDP from this comment?\n\nOr is this code only used for accounting and not firewalling? Or am I misreading it in another way?",
+      "range": {
+        "startLine": 454,
+        "startChar": 44,
+        "endLine": 455,
+        "endChar": 44
+      },
+      "revId": "a08846c6d30599db5756f9a8a3537e3c7497d7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
