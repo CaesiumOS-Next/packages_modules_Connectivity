@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a4c2f55d_cf4b1866",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-03-05T15:27:10Z",
+      "side": 1,
+      "message": "That\u0027s fine. Should double check where it is being used.",
+      "parentUuid": "31b22672_5bfab437",
+      "range": {
+        "startLine": 734,
+        "startChar": 23,
+        "endLine": 736,
+        "endChar": 89
+      },
+      "revId": "336ae2c4070deca51a64e720ae6f88135d75462c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de2bdc5a_051cedae",
         "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
         "patchSetId": 10
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "I think an equals() method should compare all of the public methods. Is there a reason we would skip these checks?",
       "parentUuid": "de2bdc5a_051cedae",
+      "range": {
+        "startLine": 737,
+        "startChar": 23,
+        "endLine": 738,
+        "endChar": 88
+      },
+      "revId": "336ae2c4070deca51a64e720ae6f88135d75462c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23894106_15e905a6",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-03-05T15:27:10Z",
+      "side": 1,
+      "message": "Depends where this is being used. If comparing against another incoming request local/client IP, scope and type would be sufficient.",
+      "parentUuid": "ee798b84_7432216b",
       "range": {
         "startLine": 737,
         "startChar": 23,
