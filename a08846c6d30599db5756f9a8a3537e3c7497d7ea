@@ -22,6 +22,30 @@
       },
       "revId": "a08846c6d30599db5756f9a8a3537e3c7497d7ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69ac013f_15d16d62",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-05T05:33:12Z",
+      "side": 1,
+      "message": "I think you\u0027re right and the earlydecap/unconnected udp mention in the comment is wrong here, as at this point it\u0027s cgroup hook, which I think by necessity requires a socket (otherwise how would you know which cgroup)...\n\nI\u0027m not sure what happens with a TCP RST for a closed port... root cgroup??",
+      "parentUuid": "a2f9cbb0_ef8c3ee4",
+      "range": {
+        "startLine": 454,
+        "startChar": 44,
+        "endLine": 455,
+        "endChar": 44
+      },
+      "revId": "a08846c6d30599db5756f9a8a3537e3c7497d7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
