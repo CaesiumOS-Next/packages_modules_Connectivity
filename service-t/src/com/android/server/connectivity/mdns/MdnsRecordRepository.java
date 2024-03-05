@@ -926,6 +926,29 @@ public class MdnsRecordRepository {
     }
 
     /**
+     * Get the list of services who have the same hostname as the given service ID.
+     *
+     * @param id The ID of the service.
+     * @return List of service IDs which have the same hostname.
+     */
+    public List<Integer> getActiveServicesWithSameHostname(int id) {
+        List<Integer> services = new ArrayList<>();
+        String hostname = mServices.get(id).serviceInfo.getHostname();
+        if (hostname == null) {
+            return services;
+        }
+        forEachActiveServiceRegistrationWithHostname(
+                hostname,
+                (otherId, otherRegistration) -> {
+                    if (otherRegistration.isProbing) {
+                        return;
+                    }
+                    services.add(otherId);
+                });
+        return services;
+    }
+
+    /**
      * Called to indicate that probing succeeded for a service.
      * @param probeSuccessInfo The successful probing info.
      * @return The {@link MdnsAnnouncer.AnnouncementInfo} to send, now that probing has succeeded.
