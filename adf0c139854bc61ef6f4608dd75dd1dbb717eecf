@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e653317c_6f94eecd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-05T06:20:07Z",
+      "side": 1,
+      "message": "Typo: ServiceTypeClients",
+      "range": {
+        "startLine": 7,
+        "startChar": 40,
+        "endLine": 7,
+        "endChar": 57
+      },
+      "revId": "adf0c139854bc61ef6f4608dd75dd1dbb717eecf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a60ceef_77c9deb6",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 2162,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-05T06:20:07Z",
+      "side": 1,
+      "message": "Nit: this could slightly simpler as:\n\n```\nreturn clients.any { client -\u003e\n    [...]\n}\n```",
+      "range": {
+        "startLine": 2162,
+        "startChar": 8,
+        "endLine": 2162,
+        "endChar": 11
+      },
+      "revId": "adf0c139854bc61ef6f4608dd75dd1dbb717eecf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec8f4af5_608d6e78",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 2166,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-05T06:20:07Z",
+      "side": 1,
+      "message": "Nit: better use getNetId().toString() here: the format of the Network toString isn\u0027t guaranteed to be stable (although it\u0027s probably a bad idea to try to change it at this point)",
+      "range": {
+        "startLine": 2166,
+        "startChar": 33,
+        "endLine": 2166,
+        "endChar": 41
+      },
+      "revId": "adf0c139854bc61ef6f4608dd75dd1dbb717eecf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
