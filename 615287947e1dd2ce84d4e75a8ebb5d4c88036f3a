@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c4d82a7_5799c938",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2073,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-05T08:13:39Z",
+      "side": 1,
+      "message": "I saw `getIfaceStats` has `!entry.isEmpty()` in the condition.\nDon\u0027t we need this here?",
+      "range": {
+        "startLine": 2073,
+        "startChar": 93,
+        "endLine": 2073,
+        "endChar": 96
+      },
+      "revId": "615287947e1dd2ce84d4e75a8ebb5d4c88036f3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f64416e_640bf61d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2078,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-05T08:13:39Z",
+      "side": 1,
+      "message": "I feel early return for `!mSupportTrafficStatsRateLimitCache` case makes code easier to understand.\n\nI meant something like the following.\n```\nif (!mSupportTrafficStatsRateLimitCache) {\n    return getEntryValueForType(nativeGetUidStat(uid), type);\n}\n\n// code for using cache.\n```\n\nSame for other methods.",
+      "range": {
+        "startLine": 2078,
+        "startChar": 4,
+        "endLine": 2078,
+        "endChar": 5
+      },
+      "revId": "615287947e1dd2ce84d4e75a8ebb5d4c88036f3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bee915c6_98c0bd4a",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2138,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-05T08:13:39Z",
+      "side": 1,
+      "message": "ditto: don\u0027t we need `!entry.isEmpty()`",
+      "range": {
+        "startLine": 2138,
+        "startChar": 73,
+        "endLine": 2138,
+        "endChar": 76
+      },
+      "revId": "615287947e1dd2ce84d4e75a8ebb5d4c88036f3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f3e0983_b6a3c3bc",
+        "filename": "staticlibs/device/com/android/net/module/util/FeatureVersions.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-05T08:13:39Z",
+      "side": 1,
+      "message": "What will be the usecase of this flag?",
+      "range": {
+        "startLine": 55,
+        "startChar": 29,
+        "endLine": 55,
+        "endChar": 67
+      },
+      "revId": "615287947e1dd2ce84d4e75a8ebb5d4c88036f3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07f32040_222fb6be",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-05T08:13:39Z",
+      "side": 1,
+      "message": "I think it\u0027s better not to spy since Dependencies already allow us to inject some behavior for testing.\n\n`supportTrafficStatsRateLimitCache` can return value set by some method like \n`setSupportTrafficStatsRateLimitCache(boolean enabled)`.",
+      "range": {
+        "startLine": 301,
+        "startChar": 35,
+        "endLine": 301,
+        "endChar": 63
+      },
+      "revId": "615287947e1dd2ce84d4e75a8ebb5d4c88036f3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98ed0988_50200490",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-05T08:13:39Z",
+      "side": 1,
+      "message": "I saw setup calls `mService.systemReady();` and `mService.openSession();` after `makeNewStatsService`\nIs it safe for test to call `makeNewStatsService` and recreate mService but does not call `mService.systemReady();` and `mService.openSession();`?\nIf there are methods that must be called together, I think it\u0027s better to move them to this method as well.",
+      "range": {
+        "startLine": 398,
+        "startChar": 41,
+        "endLine": 398,
+        "endChar": 42
+      },
+      "revId": "615287947e1dd2ce84d4e75a8ebb5d4c88036f3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c20059c3_4128fe11",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2386,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-05T08:13:39Z",
+      "side": 1,
+      "message": "I think you can use `java.util.function.Function`.\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:libcore/ojluni/src/main/java/java/util/function/Function.java",
+      "range": {
+        "startLine": 2386,
+        "startChar": 24,
+        "endLine": 2386,
+        "endChar": 52
+      },
+      "revId": "615287947e1dd2ce84d4e75a8ebb5d4c88036f3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "403b1431_7cf13f6a",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2396,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-05T08:13:39Z",
+      "side": 1,
+      "message": "nits: looping assert makes debug difficult since we can not know which one is failing from line number.\nI prefer the following code but this is up to you\n```\nassertTrafficStats(long rxBytes, long rxPackets, long txBytes, long txPackets,\n               Function\u003cInteger, Long\u003e fetcher) {\n   assertEquals(rxBytes, fetcher.apply(TrafficStats.TYPE_RX_BYTES));\n   assertEquals(rxPackets, fetcher.apply(TrafficStats.TYPE_RX_PACKETS));\n   assertEquals(txBytes, fetcher.apply(TrafficStats.TYPE_TX_BYTES));\n   assertEquals(txPackets, fetcher.apply(TrafficStats.TYPE_TX_PACKETS));\n}\n\nprivate void assertTrafficStatsValues() {\n   assertTrafficStats(rxBytes, rxPackets, txBytes, txPackets, (type) -\u003e mService.getTotalStats(type))\n   assertTrafficStats(rxBytes, rxPackets, txBytes, txPackets, (type) -\u003e mService.getIfaceStats(iface, type))\n   assertTrafficStats(rxBytes, rxPackets, txBytes, txPackets, (type) -\u003e mService.getUidStats(uid, type))\n}\n\n```",
+      "range": {
+        "startLine": 2396,
+        "startChar": 4,
+        "endLine": 2396,
+        "endChar": 5
+      },
+      "revId": "615287947e1dd2ce84d4e75a8ebb5d4c88036f3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
