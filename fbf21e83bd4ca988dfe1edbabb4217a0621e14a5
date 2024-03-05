@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "648f044c_cb56e508",
+        "filename": "tests/unit/java/com/android/metrics/ConnectivitySampleMetricsTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2024-03-05T17:45:26Z",
+      "side": 1,
+      "message": "I am not sure if adding a helper function（issueNetworkRequests） will make the program more readable. You can decide for yourself. \n\n```\nexample:\n    // Enhanced helper function to support different request types, counts, and     fun issueNetworkRequests(type: Int, requestCount: Int, uid: Int) {\n        deps.setCallingUid(uid) // Set UID before issuing requests\n        repeat(requestCount) {\n            when (type) {\n                RT_SYSTEM, RT_APP -\u003e connectivityManager.requestNetwork(\n                    NetworkRequest.Builder().build(),\n                    TestableNetworkCallback()\n                )\n                RT_SYSTEM_ON_BEHALF_OF_APP -\u003e connectivityManager.registerDefaultNetworkCallbackForUid(\n                    Process.myUid(),\n                    TestableNetworkCallback(),\n                    Handler(ConnectivityThread.getInstanceLooper())\n                )\n            }\n        }\n    }\n\n    // Issue RT_APP requests with a specific UID\n    val appRequestCount \u003d 5\n    val appUid \u003d 10xx // Example UID for RT_APP\n    issueNetworkRequests(RT_APP, appRequestCount, appUid) \n\n    // Issue RT_SYSTEM requests with SYSTEM_UID \n    val systemRequestCount \u003d 6 \n    issueNetworkRequests(RT_SYSTEM, systemRequestCount, SYSTEM_UID)  \n\n    // Issue RT_SYSTEM_ON_BEHALF_OF_APP requests with SYSTEM_UID \n    val sysOnAppRequestCount \u003d 7\n    issueNetworkRequests(RT_SYSTEM_ON_BEHALF_OF_APP, sysOnAppRequestCount, SYSTEM_UID)  \n```\n  ~~~~~~",
+      "range": {
+        "startLine": 194,
+        "startChar": 1,
+        "endLine": 208,
+        "endChar": 9
+      },
+      "revId": "fbf21e83bd4ca988dfe1edbabb4217a0621e14a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
