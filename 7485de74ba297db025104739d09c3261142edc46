@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f715f28_7ee10240",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1448,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-05T06:42:38Z",
+      "side": 1,
+      "message": "Did you intend to remove this since it\u0027s not used in the latest patchset ?",
+      "revId": "7485de74ba297db025104739d09c3261142edc46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

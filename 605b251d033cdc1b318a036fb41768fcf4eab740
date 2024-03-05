@@ -16,6 +16,24 @@
       "message": "Seems I can\u0027t call this from here?\n```\n\"out/soong/.intermediates/packages/modules/Connectivity/staticlibs/net-utils-framework-common/android_common/javac/classes\"\npackages/modules/Connectivity/staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java:159: error: cannot find symbol\n        long capabilities \u003d nc.getCapabilitiesInternal();\n                              ^\n  symbol:   method getCapabilitiesInternal()\n  location: variable nc of type NetworkCapabilities\npackages/modules/Connectivity/staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java:161: error: bad operand types for binary operator \u0027\u0026\u0027\n        if (capabilities \u0026 FORCE_RESTRICTED_CAPABILITIES !\u003d 0) {\n                         ^\n  first type:  long\n  second type: boolean\npackages/modules/Connectivity/staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java:167: error: bad operand types for binary operator \u0027\u0026\u0027\n        if (capabilities \u0026 UNRESTRICTED_CAPABILITIES !\u003d 0) {\n                         ^\n  first type:  long\n  second type: boolean\npackages/modules/Connectivity/staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java:172: error: bad operand types for binary operator \u0027\u0026\u0027\n        if (capabilities \u0026 RESTRICTED_CAPABILITIES !\u003d 0) {\n                         ^\n  first type:  long\n  second type: boolean\n4 errors\n```",
       "revId": "605b251d033cdc1b318a036fb41768fcf4eab740",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b22de525_586c0f05",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-05T06:42:38Z",
+      "side": 1,
+      "message": "Yes this is a util in staticlibs/framework, which is also used by the telephony code (DataNetwork), which is outside of the Connectivity module so it only has access to formal APIs, not internal methods.\n\nDo you have a way to know what is expensive in maybeMarkCapabilitiesRestricted ? For example if it\u0027s the array allocation / GC cost we could avoid that by having a util to loop on bits without creating an array",
+      "parentUuid": "69ddab0b_d0b34bea",
+      "revId": "605b251d033cdc1b318a036fb41768fcf4eab740",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
