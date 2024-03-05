@@ -22,12 +22,10 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresApi;
 import android.net.LinkAddress;
-import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.ArraySet;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.HexDump;
@@ -284,6 +282,7 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         if (!mRecordRepository.hasActiveService(id)) return;
         mProber.stop(id);
         mAnnouncer.stop(id);
+        final String hostname = mRecordRepository.getHostnameForServiceId(id);
         final MdnsAnnouncer.ExitAnnouncementInfo exitInfo = mRecordRepository.exitService(id);
         if (exitInfo != null) {
             // This effectively schedules onAllServicesRemoved(), as it is to be called when the
@@ -302,6 +301,13 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
                     mCb.onAllServicesRemoved(mSocket);
                 }
             });
+        }
+        // Re-probe/re-announce the services which have the same custom hostname. These services
+        // were probed/announced using host addresses which were just removed so they should be
+        // re-probed/re-announced without those addresses.
+        if (hostname != null) {
+            mRecordRepository.restartProbingForHostname(hostname, mProber);
+            mRecordRepository.restartAnnouncingForHostname(hostname, mAnnouncer);
         }
     }
 
