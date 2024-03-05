@@ -22,6 +22,30 @@
       },
       "revId": "bc8283c25ceb8d25a3ebe82a2185f4851b31e51f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "743d3d1b_d8e90106",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/PrivateAddressCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2024-03-05T17:28:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f074d5a9_86712018",
+      "range": {
+        "startLine": 237,
+        "startChar": 8,
+        "endLine": 237,
+        "endChar": 57
+      },
+      "revId": "bc8283c25ceb8d25a3ebe82a2185f4851b31e51f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
