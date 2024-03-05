@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2632f3c_359ccdf9",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/FragmentHeader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-05T04:58:22Z",
+      "side": 1,
+      "message": "U8",
+      "range": {
+        "startLine": 35,
+        "startChar": 34,
+        "endLine": 35,
+        "endChar": 36
+      },
+      "revId": "26be877d01b3f35116d225e0010c429086dd7622",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97cc1ad6_2b3e9169",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/FragmentHeader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-05T04:58:22Z",
+      "side": 1,
+      "message": "U16",
+      "range": {
+        "startLine": 39,
+        "startChar": 34,
+        "endLine": 39,
+        "endChar": 37
+      },
+      "revId": "26be877d01b3f35116d225e0010c429086dd7622",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67057250_0d1d87e6",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/FragmentHeader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-05T04:58:22Z",
+      "side": 1,
+      "message": "recommend also including a constructor which skips reserved and just sets it to 0",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 97
+      },
+      "revId": "26be877d01b3f35116d225e0010c429086dd7622",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
