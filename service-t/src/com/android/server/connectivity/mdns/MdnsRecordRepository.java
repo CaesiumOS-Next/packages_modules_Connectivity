@@ -926,20 +926,63 @@ public class MdnsRecordRepository {
     }
 
     /**
+     * Get the list of services which are ready to announce and have the same hostname as the given
+     * service ID.
+     *
+     * @param id The ID of the service.
+     * @return List of ready-to-announce service IDs which have the same hostname.
+     */
+    public List<Integer> getReadyToAnnounceServicesWithSameHostname(int id) {
+        final ServiceRegistration registration = mServices.get(id);
+        if (registration == null) {
+            return Collections.emptyList();
+        }
+        final String hostname = registration.serviceInfo.getHostname();
+        if (hostname == null) {
+            return Collections.emptyList();
+        }
+        final List<Integer> services = new ArrayList<>();
+        forEachActiveServiceRegistrationWithHostname(
+                hostname,
+                (otherId, otherRegistration) -> {
+                    if (otherRegistration.isProbing) {
+                        return;
+                    }
+                    services.add(otherId);
+                });
+        return services;
+    }
+
+    /**
      * Called to indicate that probing succeeded for a service.
+     *
      * @param probeSuccessInfo The successful probing info.
      * @return The {@link MdnsAnnouncer.AnnouncementInfo} to send, now that probing has succeeded.
      */
     public MdnsAnnouncer.AnnouncementInfo onProbingSucceeded(
-            MdnsProber.ProbingInfo probeSuccessInfo)
-            throws IOException {
-
-        int serviceId = probeSuccessInfo.getServiceId();
+            MdnsProber.ProbingInfo probeSuccessInfo) throws IOException {
+        final int serviceId = probeSuccessInfo.getServiceId();
         final ServiceRegistration registration = mServices.get(serviceId);
         if (registration == null) {
             throw new IOException("Service is not registered: " + serviceId);
         }
         registration.setProbing(false);
+
+        return makeAnnouncementInfo(serviceId);
+    }
+
+    /**
+     * Make the announcement info of the given service ID.
+     *
+     * @param serviceId The service ID.
+     * @return The {@link MdnsAnnouncer.AnnouncementInfo} of the given service ID.
+     * @throws IOException If the service registration doesn't exist
+     */
+    public MdnsAnnouncer.AnnouncementInfo makeAnnouncementInfo(int serviceId) throws IOException {
+        final ServiceRegistration registration = mServices.get(serviceId);
+        if (registration == null) {
+            throw new IOException("Service is not registered: " + serviceId);
+        }
 
         final Set<MdnsRecord> answersSet = new LinkedHashSet<>();
         final ArrayList<MdnsRecord> additionalAnswers = new ArrayList<>();
@@ -972,8 +1015,8 @@ public class MdnsRecordRepository {
         addNsecRecordsForUniqueNames(additionalAnswers,
                 mGeneralRecords.iterator(), registration.allRecords.iterator());
 
-        return new MdnsAnnouncer.AnnouncementInfo(
-                probeSuccessInfo.getServiceId(), new ArrayList<>(answersSet), additionalAnswers);
+        return new MdnsAnnouncer.AnnouncementInfo(serviceId,
+                new ArrayList<>(answersSet), additionalAnswers);
     }
 
     /**
