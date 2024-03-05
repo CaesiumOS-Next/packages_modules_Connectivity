@@ -22,6 +22,30 @@
       },
       "revId": "5104619c3f9541699a9085bb7691ade8d415fb1a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92674002_022ae69b",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-05T09:48:13Z",
+      "side": 1,
+      "message": "The timeout depends on the starting point of the waiting. Speaking solely about the time between the AIL is up and the first usable PIO is sent out, it takes about 12 seconds.\n\nSo I think it\u0027s possible to cut the timeout to 30 seconds.",
+      "parentUuid": "1075945e_b1dae282",
+      "range": {
+        "startLine": 568,
+        "startChar": 8,
+        "endLine": 568,
+        "endChar": 27
+      },
+      "revId": "5104619c3f9541699a9085bb7691ade8d415fb1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
