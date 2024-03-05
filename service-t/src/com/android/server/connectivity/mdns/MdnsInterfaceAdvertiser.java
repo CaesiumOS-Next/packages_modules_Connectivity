@@ -22,12 +22,10 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresApi;
 import android.net.LinkAddress;
-import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.ArraySet;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.HexDump;
@@ -284,6 +282,10 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         if (!mRecordRepository.hasActiveService(id)) return;
         mProber.stop(id);
         mAnnouncer.stop(id);
+        // The services whose addresses are updated because they use the same hostname as the
+        // removed service.
+        List<Integer> updatedServices =
+                mRecordRepository.getReadyToAnnounceServicesWithSameHostname(id);
         final MdnsAnnouncer.ExitAnnouncementInfo exitInfo = mRecordRepository.exitService(id);
         if (exitInfo != null) {
             // This effectively schedules onAllServicesRemoved(), as it is to be called when the
@@ -302,6 +304,23 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
                     mCb.onAllServicesRemoved(mSocket);
                 }
             });
+        }
+        // Re-announce the services which have the same hostname. These services were announced
+        // using host addresses which were just removed so they should be re-announced without those
+        // addresses.
+        for (int serviceId : updatedServices) {
+            if (serviceId == id) {
+                continue;
+            }
+            mAnnouncer.stop(serviceId);
+            try {
+                mAnnouncer.startSending(
+                        serviceId,
+                        mRecordRepository.makeAnnouncementInfo(serviceId),
+                        0L /* initialDelayMs */);
+            } catch (IOException e) {
+                mSharedLog.e("Error building announcements", e);
+            }
         }
     }
 
