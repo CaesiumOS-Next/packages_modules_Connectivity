@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2514998b_c39b6302",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/PrivateAddressCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-03-05T18:03:27Z",
+      "side": 1,
+      "message": "Use correct comment formatting. Full sentences and space between // and first word.\n\n// Check for the reserved IP address for the P2P.",
+      "range": {
+        "startLine": 214,
+        "startChar": 8,
+        "endLine": 214,
+        "endChar": 55
+      },
+      "revId": "09f7802255b26223431af287553f3bf7a360a100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19fc89cd_2dbf2cb5",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/PrivateAddressCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-03-05T18:03:27Z",
+      "side": 1,
+      "message": "Add a comment\n\n// Check that previously allocated dynamic address is provided again.",
+      "range": {
+        "startLine": 235,
+        "startChar": 8,
+        "endLine": 235,
+        "endChar": 79
+      },
+      "revId": "09f7802255b26223431af287553f3bf7a360a100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
