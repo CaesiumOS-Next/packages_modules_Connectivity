@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94c61769_0df9bd16",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1912,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-05T02:45:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4241b791_9f9606da",
+      "range": {
+        "startLine": 1912,
+        "startChar": 16,
+        "endLine": 1912,
+        "endChar": 36
+      },
+      "revId": "b9799ba1ecf6b18352441a55db16fc89e068f83d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88c64e7c_8445921e",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-02-29T03:32:07Z",
       "side": 1,
       "message": "But then the test shouldn\u0027t run at all ? Did you actually observe that ?",
+      "revId": "b9799ba1ecf6b18352441a55db16fc89e068f83d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "372de325_8fa2333c",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1928,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-05T02:45:58Z",
+      "side": 1,
+      "message": "I didn\u0027t observe this problem before. I just copied this check from `tearDown()`, but I don\u0027t think it\u0027s necessary if testNetwork1 wasn\u0027t initialized. In that case, the test should fail anyway.",
+      "parentUuid": "88c64e7c_8445921e",
       "revId": "b9799ba1ecf6b18352441a55db16fc89e068f83d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "600db01c_26d7e140",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1965,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-05T02:45:58Z",
+      "side": 1,
+      "message": "Thanks for your suggestion. It\u0027s simpler now.",
+      "parentUuid": "ba13f47e_4d001fd5",
+      "range": {
+        "startLine": 1965,
+        "startChar": 25,
+        "endLine": 1965,
+        "endChar": 30
+      },
+      "revId": "b9799ba1ecf6b18352441a55db16fc89e068f83d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4dac331d_98e4b7ff",
@@ -77,6 +143,24 @@
       "writtenOn": "2024-02-29T03:32:07Z",
       "side": 1,
       "message": "Nit: it would be helpful to have a comment here with sample output",
+      "revId": "b9799ba1ecf6b18352441a55db16fc89e068f83d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8c1940e_bf8aaf21",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1967,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-05T02:45:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4dac331d_98e4b7ff",
       "revId": "b9799ba1ecf6b18352441a55db16fc89e068f83d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
