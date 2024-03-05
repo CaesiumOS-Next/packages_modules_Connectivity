@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c93d2087_03b4274d",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/FragmentHeader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-05T08:06:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2632f3c_359ccdf9",
+      "range": {
+        "startLine": 35,
+        "startChar": 34,
+        "endLine": 35,
+        "endChar": 36
+      },
+      "revId": "26be877d01b3f35116d225e0010c429086dd7622",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97cc1ad6_2b3e9169",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7545e416_fd6bf3fd",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/FragmentHeader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-05T08:06:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97cc1ad6_2b3e9169",
+      "range": {
+        "startLine": 39,
+        "startChar": 34,
+        "endLine": 39,
+        "endChar": 37
+      },
+      "revId": "26be877d01b3f35116d225e0010c429086dd7622",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67057250_0d1d87e6",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-03-05T04:58:22Z",
       "side": 1,
       "message": "recommend also including a constructor which skips reserved and just sets it to 0",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 97
+      },
+      "revId": "26be877d01b3f35116d225e0010c429086dd7622",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5fdaf85_827e0248",
+        "filename": "staticlibs/device/com/android/net/module/util/structs/FragmentHeader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-05T08:06:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67057250_0d1d87e6",
       "range": {
         "startLine": 44,
         "startChar": 0,
