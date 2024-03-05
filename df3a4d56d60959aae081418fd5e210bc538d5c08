@@ -34,6 +34,24 @@
       "parentUuid": "680c0e92_7a5db591",
       "revId": "df3a4d56d60959aae081418fd5e210bc538d5c08",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43ce93b2_dc852680",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2024-03-05T02:13:35Z",
+      "side": 1,
+      "message": "Thanks for the inputs. In that case, I will drop these two CLs. At the same time I will make sure this edge case is well documented in a bug and in the code comments",
+      "parentUuid": "ee75acda_d20c5c7a",
+      "revId": "df3a4d56d60959aae081418fd5e210bc538d5c08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
