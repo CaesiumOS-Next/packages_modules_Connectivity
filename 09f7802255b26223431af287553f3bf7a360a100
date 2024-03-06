@@ -153,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8e24579_12aa8408",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/PrivateAddressCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2024-03-06T07:56:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2514998b_c39b6302",
+      "range": {
+        "startLine": 214,
+        "startChar": 8,
+        "endLine": 214,
+        "endChar": 55
+      },
+      "revId": "09f7802255b26223431af287553f3bf7a360a100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19fc89cd_2dbf2cb5",
@@ -166,6 +190,30 @@
       "writtenOn": "2024-03-05T18:03:27Z",
       "side": 1,
       "message": "Add a comment\n\n// Check that previously allocated dynamic address is provided again.",
+      "range": {
+        "startLine": 235,
+        "startChar": 8,
+        "endLine": 235,
+        "endChar": 79
+      },
+      "revId": "09f7802255b26223431af287553f3bf7a360a100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc8ed162_149ad040",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/PrivateAddressCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2024-03-06T07:56:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "19fc89cd_2dbf2cb5",
       "range": {
         "startLine": 235,
         "startChar": 8,
