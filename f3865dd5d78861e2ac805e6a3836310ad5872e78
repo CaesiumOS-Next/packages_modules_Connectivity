@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aed27df6_154be94d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-06T08:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "091b4d5f_f035ce16",
+      "range": {
+        "startLine": 233,
+        "startChar": 63,
+        "endLine": 233,
+        "endChar": 89
+      },
+      "revId": "f3865dd5d78861e2ac805e6a3836310ad5872e78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "501ed97e_545eca27",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-28T10:54:38Z",
       "side": 1,
       "message": "Nit: I think it would be a bit clearer to do `packetQueueToUse.size() + datagramPackets.length \u003e mdnsPacketQueueMaxSize`, as it translates more clearly to \"loop as long as adding these packets would make the queue over size\"",
+      "range": {
+        "startLine": 266,
+        "startChar": 19,
+        "endLine": 266,
+        "endChar": 22
+      },
+      "revId": "f3865dd5d78861e2ac805e6a3836310ad5872e78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99bed98c_fb4dcb8e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-06T08:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "501ed97e_545eca27",
       "range": {
         "startLine": 266,
         "startChar": 19,
@@ -77,6 +125,30 @@
       "writtenOn": "2024-02-28T10:54:38Z",
       "side": 1,
       "message": "Could you add another method to set the position ? It looks a bit weird / hard to follow otherwise",
+      "range": {
+        "startLine": 278,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 0
+      },
+      "revId": "f3865dd5d78861e2ac805e6a3836310ad5872e78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1b7c007_c2655677",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-06T08:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "830f28ed_ec6ebc2e",
       "range": {
         "startLine": 278,
         "startChar": 0,
