@@ -58,6 +58,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3523eedc_3beb9e12",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-06T08:25:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24dd1f1f_7b75ecd7",
+      "revId": "64e0ef77fdf83c64bbd5a7674a9c0c8cf3f3cd69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b88d4a5_2b2b7f50",
@@ -81,6 +99,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e81d34a6_53ccf251",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1846,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-06T08:25:11Z",
+      "side": 1,
+      "message": "It\u0027s unrelated logs. Removed.",
+      "parentUuid": "1b88d4a5_2b2b7f50",
+      "range": {
+        "startLine": 1846,
+        "startChar": 11,
+        "endLine": 1846,
+        "endChar": 64
+      },
+      "revId": "64e0ef77fdf83c64bbd5a7674a9c0c8cf3f3cd69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46144651_1d9ee470",
@@ -94,6 +136,30 @@
       "writtenOn": "2024-02-27T08:46:18Z",
       "side": 1,
       "message": "?",
+      "range": {
+        "startLine": 1966,
+        "startChar": 19,
+        "endLine": 1966,
+        "endChar": 24
+      },
+      "revId": "64e0ef77fdf83c64bbd5a7674a9c0c8cf3f3cd69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f82c225f_9a99b009",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1966,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-06T08:25:11Z",
+      "side": 1,
+      "message": "Oops. Removed this redundant logs.",
+      "parentUuid": "46144651_1d9ee470",
       "range": {
         "startLine": 1966,
         "startChar": 19,
