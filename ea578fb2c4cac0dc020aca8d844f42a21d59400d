@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49aad255_3b3f0a00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-06T13:54:02Z",
+      "side": 1,
+      "message": "`ThreadNetworkIntegrationTests` is failing",
+      "revId": "ea578fb2c4cac0dc020aca8d844f42a21d59400d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
