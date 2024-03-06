@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11d3a258_e4a7b761",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2073,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-06T08:56:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c4d82a7_5799c938",
+      "range": {
+        "startLine": 2073,
+        "startChar": 93,
+        "endLine": 2073,
+        "endChar": 96
+      },
+      "revId": "615287947e1dd2ce84d4e75a8ebb5d4c88036f3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f64416e_640bf61d",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-05T08:13:39Z",
       "side": 1,
       "message": "I feel early return for `!mSupportTrafficStatsRateLimitCache` case makes code easier to understand.\n\nI meant something like the following.\n```\nif (!mSupportTrafficStatsRateLimitCache) {\n    return getEntryValueForType(nativeGetUidStat(uid), type);\n}\n\n// code for using cache.\n```\n\nSame for other methods.",
+      "range": {
+        "startLine": 2078,
+        "startChar": 4,
+        "endLine": 2078,
+        "endChar": 5
+      },
+      "revId": "615287947e1dd2ce84d4e75a8ebb5d4c88036f3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6e79c2c_b7b825c7",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2078,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-06T08:56:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f64416e_640bf61d",
       "range": {
         "startLine": 2078,
         "startChar": 4,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19beb635_551b3664",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2138,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-06T08:56:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bee915c6_98c0bd4a",
+      "range": {
+        "startLine": 2138,
+        "startChar": 73,
+        "endLine": 2138,
+        "endChar": 76
+      },
+      "revId": "615287947e1dd2ce84d4e75a8ebb5d4c88036f3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f3e0983_b6a3c3bc",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-03-05T08:13:39Z",
       "side": 1,
       "message": "What will be the usecase of this flag?",
+      "range": {
+        "startLine": 55,
+        "startChar": 29,
+        "endLine": 55,
+        "endChar": 67
+      },
+      "revId": "615287947e1dd2ce84d4e75a8ebb5d4c88036f3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ab0aad1_de0a600e",
+        "filename": "staticlibs/device/com/android/net/module/util/FeatureVersions.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-06T08:56:02Z",
+      "side": 1,
+      "message": "In the CTS change CL (aosp/2897513) we will need the flag to determine whether TrafficStats#clearRateLimitCaches() is supported.\n * If supported but not called, the stats doesn\u0027t update and test fails.\n * If not supported but called, NoSuchMethod exception is raised.\n * If feature disabled but called, no harm.\n \nWhile in aosp the version check always return false (34_00 \u003c 34_18), we\u0027ll need to \ncheck this flag in the production code as well to prevent from case 1.",
+      "parentUuid": "2f3e0983_b6a3c3bc",
       "range": {
         "startLine": 55,
         "startChar": 29,
@@ -118,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae5ed02e_c5efef6c",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-06T08:56:02Z",
+      "side": 1,
+      "message": "In the case of \ndoReturn(entry).when(mDeps).nativeGetUidStat(uid);\nIf we want to test 2 different uids.\nWe\u0027ll need a HashMap and a setNativeGetUidStat(uid) to store differnt mocks,\nwhile we only need 2 lines of mocking if we use spy.\nWith the flexibility consideration I think the spy is slightly better?\nThis also applies to nativeGetIfaceStat.\nWDYT?",
+      "parentUuid": "07f32040_222fb6be",
+      "range": {
+        "startLine": 301,
+        "startChar": 35,
+        "endLine": 301,
+        "endChar": 63
+      },
+      "revId": "615287947e1dd2ce84d4e75a8ebb5d4c88036f3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "98ed0988_50200490",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
         "patchSetId": 13
@@ -129,6 +249,30 @@
       "writtenOn": "2024-03-05T08:13:39Z",
       "side": 1,
       "message": "I saw setup calls `mService.systemReady();` and `mService.openSession();` after `makeNewStatsService`\nIs it safe for test to call `makeNewStatsService` and recreate mService but does not call `mService.systemReady();` and `mService.openSession();`?\nIf there are methods that must be called together, I think it\u0027s better to move them to this method as well.",
+      "range": {
+        "startLine": 398,
+        "startChar": 41,
+        "endLine": 398,
+        "endChar": 42
+      },
+      "revId": "615287947e1dd2ce84d4e75a8ebb5d4c88036f3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2cb5328_98e4c8bb",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-06T08:56:02Z",
+      "side": 1,
+      "message": "Done.\nOnly mService.systemReady(); is necessary.\nOthers derived variables won\u0027t be affected but does not make sense if we renew the service but leave them alone.",
+      "parentUuid": "98ed0988_50200490",
       "range": {
         "startLine": 398,
         "startChar": 41,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9825eb53_a8d7ad94",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2386,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-06T08:56:02Z",
+      "side": 1,
+      "message": "Done.\nAlso apply to the one in production code.",
+      "parentUuid": "c20059c3_4128fe11",
+      "range": {
+        "startLine": 2386,
+        "startChar": 24,
+        "endLine": 2386,
+        "endChar": 52
+      },
+      "revId": "615287947e1dd2ce84d4e75a8ebb5d4c88036f3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "403b1431_7cf13f6a",
@@ -175,6 +343,30 @@
       "writtenOn": "2024-03-05T08:13:39Z",
       "side": 1,
       "message": "nits: looping assert makes debug difficult since we can not know which one is failing from line number.\nI prefer the following code but this is up to you\n```\nassertTrafficStats(long rxBytes, long rxPackets, long txBytes, long txPackets,\n               Function\u003cInteger, Long\u003e fetcher) {\n   assertEquals(rxBytes, fetcher.apply(TrafficStats.TYPE_RX_BYTES));\n   assertEquals(rxPackets, fetcher.apply(TrafficStats.TYPE_RX_PACKETS));\n   assertEquals(txBytes, fetcher.apply(TrafficStats.TYPE_TX_BYTES));\n   assertEquals(txPackets, fetcher.apply(TrafficStats.TYPE_TX_PACKETS));\n}\n\nprivate void assertTrafficStatsValues() {\n   assertTrafficStats(rxBytes, rxPackets, txBytes, txPackets, (type) -\u003e mService.getTotalStats(type))\n   assertTrafficStats(rxBytes, rxPackets, txBytes, txPackets, (type) -\u003e mService.getIfaceStats(iface, type))\n   assertTrafficStats(rxBytes, rxPackets, txBytes, txPackets, (type) -\u003e mService.getUidStats(uid, type))\n}\n\n```",
+      "range": {
+        "startLine": 2396,
+        "startChar": 4,
+        "endLine": 2396,
+        "endChar": 5
+      },
+      "revId": "615287947e1dd2ce84d4e75a8ebb5d4c88036f3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0bb081b_9efed2d3",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2396,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-06T08:56:02Z",
+      "side": 1,
+      "message": "Done.\nThanks, this would be a good trade off.",
+      "parentUuid": "403b1431_7cf13f6a",
       "range": {
         "startLine": 2396,
         "startChar": 4,
