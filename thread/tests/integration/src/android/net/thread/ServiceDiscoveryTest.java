@@ -81,6 +81,7 @@ public class ServiceDiscoveryTest {
 
     private HandlerThread mHandlerThread;
     private ThreadNetworkController mController;
+    private OtDaemonController mOtCtl;
     private NsdManager mNsdManager;
     private TapTestNetworkTracker mTestNetworkTracker;
     private List<FullThreadDevice> mFtds;
@@ -111,6 +112,10 @@ public class ServiceDiscoveryTest {
 
         // Run the tests only when the device uses simulated Thread radio.
         assumeTrue(isSimulatedThreadRadioSupported());
+
+        // TODO: b/323301831 - This is a workaround to avoid unnecessary delay to re-form a network
+        mOtCtl = new OtDaemonController();
+        mOtCtl.factoryReset();
 
         // BR forms a network.
         CompletableFuture<Void> joinFuture = new CompletableFuture<>();
