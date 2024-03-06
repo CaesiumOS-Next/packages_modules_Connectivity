@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ee0c6dd_53360ac5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-06T04:12:27Z",
+      "side": 1,
+      "message": "Consider ignoring the entire ThreadNetworkIntegrationTests module by adding `MinApiLevelModuleController` to the AndroidTest.xml. Example: https://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:vendor/xts/gts-tests/tests/attestation/AndroidTest.xml",
+      "revId": "501db562d22b28e2218df256a2b937ae287c3e04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
