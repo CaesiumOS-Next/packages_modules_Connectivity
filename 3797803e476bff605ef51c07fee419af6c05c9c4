@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "41989b81_b86af9a4",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-03-06T05:13:51Z",
+      "side": 1,
+      "message": "Done, but what\u0027s the purpose of using 1231 and 1237 as values instead of 0 and 1?",
+      "parentUuid": "0c3f7434_b8f06f3a",
+      "range": {
+        "startLine": 744,
+        "startChar": 19,
+        "endLine": 746,
+        "endChar": 74
+      },
+      "revId": "3797803e476bff605ef51c07fee419af6c05c9c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "704c7a6e_4e5d0989",
         "filename": "Tethering/src/android/net/ip/IpServer.java",
         "patchSetId": 11
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-06T03:39:51Z",
       "side": 1,
       "message": "It is not intuit that assign mTetheringRequest in maybeConfigureStaticIp.\n\nYou can either rename this function to handleTetheringRequest or just move \"mTetheringRequest \u003d request\" to l.1134 that assign mTetheringRequest when processign CMD_TETHER_REQUESTED.",
+      "range": {
+        "startLine": 1106,
+        "startChar": 8,
+        "endLine": 1106,
+        "endChar": 36
+      },
+      "revId": "3797803e476bff605ef51c07fee419af6c05c9c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7955ef03_8de56b5d",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-03-06T05:13:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "704c7a6e_4e5d0989",
       "range": {
         "startLine": 1106,
         "startChar": 8,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1242a927_66fb4762",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1125,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-03-06T05:13:51Z",
+      "side": 1,
+      "message": "My concern is that sometimes we\u0027ll transition back to Initial state (e.g. CMD_TETHER_UNREQUESTED), so the tether state will be broadcast as AVAILABLE with the old tethering request, even though it\u0027s not active anymore.\n\nBut maybe it\u0027s fine to not reset it, since the request will be reset when IP serving is enabled again.",
+      "parentUuid": "ce283a42_0e4b2bac",
+      "range": {
+        "startLine": 1125,
+        "startChar": 12,
+        "endLine": 1125,
+        "endChar": 37
+      },
+      "revId": "3797803e476bff605ef51c07fee419af6c05c9c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06f1c34f_1287d88d",
         "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
         "patchSetId": 11
@@ -83,6 +155,30 @@
       "writtenOn": "2024-03-06T03:39:51Z",
       "side": 1,
       "message": "Please fix this WARNING reported by Check Contents: TODO statements should not reference a specific human; consider using a bug number instead; see https://source.android.com/setup/contribute/code-style#use-todo-comments for more details.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nTODO statements should not reference a specific human; consider using a bug number instead; see https://source.android.com/setup/contribute/code-style#use-todo-comments for more details.",
+      "range": {
+        "startLine": 140,
+        "startChar": 15,
+        "endLine": 140,
+        "endChar": 24
+      },
+      "revId": "3797803e476bff605ef51c07fee419af6c05c9c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "332ca947_441d7c4d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-03-06T05:13:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06f1c34f_1287d88d",
       "range": {
         "startLine": 140,
         "startChar": 15,
