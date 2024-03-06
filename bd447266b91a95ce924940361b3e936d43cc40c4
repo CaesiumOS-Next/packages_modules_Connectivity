@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8af771f_28de2173",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-03-06T03:39:51Z",
+      "side": 0,
+      "message": "Since you already add #equals to TetheringRequst and here is the only caller of TetheringUtils#isTetheringRequestEquals. Remove the unused #isTetheringRequestEquals from TetheringUtils?",
+      "range": {
+        "startLine": 676,
+        "startChar": 39,
+        "endLine": 676,
+        "endChar": 57
+      },
+      "revId": "bd447266b91a95ce924940361b3e936d43cc40c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
