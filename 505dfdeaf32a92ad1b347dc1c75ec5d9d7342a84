@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bbfa29a9_d7cca362",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-03-06T06:57:41Z",
+      "side": 1,
+      "message": "We need to be consistent with previous behavior. Multiple requests aren\u0027t entirely supported at this stage, but once we do add it (I.e. allow multiple requests of the same type in mActiveTetheringRequests), then we need to put that behind an SDK check.",
+      "parentUuid": "6e9601d5_47a7ee6e",
+      "range": {
+        "startLine": 670,
+        "startChar": 11,
+        "endLine": 670,
+        "endChar": 96
+      },
+      "revId": "505dfdeaf32a92ad1b347dc1c75ec5d9d7342a84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "34ee16db_732c3432",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 3
@@ -60,6 +84,30 @@
       "writtenOn": "2024-03-05T18:38:49Z",
       "side": 1,
       "message": "This is where my comment on the equals function comes in. Should only compare Client/Local IP, scope and tethering type. If the entitlement check/ui are different wouldn\u0027t the request match? Or do those params matter?",
+      "range": {
+        "startLine": 708,
+        "startChar": 44,
+        "endLine": 708,
+        "endChar": 75
+      },
+      "revId": "505dfdeaf32a92ad1b347dc1c75ec5d9d7342a84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd3aa0d0_eaeade15",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-03-06T06:57:41Z",
+      "side": 1,
+      "message": "They were checked in the previous TetheringUtils.isTetheringRequestEquals, so we should maintain the same behavior here.",
+      "parentUuid": "34ee16db_732c3432",
       "range": {
         "startLine": 708,
         "startChar": 44,
