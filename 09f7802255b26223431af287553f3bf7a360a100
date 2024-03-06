@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "39481b96_9d8a3a9c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2024-03-06T07:53:27Z",
+      "side": 1,
+      "message": "line number 192 we are actually returning the first unused cache address from the list , we need one iterator to go through this. I dont think removeIf function will replace the existing code.",
+      "parentUuid": "402fd3d7_c7191ebd",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 13
+      },
+      "revId": "09f7802255b26223431af287553f3bf7a360a100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9677b037_87ca8583",
         "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
         "patchSetId": 6
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f1d7585_3d43b78d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2024-03-06T07:53:27Z",
+      "side": 1,
+      "message": "here the computeIfAbsent replaces only line number 205 \"if\"statement\" but doesnt replace the 207 \"else\" part.  We need to add new address to the list if the addrKey is already present.",
+      "parentUuid": "9677b037_87ca8583",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 17
+      },
+      "revId": "09f7802255b26223431af287553f3bf7a360a100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4cea6fc6_ada0446a",
         "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
         "patchSetId": 6
@@ -60,6 +108,24 @@
       "writtenOn": "2024-03-06T01:45:43Z",
       "side": 1,
       "message": "```suggestion\n    private boolean isDownstreamInUse(final IpPrefix prefix) {\n```",
+      "revId": "09f7802255b26223431af287553f3bf7a360a100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8147d5a6_8c4f4033",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2024-03-06T07:53:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4cea6fc6_ada0446a",
       "revId": "09f7802255b26223431af287553f3bf7a360a100",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
