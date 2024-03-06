@@ -139,10 +139,12 @@ import com.android.net.module.util.HandlerUtils;
 import com.android.net.module.util.NetdUtils;
 import com.android.net.module.util.SdkUtil.LateSdk;
 import com.android.net.module.util.SharedLog;
+import com.android.networkstack.apishim.WifiManagerShimImpl;
 import com.android.networkstack.apishim.common.BluetoothPanShim;
 import com.android.networkstack.apishim.common.BluetoothPanShim.TetheredInterfaceCallbackShim;
 import com.android.networkstack.apishim.common.BluetoothPanShim.TetheredInterfaceRequestShim;
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
+import com.android.networkstack.apishim.common.WifiManagerShim;
 import com.android.networkstack.tethering.metrics.TetheringMetrics;
 import com.android.networkstack.tethering.util.InterfaceSet;
 import com.android.networkstack.tethering.util.PrefixUtils;
@@ -156,8 +158,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Executor;
@@ -230,6 +234,14 @@ public class Tethering {
     // requested at a time. After a tethering type is requested, the map keeps tethering parameters
     // to be used after the interface comes up asynchronously.
     private final SparseArray<TetheringRequest> mActiveTetheringRequests = new SparseArray<>();
+    // Currently active StartTetheringCallbacks for open Wi-Fi tethering requests that haven't
+    // started IP serving yet. This is only applicable for V+ since
+    // WifiManager#startTetheredHotspotRequest(TetheringRequest) will give us SoftApCallbacks with
+    // TetheringRequest attached, allowing us to match the Soft AP state changes to the correct
+    // callback. Pre-V will instead call StartTetheringCallback right after Soft AP is requested,
+    // before IP serving starts.
+    private final Map<TetheringRequest, IIntResultListener> mWifiStartTetheringCallbacks =
+            new HashMap<TetheringRequest, IIntResultListener>();
 
     private final Context mContext;
     private final ArrayMap<String, TetherState> mTetherStates;
@@ -582,6 +594,33 @@ public class Tethering {
 
     private class TetheringSoftApCallback implements SoftApCallback {
         @Override
+        public void onStateChanged(@NonNull SoftApState state) {
+            // Do state change stuff.
+            final int curState = state.getState();
+            final String ifname = state.getIface();
+
+            switch (curState) {
+                case WifiManager.WIFI_AP_STATE_ENABLING:
+                    // We can see this state on the way to both enabled and failure states.
+                    break;
+                case WifiManager.WIFI_AP_STATE_ENABLED:
+                    TetheringRequest request = state.getTetheringRequest();
+                    enableWifiIpServing(ifname, IFACE_IP_MODE_TETHERED);
+                    sendTetherResult(mWifiStartTetheringCallbacks.get(request),
+                            TETHER_ERROR_NO_ERROR, TETHERING_WIFI);
+                    break;
+                case WifiManager.WIFI_AP_STATE_DISABLING:
+                    // We can see this state on the way to disabled.
+                    break;
+                case WifiManager.WIFI_AP_STATE_DISABLED:
+                case WifiManager.WIFI_AP_STATE_FAILED:
+                default:
+                    disableWifiIpServing(ifname, curState);
+                    break;
+            }
+        }
+
+        @Override
         public void onConnectedClientsChanged(final List<WifiClient> clients) {
             updateConnectedClients(clients, null);
         }
@@ -670,7 +709,7 @@ public class Tethering {
         // If tethering is already pending with a different request, disable before re-enabling.
         if (existingRequest != null && !existingRequest.isServing()
                 && !existingRequest.equals(request)) {
-            enableTetheringInternal(request.getTetheringType(), false /* disabled */, null);
+            enableTetheringInternal(, request.getTetheringType(), /* disabled */ false, null);
             mEntitlementMgr.stopProvisioningIfNeeded(request.getTetheringType());
         }
         mActiveTetheringRequests.put(request.getTetheringType(), request);
@@ -690,7 +729,7 @@ public class Tethering {
                 mEntitlementMgr.startProvisioningIfNeeded(request.getTetheringType(),
                         request.getShouldShowEntitlementUi());
             }
-            enableTetheringInternal(request.getTetheringType(), true /* enabled */, listener);
+            enableTetheringInternal(request, /* enabled */ true, listener);
             mTetheringMetrics.createBuilder(request.getTetheringType(), callerPkg);
         });
     }
@@ -714,23 +753,37 @@ public class Tethering {
         });
     }
 
-    void stopTetheringInternal(int type) {
+    void stopTetheringInternal(TetheringRequest request) {
+        final int type = request.getTetheringType();
+        TetheringRequest existingRequest = mActiveTetheringRequests.get(type);
+        if (!request.equals(existingRequest)) {
+            // Request doesn't match any active requests, ignore.
+            return;
+        }
         mActiveTetheringRequests.remove(type);
 
-        enableTetheringInternal(type, false /* disabled */, null);
+        enableTetheringInternal(request, /* disabled */ false, null);
         mEntitlementMgr.stopProvisioningIfNeeded(type);
+    }
+
+    void stopTetheringInternal(int type) {
+        TetheringRequest request = mActiveTetheringRequests.get(type);
+        if (request != null) {
+            stopTetheringInternal(request);
+        }
     }
 
     /**
      * Enables or disables tethering for the given type. If provisioning is required, it will
      * schedule provisioning rechecks for the specified interface.
      */
-    private void enableTetheringInternal(int type, boolean enable,
+    private void enableTetheringInternal(TetheringRequest request, boolean enable,
             final IIntResultListener listener) {
         int result = TETHER_ERROR_NO_ERROR;
+        final int type = request.getTetheringType();
         switch (type) {
             case TETHERING_WIFI:
-                result = setWifiTethering(enable);
+                result = setWifiTethering(request, enable);
                 break;
             case TETHERING_USB:
                 result = setUsbTethering(enable);
@@ -756,8 +809,12 @@ public class Tethering {
     }
 
     private void sendTetherResult(final IIntResultListener listener, final int result,
-            final int type) {
-        if (listener != null) {
+            final TetheringRequest request) {
+        final int type = request.getTetheringType();
+        if (SdkLevel.isAtLeastV() && type == TETHERING_WIFI) {
+            // V+ Wifi tethering result will be returned later via SoftApCallback.
+            mWifiStartTetheringCallbacks.put(request, listener);
+        } else if (listener != null) {
             try {
                 listener.onResult(result);
             } catch (RemoteException e) { }
@@ -772,7 +829,8 @@ public class Tethering {
         }
     }
 
-    private int setWifiTethering(final boolean enable) {
+    private int setWifiTethering(TetheringRequest request, final boolean enable) {
+        boolean result = false;
         final long ident = Binder.clearCallingIdentity();
         try {
             final WifiManager mgr = getWifiManager();
@@ -780,16 +838,26 @@ public class Tethering {
                 mLog.e("setWifiTethering: failed to get WifiManager!");
                 return TETHER_ERROR_SERVICE_UNAVAIL;
             }
-            if ((enable && mgr.startTetheredHotspot(null /* use existing softap config */))
-                    || (!enable && mgr.stopSoftAp())) {
-                mWifiTetherRequested = enable;
-                return TETHER_ERROR_NO_ERROR;
+            if (enable) {
+                if (SdkLevel.isAtLeastV()) {
+                    WifiManagerShim wifiShim = new WifiManagerShimImpl.newInstance(mgr);
+                    try {
+                        result = wifiShim.startTetheredHotspotRequest(request);
+                    } catch (UnsupportedApiLevelException e) {
+                        Log.wtf(TAG, "Got UnsupportedApiLevelException for"
+                                + " startTetheredHotspotRequest even though SDK is V");
+                    }
+                } else {
+                    result = mgr.startTetheredHotspot(null /* user config */);
+                }
+            } else {
+                result = mgr.stopSoftAp();
             }
         } finally {
             Binder.restoreCallingIdentity(ident);
         }
 
-        return TETHER_ERROR_INTERNAL_ERROR;
+        return result ? TETHER_ERROR_NO_ERROR : TETHER_ERROR_INTERNAL_ERROR;
     }
 
     private void setBluetoothTethering(final boolean enable, final IIntResultListener listener) {
@@ -2211,9 +2279,13 @@ public class Tethering {
                         break;
                     }
                     case EVENT_REQUEST_CHANGE_DOWNSTREAM: {
-                        final int tetheringType = message.arg1;
-                        final Boolean enabled = (Boolean) message.obj;
-                        enableTetheringInternal(tetheringType, enabled, null);
+                        final TetheringRequest request = (TetheringRequest) message.obj;
+                        final boolean enabled = message.arg1 == 1;
+                        if (request == null) {
+                            Log.e(TAG, "EVENT_REQUEST_CHANGE_DOWNSTREAM with null"
+                                    + " TetheringRequest!");
+                        }
+                        enableTetheringInternal(request, enabled, null);
                         break;
                     }
                     default:
@@ -2796,9 +2868,9 @@ public class Tethering {
         }
 
         @Override
-        public void requestEnableTethering(int tetheringType, boolean enabled) {
+        public void requestEnableTethering(TetheringRequest request, boolean enabled) {
             mTetherMainSM.sendMessage(TetherMainSM.EVENT_REQUEST_CHANGE_DOWNSTREAM,
-                    tetheringType, 0, enabled ? Boolean.TRUE : Boolean.FALSE);
+                    enabled ? 1 : 0, 0, request);
         }
     }
 
