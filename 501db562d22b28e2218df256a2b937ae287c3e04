@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a1271f36_dcba0a02",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-06T04:17:48Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this check returns `false` on Android T?",
+      "range": {
+        "startLine": 121,
+        "startChar": 19,
+        "endLine": 121,
+        "endChar": 50
+      },
+      "revId": "501db562d22b28e2218df256a2b937ae287c3e04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78d4cfdf_87621392",
         "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
         "patchSetId": 1
