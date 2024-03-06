@@ -55,6 +55,7 @@ import android.net.LinkProperties;
 import android.net.MacAddress;
 import android.net.thread.utils.FullThreadDevice;
 import android.net.thread.utils.InfraNetworkDevice;
+import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 
@@ -62,6 +63,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.TapPacketReader;
 import com.android.testutils.TestNetworkTracker;
 
@@ -82,6 +84,7 @@ import java.util.function.Predicate;
 /** Integration test cases for Thread Border Routing feature. */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
+@IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 public class BorderRoutingTest {
     private static final String TAG = BorderRoutingTest.class.getSimpleName();
     private final Context mContext = ApplicationProvider.getApplicationContext();
