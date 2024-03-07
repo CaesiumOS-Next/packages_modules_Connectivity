@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cf2b350_b51d3980",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-07T10:28:51Z",
+      "side": 1,
+      "message": "Updated to only skip multicast tests when multicast routing is not supported in kernel.",
+      "parentUuid": "3ee0c6dd_53360ac5",
+      "revId": "501db562d22b28e2218df256a2b937ae287c3e04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1271f36_dcba0a02",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5371c96d_bf8229a5",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-07T10:28:51Z",
+      "side": 1,
+      "message": "The build is still U+, it\u0027s just the kernel version is 13-5.15",
+      "parentUuid": "a1271f36_dcba0a02",
+      "range": {
+        "startLine": 121,
+        "startChar": 19,
+        "endLine": 121,
+        "endChar": 50
+      },
+      "revId": "501db562d22b28e2218df256a2b937ae287c3e04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78d4cfdf_87621392",
@@ -54,6 +96,30 @@
       "writtenOn": "2024-03-06T04:15:33Z",
       "side": 1,
       "message": "Why the test is running on Android T? Given `mController` should be null there.",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 35
+      },
+      "revId": "501db562d22b28e2218df256a2b937ae287c3e04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1aec7cc_c5018242",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-07T10:28:51Z",
+      "side": 1,
+      "message": "The failed test specified kernel version:\n```$ acloud create --branch aosp-main --build-target aosp_cf_x86_64_phone-trunk_staging-userdebug --build-id 11526896 --kernel-branch aosp_kernel-common-android13-5.15 --kernel-build-target kernel_virt_x86_64 --kernel-build-id 11516846```\nso seems skd version is U+, but kernel version is `13-5.15`, so thread is supported while multicast routing is not supported.\n\nUpdated the multicast support check to check for kernel android version.",
+      "parentUuid": "78d4cfdf_87621392",
       "range": {
         "startLine": 128,
         "startChar": 8,
