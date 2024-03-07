@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d47e9d77_7d79f097",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-07T02:06:12Z",
+      "side": 1,
+      "message": "blocked on main switching to build from src for tethering apex as this appears to need recent code\n\nthis is expected tomorrow-ish",
+      "revId": "c8c42e5a70373e43fef11e0a47c0b95cbfdbcbfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
