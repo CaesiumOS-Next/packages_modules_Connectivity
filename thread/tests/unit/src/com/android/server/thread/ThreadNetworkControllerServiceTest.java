@@ -68,6 +68,7 @@ import androidx.test.filters.SmallTest;
 
 import com.android.connectivity.resources.R;
 import com.android.server.connectivity.ConnectivityResources;
+import com.android.server.thread.openthread.MeshcopTxtAttributes;
 import com.android.server.thread.openthread.testing.FakeOtDaemon;
 
 import org.junit.Before;
@@ -113,8 +114,9 @@ public final class ThreadNetworkControllerServiceTest {
     private static final int DEFAULT_SELECTED_CHANNEL = 11;
     private static final byte[] DEFAULT_SUPPORTED_CHANNEL_MASK_ARRAY = base16().decode("001FFFE0");
 
-    private static final String TEST_VENDOR = "test vendor";
-    private static final String TEST_MODEL = "test model";
+    private static final String TEST_VENDOR_OUI = "AC-DE-48";
+    private static final String TEST_VENDOR_NAME = "test vendor";
+    private static final String TEST_MODEL_NAME = "test model";
 
     @Mock private ConnectivityManager mMockConnectivityManager;
     @Mock private NetworkAgent mMockNetworkAgent;
@@ -156,8 +158,12 @@ public final class ThreadNetworkControllerServiceTest {
         when(mMockUserManager.hasUserRestriction(eq(DISALLOW_THREAD_NETWORK))).thenReturn(false);
 
         when(mConnectivityResources.get()).thenReturn(mResources);
-        when(mResources.getString(eq(R.string.config_thread_vendor_name))).thenReturn(TEST_VENDOR);
-        when(mResources.getString(eq(R.string.config_thread_model_name))).thenReturn(TEST_MODEL);
+        when(mResources.getString(eq(R.string.config_thread_vendor_name)))
+                .thenReturn(TEST_VENDOR_NAME);
+        when(mResources.getString(eq(R.string.config_thread_vendor_oui)))
+                .thenReturn(TEST_VENDOR_OUI);
+        when(mResources.getString(eq(R.string.config_thread_model_name)))
+                .thenReturn(TEST_MODEL_NAME);
 
         mService =
                 new ThreadNetworkControllerService(
@@ -189,14 +195,59 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void initialize_vendorAndModelNameInResourcesAreSetToOtDaemon() throws Exception {
-        when(mResources.getString(eq(R.string.config_thread_vendor_name))).thenReturn(TEST_VENDOR);
-        when(mResources.getString(eq(R.string.config_thread_model_name))).thenReturn(TEST_MODEL);
+        when(mResources.getString(eq(R.string.config_thread_vendor_name)))
+                .thenReturn(TEST_VENDOR_NAME);
+
+        when(mResources.getString(eq(R.string.config_thread_vendor_oui)))
+                .thenReturn(TEST_VENDOR_OUI);
+        when(mResources.getString(eq(R.string.config_thread_model_name)))
+                .thenReturn(TEST_MODEL_NAME);
 
         mService.initialize();
         mTestLooper.dispatchAll();
 
-        assertThat(mFakeOtDaemon.getVendorName()).isEqualTo(TEST_VENDOR);
-        assertThat(mFakeOtDaemon.getModelName()).isEqualTo(TEST_MODEL);
+        MeshcopTxtAttributes meshcopTxts = mFakeOtDaemon.getOverriddenMeshcopTxtAttributes();
+        assertThat(meshcopTxts.vendorName).isEqualTo(TEST_VENDOR_NAME);
+        assertThat(meshcopTxts.vendorOui).isEqualTo(new byte[] {(byte) 0xAC, (byte) 0xDE, 0x48});
+        assertThat(meshcopTxts.modelName).isEqualTo(TEST_MODEL_NAME);
+    }
+
+    @Test
+    public void getMeshcopTxtAttributes_tooLongVendorName_throwsIllegalStateException() {
+        when(mResources.getString(eq(R.string.config_thread_vendor_name)))
+                .thenReturn("vendor name is 25 bytes!!");
+
+        assertThrows(
+                IllegalStateException.class,
+                () -> ThreadNetworkControllerService.getMeshcopTxtAttributes(mResources));
+    }
+
+    @Test
+    public void getMeshcopTxtAttributes_tooLongModelName_throwsIllegalStateException() {
+        when(mResources.getString(eq(R.string.config_thread_model_name)))
+                .thenReturn("model name is 25 bytes!!!");
+
+        assertThrows(
+                IllegalStateException.class,
+                () -> ThreadNetworkControllerService.getMeshcopTxtAttributes(mResources));
+    }
+
+    @Test
+    public void getMeshcopTxtAttributes_invalidVendorOui_throwsIllegalStateException() {
+        assertThrows(
+                IllegalStateException.class, () -> getMeshcopTxtAttributesWithVendorOui("ABCDEFG"));
+        assertThrows(
+                IllegalStateException.class, () -> getMeshcopTxtAttributesWithVendorOui("abcdef"));
+        assertThrows(
+                IllegalStateException.class, () -> getMeshcopTxtAttributesWithVendorOui("ABCD"));
+        assertThrows(
+                IllegalStateException.class,
+                () -> getMeshcopTxtAttributesWithVendorOui("AB:CD:EF"));
+    }
+
+    private void getMeshcopTxtAttributesWithVendorOui(String vendorOui) {
+        when(mResources.getString(eq(R.string.config_thread_vendor_oui))).thenReturn(vendorOui);
+        ThreadNetworkControllerService.getMeshcopTxtAttributes(mResources);
     }
 
     @Test
