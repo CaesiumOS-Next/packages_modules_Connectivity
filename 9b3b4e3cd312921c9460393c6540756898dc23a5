@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeb441a0_73209333",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-07T03:10:15Z",
+      "side": 1,
+      "message": "I am not sure if this line is right. \n\nIs it guarantee that  finalizePacket(mBuffer.position()) will always return 1 items here. What if it contains 0 item or 2+ items?",
+      "range": {
+        "startLine": 244,
+        "startChar": 8,
+        "endLine": 244,
+        "endChar": 57
+      },
+      "revId": "9b3b4e3cd312921c9460393c6540756898dc23a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bc06024_2de727a8",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-07T03:10:15Z",
+      "side": 1,
+      "message": "Not related to this CL. but It seems this line should be\n\n```\nPacket has neither TCP nor UDP header\n```",
+      "range": {
+        "startLine": 301,
+        "startChar": 35,
+        "endLine": 301,
+        "endChar": 79
+      },
+      "revId": "9b3b4e3cd312921c9460393c6540756898dc23a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7292883_c5bc4584",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-07T03:10:15Z",
+      "side": 1,
+      "message": "new ArrayList\u003c\u003e() shoul be sufficient?",
+      "range": {
+        "startLine": 335,
+        "startChar": 63,
+        "endLine": 335,
+        "endChar": 73
+      },
+      "revId": "9b3b4e3cd312921c9460393c6540756898dc23a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f65b694b_bc1a68d1",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/PacketBuilderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-07T03:10:15Z",
+      "side": 1,
+      "message": "better off to assert size to make sure there is no other garbage byte buffer",
+      "range": {
+        "startLine": 1020,
+        "startChar": 31,
+        "endLine": 1020,
+        "endChar": 38
+      },
+      "revId": "9b3b4e3cd312921c9460393c6540756898dc23a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ec4a95d_6c3b96be",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/PacketBuilderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1025,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-07T03:10:15Z",
+      "side": 1,
+      "message": "nit: it will be great if we have some comment in the each assertArrayEquals() to mention which part it compares, some of them is not very obvious.",
+      "range": {
+        "startLine": 1025,
+        "startChar": 8,
+        "endLine": 1025,
+        "endChar": 25
+      },
+      "revId": "9b3b4e3cd312921c9460393c6540756898dc23a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
