@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9470ee9_3e7262b3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-03-07T01:48:26Z",
+      "side": 1,
+      "message": "I see. If we return early, will it be an issue if there are conflicting addresses later down the iterator?",
+      "parentUuid": "39481b96_9d8a3a9c",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 13
+      },
+      "revId": "09f7802255b26223431af287553f3bf7a360a100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9677b037_87ca8583",
         "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
         "patchSetId": 6
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "here the computeIfAbsent replaces only line number 205 \"if\"statement\" but doesnt replace the 207 \"else\" part.  We need to add new address to the list if the addrKey is already present.",
       "parentUuid": "9677b037_87ca8583",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 17
+      },
+      "revId": "09f7802255b26223431af287553f3bf7a360a100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6f1e592_e21d7268",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-03-07T01:48:26Z",
+      "side": 1,
+      "message": "computeIfAbsent will return the existing ArrayList if one already exists, so calling .add(newAddress) will put it in the existing list like in line 208.",
+      "parentUuid": "9f1d7585_3d43b78d",
       "range": {
         "startLine": 205,
         "startChar": 0,
