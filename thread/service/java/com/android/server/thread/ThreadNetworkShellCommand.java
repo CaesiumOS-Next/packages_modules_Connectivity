@@ -16,16 +16,25 @@
 
 package com.android.server.thread;
 
+import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.net.thread.ThreadNetworkException;
 import android.os.Binder;
+import android.os.OutcomeReceiver;
 import android.os.Process;
 import android.text.TextUtils;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.BasicShellCommandHandler;
 
+import com.google.common.util.concurrent.MoreExecutors;
+
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Interprets and executes 'adb shell cmd thread_network [args]'.
@@ -40,13 +49,18 @@ public class ThreadNetworkShellCommand extends BasicShellCommandHandler {
     private static final String TAG = "ThreadNetworkShellCommand";
 
     // These don't require root access.
-    private static final List<String> NON_PRIVILEGED_COMMANDS = List.of("help", "get-country-code");
+    private static final List<String> NON_PRIVILEGED_COMMANDS =
+            List.of("help", "get-country-code", "enable", "disable");
 
+    @NonNull private final ThreadNetworkControllerService mControllerService;
     @Nullable private final ThreadNetworkCountryCode mCountryCode;
     @Nullable private PrintWriter mOutputWriter;
     @Nullable private PrintWriter mErrorWriter;
 
-    ThreadNetworkShellCommand(@Nullable ThreadNetworkCountryCode countryCode) {
+    ThreadNetworkShellCommand(
+            @NonNull ThreadNetworkControllerService controllerService,
+            @Nullable ThreadNetworkCountryCode countryCode) {
+        mControllerService = controllerService;
         mCountryCode = countryCode;
     }
 
@@ -91,6 +105,11 @@ public class ThreadNetworkShellCommand extends BasicShellCommandHandler {
         }
 
         switch (cmd) {
+            case "enable":
+                return setThreadEnabled(true);
+            case "disable":
+                return setThreadEnabled(false);
+                break;
             case "force-country-code":
                 boolean enabled;
 
@@ -134,6 +153,40 @@ public class ThreadNetworkShellCommand extends BasicShellCommandHandler {
             default:
                 return handleDefaultCommands(cmd);
         }
+    }
+
+    private int setThreadEnabled(boolean enabled) {
+        final PrintWriter pw = getOutputWriter();
+        final PrintWriter perr = getErrorWriter();
+
+        CompletableFuture<Void> setEnabledFuture = new CompletableFuture<>();
+        mThreadController.setEnabled(
+                enabled,
+                MoreExecutors.directExecutor(),
+                new OutcomeReceiver<Void, ThreadNetworkException>() {
+                    @Override
+                    public void onResult(Void unused) {
+                        setEnabledFuture.complete(null);
+                    }
+
+                    @Override
+                    public void onError(ThreadNetworkException e) {
+                        setEnabledFuture.completeExceptionally(e);
+                    }
+                });
+
+        try {
+            setEnabledFuture.get(5, TimeUnit.SECONDS);
+            return 0;
+        } catch (InterruptedException e) {
+
+        } catch (ExecutionException e) {
+            perr.println("Failed: " + e.getCause().getMessage());
+        } catch (TimeoutException e) {
+            perr.println("Command timeout");
+        }
+
+        return -1;
     }
 
     private static boolean argTrueOrFalse(String arg, String trueString, String falseString) {

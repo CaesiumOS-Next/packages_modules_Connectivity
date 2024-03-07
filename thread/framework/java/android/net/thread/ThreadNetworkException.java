@@ -168,4 +168,10 @@ public class ThreadNetworkException extends Exception {
     public @ErrorCode int getErrorCode() {
         return mErrorCode;
     }
+
+    /** @hide */
+    public static String errorCodeToString(int errorCode) {
+        // TODO:
+        return "";
+    }
 }
