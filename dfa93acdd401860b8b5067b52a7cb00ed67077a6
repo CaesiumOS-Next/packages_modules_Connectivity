@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "470dd3ad_dd99cc29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-07T03:13:41Z",
+      "side": 1,
+      "message": "This is the CTS issue, shouldn\u0027t be linked here",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 14
+      },
+      "revId": "dfa93acdd401860b8b5067b52a7cb00ed67077a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
