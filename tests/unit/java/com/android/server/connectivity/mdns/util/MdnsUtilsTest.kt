@@ -17,6 +17,11 @@
 package com.android.server.connectivity.mdns.util
 
 import android.os.Build
+import com.android.server.connectivity.mdns.MdnsConstants
+import com.android.server.connectivity.mdns.MdnsPacket
+import com.android.server.connectivity.mdns.MdnsPointerRecord
+import com.android.server.connectivity.mdns.MdnsRecord
+import com.android.server.connectivity.mdns.util.MdnsUtils.createQueryDatagramPackets
 import com.android.server.connectivity.mdns.util.MdnsUtils.equalsDnsLabelIgnoreDnsCase
 import com.android.server.connectivity.mdns.util.MdnsUtils.equalsIgnoreDnsCase
 import com.android.server.connectivity.mdns.util.MdnsUtils.toDnsLabelsLowerCase
@@ -101,5 +106,35 @@ class MdnsUtilsTest {
         assertFalse(MdnsUtils.typeEqualsOrIsSubtype(
                 arrayOf("a", "_other", "_type", "_tcp", "local"),
                 arrayOf("a", "_SUB", "_type", "_TCP", "local")))
+    }
+
+    @Test
+    fun testCreateQueryDatagramPackets() {
+        val queriedName = arrayOf("_testservice", "_tcp", "local")
+        // Question data bytes:
+        // Name label(25) + PTR type(2) + cacheFlush(2) = 29
+        val questions = listOf(MdnsPointerRecord(queriedName, false /* isUnicast */))
+        val knownAnswers = mutableListOf<MdnsPointerRecord>()
+        // Known answers data bytes:
+        // Name label(2)(duplicated labels) + PTR type(2) + cacheFlush(2) + receiptTimeMillis(4)
+        // + Data length(2) + Pointer data(16)(duplicated labels) = 30
+        for (i in 1..50) {
+            knownAnswers.add(MdnsPointerRecord(
+                    arrayOf("_testservice", "_tcp", "local"),
+                    0L /* receiptTimeMillis */,
+                    false /* cacheFlush */,
+                    4_500_000L /* ttlMillis */,
+                    arrayOf("MyTestService$i", "_testservice", "_tcp", "local")))
+        }
+        // MdnsPacket data bytes:
+        // Transaction ID(2) + Flags(2) + Questions count(2) + Answers count(2) +
+        // Authority entries count(2) + Additional records count(2) + Questions(29)
+        // + Answers(30 * 50) = 1541
+        val query = MdnsPacket(0 /* flags */, questions, knownAnswers as List<MdnsRecord>,
+                emptyList() /* authorityRecords */, emptyList() /* additionalRecords */)
+        // Expect the oversize MdnsPacket to be separated into two DatagramPackets.
+        val packets = createQueryDatagramPackets(
+                ByteArray(1500), query, MdnsConstants.IPV4_SOCKET_ADDR)
+        assertEquals(2, packets.size)
     }
 }
