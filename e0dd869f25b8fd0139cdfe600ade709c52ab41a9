@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3efa29d4_4e1ca619",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-07T23:33:09Z",
+      "side": 1,
+      "message": "Tested booting/working on a freshly synced goog/main pixel-next-userdebug build.\nWhat has changed is that it is no longer using prebuilt mainline tethering apex,\nand is instead building from source...\n\n03-07 23:18:10.137     1     1 I init    : Parsing file /apex/com.android.tethering/etc/netbpfload.33rc...\n03-07 23:18:10.732     1     1 I init    : processing action (sys.init.perf_lsm_hooks\u003d1 \u0026\u0026 load_bpf_programs) from (/system/etc/init/hw/init.rc:1250)\n03-07 23:18:10.732     1     1 I init    : processing action (load_bpf_programs) from (/system/etc/init/netbpfload.rc:17)\n03-07 23:18:10.732     1     1 I init    : starting service \u0027bpfloader\u0027...\n03-07 23:18:10.736     1     1 I init    : ... started service \u0027bpfloader\u0027 has pid 786\n03-07 23:18:10.736     1     1 I init    : SVC_EXEC service \u0027bpfloader\u0027 pid 786 (uid 0 gid 0+7 context default) started; waiting...\n03-07 23:18:10.756   786   786 I NetBpfLoad: NetBpfLoad \u0027/apex/com.android.tethering/bin/netbpfload\u0027 starting...\n03-07 23:18:10.756   786   786 I NetBpfLoad: /system/etc/init/netbpfload.rc exists.\n03-07 23:18:10.756   786   786 I NetBpfLoad: NetBpfLoad api:10000/34 kver:6010044 platform:0 mainline:1 rc:01\n03-07 23:18:10.757   786   786 D NetBpfLoad: Found Tethering Apex mounted from blockdev /dev/block/dm-26\n03-07 23:18:10.758   786   786 I NetBpfLoad: Tethering APEX version 350090000\n03-07 23:18:10.760   786   786 D NetBpfLoader: Loading optional ELF object /apex/com.android.tethering/etc/bpf/test.o with license Apache 2.0\n\n(netbpfload.33rc is only present in M-2024-5+ tethering apex)\n\nFurthermore 350090000 is a V[35] build, so a non-existing in prebuilt form build, and thus a tethering apex build from source.\n\nWe know TH has no issues with this change, because it fails to boot test next builds (and TH+2 and automerged the original version of this change).\n\nThe TH-1 run only has 1 failure, and I don\u0027t see anything actually wrong with it (ie. a flake).\n\nAs such waiting for *another* TH run is pointless.",
+      "revId": "e0dd869f25b8fd0139cdfe600ade709c52ab41a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
