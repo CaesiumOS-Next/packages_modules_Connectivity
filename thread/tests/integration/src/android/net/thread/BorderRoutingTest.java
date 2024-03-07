@@ -24,6 +24,7 @@ import static android.net.thread.utils.IntegrationTestUtils.RESTART_JOIN_TIMEOUT
 import static android.net.thread.utils.IntegrationTestUtils.isExpectedIcmpv6Packet;
 import static android.net.thread.utils.IntegrationTestUtils.isFromIpv6Source;
 import static android.net.thread.utils.IntegrationTestUtils.isInMulticastGroup;
+import static android.net.thread.utils.IntegrationTestUtils.isMulticastRoutingSupported;
 import static android.net.thread.utils.IntegrationTestUtils.isSimulatedThreadRadioSupported;
 import static android.net.thread.utils.IntegrationTestUtils.isToIpv6Destination;
 import static android.net.thread.utils.IntegrationTestUtils.newPacketReader;
@@ -33,7 +34,6 @@ import static android.net.thread.utils.IntegrationTestUtils.waitFor;
 
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REPLY_TYPE;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REQUEST_TYPE;
-import static com.android.testutils.DeviceInfoUtils.isKernelVersionAtLeast;
 import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
@@ -239,7 +239,7 @@ public class BorderRoutingTest {
     @Test
     public void multicastRouting_ftdSubscribedMulticastAddress_infraLinkJoinsMulticastGroup()
             throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
+        assumeTrue(isMulticastRoutingSupported());
         /*
          * <pre>
          * Topology:
@@ -261,7 +261,7 @@ public class BorderRoutingTest {
     public void
             multicastRouting_ftdSubscribedScope3MulticastAddress_infraLinkNotJoinMulticastGroup()
                     throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
+        assumeTrue(isMulticastRoutingSupported());
         /*
          * <pre>
          * Topology:
@@ -282,7 +282,7 @@ public class BorderRoutingTest {
     @Test
     public void multicastRouting_ftdSubscribedMulticastAddress_canPingfromInfraLink()
             throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
+        assumeTrue(isMulticastRoutingSupported());
         /*
          * <pre>
          * Topology:
@@ -304,7 +304,7 @@ public class BorderRoutingTest {
     @Test
     public void multicastRouting_inboundForwarding_afterBrRejoinFtdRepliesSubscribedAddress()
             throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
+        assumeTrue(isMulticastRoutingSupported());
 
         // TODO (b/327311034): Testing bbr state switch from primary mode to secondary mode and back
         // to primary mode requires an additional BR in the Thread network. This is not currently
@@ -314,7 +314,7 @@ public class BorderRoutingTest {
     @Test
     public void multicastRouting_ftdSubscribedScope3MulticastAddress_cannotPingfromInfraLink()
             throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
+        assumeTrue(isMulticastRoutingSupported());
         /*
          * <pre>
          * Topology:
@@ -336,7 +336,7 @@ public class BorderRoutingTest {
     @Test
     public void multicastRouting_ftdNotSubscribedMulticastAddress_cannotPingFromInfraDevice()
             throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
+        assumeTrue(isMulticastRoutingSupported());
         /*
          * <pre>
          * Topology:
@@ -357,7 +357,7 @@ public class BorderRoutingTest {
     @Test
     public void multicastRouting_multipleFtdsSubscribedDifferentAddresses_canPingFromInfraDevice()
             throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
+        assumeTrue(isMulticastRoutingSupported());
         /*
          * <pre>
          * Topology:
@@ -393,7 +393,7 @@ public class BorderRoutingTest {
     @Test
     public void multicastRouting_multipleFtdsSubscribedSameAddress_canPingFromInfraDevice()
             throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
+        assumeTrue(isMulticastRoutingSupported());
         /*
          * <pre>
          * Topology:
@@ -427,7 +427,7 @@ public class BorderRoutingTest {
 
     @Test
     public void multicastRouting_outboundForwarding_scopeLargerThan3IsForwarded() throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
+        assumeTrue(isMulticastRoutingSupported());
         /*
          * <pre>
          * Topology:
@@ -453,7 +453,7 @@ public class BorderRoutingTest {
     @Test
     public void multicastRouting_outboundForwarding_scopeSmallerThan4IsNotForwarded()
             throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
+        assumeTrue(isMulticastRoutingSupported());
         /*
          * <pre>
          * Topology:
@@ -475,7 +475,7 @@ public class BorderRoutingTest {
 
     @Test
     public void multicastRouting_outboundForwarding_llaToScope4IsNotForwarded() throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
+        assumeTrue(isMulticastRoutingSupported());
         /*
          * <pre>
          * Topology:
@@ -498,7 +498,7 @@ public class BorderRoutingTest {
 
     @Test
     public void multicastRouting_outboundForwarding_mlaToScope4IsNotForwarded() throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
+        assumeTrue(isMulticastRoutingSupported());
         /*
          * <pre>
          * Topology:
@@ -525,7 +525,7 @@ public class BorderRoutingTest {
     @Test
     public void multicastRouting_infraNetworkSwitch_ftdRepliesToSubscribedAddress()
             throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
+        assumeTrue(isMulticastRoutingSupported());
         /*
          * <pre>
          * Topology:
@@ -553,7 +553,7 @@ public class BorderRoutingTest {
 
     @Test
     public void multicastRouting_infraNetworkSwitch_outboundPacketIsForwarded() throws Exception {
-        assumeTrue(isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED));
+        assumeTrue(isMulticastRoutingSupported());
         /*
          * <pre>
          * Topology:

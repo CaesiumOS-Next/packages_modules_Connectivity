@@ -32,6 +32,7 @@ import android.net.thread.ThreadNetworkController;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.os.SystemProperties;
+import android.os.VintfRuntimeInfo;
 
 import androidx.annotation.NonNull;
 
@@ -63,6 +64,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /** Static utility methods relating to Thread integration tests. */
 public final class IntegrationTestUtils {
@@ -81,6 +84,23 @@ public final class IntegrationTestUtils {
     public static boolean isSimulatedThreadRadioSupported() {
         // The integration test uses SIMULATION Thread radio so that it only supports CuttleFish.
         return SystemProperties.get("ro.product.model").startsWith("Cuttlefish");
+    }
+
+    private boolean isMulticastRoutingSupported() {
+        return isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED)
+                && isKernelAndroidVersionAtLeast(14);
+    }
+
+    private boolean isKernelAndroidVersionAtLeast(int n) {
+        final String osRelease = VintfRuntimeInfo.getOsRelease();
+        final Pattern pattern = Pattern.compile("android(\\d+)");
+        Matcher matcher = pattern.matcher(osRelease);
+
+        if (matcher.find()) {
+            int version = Integer.parseInt(matcher.group(1));
+            return (version >= n);
+        }
+        return false;
     }
 
     /**
