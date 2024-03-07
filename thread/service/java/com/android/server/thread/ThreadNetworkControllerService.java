@@ -279,7 +279,11 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 .build();
     }
 
-    private void initializeOtDaemon() {
+    private void maybeInitializeOtDaemon() {
+        if (!isEnabled()) {
+            return;
+        }
+
         try {
             getOtDaemon();
         } catch (RemoteException e) {
@@ -314,7 +318,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mTunIfController.onOtDaemonDied();
         mNsdPublisher.onOtDaemonDied();
         mOtDaemon = null;
-        initializeOtDaemon();
+        maybeInitializeOtDaemon();
     }
 
     public void initialize() {
@@ -332,7 +336,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                     requestThreadNetwork();
                     mUserRestricted = isThreadUserRestricted();
                     registerUserRestrictionsReceiver();
-                    initializeOtDaemon();
+                    maybeInitializeOtDaemon();
                 });
     }
 
