@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "247e8571_19c64fbc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2024-03-07T06:17:35Z",
+      "side": 1,
+      "message": "Here we are actually checking if the cachedAddress in the list is not conflicting with the downstreams. If no conflict , we return this address from the list by adding it as new dowstream .",
+      "parentUuid": "c9470ee9_3e7262b3",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 13
+      },
+      "revId": "09f7802255b26223431af287553f3bf7a360a100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9677b037_87ca8583",
         "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
         "patchSetId": 6
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "computeIfAbsent will return the existing ArrayList if one already exists, so calling .add(newAddress) will put it in the existing list like in line 208.",
       "parentUuid": "9f1d7585_3d43b78d",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 17
+      },
+      "revId": "09f7802255b26223431af287553f3bf7a360a100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "061e657a_aadcdb97",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2024-03-07T06:17:35Z",
+      "side": 1,
+      "message": "Yeah , we verified and it works . Acknowledged.",
+      "parentUuid": "f6f1e592_e21d7268",
       "range": {
         "startLine": 205,
         "startChar": 0,
