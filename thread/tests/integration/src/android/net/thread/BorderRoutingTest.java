@@ -44,6 +44,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeNotNull;
 import static org.junit.Assume.assumeTrue;
 
@@ -71,9 +72,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.Inet6Address;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
@@ -234,6 +238,40 @@ public class BorderRoutingTest {
         ftd.udpBind(ftdMlEid, 12345);
         sendUdpMessage(ftdMlEid, 12345, "bbbbbbbb");
         assertEquals("bbbbbbbb", ftd.udpReceive());
+    }
+
+    @Test
+    public void unicastRouting_threadDeviceSendsUdpToBorderRouter_datagramReceived()
+            throws Exception {
+        assumeTrue(isSimulatedThreadRadioSupported());
+
+        /*
+         * <pre>
+         * Topology:
+         *                   Thread
+         * Border Router -------------- Full Thread device
+         *  (Cuttlefish)
+         * </pre>
+         */
+
+        // BR forms a network.
+        CompletableFuture<Void> joinFuture = new CompletableFuture<>();
+        runAsShell(
+                PERMISSION_THREAD_NETWORK_PRIVILEGED,
+                () -> mController.join(DEFAULT_DATASET, directExecutor(), joinFuture::complete));
+        joinFuture.get(RESTART_JOIN_TIMEOUT.toMillis(), MILLISECONDS);
+        FullThreadDevice ftd = mFtds.get(0);
+        startFtdChild(ftd);
+        Inet6Address brMlEid = mOtCtl.getMlEid();
+        DatagramSocket socket = new DatagramSocket(12345, brMlEid);
+        String msg = "aaaaaaaaaa";
+        byte[] byteBuffer = new byte[msg.getBytes().length];
+        DatagramPacket packet = new DatagramPacket(byteBuffer, byteBuffer.length);
+
+        ftd.udpSend(brMlEid, 12345, msg);
+        socket.receive(packet);
+
+        assertTrue(Arrays.equals(msg.getBytes(), packet.getData()));
     }
 
     @Test

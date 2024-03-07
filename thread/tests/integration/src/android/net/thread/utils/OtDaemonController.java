@@ -62,6 +62,17 @@ public final class OtDaemonController {
                 .toList();
     }
 
+    /** Returns the Mesh-local EID address on this device. */
+    public Inet6Address getMlEid() {
+        String output = executeCommand("ipaddr mleid");
+        List<String> addresses =
+                Arrays.asList(output.split("\n")).stream()
+                        .map(String::trim)
+                        .filter(str -> !str.equals("Done"))
+                        .toList();
+        return (Inet6Address) InetAddresses.parseNumericAddress(addresses.get(0));
+    }
+
     public String executeCommand(String cmd) {
         return SystemUtil.runShellCommand(OT_CTL + " " + cmd);
     }

@@ -209,6 +209,13 @@ public final class FullThreadDevice {
         return matcher.group(4);
     }
 
+    /** Opens the UDP socket and sends a message to a specific address and port. */
+    public void udpSend(Inet6Address address, int port, String text) {
+        udpClose();
+        udpOpen();
+        executeCommand("udp send %s %d %s", address.getHostAddress(), port, text);
+    }
+
     /** Enables the SRP client and run in autostart mode. */
     public void autoStartSrpClient() {
         executeCommand("srp client autostart enable");
