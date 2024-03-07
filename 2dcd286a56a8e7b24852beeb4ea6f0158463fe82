@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e47bd680_93d7c5fe",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-07T12:35:40Z",
+      "side": 1,
+      "message": "nit: use a constant as well",
+      "range": {
+        "startLine": 94,
+        "startChar": 49,
+        "endLine": 94,
+        "endChar": 51
+      },
+      "revId": "2dcd286a56a8e7b24852beeb4ea6f0158463fe82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e4df3b9a_46102b0f",
         "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.java",
         "patchSetId": 3
