@@ -233,15 +233,13 @@ public class BpfNetMapsReader {
      *
      * @param uid The target uid.
      * @param isNetworkMetered Whether the target network is metered.
-     * @param isDataSaverEnabled Whether the data saver is enabled.
      *
      * @return True if the network is blocked. Otherwise, false.
      * @throws ServiceSpecificException if the read fails.
      *
      * @hide
      */
-    public boolean isUidNetworkingBlocked(final int uid, boolean isNetworkMetered,
-            boolean isDataSaverEnabled) {
+    public boolean isUidNetworkingBlocked(final int uid, boolean isNetworkMetered) {
         throwIfPreT("isUidBlockedByFirewallChains is not available on pre-T devices");
 
         final long uidRuleConfig;
@@ -264,7 +262,7 @@ public class BpfNetMapsReader {
         if (!isNetworkMetered) return false;
         if ((uidMatch & PENALTY_BOX_MATCH) != 0) return true;
         if ((uidMatch & HAPPY_BOX_MATCH) != 0) return false;
-        return isDataSaverEnabled;
+        return getDataSaverEnabled();
     }
 
     /**
@@ -274,7 +272,7 @@ public class BpfNetMapsReader {
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
-    public boolean getDataSaverEnabled() {
+    private boolean getDataSaverEnabled() {
         throwIfPreT("getDataSaverEnabled is not available on pre-T devices");
 
         try {
