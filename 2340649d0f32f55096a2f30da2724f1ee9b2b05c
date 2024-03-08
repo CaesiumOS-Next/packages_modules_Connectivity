@@ -67,6 +67,23 @@
       "message": "I\u0027m wondering if this could be more simple by having methods like:\n\n```\nCache#getOrCompute(iface, uid, Provider\u003cCacheEntry\u003e)\n```\n\nWhich would handle getting the existing value from cache or calculating and then putting the new value in the cache",
       "revId": "2340649d0f32f55096a2f30da2724f1ee9b2b05c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcfb0a75_e46248ac",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2126,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-08T08:43:43Z",
+      "side": 1,
+      "message": "Looking at aosp/2896801, it seems old entries are never cleared from the cache if the UID/interface is not queried again. So memory consumption may grow over time.\n\nWould you be able to address that some way before turning on the cache ?\n\nYou could also consider using android.util.LruCache",
+      "revId": "2340649d0f32f55096a2f30da2724f1ee9b2b05c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
