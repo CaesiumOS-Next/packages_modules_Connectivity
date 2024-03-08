@@ -46,6 +46,30 @@
       },
       "revId": "2b071e919bc7e10078364940f0ac7c1a82005ea5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e9cfa4e_c3e024b5",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-08T07:29:56Z",
+      "side": 0,
+      "message": "I see, thank you for clarifying the history.\nI agree that calling registered callbacks will not block the thread.\n`handleUpdateStats` calls `requestInfo.updateStats` but this also should not take long time, right?",
+      "parentUuid": "c947e283_d113042f",
+      "range": {
+        "startLine": 145,
+        "startChar": 8,
+        "endLine": 149,
+        "endChar": 36
+      },
+      "revId": "2b071e919bc7e10078364940f0ac7c1a82005ea5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
