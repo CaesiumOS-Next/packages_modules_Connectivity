@@ -229,7 +229,7 @@ public class BpfNetMapsReader {
     }
 
     /**
-     * Return whether the network is blocked by firewall chains for the given uid.
+     * Return whether the network is blocked by firewall chains or data saver for the given uid.
      *
      * @param uid The target uid.
      * @param isNetworkMetered Whether the target network is metered.
