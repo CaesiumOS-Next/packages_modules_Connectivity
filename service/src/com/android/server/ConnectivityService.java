@@ -139,6 +139,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.XmlResourceParser;
 import android.database.ContentObserver;
+import android.net.BpfNetMapsReader;
 import android.net.BpfNetMapsUtils;
 import android.net.CaptivePortal;
 import android.net.CaptivePortalData;
@@ -2238,7 +2239,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final long ident = Binder.clearCallingIdentity();
         try {
             final boolean metered = nc == null ? true : nc.isMetered();
-            return mPolicyManager.isUidNetworkingBlocked(uid, metered);
+            if (mDeps.isAtLeastV()) {
+                return BpfNetMapsReader.getInstance().isUidNetworkingBlocked(uid, metered);
+            } else {
+                return mPolicyManager.isUidNetworkingBlocked(uid, metered);
+            }
         } finally {
             Binder.restoreCallingIdentity(ident);
         }
