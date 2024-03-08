@@ -22,6 +22,30 @@
       },
       "revId": "2b071e919bc7e10078364940f0ac7c1a82005ea5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c947e283_d113042f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-08T07:16:23Z",
+      "side": 0,
+      "message": "No, NetworkStatsObservers created own thread since the beginning of first implementation, as a response of this comment https://googleplex-android-review.git.corp.google.com/c/platform/frameworks/base/+/866187/comment/fd7f7c1f_665c3255/\nI think the original idea was to have a local Handler instead of using the one in the service. But at that time they created a thread as well.\nBut I could misunderstand.\n\nThe one way interface is created at aosp/1956051 as a side-effect of mainlining.\n\nNone of the implementation would block the handler thread so I think this is misleading.\n\nWDYT?",
+      "parentUuid": "6c869673_1bcd96a0",
+      "range": {
+        "startLine": 145,
+        "startChar": 8,
+        "endLine": 149,
+        "endChar": 36
+      },
+      "revId": "2b071e919bc7e10078364940f0ac7c1a82005ea5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
