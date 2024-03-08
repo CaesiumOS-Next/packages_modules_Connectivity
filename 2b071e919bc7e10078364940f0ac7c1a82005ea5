@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c869673_1bcd96a0",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-08T03:54:07Z",
+      "side": 0,
+      "message": "Let me confirm my understanding.\nPreviously, NetworkStatsObservers created own thread since calling registered callback is happening on this thread and we thought this could block this thread.\n\nBut the callbacks(onThresholdReached, onCallbackReleased) are actually oneway and can not block the thread.\n\nSo you think it\u0027s fine to use NetworkStatsService handler thread.\n\nIs this correct?",
+      "range": {
+        "startLine": 145,
+        "startChar": 8,
+        "endLine": 149,
+        "endChar": 36
+      },
+      "revId": "2b071e919bc7e10078364940f0ac7c1a82005ea5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
