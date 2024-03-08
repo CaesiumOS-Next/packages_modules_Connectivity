@@ -16,6 +16,24 @@
       "message": "Will we remote `http_client_logging` from external/cronet/Android.extras.bp as well?",
       "revId": "09f0d47b06bdd0b112463e04b9eab875c0c827ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99de1ac4_46cc6520",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2024-03-08T10:08:06Z",
+      "side": 1,
+      "message": "Yes, aosp/2961105 removes it.",
+      "parentUuid": "fee8a281_d71d70d6",
+      "revId": "09f0d47b06bdd0b112463e04b9eab875c0c827ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
