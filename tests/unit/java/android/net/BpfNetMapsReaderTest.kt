@@ -117,8 +117,11 @@ class BpfNetMapsReaderTest {
         testConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY, U32(newConfig))
     }
 
-    fun isUidNetworkingBlocked(uid: Int, metered: Boolean = false, dataSaver: Boolean = false) =
-            bpfNetMapsReader.isUidNetworkingBlocked(uid, metered, dataSaver)
+    fun isUidNetworkingBlocked(uid: Int, metered: Boolean = false, dataSaver: Boolean = false) : Boolean {
+        val dataSaverValue = if (dataSaver) {DATA_SAVER_ENABLED} else {DATA_SAVER_DISABLED}
+        testDataSaverEnabledMap.updateEntry(DATA_SAVER_ENABLED_KEY, U8(dataSaverValue))
+        return bpfNetMapsReader.isUidNetworkingBlocked(uid, metered)
+    }
 
     @Test
     fun testIsUidNetworkingBlockedByFirewallChains_allowChain() {
@@ -211,13 +214,5 @@ class BpfNetMapsReaderTest {
         assertFalse(isUidNetworkingBlocked(TEST_UID1))
         assertFalse(isUidNetworkingBlocked(TEST_UID2))
         assertFalse(isUidNetworkingBlocked(TEST_UID3))
-    }
-
-    @Test
-    fun testGetDataSaverEnabled() {
-        testDataSaverEnabledMap.updateEntry(DATA_SAVER_ENABLED_KEY, U8(DATA_SAVER_DISABLED))
-        assertFalse(bpfNetMapsReader.dataSaverEnabled)
-        testDataSaverEnabledMap.updateEntry(DATA_SAVER_ENABLED_KEY, U8(DATA_SAVER_ENABLED))
-        assertTrue(bpfNetMapsReader.dataSaverEnabled)
     }
 }
