@@ -101,6 +101,7 @@ public class BpfNetMaps {
     }
 
     private static final String TAG = "BpfNetMaps";
+    private final BpfNetMapsReader mBpfNetMapsReader;
     private final INetd mNetd;
     private final Dependencies mDeps;
     // Use legacy netd for releases before T.
@@ -370,6 +371,7 @@ public class BpfNetMaps {
         }
         mNetd = netd;
         mDeps = deps;
+        mBpfNetMapsReader = BpfNetMapsReader.getInstance();
     }
 
     private void maybeThrow(final int err, final String msg) {
@@ -922,6 +924,22 @@ public class BpfNetMaps {
         } catch (ErrnoException e) {
             Log.e(TAG, "Failed to remove ingress discard rule for " + address + ", " + e);
         }
+    }
+
+    /**
+     * Return whether the network is blocked by firewall chains for the given uid.
+     *
+     * See {@link BpfNetMapsReader#isUidNetworkingBlocked(int, boolean)}
+     *
+     * @param uid The target uid.
+     * @param isNetworkMetered Whether the target network is metered.
+     *
+     * @return True if the network is blocked. Otherwise, false.
+     * @throws ServiceSpecificException if the read fails.
+     */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    public boolean isUidNetworkingBlocked(final int uid, boolean isNetworkMetered) {
+        return mBpfNetMapsReader.isUidNetworkingBlocked(uid, isNetworkMetered);
     }
 
     /** Register callback for statsd to pull atom. */
