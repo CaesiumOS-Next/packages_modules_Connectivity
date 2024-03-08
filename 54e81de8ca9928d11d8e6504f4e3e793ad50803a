@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76362130_1ef489ed",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-08T04:38:26Z",
+      "side": 1,
+      "message": "Can not we use `@ConnectivityModuleTest` annotation?\nI think the test cases that call `waitForNumPackets` verify the behavior of ConnectivityModule and don\u0027t depend on other modules.\nSo if we run these test for ConnectivityModule change, that would be enough?",
+      "range": {
+        "startLine": 515,
+        "startChar": 41,
+        "endLine": 516,
+        "endChar": 97
+      },
+      "revId": "54e81de8ca9928d11d8e6504f4e3e793ad50803a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a544f6c4_2f571bd9",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/NetworkStatsIntegrationTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-08T04:38:26Z",
+      "side": 1,
+      "message": "Do we need this?\nI don\u0027t think we run this integration test with older module.",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 9
+      },
+      "revId": "54e81de8ca9928d11d8e6504f4e3e793ad50803a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
