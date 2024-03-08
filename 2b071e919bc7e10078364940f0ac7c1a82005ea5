@@ -70,6 +70,30 @@
       },
       "revId": "2b071e919bc7e10078364940f0ac7c1a82005ea5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "321f4a5c_04869e7e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-08T07:38:42Z",
+      "side": 0,
+      "message": "Yes. I think it is fine.\nIt uses a pure memory recorder (no file read/write needed) with 1 year bucket duration.\nSo the updated stats are merged into one single entry just for tracking the total bytes.\n\nhttps://osscs.corp.google.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/service-t/src/com/android/server/net/NetworkStatsRecorder.java;l\u003d112;drc\u003dcc6a187eebd95e4c44e1571a3d2584d0160b01a5",
+      "parentUuid": "1e9cfa4e_c3e024b5",
+      "range": {
+        "startLine": 145,
+        "startChar": 8,
+        "endLine": 149,
+        "endChar": 36
+      },
+      "revId": "2b071e919bc7e10078364940f0ac7c1a82005ea5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
