@@ -164,15 +164,13 @@ public class BorderRoutingTest {
          * </pre>
          */
 
-        // Let ftd join the network.
         FullThreadDevice ftd = mFtds.get(0);
         startFtdChild(ftd);
 
-        // Infra device sends an echo request to FTD's OMR.
         mInfraDevice.sendEchoRequest(ftd.getOmrAddress());
 
         // Infra device receives an echo reply sent by FTD.
-        assertNotNull(pollForPacketOnInfraNetwork(ICMPV6_ECHO_REPLY_TYPE, null /* srcAddress */));
+        assertNotNull(pollForPacketOnInfraNetwork(ICMPV6_ECHO_REPLY_TYPE, ftd.getOmrAddress()));
     }
 
     @Test
@@ -207,7 +205,7 @@ public class BorderRoutingTest {
          *  (Cuttlefish)
          * </pre>
          */
-        mController.joinAndWait(DEFAULT_DATASET);
+
         FullThreadDevice ftd = mFtds.get(0);
         startFtdChild(ftd);
         Inet6Address ftdOmr = requireNonNull(ftd.getOmrAddress());
