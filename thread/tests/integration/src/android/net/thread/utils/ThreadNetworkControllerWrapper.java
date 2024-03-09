@@ -17,9 +17,6 @@ package android.net.thread.utils;
 
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static android.Manifest.permission.NETWORK_SETTINGS;
-import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_CHILD;
-import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_LEADER;
-import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_ROUTER;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
 import static android.net.thread.utils.IntegrationTestUtils.CALLBACK_TIMEOUT;
 
@@ -27,7 +24,6 @@ import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static com.google.common.util.concurrent.MoreExecutors.directExecutor;
 
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import android.annotation.Nullable;
@@ -35,7 +31,9 @@ import android.content.Context;
 import android.net.thread.ActiveOperationalDataset;
 import android.net.thread.ThreadNetworkController;
 import android.net.thread.ThreadNetworkController.StateCallback;
+import android.net.thread.ThreadNetworkException;
 import android.net.thread.ThreadNetworkManager;
+import android.os.OutcomeReceiver;
 
 import java.time.Duration;
 import java.util.List;
@@ -45,10 +43,7 @@ import java.util.concurrent.TimeoutException;
 
 /** A helper class which provides synchronous API wrappers for {@link ThreadNetworkController}. */
 public final class ThreadNetworkControllerWrapper {
-    // The timeout of join() after restarting ot-daemon. The device needs to send 6 Link Request
-    // every 5 seconds, followed by 4 Parent Request every second. So this value needs to be 40
-    // seconds to be safe
-    public static final Duration RESTART_JOIN_TIMEOUT = Duration.ofSeconds(40);
+    public static final Duration JOIN_TIMEOUT = Duration.ofSeconds(10);
     public static final Duration LEAVE_TIMEOUT = Duration.ofSeconds(2);
     private static final Duration CALLBACK_TIMEOUT = Duration.ofSeconds(1);
 
@@ -120,15 +115,16 @@ public final class ThreadNetworkControllerWrapper {
         }
     }
 
-    /** Joins to the given network and wait for this device become attached. */
+    /** Joins the given network and wait for this device to become attached. */
     public void joinAndWait(ActiveOperationalDataset activeDataset)
             throws InterruptedException, ExecutionException, TimeoutException {
+        CompletableFuture<Void> future = new CompletableFuture<>();
         runAsShell(
                 PERMISSION_THREAD_NETWORK_PRIVILEGED,
-                () -> mController.join(activeDataset, directExecutor(), result -> {}));
-        waitForRoleAnyOf(
-                List.of(DEVICE_ROLE_CHILD, DEVICE_ROLE_ROUTER, DEVICE_ROLE_LEADER),
-                RESTART_JOIN_TIMEOUT);
+                () ->
+                        mController.join(
+                                activeDataset, directExecutor(), newOutcomeReceiver(future)));
+        future.get(JOIN_TIMEOUT.toSeconds(), SECONDS);
     }
 
     /** An synchronous variant of {@link ThreadNetworkController#leave}. */
@@ -137,32 +133,16 @@ public final class ThreadNetworkControllerWrapper {
         runAsShell(
                 PERMISSION_THREAD_NETWORK_PRIVILEGED,
                 () -> mController.leave(directExecutor(), future::complete));
-        future.get(LEAVE_TIMEOUT.toMillis(), MILLISECONDS);
+        future.get(LEAVE_TIMEOUT.toSeconds(), SECONDS);
     }
 
-    /** Waits for the device role becomes to {@code deviceRole}. */
+    /** Waits for the device role to become {@code deviceRole}. */
     public int waitForRole(int deviceRole, Duration timeout)
             throws InterruptedException, ExecutionException, TimeoutException {
-        CompletableFuture<Integer> future = new CompletableFuture<>();
-        ThreadNetworkController.StateCallback callback =
-                newRole -> {
-                    if (newRole == deviceRole) {
-                        future.complete(newRole);
-                    }
-                };
-
-        runAsShell(
-                ACCESS_NETWORK_STATE,
-                () -> mController.registerStateCallback(directExecutor(), callback));
-
-        try {
-            return future.get(timeout.toSeconds(), SECONDS);
-        } finally {
-            mController.unregisterStateCallback(callback);
-        }
+        return waitForRoleAnyOf(List.of(deviceRole), timeout);
     }
 
-    /** Waits for the device role becomes to one of the values specified in {@code deviceRoles}. */
+    /** Waits for the device role to become one of the values specified in {@code deviceRoles}. */
     public int waitForRoleAnyOf(List<Integer> deviceRoles, Duration timeout)
             throws InterruptedException, ExecutionException, TimeoutException {
         CompletableFuture<Integer> future = new CompletableFuture<>();
@@ -195,6 +175,21 @@ public final class ThreadNetworkControllerWrapper {
                     mController.setTestNetworkAsUpstream(
                             networkInterfaceName, directExecutor(), future::complete);
                 });
-        future.get(CALLBACK_TIMEOUT.toMillis(), MILLISECONDS);
+        future.get(CALLBACK_TIMEOUT.toSeconds(), SECONDS);
+    }
+
+    private static <V> OutcomeReceiver<V, ThreadNetworkException> newOutcomeReceiver(
+            CompletableFuture<V> future) {
+        return new OutcomeReceiver<V, ThreadNetworkException>() {
+            @Override
+            public void onResult(V result) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onError(ThreadNetworkException e) {
+                future.completeExceptionally(e);
+            }
+        };
     }
 }
