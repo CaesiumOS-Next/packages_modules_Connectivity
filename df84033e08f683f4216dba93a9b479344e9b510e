@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2504e1e_037d9755",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1087,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-10T12:22:38Z",
+      "side": 1,
+      "message": "Is there any reason why addIpServer(IpServer.this) cannot be called before startServingInterface()? I feel it will be better to monitor the ND/Conntrack event before we call startServingInterface()?",
+      "range": {
+        "startLine": 1087,
+        "startChar": 12,
+        "endLine": 1087,
+        "endChar": 55
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca3e4002_78c8152e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-10T12:22:38Z",
+      "side": 1,
+      "message": "I am not sure if I asked this type of questions before. Does it has to be HashSet or can we use ArraySet here? I feel the size of the set won\u0027t be large.",
+      "range": {
+        "startLine": 312,
+        "startChar": 59,
+        "endLine": 312,
+        "endChar": 66
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d15f4e74_7811dabd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-10T12:22:38Z",
+      "side": 1,
+      "message": "Also better to rename the maybeStartPolling() to more specific name like maybeStartStatsAndConntrackTimeoutPolling(). The name is a little bit long but very much self explained what is done inside the function. Personally, I feel it is better for readability.\n\nSame for stopPolling()",
+      "range": {
+        "startLine": 527,
+        "startChar": 17,
+        "endLine": 527,
+        "endChar": 34
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e430a80_618cc9d0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-10T12:22:38Z",
+      "side": 1,
+      "message": "I think one of lorenzo\u0027s comment suggest remove mPollingStarted\n\nquote\n\n```\nThat way we can get rid of mPollingStarted, and just maintain the invariant that \"data usage polling and ND monitoring and conntrack monitoring are running iff at least one IpServer is serving\".\n```\n\nI also feel this field is redundant and used in a lot of other place which will make the logic hard to follow. Could you please double confirm if it is no harm to remove this field?",
+      "range": {
+        "startLine": 528,
+        "startChar": 12,
+        "endLine": 528,
+        "endChar": 27
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd2b01b5_064b7540",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-10T12:22:38Z",
+      "side": 1,
+      "message": "nit: extra blank",
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b2b573e_304695fc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-10T12:22:38Z",
+      "side": 1,
+      "message": "Can we move this line below 883 and make the like the check can be `if(mServedIpServers.isEmpty())`?",
+      "range": {
+        "startLine": 877,
+        "startChar": 8,
+        "endLine": 877,
+        "endChar": 39
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8821ee2c_15f6598a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-10T12:22:38Z",
+      "side": 1,
+      "message": "Do we really need to calculate here and pass it down to `updateIpv6ForwardingRules`? Can we calculate directly inside `updateIpv6ForwardingRules`? Also `upstreamSupportsBpf` is used for both variable name and the method name, it is very confusing. Can we update the function name to `checkUpstreamSupportsBpf` and variable name to `isUpstreamSupportBpf`?",
+      "range": {
+        "startLine": 915,
+        "startChar": 8,
+        "endLine": 915,
+        "endChar": 80
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a1af12e_ea951e78",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-10T12:22:38Z",
+      "side": 1,
+      "message": "I feel no need to make it a function. can we inline it?",
+      "range": {
+        "startLine": 926,
+        "startChar": 2,
+        "endLine": 928,
+        "endChar": 5
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0edf51fe_2431202c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-10T12:22:38Z",
+      "side": 1,
+      "message": "Could be move two line up?",
+      "range": {
+        "startLine": 960,
+        "startChar": 8,
+        "endLine": 960,
+        "endChar": 79
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae94b933_b6dfbfe3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2188,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-10T12:22:38Z",
+      "side": 1,
+      "message": "private class?",
+      "range": {
+        "startLine": 2188,
+        "startChar": 4,
+        "endLine": 2188,
+        "endChar": 9
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
