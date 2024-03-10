@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7eccfd91_17546e94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-10T14:49:29Z",
+      "side": 1,
+      "message": "Abandon this CL? @sunytt@google.com",
+      "revId": "ed5435c73ac58a12d7eed74633e44cc5bba824f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
