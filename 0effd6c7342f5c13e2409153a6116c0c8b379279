@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16c695c6_6ecbceb0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-11T07:49:37Z",
+      "side": 1,
+      "message": "Updated, thanks for explanation!",
+      "parentUuid": "3bb19e19_376522e7",
+      "revId": "0effd6c7342f5c13e2409153a6116c0c8b379279",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "020eff58_757891ae",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0e91f91_bd255d98",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-11T07:49:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "020eff58_757891ae",
+      "revId": "0effd6c7342f5c13e2409153a6116c0c8b379279",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad227415_fc6aaa51",
@@ -48,6 +84,30 @@
       "writtenOn": "2024-03-11T06:39:39Z",
       "side": 1,
       "message": "The previous code had ` \u0026\u0026 mPendingRegistrations.size() \u003d\u003d 0`; I think that is still necessary because this may be called with mPendingRegistrations.size() \u003e 0 if this is called due to interface destroyed",
+      "range": {
+        "startLine": 391,
+        "startChar": 40,
+        "endLine": 391,
+        "endChar": 41
+      },
+      "revId": "0effd6c7342f5c13e2409153a6116c0c8b379279",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc5ecddb_2b92e2a8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-11T07:49:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad227415_fc6aaa51",
       "range": {
         "startLine": 391,
         "startChar": 40,
@@ -81,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28eaca98_8ccffb7f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-11T07:49:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f65f8c74_ae7bf488",
+      "range": {
+        "startLine": 106,
+        "startChar": 11,
+        "endLine": 106,
+        "endChar": 24
+      },
+      "revId": "0effd6c7342f5c13e2409153a6116c0c8b379279",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7176948_e96bc051",
@@ -94,6 +178,24 @@
       "writtenOn": "2024-03-11T06:39:39Z",
       "side": 1,
       "message": "Nit: it could be useful to document that this callback guarantees that there is no service registration in the MdnsInterfaceAdvertiser while it is called (on the handler)",
+      "revId": "0effd6c7342f5c13e2409153a6116c0c8b379279",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82ea9b95_98007717",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-11T07:49:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7176948_e96bc051",
       "revId": "0effd6c7342f5c13e2409153a6116c0c8b379279",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
