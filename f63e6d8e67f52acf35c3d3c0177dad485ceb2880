@@ -22,6 +22,30 @@
       },
       "revId": "f63e6d8e67f52acf35c3d3c0177dad485ceb2880",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc5ed7a1_d3797304",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-11T09:00:06Z",
+      "side": 1,
+      "message": "Thanks for the feedback. Its a good point. Did checked adding multiple users and bootup scenario.\n\nAt bootup case , its doesnt seem to have issue finding all users. \nRef bug with logs : b/324347502#comment3\n\nFor Ex:\n//On Bootup\n02-21 09:20:34.475524 radio  1036  1036 I cbd     : Complete normal bootup\n02-21 09:20:34.509076 radio  1036  1036 I cpif    : bootdump_ioctl: umts_boot0: IOCTL_COMPLETE_NORMAL_BOOTUP\n\n//Owner \n02-21 09:20:37.187078  1000  1362  1947 I SatelliteAccessController: currentUser : role_sms_packages: 0 : [com.google.android.apps.messaging]\n02-21 09:20:37.187575  1000  1362  1947 I SatelliteAccessController: satellite_fallback_uid: {10164}\n02-21 09:20:37.187609  1000  1362  1947 I SatelliteAccessController: merged uid list for multi layer request : {10164}\n\n//User1 \n02-21 09:20:37.310873  1000  1362  1947 I SatelliteAccessController: currentUser : role_sms_packages: 10 : [com.google.android.apps.messaging]\n02-21 09:20:37.310997  1000  1362  1947 I SatelliteAccessController: satellite_fallback_uid: {1010164}\n02-21 09:20:37.311014  1000  1362  1947 I SatelliteAccessController: merged uid list for multi layer request : {10164, 1010164}\n\nIs there any way/steps to reproduce wrt \"users added will not be unlocked when the system boots?\"",
+      "parentUuid": "a211c83a_b8ae69b7",
+      "range": {
+        "startLine": 228,
+        "startChar": 17,
+        "endLine": 228,
+        "endChar": 41
+      },
+      "revId": "f63e6d8e67f52acf35c3d3c0177dad485ceb2880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
