@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00c08b6a_aa20fc0f",
+        "filename": "tests/unit/java/com/android/metrics/ConnectivitySampleMetricsTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2024-03-11T17:05:14Z",
+      "side": 1,
+      "message": "Is \"fire\" or \"file\"?",
+      "range": {
+        "startLine": 218,
+        "startChar": 8,
+        "endLine": 218,
+        "endChar": 12
+      },
+      "revId": "2c4b7d484256f1c50d5ae854c92e3f0c5b494a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
