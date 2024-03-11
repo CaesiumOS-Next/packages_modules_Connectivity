@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea7496f3_3f431664",
+        "filename": "tests/unit/vpn-jarjar-rules.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2024-03-11T09:34:04Z",
+      "side": 0,
+      "message": "Actually this can also be removed, the usage in ConnectivityServiceTest does not affect the tests and should be removed.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 52
+      },
+      "revId": "7f51a2ba86bf1bf8a27e6af1942d0a1be6401837",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
