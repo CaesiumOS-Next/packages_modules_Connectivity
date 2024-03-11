@@ -22,6 +22,30 @@
       },
       "revId": "649b5299d5c311f182acd2ce4ea3051a029f8fa5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7260d7a5_20563da1",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2191,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-11T09:03:53Z",
+      "side": 1,
+      "message": "Thanks for the feedback. TODO buganiser is been created to track further satellite transport changes @ NetworkStatsService Ref : b/329003473.",
+      "parentUuid": "51ede2c7_b6621c27",
+      "range": {
+        "startLine": 2191,
+        "startChar": 58,
+        "endLine": 2191,
+        "endChar": 76
+      },
+      "revId": "649b5299d5c311f182acd2ce4ea3051a029f8fa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
