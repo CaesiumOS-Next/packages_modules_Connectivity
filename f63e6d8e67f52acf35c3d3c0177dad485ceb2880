@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a211c83a_b8ae69b7",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-11T08:40:13Z",
+      "side": 1,
+      "message": "This runs only once on boot. Is it guaranteed to find all users? Or is it possible that some users are not yet started or not yet unlocked when the system boots?",
+      "range": {
+        "startLine": 228,
+        "startChar": 17,
+        "endLine": 228,
+        "endChar": 41
+      },
+      "revId": "f63e6d8e67f52acf35c3d3c0177dad485ceb2880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
