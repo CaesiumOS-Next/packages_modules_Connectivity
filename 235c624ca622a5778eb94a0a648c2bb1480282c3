@@ -39,6 +39,167 @@
       "message": "Announcements should be restarted/updated with updated addresses and not just stopped\n\nThis is a problem on add too: if 2 service registrations use 2 sets of addresses, when adding the 2nd registration, the 1st one should update its announcements to have the combined set of addresses",
       "revId": "235c624ca622a5778eb94a0a648c2bb1480282c3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "506ab464_76bda4cf",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-11T08:14:38Z",
+      "side": 1,
+      "message": "list of active services?",
+      "range": {
+        "startLine": 929,
+        "startChar": 23,
+        "endLine": 929,
+        "endChar": 31
+      },
+      "revId": "235c624ca622a5778eb94a0a648c2bb1480282c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbbeb668_72a392a7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-11T08:14:38Z",
+      "side": 1,
+      "message": "which?",
+      "range": {
+        "startLine": 929,
+        "startChar": 32,
+        "endLine": 929,
+        "endChar": 35
+      },
+      "revId": "235c624ca622a5778eb94a0a648c2bb1480282c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5e64581_55bb4845",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-11T08:14:38Z",
+      "side": 1,
+      "message": "should be final List",
+      "range": {
+        "startLine": 935,
+        "startChar": 8,
+        "endLine": 935,
+        "endChar": 12
+      },
+      "revId": "235c624ca622a5778eb94a0a648c2bb1480282c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b40e249_fbf27288",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-11T08:14:38Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 936,
+        "startChar": 8,
+        "endLine": 936,
+        "endChar": 14
+      },
+      "revId": "235c624ca622a5778eb94a0a648c2bb1480282c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf26470d_f2239ad4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-11T08:14:38Z",
+      "side": 1,
+      "message": "Collection.emptyList() for better documentation.",
+      "range": {
+        "startLine": 938,
+        "startChar": 19,
+        "endLine": 938,
+        "endChar": 27
+      },
+      "revId": "235c624ca622a5778eb94a0a648c2bb1480282c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e649f53_bc1323bb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-11T08:14:38Z",
+      "side": 1,
+      "message": "deserve a comment to mention why the probing state is not needed to be added.",
+      "range": {
+        "startLine": 943,
+        "startChar": 20,
+        "endLine": 943,
+        "endChar": 54
+      },
+      "revId": "235c624ca622a5778eb94a0a648c2bb1480282c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccdb7ef7_90aaf851",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 2111,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-11T08:14:38Z",
+      "side": 1,
+      "message": "Its nice we have CTS, but I feel we also have unit test for the features?",
+      "range": {
+        "startLine": 2111,
+        "startChar": 8,
+        "endLine": 2111,
+        "endChar": 96
+      },
+      "revId": "235c624ca622a5778eb94a0a648c2bb1480282c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
