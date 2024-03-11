@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4fda15f_56a53dea",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-11T12:32:15Z",
+      "side": 1,
+      "message": "This is likely because the AIL is gone, I think we should disable the OT routing manager now.",
+      "range": {
+        "startLine": 514,
+        "startChar": 16,
+        "endLine": 514,
+        "endChar": 42
+      },
+      "revId": "50d6bf239def41aa23bcc7e79cc8765500517215",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
