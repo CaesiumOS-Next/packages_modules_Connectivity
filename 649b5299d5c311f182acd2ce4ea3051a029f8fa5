@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51ede2c7_b6621c27",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2191,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-11T08:54:20Z",
+      "side": 1,
+      "message": "Should isMobile return true for TRANSPORT_SATELLITE as well? That would be consistent with the fact that satellite stats appear as TYPE_MOBILE.",
+      "range": {
+        "startLine": 2191,
+        "startChar": 58,
+        "endLine": 2191,
+        "endChar": 76
+      },
+      "revId": "649b5299d5c311f182acd2ce4ea3051a029f8fa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
