@@ -46,6 +46,29 @@
       },
       "revId": "a5d9875823bb1f4e50aa6fe46721b8d9d13ac7a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09b4cf10_a5555900",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-11T09:01:03Z",
+      "side": 0,
+      "message": "While you\u0027re at it, do you think you could also delete frameworks/base/packages/Tethering? It doesn\u0027t contain anything except an OWNERS file.",
+      "range": {
+        "startLine": 275,
+        "startChar": 8,
+        "endLine": 275,
+        "endChar": 47
+      },
+      "revId": "a5d9875823bb1f4e50aa6fe46721b8d9d13ac7a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
