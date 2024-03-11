@@ -128,7 +128,6 @@ public class BorderRoutingTest {
 
         // TODO: b/323301831 - This is a workaround to avoid unnecessary delay to re-form a network
         mOtCtl = new OtDaemonController();
-        mOtCtl.factoryReset();
 
         mHandlerThread = new HandlerThread(getClass().getSimpleName());
         mHandlerThread.start();
