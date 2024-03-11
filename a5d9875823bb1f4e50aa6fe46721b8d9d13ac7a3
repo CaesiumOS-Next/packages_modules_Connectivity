@@ -69,6 +69,30 @@
       },
       "revId": "a5d9875823bb1f4e50aa6fe46721b8d9d13ac7a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0663eb07_951b2ad2",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-03-11T09:12:56Z",
+      "side": 0,
+      "message": "done in aosp/2996886",
+      "parentUuid": "09b4cf10_a5555900",
+      "range": {
+        "startLine": 275,
+        "startChar": 8,
+        "endLine": 275,
+        "endChar": 47
+      },
+      "revId": "a5d9875823bb1f4e50aa6fe46721b8d9d13ac7a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
