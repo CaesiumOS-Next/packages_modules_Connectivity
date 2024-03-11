@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0d143b8_759e1b53",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1779,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-11T08:47:57Z",
+      "side": 1,
+      "message": "This code is a bit complicated to follow. Could this be factored out to a method? Something like this?\n\n     private void specifierAcceptableForMultipleTransports(int transportTypes) {\n         return transportTypes \u003d\u003d\n                 // Cellular and satellite use the same NetworkSpecifier.\n                 (1 \u003c\u003c TRANSPORT_CELLULAR | 1 \u003c\u003c TRANSPORT_SATELLITE);\n     }",
+      "range": {
+        "startLine": 1779,
+        "startChar": 19,
+        "endLine": 1779,
+        "endChar": 71
+      },
+      "revId": "a8a74e2ccce6ef2f35d08bc84a63c7dbac2bfeb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
