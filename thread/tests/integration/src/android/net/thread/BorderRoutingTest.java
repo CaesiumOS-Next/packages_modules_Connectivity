@@ -177,7 +177,7 @@ public class BorderRoutingTest {
     }
 
     @Test
-    public void unicastRouting_infraDevicePingTheadDeviceOmr_replyReceived() throws Exception {
+    public void unicastRouting_infraDevicePingThreadDeviceOmr_replyReceived() throws Exception {
         /*
          * <pre>
          * Topology:
@@ -188,6 +188,32 @@ public class BorderRoutingTest {
          */
 
         // Let ftd join the network.
+        FullThreadDevice ftd = mFtds.get(0);
+        startFtdChild(ftd);
+
+        // Infra device sends an echo request to FTD's OMR.
+        mInfraDevice.sendEchoRequest(ftd.getOmrAddress());
+
+        // Infra device receives an echo reply sent by FTD.
+        assertNotNull(pollForPacketOnInfraNetwork(ICMPV6_ECHO_REPLY_TYPE, null /* srcAddress */));
+    }
+
+    @Test
+    public void unicastRouting_afterFactoryResetInfraDevicePingThreadDeviceOmr_replyReceived()
+            throws Exception {
+        /*
+         * <pre>
+         * Topology:
+         *                 infra network                       Thread
+         * infra device -------------------- Border Router -------------- Full Thread device
+         *                                   (Cuttlefish)
+         * </pre>
+         */
+
+        // Form the network.
+        mOtCtl.factoryReset();
+        startBrLeader();
+        startInfraDevice();
         FullThreadDevice ftd = mFtds.get(0);
         startFtdChild(ftd);
 
