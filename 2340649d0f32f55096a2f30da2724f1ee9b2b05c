@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b31e2578_bf103ca4",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-11T09:50:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a62bcfe2_500a5626",
+      "revId": "2340649d0f32f55096a2f30da2724f1ee9b2b05c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62e53dc8_f306a77a",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-03-08T08:39:47Z",
       "side": 1,
       "message": "Could you have a switch statement in a method instead ? Having the map is a bit wasteful for memory and class initialization time",
+      "revId": "2340649d0f32f55096a2f30da2724f1ee9b2b05c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a5c28f2_72992bea",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-11T09:50:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62e53dc8_f306a77a",
       "revId": "2340649d0f32f55096a2f30da2724f1ee9b2b05c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -82,6 +118,60 @@
       "writtenOn": "2024-03-08T08:43:43Z",
       "side": 1,
       "message": "Looking at aosp/2896801, it seems old entries are never cleared from the cache if the UID/interface is not queried again. So memory consumption may grow over time.\n\nWould you be able to address that some way before turning on the cache ?\n\nYou could also consider using android.util.LruCache",
+      "revId": "2340649d0f32f55096a2f30da2724f1ee9b2b05c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aec37ca_4195a3fa",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2126,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-11T09:50:34Z",
+      "side": 1,
+      "message": "Done in the parent CL.\nThanks for the idea.",
+      "parentUuid": "35340778_a1c62f30",
+      "revId": "2340649d0f32f55096a2f30da2724f1ee9b2b05c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98cccc7a_6d524f1a",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2126,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-11T09:50:34Z",
+      "side": 1,
+      "message": "Done in the parent CL.\nThanks for the idea.",
+      "parentUuid": "2e08da88_b054a921",
+      "revId": "2340649d0f32f55096a2f30da2724f1ee9b2b05c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90a20db9_90da2898",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2126,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-11T09:50:34Z",
+      "side": 1,
+      "message": "Done in the parent CL.\nGood idea.",
+      "parentUuid": "bcfb0a75_e46248ac",
       "revId": "2340649d0f32f55096a2f30da2724f1ee9b2b05c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

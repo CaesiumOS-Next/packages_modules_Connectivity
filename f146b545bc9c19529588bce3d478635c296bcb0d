@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f12af55_c9d9c860",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-11T09:50:34Z",
+      "side": 1,
+      "message": "That is correct.\nBut also it could be null if error occurs, e.g. bfp access error.",
+      "parentUuid": "7306144d_08d1c111",
+      "range": {
+        "startLine": 950,
+        "startChar": 0,
+        "endLine": 965,
+        "endChar": 9
+      },
+      "revId": "f146b545bc9c19529588bce3d478635c296bcb0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3078b29a_86a635ab",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-08T03:20:15Z",
       "side": 1,
       "message": "I think early return for cashe hit make code easy to follow\n\n```    \nNetworkStats.Entry cachedEntry \u003d mTrafficStatsUidCache.get(IFACE_ALL, uid);\nif (cachedEntry !\u003d null) {\n    return getEntryValueForType(cachedEntry, value)\n}\n\nfinal NetworkStats.Entry entry \u003d mDeps.nativeGetUidStat(uid));\nif (entry !\u003d null \u0026\u0026 !entry.isEmpty()) {\n     mTrafficStatsUidCache.put(IFACE_ALL, uid, entry);\n}\nreturn getEntryValueForType(entry, type);\n```",
+      "range": {
+        "startLine": 2065,
+        "startChar": 0,
+        "endLine": 2074,
+        "endChar": 21
+      },
+      "revId": "f146b545bc9c19529588bce3d478635c296bcb0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be78a4da_a30c2ae9",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 2074,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-11T09:50:34Z",
+      "side": 1,
+      "message": "Refactored.\nSee if it works for you.",
+      "parentUuid": "3078b29a_86a635ab",
       "range": {
         "startLine": 2065,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "937a55fc_19c42df2",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 2083,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-11T09:50:34Z",
+      "side": 1,
+      "message": "Oops.\nDone.",
+      "parentUuid": "4fecd45f_3177a6a4",
+      "range": {
+        "startLine": 2081,
+        "startChar": 0,
+        "endLine": 2083,
+        "endChar": 9
+      },
+      "revId": "f146b545bc9c19529588bce3d478635c296bcb0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7be539a_96a007cc",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-03-08T03:20:15Z",
       "side": 1,
       "message": "This entry is `mDeps.nativeGetIfaceStat(iface));` + `getProviderIfaceStats(iface)`.\nSo when `getIfaceStats` uses the cached value, return value would be `mDeps.nativeGetIfaceStat(iface));` + 2 * `getProviderIfaceStats(iface)`, I think.\n\nIf this is correct, having test case to catch this would be helpful.\n\nsame for `getTotalStats`",
+      "range": {
+        "startLine": 2099,
+        "startChar": 60,
+        "endLine": 2099,
+        "endChar": 65
+      },
+      "revId": "f146b545bc9c19529588bce3d478635c296bcb0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba3ea472_54808a66",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 2099,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-11T09:50:34Z",
+      "side": 1,
+      "message": "Nice catch!\nHowever it is now atomic, easy to follow and structural less errorprone.\nI feel it is less value to write unit test now.\nAnd would like to skip the unit test for provider if that is ok for you.\nReopen if feel strongly.",
+      "parentUuid": "f7be539a_96a007cc",
       "range": {
         "startLine": 2099,
         "startChar": 60,
