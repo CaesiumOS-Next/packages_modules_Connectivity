@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15e193a5_675dae28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-11T08:05:30Z",
+      "side": 1,
+      "message": "This should just be a registration of service1 with host1 and the addresses. Registering only a host should only be used when there is no service for the host (then it should be upgraded to a single service registration when a service is added).",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "235c624ca622a5778eb94a0a648c2bb1480282c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b36ea0fe_a2666408",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-11T08:05:30Z",
+      "side": 1,
+      "message": "Announcements should be restarted/updated with updated addresses and not just stopped\n\nThis is a problem on add too: if 2 service registrations use 2 sets of addresses, when adding the 2nd registration, the 1st one should update its announcements to have the combined set of addresses",
+      "revId": "235c624ca622a5778eb94a0a648c2bb1480282c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
