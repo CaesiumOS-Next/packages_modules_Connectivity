@@ -299,6 +299,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             throw new RemoteException("Internal error: failed to start OT daemon");
         }
         otDaemon.initialize(mTunIfController.getTunFd(), isEnabled(), mNsdPublisher);
+        otDaemon.configureBorderRouter(
+                mBorderRouterConfig, new ConfigureBorderRouterStatusReceiver());
         otDaemon.registerStateCallback(mOtDaemonCallbackProxy, -1);
         otDaemon.asBinder().linkToDeath(() -> mHandler.post(this::onOtDaemonDied), 0);
         mOtDaemon = otDaemon;
@@ -936,21 +938,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             mBorderRouterConfig.isBorderRoutingEnabled = true;
 
             mOtDaemon.configureBorderRouter(
-                    mBorderRouterConfig,
-                    new IOtStatusReceiver.Stub() {
-                        @Override
-                        public void onSuccess() {
-                            Log.i(TAG, "configure border router successfully");
-                        }
-
-                        @Override
-                        public void onError(int i, String s) {
-                            Log.w(
-                                    TAG,
-                                    String.format(
-                                            "failed to configure border router: %d %s", i, s));
-                        }
-                    });
+                    mBorderRouterConfig, new ConfigureBorderRouterStatusReceiver());
         } catch (Exception e) {
             Log.w(TAG, "enableBorderRouting failed: " + e);
         }
@@ -1070,6 +1058,20 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 gId = 0;
             }
             return gId++;
+        }
+    }
+
+    private static final class ConfigureBorderRouterStatusReceiver extends IOtStatusReceiver.Stub {
+        public ConfigureBorderRouterStatusReceiver() {}
+
+        @Override
+        public void onSuccess() {
+            Log.i(TAG, "Configured border router successfully");
+        }
+
+        @Override
+        public void onError(int i, String s) {
+            Log.w(TAG, String.format("Failed to configure border router: %d %s", i, s));
         }
     }
 
