@@ -27,6 +27,7 @@ android_test {
 
     libs: [
         "android.test.base",
+        "net-utils-device-common-struct-base",
     ],
 
     srcs: [
