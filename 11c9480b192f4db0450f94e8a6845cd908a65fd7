@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "271096e7_cf7ca013",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-12T06:06:31Z",
+      "side": 1,
+      "message": "LGTM but I think Motomu should also have a look since he has more context",
+      "revId": "11c9480b192f4db0450f94e8a6845cd908a65fd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "393ebbdb_5e85a82f",
+        "filename": "tests/unit/java/com/android/server/net/TrafficStatsRateLimitCacheTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-12T06:06:31Z",
+      "side": 1,
+      "message": "Nit: doReturn(...).when() is generally better to avoid hard-to-debug threading issues\n\n(because when(...).thenReturn has to remember the last method that was called before \"when\" is called in a global to know what to mock)",
+      "revId": "11c9480b192f4db0450f94e8a6845cd908a65fd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04d35e89_617887ac",
+        "filename": "tests/unit/java/com/android/server/net/TrafficStatsRateLimitCacheTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-12T06:06:31Z",
+      "side": 1,
+      "message": "Is there something you could do to suppress the warning ?",
+      "range": {
+        "startLine": 132,
+        "startChar": 50,
+        "endLine": 132,
+        "endChar": 68
+      },
+      "revId": "11c9480b192f4db0450f94e8a6845cd908a65fd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
