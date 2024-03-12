@@ -31,8 +31,6 @@ import android.net.INetd;
 import android.net.ITetheredInterfaceCallback;
 import android.net.InterfaceConfigurationParcel;
 import android.net.IpConfiguration;
-import android.net.IpConfiguration.IpAssignment;
-import android.net.IpConfiguration.ProxySettings;
 import android.net.LinkAddress;
 import android.net.NetworkCapabilities;
 import android.net.StaticIpConfiguration;
@@ -111,6 +109,8 @@ public class EthernetTracker {
     /** Mapping between {iface name | mac address} -> {NetworkCapabilities} */
     private final ConcurrentHashMap<String, NetworkCapabilities> mNetworkCapabilities =
             new ConcurrentHashMap<>();
+
+    /** Mapping between {iface name | mac address} -> {IpConfiguration} */
     private final ConcurrentHashMap<String, IpConfiguration> mIpConfigurations =
             new ConcurrentHashMap<>();
 
@@ -628,7 +628,10 @@ public class EthernetTracker {
             }
         }
 
-        IpConfiguration ipConfiguration = getOrCreateIpConfiguration(iface);
+        IpConfiguration ipConfiguration = mIpConfigurations.get(iface);
+        ipConfiguration =
+                ipConfiguration != null ? ipConfiguration : getOrCreateIpConfiguration(hwAddress);
+
         Log.d(TAG, "Tracking interface in client mode: " + iface);
         mFactory.addInterface(iface, hwAddress, ipConfiguration, nc);
 
@@ -906,13 +909,15 @@ public class EthernetTracker {
         return new IpConfiguration.Builder().setStaticIpConfiguration(staticIpConfig).build();
     }
 
-    private IpConfiguration getOrCreateIpConfiguration(String iface) {
-        IpConfiguration ret = mIpConfigurations.get(iface);
+    private static IpConfiguration createDefaultIpConfiguration() {
+        return new IpConfiguration.Builder().build();
+    }
+
+    private IpConfiguration getOrCreateIpConfiguration(String identifier) {
+        IpConfiguration ret = mIpConfigurations.get(identifier);
         if (ret != null) return ret;
-        ret = new IpConfiguration();
-        ret.setIpAssignment(IpAssignment.DHCP);
-        ret.setProxySettings(ProxySettings.NONE);
-        return ret;
+
+        return createDefaultIpConfiguration();
     }
 
     private boolean isValidEthernetInterface(String iface) {
