@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8d91c4d7_41ae2df6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-12T03:02:31Z",
+      "side": 1,
+      "message": "```then it should be upgraded to a single service registration when a service is added\n```\nThat\u0027s going be complicated when there are multiple services for a same host. When updating the host addresses, we\u0027ll have to update all the service registrations with the updated addresses.",
+      "parentUuid": "15e193a5_675dae28",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "235c624ca622a5778eb94a0a648c2bb1480282c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b36ea0fe_a2666408",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
         "patchSetId": 4
@@ -37,6 +61,24 @@
       "writtenOn": "2024-03-11T08:05:30Z",
       "side": 1,
       "message": "Announcements should be restarted/updated with updated addresses and not just stopped\n\nThis is a problem on add too: if 2 service registrations use 2 sets of addresses, when adding the 2nd registration, the 1st one should update its announcements to have the combined set of addresses",
+      "revId": "235c624ca622a5778eb94a0a648c2bb1480282c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "905b4e56_5155ba79",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-12T03:02:31Z",
+      "side": 1,
+      "message": "I agree about restarting/updating the announcements on host address updates. Will update the CL later.",
+      "parentUuid": "b36ea0fe_a2666408",
       "revId": "235c624ca622a5778eb94a0a648c2bb1480282c3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
