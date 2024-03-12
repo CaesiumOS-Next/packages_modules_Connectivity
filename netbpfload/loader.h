@@ -70,7 +70,7 @@ struct Location {
 };
 
 // BPF loader implementation. Loads an eBPF ELF object
-int loadProg(const char* elfPath, bool* isCritical, const Location &location = {});
+int loadProg(const char* elfPath, bool* isCritical, int api, const Location &location = {});
 
 // Exposed for testing
 unsigned int readSectionUint(const char* name, std::ifstream& elfFile, unsigned int defVal);
