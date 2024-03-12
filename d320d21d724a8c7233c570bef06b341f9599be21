@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf25a7f9_ad699564",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-12T16:04:21Z",
+      "side": 1,
+      "message": "As @maze@google.com already reviewed the CL and it seems some of the comment is not adjusted yet, @kenghua@google.com, please try to find a time with maze to confirm the current approach is OK from his perspective.",
+      "revId": "d320d21d724a8c7233c570bef06b341f9599be21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
