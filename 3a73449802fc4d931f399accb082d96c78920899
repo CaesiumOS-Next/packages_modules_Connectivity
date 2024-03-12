@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aed09901_c42971e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-12T16:12:08Z",
+      "side": 1,
+      "message": "Does this CL have strong dependency with aosp/2606533 ? If not I cano take a look at this one. Otherwise, I think we need to wait maze onboard on proposal in previous CL first before I can take a look at this one?",
+      "revId": "3a73449802fc4d931f399accb082d96c78920899",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
