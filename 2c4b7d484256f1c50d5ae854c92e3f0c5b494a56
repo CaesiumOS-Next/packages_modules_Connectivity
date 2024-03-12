@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3829dae8_71ce1e25",
+        "filename": "tests/unit/java/com/android/metrics/ConnectivitySampleMetricsTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-12T10:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bbf2feb_017ec8c3",
+      "revId": "2c4b7d484256f1c50d5ae854c92e3f0c5b494a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00c08b6a_aa20fc0f",
