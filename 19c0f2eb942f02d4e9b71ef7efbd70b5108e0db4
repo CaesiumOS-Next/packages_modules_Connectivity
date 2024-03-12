@@ -33,6 +33,24 @@
       "message": "Unfortunately can\u0027t submit this change due to automerger conflict due to https://android-build.corp.google.com/automerger_conflict/5486153610919936\n\nI can try to manually fix the conflict but that may mess things up further. I\u0027ll just abandon this change and approve the revert cls and then slowly fix things.",
       "revId": "19c0f2eb942f02d4e9b71ef7efbd70b5108e0db4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a039884f_7ff79502",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2024-03-12T18:23:15Z",
+      "side": 1,
+      "message": "I\u0027ve figured out what \u0027for some reason\u0027 is. which is that it\u0027s disabled for U+ via assume, but the failing branch is S.",
+      "parentUuid": "5d9fad43_3539c376",
+      "revId": "19c0f2eb942f02d4e9b71ef7efbd70b5108e0db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
