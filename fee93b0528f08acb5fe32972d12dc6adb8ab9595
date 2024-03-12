@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dd01bde_94bd4b86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-12T10:19:51Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "fee93b0528f08acb5fe32972d12dc6adb8ab9595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3141dba_1e98ec61",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1029,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-12T10:19:51Z",
+      "side": 1,
+      "message": "Nit: This function is duplicated in ConnectivityManagerTest. For better maintainability, consider adding it as a common method to `TestableNetworkCallback`. This could be done in a follow-up change.",
+      "range": {
+        "startLine": 1029,
+        "startChar": 17,
+        "endLine": 1029,
+        "endChar": 52
+      },
+      "revId": "fee93b0528f08acb5fe32972d12dc6adb8ab9595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
