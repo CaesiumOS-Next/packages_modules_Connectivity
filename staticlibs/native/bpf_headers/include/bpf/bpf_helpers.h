@@ -48,6 +48,11 @@
 // Android Mainline - this bpfloader should eventually go back to T
 #define BPFLOADER_MAINLINE_VERSION 42u
 
+#define BPFLOADER_MAINLINE_S_VERSION 43u
+#define BPFLOADER_MAINLINE_T_VERSION 44u
+#define BPFLOADER_MAINLINE_U_VERSION 45u
+#define BPFLOADER_MAINLINE_V_VERSION 46u
+
 /* For mainline module use, you can #define BPFLOADER_{MIN/MAX}_VER
  * before #include "bpf_helpers.h" to change which bpfloaders will
  * process the resulting .o file.
