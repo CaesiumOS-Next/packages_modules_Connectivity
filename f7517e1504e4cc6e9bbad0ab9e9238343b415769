@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6cdf1a3_513a489c",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1030,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-12T09:34:46Z",
+      "side": 1,
+      "message": "This check expects AVAILABLE callback but no other callbacks, I don\u0027t think it\u0027s correct. Generally, a CAPABILITIES change callback should be followed by an AVAILABLE callback.",
+      "revId": "f7517e1504e4cc6e9bbad0ab9e9238343b415769",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
