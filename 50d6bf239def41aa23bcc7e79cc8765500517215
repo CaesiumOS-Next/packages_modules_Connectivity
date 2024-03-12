@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41cf1b8d_7e66b4d3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-12T10:01:03Z",
+      "side": 1,
+      "message": "Replaced this with `disableBorderRouting`.",
+      "parentUuid": "0548c441_389174fa",
+      "range": {
+        "startLine": 514,
+        "startChar": 16,
+        "endLine": 514,
+        "endChar": 42
+      },
+      "revId": "50d6bf239def41aa23bcc7e79cc8765500517215",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "590f6fe9_7066a9af",
@@ -85,6 +109,30 @@
       "writtenOn": "2024-03-12T06:56:08Z",
       "side": 1,
       "message": "So you will have inconsistent BorderRouterConfig copies in system_server and ot-daemon, which is not nice.",
+      "range": {
+        "startLine": 954,
+        "startChar": 0,
+        "endLine": 956,
+        "endChar": 59
+      },
+      "revId": "50d6bf239def41aa23bcc7e79cc8765500517215",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed621d4a_cde544eb",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-12T10:01:03Z",
+      "side": 1,
+      "message": "Introduced `disableBorderRouting`.",
+      "parentUuid": "590f6fe9_7066a9af",
       "range": {
         "startLine": 954,
         "startChar": 0,
@@ -118,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a31f281_821fba18",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-12T10:01:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b3a4b62_13f7f29d",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 58
+      },
+      "revId": "50d6bf239def41aa23bcc7e79cc8765500517215",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7da441f7_d729d3c7",
@@ -131,6 +203,30 @@
       "writtenOn": "2024-03-12T06:56:08Z",
       "side": 1,
       "message": "```suggestion\n        assertNotNull(pollForPacketOnInfraNetwork(ICMPV6_ECHO_REPLY_TYPE, ftd.getOmrAddress()));\n```",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 98
+      },
+      "revId": "50d6bf239def41aa23bcc7e79cc8765500517215",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19b1bfde_9089a110",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-12T10:01:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7da441f7_d729d3c7",
       "range": {
         "startLine": 223,
         "startChar": 0,
