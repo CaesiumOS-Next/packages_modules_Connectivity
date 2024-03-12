@@ -111,6 +111,8 @@ public class EthernetTracker {
     /** Mapping between {iface name | mac address} -> {NetworkCapabilities} */
     private final ConcurrentHashMap<String, NetworkCapabilities> mNetworkCapabilities =
             new ConcurrentHashMap<>();
+
+    /** Mapping between {iface name | mac address} -> {IpConfiguration} */
     private final ConcurrentHashMap<String, IpConfiguration> mIpConfigurations =
             new ConcurrentHashMap<>();
 
@@ -628,7 +630,15 @@ public class EthernetTracker {
             }
         }
 
-        IpConfiguration ipConfiguration = getOrCreateIpConfiguration(iface);
+        IpConfiguration ipConfiguration = mIpConfigurations.get(iface);
+        if (ipConfiguration == null) {
+            // Try to resolve using mac address
+            ipConfiguration = mIpConfigurations.get(hwAddress);
+            if (ipConfiguration == null) {
+                ipConfiguration = createDefaultIpConfiguration();
+            }
+        }
+
         Log.d(TAG, "Tracking interface in client mode: " + iface);
         mFactory.addInterface(iface, hwAddress, ipConfiguration, nc);
 
@@ -904,6 +914,10 @@ public class EthernetTracker {
     private static IpConfiguration createIpConfiguration(
             @NonNull final StaticIpConfiguration staticIpConfig) {
         return new IpConfiguration.Builder().setStaticIpConfiguration(staticIpConfig).build();
+    }
+
+    private static IpConfiguration createDefaultIpConfiguration() {
+        return new IpConfiguration.Builder().build();
     }
 
     private IpConfiguration getOrCreateIpConfiguration(String iface) {
