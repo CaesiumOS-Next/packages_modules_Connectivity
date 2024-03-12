@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d9fad43_3539c376",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2024-03-12T17:39:34Z",
+      "side": 1,
+      "message": "These are disabled in upstream and in aosp_main but for some reason\n(to be investigated) still run in main.\n\nHow is this disabled in `aosp_main`?",
+      "revId": "19c0f2eb942f02d4e9b71ef7efbd70b5108e0db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
