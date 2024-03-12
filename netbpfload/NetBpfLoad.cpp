@@ -228,44 +228,15 @@ int main(int argc, char** argv, char * const envp[]) {
     (void)argc;
     android::base::InitLogging(argv, &android::base::KernelLogger);
 
-    ALOGI("NetBpfLoad '%s' starting...", argv[0]);
-
     const int device_api_level = android_get_device_api_level();
     const bool isAtLeastT = (device_api_level >= __ANDROID_API_T__);
     const bool isAtLeastU = (device_api_level >= __ANDROID_API_U__);
     const bool isAtLeastV = (device_api_level >= __ANDROID_API_V__);
 
-    // last in U QPR2 beta1
-    const bool has_platform_bpfloader_rc = exists("/system/etc/init/bpfloader.rc");
-    // first in U QPR2 beta~2
-    const bool has_platform_netbpfload_rc = exists("/system/etc/init/netbpfload.rc");
-
-    ALOGI("NetBpfLoad api:%d/%d kver:%07x rc:%d%d",
-          android_get_application_target_sdk_version(), device_api_level,
-          android::bpf::kernelVersion(),
-          has_platform_bpfloader_rc, has_platform_netbpfload_rc);
-
-    if (!has_platform_bpfloader_rc && !has_platform_netbpfload_rc) {
-        ALOGE("Unable to find platform's bpfloader & netbpfload init scripts.");
-        return 1;
-    }
-
-    if (has_platform_bpfloader_rc && has_platform_netbpfload_rc) {
-        ALOGE("Platform has *both* bpfloader & netbpfload init scripts.");
-        return 1;
-    }
+    ALOGI("NetBpfLoad '%s' starting... (api:%d kver:%07x)",
+          argv[0], device_api_level, android::bpf::kernelVersion());
 
     logTetheringApexVersion();
-
-    if (has_platform_bpfloader_rc && !has_platform_netbpfload_rc) {
-        // Tethering apex shipped initrc file causes us to reach here
-        // but we're not ready to correctly handle anything before U QPR2
-        // in which the 'bpfloader' vs 'netbpfload' split happened
-        const char * args[] = { platformBpfLoader, NULL, };
-        execve(args[0], (char**)args, envp);
-        ALOGE("exec '%s' fail: %d[%s]", platformBpfLoader, errno, strerror(errno));
-        return 1;
-    }
 
     if (isAtLeastT && !android::bpf::isAtLeastKernelVersion(4, 9, 0)) {
         ALOGE("Android T requires kernel 4.9.");
