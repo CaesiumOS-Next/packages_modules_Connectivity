@@ -31,7 +31,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-// This is Network BpfLoader v0.42
+// This is Network BpfLoader v0.42 [but is it T? U? V?]
 // WARNING: If you ever hit cherrypick conflicts here you're doing it wrong:
 // You are NOT allowed to cherrypick bpfloader related patches out of order.
 // (indeed: cherrypicking is probably a bad idea and you should merge instead)
