@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63eb989a_9664c0a1",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 93
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-12T04:37:37Z",
+      "side": 1,
+      "message": "... reason being: 0 is fundamentally different from 1 because 0 means \"has been deleted\" and 1 means \"is still alive\". It seems really confusing to have an advertising request (which requests *advertising*) with a TTL of 0 (which indicates deletion)",
+      "parentUuid": "74f58dbc_63d4375b",
+      "range": {
+        "startLine": 54,
+        "startChar": 41,
+        "endLine": 54,
+        "endChar": 62
+      },
+      "revId": "2ffe82dab5632bd8a0a338992aae6f45a7fe52e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e80f2153_171cc373",
         "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
         "patchSetId": 93
@@ -212,6 +236,29 @@
         "startChar": 26,
         "endLine": 78,
         "endChar": 29
+      },
+      "revId": "2ffe82dab5632bd8a0a338992aae6f45a7fe52e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcaddef3_a42a1038",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 93
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-12T04:37:37Z",
+      "side": 1,
+      "message": "Nit: this isn\u0027t really correct if the system clock changes between the time the advertisement is made and when getExpiration is called. It\u0027s probably more accurate to pass back to the app an expiration as calculated by SystemClock#elapsedRealtime.",
+      "range": {
+        "startLine": 584,
+        "startChar": 49,
+        "endLine": 584,
+        "endChar": 81
       },
       "revId": "2ffe82dab5632bd8a0a338992aae6f45a7fe52e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
