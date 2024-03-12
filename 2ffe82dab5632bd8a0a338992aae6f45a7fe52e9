@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74f58dbc_63d4375b",
+        "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
+        "patchSetId": 93
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-12T04:24:17Z",
+      "side": 1,
+      "message": "Nit: given that 0 is an invalid TTL, it seems better to use 0 here than -1.",
+      "range": {
+        "startLine": 54,
+        "startChar": 41,
+        "endLine": 54,
+        "endChar": 62
+      },
+      "revId": "2ffe82dab5632bd8a0a338992aae6f45a7fe52e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e80f2153_171cc373",
         "filename": "framework-t/src/android/net/nsd/AdvertisingRequest.java",
         "patchSetId": 93
