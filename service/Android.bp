@@ -199,7 +199,7 @@ java_library {
         "PlatformProperties",
         "service-connectivity-protos",
         "service-connectivity-stats-protos",
-        "net-utils-multicast-forwarding-structs",
+        "net-utils-device-common-struct",
     ],
     apex_available: [
         "com.android.tethering",
