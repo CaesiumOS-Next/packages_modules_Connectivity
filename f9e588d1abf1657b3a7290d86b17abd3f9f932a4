@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba77dcfd_2892c74a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-12T13:13:50Z",
+      "side": 1,
+      "message": "Catch specific exceptions please.",
+      "range": {
+        "startLine": 947,
+        "startChar": 17,
+        "endLine": 947,
+        "endChar": 28
+      },
+      "revId": "f9e588d1abf1657b3a7290d86b17abd3f9f932a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "569859e3_e3d64901",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-12T13:13:50Z",
+      "side": 1,
+      "message": "```suggestion\n            Log.w(TAG, \"Failed to enable border routing\", e);\n```",
+      "range": {
+        "startLine": 948,
+        "startChar": 12,
+        "endLine": 948,
+        "endChar": 64
+      },
+      "revId": "f9e588d1abf1657b3a7290d86b17abd3f9f932a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ce320de_402dec7d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-12T13:13:50Z",
+      "side": 1,
+      "message": "```suggestion\n            Log.w(TAG, \"Failed to disable border routing\", e);\n```",
+      "range": {
+        "startLine": 961,
+        "startChar": 43,
+        "endLine": 961,
+        "endChar": 65
+      },
+      "revId": "f9e588d1abf1657b3a7290d86b17abd3f9f932a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
