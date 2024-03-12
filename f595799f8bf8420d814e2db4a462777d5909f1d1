@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0ed41bb5_0fcfd3fb",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2024-03-12T21:45:17Z",
+      "side": 1,
+      "message": "Yeah, just pass the mac address into `getOrCreateIpConfiguration()`, since it does the same thing whether it is a mac address or an iface name.",
+      "parentUuid": "9e492ca0_203a4556",
+      "range": {
+        "startLine": 633,
+        "startChar": 8,
+        "endLine": 640,
+        "endChar": 9
+      },
+      "revId": "f595799f8bf8420d814e2db4a462777d5909f1d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0e75075b_7fb9073b",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 1
