@@ -16,6 +16,23 @@
       "message": "These are disabled in upstream and in aosp_main but for some reason\n(to be investigated) still run in main.\n\nHow is this disabled in `aosp_main`?",
       "revId": "19c0f2eb942f02d4e9b71ef7efbd70b5108e0db4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ca0866c_d9e00932",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2024-03-12T18:21:32Z",
+      "side": 1,
+      "message": "Unfortunately can\u0027t submit this change due to automerger conflict due to https://android-build.corp.google.com/automerger_conflict/5486153610919936\n\nI can try to manually fix the conflict but that may mess things up further. I\u0027ll just abandon this change and approve the revert cls and then slowly fix things.",
+      "revId": "19c0f2eb942f02d4e9b71ef7efbd70b5108e0db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
