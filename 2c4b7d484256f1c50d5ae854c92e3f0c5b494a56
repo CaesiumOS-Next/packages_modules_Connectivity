@@ -22,6 +22,30 @@
       },
       "revId": "2c4b7d484256f1c50d5ae854c92e3f0c5b494a56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e797bcc1_fa9bdbd5",
+        "filename": "tests/unit/java/com/android/metrics/ConnectivitySampleMetricsTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-12T02:53:52Z",
+      "side": 1,
+      "message": "\"file\", I saw some comment says \"file network request\".\nSo this should be ok.",
+      "parentUuid": "00c08b6a_aa20fc0f",
+      "range": {
+        "startLine": 218,
+        "startChar": 8,
+        "endLine": 218,
+        "endChar": 12
+      },
+      "revId": "2c4b7d484256f1c50d5ae854c92e3f0c5b494a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
