@@ -16,6 +16,29 @@
       "message": "Why is there a mismatch between the disabled tests over the two AndroidTest.xml?",
       "revId": "525a532d65a993dd783782bd7c91513f1cc9bc77",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa5254d2_1eff3531",
+        "filename": "Cronet/tests/common/AndroidTest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-12T17:23:20Z",
+      "side": 1,
+      "message": "looks like this line somehow got duplicated",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 106
+      },
+      "revId": "525a532d65a993dd783782bd7c91513f1cc9bc77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
