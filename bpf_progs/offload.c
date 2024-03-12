@@ -28,7 +28,7 @@
 // BTF is incompatible with bpfloaders < v0.10, hence for S (v0.2) we must
 // ship a different file than for later versions, but we need bpfloader v0.25+
 // for obj@ver.o support
-#define BPFLOADER_MIN_VER BPFLOADER_OBJ_AT_VER_VERSION
+#define BPFLOADER_MIN_VER BPFLOADER_MAINLINE_VERSION
 #else /* MAINLINE */
 // The resulting .o needs to load on the Android S bpfloader
 #define BPFLOADER_MIN_VER BPFLOADER_S_VERSION
