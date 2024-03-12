@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c421b2ab_fdb02b22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-12T16:09:54Z",
+      "side": 1,
+      "message": "s",
+      "revId": "dcc6b5201f42e92ad5d30d7aeeceb6d62037ccdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1feb1298_faa9670b",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-12T16:09:54Z",
+      "side": 1,
+      "message": "please mark it as @nullable",
+      "range": {
+        "startLine": 954,
+        "startChar": 14,
+        "endLine": 954,
+        "endChar": 20
+      },
+      "revId": "dcc6b5201f42e92ad5d30d7aeeceb6d62037ccdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1b30e80_a76d4091",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-12T16:09:54Z",
+      "side": 1,
+      "message": "I assume this interface cannot be null?",
+      "range": {
+        "startLine": 956,
+        "startChar": 32,
+        "endLine": 956,
+        "endChar": 44
+      },
+      "revId": "dcc6b5201f42e92ad5d30d7aeeceb6d62037ccdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7af4bea_64615389",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/MtsEthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-12T16:09:54Z",
+      "side": 1,
+      "message": "I assume it is already being tested with real device and works. So it is expected to pull the data from Connectivity service in tethering test?",
+      "range": {
+        "startLine": 319,
+        "startChar": 58,
+        "endLine": 319,
+        "endChar": 86
+      },
+      "revId": "dcc6b5201f42e92ad5d30d7aeeceb6d62037ccdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
