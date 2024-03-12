@@ -38,6 +38,7 @@ java_defaults {
         "android.test.runner",
         "android.test.base",
         "android.test.mock",
+        "net-utils-device-common-struct-base",
     ],
 }
 

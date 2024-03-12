@@ -181,6 +181,7 @@ java_library {
         "framework-statsd",
         "framework-permission",
         "framework-permission-s",
+        "net-utils-device-common-struct-base",
     ],
     static_libs: [
         // Do not add libs here if they are already included
@@ -199,7 +200,7 @@ java_library {
         "PlatformProperties",
         "service-connectivity-protos",
         "service-connectivity-stats-protos",
-        "net-utils-multicast-forwarding-structs",
+        "net-utils-device-common-struct",
     ],
     apex_available: [
         "com.android.tethering",

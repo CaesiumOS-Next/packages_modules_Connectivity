@@ -30,6 +30,7 @@ java_library {
     libs: [
         "androidx.annotation_annotation",
         "net-utils-device-common-bpf", // TestBpfMap extends IBpfMap.
+        "net-utils-device-common-struct-base",
     ],
     static_libs: [
         "androidx.test.ext.junit",

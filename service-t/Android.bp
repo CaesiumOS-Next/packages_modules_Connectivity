@@ -63,6 +63,7 @@ java_library {
         service_remoteauth_pre_jarjar_lib,
         "ServiceConnectivityResources",
         "unsupportedappusage",
+        "net-utils-device-common-struct-base",
     ],
     static_libs: [
         // Do not add static_libs here if they are already included in framework-connectivity

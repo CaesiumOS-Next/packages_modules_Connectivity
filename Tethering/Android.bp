@@ -80,6 +80,7 @@ java_defaults {
     defaults: ["TetheringExternalLibs"],
     libs: [
         "framework-tethering.impl",
+        "net-utils-device-common-struct-base",
     ],
     manifest: "AndroidManifestBase.xml",
     lint: {
