@@ -46,6 +46,99 @@
       },
       "revId": "50d6bf239def41aa23bcc7e79cc8765500517215",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0548c441_389174fa",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-12T06:56:08Z",
+      "side": 1,
+      "message": "Thanks, can you add a comment here to explain why we don\u0027t need to call configureBorderRouter().\n\nConceptually, it\u0027s easier to maintain if we send the BorderRouterConfig to ot-daemon every time any value in BorderRouterConfig is updated.",
+      "parentUuid": "bcbf2e3d_19fa6f5d",
+      "range": {
+        "startLine": 514,
+        "startChar": 16,
+        "endLine": 514,
+        "endChar": 42
+      },
+      "revId": "50d6bf239def41aa23bcc7e79cc8765500517215",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "590f6fe9_7066a9af",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-12T06:56:08Z",
+      "side": 1,
+      "message": "So you will have inconsistent BorderRouterConfig copies in system_server and ot-daemon, which is not nice.",
+      "range": {
+        "startLine": 954,
+        "startChar": 0,
+        "endLine": 956,
+        "endChar": 59
+      },
+      "revId": "50d6bf239def41aa23bcc7e79cc8765500517215",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b3a4b62_13f7f29d",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-12T06:56:08Z",
+      "side": 1,
+      "message": "```suggestion\n        mInfraDevice.sendEchoRequest(ftd.getOmrAddress());\n```\n\nIsn\u0027t this trivial?",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 58
+      },
+      "revId": "50d6bf239def41aa23bcc7e79cc8765500517215",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7da441f7_d729d3c7",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-12T06:56:08Z",
+      "side": 1,
+      "message": "```suggestion\n        assertNotNull(pollForPacketOnInfraNetwork(ICMPV6_ECHO_REPLY_TYPE, ftd.getOmrAddress()));\n```",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 98
+      },
+      "revId": "50d6bf239def41aa23bcc7e79cc8765500517215",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
