@@ -2124,8 +2124,8 @@ public class Tethering {
                                 mCurrentUpstreamIfaceSet);
                         // If there has been a change and an upstream is now
                         // desired, kick off the selection process.
-                        final boolean previousUpstreamWanted = updateUpstreamWanted();
-                        if (!previousUpstreamWanted && mUpstreamWanted) {
+                        updateUpstreamWanted();
+                        if (mUpstreamWanted) {
                             chooseUpstreamType(true);
                         }
                         break;
