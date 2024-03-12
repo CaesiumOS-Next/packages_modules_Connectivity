@@ -22,6 +22,30 @@
       },
       "revId": "50d6bf239def41aa23bcc7e79cc8765500517215",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcbf2e3d_19fa6f5d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-12T01:47:34Z",
+      "side": 1,
+      "message": "ot-daemon itself can detect the lost of AIL so I think we don\u0027t need to let ThreadNetworkControllerService notify ot-daemon:\nhttps://cs.android.com/android/platform/superproject/main/+/main:external/openthread/src/core/border_router/infra_if.cpp;l\u003d141;drc\u003d71c806d9f13939dda9ac9648171bb20849cf96f6",
+      "parentUuid": "e4fda15f_56a53dea",
+      "range": {
+        "startLine": 514,
+        "startChar": 16,
+        "endLine": 514,
+        "endChar": 42
+      },
+      "revId": "50d6bf239def41aa23bcc7e79cc8765500517215",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
