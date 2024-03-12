@@ -28,8 +28,13 @@
 // BTF is incompatible with bpfloaders < v0.10, hence for S (v0.2) we must
 // ship a different file than for later versions, but we need bpfloader v0.25+
 // for obj@ver.o support
+<<<<<<< PATCH SET (b3d4e8 enable mainline netbpfload on T+)
+#define BPFLOADER_MIN_VER BPFLOADER_MAINLINE_VERSION
+#else /* BTF */
+=======
 #define BPFLOADER_MIN_VER BPFLOADER_OBJ_AT_VER_VERSION
 #else /* MAINLINE */
+>>>>>>> BASE      (37bb9b Merge "rename: @btf.o -> @mainline.o" into main)
 // The resulting .o needs to load on the Android S bpfloader
 #define BPFLOADER_MIN_VER BPFLOADER_S_VERSION
 #define BPFLOADER_MAX_VER BPFLOADER_OBJ_AT_VER_VERSION
