@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a923a43_cd7e4ac3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2024-03-12T17:20:15Z",
+      "side": 1,
+      "message": "Why is there a mismatch between the disabled tests over the two AndroidTest.xml?",
+      "revId": "525a532d65a993dd783782bd7c91513f1cc9bc77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
