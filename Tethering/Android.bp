@@ -80,6 +80,7 @@ java_defaults {
     defaults: ["TetheringExternalLibs"],
     libs: [
         "framework-tethering.impl",
+        "net-utils-device-common-struct-base",
     ],
     manifest: "AndroidManifestBase.xml",
     lint: {
@@ -99,6 +100,7 @@ android_library {
     static_libs: [
         "NetworkStackApiCurrentShims",
         "net-utils-device-common-struct",
+        "net-utils-device-common-struct-base",
     ],
     apex_available: ["com.android.tethering"],
     lint: {
@@ -116,6 +118,7 @@ android_library {
     static_libs: [
         "NetworkStackApiStableShims",
         "net-utils-device-common-struct",
+        "net-utils-device-common-struct-base",
     ],
     apex_available: ["com.android.tethering"],
     lint: {
