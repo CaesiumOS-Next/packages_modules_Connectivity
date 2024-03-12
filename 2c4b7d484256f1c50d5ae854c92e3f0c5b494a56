@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0bbf2feb_017ec8c3",
+        "filename": "tests/unit/java/com/android/metrics/ConnectivitySampleMetricsTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-12T05:58:20Z",
+      "side": 1,
+      "message": "Would you be able to restore the calling UID before this method returns ? It may be a bit confusing to have fileNetworkRequest have a side-effect here, where the calling UID remains mocked after it is called depending on the request.\n\nOtherwise, it may be better to have the UID mocking outside of this method, to make the side-effect more obvious in the tests.",
+      "revId": "2c4b7d484256f1c50d5ae854c92e3f0c5b494a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "00c08b6a_aa20fc0f",
         "filename": "tests/unit/java/com/android/metrics/ConnectivitySampleMetricsTest.kt",
         "patchSetId": 7
