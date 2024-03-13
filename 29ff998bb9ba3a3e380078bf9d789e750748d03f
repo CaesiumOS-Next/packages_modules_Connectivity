@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7838205_6a2467e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-13T09:42:03Z",
+      "side": 1,
+      "message": "Stupid question: What is current behavior?\nIIUC if the feature is enabled, a request made by an app \nwith everything default will see the local network.\nWill it break existing use cases?\n\n\n    @Test\n    fun testLocalNetworkRequest() {\n        val request \u003d NetworkRequest.Builder().build()\n        // If ENABLE_MATCH_LOCAL_NETWORK is false, request is not satisfied by local network\n        doTestLocalNetworkRequest(\n                request,\n                enableMatchLocalNetwork \u003d false,\n                expectCallback \u003d false)\n        // If ENABLE_MATCH_LOCAL_NETWORK is true, request is satisfied by local network\n        doTestLocalNetworkRequest(\n                request,\n                enableMatchLocalNetwork \u003d true,\n                expectCallback \u003d true)\n    }",
+      "range": {
+        "startLine": 13,
+        "startChar": 3,
+        "endLine": 13,
+        "endChar": 16
+      },
+      "revId": "29ff998bb9ba3a3e380078bf9d789e750748d03f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
