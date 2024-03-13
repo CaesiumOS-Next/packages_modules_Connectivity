@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b6b9543_25616d69",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-13T06:48:07Z",
+      "side": 1,
+      "message": "There should be a test for this too, checking that packets are sent in the right order when split, and that the right behavior is used when the flag is on/off\n\nPossibly you could move the tests you have in aosp/2988611 to MdnsMultinetworkSocketClientTest, to be slightly higher level. Could you have the tests in this change too ? It\u0027s weird to have a change with no tests",
+      "revId": "0648f0939c8f3db7092ce0aab954880f1c94f10a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e5d8b2c_b9e1e2c0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-13T06:48:07Z",
+      "side": 1,
+      "message": "There\u0027s no unit test for this behavior in the change.\n\nI\u0027m not sure we need to support it with MdnsSocketClient though ? Maybe we could only support it with MdnsMultinetworkSocketClient ?\n\nOtherwise unit tests are needed for MdnsSocketClient (in particular verifying that when there\u0027s several packets, they are sent in the right order)",
+      "revId": "0648f0939c8f3db7092ce0aab954880f1c94f10a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5a75d6a_b8a05911",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-13T06:48:07Z",
+      "side": 1,
+      "message": "Nit: would addAll work ?",
+      "range": {
+        "startLine": 282,
+        "startChar": 33,
+        "endLine": 282,
+        "endChar": 36
+      },
+      "revId": "0648f0939c8f3db7092ce0aab954880f1c94f10a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
