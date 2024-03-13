@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "425d53f4_ee998b41",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-13T06:06:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7a978ef_b510bb27",
+      "range": {
+        "startLine": 289,
+        "startChar": 42,
+        "endLine": 289,
+        "endChar": 52
+      },
+      "revId": "5631f953017dee32efa23161fe99a9883f8f5b56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c16ed7d_1712bd48",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-03-13T05:54:29Z",
       "side": 1,
       "message": "Sorry I missed this before... The `getServicesCount() \u003d\u003d 0` check should be inside the posted runnable here too, otherwise services might be added before it is processed",
+      "revId": "5631f953017dee32efa23161fe99a9883f8f5b56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25aedf24_f1290fdf",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-13T06:06:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c16ed7d_1712bd48",
       "revId": "5631f953017dee32efa23161fe99a9883f8f5b56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
