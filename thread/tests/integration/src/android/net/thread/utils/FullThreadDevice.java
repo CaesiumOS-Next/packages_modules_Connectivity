@@ -52,6 +52,12 @@ import java.util.regex.Pattern;
  * available commands.
  */
 public final class FullThreadDevice {
+    private static final int HOPLIMIT = 64;
+    private static final int PING_INTERVAL = 1;
+    // There may not be a response for the ping command, using a short timeout to keep the tests
+    // short.
+    private static final float PING_TIMEOUT = 0.1f;
+
     private final Process mProcess;
     private final BufferedReader mReader;
     private final BufferedWriter mWriter;
@@ -348,7 +354,13 @@ public final class FullThreadDevice {
                         + " "
                         + size
                         + " "
-                        + count;
+                        + count
+                        + " "
+                        + PING_INTERVAL
+                        + " "
+                        + HOPLIMIT
+                        + " "
+                        + PING_TIMEOUT;
         executeCommand(cmd);
     }
 
