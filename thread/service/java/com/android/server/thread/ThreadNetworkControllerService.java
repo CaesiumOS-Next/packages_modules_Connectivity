@@ -116,6 +116,7 @@ import com.android.server.thread.openthread.IOtDaemonCallback;
 import com.android.server.thread.openthread.IOtStatusReceiver;
 import com.android.server.thread.openthread.Ipv6AddressInfo;
 import com.android.server.thread.openthread.OtDaemonState;
+import com.android.server.thread.ThreadNetworkCountryCode.CountryCodeChangedCallback;
 
 import java.io.IOException;
 import java.net.Inet6Address;
@@ -140,7 +141,8 @@ import java.util.function.Supplier;
  * HandlerThread except for arguments or permissions checking
  */
 @TargetApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
-final class ThreadNetworkControllerService extends IThreadNetworkController.Stub {
+final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
+        implements CountryCodeChangedCallback {
     private static final String TAG = "ThreadNetworkService";
 
     // Below member fields can be accessed from both the binder and handler threads
@@ -871,32 +873,6 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
     }
 
-    /**
-     * Sets the country code.
-     *
-     * @param countryCode 2 characters string country code (as defined in ISO 3166) to set.
-     * @param receiver the receiver to receive result of this operation
-     */
-    @RequiresPermission(PERMISSION_THREAD_NETWORK_PRIVILEGED)
-    public void setCountryCode(@NonNull String countryCode, @NonNull IOperationReceiver receiver) {
-        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
-
-        OperationReceiverWrapper receiverWrapper = new OperationReceiverWrapper(receiver);
-        mHandler.post(() -> setCountryCodeInternal(countryCode, receiverWrapper));
-    }
-
-    private void setCountryCodeInternal(
-            String countryCode, @NonNull OperationReceiverWrapper receiver) {
-        checkOnHandlerThread();
-
-        try {
-            getOtDaemon().setCountryCode(countryCode, newOtStatusReceiver(receiver));
-        } catch (RemoteException e) {
-            Log.e(TAG, "otDaemon.setCountryCode failed", e);
-            receiver.onError(ERROR_INTERNAL_ERROR, "Thread stack error");
-        }
-    }
-
     @Override
     public void setTestNetworkAsUpstream(
             @Nullable String testNetworkInterfaceName, @NonNull IOperationReceiver receiver) {
@@ -1339,6 +1315,37 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         @Override
         public void onBackboneRouterStateChanged(BackboneRouterState state) {
             mHandler.post(() -> handleMulticastForwardingChanged(state));
+        }
+    }
+
+    // Implements ThreadNetworkCountryCode.CountryCodeChangedCallback
+    @Override
+    public void onCountryCodeChanged(String countryCode) {
+        setCountryCode(countryCode, null);
+    }
+
+    /**
+     * Sets the country code.
+     *
+     * @param countryCode 2 characters string country code as defined in ISO 3166
+     */
+    @RequiresPermission(PERMISSION_THREAD_NETWORK_PRIVILEGED)
+    public void setCountryCode(@NonNull String countryCode, @NonNull IOperationReceiver receiver) {
+        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        OperationReceiverWrapper receiverWrapper = new OperationReceiverWrapper(receiver);
+        mHandler.post(() -> setCountryCodeInternal(countryCode, receiverWrapper));
+    }
+
+    private void setCountryCodeInternal(
+            String countryCode, @NonNull OperationReceiverWrapper receiver) {
+        checkOnHandlerThread();
+
+        try {
+            getOtDaemon().setCountryCode(countryCode, newOtStatusReceiver(receiver));
+        } catch (RemoteException e) {
+            Log.e(TAG, "otDaemon.setCountryCode failed", e);
+            receiver.onError(ERROR_INTERNAL_ERROR, "Thread stack error");
         }
     }
 }
