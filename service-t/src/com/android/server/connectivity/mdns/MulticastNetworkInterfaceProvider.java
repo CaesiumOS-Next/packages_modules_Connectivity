@@ -101,7 +101,10 @@ public class MulticastNetworkInterfaceProvider {
         }
     }
 
-    public boolean isOnIpV6OnlyNetwork(List<NetworkInterfaceWrapper> networkInterfaces) {
+    /**
+     * Indicates whether any of the provided interfaces has at least one IPv6 address.
+     */
+    public static boolean isOnIpV6OnlyNetwork(List<NetworkInterfaceWrapper> networkInterfaces) {
         if (networkInterfaces.isEmpty()) {
             return false;
         }
