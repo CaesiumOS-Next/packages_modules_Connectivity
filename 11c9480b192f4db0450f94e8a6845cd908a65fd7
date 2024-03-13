@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab3cd4ec_dbe8666a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-13T10:18:59Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "271096e7_cf7ca013",
+      "revId": "11c9480b192f4db0450f94e8a6845cd908a65fd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc3da6b7_9771a8b9",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-03-12T07:38:29Z",
       "side": 1,
       "message": "nits: Is IFACE_ALL better?",
+      "range": {
+        "startLine": 115,
+        "startChar": 68,
+        "endLine": 115,
+        "endChar": 72
+      },
+      "revId": "11c9480b192f4db0450f94e8a6845cd908a65fd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97eca0a8_7e54db23",
+        "filename": "service-t/src/com/android/server/net/TrafficStatsRateLimitCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-13T10:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc3da6b7_9771a8b9",
       "range": {
         "startLine": 115,
         "startChar": 68,
@@ -58,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8461f541_685b676b",
+        "filename": "tests/unit/java/com/android/server/net/TrafficStatsRateLimitCacheTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-13T10:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "393ebbdb_5e85a82f",
+      "revId": "11c9480b192f4db0450f94e8a6845cd908a65fd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04d35e89_617887ac",
@@ -71,6 +131,30 @@
       "writtenOn": "2024-03-12T06:06:31Z",
       "side": 1,
       "message": "Is there something you could do to suppress the warning ?",
+      "range": {
+        "startLine": 132,
+        "startChar": 50,
+        "endLine": 132,
+        "endChar": 68
+      },
+      "revId": "11c9480b192f4db0450f94e8a6845cd908a65fd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2faeed5c_d1d8d2e9",
+        "filename": "tests/unit/java/com/android/server/net/TrafficStatsRateLimitCacheTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-13T10:18:59Z",
+      "side": 1,
+      "message": "Not awared of any way to workaround.\nWarning supressed although it is least ideal.\n\nSome Discussion:https://groups.google.com/g/mockito/c/iMumB0_bpdo",
+      "parentUuid": "04d35e89_617887ac",
       "range": {
         "startLine": 132,
         "startChar": 50,
