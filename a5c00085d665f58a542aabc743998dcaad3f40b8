@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a18f3941_09d28f60",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-13T12:41:12Z",
+      "side": 1,
+      "message": "Add this to setUp()",
+      "revId": "a5c00085d665f58a542aabc743998dcaad3f40b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e0bdcbd_f7359646",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-13T12:41:12Z",
+      "side": 1,
+      "message": "```suggestion\n    public static final Duration SET_ENABLED_TIMEOUT \u003d Duration.ofSeconds(2);\n```",
+      "range": {
+        "startLine": 83,
+        "startChar": 74,
+        "endLine": 83,
+        "endChar": 75
+      },
+      "revId": "a5c00085d665f58a542aabc743998dcaad3f40b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4233e291_4fa7aaa7",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-13T12:41:12Z",
+      "side": 1,
+      "message": "This should bed added to ThreadNetworkControllerWrapper in aosp/2995697",
+      "revId": "a5c00085d665f58a542aabc743998dcaad3f40b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
