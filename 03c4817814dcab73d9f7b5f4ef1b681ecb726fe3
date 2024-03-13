@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79b64229_f7405de3",
+        "filename": "thread/tests/utils/src/android/net/thread/utils/ThreadFeatureCheckerRule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-13T12:56:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bc024dc_65363aee",
+      "revId": "03c4817814dcab73d9f7b5f4ef1b681ecb726fe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aadc10a2_4402b69e",
@@ -58,6 +76,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb03b337_88abb6fc",
+        "filename": "thread/tests/utils/src/android/net/thread/utils/ThreadFeatureCheckerRule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-13T12:56:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aadc10a2_4402b69e",
+      "range": {
+        "startLine": 91,
+        "startChar": 84,
+        "endLine": 91,
+        "endChar": 92
+      },
+      "revId": "03c4817814dcab73d9f7b5f4ef1b681ecb726fe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9bfd66a_8618c5ae",
@@ -71,6 +113,24 @@
       "writtenOn": "2024-03-13T09:45:25Z",
       "side": 1,
       "message": "If the simulation Thread device is supported\n```suggestion\n     * Returns {@code true} if the simulation Thread device is supported.\n```",
+      "revId": "03c4817814dcab73d9f7b5f4ef1b681ecb726fe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e96f33f2_9a66cef2",
+        "filename": "thread/tests/utils/src/android/net/thread/utils/ThreadFeatureCheckerRule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-13T12:56:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9bfd66a_8618c5ae",
       "revId": "03c4817814dcab73d9f7b5f4ef1b681ecb726fe3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
