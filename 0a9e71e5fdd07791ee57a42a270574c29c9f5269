@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c799d43_036eb8ec",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-13T07:25:33Z",
+      "side": 1,
+      "message": "```suggestion\n    private static final int HOP_LIMIT \u003d 64;\n```",
+      "revId": "0a9e71e5fdd07791ee57a42a270574c29c9f5269",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "395ee79a_bd6c171e",
         "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
         "patchSetId": 2
@@ -14,6 +31,30 @@
       "writtenOn": "2024-03-13T07:19:47Z",
       "side": 1,
       "message": "Isn\u0027t there a use case in tests that we need to ping and wait for the reply? Should we add the timeout as argument of the ping() method?\n\n@handaw@google.com",
+      "range": {
+        "startLine": 363,
+        "startChar": 26,
+        "endLine": 363,
+        "endChar": 38
+      },
+      "revId": "0a9e71e5fdd07791ee57a42a270574c29c9f5269",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7c203f3_012b1b0d",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-13T07:25:33Z",
+      "side": 1,
+      "message": "\u003e Isn\u0027t there a use case in tests that we need to ping and wait for the reply?\n\nThere may be. E.g. we may let the infra device support responding to the echo request so that we just need to verify the result by the output of the `ping` command.\n\nWe can have multiple variants of the `ping` method when we need them. There are many cases that we don\u0027t want to specify `size`/`count`/`timeout`.",
+      "parentUuid": "395ee79a_bd6c171e",
       "range": {
         "startLine": 363,
         "startChar": 26,
