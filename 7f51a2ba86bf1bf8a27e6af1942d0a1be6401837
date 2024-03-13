@@ -22,6 +22,30 @@
       },
       "revId": "7f51a2ba86bf1bf8a27e6af1942d0a1be6401837",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c18b1f53_04cf6b86",
+        "filename": "tests/unit/vpn-jarjar-rules.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-03-13T03:26:52Z",
+      "side": 0,
+      "message": "From aosp/2591306 and also the definition of keep rule in jarjar file, this looks related to the repackaging. It does not look like that this can be removed before the reference being removed from ConnectivityServiceTest as my understanding.",
+      "parentUuid": "ea7496f3_3f431664",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 52
+      },
+      "revId": "7f51a2ba86bf1bf8a27e6af1942d0a1be6401837",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
