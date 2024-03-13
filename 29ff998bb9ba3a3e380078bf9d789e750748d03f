@@ -22,6 +22,30 @@
       },
       "revId": "29ff998bb9ba3a3e380078bf9d789e750748d03f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "223e2a4a_11c76161",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-13T10:03:21Z",
+      "side": 1,
+      "message": "ENABLE_MATCH_LOCAL_NETWORK is enabled if the apps targeting V or higher.\nExisting apps can not target V since it\u0027s not released.\nSo existing apps will not see local networks.\n\n```\n    /**\n     * Apps targeting Android V or higher receive network callbacks from local networks as default\n     *\n     * Apps targeting lower than {@link android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM} need\n     * to add {@link android.net.NetworkCapabilities#NET_CAPABILITY_LOCAL_NETWORK} to the\n     * {@link android.net.NetworkCapabilities} of the {@link android.net.NetworkRequest} to receive\n     * {@link android.net.ConnectivityManager.NetworkCallback} from local networks.\n     *\n     * @hide\n     */\n    @ChangeId\n    @EnabledAfter(targetSdkVersion \u003d Build.VERSION_CODES.UPSIDE_DOWN_CAKE)\n    public static final long ENABLE_MATCH_LOCAL_NETWORK \u003d 319212206L;\n```",
+      "parentUuid": "f7838205_6a2467e3",
+      "range": {
+        "startLine": 13,
+        "startChar": 3,
+        "endLine": 13,
+        "endChar": 16
+      },
+      "revId": "29ff998bb9ba3a3e380078bf9d789e750748d03f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
