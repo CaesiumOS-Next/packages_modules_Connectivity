@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55114ca3_d671d64e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-13T09:45:25Z",
+      "side": 1,
+      "message": "LGTM assuming comments resolved",
+      "revId": "03c4817814dcab73d9f7b5f4ef1b681ecb726fe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bc024dc_65363aee",
+        "filename": "thread/tests/utils/src/android/net/thread/utils/ThreadFeatureCheckerRule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-13T09:45:25Z",
+      "side": 1,
+      "message": "```suggestion\n * Copyright (C) 2024 The Android Open Source Project\n```",
+      "revId": "03c4817814dcab73d9f7b5f4ef1b681ecb726fe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aadc10a2_4402b69e",
+        "filename": "thread/tests/utils/src/android/net/thread/utils/ThreadFeatureCheckerRule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-13T09:45:25Z",
+      "side": 1,
+      "message": "```suggestion\n                            \"Skipping test because kernel IPv6 multicast routing is unavailable\",\n```",
+      "range": {
+        "startLine": 91,
+        "startChar": 84,
+        "endLine": 91,
+        "endChar": 92
+      },
+      "revId": "03c4817814dcab73d9f7b5f4ef1b681ecb726fe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9bfd66a_8618c5ae",
+        "filename": "thread/tests/utils/src/android/net/thread/utils/ThreadFeatureCheckerRule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-13T09:45:25Z",
+      "side": 1,
+      "message": "If the simulation Thread device is supported\n```suggestion\n     * Returns {@code true} if the simulation Thread device is supported.\n```",
+      "revId": "03c4817814dcab73d9f7b5f4ef1b681ecb726fe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
