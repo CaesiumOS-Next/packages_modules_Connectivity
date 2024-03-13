@@ -24,6 +24,7 @@ import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_
 import static android.net.thread.utils.IntegrationTestUtils.CALLBACK_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.LEAVE_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.RESTART_JOIN_TIMEOUT;
+import static android.net.thread.utils.IntegrationTestUtils.setThreadEnabledAndWait;
 import static android.net.thread.utils.IntegrationTestUtils.waitForStateAnyOf;
 
 import static com.android.compatibility.common.util.SystemUtil.runShellCommand;
@@ -86,6 +87,7 @@ public class ThreadIntegrationTest {
         assumeNotNull(mController);
 
         mOtCtl = new OtDaemonController();
+        setThreadEnabledAndWait(mController, true);
         leaveAndWait(mController);
 
         // TODO: b/323301831 - This is a workaround to avoid unnecessary delay to re-form a network

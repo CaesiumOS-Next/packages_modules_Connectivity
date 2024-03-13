@@ -15,12 +15,14 @@
  */
 package android.net.thread.utils;
 
+import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
 import static android.system.OsConstants.IPPROTO_ICMPV6;
 
 import static com.android.compatibility.common.util.SystemUtil.runShellCommandOrThrow;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ND_OPTION_PIO;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_ADVERTISEMENT;
 import static com.android.testutils.DeviceInfoUtils.isKernelVersionAtLeast;
+import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static com.google.common.util.concurrent.MoreExecutors.directExecutor;
 
@@ -78,6 +80,7 @@ public final class IntegrationTestUtils {
     public static final Duration LEAVE_TIMEOUT = Duration.ofSeconds(2);
     public static final Duration CALLBACK_TIMEOUT = Duration.ofSeconds(1);
     public static final Duration SERVICE_DISCOVERY_TIMEOUT = Duration.ofSeconds(20);
+    public static final Duration SET_ENABLED_TIMEOUT = Duration.ofSeconds(5);
 
     private static final String KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED = "5.15.0";
     private static final int KERNEL_ANDROID_VERSION_MULTICAST_ROUTING_SUPPORTED = 14;
@@ -106,6 +109,16 @@ public final class IntegrationTestUtils {
             return (version >= n);
         }
         return false;
+    }
+
+    /** Enables/Disables Thread and wait for the operation to complete. */
+    public static void setThreadEnabledAndWait(ThreadNetworkController controller, boolean enabled)
+            throws Exception {
+        CompletableFuture<Void> setEnabledFuture = new CompletableFuture<>();
+        runAsShell(
+                PERMISSION_THREAD_NETWORK_PRIVILEGED,
+                () -> controller.setEnabled(enabled, directExecutor(), setEnabledFuture::complete));
+        setEnabledFuture.get(SET_ENABLED_TIMEOUT.toMillis(), MILLISECONDS);
     }
 
     /**

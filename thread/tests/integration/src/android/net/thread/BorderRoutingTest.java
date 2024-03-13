@@ -30,6 +30,7 @@ import static android.net.thread.utils.IntegrationTestUtils.isToIpv6Destination;
 import static android.net.thread.utils.IntegrationTestUtils.newPacketReader;
 import static android.net.thread.utils.IntegrationTestUtils.pollForPacket;
 import static android.net.thread.utils.IntegrationTestUtils.sendUdpMessage;
+import static android.net.thread.utils.IntegrationTestUtils.setThreadEnabledAndWait;
 import static android.net.thread.utils.IntegrationTestUtils.waitFor;
 
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REPLY_TYPE;
@@ -627,6 +628,7 @@ public class BorderRoutingTest {
     }
 
     private void startBrLeader() throws Exception {
+        setThreadEnabledAndWait(mController, true);
         CompletableFuture<Void> joinFuture = new CompletableFuture<>();
         runAsShell(
                 PERMISSION_THREAD_NETWORK_PRIVILEGED,
