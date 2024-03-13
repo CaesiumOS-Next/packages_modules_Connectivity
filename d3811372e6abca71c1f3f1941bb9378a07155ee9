@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "280c7fbf_1f795f9e",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ece4ff0e_31595d52",
+      "range": {
+        "startLine": 223,
+        "startChar": 22,
+        "endLine": 223,
+        "endChar": 24
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9be175eb_b4b1b9b0",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-13T04:51:30Z",
       "side": 1,
       "message": "spurious I think with the extra constructor",
+      "range": {
+        "startLine": 227,
+        "startChar": 16,
+        "endLine": 227,
+        "endChar": 41
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ca1421c_2b3d924d",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9be175eb_b4b1b9b0",
       "range": {
         "startLine": 227,
         "startChar": 16,
@@ -93,6 +141,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34296503_49eee49f",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35c58ebe_38ded337",
+      "range": {
+        "startLine": 244,
+        "startChar": 43,
+        "endLine": 244,
+        "endChar": 70
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7024ca23_f8bee99a",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bb9f255_e52dbe29",
+      "range": {
+        "startLine": 244,
+        "startChar": 47,
+        "endLine": 244,
+        "endChar": 53
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28bc6931_5a7c5d8c",
@@ -106,6 +202,30 @@
       "writtenOn": "2024-03-13T04:51:30Z",
       "side": 1,
       "message": "are you sure this is passing in the right thing?\n\nthe value you are passing in is L4 size, not including L3 header...\nnormally that would not be called mtu...\n\ndoesn\u0027t this need to be + 20/40 (ipv4/ipv6) + 14 (ethernet)\n\nif it\u0027s true that space has already been reserved for ethernet/ip headers, then please comment to that effect.",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 57
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fae651f0_8f6634fb",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Just realized that the PacketBuild can also build IP/IPv6 packets without Ethernet header. The users of PacketBuild can omit calling writeL2Header() method if they want to construct a raw IP packet.\n\nSo it can be l2mtu or l3mtu depends on the usage. Maybe just rename the ```mtu``` parameter to ```packetSize``` ?",
+      "parentUuid": "28bc6931_5a7c5d8c",
       "range": {
         "startLine": 246,
         "startChar": 0,
@@ -141,6 +261,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e2663d3_e11f9b92",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "renamed to l2mtu, but I just found that the PacketBuilder can build packet with or without Ethernet header, i.e. either Ethernet packet or raw IP packet. Discuss in the other comment\u0027s context.",
+      "parentUuid": "1a12ee1e_c905879e",
+      "range": {
+        "startLine": 257,
+        "startChar": 47,
+        "endLine": 257,
+        "endChar": 50
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44acaf2c_9cc1c014",
         "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
         "patchSetId": 4
@@ -152,6 +296,30 @@
       "writtenOn": "2024-03-13T04:51:30Z",
       "side": 1,
       "message": "reverse order pos \u003e mtu",
+      "range": {
+        "startLine": 261,
+        "startChar": 16,
+        "endLine": 261,
+        "endChar": 40
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28f1e268_a7ae0e38",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44acaf2c_9cc1c014",
       "range": {
         "startLine": 261,
         "startChar": 16,
@@ -175,6 +343,30 @@
       "writtenOn": "2024-03-13T04:51:30Z",
       "side": 1,
       "message": "IPv4 fragmentation is not supported",
+      "range": {
+        "startLine": 262,
+        "startChar": 39,
+        "endLine": 262,
+        "endChar": 72
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e626495_f2e74cbf",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee8652cd_eaa7d5b8",
       "range": {
         "startLine": 262,
         "startChar": 39,
@@ -231,6 +423,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8470ebd9_51560fc1",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef7151ef_878004f4",
+      "range": {
+        "startLine": 311,
+        "startChar": 11,
+        "endLine": 311,
+        "endChar": 17
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0179a4e_d23ada7c",
@@ -254,6 +470,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "010c5d5e_6b43dd3d",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0179a4e_d23ada7c",
+      "range": {
+        "startLine": 337,
+        "startChar": 31,
+        "endLine": 337,
+        "endChar": 46
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6633bedd_0bd2983f",
@@ -267,6 +507,30 @@
       "writtenOn": "2024-03-13T04:51:30Z",
       "side": 1,
       "message": "~7",
+      "range": {
+        "startLine": 342,
+        "startChar": 18,
+        "endLine": 342,
+        "endChar": 28
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "326e9e4d_658d86cf",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done. Also change the code a little bit to fix the issue mentioned in the other comment:\n```\nthis is technically wrong... for weird mtu sizes\nthe final fragment can actually be larger (by up to 7 bytes) then the previous fragments...\n\nmtu of 807,\ninitial fragment of 800 bytes, final fragment of 807\n```",
+      "parentUuid": "6633bedd_0bd2983f",
       "range": {
         "startLine": 342,
         "startChar": 18,
@@ -346,6 +610,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7142217a_79e0ad65",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "378a9ab1_357b8869",
+      "range": {
+        "startLine": 351,
+        "startChar": 23,
+        "endLine": 351,
+        "endChar": 37
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "acc680d7_d61725d5",
@@ -359,6 +647,30 @@
       "writtenOn": "2024-03-13T04:51:30Z",
       "side": 1,
       "message": "mtu ? mtu : Integer.MAX_INT",
+      "range": {
+        "startLine": 665,
+        "startChar": 12,
+        "endLine": 667,
+        "endChar": 52
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bd2762f_a4912b4c",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/PacketBuilderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done, but use \"mtu \u003e 0 ? mtu : Integer.MAX_VALUE\" because the Java compiler will complain that mtu is not boolean if using \"mtu ?\"",
+      "parentUuid": "acc680d7_d61725d5",
       "range": {
         "startLine": 665,
         "startChar": 12,
@@ -415,6 +727,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c075d156_96867c95",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/PacketBuilderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "622531ff_e370b78d",
+      "range": {
+        "startLine": 997,
+        "startChar": 11,
+        "endLine": 997,
+        "endChar": 13
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45fa253d_d17d8a56",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/PacketBuilderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3755e18_779f77b7",
+      "range": {
+        "startLine": 997,
+        "startChar": 93,
+        "endLine": 997,
+        "endChar": 100
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "388cc260_f93c3e87",
@@ -428,6 +788,30 @@
       "writtenOn": "2024-03-13T04:51:30Z",
       "side": 1,
       "message": "of",
+      "range": {
+        "startLine": 998,
+        "startChar": 28,
+        "endLine": 998,
+        "endChar": 29
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb197ecc_57192a6d",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/PacketBuilderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "388cc260_f93c3e87",
       "range": {
         "startLine": 998,
         "startChar": 28,
@@ -461,6 +845,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad1f14cd_8ca3e32d",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/PacketBuilderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1019,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af23fcbb_a22d7eb4",
+      "range": {
+        "startLine": 1019,
+        "startChar": 0,
+        "endLine": 1019,
+        "endChar": 41
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8c09fd6_ff9165cd",
@@ -474,6 +882,30 @@
       "writtenOn": "2024-03-13T04:51:30Z",
       "side": 1,
       "message": "fragment",
+      "range": {
+        "startLine": 1024,
+        "startChar": 24,
+        "endLine": 1024,
+        "endChar": 41
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56a1afe2_7c393c7b",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/PacketBuilderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1024,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8c09fd6_ff9165cd",
       "range": {
         "startLine": 1024,
         "startChar": 24,
@@ -507,6 +939,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c060c066_002a361f",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/PacketBuilderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1030,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "975499a0_209e9806",
+      "range": {
+        "startLine": 1030,
+        "startChar": 23,
+        "endLine": 1030,
+        "endChar": 26
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0727e30_2a28f498",
@@ -520,6 +976,30 @@
       "writtenOn": "2024-03-13T04:51:30Z",
       "side": 1,
       "message": "fragment",
+      "range": {
+        "startLine": 1034,
+        "startChar": 25,
+        "endLine": 1034,
+        "endChar": 42
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c84c48c3_bfac7616",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/PacketBuilderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1034,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-13T11:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0727e30_2a28f498",
       "range": {
         "startLine": 1034,
         "startChar": 25,
