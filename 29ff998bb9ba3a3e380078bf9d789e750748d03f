@@ -70,6 +70,30 @@
       },
       "revId": "29ff998bb9ba3a3e380078bf9d789e750748d03f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ab5cd26_85dfb44e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-13T10:35:04Z",
+      "side": 1,
+      "message": "That table is correct.  \n\u003e Does that mean we change the behavior of requestNetwork on V+?\n\nAndroid release version does not change the behavior.\nBehavior is the same if apps does not change the target sdk.\nBut, If apps change the targetSdk from U to V, there is a behavior change.  \n\n\u003e Why do we want requests with default capabilities see local networks?\n\nCurrently, if app calls clearCapabilities and register network callback, app can see all the network.\nSo, to be consistent, empty network capabilities should be matched with all the network.",
+      "parentUuid": "d9ceab61_0e2f57a0",
+      "range": {
+        "startLine": 13,
+        "startChar": 3,
+        "endLine": 13,
+        "endChar": 16
+      },
+      "revId": "29ff998bb9ba3a3e380078bf9d789e750748d03f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
