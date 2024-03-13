@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68c6ae19_e60e5ff0",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 1977,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-13T09:55:09Z",
+      "side": 1,
+      "message": "We should call teardownTestNetwork on this at some point :-)",
+      "range": {
+        "startLine": 1977,
+        "startChar": 16,
+        "endLine": 1977,
+        "endChar": 32
+      },
+      "revId": "453c53d794a16c3bbf48fa5ec330d2673017aa0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d6328db_b9464c99",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 2015,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-13T09:55:09Z",
+      "side": 1,
+      "message": "Not for this CL, but perhaps we could put this in setUp?",
+      "range": {
+        "startLine": 2015,
+        "startChar": 8,
+        "endLine": 2015,
+        "endChar": 40
+      },
+      "revId": "453c53d794a16c3bbf48fa5ec330d2673017aa0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
