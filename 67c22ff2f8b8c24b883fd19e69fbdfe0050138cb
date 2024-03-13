@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5995a948_57b50029",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MulticastNetworkInterfaceProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-13T14:16:40Z",
+      "side": 1,
+      "message": "Looks like the `MdnsSocketTests#ipv6OnlyNetwork_*` tests are failing due to this change. Is there a specific reason you changed this method to static?\n\nhttps://android-build.corp.google.com/test_investigate/?blocking\u003dblocking\u0026invocationId\u003dI71100010255065846\u0026status\u003dnone\u0026testResultId\u003dTR09729211115582424",
+      "range": {
+        "startLine": 107,
+        "startChar": 11,
+        "endLine": 107,
+        "endChar": 17
+      },
+      "revId": "67c22ff2f8b8c24b883fd19e69fbdfe0050138cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
