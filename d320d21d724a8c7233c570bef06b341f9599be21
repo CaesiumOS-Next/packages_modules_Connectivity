@@ -16,6 +16,23 @@
       "message": "As @maze@google.com already reviewed the CL and it seems some of the comment is not adjusted yet, @kenghua@google.com, please try to find a time with maze to confirm the current approach is OK from his perspective.",
       "revId": "d320d21d724a8c7233c570bef06b341f9599be21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b919e6f_ecadd343",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-13T01:58:01Z",
+      "side": 1,
+      "message": "Can we split the CL to make it easier to get review bandwidth from @maze@google.com, one proposal will be split the CL to two: 1) only contains clatd.h and clatd.c. 2) the java layer.\n\nis that impossible?",
+      "revId": "d320d21d724a8c7233c570bef06b341f9599be21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
