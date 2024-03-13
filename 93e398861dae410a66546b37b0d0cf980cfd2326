@@ -437,6 +437,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "04af000f_799c3cf9",
+        "filename": "common/src/com/android/net/module/util/bpf/ClatStatsKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-13T02:01:25Z",
+      "side": 1,
+      "message": "I think the question will be do we really need a Struct class which contains single element? It looks like not very useful.....",
+      "parentUuid": "cf657cfa_5be9f99b",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 59
+      },
+      "revId": "93e398861dae410a66546b37b0d0cf980cfd2326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "acea50b1_4256a73f",
         "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
         "patchSetId": 1

@@ -33,6 +33,75 @@
       "message": "Can we split the CL to make it easier to get review bandwidth from @maze@google.com, one proposal will be split the CL to two: 1) only contains clatd.h and clatd.c. 2) the java layer.\n\nis that impossible?",
       "revId": "d320d21d724a8c7233c570bef06b341f9599be21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a650ed8_94310320",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-13T02:01:25Z",
+      "side": 1,
+      "message": "Line to long",
+      "range": {
+        "startLine": 252,
+        "startChar": 8,
+        "endLine": 252,
+        "endChar": 102
+      },
+      "revId": "d320d21d724a8c7233c570bef06b341f9599be21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4eda0929_6390c04c",
+        "filename": "common/src/com/android/net/module/util/bpf/ClatStatsKey.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-13T02:01:25Z",
+      "side": 1,
+      "message": "error prone",
+      "range": {
+        "startLine": 25,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 38
+      },
+      "revId": "d320d21d724a8c7233c570bef06b341f9599be21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8594646e_c1b32239",
+        "filename": "common/src/com/android/net/module/util/bpf/ClatStatsValue.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-13T02:01:25Z",
+      "side": 1,
+      "message": "ERror prone",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 28,
+        "endChar": 4
+      },
+      "revId": "d320d21d724a8c7233c570bef06b341f9599be21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
