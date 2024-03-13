@@ -46,6 +46,30 @@
       },
       "revId": "29ff998bb9ba3a3e380078bf9d789e750748d03f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9ceab61_0e2f57a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-13T10:11:46Z",
+      "side": 1,
+      "message": "So apps which targeting V.\nWould be like:\nNR has LOCAL_NETWORK cap  | NC has LOCAL_NETWORK cap | matches\nF(default) | F | T\nF(default) | T | T\nT | F | F\nT | T | T\n\nIf so, my question is about the 2nd case:\nWhy do we want requests with default capabilities see local networks?\nDoes that mean we change the behavior of requestNetwork on V+?",
+      "parentUuid": "223e2a4a_11c76161",
+      "range": {
+        "startLine": 13,
+        "startChar": 3,
+        "endLine": 13,
+        "endChar": 16
+      },
+      "revId": "29ff998bb9ba3a3e380078bf9d789e750748d03f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
