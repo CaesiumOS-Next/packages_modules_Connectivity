@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99b151dd_85db9f0b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 72
+      },
+      "lineNbr": 8996,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-13T09:49:18Z",
+      "side": 1,
+      "message": "Might want to add a comment to explain. Something like:\n\n    // This method can be called during network disconnects, when nai has already been\n    // removed from mNetworkAgentInfos.",
+      "range": {
+        "startLine": 8996,
+        "startChar": 8,
+        "endLine": 8996,
+        "endChar": 72
+      },
+      "revId": "29af99c914271c08ef34acadd10b9040634c8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2451e707_64898a8a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 72
+      },
+      "lineNbr": 8998,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-13T09:49:18Z",
+      "side": 1,
+      "message": "Might want to add a comment here to explain what you\u0027re doing?\n\n    // Determine how many networks each IP address is currently configured on.\n    // Ingress rules are added only for IP addresses that are configured on more than\n    // one interface.",
+      "range": {
+        "startLine": 8998,
+        "startChar": 8,
+        "endLine": 8998,
+        "endChar": 13
+      },
+      "revId": "29af99c914271c08ef34acadd10b9040634c8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d714a2e6_8862f377",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 72
+      },
+      "lineNbr": 9003,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-13T09:49:18Z",
+      "side": 1,
+      "message": "I think equals is a bit misleading here. NetworkAgentInfo doesn\u0027t have an equals method, and you\u0027re really testing whether the object is the same. Maybe change to \"\u003d\u003d\"? If you use \u003d\u003d, probably better to put it in parentheses:\n\n    ... \u003d (nai \u003d\u003d agent) ? lp : ...",
+      "range": {
+        "startLine": 9003,
+        "startChar": 47,
+        "endLine": 9003,
+        "endChar": 53
+      },
+      "revId": "29af99c914271c08ef34acadd10b9040634c8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29802aa4_7244f38b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 72
+      },
+      "lineNbr": 9012,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-13T09:49:18Z",
+      "side": 1,
+      "message": "Per discussion, can you add a comment to explain why this code iterates over all networks, instead of only generating rules for the nai that was passed in?",
+      "range": {
+        "startLine": 9012,
+        "startChar": 8,
+        "endLine": 9012,
+        "endChar": 13
+      },
+      "revId": "29af99c914271c08ef34acadd10b9040634c8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7bc8d67_29d306c2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 72
+      },
+      "lineNbr": 9017,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-13T09:49:18Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 9017,
+        "startChar": 46,
+        "endLine": 9017,
+        "endChar": 53
+      },
+      "revId": "29af99c914271c08ef34acadd10b9040634c8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f3e5617_2312a571",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 72
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-13T09:49:18Z",
+      "side": 1,
+      "message": "Not strictly necessary, but it would be good to have an unrelated network agent here, just because it would make the test more realistic. VPNs are almost always established when other networks are connected.",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 50
+      },
+      "revId": "29af99c914271c08ef34acadd10b9040634c8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1663fb3c_2fd35642",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 72
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-13T09:49:18Z",
+      "side": 1,
+      "message": "Can you avoid this timeout by waiting for onLost or on agent#onNetworkDestroyed?",
+      "range": {
+        "startLine": 120,
+        "startChar": 27,
+        "endLine": 120,
+        "endChar": 34
+      },
+      "revId": "29af99c914271c08ef34acadd10b9040634c8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f675512_2d008397",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 72
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-13T09:49:18Z",
+      "side": 1,
+      "message": "is removed",
+      "range": {
+        "startLine": 195,
+        "startChar": 30,
+        "endLine": 195,
+        "endChar": 42
+      },
+      "revId": "29af99c914271c08ef34acadd10b9040634c8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
