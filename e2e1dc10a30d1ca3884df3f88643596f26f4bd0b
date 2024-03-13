@@ -16,6 +16,24 @@
       "message": "Why remove this ?",
       "revId": "e2e1dc10a30d1ca3884df3f88643596f26f4bd0b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7028e0b_e4c96d8a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-13T08:58:31Z",
+      "side": 0,
+      "message": "Oops! I accidentally removed it. I\u0027ve added it back.",
+      "parentUuid": "2828c354_b60fa0d2",
+      "revId": "e2e1dc10a30d1ca3884df3f88643596f26f4bd0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

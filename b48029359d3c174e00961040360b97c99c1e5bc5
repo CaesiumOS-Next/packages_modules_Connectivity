@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1e62559_a6b796a4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-13T08:58:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "877f3b1d_bb172b24",
+      "revId": "b48029359d3c174e00961040360b97c99c1e5bc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a0bbfb0_3366a7af",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-03-13T06:27:59Z",
       "side": 1,
       "message": "Nested \"synchronized\" can lead to deadlocks, and here the behavior is pretty confusing as the first \"synchronized\" may already be the multicast queue (or maybe not).\n\nIn the end I think it may be simpler to pass the buffer down for now, see comment in MdnsMultinetworkSocketClient",
+      "revId": "b48029359d3c174e00961040360b97c99c1e5bc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "828401da_0cfe239a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-13T08:58:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a0bbfb0_3366a7af",
       "revId": "b48029359d3c174e00961040360b97c99c1e5bc5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
