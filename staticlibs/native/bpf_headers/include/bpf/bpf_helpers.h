@@ -51,7 +51,7 @@
  * In which case it's just best to use the default.
  */
 #ifndef BPFLOADER_MIN_VER
-#define BPFLOADER_MIN_VER COMPILE_FOR_BPFLOADER_VERSION
+#define BPFLOADER_MIN_VER BPFLOADER_MAINLINE_VERSION
 #endif
 
 #ifndef BPFLOADER_MAX_VER
