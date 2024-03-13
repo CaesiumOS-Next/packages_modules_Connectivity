@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "733fba8f_efddb0c6",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-13T00:34:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba77dcfd_2892c74a",
+      "range": {
+        "startLine": 947,
+        "startChar": 17,
+        "endLine": 947,
+        "endChar": 28
+      },
+      "revId": "f9e588d1abf1657b3a7290d86b17abd3f9f932a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "569859e3_e3d64901",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "414d57f2_206546ce",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-13T00:34:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "569859e3_e3d64901",
+      "range": {
+        "startLine": 948,
+        "startChar": 12,
+        "endLine": 948,
+        "endChar": 64
+      },
+      "revId": "f9e588d1abf1657b3a7290d86b17abd3f9f932a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ce320de_402dec7d",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-03-12T13:13:50Z",
       "side": 1,
       "message": "```suggestion\n            Log.w(TAG, \"Failed to disable border routing\", e);\n```",
+      "range": {
+        "startLine": 961,
+        "startChar": 43,
+        "endLine": 961,
+        "endChar": 65
+      },
+      "revId": "f9e588d1abf1657b3a7290d86b17abd3f9f932a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91d073df_d33117e3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-13T00:34:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ce320de_402dec7d",
       "range": {
         "startLine": 961,
         "startChar": 43,
