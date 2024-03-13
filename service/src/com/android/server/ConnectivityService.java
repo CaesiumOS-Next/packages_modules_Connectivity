@@ -6003,7 +6003,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if (nm == null) return;
 
             if (request == CaptivePortal.APP_REQUEST_REEVALUATION_REQUIRED) {
-                enforceNetworkStackPermission(mContext);
+                // This should use enforceNetworkStackPermission() but this may be break OEM captive
+                // portal apps. Simply ignore the request if the caller does not have permission.
+                if (!hasNetworkStackPermission()) return;
+
                 nm.forceReevaluation(mDeps.getCallingUid());
             }
         }
