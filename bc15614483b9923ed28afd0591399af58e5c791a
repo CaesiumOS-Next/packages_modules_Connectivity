@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f012381_fe1e334a",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-13T14:56:12Z",
+      "side": 1,
+      "message": "This should already be done in `setUp()`.",
+      "revId": "bc15614483b9923ed28afd0591399af58e5c791a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "611ef574_2f2d0b08",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/ThreadNetworkControllerWrapper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-13T14:56:12Z",
+      "side": 1,
+      "message": "```suggestion\n    /** Joins the given network and wait for this device to become attached. */\n```",
+      "revId": "bc15614483b9923ed28afd0591399af58e5c791a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d05c1d8_4a5a3446",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/ThreadNetworkControllerWrapper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-13T14:56:12Z",
+      "side": 1,
+      "message": "I\u0027m afraid that there may be a race condition. If the device is already attached to another network then it won\u0027t wait for the join operation to complete. I\u0027d suggest to wait for the callback to complete.",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 38
+      },
+      "revId": "bc15614483b9923ed28afd0591399af58e5c791a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c593964c_0255f435",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/ThreadNetworkControllerWrapper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-13T14:56:12Z",
+      "side": 1,
+      "message": "```suggestion\n    /** Waits for the device role to become {@code deviceRole}. */\n```",
+      "revId": "bc15614483b9923ed28afd0591399af58e5c791a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f9964b6_748349a3",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/ThreadNetworkControllerWrapper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-13T14:56:12Z",
+      "side": 1,
+      "message": "Why not implement this on top of `waitForRoleAnyOf`?",
+      "revId": "bc15614483b9923ed28afd0591399af58e5c791a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ff98402_0421bb55",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/ThreadNetworkControllerWrapper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-13T14:56:12Z",
+      "side": 1,
+      "message": "```suggestion\n    /** Waits for the device role to become one of the values specified in {@code deviceRoles}. */\n```",
+      "revId": "bc15614483b9923ed28afd0591399af58e5c791a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
