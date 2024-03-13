@@ -16,7 +16,10 @@
 
 package com.android.server.thread;
 
+import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
+
 import android.annotation.Nullable;
+import android.annotation.RequiresPermission;
 import android.annotation.StringDef;
 import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
@@ -101,12 +104,12 @@ public class ThreadNetworkCountryCode {
     private final Context mContext;
     private final LocationManager mLocationManager;
     @Nullable private final Geocoder mGeocoder;
-    private final ThreadNetworkControllerService mThreadNetworkControllerService;
     private final WifiManager mWifiManager;
     private final TelephonyManager mTelephonyManager;
     private final SubscriptionManager mSubscriptionManager;
     private final Map<Integer, TelephonyCountryCodeSlotInfo> mTelephonyCountryCodeSlotInfoMap =
-            new ArrayMap();
+            new ArrayMap<>();
+    private final CountryCodeChangedCallback mCallback;
 
     @Nullable private CountryCodeInfo mCurrentCountryCodeInfo;
     @Nullable private CountryCodeInfo mLocationCountryCodeInfo;
@@ -206,32 +209,32 @@ public class ThreadNetworkCountryCode {
                 .getBoolean(R.bool.config_thread_location_use_for_country_code_enabled);
     }
 
-    public ThreadNetworkCountryCode(
+    @VisibleForTesting
+    ThreadNetworkCountryCode(
+            Context context,
             LocationManager locationManager,
-            ThreadNetworkControllerService threadNetworkControllerService,
             @Nullable Geocoder geocoder,
             ConnectivityResources resources,
             WifiManager wifiManager,
-            Context context,
             TelephonyManager telephonyManager,
             SubscriptionManager subscriptionManager,
+            CountryCodeChangedCallback callback,
             @Nullable String oemCountryCode) {
         mLocationManager = locationManager;
-        mThreadNetworkControllerService = threadNetworkControllerService;
         mGeocoder = geocoder;
         mResources = resources;
         mWifiManager = wifiManager;
         mContext = context;
         mTelephonyManager = telephonyManager;
         mSubscriptionManager = subscriptionManager;
-
         if (oemCountryCode != null) {
             mOemCountryCodeInfo = new CountryCodeInfo(oemCountryCode, COUNTRY_CODE_SOURCE_OEM);
         }
+        mCallback = callback;
     }
 
     public static ThreadNetworkCountryCode newInstance(
-            Context context, ThreadNetworkControllerService controllerService) {
+            Context context, CountryCodeChangedCallback callback) {
         return new ThreadNetworkCountryCode(
                 context.getSystemService(LocationManager.class),
                 controllerService,
@@ -241,7 +244,8 @@ public class ThreadNetworkCountryCode {
                 context,
                 context.getSystemService(TelephonyManager.class),
                 context.getSystemService(SubscriptionManager.class),
-                ThreadNetworkProperties.country_code().orElse(null));
+                ThreadNetworkProperties.country_code().orElse(null),
+                callback);
     }
 
     /** Sets up this country code module to listen to location country code changes. */
@@ -559,10 +563,14 @@ public class ThreadNetworkCountryCode {
      * @param countryCode A 2-Character alphabetical country code (as defined in ISO 3166).
      * @throws IllegalArgumentException if {@code countryCode} is an invalid country code.
      */
+    @RequiresPermission(PERMISSION_THREAD_NETWORK_PRIVILEGED)
     public synchronized void setOverrideCountryCode(String countryCode) {
         if (!isValidCountryCode(countryCode)) {
             throw new IllegalArgumentException("The override country code is invalid");
         }
+        mContext.enforceCallingOrSelfPermission(
+                PERMISSION_THREAD_NETWORK_PRIVILEGED,
+                "Permission " + PERMISSION_THREAD_NETWORK_PRIVILEGED + " is missing");
 
         mOverrideCountryCodeInfo = new CountryCodeInfo(countryCode, COUNTRY_CODE_SOURCE_OVERRIDE);
         updateCountryCode(true /* forceUpdate */);
@@ -586,5 +594,11 @@ public class ThreadNetworkCountryCode {
         pw.println("mOemCountryCodeInfo             : " + mOemCountryCodeInfo);
         pw.println("mCurrentCountryCodeInfo         : " + mCurrentCountryCodeInfo);
         pw.println("---- Dump of ThreadNetworkCountryCode end ------");
+    }
+
+    /** A Callback for notifying changes of the country code. */
+    public interface CountryCodeChangedCallback {
+        /** Called when the country code has been changed. */
+        void onCountryCodeChanged(String countryCode);
     }
 }
