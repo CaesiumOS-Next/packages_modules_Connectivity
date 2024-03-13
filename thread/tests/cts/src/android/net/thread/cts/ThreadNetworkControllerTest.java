@@ -881,7 +881,7 @@ public class ThreadNetworkControllerTest {
                 discoverForServiceLost(MESHCOP_SERVICE_TYPE, serviceLostFuture);
         setEnabledAndWait(mController, false);
         try {
-            serviceLostFuture.get(SERVICE_DISCOVERY_TIMEOUT_MILLIS, MILLISECONDS);
+            serviceLostFuture.get(10_000, MILLISECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException ignored) {
             // It's fine if the service lost event didn't show up. The service may not ever be
             // advertised.
@@ -889,7 +889,9 @@ public class ThreadNetworkControllerTest {
             mNsdManager.stopServiceDiscovery(listener);
         }
 
-        assertThrows(TimeoutException.class, () -> discoverService(MESHCOP_SERVICE_TYPE));
+        assertThrows(
+                TimeoutException.class,
+                () -> discoverService(MESHCOP_SERVICE_TYPE, 10_000 /* timeoutMilliseconds */));
     }
 
     private static void dropAllPermissions() {
@@ -1107,6 +1109,11 @@ public class ThreadNetworkControllerTest {
 
     // Return the first discovered service instance.
     private NsdServiceInfo discoverService(String serviceType) throws Exception {
+        return discoverService(serviceType, SERVICE_DISCOVERY_TIMEOUT_MILLIS);
+    }
+
+    // Return the first discovered service instance.
+    private NsdServiceInfo discoverService(String serviceType, int timeoutMilliseconds) throws Exception {
         CompletableFuture<NsdServiceInfo> serviceInfoFuture = new CompletableFuture<>();
         NsdManager.DiscoveryListener listener =
                 new DefaultDiscoveryListener() {
@@ -1117,7 +1124,7 @@ public class ThreadNetworkControllerTest {
                 };
         mNsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, listener);
         try {
-            serviceInfoFuture.get(SERVICE_DISCOVERY_TIMEOUT_MILLIS, MILLISECONDS);
+            serviceInfoFuture.get(timeoutMilliseconds, MILLISECONDS);
         } finally {
             mNsdManager.stopServiceDiscovery(listener);
         }
