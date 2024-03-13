@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "395ee79a_bd6c171e",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-13T07:19:47Z",
+      "side": 1,
+      "message": "Isn\u0027t there a use case in tests that we need to ping and wait for the reply? Should we add the timeout as argument of the ping() method?\n\n@handaw@google.com",
+      "range": {
+        "startLine": 363,
+        "startChar": 26,
+        "endLine": 363,
+        "endChar": 38
+      },
+      "revId": "0a9e71e5fdd07791ee57a42a270574c29c9f5269",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
