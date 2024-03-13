@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43679246_364e6d45",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-13T21:50:06Z",
+      "side": 1,
+      "message": "seems to imply it\u0027s a no-op, but really this makes it mandatory on user which is kind-of-important",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "8378bcd78a097ed6c6bea567e903da11c358eda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d91fef2a_0719cf62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-13T21:50:06Z",
+      "side": 1,
+      "message": "let\u0027s leave TRACE_ON/OFF for now, getting rid of it would naturally belong in another CL anyway, but I think we should wait for this to actually successfully rollout...",
+      "revId": "8378bcd78a097ed6c6bea567e903da11c358eda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94e8a17c_98bb2831",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-13T21:50:06Z",
+      "side": 1,
+      "message": "could this just use DEFINE_BPF_MAP_NO_NETD?\n\nI think only the group will change from AID_SYSTEM to AID_NET_BW_ACCT which seems like a non issue...",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 18
+      },
+      "revId": "8378bcd78a097ed6c6bea567e903da11c358eda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
