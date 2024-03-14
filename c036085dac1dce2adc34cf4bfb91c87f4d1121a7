@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1516f7ed_5d7ba0e4",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-14T08:29:04Z",
+      "side": 1,
+      "message": "Make it a constant",
+      "range": {
+        "startLine": 334,
+        "startChar": 90,
+        "endLine": 334,
+        "endChar": 91
+      },
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dfb7e4c_1e804198",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-14T08:29:04Z",
+      "side": 1,
+      "message": "Make it a constant",
+      "range": {
+        "startLine": 337,
+        "startChar": 90,
+        "endLine": 337,
+        "endChar": 92
+      },
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1b9490b_aef894f0",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-14T08:29:04Z",
+      "side": 1,
+      "message": "nit: use `containsAtLeast`",
+      "range": {
+        "startLine": 353,
+        "startChar": 5,
+        "endLine": 354,
+        "endChar": 87
+      },
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "770adaa2_dceb24eb",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-14T08:29:04Z",
+      "side": 1,
+      "message": "Some other test cases you may want to add:\n1. OUI \u003d \"ACDE48\"\n2. Empty values for vendor name, model name and OUI",
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52f91032_708c5c0d",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-14T08:29:04Z",
+      "side": 1,
+      "message": "```suggestion\n        when(mResources.getString(eq(R.string.config_thread_vendor_name)))\n                .thenReturn(TEST_VENDOR_NAME);\n```",
+      "range": {
+        "startLine": 198,
+        "startChar": 2,
+        "endLine": 200,
+        "endChar": 0
+      },
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4764bc9e_ac0d1dc5",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-14T08:29:04Z",
+      "side": 1,
+      "message": "Just curious, why doesn\u0027t this one need to be casted?",
+      "range": {
+        "startLine": 211,
+        "startChar": 90,
+        "endLine": 211,
+        "endChar": 94
+      },
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
