@@ -46,6 +46,30 @@
       },
       "revId": "4b365cd30e37d366dd629a28d2812809028b6a66",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "064d083f_af39b486",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-14T21:04:14Z",
+      "side": 1,
+      "message": "I actually thought this behavior is also verified in EthernetManagerTest, but I can\u0027t find it at first glance. Let me add this to the tests. None of the callbacks should be affected by this CL.",
+      "parentUuid": "475c907b_013121b2",
+      "range": {
+        "startLine": 663,
+        "startChar": 12,
+        "endLine": 663,
+        "endChar": 53
+      },
+      "revId": "4b365cd30e37d366dd629a28d2812809028b6a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
