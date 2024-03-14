@@ -118,6 +118,30 @@
       },
       "revId": "29ff998bb9ba3a3e380078bf9d789e750748d03f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57a8546a_f95ca47a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-14T06:43:27Z",
+      "side": 1,
+      "message": "No, we don\u0027t have flag for this behavior change.  \nI don\u0027t think having flag is helpful for this case.\nIf some apps targeting V expect the behavior of getting callback from local networks, disabling this behavior change will break their apps.\nSince we define compat flags which will be documented, I think we can assume developers take care of behavior changes caused by target sdk bump.",
+      "parentUuid": "36f00b17_060637f6",
+      "range": {
+        "startLine": 13,
+        "startChar": 3,
+        "endLine": 13,
+        "endChar": 16
+      },
+      "revId": "29ff998bb9ba3a3e380078bf9d789e750748d03f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
