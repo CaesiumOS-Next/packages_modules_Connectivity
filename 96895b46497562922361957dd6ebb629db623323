@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "391a2a4a_54cba229",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-14T04:41:06Z",
+      "side": 1,
+      "message": "I\u0027d suggest defining DeviceConfig flags for these 2, since they\u0027re chosen kind of arbitrarily, so field trials could be used to find ideal values.\n\nIt would also help measure the memory/speed tradeoff",
+      "revId": "96895b46497562922361957dd6ebb629db623323",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
