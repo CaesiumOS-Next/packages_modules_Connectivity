@@ -97,7 +97,11 @@ static const char* kClatdBin = "/apex/com.android.tethering/bin/for-system/clatd
     verifyPerms((path), (md), AID_ ## uid, AID_ ## gid, "u:object_r:" ctx ":s0", VERIFY_ ## vtype)
 
 static void verifyClatPerms() {
-    // We might run as part of tests instead of as part of system server
+    bool isT = modules::sdklevel::IsAtLeastT();
+    bool isU = modules::sdklevel::IsAtLeastU();
+    bool isV = modules::sdklevel::IsAtLeastV();
+
+// We might run as part of tests instead of as part of system server
     if (getuid() != AID_SYSTEM) return;
 
     // First verify the clatd directory and binary,
@@ -110,14 +114,16 @@ static void verifyClatPerms() {
     // This relies on the kernel and bpfloader.
 
     // Clat BPF was only mainlined during T.
-    if (!modules::sdklevel::IsAtLeastT()) return;
+    if (!isT) return;
 
     V("/sys/fs/bpf", S_IFDIR|S_ISVTX|0777, ROOT, ROOT, "fs_bpf", DIR);
-    V("/sys/fs/bpf/net_shared", S_IFDIR|S_ISVTX|0777, ROOT, ROOT, "fs_bpf_net_shared", DIR);
+
+    V("/sys/fs/bpf/net_shared", S_IFDIR|S_ISVTX|0777,
+        false && isV ? ROOT : SYSTEM, false && isV ? ROOT : SYSTEM, "fs_bpf_net_shared", DIR);
 
     // pre-U we do not have selinux privs to getattr on bpf maps/progs
     // so while the below *should* be as listed, we have no way to actually verify
-    if (!modules::sdklevel::IsAtLeastU()) return;
+    if (!isU) return;
 
 #define V2(path, md, vtype) \
     V("/sys/fs/bpf/net_shared/" path, (md), ROOT, SYSTEM, "fs_bpf_net_shared", vtype)
