@@ -69,7 +69,7 @@ public final class IntegrationTestUtils {
     // every 5 seconds, followed by 4 Parent Request every second. So this value needs to be 40
     // seconds to be safe
     public static final Duration RESTART_JOIN_TIMEOUT = Duration.ofSeconds(40);
-    public static final Duration JOIN_TIMEOUT = Duration.ofSeconds(30);
+    public static final Duration JOIN_TIMEOUT = Duration.ofSeconds(10);
     public static final Duration LEAVE_TIMEOUT = Duration.ofSeconds(2);
     public static final Duration CALLBACK_TIMEOUT = Duration.ofSeconds(1);
     public static final Duration SERVICE_DISCOVERY_TIMEOUT = Duration.ofSeconds(20);

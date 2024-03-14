@@ -97,7 +97,8 @@ import java.util.function.Predicate;
 @LargeTest
 @RequiresThreadFeature
 public class ThreadNetworkControllerTest {
-    private static final int JOIN_TIMEOUT_MILLIS = 30 * 1000;
+    private static final int RESTART_JOIN_TIMEOUT_MILLIS = 30_000;
+    private static final int JOIN_TIMEOUT_MILLIS = 10_000;
     private static final int LEAVE_TIMEOUT_MILLIS = 2_000;
     private static final int MIGRATION_TIMEOUT_MILLIS = 40 * 1_000;
     private static final int NETWORK_CALLBACK_TIMEOUT_MILLIS = 10 * 1000;
@@ -750,7 +751,9 @@ public class ThreadNetworkControllerTest {
         assertThat(getDeviceRole(mController)).isEqualTo(DEVICE_ROLE_STOPPED);
         setEnabledAndWait(mController, true);
 
-        runAsShell(ACCESS_NETWORK_STATE, () -> waitForAttachedState(mController));
+        runAsShell(
+                ACCESS_NETWORK_STATE,
+                () -> waitForAttachedState(mController, RESTART_JOIN_TIMEOUT_MILLIS));
     }
 
     @Test
@@ -911,16 +914,16 @@ public class ThreadNetworkControllerTest {
         }
     }
 
-    private static int waitForAttachedState(ThreadNetworkController controller) throws Exception {
-        List<Integer> attachedRoles = new ArrayList<>();
-        attachedRoles.add(DEVICE_ROLE_CHILD);
-        attachedRoles.add(DEVICE_ROLE_ROUTER);
-        attachedRoles.add(DEVICE_ROLE_LEADER);
-        return waitForStateAnyOf(controller, attachedRoles);
+    private static int waitForAttachedState(ThreadNetworkController controller, int timeoutMillis)
+            throws Exception {
+        List<Integer> attachedRoles =
+                List.of(DEVICE_ROLE_CHILD, DEVICE_ROLE_ROUTER, DEVICE_ROLE_LEADER);
+        return waitForStateAnyOf(controller, attachedRoles, timeoutMillis);
     }
 
     private static int waitForStateAnyOf(
-            ThreadNetworkController controller, List<Integer> deviceRoles) throws Exception {
+            ThreadNetworkController controller, List<Integer> deviceRoles, int timeoutMillis)
+            throws Exception {
         CompletableFuture<Integer> future = new CompletableFuture<>();
         StateCallback callback =
                 newRole -> {
@@ -929,7 +932,7 @@ public class ThreadNetworkControllerTest {
                     }
                 };
         controller.registerStateCallback(directExecutor(), callback);
-        int role = future.get(JOIN_TIMEOUT_MILLIS, MILLISECONDS);
+        int role = future.get(timeoutMillis, MILLISECONDS);
         controller.unregisterStateCallback(callback);
         return role;
     }

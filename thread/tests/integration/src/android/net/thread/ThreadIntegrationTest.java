@@ -22,6 +22,7 @@ import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_LEADER;
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_STOPPED;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
 import static android.net.thread.utils.IntegrationTestUtils.CALLBACK_TIMEOUT;
+import static android.net.thread.utils.IntegrationTestUtils.JOIN_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.LEAVE_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.RESTART_JOIN_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.waitForStateAnyOf;
@@ -87,9 +88,6 @@ public class ThreadIntegrationTest {
                         .get(0);
         mOtCtl = new OtDaemonController();
         leaveAndWait(mController);
-
-        // TODO: b/323301831 - This is a workaround to avoid unnecessary delay to re-form a network
-        mOtCtl.factoryReset();
     }
 
     @After
@@ -170,7 +168,7 @@ public class ThreadIntegrationTest {
         runAsShell(
                 PERMISSION_THREAD_NETWORK_PRIVILEGED,
                 () -> controller.join(activeDataset, directExecutor(), result -> {}));
-        waitForStateAnyOf(controller, List.of(DEVICE_ROLE_LEADER), RESTART_JOIN_TIMEOUT);
+        waitForStateAnyOf(controller, List.of(DEVICE_ROLE_LEADER), JOIN_TIMEOUT);
     }
 
     private static void leaveAndWait(ThreadNetworkController controller) throws Exception {
