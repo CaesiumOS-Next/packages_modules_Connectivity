@@ -22,6 +22,30 @@
       },
       "revId": "67c22ff2f8b8c24b883fd19e69fbdfe0050138cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d576abf0_358d3b96",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MulticastNetworkInterfaceProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-14T04:22:49Z",
+      "side": 1,
+      "message": "This was to demonstrate that public methods in MulticastNetworkInterfaceProvider are thread-safe (a static method won\u0027t access any state so is thread-safe) and using one instance in several MdnsSockets is fine since there\u0027s no state specific to the caller.\n\nBut reverted since it breaks mocking in tests, thanks !",
+      "parentUuid": "5995a948_57b50029",
+      "range": {
+        "startLine": 107,
+        "startChar": 11,
+        "endLine": 107,
+        "endChar": 17
+      },
+      "revId": "67c22ff2f8b8c24b883fd19e69fbdfe0050138cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
