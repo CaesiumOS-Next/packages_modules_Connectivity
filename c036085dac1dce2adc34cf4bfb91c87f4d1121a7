@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c4832351_8f4f1d8f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-14T08:41:28Z",
+      "side": 1,
+      "message": "Can the letters be lower case?\nI think this also matches XXXX-XX XX-XXXX, would these be valid too?",
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1516f7ed_5d7ba0e4",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 5
@@ -112,6 +129,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d78b66bf_22400007",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-14T08:41:28Z",
+      "side": 1,
+      "message": "```suggestion\n        when(mResources.getString(eq(R.string.config_thread_vendor_name)))\n                .thenReturn(TEST_VENDOR_NAME);\n        when(mResources.getString(eq(R.string.config_thread_vendor_oui)))\n                .thenReturn(TEST_VENDOR_OUI);\n        when(mResources.getString(eq(R.string.config_thread_model_name)))\n                .thenReturn(TEST_MODEL_NAME);\n```",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 45
+      },
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4764bc9e_ac0d1dc5",
         "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
         "patchSetId": 5
@@ -128,6 +168,29 @@
         "startChar": 90,
         "endLine": 211,
         "endChar": 94
+      },
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "339e63ce_fdc0e097",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-14T08:41:28Z",
+      "side": 1,
+      "message": "nit: make this a const?",
+      "range": {
+        "startLine": 211,
+        "startChar": 52,
+        "endLine": 211,
+        "endChar": 95
       },
       "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
