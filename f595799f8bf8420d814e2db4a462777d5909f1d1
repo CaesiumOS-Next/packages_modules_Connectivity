@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31e7509f_a3b46ad2",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-03-14T19:54:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ed41bb5_0fcfd3fb",
+      "range": {
+        "startLine": 633,
+        "startChar": 8,
+        "endLine": 640,
+        "endChar": 9
+      },
+      "revId": "f595799f8bf8420d814e2db4a462777d5909f1d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e75075b_7fb9073b",
@@ -85,6 +109,30 @@
       "writtenOn": "2024-03-12T20:57:04Z",
       "side": 1,
       "message": "You\u0027ll probably want to rename this to \"identifier\" or the like, as it can also be a MAC address (after you move the logic into this method as suggested in the previous comment).",
+      "range": {
+        "startLine": 923,
+        "startChar": 62,
+        "endLine": 923,
+        "endChar": 67
+      },
+      "revId": "f595799f8bf8420d814e2db4a462777d5909f1d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee165bb0_24fe579d",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-03-14T19:54:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e75075b_7fb9073b",
       "range": {
         "startLine": 923,
         "startChar": 62,
