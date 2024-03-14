@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1dc5d4bf_7ac508b2",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-14T21:45:35Z",
+      "side": 1,
+      "message": "Sort of unrelated to this CL, but if you are trying to get config by mac address to work correctly, this is a bug as well.",
+      "range": {
+        "startLine": 433,
+        "startChar": 39,
+        "endLine": 433,
+        "endChar": 71
+      },
+      "revId": "51e868a21b6c2e1f5bd4de13fce6ca04ce2fc4a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "92ec0097_50d6d050",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 4
