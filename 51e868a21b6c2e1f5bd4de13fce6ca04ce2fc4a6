@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb216def_ccad00a4",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-14T21:19:56Z",
+      "side": 1,
+      "message": "I think this is actually a bug. If the IpConfiguration is configured by MAC, the callbacks will report the default IP config.",
+      "range": {
+        "startLine": 297,
+        "startChar": 64,
+        "endLine": 297,
+        "endChar": 97
+      },
+      "revId": "51e868a21b6c2e1f5bd4de13fce6ca04ce2fc4a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "92ec0097_50d6d050",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 4
