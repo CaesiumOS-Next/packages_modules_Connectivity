@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f169ec94_c858e82e",
+        "filename": "thread/service/java/com/android/server/thread/NsdPublisher.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-14T06:30:17Z",
+      "side": 1,
+      "message": "I guess it\u0027s fine if there are still running jobs?",
+      "revId": "e1c3bf523c7c809cead14c1b7d94d45a7ea9ff71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
