@@ -167,6 +167,15 @@ BpfHandler::BpfHandler(uint32_t perUidLimit, uint32_t totalLimit)
 
 Status BpfHandler::init(const char* cg2_path) {
     // Make sure BPF programs are loaded before doing anything
+    ALOGI("Waiting for BPF programs");
+    android::bpf::waitForNetProgsLoaded();
+    ALOGI("Networking BPF programs are loaded");
+
+    if (!android::base::SetProperty("ctl.start", "mdnsd_loadbpf")) {
+        ALOGE("Failed to set property ctl.start=mdnsd_loadbpf, see dmesg for reason.");
+    }
+
+    ALOGI("Waiting for remaining BPF programs");
     android::bpf::waitForProgsLoaded();
     ALOGI("BPF programs are loaded");
 
