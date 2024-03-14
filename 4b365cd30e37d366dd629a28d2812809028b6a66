@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f0c2eb1_73d1bf76",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2024-03-14T20:46:47Z",
+      "side": 1,
+      "message": "Does this trigger `broadcastInterfaceStateChange()`? It looks like in the old code path it did, but maybe not in this patch? \n\nI believe `NetdUtils.setInterfaceUp` will trigger `broadcastInterfaceStateChange()`? But, I\u0027m not so sure when setting the interface down.\n\nIt looks like the previous behavior would notify for both cases.",
+      "range": {
+        "startLine": 663,
+        "startChar": 12,
+        "endLine": 663,
+        "endChar": 53
+      },
+      "revId": "4b365cd30e37d366dd629a28d2812809028b6a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
