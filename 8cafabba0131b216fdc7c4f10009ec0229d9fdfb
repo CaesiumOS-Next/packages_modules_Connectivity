@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28cf5cbd_2e469955",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-14T10:04:25Z",
+      "side": 1,
+      "message": "is this still needed given L103?",
+      "revId": "8cafabba0131b216fdc7c4f10009ec0229d9fdfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
