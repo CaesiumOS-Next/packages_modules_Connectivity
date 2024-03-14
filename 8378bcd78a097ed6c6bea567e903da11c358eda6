@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "63f2c802_444baa3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2024-03-14T01:07:55Z",
+      "side": 1,
+      "message": "Reworded to focus on mandatory user T+.",
+      "parentUuid": "43679246_364e6d45",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "8378bcd78a097ed6c6bea567e903da11c358eda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d91fef2a_0719cf62",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2024-03-13T21:50:06Z",
       "side": 1,
       "message": "could this just use DEFINE_BPF_MAP_NO_NETD?\n\nI think only the group will change from AID_SYSTEM to AID_NET_BW_ACCT which seems like a non issue...",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 18
+      },
+      "revId": "8378bcd78a097ed6c6bea567e903da11c358eda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90604202_0c517ce2",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2024-03-14T01:07:55Z",
+      "side": 1,
+      "message": "I believe it can (the tests/feature works, though I don\u0027t fully understand the implications of this group setting...). I also changed the ringbuffer to use AID_NET_BW_ACCT just to keep these two consistent.",
+      "parentUuid": "94e8a17c_98bb2831",
       "range": {
         "startLine": 104,
         "startChar": 0,
