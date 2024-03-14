@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e576f4a_3d762fd8",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-14T05:56:22Z",
+      "side": 1,
+      "message": "nit: Doesn\u0027t feel this format change is better.\nBut no strong opinion.",
+      "range": {
+        "startLine": 260,
+        "startChar": 19,
+        "endLine": 262,
+        "endChar": 22
+      },
+      "revId": "1d30dd7821c127921f82dc1698e50add94a1cc0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "751fa358_3bbdb8b0",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-14T05:56:22Z",
+      "side": 1,
+      "message": "nit: Please fix this WARNING reported by Build Warnings: parameter \u0027intent\u0027 is never used, could be renamed to _\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    parameter \u0027intent\u0027 is never used, could be renamed to _\n                ) { intent -\u003e true })\n                    ^\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P71495747/targets/errorprone-trunk_staging, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 444,
+        "startChar": 16,
+        "endLine": 444,
+        "endChar": 33
+      },
+      "revId": "1d30dd7821c127921f82dc1698e50add94a1cc0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
