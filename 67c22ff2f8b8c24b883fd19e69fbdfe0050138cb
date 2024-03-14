@@ -46,6 +46,30 @@
       },
       "revId": "67c22ff2f8b8c24b883fd19e69fbdfe0050138cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7ae7d03_18029648",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MulticastNetworkInterfaceProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-14T05:00:08Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "d576abf0_358d3b96",
+      "range": {
+        "startLine": 107,
+        "startChar": 11,
+        "endLine": 107,
+        "endChar": 17
+      },
+      "revId": "67c22ff2f8b8c24b883fd19e69fbdfe0050138cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
