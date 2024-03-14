@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "529517cc_57fcb5b4",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-14T07:30:29Z",
+      "side": 1,
+      "message": "I don\u0027t have any opinion but this is what formatter did.\nI fixed strange indent.",
+      "parentUuid": "4e576f4a_3d762fd8",
+      "range": {
+        "startLine": 260,
+        "startChar": 19,
+        "endLine": 262,
+        "endChar": 22
+      },
+      "revId": "1d30dd7821c127921f82dc1698e50add94a1cc0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "751fa358_3bbdb8b0",
@@ -37,6 +61,54 @@
       "writtenOn": "2024-03-14T05:56:22Z",
       "side": 1,
       "message": "nit: Please fix this WARNING reported by Build Warnings: parameter \u0027intent\u0027 is never used, could be renamed to _\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    parameter \u0027intent\u0027 is never used, could be renamed to _\n                ) { intent -\u003e true })\n                    ^\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P71495747/targets/errorprone-trunk_staging, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 444,
+        "startChar": 16,
+        "endLine": 444,
+        "endChar": 33
+      },
+      "revId": "1d30dd7821c127921f82dc1698e50add94a1cc0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9309d92f_e41ca62f",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-14T07:30:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "751fa358_3bbdb8b0",
+      "range": {
+        "startLine": 444,
+        "startChar": 16,
+        "endLine": 444,
+        "endChar": 33
+      },
+      "revId": "1d30dd7821c127921f82dc1698e50add94a1cc0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ab87595_64ead03d",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-14T07:30:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "751fa358_3bbdb8b0",
       "range": {
         "startLine": 444,
         "startChar": 16,
