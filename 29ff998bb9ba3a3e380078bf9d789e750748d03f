@@ -94,6 +94,30 @@
       },
       "revId": "29ff998bb9ba3a3e380078bf9d789e750748d03f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36f00b17_060637f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-14T06:38:50Z",
+      "side": 1,
+      "message": "Ack, thanks for explain.\nNot for this CL.\nDo we want any chicken out flag for that behavior change?\nI\u0027m wondering if there is any case where\napp didn\u0027t expect to see local networks and causes compatibility problems.\ne.g. OEMs which just change targetSdk without testing with any local networks.",
+      "parentUuid": "1ab5cd26_85dfb44e",
+      "range": {
+        "startLine": 13,
+        "startChar": 3,
+        "endLine": 13,
+        "endChar": 16
+      },
+      "revId": "29ff998bb9ba3a3e380078bf9d789e750748d03f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
