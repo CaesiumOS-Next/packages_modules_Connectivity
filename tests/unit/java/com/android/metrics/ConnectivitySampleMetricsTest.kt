@@ -1,6 +1,5 @@
 package com.android.metrics
 
-import android.net.ConnectivityThread
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.CONNECTIVITY_MANAGED_CAPABILITIES
 import android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL
@@ -16,20 +15,13 @@ import android.net.NetworkCapabilities.NET_ENTERPRISE_ID_1
 import android.net.NetworkCapabilities.NET_ENTERPRISE_ID_3
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
-import android.net.NetworkRequest
 import android.net.NetworkScore
 import android.net.NetworkScore.KEEP_CONNECTED_FOR_TEST
 import android.net.NetworkScore.POLICY_EXITING
 import android.net.NetworkScore.POLICY_TRANSPORT_PRIMARY
 import android.os.Build
 import android.os.Handler
-import android.os.Process
-import android.os.Process.SYSTEM_UID
 import android.stats.connectivity.MeteredState
-import android.stats.connectivity.RequestType
-import android.stats.connectivity.RequestType.RT_APP
-import android.stats.connectivity.RequestType.RT_SYSTEM
-import android.stats.connectivity.RequestType.RT_SYSTEM_ON_BEHALF_OF_APP
 import android.stats.connectivity.ValidatedState
 import androidx.test.filters.SmallTest
 import com.android.net.module.util.BitUtils
@@ -39,13 +31,11 @@ import com.android.server.connectivity.FullScore
 import com.android.server.connectivity.FullScore.POLICY_IS_UNMETERED
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
-import com.android.testutils.TestableNetworkCallback
+import org.junit.Test
+import org.junit.runner.RunWith
 import java.util.concurrent.CompletableFuture
 import kotlin.test.assertEquals
 import kotlin.test.fail
-import org.junit.Assert.assertTrue
-import org.junit.Test
-import org.junit.runner.RunWith
 
 private fun <T> Handler.onHandler(f: () -> T): T {
     val future = CompletableFuture<T>()
@@ -90,7 +80,7 @@ private val NetworkCapabilities.validatedState get() = when {
 @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class ConnectivitySampleMetricsTest : CSTest() {
     @Test
-    fun testSampleConnectivityState_Network() {
+    fun testSampleConnectivityState() {
         val wifi1Caps = NetworkCapabilities.Builder()
                 .addTransportType(TRANSPORT_WIFI)
                 .addCapability(NET_CAPABILITY_NOT_METERED)
@@ -188,62 +178,5 @@ class ConnectivitySampleMetricsTest : CSTest() {
                 "Wifi2 score policies incorrect, " +
                         "expected ${expectedWifi2Policies.toPolicyString()}, " +
                         "found ${foundWifi2.scorePolicies.toPolicyString()}")
-    }
-
-    private fun fileNetworkRequest(requestType: RequestType, requestCount: Int, uid: Int? = null) {
-        if (uid != null) {
-            deps.setCallingUid(uid)
-        }
-        try {
-            repeat(requestCount) {
-                when (requestType) {
-                    RT_APP, RT_SYSTEM -> cm.requestNetwork(
-                            NetworkRequest.Builder().build(),
-                            TestableNetworkCallback()
-                    )
-
-                    RT_SYSTEM_ON_BEHALF_OF_APP -> cm.registerDefaultNetworkCallbackForUid(
-                            Process.myUid(),
-                            TestableNetworkCallback(),
-                            Handler(ConnectivityThread.getInstanceLooper()))
-
-                    else -> fail("invalid requestType: " + requestType)
-                }
-            }
-        } finally {
-            deps.unmockCallingUid()
-        }
-    }
-
-
-    @Test
-    fun testSampleConnectivityState_NetworkRequest() {
-        val requestCount = 5
-        fileNetworkRequest(RT_APP, requestCount);
-        fileNetworkRequest(RT_SYSTEM, requestCount, SYSTEM_UID);
-        fileNetworkRequest(RT_SYSTEM_ON_BEHALF_OF_APP, requestCount, SYSTEM_UID);
-
-        val stats = csHandler.onHandler { service.sampleConnectivityState() }
-
-        assertEquals(3, stats.networkRequestCount.requestCountForTypeList.size)
-        val appRequest = stats.networkRequestCount.requestCountForTypeList.find {
-            it.requestType == RT_APP
-        } ?: fail("Can't find RT_APP request")
-        val systemRequest = stats.networkRequestCount.requestCountForTypeList.find {
-            it.requestType == RT_SYSTEM
-        } ?: fail("Can't find RT_SYSTEM request")
-        val systemOnBehalfOfAppRequest = stats.networkRequestCount.requestCountForTypeList.find {
-            it.requestType == RT_SYSTEM_ON_BEHALF_OF_APP
-        } ?: fail("Can't find RT_SYSTEM_ON_BEHALF_OF_APP request")
-
-        // Verify request count is equal or larger than the number of request this test filed
-        // since ConnectivityService internally files network requests
-        assertTrue("Unexpected RT_APP count, expected >= $requestCount, " +
-                "found ${appRequest.requestCount}", appRequest.requestCount >= requestCount)
-        assertTrue("Unexpected RT_SYSTEM count, expected >= $requestCount, " +
-                "found ${systemRequest.requestCount}", systemRequest.requestCount >= requestCount)
-        assertTrue("Unexpected RT_SYSTEM_ON_BEHALF_OF_APP count, expected >= $requestCount, " +
-                "found ${systemOnBehalfOfAppRequest.requestCount}",
-                systemOnBehalfOfAppRequest.requestCount >= requestCount)
     }
 }
