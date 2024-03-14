@@ -33,6 +33,7 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <sys/fsuid.h>
 #include <sys/mman.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
@@ -138,16 +139,43 @@ int createSysFsBpfSubDir(const char* const prefix) {
             ALOGE("Failed to create directory: %s, ret: %s", s.c_str(), std::strerror(err));
             return -err;
         }
-
+/*
+        errno = 0;
+        ret = chown(s.c_str(), (uid_t)0, (gid_t)0);
+        if (ret) {
+            const int err = errno;
+            ALOGE("Failed to chown directory: %s, ret: %s", s.c_str(), std::strerror(err));
+            return -err;
+        }
+*/
         umask(prevUmask);
     }
     return 0;
+}
+
+bool checkProcSysFile(const char *filename, const char *value) {
+    int len = strlen(value);
+    ALOGI("checkProcSysFile('%s', '%s'[%d])", filename, value, len);
+
+    char buf[256];
+    if (len >= sizeof(buf)) { ALOGE("W"); return false; };
+
+    android::base::unique_fd fd(open(filename, O_RDONLY | O_CLOEXEC));
+    if (fd < 0) { ALOGE("X:%s/%d", strerror(errno), errno); return false; }
+
+    int v = read(fd, buf, sizeof(buf));
+    if (v != len) { ALOGE("Y:%d/%s/%d", v, strerror(errno), errno); return false; }
+
+    if (strncmp(buf, value, len)) { ALOGE("Z"); return false; }
+    ALOGI("match");
+    return true;
 }
 
 // Technically 'value' doesn't need to be newline terminated, but it's best
 // to include a newline to match 'echo "value" > /proc/sys/...foo' behaviour,
 // which is usually how kernel devs test the actual sysctl interfaces.
 int writeProcSysFile(const char *filename, const char *value) {
+    //if (checkProcSysFile(filename, value)) return 0;
     android::base::unique_fd fd(open(filename, O_WRONLY | O_CLOEXEC));
     if (fd < 0) {
         const int err = errno;
@@ -324,7 +352,10 @@ int main(int argc, char** argv, char * const envp[]) {
         // (this writeFile is known to fail on at least 4.19, but always defaults to 0 on
         // pre-5.13, on 5.13+ it depends on CONFIG_BPF_UNPRIV_DEFAULT_OFF)
         if (writeProcSysFile("/proc/sys/kernel/unprivileged_bpf_disabled", "0\n") &&
-            android::bpf::isAtLeastKernelVersion(5, 13, 0)) return 1;
+            android::bpf::isAtLeastKernelVersion(5, 13, 0)) {
+            ALOGE("Failed to write /proc/sys/kernel/unprivileged_bpf_disabled: %d (%s)", errno, strerror(errno));
+            //return 1;
+        }
 
         // Enable the eBPF JIT -- but do note that on 64-bit kernels it is likely
         // already force enabled by the kernel config option BPF_JIT_ALWAYS_ON.
@@ -378,6 +409,13 @@ int main(int argc, char** argv, char * const envp[]) {
     }
 
     ALOGI("done, transferring control to platform bpfloader.");
+
+    if (android::base::SetProperty("bpf.progs_loaded", "0")) return 0;
+    ALOGE("Failed to set bpf.progs_loaded property");
+    return 17;
+
+    if (android::base::SetProperty("ctl.start", "loadbpf")) return 0;
+    ALOGE("Failed to set property ctl.start=loadbpf, see dmesg for reason.");
 
     const char * args[] = { platformBpfLoader, NULL, };
     execve(args[0], (char**)args, envp);
