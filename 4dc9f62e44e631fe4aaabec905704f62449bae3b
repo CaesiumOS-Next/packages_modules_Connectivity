@@ -34,6 +34,24 @@
       "parentUuid": "2953403a_5aef0652",
       "revId": "4dc9f62e44e631fe4aaabec905704f62449bae3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "459eae54_71e848f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-14T12:25:27Z",
+      "side": 1,
+      "message": "I think `Test` is required only when the CL is not covered by any presubmit tests or it\u0027s not trivial to find out which test case covers the change by looking at the changed files.\n\nBelow are typical cases we don\u0027t need the `Test` tag:\n1. there is no logic code change. i.e. there is only test code change so for sure the change is tested\n2. there is logic code change and there are test cases added or updated\n\nBelow are typical cases we should add the `Test` tag:\n1. no test cases added or updated for logic code changes (though this is discouraged but may happen for simple refactors)\n2. ot-br-posix changes which is not directly covered by tests in ot-br-posix but indirectly covered by tests in packages/modules/Connectivity/thread/tests\n\n\nFor this CL, I think the `Test` tag is not useful than being a developer burden.",
+      "parentUuid": "69b4d088_157a3dcf",
+      "revId": "4dc9f62e44e631fe4aaabec905704f62449bae3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
