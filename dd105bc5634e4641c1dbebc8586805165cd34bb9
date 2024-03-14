@@ -22,6 +22,30 @@
       },
       "revId": "dd105bc5634e4641c1dbebc8586805165cd34bb9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "955a7210_4149a36a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-14T13:15:26Z",
+      "side": 1,
+      "message": "As I mentioned in the meeting, it\u0027s better to construct the DatagramPacket within the EnqueueMdnsQueryCallable like the current design. Therefore, I\u0027ve changed the design to reflect this.",
+      "parentUuid": "856b8a72_8c4f4802",
+      "range": {
+        "startLine": 270,
+        "startChar": 75,
+        "endLine": 270,
+        "endChar": 95
+      },
+      "revId": "dd105bc5634e4641c1dbebc8586805165cd34bb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
