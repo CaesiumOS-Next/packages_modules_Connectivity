@@ -16,6 +16,24 @@
       "message": "The `Test` session is missing",
       "revId": "4dc9f62e44e631fe4aaabec905704f62449bae3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69b4d088_157a3dcf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-14T09:45:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2953403a_5aef0652",
+      "revId": "4dc9f62e44e631fe4aaabec905704f62449bae3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
