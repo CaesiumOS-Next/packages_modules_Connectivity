@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36b07e6f_a58d85d8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6010,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-14T03:54:48Z",
+      "side": 1,
+      "message": "Could we print some debug message so the OEM partner can know what happened more easily? Is Log.wtf better if we are not expecting it?",
+      "range": {
+        "startLine": 6010,
+        "startChar": 16,
+        "endLine": 6010,
+        "endChar": 18
+      },
+      "revId": "76623833a0b6bb6b24d946fd8ab304ee33808336",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
