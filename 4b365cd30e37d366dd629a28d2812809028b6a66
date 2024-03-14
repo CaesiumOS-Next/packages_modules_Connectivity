@@ -22,6 +22,30 @@
       },
       "revId": "4b365cd30e37d366dd629a28d2812809028b6a66",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "475c907b_013121b2",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-14T21:03:06Z",
+      "side": 1,
+      "message": "It does. NetdUtils.setInterfaceUp() will set IFF_UP on the interface which will cause a RTM_NEWLINK (which in turn will call updateInterfaceState and broadcast the new link state). Same goes for setInterfaceDown().",
+      "parentUuid": "7f0c2eb1_73d1bf76",
+      "range": {
+        "startLine": 663,
+        "startChar": 12,
+        "endLine": 663,
+        "endChar": 53
+      },
+      "revId": "4b365cd30e37d366dd629a28d2812809028b6a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
