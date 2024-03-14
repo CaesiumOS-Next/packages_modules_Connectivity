@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "856b8a72_8c4f4802",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-14T04:34:34Z",
+      "side": 1,
+      "message": "Instead of passing the buffer and calling createRawDnsPacket on the Handler, could you create the packet and then post the byte array ?\n\n```\nfinal byte[] rawPacket \u003d createRawDnsPacket(packetCreationBuffer, packet);\nmHandler.post(() -\u003e sendMdnsPacket(rawPacket, socketKey, onlyUseIpv6OnIpv6OnlyNetworks, address);\n```\n\nThis would be closer to the previous code, otherwise there\u0027s more work done on the Handler thread than before. And it would also be closer to what MdnsSocketClient does (it creates the byte array inline and then adds it to the send queue).",
+      "range": {
+        "startLine": 270,
+        "startChar": 75,
+        "endLine": 270,
+        "endChar": 95
+      },
+      "revId": "dd105bc5634e4641c1dbebc8586805165cd34bb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
