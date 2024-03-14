@@ -70,6 +70,30 @@
       },
       "revId": "4b365cd30e37d366dd629a28d2812809028b6a66",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05d5d35a_f13663df",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2024-03-14T21:21:38Z",
+      "side": 1,
+      "message": "SGTM. I\u0027ll leave this comment open for you to resolve, either now if you like, or after you add the test. Thanks.",
+      "parentUuid": "064d083f_af39b486",
+      "range": {
+        "startLine": 663,
+        "startChar": 12,
+        "endLine": 663,
+        "endChar": 53
+      },
+      "revId": "4b365cd30e37d366dd629a28d2812809028b6a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
