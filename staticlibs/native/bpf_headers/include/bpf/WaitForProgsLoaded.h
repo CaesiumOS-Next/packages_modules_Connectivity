@@ -17,12 +17,25 @@
 
 #pragma once
 
+#include <unistd.h>
+
 #include <log/log.h>
 
 #include <android-base/properties.h>
 
 namespace android {
 namespace bpf {
+
+static inline void waitForNetProgsLoaded() {
+    // infinite loop until success with 5/10/20/40/60/60/60... delay
+    for (int delay = 5;; delay *= 2) {
+        if (delay > 60) delay = 60;
+        if (android::base::WaitForProperty("init.svc.bpfloader", "stopped", std::chrono::seconds(delay))
+            && !access("/sys/fs/bpf/netd_shared", F_OK))
+            return;
+        ALOGW("Waited %ds for init.svc.bpfloader=stopped, still waiting...", delay);
+    }
+}
 
 // Wait for bpfloader to load BPF programs.
 static inline void waitForProgsLoaded() {

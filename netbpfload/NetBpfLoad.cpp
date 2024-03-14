@@ -324,7 +324,10 @@ int main(int argc, char** argv, char * const envp[]) {
         // (this writeFile is known to fail on at least 4.19, but always defaults to 0 on
         // pre-5.13, on 5.13+ it depends on CONFIG_BPF_UNPRIV_DEFAULT_OFF)
         if (writeProcSysFile("/proc/sys/kernel/unprivileged_bpf_disabled", "0\n") &&
-            android::bpf::isAtLeastKernelVersion(5, 13, 0)) return 1;
+            android::bpf::isAtLeastKernelVersion(5, 13, 0)) {
+            ALOGE("Failed to write /proc/sys/kernel/unprivileged_bpf_disabled: %d (%s)", errno, strerror(errno));
+            //return 1;
+        }
 
         // Enable the eBPF JIT -- but do note that on 64-bit kernels it is likely
         // already force enabled by the kernel config option BPF_JIT_ALWAYS_ON.
@@ -377,10 +380,15 @@ int main(int argc, char** argv, char * const envp[]) {
         return 1;
     }
 
-    ALOGI("done, transferring control to platform bpfloader.");
+    if (isAtLeastV) {
+        ALOGI("done, transferring control to platform bpfloader.");
 
-    const char * args[] = { platformBpfLoader, NULL, };
-    execve(args[0], (char**)args, envp);
-    ALOGE("FATAL: execve('%s'): %d[%s]", platformBpfLoader, errno, strerror(errno));
-    return 1;
+        const char * args[] = { platformBpfLoader, NULL, };
+        execve(args[0], (char**)args, envp);
+        ALOGE("FATAL: execve('%s'): %d[%s]", platformBpfLoader, errno, strerror(errno));
+        return 1;
+    }
+
+    ALOGI("mainline done!");
+    return 0;
 }
