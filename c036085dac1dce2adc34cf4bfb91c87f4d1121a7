@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0012fd22_8f3dce19",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-14T10:08:36Z",
+      "side": 1,
+      "message": "Updated. The new regex will disable this format",
+      "parentUuid": "c4832351_8f4f1d8f",
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1516f7ed_5d7ba0e4",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-03-14T08:29:04Z",
       "side": 1,
       "message": "Make it a constant",
+      "range": {
+        "startLine": 334,
+        "startChar": 90,
+        "endLine": 334,
+        "endChar": 91
+      },
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de0809e0_204217f5",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-14T10:08:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1516f7ed_5d7ba0e4",
       "range": {
         "startLine": 334,
         "startChar": 90,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c731f33c_4004fb3b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-14T10:08:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0dfb7e4c_1e804198",
+      "range": {
+        "startLine": 337,
+        "startChar": 90,
+        "endLine": 337,
+        "endChar": 92
+      },
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1b9490b_aef894f0",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-03-14T08:29:04Z",
       "side": 1,
       "message": "nit: use `containsAtLeast`",
+      "range": {
+        "startLine": 353,
+        "startChar": 5,
+        "endLine": 354,
+        "endChar": 87
+      },
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d64ddb5d_af7a112c",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-14T10:08:36Z",
+      "side": 1,
+      "message": "The values of the map is compared with `Objects::equal` which doesn\u0027t work for the byte[] here",
+      "parentUuid": "d1b9490b_aef894f0",
       "range": {
         "startLine": 353,
         "startChar": 5,
@@ -104,6 +194,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "868a7d3f_729aa1e7",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-14T10:08:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "770adaa2_dceb24eb",
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52f91032_708c5c0d",
@@ -127,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05442458_32e141f2",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-14T10:08:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52f91032_708c5c0d",
+      "range": {
+        "startLine": 198,
+        "startChar": 2,
+        "endLine": 200,
+        "endChar": 0
+      },
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d78b66bf_22400007",
@@ -140,6 +272,30 @@
       "writtenOn": "2024-03-14T08:41:28Z",
       "side": 1,
       "message": "```suggestion\n        when(mResources.getString(eq(R.string.config_thread_vendor_name)))\n                .thenReturn(TEST_VENDOR_NAME);\n        when(mResources.getString(eq(R.string.config_thread_vendor_oui)))\n                .thenReturn(TEST_VENDOR_OUI);\n        when(mResources.getString(eq(R.string.config_thread_model_name)))\n                .thenReturn(TEST_MODEL_NAME);\n```",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 45
+      },
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1533193f_7afd688c",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-14T10:08:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d78b66bf_22400007",
       "range": {
         "startLine": 198,
         "startChar": 0,
@@ -191,6 +347,54 @@
         "startChar": 52,
         "endLine": 211,
         "endChar": 95
+      },
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91a27ba9_797cedcb",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-14T10:08:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "339e63ce_fdc0e097",
+      "range": {
+        "startLine": 211,
+        "startChar": 52,
+        "endLine": 211,
+        "endChar": 95
+      },
+      "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78aa32a0_be68e782",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-14T10:08:36Z",
+      "side": 1,
+      "message": "Because it doesn\u0027t exceeds to range of a byte ([-128, 127]), so it\u0027s auto casted",
+      "parentUuid": "4764bc9e_ac0d1dc5",
+      "range": {
+        "startLine": 211,
+        "startChar": 90,
+        "endLine": 211,
+        "endChar": 94
       },
       "revId": "c036085dac1dce2adc34cf4bfb91c87f4d1121a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
