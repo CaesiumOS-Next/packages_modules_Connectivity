@@ -125,9 +125,7 @@ public class BorderRoutingTest {
         // Run the tests on only devices where the Thread feature is available
         assumeNotNull(mController);
 
-        // TODO: b/323301831 - This is a workaround to avoid unnecessary delay to re-form a network
         mOtCtl = new OtDaemonController();
-        mOtCtl.factoryReset();
 
         mHandlerThread = new HandlerThread(getClass().getSimpleName());
         mHandlerThread.start();
@@ -211,7 +209,6 @@ public class BorderRoutingTest {
          */
 
         // Form the network.
-        mOtCtl.factoryReset();
         startBrLeader();
         startInfraDevice();
         FullThreadDevice ftd = mFtds.get(0);
