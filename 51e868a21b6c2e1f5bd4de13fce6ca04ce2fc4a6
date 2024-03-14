@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "87f9f66c_d9dfa957",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-14T22:17:30Z",
+      "side": 1,
+      "message": "No, because getIpConfigurationForCallback is always called with the interface name. If you configured it using the mac address, `mIpConfigurations.get(identifier);` will return null.\n\nI am not entirely sure what the best solution here is. The fact that server mode interfaces are not tracked by the EthernetNetworkFactory (which is really a bug we need to address at some point) makes this much more annoying; otherwise, you could just start querying the factory for IpConfiguration and capabilities.\n\nContrary to what I wrote below, I think you probably want to add a getIpConfiguration() and a getNetworkCapabilities() function. Both do the look up by iface name, then MAC, then return the default. You can retrieve the mac address via EthernetNetworkFactory (needs a getter) and store the mac address of the server mode interface (mTetheringInterface) in a member of EthernetTracker (mTetheringInterfaceMac or something). That\u0027s not terrible, but maybe you have a better idea?\n\nIf you decide to go with above approach, you might want to split these changes into a few CLs to make review easier. I.e. start tracking the mac address for mTetheringInterface, add getters for the mac to the factory, add getIpConfiguration(), and getNetworkCapabilities().",
+      "parentUuid": "8ca16362_72639372",
+      "range": {
+        "startLine": 297,
+        "startChar": 64,
+        "endLine": 297,
+        "endChar": 97
+      },
+      "revId": "51e868a21b6c2e1f5bd4de13fce6ca04ce2fc4a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1dc5d4bf_7ac508b2",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 4
