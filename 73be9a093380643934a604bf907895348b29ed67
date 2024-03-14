@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64f4d918_2750e804",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6011,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-14T05:33:00Z",
+      "side": 1,
+      "message": "nit: Maybe specify the needed permissions.\nNo strong opinion.",
+      "range": {
+        "startLine": 6011,
+        "startChar": 61,
+        "endLine": 6011,
+        "endChar": 67
+      },
+      "revId": "73be9a093380643934a604bf907895348b29ed67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
