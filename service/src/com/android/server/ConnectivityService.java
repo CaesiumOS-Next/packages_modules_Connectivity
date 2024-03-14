@@ -97,8 +97,6 @@ import static android.net.NetworkRequest.Type.LISTEN_FOR_BEST;
 import static android.net.NetworkScore.POLICY_TRANSPORT_PRIMARY;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST_ONLY;
-import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_MATCH_LOCAL_NETWORK;
-import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION;
 import static android.os.Process.INVALID_UID;
 import static android.os.Process.VPN_UID;
 import static android.system.OsConstants.ETH_P_ALL;
@@ -216,6 +214,7 @@ import android.net.UnderlyingNetworkInfo;
 import android.net.Uri;
 import android.net.VpnManager;
 import android.net.VpnTransportInfo;
+import android.net.connectivity.ConnectivityCompatChanges;
 import android.net.metrics.IpConnectivityLog;
 import android.net.metrics.NetworkEvent;
 import android.net.netd.aidl.NativeUidRangeConfig;
@@ -3023,23 +3022,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (!mPermissionMonitor.hasUseBackgroundNetworksPermission(mDeps.getCallingUid())) {
             nc.addCapability(NET_CAPABILITY_FOREGROUND);
         }
-    }
-
-    private void maybeDisableLocalNetworkMatching(NetworkCapabilities nc, int callingUid) {
-        if (mDeps.isChangeEnabled(ENABLE_MATCH_LOCAL_NETWORK, callingUid)) {
-            return;
-        }
-        // If NET_CAPABILITY_LOCAL_NETWORK is not added to capability, request should not be
-        // satisfied by local networks.
-        if (!nc.hasCapability(NET_CAPABILITY_LOCAL_NETWORK)) {
-            nc.addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK);
-        }
-    }
-
-    private void restrictRequestNetworkCapabilitiesForCaller(NetworkCapabilities nc,
-            int callingUid, String callerPackageName) {
-        restrictRequestUidsForCallerAndSetRequestorInfo(nc, callingUid, callerPackageName);
-        maybeDisableLocalNetworkMatching(nc, callingUid);
     }
 
     @Override
@@ -7732,12 +7714,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 //  the state of the app when the request is filed, but we never change the
                 //  request if the app changes network state. http://b/29964605
                 enforceMeteredApnPolicy(networkCapabilities);
-                maybeDisableLocalNetworkMatching(networkCapabilities, callingUid);
                 break;
             case LISTEN_FOR_BEST:
                 enforceAccessPermission();
                 networkCapabilities = new NetworkCapabilities(networkCapabilities);
-                maybeDisableLocalNetworkMatching(networkCapabilities, callingUid);
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported request type " + reqType);
@@ -7824,7 +7804,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final UserHandle user = UserHandle.getUserHandleForUid(callingUid);
         // Only run the check if the change is enabled.
         if (!mDeps.isChangeEnabled(
-                ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION,
+                ConnectivityCompatChanges.ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION,
                 callingPackageName, user)) {
             return false;
         }
@@ -7976,8 +7956,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         ensureRequestableCapabilities(networkCapabilities);
         ensureSufficientPermissionsForRequest(networkCapabilities,
                 Binder.getCallingPid(), callingUid, callingPackageName);
-        restrictRequestNetworkCapabilitiesForCaller(
-                networkCapabilities, callingUid, callingPackageName);
+        restrictRequestUidsForCallerAndSetRequestorInfo(networkCapabilities,
+                callingUid, callingPackageName);
 
         NetworkRequest networkRequest = new NetworkRequest(networkCapabilities, TYPE_NONE,
                 nextNetworkRequestId(), NetworkRequest.Type.REQUEST);
@@ -8037,7 +8017,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         NetworkCapabilities nc = new NetworkCapabilities(networkCapabilities);
         ensureSufficientPermissionsForRequest(networkCapabilities,
                 Binder.getCallingPid(), callingUid, callingPackageName);
-        restrictRequestNetworkCapabilitiesForCaller(nc, callingUid, callingPackageName);
+        restrictRequestUidsForCallerAndSetRequestorInfo(nc, callingUid, callingPackageName);
         // Apps without the CHANGE_NETWORK_STATE permission can't use background networks, so
         // make all their listens include NET_CAPABILITY_FOREGROUND. That way, they will get
         // onLost and onAvailable callbacks when networks move in and out of the background.
@@ -8070,7 +8050,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         ensureSufficientPermissionsForRequest(networkCapabilities,
                 Binder.getCallingPid(), callingUid, callingPackageName);
         final NetworkCapabilities nc = new NetworkCapabilities(networkCapabilities);
-        restrictRequestNetworkCapabilitiesForCaller(nc, callingUid, callingPackageName);
+        restrictRequestUidsForCallerAndSetRequestorInfo(nc, callingUid, callingPackageName);
 
         NetworkRequest networkRequest = new NetworkRequest(nc, TYPE_NONE, nextNetworkRequestId(),
                 NetworkRequest.Type.LISTEN);
@@ -12043,7 +12023,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // This NetworkCapabilities is only used for matching to Networks. Clear out its owner uid
         // and administrator uids to be safe.
         final NetworkCapabilities nc = new NetworkCapabilities(request.networkCapabilities);
-        restrictRequestNetworkCapabilitiesForCaller(nc, callingUid, callingPackageName);
+        restrictRequestUidsForCallerAndSetRequestorInfo(nc, callingUid, callingPackageName);
 
         final NetworkRequest requestWithId =
                 new NetworkRequest(
