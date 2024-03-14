@@ -16,6 +16,24 @@
       "message": "I guess it\u0027s fine if there are still running jobs?",
       "revId": "e1c3bf523c7c809cead14c1b7d94d45a7ea9ff71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c66ae776_7c66e38a",
+        "filename": "thread/service/java/com/android/server/thread/NsdPublisher.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-14T06:56:19Z",
+      "side": 1,
+      "message": "Jobs are running on the same thread so there won\u0027t be any jobs running at the same time.",
+      "parentUuid": "f169ec94_c858e82e",
+      "revId": "e1c3bf523c7c809cead14c1b7d94d45a7ea9ff71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
