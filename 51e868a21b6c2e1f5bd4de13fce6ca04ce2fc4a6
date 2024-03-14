@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92ec0097_50d6d050",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-14T20:56:50Z",
+      "side": 1,
+      "message": "I think it might not be worth having a getOrCreateIpConfiguration() function. It\u0027s currently used to look up the IP config for a) a newly added interface and b) when sending a callback. It doesn\u0027t seem to work well for either case, so I think we should just inline the contained functionality. This will make this code easier to read. So this should just be:\n```\n// Look up IP configuration first by ifname, then by MAC, or fall back to default.\nIpConfiguration ipConfig \u003d mIpConfigurations.get(iface);\nif (ipConfig \u003d\u003d null) {\n    ipConfig \u003d mIpConfigurations.get(hwAddress);\n}\nif (ipConfig \u003d\u003d null) {\n    ipConfig \u003d new IpConfiguration.Builder().build();\n}\n```",
+      "range": {
+        "startLine": 631,
+        "startChar": 8,
+        "endLine": 636,
+        "endChar": 0
+      },
+      "revId": "51e868a21b6c2e1f5bd4de13fce6ca04ce2fc4a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
