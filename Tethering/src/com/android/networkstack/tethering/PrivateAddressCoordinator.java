@@ -42,6 +42,7 @@ import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
+import com.android.modules.utils.build.SdkLevel;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -89,8 +90,10 @@ public class PrivateAddressCoordinator {
         mConfig = config;
         mCachedAddresses = new ArrayMap<AddressKey, LinkAddress>();
         // Reserved static addresses for bluetooth and wifi p2p.
-        mCachedAddresses.put(new AddressKey(TETHERING_BLUETOOTH, CONNECTIVITY_SCOPE_GLOBAL),
-                new LinkAddress(LEGACY_BLUETOOTH_IFACE_ADDRESS));
+        if (!SdkLevel.isAtLeastT()) {
+            mCachedAddresses.put(new AddressKey(TETHERING_BLUETOOTH, CONNECTIVITY_SCOPE_GLOBAL),
+                    new LinkAddress(LEGACY_BLUETOOTH_IFACE_ADDRESS));
+        }
         mCachedAddresses.put(new AddressKey(TETHERING_WIFI_P2P, CONNECTIVITY_SCOPE_LOCAL),
                 new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS));
 
