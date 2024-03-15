@@ -55,6 +55,8 @@
         <option name="exclude-filter" value="org.chromium.net.impl.CronetLoggerTest#testEngineCreation" />
         <!-- b/327182569 -->
         <option name="exclude-filter" value="org.chromium.net.urlconnection.CronetURLStreamHandlerFactoryTest#testSetUrlStreamFactoryUsesCronetForNative" />
+        <!-- b/40836946 -->
+        <option name="exclude-filter" value="org.chromium.net.ExperimentalOptionsTest#testDetectBrokenConnectionOnNetworkFailure" />
         <option name="hidden-api-checks" value="false"/>
         <option name="isolated-storage" value="false"/>
     </test>
