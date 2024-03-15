@@ -2242,11 +2242,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final long ident = Binder.clearCallingIdentity();
         try {
             final boolean metered = nc == null ? true : nc.isMetered();
-            if (mDeps.isAtLeastV()) {
-                return mBpfNetMaps.isUidNetworkingBlocked(uid, metered);
-            } else {
-                return mPolicyManager.isUidNetworkingBlocked(uid, metered);
-            }
+            return false;
+//            if (mDeps.isAtLeastV()) {
+//                return mBpfNetMaps.isUidNetworkingBlocked(uid, metered);
+//            } else {
+//                return mPolicyManager.isUidNetworkingBlocked(uid, metered);
+//            }
         } finally {
             Binder.restoreCallingIdentity(ident);
         }
@@ -3062,11 +3063,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final int callerUid = Binder.getCallingUid();
         final long token = Binder.clearCallingIdentity();
         try {
-            if (mDeps.isAtLeastV()) {
-                return getRestrictBackgroundStatus(callerUid);
-            } else {
-                return mPolicyManager.getRestrictBackgroundStatus(callerUid);
-            }
+            return RESTRICT_BACKGROUND_STATUS_ENABLED;
+//            if (mDeps.isAtLeastV()) {
+//                return getRestrictBackgroundStatus(callerUid);
+//            } else {
+//                return mPolicyManager.getRestrictBackgroundStatus(callerUid);
+//            }
         } finally {
             Binder.restoreCallingIdentity(token);
         }
