@@ -213,24 +213,26 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         return true;
     }
 
-    private void sendMdnsPacket(@NonNull DatagramPacket packet, @NonNull SocketKey targetSocketKey,
-            boolean onlyUseIpv6OnIpv6OnlyNetworks) {
+    private void sendMdnsPacket(@NonNull List<DatagramPacket> packets,
+            @NonNull SocketKey targetSocketKey, boolean onlyUseIpv6OnIpv6OnlyNetworks) {
         final MdnsInterfaceSocket socket = getTargetSocket(targetSocketKey);
         if (socket == null) {
             mSharedLog.e("No socket matches targetSocketKey=" + targetSocketKey);
             return;
         }
 
-        final boolean isIpv6 = ((InetSocketAddress) packet.getSocketAddress()).getAddress()
-                instanceof Inet6Address;
-        final boolean isIpv4 = ((InetSocketAddress) packet.getSocketAddress()).getAddress()
-                instanceof Inet4Address;
+        final boolean isIpv6 = ((InetSocketAddress) packets.getFirst().getSocketAddress())
+                .getAddress() instanceof Inet6Address;
+        final boolean isIpv4 = ((InetSocketAddress) packets.getFirst().getSocketAddress())
+                .getAddress() instanceof Inet4Address;
         final boolean shouldQueryIpv6 = !onlyUseIpv6OnIpv6OnlyNetworks || !socket.hasJoinedIpv4();
         // Check ip capability and network before sending packet
         if ((isIpv6 && socket.hasJoinedIpv6() && shouldQueryIpv6)
                 || (isIpv4 && socket.hasJoinedIpv4())) {
             try {
-                socket.send(packet);
+                for (DatagramPacket packet : packets) {
+                    socket.send(packet);
+                }
             } catch (IOException e) {
                 mSharedLog.e("Failed to send a mDNS packet.", e);
             }
@@ -259,34 +261,34 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
     }
 
     /**
-     * Send a mDNS request packet via given socket key that asks for multicast response.
+     * Send mDNS request packets via given socket key that asks for multicast response.
      */
-    public void sendPacketRequestingMulticastResponse(@NonNull DatagramPacket packet,
+    public void sendPacketRequestingMulticastResponse(@NonNull List<DatagramPacket> packets,
             @NonNull SocketKey socketKey, boolean onlyUseIpv6OnIpv6OnlyNetworks) {
-        mHandler.post(() -> sendMdnsPacket(packet, socketKey, onlyUseIpv6OnIpv6OnlyNetworks));
+        mHandler.post(() -> sendMdnsPacket(packets, socketKey, onlyUseIpv6OnIpv6OnlyNetworks));
     }
 
     @Override
     public void sendPacketRequestingMulticastResponse(
-            @NonNull DatagramPacket packet, boolean onlyUseIpv6OnIpv6OnlyNetworks) {
+            @NonNull List<DatagramPacket> packets, boolean onlyUseIpv6OnIpv6OnlyNetworks) {
         throw new UnsupportedOperationException("This socket client need to specify the socket to"
                 + "send packet");
     }
 
     /**
-     * Send a mDNS request packet via given socket key that asks for unicast response.
+     * Send mDNS request packets via given socket key that asks for unicast response.
      *
      * <p>The socket client may use a null network to identify some or all interfaces, in which case
      * passing null sends the packet to these.
      */
-    public void sendPacketRequestingUnicastResponse(@NonNull DatagramPacket packet,
+    public void sendPacketRequestingUnicastResponse(@NonNull List<DatagramPacket> packets,
             @NonNull SocketKey socketKey, boolean onlyUseIpv6OnIpv6OnlyNetworks) {
-        mHandler.post(() -> sendMdnsPacket(packet, socketKey, onlyUseIpv6OnIpv6OnlyNetworks));
+        mHandler.post(() -> sendMdnsPacket(packets, socketKey, onlyUseIpv6OnIpv6OnlyNetworks));
     }
 
     @Override
     public void sendPacketRequestingUnicastResponse(
-            @NonNull DatagramPacket packet, boolean onlyUseIpv6OnIpv6OnlyNetworks) {
+            @NonNull List<DatagramPacket> packets, boolean onlyUseIpv6OnIpv6OnlyNetworks) {
         throw new UnsupportedOperationException("This socket client need to specify the socket to"
                 + "send packet");
     }
