@@ -474,6 +474,18 @@ public class BpfNetMaps {
     }
 
     /**
+     * Check if naughty app bandwidth rule is applied for this app
+     *
+     * @param uid uid of target app
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    public boolean isNaughtyApp(final int uid) {
+        return BpfNetMapsUtils.isUidMatchEnabled(sUidOwnerMap, PENALTY_BOX_MATCH, uid);
+    }
+
+    /**
      * Add nice app bandwidth rule for specific app
      *
      * @param uid uid of target app
@@ -499,6 +511,18 @@ public class BpfNetMaps {
         throwIfPreT("removeNiceApp is not available on pre-T devices");
 
         removeRule(uid, HAPPY_BOX_MATCH, "removeNiceApp");
+    }
+
+    /**
+     * Check if nice app bandwidth rule is applied for this app
+     *
+     * @param uid uid of target app
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    public boolean isNiceApp(final int uid) {
+        return BpfNetMapsUtils.isUidMatchEnabled(sUidOwnerMap, HAPPY_BOX_MATCH, uid);
     }
 
     /**
@@ -637,6 +661,8 @@ public class BpfNetMaps {
         return BpfNetMapsUtils.getUidRule(sUidOwnerMap, childChain, uid);
     }
 
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private Set<Integer> getUidsMatchEnabled(final int childChain) throws ErrnoException {
         final long match = getMatchByFirewallChain(childChain);
         Set<Integer> uids = new ArraySet<>();
@@ -665,6 +691,7 @@ public class BpfNetMaps {
      * @param childChain target chain
      * @return Set of uids
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public Set<Integer> getUidsWithAllowRuleOnAllowListChain(final int childChain)
             throws ErrnoException {
         if (!isFirewallAllowList(childChain)) {
@@ -686,6 +713,7 @@ public class BpfNetMaps {
      * @param childChain target chain
      * @return Set of uids
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public Set<Integer> getUidsWithDenyRuleOnDenyListChain(final int childChain)
             throws ErrnoException {
         if (isFirewallAllowList(childChain)) {
@@ -937,6 +965,24 @@ public class BpfNetMaps {
                 sConfigurationMap, sUidOwnerMap, sDataSaverEnabledMap);
     }
 
+    /**
+     * Get Data Saver enabled or disabled
+     *
+     * Note that before V, the data saver status in bpf is written by ConnectivityService
+     * when receiving {@link ConnectivityManager#ACTION_RESTRICT_BACKGROUND_CHANGED}. Thus,
+     * the status is not synchronized.
+     * On V+, the data saver status is set by platform code when enabling/disabling
+     * data saver, which is synchronized.
+     *
+     * @return whether Data Saver is enabled or disabled.
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    public boolean getDataSaverEnabled() {
+        return BpfNetMapsUtils.getDataSaverEnabled(sDataSaverEnabledMap);
+    }
+
     /** Register callback for statsd to pull atom. */
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void setPullAtomCallback(final Context context) {
@@ -999,6 +1045,7 @@ public class BpfNetMaps {
         return sj.toString();
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private void dumpOwnerMatchConfig(final IndentingPrintWriter pw) {
         try {
             final long match = sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY).val;
