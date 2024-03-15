@@ -16,6 +16,24 @@
       "message": "So much duplication between createMaps and loadCodeSections. Maybe some of it can be factored out at some point?",
       "revId": "db8eb5a57630e2029409ba37876b427683352155",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92c8c59c_d31066d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-15T19:25:27Z",
+      "side": 1,
+      "message": "yeah, they\u0027re pretty similar and yet very different... refactoring it doesn\u0027t seem easy...",
+      "parentUuid": "1bfe5ba2_dd21b3d1",
+      "revId": "db8eb5a57630e2029409ba37876b427683352155",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
