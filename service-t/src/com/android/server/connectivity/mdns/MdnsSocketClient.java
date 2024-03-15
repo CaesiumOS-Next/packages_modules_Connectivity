@@ -206,18 +206,18 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
     }
 
     @Override
-    public void sendPacketRequestingMulticastResponse(@NonNull DatagramPacket packet,
+    public void sendPacketRequestingMulticastResponse(@NonNull List<DatagramPacket> packets,
             boolean onlyUseIpv6OnIpv6OnlyNetworks) {
-        sendMdnsPacket(packet, multicastPacketQueue, onlyUseIpv6OnIpv6OnlyNetworks);
+        sendMdnsPacket(packets, multicastPacketQueue, onlyUseIpv6OnIpv6OnlyNetworks);
     }
 
     @Override
-    public void sendPacketRequestingUnicastResponse(@NonNull DatagramPacket packet,
+    public void sendPacketRequestingUnicastResponse(@NonNull List<DatagramPacket> packets,
             boolean onlyUseIpv6OnIpv6OnlyNetworks) {
         if (useSeparateSocketForUnicast) {
-            sendMdnsPacket(packet, unicastPacketQueue, onlyUseIpv6OnIpv6OnlyNetworks);
+            sendMdnsPacket(packets, unicastPacketQueue, onlyUseIpv6OnIpv6OnlyNetworks);
         } else {
-            sendMdnsPacket(packet, multicastPacketQueue, onlyUseIpv6OnIpv6OnlyNetworks);
+            sendMdnsPacket(packets, multicastPacketQueue, onlyUseIpv6OnIpv6OnlyNetworks);
         }
     }
 
@@ -238,17 +238,17 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
         return false;
     }
 
-    private void sendMdnsPacket(DatagramPacket packet, Queue<DatagramPacket> packetQueueToUse,
-            boolean onlyUseIpv6OnIpv6OnlyNetworks) {
+    private void sendMdnsPacket(List<DatagramPacket> packets,
+            Queue<DatagramPacket> packetQueueToUse, boolean onlyUseIpv6OnIpv6OnlyNetworks) {
         if (shouldStopSocketLoop && !MdnsConfigs.allowAddMdnsPacketAfterDiscoveryStops()) {
             sharedLog.w("sendMdnsPacket() is called after discovery already stopped");
             return;
         }
 
-        final boolean isIpv4 = ((InetSocketAddress) packet.getSocketAddress()).getAddress()
-                instanceof Inet4Address;
-        final boolean isIpv6 = ((InetSocketAddress) packet.getSocketAddress()).getAddress()
-                instanceof Inet6Address;
+        final boolean isIpv4 = ((InetSocketAddress) packets.get(0).getSocketAddress())
+                .getAddress() instanceof Inet4Address;
+        final boolean isIpv6 = ((InetSocketAddress) packets.get(0).getSocketAddress())
+                .getAddress() instanceof Inet6Address;
         final boolean ipv6Only = multicastSocket != null && multicastSocket.isOnIPv6OnlyNetwork();
         if (isIpv4 && ipv6Only) {
             return;
@@ -258,10 +258,11 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
         }
 
         synchronized (packetQueueToUse) {
-            while (packetQueueToUse.size() >= MdnsConfigs.mdnsPacketQueueMaxSize()) {
+            while ((packetQueueToUse.size() + packets.size())
+                    > MdnsConfigs.mdnsPacketQueueMaxSize()) {
                 packetQueueToUse.remove();
             }
-            packetQueueToUse.add(packet);
+            packetQueueToUse.addAll(packets);
         }
         triggerSendThread();
     }
