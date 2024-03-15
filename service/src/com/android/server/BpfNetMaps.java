@@ -49,6 +49,7 @@ import static com.android.server.ConnectivityStatsLog.NETWORK_BPF_MAP_INFO;
 
 import android.app.StatsManager;
 import android.content.Context;
+import android.net.BpfNetMapsUtils;
 import android.net.INetd;
 import android.net.NetworkStackBpfNetMapsReader;
 import android.net.UidOwnerValue;
@@ -916,6 +917,24 @@ public class BpfNetMaps {
         } catch (ErrnoException e) {
             Log.e(TAG, "Failed to remove ingress discard rule for " + address + ", " + e);
         }
+    }
+
+    /**
+     * Return whether the network is blocked by firewall chains for the given uid.
+     *
+     * Note that {@link #getDataSaverEnabled()} has a latency before V.
+     *
+     * @param uid The target uid.
+     * @param isNetworkMetered Whether the target network is metered.
+     *
+     * @return True if the network is blocked. Otherwise, false.
+     * @throws ServiceSpecificException if the read fails.
+     *
+     * @hide
+     */
+    public boolean isUidNetworkingBlocked(final int uid, boolean isNetworkMetered) {
+        return BpfNetMapsUtils.isUidNetworkingBlocked(uid, isNetworkMetered,
+                sConfigurationMap, sUidOwnerMap, sDataSaverEnabledMap);
     }
 
     /** Register callback for statsd to pull atom. */
