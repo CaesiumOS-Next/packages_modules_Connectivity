@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0596bebf_c4b96f20",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-15T06:57:29Z",
+      "side": 0,
+      "message": "Why do you need to change that ? Can you explain in the commit message ? This looks like there would be a behavior change where the send task would not be directly submitted anymore.",
+      "revId": "df0a16ccf40874af7a3e151a013d02a05f4fa6fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
