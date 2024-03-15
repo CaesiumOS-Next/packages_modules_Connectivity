@@ -759,6 +759,10 @@ public class NetworkStatsManager {
      * made over a mobile radio.
      * The snapshot will not include any statistics that cannot be seen by
      * the kernel, e.g. statistics reported by {@link NetworkStatsProvider}s.
+     * With satellite support and satellite network belong to type mobile, returns both cellular
+     * and satellite stats information when called.
+     *
+     * Note: When getUidStatsForTransport with TRANSPORT_SATELLITE parameter, stats is not supported
      *
      * @hide
      */
