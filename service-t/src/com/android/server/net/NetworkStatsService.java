@@ -25,6 +25,7 @@ import static android.content.Intent.ACTION_UID_REMOVED;
 import static android.content.Intent.ACTION_USER_REMOVED;
 import static android.content.Intent.EXTRA_UID;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
+import static android.net.NetworkCapabilities.TRANSPORT_SATELLITE;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkStats.DEFAULT_NETWORK_ALL;
 import static android.net.NetworkStats.DEFAULT_NETWORK_NO;
@@ -1777,7 +1778,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             final Set<String> ifaceSet;
             if (transport == TRANSPORT_WIFI) {
                 ifaceSet = mAllWifiIfacesSinceBoot;
-            } else if (transport == TRANSPORT_CELLULAR) {
+            } else if (transport == TRANSPORT_CELLULAR || transport == TRANSPORT_SATELLITE) {
                 ifaceSet = mAllMobileIfacesSinceBoot;
             } else {
                 throw new IllegalArgumentException("Invalid transport " + transport);
@@ -2187,7 +2188,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         for (NetworkStateSnapshot snapshot : snapshots) {
             final int displayTransport =
                     getDisplayTransport(snapshot.getNetworkCapabilities().getTransportTypes());
-            final boolean isMobile = (NetworkCapabilities.TRANSPORT_CELLULAR == displayTransport);
+            final boolean isMobile = checkDisplayTransportIsMobileNetwork(displayTransport);
             final boolean isWifi = (NetworkCapabilities.TRANSPORT_WIFI == displayTransport);
             final boolean isDefault = CollectionUtils.contains(
                     mDefaultNetworks, snapshot.getNetwork());
@@ -2320,16 +2321,23 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     }
 
     /**
-     * For networks with {@code TRANSPORT_CELLULAR}, get ratType that was obtained through
-     * {@link PhoneStateListener}. Otherwise, return 0 given that other networks with different
-     * transport types do not actually fill this value.
+     * For networks with {@code TRANSPORT_CELLULAR} Or {@code TRANSPORT_SATELLITE}, get ratType
+     * that was obtained through {@link PhoneStateListener}. Otherwise, return 0 given that other
+     * networks with different transport types do not actually fill this value.
      */
     private int getRatTypeForStateSnapshot(@NonNull NetworkStateSnapshot state) {
-        if (!state.getNetworkCapabilities().hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+        if (!state.getNetworkCapabilities().hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+                && !state.getNetworkCapabilities()
+                .hasTransport(NetworkCapabilities.TRANSPORT_SATELLITE)) {
             return 0;
         }
 
         return mNetworkStatsSubscriptionsMonitor.getRatTypeForSubscriberId(state.getSubscriberId());
+    }
+
+    private boolean checkDisplayTransportIsMobileNetwork(int displayTransport) {
+        return (NetworkCapabilities.TRANSPORT_CELLULAR == displayTransport)
+                || (NetworkCapabilities.TRANSPORT_SATELLITE == displayTransport);
     }
 
     private static <K> NetworkIdentitySet findOrCreateNetworkIdentitySet(
