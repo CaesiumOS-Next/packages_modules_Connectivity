@@ -920,8 +920,10 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         final NetworkTemplate template5g = new NetworkTemplate.Builder(MATCH_MOBILE)
                 .setRatType(TelephonyManager.NETWORK_TYPE_NR)
                 .setMeteredness(METERED_YES).build();
+        // Add snapshot of both cellular and satellite states
         final NetworkStateSnapshot[] states =
-                new NetworkStateSnapshot[]{buildMobileState(IMSI_1)};
+                new NetworkStateSnapshot[]{buildMobileState(IMSI_1),
+                        buildSatelliteMobileState(IMSI_1)};
 
         // 3G network comes online.
         mockNetworkStatsSummary(buildEmptyStats());
@@ -934,13 +936,17 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         // Create some traffic.
         incrementCurrentTime(MINUTE_IN_MILLIS);
         mockNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 1)
+                // add traffic on cellular iface
                 .addEntry(new NetworkStats.Entry(TEST_IFACE, UID_RED, SET_DEFAULT, TAG_NONE,
+                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 12L, 18L, 14L, 1L, 0L))
+                // add traffic on satellite iface
+                .addEntry(new NetworkStats.Entry(TEST_IFACE2, UID_RED, SET_DEFAULT, TAG_NONE,
                         METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 12L, 18L, 14L, 1L, 0L)));
         forcePollAndWaitForIdle();
 
-        // Verify 3g templates gets stats.
-        assertUidTotal(sTemplateImsi1, UID_RED, 12L, 18L, 14L, 1L, 0);
-        assertUidTotal(template3g, UID_RED, 12L, 18L, 14L, 1L, 0);
+        // Verify 3g templates gets stats(with both cellular and Satellite iface)
+        assertUidTotal(sTemplateImsi1, UID_RED, 24L, 36L, 28L, 2L, 0);
+        assertUidTotal(template3g, UID_RED, 24L, 36L, 28L, 2L, 0);
         assertUidTotal(template4g, UID_RED, 0L, 0L, 0L, 0L, 0);
         assertUidTotal(template5g, UID_RED, 0L, 0L, 0L, 0L, 0);
 
@@ -949,18 +955,29 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         setMobileRatTypeAndWaitForIdle(TelephonyManager.NETWORK_TYPE_LTE);
         mockNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 1)
                 // Append more traffic on existing 3g stats entry.
+                // add more traffic on cellular iface
                 .addEntry(new NetworkStats.Entry(TEST_IFACE, UID_RED, SET_DEFAULT, TAG_NONE,
                          METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 16L, 22L, 17L, 2L, 0L))
+                // add more traffic on satellite iface
+                .addEntry(new NetworkStats.Entry(TEST_IFACE2, UID_RED, SET_DEFAULT, TAG_NONE,
+                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 16L, 20L, 15L, 2L, 0L))
                 // Add entry that is new on 4g.
+                // add traffic on cellular iface
                 .addEntry(new NetworkStats.Entry(TEST_IFACE, UID_RED, SET_FOREGROUND, TAG_NONE,
-                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 33L, 27L, 8L, 10L, 1L)));
+                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 33L, 27L, 8L, 10L, 1L))
+                // add traffic on satellite iface
+                .addEntry(new NetworkStats.Entry(TEST_IFACE2, UID_RED, SET_FOREGROUND, TAG_NONE,
+                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 15L, 20L, 10L, 20L, 2L)));
         forcePollAndWaitForIdle();
 
-        // Verify ALL_MOBILE template gets all. 3g template counters do not increase.
-        assertUidTotal(sTemplateImsi1, UID_RED, 49L, 49L, 25L, 12L, 1);
-        assertUidTotal(template3g, UID_RED, 12L, 18L, 14L, 1L, 0);
-        // Verify 4g template counts appended stats on existing entry and newly created entry.
-        assertUidTotal(template4g, UID_RED, 4L + 33L, 4L + 27L, 3L + 8L, 1L + 10L, 1);
+        // Verify ALL_MOBILE template gets all stats(with both cellular and Satellite iface).
+        // 3g template counters do not increase.
+        assertUidTotal(sTemplateImsi1, UID_RED, 80L, 89L, 50L, 34L, 3);
+        assertUidTotal(template3g, UID_RED, 24L, 36L, 28L, 2L, 0);
+        // Verify 4g template counts appended stats on existing entry (with both cellular and
+        // Satellite iface) and newly created entry.
+        assertUidTotal(
+                template4g, UID_RED, 4L + 4L + 48L, 4L + 2L + 47L, 3L + 1L + 18L, 1L + 1L + 30L, 3);
         // Verify 5g template doesn't get anything since no traffic is generated on 5g.
         assertUidTotal(template5g, UID_RED, 0L, 0L, 0L, 0L, 0);
 
@@ -973,18 +990,27 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                         METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 16L, 22L, 17L, 2L, 0L))
                 .addEntry(new NetworkStats.Entry(TEST_IFACE, UID_RED, SET_FOREGROUND, TAG_NONE,
                         METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 33L, 27L, 8L, 10L, 1L))
+                .addEntry(new NetworkStats.Entry(TEST_IFACE2, UID_RED, SET_DEFAULT, TAG_NONE,
+                                METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 16L, 20L, 15L, 2L, 0L))
+                .addEntry(new NetworkStats.Entry(TEST_IFACE2, UID_RED, SET_FOREGROUND, TAG_NONE,
+                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 15L, 20L, 10L, 20L, 2L))
                 // Add some traffic on 5g.
+                // add traffic on cellular iface
                 .addEntry(new NetworkStats.Entry(TEST_IFACE, UID_RED, SET_DEFAULT, TAG_NONE,
-                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 5L, 13L, 31L, 9L, 2L)));
+                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 5L, 13L, 31L, 9L, 2L))
+                // add traffic on satellite iface
+                .addEntry(new NetworkStats.Entry(TEST_IFACE2, UID_RED, SET_DEFAULT, TAG_NONE,
+                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 10L, 10L, 20L, 5L, 3L)));
         forcePollAndWaitForIdle();
 
-        // Verify ALL_MOBILE template gets all.
-        assertUidTotal(sTemplateImsi1, UID_RED, 54L, 62L, 56L, 21L, 3);
+        // Verify ALL_MOBILE template gets all (with both cellular and Satellite stats)
+        assertUidTotal(sTemplateImsi1, UID_RED, 95L, 112L, 101L, 48L, 8);
         // 3g/4g template counters do not increase.
-        assertUidTotal(template3g, UID_RED, 12L, 18L, 14L, 1L, 0);
-        assertUidTotal(template4g, UID_RED, 4L + 33L, 4L + 27L, 3L + 8L, 1L + 10L, 1);
-        // Verify 5g template gets the 5g count.
-        assertUidTotal(template5g, UID_RED, 5L, 13L, 31L, 9L, 2);
+        assertUidTotal(template3g, UID_RED, 24L, 36L, 28L, 2L, 0);
+        assertUidTotal(
+                template4g, UID_RED, 4L + 4L + 48L, 4L + 2L + 47L, 3L + 1L + 18L, 1L + 1L + 30L, 3);
+        // Verify 5g template gets the 5g count.(with both cellular and Satellite iface)
+        assertUidTotal(template5g, UID_RED, 15L, 23L, 51L, 14L, 5);
     }
 
     @Test
@@ -1284,9 +1310,14 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 TEST_IFACE2, IMSI_1, null /* wifiNetworkKey */,
                 false /* isTemporarilyNotMetered */, false /* isRoaming */);
 
+        final NetworkStateSnapshot mobileSatelliteState = buildStateOfTransport(
+                NetworkCapabilities.TRANSPORT_SATELLITE, TYPE_MOBILE,
+                TEST_IFACE4, IMSI_1, null /* wifiNetworkKey */,
+                false /* isTemporarilyNotMetered */, false /* isRoaming */);
+
         final NetworkStateSnapshot[] states = new NetworkStateSnapshot[]{
                 mobileState, buildWifiState(false, TEST_IFACE, null),
-                buildWifiState(false, TEST_IFACE3, null)};
+                buildWifiState(false, TEST_IFACE3, null), mobileSatelliteState};
         mService.notifyNetworkStatus(NETWORKS_MOBILE, states, getActiveIface(states),
                 new UnderlyingNetworkInfo[0]);
         setMobileRatTypeAndWaitForIdle(TelephonyManager.NETWORK_TYPE_LTE);
@@ -1336,9 +1367,9 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertValues(wifiStats, null /* iface */, UID_BLUE, SET_DEFAULT, 0xBEEF,
                 METERED_NO, ROAMING_NO, METERED_NO, 1025L, 10L, 515L, 8L, 7L);
 
-        final String[] mobileIfaces = {TEST_IFACE2};
+        String[] mobileIfaces = {TEST_IFACE2, TEST_IFACE4};
         mockNetworkStatsUidDetail(buildEmptyStats(), emptyTetherStats, mobileIfaces);
-        final NetworkStats mobileStats = mService.getUidStatsForTransport(
+        NetworkStats mobileStats = mService.getUidStatsForTransport(
                 NetworkCapabilities.TRANSPORT_CELLULAR);
 
         assertEquals(2, mobileStats.size());
@@ -1349,6 +1380,79 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 0L, 0L, 0L, 0L, 1);
         assertValues(mobileStats, null /* iface */, UID_RED, SET_DEFAULT, TAG_NONE,
                 METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 0L, 0L, 0L, 0L, 1);
+
+        // mock traffic on satellite network
+        final NetworkStats.Entry entry5 = new NetworkStats.Entry(
+                TEST_IFACE4, UID_RED, SET_DEFAULT, TAG_NONE, METERED_NO, ROAMING_NO,
+                DEFAULT_NETWORK_NO, 50L, 5L, 50L, 5L, 1L);
+
+        // With Satellite Stats Iface
+        mobileIfaces = new String[]{TEST_IFACE2, TEST_IFACE4};
+        incrementCurrentTime(HOUR_IN_MILLIS);
+        mockDefaultSettings();
+        mockNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 1)
+                .insertEntry(entry5), emptyTetherStats, mobileIfaces);
+        mobileStats = mService.getUidStatsForTransport(NetworkCapabilities.TRANSPORT_CELLULAR);
+
+        assertEquals(2, mobileStats.size());
+        // Verify the operation count stats that caused by incrementOperationCount only appears
+        // on the mobile interface since incrementOperationCount attributes them onto the active
+        // interface.
+        assertValues(mobileStats, null /* iface */, UID_RED, SET_DEFAULT, 0xF00D,
+                METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 0L, 0L, 0L, 0L, 1);
+        assertValues(mobileStats, null /* iface */, UID_RED, SET_DEFAULT, TAG_NONE,
+                METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 50L, 5L, 50L, 5L, 2);
+    }
+
+    @Test
+    public void testUidStatsForTransportOnSatelliteNetworkConnection() throws Exception {
+        // Setup satellite mobile network and Cellular mobile network
+        mockDefaultSettings();
+        mockNetworkStatsUidDetail(buildEmptyStats());
+
+        final NetworkStateSnapshot mobileSatelliteState = buildStateOfTransport(
+                NetworkCapabilities.TRANSPORT_SATELLITE, TYPE_MOBILE,
+                TEST_IFACE2, IMSI_1, null /* wifiNetworkKey */,
+                false /* isTemporarilyNotMetered */, false /* isRoaming */);
+
+        final NetworkStateSnapshot mobileCellularState = buildStateOfTransport(
+                NetworkCapabilities.TRANSPORT_CELLULAR, TYPE_MOBILE,
+                TEST_IFACE3, IMSI_1, null /* wifiNetworkKey */,
+                false /* isTemporarilyNotMetered */, false /* isRoaming */);
+
+        final NetworkStateSnapshot[] states = new NetworkStateSnapshot[]{mobileSatelliteState,
+                mobileCellularState};
+        mService.notifyNetworkStatus(NETWORKS_MOBILE, states, getActiveIface(states),
+                new UnderlyingNetworkInfo[0]);
+        setMobileRatTypeAndWaitForIdle(TelephonyManager.NETWORK_TYPE_LTE);
+
+        // mock traffic on satellite network
+        final NetworkStats.Entry entry1 = new NetworkStats.Entry(
+                TEST_IFACE2, UID_RED, SET_DEFAULT, TAG_NONE, METERED_NO, ROAMING_NO,
+                DEFAULT_NETWORK_NO, 50L, 5L, 50L, 5L, 1L);
+
+        // mock traffic on cellular network
+        final NetworkStats.Entry entry2 = new NetworkStats.Entry(
+                TEST_IFACE3, UID_RED, SET_DEFAULT, TAG_NONE, METERED_NO, ROAMING_NO,
+                DEFAULT_NETWORK_NO, 50L, 5L, 50L, 5L, 1L);
+
+        final TetherStatsParcel[] emptyTetherStats = {};
+        // The interfaces that expect to be used to query the stats.
+        final String[] mobileIfaces = {TEST_IFACE2, TEST_IFACE3};
+        incrementCurrentTime(HOUR_IN_MILLIS);
+        mockDefaultSettings();
+        mockNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 2)
+                .insertEntry(entry1).insertEntry(entry2), emptyTetherStats, mobileIfaces);
+        // with getUidStatsForTransport(TRANSPORT_CELLULAR) return stats of both cellular
+        // and satellite
+        final NetworkStats mobileStats = mService.getUidStatsForTransport(
+                NetworkCapabilities.TRANSPORT_CELLULAR);
+
+        // The iface field of the returned stats should be null because getUidStatsForTransport
+        // clears the interface field before it returns the result.
+        assertValues(mobileStats, null /* iface */, UID_RED, SET_DEFAULT, TAG_NONE,
+                METERED_NO, ROAMING_NO, METERED_NO, 100L, 10L, 100L, 10L, 2L);
+
     }
 
     @Test
@@ -2506,6 +2610,12 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private static NetworkStateSnapshot buildMobileState(String subscriberId) {
         return buildStateOfTransport(NetworkCapabilities.TRANSPORT_CELLULAR, TYPE_MOBILE,
                 TEST_IFACE, subscriberId, null /* wifiNetworkKey */,
+                false /* isTemporarilyNotMetered */, false /* isRoaming */);
+    }
+
+    private static NetworkStateSnapshot buildSatelliteMobileState(String subscriberId) {
+        return buildStateOfTransport(NetworkCapabilities.TRANSPORT_SATELLITE, TYPE_MOBILE,
+                TEST_IFACE2, subscriberId, null /* wifiNetworkKey */,
                 false /* isTemporarilyNotMetered */, false /* isRoaming */);
     }
 
