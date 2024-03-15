@@ -42,6 +42,9 @@ import static android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND;
 import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DEFAULT;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
+import static android.net.ConnectivityManager.RESTRICT_BACKGROUND_STATUS_DISABLED;
+import static android.net.ConnectivityManager.RESTRICT_BACKGROUND_STATUS_ENABLED;
+import static android.net.ConnectivityManager.RESTRICT_BACKGROUND_STATUS_WHITELISTED;
 import static android.net.ConnectivityManager.TYPE_BLUETOOTH;
 import static android.net.ConnectivityManager.TYPE_ETHERNET;
 import static android.net.ConnectivityManager.TYPE_MOBILE;
@@ -3038,13 +3041,30 @@ public class ConnectivityService extends IConnectivityManager.Stub
         maybeDisableLocalNetworkMatching(nc, callingUid);
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private @RestrictBackgroundStatus int getRestrictBackgroundStatus(final int uid) {
+        if (mBpfNetMaps.isNaughtyApp(uid)) {
+            // App is restricted.
+            return RESTRICT_BACKGROUND_STATUS_ENABLED;
+        }
+        if (!mBpfNetMaps.getDataSaverEnabled()) {
+            return RESTRICT_BACKGROUND_STATUS_DISABLED;
+        }
+        return mBpfNetMaps.isNiceApp(uid) ? RESTRICT_BACKGROUND_STATUS_WHITELISTED
+                : RESTRICT_BACKGROUND_STATUS_ENABLED;
+    }
+
     @Override
     public @RestrictBackgroundStatus int getRestrictBackgroundStatusByCaller() {
         enforceAccessPermission();
         final int callerUid = Binder.getCallingUid();
         final long token = Binder.clearCallingIdentity();
         try {
-            return mPolicyManager.getRestrictBackgroundStatus(callerUid);
+            if (mDeps.isAtLeastV()) {
+                return getRestrictBackgroundStatus(callerUid);
+            } else {
+                return mPolicyManager.getRestrictBackgroundStatus(callerUid);
+            }
         } finally {
             Binder.restoreCallingIdentity(token);
         }
@@ -7221,7 +7241,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     final int dataSaverForSystemUid =
                             mPolicyManager.getRestrictBackgroundStatus(Process.SYSTEM_UID);
                     final boolean isDataSaverEnabled = (dataSaverForSystemUid
-                            != ConnectivityManager.RESTRICT_BACKGROUND_STATUS_DISABLED);
+                            != RESTRICT_BACKGROUND_STATUS_DISABLED);
                     mBpfNetMaps.setDataSaverEnabled(isDataSaverEnabled);
                     break;
                 default:
@@ -13572,6 +13592,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return rule;
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private void closeSocketsForFirewallChainLocked(final int chain)
             throws ErrnoException, SocketException, InterruptedIOException {
         if (BpfNetMapsUtils.isFirewallAllowList(chain)) {
