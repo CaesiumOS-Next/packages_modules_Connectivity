@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c075c36d_a1d138ce",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 72
+      },
+      "lineNbr": 8996,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-15T13:14:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99b151dd_85db9f0b",
+      "range": {
+        "startLine": 8996,
+        "startChar": 8,
+        "endLine": 8996,
+        "endChar": 72
+      },
+      "revId": "29af99c914271c08ef34acadd10b9040634c8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2451e707_64898a8a",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-13T09:49:18Z",
       "side": 1,
       "message": "Might want to add a comment here to explain what you\u0027re doing?\n\n    // Determine how many networks each IP address is currently configured on.\n    // Ingress rules are added only for IP addresses that are configured on more than\n    // one interface.",
+      "range": {
+        "startLine": 8998,
+        "startChar": 8,
+        "endLine": 8998,
+        "endChar": 13
+      },
+      "revId": "29af99c914271c08ef34acadd10b9040634c8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a5459cc_2af14807",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 72
+      },
+      "lineNbr": 8998,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-15T13:14:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2451e707_64898a8a",
       "range": {
         "startLine": 8998,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40187206_b1ae5c1a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 72
+      },
+      "lineNbr": 9003,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-15T13:14:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d714a2e6_8862f377",
+      "range": {
+        "startLine": 9003,
+        "startChar": 47,
+        "endLine": 9003,
+        "endChar": 53
+      },
+      "revId": "29af99c914271c08ef34acadd10b9040634c8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29802aa4_7244f38b",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-03-13T09:49:18Z",
       "side": 1,
       "message": "Per discussion, can you add a comment to explain why this code iterates over all networks, instead of only generating rules for the nai that was passed in?",
+      "range": {
+        "startLine": 9012,
+        "startChar": 8,
+        "endLine": 9012,
+        "endChar": 13
+      },
+      "revId": "29af99c914271c08ef34acadd10b9040634c8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68ecddeb_3d63c190",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 72
+      },
+      "lineNbr": 9012,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-15T13:14:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29802aa4_7244f38b",
       "range": {
         "startLine": 9012,
         "startChar": 8,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15057066_806cae2a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 72
+      },
+      "lineNbr": 9017,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-15T13:14:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7bc8d67_29d306c2",
+      "range": {
+        "startLine": 9017,
+        "startChar": 46,
+        "endLine": 9017,
+        "endChar": 53
+      },
+      "revId": "29af99c914271c08ef34acadd10b9040634c8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f3e5617_2312a571",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-03-13T09:49:18Z",
       "side": 1,
       "message": "Not strictly necessary, but it would be good to have an unrelated network agent here, just because it would make the test more realistic. VPNs are almost always established when other networks are connected.",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 50
+      },
+      "revId": "29af99c914271c08ef34acadd10b9040634c8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "727f229c_d6577951",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 72
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-15T13:14:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f3e5617_2312a571",
       "range": {
         "startLine": 95,
         "startChar": 8,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c8175e0_53b02f2d",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 72
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-15T13:14:28Z",
+      "side": 1,
+      "message": "We need to use agent#onNetworkDestroyed since destroyNativeNetwork is called after onLost.\nLet me address this by the followup CL since CSAgentWrapper does not have method to expect onNetworkDestroyed callback and need some changes.",
+      "parentUuid": "1663fb3c_2fd35642",
+      "range": {
+        "startLine": 120,
+        "startChar": 27,
+        "endLine": 120,
+        "endChar": 34
+      },
+      "revId": "29af99c914271c08ef34acadd10b9040634c8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f675512_2d008397",
@@ -175,6 +343,30 @@
       "writtenOn": "2024-03-13T09:49:18Z",
       "side": 1,
       "message": "is removed",
+      "range": {
+        "startLine": 195,
+        "startChar": 30,
+        "endLine": 195,
+        "endChar": 42
+      },
+      "revId": "29af99c914271c08ef34acadd10b9040634c8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a2c51f5_b96a0e7e",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSIngressDiscardRuleTests.kt",
+        "patchSetId": 72
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-15T13:14:28Z",
+      "side": 1,
+      "message": "Updated comment.",
+      "parentUuid": "8f675512_2d008397",
       "range": {
         "startLine": 195,
         "startChar": 30,
