@@ -60,6 +60,7 @@ import org.mockito.invocation.InvocationOnMock;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetSocketAddress;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -234,7 +235,7 @@ public class MdnsSocketClientTests {
 
         // Sends a packet.
         DatagramPacket packet = getTestDatagramPacket();
-        mdnsClient.sendPacketRequestingMulticastResponse(packet,
+        mdnsClient.sendPacketRequestingMulticastResponse(List.of(packet),
                 false /* onlyUseIpv6OnIpv6OnlyNetworks */);
         // mockMulticastSocket.send() will be called on another thread. If we verify it immediately,
         // it may not be called yet. So timeout is added.
@@ -242,7 +243,7 @@ public class MdnsSocketClientTests {
         verify(mockUnicastSocket, timeout(TIMEOUT).times(0)).send(packet);
 
         // Verify the packet is sent by the unicast socket.
-        mdnsClient.sendPacketRequestingUnicastResponse(packet,
+        mdnsClient.sendPacketRequestingUnicastResponse(List.of(packet),
                 false /* onlyUseIpv6OnIpv6OnlyNetworks */);
         verify(mockMulticastSocket, timeout(TIMEOUT).times(1)).send(packet);
         verify(mockUnicastSocket, timeout(TIMEOUT).times(1)).send(packet);
@@ -287,7 +288,7 @@ public class MdnsSocketClientTests {
 
         // Sends a packet.
         DatagramPacket packet = getTestDatagramPacket();
-        mdnsClient.sendPacketRequestingMulticastResponse(packet,
+        mdnsClient.sendPacketRequestingMulticastResponse(List.of(packet),
                 false /* onlyUseIpv6OnIpv6OnlyNetworks */);
         // mockMulticastSocket.send() will be called on another thread. If we verify it immediately,
         // it may not be called yet. So timeout is added.
@@ -295,7 +296,7 @@ public class MdnsSocketClientTests {
         verify(mockUnicastSocket, timeout(TIMEOUT).times(0)).send(packet);
 
         // Verify the packet is sent by the multicast socket as well.
-        mdnsClient.sendPacketRequestingUnicastResponse(packet,
+        mdnsClient.sendPacketRequestingUnicastResponse(List.of(packet),
                 false /* onlyUseIpv6OnIpv6OnlyNetworks */);
         verify(mockMulticastSocket, timeout(TIMEOUT).times(2)).send(packet);
         verify(mockUnicastSocket, timeout(TIMEOUT).times(0)).send(packet);
@@ -354,7 +355,7 @@ public class MdnsSocketClientTests {
     public void testStopDiscovery_queueIsCleared() throws IOException {
         mdnsClient.startDiscovery();
         mdnsClient.stopDiscovery();
-        mdnsClient.sendPacketRequestingMulticastResponse(getTestDatagramPacket(),
+        mdnsClient.sendPacketRequestingMulticastResponse(List.of(getTestDatagramPacket()),
                 false /* onlyUseIpv6OnIpv6OnlyNetworks */);
 
         synchronized (mdnsClient.multicastPacketQueue) {
@@ -366,7 +367,7 @@ public class MdnsSocketClientTests {
     public void testSendPacket_afterDiscoveryStops() throws IOException {
         mdnsClient.startDiscovery();
         mdnsClient.stopDiscovery();
-        mdnsClient.sendPacketRequestingMulticastResponse(getTestDatagramPacket(),
+        mdnsClient.sendPacketRequestingMulticastResponse(List.of(getTestDatagramPacket()),
                 false /* onlyUseIpv6OnIpv6OnlyNetworks */);
 
         synchronized (mdnsClient.multicastPacketQueue) {
@@ -380,7 +381,7 @@ public class MdnsSocketClientTests {
         //MdnsConfigsFlagsImpl.mdnsPacketQueueMaxSize.override(2L);
         mdnsClient.startDiscovery();
         for (int i = 0; i < 100; i++) {
-            mdnsClient.sendPacketRequestingMulticastResponse(getTestDatagramPacket(),
+            mdnsClient.sendPacketRequestingMulticastResponse(List.of(getTestDatagramPacket()),
                     false /* onlyUseIpv6OnIpv6OnlyNetworks */);
         }
 
@@ -478,9 +479,9 @@ public class MdnsSocketClientTests {
 
         mdnsClient.startDiscovery();
         DatagramPacket packet = getTestDatagramPacket();
-        mdnsClient.sendPacketRequestingUnicastResponse(packet,
+        mdnsClient.sendPacketRequestingUnicastResponse(List.of(packet),
                 false /* onlyUseIpv6OnIpv6OnlyNetworks */);
-        mdnsClient.sendPacketRequestingMulticastResponse(packet,
+        mdnsClient.sendPacketRequestingMulticastResponse(List.of(packet),
                 false /* onlyUseIpv6OnIpv6OnlyNetworks */);
 
         // Wait for the timer to be triggered.
@@ -511,9 +512,9 @@ public class MdnsSocketClientTests {
         assertFalse(mdnsClient.receivedUnicastResponse);
         assertFalse(mdnsClient.cannotReceiveMulticastResponse.get());
 
-        mdnsClient.sendPacketRequestingUnicastResponse(packet,
+        mdnsClient.sendPacketRequestingUnicastResponse(List.of(packet),
                 false /* onlyUseIpv6OnIpv6OnlyNetworks */);
-        mdnsClient.sendPacketRequestingMulticastResponse(packet,
+        mdnsClient.sendPacketRequestingMulticastResponse(List.of(packet),
                 false /* onlyUseIpv6OnIpv6OnlyNetworks */);
         Thread.sleep(MdnsConfigs.checkMulticastResponseIntervalMs() * 2);
 
