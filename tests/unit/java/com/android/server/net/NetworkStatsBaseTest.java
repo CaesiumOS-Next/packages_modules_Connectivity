@@ -42,6 +42,7 @@ abstract class NetworkStatsBaseTest {
     static final String TEST_IFACE = "test0";
     static final String TEST_IFACE2 = "test1";
     static final String TEST_IFACE3 = "test2";
+    static final String TEST_IFACE4 = "test3";
     static final String TUN_IFACE = "test_nss_tun0";
     static final String TUN_IFACE2 = "test_nss_tun1";
 
