@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "832abd37_1fdf4105",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-15T07:16:30Z",
+      "side": 1,
+      "message": "Nit: a bit of javadoc to explain the behavior would help since it\u0027s a bit complicated (writing part of the packet, what is returned, etc)\n\nAlso mention this only works for queries since it\u0027s only including questions and answers, not other records",
+      "revId": "8d442d1c5117da91061f888e195e9e944957bd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a8d539d_8faab914",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/util/MdnsUtilsTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-15T07:16:30Z",
+      "side": 1,
+      "message": "Could you also verify that they have the expected list of answers ?\n\nAlso it would be good to test for oversize packets cut in the middle of questions (not knownAnswers)",
+      "revId": "8d442d1c5117da91061f888e195e9e944957bd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
