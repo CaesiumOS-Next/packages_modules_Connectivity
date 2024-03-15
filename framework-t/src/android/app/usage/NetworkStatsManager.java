@@ -752,13 +752,15 @@ public class NetworkStatsManager {
     /**
      * Query realtime mobile network usage statistics.
      *
-     * Return a snapshot of current UID network statistics, as it applies
-     * to the mobile radios of the device. The snapshot will include any
+     * Return a snapshot of current UID network statistics for both cellular and satellite
+     * when called, as it applies to the mobile radios of the device. The snapshot will include any
      * tethering traffic, video calling data usage and count of
      * network operations set by {@link TrafficStats#incrementOperationCount}
      * made over a mobile radio.
      * The snapshot will not include any statistics that cannot be seen by
      * the kernel, e.g. statistics reported by {@link NetworkStatsProvider}s.
+     *
+     * Note: When getUidStatsForTransport with TRANSPORT_SATELLITE parameter, stats is not supported
      *
      * @hide
      */
