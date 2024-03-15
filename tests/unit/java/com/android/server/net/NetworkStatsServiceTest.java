@@ -988,6 +988,84 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     }
 
     @Test
+    public void testMobileTypeSatelliteStatsByRatType() throws Exception {
+        final NetworkTemplate template3g = new NetworkTemplate.Builder(MATCH_MOBILE)
+                .setRatType(TelephonyManager.NETWORK_TYPE_UMTS)
+                .setMeteredness(METERED_YES).build();
+        final NetworkTemplate template4g = new NetworkTemplate.Builder(MATCH_MOBILE)
+                .setRatType(TelephonyManager.NETWORK_TYPE_LTE)
+                .setMeteredness(METERED_YES).build();
+        final NetworkTemplate template5g = new NetworkTemplate.Builder(MATCH_MOBILE)
+                .setRatType(TelephonyManager.NETWORK_TYPE_NR)
+                .setMeteredness(METERED_YES).build();
+        final NetworkStateSnapshot[] states =
+                new NetworkStateSnapshot[]{buildSatelliteMobileState(IMSI_1)};
+
+        // 3G network comes online.
+        mockNetworkStatsSummary(buildEmptyStats());
+        mockNetworkStatsUidDetail(buildEmptyStats());
+
+        setMobileRatTypeAndWaitForIdle(TelephonyManager.NETWORK_TYPE_UMTS);
+        mService.notifyNetworkStatus(NETWORKS_MOBILE, states, getActiveIface(states),
+                new UnderlyingNetworkInfo[0]);
+
+        // Create some traffic.
+        incrementCurrentTime(MINUTE_IN_MILLIS);
+        mockNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 1)
+                .addEntry(new NetworkStats.Entry(TEST_IFACE, UID_RED, SET_DEFAULT, TAG_NONE,
+                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 12L, 18L, 14L, 1L, 0L)));
+        forcePollAndWaitForIdle();
+
+        // Verify 3g templates gets stats.
+        assertUidTotal(sTemplateImsi1, UID_RED, 12L, 18L, 14L, 1L, 0);
+        assertUidTotal(template3g, UID_RED, 12L, 18L, 14L, 1L, 0);
+        assertUidTotal(template4g, UID_RED, 0L, 0L, 0L, 0L, 0);
+        assertUidTotal(template5g, UID_RED, 0L, 0L, 0L, 0L, 0);
+
+        // 4G network comes online.
+        incrementCurrentTime(MINUTE_IN_MILLIS);
+        setMobileRatTypeAndWaitForIdle(TelephonyManager.NETWORK_TYPE_LTE);
+        mockNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 1)
+                // Append more traffic on existing 3g stats entry.
+                .addEntry(new NetworkStats.Entry(TEST_IFACE, UID_RED, SET_DEFAULT, TAG_NONE,
+                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 16L, 22L, 17L, 2L, 0L))
+                // Add entry that is new on 4g.
+                .addEntry(new NetworkStats.Entry(TEST_IFACE, UID_RED, SET_FOREGROUND, TAG_NONE,
+                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 33L, 27L, 8L, 10L, 1L)));
+        forcePollAndWaitForIdle();
+
+        // Verify ALL_MOBILE template gets all. 3g template counters do not increase.
+        assertUidTotal(sTemplateImsi1, UID_RED, 49L, 49L, 25L, 12L, 1);
+        assertUidTotal(template3g, UID_RED, 12L, 18L, 14L, 1L, 0);
+        // Verify 4g template counts appended stats on existing entry and newly created entry.
+        assertUidTotal(template4g, UID_RED, 4L + 33L, 4L + 27L, 3L + 8L, 1L + 10L, 1);
+        // Verify 5g template doesn't get anything since no traffic is generated on 5g.
+        assertUidTotal(template5g, UID_RED, 0L, 0L, 0L, 0L, 0);
+
+        // 5g network comes online.
+        incrementCurrentTime(MINUTE_IN_MILLIS);
+        setMobileRatTypeAndWaitForIdle(TelephonyManager.NETWORK_TYPE_NR);
+        mockNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 1)
+                // Existing stats remains.
+                .addEntry(new NetworkStats.Entry(TEST_IFACE, UID_RED, SET_DEFAULT, TAG_NONE,
+                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 16L, 22L, 17L, 2L, 0L))
+                .addEntry(new NetworkStats.Entry(TEST_IFACE, UID_RED, SET_FOREGROUND, TAG_NONE,
+                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 33L, 27L, 8L, 10L, 1L))
+                // Add some traffic on 5g.
+                .addEntry(new NetworkStats.Entry(TEST_IFACE, UID_RED, SET_DEFAULT, TAG_NONE,
+                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 5L, 13L, 31L, 9L, 2L)));
+        forcePollAndWaitForIdle();
+
+        // Verify ALL_MOBILE template gets all.
+        assertUidTotal(sTemplateImsi1, UID_RED, 54L, 62L, 56L, 21L, 3);
+        // 3g/4g template counters do not increase.
+        assertUidTotal(template3g, UID_RED, 12L, 18L, 14L, 1L, 0);
+        assertUidTotal(template4g, UID_RED, 4L + 33L, 4L + 27L, 3L + 8L, 1L + 10L, 1);
+        // Verify 5g template gets the 5g count.
+        assertUidTotal(template5g, UID_RED, 5L, 13L, 31L, 9L, 2);
+    }
+
+    @Test
     public void testMobileStatsMeteredness() throws Exception {
         // Create metered 5g template.
         final NetworkTemplate templateMetered5g = new NetworkTemplate.Builder(MATCH_MOBILE)
@@ -1349,6 +1427,57 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 0L, 0L, 0L, 0L, 1);
         assertValues(mobileStats, null /* iface */, UID_RED, SET_DEFAULT, TAG_NONE,
                 METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 0L, 0L, 0L, 0L, 1);
+    }
+
+    @Test
+    public void testUidStatsForTransportOnSatelliteNetworkConnection() throws Exception {
+        // Setup satellite mobile network and Cellular mobile network
+        mockDefaultSettings();
+        mockNetworkStatsUidDetail(buildEmptyStats());
+
+        final NetworkStateSnapshot mobileSatelliteState = buildStateOfTransport(
+                NetworkCapabilities.TRANSPORT_SATELLITE, TYPE_MOBILE,
+                TEST_IFACE2, IMSI_1, null /* wifiNetworkKey */,
+                false /* isTemporarilyNotMetered */, false /* isRoaming */);
+
+        final NetworkStateSnapshot mobileCellularState = buildStateOfTransport(
+                NetworkCapabilities.TRANSPORT_CELLULAR, TYPE_MOBILE,
+                TEST_IFACE3, IMSI_1, null /* wifiNetworkKey */,
+                false /* isTemporarilyNotMetered */, false /* isRoaming */);
+
+        final NetworkStateSnapshot[] states = new NetworkStateSnapshot[]{mobileSatelliteState,
+                mobileCellularState};
+        mService.notifyNetworkStatus(NETWORKS_MOBILE, states, getActiveIface(states),
+                new UnderlyingNetworkInfo[0]);
+        setMobileRatTypeAndWaitForIdle(TelephonyManager.NETWORK_TYPE_LTE);
+
+        // mock traffic on satellite network
+        final NetworkStats.Entry entry1 = new NetworkStats.Entry(
+                TEST_IFACE2, UID_RED, SET_DEFAULT, TAG_NONE, METERED_NO, ROAMING_NO,
+                DEFAULT_NETWORK_NO, 50L, 5L, 50L, 5L, 1L);
+
+        // mock traffic on cellular network
+        final NetworkStats.Entry entry2 = new NetworkStats.Entry(
+                TEST_IFACE3, UID_RED, SET_DEFAULT, TAG_NONE, METERED_NO, ROAMING_NO,
+                DEFAULT_NETWORK_NO, 50L, 5L, 50L, 5L, 1L);
+
+        final TetherStatsParcel[] emptyTetherStats = {};
+        // The interfaces that expect to be used to query the stats.
+        final String[] mobileIfaces = {TEST_IFACE2, TEST_IFACE3};
+        incrementCurrentTime(HOUR_IN_MILLIS);
+        mockDefaultSettings();
+        mockNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 2)
+                .insertEntry(entry1).insertEntry(entry2), emptyTetherStats, mobileIfaces);
+        // with getUidStatsForTransport(TRANSPORT_CELLULAR) return stats of both cellular
+        // and satellite
+        final NetworkStats mobileStats = mService.getUidStatsForTransport(
+                NetworkCapabilities.TRANSPORT_CELLULAR);
+
+        // The iface field of the returned stats should be null because getUidStatsForTransport
+        // clears the interface field before it returns the result.
+        assertValues(mobileStats, null /* iface */, UID_RED, SET_DEFAULT, TAG_NONE,
+                METERED_NO, ROAMING_NO, METERED_NO, 100L, 10L, 100L, 10L, 2L);
+
     }
 
     @Test
@@ -2505,6 +2634,12 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
     private static NetworkStateSnapshot buildMobileState(String subscriberId) {
         return buildStateOfTransport(NetworkCapabilities.TRANSPORT_CELLULAR, TYPE_MOBILE,
+                TEST_IFACE, subscriberId, null /* wifiNetworkKey */,
+                false /* isTemporarilyNotMetered */, false /* isRoaming */);
+    }
+
+    private static NetworkStateSnapshot buildSatelliteMobileState(String subscriberId) {
+        return buildStateOfTransport(NetworkCapabilities.TRANSPORT_SATELLITE, TYPE_MOBILE,
                 TEST_IFACE, subscriberId, null /* wifiNetworkKey */,
                 false /* isTemporarilyNotMetered */, false /* isRoaming */);
     }

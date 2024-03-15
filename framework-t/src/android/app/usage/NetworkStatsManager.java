@@ -759,6 +759,10 @@ public class NetworkStatsManager {
      * made over a mobile radio.
      * The snapshot will not include any statistics that cannot be seen by
      * the kernel, e.g. statistics reported by {@link NetworkStatsProvider}s.
+     * With satellite support and satellite network belong to type mobile, returns both cellular
+     * and satellite stats information when called.
+     *
+     * Note: When getUidStatsForTransport with TRANSPORT_SATELLITE parameter, stats is not supported
      *
      * @hide
      */
@@ -768,6 +772,16 @@ public class NetworkStatsManager {
             android.Manifest.permission.NETWORK_STACK})
     @NonNull public android.net.NetworkStats getMobileUidStats() {
         try {
+             // with Satellite transport support and since satellite network using cellular as
+             // underlying network, enhancing the current api getUidStatsForTransport with
+             // TRANSPORT_CELLULAR parameter to support both cellular and satellite stats
+             // information.
+
+             // i.e When getUidStatsForTransport(TRANSPORT_CELLULAR) is called, retun both
+             // celluar and satellite stats information.
+             // Note: When getUidStatsForTransport with TRANSPORT_SATELLITE parameter,
+             //  stats is not supported
+
             return mService.getUidStatsForTransport(TRANSPORT_CELLULAR);
         } catch (RemoteException e) {
             if (DBG) Log.d(TAG, "Remote exception when get Mobile uid stats");
