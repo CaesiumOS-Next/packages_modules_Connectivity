@@ -446,6 +446,16 @@ public class BpfNetMaps {
         addRule(uid, match, 0 /* iif */, caller);
     }
 
+    private boolean isUidMatchEnabled(final int uid, final long match) {
+        try {
+            final UidOwnerValue oldMatch = sUidOwnerMap.getValue(new S32(uid));
+            return (oldMatch.rule & match) != 0;
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to get uid match: " + Os.strerror(e.errno));
+        }
+    }
+
     /**
      * Add naughty app bandwidth rule for specific app
      *
@@ -475,6 +485,18 @@ public class BpfNetMaps {
     }
 
     /**
+     * Check if naughty app bandwidth rule is applied for this app
+     *
+     * @param uid uid of target app
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    public boolean isNaughtyApp(final int uid) {
+        return isUidMatchEnabled(uid, PENALTY_BOX_MATCH);
+    }
+
+    /**
      * Add nice app bandwidth rule for specific app
      *
      * @param uid uid of target app
@@ -500,6 +522,18 @@ public class BpfNetMaps {
         throwIfPreT("removeNiceApp is not available on pre-T devices");
 
         removeRule(uid, HAPPY_BOX_MATCH, "removeNiceApp");
+    }
+
+    /**
+     * Check if nice app bandwidth rule is applied for this app
+     *
+     * @param uid uid of target app
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    public boolean isNiceApp(final int uid) {
+        return isUidMatchEnabled(uid, HAPPY_BOX_MATCH);
     }
 
     /**
@@ -936,6 +970,23 @@ public class BpfNetMaps {
     public boolean isUidNetworkingBlocked(final int uid, boolean isNetworkMetered) {
         return BpfNetMapsUtils.isUidNetworkingBlocked(uid, isNetworkMetered,
                 sConfigurationMap, sUidOwnerMap, sDataSaverEnabledMap);
+    }
+
+    /**
+     * Get Data Saver enabled or disabled
+     *
+     * Note that before V, the data saver status in bpf is written by ConnectivityService
+     * when receiving {@link ConnectivityManager#ACTION_RESTRICT_BACKGROUND_CHANGED}. Thus,
+     * the status is not synchronized.
+     * On V+, the data saver status is set by platform code when enabling/disabling
+     * data saver, which is synchronized.
+     *
+     * @return whether Data Saver is enabled or disabled.
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
+    public boolean getDataSaverEnabled() {
+        return BpfNetMapsUtils.getDataSaverEnabled(sDataSaverEnabledMap);
     }
 
     /** Register callback for statsd to pull atom. */
