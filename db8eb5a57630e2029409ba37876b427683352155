@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bfe5ba2_dd21b3d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-15T19:22:42Z",
+      "side": 1,
+      "message": "So much duplication between createMaps and loadCodeSections. Maybe some of it can be factored out at some point?",
+      "revId": "db8eb5a57630e2029409ba37876b427683352155",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
