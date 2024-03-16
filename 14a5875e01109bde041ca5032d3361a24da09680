@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d62239d_9ff09c99",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-16T15:11:16Z",
+      "side": 1,
+      "message": "```suggestion\n    /** Minimum value of max power in unit of 0.01dBm. @hide */\n```",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 57
+      },
+      "revId": "14a5875e01109bde041ca5032d3361a24da09680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcc648d9_2d8ac27e",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-16T15:11:16Z",
+      "side": 1,
+      "message": "```suggestion\n    /** Maximum value of max power in unit of 0.01dBm. @hide */\n```",
+      "range": {
+        "startLine": 108,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 57
+      },
+      "revId": "14a5875e01109bde041ca5032d3361a24da09680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b51e9d63_08604c12",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-16T15:11:16Z",
+      "side": 1,
+      "message": "Can\u0027t we enforce the vendor to support this?",
+      "range": {
+        "startLine": 619,
+        "startChar": 7,
+        "endLine": 622,
+        "endChar": 12
+      },
+      "revId": "14a5875e01109bde041ca5032d3361a24da09680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa29b65e_a1b3ab7b",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-16T15:11:16Z",
+      "side": 1,
+      "message": "Remove this for now to hide the API",
+      "range": {
+        "startLine": 636,
+        "startChar": 4,
+        "endLine": 636,
+        "endChar": 40
+      },
+      "revId": "14a5875e01109bde041ca5032d3361a24da09680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cf0569a_51e48436",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-16T15:11:16Z",
+      "side": 1,
+      "message": "nit: \"channelMaxPowers cannot be empty\"",
+      "range": {
+        "startLine": 648,
+        "startChar": 21,
+        "endLine": 648,
+        "endChar": 84
+      },
+      "revId": "14a5875e01109bde041ca5032d3361a24da09680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd42915a_eec98f2c",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-16T15:11:16Z",
+      "side": 1,
+      "message": "Please provide details of which channel and why it\u0027s invalid.\ne.g.:\n```\n\"Channel \" + channel + \" exceeds allowed range [\" + CHANNEL_MIN_24_GHZ + \", \" + CHANNEL_MAX_24_GHZ + \"]\"\n```\n\nSee go/java-practices/exceptions#messages\n\nGenerally, think when you see this exception stack in the logcat, what else you need to know to figure out what\u0027s wrong with the arguments. The same practices apply for logging messages too. So please keep following this to help produce useful logs",
+      "range": {
+        "startLine": 657,
+        "startChar": 51,
+        "endLine": 657,
+        "endChar": 71
+      },
+      "revId": "14a5875e01109bde041ca5032d3361a24da09680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d3f82fb_f8e0ee58",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-16T15:11:16Z",
+      "side": 1,
+      "message": "Please provide details of which channel and why it\u0027s invalid.\ne.g.:\n```\n\"Channel power ({channel: \" + channel + \", power: \" + power + \"}) exceeds allowed range [\" + POWER_LIMILATION_MIN + \", \" + POWER_LIMITATION_MAX + \"]\"\n```",
+      "range": {
+        "startLine": 661,
+        "startChar": 51,
+        "endLine": 661,
+        "endChar": 73
+      },
+      "revId": "14a5875e01109bde041ca5032d3361a24da09680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9efd74bb_0fae82f5",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkException.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-16T15:11:16Z",
+      "side": 1,
+      "message": "1. try to force vendor supporting setting the max channel power\n2. use @hide to avoid API changes\n```suggestion\n    /**\n     * The operation failed because it is not supported by the platform. For example, some platforms\n     * may not support setting the target power of each channel. The caller should not retry and may\n     * return an error to the user.\n     *\n     * @hide\n     */\n    public static final int ERROR_UNSUPPORTED_OPERATION \u003d 13;\n```",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 61
+      },
+      "revId": "14a5875e01109bde041ca5032d3361a24da09680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0f88810_4b7cd183",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-16T15:11:16Z",
+      "side": 1,
+      "message": "Please reuse android.net.thread.ChannelMaxPower for ot-daemon.\n\nYou can do this by defining a aidl source file group in thread/framwork/Android.bp and include that source file group for ot-daemon-aidl, like this:\n\n```\n// thread/framework/Android.bp\n\nfilegroup {\n    name: \"framework-thread-ot-daemon-shared-aidl-sources\",\n    srcs: [\n        \"java/**/ChannelMaxPower.aidl\",\n    ],\n    path: \"java\",\n    visibility: [\n        \"//external/ot-br-posix:__subpackages__\",\n    ],\n}\n\n\n// external/ot-br-posix/src/android/aidl/Android.bp\n\naidl_interface {\n    name: \"ot-daemon-aidl\",\n\n    // This interface is private to only module \"com.android.tethering\"\n    unstable: true,\n    srcs: [\n        \"com/android/**/*.aidl\",\n        \":framework-thread-ot-daemon-shared-aidl-sources\",\n    ],\n    ......\n}\n```",
+      "range": {
+        "startLine": 959,
+        "startChar": 19,
+        "endLine": 959,
+        "endChar": 40
+      },
+      "revId": "14a5875e01109bde041ca5032d3361a24da09680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "214e5f88_3e3b5ec4",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-16T15:11:16Z",
+      "side": 1,
+      "message": "CTS tests can\u0027t build because the setChannelMaxPowers API is now hidden API.\nYou can add a new ThreadNetworkControllerTest.java class under thread/tests/integrations and add the test cases there.",
+      "revId": "14a5875e01109bde041ca5032d3361a24da09680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d36bf60c_c9503c88",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1237,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-16T15:11:16Z",
+      "side": 1,
+      "message": "Use `assertThrows`, you can find examples in this file.",
+      "range": {
+        "startLine": 1232,
+        "startChar": 0,
+        "endLine": 1237,
+        "endChar": 9
+      },
+      "revId": "14a5875e01109bde041ca5032d3361a24da09680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
