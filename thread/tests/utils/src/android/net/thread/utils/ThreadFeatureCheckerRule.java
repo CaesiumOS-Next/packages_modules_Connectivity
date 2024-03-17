@@ -27,6 +27,8 @@ import android.os.VintfRuntimeInfo;
 
 import androidx.test.core.app.ApplicationProvider;
 
+import com.android.internal.annotations.VisibleForTesting;
+
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
@@ -46,6 +48,10 @@ import java.util.regex.Pattern;
 public final class ThreadFeatureCheckerRule implements TestRule {
     private static final String KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED = "5.15.0";
     private static final int KERNEL_ANDROID_VERSION_MULTICAST_ROUTING_SUPPORTED = 14;
+
+    private final Context mContext;
+    private final String mOsRelease;
+    private final String mModelName;
 
     /**
      * Annotates a test class or method requires the Thread feature to run.
@@ -74,6 +80,20 @@ public final class ThreadFeatureCheckerRule implements TestRule {
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.METHOD, ElementType.TYPE})
     public @interface RequiresSimulationThreadDevice {}
+
+    public ThreadFeatureCheckerRule() {
+        this(
+                ApplicationProvider.getApplicationContext(),
+                VintfRuntimeInfo.getOsRelease(),
+                SystemProperties.get("ro.product.model"));
+    }
+
+    @VisibleForTesting
+    ThreadFeatureCheckerRule(Context context, String osRelease, String modelName) {
+        mContext = context;
+        mOsRelease = osRelease;
+        mModelName = modelName;
+    }
 
     @Override
     public Statement apply(final Statement base, Description description) {
@@ -120,41 +140,61 @@ public final class ThreadFeatureCheckerRule implements TestRule {
     }
 
     /** Returns {@code true} if this device has the Thread feature supported. */
-    private static boolean hasThreadFeature() {
-        final Context context = ApplicationProvider.getApplicationContext();
-        return context.getSystemService(ThreadNetworkManager.class) != null;
+    private boolean hasThreadFeature() {
+        return mContext.getSystemService(ThreadNetworkManager.class) != null;
     }
 
     /**
      * Returns {@code true} if this device has the kernel IPv6 multicast routing feature enabled.
      */
-    private static boolean hasIpv6MulticastRouting() {
+    private boolean hasIpv6MulticastRouting() {
+        String kernelVersion = getKernelVersion(mOsRelease);
+        int androidVersion = getKernelAndroidVersion(mOsRelease);
+
         // The kernel IPv6 multicast routing (i.e. IPV6_MROUTE) is enabled on kernel version
-        // android14-5.15.0 and later
-        return isKernelVersionAtLeast(KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED)
-                && isKernelAndroidVersionAtLeast(
-                        KERNEL_ANDROID_VERSION_MULTICAST_ROUTING_SUPPORTED);
+        // 5.15.0-android14 and later
+        return isKernelVersionAtLeast(kernelVersion, KERNEL_VERSION_MULTICAST_ROUTING_SUPPORTED)
+                && androidVersion >= KERNEL_ANDROID_VERSION_MULTICAST_ROUTING_SUPPORTED;
     }
 
     /**
-     * Returns {@code true} if the android version in the kernel version of this device is equal to
-     * or larger than the given {@code minVersion}.
+     * Parses the kernel version from the OS release version.
+     *
+     * <p>For example, the kernel version is "6.1.68" when {@code osRelease} is
+     * "6.1.68-android14-11-ga7f647f49daf-ab11484633".
+     *
+     * @throws IllegalArgumentException if {@code osRelease} doesn't start with the kernel version
      */
-    private static boolean isKernelAndroidVersionAtLeast(int minVersion) {
-        final String osRelease = VintfRuntimeInfo.getOsRelease();
+    private static final String getKernelVersion(String osRelease) {
+        final Pattern pattern = Pattern.compile("^\\d+\\.\\d+\\.\\d+");
+        Matcher matcher = pattern.matcher(osRelease);
+        if (!matcher.find()) {
+            throw new IllegalArgumentException(osRelease + " doesn't start with kernel version");
+        }
+        return matcher.group(0);
+    }
+
+    /**
+     * Parses the kernel android version from the OS release version.s
+     *
+     * <p>For example, the androids version is {@code 14} when {@code osRelease} is
+     * "6.1.68-android14-11-ga7f647f49daf-ab11484633".
+     *
+     * @throws IllegalArgumentException if {@code osRelease} doesn't contains the kernel android
+     *     version
+     */
+    private static int getKernelAndroidVersion(String osRelease) {
         final Pattern pattern = Pattern.compile("android(\\d+)");
         Matcher matcher = pattern.matcher(osRelease);
-
-        if (matcher.find()) {
-            int version = Integer.parseInt(matcher.group(1));
-            return (version >= minVersion);
+        if (!matcher.find()) {
+            throw new IllegalArgumentException(osRelease + " doesn't contain android version");
         }
-        return false;
+        return Integer.parseInt(matcher.group(1));
     }
 
     /** Returns {@code true} if the simulation Thread device is supported. */
-    private static boolean hasSimulationThreadDevice() {
+    private boolean hasSimulationThreadDevice() {
         // Simulation radio is supported on only Cuttlefish
-        return SystemProperties.get("ro.product.model").startsWith("Cuttlefish");
+        return mModelName.startsWith("Cuttlefish");
     }
 }
