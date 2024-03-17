@@ -69,12 +69,12 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 
 import com.android.net.module.util.ArrayTrackRecord;
-import com.android.testutils.FunctionalUtils.ThrowingRunnable;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.function.ThrowingRunnable;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
