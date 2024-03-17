@@ -168,9 +168,18 @@ public class DeviceInfoUtils {
      *         otherwise, return false.
      */
     public static boolean isKernelVersionAtLeast(final String version) {
-        final String kernelVersion = VintfRuntimeInfo.getKernelVersion();
-        final KVersion current = DeviceInfoUtils.getMajorMinorSubminorVersion(kernelVersion);
-        final KVersion from = DeviceInfoUtils.getMajorMinorSubminorVersion(version);
+        return isKernelVersionAtLeast(VintfRuntimeInfo.getKernelVersion(), version);
+    }
+
+    /**
+     * Returns {@code true} if {@code currentVersion} is at least satisfied with {@code startVersion}.
+     *
+     * @param currentVersion the current kernel version (e.g. "5.15.0")
+     * @param startVersion the start version to compare (e.g. "5.14.0")
+     */
+    public static boolean isKernelVersionAtLeast(final String currentVersion, final String startVersion) {
+        final KVersion current = DeviceInfoUtils.getMajorMinorSubminorVersion(currentVersion);
+        final KVersion from = DeviceInfoUtils.getMajorMinorSubminorVersion(startVersion);
         return current.isAtLeast(from);
     }
 }
