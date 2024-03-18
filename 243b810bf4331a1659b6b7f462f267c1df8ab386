@@ -66,6 +66,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50aca68c_136aca84",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1781,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-18T08:12:42Z",
+      "side": 1,
+      "message": "Thank for the feedback and bringing a good point here : \n\nActually Both transport can use same iface ( ie For Ex: Internet PDN is connected over satellite or Cellular, is expected to use same iface (For Ex: rmnet),\n\n1.So in which case how maintaining seperate Variable For Satellite matter?\n2.Considering both transport to have same iface, what is the way suggested to have if we need below behaviour\n\ncase a: When getUidStatsForTransport(TRANSPORT_CELLULAR) is called, it will include cellular stats only\n\ncase b: When getUidStatsForTransport(TRANSPORT_SATELLITE) is called, it includes satellite stats Only",
+      "parentUuid": "34bbf9b7_b86e32a9",
+      "range": {
+        "startLine": 1781,
+        "startChar": 71,
+        "endLine": 1781,
+        "endChar": 90
+      },
+      "revId": "243b810bf4331a1659b6b7f462f267c1df8ab386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "28c277cd_3d1b6d33",
         "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
         "patchSetId": 2
