@@ -16,6 +16,75 @@
       "message": "Based on suggestion @ \nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2977371/10/service-t/src/com/android/server/net/NetworkStatsService.java#2191\n\nAnd other changes to support New Transport Satellite as Type Mobile",
       "revId": "243b810bf4331a1659b6b7f462f267c1df8ab386",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dc0b97d_70eac879",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1781,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-18T05:55:25Z",
+      "side": 1,
+      "message": "IIUC this impact return value of the APIs who calls this.\nI think we should test it.",
+      "range": {
+        "startLine": 1781,
+        "startChar": 58,
+        "endLine": 1781,
+        "endChar": 67
+      },
+      "revId": "243b810bf4331a1659b6b7f462f267c1df8ab386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28c277cd_3d1b6d33",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2191,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-18T05:55:25Z",
+      "side": 1,
+      "message": "Is it better if we use a different varialble for this?\nFrom NSS perspective, mobile and sattlelite are different thing.",
+      "range": {
+        "startLine": 2191,
+        "startChar": 26,
+        "endLine": 2191,
+        "endChar": 34
+      },
+      "revId": "243b810bf4331a1659b6b7f462f267c1df8ab386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c44e707a_9a842f1d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2328,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-18T05:55:25Z",
+      "side": 1,
+      "message": "Are you trying to fix rat type stats for satellite?\nIf so, IIUC you might need to add unit test as well.",
+      "range": {
+        "startLine": 2328,
+        "startChar": 16,
+        "endLine": 2328,
+        "endChar": 42
+      },
+      "revId": "243b810bf4331a1659b6b7f462f267c1df8ab386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
