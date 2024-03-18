@@ -22,6 +22,30 @@
       },
       "revId": "b9f61c34f87c594bca4c93ea3246b35e979c0912",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aae38b2e_51b29844",
+        "filename": "framework/src/android/net/NetworkStackBpfNetMapsReader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-18T08:22:47Z",
+      "side": 1,
+      "message": "Isn\u0027t it better to add `@RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)` to NetworkStackBpfNetMapsReader instead of throw from each methods?\nI think network stack should not even instantiate NetworkStackBpfNetMapsReader.",
+      "parentUuid": "af4d3aa8_c4757588",
+      "range": {
+        "startLine": 224,
+        "startChar": 31,
+        "endLine": 224,
+        "endChar": 47
+      },
+      "revId": "b9f61c34f87c594bca4c93ea3246b35e979c0912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
