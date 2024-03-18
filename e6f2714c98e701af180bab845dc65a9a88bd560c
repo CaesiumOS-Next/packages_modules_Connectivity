@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fd20fe0_0aaf01da",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-18T09:24:16Z",
+      "side": 1,
+      "message": "```suggestion\n    private static final float PING_TIMEOUT_SECONDS \u003d 0.1f;\n```",
+      "range": {
+        "startLine": 60,
+        "startChar": 31,
+        "endLine": 60,
+        "endChar": 43
+      },
+      "revId": "e6f2714c98e701af180bab845dc65a9a88bd560c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

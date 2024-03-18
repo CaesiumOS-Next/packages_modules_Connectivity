@@ -105,6 +105,30 @@
       },
       "revId": "0a9e71e5fdd07791ee57a42a270574c29c9f5269",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8a48ea3_1543fe60",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-18T09:24:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8342e37a_792bdb77",
+      "range": {
+        "startLine": 363,
+        "startChar": 26,
+        "endLine": 363,
+        "endChar": 38
+      },
+      "revId": "0a9e71e5fdd07791ee57a42a270574c29c9f5269",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
