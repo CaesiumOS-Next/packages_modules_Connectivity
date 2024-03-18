@@ -70,6 +70,30 @@
       },
       "revId": "b9f61c34f87c594bca4c93ea3246b35e979c0912",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d40e0d1f_f3b3893c",
+        "filename": "framework/src/android/net/NetworkStackBpfNetMapsReader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-18T10:36:35Z",
+      "side": 1,
+      "message": "Adding @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE) requires some more cleanups so I have done this in aosp/3002351",
+      "parentUuid": "61b9e109_df276470",
+      "range": {
+        "startLine": 224,
+        "startChar": 31,
+        "endLine": 224,
+        "endChar": 47
+      },
+      "revId": "b9f61c34f87c594bca4c93ea3246b35e979c0912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
