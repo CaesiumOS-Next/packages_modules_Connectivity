@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bcf1a65_141cb2f7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-18T06:57:07Z",
+      "side": 1,
+      "message": "Nit: it would be good to clarify that this is the same custom hostname, not applying to services that use the (same) device default hostname",
+      "range": {
+        "startLine": 929,
+        "startChar": 69,
+        "endLine": 929,
+        "endChar": 86
+      },
+      "revId": "c6fef9a28e9f7c95ab06dca1f794e7803e46423c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31a2a05e_c82c0e5e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-18T06:57:07Z",
+      "side": 1,
+      "message": "I\u0027m thinking it might be a bit easier to follow if you had `String getCustomHostnameForService(id)` and `MdnsAnnouncer.AnnouncementInfo[] restartAnnouncingForHostname(String)`.\n\nAlso considering that we should do something about the probing as well, so you probably want to have `ProbingInfo[] restartProbingForHostname(String)`",
+      "revId": "c6fef9a28e9f7c95ab06dca1f794e7803e46423c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
