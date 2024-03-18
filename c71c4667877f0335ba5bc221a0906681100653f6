@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "326a89e5_7e6e520d",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/ThreadNetworkControllerWrapper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-18T06:35:28Z",
+      "side": 1,
+      "message": "```suggestion\n    /** An asynchronous variant of {@link ThreadNetworkController#setTestNetworkAsUpstream}. */\n```",
+      "range": {
+        "startLine": 187,
+        "startChar": 66,
+        "endLine": 187,
+        "endChar": 88
+      },
+      "revId": "c71c4667877f0335ba5bc221a0906681100653f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
