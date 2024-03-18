@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3cb9084_d4c4260e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10207,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2024-03-18T09:54:02Z",
+      "side": 1,
+      "message": "Nit: `isIkev2Vpn` implies `expectSetVpnDefaultForUids`, so maybe `expectSetVpnDefaultForUids` can be removed.",
+      "range": {
+        "startLine": 10207,
+        "startChar": 35,
+        "endLine": 10207,
+        "endChar": 89
+      },
+      "revId": "a08b3e92c2acb12687995fe5398da7453d55b773",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
