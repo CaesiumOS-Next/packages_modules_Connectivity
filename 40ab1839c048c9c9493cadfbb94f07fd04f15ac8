@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4aeb802_04416208",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-18T21:25:39Z",
+      "side": 1,
+      "message": "There is a difference in behaviour created by this change between V+ and older versions. It would be nice to explain that here -- specifically why or how we decided to make this tradeoff.",
+      "revId": "40ab1839c048c9c9493cadfbb94f07fd04f15ac8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
