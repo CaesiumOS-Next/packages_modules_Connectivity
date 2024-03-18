@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af4d3aa8_c4757588",
+        "filename": "framework/src/android/net/NetworkStackBpfNetMapsReader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-18T06:29:47Z",
+      "side": 1,
+      "message": "Oops.\nNot for this CL.\nIt seems to me for U- we should not accessing bpf from NetworkStack anymore, right?\nSince you are on it. Do we want to throwIfpreU for every API here?",
+      "range": {
+        "startLine": 224,
+        "startChar": 31,
+        "endLine": 224,
+        "endChar": 47
+      },
+      "revId": "b9f61c34f87c594bca4c93ea3246b35e979c0912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
