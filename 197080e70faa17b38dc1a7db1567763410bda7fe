@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efac998e_5f18783c",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-03-18T07:04:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a013b924_f677059a",
+      "revId": "197080e70faa17b38dc1a7db1567763410bda7fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08c18889_a8624eda",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-03-18T06:24:14Z",
       "side": 1,
       "message": "As we discussed, this check should ensure that the network is indeed a VPN network. Therefore, you need to check the capabilities and ensure that NOT_VPN is not among them.",
+      "range": {
+        "startLine": 1003,
+        "startChar": 25,
+        "endLine": 1003,
+        "endChar": 38
+      },
+      "revId": "197080e70faa17b38dc1a7db1567763410bda7fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8fa901c_964b15f2",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-03-18T07:04:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08c18889_a8624eda",
       "range": {
         "startLine": 1003,
         "startChar": 25,
