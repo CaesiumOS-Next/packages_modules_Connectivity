@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "499c8aa8_69a338b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-18T05:43:11Z",
+      "side": 1,
+      "message": "Based on suggestion @ \nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2977371/10/service-t/src/com/android/server/net/NetworkStatsService.java#2191\n\nAnd other changes to support New Transport Satellite as Type Mobile",
+      "revId": "243b810bf4331a1659b6b7f462f267c1df8ab386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
