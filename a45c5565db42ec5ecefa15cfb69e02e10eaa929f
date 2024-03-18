@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea832fd3_e4f4a0bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-18T07:11:34Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "a45c5565db42ec5ecefa15cfb69e02e10eaa929f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cec356a7_5f249867",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-18T07:11:34Z",
+      "side": 1,
+      "message": "Nit: Should we use the longer timout NETWORK_CALLBACK_TIMEOUT_MS to reduce flake?",
+      "range": {
+        "startLine": 1001,
+        "startChar": 52,
+        "endLine": 1001,
+        "endChar": 62
+      },
+      "revId": "a45c5565db42ec5ecefa15cfb69e02e10eaa929f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
