@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3883d07e_e05976c1",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1788,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-18T05:38:22Z",
+      "side": 1,
+      "message": "Based on Comment : https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2969475/9/framework/src/android/net/NetworkCapabilities.java#1779",
+      "range": {
+        "startLine": 1788,
+        "startChar": 20,
+        "endLine": 1788,
+        "endChar": 60
+      },
+      "revId": "e28aaf9e60c9fb31d605351bc6992b8875914a56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
