@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "938245da_122de511",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-18T07:54:39Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem as complete as the previous check, which would verify available/linkPropertiesUpdated/blockedStatus etc.\n\nSince this is used for registerDefaultNetworkCallbackForUid, shouldn\u0027t we receive onLost for the previous network (`defaultNetwork`) first ?\n\nIn that case, would it work to wait for onLost, then `expectAvailableThenValidatedCallbacks` ? That would ensure that there is no callback for the previous network in-between (since it\u0027s lost)",
+      "revId": "ff1d292aa0378d1ff02ce3c42fac625779684f00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
