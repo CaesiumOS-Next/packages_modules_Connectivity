@@ -52,6 +52,24 @@
       "parentUuid": "b22de525_586c0f05",
       "revId": "605b251d033cdc1b318a036fb41768fcf4eab740",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "839f4ab3_80f40781",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-18T06:43:07Z",
+      "side": 1,
+      "message": "Thanks for all the info,\n\nIt seems this util is used by 2 call sites: DataNetwork.java in the telephony framework, which can\u0027t use internal-only methods from NetworkCapabilities, and NetworkCapabilities.java itself.\n\nThe common util can\u0027t use internal-only methods since one of its callers, which bundles it as a static_lib, can\u0027t (it may break on mainline update otherwise since hidden APIs may change).\n\nI expect the costly call site, especially on Wear which hopefully doesn\u0027t update its mobile data connection too often, is the second one ?\n\nIn that case you could probably save most of the performance with something a bit ugly like:\n\n```\npublic static boolean inferRestrictedCapability(LongPredicate hasAnyCapabilityFromBitmaskChecker) {\n    if (hasAnyCapabilityFromBitmaskChecker.test(FORCE_RESTRICTED_CAPABILITIES)) {\n        return true;\n    }\n    ...\n}\n```\n\nWhere NetworkCapabilities would pass in `caps -\u003e (getCapabilitiesInternal() \u0026 caps) !\u003d 0L` for the predicate. And for DataConnection.java you could provide some util (for example in BitUtils.java) like:\n\n```\n    public static boolean anyBit(long val, @NonNull IntPredicate predicate) {\n        int bitPos \u003d 0;\n        while (val !\u003d 0) {\n            if ((val \u0026 1) \u003d\u003d 1 \u0026\u0026 predicate.test(bitPos)) {\n                return true;\n            }\n            val \u003d val \u003e\u003e\u003e 1;\n            bitPos++;\n        }\n        return false;\n    }\n```\n\nI don\u0027t see much better alternatives, apart maybe from duplicating the (very minimal) logic in 2 places, or adding an API for `NetworkCapabilities.hasAnyCapability(bitmask)` which is a bit more heavy and needs CTS tests.",
+      "parentUuid": "f30b2b5a_c076d455",
+      "revId": "605b251d033cdc1b318a036fb41768fcf4eab740",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
