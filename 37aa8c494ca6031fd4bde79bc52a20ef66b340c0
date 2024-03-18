@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99b42a9a_28c7fd89",
+        "filename": "framework/src/android/net/NetworkStackBpfNetMapsReader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-18T06:15:13Z",
+      "side": 1,
+      "message": "Will we have NetworkStackBpfNetMapsWriter if we need to write in the future?\nIf not, I think NetworkStackBpfNetMaps would be more clear since we want to put BpfNetMaps operations for NetworkStack in it.\nNo Strong opinion if other reviewer vote for other names.",
+      "range": {
+        "startLine": 55,
+        "startChar": 13,
+        "endLine": 55,
+        "endChar": 41
+      },
+      "revId": "37aa8c494ca6031fd4bde79bc52a20ef66b340c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
