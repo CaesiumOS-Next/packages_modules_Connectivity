@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d13f1b8_509ede42",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-18T04:43:23Z",
+      "side": 1,
+      "message": "This used to be a direct call without posting, which I guess is why there was a lock taken (although it\u0027s probably still not very useful in that case either).\n\nThere\u0027s a significant change here where instead of registering in the constructor and calling simConfigChanged immediately, ConnectivityService waits for systemReady and only registers / updates at that point on the handler.\n\nIf we\u0027re limiting the threading changes to cases where the feature is enabled, I think that part should also only be changed when the feature is enabled ? e.g. ConnectivityService would still call start() from the constructor when the feature is disabled.",
+      "revId": "5b69e32927486100aa0c82a4b138328be4e0659c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fd9dab3_6cdd51c4",
+        "filename": "tests/unit/java/com/android/server/connectivity/CarrierPrivilegeAuthenticatorTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-18T04:43:23Z",
+      "side": 1,
+      "message": "I\u0027m wondering if this can cause flakes of the thread leak monitor test; the javadoc says this returns \"True if the looper looper has been asked to quit\", so maybe the test should also join() ?",
+      "revId": "5b69e32927486100aa0c82a4b138328be4e0659c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
