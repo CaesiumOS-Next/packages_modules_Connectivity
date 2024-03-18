@@ -16,6 +16,8 @@
 
 package android.net.nsd;
 
+import static com.android.net.module.util.HexDump.toHexString;
+
 import android.annotation.FlaggedApi;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -32,6 +34,13 @@ import com.android.net.module.util.InetAddressUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.CharacterCodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CoderResult;
+import java.nio.charset.CodingErrorAction;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -541,9 +550,37 @@ public final class NsdServiceInfo implements Parcelable {
                 .append(", network: ").append(mNetwork)
                 .append(", expirationTime: ").append(mExpirationTime);
 
-        byte[] txtRecord = getTxtRecord();
-        sb.append(", txtRecord: ").append(new String(txtRecord, StandardCharsets.UTF_8));
+        sb.append(", txtRecord: {");
+        int count = 0;
+        for (Map.Entry<String, byte[]> entry : mTxtRecord.entrySet()) {
+            sb.append(entry.getKey()).append("=").append(encodeTxtValue(entry.getValue()));
+            count++;
+            if (count != mTxtRecord.size()) {
+                sb.append(", ");
+            }
+        }
+        sb.append("}");
         return sb.toString();
+    }
+
+    /**
+     * Returns the UTF-8 string of {@code txtValue} or HEX string if {@code txtValue} is invalid
+     * UTF-8 bytes.
+     */
+    private static String encodeTxtValue(@Nullable byte[] txtValue) {
+        if (txtValue == null) {
+            return "(null)";
+        }
+
+        CharsetDecoder decoder =  StandardCharsets.UTF_8.newDecoder()
+                .onMalformedInput(CodingErrorAction.REPORT)
+                .onUnmappableCharacter(CodingErrorAction.REPORT);
+        try {
+            return decoder.decode(ByteBuffer.wrap(txtValue)).toString();
+        } catch (CharacterCodingException ex) {
+            // Ignore ex because invalid UTF-8 bytes in txtValue is expected
+            return "0x" + toHexString(txtValue);
+        }
     }
 
     /** Implement the Parcelable interface */
