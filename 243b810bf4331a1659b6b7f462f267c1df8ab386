@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34bbf9b7_b86e32a9",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1781,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-18T06:43:50Z",
+      "side": 1,
+      "message": "Also  is this what we expected?\nWhen getUidStatsForTransport(TRANSPORT_CELLULAR) is called, it will include cellular and satellite stats. --\u003e I think we should doucment this clearly at API surface.\nAnd getUidStatsForTransport(TRANSPORT_SATELLITE) is called, it also includes cellular and satellite stats. --\u003e This looks weird to me.",
+      "range": {
+        "startLine": 1781,
+        "startChar": 71,
+        "endLine": 1781,
+        "endChar": 90
+      },
+      "revId": "243b810bf4331a1659b6b7f462f267c1df8ab386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "28c277cd_3d1b6d33",
         "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
         "patchSetId": 2
