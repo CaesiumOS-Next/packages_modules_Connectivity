@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "888c8433_20595eac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-18T09:19:00Z",
+      "side": 1,
+      "message": "Sorry for the late comment.\nI recently did the similar change and got feedback, sometimes threading model change could cause unexpected issues.\nI think it\u0027s safer to guard this change by isFeatureNotChickenedOut.",
+      "revId": "8b1d824ad2e3dd3e14b87f2883d36f0b6a6bc213",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
