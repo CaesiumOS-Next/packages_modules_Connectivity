@@ -139,6 +139,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d61c0b09_1bfca557",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-18T18:54:24Z",
+      "side": 1,
+      "message": "EthernetNetworkFactory manages \"client mode interfaces\" (read: regular upstream interfaces. In short, it facilitates creating IpClients for IP provisioning and manages NetworkOffers (a facility for ConnectivityService to request the creation of new networks), and NetworkAgents (which make the network available to ConnectivityService, and therefore apps)).\nWhen tethering, you are controlling the server interface, so you don\u0027t want to start an IpClient (in fact, you want to start an IpServer, but that\u0027s again handled somewhere else). In order to support this, when tethering is enabled, the interface represented by mTetheringInterface (which is really just the very first interface that was discovered, which means we only support tethering on a single ethernet interface) is removed from EthernetNetworkFactory. If an associated IpClient is running it is destroyed and the NetworkOffer is being retracted. This means, if mTetheringInterfaceMode equals INTERFACE_MODE_CLIENT, then all interfaces are tracked by EthernetNetworkFactory. But if mTetheringInterfaceMode equals INTERFACE_MODE_SERVER that is not the case; hence the need for some sort of mTetheringInterfaceMac.\n\nNote that the current implementation of tethering interfaces is a hack that was put in place years ago, but no one has ever gotten around to cleaning it up. To this day, it is a constant source of bugs and frustration. 😊\n\nHappy to hop on a quick call if that helps.",
+      "parentUuid": "018dfe26_0d43e42b",
+      "range": {
+        "startLine": 297,
+        "startChar": 64,
+        "endLine": 297,
+        "endChar": 97
+      },
+      "revId": "51e868a21b6c2e1f5bd4de13fce6ca04ce2fc4a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1dc5d4bf_7ac508b2",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 4
