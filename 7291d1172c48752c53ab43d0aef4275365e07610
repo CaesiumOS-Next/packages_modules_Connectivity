@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9c97842_2dbfffbc",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6287,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-18T08:05:38Z",
+      "side": 1,
+      "message": "Not for this CL, ConnectivityService registers mDataSaverReceiver and populates data in dataSaver map on T and U release.\nDo we have any user of data in dataSaver map on T?",
+      "revId": "7291d1172c48752c53ab43d0aef4275365e07610",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
