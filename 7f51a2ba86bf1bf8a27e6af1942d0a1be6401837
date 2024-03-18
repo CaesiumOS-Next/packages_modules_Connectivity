@@ -70,6 +70,30 @@
       },
       "revId": "7f51a2ba86bf1bf8a27e6af1942d0a1be6401837",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4459ce52_31f7546e",
+        "filename": "tests/unit/vpn-jarjar-rules.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-03-18T09:19:09Z",
+      "side": 0,
+      "message": "oh, I see. Done in aosp/3004996",
+      "parentUuid": "37eabc25_aeb06025",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 52
+      },
+      "revId": "7f51a2ba86bf1bf8a27e6af1942d0a1be6401837",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
