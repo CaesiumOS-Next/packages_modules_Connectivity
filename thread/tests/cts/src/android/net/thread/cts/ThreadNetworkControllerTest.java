@@ -63,6 +63,7 @@ import android.net.thread.utils.ThreadFeatureCheckerRule;
 import android.net.thread.utils.ThreadFeatureCheckerRule.RequiresThreadFeature;
 import android.os.HandlerThread;
 import android.os.OutcomeReceiver;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
@@ -820,14 +821,18 @@ public class ThreadNetworkControllerTest {
     public void meshcopService_threadEnabledButNotJoined_discoveredButNoNetwork() throws Exception {
         setUpTestNetwork();
 
+        Log.i("CTS", "meshcopService_threadEnabledButNotJoined_discoveredButNoNetwork: 1111111");
         setEnabledAndWait(mController, true);
+        Log.i("CTS", "meshcopService_threadEnabledButNotJoined_discoveredButNoNetwork: 2222222");
         leaveAndWait(mController);
+        Log.i("CTS", "meshcopService_threadEnabledButNotJoined_discoveredButNoNetwork: 3333333");
 
         NsdServiceInfo serviceInfo =
                 expectServiceResolved(
                         MESHCOP_SERVICE_TYPE,
                         SERVICE_DISCOVERY_TIMEOUT_MILLIS,
                         s -> s.getAttributes().get("at") == null);
+        Log.i("CTS", "meshcopService_threadEnabledButNotJoined_discoveredButNoNetwork: 4444444");
 
         Map<String, byte[]> txtMap = serviceInfo.getAttributes();
 
@@ -1109,10 +1114,16 @@ public class ThreadNetworkControllerTest {
                 new DefaultDiscoveryListener() {
                     @Override
                     public void onServiceFound(NsdServiceInfo serviceInfo) {
+                        Log.i("CTS", "onServiceFound: " + serviceInfo);
                         serviceInfoFuture.complete(serviceInfo);
                     }
                 };
-        mNsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, listener);
+        mNsdManager.discoverServices(
+                serviceType,
+                NsdManager.PROTOCOL_DNS_SD,
+                mTestNetworkTracker.getNetwork(),
+                mExecutor,
+                listener);
         try {
             serviceInfoFuture.get(timeoutMilliseconds, MILLISECONDS);
         } finally {
@@ -1138,7 +1149,10 @@ public class ThreadNetworkControllerTest {
     private NsdServiceInfo expectServiceResolved(
             String serviceType, int timeoutMilliseconds, Predicate<NsdServiceInfo> predicate)
             throws Exception {
+        Log.i("CTS", "expectServiceResolved: 5555555 ");
         NsdServiceInfo discoveredServiceInfo = discoverService(serviceType);
+        Log.i("CTS", "expectServiceResolved: 6666666 " + discoveredServiceInfo);
+
         CompletableFuture<NsdServiceInfo> future = new CompletableFuture<>();
         NsdManager.ServiceInfoCallback callback =
                 new DefaultServiceInfoCallback() {

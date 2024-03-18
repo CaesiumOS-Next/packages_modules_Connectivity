@@ -211,8 +211,15 @@ public final class NsdPublisher extends INsdPublisher.Stub {
 
     private void resetInternal() {
         checkOnHandlerThread();
+        Log.i(TAG, "reset internal 111111");
         for (int i = 0; i < mRegistrationListeners.size(); ++i) {
             try {
+                Log.i(
+                        TAG,
+                        "resetInternal: unregistering id: "
+                                + mRegistrationListeners.keyAt(i)
+                                + " "
+                                + mRegistrationListeners.valueAt(i));
                 mNsdManager.unregisterService(mRegistrationListeners.valueAt(i));
             } catch (IllegalArgumentException e) {
                 Log.i(
