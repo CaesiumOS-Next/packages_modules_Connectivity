@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a6e8627_0769824d",
+        "filename": "tests/unit/java/android/net/NetworkStackBpfNetMapsReaderTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-18T06:08:27Z",
+      "side": 1,
+      "message": "Kind of confusing since this code contains both mocking and retrieve value.\nIt seems clearer to me if we have a separate mockDataSaverEnabled just like mockChainEnabled.",
+      "range": {
+        "startLine": 132,
+        "startChar": 8,
+        "endLine": 132,
+        "endChar": 31
+      },
+      "revId": "f58602e1ce537fbaa40770b262da8b96fd25cb5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
