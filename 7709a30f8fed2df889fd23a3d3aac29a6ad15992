@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25dde392_cfbac3e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2024-03-18T18:59:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4be068f2_dda78a94",
+      "revId": "7709a30f8fed2df889fd23a3d3aac29a6ad15992",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47398519_eb286ee2",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "This came up as expensive while researching app startup latency on R11.\nhttps://docs.google.com/document/d/1Qdi7V4Eu4TufWa1dqdN0Fei8v97qJTVNbQYGylkcRQo/edit?tab\u003dt.0#heading\u003dh.yc1conrtnvig\n\nGranted, this only shows up on devices like R11 that are very CPU constrained.\nThe work in packBitList isn\u0027t a problem, but I did want to convert the expressions to be compile time constants so that the constant can be inlined in the code that I found to be slow on the app startup path.\n\nRewrote to keep things to simple fast boolean ops.\nPTAL.\n\nAlso, would you mind if I changed all the other `packBitList` expressions, for consistency?",
       "parentUuid": "b16fe486_26df7e6d",
+      "revId": "7709a30f8fed2df889fd23a3d3aac29a6ad15992",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f821078_5e381c91",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2024-03-18T18:59:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3b429e7f_6213cb71",
       "revId": "7709a30f8fed2df889fd23a3d3aac29a6ad15992",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

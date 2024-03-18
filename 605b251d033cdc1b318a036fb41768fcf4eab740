@@ -70,6 +70,24 @@
       "parentUuid": "f30b2b5a_c076d455",
       "revId": "605b251d033cdc1b318a036fb41768fcf4eab740",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55cbf980_f16c748a",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2024-03-18T18:59:19Z",
+      "side": 1,
+      "message": "Remi, that\u0027s a very interesting idea to invert the relationship, where NetworkCapabilities will call into NetworkCapabilitiesUtils with the private information. Thanks for the creative thinking.\nTook a slightly different approach to it. PTAL.",
+      "parentUuid": "839f4ab3_80f40781",
+      "revId": "605b251d033cdc1b318a036fb41768fcf4eab740",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
