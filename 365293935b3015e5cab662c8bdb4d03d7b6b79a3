@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c03ded2_faa81e33",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-18T21:27:05Z",
+      "side": 1,
+      "message": "nit: Typo in `Network`\n\nSame below.",
+      "range": {
+        "startLine": 7,
+        "startChar": 27,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "365293935b3015e5cab662c8bdb4d03d7b6b79a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
