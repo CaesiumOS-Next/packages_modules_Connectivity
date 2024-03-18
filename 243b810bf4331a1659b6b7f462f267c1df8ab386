@@ -90,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ec05571_a8492714",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1781,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-18T08:19:47Z",
+      "side": 1,
+      "message": "Don\u0027t think we can support this easily. Since the interface names they use are overlapping.\nFor now I think the best we can do, is:\nWhen getUidStatsForTransport(TRANSPORT_CELLULAR) is called, retun both celluar and satellite, with clearly documentation.\nWhen getUidStatsForTransport(TRANSPORT_SATELLITE) is called, throw to make the caller knows this is not supported (current behavior).",
+      "parentUuid": "50aca68c_136aca84",
+      "range": {
+        "startLine": 1781,
+        "startChar": 71,
+        "endLine": 1781,
+        "endChar": 90
+      },
+      "revId": "243b810bf4331a1659b6b7f462f267c1df8ab386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "28c277cd_3d1b6d33",
         "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
         "patchSetId": 2
