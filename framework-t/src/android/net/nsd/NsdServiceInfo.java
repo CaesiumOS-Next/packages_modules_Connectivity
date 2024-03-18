@@ -16,6 +16,8 @@
 
 package android.net.nsd;
 
+import static com.android.net.module.util.HexDump.toHexString;
+
 import android.annotation.FlaggedApi;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -32,6 +34,13 @@ import com.android.net.module.util.InetAddressUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.CharacterCodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CoderResult;
+import java.nio.charset.CodingErrorAction;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -39,6 +48,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.StringJoiner;
 
 /**
  * A class representing service information for network service discovery
@@ -541,9 +551,54 @@ public final class NsdServiceInfo implements Parcelable {
                 .append(", network: ").append(mNetwork)
                 .append(", expirationTime: ").append(mExpirationTime);
 
-        byte[] txtRecord = getTxtRecord();
-        sb.append(", txtRecord: ").append(new String(txtRecord, StandardCharsets.UTF_8));
+        final StringJoiner txtJoiner =
+                new StringJoiner(", " /* delimiter */, "{" /* prefix */, "}" /* suffix */);
+
+        sb.append(", txtRecord: ");
+        for (Map.Entry<String, byte[]> entry : mTxtRecord.entrySet()) {
+            txtJoiner.add(entry.getKey() + "=" + encodeTxtValue(entry.getValue()));
+        }
+        sb.append(txtJoiner.toString());
         return sb.toString();
+    }
+
+    /**
+     * Returns printable UTF-8 string for {@code txtValue}.
+     *
+     * If {@code txtValue} contains ISO control characters or invalid UTF-8 characters, a HEX
+     * string with prefix "0x" will be returned. Otherwise, the UTF-8 string of {@code txtValue} is
+     * returned.
+     *
+     */
+    private static String encodeTxtValue(@Nullable byte[] txtValue) {
+        if (txtValue == null) {
+            return "(null)";
+        }
+
+        CharsetDecoder decoder =  StandardCharsets.UTF_8.newDecoder()
+                .onMalformedInput(CodingErrorAction.REPORT)
+                .onUnmappableCharacter(CodingErrorAction.REPORT);
+        try {
+            String result = decoder.decode(ByteBuffer.wrap(txtValue)).toString();
+            if (containsControlChars(result)) {
+                return "0x" + toHexString(txtValue);
+            } else {
+                return result;
+            }
+        } catch (CharacterCodingException ex) {
+            // Ignore ex because invalid UTF-8 bytes in txtValue is expected
+            return "0x" + toHexString(txtValue);
+        }
+    }
+
+    /** Returns {@code true} if {@code s} contains at least one ISO control character. */
+    private static boolean containsControlChars(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isISOControl(s.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /** Implement the Parcelable interface */
