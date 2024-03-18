@@ -201,4 +201,20 @@ public class NsdServiceInfoTest {
 
         assertEquals(Set.of("_thread", "_matter"), info.getSubtypes());
     }
+
+    @Test
+    public void testToString() {
+        NsdServiceInfo info = new NsdServiceInfo();
+        info.setAttribute("abc", new byte[]{(byte)0xff, (byte)0xfe});
+        info.setAttribute("def", (String)null);
+        info.setAttribute("ghi", "猫");
+        info.setAttribute("sb", new byte[]{0, 0, 0, 0x21});
+
+        String infoStr = info.toString();
+
+        assertTrue(infoStr.contains("abc=0xFFFE"));
+        assertTrue(infoStr.contains("def=(null)"));
+        assertTrue(infoStr.contains("ghi=猫"));
+        assertTrue(infoStr.contains("sb=0x00000021"));
+    }
 }
