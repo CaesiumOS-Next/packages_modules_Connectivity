@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d4cc410_62e5dc19",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-03-18T15:42:24Z",
+      "side": 1,
+      "message": "Also update TetheringRequest#equals() and #hashCode() ?",
+      "range": {
+        "startLine": 835,
+        "startChar": 16,
+        "endLine": 835,
+        "endChar": 30
+      },
+      "revId": "4e19c9a647d47d03055ccd53cdabebc5b6eb0396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
