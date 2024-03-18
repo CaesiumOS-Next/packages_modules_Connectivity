@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d1c6c38_a6de85d7",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-18T21:34:29Z",
+      "side": 1,
+      "message": "enclose with a proper {@link}",
+      "range": {
+        "startLine": 930,
+        "startChar": 15,
+        "endLine": 930,
+        "endChar": 39
+      },
+      "revId": "d759ca09daf9367fc6817bae369705a8ed5d82c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baa219a5_b32e4b8f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1742,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-18T21:34:29Z",
+      "side": 1,
+      "message": "I think we should change this as well to move away from blockedReasons based calculations. Even while mocking. So it doesn\u0027t confuse anyone reading the code.",
+      "range": {
+        "startLine": 1742,
+        "startChar": 20,
+        "endLine": 1742,
+        "endChar": 32
+      },
+      "revId": "d759ca09daf9367fc6817bae369705a8ed5d82c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
