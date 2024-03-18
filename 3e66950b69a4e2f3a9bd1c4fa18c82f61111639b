@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abbaa471_cad92fd9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-03-18T15:36:02Z",
+      "side": 1,
+      "message": "LGTM, but you still need Lorenzo\u0027s API review",
+      "revId": "3e66950b69a4e2f3a9bd1c4fa18c82f61111639b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

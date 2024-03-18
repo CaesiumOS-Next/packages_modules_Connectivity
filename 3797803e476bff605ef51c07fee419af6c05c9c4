@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cacc464c_40ccc799",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-03-18T15:36:02Z",
+      "side": 1,
+      "message": "I\u0027m not sure why exactly, just reference to how Arrays.hashCode does.\n\n        for (boolean element : a)\n            result \u003d 31 * result + (element ? 1231 : 1237);\n            \nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:libcore/ojluni/src/main/java/java/util/Arrays.java;l\u003d4485?q\u003dArrays.java\u0026sq\u003drepo:android%2Fplatform%2Fsuperproject%2Fmain%20b:main",
+      "parentUuid": "41989b81_b86af9a4",
+      "range": {
+        "startLine": 744,
+        "startChar": 19,
+        "endLine": 746,
+        "endChar": 74
+      },
+      "revId": "3797803e476bff605ef51c07fee419af6c05c9c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "704c7a6e_4e5d0989",
