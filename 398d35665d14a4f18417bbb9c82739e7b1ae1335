@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9437bdf3_45d9d8aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-18T05:10:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f11c3602_118257e1",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 23
+      },
+      "revId": "398d35665d14a4f18417bbb9c82739e7b1ae1335",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbfec188_95577e18",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-18T04:19:16Z",
       "side": 1,
       "message": "define a constant for this",
+      "range": {
+        "startLine": 101,
+        "startChar": 31,
+        "endLine": 101,
+        "endChar": 52
+      },
+      "revId": "398d35665d14a4f18417bbb9c82739e7b1ae1335",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7c38719_57026482",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-18T05:10:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "dbfec188_95577e18",
       "range": {
         "startLine": 101,
         "startChar": 31,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94604a35_0be6e612",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-18T05:10:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b1324670_1572c309",
+      "range": {
+        "startLine": 103,
+        "startChar": 34,
+        "endLine": 103,
+        "endChar": 83
+      },
+      "revId": "398d35665d14a4f18417bbb9c82739e7b1ae1335",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "360e8ed5_4e89a98f",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-03-18T04:19:16Z",
       "side": 1,
       "message": "registerForUserRemovedIntent",
+      "range": {
+        "startLine": 152,
+        "startChar": 20,
+        "endLine": 152,
+        "endChar": 36
+      },
+      "revId": "398d35665d14a4f18417bbb9c82739e7b1ae1335",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b216bc8_2df7e25b",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-18T05:10:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "360e8ed5_4e89a98f",
       "range": {
         "startLine": 152,
         "startChar": 20,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a598394c_667f8131",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-18T05:10:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1edcdd15_149467ad",
+      "range": {
+        "startLine": 253,
+        "startChar": 17,
+        "endLine": 253,
+        "endChar": 68
+      },
+      "revId": "398d35665d14a4f18417bbb9c82739e7b1ae1335",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8981d657_730df99e",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-03-18T04:19:16Z",
       "side": 1,
       "message": "maybe move this up and add in else case so that it is clear that it is handled for the removal case",
+      "range": {
+        "startLine": 268,
+        "startChar": 8,
+        "endLine": 272,
+        "endChar": 9
+      },
+      "revId": "398d35665d14a4f18417bbb9c82739e7b1ae1335",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "700a669e_7bfc4aed",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-18T05:10:37Z",
+      "side": 1,
+      "message": "Thank You.. Applicable in case of User Removal , handled Accordingly.",
+      "parentUuid": "8981d657_730df99e",
       "range": {
         "startLine": 268,
         "startChar": 8,
