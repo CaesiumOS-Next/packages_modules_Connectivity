@@ -22,6 +22,30 @@
       },
       "revId": "30f72063fe72c66bff7c32b7ac60432f9d89dd61",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "608dabb6_9f8c626d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2024-03-18T17:39:32Z",
+      "side": 1,
+      "message": "I\u0027ve updated the revert reason. Also see test run: https://android-build.corp.google.com/test_investigate/?invocationId\u003dI47400010256529490\u0026testResultId\u003dTR99229217731986327",
+      "parentUuid": "c1437eed_f85d40b9",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 37
+      },
+      "revId": "30f72063fe72c66bff7c32b7ac60432f9d89dd61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
