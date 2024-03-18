@@ -22,6 +22,30 @@
       },
       "revId": "37aa8c494ca6031fd4bde79bc52a20ef66b340c0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f6cf2fd_13b45049",
+        "filename": "framework/src/android/net/NetworkStackBpfNetMapsReader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-18T08:09:04Z",
+      "side": 1,
+      "message": "Renamed to NetworkStackBpfNetMaps",
+      "parentUuid": "99b42a9a_28c7fd89",
+      "range": {
+        "startLine": 55,
+        "startChar": 13,
+        "endLine": 55,
+        "endChar": 41
+      },
+      "revId": "37aa8c494ca6031fd4bde79bc52a20ef66b340c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
