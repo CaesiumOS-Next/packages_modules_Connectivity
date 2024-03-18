@@ -46,6 +46,30 @@
       },
       "revId": "7f51a2ba86bf1bf8a27e6af1942d0a1be6401837",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37eabc25_aeb06025",
+        "filename": "tests/unit/vpn-jarjar-rules.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2024-03-18T04:55:21Z",
+      "side": 0,
+      "message": "Sorry, I meant that the reference can be removed from ConnectivityServiceTest easily since I think the current usage does not actually affect the tests (it was just left over).",
+      "parentUuid": "c18b1f53_04cf6b86",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 52
+      },
+      "revId": "7f51a2ba86bf1bf8a27e6af1942d0a1be6401837",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
