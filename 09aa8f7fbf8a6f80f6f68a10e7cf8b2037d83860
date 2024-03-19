@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39428267_4585ee58",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1344,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-19T16:44:43Z",
+      "side": 1,
+      "message": "this file\u0027s diff looks like a refactor and thus belongs in a separate CL",
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82384384_7b32bbf5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 4275,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-19T16:44:43Z",
+      "side": 1,
+      "message": "how does this work if there\u0027s multiple running clats?\n(for example both wifi GoogleGuest + cellular T-Mobile at the same time)",
+      "range": {
+        "startLine": 4275,
+        "startChar": 0,
+        "endLine": 4275,
+        "endChar": 50
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a30ca4ba_bebd3ce7",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-19T16:44:43Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 892,
+        "startChar": 29,
+        "endLine": 892,
+        "endChar": 33
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0adbd08_78583ba3",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-19T16:44:43Z",
+      "side": 1,
+      "message": "not clear what this means",
+      "range": {
+        "startLine": 893,
+        "startChar": 7,
+        "endLine": 893,
+        "endChar": 43
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7775ccc_a74a01f2",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 896,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-19T16:44:43Z",
+      "side": 1,
+      "message": "capitalization does not match commit message",
+      "range": {
+        "startLine": 896,
+        "startChar": 40,
+        "endLine": 896,
+        "endChar": 53
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2ddf727_ad7938de",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-19T16:44:43Z",
+      "side": 1,
+      "message": "instead of this comment, can\u0027t this just check for equality?\nthere should only be one argument left no?",
+      "range": {
+        "startLine": 904,
+        "startChar": 8,
+        "endLine": 906,
+        "endChar": 35
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52178163_45eb37b1",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-19T16:44:43Z",
+      "side": 1,
+      "message": "you can move the try/catch outside the if, and just \"Error dumping map\" - it really doesn\u0027t matter which one - the caller knows what they tried to dump",
+      "range": {
+        "startLine": 910,
+        "startChar": 12,
+        "endLine": 912,
+        "endChar": 13
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c502b5a_6bd896ca",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-19T16:44:43Z",
+      "side": 1,
+      "message": "464XLAT",
+      "range": {
+        "startLine": 626,
+        "startChar": 32,
+        "endLine": 626,
+        "endChar": 42
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "047c4881_9c0b3bb0",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-19T16:44:43Z",
+      "side": 1,
+      "message": "afaict this entire class is T+ so this check seems spurious",
+      "range": {
+        "startLine": 632,
+        "startChar": 0,
+        "endLine": 632,
+        "endChar": 36
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de810684_0cfd9239",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-19T16:44:43Z",
+      "side": 1,
+      "message": "this check also seems not needed... the maps exist and thus can be dumped, regardless of isStarted() - which could also be useful for debugging",
+      "range": {
+        "startLine": 633,
+        "startChar": 12,
+        "endLine": 633,
+        "endChar": 30
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33e53eff_c5820c1c",
+        "filename": "staticlibs/device/com/android/net/module/util/BpfDump.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-19T16:44:43Z",
+      "side": 1,
+      "message": "how can this happen?\nWe require T+, and on U+ the privs are setup correctly.\nDoes this run in system server or network stack process on T?",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 9
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
