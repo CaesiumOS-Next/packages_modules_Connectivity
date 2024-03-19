@@ -238,6 +238,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8e7df35_bd4323ae",
+        "filename": "tests/cts/net/src/android/net/cts/ApfTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-19T15:19:54Z",
+      "side": 1,
+      "message": "I guess it\u0027s debatable on whether this should be isAnyOf(4, 6). Though in the presence of MCTS, I am not sure to what the degree we can / are allowed to change CTS expectations for past releases. So maybe that\u0027s not a problem?",
+      "range": {
+        "startLine": 49,
+        "startChar": 21,
+        "endLine": 49,
+        "endChar": 22
+      },
+      "revId": "640a230226fc5fd0de3f2a218dd753bffc79d082",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64ec00ae_884b1317",
         "filename": "tests/cts/net/src/android/net/cts/ApfTest.kt",
         "patchSetId": 3
