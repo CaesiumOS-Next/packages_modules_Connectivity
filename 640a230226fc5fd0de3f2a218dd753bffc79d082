@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc19d0c7_38b19a15",
+        "filename": "tests/cts/net/src/android/net/cts/ApfTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-19T13:29:59Z",
+      "side": 1,
+      "message": "Not needed yet. Tap tests should probably also live in a separate class as they will share little setup / teardown code.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 69
+      },
+      "revId": "640a230226fc5fd0de3f2a218dd753bffc79d082",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eeba051_39912d3a",
+        "filename": "tests/cts/net/src/android/net/cts/ApfTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-19T13:29:59Z",
+      "side": 1,
+      "message": "Maybe this isn\u0027t needed (I also doubt that @SmallTest will hold for the tests contained in this class).",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 10
+      },
+      "revId": "640a230226fc5fd0de3f2a218dd753bffc79d082",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "642c2d44_cf80dad1",
+        "filename": "tests/cts/net/src/android/net/cts/ApfTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-19T13:29:59Z",
+      "side": 1,
+      "message": "We already have an ApfTest, suggest renaming to ApfIntegrationTest so atest resolves properly.",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 13
+      },
+      "revId": "640a230226fc5fd0de3f2a218dd753bffc79d082",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6eece33_92a08988",
+        "filename": "tests/cts/net/src/android/net/cts/ApfTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-19T13:29:59Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "640a230226fc5fd0de3f2a218dd753bffc79d082",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f184eb9_a810ccad",
+        "filename": "tests/cts/net/src/android/net/cts/ApfTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-19T13:29:59Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 87
+      },
+      "revId": "640a230226fc5fd0de3f2a218dd753bffc79d082",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64ec00ae_884b1317",
+        "filename": "tests/cts/net/src/android/net/cts/ApfTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-19T13:29:59Z",
+      "side": 1,
+      "message": "If coverage is set up correctly to allow us to use truth in these tests (I believe it is), I suggest using truth for more verbose assertions (and especially error methods).",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 34
+      },
+      "revId": "640a230226fc5fd0de3f2a218dd753bffc79d082",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
