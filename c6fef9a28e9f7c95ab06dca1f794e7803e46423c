@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37a9b77f_d444a231",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-19T12:02:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3bcf1a65_141cb2f7",
+      "range": {
+        "startLine": 929,
+        "startChar": 69,
+        "endLine": 929,
+        "endChar": 86
+      },
+      "revId": "c6fef9a28e9f7c95ab06dca1f794e7803e46423c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31a2a05e_c82c0e5e",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-03-18T06:57:07Z",
       "side": 1,
       "message": "I\u0027m thinking it might be a bit easier to follow if you had `String getCustomHostnameForService(id)` and `MdnsAnnouncer.AnnouncementInfo[] restartAnnouncingForHostname(String)`.\n\nAlso considering that we should do something about the probing as well, so you probably want to have `ProbingInfo[] restartProbingForHostname(String)`",
+      "revId": "c6fef9a28e9f7c95ab06dca1f794e7803e46423c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa76dd0e_3bea0e88",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-19T12:02:28Z",
+      "side": 1,
+      "message": "Thanks for the suggestion.\n\nAdded `restartProbingForHostname` and `restartAnnouncingForHostname` in `MdnsRecordRepository`.\n\nNot sure if there\u0027s a use case for returning `MdnsAnnouncer.AnnouncementInfo[]` and `ProbingInfo[]` so I\u0027m just letting it return `void` now.",
+      "parentUuid": "31a2a05e_c82c0e5e",
       "revId": "c6fef9a28e9f7c95ab06dca1f794e7803e46423c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
