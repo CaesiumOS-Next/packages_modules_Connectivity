@@ -158,6 +158,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "24f0953d_cce5103c",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-19T15:50:17Z",
+      "side": 1,
+      "message": "I think as per previous comment , it was said to move getUserHandles() part of mDeps\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2954926/12/tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt#83\nIf you comment this line, does test fail?\nmakeMockUserManager returns mocked UserManager.\nBut this line does not use returned mocked UserManager.\nI think you wanted to do the following?\nval userManager \u003d makeMockUserManager(USER_INFO, USER_HANDLE)\ndoReturn(userManager).`when`(context).getSystemService(...)\nOr you can move mUserManager.getUserHandles to the dependencies.\nThough currently getUserHandles is not called since mHandler is mocked and mUserManager.getUserHandles is not called from this test.",
+      "parentUuid": "44c5ae77_fd04b2bc",
+      "range": {
+        "startLine": 277,
+        "startChar": 41,
+        "endLine": 277,
+        "endChar": 76
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01cdb826_189bf782",
         "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
         "patchSetId": 6
