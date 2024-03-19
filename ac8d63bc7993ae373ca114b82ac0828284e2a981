@@ -62,6 +62,72 @@
       },
       "revId": "ac8d63bc7993ae373ca114b82ac0828284e2a981",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf275a2b_24c5572a",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-19T06:41:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c7695b2_84f9d274",
+      "range": {
+        "startLine": 471,
+        "startChar": 4,
+        "endLine": 471,
+        "endChar": 51
+      },
+      "revId": "ac8d63bc7993ae373ca114b82ac0828284e2a981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4402f410_05c8f339",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-19T06:41:50Z",
+      "side": 1,
+      "message": "Actually the `dns browse` and `dns service` use the same output CLI format for according entries. \n\nThere\u0027re no `dns server` commands.\n\nChanged the class name to `DnsServiceCliOutputParser`.",
+      "parentUuid": "33a47207_348bf174",
+      "range": {
+        "startLine": 471,
+        "startChar": 31,
+        "endLine": 471,
+        "endChar": 49
+      },
+      "revId": "ac8d63bc7993ae373ca114b82ac0828284e2a981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d0c7530_1624e8c0",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-19T06:41:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe4fbc48_adb0c3e3",
+      "revId": "ac8d63bc7993ae373ca114b82ac0828284e2a981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
