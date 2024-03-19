@@ -59,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a12e9d9d_ad5ac595",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-19T12:48:48Z",
+      "side": 1,
+      "message": "This function has been removed in the latest patch.",
+      "parentUuid": "1feb1298_faa9670b",
+      "range": {
+        "startLine": 954,
+        "startChar": 14,
+        "endLine": 954,
+        "endChar": 20
+      },
+      "revId": "dcc6b5201f42e92ad5d30d7aeeceb6d62037ccdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1b30e80_a76d4091",
@@ -82,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c493835_b25bd1cd",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-19T12:48:48Z",
+      "side": 1,
+      "message": "This function has been removed in the latest patch.",
+      "parentUuid": "e1b30e80_a76d4091",
+      "range": {
+        "startLine": 956,
+        "startChar": 32,
+        "endLine": 956,
+        "endChar": 44
+      },
+      "revId": "dcc6b5201f42e92ad5d30d7aeeceb6d62037ccdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7af4bea_64615389",
@@ -95,6 +143,30 @@
       "writtenOn": "2024-03-12T16:09:54Z",
       "side": 1,
       "message": "I assume it is already being tested with real device and works. So it is expected to pull the data from Connectivity service in tethering test?",
+      "range": {
+        "startLine": 319,
+        "startChar": 58,
+        "endLine": 319,
+        "endChar": 86
+      },
+      "revId": "dcc6b5201f42e92ad5d30d7aeeceb6d62037ccdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "024f9a3f_816154db",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/MtsEthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-19T12:48:48Z",
+      "side": 1,
+      "message": "Right, it uses dumpsys command to pull BPF data from the Connectivity service.",
+      "parentUuid": "f7af4bea_64615389",
       "range": {
         "startLine": 319,
         "startChar": 58,
