@@ -88,6 +88,24 @@
       "parentUuid": "839f4ab3_80f40781",
       "revId": "605b251d033cdc1b318a036fb41768fcf4eab740",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1afee97d_00990fa1",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-19T02:26:56Z",
+      "side": 1,
+      "message": "Thanks, I think what you have is best and more simple",
+      "parentUuid": "55cbf980_f16c748a",
+      "revId": "605b251d033cdc1b318a036fb41768fcf4eab740",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
