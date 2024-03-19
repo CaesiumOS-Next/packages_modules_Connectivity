@@ -176,6 +176,8 @@ public abstract class EthernetTetheringTestBase {
         // tests, turn tethering on and off before running them.
         MyTetheringEventCallback callback = null;
         TestNetworkInterface testIface = null;
+        mRunTests = isEthernetTetheringSupported();
+        assumeTrue(mRunTests);
         try {
             // If the physical ethernet interface is available, do nothing.
             if (isInterfaceForTetheringAvailable()) return;
