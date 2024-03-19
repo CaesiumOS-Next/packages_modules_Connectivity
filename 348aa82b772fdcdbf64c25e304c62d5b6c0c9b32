@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f429201b_aaf40492",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-19T15:05:25Z",
+      "side": 1,
+      "message": "nits: We don\u0027t need to have mUserRemovedReceiver field since we don\u0027t unregister this receiver.",
+      "range": {
+        "startLine": 97,
+        "startChar": 36,
+        "endLine": 97,
+        "endChar": 56
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62e84592_5840ccc1",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-19T15:05:25Z",
+      "side": 1,
+      "message": "It seems EXTRA_USER is better.\n```\n    /**\n     * Broadcast sent to the system when a user is removed.\n     * Carries an extra {@link #EXTRA_USER} that specifies the {@link UserHandle} of the user that\n     * was removed\n     * (and for legacy reasons, also carries an int extra {@link #EXTRA_USER_HANDLE} specifying that\n     * user\u0027s user ID).\n     * It is sent to all running users except the\n     * one that has been removed. The user will not be completely removed until all receivers have\n     * handled the broadcast. You must hold\n     * {@link android.Manifest.permission#MANAGE_USERS} to receive this broadcast.\n     * @hide\n     */\n    @SystemApi\n    public static final String ACTION_USER_REMOVED \u003d\n            \"android.intent.action.USER_REMOVED\";\n```\n\nAlso, I saw existing code in Connectivity is using EXTRA_USER.\nhttps://source.corp.google.com/search?q\u003dEXTRA_USER%20-f:Test\u0026ss\u003dh%2Fandroid%2Fplatform%2Fsuperproject%2Fmain%2F%2B%2Frefs%2Fheads%2Fmain:packages%2Fmodules%2FConnectivity%2F",
+      "range": {
+        "startLine": 101,
+        "startChar": 60,
+        "endLine": 101,
+        "endChar": 77
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f59ba4e_b65910bd",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-19T15:05:25Z",
+      "side": 1,
+      "message": "I think this code path is expected for example if this user does not have messaging app that is allowed to use satellite.\nWe don\u0027t need this logging.",
+      "range": {
+        "startLine": 119,
+        "startChar": 12,
+        "endLine": 119,
+        "endChar": 88
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c81415c_a2495cbc",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-19T15:05:25Z",
+      "side": 1,
+      "message": "I think you can register Receiver specifying handler.\nIf you can, onReceive does not need to post message and can directly call updateSatelliteFallbackUidListOnUserRemoval",
+      "range": {
+        "startLine": 157,
+        "startChar": 64,
+        "endLine": 157,
+        "endChar": 66
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88401662_cf4e56a2",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-19T15:05:25Z",
+      "side": 1,
+      "message": "I feel this naming is a bit confusing since `updateAllUsersSatelliteFallbackUidCacheForUser` does not update `AllUsersSatelliteFallbackUidCache`.\nHow about something like `reportSatelliteNetworkFallbackUids`?",
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9897d1f4_bc76d856",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-19T15:05:25Z",
+      "side": 1,
+      "message": "nits: test uses mocked context, so we don\u0027t need to have registerForUserRemovedIntent in deps.\nYou can verify mocked context.",
+      "range": {
+        "startLine": 273,
+        "startChar": 8,
+        "endLine": 273,
+        "endChar": 75
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44c5ae77_fd04b2bc",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-19T15:05:25Z",
+      "side": 1,
+      "message": "nits: I think mocked context can return mocked UserManager.\nFor the reference,\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt;l\u003d423-438?q\u003dCSTest.kt\u0026ss\u003dh%2Fandroid%2Fplatform%2Fsuperproject%2Fmain%2F%2B%2Fmain\n\nSorry that I missed to suggest this before but this applies to RoleManager as well.\nmocked context can return mocked RoleManager and we don\u0027t need dependency for RoleManager API calls.",
+      "range": {
+        "startLine": 277,
+        "startChar": 41,
+        "endLine": 277,
+        "endChar": 76
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01cdb826_189bf782",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-19T15:05:25Z",
+      "side": 1,
+      "message": "Is the return value of getUserHandles Nullable?\nIf not, I don\u0027t think we need this null check.",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 36
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
