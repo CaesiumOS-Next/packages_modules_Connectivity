@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "355d8dd8_3d6bbcd5",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-19T08:19:54Z",
+      "side": 1,
+      "message": "Offline discussed with motomu,\nthe real concern here is do we want to change the behavior of TrafficStats#get* API on U- devices , or should we only do this only on V+?\n\nRationale for T+:\n * Callers should not call this API x times per second. And we doesn\u0027t really do anything harmful, e.g. throw. Just return cached value within 1 sec.\n \nRationale for V+:\n * We don\u0027t really know if the behavior change is safe or not. It would be safer if no existing devices are impacted.\n \n\n@lorenzo@google.com @reminv@google.com to input.",
+      "parentUuid": "b264fe38_98a96dc8",
+      "range": {
+        "startLine": 515,
+        "startChar": 41,
+        "endLine": 516,
+        "endChar": 97
+      },
+      "revId": "54e81de8ca9928d11d8e6504f4e3e793ad50803a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a544f6c4_2f571bd9",
         "filename": "tests/integration/src/com/android/server/net/integrationtests/NetworkStatsIntegrationTest.kt",
         "patchSetId": 10
