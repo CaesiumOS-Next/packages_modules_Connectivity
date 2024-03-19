@@ -94,6 +94,7 @@ import android.net.thread.OperationalDatasetTimestamp;
 import android.net.thread.PendingOperationalDataset;
 import android.net.thread.ThreadNetworkController;
 import android.net.thread.ThreadNetworkController.DeviceRole;
+import android.net.thread.ThreadNetworkException;
 import android.net.thread.ThreadNetworkException.ErrorCode;
 import android.os.Build;
 import android.os.Handler;
@@ -174,6 +175,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final ThreadPersistentSettings mPersistentSettings;
     private final UserManager mUserManager;
     private boolean mUserRestricted;
+    private boolean mForceStopOtDaemon;
 
     private BorderRouterConfigurationParcel mBorderRouterConfig;
 
@@ -289,12 +291,19 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         try {
             getOtDaemon();
         } catch (RemoteException e) {
-            Log.e(TAG, "Failed to initialize ot-daemon");
+            Log.e(TAG, "Failed to initialize ot-daemon", e);
+        } catch (ThreadNetworkException e) {
+            // no ThreadNetworkException.ERROR_THREAD_DISABLED error should be thrown
+            throw new AssertionError(e);
         }
     }
 
-    private IOtDaemon getOtDaemon() throws RemoteException {
+    private IOtDaemon getOtDaemon() throws RemoteException, ThreadNetworkException {
         checkOnHandlerThread();
+
+        if (mForceStopOtDaemon) {
+            throw new ThreadNetworkException(ERROR_THREAD_DISABLED, "ot-daemon is force stopped");
+        }
 
         if (mOtDaemon != null) {
             return mOtDaemon;
@@ -342,8 +351,54 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 });
     }
 
+    /**
+     * Force stops ot-daemon immediately and prevents ot-daemon from being restarted by
+     * system_server again.
+     *
+     * <p>This is for VTS testing only.
+     */
     @RequiresPermission(PERMISSION_THREAD_NETWORK_PRIVILEGED)
-    void forceStopOtDaemon(boolean forceStop)
+    void forceStopOtDaemonForTest(boolean forceStop, @NonNull IOperationReceiver receiver) {
+        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        mHandler.post(
+                () ->
+                        forceStopOtDaemonForTestInternal(
+                                forceStop,
+                                new OperationReceiverWrapper(
+                                        receiver, true /* expectOtDaemonDied */)));
+    }
+
+    private void forceStopOtDaemonForTestInternal(
+            boolean forceStop, @NonNull OperationReceiverWrapper receiver) {
+        checkOnHandlerThread();
+        if (forceStop == mForceStopOtDaemon) {
+            receiver.onSuccess();
+            return;
+        }
+
+        if (!forceStop) {
+            mForceStopOtDaemon = forceStop;
+            maybeInitializeOtDaemon();
+            receiver.onSuccess();
+            return;
+        }
+
+        try {
+            getOtDaemon().terminate();
+            // Do not invoke the {@code receiver} callback here but wait for ot-daemon to
+            // become dead, so that it's guaranteed that ot-daemon is stopped when {@code
+            // receiver} is completed
+        } catch (RemoteException e) {
+            Log.e(TAG, "otDaemon.terminate failed", e);
+            receiver.onError(ERROR_INTERNAL_ERROR, "Thread stack error");
+        } catch (ThreadNetworkException e) {
+            // No ThreadNetworkException.ERROR_THREAD_DISABLED error will be thrown
+            throw new AssertionError(e);
+        } finally {
+            mForceStopOtDaemon = forceStop;
+        }
+    }
 
     public void setEnabled(boolean isEnabled, @NonNull IOperationReceiver receiver) {
         enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
@@ -374,9 +429,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
         try {
             getOtDaemon().setThreadEnabled(isEnabled, newOtStatusReceiver(receiver));
-        } catch (RemoteException e) {
+        } catch (RemoteException | ThreadNetworkException e) {
             Log.e(TAG, "otDaemon.setThreadEnabled failed", e);
-            receiver.onError(ERROR_INTERNAL_ERROR, "Thread stack error");
+            receiver.onError(e);
         }
     }
 
@@ -433,7 +488,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     /** Returns {@code true} if Thread is set enabled. */
     private boolean isEnabled() {
-        return !mUserRestricted && mPersistentSettings.get(ThreadPersistentSettings.THREAD_ENABLED);
+        return !mForceStopOtDaemon
+                && !mUserRestricted
+                && mPersistentSettings.get(ThreadPersistentSettings.THREAD_ENABLED);
     }
 
     /** Returns {@code true} if Thread has been restricted for the user. */
@@ -621,9 +678,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
         try {
             getOtDaemon().getChannelMasks(newChannelMasksReceiver(networkName, receiver));
-        } catch (RemoteException e) {
+        } catch (RemoteException | ThreadNetworkException e) {
             Log.e(TAG, "otDaemon.getChannelMasks failed", e);
-            receiver.onError(ERROR_INTERNAL_ERROR, "Thread stack error");
+            receiver.onError(e);
         }
     }
 
@@ -833,9 +890,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         try {
             // The otDaemon.join() will leave first if this device is currently attached
             getOtDaemon().join(activeDataset.toThreadTlvs(), newOtStatusReceiver(receiver));
-        } catch (RemoteException e) {
+        } catch (RemoteException | ThreadNetworkException e) {
             Log.e(TAG, "otDaemon.join failed", e);
-            receiver.onError(ERROR_INTERNAL_ERROR, "Thread stack error");
+            receiver.onError(e);
         }
     }
 
@@ -858,9 +915,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             getOtDaemon()
                     .scheduleMigration(
                             pendingDataset.toThreadTlvs(), newOtStatusReceiver(receiver));
-        } catch (RemoteException e) {
+        } catch (RemoteException | ThreadNetworkException e) {
             Log.e(TAG, "otDaemon.scheduleMigration failed", e);
-            receiver.onError(ERROR_INTERNAL_ERROR, "Thread stack error");
+            receiver.onError(e);
         }
     }
 
@@ -876,9 +933,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
         try {
             getOtDaemon().leave(newOtStatusReceiver(receiver));
-        } catch (RemoteException e) {
-            // Oneway AIDL API should never throw?
-            receiver.onError(ERROR_INTERNAL_ERROR, "Thread stack error");
+        } catch (RemoteException | ThreadNetworkException e) {
+            Log.e(TAG, "otDaemon.leave failed", e);
+            receiver.onError(e);
         }
     }
 
@@ -909,9 +966,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
         try {
             getOtDaemon().setCountryCode(countryCode, newOtStatusReceiver(receiver));
-        } catch (RemoteException e) {
+        } catch (RemoteException | ThreadNetworkException e) {
             Log.e(TAG, "otDaemon.setCountryCode failed", e);
-            receiver.onError(ERROR_INTERNAL_ERROR, "Thread stack error");
+            receiver.onError(e);
         }
     }
 
@@ -1142,8 +1199,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
             try {
                 getOtDaemon().registerStateCallback(this, callbackMetadata.id);
-            } catch (RemoteException e) {
-                // oneway operation should never fail
+            } catch (RemoteException | ThreadNetworkException e) {
+                Log.e(TAG, "otDaemon.registerStateCallback failed", e);
             }
         }
 
@@ -1183,8 +1240,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
             try {
                 getOtDaemon().registerStateCallback(this, callbackMetadata.id);
-            } catch (RemoteException e) {
-                // oneway operation should never fail
+            } catch (RemoteException | ThreadNetworkException e) {
+                Log.e(TAG, "otDaemon.registerStateCallback failed", e);
             }
         }
 
