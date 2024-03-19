@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c52e5746_648551a7",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2024-03-19T03:35:55Z",
+      "side": 1,
+      "message": "Great idea!\nAlso took care of the TODO.",
+      "parentUuid": "ffe8d47f_d1aac5c6",
+      "revId": "8c7baf1f5f494515d0ab185fbb2ba81b72079ddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c318e397_e29fb524",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-03-19T02:26:56Z",
       "side": 1,
       "message": "Please fix this WARNING reported by Check Contents: Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nLines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 101
+      },
+      "revId": "8c7baf1f5f494515d0ab185fbb2ba81b72079ddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce77b8d6_a89340ce",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2024-03-19T03:35:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c318e397_e29fb524",
       "range": {
         "startLine": 190,
         "startChar": 0,
