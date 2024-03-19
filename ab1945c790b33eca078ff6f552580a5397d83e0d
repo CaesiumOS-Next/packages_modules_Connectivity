@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a64c2b4c_ff21b862",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-19T17:19:49Z",
+      "side": 0,
+      "message": "Alternatively, couldn\u0027t you just change this to\n```\nprivate fun isEthernetSupported(): Boolean {\n    return context.getSystemService(EthernetManager::class.java) !\u003d null\n}\n```\n\nI get that it\u0027s (negligibly) less efficient because of an extra binder call in tearDown, but I find it more verbose and inline with the original intent.\n(In a perfect world, we could just put this inside a @BeforeClass without breaking our test infra, but oh well...)",
+      "range": {
+        "startLine": 351,
+        "startChar": 40,
+        "endLine": 351,
+        "endChar": 42
+      },
+      "revId": "ab1945c790b33eca078ff6f552580a5397d83e0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
