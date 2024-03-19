@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa1a88a2_286bc4b2",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-19T07:07:50Z",
+      "side": 1,
+      "message": "Case 1 is unlikely to happen, right?\nCase 2, it seems to me for OEMs may run old test code on newer module.\nWe can back port this CL to older CTS branch if needed.\nAnd the feature flag is needed here so they won\u0027t have NoSuchMethodException if they use older module.\nWDYT?",
+      "parentUuid": "75eb6a51_9b661e08",
+      "range": {
+        "startLine": 515,
+        "startChar": 41,
+        "endLine": 516,
+        "endChar": 97
+      },
+      "revId": "54e81de8ca9928d11d8e6504f4e3e793ad50803a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a544f6c4_2f571bd9",
         "filename": "tests/integration/src/com/android/server/net/integrationtests/NetworkStatsIntegrationTest.kt",
         "patchSetId": 10
