@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f02231c8_db02dee9",
+        "filename": "tests/cts/net/src/android/net/cts/ApfTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-19T13:52:41Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "fc19d0c7_38b19a15",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 69
+      },
+      "revId": "640a230226fc5fd0de3f2a218dd753bffc79d082",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2eeba051_39912d3a",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-19T13:29:59Z",
       "side": 1,
       "message": "Maybe this isn\u0027t needed (I also doubt that @SmallTest will hold for the tests contained in this class).",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 10
+      },
+      "revId": "640a230226fc5fd0de3f2a218dd753bffc79d082",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20afaecd_93d52c04",
+        "filename": "tests/cts/net/src/android/net/cts/ApfTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-19T13:52:41Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "2eeba051_39912d3a",
       "range": {
         "startLine": 36,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09ec2ac5_e5743186",
+        "filename": "tests/cts/net/src/android/net/cts/ApfTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-19T13:52:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "642c2d44_cf80dad1",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 13
+      },
+      "revId": "640a230226fc5fd0de3f2a218dd753bffc79d082",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6eece33_92a08988",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-03-19T13:29:59Z",
       "side": 1,
       "message": "Is this needed?",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "640a230226fc5fd0de3f2a218dd753bffc79d082",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "308ba69f_bd066029",
+        "filename": "tests/cts/net/src/android/net/cts/ApfTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-19T13:52:41Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "a6eece33_92a08988",
       "range": {
         "startLine": 40,
         "startChar": 4,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aaa6104_d68b5c78",
+        "filename": "tests/cts/net/src/android/net/cts/ApfTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-19T13:52:41Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "3f184eb9_a810ccad",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 87
+      },
+      "revId": "640a230226fc5fd0de3f2a218dd753bffc79d082",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64ec00ae_884b1317",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-03-19T13:29:59Z",
       "side": 1,
       "message": "If coverage is set up correctly to allow us to use truth in these tests (I believe it is), I suggest using truth for more verbose assertions (and especially error methods).",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 34
+      },
+      "revId": "640a230226fc5fd0de3f2a218dd753bffc79d082",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0042f5f5_1fe354ca",
+        "filename": "tests/cts/net/src/android/net/cts/ApfTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-19T13:52:41Z",
+      "side": 1,
+      "message": "maxLen \u003e\u003d 1024 is the requirement we added in VSR-14. Updated to add more verbose error message.",
+      "parentUuid": "64ec00ae_884b1317",
       "range": {
         "startLine": 50,
         "startChar": 8,
