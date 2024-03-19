@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d16bd41_8d9aeb3c",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-19T16:09:27Z",
+      "side": 1,
+      "message": "There\u0027s no guarantee wlan0 is *the* (correct) wifi interface is there?\n\nWhat if there\u0027s more than 1?  What if there\u0027s no wifi?  What if if\u0027s called wifi0?",
+      "range": {
+        "startLine": 36,
+        "startChar": 56,
+        "endLine": 36,
+        "endChar": 61
+      },
+      "revId": "a3a4b34444b0ff41b165d03e1365a1515fceaaab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
