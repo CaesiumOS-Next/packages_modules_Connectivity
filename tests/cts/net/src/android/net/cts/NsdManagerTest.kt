@@ -2002,6 +2002,11 @@ class NsdManagerTest {
             it.hostAddresses = hostAddresses3
         }
 
+        val packetReader = TapPacketReader(Handler(handlerThread.looper),
+                testNetwork1.iface.fileDescriptor.fileDescriptor, 1500 /* maxPacketSize */)
+        packetReader.startAsyncForTest()
+        handlerThread.waitForIdle(TIMEOUT_MS)
+
         val registrationRecord1 = NsdRegistrationRecord()
         val registrationRecord2 = NsdRegistrationRecord()
         val registrationRecord3 = NsdRegistrationRecord()
@@ -2010,6 +2015,9 @@ class NsdManagerTest {
         tryTest {
             registerService(registrationRecord1, si1)
             registerService(registrationRecord2, si2)
+
+            assertNotNull(packetReader.pollForAdvertisement(serviceName, serviceType),
+                    "No announcements found")
 
             nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD,
                     testNetwork1.network, Executor { it.run() }, discoveryRecord)
@@ -2025,6 +2033,9 @@ class NsdManagerTest {
                     resolvedInfo1.hostAddresses)
 
             registerService(registrationRecord3, si3)
+
+            assertNotNull(packetReader.pollForAdvertisement(serviceName3, serviceType),
+                    "No announcements found")
 
             val discoveredInfo2 = discoveryRecord.waitForServiceDiscovered(
                     serviceName3, serviceType, testNetwork1.network)
