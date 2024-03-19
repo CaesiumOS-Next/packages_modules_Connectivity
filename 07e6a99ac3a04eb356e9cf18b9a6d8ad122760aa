@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abba0ab7_8b735cb8",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-19T21:51:04Z",
+      "side": 1,
+      "message": ".XXrc script logic checks\n  android::base::GetIntProperty(\"ro.build.version.sdk\", INT_MAX)\nsee //system/core/init/apex_init_util.cpp\n\nthis matches //bionic/libc/include/bits/get_device_api_level_inlines.h\n\n__BIONIC_GET_DEVICE_API_LEVEL_INLINE int android_get_device_api_level() {\n  char value[92] \u003d { 0 };\n  if (__system_property_get(\"ro.build.version.sdk\", value) \u003c 1) return -1;\n  int api_level \u003d atoi(value);\n  return (api_level \u003e 0) ? api_level : -1;\n}",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 319,
+        "endChar": 4
+      },
+      "revId": "07e6a99ac3a04eb356e9cf18b9a6d8ad122760aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
