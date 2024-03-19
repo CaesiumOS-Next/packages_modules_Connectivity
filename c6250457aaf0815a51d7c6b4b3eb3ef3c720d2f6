@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a7783f6_fab5c34a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1121388
+      },
+      "writtenOn": "2024-03-19T18:14:12Z",
+      "side": 1,
+      "message": "FYI, pre/postsubmit tests are running for Cuttlefish emulator but not goldfish emulator. So it won\u0027t show up until the /emutf test loop is running those tests.",
+      "parentUuid": "3275f12e_f92027cb",
+      "revId": "c6250457aaf0815a51d7c6b4b3eb3ef3c720d2f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b5c548c_518d41b1",
