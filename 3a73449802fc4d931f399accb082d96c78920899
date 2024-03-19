@@ -34,6 +34,24 @@
       "parentUuid": "aed09901_c42971e0",
       "revId": "3a73449802fc4d931f399accb082d96c78920899",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9ae7f74_b54c3346",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-19T13:04:58Z",
+      "side": 1,
+      "message": "Thanks, it will be better to get aosp/3002596 merged first before I start reviewing this CL, just in case the discussion is not finalized.",
+      "parentUuid": "442584fe_523d9f0e",
+      "revId": "3a73449802fc4d931f399accb082d96c78920899",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
