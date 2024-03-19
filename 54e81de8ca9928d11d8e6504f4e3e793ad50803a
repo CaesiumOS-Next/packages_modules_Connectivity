@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b264fe38_98a96dc8",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-19T07:11:31Z",
+      "side": 1,
+      "message": "This cts change will be in V cts.\nIf we don\u0027t cherry-pick this change, older CTS (T cts, U cts) don\u0027t have this code.\nAnd minumum mainline module version for V device should have clear traffic stats API.\nSo I don\u0027t think we have the issue.",
+      "parentUuid": "aa1a88a2_286bc4b2",
+      "range": {
+        "startLine": 515,
+        "startChar": 41,
+        "endLine": 516,
+        "endChar": 97
+      },
+      "revId": "54e81de8ca9928d11d8e6504f4e3e793ad50803a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a544f6c4_2f571bd9",
         "filename": "tests/integration/src/com/android/server/net/integrationtests/NetworkStatsIntegrationTest.kt",
         "patchSetId": 10
