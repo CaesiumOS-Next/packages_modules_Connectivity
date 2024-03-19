@@ -233,16 +233,15 @@ int main(int argc, char** argv, char * const envp[]) {
     const int device_api_level = android_get_device_api_level();
     const bool isAtLeastT = (device_api_level >= __ANDROID_API_T__);
     const bool isAtLeastU = (device_api_level >= __ANDROID_API_U__);
-    const bool isAtLeastV = (device_api_level >= __ANDROID_API_V__);
+    const bool isAtLeastV = (device_api_level >= __ANDROID_API_V__) || true;  //LIE!
 
     // last in U QPR2 beta1
     const bool has_platform_bpfloader_rc = exists("/system/etc/init/bpfloader.rc");
     // first in U QPR2 beta~2
     const bool has_platform_netbpfload_rc = exists("/system/etc/init/netbpfload.rc");
 
-    ALOGI("NetBpfLoad api:%d/%d kver:%07x rc:%d%d",
-          android_get_application_target_sdk_version(), device_api_level,
-          android::bpf::kernelVersion(),
+    ALOGI("NetBpfLoad kver:%07x api:%d rc:%b/%b",
+          android::bpf::kernelVersion(), device_api_level,
           has_platform_bpfloader_rc, has_platform_netbpfload_rc);
 
     if (!has_platform_bpfloader_rc && !has_platform_netbpfload_rc) {
@@ -313,7 +312,7 @@ int main(int argc, char** argv, char * const envp[]) {
         return 1;
     }
 
-    if (false && isAtLeastV) {
+    if (isAtLeastV) {
         // Linux 5.16-rc1 changed the default to 2 (disabled but changeable),
         // but we need 0 (enabled)
         // (this writeFile is known to fail on at least 4.19, but always defaults to 0 on
@@ -380,7 +379,7 @@ int main(int argc, char** argv, char * const envp[]) {
         return 1;
     }
 
-    if (false && isAtLeastV) {
+    if (isAtLeastV) {
         ALOGI("done, transferring control to platform bpfloader.");
 
         const char * args[] = { platformBpfLoader, NULL, };
