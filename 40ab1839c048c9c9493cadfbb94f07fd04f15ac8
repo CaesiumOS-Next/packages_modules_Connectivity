@@ -16,6 +16,24 @@
       "message": "There is a difference in behaviour created by this change between V+ and older versions. It would be nice to explain that here -- specifically why or how we decided to make this tradeoff.",
       "revId": "40ab1839c048c9c9493cadfbb94f07fd04f15ac8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed6795e5_9b5110c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-19T04:20:36Z",
+      "side": 1,
+      "message": "Sorry, I\u0027m not following. This change will be used in U+ devices.\nWhat is the change between V+ and older version?\nDelay of getDataSaverEnabled is existing and not introduced by this change.",
+      "parentUuid": "d4aeb802_04416208",
+      "revId": "40ab1839c048c9c9493cadfbb94f07fd04f15ac8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
