@@ -348,11 +348,12 @@ class EthernetManagerTest {
         }
     }
 
-    private fun isEthernetSupported() = em != null
-
     @Before
     fun setUp() {
-        assumeTrue(isEthernetSupported())
+        val pm = context.getPackageManager()
+        testSkipped = !pm.hasSystemFeature(PackageManager.FEATURE_ETHERNET) &&
+                context.getSystemService(EthernetManager::class.java) == null
+        assumeFalse(testSkipped)
         setIncludeTestInterfaces(true)
         addInterfaceStateListener(ifaceListener)
         // Handler.post() events may get processed after native fd events, so it is possible that
