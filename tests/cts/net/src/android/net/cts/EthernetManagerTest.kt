@@ -19,6 +19,7 @@ import android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.Manifest.permission.NETWORK_SETTINGS
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.EthernetManager
 import android.net.EthernetManager.ETHERNET_STATE_DISABLED
@@ -144,6 +145,7 @@ class EthernetManagerTest {
     private val registeredCallbacks = ArrayList<TestableNetworkCallback>()
 
     private var tetheredInterfaceRequest: TetheredInterfaceRequest? = null
+    private var testSkipped = false`
 
     private class EthernetTestInterface(
         context: Context,
@@ -348,11 +350,12 @@ class EthernetManagerTest {
         }
     }
 
-    private fun isEthernetSupported() = em != null
-
     @Before
     fun setUp() {
-        assumeTrue(isEthernetSupported())
+        val pm = context.getPackageManager()
+        testSkipped = !pm.hasSystemFeature(PackageManager.FEATURE_ETHERNET) &&
+                context.getSystemService(EthernetManager::class.java) == null
+        assumeFalse(testSkipped)
         setIncludeTestInterfaces(true)
         addInterfaceStateListener(ifaceListener)
         // Handler.post() events may get processed after native fd events, so it is possible that
@@ -365,7 +368,8 @@ class EthernetManagerTest {
 
     @After
     fun tearDown() {
-        if (!isEthernetSupported()) return
+        if (testSkipped) return
+
         // Reenable ethernet, so ABSENT callbacks are received.
         setEthernetEnabled(true)
 
