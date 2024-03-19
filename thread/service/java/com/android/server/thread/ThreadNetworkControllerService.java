@@ -342,6 +342,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 });
     }
 
+    @RequiresPermission(PERMISSION_THREAD_NETWORK_PRIVILEGED)
+    void forceStopOtDaemon(boolean forceStop)
+
     public void setEnabled(boolean isEnabled, @NonNull IOperationReceiver receiver) {
         enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
 
