@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05fef2c2_96ceb384",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-19T07:48:05Z",
+      "side": 1,
+      "message": "Add test for `force-country-code disabled` and `get-country-code`? Could be a separate CL.",
+      "revId": "26274adc9133ae78357eee5cfe3ac0125dbbc784",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
