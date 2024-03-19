@@ -376,6 +376,30 @@
       },
       "revId": "640a230226fc5fd0de3f2a218dd753bffc79d082",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78478bf6_f2bec704",
+        "filename": "tests/cts/net/src/android/net/cts/ApfTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-19T15:28:46Z",
+      "side": 1,
+      "message": "Oh, thanks for sharing the information! updated.",
+      "parentUuid": "8e10741b_752e4ca3",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 34
+      },
+      "revId": "640a230226fc5fd0de3f2a218dd753bffc79d082",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
