@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3c99c45_e075c565",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-19T07:25:10Z",
+      "side": 0,
+      "message": "As per discussion,\n\nIt\u0027s confusing that FakeExecutor.submit both submits the task (getting a future), and saves it in lastSubmittedRunnable. Because of that, tests like this one may run it twice (once automatically, and once manually).\n\nIt may be better to not submit the task in FakeExecutor.submit, and only keep it in lastSubmittedRunnable so it can be submitted manually.",
+      "range": {
+        "startLine": 706,
+        "startChar": 61,
+        "endLine": 706,
+        "endChar": 64
+      },
+      "revId": "df0a16ccf40874af7a3e151a013d02a05f4fa6fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
