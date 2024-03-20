@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f086a51_a3b20344",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-20T05:35:55Z",
+      "side": 1,
+      "message": "shall we require privileged permission to enable/disable Thread?",
+      "range": {
+        "startLine": 52,
+        "startChar": 48,
+        "endLine": 52,
+        "endChar": 67
+      },
+      "revId": "20de7f87a155e8de858c7c22bb6889b6332f62f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
