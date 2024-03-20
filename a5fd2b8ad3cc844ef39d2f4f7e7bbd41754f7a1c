@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ef3753a7_05f225a7",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-20T11:42:56Z",
+      "side": 1,
+      "message": "Yes, so I checked `mForceStopOtDaemon` in `isEnabled()`",
+      "parentUuid": "29030a5d_d13930db",
+      "revId": "a5fd2b8ad3cc844ef39d2f4f7e7bbd41754f7a1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "20abd67e_934669a8",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 3
