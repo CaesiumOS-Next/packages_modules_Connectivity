@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e97a780_5e760954",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1344,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-20T10:00:42Z",
+      "side": 1,
+      "message": "Refactored to aosp/3005176.",
+      "parentUuid": "39428267_4585ee58",
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82384384_7b32bbf5",
@@ -454,6 +472,30 @@
       "writtenOn": "2024-03-19T16:44:43Z",
       "side": 1,
       "message": "how can this happen?\nWe require T+, and on U+ the privs are setup correctly.\nDoes this run in system server or network stack process on T?",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 9
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9f8eec6_1cac19c0",
+        "filename": "staticlibs/device/com/android/net/module/util/BpfDump.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-20T10:00:42Z",
+      "side": 1,
+      "message": "dumpRawMap() is a utility function in BpfDump, doesn\u0027t it need to do the argument checks?",
+      "parentUuid": "33e53eff_c5820c1c",
       "range": {
         "startLine": 88,
         "startChar": 8,
