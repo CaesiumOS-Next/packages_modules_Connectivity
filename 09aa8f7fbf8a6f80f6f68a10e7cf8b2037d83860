@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "71c96a41_4bbbb13a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 4275,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-20T09:52:00Z",
+      "side": 1,
+      "message": "It will print multiple lines if the map has multiple entries. The caller need to get the specific entry from Map\u003cK,V\u003e return from pollRawMapFromDump() with the key in this case. Since all bpf maps have only one entity, I think it needs to break here.",
+      "parentUuid": "82384384_7b32bbf5",
+      "range": {
+        "startLine": 4275,
+        "startChar": 0,
+        "endLine": 4275,
+        "endChar": 50
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a30ca4ba_bebd3ce7",
         "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2024-03-19T16:44:43Z",
       "side": 1,
       "message": "remove",
+      "range": {
+        "startLine": 892,
+        "startChar": 29,
+        "endLine": 892,
+        "endChar": 33
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cebedc6b_71b94ef5",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-20T09:52:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a30ca4ba_bebd3ce7",
       "range": {
         "startLine": 892,
         "startChar": 29,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bea9c6ca_7a336737",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-20T09:52:00Z",
+      "side": 1,
+      "message": "It means only one map can be dumped in each call, for example ```dumpsys connectivity clatBpfRawMap --egress4 --ingress6``` is invalid.\n\nI changed the words to \"Allow to dump only one map in each call\".",
+      "parentUuid": "b0adbd08_78583ba3",
+      "range": {
+        "startLine": 893,
+        "startChar": 7,
+        "endLine": 893,
+        "endChar": 43
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b7775ccc_a74a01f2",
         "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
         "patchSetId": 3
@@ -100,6 +172,30 @@
       "writtenOn": "2024-03-19T16:44:43Z",
       "side": 1,
       "message": "capitalization does not match commit message",
+      "range": {
+        "startLine": 896,
+        "startChar": 40,
+        "endLine": 896,
+        "endChar": 53
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2421bd42_c610cc0b",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 896,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-20T09:52:00Z",
+      "side": 1,
+      "message": "Changed them to clatBpfRawMap.",
+      "parentUuid": "b7775ccc_a74a01f2",
       "range": {
         "startLine": 896,
         "startChar": 40,
@@ -135,6 +231,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66200aff_eadadf29",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-20T09:52:00Z",
+      "side": 1,
+      "message": "I think we need to rule out some invalid commands like:\n```dumpsys connectivity clatBpfRawMap some_other_args --egress4```\nChecking only the last argument may not sufficient.\nI modified the code to make sure ```--egress4``` and ```--ingress6``` are follow after ```clatBpfRawMap```.",
+      "parentUuid": "b2ddf727_ad7938de",
+      "range": {
+        "startLine": 904,
+        "startChar": 8,
+        "endLine": 906,
+        "endChar": 35
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52178163_45eb37b1",
         "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
         "patchSetId": 3
@@ -146,6 +266,30 @@
       "writtenOn": "2024-03-19T16:44:43Z",
       "side": 1,
       "message": "you can move the try/catch outside the if, and just \"Error dumping map\" - it really doesn\u0027t matter which one - the caller knows what they tried to dump",
+      "range": {
+        "startLine": 910,
+        "startChar": 12,
+        "endLine": 912,
+        "endChar": 13
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78425d69_6e509bee",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-20T09:52:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52178163_45eb37b1",
       "range": {
         "startLine": 910,
         "startChar": 12,
@@ -169,6 +313,30 @@
       "writtenOn": "2024-03-19T16:44:43Z",
       "side": 1,
       "message": "464XLAT",
+      "range": {
+        "startLine": 626,
+        "startChar": 32,
+        "endLine": 626,
+        "endChar": 42
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d2fdf13_bc698c90",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-20T09:52:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c502b5a_6bd896ca",
       "range": {
         "startLine": 626,
         "startChar": 32,
@@ -204,6 +372,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "87587281_efd8c89d",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-20T09:52:00Z",
+      "side": 1,
+      "message": "It seems that ```mClatCoordinator``` is null before T, it will crash when we run the dump command on R- if we didn\u0027t check, no?\n```\n    public Nat464Xlat(NetworkAgentInfo nai, INetd netd, IDnsResolver dnsResolver,\n            ConnectivityService.Dependencies deps) {\n        mDnsResolver \u003d dnsResolver;\n        mNetd \u003d netd;\n        mNetwork \u003d nai;\n        mEnableClatOnCellular \u003d deps.getCellular464XlatEnabled();\n        if (SdkLevel.isAtLeastT()) {\n            mClatCoordinator \u003d deps.getClatCoordinator(mNetd);\n        } else {\n            mClatCoordinator \u003d null;\n        }\n    }\n```",
+      "parentUuid": "047c4881_9c0b3bb0",
+      "range": {
+        "startLine": 632,
+        "startChar": 0,
+        "endLine": 632,
+        "endChar": 36
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de810684_0cfd9239",
         "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
         "patchSetId": 3
@@ -215,6 +407,30 @@
       "writtenOn": "2024-03-19T16:44:43Z",
       "side": 1,
       "message": "this check also seems not needed... the maps exist and thus can be dumped, regardless of isStarted() - which could also be useful for debugging",
+      "range": {
+        "startLine": 633,
+        "startChar": 12,
+        "endLine": 633,
+        "endChar": 30
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa9d6e93_98b59c55",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-20T09:52:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de810684_0cfd9239",
       "range": {
         "startLine": 633,
         "startChar": 12,
