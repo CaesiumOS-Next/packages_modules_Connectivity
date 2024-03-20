@@ -16,6 +16,23 @@
       "message": "(expired)",
       "revId": "8b3f9d9e3ebdfcff1d75e2ae2064745cb273cee4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cedd09f9_07d649ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-20T08:10:19Z",
+      "side": 1,
+      "message": "LGTM as the correctness is verified in aosp/2632313.",
+      "revId": "8b3f9d9e3ebdfcff1d75e2ae2064745cb273cee4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
