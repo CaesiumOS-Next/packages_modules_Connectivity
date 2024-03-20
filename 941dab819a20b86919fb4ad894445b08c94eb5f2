@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc90d6fc_c671c229",
+        "filename": "common/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-20T02:07:17Z",
+      "side": 1,
+      "message": "`net-utils-device-common-struct-base` is added to Tethering/Android.bp",
+      "parentUuid": "574ce714_e419f80a",
+      "revId": "941dab819a20b86919fb4ad894445b08c94eb5f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ce58086_f7e9ba99",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-03-15T07:40:52Z",
       "side": 1,
       "message": "connectivity-net-module-utils-bpf is used in service-connectivity-pre-jarjar, and with this change it is supposed to have net-utils-device-common-struct-base in its dependencies.\nBut it doesn\u0027t directly, it has \"net-utils-device-common-bpf\" in the bootclasspath through framework-connectivity, which indirectly includes \"net-utils-device-common-struct-base\" here.\n\nThat\u0027s a bit hard to follow; it would be slightly clearer if this library didn\u0027t bundle \"net-utils-device-common-struct-base\", and it was explicitly added to framework-connectivity instead.\n\nEventually it would probably be easier to have libs be defined per user... (so just one lib for framework-connectivity, one lib for service-connectivity, one lib for Tethering and one for NetworkStack) but should be another change.",
+      "revId": "941dab819a20b86919fb4ad894445b08c94eb5f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47761315_b1aab88f",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-20T02:07:17Z",
+      "side": 1,
+      "message": "Moved `net-utils-device-common-struct-base` from `net-utils-device-common-bpf`\u0027s static_libs list to libs list, and added to callers\u0027 dependencies. Does it look better?",
+      "parentUuid": "5ce58086_f7e9ba99",
       "revId": "941dab819a20b86919fb4ad894445b08c94eb5f2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
