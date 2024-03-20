@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9770dde_11164382",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-20T02:42:30Z",
+      "side": 1,
+      "message": "Done. Get the ifaceName from the ConnectivityManager callback.",
+      "parentUuid": "7d16bd41_8d9aeb3c",
+      "range": {
+        "startLine": 36,
+        "startChar": 56,
+        "endLine": 36,
+        "endChar": 61
+      },
+      "revId": "a3a4b34444b0ff41b165d03e1365a1515fceaaab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "212beaf2_2c0c4484",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-19T16:21:59Z",
       "side": 1,
       "message": "should this be 2000 now?\n\nor is it \u003e\u003d1024 for U+ and \u003e\u003d2000 for V+",
+      "range": {
+        "startLine": 39,
+        "startChar": 37,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "a3a4b34444b0ff41b165d03e1365a1515fceaaab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0372c33b_43c50b8a",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-20T02:42:30Z",
+      "side": 1,
+      "message": "` \u003e\u003d1024 for U+ and \u003e\u003d2000 for V+ ` should be accurate. Updated the check.",
+      "parentUuid": "212beaf2_2c0c4484",
       "range": {
         "startLine": 39,
         "startChar": 37,
