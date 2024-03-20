@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8843a86a_9acf349b",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/MtsEthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-20T09:53:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f2b72e1_46bfd62b",
+      "range": {
+        "startLine": 94,
+        "startChar": 59,
+        "endLine": 94,
+        "endChar": 72
+      },
+      "revId": "58cc5a1069887b1b883f94bab359b98e4c3e3324",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0861e67a_1fb6bdb4",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d514898_336e619c",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/MtsEthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-20T09:53:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0861e67a_1fb6bdb4",
+      "range": {
+        "startLine": 366,
+        "startChar": 31,
+        "endLine": 366,
+        "endChar": 41
+      },
+      "revId": "58cc5a1069887b1b883f94bab359b98e4c3e3324",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7ed883e_2452744b",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-03-19T17:16:38Z",
       "side": 1,
       "message": "recommend naming it:\n  newEgress4 \u003d get();\nor:\n  egress4 \u003d get() - oldEgress4;",
+      "range": {
+        "startLine": 383,
+        "startChar": 31,
+        "endLine": 383,
+        "endChar": 38
+      },
+      "revId": "58cc5a1069887b1b883f94bab359b98e4c3e3324",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81e5b3e4_57e44d2d",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/MtsEthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-03-20T09:53:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7ed883e_2452744b",
       "range": {
         "startLine": 383,
         "startChar": 31,
