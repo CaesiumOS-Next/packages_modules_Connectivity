@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adfeaf43_dbc49f6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-20T00:53:54Z",
+      "side": 1,
+      "message": "Thanks! CTS test need remiv +2",
+      "revId": "53373bfb298ef4a3e0d0148986e127ab34a4dff5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
