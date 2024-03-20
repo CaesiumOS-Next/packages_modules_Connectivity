@@ -1324,8 +1324,11 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 return;
             }
 
+            final int deviceRole = mState.deviceRole;
+            mState = null;
+
             // If this device is already STOPPED or DETACHED, do nothing
-            if (!ThreadNetworkController.isAttached(mState.deviceRole)) {
+            if (!ThreadNetworkController.isAttached(deviceRole)) {
                 return;
             }
 
