@@ -33,6 +33,75 @@
       "message": "Also is this CTS or mCTS ?",
       "revId": "5097b3189ad3919f132cfb0f0f84476788bd92a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60147de6_590a6a7d",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-20T18:51:22Z",
+      "side": 1,
+      "message": "nit: could use lateinit var and make it non-null.",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 45
+      },
+      "revId": "5097b3189ad3919f132cfb0f0f84476788bd92a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63b221cb_45445de1",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-20T18:51:22Z",
+      "side": 1,
+      "message": "nit: import this, so this becomes cb.eventuallyExpect\u003cLinkPropertiesChanged\u003e()",
+      "range": {
+        "startLine": 56,
+        "startChar": 28,
+        "endLine": 56,
+        "endChar": 80
+      },
+      "revId": "5097b3189ad3919f132cfb0f0f84476788bd92a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68d78c14_f2dc6238",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-20T18:51:22Z",
+      "side": 1,
+      "message": "nit: could probably just be `true`",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 44
+      },
+      "revId": "5097b3189ad3919f132cfb0f0f84476788bd92a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
