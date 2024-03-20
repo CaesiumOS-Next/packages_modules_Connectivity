@@ -22,6 +22,30 @@
       },
       "revId": "20de7f87a155e8de858c7c22bb6889b6332f62f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "201db59b_c948d290",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-20T07:02:31Z",
+      "side": 1,
+      "message": "That is require being \"root\", the enable, disable API is already protected by the THREAD_NETWORK_PRIVILEGED permission, so it\u0027s still protected by sufficient permissions.\n\nWe can discuss later if we should make commands available for root only.",
+      "parentUuid": "3f086a51_a3b20344",
+      "range": {
+        "startLine": 52,
+        "startChar": 48,
+        "endLine": 52,
+        "endChar": 67
+      },
+      "revId": "20de7f87a155e8de858c7c22bb6889b6332f62f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
