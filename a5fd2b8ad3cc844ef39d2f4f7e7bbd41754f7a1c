@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29030a5d_d13930db",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-20T09:46:45Z",
+      "side": 1,
+      "message": "why not check `mForceStopOtDaemon` here?\n\nWhen forceStopOtDaemonForTest, ot-daemon terminates, mForceStopOtDaemon\u003dtrue, `onOtDaemonDied` calls `maybeInitializeOtDaemon`, it tries to `getOtDaemon()` and I think we will get `ThreadNetworkException`?",
+      "revId": "a5fd2b8ad3cc844ef39d2f4f7e7bbd41754f7a1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20abd67e_934669a8",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-20T09:46:45Z",
+      "side": 1,
+      "message": "I think we need unit test for this.",
+      "revId": "a5fd2b8ad3cc844ef39d2f4f7e7bbd41754f7a1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
