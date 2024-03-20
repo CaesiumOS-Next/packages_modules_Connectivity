@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d36106e_659be30c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-20T16:44:10Z",
+      "side": 1,
+      "message": "Do we have to check for some FEATURE_WIFI, I don\u0027t think this is guaranteed to pass otherwise",
+      "revId": "5097b3189ad3919f132cfb0f0f84476788bd92a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
