@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f2be50f_005cb2f9",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-21T13:33:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f429201b_aaf40492",
+      "range": {
+        "startLine": 97,
+        "startChar": 36,
+        "endLine": 97,
+        "endChar": 56
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62e84592_5840ccc1",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-19T15:05:25Z",
       "side": 1,
       "message": "It seems EXTRA_USER is better.\n```\n    /**\n     * Broadcast sent to the system when a user is removed.\n     * Carries an extra {@link #EXTRA_USER} that specifies the {@link UserHandle} of the user that\n     * was removed\n     * (and for legacy reasons, also carries an int extra {@link #EXTRA_USER_HANDLE} specifying that\n     * user\u0027s user ID).\n     * It is sent to all running users except the\n     * one that has been removed. The user will not be completely removed until all receivers have\n     * handled the broadcast. You must hold\n     * {@link android.Manifest.permission#MANAGE_USERS} to receive this broadcast.\n     * @hide\n     */\n    @SystemApi\n    public static final String ACTION_USER_REMOVED \u003d\n            \"android.intent.action.USER_REMOVED\";\n```\n\nAlso, I saw existing code in Connectivity is using EXTRA_USER.\nhttps://source.corp.google.com/search?q\u003dEXTRA_USER%20-f:Test\u0026ss\u003dh%2Fandroid%2Fplatform%2Fsuperproject%2Fmain%2F%2B%2Frefs%2Fheads%2Fmain:packages%2Fmodules%2FConnectivity%2F",
+      "range": {
+        "startLine": 101,
+        "startChar": 60,
+        "endLine": 101,
+        "endChar": 77
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "546e8bc6_7a0ddfdb",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-21T13:33:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "62e84592_5840ccc1",
       "range": {
         "startLine": 101,
         "startChar": 60,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "049e88fe_cef5d25d",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-21T13:33:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6f59ba4e_b65910bd",
+      "range": {
+        "startLine": 119,
+        "startChar": 12,
+        "endLine": 119,
+        "endChar": 88
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c81415c_a2495cbc",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-03-19T15:05:25Z",
       "side": 1,
       "message": "I think you can register Receiver specifying handler.\nIf you can, onReceive does not need to post message and can directly call updateSatelliteFallbackUidListOnUserRemoval",
+      "range": {
+        "startLine": 157,
+        "startChar": 64,
+        "endLine": 157,
+        "endChar": 66
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8af46b1c_f1e505fa",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-21T13:33:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5c81415c_a2495cbc",
       "range": {
         "startLine": 157,
         "startChar": 64,
@@ -110,6 +206,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28c199d6_b28c4902",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-21T13:33:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "88401662_cf4e56a2",
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9897d1f4_bc76d856",
@@ -123,6 +237,30 @@
       "writtenOn": "2024-03-19T15:05:25Z",
       "side": 1,
       "message": "nits: test uses mocked context, so we don\u0027t need to have registerForUserRemovedIntent in deps.\nYou can verify mocked context.",
+      "range": {
+        "startLine": 273,
+        "startChar": 8,
+        "endLine": 273,
+        "endChar": 75
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6eb8ceef_d2e456fc",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-21T13:33:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9897d1f4_bc76d856",
       "range": {
         "startLine": 273,
         "startChar": 8,
@@ -204,6 +342,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "334d4448_b532c2cd",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-21T13:33:34Z",
+      "side": 1,
+      "message": "For Reference : This cannot apply to RoleManager since : RoleManager is final class , \n\nRef : \nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Permission/framework-s/java/android/app/role/RoleManager.java;l\u003d81?q\u003dRoleManager\u0026ss\u003dh%2Fgoogleplex-android%2Fplatform%2Fsuperproject%2Fmain%2F%2B%2Frefs%2Fheads%2Fmain\n\nfinal class can\u0027t be mocked, Ref : \nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt;l\u003d435?q\u003dCSTest.kt\u0026ss\u003dh%2Fandroid%2Fplatform%2Fsuperproject%2Fmain%2F%2B%2Fmain\n\nBased on tests : \nCannot mock/spy class android.app.role.RoleManager\nMockito cannot mock/spy because :\n - final or anonymous class",
+      "parentUuid": "24f0953d_cce5103c",
+      "range": {
+        "startLine": 277,
+        "startChar": 41,
+        "endLine": 277,
+        "endChar": 76
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01cdb826_189bf782",
@@ -250,6 +412,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64241464_dbeb93ec",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-21T13:33:34Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "e2f39ddd_558a4f59",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 73
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c83f703_9e0e9991",
@@ -267,6 +453,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bf08e88_be295a21",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-21T13:33:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2c83f703_9e0e9991",
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7621cc6f_ec818e76",
@@ -280,6 +484,30 @@
       "writtenOn": "2024-03-21T08:20:00Z",
       "side": 1,
       "message": "For these two members, I think you can initialize here instead of using lateinit.",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 78
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7141096_2238d04a",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-21T13:33:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7621cc6f_ec818e76",
       "range": {
         "startLine": 83,
         "startChar": 4,
@@ -313,6 +541,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "58eb5aa8_acda87a5",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-21T13:33:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8d34c762_6b93b4cf",
+      "range": {
+        "startLine": 94,
+        "startChar": 17,
+        "endLine": 94,
+        "endChar": 21
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f87de14_8c1cca4c",
@@ -326,6 +578,30 @@
       "writtenOn": "2024-03-21T08:20:00Z",
       "side": 1,
       "message": "nits: I think you can use loop here.\n```\nfor (app in listOf(SMS_APP1, SMS_APP2)) {\n    doReturn(PackageManager.PERMISSION_GRANTED)\n       .`when`(mPackageManagerPrimaryUser)\n       .checkPermission(Manifest.permission.SATELLITE_COMMUNICATION, app)\n    doReturn(PackageManager.PERMISSION_GRANTED)\n       .`when`(mPackageManagerSecondaryUser)\n       .checkPermission(Manifest.permission.SATELLITE_COMMUNICATION, app)                     \n}\n```",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 83
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e09f9a5_fbf24e30",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-21T13:33:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3f87de14_8c1cca4c",
       "range": {
         "startLine": 101,
         "startChar": 0,
@@ -359,6 +635,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83bf744a_5341df50",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-21T13:33:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2eef1692_fa603652",
+      "range": {
+        "startLine": 115,
+        "startChar": 22,
+        "endLine": 115,
+        "endChar": 29
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "645d5efb_361b04d2",
@@ -382,6 +682,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16cc17bc_4f393084",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-21T13:33:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "645d5efb_361b04d2",
+      "range": {
+        "startLine": 289,
+        "startChar": 28,
+        "endLine": 289,
+        "endChar": 30
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "117c3a2a_13f14065",
@@ -395,6 +719,30 @@
       "writtenOn": "2024-03-21T08:20:00Z",
       "side": 1,
       "message": "I think it\u0027s better to call start in the setup instead of every tests calling this at the beginning.",
+      "range": {
+        "startLine": 304,
+        "startChar": 16,
+        "endLine": 304,
+        "endChar": 25
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b8bb546_1288a6ab",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-21T13:33:34Z",
+      "side": 1,
+      "message": "Since @ this test , testOnStartUpCallbackSatelliteFallbackUidWithExistingUsers() we try to test the start() method with below user handle explictly Vs other tests \n\nAt this test :  \ndoReturn(listOf(PRIMARY_USER_HANDLE)).`when`(userManager).getUserHandles(eq(true))\n        doReturn(listOf(SMS_APP1))\n        \nVs other tests : By default uses this accordingly test cases are written,\nval test: List\u003cUserHandle\u003e \u003d emptyList()\n        doReturn(test).`when`(mDeps).getUserHandles(any())\n        \nit is called at every tests instead of setup()",
+      "parentUuid": "117c3a2a_13f14065",
       "range": {
         "startLine": 304,
         "startChar": 16,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e57852e_1e4db15d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-21T13:33:34Z",
+      "side": 1,
+      "message": "Status: Currently working on userManager Mocking issue as discussed internally",
+      "revId": "0aa0eec0582e425fe39077c82bcba6659f9e7e8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
