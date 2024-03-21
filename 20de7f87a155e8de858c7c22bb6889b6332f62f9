@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "77a47525_1c1a2fbc",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-21T01:45:06Z",
+      "side": 1,
+      "message": "```suggestion\n        Log.w(TAG, \"OT daemon is dead, cleaning up...\");\n```\nnit",
+      "range": {
+        "startLine": 316,
+        "startChar": 0,
+        "endLine": 316,
+        "endChar": 53
+      },
+      "revId": "20de7f87a155e8de858c7c22bb6889b6332f62f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f086a51_a3b20344",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
         "patchSetId": 20
