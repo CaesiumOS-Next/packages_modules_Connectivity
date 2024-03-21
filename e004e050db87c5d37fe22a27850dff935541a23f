@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4f8ce17_bbab4e68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-21T18:53:58Z",
+      "side": 1,
+      "message": "Looks fine to me, please get Lorenzo\u0027s +2",
+      "revId": "e004e050db87c5d37fe22a27850dff935541a23f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
