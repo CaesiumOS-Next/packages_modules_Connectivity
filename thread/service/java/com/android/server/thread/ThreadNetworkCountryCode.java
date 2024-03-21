@@ -16,6 +16,8 @@
 
 package com.android.server.thread;
 
+import static com.android.server.thread.ThreadPersistentSettings.THREAD_COUNTRY_CODE;
+
 import android.annotation.Nullable;
 import android.annotation.StringDef;
 import android.annotation.TargetApi;
@@ -63,7 +65,7 @@ import java.util.Objects;
 public class ThreadNetworkCountryCode {
     private static final String TAG = "ThreadNetworkCountryCode";
     // To be used when there is no country code available.
-    @VisibleForTesting public static final String DEFAULT_COUNTRY_CODE = "WW";
+    public static final String DEFAULT_COUNTRY_CODE = "WW";
 
     // Wait 1 hour between updates.
     private static final long TIME_BETWEEN_LOCATION_UPDATES_MS = 1000L * 60 * 60 * 1;
@@ -107,6 +109,7 @@ public class ThreadNetworkCountryCode {
     private final SubscriptionManager mSubscriptionManager;
     private final Map<Integer, TelephonyCountryCodeSlotInfo> mTelephonyCountryCodeSlotInfoMap =
             new ArrayMap();
+    private final ThreadPersistentSettings mPersistentSettings;
 
     @Nullable private CountryCodeInfo mCurrentCountryCodeInfo;
     @Nullable private CountryCodeInfo mLocationCountryCodeInfo;
@@ -215,7 +218,8 @@ public class ThreadNetworkCountryCode {
             Context context,
             TelephonyManager telephonyManager,
             SubscriptionManager subscriptionManager,
-            @Nullable String oemCountryCode) {
+            @Nullable String oemCountryCode,
+            ThreadPersistentSettings persistentSettings) {
         mLocationManager = locationManager;
         mThreadNetworkControllerService = threadNetworkControllerService;
         mGeocoder = geocoder;
@@ -224,6 +228,7 @@ public class ThreadNetworkCountryCode {
         mContext = context;
         mTelephonyManager = telephonyManager;
         mSubscriptionManager = subscriptionManager;
+        mPersistentSettings = persistentSettings;
 
         if (oemCountryCode != null) {
             mOemCountryCodeInfo = new CountryCodeInfo(oemCountryCode, COUNTRY_CODE_SOURCE_OEM);
@@ -231,7 +236,9 @@ public class ThreadNetworkCountryCode {
     }
 
     public static ThreadNetworkCountryCode newInstance(
-            Context context, ThreadNetworkControllerService controllerService) {
+            Context context,
+            ThreadNetworkControllerService controllerService,
+            ThreadPersistentSettings persistentSettings) {
         return new ThreadNetworkCountryCode(
                 context.getSystemService(LocationManager.class),
                 controllerService,
@@ -241,7 +248,8 @@ public class ThreadNetworkCountryCode {
                 context,
                 context.getSystemService(TelephonyManager.class),
                 context.getSystemService(SubscriptionManager.class),
-                ThreadNetworkProperties.country_code().orElse(null));
+                ThreadNetworkProperties.country_code().orElse(null),
+                persistentSettings);
     }
 
     /** Sets up this country code module to listen to location country code changes. */
@@ -498,6 +506,8 @@ public class ThreadNetworkCountryCode {
             public void onSuccess() {
                 synchronized ("ThreadNetworkCountryCode.this") {
                     mCurrentCountryCodeInfo = countryCodeInfo;
+                    mPersistentSettings.put(
+                            THREAD_COUNTRY_CODE.key, countryCodeInfo.getCountryCode());
                 }
             }
 
@@ -540,6 +550,21 @@ public class ThreadNetworkCountryCode {
     @Nullable
     public synchronized String getCountryCode() {
         return (mCurrentCountryCodeInfo != null) ? mCurrentCountryCodeInfo.getCountryCode() : null;
+    }
+
+    /** Returns the preset country code. */
+    public synchronized String getPresetCountryCode() {
+        String countryCode;
+
+        if (mPersistentSettings.get(THREAD_COUNTRY_CODE) != null) {
+            countryCode = mPersistentSettings.get(THREAD_COUNTRY_CODE);
+        } else if (mOemCountryCodeInfo != null) {
+            countryCode = mOemCountryCodeInfo.getCountryCode();
+        } else {
+            countryCode = DEFAULT_COUNTRY_CODE;
+        }
+
+        return countryCode;
     }
 
     /**
