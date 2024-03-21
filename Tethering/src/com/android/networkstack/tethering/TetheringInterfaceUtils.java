@@ -18,6 +18,7 @@ package com.android.networkstack.tethering;
 
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
+import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -25,6 +26,7 @@ import android.net.LinkProperties;
 import android.net.NetworkCapabilities;
 import android.net.RouteInfo;
 
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.NetUtils;
 import com.android.networkstack.tethering.util.InterfaceSet;
 
@@ -82,15 +84,24 @@ public final class TetheringInterfaceUtils {
                 // Minimal amount of IPv6 provisioning:
                 && ns.linkProperties.hasGlobalIpv6Address()
                 // Temporary approximation of "dedicated prefix":
-                && allowIpv6Tethering(ns.networkCapabilities);
+                && allowIpv6Tethering(ns.networkCapabilities, ns.linkProperties);
 
         return canTether
                 ? getInterfaceForDestination(ns.linkProperties, IN6ADDR_ANY)
                 : null;
     }
 
-    private static boolean allowIpv6Tethering(@NonNull final NetworkCapabilities nc) {
-        return nc.hasTransport(TRANSPORT_CELLULAR) || nc.hasTransport(TRANSPORT_TEST);
+    private static boolean isPrefixDelegationAvailableOnWifi(
+            @NonNull final NetworkCapabilities nc, @NonNull final LinkProperties lp) {
+        return SdkLevel.isAtLeastV()
+                && nc.hasTransport(TRANSPORT_WIFI)
+                && !(lp.getDelegatedPrefixes().isEmpty());
+    }
+
+    private static boolean allowIpv6Tethering(@NonNull final NetworkCapabilities nc,
+            @NonNull final LinkProperties lp) {
+        return nc.hasTransport(TRANSPORT_CELLULAR) || nc.hasTransport(TRANSPORT_TEST)
+                || isPrefixDelegationAvailableOnWifi(nc, lp);
     }
 
     private static String getInterfaceForDestination(LinkProperties lp, InetAddress dst) {
