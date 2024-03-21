@@ -202,6 +202,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private boolean mForceStopOtDaemonEnabled;
 
     private BorderRouterConfigurationParcel mBorderRouterConfig;
+    private String mDefaultCountryCode;
 
     @VisibleForTesting
     ThreadNetworkControllerService(
@@ -230,6 +231,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mNsdPublisher = nsdPublisher;
         mUserManager = userManager;
         mResources = resources;
+        mDefaultCountryCode = ThreadNetworkCountryCode.DEFAULT_COUNTRY_CODE;
     }
 
     public static ThreadNetworkControllerService newInstance(
@@ -347,7 +349,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 isEnabled(),
                 mNsdPublisher,
                 getMeshcopTxtAttributes(mResources.get()),
-                mOtDaemonCallbackProxy);
+                mOtDaemonCallbackProxy,
+                mDefaultCountryCode);
         otDaemon.asBinder().linkToDeath(() -> mHandler.post(this::onOtDaemonDied), 0);
         mOtDaemon = otDaemon;
         return mOtDaemon;
@@ -403,9 +406,14 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     }
 
     public void initialize() {
+        initialize(mDefaultCountryCode);
+    }
+
+    public void initialize(String countryCode) {
         mHandler.post(
                 () -> {
                     Log.d(TAG, "Initializing Thread system service...");
+                    mDefaultCountryCode = countryCode;
                     try {
                         mTunIfController.createTunInterface();
                     } catch (IOException e) {
