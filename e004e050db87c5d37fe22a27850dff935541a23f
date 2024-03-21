@@ -16,6 +16,29 @@
       "message": "Looks fine to me, please get Lorenzo\u0027s +2",
       "revId": "e004e050db87c5d37fe22a27850dff935541a23f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9df91da8_233a81b7",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-21T19:00:46Z",
+      "side": 1,
+      "message": "I *think* the Kotlin-esque way would be to:\n\n```\ncb.eventuallyExpect\u003cLinkPropertiesChanged\u003e(TIMEOUT_MS) {\n    wifiIfaceName \u003d assertNotNull(it.lp.interfaceName)\n    true\n}\n```",
+      "range": {
+        "startLine": 60,
+        "startChar": 64,
+        "endLine": 64,
+        "endChar": 16
+      },
+      "revId": "e004e050db87c5d37fe22a27850dff935541a23f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
