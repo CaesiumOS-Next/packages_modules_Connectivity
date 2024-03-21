@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2496053_38552e60",
+        "filename": "thread/service/java/com/android/server/thread/ActiveOperationalDatasetReceiverWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-21T08:18:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6825ec05_c4cec384",
+      "range": {
+        "startLine": 83,
+        "startChar": 43,
+        "endLine": 83,
+        "endChar": 61
+      },
+      "revId": "420d9d51e519c62109d5196bd76b4bb6564a77a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5bc7bca_2e98e582",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "updated, PTAL",
       "parentUuid": "d5bc7bca_2e98e582",
+      "range": {
+        "startLine": 48,
+        "startChar": 20,
+        "endLine": 48,
+        "endChar": 38
+      },
+      "revId": "420d9d51e519c62109d5196bd76b4bb6564a77a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c80768b_6ebda123",
+        "filename": "thread/service/java/com/android/server/thread/OperationReceiverWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-21T08:18:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ca0776a_6111d792",
       "range": {
         "startLine": 48,
         "startChar": 20,
