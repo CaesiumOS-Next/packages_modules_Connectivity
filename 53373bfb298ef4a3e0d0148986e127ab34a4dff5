@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a12328c1_b38e45de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-21T07:41:49Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is happening; you wouldn\u0027t be able to get any result for resolveService if announcements aren\u0027t sent yet.\n\nI\u0027m suspecting that the problem is that before your change to stop/restart announcements on registration on the same hostname, we\u0027re still sending advertisements with the older list of addresses. And your change may help with that because it\u0027s waiting for just after an announcement to resolve, so you mostly won\u0027t hit announcements with an old list of addresses ?\n\nSee the code that clears/replaces addresses of a service if it receives a packet that has addresses with the cache-flush bit set (even if that packet is not an announcement for that particular service): https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/service-t/src/com/android/server/connectivity/mdns/MdnsResponseDecoder.java;drc\u003d8813f74f52998224ac52e5fa98e4dbb8dc6247f4;l\u003d212\n\nThe fix is probably actually to fix announcements to restart when a hostname is added ?",
+      "range": {
+        "startLine": 9,
+        "startChar": 19,
+        "endLine": 9,
+        "endChar": 97
+      },
+      "revId": "53373bfb298ef4a3e0d0148986e127ab34a4dff5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "adfeaf43_dbc49f6b",
