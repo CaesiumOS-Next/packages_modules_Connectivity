@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7da3c001_3b930c67",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-21T03:16:06Z",
+      "side": 1,
+      "message": "Let me do it in the child CL given it\u0027s not directly changed by my CL and it\u0027s too much overhead to rerun the presubmit",
+      "parentUuid": "77a47525_1c1a2fbc",
+      "range": {
+        "startLine": 316,
+        "startChar": 0,
+        "endLine": 316,
+        "endChar": 53
+      },
+      "revId": "20de7f87a155e8de858c7c22bb6889b6332f62f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f086a51_a3b20344",

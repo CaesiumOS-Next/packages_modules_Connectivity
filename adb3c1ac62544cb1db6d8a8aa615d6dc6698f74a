@@ -22,6 +22,30 @@
       },
       "revId": "adb3c1ac62544cb1db6d8a8aa615d6dc6698f74a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d05e4de_b864f9a0",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-21T03:16:06Z",
+      "side": 1,
+      "message": "This is a false alert, `SET_ENABLED_TIMEOUT` is used in this CL",
+      "parentUuid": "18f7a4b8_bfacba67",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 78
+      },
+      "revId": "adb3c1ac62544cb1db6d8a8aa615d6dc6698f74a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
