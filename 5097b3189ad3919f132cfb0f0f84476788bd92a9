@@ -82,6 +82,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "58fe94a0_631638c8",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-21T09:50:45Z",
+      "side": 1,
+      "message": "Actually, find a better way to follow kotlin standard practice. PTAL the latest version.",
+      "parentUuid": "4ab6e058_21fd6a58",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 45
+      },
+      "revId": "5097b3189ad3919f132cfb0f0f84476788bd92a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63b221cb_45445de1",
