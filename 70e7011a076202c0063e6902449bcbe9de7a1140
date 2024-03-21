@@ -50,6 +50,24 @@
       "message": "The failure of `CtsNetTestCasesLatestSdk` is caused by a `networkstack` crash:\n\n```\n03-21 07:31:17.415  2100  2214 E AndroidRuntime: FATAL EXCEPTION: android.tethering\n03-21 07:31:17.415  2100  2214 E AndroidRuntime: Process: com.android.networkstack.process, PID: 2100\n03-21 07:31:17.415  2100  2214 E AndroidRuntime: java.lang.SecurityException: Need android.permission.BLUETOOTH_CONNECT permission for AttributionSource { uid \u003d 1073, packageName \u003d com.android.networkstack, attributionTag \u003d null, token \u003d android.os.BinderProxy@9372e0, next \u003d null }: PanService\n03-21 07:31:17.415  2100  2214 E AndroidRuntime: \tat com.android.bluetooth.Utils.checkPermissionForDataDelivery(Utils.java:611)\n03-21 07:31:17.415  2100  2214 E AndroidRuntime: \tat com.android.bluetooth.Utils.checkConnectPermissionForDataDelivery(Utils.java:643)\n03-21 07:31:17.415  2100  2214 E AndroidRuntime: \tat com.android.bluetooth.pan.PanService$BluetoothPanBinder.getService(PanService.java:311)\n03-21 07:31:17.415  2100  2214 E AndroidRuntime: \tat com.android.bluetooth.pan.PanService$BluetoothPanBinder.isTetheringOn(PanService.java:381)\n03-21 07:31:17.415  2100  2214 E AndroidRuntime: \tat android.bluetooth.IBluetoothPan$Stub.onTransact(IBluetoothPan.java:141)\n03-21 07:31:17.415  2100  2214 E AndroidRuntime: \tat android.os.Binder.execTransactInternal(Binder.java:1505)\n03-21 07:31:17.415  2100  2214 E AndroidRuntime: \tat android.os.Binder.execTransact(Binder.java:1444)\n```\n\nI don\u0027t understand why this is crashing.\nAFAICT this change is a no-op to behavior.\nI\u0027m looking through code and hoping to get a sense of what\u0027s happening.",
       "revId": "70e7011a076202c0063e6902449bcbe9de7a1140",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42df9fb9_fc8a9bf2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1059977
+      },
+      "writtenOn": "2024-03-21T22:39:55Z",
+      "side": 1,
+      "message": "How can I see if NetworkCapabilitiesUtilsTest ran?",
+      "parentUuid": "1d04e355_38a0144a",
+      "revId": "70e7011a076202c0063e6902449bcbe9de7a1140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
