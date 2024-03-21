@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6825ec05_c4cec384",
+        "filename": "thread/service/java/com/android/server/thread/ActiveOperationalDatasetReceiverWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-21T06:32:43Z",
+      "side": 1,
+      "message": "This is to keep it the same as existing log when ot-daemon dies during an API call, so out of scope of this CL.\n\nSecondly, this is error message is in a callback of a Thread API, so I think it\u0027s less confusing.",
+      "parentUuid": "88ecced3_8fdf555b",
+      "range": {
+        "startLine": 83,
+        "startChar": 43,
+        "endLine": 83,
+        "endChar": 61
+      },
+      "revId": "420d9d51e519c62109d5196bd76b4bb6564a77a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d5bc7bca_2e98e582",
         "filename": "thread/service/java/com/android/server/thread/OperationReceiverWrapper.java",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-21T05:14:26Z",
       "side": 1,
       "message": "Better to clarify that this expects the ot-daemon to be **eventually** dead. i.e. It\u0027s not a failure that it receives `onSuccess` or `onError` before `onOtDaemonDied`.",
+      "range": {
+        "startLine": 48,
+        "startChar": 20,
+        "endLine": 48,
+        "endChar": 38
+      },
+      "revId": "420d9d51e519c62109d5196bd76b4bb6564a77a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ca0776a_6111d792",
+        "filename": "thread/service/java/com/android/server/thread/OperationReceiverWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-21T06:32:43Z",
+      "side": 1,
+      "message": "updated, PTAL",
+      "parentUuid": "d5bc7bca_2e98e582",
       "range": {
         "startLine": 48,
         "startChar": 20,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b2eeb87_5302be0e",
+        "filename": "thread/service/java/com/android/server/thread/OperationReceiverWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-21T06:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e24434db_abb9f119",
+      "range": {
+        "startLine": 94,
+        "startChar": 42,
+        "endLine": 94,
+        "endChar": 62
+      },
+      "revId": "420d9d51e519c62109d5196bd76b4bb6564a77a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f609b86_17fdf928",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-03-21T05:14:26Z",
       "side": 1,
       "message": "```suggestion\n            throw new ThreadNetworkException(ERROR_THREAD_DISABLED, \"ot-daemon is forcibly stopped\");\n```",
+      "range": {
+        "startLine": 327,
+        "startChar": 82,
+        "endLine": 327,
+        "endChar": 87
+      },
+      "revId": "420d9d51e519c62109d5196bd76b4bb6564a77a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9759363e_75c60fca",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-21T06:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f609b86_17fdf928",
       "range": {
         "startLine": 327,
         "startChar": 82,
@@ -110,6 +206,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2126c53d_0987188c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-21T06:32:43Z",
+      "side": 1,
+      "message": "No. `@VisibleForTesting` means the API should be called in only tests (e.g. *.Test.java)",
+      "parentUuid": "8fbd4c9b_f1ab2bb1",
+      "revId": "420d9d51e519c62109d5196bd76b4bb6564a77a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81aac613_35b5786e",
@@ -133,6 +247,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35a4bcd7_be55d35a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-21T06:32:43Z",
+      "side": 1,
+      "message": "renamed to \"enabled\"",
+      "parentUuid": "81aac613_35b5786e",
+      "range": {
+        "startLine": 444,
+        "startChar": 13,
+        "endLine": 444,
+        "endChar": 22
+      },
+      "revId": "420d9d51e519c62109d5196bd76b4bb6564a77a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19d63449_9dcc6139",
@@ -146,6 +284,30 @@
       "writtenOn": "2024-03-21T05:14:26Z",
       "side": 1,
       "message": "nit: make a helper for this for better readability",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 35
+      },
+      "revId": "420d9d51e519c62109d5196bd76b4bb6564a77a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da16a423_77ede1fd",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-21T06:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19d63449_9dcc6139",
       "range": {
         "startLine": 65,
         "startChar": 0,
