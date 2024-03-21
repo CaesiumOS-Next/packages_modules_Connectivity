@@ -104,6 +104,7 @@ public class ThreadNetworkCountryCodeTest {
     @Mock List<SubscriptionInfo> mSubscriptionInfoList;
     @Mock SubscriptionInfo mSubscriptionInfo0;
     @Mock SubscriptionInfo mSubscriptionInfo1;
+    @Mock ThreadPersistentSettings mPersistentSettings;
 
     private ThreadNetworkCountryCode mThreadNetworkCountryCode;
     private boolean mErrorSetCountryCode;
@@ -164,7 +165,8 @@ public class ThreadNetworkCountryCodeTest {
                 mContext,
                 mTelephonyManager,
                 mSubscriptionManager,
-                oemCountryCode);
+                oemCountryCode,
+                mPersistentSettings);
     }
 
     private static Address newAddress(String countryCode) {
