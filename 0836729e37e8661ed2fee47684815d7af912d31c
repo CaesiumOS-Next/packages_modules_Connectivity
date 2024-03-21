@@ -1,0 +1,169 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4c7e71a_e3c03c2c",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-21T07:24:23Z",
+      "side": 1,
+      "message": "This should probably be in static_libs in the defaults above, rather than in \"libs\" there (otherwise the lib is in both)",
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f719ac4_e0c4ab3d",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-21T07:24:23Z",
+      "side": 1,
+      "message": "This should probably be in static_libs instead, as I don\u0027t think it\u0027s supposed to be already in the bootclasspath for these tests",
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba3a343e_589b4f1d",
+        "filename": "Tethering/tests/mts/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-21T07:24:23Z",
+      "side": 1,
+      "message": "Also static_libs here for the same reason I think",
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03211666_14653664",
+        "filename": "service-t/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-21T07:24:23Z",
+      "side": 1,
+      "message": "This shouldn\u0027t need to be mentioned here, as the lib is part of framework-connectivity-pre-jarjar which is already here; and there\u0027s no dependency on a lib that requires `struct-base`, so I don\u0027t think there\u0027s a reason to add it explicitly",
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97c6d9e4_f5c46333",
+        "filename": "service/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-21T07:24:23Z",
+      "side": 1,
+      "message": "Rather than adding this here (which basically means \"this depends on `struct-base` which is already provided by something else\"), you could make it more explicit that the dependency is in framework-connectivity-pre-jarjar by just saying that in a comment on the `net-utils-device-common-struct` dependency (e.g. saying something like \"the required dependency on net-utils-device-common-struct-base is in the classpath via framework-connectivity\").",
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b20c5baf_b5cad441",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-21T07:24:23Z",
+      "side": 1,
+      "message": "Similarly to the comment below, I don\u0027t understand why this is added to this lib; is that avoidable ?",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 70
+      },
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5022846_ecf63028",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-21T07:24:23Z",
+      "side": 1,
+      "message": "Why add this here ? It isn\u0027t mentioned in the commit message\n\nThis is adding framework/ classes to a library that has only device/ classes; so adding classes that may already be in the bootclasspath to a library that is likely going to be used in the system server. It may cause conflicts.",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 75
+      },
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61ce7855_e087f8dd",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-21T07:24:23Z",
+      "side": 1,
+      "message": "Why add this one here too ?",
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1188cbd_ed7ea16b",
+        "filename": "thread/tests/utils/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-21T07:24:23Z",
+      "side": 1,
+      "message": "Also static_libs here I think",
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
