@@ -182,6 +182,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07a62113_577e3ebe",
+        "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-21T08:20:00Z",
+      "side": 1,
+      "message": "I think I suggested two options.\n1) `doReturn(userManager).when(context).getSystemService(...)`\n2) move mUserManager.getUserHandles to the dependencies.\n\nI saw dependencies and now this only have methods for roleManager.\nSo, I feel first solution is better since you can remove Dependencies in SatelliteAccessController and SatelliteAccessController will be simpler.\nAlso, this is a common pattern in our tests.",
+      "parentUuid": "24f0953d_cce5103c",
+      "range": {
+        "startLine": 277,
+        "startChar": 41,
+        "endLine": 277,
+        "endChar": 76
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01cdb826_189bf782",
         "filename": "service/src/com/android/server/connectivity/SatelliteAccessController.java",
         "patchSetId": 6
@@ -198,6 +222,184 @@
         "startChar": 0,
         "endLine": 280,
         "endChar": 36
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2f39ddd_558a4f59",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-21T08:20:00Z",
+      "side": 1,
+      "message": "do we need this?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 73
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c83f703_9e0e9991",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-21T08:20:00Z",
+      "side": 1,
+      "message": "nits: renaming to `primaryUserContext` would help to understand what is this context.",
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7621cc6f_ec818e76",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-21T08:20:00Z",
+      "side": 1,
+      "message": "For these two members, I think you can initialize here instead of using lateinit.",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 78
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d34c762_6b93b4cf",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-21T08:20:00Z",
+      "side": 1,
+      "message": "nits: you can directly use `emptyList()` here",
+      "range": {
+        "startLine": 94,
+        "startChar": 17,
+        "endLine": 94,
+        "endChar": 21
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f87de14_8c1cca4c",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-21T08:20:00Z",
+      "side": 1,
+      "message": "nits: I think you can use loop here.\n```\nfor (app in listOf(SMS_APP1, SMS_APP2)) {\n    doReturn(PackageManager.PERMISSION_GRANTED)\n       .`when`(mPackageManagerPrimaryUser)\n       .checkPermission(Manifest.permission.SATELLITE_COMMUNICATION, app)\n    doReturn(PackageManager.PERMISSION_GRANTED)\n       .`when`(mPackageManagerSecondaryUser)\n       .checkPermission(Manifest.permission.SATELLITE_COMMUNICATION, app)                     \n}\n```",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 83
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eef1692_fa603652",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-21T08:20:00Z",
+      "side": 1,
+      "message": "nits: I think this just setup application info for primary user sms_app1.\nBut this does not make this app as default message app so this might be misleading.\nMaybe remove `default`?",
+      "range": {
+        "startLine": 115,
+        "startChar": 22,
+        "endLine": 115,
+        "endChar": 29
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "645d5efb_361b04d2",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-21T08:20:00Z",
+      "side": 1,
+      "message": "I don\u0027t think you need \"!!\" here.",
+      "range": {
+        "startLine": 289,
+        "startChar": 28,
+        "endLine": 289,
+        "endChar": 30
+      },
+      "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "117c3a2a_13f14065",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-21T08:20:00Z",
+      "side": 1,
+      "message": "I think it\u0027s better to call start in the setup instead of every tests calling this at the beginning.",
+      "range": {
+        "startLine": 304,
+        "startChar": 16,
+        "endLine": 304,
+        "endChar": 25
       },
       "revId": "348aa82b772fdcdbf64c25e304c62d5b6c0c9b32",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
