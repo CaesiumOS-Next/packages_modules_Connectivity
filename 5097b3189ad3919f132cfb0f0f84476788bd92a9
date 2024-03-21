@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ab6e058_21fd6a58",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-21T09:46:17Z",
+      "side": 1,
+      "message": "https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/framework/src/android/net/LinkProperties.java;l\u003d230?q\u003dLinkProperties\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain\n\ngetInterfaceName() method is nullable. So I incline to keep the wifiIfaceName nullable as well and check assertNonNull properly.",
+      "parentUuid": "60147de6_590a6a7d",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 45
+      },
+      "revId": "5097b3189ad3919f132cfb0f0f84476788bd92a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63b221cb_45445de1",
@@ -81,6 +105,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29a6917e_d0dc4c88",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-21T09:46:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63b221cb_45445de1",
+      "range": {
+        "startLine": 56,
+        "startChar": 28,
+        "endLine": 56,
+        "endChar": 80
+      },
+      "revId": "5097b3189ad3919f132cfb0f0f84476788bd92a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68d78c14_f2dc6238",
@@ -94,6 +142,30 @@
       "writtenOn": "2024-03-20T18:51:22Z",
       "side": 1,
       "message": "nit: could probably just be `true`",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 44
+      },
+      "revId": "5097b3189ad3919f132cfb0f0f84476788bd92a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce036d2e_795392f0",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-21T09:46:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68d78c14_f2dc6238",
       "range": {
         "startLine": 58,
         "startChar": 12,
