@@ -69,6 +69,24 @@
       "message": "I think we need unit test for this.",
       "revId": "a5fd2b8ad3cc844ef39d2f4f7e7bbd41754f7a1c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee8480a4_1fb4b865",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-21T08:10:55Z",
+      "side": 1,
+      "message": "unit tests have been added for both `ThreadNetworkControllerService` and `ThreadNetworkShellCommand`",
+      "parentUuid": "20abd67e_934669a8",
+      "revId": "a5fd2b8ad3cc844ef39d2f4f7e7bbd41754f7a1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
