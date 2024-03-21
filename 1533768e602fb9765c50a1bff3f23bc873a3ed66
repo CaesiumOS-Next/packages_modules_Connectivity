@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8961f4b_6c2339e2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-21T07:56:21Z",
+      "side": 1,
+      "message": "That\u0027s generally not how MdnsRecordRepository / MdnsProber interactions are done: they are kept independent, and it\u0027s MdnsInterfaceAdvertiser that acts as a controller for both (for example it should be easy to know when the prober is stopped/started looking at MdnsInterfaceAdvertiser). That also makes unit tests easier.\n\nFor example, on registration `mRecordRepository.setServiceProbing` is called, which returns a ProbingInfo, and MdnsInterfaceAdvertiser takes care of calling startProbing with it.\n\nSimilarly `MdnsRecordRepository#onProbingSucceeded` returns a AnnouncementInfo, and exitService above returns ExitAnnouncementInfo.\n\nFor consistency, and to keep the probing lifecycle in one place, could you have restartProbingForHostname return the list of ProbingInfo, and call stop/startSending from here ? (same for restartAnnouncingForHostname)",
+      "range": {
+        "startLine": 309,
+        "startChar": 66,
+        "endLine": 309,
+        "endChar": 73
+      },
+      "revId": "1533768e602fb9765c50a1bff3f23bc873a3ed66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "706d5f8e_83d2f1aa",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-21T07:56:21Z",
+      "side": 1,
+      "message": "Could you pass in the Registration instead so the check is only in onProbingSucceeded ?\n\nmakeAnnouncementInfo can be private and the unit test can test restartProbingForHostname / restartAnnouncingForHostname instead, if they return the announcement / probing info as suggested above.",
+      "range": {
+        "startLine": 960,
+        "startChar": 41,
+        "endLine": 961,
+        "endChar": 32
+      },
+      "revId": "1533768e602fb9765c50a1bff3f23bc873a3ed66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

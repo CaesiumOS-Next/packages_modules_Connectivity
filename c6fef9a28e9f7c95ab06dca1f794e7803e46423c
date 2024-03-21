@@ -81,6 +81,24 @@
       "parentUuid": "31a2a05e_c82c0e5e",
       "revId": "c6fef9a28e9f7c95ab06dca1f794e7803e46423c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ac8304e_238c165e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-21T07:56:21Z",
+      "side": 1,
+      "message": "(replied above for the part about returning an array or list)",
+      "parentUuid": "aa76dd0e_3bea0e88",
+      "revId": "c6fef9a28e9f7c95ab06dca1f794e7803e46423c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
