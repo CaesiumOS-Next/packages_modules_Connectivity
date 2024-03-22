@@ -128,6 +128,30 @@
       "parentUuid": "fe4fbc48_adb0c3e3",
       "revId": "ac8d63bc7993ae373ca114b82ac0828284e2a981",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b508e4e0_c153d54b",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-22T03:09:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4402f410_05c8f339",
+      "range": {
+        "startLine": 471,
+        "startChar": 31,
+        "endLine": 471,
+        "endChar": 49
+      },
+      "revId": "ac8d63bc7993ae373ca114b82ac0828284e2a981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
