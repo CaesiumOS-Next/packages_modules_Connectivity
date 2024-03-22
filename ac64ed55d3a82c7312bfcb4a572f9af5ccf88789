@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2821fcef_e4423103",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-22T06:07:47Z",
+      "side": 1,
+      "message": "LGTM assuming TH will be happy.",
+      "revId": "ac64ed55d3a82c7312bfcb4a572f9af5ccf88789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
