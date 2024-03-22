@@ -16,6 +16,29 @@
       "message": "Status: Currently working on userManager Mocking issue as discussed internally",
       "revId": "0aa0eec0582e425fe39077c82bcba6659f9e7e8f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6afde59a_7c29e5e7",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-22T09:28:32Z",
+      "side": 1,
+      "message": "I think you need to\nInstantiate `SatelliteAccessController` after this line\nOr\nRemove `mUserManager` and call `mContext.getSystemService(UserManager.class)` from `updateAllUserRoleSmsUids`.\n\nI prefer the second solution since SatelliteAccessController does not need to have mUserManager field.\nAlso, I don\u0027t think you need next line(\n`        doReturn(Context.USER_SERVICE).when(context).getSystemServiceName(UserManager::class.java)`)",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 84
+      },
+      "revId": "0aa0eec0582e425fe39077c82bcba6659f9e7e8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
