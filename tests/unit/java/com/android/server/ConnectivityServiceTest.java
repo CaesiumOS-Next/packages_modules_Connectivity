@@ -50,7 +50,6 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.ConnectivityManager.ACTION_CAPTIVE_PORTAL_SIGN_IN;
 import static android.net.ConnectivityManager.ACTION_DATA_ACTIVITY_CHANGE;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_DATA_SAVER;
-import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_MASK;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_USER_RESTRICTED;
 import static android.net.ConnectivityManager.BLOCKED_REASON_BATTERY_SAVER;
 import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
@@ -1716,22 +1715,10 @@ public class ConnectivityServiceTest {
         waitForIdle();
     }
 
-    private void mockUidNetworkingBlocked() {
-        doAnswer(i -> isUidBlocked(mBlockedReasons, i.getArgument(1))
-        ).when(mNetworkPolicyManager).isUidNetworkingBlocked(anyInt(), anyBoolean());
-        doAnswer(i -> isUidBlocked(mBlockedReasons, i.getArgument(1))
-        ).when(mBpfNetMaps).isUidNetworkingBlocked(anyInt(), anyBoolean());
-    }
-
-    private boolean isUidBlocked(int blockedReasons, boolean meteredNetwork) {
-        final int blockedOnAllNetworksReason = (blockedReasons & ~BLOCKED_METERED_REASON_MASK);
-        if (blockedOnAllNetworksReason != BLOCKED_REASON_NONE) {
-            return true;
-        }
-        if (meteredNetwork) {
-            return blockedReasons != BLOCKED_REASON_NONE;
-        }
-        return false;
+    private void mockUidNetworkingBlocked(boolean blocked) {
+        doReturn(blocked)
+                .when(mNetworkPolicyManager).isUidNetworkingBlocked(anyInt(), anyBoolean());
+        doReturn(blocked).when(mBpfNetMaps).isUidNetworkingBlocked(anyInt(), anyBoolean());
     }
 
     private void setBlockedReasonChanged(int blockedReasons) {
@@ -9739,7 +9726,7 @@ public class ConnectivityServiceTest {
         final DetailedBlockedStatusCallback detailedCallback = new DetailedBlockedStatusCallback();
         mCm.registerNetworkCallback(cellRequest, detailedCallback);
 
-        mockUidNetworkingBlocked();
+        mockUidNetworkingBlocked(false /* blocked */);
 
         mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
         mCellAgent.connect(true);
@@ -9751,6 +9738,7 @@ public class ConnectivityServiceTest {
         assertExtraInfoFromCmPresent(mCellAgent);
 
         setBlockedReasonChanged(BLOCKED_REASON_BATTERY_SAVER);
+        mockUidNetworkingBlocked(true /* blocked */);
         cellNetworkCallback.expect(BLOCKED_STATUS, mCellAgent, cb -> cb.getBlocked());
         detailedCallback.expect(BLOCKED_STATUS_INT, mCellAgent,
                 cb -> cb.getReason() == BLOCKED_REASON_BATTERY_SAVER);
@@ -9767,6 +9755,7 @@ public class ConnectivityServiceTest {
                 cb -> cb.getReason() == BLOCKED_METERED_REASON_USER_RESTRICTED);
 
         setBlockedReasonChanged(BLOCKED_REASON_NONE);
+        mockUidNetworkingBlocked(false /* blocked */);
         cellNetworkCallback.expect(BLOCKED_STATUS, mCellAgent, cb -> !cb.getBlocked());
         detailedCallback.expect(BLOCKED_STATUS_INT, mCellAgent,
                 cb -> cb.getReason() == BLOCKED_REASON_NONE);
@@ -9776,6 +9765,7 @@ public class ConnectivityServiceTest {
         assertExtraInfoFromCmPresent(mCellAgent);
 
         setBlockedReasonChanged(BLOCKED_METERED_REASON_DATA_SAVER);
+        mockUidNetworkingBlocked(true /* blocked */);
         cellNetworkCallback.expect(BLOCKED_STATUS, mCellAgent, cb -> cb.getBlocked());
         detailedCallback.expect(BLOCKED_STATUS_INT, mCellAgent,
                 cb -> cb.getReason() == BLOCKED_METERED_REASON_DATA_SAVER);
@@ -9785,6 +9775,7 @@ public class ConnectivityServiceTest {
         assertExtraInfoFromCmBlocked(mCellAgent);
 
         // Restrict the network based on UID rule and NOT_METERED capability change.
+        mockUidNetworkingBlocked(false /* blocked */);
         mCellAgent.addCapability(NET_CAPABILITY_NOT_METERED);
         cellNetworkCallback.expectCaps(mCellAgent,
                 c -> c.hasCapability(NET_CAPABILITY_NOT_METERED));
@@ -9797,6 +9788,7 @@ public class ConnectivityServiceTest {
         assertNetworkInfo(TYPE_MOBILE, DetailedState.CONNECTED);
         assertExtraInfoFromCmPresent(mCellAgent);
 
+        mockUidNetworkingBlocked(true /* blocked */);
         mCellAgent.removeCapability(NET_CAPABILITY_NOT_METERED);
         cellNetworkCallback.expectCaps(mCellAgent,
                 c -> !c.hasCapability(NET_CAPABILITY_NOT_METERED));
@@ -9811,6 +9803,7 @@ public class ConnectivityServiceTest {
         assertExtraInfoFromCmBlocked(mCellAgent);
 
         setBlockedReasonChanged(BLOCKED_REASON_NONE);
+        mockUidNetworkingBlocked(false /* blocked */);
         cellNetworkCallback.expect(BLOCKED_STATUS, mCellAgent, cb -> !cb.getBlocked());
         detailedCallback.expect(BLOCKED_STATUS_INT, mCellAgent,
                 cb -> cb.getReason() == BLOCKED_REASON_NONE);
@@ -9825,6 +9818,7 @@ public class ConnectivityServiceTest {
 
         // Restrict background data. Networking is not blocked because the network is unmetered.
         setBlockedReasonChanged(BLOCKED_METERED_REASON_DATA_SAVER);
+        mockUidNetworkingBlocked(true /* blocked */);
         cellNetworkCallback.expect(BLOCKED_STATUS, mCellAgent, cb -> cb.getBlocked());
         detailedCallback.expect(BLOCKED_STATUS_INT, mCellAgent,
                 cb -> cb.getReason() == BLOCKED_METERED_REASON_DATA_SAVER);
@@ -9836,6 +9830,7 @@ public class ConnectivityServiceTest {
         cellNetworkCallback.assertNoCallback();
 
         setBlockedReasonChanged(BLOCKED_REASON_NONE);
+        mockUidNetworkingBlocked(false /* blocked */);
         cellNetworkCallback.expect(BLOCKED_STATUS, mCellAgent, cb -> !cb.getBlocked());
         detailedCallback.expect(BLOCKED_STATUS_INT, mCellAgent,
                 cb -> cb.getReason() == BLOCKED_REASON_NONE);
@@ -9858,7 +9853,7 @@ public class ConnectivityServiceTest {
     public void testNetworkBlockedStatusBeforeAndAfterConnect() throws Exception {
         final TestNetworkCallback defaultCallback = new TestNetworkCallback();
         mCm.registerDefaultNetworkCallback(defaultCallback);
-        mockUidNetworkingBlocked();
+        mockUidNetworkingBlocked(false /* blocked */);
 
         // No Networkcallbacks invoked before any network is active.
         setBlockedReasonChanged(BLOCKED_REASON_BATTERY_SAVER);
