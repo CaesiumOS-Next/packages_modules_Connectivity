@@ -484,6 +484,16 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         }
 
         @Override
+        public NetworkStatsObservers.Dependencies makeObserversDependencies() {
+            return new NetworkStatsObservers.Dependencies() {
+                @Override
+                boolean supportUseServiceThread(@NonNull Context ctx) {
+                    return true;
+                }
+            };
+        }
+
+        @Override
         public NetworkStatsSubscriptionsMonitor makeSubscriptionsMonitor(
                 @NonNull Context context, @NonNull Executor executor,
                 @NonNull NetworkStatsService service) {

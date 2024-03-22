@@ -32,6 +32,7 @@ import android.net.NetworkStatsHistory;
 import android.net.NetworkTemplate;
 import android.net.netstats.IUsageCallback;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
@@ -43,6 +44,7 @@ import android.util.Log;
 import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.PerUidCounter;
 
 import java.util.Objects;
@@ -68,6 +70,9 @@ class NetworkStatsObservers {
     @VisibleForTesting
     static final int MAX_REQUESTS_PER_UID = 100;
 
+    static final String CONFIG_ENABLE_NETWORK_STATS_OBSERVER_USE_SERVICE_THREAD =
+            "enable_network_stats_observer_use_service_thread";
+
     // All access to this map must be done from the handler thread.
     // indexed by DataUsageRequest#requestId
     private final SparseArray<RequestInfo> mDataUsageRequests = new SparseArray<>();
@@ -78,10 +83,44 @@ class NetworkStatsObservers {
     // Sequence number of DataUsageRequests
     private final AtomicInteger mNextDataUsageRequestId = new AtomicInteger();
 
+    @NonNull
     private final Handler mHandler;
+    @NonNull
+    private final Dependencies mDeps;
 
-    NetworkStatsObservers(@NonNull Looper looper) {
-        mHandler = new Handler(Objects.requireNonNull(looper), mHandlerCallback);
+    /**
+     * Dependencies of NetworkStatsObservers, for injection in tests.
+     */
+    @VisibleForTesting
+    public static class Dependencies {
+        /**
+         * Get whether use service thread is supported.
+         */
+        boolean supportUseServiceThread(@NonNull Context ctx) {
+            return DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
+                    ctx, CONFIG_ENABLE_NETWORK_STATS_OBSERVER_USE_SERVICE_THREAD);
+        }
+
+        /**
+         * Callback to be called when a probing thread instance is created.
+         *
+         * This method is designed for overriding in test classes to collect
+         * created threads and waits for the termination.
+         */
+        void onThreadCreated(@NonNull Thread th) {
+        }
+    }
+
+    NetworkStatsObservers(@NonNull Looper looper, @NonNull Context ctx, @NonNull Dependencies deps) {
+        mDeps = Objects.requireNonNull(deps);
+        if (mDeps.supportUseServiceThread(ctx)) {
+            mHandler = new Handler(Objects.requireNonNull(looper), mHandlerCallback);
+        } else {
+            final HandlerThread handlerThread = new HandlerThread(TAG);
+            handlerThread.start();
+            mHandler = new Handler(handlerThread.getLooper(), mHandlerCallback);
+            mDeps.onThreadCreated(handlerThread);
+        }
     }
 
     /**

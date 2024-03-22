@@ -37,6 +37,10 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 
 import android.content.Context;
 import android.net.DataUsageRequest;
@@ -54,6 +58,8 @@ import android.util.ArrayMap;
 
 import androidx.test.filters.SmallTest;
 
+import com.android.internal.annotations.GuardedBy;
+import com.android.testutils.ConcurrentUtils;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
@@ -107,6 +113,7 @@ public class NetworkStatsObserversTest {
     private static final String PACKAGE_BLUE = "BLUE";
 
     private static final long WAIT_TIMEOUT_MS = 500;
+    private static final int THREAD_QUIT_MAX_RETRY_COUNT = 3;
     private static final long THRESHOLD_BYTES = 2 * MB_IN_BYTES;
     private static final long BASE_BYTES = 7 * MB_IN_BYTES;
 
@@ -119,6 +126,10 @@ public class NetworkStatsObserversTest {
     @Mock private IBinder mUsageCallbackBinder;
     private TestableUsageCallback mUsageCallback;
     @Mock private Context mContext;
+    @Mock
+    private NetworkStatsObservers.Dependencies mDeps;
+    @GuardedBy("mThreadsToBeCleared")
+    private final ArrayList<Thread> mThreadsToBeCleared = new ArrayList<>();
 
     @Before
     public void setUp() throws Exception {
@@ -126,7 +137,14 @@ public class NetworkStatsObserversTest {
 
         mObserverHandlerThread = new HandlerThread("NetworkStatsObserversTest");
         mObserverHandlerThread.start();
-        mStatsObservers = new NetworkStatsObservers(mObserverHandlerThread.getLooper());
+        doReturn(true).when(mDeps).supportUseServiceThread(any());
+        doAnswer((invocation) -> {
+            synchronized (mThreadsToBeCleared) {
+                mThreadsToBeCleared.add(invocation.getArgument(0));
+            }
+            return null;
+        }).when(mDeps).onThreadCreated(any());
+        mStatsObservers = new NetworkStatsObservers(mObserverHandlerThread.getLooper(), mContext, mDeps);
 
         mActiveIfaces = new ArrayMap<>();
         mActiveUidIfaces = new ArrayMap<>();
@@ -139,6 +157,21 @@ public class NetworkStatsObserversTest {
             mObserverHandlerThread.quitSafely();
             mObserverHandlerThread.join();
         }
+        quitThreads();
+    }
+
+    private void quitThreads() throws Exception {
+        ConcurrentUtils.quitThreads(
+                THREAD_QUIT_MAX_RETRY_COUNT,
+                true /* interrupt */,
+                WAIT_TIMEOUT_MS,
+                () -> {
+                    synchronized (mThreadsToBeCleared) {
+                        final ArrayList<Thread> ret = new ArrayList<>(mThreadsToBeCleared);
+                        mThreadsToBeCleared.clear();
+                        return ret;
+                    }
+                });
     }
 
     @Test
@@ -256,13 +289,13 @@ public class NetworkStatsObserversTest {
         assertTrue(request.requestId > 0);
         assertTrue(Objects.equals(sTemplateImsi1, request.template));
         assertEquals(THRESHOLD_BYTES, request.thresholdInBytes);
-        Mockito.verify(mUsageCallbackBinder).linkToDeath(any(IBinder.DeathRecipient.class),
+        verify(mUsageCallbackBinder).linkToDeath(any(IBinder.DeathRecipient.class),
                 anyInt());
 
         mStatsObservers.unregister(request, Process.SYSTEM_UID);
         waitForObserverToIdle();
 
-        Mockito.verify(mUsageCallbackBinder).unlinkToDeath(any(IBinder.DeathRecipient.class),
+        verify(mUsageCallbackBinder).unlinkToDeath(any(IBinder.DeathRecipient.class),
                 anyInt());
     }
 
@@ -276,7 +309,7 @@ public class NetworkStatsObserversTest {
         assertTrue(request.requestId > 0);
         assertTrue(Objects.equals(sTemplateImsi1, request.template));
         assertEquals(THRESHOLD_BYTES, request.thresholdInBytes);
-        Mockito.verify(mUsageCallbackBinder)
+        verify(mUsageCallbackBinder)
                 .linkToDeath(any(IBinder.DeathRecipient.class), anyInt());
 
         mStatsObservers.unregister(request, UID_BLUE);
@@ -511,6 +544,19 @@ public class NetworkStatsObserversTest {
         mStatsObservers.updateStats(
                 xtSnapshot, uidSnapshot, mActiveIfaces, mActiveUidIfaces, TEST_START);
         waitForObserverToIdle();
+    }
+
+    @Test
+    public void testUseServiceThread_enabled() {
+        // Assume the feature is enabled by default.
+        verify(mDeps, never()).onThreadCreated(any());
+    }
+
+    @Test
+    public void testUseServiceThread_disabled() {
+        doReturn(false).when(mDeps).supportUseServiceThread(any());
+        mStatsObservers = new NetworkStatsObservers(mObserverHandlerThread.getLooper(), mContext, mDeps);
+        verify(mDeps).onThreadCreated(any());
     }
 
     private void waitForObserverToIdle() {

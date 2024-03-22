@@ -620,7 +620,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         final HandlerThread handlerThread = mDeps.makeHandlerThread();
         handlerThread.start();
         mHandler = new NetworkStatsHandler(handlerThread.getLooper());
-        mStatsObservers = new NetworkStatsObservers(handlerThread.getLooper());
+        mStatsObservers = new NetworkStatsObservers(handlerThread.getLooper(), mContext,
+                mDeps.makeObserversDependencies());
         mNetworkStatsSubscriptionsMonitor = deps.makeSubscriptionsMonitor(mContext,
                 (command) -> mHandler.post(command) , this);
         mContentResolver = mContext.getContentResolver();
@@ -755,6 +756,17 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         @NonNull
         public HandlerThread makeHandlerThread() {
             return new HandlerThread(TAG);
+        }
+
+        /**
+         * Create a NetworkStatsObservers#Dependencies instance.
+         *
+         * The service unit test requires a real NetworkStatsObservers instance, but need to
+         * mock the Dependencies object. Thus, this method is needed to inject the required
+         * dependencies object.
+         */
+        public NetworkStatsObservers.Dependencies makeObserversDependencies() {
+            return new NetworkStatsObservers.Dependencies();
         }
 
         /**
