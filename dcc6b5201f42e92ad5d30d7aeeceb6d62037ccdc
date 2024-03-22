@@ -175,6 +175,30 @@
       },
       "revId": "dcc6b5201f42e92ad5d30d7aeeceb6d62037ccdc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7b49b94_5540c055",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/MtsEthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-22T01:14:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "024f9a3f_816154db",
+      "range": {
+        "startLine": 319,
+        "startChar": 58,
+        "endLine": 319,
+        "endChar": 86
+      },
+      "revId": "dcc6b5201f42e92ad5d30d7aeeceb6d62037ccdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

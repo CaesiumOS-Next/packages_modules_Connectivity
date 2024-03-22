@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e2ee93f_6d3815a0",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/MtsEthernetTetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-22T01:14:08Z",
+      "side": 1,
+      "message": "it feels like this variable is redundant.\n\n\n```suggestion\n        return egress4Map.entrySet().iterator().next().getValue();\n    }\n\n```",
+      "range": {
+        "startLine": 325,
+        "startChar": 8,
+        "endLine": 325,
+        "endChar": 67
+      },
+      "revId": "d8b60eeb384e35223d075c431205883d9eb46836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3370371_280b4682",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/MtsEthernetTetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-22T01:14:08Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 337,
+        "startChar": 14,
+        "endLine": 338,
+        "endChar": 57
+      },
+      "revId": "d8b60eeb384e35223d075c431205883d9eb46836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
