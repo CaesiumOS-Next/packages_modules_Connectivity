@@ -50,6 +50,7 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.android.testutils.DevSdkIgnoreRule;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -90,6 +91,13 @@ public class BatteryStatsManagerTest{
         mWm = mContext.getSystemService(WifiManager.class);
         mPm = mContext.getPackageManager();
         mCtsNetUtils = new CtsNetUtils(mContext);
+    }
+
+    @After
+    public void tearDown() {
+        if (mCtsNetUtils.cellConnectAttempted()) {
+            mCtsNetUtils.unrequestCellNetwork();
+        }
     }
 
     // reportNetworkInterfaceForTransports classifies one network interface as wifi or mobile, so
