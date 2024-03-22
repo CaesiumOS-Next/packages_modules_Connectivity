@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae87e3a0_ad181bb7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-22T01:43:15Z",
+      "side": 1,
+      "message": "The problem is I may not be able to get it later because `mRecordRepository.exitService(id)` may remove the registration.",
+      "parentUuid": "95546022_3d362e82",
+      "range": {
+        "startLine": 285,
+        "startChar": 8,
+        "endLine": 285,
+        "endChar": 78
+      },
+      "revId": "a97bdf86fc8e987e74575267193c3fd59b487a4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e18f74d6_84f692b3",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
         "patchSetId": 12
