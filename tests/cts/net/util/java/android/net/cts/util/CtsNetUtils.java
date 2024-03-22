@@ -74,7 +74,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
@@ -408,7 +407,16 @@ public final class CtsNetUtils {
         return network;
     }
 
-    public Network connectToCell() throws InterruptedException {
+    /**
+     * File a request for an internet-providing cellular Network and wait for it to be fulfilled.
+     *
+     * <p>This will fail tests (throw) if the cell network cannot be obtained, or if it was
+     * already requested.
+     *
+     * <p>Tests must call {@link #unrequestCellNetwork()} once they are done using the returned
+     * {@link Network}, even if this method threw (typically this is done on test tearDown).
+     */
+    public Network requestCellNetwork() throws InterruptedException {
         if (cellConnectAttempted()) {
             mCm.unregisterNetworkCallback(mCellNetworkCallback);
         }
@@ -424,7 +432,10 @@ public final class CtsNetUtils {
         return cellNetwork;
     }
 
-    public void disconnectFromCell() {
+    /**
+     * Unrequest a cell network obtained via {@link #requestCellNetwork()}.
+     */
+    public void unrequestCellNetwork() {
         if (!cellConnectAttempted()) {
             throw new IllegalStateException("Cell connection not attempted");
         }
@@ -438,7 +449,7 @@ public final class CtsNetUtils {
 
     public void tearDown() {
         if (cellConnectAttempted()) {
-            disconnectFromCell();
+            unrequestCellNetwork();
         }
     }
 
@@ -565,27 +576,6 @@ public final class CtsNetUtils {
         if (requiresValidatedServer) {
             Thread.sleep(PRIVATE_DNS_PROBE_MS);
         }
-    }
-
-    /**
-     * Get all testable Networks with internet capability.
-     */
-    public Network[] getTestableNetworks() {
-        final ArrayList<Network> testableNetworks = new ArrayList<Network>();
-        for (Network network : mCm.getAllNetworks()) {
-            final NetworkCapabilities nc = mCm.getNetworkCapabilities(network);
-            if (nc != null
-                    && nc.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
-                    && nc.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
-                testableNetworks.add(network);
-            }
-        }
-
-        assertTrue("This test requires that at least one public Internet-providing"
-                        + " network be connected. Please ensure that the device is connected to"
-                        + " a network.",
-                testableNetworks.size() >= 1);
-        return testableNetworks.toArray(new Network[0]);
     }
 
     /**

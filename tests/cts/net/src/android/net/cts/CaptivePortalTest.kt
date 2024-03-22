@@ -144,7 +144,7 @@ class CaptivePortalTest {
         assumeTrue(pm.hasSystemFeature(FEATURE_WIFI))
         assumeFalse(pm.hasSystemFeature(FEATURE_WATCH))
         utils.ensureWifiConnected()
-        val cellNetwork = utils.connectToCell()
+        val cellNetwork = utils.requestCellNetwork()
 
         // Verify cell network is validated
         val cellReq = NetworkRequest.Builder()
@@ -214,7 +214,7 @@ class CaptivePortalTest {
             cm.unregisterNetworkCallback(wifiCb)
             server.stop()
             // disconnectFromCell should be called after connectToCell
-            utils.disconnectFromCell()
+            utils.unrequestCellNetwork()
         }
     }
 
