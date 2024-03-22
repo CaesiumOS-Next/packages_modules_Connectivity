@@ -42,7 +42,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-private const val TEST_UID1 = 1234
+private const val TEST_SYSTEM_UID = 1234
+private const val TEST_UID1 = 11234
 private const val TEST_UID2 = TEST_UID1 + 1
 private const val TEST_UID3 = TEST_UID2 + 1
 private const val NO_IIF = 0
@@ -228,6 +229,18 @@ class NetworkStackBpfNetMapsTest {
         assertFalse(isUidNetworkingBlocked(TEST_UID1))
         assertFalse(isUidNetworkingBlocked(TEST_UID2))
         assertFalse(isUidNetworkingBlocked(TEST_UID3))
+    }
+
+    // SYSTEM_UID is not blocked regardless of firewall chains
+    @Test
+    fun testIsUidNetworkingBlockedByDataSaver_SystemUid() {
+        mockDataSaverEnabled(enabled = false)
+        testConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY, U32(0))
+        testUidOwnerMap.updateEntry(S32(TEST_SYSTEM_UID), UidOwnerValue(NO_IIF, PENALTY_BOX_MATCH))
+        assertFalse(isUidNetworkingBlocked(TEST_SYSTEM_UID, metered = true))
+
+        mockChainEnabled(ConnectivityManager.FIREWALL_CHAIN_DOZABLE, true)
+        assertFalse(isUidNetworkingBlocked(TEST_SYSTEM_UID, metered = true))
     }
 
     @Test
