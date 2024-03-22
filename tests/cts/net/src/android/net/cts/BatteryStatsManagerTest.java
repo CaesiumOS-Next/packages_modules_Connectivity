@@ -145,7 +145,7 @@ public class BatteryStatsManagerTest{
             return;
         }
 
-        final Network cellNetwork = mCtsNetUtils.connectToCell();
+        final Network cellNetwork = mCtsNetUtils.requestCellNetwork();
         final URL url = new URL(TEST_URL);
 
         // Get cellular battery stats
