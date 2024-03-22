@@ -39,6 +39,30 @@
       },
       "revId": "0aa0eec0582e425fe39077c82bcba6659f9e7e8f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cd9606e_55fe8a12",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-22T17:29:22Z",
+      "side": 1,
+      "message": "UserManager with the suggested comments , still as mocking issue\n\njava.lang.NullPointerException: Attempt to invoke virtual method \u0027java.util.List android.os.UserManager.getUserHandles(boolean)\u0027 on a null object reference",
+      "parentUuid": "6afde59a_7c29e5e7",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 84
+      },
+      "revId": "0aa0eec0582e425fe39077c82bcba6659f9e7e8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
