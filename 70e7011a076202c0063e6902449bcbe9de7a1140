@@ -68,6 +68,24 @@
       "parentUuid": "1d04e355_38a0144a",
       "revId": "70e7011a076202c0063e6902449bcbe9de7a1140",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "912f7641_67537527",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-22T03:02:27Z",
+      "side": 1,
+      "message": "It did run successfully here: http://shortn/_mhCsn43qxy\n\nThe failure is weird, it doesn\u0027t show up in postsubmit history. I filed b/330657070 yesterday.",
+      "parentUuid": "42df9fb9_fc8a9bf2",
+      "revId": "70e7011a076202c0063e6902449bcbe9de7a1140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
