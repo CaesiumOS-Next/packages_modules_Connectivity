@@ -50,6 +50,7 @@ import static android.system.OsConstants.EINVAL;
 import android.os.ServiceSpecificException;
 import android.system.ErrnoException;
 import android.system.Os;
+import android.util.Log;
 import android.util.Pair;
 
 import com.android.modules.utils.build.SdkLevel;
@@ -252,7 +253,14 @@ public class BpfNetMapsUtils {
 
         final boolean blockedByAllowChains = 0 != (uidRuleConfig & ~uidMatch & sMaskDropIfUnset);
         final boolean blockedByDenyChains = 0 != (uidRuleConfig & uidMatch & sMaskDropIfSet);
+        Log.e("MDBG", "isUidNetworkingBlocked uid=" + uid
+                + " isNetworkMetered=" + isNetworkMetered
+                + " uidMatch = " + matchToString(uidMatch) + "(" + uidMatch + ")"
+                + " uidRuleConfig = " + matchToString(uidMatch) + "(" +  uidRuleConfig + ")"
+                + " blockedByAllowChains = " + blockedByAllowChains
+                + " blockedByDenyChains = " + blockedByDenyChains);
         if (blockedByAllowChains || blockedByDenyChains) {
+            Log.e("MDBG", "return true by chains");
             return true;
         }
 
