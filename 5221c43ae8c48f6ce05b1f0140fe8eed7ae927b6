@@ -16,6 +16,24 @@
       "message": "...65/javac/service-thread-pre-jarjar.jar out/soong/.intermediates/packages/modules/Connectivity/thread/service/service-thread-pre-jarjar/android_common/e18b8e8d84cb9f664aa09a397b08c165/javac/anno.srcjar\n...d84cb9f664aa09a397b08c165/javac/srcjars\" \"out/soong/.intermediates/packages/modules/Connectivity/thread/service/service-thread-pre-jarjar/android_common/e18b8e8d84cb9f664aa09a397b08c165/javac/classes\"\n...modules/Connectivity/thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java:1086: error: unreported exception ThreadNetworkException; must be caught or declared to be thrown\n            getOtDaemon()\n                       ^\n...modules/Connectivity/thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java:1100: error: unreported exception ThreadNetworkException; must be caught or declared to be thrown\n            getOtDaemon()\n                       ^\n2 errors\n\n\nplease fix",
       "revId": "5221c43ae8c48f6ce05b1f0140fe8eed7ae927b6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f8a908b_35302e52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-22T02:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "942d010e_aefe3e0c",
+      "revId": "5221c43ae8c48f6ce05b1f0140fe8eed7ae927b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
