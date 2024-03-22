@@ -112,6 +112,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d725633f_5f5a067f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1781,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-22T16:27:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0dc0b97d_70eac879",
+      "range": {
+        "startLine": 1781,
+        "startChar": 58,
+        "endLine": 1781,
+        "endChar": 67
+      },
+      "revId": "243b810bf4331a1659b6b7f462f267c1df8ab386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd917011_23c7fe63",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1781,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-22T16:27:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6ec05571_a8492714",
+      "range": {
+        "startLine": 1781,
+        "startChar": 71,
+        "endLine": 1781,
+        "endChar": 90
+      },
+      "revId": "243b810bf4331a1659b6b7f462f267c1df8ab386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28c277cd_3d1b6d33",
@@ -135,6 +183,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c647b46_f15d830e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2191,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-22T16:27:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "28c277cd_3d1b6d33",
+      "range": {
+        "startLine": 2191,
+        "startChar": 26,
+        "endLine": 2191,
+        "endChar": 34
+      },
+      "revId": "243b810bf4331a1659b6b7f462f267c1df8ab386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c44e707a_9a842f1d",
@@ -148,6 +220,30 @@
       "writtenOn": "2024-03-18T05:55:25Z",
       "side": 1,
       "message": "Are you trying to fix rat type stats for satellite?\nIf so, IIUC you might need to add unit test as well.",
+      "range": {
+        "startLine": 2328,
+        "startChar": 16,
+        "endLine": 2328,
+        "endChar": 42
+      },
+      "revId": "243b810bf4331a1659b6b7f462f267c1df8ab386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "338e3c7b_17d6567e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2328,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-22T16:27:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c44e707a_9a842f1d",
       "range": {
         "startLine": 2328,
         "startChar": 16,
