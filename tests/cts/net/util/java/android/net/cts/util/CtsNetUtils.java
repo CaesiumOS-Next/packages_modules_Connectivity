@@ -408,50 +408,8 @@ public final class CtsNetUtils {
         return network;
     }
 
-    /**
-     * File a request for an internet-providing cellular Network and wait for it to be fulfilled.
-     *
-     * <p>This will fail tests (throw) if the cell network cannot be obtained, or if it was
-     * already requested.
-     *
-     * <p>Tests must call {@link #unrequestCellNetwork()} once they are done using the returned
-     * {@link Network}, even if this method threw (typically this is done on test tearDown).
-     */
-    public Network requestCellNetwork() throws InterruptedException {
-        if (cellConnectAttempted()) {
-            mCm.unregisterNetworkCallback(mCellNetworkCallback);
-        }
-        NetworkRequest cellRequest = new NetworkRequest.Builder()
-                .addTransportType(TRANSPORT_CELLULAR)
-                .addCapability(NET_CAPABILITY_INTERNET)
-                .build();
-        mCellNetworkCallback = new TestNetworkCallback();
-        mCm.requestNetwork(cellRequest, mCellNetworkCallback);
-        final Network cellNetwork = mCellNetworkCallback.waitForAvailable();
-        assertNotNull("Cell network not available. " +
-                "Please ensure the device has working mobile data.", cellNetwork);
-        return cellNetwork;
-    }
-
-    /**
-     * Unrequest a cell network obtained via {@link #requestCellNetwork()}.
-     */
-    public void unrequestCellNetwork() {
-        if (!cellConnectAttempted()) {
-            throw new IllegalStateException("Cell connection not attempted");
-        }
-        mCm.unregisterNetworkCallback(mCellNetworkCallback);
-        mCellNetworkCallback = null;
-    }
-
     public boolean cellConnectAttempted() {
         return mCellNetworkCallback != null;
-    }
-
-    public void tearDown() {
-        if (cellConnectAttempted()) {
-            unrequestCellNetwork();
-        }
     }
 
     private NetworkRequest makeWifiNetworkRequest() {

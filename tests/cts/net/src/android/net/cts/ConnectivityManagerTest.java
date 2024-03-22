@@ -204,6 +204,7 @@ import com.android.testutils.SkipPresubmit;
 import com.android.testutils.TestHttpServer;
 import com.android.testutils.TestNetworkTracker;
 import com.android.testutils.TestableNetworkCallback;
+import com.android.testutils.com.android.testutils.NetworkCallbackRule;
 
 import junit.framework.AssertionFailedError;
 
@@ -259,10 +260,13 @@ import fi.iki.elonen.NanoHTTPD.Response.Status;
 
 @RunWith(AndroidJUnit4.class)
 public class ConnectivityManagerTest {
-    @Rule
+    @Rule(order = 1)
     public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
 
-    @Rule
+    @Rule(order = 2)
+    public final NetworkCallbackRule networkCallbackRule = new NetworkCallbackRule();
+
+    @Rule(order = 3)
     public final DeviceConfigRule mTestValidationConfigRule = new DeviceConfigRule(
             5 /* retryCountBeforeSIfConfigChanged */);
 
@@ -411,11 +415,6 @@ public class ConnectivityManagerTest {
 
     @After
     public void tearDown() throws Exception {
-        // Release any NetworkRequests filed to connect mobile data.
-        if (mCtsNetUtils.cellConnectAttempted()) {
-            mCtsNetUtils.unrequestCellNetwork();
-        }
-
         if (TestUtils.shouldTestSApis()) {
             runWithShellPermissionIdentity(
                     () -> mCmShim.setRequireVpnForUids(false, mVpnRequiredUidRanges),
@@ -555,7 +554,7 @@ public class ConnectivityManagerTest {
             throws InterruptedException {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_TELEPHONY));
         // Make sure cell is active to retrieve IMSI for verification in later step.
-        final Network cellNetwork = mCtsNetUtils.requestCellNetwork();
+        final Network cellNetwork = networkCallbackRule.requestCell();
         final String subscriberId = getSubscriberIdForCellNetwork(cellNetwork);
         assertFalse(TextUtils.isEmpty(subscriberId));
 
@@ -853,7 +852,7 @@ public class ConnectivityManagerTest {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_TELEPHONY));
 
         Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
-        Network cellNetwork = mCtsNetUtils.requestCellNetwork();
+        Network cellNetwork = networkCallbackRule.requestCell();
         // This server returns the requestor's IP address as the response body.
         URL url = new URL("http://google-ipv6test.appspot.com/ip.js?fmt=text");
         String wifiAddressString = httpGet(wifiNetwork, url);
@@ -2025,7 +2024,7 @@ public class ConnectivityManagerTest {
             return;
         }
 
-        final Network network = mCtsNetUtils.requestCellNetwork();
+        final Network network = networkCallbackRule.requestCell();
         final int supported = getSupportedKeepalivesForNet(network);
         final InetAddress srcAddr = getFirstV4Address(network);
         assumeTrue("This test requires native IPv4", srcAddr != null);
@@ -2200,8 +2199,7 @@ public class ConnectivityManagerTest {
             registerCallbackAndWaitForAvailable(makeWifiNetworkRequest(), wifiCb);
         }
         if (supportTelephony) {
-            // connectToCell needs to be followed by disconnectFromCell, which is called in tearDown
-            mCtsNetUtils.requestCellNetwork();
+            networkCallbackRule.requestCell();
             registerCallbackAndWaitForAvailable(makeCellNetworkRequest(), telephonyCb);
         }
 
@@ -2992,7 +2990,7 @@ public class ConnectivityManagerTest {
         final TestableNetworkCallback wifiCb = new TestableNetworkCallback();
         try {
             // Ensure at least one default network candidate connected.
-            mCtsNetUtils.requestCellNetwork();
+            networkCallbackRule.requestCell();
 
             final Network wifiNetwork = prepareUnvalidatedNetwork();
             // Default network should not be wifi ,but checking that wifi is not the default doesn't
@@ -3034,7 +3032,7 @@ public class ConnectivityManagerTest {
         allowBadWifi();
 
         try {
-            final Network cellNetwork = mCtsNetUtils.requestCellNetwork();
+            final Network cellNetwork = networkCallbackRule.requestCell();
             final Network wifiNetwork = prepareValidatedNetwork();
 
             registerDefaultNetworkCallback(defaultCb);
@@ -3214,8 +3212,6 @@ public class ConnectivityManagerTest {
 
         if (supportWifi) {
             mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
-        } else {
-            mCtsNetUtils.unrequestCellNetwork();
         }
 
         final CompletableFuture<Boolean> future = new CompletableFuture<>();
@@ -3226,7 +3222,7 @@ public class ConnectivityManagerTest {
             if (supportWifi) {
                 mCtsNetUtils.ensureWifiConnected();
             } else {
-                mCtsNetUtils.requestCellNetwork();
+                networkCallbackRule.requestCell();
             }
             assertTrue(future.get(LISTEN_ACTIVITY_TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }, () -> {
@@ -3267,7 +3263,7 @@ public class ConnectivityManagerTest {
 
         // For testing mobile data preferred uids feature, it needs both wifi and cell network.
         final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
-        final Network cellNetwork = mCtsNetUtils.requestCellNetwork();
+        final Network cellNetwork = networkCallbackRule.requestCell();
         final TestableNetworkCallback defaultTrackingCb = new TestableNetworkCallback();
         final TestableNetworkCallback systemDefaultCb = new TestableNetworkCallback();
         final Handler h = new Handler(Looper.getMainLooper());
