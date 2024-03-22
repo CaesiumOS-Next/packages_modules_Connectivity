@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d357bc4b_ba73807c",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNdOptPio.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-22T18:59:23Z",
+      "side": 1,
+      "message": "nit: Objects.requireNonNull returns the value you pass to it, so you could:\n```\nthis.prefix \u003d Objects.requireNonNull(prefix, \"prefix must not be null\");\n```",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 66
+      },
+      "revId": "923d583c1f77ef8a4d728839e7a92682342b3e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0d851c0_92fe5563",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNdOptPio.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-22T18:59:23Z",
+      "side": 1,
+      "message": "is there a point in checking this?  Won\u0027t Struct.parse throw if it runs out of buffer space?",
+      "range": {
+        "startLine": 86,
+        "startChar": 24,
+        "endLine": 86,
+        "endChar": 55
+      },
+      "revId": "923d583c1f77ef8a4d728839e7a92682342b3e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7248efe_be28cd0a",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNdOptPio.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-22T18:59:23Z",
+      "side": 1,
+      "message": "should this throw an exception?",
+      "range": {
+        "startLine": 86,
+        "startChar": 57,
+        "endLine": 86,
+        "endChar": 68
+      },
+      "revId": "923d583c1f77ef8a4d728839e7a92682342b3e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f93c6a32_1a88027a",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNdOptPio.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-22T18:59:23Z",
+      "side": 1,
+      "message": "So I see that Struct.parse() doesn\u0027t actually invoke some sort of validation mechanism and if the buffer is of the right size, it\u0027ll just blindly parse the buffer into the struct, is that correct?\n\nIf so, how about we add a isValid() function to Struct that we overload in subclasses. The last step of Struct.parse() will call isValid(), and if isValid() returns false we throw an exception.\nWDYT?\n\nObviously not for this CL though.",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 13
+      },
+      "revId": "923d583c1f77ef8a4d728839e7a92682342b3e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ff4a0ea_c8276ed7",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNdOptPio.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-22T18:59:23Z",
+      "side": 1,
+      "message": "Consider adding a @Computed field for the IpPrefix to PrefixInformationOption, similar to what I did here: aosp/2802474.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 70
+      },
+      "revId": "923d583c1f77ef8a4d728839e7a92682342b3e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cb477e1_385b559f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNdOptPio.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-22T18:59:23Z",
+      "side": 1,
+      "message": "Why do these return a nullable? If the message failed to parse, shouldn\u0027t it throw? Something is obviously busted, so it seems fine to throw and discard the entire netlink message instead of performing null checks in various places.",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 9
+      },
+      "revId": "923d583c1f77ef8a4d728839e7a92682342b3e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c71b4e69_221eb1cd",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNdOptPio.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-22T18:59:23Z",
+      "side": 1,
+      "message": "super nit:\n```\nbuf.put(PrefixInformationOption.build(prefix, flags, valid, preferred));\n```\n\nThis prevents the line break (I find them very distracting) and makes this function a one-liner.",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 21
+      },
+      "revId": "923d583c1f77ef8a4d728839e7a92682342b3e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f86884c_a9e32525",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNdOptPio.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-22T18:59:23Z",
+      "side": 1,
+      "message": "follow up: surprised to see that NduseroptMessage#toString doesn\u0027t actually print its option.",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 5
+      },
+      "revId": "923d583c1f77ef8a4d728839e7a92682342b3e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
