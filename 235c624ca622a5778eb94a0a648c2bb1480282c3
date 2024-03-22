@@ -383,6 +383,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b0b1cf8_e04b966c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-22T01:21:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "dc56874b_753a0c10",
+      "range": {
+        "startLine": 943,
+        "startChar": 20,
+        "endLine": 943,
+        "endChar": 54
+      },
+      "revId": "235c624ca622a5778eb94a0a648c2bb1480282c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ccdb7ef7_90aaf851",
@@ -420,6 +444,30 @@
       "side": 1,
       "message": "Added unit tests. Let me know if you\u0027d suggest more test cases.",
       "parentUuid": "ccdb7ef7_90aaf851",
+      "range": {
+        "startLine": 2111,
+        "startChar": 8,
+        "endLine": 2111,
+        "endChar": 96
+      },
+      "revId": "235c624ca622a5778eb94a0a648c2bb1480282c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4126f45_6d3abc13",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 2111,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-22T01:21:18Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "479d0216_e44c7ed2",
       "range": {
         "startLine": 2111,
         "startChar": 8,

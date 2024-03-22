@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95546022_3d362e82",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-22T01:21:18Z",
+      "side": 1,
+      "message": "We should get the value right before using it. at line 305",
+      "range": {
+        "startLine": 285,
+        "startChar": 8,
+        "endLine": 285,
+        "endChar": 78
+      },
+      "revId": "a97bdf86fc8e987e74575267193c3fd59b487a4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e18f74d6_84f692b3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-22T01:21:18Z",
+      "side": 1,
+      "message": "Will this have race condition?\n\nIn normal case, the annouce should be start after probing is finished.\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java;l\u003d137",
+      "range": {
+        "startLine": 312,
+        "startChar": 17,
+        "endLine": 318,
+        "endChar": 28
+      },
+      "revId": "a97bdf86fc8e987e74575267193c3fd59b487a4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "295697f4_c49deb4b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-22T01:21:18Z",
+      "side": 1,
+      "message": "Please fix the error prone",
+      "range": {
+        "startLine": 994,
+        "startChar": 6,
+        "endLine": 994,
+        "endChar": 68
+      },
+      "revId": "a97bdf86fc8e987e74575267193c3fd59b487a4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
