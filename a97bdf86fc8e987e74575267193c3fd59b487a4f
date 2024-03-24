@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f12fd28d_3e927056",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-24T14:14:10Z",
+      "side": 1,
+      "message": "In the first loop it restarts probing the services who are being probed. In the second loop it restarts announcing the services whose probing have been finished. I don\u0027t see a chance that a service can finish re-probing before the second loop. \nThus I think these two loops shouldn\u0027t process any service in common. \n\nIs there a race condition example you can think of?",
+      "parentUuid": "e18f74d6_84f692b3",
+      "range": {
+        "startLine": 312,
+        "startChar": 17,
+        "endLine": 318,
+        "endChar": 28
+      },
+      "revId": "a97bdf86fc8e987e74575267193c3fd59b487a4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9a22f94a_d977c33e",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
         "patchSetId": 12
@@ -84,6 +108,30 @@
       "writtenOn": "2024-03-22T02:25:46Z",
       "side": 1,
       "message": "Nit: although the current caller checks hasActiveService in the same handler loop before calling this, it would be best to check for null",
+      "range": {
+        "startLine": 930,
+        "startChar": 33,
+        "endLine": 930,
+        "endChar": 44
+      },
+      "revId": "a97bdf86fc8e987e74575267193c3fd59b487a4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fbf0c40_175b269a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-24T14:14:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a22f94a_d977c33e",
       "range": {
         "startLine": 930,
         "startChar": 33,
@@ -117,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ba0c400_0de17a87",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-24T14:14:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "295697f4_c49deb4b",
+      "range": {
+        "startLine": 994,
+        "startChar": 6,
+        "endLine": 994,
+        "endChar": 68
+      },
+      "revId": "a97bdf86fc8e987e74575267193c3fd59b487a4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3af52dd_0805a97f",
@@ -140,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc991205_60080653",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiserTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-24T14:14:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3af52dd_0805a97f",
+      "range": {
+        "startLine": 211,
+        "startChar": 8,
+        "endLine": 211,
+        "endChar": 24
+      },
+      "revId": "a97bdf86fc8e987e74575267193c3fd59b487a4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95eb1a00_63741253",
@@ -153,6 +249,30 @@
       "writtenOn": "2024-03-22T02:25:46Z",
       "side": 1,
       "message": "It is possible to verify the actual number ? (or better, use inOrder to verify restart after stop)",
+      "range": {
+        "startLine": 218,
+        "startChar": 26,
+        "endLine": 218,
+        "endChar": 37
+      },
+      "revId": "a97bdf86fc8e987e74575267193c3fd59b487a4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "342f0c3f_63ca16f5",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiserTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-24T14:14:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95eb1a00_63741253",
       "range": {
         "startLine": 218,
         "startChar": 26,
