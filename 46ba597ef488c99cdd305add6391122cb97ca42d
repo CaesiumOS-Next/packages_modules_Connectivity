@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3536b25f_3ba139db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-25T02:39:37Z",
+      "side": 1,
+      "message": "This CL is held because we currently cannot enable the new leave() implementation so the timeouts cannot be cut down.",
+      "revId": "46ba597ef488c99cdd305add6391122cb97ca42d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
