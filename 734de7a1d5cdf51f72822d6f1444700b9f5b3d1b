@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49cb64fa_45d44180",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-25T04:07:51Z",
+      "side": 1,
+      "message": "LGTM if Yuyang\u0027s comments are addressed\n\nI think you also need another change to fix re-registering (so restarting on add) ? Otherwise the scenario in the commit message would still have old advertisements sent when the new service is added.",
+      "revId": "734de7a1d5cdf51f72822d6f1444700b9f5b3d1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac0c307a_442fd1c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-25T04:07:51Z",
+      "side": 1,
+      "message": "You could have one complete registration hold the addresses and the others without addresses; but I guess it\u0027s not much better. This fix should be necessary either way.",
+      "parentUuid": "8d91c4d7_41ae2df6",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "235c624ca622a5778eb94a0a648c2bb1480282c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b36ea0fe_a2666408",
