@@ -64,6 +64,8 @@ public class ThreadNetworkControllerTest {
                 }
             };
 
+    @Rule public final ThreadFeatureCheckerRule mThreadRule = new ThreadFeatureCheckerRule();
+
     private final Context mContext = ApplicationProvider.getApplicationContext();
     private ExecutorService mExecutor;
     private ThreadNetworkController mController;
