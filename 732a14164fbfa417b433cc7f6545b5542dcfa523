@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf3b7628_3fc0792c",
+        "filename": "netbpfload/netbpfload.mainline.rc",
+        "patchSetId": 25
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1463403
+      },
+      "writtenOn": "2024-03-25T21:42:04Z",
+      "side": 1,
+      "message": "Are you seeing log messages? From what I can tell, this makes all log messages from the program get silently thrown away, because the program is set to use the /dev/kmsg logger and the system user doesn\u0027t have access to /dev/kmsg.",
+      "revId": "732a14164fbfa417b433cc7f6545b5542dcfa523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
