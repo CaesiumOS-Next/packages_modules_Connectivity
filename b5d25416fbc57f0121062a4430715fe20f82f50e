@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "033cf4ec_18508568",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2024-03-25T06:59:53Z",
+      "side": 1,
+      "message": "Code-Review +1 since I verified that this CL can fix the testResNApiNXDomainPrivateDns failure reported in b/328331492.",
+      "revId": "b5d25416fbc57f0121062a4430715fe20f82f50e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
