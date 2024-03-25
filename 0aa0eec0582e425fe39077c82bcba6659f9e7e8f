@@ -63,6 +63,30 @@
       },
       "revId": "0aa0eec0582e425fe39077c82bcba6659f9e7e8f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bace61f_da2f3b2c",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-25T07:21:33Z",
+      "side": 1,
+      "message": "SatelliteAccessController calls `getSystemService(UserManager.class)`.\nSo test need to mock this instead of `getSystemService(Context.USER_SERVICE)`",
+      "parentUuid": "2cd9606e_55fe8a12",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 84
+      },
+      "revId": "0aa0eec0582e425fe39077c82bcba6659f9e7e8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
