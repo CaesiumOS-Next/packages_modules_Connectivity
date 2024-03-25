@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beaad8e4_11da651a",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-25T06:58:51Z",
+      "side": 1,
+      "message": "I don\u0027t think this check is enough. We also need to skip this on devices that launched before U, right? Maybe you can just do assumeTrue(isVendorApiLevelNewerThan(TIRAMISU) in setUp or something?",
+      "range": {
+        "startLine": 44,
+        "startChar": 18,
+        "endLine": 44,
+        "endChar": 58
+      },
+      "revId": "e126222d45be9b0555376790a086e88dad3bd193",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cdf4b64_81f23d5b",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-25T06:58:51Z",
+      "side": 1,
+      "message": "You probably want INTERNET as well; that will avoid matching secondary wifi networks, tethering downstreams, etc.",
+      "range": {
+        "startLine": 57,
+        "startChar": 24,
+        "endLine": 57,
+        "endChar": 25
+      },
+      "revId": "e126222d45be9b0555376790a086e88dad3bd193",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b550dcb_75114dc3",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-25T06:58:51Z",
+      "side": 1,
+      "message": "Instead of shelling out to cmd can we find the network_stack service binder and send the command ourselves? I think we can get the binder by calling NetworkStack.getService(). Then we can call shellCommand() on the resulting IBinder.",
+      "range": {
+        "startLine": 70,
+        "startChar": 17,
+        "endLine": 70,
+        "endChar": 32
+      },
+      "revId": "e126222d45be9b0555376790a086e88dad3bd193",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
