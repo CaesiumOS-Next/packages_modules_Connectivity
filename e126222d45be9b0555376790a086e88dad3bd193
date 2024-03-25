@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64d9d42e_00def3ae",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-25T08:46:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "beaad8e4_11da651a",
+      "range": {
+        "startLine": 44,
+        "startChar": 18,
+        "endLine": 44,
+        "endChar": 58
+      },
+      "revId": "e126222d45be9b0555376790a086e88dad3bd193",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cdf4b64_81f23d5b",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96038990_b4445a72",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-25T08:46:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cdf4b64_81f23d5b",
+      "range": {
+        "startLine": 57,
+        "startChar": 24,
+        "endLine": 57,
+        "endChar": 25
+      },
+      "revId": "e126222d45be9b0555376790a086e88dad3bd193",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b550dcb_75114dc3",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-03-25T06:58:51Z",
       "side": 1,
       "message": "Instead of shelling out to cmd can we find the network_stack service binder and send the command ourselves? I think we can get the binder by calling NetworkStack.getService(). Then we can call shellCommand() on the resulting IBinder.",
+      "range": {
+        "startLine": 70,
+        "startChar": 17,
+        "endLine": 70,
+        "endChar": 32
+      },
+      "revId": "e126222d45be9b0555376790a086e88dad3bd193",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "792b861a_3be8f6c7",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-25T08:46:17Z",
+      "side": 1,
+      "message": "Have looked into it and discussed with remi.\nThe issue here is shellCommand() requires the caller to have UID root or UID shell. https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/os/Binder.java;l\u003d1251;drc\u003d06bd5d4af5ec3ac61904303953b6f96bdf6eae4c;bpv\u003d0;bpt\u003d1\n\nIf we want to do it in CTS, we need to spawn a shell.\n\nAlso, the benefit for using binder.shellCommand() is we don\u0027t need to hardcoded string \"network_stack\". The \"apf $wifiIfaceName capabilities\" string is still needed to be hardcoded.\n\nIt seems the benefit is very minimal?",
+      "parentUuid": "5b550dcb_75114dc3",
       "range": {
         "startLine": 70,
         "startChar": 17,
