@@ -52,6 +52,24 @@
       "parentUuid": "32d0859a_a9205729",
       "revId": "732a14164fbfa417b433cc7f6545b5542dcfa523",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72522a23_b7ffb220",
+        "filename": "netbpfload/netbpfload.mainline.rc",
+        "patchSetId": 25
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-25T22:51:01Z",
+      "side": 1,
+      "message": "Because root uid/gid doesn\u0027t work in the field...",
+      "parentUuid": "1c80691f_4f35806b",
+      "revId": "732a14164fbfa417b433cc7f6545b5542dcfa523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
