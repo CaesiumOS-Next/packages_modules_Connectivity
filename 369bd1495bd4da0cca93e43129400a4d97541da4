@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3863bb4_fb6aab99",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-25T03:55:56Z",
+      "side": 1,
+      "message": "This should ideally use `UserHandle.isCore` as that is the source of truth but that is not system API. Can you add a comment or a TODO here to move to that once it is accessible? I think we should expose that method as System API in the future.\n```suggestion\n        // TODO(b/271181111): use UserHandle.isCore() once it is accessible\n        if (uid \u003c Process.FIRST_APPLICATION_UID) {\n```",
+      "range": {
+        "startLine": 244,
+        "startChar": 12,
+        "endLine": 244,
+        "endChar": 47
+      },
+      "revId": "369bd1495bd4da0cca93e43129400a4d97541da4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a95eccc4_b5c33e86",
+        "filename": "tests/unit/java/android/net/NetworkStackBpfNetMapsTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-25T03:55:56Z",
+      "side": 1,
+      "message": "Can you test multiple uids in a loop?\n\nThe best way to test it would be to check for the boundaries of the range and some random values in the middle.",
+      "revId": "369bd1495bd4da0cca93e43129400a4d97541da4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
