@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28c6d43c_a96da818",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-25T04:33:22Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ae87e3a0_ad181bb7",
+      "range": {
+        "startLine": 285,
+        "startChar": 8,
+        "endLine": 285,
+        "endChar": 78
+      },
+      "revId": "a97bdf86fc8e987e74575267193c3fd59b487a4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e18f74d6_84f692b3",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "In the first loop it restarts probing the services who are being probed. In the second loop it restarts announcing the services whose probing have been finished. I don\u0027t see a chance that a service can finish re-probing before the second loop. \nThus I think these two loops shouldn\u0027t process any service in common. \n\nIs there a race condition example you can think of?",
       "parentUuid": "e18f74d6_84f692b3",
+      "range": {
+        "startLine": 312,
+        "startChar": 17,
+        "endLine": 318,
+        "endChar": 28
+      },
+      "revId": "a97bdf86fc8e987e74575267193c3fd59b487a4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48173630_8efc7107",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-25T04:33:22Z",
+      "side": 1,
+      "message": "I had a quick discussion with @reminv@google.com, I think I am missing that the `restartAnnouncingForHostname` and the `restartProbingForHostname` returns two different sets of the service. It seems no race condition should happened.",
+      "parentUuid": "f12fd28d_3e927056",
       "range": {
         "startLine": 312,
         "startChar": 17,
