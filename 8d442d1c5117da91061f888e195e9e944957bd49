@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1076c431_aab3c656",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-25T07:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "832abd37_1fdf4105",
+      "revId": "8d442d1c5117da91061f888e195e9e944957bd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a8d539d_8faab914",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-03-15T07:16:30Z",
       "side": 1,
       "message": "Could you also verify that they have the expected list of answers ?\n\nAlso it would be good to test for oversize packets cut in the middle of questions (not knownAnswers)",
+      "revId": "8d442d1c5117da91061f888e195e9e944957bd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d587b9f_86078b4b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/util/MdnsUtilsTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-25T07:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a8d539d_8faab914",
       "revId": "8d442d1c5117da91061f888e195e9e944957bd49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
