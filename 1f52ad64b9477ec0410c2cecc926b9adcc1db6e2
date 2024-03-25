@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5dfe29e_95e10afa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-25T04:30:25Z",
+      "side": 1,
+      "message": "Thanks",
+      "revId": "1f52ad64b9477ec0410c2cecc926b9adcc1db6e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fce7aa0_e132956c",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-25T04:30:25Z",
+      "side": 1,
+      "message": "is this related?",
+      "range": {
+        "startLine": 0,
+        "startChar": 0,
+        "endLine": 0,
+        "endChar": 0
+      },
+      "revId": "1f52ad64b9477ec0410c2cecc926b9adcc1db6e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -93,6 +93,30 @@
       },
       "revId": "d759ca09daf9367fc6817bae369705a8ed5d82c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66b39f62_71c5085e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1742,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-25T04:30:25Z",
+      "side": 1,
+      "message": "Yes. Perhaps this is best suited for a follow up. But we should move away from using blocked reasons as a way to derive blocked-status.",
+      "parentUuid": "30ab6d67_78c81575",
+      "range": {
+        "startLine": 1742,
+        "startChar": 20,
+        "endLine": 1742,
+        "endChar": 32
+      },
+      "revId": "d759ca09daf9367fc6817bae369705a8ed5d82c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
