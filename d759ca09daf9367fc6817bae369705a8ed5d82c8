@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72082dd1_5910a96a",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-25T03:03:48Z",
+      "side": 1,
+      "message": "I code search with \"@throws\" but I don\u0027t think we use {@link} for exception usually.\nAlso, it seems exception after @throws works as link.",
+      "parentUuid": "9d1c6c38_a6de85d7",
+      "range": {
+        "startLine": 930,
+        "startChar": 15,
+        "endLine": 930,
+        "endChar": 39
+      },
+      "revId": "d759ca09daf9367fc6817bae369705a8ed5d82c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "baa219a5_b32e4b8f",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-18T21:34:29Z",
       "side": 1,
       "message": "I think we should change this as well to move away from blockedReasons based calculations. Even while mocking. So it doesn\u0027t confuse anyone reading the code.",
+      "range": {
+        "startLine": 1742,
+        "startChar": 20,
+        "endLine": 1742,
+        "endChar": 32
+      },
+      "revId": "d759ca09daf9367fc6817bae369705a8ed5d82c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30ab6d67_78c81575",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1742,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-25T03:03:48Z",
+      "side": 1,
+      "message": "I can update `mockUidNetworkingBlocked` to take boolean and set return value based on this.(aosp/3009935)\nBut if we do this, we will specify the value for blocked and check if the network is blocked or not via `mCm.getActiveNetwork()`.\nI\u0027m not sure if test is useful.\n\n`isUidBlocked` was originally in NetworkPolicyManager and aosp/1652550 moved this method to ConnectivityServiceTest.\nSo maybe some tests are not useful anyway and should be cleaned up.\nBut let me leave as it is for this CL.",
+      "parentUuid": "baa219a5_b32e4b8f",
       "range": {
         "startLine": 1742,
         "startChar": 20,
