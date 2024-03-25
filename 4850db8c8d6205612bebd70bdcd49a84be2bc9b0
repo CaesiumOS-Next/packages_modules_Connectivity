@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8956845_0854c930",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-25T04:10:53Z",
+      "side": 1,
+      "message": "I think Junyu knows this code better so it\u0027s better if he has a look",
+      "revId": "4850db8c8d6205612bebd70bdcd49a84be2bc9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fdbbd58_40a30a16",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-25T04:10:53Z",
+      "side": 1,
+      "message": "Typo: \"has\" ? I looks like this comment is incomplete and not necessary as-is though.",
+      "range": {
+        "startLine": 80,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 38
+      },
+      "revId": "4850db8c8d6205612bebd70bdcd49a84be2bc9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
