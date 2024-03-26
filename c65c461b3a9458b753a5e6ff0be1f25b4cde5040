@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9399d847_15124e59",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-26T09:39:51Z",
+      "side": 1,
+      "message": "A Integration test case should be added to ThreadIntegrationTest to check that the latest country code is set to ot-daemon when ot-daemon has been restarted. For example:\n\n```\n    @Test\n    public void otDaemonRestart_latestCountryCodeIsSetToOtDaemon() throws Exception {\n        runThreadCommand(\"force-country-code enabled CN\");\n        runShellCommand(\"stop ot-daemon\");\n\n        // Use ot-ctl command to check that the expected country code is set\n    }\n```",
+      "revId": "c65c461b3a9458b753a5e6ff0be1f25b4cde5040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de41bee1_84173368",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-26T09:39:51Z",
+      "side": 1,
+      "message": "This is always using the \"WW\" code every time we need to (re-)start ot-daemon. Instead, we should use the latest country code from the ThreadNetworkCountryCode#getCountryCode() API. To do that, you don\u0027t need to add a dependency on the ThreadNetworkCountryCode class, but simply add a Supplier. For example:\n\n```\nThreadNetworkControllerService(\n            Context context,\n            Handler handler,\n            NetworkProvider networkProvider,\n            Supplier\u003cIOtDaemon\u003e otDaemonSupplier,\n            ConnectivityManager connectivityManager,\n            TunInterfaceController tunIfController,\n            InfraInterfaceController infraIfController,\n            ThreadPersistentSettings persistentSettings,\n            NsdPublisher nsdPublisher,\n            UserManager userManager,\n            ConnectivityResources resources,\n            Supplier\u003cString\u003e countryCodeSupplier) {\n              mCountryCodeSupplier \u003d countryCodeSupplier;\n            }\n            \n            \n        otDaemon.initialize(\n                mTunIfController.getTunFd(),\n                isEnabled(),\n                mNsdPublisher,\n                getMeshcopTxtAttributes(mResources.get()),\n                mOtDaemonCallbackProxy,\n                mCountryCodeSupplier.get());\n```\n\nAnd the ThreadNetworkControllerService can be instantiated with:\n\n```\nThreadNetworkControllerService.newInstance(\n    mContext, mSettings, mCountryCode::getCountryCode);\n```",
+      "range": {
+        "startLine": 409,
+        "startChar": 8,
+        "endLine": 409,
+        "endChar": 40
+      },
+      "revId": "c65c461b3a9458b753a5e6ff0be1f25b4cde5040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a36a9f29_372dd0f3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-26T09:39:51Z",
+      "side": 1,
+      "message": "Initialize `mCurrentCountryCodeInfo` in the constructor so that we can use it via \"getCountryCode()\" API right after this CountryCode object is created.\n\n```suggestion\n        if (oemCountryCode !\u003d null) {\n            mOemCountryCodeInfo \u003d new CountryCodeInfo(oemCountryCode, COUNTRY_CODE_SOURCE_OEM);\n        }\n        \n        mCurrentCountryCodeInfo \u003d pickCountryCode();\n```",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 9
+      },
+      "revId": "c65c461b3a9458b753a5e6ff0be1f25b4cde5040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d13124f4_3d7f7b52",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-26T09:39:51Z",
+      "side": 1,
+      "message": "The countryCode in settings should be counted here:\n\n\n```suggestion\n\n        var settingsCountryCode \u003d mSettings.get(KEY_COUNTRY_CODE);\n        if (settingsCountryCode !\u003d null) {\n          return settingsCountryCode;\n        }\n        if (mOemCountryCodeInfo !\u003d null) {\n            return mOemCountryCodeInfo;\n        }\n```",
+      "range": {
+        "startLine": 495,
+        "startChar": 0,
+        "endLine": 498,
+        "endChar": 9
+      },
+      "revId": "c65c461b3a9458b753a5e6ff0be1f25b4cde5040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62c21e61_d706dcee",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-26T09:39:51Z",
+      "side": 1,
+      "message": "This is NonNull if you correctly initialize `mCurrentCountryCodeInfo` in the constructor\n```suggestion\n    public synchronized String getCountryCode() {\n        return mCurrentCountryCodeInfo.getCountryCode();\n    }\n```",
+      "range": {
+        "startLine": 550,
+        "startChar": 4,
+        "endLine": 553,
+        "endChar": 5
+      },
+      "revId": "c65c461b3a9458b753a5e6ff0be1f25b4cde5040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd7ce3f9_e22909f2",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-26T09:39:51Z",
+      "side": 1,
+      "message": "```suggestion\n    public static final Key\u003cString\u003e THREAD_COUNTRY_CODE \u003d new Key\u003c\u003e(\"thread_country_code\", null);\n```\n\nUse all lowercases and underscore, @sunytt@google.com we should change \"Thread_enabled\"",
+      "range": {
+        "startLine": 67,
+        "startChar": 69,
+        "endLine": 67,
+        "endChar": 88
+      },
+      "revId": "c65c461b3a9458b753a5e6ff0be1f25b4cde5040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57021683_ed41b37d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-26T09:39:51Z",
+      "side": 1,
+      "message": "You should add unit test case for this change",
+      "range": {
+        "startLine": 129,
+        "startChar": 29,
+        "endLine": 129,
+        "endChar": 36
+      },
+      "revId": "c65c461b3a9458b753a5e6ff0be1f25b4cde5040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
