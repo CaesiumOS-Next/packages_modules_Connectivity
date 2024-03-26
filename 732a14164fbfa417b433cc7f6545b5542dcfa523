@@ -70,6 +70,24 @@
       "parentUuid": "1c80691f_4f35806b",
       "revId": "732a14164fbfa417b433cc7f6545b5542dcfa523",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d48b52c4_6495e347",
+        "filename": "netbpfload/netbpfload.mainline.rc",
+        "patchSetId": 25
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1463403
+      },
+      "writtenOn": "2024-03-26T16:05:00Z",
+      "side": 1,
+      "message": "Doesn\u0027t work? How so? It was using root here before this CL..?",
+      "parentUuid": "72522a23_b7ffb220",
+      "revId": "732a14164fbfa417b433cc7f6545b5542dcfa523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
