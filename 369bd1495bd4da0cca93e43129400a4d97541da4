@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b8d4f88_ae827381",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-26T02:48:26Z",
+      "side": 1,
+      "message": "1. Does this happen in practice, where NPMS set system uids with blocked rules?\nOr this is not happening, but just for less errorprone? Maybe document current caller behavior in the comments to make future refernce.\n\n2. This might hide error in the future, e.g. NPMS want to block system uids but it silently failed. Is it better to make this less errorprone? E.g. Log.wtf or throw when set with system uids?",
+      "range": {
+        "startLine": 243,
+        "startChar": 8,
+        "endLine": 243,
+        "endChar": 9
+      },
+      "revId": "369bd1495bd4da0cca93e43129400a4d97541da4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f3863bb4_fb6aab99",
         "filename": "framework/src/android/net/BpfNetMapsUtils.java",
         "patchSetId": 2
