@@ -22,6 +22,30 @@
       },
       "revId": "00b45fc970eb1f2b5940ad218066fa34c01bbd97",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04b2dc39_d2f643a6",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3658,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-03-26T08:14:09Z",
+      "side": 1,
+      "message": "Thanks for doing the code review. This change just add a test to see if it catches a bug in production code reported from b/329552689. I\u0027ve already got a follow-up change, aosp/3013274, that fixes the bug, and I\u0027ve also removed the FIXME in that change.",
+      "parentUuid": "ad8d6595_0e4d2fd3",
+      "range": {
+        "startLine": 3658,
+        "startChar": 8,
+        "endLine": 3658,
+        "endChar": 75
+      },
+      "revId": "00b45fc970eb1f2b5940ad218066fa34c01bbd97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
