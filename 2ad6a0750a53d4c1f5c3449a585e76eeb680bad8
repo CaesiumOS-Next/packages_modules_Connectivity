@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72b80539_03f65ea8",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-26T12:22:24Z",
+      "side": 1,
+      "message": "nit: check on handler thread.\n\nNot necessarily updated in this CL.",
+      "revId": "2ad6a0750a53d4c1f5c3449a585e76eeb680bad8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
