@@ -164,7 +164,14 @@ public final class ThreadNetworkControllerServiceTest {
                 .when(mContext)
                 .enforceCallingOrSelfPermission(
                         eq(PERMISSION_THREAD_NETWORK_PRIVILEGED), anyString());
+    }
 
+    // Functions under @Before and @Test run in different threads,
+    // (i.e. androidx.test.runner.AndroidJUnitRunner vs Time-limited test)
+    // ThreadNetworkControllerService requires the jobs are run on the thread looper,
+    // so TestLooper needs to be created inside each test case to install the
+    // correct looper.
+    private void prepareService() {
         mTestLooper = new TestLooper();
         final Handler handler = new Handler(mTestLooper.getLooper());
         NetworkProvider networkProvider =
@@ -209,6 +216,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void initialize_tunInterfaceAndNsdPublisherSetToOtDaemon() throws Exception {
+        prepareService();
         when(mMockTunIfController.getTunFd()).thenReturn(mMockTunFd);
 
         mService.initialize();
@@ -221,6 +229,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void initialize_vendorAndModelNameInResourcesAreSetToOtDaemon() throws Exception {
+        prepareService();
         when(mResources.getString(eq(R.string.config_thread_vendor_name)))
                 .thenReturn(TEST_VENDOR_NAME);
         when(mResources.getString(eq(R.string.config_thread_vendor_oui)))
@@ -239,6 +248,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void getMeshcopTxtAttributes_emptyVendorName_accepted() {
+        prepareService();
         when(mResources.getString(eq(R.string.config_thread_vendor_name))).thenReturn("");
 
         MeshcopTxtAttributes meshcopTxts =
@@ -249,6 +259,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void getMeshcopTxtAttributes_tooLongVendorName_throwsIllegalStateException() {
+        prepareService();
         when(mResources.getString(eq(R.string.config_thread_vendor_name)))
                 .thenReturn("vendor name is 25 bytes!!");
 
@@ -259,6 +270,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void getMeshcopTxtAttributes_tooLongModelName_throwsIllegalStateException() {
+        prepareService();
         when(mResources.getString(eq(R.string.config_thread_model_name)))
                 .thenReturn("model name is 25 bytes!!!");
 
@@ -269,6 +281,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void getMeshcopTxtAttributes_emptyModelName_accepted() {
+        prepareService();
         when(mResources.getString(eq(R.string.config_thread_model_name))).thenReturn("");
 
         var meshcopTxts = ThreadNetworkControllerService.getMeshcopTxtAttributes(mResources);
@@ -277,6 +290,8 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void getMeshcopTxtAttributes_invalidVendorOui_throwsIllegalStateException() {
+        prepareService();
+
         assertThrows(
                 IllegalStateException.class, () -> getMeshcopTxtAttributesWithVendorOui("ABCDEFA"));
         assertThrows(
@@ -290,6 +305,8 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void getMeshcopTxtAttributes_validVendorOui_accepted() {
+        prepareService();
+
         assertThat(getMeshcopTxtAttributesWithVendorOui("010203")).isEqualTo(new byte[] {1, 2, 3});
         assertThat(getMeshcopTxtAttributesWithVendorOui("01-02-03"))
                 .isEqualTo(new byte[] {1, 2, 3});
@@ -308,6 +325,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void join_otDaemonRemoteFailure_returnsInternalError() throws Exception {
+        prepareService();
         mService.initialize();
         final IOperationReceiver mockReceiver = mock(IOperationReceiver.class);
         mFakeOtDaemon.setJoinException(new RemoteException("ot-daemon join() throws"));
@@ -321,6 +339,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void join_succeed_threadNetworkRegistered() throws Exception {
+        prepareService();
         mService.initialize();
         final IOperationReceiver mockReceiver = mock(IOperationReceiver.class);
 
@@ -338,6 +357,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void userRestriction_initWithUserRestricted_otDaemonNotStarted() {
+        prepareService();
         when(mMockUserManager.hasUserRestriction(eq(DISALLOW_THREAD_NETWORK))).thenReturn(true);
 
         mService.initialize();
@@ -348,6 +368,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void userRestriction_initWithUserNotRestricted_threadIsEnabled() {
+        prepareService();
         when(mMockUserManager.hasUserRestriction(eq(DISALLOW_THREAD_NETWORK))).thenReturn(false);
 
         mService.initialize();
@@ -358,6 +379,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void userRestriction_userBecomesRestricted_stateIsDisabledButNotPersisted() {
+        prepareService();
         when(mMockUserManager.hasUserRestriction(eq(DISALLOW_THREAD_NETWORK))).thenReturn(false);
         AtomicReference<BroadcastReceiver> receiverRef =
                 captureBroadcastReceiver(UserManager.ACTION_USER_RESTRICTIONS_CHANGED);
@@ -373,7 +395,8 @@ public final class ThreadNetworkControllerServiceTest {
     }
 
     @Test
-    public void userRestriction_userBecomesNotRestricted_stateIsEnabled() {
+    public void userRestriction_userBecomesNotRestricted_stateIsEnabledButNotPersisted() {
+        prepareService();
         when(mMockUserManager.hasUserRestriction(eq(DISALLOW_THREAD_NETWORK))).thenReturn(true);
         AtomicReference<BroadcastReceiver> receiverRef =
                 captureBroadcastReceiver(UserManager.ACTION_USER_RESTRICTIONS_CHANGED);
@@ -389,6 +412,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void userRestriction_setEnabledWhenUserRestricted_failedPreconditionError() {
+        prepareService();
         when(mMockUserManager.hasUserRestriction(eq(DISALLOW_THREAD_NETWORK))).thenReturn(true);
         mService.initialize();
 
@@ -529,6 +553,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void createRandomizedDataset_succeed_activeDatasetCreated() throws Exception {
+        prepareService();
         final IActiveOperationalDatasetReceiver mockReceiver =
                 mock(IActiveOperationalDatasetReceiver.class);
         mFakeOtDaemon.setChannelMasks(
@@ -551,6 +576,7 @@ public final class ThreadNetworkControllerServiceTest {
     @Test
     public void createRandomizedDataset_otDaemonRemoteFailure_returnsPreconditionError()
             throws Exception {
+        prepareService();
         final IActiveOperationalDatasetReceiver mockReceiver =
                 mock(IActiveOperationalDatasetReceiver.class);
         mFakeOtDaemon.setChannelMasksReceiverOtError(OT_ERROR_INVALID_STATE);
@@ -565,6 +591,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void forceStopOtDaemonForTest_noPermission_throwsSecurityException() {
+        prepareService();
         doThrow(new SecurityException(""))
                 .when(mContext)
                 .enforceCallingOrSelfPermission(eq(PERMISSION_THREAD_NETWORK_PRIVILEGED), any());
@@ -576,6 +603,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void forceStopOtDaemonForTest_enabled_otDaemonDiesAndJoinFails() throws Exception {
+        prepareService();
         mService.initialize();
         IOperationReceiver mockReceiver = mock(IOperationReceiver.class);
         IOperationReceiver mockJoinReceiver = mock(IOperationReceiver.class);
@@ -592,6 +620,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void forceStopOtDaemonForTest_disable_otDaemonRestartsAndJoinSccess() throws Exception {
+        prepareService();
         mService.initialize();
         IOperationReceiver mockReceiver = mock(IOperationReceiver.class);
         IOperationReceiver mockJoinReceiver = mock(IOperationReceiver.class);
@@ -612,6 +641,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     @Test
     public void onOtDaemonDied_joinedNetwork_interfaceStateBackToUp() throws Exception {
+        prepareService();
         mService.initialize();
         final IOperationReceiver mockReceiver = mock(IOperationReceiver.class);
         mService.join(DEFAULT_ACTIVE_DATASET, mockReceiver);
