@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f31c9c94_4bd63b4b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-26T03:25:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86b17c15_ab338521",
+      "revId": "84fc8d07a97723bb4a09458fe45bbf1c90be53d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5cf4119d_27431f74",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-02-22T15:47:10Z",
       "side": 1,
       "message": "this line should be\n\nboolean hasValidPublicKey \u003d true;\n\n\nBecause the validation already happened",
+      "range": {
+        "startLine": 1779,
+        "startChar": 16,
+        "endLine": 1779,
+        "endChar": 28
+      },
+      "revId": "84fc8d07a97723bb4a09458fe45bbf1c90be53d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11521165_80de845f",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1779,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-26T03:25:38Z",
+      "side": 1,
+      "message": "Replaced with `publicKeyValidation`.",
+      "parentUuid": "5cf4119d_27431f74",
       "range": {
         "startLine": 1779,
         "startChar": 16,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2520caef_36c0c229",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1786,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-26T03:25:38Z",
+      "side": 1,
+      "message": "Obsolete. Now it\u0027s replaced with `publicKeyValidation`.",
+      "parentUuid": "178f738f_cb1d6c70",
+      "range": {
+        "startLine": 1786,
+        "startChar": 7,
+        "endLine": 1786,
+        "endChar": 58
+      },
+      "revId": "84fc8d07a97723bb4a09458fe45bbf1c90be53d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c9cac16_82f2f07c",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-02-22T15:47:10Z",
       "side": 1,
       "message": "errorprone\n\n```\npackages/modules/Connectivity/framework-t/src/android/net/nsd/NsdManager.java:1788: error: [ArrayToString] Calling toString on an array does not provide useful information\n                    \"The public key is invalid: \" + serviceInfo.getPublicKey());\n```",
+      "range": {
+        "startLine": 1787,
+        "startChar": 12,
+        "endLine": 1788,
+        "endChar": 80
+      },
+      "revId": "84fc8d07a97723bb4a09458fe45bbf1c90be53d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b11eb6ab_43f7cce2",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1788,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-26T03:25:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c9cac16_82f2f07c",
       "range": {
         "startLine": 1787,
         "startChar": 12,
@@ -148,6 +238,30 @@
       "side": 1,
       "message": "As discussed on the phone call, we can just check all the invalid combination. The rest of the case is valid.",
       "parentUuid": "319da030_20508e8a",
+      "range": {
+        "startLine": 1791,
+        "startChar": 5,
+        "endLine": 1802,
+        "endChar": 9
+      },
+      "revId": "84fc8d07a97723bb4a09458fe45bbf1c90be53d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74075013_19209161",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1802,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-26T03:25:38Z",
+      "side": 1,
+      "message": "Added a test case for validating the combinations.",
+      "parentUuid": "0acdd67c_73801e5f",
       "range": {
         "startLine": 1791,
         "startChar": 5,
