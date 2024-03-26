@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99c3b475_ca79bd09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-26T10:25:38Z",
+      "side": 1,
+      "message": "LGTM assuming this works and assuming comments addressed.",
+      "revId": "283147090a1d22510d2f2b5102b12f9a00c03b41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0565d471_2daf1102",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/NetworkCallbackRule.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-26T10:25:38Z",
+      "side": 1,
+      "message": "Might want to rename this to AutoReleaseNetworkCallback or NetworkCallbackHelper or something, to make it clear what it does?",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 25
+      },
+      "revId": "283147090a1d22510d2f2b5102b12f9a00c03b41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4ae844c_9dccf469",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/NetworkCallbackRule.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-26T10:25:38Z",
+      "side": 1,
+      "message": "Is it possible to rename these methods so they are the same as the ConnectivityManager method names? This would be reguestNetwork, for example.",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 15
+      },
+      "revId": "283147090a1d22510d2f2b5102b12f9a00c03b41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29e670ea_a5fbe0c2",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-26T10:25:38Z",
+      "side": 1,
+      "message": "Pre-existing, but ensureWifiConnected should probably check for NET_CAPABILITY_INTERNET as well.",
+      "range": {
+        "startLine": 895,
+        "startChar": 53,
+        "endLine": 895,
+        "endChar": 72
+      },
+      "revId": "283147090a1d22510d2f2b5102b12f9a00c03b41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
