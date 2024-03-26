@@ -22,6 +22,30 @@
       },
       "revId": "cd35018bc65f887757fc9765d31f8048e9a0689e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcc18f71_d0aef0d6",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 66
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-26T05:43:09Z",
+      "side": 1,
+      "message": "I think zero TTL is valid to indicate that the RRs shouldn\u0027t be cached:\n\n```\nTTL             a 32 bit signed integer that specifies the time interval\n                that the resource record may be cached before the source\n                of the information should again be consulted.  Zero\n                values are interpreted to mean that the RR can only be\n                used for the transaction in progress, and should not be\n                cached.  For example, SOA records are always distributed\n                with a zero TTL to prohibit caching.  Zero values can\n                also be used for extremely volatile data.\n```\n\nhttps://datatracker.ietf.org/doc/html/rfc1035#section-3.2.1",
+      "parentUuid": "3d8a7852_34f085d7",
+      "range": {
+        "startLine": 754,
+        "startChar": 63,
+        "endLine": 754,
+        "endChar": 64
+      },
+      "revId": "cd35018bc65f887757fc9765d31f8048e9a0689e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
