@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "434c221d_5f93f104",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-03-26T08:22:58Z",
+      "side": 1,
+      "message": "Thanks for detail bug analysis and upstream the fix. I am fine with this change but I prefer just remove mWifiTetherRequested which make TetherModeAliveState think upstream is wanted earlier than wifi\u0027s IpServer is in Tethered State.\n\nSee https://r.android.com/c/platform/packages/modules/Connectivity/+/3013274\n\nLet\u0027s keep this change in the mix as a backup option because my first change hasn\u0027t been approved yet.",
+      "revId": "c49cdf8de447caa82b2a9dfc75f50e9188561cae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
