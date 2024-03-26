@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11de0157_05663ab6",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-26T15:07:27Z",
+      "side": 1,
+      "message": "```suggestion\n    private final Supplier\u003cString\u003e mCountryCodeSupplier;\n```\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\nAnd move this line to line 185",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 205,
+        "endChar": 50
+      },
+      "revId": "a9b2354b948866ced70e27735046b8cebd24f852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4943794b_aeab3b38",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-26T15:07:27Z",
+      "side": 1,
+      "message": "Can you add a `getRegionCode()` method to `OtDaemonController` class and use mOtCtl.getRegionCode() as the other test cases do in this test?",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 68
+      },
+      "revId": "a9b2354b948866ced70e27735046b8cebd24f852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
