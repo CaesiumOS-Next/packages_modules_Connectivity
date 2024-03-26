@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d8a7852_34f085d7",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 66
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-26T03:41:54Z",
+      "side": 1,
+      "message": "Per comment on other CL, 0 seems invalid here, since an advertisement with 0 is not an advertisement, it\u0027s a withdrawal?",
+      "range": {
+        "startLine": 754,
+        "startChar": 63,
+        "endLine": 754,
+        "endChar": 64
+      },
+      "revId": "cd35018bc65f887757fc9765d31f8048e9a0689e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
