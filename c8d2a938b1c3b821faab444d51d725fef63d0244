@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b450df1_39703367",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-26T07:53:11Z",
+      "side": 1,
+      "message": "\"net-utils-device-common-struct-base\" is already part of `TetheringAndroidLibraryDefaults`\u0027s static_libs list, do we still need to add it explicitly for `TetheringApiCurrentLib` and `TetheringApiStableLib`?",
+      "parentUuid": "f549cad0_7245f156",
+      "revId": "c8d2a938b1c3b821faab444d51d725fef63d0244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ce3490c_3e212c7a",
         "filename": "staticlibs/Android.bp",
         "patchSetId": 9
@@ -31,6 +49,24 @@
       "writtenOn": "2024-03-26T06:25:27Z",
       "side": 1,
       "message": "This shouldn\u0027t be necessary if you\u0027re depending on net-utils-framework-common, which has everything in framework/",
+      "revId": "c8d2a938b1c3b821faab444d51d725fef63d0244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21afa075_625f91fe",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-26T07:53:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ce3490c_3e212c7a",
       "revId": "c8d2a938b1c3b821faab444d51d725fef63d0244",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49fbf4f4_2a1a5828",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-26T07:53:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d04db0c_0debee91",
+      "revId": "c8d2a938b1c3b821faab444d51d725fef63d0244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65eb887d_454d0fbe",
@@ -69,6 +123,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b165eaa_d21282bb",
+        "filename": "staticlibs/tests/unit/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-26T07:53:11Z",
+      "side": 1,
+      "message": "I see, done",
+      "parentUuid": "65eb887d_454d0fbe",
+      "revId": "c8d2a938b1c3b821faab444d51d725fef63d0244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d85ac35c_49a88baf",
@@ -82,6 +154,24 @@
       "writtenOn": "2024-03-26T06:25:27Z",
       "side": 1,
       "message": "This doesn\u0027t seem to be necessary here, as I don\u0027t see a dependency that is documented to require it; is there one ?\n\nnet-tests-utils uses it but it\u0027s bundled in static_libs",
+      "revId": "c8d2a938b1c3b821faab444d51d725fef63d0244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00cecb89_109a7506",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-26T07:53:11Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "d85ac35c_49a88baf",
       "revId": "c8d2a938b1c3b821faab444d51d725fef63d0244",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
