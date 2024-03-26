@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd09c65a_41b97ba8",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-26T01:49:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4c7e71a_e3c03c2c",
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f719ac4_e0c4ab3d",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-03-21T07:24:23Z",
       "side": 1,
       "message": "This should probably be in static_libs instead, as I don\u0027t think it\u0027s supposed to be already in the bootclasspath for these tests",
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3be39444_e72494fe",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-26T01:49:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f719ac4_e0c4ab3d",
       "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8602addf_9cee7fcc",
+        "filename": "Tethering/tests/mts/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-26T01:49:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba3a343e_589b4f1d",
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03211666_14653664",
@@ -65,6 +119,24 @@
       "writtenOn": "2024-03-21T07:24:23Z",
       "side": 1,
       "message": "This shouldn\u0027t need to be mentioned here, as the lib is part of framework-connectivity-pre-jarjar which is already here; and there\u0027s no dependency on a lib that requires `struct-base`, so I don\u0027t think there\u0027s a reason to add it explicitly",
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb319e68_222438de",
+        "filename": "service-t/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-26T01:49:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03211666_14653664",
       "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -86,6 +158,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "884caac8_ecb18511",
+        "filename": "service/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-26T01:49:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97c6d9e4_f5c46333",
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b20c5baf_b5cad441",
@@ -99,6 +189,30 @@
       "writtenOn": "2024-03-21T07:24:23Z",
       "side": 1,
       "message": "Similarly to the comment below, I don\u0027t understand why this is added to this lib; is that avoidable ?",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 70
+      },
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9bb9e00_377d48f2",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-26T01:49:58Z",
+      "side": 1,
+      "message": "I was trying to remove the included static lib `net-utils-framework-common` as I was not sure if it should be included, reverted the change.",
+      "parentUuid": "b20c5baf_b5cad441",
       "range": {
         "startLine": 166,
         "startChar": 0,
@@ -132,6 +246,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bf72c7a_64b0d977",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-26T01:49:58Z",
+      "side": 1,
+      "message": "Reverted the change.",
+      "parentUuid": "a5022846_ecf63028",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 75
+      },
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61ce7855_e087f8dd",
@@ -149,6 +287,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b02780c3_1414fbb3",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-26T01:49:58Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "61ce7855_e087f8dd",
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1188cbd_ed7ea16b",
@@ -162,6 +318,24 @@
       "writtenOn": "2024-03-21T07:24:23Z",
       "side": 1,
       "message": "Also static_libs here I think",
+      "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efab9db5_2ec9e8d0",
+        "filename": "thread/tests/utils/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-26T01:49:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1188cbd_ed7ea16b",
       "revId": "0836729e37e8661ed2fee47684815d7af912d31c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
