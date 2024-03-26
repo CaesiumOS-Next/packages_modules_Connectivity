@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "47e2455a_02147599",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-26T09:41:47Z",
+      "side": 1,
+      "message": "If so, maybe add this context to the comment, e.g.\nSystem apps are not blocked by any firewall chains, even if it is not explicted set in the allow list. See bpf_progs/netd.c\n\nOnly if you think that is better.",
+      "parentUuid": "82a94972_2a7b7e74",
+      "range": {
+        "startLine": 243,
+        "startChar": 8,
+        "endLine": 243,
+        "endChar": 9
+      },
+      "revId": "369bd1495bd4da0cca93e43129400a4d97541da4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f3863bb4_fb6aab99",
         "filename": "framework/src/android/net/BpfNetMapsUtils.java",
         "patchSetId": 2
