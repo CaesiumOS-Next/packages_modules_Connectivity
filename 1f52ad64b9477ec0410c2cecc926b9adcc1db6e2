@@ -134,6 +134,30 @@
       },
       "revId": "1f52ad64b9477ec0410c2cecc926b9adcc1db6e2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34f6fd9d_03be304a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2242,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-26T10:38:12Z",
+      "side": 1,
+      "message": "We use bpf isUidNetworkingBlocked on V+ to avoid breaking existing devices.\n`dumpsys connectivity  trafficcontroller` shows rules for each uid so I think this should be enough for debugging.",
+      "parentUuid": "57d7ebe0_3da676ce",
+      "range": {
+        "startLine": 2238,
+        "startChar": 0,
+        "endLine": 2242,
+        "endChar": 13
+      },
+      "revId": "1f52ad64b9477ec0410c2cecc926b9adcc1db6e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
