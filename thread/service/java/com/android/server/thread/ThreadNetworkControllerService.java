@@ -403,7 +403,10 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     public void initialize() {
         mHandler.post(
                 () -> {
-                    Log.d(TAG, "Initializing Thread system service...");
+                    Log.d(
+                            TAG,
+                            "Initializing Thread system service: Thread is "
+                                    + (isEnabled() ? "enabled" : "disabled"));
                     try {
                         mTunIfController.createTunInterface();
                     } catch (IOException e) {
