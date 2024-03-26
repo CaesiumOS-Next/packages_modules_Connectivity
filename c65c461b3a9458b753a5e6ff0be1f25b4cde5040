@@ -135,6 +135,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aceea207_cbf53241",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-26T09:55:27Z",
+      "side": 1,
+      "message": "aosp/3013413 to update \"Thread_enabled\"",
+      "parentUuid": "cd7ce3f9_e22909f2",
+      "range": {
+        "startLine": 67,
+        "startChar": 69,
+        "endLine": 67,
+        "endChar": 88
+      },
+      "revId": "c65c461b3a9458b753a5e6ff0be1f25b4cde5040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "57021683_ed41b37d",
         "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
         "patchSetId": 6
