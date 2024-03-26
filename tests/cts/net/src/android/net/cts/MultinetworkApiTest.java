@@ -44,6 +44,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.android.testutils.DeviceConfigRule;
+import com.android.testutils.com.android.testutils.NetworkCallbackRule;
 
 import org.junit.After;
 import org.junit.Before;
@@ -55,8 +56,11 @@ import java.util.Set;
 
 @RunWith(AndroidJUnit4.class)
 public class MultinetworkApiTest {
-    @Rule
+    @Rule(order = 1)
     public final DeviceConfigRule mDeviceConfigRule = new DeviceConfigRule();
+
+    @Rule(order = 2)
+    public final NetworkCallbackRule mNetworkCallbackRule = new NetworkCallbackRule();
 
     static {
         System.loadLibrary("nativemultinetwork_jni");
@@ -91,13 +95,6 @@ public class MultinetworkApiTest {
         mCM = mContext.getSystemService(ConnectivityManager.class);
         mCR = mContext.getContentResolver();
         mCtsNetUtils = new CtsNetUtils(mContext);
-    }
-
-    @After
-    public void tearDown() {
-        if (mCtsNetUtils.cellConnectAttempted()) {
-            mCtsNetUtils.disconnectFromCell();
-        }
     }
 
     @Test
@@ -274,8 +271,8 @@ public class MultinetworkApiTest {
         // Network).
         final Set<Network> testableNetworks = new ArraySet<>();
         if (mContext.getPackageManager().hasSystemFeature(FEATURE_TELEPHONY)) {
-            if (!mCtsNetUtils.cellConnectAttempted()) {
-                mRequestedCellNetwork = mCtsNetUtils.connectToCell();
+            if (mRequestedCellNetwork == null) {
+                mRequestedCellNetwork = mNetworkCallbackRule.requestCell();
             }
             assertNotNull("Cell network requested but not obtained", mRequestedCellNetwork);
             testableNetworks.add(mRequestedCellNetwork);

@@ -53,6 +53,7 @@ import com.android.testutils.SkipMainlinePresubmit
 import com.android.testutils.TestHttpServer
 import com.android.testutils.TestHttpServer.Request
 import com.android.testutils.TestableNetworkCallback
+import com.android.testutils.com.android.testutils.NetworkCallbackRule
 import com.android.testutils.runAsShell
 import fi.iki.elonen.NanoHTTPD.Response.Status
 import java.util.concurrent.CompletableFuture
@@ -101,7 +102,10 @@ class CaptivePortalTest {
 
     private val server = TestHttpServer("localhost")
 
-    @get:Rule
+    @get:Rule(order = 1)
+    val networkCallbackRule = NetworkCallbackRule()
+
+    @get:Rule(order = 2)
     val deviceConfigRule = DeviceConfigRule(retryCountBeforeSIfConfigChanged = 5)
 
     companion object {
@@ -144,15 +148,15 @@ class CaptivePortalTest {
         assumeTrue(pm.hasSystemFeature(FEATURE_WIFI))
         assumeFalse(pm.hasSystemFeature(FEATURE_WATCH))
         utils.ensureWifiConnected()
-        val cellNetwork = utils.connectToCell()
+        val cellNetwork = networkCallbackRule.requestCell()
 
         // Verify cell network is validated
         val cellReq = NetworkRequest.Builder()
                 .addTransportType(TRANSPORT_CELLULAR)
                 .addCapability(NET_CAPABILITY_INTERNET)
                 .build()
-        val cellCb = TestableNetworkCallback(timeoutMs = TEST_TIMEOUT_MS)
-        cm.registerNetworkCallback(cellReq, cellCb)
+        val cellCb = networkCallbackRule.registerCallback(cellReq,
+            TestableNetworkCallback(timeoutMs = TEST_TIMEOUT_MS))
         val cb = cellCb.poll { it.network == cellNetwork &&
                 it is CapabilitiesChanged && it.caps.hasCapability(NET_CAPABILITY_VALIDATED)
         }
@@ -213,8 +217,6 @@ class CaptivePortalTest {
         } finally {
             cm.unregisterNetworkCallback(wifiCb)
             server.stop()
-            // disconnectFromCell should be called after connectToCell
-            utils.disconnectFromCell()
         }
     }
 
