@@ -408,7 +408,16 @@ public final class CtsNetUtils {
         return network;
     }
 
-    public Network connectToCell() throws InterruptedException {
+    /**
+     * File a request for an internet-providing cellular Network and wait for it to be fulfilled.
+     *
+     * <p>This will fail tests (throw) if the cell network cannot be obtained, or if it was
+     * already requested.
+     *
+     * <p>Tests must call {@link #unrequestCellNetwork()} once they are done using the returned
+     * {@link Network}, even if this method threw (typically this is done on test tearDown).
+     */
+    public Network requestCellNetwork() throws InterruptedException {
         if (cellConnectAttempted()) {
             mCm.unregisterNetworkCallback(mCellNetworkCallback);
         }
@@ -424,7 +433,10 @@ public final class CtsNetUtils {
         return cellNetwork;
     }
 
-    public void disconnectFromCell() {
+    /**
+     * Unrequest a cell network obtained via {@link #requestCellNetwork()}.
+     */
+    public void unrequestCellNetwork() {
         if (!cellConnectAttempted()) {
             throw new IllegalStateException("Cell connection not attempted");
         }
@@ -438,7 +450,7 @@ public final class CtsNetUtils {
 
     public void tearDown() {
         if (cellConnectAttempted()) {
-            disconnectFromCell();
+            unrequestCellNetwork();
         }
     }
 
