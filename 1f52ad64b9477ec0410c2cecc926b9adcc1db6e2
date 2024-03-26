@@ -62,6 +62,30 @@
       },
       "revId": "1f52ad64b9477ec0410c2cecc926b9adcc1db6e2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b47cff4c_2ed551f3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2242,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-26T10:08:50Z",
+      "side": 1,
+      "message": "If non NPMS components set firewall chain calling ConnectivityService API, we have a difference since NPMS does not know about this configuration.\nBut `mBpfNetMaps.isUidNetworkingBlocked` should be more correct than `mPolicyManager.isUidNetworkingBlocked`",
+      "parentUuid": "05c2f2be_f9a9e82b",
+      "range": {
+        "startLine": 2238,
+        "startChar": 0,
+        "endLine": 2242,
+        "endChar": 13
+      },
+      "revId": "1f52ad64b9477ec0410c2cecc926b9adcc1db6e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
