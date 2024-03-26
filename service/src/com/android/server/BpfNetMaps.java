@@ -637,6 +637,7 @@ public class BpfNetMaps {
         return BpfNetMapsUtils.getUidRule(sUidOwnerMap, childChain, uid);
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private Set<Integer> getUidsMatchEnabled(final int childChain) throws ErrnoException {
         final long match = getMatchByFirewallChain(childChain);
         Set<Integer> uids = new ArraySet<>();
@@ -665,6 +666,7 @@ public class BpfNetMaps {
      * @param childChain target chain
      * @return Set of uids
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public Set<Integer> getUidsWithAllowRuleOnAllowListChain(final int childChain)
             throws ErrnoException {
         if (!isFirewallAllowList(childChain)) {
@@ -686,6 +688,7 @@ public class BpfNetMaps {
      * @param childChain target chain
      * @return Set of uids
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public Set<Integer> getUidsWithDenyRuleOnDenyListChain(final int childChain)
             throws ErrnoException {
         if (isFirewallAllowList(childChain)) {
@@ -999,6 +1002,7 @@ public class BpfNetMaps {
         return sj.toString();
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private void dumpOwnerMatchConfig(final IndentingPrintWriter pw) {
         try {
             final long match = sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY).val;
