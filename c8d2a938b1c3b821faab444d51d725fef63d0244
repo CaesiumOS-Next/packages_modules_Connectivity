@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f549cad0_7245f156",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-26T06:25:27Z",
+      "side": 1,
+      "message": "As per new documentation this also requires net-utils-device-common-struct-base (same for TetheringApiStableLib)",
+      "revId": "c8d2a938b1c3b821faab444d51d725fef63d0244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ce3490c_3e212c7a",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-26T06:25:27Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be necessary if you\u0027re depending on net-utils-framework-common, which has everything in framework/",
+      "revId": "c8d2a938b1c3b821faab444d51d725fef63d0244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d04db0c_0debee91",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-26T06:25:27Z",
+      "side": 1,
+      "message": "service-thread-pre-jarjar uses it, so it should have net-utils-device-common-struct in its static_libs, and a comment saying that net-utils-device-common-struct-base is already in the bootclasspath via framework-connectivity",
+      "revId": "c8d2a938b1c3b821faab444d51d725fef63d0244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65eb887d_454d0fbe",
+        "filename": "staticlibs/tests/unit/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-26T06:25:27Z",
+      "side": 1,
+      "message": "This should be in static_libs, otherwise the test would be testing against a bootclasspath version of net-utils-device-common-struct-base, not a bundled one",
+      "revId": "c8d2a938b1c3b821faab444d51d725fef63d0244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d85ac35c_49a88baf",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-26T06:25:27Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to be necessary here, as I don\u0027t see a dependency that is documented to require it; is there one ?\n\nnet-tests-utils uses it but it\u0027s bundled in static_libs",
+      "revId": "c8d2a938b1c3b821faab444d51d725fef63d0244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
