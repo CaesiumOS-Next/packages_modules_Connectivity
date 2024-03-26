@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ddef855_14fe77f2",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-03-26T10:52:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de41bee1_84173368",
+      "range": {
+        "startLine": 409,
+        "startChar": 8,
+        "endLine": 409,
+        "endChar": 40
+      },
+      "revId": "c65c461b3a9458b753a5e6ff0be1f25b4cde5040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a36a9f29_372dd0f3",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-03-26T09:39:51Z",
       "side": 1,
       "message": "Initialize `mCurrentCountryCodeInfo` in the constructor so that we can use it via \"getCountryCode()\" API right after this CountryCode object is created.\n\n```suggestion\n        if (oemCountryCode !\u003d null) {\n            mOemCountryCodeInfo \u003d new CountryCodeInfo(oemCountryCode, COUNTRY_CODE_SOURCE_OEM);\n        }\n        \n        mCurrentCountryCodeInfo \u003d pickCountryCode();\n```",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 9
+      },
+      "revId": "c65c461b3a9458b753a5e6ff0be1f25b4cde5040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08ec772e_d0ee645c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-03-26T10:52:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a36a9f29_372dd0f3",
       "range": {
         "startLine": 233,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e214aac_c182e9a3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-03-26T10:52:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d13124f4_3d7f7b52",
+      "range": {
+        "startLine": 495,
+        "startChar": 0,
+        "endLine": 498,
+        "endChar": 9
+      },
+      "revId": "c65c461b3a9458b753a5e6ff0be1f25b4cde5040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62c21e61_d706dcee",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-03-26T09:39:51Z",
       "side": 1,
       "message": "This is NonNull if you correctly initialize `mCurrentCountryCodeInfo` in the constructor\n```suggestion\n    public synchronized String getCountryCode() {\n        return mCurrentCountryCodeInfo.getCountryCode();\n    }\n```",
+      "range": {
+        "startLine": 550,
+        "startChar": 4,
+        "endLine": 553,
+        "endChar": 5
+      },
+      "revId": "c65c461b3a9458b753a5e6ff0be1f25b4cde5040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ec211cd_ce694ff3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-03-26T10:52:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62c21e61_d706dcee",
       "range": {
         "startLine": 550,
         "startChar": 4,
@@ -157,6 +253,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d128d19_816a47b4",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-03-26T10:52:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aceea207_cbf53241",
+      "range": {
+        "startLine": 67,
+        "startChar": 69,
+        "endLine": 67,
+        "endChar": 88
+      },
+      "revId": "c65c461b3a9458b753a5e6ff0be1f25b4cde5040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57021683_ed41b37d",
@@ -170,6 +290,30 @@
       "writtenOn": "2024-03-26T09:39:51Z",
       "side": 1,
       "message": "You should add unit test case for this change",
+      "range": {
+        "startLine": 129,
+        "startChar": 29,
+        "endLine": 129,
+        "endChar": 36
+      },
+      "revId": "c65c461b3a9458b753a5e6ff0be1f25b4cde5040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f784f5f_eb10812c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-03-26T10:52:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57021683_ed41b37d",
       "range": {
         "startLine": 129,
         "startChar": 29,
