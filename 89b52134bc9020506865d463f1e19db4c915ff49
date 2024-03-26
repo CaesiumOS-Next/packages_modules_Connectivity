@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8eb2e95d_c2b743b2",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkControllerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-26T04:46:54Z",
+      "side": 1,
+      "message": "```suggestion\nimport org.junit.Rule;\nimport org.junit.Test;\nimport org.junit.runner.RunWith;\n```",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 22
+      },
+      "revId": "89b52134bc9020506865d463f1e19db4c915ff49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
