@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62c7c576_425134b2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-26T03:25:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5046f39_75f35547",
+      "range": {
+        "startLine": 172,
+        "startChar": 53,
+        "endLine": 172,
+        "endChar": 63
+      },
+      "revId": "175a271acd152ee4f614c87394920ec9bb78c321",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "682c2933_565346ec",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-26T01:40:01Z",
       "side": 1,
       "message": "Comment: serviceKeyRecord and hostKeyRecord is used in the conflict check.",
+      "range": {
+        "startLine": 174,
+        "startChar": 4,
+        "endLine": 176,
+        "endChar": 61
+      },
+      "revId": "175a271acd152ee4f614c87394920ec9bb78c321",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a50c20e1_55f20997",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-26T03:25:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "682c2933_565346ec",
       "range": {
         "startLine": 174,
         "startChar": 4,
