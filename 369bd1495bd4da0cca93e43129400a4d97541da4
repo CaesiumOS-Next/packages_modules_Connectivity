@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98444d75_2fd9f4b1",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-26T10:22:02Z",
+      "side": 1,
+      "message": "I don\u0027t think we need to mention allow list firewall chain particularly. \nBut let me update comment to mention bpf_progs/netd.c so that people can understand who is actually dropping packets.",
+      "parentUuid": "47e2455a_02147599",
+      "range": {
+        "startLine": 243,
+        "startChar": 8,
+        "endLine": 243,
+        "endChar": 9
+      },
+      "revId": "369bd1495bd4da0cca93e43129400a4d97541da4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3863bb4_fb6aab99",
