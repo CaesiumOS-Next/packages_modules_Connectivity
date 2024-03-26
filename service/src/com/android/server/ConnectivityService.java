@@ -478,6 +478,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private volatile boolean mLockdownEnabled;
 
     private final boolean mRequestRestrictedWifiEnabled;
+    private final boolean mBackgroundFirewallChainEnabled;
 
     /**
      * Stale copy of uid blocked reasons provided by NPMS. As long as they are accessed only in
@@ -1798,6 +1799,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mLocationPermissionChecker = mDeps.makeLocationPermissionChecker(mContext);
         mRequestRestrictedWifiEnabled = mDeps.isAtLeastU()
                 && mDeps.isFeatureEnabled(context, REQUEST_RESTRICTED_WIFI);
+        mBackgroundFirewallChainEnabled = mDeps.isAtLeastV() && mDeps.isFeatureNotChickenedOut(
+                context, ConnectivityFlags.BACKGROUND_FIREWALL_CHAIN);
         mCarrierPrivilegeAuthenticator = mDeps.makeCarrierPrivilegeAuthenticator(
                 mContext, mTelephonyManager, mRequestRestrictedWifiEnabled,
                 this::handleUidCarrierPrivilegesLost, mHandler);
@@ -4148,6 +4151,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         pw.println();
         pw.println("Multicast routing supported: " +
                 (mMulticastRoutingCoordinatorService != null));
+
+        pw.println();
+        pw.println("Background firewall chain enabled: " + mBackgroundFirewallChainEnabled);
     }
 
     private void dumpNetworks(IndentingPrintWriter pw) {
@@ -13588,6 +13594,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @Override
     public void setFirewallChainEnabled(final int chain, final boolean enable) {
         enforceNetworkStackOrSettingsPermission();
+
+        if (chain == FIREWALL_CHAIN_BACKGROUND && !mBackgroundFirewallChainEnabled) {
+            return;
+        }
 
         try {
             mBpfNetMaps.setChildChain(chain, enable);
