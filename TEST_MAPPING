@@ -307,7 +307,7 @@
     },
     // Postsubmit on virtual devices to monitor flakiness of @SkipMainlinePresubmit methods
     {
-      "name": "CtsNetTestCasesLatestSdk[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]",
+      "name": "CtsNetTestCasesLatestSdk[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex+com.google.android.wifi.apex]",
       "options": [
         {
           "exclude-annotation": "androidx.test.filters.RequiresDevice"
