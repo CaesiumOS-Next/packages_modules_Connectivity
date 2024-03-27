@@ -144,6 +144,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b76dceb_43178c15",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-27T11:07:33Z",
+      "side": 1,
+      "message": "Fixed for V.\nWill adopt compact flag in next CL if it is OK for you.",
+      "parentUuid": "cf427c7b_0f2844f0",
+      "range": {
+        "startLine": 515,
+        "startChar": 41,
+        "endLine": 516,
+        "endChar": 97
+      },
+      "revId": "54e81de8ca9928d11d8e6504f4e3e793ad50803a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a544f6c4_2f571bd9",
