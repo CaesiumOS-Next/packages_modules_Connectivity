@@ -22,6 +22,30 @@
       },
       "revId": "ea1fcb319c207a272ea389c60a2e38e1029ea1ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96525850_5bf5384d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-27T04:59:33Z",
+      "side": 1,
+      "message": "This is currently only used by the Thread service which doesn\u0027t run below U. So I don\u0027t think it can be triggered by an API call.\n\nPer go/mainline-api-coverage#ndk-api, both CTS and MTS are counted",
+      "parentUuid": "67d7ef60_12fcc08c",
+      "range": {
+        "startLine": 9,
+        "startChar": 44,
+        "endLine": 9,
+        "endChar": 68
+      },
+      "revId": "ea1fcb319c207a272ea389c60a2e38e1029ea1ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
