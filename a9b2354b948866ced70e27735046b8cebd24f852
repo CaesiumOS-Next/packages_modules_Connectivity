@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e957cf2a_4ee83345",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-27T04:11:25Z",
+      "side": 1,
+      "message": "\"And move this line to line 185\"",
+      "parentUuid": "cf871a8c_b6297fb6",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 205,
+        "endChar": 50
+      },
+      "revId": "a9b2354b948866ced70e27735046b8cebd24f852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4943794b_aeab3b38",
         "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
         "patchSetId": 7
