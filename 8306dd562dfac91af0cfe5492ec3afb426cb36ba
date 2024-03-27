@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9ff3405_16c66e86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-03-27T06:40:59Z",
+      "side": 1,
+      "message": "Check out the build error. I think it is not related to the change I made.",
+      "revId": "8306dd562dfac91af0cfe5492ec3afb426cb36ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
