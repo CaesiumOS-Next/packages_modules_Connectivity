@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5960200f_0f2d1945",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-27T03:32:27Z",
+      "side": 1,
+      "message": "If you move this above the code calling onProbingSucceeded, you don\u0027t need to create a new ArrayList and remove the current service since it would still be in probing state and won\u0027t be returned",
+      "range": {
+        "startLine": 144,
+        "startChar": 34,
+        "endLine": 144,
+        "endChar": 42
+      },
+      "revId": "a28e0717b8729472fd795e7dc68924b7a87234b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b88e467_af727ec7",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiserTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-27T03:32:27Z",
+      "side": 1,
+      "message": "As this is a data class, it would be cleaner / faster not to use a mock. This can just be constructed with AnnouncementInfo(serviceId, emptyList(), emptyList()) I think ?",
+      "range": {
+        "startLine": 539,
+        "startChar": 35,
+        "endLine": 539,
+        "endChar": 39
+      },
+      "revId": "a28e0717b8729472fd795e7dc68924b7a87234b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
