@@ -126,6 +126,7 @@ public class BorderRoutingTest {
         mFtds = new ArrayList<>();
 
         setUpInfraNetwork();
+        mController.setEnabledAndWait(true);
         mController.joinAndWait(DEFAULT_DATASET);
 
         // Creates a infra network device.
@@ -192,6 +193,36 @@ public class BorderRoutingTest {
         mInfraDevice.sendEchoRequest(ftd.getOmrAddress());
 
         assertNotNull(pollForPacketOnInfraNetwork(ICMPV6_ECHO_REPLY_TYPE, ftd.getOmrAddress()));
+    }
+
+    @Test
+    public void unicastRouting_afterInfraNetworkSwitchInfraDevicePingThreadDeviceOmr_replyReceived()
+            throws Exception {
+        /*
+         * <pre>
+         * Topology:
+         *                 infra network                       Thread
+         * infra device -------------------- Border Router -------------- Full Thread device
+         *                                   (Cuttlefish)
+         * </pre>
+         */
+
+        FullThreadDevice ftd = mFtds.get(0);
+        startFtdChild(ftd);
+        Inet6Address ftdOmr = ftd.getOmrAddress();
+        // Create a new infra network and let Thread prefer it
+        TestNetworkTracker oldInfraNetworkTracker = mInfraNetworkTracker;
+        try {
+            setUpInfraNetwork();
+            mInfraNetworkReader = newPacketReader(mInfraNetworkTracker.getTestIface(), mHandler);
+            startInfraDevice();
+
+            mInfraDevice.sendEchoRequest(ftd.getOmrAddress());
+
+            assertNotNull(pollForPacketOnInfraNetwork(ICMPV6_ECHO_REPLY_TYPE, ftdOmr));
+        } finally {
+            runAsShell(MANAGE_TEST_NETWORKS, () -> oldInfraNetworkTracker.teardown());
+        }
     }
 
     @Test
