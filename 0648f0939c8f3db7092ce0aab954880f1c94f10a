@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d630da30_ec6bbec8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-27T07:45:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b6b9543_25616d69",
+      "revId": "0648f0939c8f3db7092ce0aab954880f1c94f10a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e5d8b2c_b9e1e2c0",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceec8918_943243ae",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-27T07:45:25Z",
+      "side": 1,
+      "message": "Using the same design should be simpler and easy to test it. I add an unit test for this change.",
+      "parentUuid": "7e5d8b2c_b9e1e2c0",
+      "revId": "0648f0939c8f3db7092ce0aab954880f1c94f10a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5a75d6a_b8a05911",
@@ -48,6 +84,30 @@
       "writtenOn": "2024-03-13T06:48:07Z",
       "side": 1,
       "message": "Nit: would addAll work ?",
+      "range": {
+        "startLine": 282,
+        "startChar": 33,
+        "endLine": 282,
+        "endChar": 36
+      },
+      "revId": "0648f0939c8f3db7092ce0aab954880f1c94f10a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4bdd197_6ae8a8ff",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-27T07:45:25Z",
+      "side": 1,
+      "message": "Yes. The datagramPackets type is changed from `DatagramPacket[]` to `List\u003cDatagramPacket\u003e`",
+      "parentUuid": "a5a75d6a_b8a05911",
       "range": {
         "startLine": 282,
         "startChar": 33,
