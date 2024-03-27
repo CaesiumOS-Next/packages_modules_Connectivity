@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f704d47a_fa5d48bc",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/util/MdnsUtilsTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-27T04:19:50Z",
+      "side": 1,
+      "message": "Also check that each packet is \u003c\u003d 1500 bytes (the passed-in buffer size)",
+      "range": {
+        "startLine": 154,
+        "startChar": 69,
+        "endLine": 154,
+        "endChar": 76
+      },
+      "revId": "9c0f9f80a78a3f96b9fbf4235f66634bdbaaadbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05b58fdd_98d0ae08",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/util/MdnsUtilsTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-27T04:19:50Z",
+      "side": 1,
+      "message": "Can you check for FLAG_TRUNCATED too ?",
+      "revId": "9c0f9f80a78a3f96b9fbf4235f66634bdbaaadbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
