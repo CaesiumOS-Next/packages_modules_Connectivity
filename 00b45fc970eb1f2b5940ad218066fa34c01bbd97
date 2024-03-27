@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fd4f4d3_7b266531",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1657,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-27T14:48:31Z",
+      "side": 0,
+      "message": "I confused, it seems mForwardedDownstreams is always empty? Am I miss sth.? If it is always empty, could we remove it?\n\nI feel there should be two CL, 1 for remove mWifiTetherRequested, another for remove mForwardedDownstreams?",
+      "range": {
+        "startLine": 1657,
+        "startChar": 13,
+        "endLine": 1657,
+        "endChar": 44
+      },
+      "revId": "00b45fc970eb1f2b5940ad218066fa34c01bbd97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
