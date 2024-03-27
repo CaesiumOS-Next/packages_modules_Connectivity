@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67d7ef60_12fcc08c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-27T04:14:34Z",
+      "side": 1,
+      "message": "API coverage needs to be in CTS, so integration tests won\u0027t be enough\n\nI\u0027m not sure CTS has permission to call this API though (does it ?). In that case you could make sure that it calls other APIs that trigger this call.\n\nDo you know how other similar NDK methods are covered ? Should this be added to ART CTS ?",
+      "range": {
+        "startLine": 9,
+        "startChar": 44,
+        "endLine": 9,
+        "endChar": 68
+      },
+      "revId": "ea1fcb319c207a272ea389c60a2e38e1029ea1ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
