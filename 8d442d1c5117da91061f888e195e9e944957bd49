@@ -87,6 +87,24 @@
       "parentUuid": "3d587b9f_86078b4b",
       "revId": "8d442d1c5117da91061f888e195e9e944957bd49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de8373d8_c8d21fce",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/util/MdnsUtilsTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-27T09:19:52Z",
+      "side": 1,
+      "message": "I\u0027m not sure what specific test you want. The test I built creates multiple datagram packets from an oversized MdnsPacket, with questions and answers separated into several packets.",
+      "parentUuid": "fee19868_e61943cd",
+      "revId": "8d442d1c5117da91061f888e195e9e944957bd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
