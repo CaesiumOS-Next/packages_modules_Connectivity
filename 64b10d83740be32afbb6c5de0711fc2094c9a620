@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62269df6_bd5f3370",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-27T14:45:00Z",
+      "side": 1,
+      "message": "decodeTxtValue?",
+      "range": {
+        "startLine": 571,
+        "startChar": 26,
+        "endLine": 571,
+        "endChar": 40
+      },
+      "revId": "64b10d83740be32afbb6c5de0711fc2094c9a620",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bfb2f3c_60aa9d32",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-27T14:45:00Z",
+      "side": 1,
+      "message": "final. Also applys to the rest of the local variable that doesn\u0027t supposed to be changed.",
+      "range": {
+        "startLine": 576,
+        "startChar": 8,
+        "endLine": 576,
+        "endChar": 22
+      },
+      "revId": "64b10d83740be32afbb6c5de0711fc2094c9a620",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fe54736_dad9ba78",
+        "filename": "tests/common/java/android/net/nsd/NsdServiceInfoTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-27T14:45:00Z",
+      "side": 1,
+      "message": "It\u0027s better off we test the content of the full string so we can make sure all component is formatted correctly",
+      "range": {
+        "startLine": 213,
+        "startChar": 30,
+        "endLine": 213,
+        "endChar": 38
+      },
+      "revId": "64b10d83740be32afbb6c5de0711fc2094c9a620",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
