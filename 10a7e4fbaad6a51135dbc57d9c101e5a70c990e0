@@ -16,6 +16,70 @@
       "message": "I can\u0027t write a test easily because it gets initialized in the constructor. Any ideas?",
       "revId": "10a7e4fbaad6a51135dbc57d9c101e5a70c990e0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46ace7af_f48fdf90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-27T09:38:31Z",
+      "side": 1,
+      "message": "aosp/3014877 should allow you to inject flag value via annotation.",
+      "parentUuid": "218c3e59_4ae03205",
+      "revId": "10a7e4fbaad6a51135dbc57d9c101e5a70c990e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00e0509b_cbd8ef34",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1802,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-27T09:38:31Z",
+      "side": 1,
+      "message": "Do we accept FIREWALL_CHAIN_BACKGROUND only on V+ release?\nFIREWALL_CHAIN_BACKGROUND is part of sdk extension so technically U- release can call setFirewallChainEnabled with FIREWALL_CHAIN_BACKGROUND, I think.",
+      "range": {
+        "startLine": 1802,
+        "startChar": 42,
+        "endLine": 1802,
+        "endChar": 60
+      },
+      "revId": "10a7e4fbaad6a51135dbc57d9c101e5a70c990e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd8b5caf_52c86ed0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 13599,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-27T09:38:31Z",
+      "side": 1,
+      "message": "I think it\u0027s better to add check in `setUidFirewallRule` and `replaceFirewallChain` as well.\nThis is not necessary since uid rule is not used if chain is not enabled.\nBut as a kill swtich, I feel it would be safer not to write BACKGROUND_MATCH to any bpf map if mBackgroundFirewallChainEnabled is false.",
+      "range": {
+        "startLine": 13599,
+        "startChar": 12,
+        "endLine": 13599,
+        "endChar": 19
+      },
+      "revId": "10a7e4fbaad6a51135dbc57d9c101e5a70c990e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
