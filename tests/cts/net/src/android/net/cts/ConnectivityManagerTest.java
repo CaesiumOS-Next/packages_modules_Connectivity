@@ -222,6 +222,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -296,6 +297,9 @@ public class ConnectivityManagerTest {
     private static final String TEST_HTTPS_URL_PATH = "/https_path";
     private static final String TEST_HTTP_URL_PATH = "/http_path";
     private static final String LOCALHOST_HOSTNAME = "localhost";
+    private static final List<String> IP_ADDRESS_ECHO_URLS = Arrays.asList(
+            "https://google-ipv6test.appspot.com/ip.js?fmt=text",
+            "https://ipv6test.googleapis-cn.com/ip.js?fmt=text");
     // Re-connecting to the AP, obtaining an IP address, revalidating can take a long time
     private static final long WIFI_CONNECT_TIMEOUT_MS = 60_000L;
 
@@ -816,10 +820,13 @@ public class ConnectivityManagerTest {
         Network wifiNetwork = mCtsNetUtils.connectToWifi();
         Network cellNetwork = mCtsNetUtils.connectToCell();
         // This server returns the requestor's IP address as the response body.
-        URL url = new URL("http://google-ipv6test.appspot.com/ip.js?fmt=text");
-        String wifiAddressString = httpGet(wifiNetwork, url);
-        String cellAddressString = httpGet(cellNetwork, url);
+        String wifiAddressString = httpGet(wifiNetwork);
+        String cellAddressString = httpGet(cellNetwork);
 
+        assertNotNull("Did not get the IP address for wifi network",
+                wifiAddressString);
+        assertNotNull("Did not get the IP address for cell network",
+                cellAddressString);
         assertFalse(String.format("Same address '%s' on two different networks (%s, %s)",
                 wifiAddressString, wifiNetwork, cellNetwork),
                 wifiAddressString.equals(cellAddressString));
@@ -833,17 +840,24 @@ public class ConnectivityManagerTest {
     }
 
     /**
-     * Performs a HTTP GET to the specified URL on the specified Network, and returns
+     * Performs a HTTP GET to the IP address echo URLs on the specified Network, and returns
      * the response body decoded as UTF-8.
      */
-    private static String httpGet(Network network, URL httpUrl) throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) network.openConnection(httpUrl);
-        try {
-            InputStream inputStream = connection.getInputStream();
-            return Streams.readFully(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-        } finally {
-            connection.disconnect();
+    private static String httpGet(Network network) throws IOException {
+        for (String ipAddressEchoUrl : IP_ADDRESS_ECHO_URLS) {
+            URL httpUrl = new URL(ipAddressEchoUrl);
+            HttpURLConnection connection = (HttpURLConnection) network.openConnection(httpUrl);
+            try {
+                InputStream inputStream = connection.getInputStream();
+                return Streams.readFully(
+                        new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+            } catch (java.net.ConnectException e) {
+                // ignore
+            } finally {
+                connection.disconnect();
+            }
         }
+        return null;
     }
 
     private void assertOnNetwork(String adressString, Network network) throws UnknownHostException {
