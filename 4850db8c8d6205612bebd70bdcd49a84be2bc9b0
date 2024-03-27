@@ -135,6 +135,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "52540606_00b87312",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1365,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-27T02:40:12Z",
+      "side": 1,
+      "message": "To add test about satellite.\nYou need to:\n 1. Build a satellite State and adding into this array. Note the interface should not be the same with any other state.\n 2. Mock another entry5 below for satellite interface. And add comment for it.\n 3. Add 1 more assert after l.1429 to make sure the content of entry5 exists.",
+      "range": {
+        "startLine": 1365,
+        "startChar": 37,
+        "endLine": 1365,
+        "endChar": 43
+      },
+      "revId": "4850db8c8d6205612bebd70bdcd49a84be2bc9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fb3d291a_220dff77",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
         "patchSetId": 5
