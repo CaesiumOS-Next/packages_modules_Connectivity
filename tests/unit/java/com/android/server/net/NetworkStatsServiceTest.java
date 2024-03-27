@@ -67,6 +67,7 @@ import static android.text.format.DateUtils.WEEK_IN_MILLIS;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_RAT_CHANGED;
 import static com.android.server.net.NetworkStatsEventLogger.PollEvent.pollReasonNameOf;
 import static com.android.server.net.NetworkStatsService.ACTION_NETWORK_STATS_POLL;
+import static com.android.server.net.NetworkStatsService.DEFAULT_TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS;
 import static com.android.server.net.NetworkStatsService.NETSTATS_FASTDATAINPUT_FALLBACKS_COUNTER_NAME;
 import static com.android.server.net.NetworkStatsService.NETSTATS_FASTDATAINPUT_SUCCESSES_COUNTER_NAME;
 import static com.android.server.net.NetworkStatsService.NETSTATS_IMPORT_ATTEMPTS_COUNTER_NAME;
@@ -589,6 +590,11 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
         public void setSupportTrafficStatsRateLimitCache(boolean enabled) {
             mSupportTrafficStatsRateLimitCache = enabled;
+        }
+
+        @Override
+        public int getTrafficStatsRateLimitCacheExpiryDuration() {
+            return DEFAULT_TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS;
         }
 
         @Nullable
@@ -2353,7 +2359,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertTrafficStatsValues(TEST_IFACE, myUid, 64L, 3L, 1024L, 8L);
 
         // Verify the values are cached.
-        incrementCurrentTime(NetworkStatsService.TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS / 2);
+        incrementCurrentTime(DEFAULT_TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS / 2);
         mockTrafficStatsValues(65L, 8L, 1055L, 9L);
         if (cacheEnabled) {
             assertTrafficStatsValues(TEST_IFACE, myUid, 64L, 3L, 1024L, 8L);
@@ -2362,7 +2368,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         }
 
         // Verify the values are updated after cache expiry.
-        incrementCurrentTime(NetworkStatsService.TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS);
+        incrementCurrentTime(DEFAULT_TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS);
         assertTrafficStatsValues(TEST_IFACE, myUid, 65L, 8L, 1055L, 9L);
     }
 
