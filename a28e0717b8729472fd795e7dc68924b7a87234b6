@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f3634167_2d9a4f69",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-27T05:34:54Z",
+      "side": 1,
+      "message": "But if I move it before `onProbingSucceeded` the addresses from the current service won\u0027t be included in the restarting announcement infos.",
+      "parentUuid": "5960200f_0f2d1945",
+      "range": {
+        "startLine": 144,
+        "startChar": 34,
+        "endLine": 144,
+        "endChar": 42
+      },
+      "revId": "a28e0717b8729472fd795e7dc68924b7a87234b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b88e467_af727ec7",
         "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiserTest.kt",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-27T03:32:27Z",
       "side": 1,
       "message": "As this is a data class, it would be cleaner / faster not to use a mock. This can just be constructed with AnnouncementInfo(serviceId, emptyList(), emptyList()) I think ?",
+      "range": {
+        "startLine": 539,
+        "startChar": 35,
+        "endLine": 539,
+        "endChar": 39
+      },
+      "revId": "a28e0717b8729472fd795e7dc68924b7a87234b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48f39d19_d336b7a5",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiserTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-27T05:34:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b88e467_af727ec7",
       "range": {
         "startLine": 539,
         "startChar": 35,
