@@ -20,6 +20,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e3dd7ddb_b9d61c0f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1780,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-27T02:03:21Z",
+      "side": 1,
+      "message": "IIUC we need some comments here saying this includes satellite stats here and why is this happening and cannot be done in other way around.",
+      "range": {
+        "startLine": 1780,
+        "startChar": 36,
+        "endLine": 1780,
+        "endChar": 54
+      },
+      "revId": "4850db8c8d6205612bebd70bdcd49a84be2bc9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd65482c_ed202813",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2190,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-27T02:03:21Z",
+      "side": 1,
+      "message": "Maybe add comments otherwise I don\u0027t think anyone could follow this?",
+      "range": {
+        "startLine": 2190,
+        "startChar": 26,
+        "endLine": 2190,
+        "endChar": 34
+      },
+      "revId": "4850db8c8d6205612bebd70bdcd49a84be2bc9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3fdbbd58_40a30a16",
         "filename": "staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java",
         "patchSetId": 5
@@ -36,6 +82,75 @@
         "startChar": 8,
         "endLine": 80,
         "endChar": 38
+      },
+      "revId": "4850db8c8d6205612bebd70bdcd49a84be2bc9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b34bcd90_5f22bba2",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-27T02:03:21Z",
+      "side": 1,
+      "message": "Not sure if we want to do anything about lint error:\n\n\nPlease fix this WARNING reported by AndroidLint: [FlaggedApi] Field `TRANSPORT_SATELLITE` is a flagged API and should be inside an `if (Flags.supportTransportSatellite())` check (or annotate the surrounding method `?` with `@FlaggedApi(Flags.SUPPORT_TRANSPORT_SATELLITE) to transfer requir...\n\nAnalyzer Description: Reports AndroidLint warnings.\nOwner: colefaust@google.com\n\n[FlaggedApi] Field `TRANSPORT_SATELLITE` is a flagged API and should be inside an `if (Flags.supportTransportSatellite())` check (or annotate the surrounding method `?` with `@FlaggedApi(Flags.SUPPORT_TRANSPORT_SATELLITE) to transfer requirement to caller`)\n\n            TRANSPORT_SATELLITE\n            ~~~~~~~~~~~~~~~~~~~\n\nThis lint check looks for accesses of APIs marked with `@FlaggedApi(X)` without a guarding `if (Flags.X)` check. See go/android-flagged-apis.\n\nSuppression and local reproduction steps: go/ayeaye-android-lint\n\nThis warning was found on the git_main branch",
+      "range": {
+        "startLine": 81,
+        "startChar": 9,
+        "endLine": 81,
+        "endChar": 27
+      },
+      "revId": "4850db8c8d6205612bebd70bdcd49a84be2bc9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51fd833a_934bb0a5",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-27T02:03:21Z",
+      "side": 1,
+      "message": "This is too much code duplication IIUC.\nCould we refactor it or merge them together?",
+      "range": {
+        "startLine": 991,
+        "startChar": 16,
+        "endLine": 991,
+        "endChar": 53
+      },
+      "revId": "4850db8c8d6205612bebd70bdcd49a84be2bc9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb3d291a_220dff77",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1433,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-27T02:03:21Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1433,
+        "startChar": 16,
+        "endLine": 1433,
+        "endChar": 68
       },
       "revId": "4850db8c8d6205612bebd70bdcd49a84be2bc9b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
