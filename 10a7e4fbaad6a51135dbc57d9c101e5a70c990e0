@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "218c3e59_4ae03205",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-27T00:11:10Z",
+      "side": 1,
+      "message": "I can\u0027t write a test easily because it gets initialized in the constructor. Any ideas?",
+      "revId": "10a7e4fbaad6a51135dbc57d9c101e5a70c990e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
