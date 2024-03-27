@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc6caf8f_981f586b",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/NetworkCallbackRule.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-27T08:30:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0565d471_2daf1102",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 25
+      },
+      "revId": "283147090a1d22510d2f2b5102b12f9a00c03b41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4ae844c_9dccf469",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-03-26T10:25:38Z",
       "side": 1,
       "message": "Is it possible to rename these methods so they are the same as the ConnectivityManager method names? This would be reguestNetwork, for example.",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 15
+      },
+      "revId": "283147090a1d22510d2f2b5102b12f9a00c03b41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c3bda3b_13fce45c",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/NetworkCallbackRule.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-27T08:30:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4ae844c_9dccf469",
       "range": {
         "startLine": 89,
         "startChar": 8,
