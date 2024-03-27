@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "68c80c55_a6e5bf2e",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-27T03:53:04Z",
+      "side": 1,
+      "message": "My idea is that since the documentation of `net-utils-device-common-struct` says that `net-utils-device-common-struct-base` is required, when one looks at a dependency on the first one, we should make it easy to see that the requirement is fulfilled (the second one is included).\n\nAs you mentioned it\u0027s already in the defaults, so an easy way to make it easy to see would be to move \"net-utils-device-common-struct\" to the defaults too I think. Actually I\u0027m not sure why it\u0027s repeated in TetheringApiCurrentLib and TetheringApiStableLib instead of being in the default rule...",
+      "parentUuid": "6b450df1_39703367",
+      "revId": "c8d2a938b1c3b821faab444d51d725fef63d0244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ce3490c_3e212c7a",
         "filename": "staticlibs/Android.bp",
         "patchSetId": 9
