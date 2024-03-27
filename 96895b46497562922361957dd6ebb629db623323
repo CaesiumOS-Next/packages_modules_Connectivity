@@ -16,6 +16,29 @@
       "message": "I\u0027d suggest defining DeviceConfig flags for these 2, since they\u0027re chosen kind of arbitrarily, so field trials could be used to find ideal values.\n\nIt would also help measure the memory/speed tradeoff",
       "revId": "96895b46497562922361957dd6ebb629db623323",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "217bb77b_b1be4e22",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-27T09:11:01Z",
+      "side": 1,
+      "message": "I just faced similar issue and uploaded aosp/3014877 after discussion with Remi and Lorenzo.\nUsing annotation might be easier, simpler solution",
+      "range": {
+        "startLine": 375,
+        "startChar": 8,
+        "endLine": 375,
+        "endChar": 27
+      },
+      "revId": "96895b46497562922361957dd6ebb629db623323",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
