@@ -16,6 +16,42 @@
       "message": "Could you add b/329385152 as well?",
       "revId": "a47c2713e8c385e52858ab312c58fd6f5f463cc1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3120f6b2_efb60a06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-28T12:19:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "92fd3019_c8b7cdb9",
+      "revId": "a47c2713e8c385e52858ab312c58fd6f5f463cc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cfde3e0_8236ec9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-28T12:19:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "92fd3019_c8b7cdb9",
+      "revId": "a47c2713e8c385e52858ab312c58fd6f5f463cc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
