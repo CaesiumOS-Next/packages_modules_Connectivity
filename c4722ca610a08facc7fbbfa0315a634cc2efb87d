@@ -165,6 +165,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6dd12a49_a65c512b",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1385,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-28T11:53:08Z",
+      "side": 1,
+      "message": "IMO , this was intentionally done not to change the existing code wrt to Cellular and Wifi iface and making it hard to follow, with concurrency of Cellular , Wifi and satellite ifaces together. \n\nSo kept the new iface related stats seperately with Cellular iface for better readability.\n\nThe whole intention is to make sure on getUidStatsForTransport(CELLULAR) should return satellite Iface stats also.\n\nSo Suggest to keep as it is",
+      "parentUuid": "51153b2a_701c4e17",
+      "range": {
+        "startLine": 1383,
+        "startChar": 0,
+        "endLine": 1385,
+        "endChar": 65
+      },
+      "revId": "c4722ca610a08facc7fbbfa0315a634cc2efb87d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "39ad64ba_c9a9a9a3",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
         "patchSetId": 7
