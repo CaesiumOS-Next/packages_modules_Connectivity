@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82c186ea_37648dbd",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T04:47:04Z",
+      "side": 1,
+      "message": "I don\u0027t think we should change this logic; having multiple registrations active for the same service makes things more complicated internally and harder to follow. This flow should use updateService to have one service entry that\u0027s up-to-date",
+      "revId": "65e328712e9f193ca4aec6d18d4cae3061034742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2fbf4c9_9e7ff8ea",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsKeyRecord.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T04:47:04Z",
+      "side": 1,
+      "message": "Nit: final ?",
+      "range": {
+        "startLine": 31,
+        "startChar": 21,
+        "endLine": 31,
+        "endChar": 22
+      },
+      "revId": "65e328712e9f193ca4aec6d18d4cae3061034742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "829bdc7d_a52965df",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T04:47:04Z",
+      "side": 1,
+      "message": "Nit: duplicating the lists and members doesn\u0027t seem very useful since it\u0027s only used in one method. Maybe you could just keep the 2 members for serviceKeyRecord and hostKeyRecord ?",
+      "range": {
+        "startLine": 174,
+        "startChar": 62,
+        "endLine": 174,
+        "endChar": 72
+      },
+      "revId": "65e328712e9f193ca4aec6d18d4cae3061034742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74dffad5_e1100f7c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T04:47:04Z",
+      "side": 1,
+      "message": "Nit: this isn\u0027t very representative of the code since that logic is further down in hasSrvRecord; so I feel this comment isn\u0027t very useful here",
+      "revId": "65e328712e9f193ca4aec6d18d4cae3061034742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5249330_11e3be3d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T04:47:04Z",
+      "side": 1,
+      "message": "This is complicating service management in general just for that use-case, I\u0027d rather keep the previous code",
+      "revId": "65e328712e9f193ca4aec6d18d4cae3061034742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
