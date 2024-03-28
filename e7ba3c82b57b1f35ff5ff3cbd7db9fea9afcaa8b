@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "563ac3a8_a9a5db68",
+        "filename": "tests/cts/net/DynamicConfig.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-28T06:25:11Z",
+      "side": 1,
+      "message": "IIRC the goal here is to use different URLs in different countries. Do you know how it will work?",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "e7ba3c82b57b1f35ff5ff3cbd7db9fea9afcaa8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fad56d34_323a0345",
+        "filename": "tests/cts/net/DynamicConfig.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-28T06:25:11Z",
+      "side": 1,
+      "message": "Nit: this URL is not necessarily for testing IPv6. Might want to rename it to IP_ADDRESS_ECHO_URL.",
+      "range": {
+        "startLine": 21,
+        "startChar": 16,
+        "endLine": 21,
+        "endChar": 29
+      },
+      "revId": "e7ba3c82b57b1f35ff5ff3cbd7db9fea9afcaa8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b219ee3_6e4549af",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-28T06:25:11Z",
+      "side": 1,
+      "message": "If this is already provided in DynamicConfig.xml, is it necessary here as well?",
+      "range": {
+        "startLine": 306,
+        "startChar": 32,
+        "endLine": 306,
+        "endChar": 86
+      },
+      "revId": "e7ba3c82b57b1f35ff5ff3cbd7db9fea9afcaa8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7802afc0_3a441547",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-28T06:25:11Z",
+      "side": 1,
+      "message": "Could this be in a method that gets run only once for the whole test? I think you can just add the @BeforeClass annotation to a method. Perhaps you could just annotate updateSettingsFromConfig with @BeforeClass (you might need to make it public).",
+      "range": {
+        "startLine": 341,
+        "startChar": 8,
+        "endLine": 341,
+        "endChar": 32
+      },
+      "revId": "e7ba3c82b57b1f35ff5ff3cbd7db9fea9afcaa8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc9d9fe5_40d6c985",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-03-28T06:25:11Z",
+      "side": 1,
+      "message": "In which cases will this be null?",
+      "range": {
+        "startLine": 351,
+        "startChar": 8,
+        "endLine": 351,
+        "endChar": 40
+      },
+      "revId": "e7ba3c82b57b1f35ff5ff3cbd7db9fea9afcaa8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
