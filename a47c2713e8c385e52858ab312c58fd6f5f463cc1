@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92fd3019_c8b7cdb9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-28T09:57:59Z",
+      "side": 1,
+      "message": "Could you add b/329385152 as well?",
+      "revId": "a47c2713e8c385e52858ab312c58fd6f5f463cc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
