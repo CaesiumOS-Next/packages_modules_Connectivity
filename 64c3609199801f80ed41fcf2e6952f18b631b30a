@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c871988_14de825b",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-28T12:23:03Z",
+      "side": 1,
+      "message": "Can we initialize `mSatelliteAccessController` here since `Context.getSystemService` is not called from constructor now?",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 77
+      },
+      "revId": "64c3609199801f80ed41fcf2e6952f18b631b30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cac73ca_737c8001",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-28T12:23:03Z",
+      "side": 1,
+      "message": "nits: do we need `eq`?",
+      "range": {
+        "startLine": 103,
+        "startChar": 77,
+        "endLine": 103,
+        "endChar": 79
+      },
+      "revId": "64c3609199801f80ed41fcf2e6952f18b631b30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99da5018_458d1d14",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-28T12:23:03Z",
+      "side": 1,
+      "message": "Is this still flaky?",
+      "range": {
+        "startLine": 298,
+        "startChar": 43,
+        "endLine": 298,
+        "endChar": 79
+      },
+      "revId": "64c3609199801f80ed41fcf2e6952f18b631b30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcdad5d2_60fa16fe",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-28T12:23:03Z",
+      "side": 1,
+      "message": "nits: Can we remove eq?",
+      "range": {
+        "startLine": 305,
+        "startChar": 81,
+        "endLine": 305,
+        "endChar": 83
+      },
+      "revId": "64c3609199801f80ed41fcf2e6952f18b631b30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "903f2d9d_681d7cfd",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-28T12:23:03Z",
+      "side": 1,
+      "message": "nits: start is a bit unclear. I would use something like `startSatelliteAccessController`",
+      "revId": "64c3609199801f80ed41fcf2e6952f18b631b30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2898b59b_d73bdc9e",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-28T12:23:03Z",
+      "side": 1,
+      "message": "nits: Is there any reason not to use `value`?",
+      "range": {
+        "startLine": 333,
+        "startChar": 57,
+        "endLine": 333,
+        "endChar": 70
+      },
+      "revId": "64c3609199801f80ed41fcf2e6952f18b631b30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
