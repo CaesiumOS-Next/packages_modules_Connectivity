@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "582b90b1_039b8ac7",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-28T09:34:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a66dbdfe_7a51185c",
+      "range": {
+        "startLine": 310,
+        "startChar": 13,
+        "endLine": 310,
+        "endChar": 50
+      },
+      "revId": "68e307836bd7e0f94236329f39e59f32e9f62ef3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a75aa86d_20317abb",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dccce12_f4d7d4d2",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2937,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-28T09:34:22Z",
+      "side": 1,
+      "message": "Yes. But we have 3 caches, and dumping all of them are not meaningful now since they are all the same and final.\nAs a trade off prefer to keep it as is. Let\u0027s dump cache values when needed.",
+      "parentUuid": "a75aa86d_20317abb",
+      "range": {
+        "startLine": 2937,
+        "startChar": 20,
+        "endLine": 2937,
+        "endChar": 71
+      },
+      "revId": "68e307836bd7e0f94236329f39e59f32e9f62ef3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "802c2d98_d7e1f660",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-03-28T08:35:09Z",
       "side": 1,
       "message": "Does test pass without mocking getTrafficStatsRateLimitCacheMaxEntries?\nI thought unit test does not have permission to read value from deviceConfig.",
+      "range": {
+        "startLine": 598,
+        "startChar": 8,
+        "endLine": 598,
+        "endChar": 9
+      },
+      "revId": "68e307836bd7e0f94236329f39e59f32e9f62ef3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36fab72b_99604893",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-28T09:34:22Z",
+      "side": 1,
+      "message": "Yes. But probably this is why TH fails.\nLet\u0027s not do this.",
+      "parentUuid": "802c2d98_d7e1f660",
       "range": {
         "startLine": 598,
         "startChar": 8,
