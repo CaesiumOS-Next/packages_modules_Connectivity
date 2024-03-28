@@ -148,6 +148,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74599bbb_8fdcecfb",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 2329,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-28T07:08:09Z",
+      "side": 1,
+      "message": "I also wonder what should be considered as conflict when it comes to hosts.\n\nAccording to the comment above, I guess we won\u0027t allow there to be a registration for the host\u0027s key while there are already other address registrations for the same host. However, currently we\u0027re allowing multiple registrations for the same hostname when key is not involved.\n\nIn the future, what about we only allow a single host registration for the same hostname? That seems to be able to simplify managing the host registrations.",
+      "parentUuid": "8d909763_b437be4b",
+      "range": {
+        "startLine": 2329,
+        "startChar": 24,
+        "endLine": 2329,
+        "endChar": 69
+      },
+      "revId": "e0993af51d52f1096c379f434f2cf0df2bb017c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84f84a4a_639ea817",
         "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
         "patchSetId": 12
