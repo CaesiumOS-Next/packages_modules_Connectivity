@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffc6f674_7ce93ffd",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-28T03:27:46Z",
+      "side": 1,
+      "message": "```suggestion\n    public void unicastRouting_switchInfraNetwork_infraDeviceCanPingThreadDeviceOmr()\n```",
+      "range": {
+        "startLine": 199,
+        "startChar": 16,
+        "endLine": 199,
+        "endChar": 98
+      },
+      "revId": "0b941cf654ddc46657ba73f9f231549039e7bd75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4df07583_1767c773",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-28T03:27:46Z",
+      "side": 1,
+      "message": "I am confused that we don\u0027t need to wait after switching the infra link...\n```suggestion\n            startInfraDeviceAndWaitForOnLinkAddr();\n```",
+      "range": {
+        "startLine": 218,
+        "startChar": 12,
+        "endLine": 218,
+        "endChar": 28
+      },
+      "revId": "0b941cf654ddc46657ba73f9f231549039e7bd75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
