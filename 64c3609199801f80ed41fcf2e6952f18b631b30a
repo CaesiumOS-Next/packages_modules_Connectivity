@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07effa0b_6e666a62",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-28T16:22:13Z",
+      "side": 1,
+      "message": "With verify(..., times(2)) as expected resolved",
+      "parentUuid": "bced6564_267f2d5b",
+      "range": {
+        "startLine": 298,
+        "startChar": 43,
+        "endLine": 298,
+        "endChar": 79
+      },
+      "revId": "64c3609199801f80ed41fcf2e6952f18b631b30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fcdad5d2_60fa16fe",
