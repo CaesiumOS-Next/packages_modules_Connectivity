@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c74ac69_f1d68511",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-28T09:11:57Z",
+      "side": 1,
+      "message": "Added tests after rebasing. PTAL.",
+      "revId": "4a0a079393d565d65d8d9c343de60466bcaee97f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00fef747_30236033",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSFirewallChainTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-28T09:11:57Z",
+      "side": 1,
+      "message": "I used T because we may not have some underlying bpf / native code before that.\n\nOtherwise, I don\u0027t see any need to use SDK checks here. But let me know if I should add a different check.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 41
+      },
+      "revId": "4a0a079393d565d65d8d9c343de60466bcaee97f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

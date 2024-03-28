@@ -128,6 +128,30 @@
       },
       "revId": "10a7e4fbaad6a51135dbc57d9c101e5a70c990e0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9036a12a_47301a9b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 13599,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-28T09:11:57Z",
+      "side": 1,
+      "message": "Actually, I just tweaked it to only ignore `enable` calls. Let me know what you think.",
+      "parentUuid": "e572419b_242bf4cf",
+      "range": {
+        "startLine": 13599,
+        "startChar": 12,
+        "endLine": 13599,
+        "endChar": 19
+      },
+      "revId": "10a7e4fbaad6a51135dbc57d9c101e5a70c990e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
