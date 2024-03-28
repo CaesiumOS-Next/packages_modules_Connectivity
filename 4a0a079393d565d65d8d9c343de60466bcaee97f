@@ -39,6 +39,99 @@
       },
       "revId": "4a0a079393d565d65d8d9c343de60466bcaee97f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ad54409_9c3255c4",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSFirewallChainTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-28T11:20:12Z",
+      "side": 1,
+      "message": "bpfNetMaps is mocked, so technically we don\u0027t need to ignore older releases.\nBut I think we can use `@IgnoreUpTo(Build.VERSION_CODES.S_V2)` since bpf is supported on T+ and setChildChain has ` @RequiresApi(Build.VERSION_CODES.TIRAMISU)` annotation.",
+      "parentUuid": "00fef747_30236033",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 41
+      },
+      "revId": "4a0a079393d565d65d8d9c343de60466bcaee97f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b2a0e53_1e9e9429",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSFirewallChainTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-28T11:20:12Z",
+      "side": 1,
+      "message": "nits: I prefer `cm.setFirewallChainEnabled` since user usually call via ConnectivityManager API.",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 15
+      },
+      "revId": "4a0a079393d565d65d8d9c343de60466bcaee97f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f634655_b510ebb4",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSFirewallChainTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-28T11:20:12Z",
+      "side": 1,
+      "message": "nits: never()",
+      "range": {
+        "startLine": 42,
+        "startChar": 27,
+        "endLine": 42,
+        "endChar": 32
+      },
+      "revId": "4a0a079393d565d65d8d9c343de60466bcaee97f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a648c56_1791031c",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSFirewallChainTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-28T11:20:12Z",
+      "side": 1,
+      "message": "nits: I prefer splitting to two tests, one with IgnoreUpTo(U) and one with IgnoreAfter(U)",
+      "range": {
+        "startLine": 51,
+        "startChar": 42,
+        "endLine": 51,
+        "endChar": 43
+      },
+      "revId": "4a0a079393d565d65d8d9c343de60466bcaee97f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
