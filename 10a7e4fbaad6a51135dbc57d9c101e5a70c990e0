@@ -59,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23e4751f_fead8ba4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1802,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-28T07:27:25Z",
+      "side": 1,
+      "message": "This came up in the meeting as well.\nIt is a good thing and desirable that we disable the chain in any previous release, since NPMS code using it will be absent and we don\u0027t want any problematic or unintentional use by OEMs.",
+      "parentUuid": "00e0509b_cbd8ef34",
+      "range": {
+        "startLine": 1802,
+        "startChar": 42,
+        "endLine": 1802,
+        "endChar": 60
+      },
+      "revId": "10a7e4fbaad6a51135dbc57d9c101e5a70c990e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd8b5caf_52c86ed0",
@@ -72,6 +96,30 @@
       "writtenOn": "2024-03-27T09:38:31Z",
       "side": 1,
       "message": "I think it\u0027s better to add check in `setUidFirewallRule` and `replaceFirewallChain` as well.\nThis is not necessary since uid rule is not used if chain is not enabled.\nBut as a kill swtich, I feel it would be safer not to write BACKGROUND_MATCH to any bpf map if mBackgroundFirewallChainEnabled is false.",
+      "range": {
+        "startLine": 13599,
+        "startChar": 12,
+        "endLine": 13599,
+        "endChar": 19
+      },
+      "revId": "10a7e4fbaad6a51135dbc57d9c101e5a70c990e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e572419b_242bf4cf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 13599,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-28T07:27:25Z",
+      "side": 1,
+      "message": "I thought about this a bit. And TBH it feels scarier to me to disable any code that adds BACKGROUND_MATCH to any uids, because this is an allowlist chain.\n\nIf the chain stays disabled - the behavior we want, all is good. \n*But* if any other code accidentally enables the chain at any time after boot, then we will be stuck in a state where 0 apps can access the network -- even the ones in foreground.\n\nHaving such an obvious failure mode may be preferable -- if you are 100% sure that such a scenario can never happen and if it happens, then there is a fast path to fix the issue on users devices in the field.\n\nSo if you insist I can guard those code paths as well. But IMO this is safer.",
+      "parentUuid": "dd8b5caf_52c86ed0",
       "range": {
         "startLine": 13599,
         "startChar": 12,
