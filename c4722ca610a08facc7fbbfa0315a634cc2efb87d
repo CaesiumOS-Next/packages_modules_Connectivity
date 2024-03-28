@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d54073f_929ab232",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-28T08:17:07Z",
+      "side": 1,
+      "message": "It seems to me testing the concurrency of mobile and satellite does not increase the coverage. And it makes the test hard to follow.\nMaybe just:\n 1. Rename testMobileStatsByRatType to doTestMobileStatsByRatType(NetworkStateSnapshot state). And correct comments.\n 2. Create testMobileStatsByRatTypeForCelullar and testMobileStatsByRatTypeForSatellite, and pass different state to doTestMobileStatsByRatType.",
+      "range": {
+        "startLine": 924,
+        "startChar": 0,
+        "endLine": 925,
+        "endChar": 61
+      },
+      "revId": "c4722ca610a08facc7fbbfa0315a634cc2efb87d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "623b2395_e6d0a580",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-28T08:17:07Z",
+      "side": 1,
+      "message": "Maybe use numbers different than the above one.",
+      "range": {
+        "startLine": 944,
+        "startChar": 67,
+        "endLine": 944,
+        "endChar": 93
+      },
+      "revId": "c4722ca610a08facc7fbbfa0315a634cc2efb87d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb00c2f9_aafcf86d",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-28T08:17:07Z",
+      "side": 1,
+      "message": "Maybe use any number othen than 16 to maximize the coverage.",
+      "range": {
+        "startLine": 963,
+        "startChar": 68,
+        "endLine": 963,
+        "endChar": 72
+      },
+      "revId": "c4722ca610a08facc7fbbfa0315a634cc2efb87d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21f6f816_ff6a35d4",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-28T08:17:07Z",
+      "side": 1,
+      "message": "Maybe too verbose here.\nIs it better we use NetworkStats#subtract() and NetworkStats#getTotal() to make it clearer? e.g.\nentry4g \u003d stats3g4g.subtract(stats3g).getTotal(null)\nassertUidTotal(template4g, UID_RED, delta.rxBytes(), ....);",
+      "range": {
+        "startLine": 980,
+        "startChar": 37,
+        "endLine": 980,
+        "endChar": 50
+      },
+      "revId": "c4722ca610a08facc7fbbfa0315a634cc2efb87d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cea519d_9b4b22bf",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-28T08:17:07Z",
+      "side": 1,
+      "message": "Maybe use buildSatelliteMobileState since you wrote it?",
+      "range": {
+        "startLine": 1313,
+        "startChar": 58,
+        "endLine": 1313,
+        "endChar": 79
+      },
+      "revId": "c4722ca610a08facc7fbbfa0315a634cc2efb87d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51153b2a_701c4e17",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1385,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-28T08:17:07Z",
+      "side": 1,
+      "message": "I don\u0027t think make another query increase the coverage.\nMaybe just insertEntry(entry5) at l.1350.\nAnd assert at l.1379 that the mobileStats contains your stats.",
+      "range": {
+        "startLine": 1383,
+        "startChar": 0,
+        "endLine": 1385,
+        "endChar": 65
+      },
+      "revId": "c4722ca610a08facc7fbbfa0315a634cc2efb87d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39ad64ba_c9a9a9a3",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1390,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-28T08:17:07Z",
+      "side": 1,
+      "message": "redundunt code?",
+      "range": {
+        "startLine": 1389,
+        "startChar": 7,
+        "endLine": 1390,
+        "endChar": 62
+      },
+      "revId": "c4722ca610a08facc7fbbfa0315a634cc2efb87d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
