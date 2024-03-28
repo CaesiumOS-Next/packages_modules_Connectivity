@@ -54,6 +54,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77367be9_96d10731",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-03-28T02:53:14Z",
+      "side": 1,
+      "message": "Got it, moved \"net-utils-device-common-struct\" to the defaults.",
+      "parentUuid": "68c80c55_a6e5bf2e",
+      "revId": "c8d2a938b1c3b821faab444d51d725fef63d0244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ce3490c_3e212c7a",
