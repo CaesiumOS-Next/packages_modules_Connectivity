@@ -46,6 +46,30 @@
       },
       "revId": "00b45fc970eb1f2b5940ad218066fa34c01bbd97",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a72d10c_77f3ab78",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1657,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-03-28T03:38:18Z",
+      "side": 0,
+      "message": "I move upstreamWanted() into TetherMainSM l.2046 to prevent it from being used incorrectly outside of TetherMainSM.",
+      "parentUuid": "85a33aea_841df85a",
+      "range": {
+        "startLine": 1657,
+        "startChar": 13,
+        "endLine": 1657,
+        "endChar": 44
+      },
+      "revId": "00b45fc970eb1f2b5940ad218066fa34c01bbd97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
