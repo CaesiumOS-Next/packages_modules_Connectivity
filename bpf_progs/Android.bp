@@ -94,13 +94,13 @@ bpf {
 }
 
 bpf {
-    name: "offload@mainline.o",
-    srcs: ["offload@mainline.c"],
+    name: "offload@btf.o",
+    srcs: ["offload@btf.c"],
     btf: true,
     cflags: [
         "-Wall",
         "-Werror",
-        "-DMAINLINE",
+        "-DBTF",
     ],
 }
 
@@ -114,13 +114,13 @@ bpf {
 }
 
 bpf {
-    name: "test@mainline.o",
-    srcs: ["test@mainline.c"],
+    name: "test@btf.o",
+    srcs: ["test@btf.c"],
     btf: true,
     cflags: [
         "-Wall",
         "-Werror",
-        "-DMAINLINE",
+        "-DBTF",
     ],
 }
 
