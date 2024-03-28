@@ -22,6 +22,30 @@
       },
       "revId": "00b45fc970eb1f2b5940ad218066fa34c01bbd97",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85a33aea_841df85a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1657,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-03-28T03:35:27Z",
+      "side": 0,
+      "message": "mForwardedDownstreams isn\u0027t always empty. It\u0027s used to keep track of IpServers that need upstream network. The stuff in mForwardedDownstreams can change in TetherMainSM. When an IpServer goes into TetheredState, it sends EVENT_IFACE_SERVING_STATE_ACTIVE to TetherMainSM, and then it gets added to mForwardedDownstreams. If the IpServer leaves TetheredState, it sends EVENT_IFACE_SERVING_STATE_INACTIVE to TetherMainSM, and then it gets removed from mForwardedDownstreams. Just a heads up, though, mForwardedDownstreams doesn\u0027t track IpServers in LocalHotspotState.\n\nHere\u0027s a quick rundown of an IpServer\u0027s life cycle:\n 1. InitialState -\u003e TetheredState -\u003e InitialState (or UnavailableState).\n 2. InitialState -\u003e LocalOnlyState -\u003e InitialState (or UnavaialbleState).",
+      "parentUuid": "3fd4f4d3_7b266531",
+      "range": {
+        "startLine": 1657,
+        "startChar": 13,
+        "endLine": 1657,
+        "endChar": 44
+      },
+      "revId": "00b45fc970eb1f2b5940ad218066fa34c01bbd97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
