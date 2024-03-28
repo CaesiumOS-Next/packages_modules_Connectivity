@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a66dbdfe_7a51185c",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-28T08:35:09Z",
+      "side": 1,
+      "message": "nits:\nI saw NETSTATS_IMPORT_LEGACY_TARGET_ATTEMPTS use different format.\nIt\u0027s better to use same format, maybe use `_` as splitter.",
+      "range": {
+        "startLine": 310,
+        "startChar": 13,
+        "endLine": 310,
+        "endChar": 50
+      },
+      "revId": "68e307836bd7e0f94236329f39e59f32e9f62ef3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a75aa86d_20317abb",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2937,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-28T08:35:09Z",
+      "side": 1,
+      "message": "nits: For debugging, I think it\u0027s better to show the actual value used for cache not the value in deviceConfig.",
+      "range": {
+        "startLine": 2937,
+        "startChar": 20,
+        "endLine": 2937,
+        "endChar": 71
+      },
+      "revId": "68e307836bd7e0f94236329f39e59f32e9f62ef3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "802c2d98_d7e1f660",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-28T08:35:09Z",
+      "side": 1,
+      "message": "Does test pass without mocking getTrafficStatsRateLimitCacheMaxEntries?\nI thought unit test does not have permission to read value from deviceConfig.",
+      "range": {
+        "startLine": 598,
+        "startChar": 8,
+        "endLine": 598,
+        "endChar": 9
+      },
+      "revId": "68e307836bd7e0f94236329f39e59f32e9f62ef3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
