@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b827517_58f416b4",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-03-28T08:11:55Z",
+      "side": 1,
+      "message": "nits: Do we need this?\nI don\u0027t think this CL is merged to older cts.",
+      "range": {
+        "startLine": 451,
+        "startChar": 16,
+        "endLine": 451,
+        "endChar": 44
+      },
+      "revId": "24cbaf64132a818d10b12a17e86027f3c9e6c6b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
