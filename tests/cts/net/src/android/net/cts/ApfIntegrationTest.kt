@@ -15,6 +15,7 @@
  */
 package android.net.cts
 
+import android.Manifest.permission.WRITE_DEVICE_CONFIG
 import android.content.pm.PackageManager.FEATURE_WIFI
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -22,6 +23,8 @@ import android.net.NetworkRequest
 import android.net.apf.ApfCapabilities
 import android.os.Build
 import android.platform.test.annotations.AppModeFull
+import android.provider.DeviceConfig
+import android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY
 import android.system.OsConstants
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.compatibility.common.util.PropertyUtil.isVendorApiLevelNewerThan
@@ -31,6 +34,7 @@ import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.NetworkStackModuleTest
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
 import com.android.testutils.TestableNetworkCallback
+import com.android.testutils.runAsShell
 import com.google.common.truth.Truth.assertThat
 import kotlin.test.assertNotNull
 import org.junit.After
@@ -40,6 +44,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 private const val TIMEOUT_MS = 2000L
+private const val APF_NEW_RA_FILTER_VERSION = "apf_new_ra_filter_version"
 
 @AppModeFull(reason = "CHANGE_NETWORK_STATE permission can't be granted to instant apps")
 @RunWith(DevSdkIgnoreRunner::class)
@@ -67,6 +72,17 @@ class ApfIntegrationTest {
         networkCallback.eventuallyExpect<LinkPropertiesChanged>(TIMEOUT_MS) {
             ifname = assertNotNull(it.lp.interfaceName)
             true
+        }
+
+        // APF adb cmds are only implemented in ApfFilter.java. Enable experiment to prevent
+        // LegacyApfFilter.java from being used.
+        runAsShell(WRITE_DEVICE_CONFIG) {
+            DeviceConfig.setProperty(
+                    NAMESPACE_CONNECTIVITY,
+                    APF_NEW_RA_FILTER_VERSION,
+                    "1",  // value => force enabled
+                    false // makeDefault
+            )
         }
     }
 
