@@ -87,10 +87,12 @@ class ApfIntegrationTest {
     fun testGetApfCapabilities() {
         val caps = getApfCapabilities()
         assertThat(caps.apfVersionSupported).isEqualTo(4)
-        assertThat(caps.maximumApfProgramSize).isAtLeast(1024)
-        if (isVendorApiLevelNewerThan(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)) {
-            assertThat(caps.maximumApfProgramSize).isAtLeast(2000)
-        }
         assertThat(caps.apfPacketFormat).isEqualTo(OsConstants.ARPHRD_ETHER)
+        // VSR 15 (V) requires support of at least 2048 bytes of usable memory for new chipsets.
+        if (isVendorApiLevelNewerThan(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)) {
+            assertThat(caps.maximumApfProgramSize).isAtLeast(2048)
+        } else {
+            assertThat(caps.maximumApfProgramSize).isAtLeast(1024)
+        }
     }
 }
