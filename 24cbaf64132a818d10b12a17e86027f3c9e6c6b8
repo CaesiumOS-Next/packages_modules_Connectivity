@@ -45,6 +45,30 @@
       },
       "revId": "24cbaf64132a818d10b12a17e86027f3c9e6c6b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed6c2b54_b1c0d48a",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-28T08:45:06Z",
+      "side": 1,
+      "message": "From Android.bp, this is also in mts.\nIn that case the test could run on old platform, right?",
+      "parentUuid": "8b827517_58f416b4",
+      "range": {
+        "startLine": 451,
+        "startChar": 16,
+        "endLine": 451,
+        "endChar": 44
+      },
+      "revId": "24cbaf64132a818d10b12a17e86027f3c9e6c6b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
