@@ -105,6 +105,24 @@
       "parentUuid": "fee19868_e61943cd",
       "revId": "8d442d1c5117da91061f888e195e9e944957bd49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9a71949_0e02b278",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/util/MdnsUtilsTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T02:26:16Z",
+      "side": 1,
+      "message": "Oh I see, one is cut in the middle of questions, the other in the middle of answers, sorry",
+      "parentUuid": "de8373d8_c8d21fce",
+      "revId": "8d442d1c5117da91061f888e195e9e944957bd49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
