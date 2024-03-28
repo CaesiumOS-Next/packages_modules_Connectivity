@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "390410b2_3268cbbc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T05:54:17Z",
+      "side": 1,
+      "message": "Oh right...\n\nI guess you could change `restartAnnouncingForHostname(hostname)` to `restartAnnouncingForHostnameChange(hostname, updatedServiceId)`, where you skip the updatedServiceId to save a few list allocations/operations. But up to you.",
+      "parentUuid": "f3634167_2d9a4f69",
+      "range": {
+        "startLine": 144,
+        "startChar": 34,
+        "endLine": 144,
+        "endChar": 42
+      },
+      "revId": "a28e0717b8729472fd795e7dc68924b7a87234b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b88e467_af727ec7",
         "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiserTest.kt",
         "patchSetId": 1
