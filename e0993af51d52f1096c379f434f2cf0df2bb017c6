@@ -124,6 +124,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8d909763_b437be4b",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 2329,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-03-28T06:53:28Z",
+      "side": 1,
+      "message": "I agree that this adds additional complexity and we should enforce registering the key and service in the same registration.\n\nBut what about the scenario that a host has multiple services?\n1. Register a host with key.\n2. Register a service using the host with key.  (Should this be considered conflicting for the hostname?) The problem is that when `setPublicKey` we cannot specify if it\u0027s ONLY for the hostname or the service name.\n3. Repeat step 2. (More conflicts?)\n\nOr we should modify the API to specify if the key is for the host or the service. This seems to solve the conflicts.\n\nE.g. \n```java\ninfo.setPublicKey(rData, PUBLIC_KEY_FOR_HOST | PUBLIC_KEY_FOR_SERVICE);\n```\n\n1. Register a host with key.\n2. Register a service using the host with a key for the service.\n3. Repeat step 2.",
+      "parentUuid": "b99c340d_a856c58b",
+      "range": {
+        "startLine": 2329,
+        "startChar": 24,
+        "endLine": 2329,
+        "endChar": 69
+      },
+      "revId": "e0993af51d52f1096c379f434f2cf0df2bb017c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84f84a4a_639ea817",
         "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
         "patchSetId": 12
