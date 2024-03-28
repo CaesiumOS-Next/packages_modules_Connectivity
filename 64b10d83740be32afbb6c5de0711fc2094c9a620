@@ -49,6 +49,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7626b38c_2faf8f62",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T07:07:14Z",
+      "side": 1,
+      "message": "Why exclude only control characters ? There\u0027s a lot of characters that are not printable properly in logs, and covering this completely here would be hard. If we have strings with non-breakable spaces or zero-length spaces.\n\nIt would be easier to fallback to hex for anything non-obvious; for example if any character is `!Character.isLetterOrDigit \u0026\u0026 char !\u003d \u0027 \u0027` (you could include Character.isIdeographic but in practice we\u0027d probably be fine debugging with hex when they\u0027re used ?)",
+      "range": {
+        "startLine": 593,
+        "startChar": 27,
+        "endLine": 593,
+        "endChar": 47
+      },
+      "revId": "64b10d83740be32afbb6c5de0711fc2094c9a620",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1fe54736_dad9ba78",
         "filename": "tests/common/java/android/net/nsd/NsdServiceInfoTest.java",
         "patchSetId": 9
