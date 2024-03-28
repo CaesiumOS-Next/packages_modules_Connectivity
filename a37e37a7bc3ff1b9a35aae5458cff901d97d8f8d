@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd58a1ad_eba3b55b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T06:00:11Z",
+      "side": 1,
+      "message": "Supernit: `sendMdnsPackets` plural ?",
+      "range": {
+        "startLine": 216,
+        "startChar": 30,
+        "endLine": 216,
+        "endChar": 31
+      },
+      "revId": "a37e37a7bc3ff1b9a35aae5458cff901d97d8f8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "931a760d_00f24ff5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T06:00:11Z",
+      "side": 1,
+      "message": "Nit: you could Log.wtf and return if this is empty first",
+      "range": {
+        "startLine": 224,
+        "startChar": 60,
+        "endLine": 224,
+        "endChar": 68
+      },
+      "revId": "a37e37a7bc3ff1b9a35aae5458cff901d97d8f8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da139db1_ba6a8021",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T06:00:11Z",
+      "side": 1,
+      "message": "Supernit: Packets plural ?",
+      "range": {
+        "startLine": 235,
+        "startChar": 52,
+        "endLine": 235,
+        "endChar": 53
+      },
+      "revId": "a37e37a7bc3ff1b9a35aae5458cff901d97d8f8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

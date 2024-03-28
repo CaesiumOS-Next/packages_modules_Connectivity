@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97f32034_af4b2781",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T06:00:11Z",
+      "side": 1,
+      "message": "Note that by using the same flag, we won\u0027t be able to rollout the flag to an earlier cut of the module that has the feature but doesn\u0027t have this change (otherwise this change would end up rolled out without a flag). Not sure if there\u0027s such a cut though.",
+      "range": {
+        "startLine": 239,
+        "startChar": 16,
+        "endLine": 239,
+        "endChar": 38
+      },
+      "revId": "ed82d51218cf3fc5331c23b6813c106a8c0ef114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
