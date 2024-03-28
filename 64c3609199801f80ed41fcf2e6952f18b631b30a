@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31d8376d_a9b9fade",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-28T13:50:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9c871988_14de825b",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 77
+      },
+      "revId": "64c3609199801f80ed41fcf2e6952f18b631b30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7cac73ca_737c8001",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-28T12:23:03Z",
       "side": 1,
       "message": "nits: do we need `eq`?",
+      "range": {
+        "startLine": 103,
+        "startChar": 77,
+        "endLine": 103,
+        "endChar": 79
+      },
+      "revId": "64c3609199801f80ed41fcf2e6952f18b631b30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbba926a_9c1e9839",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-28T13:50:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7cac73ca_737c8001",
       "range": {
         "startLine": 103,
         "startChar": 77,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "98b3ea54_0d133567",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-28T13:50:33Z",
+      "side": 1,
+      "message": "Yes it is",
+      "parentUuid": "99da5018_458d1d14",
+      "range": {
+        "startLine": 298,
+        "startChar": 43,
+        "endLine": 298,
+        "endChar": 79
+      },
+      "revId": "64c3609199801f80ed41fcf2e6952f18b631b30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fcdad5d2_60fa16fe",
         "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
         "patchSetId": 11
@@ -83,6 +155,30 @@
       "writtenOn": "2024-03-28T12:23:03Z",
       "side": 1,
       "message": "nits: Can we remove eq?",
+      "range": {
+        "startLine": 305,
+        "startChar": 81,
+        "endLine": 305,
+        "endChar": 83
+      },
+      "revId": "64c3609199801f80ed41fcf2e6952f18b631b30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37960fb5_ff32a2b0",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-28T13:50:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fcdad5d2_60fa16fe",
       "range": {
         "startLine": 305,
         "startChar": 81,
@@ -110,6 +206,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cd2dce7_60c06030",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-28T13:50:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "903f2d9d_681d7cfd",
+      "revId": "64c3609199801f80ed41fcf2e6952f18b631b30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2898b59b_d73bdc9e",
@@ -123,6 +237,30 @@
       "writtenOn": "2024-03-28T12:23:03Z",
       "side": 1,
       "message": "nits: Is there any reason not to use `value`?",
+      "range": {
+        "startLine": 333,
+        "startChar": 57,
+        "endLine": 333,
+        "endChar": 70
+      },
+      "revId": "64c3609199801f80ed41fcf2e6952f18b631b30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc06662c_5b621b3f",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-28T13:50:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2898b59b_d73bdc9e",
       "range": {
         "startLine": 333,
         "startChar": 57,
