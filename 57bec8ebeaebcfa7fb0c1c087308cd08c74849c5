@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3561e58e_2b189400",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/util/MdnsUtilsTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-28T03:38:34Z",
+      "side": 1,
+      "message": "You are right. `assertTrue` added.",
+      "parentUuid": "b30bc566_411754a1",
+      "range": {
+        "startLine": 152,
+        "startChar": 16,
+        "endLine": 152,
+        "endChar": 19
+      },
+      "revId": "57bec8ebeaebcfa7fb0c1c087308cd08c74849c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70c35eed_ba1735e8",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-03-28T02:26:16Z",
       "side": 1,
       "message": "Is this a typo ?",
+      "range": {
+        "startLine": 166,
+        "startChar": 21,
+        "endLine": 166,
+        "endChar": 22
+      },
+      "revId": "57bec8ebeaebcfa7fb0c1c087308cd08c74849c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b98fa773_13cbbf51",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/util/MdnsUtilsTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-28T03:38:34Z",
+      "side": 1,
+      "message": "No. It\u0027s an open-ended range. Please see https://kotlinlang.org/docs/ranges.html. I replaced this with `withIndex()`, it should be more clear.",
+      "parentUuid": "70c35eed_ba1735e8",
       "range": {
         "startLine": 166,
         "startChar": 21,
