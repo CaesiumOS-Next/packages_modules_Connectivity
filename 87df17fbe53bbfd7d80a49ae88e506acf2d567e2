@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "309aee8e_9cca9060",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-28T03:21:21Z",
+      "side": 1,
+      "message": "failing to rebase it on top of aosp/3016578",
+      "revId": "87df17fbe53bbfd7d80a49ae88e506acf2d567e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
