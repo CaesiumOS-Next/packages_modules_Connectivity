@@ -75,6 +75,30 @@
       },
       "revId": "96895b46497562922361957dd6ebb629db623323",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f806b892_72211e52",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-28T09:35:53Z",
+      "side": 1,
+      "message": "Thanks.\nWill address this when adopting compat change in the next CL.",
+      "parentUuid": "217bb77b_b1be4e22",
+      "range": {
+        "startLine": 375,
+        "startChar": 8,
+        "endLine": 375,
+        "endChar": 27
+      },
+      "revId": "96895b46497562922361957dd6ebb629db623323",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
