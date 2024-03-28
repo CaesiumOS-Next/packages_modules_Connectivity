@@ -34,6 +34,126 @@
       "parentUuid": "dd03185d_c9c1d4e8",
       "revId": "e0993af51d52f1096c379f434f2cf0df2bb017c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "734d57ad_3315372f",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1875,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T04:31:55Z",
+      "side": 1,
+      "message": "This will be confusing for users of the API (app developers) as the key is not available in the API surface. Better just say that the service is missing a port.",
+      "range": {
+        "startLine": 1875,
+        "startChar": 51,
+        "endLine": 1875,
+        "endChar": 85
+      },
+      "revId": "e0993af51d52f1096c379f434f2cf0df2bb017c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4cb9191_fb98daec",
+        "filename": "tests/cts/net/src/android/net/cts/MdnsTestUtils.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T04:31:55Z",
+      "side": 1,
+      "message": "Nit: inconsistent indentation with the previous method",
+      "range": {
+        "startLine": 290,
+        "startChar": 0,
+        "endLine": 290,
+        "endChar": 8
+      },
+      "revId": "e0993af51d52f1096c379f434f2cf0df2bb017c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f6af020_5dc99696",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 2300,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T04:31:55Z",
+      "side": 1,
+      "message": "Nit: long line",
+      "revId": "e0993af51d52f1096c379f434f2cf0df2bb017c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b99c340d_a856c58b",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 2329,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T04:31:55Z",
+      "side": 1,
+      "message": "I don\u0027t think this should be allowed; the 2nd registration should just conflict with the 1st one. When the service comes back the registration should be updated. Otherwise this adds complexity with dependencies between registrations",
+      "range": {
+        "startLine": 2329,
+        "startChar": 24,
+        "endLine": 2329,
+        "endChar": 69
+      },
+      "revId": "e0993af51d52f1096c379f434f2cf0df2bb017c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84f84a4a_639ea817",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 2335,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T04:31:55Z",
+      "side": 1,
+      "message": "Should it really be allowed to register a key without a hostname ? Do you have a reference to the spec ?\nIIUC this is about keeping ownership of the registration until the device comes back, but the original registration must have had a hostname too.",
+      "revId": "e0993af51d52f1096c379f434f2cf0df2bb017c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5e04191_7b47b349",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 2354,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-28T04:31:55Z",
+      "side": 1,
+      "message": "Nit: long line",
+      "revId": "e0993af51d52f1096c379f434f2cf0df2bb017c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
