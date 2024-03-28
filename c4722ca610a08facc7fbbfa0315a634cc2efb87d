@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ede0ef6f_380297d9",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-28T11:18:43Z",
+      "side": 1,
+      "message": "1.Are we maintaining seperate stats for Satellite and Cellular Iface with suggestion of seperate methods testMobileStatsByRatTypeForCelullar and testMobileStatsByRatTypeForSatellite?\n\nBecause as per old comment, it was told duplication of the code and we need to merge the code:\nRef : https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3002524/5..7/tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java#b991\n\n2.If we are maintaining seperate method for both cellular and Satellite, why do we need this method only to define the state \ndoTestMobileStatsByRatType(NetworkStateSnapshot state) , Because as per comments it seems seperate values is required for each ifaces to test with seperate methods.",
+      "parentUuid": "7d54073f_929ab232",
+      "range": {
+        "startLine": 924,
+        "startChar": 0,
+        "endLine": 925,
+        "endChar": 61
+      },
+      "revId": "c4722ca610a08facc7fbbfa0315a634cc2efb87d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "623b2395_e6d0a580",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
         "patchSetId": 7
