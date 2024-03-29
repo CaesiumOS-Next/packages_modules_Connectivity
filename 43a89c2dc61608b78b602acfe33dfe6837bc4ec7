@@ -22,6 +22,30 @@
       },
       "revId": "43a89c2dc61608b78b602acfe33dfe6837bc4ec7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "716d2acb_633cb2c3",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-29T03:34:23Z",
+      "side": 1,
+      "message": "I looked at this: https://docs.partner.android.com/gms/policies/vsr/vsr-15#packet-filtering\n\n[VSR-5.3.12-011] MUST indicate at least 2048 bytes of usable memory from calls to the getApfPacketFilterCapabilities HAL method.\n\nBut why change the requirement? FWIU, this only applies to new devices, and surely if broadcom were to launch a new device, they could fix this issue...",
+      "parentUuid": "21f37ce7_ea79fa97",
+      "range": {
+        "startLine": 93,
+        "startChar": 52,
+        "endLine": 93,
+        "endChar": 66
+      },
+      "revId": "43a89c2dc61608b78b602acfe33dfe6837bc4ec7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
