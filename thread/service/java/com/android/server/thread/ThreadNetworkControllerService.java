@@ -275,7 +275,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     private static LinkAddress newLinkAddress(Ipv6AddressInfo addressInfo) {
         long deprecationTimeMillis =
-                addressInfo.isPreferred
+                (addressInfo.isPreferred && !addressInfo.isMeshLocal)
                         ? LinkAddress.LIFETIME_PERMANENT
                         : SystemClock.elapsedRealtime();
 
