@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22fccbc4_ae3702a7",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSFirewallChainTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-29T02:19:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ad54409_9c3255c4",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 41
+      },
+      "revId": "4a0a079393d565d65d8d9c343de60466bcaee97f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b2a0e53_1e9e9429",
@@ -78,6 +102,30 @@
       "writtenOn": "2024-03-28T11:20:12Z",
       "side": 1,
       "message": "nits: I prefer `cm.setFirewallChainEnabled` since user usually call via ConnectivityManager API.",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 15
+      },
+      "revId": "4a0a079393d565d65d8d9c343de60466bcaee97f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "223a2330_cd31b1c8",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSFirewallChainTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-29T02:19:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b2a0e53_1e9e9429",
       "range": {
         "startLine": 41,
         "startChar": 8,
@@ -111,6 +159,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8824ad38_71a96ae5",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSFirewallChainTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-29T02:19:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f634655_b510ebb4",
+      "range": {
+        "startLine": 42,
+        "startChar": 27,
+        "endLine": 42,
+        "endChar": 32
+      },
+      "revId": "4a0a079393d565d65d8d9c343de60466bcaee97f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a648c56_1791031c",
@@ -124,6 +196,30 @@
       "writtenOn": "2024-03-28T11:20:12Z",
       "side": 1,
       "message": "nits: I prefer splitting to two tests, one with IgnoreUpTo(U) and one with IgnoreAfter(U)",
+      "range": {
+        "startLine": 51,
+        "startChar": 42,
+        "endLine": 51,
+        "endChar": 43
+      },
+      "revId": "4a0a079393d565d65d8d9c343de60466bcaee97f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4f581f6_8ec53c54",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSFirewallChainTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-29T02:19:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a648c56_1791031c",
       "range": {
         "startLine": 51,
         "startChar": 42,

@@ -107,6 +107,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e8da589_c91d4962",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1802,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-29T02:19:06Z",
+      "side": 1,
+      "message": "We wanted to but it got postponed to V due to various process and technical reasons. There is no code in the framework that should call this API before VIC.",
+      "parentUuid": "52044055_3f99325b",
+      "range": {
+        "startLine": 1802,
+        "startChar": 42,
+        "endLine": 1802,
+        "endChar": 60
+      },
+      "revId": "10a7e4fbaad6a51135dbc57d9c101e5a70c990e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd8b5caf_52c86ed0",
@@ -192,6 +216,30 @@
       "side": 1,
       "message": "My concern is bug in ConnectivityService code that handles background chain(e.g. code that write value to bpf map, actual bpf code)\n\nIn ConnectivityService, we usually use kill switch flag to disable whole feature since we don\u0027t know which code could have the issue.\n\nSo I still prefer not to do anything if mBackgroundFirewallChainEnabled is false and chain is FIREWALL_CHAIN_BACKGROUND.\nAnd I don\u0027t think apps can modify bpfMap without calling `setFirewallChainEnabled`, `setUidFirewallRule`, or `replaceFirewallChain`.\n\nBTW, If we enable mBackgroundFirewallChainEnabled only on V+, do we need kill switch?\nDo you worry that we will find the issue only after we start shipping V devices?",
       "parentUuid": "9036a12a_47301a9b",
+      "range": {
+        "startLine": 13599,
+        "startChar": 12,
+        "endLine": 13599,
+        "endChar": 19
+      },
+      "revId": "10a7e4fbaad6a51135dbc57d9c101e5a70c990e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd3af441_8f53748e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 13599,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-03-29T02:19:06Z",
+      "side": 1,
+      "message": "This flag is specifically meant for (a) killing the feature in emergency, (b) experimenting on Beta or small populations to isolate exact impact to battery and performance metrics.\n\nSince the feature is only meant to work on V, we need to enable both (a) and (b) on VIC. For earlier versions we just want to explicitly disable the code.\n\nI will follow your recommendation and disable any and all modifications for this chain.",
+      "parentUuid": "3d9a139f_9336a251",
       "range": {
         "startLine": 13599,
         "startChar": 12,
