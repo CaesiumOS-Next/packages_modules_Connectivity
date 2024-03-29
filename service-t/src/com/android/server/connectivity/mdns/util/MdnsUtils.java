@@ -27,6 +27,8 @@ import android.os.SystemClock;
 import android.util.ArraySet;
 import android.util.Pair;
 
+import androidx.annotation.VisibleForTesting;
+
 import com.android.server.connectivity.mdns.MdnsConstants;
 import com.android.server.connectivity.mdns.MdnsPacket;
 import com.android.server.connectivity.mdns.MdnsPacketWriter;
@@ -311,6 +313,7 @@ public class MdnsUtils {
      * <p> If the MdnsPacket is too large for a single DatagramPacket, it will be split into
      *     multiple DatagramPackets.
      */
+    @VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
     public static List<DatagramPacket> createQueryDatagramPackets(
             @NonNull byte[] packetCreationBuffer, @NonNull MdnsPacket packet,
             @NonNull InetSocketAddress destination) throws IOException {
