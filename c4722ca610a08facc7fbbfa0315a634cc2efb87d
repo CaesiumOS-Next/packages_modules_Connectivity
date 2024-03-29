@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "009aacd8_a3be2e53",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-29T05:44:16Z",
+      "side": 1,
+      "message": "As discussed create seperate methods + reusing exisitng method as helper method + same values retained",
+      "parentUuid": "ede0ef6f_380297d9",
+      "range": {
+        "startLine": 924,
+        "startChar": 0,
+        "endLine": 925,
+        "endChar": 61
+      },
+      "revId": "c4722ca610a08facc7fbbfa0315a634cc2efb87d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "623b2395_e6d0a580",
@@ -61,6 +85,30 @@
       "writtenOn": "2024-03-28T08:17:07Z",
       "side": 1,
       "message": "Maybe use numbers different than the above one.",
+      "range": {
+        "startLine": 944,
+        "startChar": 67,
+        "endLine": 944,
+        "endChar": 93
+      },
+      "revId": "c4722ca610a08facc7fbbfa0315a634cc2efb87d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6eb748f8_5b17e006",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-29T05:44:16Z",
+      "side": 1,
+      "message": "As discussed create seperate methods + reusing exisitng method as helper method + same values retained",
+      "parentUuid": "623b2395_e6d0a580",
       "range": {
         "startLine": 944,
         "startChar": 67,
@@ -94,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "537dfbdf_34abee8a",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-29T05:44:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "bb00c2f9_aafcf86d",
+      "range": {
+        "startLine": 963,
+        "startChar": 68,
+        "endLine": 963,
+        "endChar": 72
+      },
+      "revId": "c4722ca610a08facc7fbbfa0315a634cc2efb87d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21f6f816_ff6a35d4",
@@ -117,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d903ec7d_35d4325f",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-29T05:44:16Z",
+      "side": 1,
+      "message": "As discussed create seperate methods + reusing exisitng method as helper method + same values retained",
+      "parentUuid": "21f6f816_ff6a35d4",
+      "range": {
+        "startLine": 980,
+        "startChar": 37,
+        "endLine": 980,
+        "endChar": 50
+      },
+      "revId": "c4722ca610a08facc7fbbfa0315a634cc2efb87d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5cea519d_9b4b22bf",
@@ -130,6 +226,30 @@
       "writtenOn": "2024-03-28T08:17:07Z",
       "side": 1,
       "message": "Maybe use buildSatelliteMobileState since you wrote it?",
+      "range": {
+        "startLine": 1313,
+        "startChar": 58,
+        "endLine": 1313,
+        "endChar": 79
+      },
+      "revId": "c4722ca610a08facc7fbbfa0315a634cc2efb87d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60f03e22_c467cd00",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-29T05:44:16Z",
+      "side": 1,
+      "message": "As discussed seperate method created for checking getUidStatsForTransport with cellular and satellite ifaces",
+      "parentUuid": "5cea519d_9b4b22bf",
       "range": {
         "startLine": 1313,
         "startChar": 58,
@@ -187,6 +307,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06aab731_912d1b08",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1385,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-29T05:44:16Z",
+      "side": 1,
+      "message": "As discussed seperate method created for checking getUidStatsForTransport with cellular and satellite ifaces in line with patch set5 as discussed",
+      "parentUuid": "6dd12a49_a65c512b",
+      "range": {
+        "startLine": 1383,
+        "startChar": 0,
+        "endLine": 1385,
+        "endChar": 65
+      },
+      "revId": "c4722ca610a08facc7fbbfa0315a634cc2efb87d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39ad64ba_c9a9a9a3",
@@ -200,6 +344,30 @@
       "writtenOn": "2024-03-28T08:17:07Z",
       "side": 1,
       "message": "redundunt code?",
+      "range": {
+        "startLine": 1389,
+        "startChar": 7,
+        "endLine": 1390,
+        "endChar": 62
+      },
+      "revId": "c4722ca610a08facc7fbbfa0315a634cc2efb87d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efffbc70_3f1c6fd1",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1390,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-29T05:44:16Z",
+      "side": 1,
+      "message": "As discussed seperate method created for checking getUidStatsForTransport with cellular and satellite ifaces",
+      "parentUuid": "39ad64ba_c9a9a9a3",
       "range": {
         "startLine": 1389,
         "startChar": 7,
