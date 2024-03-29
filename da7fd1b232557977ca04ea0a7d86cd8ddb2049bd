@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f916f04_ead50e9f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-03-29T02:36:52Z",
+      "side": 1,
+      "message": "From aosp/2869978, the lint warning is dependencies.getDatagramPacketsFromMdnsPacket but I do not see it\u0027s address here. Do I miss anything?",
+      "revId": "da7fd1b232557977ca04ea0a7d86cd8ddb2049bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f7c5f68_31689b8c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-03-29T02:36:52Z",
+      "side": 1,
+      "message": "Optional: You do not really need to swtich to androidx if you just want to address lint warning.",
+      "range": {
+        "startLine": 26,
+        "startChar": 7,
+        "endLine": 26,
+        "endChar": 45
+      },
+      "revId": "da7fd1b232557977ca04ea0a7d86cd8ddb2049bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5a76605_d33b71a7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2024-03-29T02:36:52Z",
+      "side": 1,
+      "message": "Why do you need this? There is no such warning in aosp/2988611. It was public and do not need this. Do you intend to make it package private instead for other non-test callers?",
+      "range": {
+        "startLine": 317,
+        "startChar": 39,
+        "endLine": 317,
+        "endChar": 65
+      },
+      "revId": "da7fd1b232557977ca04ea0a7d86cd8ddb2049bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
