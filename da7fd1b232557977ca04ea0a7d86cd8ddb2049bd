@@ -62,6 +62,30 @@
       },
       "revId": "da7fd1b232557977ca04ea0a7d86cd8ddb2049bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6ab82b2_39142bea",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-03-29T03:22:25Z",
+      "side": 1,
+      "message": "I misunderstood the lint error, it should be fixed on MdnsServiceTypeClient#Dependencies. Updated the commit accordingly.",
+      "parentUuid": "e5a76605_d33b71a7",
+      "range": {
+        "startLine": 317,
+        "startChar": 39,
+        "endLine": 317,
+        "endChar": 65
+      },
+      "revId": "da7fd1b232557977ca04ea0a7d86cd8ddb2049bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
