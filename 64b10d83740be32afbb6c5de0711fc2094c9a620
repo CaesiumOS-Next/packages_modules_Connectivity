@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2658be87_bf4ee419",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-29T04:20:21Z",
+      "side": 1,
+      "message": "This is interesting because I initially call it \"decodeTxtValue\" but changed to \"encodeTxtValue\" when a realized that the TXT value is naturally a sequence of bytes while the string representation here is not standard. This is opposite of CharsetDecoder below because `String` is the native representation of a sequence of unicode chars. Thoughts?",
+      "parentUuid": "62269df6_bd5f3370",
+      "range": {
+        "startLine": 571,
+        "startChar": 26,
+        "endLine": 571,
+        "endChar": 40
+      },
+      "revId": "64b10d83740be32afbb6c5de0711fc2094c9a620",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9bfb2f3c_60aa9d32",
         "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
         "patchSetId": 9
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-27T14:45:00Z",
       "side": 1,
       "message": "final. Also applys to the rest of the local variable that doesn\u0027t supposed to be changed.",
+      "range": {
+        "startLine": 576,
+        "startChar": 8,
+        "endLine": 576,
+        "endChar": 22
+      },
+      "revId": "64b10d83740be32afbb6c5de0711fc2094c9a620",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4664dbd9_d3cc10f3",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-29T04:20:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bfb2f3c_60aa9d32",
       "range": {
         "startLine": 576,
         "startChar": 8,
@@ -83,6 +131,30 @@
       "writtenOn": "2024-03-27T14:45:00Z",
       "side": 1,
       "message": "It\u0027s better off we test the content of the full string so we can make sure all component is formatted correctly",
+      "range": {
+        "startLine": 213,
+        "startChar": 30,
+        "endLine": 213,
+        "endChar": 38
+      },
+      "revId": "64b10d83740be32afbb6c5de0711fc2094c9a620",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e72e6220_557c6e58",
+        "filename": "tests/common/java/android/net/nsd/NsdServiceInfoTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-29T04:20:21Z",
+      "side": 1,
+      "message": "It may be too strict assumption on the output because the TXT attributes is using a map. If we assert on the whole string, it can break the CTS when the map is replaced from an ordered map to an unordered map.\n\nI would prefer adding such tests as unit tests but there isn\u0027t a unit test for NsdServiceInfo, should I add one?",
+      "parentUuid": "1fe54736_dad9ba78",
       "range": {
         "startLine": 213,
         "startChar": 30,
