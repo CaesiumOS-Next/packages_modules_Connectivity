@@ -120,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49837508_2e91d604",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-03-29T04:42:23Z",
+      "side": 1,
+      "message": "I was trying to print what can be print as possible but don\u0027t complicate the code too much. It will be much easier if looks okay for us to print only printable **ascii** characters.",
+      "parentUuid": "7626b38c_2faf8f62",
+      "range": {
+        "startLine": 593,
+        "startChar": 27,
+        "endLine": 593,
+        "endChar": 47
+      },
+      "revId": "64b10d83740be32afbb6c5de0711fc2094c9a620",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1fe54736_dad9ba78",
         "filename": "tests/common/java/android/net/nsd/NsdServiceInfoTest.java",
         "patchSetId": 9
