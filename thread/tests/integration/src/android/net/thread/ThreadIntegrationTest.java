@@ -21,6 +21,7 @@ import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_LEADER;
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_STOPPED;
 import static android.net.thread.utils.IntegrationTestUtils.CALLBACK_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.RESTART_JOIN_TIMEOUT;
+import static android.net.thread.utils.IntegrationTestUtils.getIpv6LinkAddresses;
 
 import static com.android.compatibility.common.util.SystemUtil.runShellCommand;
 import static com.android.compatibility.common.util.SystemUtil.runShellCommandOrThrow;
@@ -28,7 +29,11 @@ import static com.android.compatibility.common.util.SystemUtil.runShellCommandOr
 import static com.google.common.io.BaseEncoding.base16;
 import static com.google.common.truth.Truth.assertThat;
 
+import static org.junit.Assert.assertTrue;
+
 import android.content.Context;
+import android.net.IpPrefix;
+import android.net.LinkAddress;
 import android.net.thread.utils.OtDaemonController;
 import android.net.thread.utils.ThreadFeatureCheckerRule;
 import android.net.thread.utils.ThreadFeatureCheckerRule.RequiresThreadFeature;
@@ -151,6 +156,21 @@ public class ThreadIntegrationTest {
         mController.waitForRole(DEVICE_ROLE_STOPPED, CALLBACK_TIMEOUT);
 
         assertThat(mOtCtl.getCountryCode()).isEqualTo("CN");
+    }
+
+    @Test
+    public void joinNetworkWithoutAIL_meshLocalAddressesArePreferred() throws Exception {
+        // When device works as FTD, there is no OMR address, so the mesh-local addresses are
+        // expected to be preferred.
+        mController.joinAndWait(DEFAULT_DATASET);
+
+        IpPrefix meshLocalPrefix = DEFAULT_DATASET.getMeshLocalPrefix();
+        List<LinkAddress> linkAddresses = getIpv6LinkAddresses("thread-wpan");
+        for (LinkAddress address : linkAddresses) {
+            if (meshLocalPrefix.contains(address.getAddress())) {
+                assertTrue(address.getDeprecationTime() > SystemClock.elapsedRealtime());
+            }
+        }
     }
 
     private static String runThreadCommand(String cmd) {

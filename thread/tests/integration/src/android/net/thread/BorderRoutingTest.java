@@ -18,6 +18,7 @@ package android.net.thread;
 
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.net.thread.utils.IntegrationTestUtils.JOIN_TIMEOUT;
+import static android.net.thread.utils.IntegrationTestUtils.getIpv6LinkAddresses;
 import static android.net.thread.utils.IntegrationTestUtils.isExpectedIcmpv6Packet;
 import static android.net.thread.utils.IntegrationTestUtils.isFromIpv6Source;
 import static android.net.thread.utils.IntegrationTestUtils.isInMulticastGroup;
@@ -38,11 +39,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import static java.util.Objects.requireNonNull;
 
 import android.content.Context;
 import android.net.InetAddresses;
+import android.net.IpPrefix;
+import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.MacAddress;
 import android.net.thread.utils.FullThreadDevice;
@@ -55,6 +59,7 @@ import android.net.thread.utils.ThreadFeatureCheckerRule.RequiresThreadFeature;
 import android.net.thread.utils.ThreadNetworkControllerWrapper;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.SystemClock;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
@@ -249,6 +254,20 @@ public class BorderRoutingTest {
         ftd.udpBind(ftdMlEid, 12345);
         sendUdpMessage(ftdMlEid, 12345, "bbbbbbbb");
         assertEquals("bbbbbbbb", ftd.udpReceive());
+    }
+
+    @Test
+    public void unicastRouting_meshLocalAddressesAreNotPreferred() throws Exception {
+        // When BR is enabled, there will be OMR address, so the mesh-local addresses are expected
+        // to be deprecated.
+        List<LinkAddress> linkAddresses = getIpv6LinkAddresses("thread-wpan");
+        IpPrefix meshLocalPrefix = DEFAULT_DATASET.getMeshLocalPrefix();
+
+        for (LinkAddress address : linkAddresses) {
+            if (meshLocalPrefix.contains(address.getAddress())) {
+                assertTrue(address.getDeprecationTime() <= SystemClock.elapsedRealtime());
+            }
+        }
     }
 
     @Test
