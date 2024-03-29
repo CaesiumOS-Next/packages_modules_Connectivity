@@ -38,12 +38,19 @@ import static com.android.networkstack.tethering.UpstreamNetworkState.isVcnInter
 import static com.android.networkstack.tethering.util.PrefixUtils.asIpPrefix;
 import static com.android.networkstack.tethering.util.TetheringMessageBase.BASE_IPSERVER;
 
+import android.content.Context;
 import android.net.INetd;
 import android.net.INetworkStackStatusCallback;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.MacAddress;
+import android.net.Network;
+import android.net.NetworkAgent;
+import android.net.NetworkAgentConfig;
+import android.net.NetworkCapabilities;
+import android.net.NetworkProvider;
+import android.net.NetworkScore;
 import android.net.RouteInfo;
 import android.net.RoutingCoordinatorManager;
 import android.net.TetheredClient;
@@ -57,6 +64,7 @@ import android.net.dhcp.IDhcpEventCallbacks;
 import android.net.dhcp.IDhcpServer;
 import android.net.ip.RouterAdvertisementDaemon.RaParams;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
@@ -139,6 +147,7 @@ public class IpServer extends StateMachineShim {
     private static final String TAG = "IpServer";
     private static final boolean DBG = false;
     private static final boolean VDBG = false;
+    private static final boolean SUPPORT_LOCAL_NETAGENT = false;
     private static final Class[] sMessageClasses = {
             IpServer.class
     };
@@ -210,6 +219,43 @@ public class IpServer extends StateMachineShim {
                 DhcpServerCallbacks cb);
     }
 
+
+    private class DownstreamNetworkAgent extends NetworkAgent {
+        private final int mState;
+
+        DownstreamNetworkAgent(@NonNull final Context context, @NonNull final Looper looper,
+                @NonNull final String logTag, @NonNull final NetworkCapabilities nc,
+                @NonNull final LinkProperties lp, @NonNull final NetworkScore score,
+                @NonNull final NetworkAgentConfig config,
+                @Nullable final NetworkProvider provider, final int state) {
+            super(context, looper, logTag, nc, lp, score, config, provider);
+            mState = state;
+        }
+
+        @Nullable
+        @Override
+        public Network register() {
+            if (SUPPORT_LOCAL_NETAGENT) {
+                return super.register();
+            } else {
+                if (USE_SYNC_SM) {
+                    sendSelfMessageToSyncSM(CMD_NETWORK_AGENT_CREATED, mState);
+                } else {
+                    sendMessageAtFrontOfQueueToAsyncSM(CMD_NETWORK_AGENT_CREATED, mState);
+                }
+            }
+
+            return null;
+        }
+
+        @Override
+        public void unregister() {
+            if (SUPPORT_LOCAL_NETAGENT) {
+                super.unregister();
+            }
+        }
+    }
+
     // request from the user that it wants to tether
     public static final int CMD_TETHER_REQUESTED            = BASE_IPSERVER + 1;
     // request from the user that it wants to untether
@@ -241,13 +287,17 @@ public class IpServer extends StateMachineShim {
     // request from PrivateAddressCoordinator to restart tethering.
     public static final int CMD_NOTIFY_PREFIX_CONFLICT      = BASE_IPSERVER + 13;
     public static final int CMD_SERVICE_FAILED_TO_START     = BASE_IPSERVER + 14;
+    public static final int CMD_NETWORK_AGENT_CREATED       = BASE_IPSERVER + 15;
 
     private final State mInitialState;
     private final State mLocalHotspotState;
     private final State mTetheredState;
     private final State mUnavailableState;
     private final State mWaitingForRestartState;
+    private final State mWaitForAgentCreatedForTetheredState;
+    private final State mWaitForAgentCreatedForLocalOnlyState;
 
+    private final Context mContext;
     private final SharedLog mLog;
     private final INetd mNetd;
     @NonNull
@@ -289,6 +339,10 @@ public class IpServer extends StateMachineShim {
     private RouterAdvertisementDaemon mRaDaemon;
     private DadProxy mDadProxy;
 
+    // This member is null while the network agent is not register.
+    @Nullable
+    private DownstreamNetworkAgent mNetworkAgent = null;
+
     // To be accessed only on the handler thread
     private int mDhcpServerStartIndex = 0;
     private IDhcpServer mDhcpServer;
@@ -320,7 +374,7 @@ public class IpServer extends StateMachineShim {
 
     // TODO: Add a dependency object to pass the data members or variables from the tethering
     // object. It helps to reduce the arguments of the constructor.
-    public IpServer(
+    public IpServer(@NonNull final Context context,
             String ifaceName, Handler handler, int interfaceType, SharedLog log,
             INetd netd, @NonNull BpfCoordinator bpfCoordinator,
             @Nullable LateSdk<RoutingCoordinatorManager> routingCoordinator, Callback callback,
@@ -345,6 +399,7 @@ public class IpServer extends StateMachineShim {
         resetLinkProperties();
         mLastError = TETHER_ERROR_NO_ERROR;
         mServingMode = STATE_AVAILABLE;
+        mContext = context;
 
         mIpNeighborMonitor = mDeps.getIpNeighborMonitor(getHandler(), mLog,
                 new MyNeighborEventConsumer());
@@ -360,8 +415,13 @@ public class IpServer extends StateMachineShim {
         mTetheredState = new TetheredState();
         mUnavailableState = new UnavailableState();
         mWaitingForRestartState = new WaitingForRestartState();
+        mWaitForAgentCreatedForTetheredState = new WaitForAgentCreatedState(STATE_TETHERED);
+        mWaitForAgentCreatedForLocalOnlyState = new WaitForAgentCreatedState(STATE_LOCAL_ONLY);
+
         final ArrayList allStates = new ArrayList<StateInfo>();
         allStates.add(new StateInfo(mInitialState, null));
+        allStates.add(new StateInfo(mWaitForAgentCreatedForTetheredState, mInitialState));
+        allStates.add(new StateInfo(mWaitForAgentCreatedForLocalOnlyState, mInitialState));
         allStates.add(new StateInfo(mLocalHotspotState, null));
         allStates.add(new StateInfo(mTetheredState, null));
         allStates.add(new StateInfo(mWaitingForRestartState, mTetheredState));
@@ -1121,11 +1181,11 @@ public class IpServer extends StateMachineShim {
                     switch (message.arg1) {
                         case STATE_LOCAL_ONLY:
                             maybeConfigureStaticIp((TetheringRequestParcel) message.obj);
-                            transitionTo(mLocalHotspotState);
+                            transitionTo(mWaitForAgentCreatedForLocalOnlyState);
                             break;
                         case STATE_TETHERED:
                             maybeConfigureStaticIp((TetheringRequestParcel) message.obj);
-                            transitionTo(mTetheredState);
+                            transitionTo(mWaitForAgentCreatedForTetheredState);
                             break;
                         default:
                             mLog.e("Invalid tethering interface serving state specified.");
@@ -1139,6 +1199,81 @@ public class IpServer extends StateMachineShim {
             }
             return HANDLED;
         }
+    }
+
+    class WaitForAgentCreatedState extends State {
+        private final int mState;
+        WaitForAgentCreatedState(int state) {
+            mState = state;
+        }
+
+        @Override
+        public void enter() {
+            mNetworkAgent = makeNetworkAgent(mState);
+        }
+
+        @Override
+        public boolean processMessage(Message message) {
+            maybeLogMessage(this, message.what);
+            switch (message.what) {
+                case CMD_TETHER_REQUESTED:
+                    Log.wtf(TAG, "duplicated tether requested cmd");
+                    break;
+                case CMD_NETWORK_AGENT_CREATED:
+                    transitionTo(message.arg1 == STATE_TETHERED
+                            ? mTetheredState : mLocalHotspotState);
+                    break;
+                default:
+                    return NOT_HANDLED;
+            }
+            return HANDLED;
+        }
+
+        private DownstreamNetworkAgent makeNetworkAgent(final int state) {
+            final NetworkAgentConfig config = new NetworkAgentConfig.Builder().build();
+            final NetworkCapabilities.Builder ncBuilder = new NetworkCapabilities.Builder()
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK)
+                    .addTransportType(getTransportType(mInterfaceType));
+            if (TetheringManager.TETHERING_WIFI_P2P == mInterfaceType) {
+                ncBuilder.addCapability(NetworkCapabilities.NET_CAPABILITY_WIFI_P2P)
+                    // TODO : set the following attributes
+                    // .setNetworkSpecifier()
+                    // .setRequestorPackageName()
+                    // .setRequestorUid();
+                ;
+            }
+            // TODO : if (wifi) ncBuilder.setSsid();
+            return new DownstreamNetworkAgent(mContext, mHandler.getLooper(),
+                    "Downstream NetworkAgent for " + mIfaceName, ncBuilder.build(),
+                    new LinkProperties(mLinkProperties),
+                    new NetworkScore.Builder().build(),
+                    config, new NetworkProvider(mContext, mHandler.getLooper(),
+                            "Downstream NetworkAgent for " + mIfaceName + "NetworkProvider"),
+                    state);
+        }
+
+        private int getTransportType(final int interfaceType) {
+            switch (interfaceType) {
+                case TetheringManager.TETHERING_WIFI:
+                case TetheringManager.TETHERING_WIFI_P2P:
+                case TetheringManager.TETHERING_WIGIG:
+                    return NetworkCapabilities.TRANSPORT_WIFI;
+                case TetheringManager.TETHERING_USB:
+                case TetheringManager.TETHERING_NCM:
+                    return NetworkCapabilities.TRANSPORT_USB;
+                case TetheringManager.TETHERING_BLUETOOTH:
+                    return NetworkCapabilities.TRANSPORT_BLUETOOTH;
+                case TetheringManager.TETHERING_ETHERNET:
+                    return NetworkCapabilities.TRANSPORT_ETHERNET;
+                default:
+                    throw new IllegalArgumentException("Unknown interface type");
+            }
+        }
+
     }
 
     private void startConntrackMonitoring() {
@@ -1229,6 +1364,9 @@ public class IpServer extends StateMachineShim {
             stopConntrackMonitoring();
 
             resetLinkProperties();
+
+            mNetworkAgent.unregister();
+            mNetworkAgent = null;
 
             mTetheringMetrics.updateErrorCode(mInterfaceType, mLastError);
             mTetheringMetrics.sendReport(mInterfaceType);
