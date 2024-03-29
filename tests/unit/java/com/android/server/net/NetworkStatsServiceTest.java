@@ -56,6 +56,7 @@ import static android.net.NetworkTemplate.OEM_MANAGED_YES;
 import static android.net.TrafficStats.MB_IN_BYTES;
 import static android.net.TrafficStats.UID_REMOVED;
 import static android.net.TrafficStats.UID_TETHERING;
+import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE;
 import static android.net.netstats.NetworkStatsDataMigrationUtils.PREFIX_UID;
 import static android.net.netstats.NetworkStatsDataMigrationUtils.PREFIX_UID_TAG;
 import static android.net.netstats.NetworkStatsDataMigrationUtils.PREFIX_XT;
@@ -95,6 +96,9 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import android.annotation.NonNull;
 import android.app.AlarmManager;
@@ -168,7 +172,9 @@ import libcore.testing.io.TestIoUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
@@ -178,6 +184,9 @@ import java.io.File;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Clock;
@@ -206,6 +215,9 @@ import java.util.function.Function;
 // NetworkStatsService is not updatable before T, so tests do not need to be backwards compatible
 @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
 public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
+    @Rule
+    public final TestName mTestNameRule = new TestName();
+
     private static final String TAG = "NetworkStatsServiceTest";
 
     private static final long TEST_START = 1194220800000L;
@@ -298,6 +310,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private @Mock Resources mResources;
     private Boolean mIsDebuggable;
     final TestDependencies mDeps = new TestDependencies();
+    final HashMap<Long, Boolean> mCompatChanges = new HashMap<>();
 
     private class MockContext extends BroadcastInterceptingContext {
         private final Context mBaseContext;
@@ -356,6 +369,16 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         return parcel;
     }
 
+    // Tests can use this annotation to set compat change flags before constructing
+    // NetworkStatsService, e.g. @CompatChange(ChangeId, true/false)).
+    @Retention(RUNTIME)
+    @Target(METHOD)
+    public @interface CompatChange {
+        long id();
+
+        boolean enabled() default true;
+    }
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
@@ -373,6 +396,20 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         mStatsDir = TestIoUtils.createTemporaryDirectory(getClass().getSimpleName());
         mLegacyStatsDir = TestIoUtils.createTemporaryDirectory(
                 getClass().getSimpleName() + "-legacy");
+
+        // Setup default and overrides compat change flags before creating the service.
+        mCompatChanges.put(ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, true);
+
+        final String testMethodName = mTestNameRule.getMethodName();
+        try {
+            final Method method = this.getClass().getMethod(testMethodName);
+            final CompatChange[] flags = method.getAnnotationsByType(CompatChange.class);
+            for (final CompatChange flag : flags) {
+                mCompatChanges.put(flag.id(), flag.enabled());
+            }
+        } catch (NoSuchMethodException ignored) {
+            // This is expected for parameterized tests
+        }
 
         makeNewStatsService();
 
@@ -601,6 +638,11 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         @Override
         public int getTrafficStatsRateLimitCacheMaxEntries() {
             return DEFAULT_TRAFFIC_STATS_CACHE_MAX_ENTRIES;
+        }
+
+        @Override
+        public boolean isChangeEnabled(long changeId, int uid) {
+            return mCompatChanges.getOrDefault(changeId, false);
         }
 
         @Nullable
@@ -2346,17 +2388,32 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
     @Test
     public void testTrafficStatsRateLimitCache_disabled() throws Exception {
+        mDeps.setSupportTrafficStatsRateLimitCache(false);
         doTestTrafficStatsRateLimitCache(false /* cacheEnabled */);
     }
 
     @Test
     public void testTrafficStatsRateLimitCache_enabled() throws Exception {
+        mDeps.setSupportTrafficStatsRateLimitCache(true);
         doTestTrafficStatsRateLimitCache(true /* cacheEnabled */);
     }
 
-    private void doTestTrafficStatsRateLimitCache(boolean cacheEnabled) throws Exception {
+    @CompatChange(id = ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, enabled = false)
+    @Test
+    public void testTrafficStatsRateLimitCache_disabledWithCompatChangeDisabled() throws Exception {
+        mDeps.setSupportTrafficStatsRateLimitCache(false);
+        doTestTrafficStatsRateLimitCache(false /* cacheEnabled */);
+    }
+
+    @CompatChange(id = ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, enabled = false)
+    @Test
+    public void testTrafficStatsRateLimitCache_enabledWithCompatChangeDisabled() throws Exception {
+        mDeps.setSupportTrafficStatsRateLimitCache(true);
+        doTestTrafficStatsRateLimitCache(false /* cacheEnabled */);
+    }
+
+    private void doTestTrafficStatsRateLimitCache(boolean expectCached) throws Exception {
         mockDefaultSettings();
-        mDeps.setSupportTrafficStatsRateLimitCache(cacheEnabled);
         makeNewStatsService();
         mService.systemReady();
         // Calling uid is not injected into the service, use the real uid to pass the caller check.
@@ -2367,7 +2424,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         // Verify the values are cached.
         incrementCurrentTime(DEFAULT_TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS / 2);
         mockTrafficStatsValues(65L, 8L, 1055L, 9L);
-        if (cacheEnabled) {
+        if (expectCached) {
             assertTrafficStatsValues(TEST_IFACE, myUid, 64L, 3L, 1024L, 8L);
         } else {
             assertTrafficStatsValues(TEST_IFACE, myUid, 65L, 8L, 1055L, 9L);

@@ -57,6 +57,7 @@ import static android.net.TrafficStats.TYPE_TX_BYTES;
 import static android.net.TrafficStats.TYPE_TX_PACKETS;
 import static android.net.TrafficStats.UID_TETHERING;
 import static android.net.TrafficStats.UNSUPPORTED;
+import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE;
 import static android.net.netstats.NetworkStatsDataMigrationUtils.PREFIX_UID;
 import static android.net.netstats.NetworkStatsDataMigrationUtils.PREFIX_UID_TAG;
 import static android.net.netstats.NetworkStatsDataMigrationUtils.PREFIX_XT;
@@ -91,6 +92,7 @@ import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.BroadcastOptions;
 import android.app.PendingIntent;
+import android.app.compat.CompatChanges;
 import android.app.usage.NetworkStatsManager;
 import android.content.ApexEnvironment;
 import android.content.BroadcastReceiver;
@@ -951,6 +953,13 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             return getDeviceConfigPropertyInt(
                     NAMESPACE_TETHERING, TRAFFIC_STATS_CACHE_MAX_ENTRIES_NAME,
                     DEFAULT_TRAFFIC_STATS_CACHE_MAX_ENTRIES);
+        }
+
+        /**
+         * Wrapper method for {@link CompatChanges#isChangeEnabled(long, int)}
+         */
+        public boolean isChangeEnabled(final long changeId, final int uid) {
+            return CompatChanges.isChangeEnabled(changeId, uid);
         }
 
         /**
@@ -2082,7 +2091,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
         if (!isEntryValueTypeValid(type)) return UNSUPPORTED;
 
-        if (!mSupportTrafficStatsRateLimitCache) {
+        if (!mSupportTrafficStatsRateLimitCache
+                || !mDeps.isChangeEnabled(ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, callingUid)) {
             return getEntryValueForType(mDeps.nativeGetUidStat(uid), type);
         }
 
@@ -2111,7 +2121,9 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         Objects.requireNonNull(iface);
         if (!isEntryValueTypeValid(type)) return UNSUPPORTED;
 
-        if (!mSupportTrafficStatsRateLimitCache) {
+        if (!mSupportTrafficStatsRateLimitCache
+                || !mDeps.isChangeEnabled(
+                        ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, Binder.getCallingUid())) {
             return getEntryValueForType(getIfaceStatsInternal(iface), type);
         }
 
@@ -2164,7 +2176,9 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     @Override
     public long getTotalStats(int type) {
         if (!isEntryValueTypeValid(type)) return UNSUPPORTED;
-        if (!mSupportTrafficStatsRateLimitCache) {
+        if (!mSupportTrafficStatsRateLimitCache
+                || !mDeps.isChangeEnabled(
+                        ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, Binder.getCallingUid())) {
             return getEntryValueForType(getTotalStatsInternal(), type);
         }
 
