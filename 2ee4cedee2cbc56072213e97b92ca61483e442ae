@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8efce1c_2edd343b",
+        "filename": "framework-t/src/android/app/usage/NetworkStatsManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-29T09:22:30Z",
+      "side": 1,
+      "message": "Is it because satellite actually uses the mobile radio ? It may be worth mentioning it, otherwise it\u0027s not clear why getMobileUidStats would return satellite data as well.",
+      "range": {
+        "startLine": 756,
+        "startChar": 20,
+        "endLine": 756,
+        "endChar": 68
+      },
+      "revId": "2ee4cedee2cbc56072213e97b92ca61483e442ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc4c9a67_f2af65a1",
+        "filename": "framework-t/src/android/app/usage/NetworkStatsManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-29T09:22:30Z",
+      "side": 1,
+      "message": "This is not a public method, so it shouldn\u0027t appear in documentation as people reading the documentation won\u0027t know what this is referring to",
+      "range": {
+        "startLine": 763,
+        "startChar": 18,
+        "endLine": 763,
+        "endChar": 41
+      },
+      "revId": "2ee4cedee2cbc56072213e97b92ca61483e442ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5921583a_d374df7f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1784,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-29T09:22:30Z",
+      "side": 1,
+      "message": "I\u0027m not sure what this means; should this comment just say \"Since satellite networks appear under type mobile, this includes both cellular and satellite active interfaces\" ?",
+      "range": {
+        "startLine": 1783,
+        "startChar": 19,
+        "endLine": 1784,
+        "endChar": 29
+      },
+      "revId": "2ee4cedee2cbc56072213e97b92ca61483e442ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca5020ce_1abd5346",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-03-29T09:22:30Z",
+      "side": 1,
+      "message": "Nit: this kind of sounds like of TODO (\"we should consider displaying its info\"). Maybe this comment isn\u0027t really useful as it\u0027s no different from the above constants that don\u0027t have comments ?",
+      "range": {
+        "startLine": 80,
+        "startChar": 51,
+        "endLine": 80,
+        "endChar": 71
+      },
+      "revId": "2ee4cedee2cbc56072213e97b92ca61483e442ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
