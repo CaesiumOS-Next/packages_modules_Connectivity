@@ -70,6 +70,30 @@
       },
       "revId": "43a89c2dc61608b78b602acfe33dfe6837bc4ec7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6eb26db_f04cb618",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-29T03:42:25Z",
+      "side": 1,
+      "message": "Hmm, this is the old version.\n\nWe pulling back all of the VTS requirement except the memory requirement.\n\nAt that point, we don\u0027t know if the 2009 issue is a problem can be easily fixed or not, so we lower the requirement to 2000 to avoid make pixel failed the VSR....\n\nthe VTS is written based on the new latest VSR text.\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:hardware/interfaces/wifi/aidl/vts/functional/wifi_sta_iface_aidl_test.cpp;l\u003d185?q\u003dCheckApfIsSupported\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain\n\nThe older device can also have a vendor api version bump if they claim to support newer VSR requirement, so in theory those check can also goes back to the device sold but want to have a VSR bump. \n\nLorenzo pointed out that we may fail at require 2000 bytes as well because some chipset vendor who sells low ram chipset may fail an objection but that\u0027s a different story now.......",
+      "parentUuid": "716d2acb_633cb2c3",
+      "range": {
+        "startLine": 93,
+        "startChar": 52,
+        "endLine": 93,
+        "endChar": 66
+      },
+      "revId": "43a89c2dc61608b78b602acfe33dfe6837bc4ec7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
