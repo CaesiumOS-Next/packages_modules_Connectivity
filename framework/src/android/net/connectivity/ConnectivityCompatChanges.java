@@ -99,6 +99,20 @@ public final class ConnectivityCompatChanges {
     @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     public static final long ENABLE_MATCH_LOCAL_NETWORK = 319212206L;
 
+    /**
+     * Enable caching for TrafficStats#get* APIs.
+     *
+     * Apps targeting Android V or later or running on Android V or later may take up to several
+     * seconds to see the updated results.
+     * Apps targeting lower android SDKs do not see cached result for backward compatibility.
+     * Results of TrafficStats#get* APIs are reflecting network statistics immediately.
+     *
+     * @hide
+     */
+    @ChangeId
+    @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    public static final long ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE = 74210811L;
+
     private ConnectivityCompatChanges() {
     }
 }
