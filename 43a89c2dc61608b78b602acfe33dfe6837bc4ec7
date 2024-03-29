@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21f37ce7_ea79fa97",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-29T03:30:22Z",
+      "side": 1,
+      "message": "FYI, we do require 2000 in VSR-15 due to BRCM 2009+ installation bug, do you see any latest doc mention 2048?",
+      "range": {
+        "startLine": 93,
+        "startChar": 52,
+        "endLine": 93,
+        "endChar": 66
+      },
+      "revId": "43a89c2dc61608b78b602acfe33dfe6837bc4ec7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
