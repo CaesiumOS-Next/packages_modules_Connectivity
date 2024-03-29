@@ -22,6 +22,76 @@
       },
       "revId": "fb744e8133b6b71b50709ee37dceea835f67c4a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "410fb5d9_42f9efc0",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-29T00:23:41Z",
+      "side": 1,
+      "message": "div 0 passes\nDIV_OPCODE 9, LEN\u003d00, R\u003d0, ie. 9\u003c\u003c3, ie. 72\n\ncase DIV_OPCODE: {\n              const uint32_t div_operand \u003d reg_num ? registers[1] : imm;\n              ASSERT_RETURN(div_operand);\n              registers[0] /\u003d div_operand;\n              break;\n          }",
+      "parentUuid": "27ba94ea_0da31d0f",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 79
+      },
+      "revId": "fb744e8133b6b71b50709ee37dceea835f67c4a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfbd2cae_f6d46850",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-29T00:23:41Z",
+      "side": 1,
+      "message": "count downwards",
+      "range": {
+        "startLine": 142,
+        "startChar": 18,
+        "endLine": 142,
+        "endChar": 35
+      },
+      "revId": "fb744e8133b6b71b50709ee37dceea835f67c4a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e66b47a_4c0fc94a",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-03-29T00:23:41Z",
+      "side": 1,
+      "message": "don\u0027t. actually compare the full memory region against what it should be.",
+      "range": {
+        "startLine": 150,
+        "startChar": 44,
+        "endLine": 150,
+        "endChar": 61
+      },
+      "revId": "fb744e8133b6b71b50709ee37dceea835f67c4a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
