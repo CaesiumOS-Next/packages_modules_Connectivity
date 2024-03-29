@@ -108,11 +108,13 @@ import android.os.Looper;
 import android.os.RemoteException;
 import android.os.SystemClock;
 import android.os.UserManager;
+import android.util.ArraySet;
 import android.util.Log;
 import android.util.SparseArray;
 
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.LinkPropertiesUtils.CompareResult;
 import com.android.server.ServiceManagerWrapper;
 import com.android.server.connectivity.ConnectivityResources;
 import com.android.server.thread.openthread.BackboneRouterState;
@@ -139,6 +141,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
@@ -203,6 +206,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private boolean mForceStopOtDaemonEnabled;
 
     private BorderRouterConfigurationParcel mBorderRouterConfig;
+
+    private Set<LinkAddress> mUnicastAddresses = new ArraySet<>();
 
     @VisibleForTesting
     ThreadNetworkControllerService(
@@ -273,11 +278,11 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         return bytesToInet6Address(addressInfo.address);
     }
 
-    private static LinkAddress newLinkAddress(Ipv6AddressInfo addressInfo) {
+    private static LinkAddress newLinkAddress(Ipv6AddressInfo addressInfo, boolean hasOmrAddress) {
+        boolean isPreferred =
+                addressInfo.isPreferred && (hasOmrAddress ? !addressInfo.isMeshLocal : true);
         long deprecationTimeMillis =
-                addressInfo.isPreferred
-                        ? LinkAddress.LIFETIME_PERMANENT
-                        : SystemClock.elapsedRealtime();
+                isPreferred ? LinkAddress.LIFETIME_PERMANENT : SystemClock.elapsedRealtime();
 
         InetAddress address = addressInfoToInetAddress(addressInfo);
 
@@ -1171,20 +1176,38 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
     }
 
-    private void handleAddressChanged(Ipv6AddressInfo addressInfo, boolean isAdded) {
+    private void handleAddressChanged(List<Ipv6AddressInfo> addressInfoList) {
         checkOnHandlerThread();
-        InetAddress address = addressInfoToInetAddress(addressInfo);
-        if (address.isMulticastAddress()) {
-            Log.i(TAG, "Ignoring multicast address " + address.getHostAddress());
-            return;
+        Set<LinkAddress> newUnicastAddresses = new ArraySet<>();
+        boolean hasOmrAddress = false;
+
+        for (Ipv6AddressInfo addressInfo : addressInfoList) {
+            if (addressInfo.isOmr) {
+                hasOmrAddress = true;
+                break;
+            }
         }
 
-        LinkAddress linkAddress = newLinkAddress(addressInfo);
-        if (isAdded) {
-            mTunIfController.addAddress(linkAddress);
-        } else {
+        for (Ipv6AddressInfo addressInfo : addressInfoList) {
+            InetAddress address = addressInfoToInetAddress(addressInfo);
+            if (address.isMulticastAddress()) {
+                Log.w(TAG, "Ignoring multicast address " + address.getHostAddress());
+                return;
+            }
+
+            LinkAddress linkAddress = newLinkAddress(addressInfo, hasOmrAddress);
+            newUnicastAddresses.add(linkAddress);
+        }
+
+        final CompareResult<LinkAddress> addressDiff =
+                new CompareResult<>(mUnicastAddresses, newUnicastAddresses);
+        for (LinkAddress linkAddress : addressDiff.removed) {
             mTunIfController.removeAddress(linkAddress);
         }
+        for (LinkAddress linkAddress : addressDiff.added) {
+            mTunIfController.addAddress(linkAddress);
+        }
+        mUnicastAddresses = newUnicastAddresses;
 
         // The OT daemon can send link property updates before the networkAgent is
         // registered
@@ -1533,8 +1556,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
 
         @Override
-        public void onAddressChanged(Ipv6AddressInfo addressInfo, boolean isAdded) {
-            mHandler.post(() -> handleAddressChanged(addressInfo, isAdded));
+        public void onAddressChanged(List<Ipv6AddressInfo> addressInfoList) {
+            mHandler.post(() -> handleAddressChanged(addressInfoList));
         }
 
         @Override
