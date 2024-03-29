@@ -46,6 +46,30 @@
       },
       "revId": "43a89c2dc61608b78b602acfe33dfe6837bc4ec7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4072e8c1_3c150e91",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-03-29T03:35:38Z",
+      "side": 1,
+      "message": "FWIW, starting in Android V, I will break CTS if someone indicates 4k but doesn\u0027t actually support 4k.",
+      "parentUuid": "716d2acb_633cb2c3",
+      "range": {
+        "startLine": 93,
+        "startChar": 52,
+        "endLine": 93,
+        "endChar": 66
+      },
+      "revId": "43a89c2dc61608b78b602acfe33dfe6837bc4ec7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
