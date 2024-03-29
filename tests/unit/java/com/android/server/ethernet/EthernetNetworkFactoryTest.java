@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -553,5 +554,22 @@ public class EthernetNetworkFactoryTest {
         // onNetworkNeeded() callbacks.
         mNetworkOfferCallback.onNetworkNeeded(createDefaultRequest());
         verify(mIpClient, never()).startProvisioning(any());
+    }
+
+    @Test
+    public void testGetMacAddressProvisionedInterface() throws Exception {
+        initEthernetNetworkFactory();
+        createAndVerifyProvisionedInterface(TEST_IFACE);
+
+        final String result = mNetFactory.getHwAddress(TEST_IFACE);
+        assertEquals(HW_ADDR, result);
+    }
+
+    @Test
+    public void testGetMacAddressForNonExistingInterface() {
+        initEthernetNetworkFactory();
+
+        // No interface exists due to not calling createAndVerifyProvisionedInterface(...).
+        assertThrows(IllegalArgumentException.class, () -> mNetFactory.getHwAddress(TEST_IFACE));
     }
 }
