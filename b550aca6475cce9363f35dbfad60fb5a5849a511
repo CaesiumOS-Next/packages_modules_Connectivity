@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1edd1e4_6137d852",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-29T06:12:16Z",
+      "side": 1,
+      "message": "LGTM with nits which can be ignored.\nI think we\u0027ll need Remi\u0027s review to ensure readibility of documentation and comments.",
+      "revId": "b550aca6475cce9363f35dbfad60fb5a5849a511",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cde34045_1208fe85",
+        "filename": "framework-t/src/android/app/usage/NetworkStatsManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-29T06:12:16Z",
+      "side": 1,
+      "message": "nit: Style: too long for a line, maybe follow local style.",
+      "range": {
+        "startLine": 762,
+        "startChar": 74,
+        "endLine": 762,
+        "endChar": 75
+      },
+      "revId": "b550aca6475cce9363f35dbfad60fb5a5849a511",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b523e04_a865386b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1784,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-29T06:12:16Z",
+      "side": 1,
+      "message": "nit: Maybe also put it into commit message to give more context.",
+      "range": {
+        "startLine": 1781,
+        "startChar": 15,
+        "endLine": 1784,
+        "endChar": 29
+      },
+      "revId": "b550aca6475cce9363f35dbfad60fb5a5849a511",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c3db6b6_a5ac14fc",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-03-29T06:12:16Z",
+      "side": 1,
+      "message": "nit: maybe entrySatellite and entryCellular",
+      "range": {
+        "startLine": 1379,
+        "startChar": 38,
+        "endLine": 1379,
+        "endChar": 39
+      },
+      "revId": "b550aca6475cce9363f35dbfad60fb5a5849a511",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
