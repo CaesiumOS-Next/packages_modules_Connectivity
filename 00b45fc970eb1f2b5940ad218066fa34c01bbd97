@@ -70,6 +70,30 @@
       },
       "revId": "00b45fc970eb1f2b5940ad218066fa34c01bbd97",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6bd9669_29cb9054",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1657,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-31T10:56:33Z",
+      "side": 0,
+      "message": "Ah, thanks for explaining mForwardedDownstreams parts. I shouldn\u0027t miss that part in the initial review....\n\nI am trying to understand the workflow and still have the following questions\n\nBefore the change,TetherModeAliveState.enter() can trigger `mOffload.start()` and `chooseUpstreamType(true)`. If there are only one IpServer, I think the EVENT_IFACE_SERVING_STATE_ACTIVE will trigger the InitState -\u003e TetherModeAliveState transition. Which seems to me the following logic should be triggered.\n\nAfter the change, if there is no second EVENT_IFACE_SERVING_STATE_ACTIVE event, seems the `mOffload.start()` and `chooseUpstreamType(true)` won\u0027t be triggered?\n\nAm I miss sth.?\n\n\n```\n // TODO: De-duplicate with updateUpstreamWanted() below.\n                if (upstreamWanted()) {\n                    mUpstreamWanted \u003d true;\n                    mOffload.start();\n                    chooseUpstreamType(true);\n                    mTryCell \u003d false;\n                }\n```",
+      "parentUuid": "2a72d10c_77f3ab78",
+      "range": {
+        "startLine": 1657,
+        "startChar": 13,
+        "endLine": 1657,
+        "endChar": 44
+      },
+      "revId": "00b45fc970eb1f2b5940ad218066fa34c01bbd97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
