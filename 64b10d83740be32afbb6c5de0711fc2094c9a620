@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1da7a0f2_9700162c",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-31T08:00:46Z",
+      "side": 1,
+      "message": "I see, how about `getPrintableTxtValue` if the decode/encode can cause confusion",
+      "parentUuid": "2658be87_bf4ee419",
+      "range": {
+        "startLine": 571,
+        "startChar": 26,
+        "endLine": 571,
+        "endChar": 40
+      },
+      "revId": "64b10d83740be32afbb6c5de0711fc2094c9a620",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9bfb2f3c_60aa9d32",
         "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
         "patchSetId": 9
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "It may be too strict assumption on the output because the TXT attributes is using a map. If we assert on the whole string, it can break the CTS when the map is replaced from an ordered map to an unordered map.\n\nI would prefer adding such tests as unit tests but there isn\u0027t a unit test for NsdServiceInfo, should I add one?",
       "parentUuid": "1fe54736_dad9ba78",
+      "range": {
+        "startLine": 213,
+        "startChar": 30,
+        "endLine": 213,
+        "endChar": 38
+      },
+      "revId": "64b10d83740be32afbb6c5de0711fc2094c9a620",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5e33ed6_b7ac250f",
+        "filename": "tests/common/java/android/net/nsd/NsdServiceInfoTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-03-31T08:00:46Z",
+      "side": 1,
+      "message": "Adding a unit test to check the output string sounds like a good plan",
+      "parentUuid": "e72e6220_557c6e58",
       "range": {
         "startLine": 213,
         "startChar": 30,
