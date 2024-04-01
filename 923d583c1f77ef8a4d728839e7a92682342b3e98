@@ -142,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59ba4c04_d33a3af6",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNdOptPio.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-01T18:40:41Z",
+      "side": 1,
+      "message": "Acknowledged so we can submit.",
+      "parentUuid": "8cab2fa5_67596c3c",
+      "range": {
+        "startLine": 86,
+        "startChar": 24,
+        "endLine": 86,
+        "endChar": 55
+      },
+      "revId": "923d583c1f77ef8a4d728839e7a92682342b3e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f93c6a32_1a88027a",
@@ -297,6 +321,30 @@
       "side": 1,
       "message": "please see the above comment on the nullable check on caller side.",
       "parentUuid": "0cb477e1_385b559f",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 9
+      },
+      "revId": "923d583c1f77ef8a4d728839e7a92682342b3e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02155bfd_6fd030a3",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructNdOptPio.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-01T18:40:41Z",
+      "side": 1,
+      "message": "Acknowledged so we can submit",
+      "parentUuid": "3651fc1e_023bf124",
       "range": {
         "startLine": 99,
         "startChar": 8,
