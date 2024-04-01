@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "792f288a_a5e24241",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-01T22:45:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfbd2cae_f6d46850",
+      "range": {
+        "startLine": 142,
+        "startChar": 18,
+        "endLine": 142,
+        "endChar": 35
+      },
+      "revId": "fb744e8133b6b71b50709ee37dceea835f67c4a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e66b47a_4c0fc94a",
@@ -84,6 +108,30 @@
       "writtenOn": "2024-03-29T00:23:41Z",
       "side": 1,
       "message": "don\u0027t. actually compare the full memory region against what it should be.",
+      "range": {
+        "startLine": 150,
+        "startChar": 44,
+        "endLine": 150,
+        "endChar": 61
+      },
+      "revId": "fb744e8133b6b71b50709ee37dceea835f67c4a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65176723_97f272f7",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-01T22:45:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e66b47a_4c0fc94a",
       "range": {
         "startLine": 150,
         "startChar": 44,
