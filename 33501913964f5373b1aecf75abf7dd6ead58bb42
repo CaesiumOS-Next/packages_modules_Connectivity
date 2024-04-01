@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eb9b812_a61a134a",
+        "filename": "tests/unit/java/com/android/server/connectivity/SatelliteAccessControllerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-01T04:04:54Z",
+      "side": 1,
+      "message": "Can we remove this \"?\"?",
+      "range": {
+        "startLine": 316,
+        "startChar": 34,
+        "endLine": 316,
+        "endChar": 35
+      },
+      "revId": "33501913964f5373b1aecf75abf7dd6ead58bb42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
