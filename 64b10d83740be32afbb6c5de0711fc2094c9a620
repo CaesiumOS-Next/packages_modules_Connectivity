@@ -238,6 +238,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0078f7e_e250013b",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-01T05:52:26Z",
+      "side": 1,
+      "message": "(posted the above comment before your last update)",
+      "parentUuid": "101b6015_40920b7b",
+      "range": {
+        "startLine": 593,
+        "startChar": 27,
+        "endLine": 593,
+        "endChar": 47
+      },
+      "revId": "64b10d83740be32afbb6c5de0711fc2094c9a620",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1fe54736_dad9ba78",
