@@ -216,6 +216,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "101b6015_40920b7b",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-01T05:46:02Z",
+      "side": 1,
+      "message": "Only printable ASCII for logging sounds fine, I think limiting to 32 to 126 would work ?\n\nIn that case you could also decode with StandardCharsets.US_ASCII\n\nI think it kind of makes sense since we don\u0027t know what charset is used by the TXT records, so restricting to only characters that always work in common charsets and falling back to hex otherwise would be enough",
+      "parentUuid": "49837508_2e91d604",
+      "range": {
+        "startLine": 593,
+        "startChar": 27,
+        "endLine": 593,
+        "endChar": 47
+      },
+      "revId": "64b10d83740be32afbb6c5de0711fc2094c9a620",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1fe54736_dad9ba78",
         "filename": "tests/common/java/android/net/nsd/NsdServiceInfoTest.java",
         "patchSetId": 9
