@@ -16,6 +16,46 @@
       "message": "Patchset Amended with Review comments",
       "revId": "ada30de6934178177214f306edf26314c57dd1ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19047b26_c8a488fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-01T05:36:32Z",
+      "side": 1,
+      "message": "LGTM assuming the comment will be addressed.",
+      "revId": "ada30de6934178177214f306edf26314c57dd1ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d62af29d_ad45fdae",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-01T05:36:32Z",
+      "side": 1,
+      "message": "Maybe also getUidStatsForTransport(SATELLITE) and assert it throws?\nComments are needed to describe how this can never be supported.",
+      "range": {
+        "startLine": 1406,
+        "startChar": 4,
+        "endLine": 1406,
+        "endChar": 5
+      },
+      "revId": "ada30de6934178177214f306edf26314c57dd1ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
