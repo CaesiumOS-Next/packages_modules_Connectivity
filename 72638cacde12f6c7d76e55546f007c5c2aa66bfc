@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba2e88f1_ee5c4779",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-04-01T14:23:47Z",
+      "side": 1,
+      "message": "LGTM but @reminv@google.com should also take a look",
+      "revId": "72638cacde12f6c7d76e55546f007c5c2aa66bfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
