@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f755dee_c50e2676",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSFirewallChainTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-01T03:29:54Z",
+      "side": 1,
+      "message": "nits: I don\u0027t think you need reset here. Also, clearInvocations is preferable.",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 13
+      },
+      "revId": "fc7b34f8651fc2d52bd8fde357f4a8913c88a76a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84ee55d6_0d125272",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSFirewallChainTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-01T03:29:54Z",
+      "side": 1,
+      "message": "Calling another test looks strange for me.\nTest name is based on condition so especially it\u0027s confusing to call `XX_backgroundChainDisabled` from `XX_backgroundChainEnabled`.\nI prefer to have helper method and call helper method from `setFirewallChainEnabled_backgroundChainDisabled` and `setFirewallChainEnabled_backgroundChainEnabled_uptoU`.",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 55
+      },
+      "revId": "fc7b34f8651fc2d52bd8fde357f4a8913c88a76a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fa8850b_71691ef4",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSFirewallChainTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-01T03:29:54Z",
+      "side": 1,
+      "message": "nits: clearInvocations is preferable.\nOr If you use inorder, you don\u0027t need reset here.",
+      "range": {
+        "startLine": 124,
+        "startChar": 8,
+        "endLine": 124,
+        "endChar": 13
+      },
+      "revId": "fc7b34f8651fc2d52bd8fde357f4a8913c88a76a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
