@@ -456,6 +456,7 @@ public class BpfNetMaps {
     public void addNaughtyApp(final int uid) {
         throwIfPreT("addNaughtyApp is not available on pre-T devices");
 
+        Log.e("MDBG", "[BpfNetMaps] addNaughtyApp: " + uid);
         addRule(uid, PENALTY_BOX_MATCH, "addNaughtyApp");
     }
 
@@ -470,7 +471,22 @@ public class BpfNetMaps {
     public void removeNaughtyApp(final int uid) {
         throwIfPreT("removeNaughtyApp is not available on pre-T devices");
 
+        Log.e("MDBG", "[BpfNetMaps] removeNaughtyApp: " + uid);
         removeRule(uid, PENALTY_BOX_MATCH, "removeNaughtyApp");
+    }
+
+    /**
+     * Check if naughty app bandwidth rule is applied for this app
+     *
+     * @param uid uid of target app
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    public boolean isNaughtyApp(final int uid) {
+        boolean ret = BpfNetMapsUtils.isUidMatchEnabled(sUidOwnerMap, PENALTY_BOX_MATCH, uid);
+        Log.e("MDBG", "[BpfNetMaps] isNaughtyApp: " + uid + " ret=" + ret);
+        return ret;
     }
 
     /**
@@ -483,6 +499,8 @@ public class BpfNetMaps {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void addNiceApp(final int uid) {
         throwIfPreT("addNiceApp is not available on pre-T devices");
+
+        Log.e("MDBG", "[BpfNetMaps] addNiceApp: " + uid);
 
         addRule(uid, HAPPY_BOX_MATCH, "addNiceApp");
     }
@@ -498,7 +516,22 @@ public class BpfNetMaps {
     public void removeNiceApp(final int uid) {
         throwIfPreT("removeNiceApp is not available on pre-T devices");
 
+        Log.e("MDBG", "[BpfNetMaps] removeNiceApp: " + uid);
         removeRule(uid, HAPPY_BOX_MATCH, "removeNiceApp");
+    }
+
+    /**
+     * Check if nice app bandwidth rule is applied for this app
+     *
+     * @param uid uid of target app
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    public boolean isNiceApp(final int uid) {
+        final boolean ret = BpfNetMapsUtils.isUidMatchEnabled(sUidOwnerMap, HAPPY_BOX_MATCH, uid);
+        Log.e("MDBG", "[BpfNetMaps] isNiceApp: " + uid + " ret=" + ret);
+        return ret;
     }
 
     /**
@@ -880,6 +913,24 @@ public class BpfNetMaps {
             throw new ServiceSpecificException(e.errno, "Unable to set data saver: "
                     + Os.strerror(e.errno));
         }
+    }
+
+    /**
+     * Get Data Saver enabled or disabled
+     *
+     * Note that before V, the data saver status in bpf is written by ConnectivityService
+     * when receiving {@link ConnectivityManager#ACTION_RESTRICT_BACKGROUND_CHANGED}. Thus,
+     * the status is not synchronized.
+     * On V+, the data saver status is set by platform code when enabling/disabling
+     * data saver, which is synchronized.
+     *
+     * @return whether Data Saver is enabled or disabled.
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    public boolean isDataSaverEnabled() {
+        return BpfNetMapsUtils.getDataSaverEnabled(sDataSaverEnabledMap);
     }
 
     /**

@@ -198,6 +198,27 @@ public class BpfNetMapsUtils {
     }
 
     /**
+     * Check if uid match is enabled or not on specified uid
+     *
+     * @param uidOwnerMap target uidOwnerMap.
+     * @param match target match.
+     * @param uid target uid.
+     * @return {@code true} if match is enabled, {@code false} if match is not enabled.
+     * @throws ServiceSpecificException      in case of failure, with an error code indicating the
+     *                                       cause of the failure.
+     */
+    public static boolean isUidMatchEnabled(final IBpfMap<S32, UidOwnerValue> uidOwnerMap,
+            final long match, final int uid) {
+        try {
+            final UidOwnerValue uidMatch = uidOwnerMap.getValue(new S32(uid));
+            return uidMatch != null && (uidMatch.rule & match) != 0;
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to get uid rule status: " + Os.strerror(e.errno));
+        }
+    }
+
+    /**
      * Get firewall rule of specified firewall chain on specified uid.
      *
      * @param uidOwnerMap target uidOwnerMap.
@@ -214,14 +235,8 @@ public class BpfNetMapsUtils {
 
         final long match = getMatchByFirewallChain(chain);
         final boolean isAllowList = isFirewallAllowList(chain);
-        try {
-            final UidOwnerValue uidMatch = uidOwnerMap.getValue(new S32(uid));
-            final boolean isMatchEnabled = uidMatch != null && (uidMatch.rule & match) != 0;
-            return isMatchEnabled == isAllowList ? FIREWALL_RULE_ALLOW : FIREWALL_RULE_DENY;
-        } catch (ErrnoException e) {
-            throw new ServiceSpecificException(e.errno,
-                    "Unable to get uid rule status: " + Os.strerror(e.errno));
-        }
+        final boolean isMatchEnabled = isUidMatchEnabled(uidOwnerMap, match, uid);
+        return isMatchEnabled == isAllowList ? FIREWALL_RULE_ALLOW : FIREWALL_RULE_DENY;
     }
 
     /**
