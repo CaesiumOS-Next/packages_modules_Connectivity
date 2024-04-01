@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "acd49bd7_343586f2",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-01T05:29:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1da7a0f2_9700162c",
+      "range": {
+        "startLine": 571,
+        "startChar": 26,
+        "endLine": 571,
+        "endChar": 40
+      },
+      "revId": "64b10d83740be32afbb6c5de0711fc2094c9a620",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9bfb2f3c_60aa9d32",
@@ -166,6 +190,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df480046_5f5a692e",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-01T05:29:53Z",
+      "side": 1,
+      "message": "I changed to fallback to HEX if there is a non-printable ASCII characters in txtValue. PTAL",
+      "parentUuid": "49837508_2e91d604",
+      "range": {
+        "startLine": 593,
+        "startChar": 27,
+        "endLine": 593,
+        "endChar": 47
+      },
+      "revId": "64b10d83740be32afbb6c5de0711fc2094c9a620",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1fe54736_dad9ba78",
@@ -227,6 +275,30 @@
       "side": 1,
       "message": "Adding a unit test to check the output string sounds like a good plan",
       "parentUuid": "e72e6220_557c6e58",
+      "range": {
+        "startLine": 213,
+        "startChar": 30,
+        "endLine": 213,
+        "endChar": 38
+      },
+      "revId": "64b10d83740be32afbb6c5de0711fc2094c9a620",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2f834a5_ccae0ffd",
+        "filename": "tests/common/java/android/net/nsd/NsdServiceInfoTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-01T05:29:53Z",
+      "side": 1,
+      "message": "Add NsdServiceInfoTest.kt. Note that I am testing against all txt records together but not all member fields because a change to addresses format shouldn\u0027t break the TXT records test here. We probably want a unit test for the whole string but that\u0027s out of the scope of this CL",
+      "parentUuid": "b5e33ed6_b7ac250f",
       "range": {
         "startLine": 213,
         "startChar": 30,
