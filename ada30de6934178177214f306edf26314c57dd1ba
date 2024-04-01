@@ -56,6 +56,30 @@
       },
       "revId": "ada30de6934178177214f306edf26314c57dd1ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81e07952_0440a49e",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-04-01T10:56:19Z",
+      "side": 1,
+      "message": "Test case Updated . Comments about why Satellite transported not supported captured @ commit message considering getUidStatsForTransport() is not public method.",
+      "parentUuid": "d62af29d_ad45fdae",
+      "range": {
+        "startLine": 1406,
+        "startChar": 4,
+        "endLine": 1406,
+        "endChar": 5
+      },
+      "revId": "ada30de6934178177214f306edf26314c57dd1ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
