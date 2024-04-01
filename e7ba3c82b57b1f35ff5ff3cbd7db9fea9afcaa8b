@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29edfa85_c83c36bc",
+        "filename": "tests/cts/net/DynamicConfig.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-04-01T03:20:49Z",
+      "side": 1,
+      "message": "If users can specify their own server, what ensures that those users are using a supported server? The correctness of this test depends on the correctness of the server that is being used.",
+      "parentUuid": "9a8cbabb_445e1b81",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "e7ba3c82b57b1f35ff5ff3cbd7db9fea9afcaa8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fad56d34_323a0345",
         "filename": "tests/cts/net/DynamicConfig.xml",
         "patchSetId": 2
@@ -226,6 +250,30 @@
       "side": 1,
       "message": "Arg name mismatch if someone makes some changes in AndroidTestTemplate.xml.",
       "parentUuid": "dc9d9fe5_40d6c985",
+      "range": {
+        "startLine": 351,
+        "startChar": 8,
+        "endLine": 351,
+        "endChar": 40
+      },
+      "revId": "e7ba3c82b57b1f35ff5ff3cbd7db9fea9afcaa8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29bb5ae5_97054a9f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-04-01T03:20:49Z",
+      "side": 1,
+      "message": "So is the only reason for this null check to support the case where someone incorrectly changes AndroidTestTemplate? In that case it seems better for the test to just fail.",
+      "parentUuid": "c6c45d1a_b865117e",
       "range": {
         "startLine": 351,
         "startChar": 8,
