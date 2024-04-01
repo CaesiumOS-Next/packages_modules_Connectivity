@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcceb38f_2ea2e905",
+        "filename": "tests/cts/net/DynamicConfig.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1976127
+      },
+      "writtenOn": "2024-04-01T09:27:56Z",
+      "side": 1,
+      "message": "Thanks, it makes sense to not support specifying server dynamically. I dropped the dynamic config solution and added the URLs into the test directly. The user can pass the test if a device can get IP addresses on wifi network and cell network correctly from either URL.",
+      "parentUuid": "29edfa85_c83c36bc",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "e7ba3c82b57b1f35ff5ff3cbd7db9fea9afcaa8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fad56d34_323a0345",
@@ -274,6 +298,30 @@
       "side": 1,
       "message": "So is the only reason for this null check to support the case where someone incorrectly changes AndroidTestTemplate? In that case it seems better for the test to just fail.",
       "parentUuid": "c6c45d1a_b865117e",
+      "range": {
+        "startLine": 351,
+        "startChar": 8,
+        "endLine": 351,
+        "endChar": 40
+      },
+      "revId": "e7ba3c82b57b1f35ff5ff3cbd7db9fea9afcaa8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91a7d4e0_c52c6fe5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1976127
+      },
+      "writtenOn": "2024-04-01T09:27:56Z",
+      "side": 1,
+      "message": "Removed the code. thanks!",
+      "parentUuid": "29bb5ae5_97054a9f",
       "range": {
         "startLine": 351,
         "startChar": 8,
