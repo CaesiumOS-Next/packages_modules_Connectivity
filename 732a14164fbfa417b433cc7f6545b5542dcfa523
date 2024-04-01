@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f4bb06f_16665e3f",
+        "filename": "netbpfload/netbpfload.mainline.rc",
+        "patchSetId": 25
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1415877
+      },
+      "writtenOn": "2024-04-01T04:25:02Z",
+      "side": 1,
+      "message": "Hi Maciej,\n\nI think this is quite odd because while netbpfload.mainline.rc is in the tethering apex, it defines a service for /system/bin/bpfloader executable. Can this service description be put in an .rc file in /system/etc instead?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 45
+      },
+      "revId": "732a14164fbfa417b433cc7f6545b5542dcfa523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bf3b7628_3fc0792c",
         "filename": "netbpfload/netbpfload.mainline.rc",
         "patchSetId": 25
