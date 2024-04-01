@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e457a94_15938e32",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-01T06:03:45Z",
+      "side": 1,
+      "message": "This will be included in the dev site (for example https://developer.android.com/about/versions/14/reference/compat-framework-changes), so make sure the comment follows javadoc standards; e.g. only one line for the initial description",
+      "revId": "2b0c0e541d953b29cb7518e982219391da1f0a26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6eb8521_3d6e90ae",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-01T06:03:45Z",
+      "side": 1,
+      "message": "Nit: results (or \"get a cached result\")",
+      "range": {
+        "startLine": 103,
+        "startChar": 53,
+        "endLine": 103,
+        "endChar": 59
+      },
+      "revId": "2b0c0e541d953b29cb7518e982219391da1f0a26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c05138f8_1fc56c3d",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-01T06:03:45Z",
+      "side": 1,
+      "message": "It might be good to point out in practice how this may affect developers: results from the TrafficStats#get* APIs may be up to a few seconds late, I think ? (considering that we may use feature flags to change the value it\u0027s probably best not to give an exact timeline)",
+      "range": {
+        "startLine": 103,
+        "startChar": 46,
+        "endLine": 103,
+        "endChar": 52
+      },
+      "revId": "2b0c0e541d953b29cb7518e982219391da1f0a26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a67dd62b_380b350c",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-01T06:03:45Z",
+      "side": 1,
+      "message": "So in practice, always cause stats to be recalculated ?\nAlso may want to mention this affects performance, otherwise it sounds like targeting an old SDK is \"better\"",
+      "range": {
+        "startLine": 107,
+        "startChar": 28,
+        "endLine": 107,
+        "endChar": 29
+      },
+      "revId": "2b0c0e541d953b29cb7518e982219391da1f0a26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f53b1ba8_709d1440",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2095,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-01T06:03:45Z",
+      "side": 1,
+      "message": "This \"OR\" means that if you\u0027re running T, you\u0027ll never use the cache\n\nBut the commit message says \"This allows apps built against V but run on older platform can adopt this feature\", which doesn\u0027t match that.\n\nShould it be \"and\" ?\n\nIn which case \"mSupportTrafficStatsRateLimitCache\" should probably be renamed (\"mAlwaysUseStatsRateLimitCache\" ?)",
+      "range": {
+        "startLine": 2095,
+        "startChar": 16,
+        "endLine": 2095,
+        "endChar": 19
+      },
+      "revId": "2b0c0e541d953b29cb7518e982219391da1f0a26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
