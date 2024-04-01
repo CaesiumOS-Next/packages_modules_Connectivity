@@ -94,6 +94,30 @@
       },
       "revId": "00b45fc970eb1f2b5940ad218066fa34c01bbd97",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e3fb82b_858a19e3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1657,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-04-01T04:48:10Z",
+      "side": 0,
+      "message": "When the first EVENT_IFACE_SERVING_STATE_ACTIVE happens, TetherMainSM is in the InitialState. Then, the handleInterfaceServingStateActive function is called. If the active IpServer needs an upstream connection, it\u0027s added to mForwardedDownstreams. This makes the upstreamWanted function return true, which in turn calls mOffload.start() and chooseUpstreamType(true) in TetherModeAliveState#enter().\n\n        private void handleInterfaceServingStateActive(int mode, IpServer who) {\n            if (mNotifyList.indexOf(who) \u003c 0) {\n                mNotifyList.add(who);\n                mIPv6TetheringCoordinator.addActiveDownstream(who, mode);\n            }\n\n            if (mode \u003d\u003d IpServer.STATE_TETHERED) {\n                // No need to notify OffloadController just yet as there are no\n                // \"offload-able\" prefixes to pass along. This will handled\n                // when the TISM informs Tethering of its LinkProperties.\n                mForwardedDownstreams.add(who);\n            } else {\n                mOffload.excludeDownstreamInterface(who.interfaceName());\n                mForwardedDownstreams.remove(who);\n            }\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\n        class InitialState extends State {\n            @Override\n            public boolean processMessage(Message message) {\n                logMessage(this, message.what);\n                switch (message.what) {\n                    case EVENT_IFACE_SERVING_STATE_ACTIVE: {\n                        final IpServer who \u003d (IpServer) message.obj;\n                        if (VDBG) Log.d(TAG, \"Tether Mode requested by \" + who);\n                        handleInterfaceServingStateActive(message.arg1, who);\n                        transitionTo(mTetherModeAliveState);",
+      "parentUuid": "a6bd9669_29cb9054",
+      "range": {
+        "startLine": 1657,
+        "startChar": 13,
+        "endLine": 1657,
+        "endChar": 44
+      },
+      "revId": "00b45fc970eb1f2b5940ad218066fa34c01bbd97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
