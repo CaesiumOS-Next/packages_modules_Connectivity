@@ -99,6 +99,30 @@
       },
       "revId": "96895b46497562922361957dd6ebb629db623323",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "047c6806_74cae272",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-01T04:04:08Z",
+      "side": 1,
+      "message": "(after writing my other comment I see this was already pointed out)",
+      "parentUuid": "f806b892_72211e52",
+      "range": {
+        "startLine": 375,
+        "startChar": 8,
+        "endLine": 375,
+        "endChar": 27
+      },
+      "revId": "96895b46497562922361957dd6ebb629db623323",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
