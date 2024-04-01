@@ -46,6 +46,93 @@
       },
       "revId": "ea1fcb319c207a272ea389c60a2e38e1029ea1ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c810319b_05b2dce2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-01T06:10:31Z",
+      "side": 1,
+      "message": "But could you trigger it via API call on V ?\n\nuserdebug-only MTS doesn\u0027t seem like good coverage, as it won\u0027t run on most production devices... So it\u0027s a bit weird that this is considered for NDK (especially if it\u0027s not for Java ?)\n\nThis test isn\u0027t harmful though so we can add it anyway...",
+      "parentUuid": "96525850_5bf5384d",
+      "range": {
+        "startLine": 9,
+        "startChar": 44,
+        "endLine": 9,
+        "endChar": 68
+      },
+      "revId": "ea1fcb319c207a272ea389c60a2e38e1029ea1ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f52e9a2b_0139a728",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ServiceManagerWrapperIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-01T06:10:31Z",
+      "side": 1,
+      "message": "S ? ServiceManagerWrapper is in framework-connectivity I think ? which is only in the bootclasspath on S+",
+      "range": {
+        "startLine": 29,
+        "startChar": 32,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "ea1fcb319c207a272ea389c60a2e38e1029ea1ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3953c864_d0e5fb79",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ServiceManagerWrapperIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-01T06:10:31Z",
+      "side": 1,
+      "message": "Add @ConnectivityModuleTest, as this requires an updated connectivity module",
+      "revId": "ea1fcb319c207a272ea389c60a2e38e1029ea1ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eaabe58_8e4d8373",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ServiceManagerWrapperIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-01T06:10:31Z",
+      "side": 1,
+      "message": "Context.CONNECTIVITY_MANAGER would be cleaner",
+      "range": {
+        "startLine": 33,
+        "startChar": 60,
+        "endLine": 33,
+        "endChar": 72
+      },
+      "revId": "ea1fcb319c207a272ea389c60a2e38e1029ea1ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
