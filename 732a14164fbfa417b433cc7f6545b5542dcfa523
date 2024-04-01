@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f5da2d9_ee78e62f",
+        "filename": "netbpfload/netbpfload.mainline.rc",
+        "patchSetId": 25
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1415877
+      },
+      "writtenOn": "2024-04-01T04:29:07Z",
+      "side": 1,
+      "message": "For context, I\u0027m trying to enforce that service descriptions in apex should point to the binaries in the same apex. And I found this is the only exception to this.",
+      "parentUuid": "1f4bb06f_16665e3f",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 45
+      },
+      "revId": "732a14164fbfa417b433cc7f6545b5542dcfa523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bf3b7628_3fc0792c",
         "filename": "netbpfload/netbpfload.mainline.rc",
         "patchSetId": 25
