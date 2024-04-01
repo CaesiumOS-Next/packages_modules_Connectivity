@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "317cf30b_47f61bb6",
+        "filename": "staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-01T08:18:15Z",
+      "side": 1,
+      "message": "nits: Should we add this? or remove the comment?",
+      "range": {
+        "startLine": 218,
+        "startChar": 15,
+        "endLine": 218,
+        "endChar": 57
+      },
+      "revId": "12f7fd26af0261eac4279ebbf21e5d526e5c9cd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
