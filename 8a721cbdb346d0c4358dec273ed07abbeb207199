@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59926a02_dd09469a",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-01T07:34:52Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "03d54958_47a32827",
+      "range": {
+        "startLine": 581,
+        "startChar": 7,
+        "endLine": 581,
+        "endChar": 65
+      },
+      "revId": "8a721cbdb346d0c4358dec273ed07abbeb207199",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5729943_74166d66",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c250838_9d6d97e8",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-01T07:34:52Z",
+      "side": 1,
+      "message": "allowed",
+      "parentUuid": "d5729943_74166d66",
+      "range": {
+        "startLine": 585,
+        "startChar": 30,
+        "endLine": 585,
+        "endChar": 32
+      },
+      "revId": "8a721cbdb346d0c4358dec273ed07abbeb207199",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3fbef87_760d3f35",
@@ -60,6 +108,24 @@
       "writtenOn": "2024-04-01T05:52:26Z",
       "side": 1,
       "message": "There\u0027s no case that verifies having the output as non-hex string",
+      "revId": "8a721cbdb346d0c4358dec273ed07abbeb207199",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a03b037f_bc6a642e",
+        "filename": "tests/unit/java/android/net/nsd/NsdServiceInfoTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-01T07:34:52Z",
+      "side": 1,
+      "message": "added",
+      "parentUuid": "f3fbef87_760d3f35",
       "revId": "8a721cbdb346d0c4358dec273ed07abbeb207199",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
