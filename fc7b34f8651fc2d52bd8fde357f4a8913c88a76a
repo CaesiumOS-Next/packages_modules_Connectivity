@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84ce77a0_7e42d2b7",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSFirewallChainTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-01T23:37:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f755dee_c50e2676",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 13
+      },
+      "revId": "fc7b34f8651fc2d52bd8fde357f4a8913c88a76a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84ee55d6_0d125272",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c178798_cc25e3d6",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSFirewallChainTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-01T23:37:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84ee55d6_0d125272",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 55
+      },
+      "revId": "fc7b34f8651fc2d52bd8fde357f4a8913c88a76a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fa8850b_71691ef4",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-04-01T03:29:54Z",
       "side": 1,
       "message": "nits: clearInvocations is preferable.\nOr If you use inorder, you don\u0027t need reset here.",
+      "range": {
+        "startLine": 124,
+        "startChar": 8,
+        "endLine": 124,
+        "endChar": 13
+      },
+      "revId": "fc7b34f8651fc2d52bd8fde357f4a8913c88a76a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51e3e367_d0103415",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSFirewallChainTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-01T23:37:46Z",
+      "side": 1,
+      "message": "I used clearInvocations.\n\nI would prefer inorder when performing ordered verification of one function call.",
+      "parentUuid": "8fa8850b_71691ef4",
       "range": {
         "startLine": 124,
         "startChar": 8,
