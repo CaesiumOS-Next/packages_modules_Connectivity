@@ -16,6 +16,24 @@
       "message": "All this re-initialization is generally discouraged on mocks, and makes tests harder to follow as any state added by newer code needs to be cleared here too.\n\nI think that\u0027s why aosp/3014877 was written and something like that would be useful. Maybe it could be refactored into a Rule so we can do something like:\n\n```\n@get:Rule\nval setFlagsRule \u003d SetFlagsRule(setFlagsMethod \u003d \"setFeatureEnabled\")\n\nfun setFeatureEnabled(flag: String, value: Boolean) {\n    when (flag) {\n        TRAFFICSTATS_RATE_LIMIT_CACHE_ENABLED_FLAG -\u003e \n            mDeps.setSupportTrafficStatsRateLimitCache(value)\n    }\n}\n\n\n@Test @FeatureFlags([Flag(TRAFFICSTATS_RATE_LIMIT_CACHE_ENABLED_FLAG, false)])\nfun testTrafficStatsRateLimitCache_disabled() {\n    ...\n}\n```",
       "revId": "db101198a66915584ddfb5bd649b8967ea627cca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c3df694_5b681d82",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-01T05:25:06Z",
+      "side": 1,
+      "message": "Ack.\nWill address them in follow-up change given that this CL is already too big.\nHalf of them is already at aosp/3018834",
+      "parentUuid": "c625dcc6_af17c7e4",
+      "revId": "db101198a66915584ddfb5bd649b8967ea627cca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
