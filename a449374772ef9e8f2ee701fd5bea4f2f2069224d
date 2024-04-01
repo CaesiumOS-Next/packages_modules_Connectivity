@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78889e79_b0b552f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-01T03:02:23Z",
+      "side": 1,
+      "message": "We can merge this as a workaround for the flaky tests, but you need a new bug to track and figure out the root cause of the flaky and fix it even if it\u0027s a NsdManager bug",
+      "revId": "a449374772ef9e8f2ee701fd5bea4f2f2069224d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
