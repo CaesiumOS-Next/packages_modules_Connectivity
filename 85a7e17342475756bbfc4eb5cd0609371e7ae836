@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac2c6cdc_8b0c0c13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-04-01T14:17:46Z",
+      "side": 1,
+      "message": "LGTM assume comment adjusted.",
+      "revId": "85a7e17342475756bbfc4eb5cd0609371e7ae836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55995e6c_cf8ed36c",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-04-01T14:17:46Z",
+      "side": 1,
+      "message": "Is it expected that after each test, the cell should be disconnected? If yes, maybe better off to add a comment here?",
+      "range": {
+        "startLine": 99,
+        "startChar": 12,
+        "endLine": 99,
+        "endChar": 46
+      },
+      "revId": "85a7e17342475756bbfc4eb5cd0609371e7ae836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03d137ce_42b5adcc",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-04-01T14:17:46Z",
+      "side": 1,
+      "message": "nit: !testableNetworks.isEmpty()\n```suggestion\n                !testableNetworks.isEmpty());\n```",
+      "range": {
+        "startLine": 303,
+        "startChar": 16,
+        "endLine": 303,
+        "endChar": 44
+      },
+      "revId": "85a7e17342475756bbfc4eb5cd0609371e7ae836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
