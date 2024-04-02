@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07c4309c_7ef55bd1",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-02T02:21:11Z",
+      "side": 1,
+      "message": "disconnectFromCell doesn\u0027t actually disconnect from cell, it only unregisters the cell request.\n\nYes this is very confusing - it\u0027s addressed by aosp/3013415",
+      "parentUuid": "55995e6c_cf8ed36c",
+      "range": {
+        "startLine": 99,
+        "startChar": 12,
+        "endLine": 99,
+        "endChar": 46
+      },
+      "revId": "85a7e17342475756bbfc4eb5cd0609371e7ae836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03d137ce_42b5adcc",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-04-01T14:17:46Z",
       "side": 1,
       "message": "nit: !testableNetworks.isEmpty()\n```suggestion\n                !testableNetworks.isEmpty());\n```",
+      "range": {
+        "startLine": 303,
+        "startChar": 16,
+        "endLine": 303,
+        "endChar": 44
+      },
+      "revId": "85a7e17342475756bbfc4eb5cd0609371e7ae836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c0303f4_86bdb823",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-02T02:21:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03d137ce_42b5adcc",
       "range": {
         "startLine": 303,
         "startChar": 16,
