@@ -23,11 +23,10 @@ import static android.net.BpfNetMapsConstants.DATA_SAVER_DISABLED;
 import static android.net.BpfNetMapsConstants.DATA_SAVER_ENABLED;
 import static android.net.BpfNetMapsConstants.DATA_SAVER_ENABLED_KEY;
 import static android.net.BpfNetMapsConstants.DATA_SAVER_ENABLED_MAP_PATH;
-import static android.net.BpfNetMapsConstants.HAPPY_BOX_MATCH;
 import static android.net.BpfNetMapsConstants.IIF_MATCH;
 import static android.net.BpfNetMapsConstants.INGRESS_DISCARD_MAP_PATH;
 import static android.net.BpfNetMapsConstants.LOCKDOWN_VPN_MATCH;
-import static android.net.BpfNetMapsConstants.PENALTY_BOX_MATCH;
+import static android.net.BpfNetMapsConstants.METERED_CHAINS;
 import static android.net.BpfNetMapsConstants.UID_OWNER_MAP_PATH;
 import static android.net.BpfNetMapsConstants.UID_PERMISSION_MAP_PATH;
 import static android.net.BpfNetMapsConstants.UID_RULES_CONFIGURATION_KEY;
@@ -446,62 +445,6 @@ public class BpfNetMaps {
     }
 
     /**
-     * Add naughty app bandwidth rule for specific app
-     *
-     * @param uid uid of target app
-     * @throws ServiceSpecificException in case of failure, with an error code indicating the
-     *                                  cause of the failure.
-     */
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    public void addNaughtyApp(final int uid) {
-        throwIfPreT("addNaughtyApp is not available on pre-T devices");
-
-        addRule(uid, PENALTY_BOX_MATCH, "addNaughtyApp");
-    }
-
-    /**
-     * Remove naughty app bandwidth rule for specific app
-     *
-     * @param uid uid of target app
-     * @throws ServiceSpecificException in case of failure, with an error code indicating the
-     *                                  cause of the failure.
-     */
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    public void removeNaughtyApp(final int uid) {
-        throwIfPreT("removeNaughtyApp is not available on pre-T devices");
-
-        removeRule(uid, PENALTY_BOX_MATCH, "removeNaughtyApp");
-    }
-
-    /**
-     * Add nice app bandwidth rule for specific app
-     *
-     * @param uid uid of target app
-     * @throws ServiceSpecificException in case of failure, with an error code indicating the
-     *                                  cause of the failure.
-     */
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    public void addNiceApp(final int uid) {
-        throwIfPreT("addNiceApp is not available on pre-T devices");
-
-        addRule(uid, HAPPY_BOX_MATCH, "addNiceApp");
-    }
-
-    /**
-     * Remove nice app bandwidth rule for specific app
-     *
-     * @param uid uid of target app
-     * @throws ServiceSpecificException in case of failure, with an error code indicating the
-     *                                  cause of the failure.
-     */
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    public void removeNiceApp(final int uid) {
-        throwIfPreT("removeNiceApp is not available on pre-T devices");
-
-        removeRule(uid, HAPPY_BOX_MATCH, "removeNiceApp");
-    }
-
-    /**
      * Set target firewall child chain
      *
      * @param childChain target chain to enable
@@ -513,6 +456,11 @@ public class BpfNetMaps {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void setChildChain(final int childChain, final boolean enable) {
         throwIfPreT("setChildChain is not available on pre-T devices");
+
+        if (METERED_CHAINS.contains(childChain)) {
+            throw new IllegalArgumentException("Chain(" + childChain + ") is always enabled for"
+                    + " metered networks and cannot be configured");
+        }
 
         final long match = getMatchByFirewallChain(childChain);
         try {
