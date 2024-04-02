@@ -13472,36 +13472,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    @Override
-    public void updateMeteredNetworkAllowList(final int uid, final boolean add) {
-        enforceNetworkStackOrSettingsPermission();
-
-        try {
-            if (add) {
-                mBpfNetMaps.addNiceApp(uid);
-            } else {
-                mBpfNetMaps.removeNiceApp(uid);
-            }
-        } catch (ServiceSpecificException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
-    @Override
-    public void updateMeteredNetworkDenyList(final int uid, final boolean add) {
-        enforceNetworkStackOrSettingsPermission();
-
-        try {
-            if (add) {
-                mBpfNetMaps.addNaughtyApp(uid);
-            } else {
-                mBpfNetMaps.removeNaughtyApp(uid);
-            }
-        } catch (ServiceSpecificException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
     private int setPackageFirewallRule(final int chain, final String packageName, final int rule)
             throws PackageManager.NameNotFoundException {
         final PackageManager pm = mContext.getPackageManager();
@@ -13555,6 +13525,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             case ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_1:
             case ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_2:
             case ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3:
+            case ConnectivityManager.FIREWALL_CHAIN_METERED_DENY_USER:
+            case ConnectivityManager.FIREWALL_CHAIN_METERED_DENY_ADMIN:
                 defaultRule = FIREWALL_RULE_ALLOW;
                 break;
             case ConnectivityManager.FIREWALL_CHAIN_DOZABLE:
@@ -13562,6 +13534,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             case ConnectivityManager.FIREWALL_CHAIN_RESTRICTED:
             case ConnectivityManager.FIREWALL_CHAIN_LOW_POWER_STANDBY:
             case ConnectivityManager.FIREWALL_CHAIN_BACKGROUND:
+            case ConnectivityManager.FIREWALL_CHAIN_METERED_ALLOW:
                 defaultRule = FIREWALL_RULE_DENY;
                 break;
             default:
