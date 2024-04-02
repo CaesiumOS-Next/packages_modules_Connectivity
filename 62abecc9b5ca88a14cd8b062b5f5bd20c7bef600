@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "285a374e_25fabe8a",
+        "filename": "thread/framework/Android.bp",
+        "patchSetId": 16
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-02T04:29:34Z",
+      "side": 1,
+      "message": "It\u0027s often confusing to have AIDL changes across 2 repo (one in external, and one file here); people often don\u0027t realize that this is an AIDL interface internal to a module in that case.\n\nAny reason why that AIDL build rule is in external/ ? Could it just be moved to the module here to avoid having files on both sides ?",
+      "revId": "62abecc9b5ca88a14cd8b062b5f5bd20c7bef600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
