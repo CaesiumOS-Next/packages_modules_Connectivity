@@ -34,6 +34,24 @@
       "parentUuid": "285a374e_25fabe8a",
       "revId": "62abecc9b5ca88a14cd8b062b5f5bd20c7bef600",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb5600e8_77314bf3",
+        "filename": "thread/framework/Android.bp",
+        "patchSetId": 16
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-02T05:35:36Z",
+      "side": 1,
+      "message": "We can certainly update out documentation to make the relationship clearer",
+      "parentUuid": "78e74e68_9b6577ca",
+      "revId": "62abecc9b5ca88a14cd8b062b5f5bd20c7bef600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
