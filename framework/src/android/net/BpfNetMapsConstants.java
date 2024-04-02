@@ -67,7 +67,7 @@ public class BpfNetMapsConstants {
     // LINT.IfChange(match_type)
     public static final long NO_MATCH = 0;
     public static final long HAPPY_BOX_MATCH = (1 << 0);
-    public static final long PENALTY_BOX_MATCH = (1 << 1);
+    public static final long PENALTY_BOX_USER_MATCH = (1 << 1);
     public static final long DOZABLE_MATCH = (1 << 2);
     public static final long STANDBY_MATCH = (1 << 3);
     public static final long POWERSAVE_MATCH = (1 << 4);
@@ -79,10 +79,11 @@ public class BpfNetMapsConstants {
     public static final long OEM_DENY_2_MATCH = (1 << 10);
     public static final long OEM_DENY_3_MATCH = (1 << 11);
     public static final long BACKGROUND_MATCH = (1 << 12);
+    public static final long PENALTY_BOX_ADMIN_MATCH = (1 << 13);
 
     public static final List<Pair<Long, String>> MATCH_LIST = Arrays.asList(
             Pair.create(HAPPY_BOX_MATCH, "HAPPY_BOX_MATCH"),
-            Pair.create(PENALTY_BOX_MATCH, "PENALTY_BOX_MATCH"),
+            Pair.create(PENALTY_BOX_USER_MATCH, "PENALTY_BOX_USER_MATCH"),
             Pair.create(DOZABLE_MATCH, "DOZABLE_MATCH"),
             Pair.create(STANDBY_MATCH, "STANDBY_MATCH"),
             Pair.create(POWERSAVE_MATCH, "POWERSAVE_MATCH"),
@@ -93,7 +94,8 @@ public class BpfNetMapsConstants {
             Pair.create(OEM_DENY_1_MATCH, "OEM_DENY_1_MATCH"),
             Pair.create(OEM_DENY_2_MATCH, "OEM_DENY_2_MATCH"),
             Pair.create(OEM_DENY_3_MATCH, "OEM_DENY_3_MATCH"),
-            Pair.create(BACKGROUND_MATCH, "BACKGROUND_MATCH")
+            Pair.create(BACKGROUND_MATCH, "BACKGROUND_MATCH"),
+            Pair.create(PENALTY_BOX_ADMIN_MATCH, "PENALTY_BOX_ADMIN_MATCH")
     );
 
     /**
