@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "206094d7_ec1bd8fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-02T14:58:49Z",
+      "side": 1,
+      "message": "This particular CL is the culprit if you are looking for something to revert. Otherwise, here is the fix forward aosp/3022584.",
+      "revId": "eeeb71cbd37cff4eac95e0aa8dcd032ea8c72848",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
