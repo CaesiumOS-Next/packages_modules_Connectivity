@@ -63,6 +63,9 @@ import static android.net.ConnectivityManager.EXTRA_REALTIME_NS;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_DOZABLE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_LOW_POWER_STANDBY;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_METERED_ALLOW;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_METERED_DENY_ADMIN;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_METERED_DENY_USER;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_1;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_2;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3;
@@ -10499,7 +10502,11 @@ public class ConnectivityServiceTest {
         doTestSetUidFirewallRule(FIREWALL_CHAIN_OEM_DENY_1, FIREWALL_RULE_ALLOW);
         doTestSetUidFirewallRule(FIREWALL_CHAIN_OEM_DENY_2, FIREWALL_RULE_ALLOW);
         doTestSetUidFirewallRule(FIREWALL_CHAIN_OEM_DENY_3, FIREWALL_RULE_ALLOW);
+        doTestSetUidFirewallRule(FIREWALL_CHAIN_METERED_ALLOW, FIREWALL_RULE_ALLOW);
+        doTestSetUidFirewallRule(FIREWALL_CHAIN_METERED_DENY_USER, FIREWALL_RULE_DENY);
+        doTestSetUidFirewallRule(FIREWALL_CHAIN_METERED_DENY_ADMIN, FIREWALL_RULE_DENY);
     }
+
 
     @Test @IgnoreUpTo(SC_V2)
     public void testSetFirewallChainEnabled() throws Exception {
@@ -10524,6 +10531,21 @@ public class ConnectivityServiceTest {
             mCm.setFirewallChainEnabled(chain, false /* enabled */);
             verify(mBpfNetMaps).setChildChain(chain, false /* enable */);
             reset(mBpfNetMaps);
+        }
+    }
+
+    @Test @IgnoreUpTo(SC_V2)
+    public void testSetFirewallChainEnabled_meteredChain() throws Exception {
+        final List<Integer> meteredChains = new ArrayList<>(Arrays.asList(
+                FIREWALL_CHAIN_METERED_ALLOW,
+                FIREWALL_CHAIN_METERED_DENY_USER,
+                FIREWALL_CHAIN_METERED_DENY_ADMIN));
+        for (final int chain: meteredChains) {
+            final Class<IllegalArgumentException> expected = IllegalArgumentException.class;
+            assertThrows(expected,
+                    () -> mCm.setFirewallChainEnabled(chain, true /* enabled */));
+            assertThrows(expected,
+                    () -> mCm.setFirewallChainEnabled(chain, false /* enabled */));
         }
     }
 
@@ -10615,6 +10637,35 @@ public class ConnectivityServiceTest {
         assertThrows(expected,
                 () -> mCm.setUidFirewallRule(FIREWALL_CHAIN_DOZABLE,
                         1001 /* uid */, 100 /* rule */));
+    }
+
+    @Test @IgnoreUpTo(SC_V2)
+    public void testAddUidToMeteredNetworkAllowList() throws Exception {
+        final int uid = 1001;
+        mCm.addUidToMeteredNetworkAllowList(uid);
+        verify(mBpfNetMaps).setUidRule(FIREWALL_CHAIN_METERED_ALLOW, uid, FIREWALL_RULE_ALLOW);
+    }
+
+    @Test @IgnoreUpTo(SC_V2)
+    public void testRemoveUidFromMeteredNetworkAllowList() throws Exception {
+        final int uid = 1001;
+        mCm.removeUidFromMeteredNetworkAllowList(uid);
+        verify(mBpfNetMaps).setUidRule(FIREWALL_CHAIN_METERED_ALLOW, uid, FIREWALL_RULE_DENY);
+    }
+
+
+    @Test @IgnoreUpTo(SC_V2)
+    public void testAddUidToMeteredNetworkDenyList() throws Exception {
+        final int uid = 1001;
+        mCm.addUidToMeteredNetworkAllowList(uid);
+        verify(mBpfNetMaps).setUidRule(FIREWALL_CHAIN_METERED_DENY_USER, uid, FIREWALL_RULE_ALLOW);
+    }
+
+    @Test @IgnoreUpTo(SC_V2)
+    public void testRemoveUidFromMeteredNetworkDenyList() throws Exception {
+        final int uid = 1001;
+        mCm.removeUidFromMeteredNetworkDenyList(uid);
+        verify(mBpfNetMaps).setUidRule(FIREWALL_CHAIN_METERED_DENY_USER, uid, FIREWALL_RULE_DENY);
     }
 
     /**
