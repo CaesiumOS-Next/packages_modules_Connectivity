@@ -29,7 +29,8 @@ import static android.net.BpfNetMapsConstants.NO_MATCH;
 import static android.net.BpfNetMapsConstants.OEM_DENY_1_MATCH;
 import static android.net.BpfNetMapsConstants.OEM_DENY_2_MATCH;
 import static android.net.BpfNetMapsConstants.OEM_DENY_3_MATCH;
-import static android.net.BpfNetMapsConstants.PENALTY_BOX_MATCH;
+import static android.net.BpfNetMapsConstants.PENALTY_BOX_ADMIN_MATCH;
+import static android.net.BpfNetMapsConstants.PENALTY_BOX_USER_MATCH;
 import static android.net.BpfNetMapsConstants.POWERSAVE_MATCH;
 import static android.net.BpfNetMapsConstants.RESTRICTED_MATCH;
 import static android.net.BpfNetMapsConstants.STANDBY_MATCH;
@@ -37,6 +38,9 @@ import static android.net.BpfNetMapsConstants.UID_RULES_CONFIGURATION_KEY;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_DOZABLE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_LOW_POWER_STANDBY;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_METERED_ALLOW;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_METERED_DENY_ADMIN;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_METERED_DENY_USER;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_1;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_2;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3;
@@ -80,10 +84,20 @@ public class BpfNetMapsUtils {
         long maskDropIfUnset = 0L;
 
         for (int chain : BpfNetMapsConstants.ALLOW_CHAINS) {
+            if (BpfNetMapsConstants.METERED_CHAINS.contains(chain)) {
+                // Metered chains are handled differently since packet dropping logic for metered
+                // chain is different
+                continue;
+            }
             final long match = getMatchByFirewallChain(chain);
             maskDropIfUnset |= match;
         }
         for (int chain : BpfNetMapsConstants.DENY_CHAINS) {
+            if (BpfNetMapsConstants.METERED_CHAINS.contains(chain)) {
+                // Metered chains are handled differently since packet dropping logic for metered
+                // chain is different
+                continue;
+            }
             final long match = getMatchByFirewallChain(chain);
             maskDropIfSet |= match;
         }
@@ -117,6 +131,12 @@ public class BpfNetMapsUtils {
                 return OEM_DENY_2_MATCH;
             case FIREWALL_CHAIN_OEM_DENY_3:
                 return OEM_DENY_3_MATCH;
+            case FIREWALL_CHAIN_METERED_ALLOW:
+                return HAPPY_BOX_MATCH;
+            case FIREWALL_CHAIN_METERED_DENY_USER:
+                return PENALTY_BOX_USER_MATCH;
+            case FIREWALL_CHAIN_METERED_DENY_ADMIN:
+                return PENALTY_BOX_ADMIN_MATCH;
             default:
                 throw new ServiceSpecificException(EINVAL, "Invalid firewall chain: " + chain);
         }
@@ -264,7 +284,7 @@ public class BpfNetMapsUtils {
         }
 
         if (!isNetworkMetered) return false;
-        if ((uidMatch & PENALTY_BOX_MATCH) != 0) return true;
+        if ((uidMatch & (PENALTY_BOX_USER_MATCH | PENALTY_BOX_ADMIN_MATCH)) != 0) return true;
         if ((uidMatch & HAPPY_BOX_MATCH) != 0) return false;
         return getDataSaverEnabled(dataSaverEnabledMap);
     }
