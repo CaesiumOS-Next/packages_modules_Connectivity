@@ -16,6 +16,24 @@
       "message": "It\u0027s often confusing to have AIDL changes across 2 repo (one in external, and one file here); people often don\u0027t realize that this is an AIDL interface internal to a module in that case.\n\nAny reason why that AIDL build rule is in external/ ? Could it just be moved to the module here to avoid having files on both sides ?",
       "revId": "62abecc9b5ca88a14cd8b062b5f5bd20c7bef600",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78e74e68_9b6577ca",
+        "filename": "thread/framework/Android.bp",
+        "patchSetId": 16
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-02T05:34:17Z",
+      "side": 1,
+      "message": "We have ot-daemon binary built from external/ while included in the mainline module already, so we need to live with it. The AIDL interface is for interacting with the ot-daemon so it\u0027s better to put the interface together with the ot-daemon code (The fact is that any changes to the AIDL interface always needs an update in the ot-daemon code, e.g., add a new ot-daemon AIDL API will require changes in both repos if moved the interface)",
+      "parentUuid": "285a374e_25fabe8a",
+      "revId": "62abecc9b5ca88a14cd8b062b5f5bd20c7bef600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
