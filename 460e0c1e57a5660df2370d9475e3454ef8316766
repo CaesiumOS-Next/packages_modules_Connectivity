@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26de4eba_35582fb5",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-02T22:57:22Z",
+      "side": 1,
+      "message": "\u003d\u003d4 should have a comment that we enforce \u003d\u003d4 not \u003e\u003d4 because nothing else is ready",
+      "range": {
+        "startLine": 128,
+        "startChar": 45,
+        "endLine": 128,
+        "endChar": 57
+      },
+      "revId": "460e0c1e57a5660df2370d9475e3454ef8316766",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11e0fbc0_bda236ac",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-02T22:57:22Z",
+      "side": 1,
+      "message": "not sure why this first part is needed... shouldn\u0027t this be based purely on VSR\u003e\u003d202404",
+      "range": {
+        "startLine": 136,
+        "startChar": 12,
+        "endLine": 136,
+        "endChar": 37
+      },
+      "revId": "460e0c1e57a5660df2370d9475e3454ef8316766",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
