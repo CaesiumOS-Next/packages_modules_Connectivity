@@ -22,6 +22,75 @@
       },
       "revId": "89dcc7ce5fd966db570d7aa6ccf154182a59bcbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfc0c40b_f7d926a3",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-02T03:41:40Z",
+      "side": 1,
+      "message": "rephrase for opposite dir perhaps",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 61
+      },
+      "revId": "89dcc7ce5fd966db570d7aa6ccf154182a59bcbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b324ae5f_a5a4a654",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-02T03:41:40Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be trimmed to i ?",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 33
+      },
+      "revId": "89dcc7ce5fd966db570d7aa6ccf154182a59bcbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0370fed6_96dc3d1e",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-02T03:41:40Z",
+      "side": 1,
+      "message": "why v+ check ?",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 58
+      },
+      "revId": "89dcc7ce5fd966db570d7aa6ccf154182a59bcbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
