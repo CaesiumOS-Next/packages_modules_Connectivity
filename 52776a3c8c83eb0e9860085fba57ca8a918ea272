@@ -36,6 +36,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b73ff6bb_0212ee1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3336777
+      },
+      "writtenOn": "2024-04-02T04:01:29Z",
+      "side": 1,
+      "message": "@yuyanghuang Thanks for helping on this, I see PV +1 will the gerrit automerge or needs manual submit ?",
+      "revId": "52776a3c8c83eb0e9860085fba57ca8a918ea272",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91ae9c7d_55f536f6",
