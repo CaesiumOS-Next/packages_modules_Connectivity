@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "005ad1bc_ec305c07",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-02T17:37:08Z",
+      "side": 1,
+      "message": "Idea looks fine. But needs some polish and care - as it may be risky.\n\nFeel free to file a bug on me to change NPMS code to switch APIs with hardcoded constants for now - unless you want to do it.",
+      "revId": "c2ceb8a057d4ba9ac4d7004a1ab902f3d4cfcc79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e39b59f_5056576f",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1078,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-02T17:37:08Z",
+      "side": 1,
+      "message": "nit: Since this is a new concept - I think we should name these `METERED_FIREWALL_CHAIN_X`. This will more explicitly indicate that these are special firewalls that will only affect metered networks.",
+      "range": {
+        "startLine": 1078,
+        "startChar": 28,
+        "endLine": 1078,
+        "endChar": 56
+      },
+      "revId": "c2ceb8a057d4ba9ac4d7004a1ab902f3d4cfcc79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9d6df64_70dd581b",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-02T17:37:08Z",
+      "side": 1,
+      "message": "Add more docs to each of these.",
+      "revId": "c2ceb8a057d4ba9ac4d7004a1ab902f3d4cfcc79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48bd07ea_17008dfa",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6141,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-02T17:37:08Z",
+      "side": 1,
+      "message": "Should we deprecate this API too?",
+      "range": {
+        "startLine": 6141,
+        "startChar": 16,
+        "endLine": 6141,
+        "endChar": 46
+      },
+      "revId": "c2ceb8a057d4ba9ac4d7004a1ab902f3d4cfcc79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa21d8e8_32664199",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6157,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-02T17:37:08Z",
+      "side": 1,
+      "message": "Let\u0027s add a todo (go/todo-style) to depracate these after V - open a new bug if none are suitable.",
+      "revId": "c2ceb8a057d4ba9ac4d7004a1ab902f3d4cfcc79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2632633_0c09ddaf",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-02T17:37:08Z",
+      "side": 1,
+      "message": "This doesn\u0027t make sense conceptually. If this firewall was enabled, it would deny metered network to all other apps.\nSo it is effectively only enabled when data saver is enabled.",
+      "range": {
+        "startLine": 450,
+        "startChar": 24,
+        "endLine": 450,
+        "endChar": 52
+      },
+      "revId": "c2ceb8a057d4ba9ac4d7004a1ab902f3d4cfcc79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
