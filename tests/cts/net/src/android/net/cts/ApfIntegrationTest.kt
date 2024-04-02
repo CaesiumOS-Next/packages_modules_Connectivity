@@ -68,7 +68,6 @@ class ApfIntegrationTest {
             ifname = assertNotNull(it.lp.interfaceName)
             true
         }
-        runShellCommandOrThrow("cmd network_stack apf $ifname pause")
     }
 
     @After
@@ -76,7 +75,6 @@ class ApfIntegrationTest {
         if (::networkCallback.isInitialized) {
             cm.unregisterNetworkCallback(networkCallback)
         }
-        runShellCommandOrThrow("cmd network_stack apf $ifname resume")
     }
 
     @Test
