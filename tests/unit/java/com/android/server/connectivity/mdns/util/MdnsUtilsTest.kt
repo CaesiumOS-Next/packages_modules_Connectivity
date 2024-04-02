@@ -52,27 +52,19 @@ class MdnsUtilsTest {
         assertEquals("ţést", toDnsLowerCase("ţést"))
         // Unicode characters 0x10000 (𐀀), 0x10001 (𐀁), 0x10041 (𐁁)
         // Note the last 2 bytes of 0x10041 are identical to 'A', but it should remain unchanged.
-        assertEquals(
-            "test: -->\ud800\udc00 \ud800\udc01 \ud800\udc41<-- ",
-                toDnsLowerCase("Test: -->\ud800\udc00 \ud800\udc01 \ud800\udc41<-- ")
-        )
+        assertEquals("test: -->\ud800\udc00 \ud800\udc01 \ud800\udc41<-- ",
+                toDnsLowerCase("Test: -->\ud800\udc00 \ud800\udc01 \ud800\udc41<-- "))
         // Also test some characters where the first surrogate is not \ud800
-        assertEquals(
-            "test: >\ud83c\udff4\udb40\udc67\udb40\udc62\udb40" +
+        assertEquals("test: >\ud83c\udff4\udb40\udc67\udb40\udc62\udb40" +
                 "\udc77\udb40\udc6c\udb40\udc73\udb40\udc7f<",
-                toDnsLowerCase(
-                    "Test: >\ud83c\udff4\udb40\udc67\udb40\udc62\udb40" +
-                        "\udc77\udb40\udc6c\udb40\udc73\udb40\udc7f<"
-                )
-        )
+                toDnsLowerCase("Test: >\ud83c\udff4\udb40\udc67\udb40\udc62\udb40" +
+                        "\udc77\udb40\udc6c\udb40\udc73\udb40\udc7f<"))
     }
 
     @Test
     fun testToDnsLabelsLowerCase() {
-        assertArrayEquals(
-            arrayOf("test", "tÉst", "ţést"),
-            toDnsLabelsLowerCase(arrayOf("TeSt", "TÉST", "ţést"))
-        )
+        assertArrayEquals(arrayOf("test", "tÉst", "ţést"),
+            toDnsLabelsLowerCase(arrayOf("TeSt", "TÉST", "ţést")))
     }
 
     @Test
@@ -84,17 +76,13 @@ class MdnsUtilsTest {
         assertFalse(equalsIgnoreDnsCase("ŢÉST", "ţést"))
         // Unicode characters 0x10000 (𐀀), 0x10001 (𐀁), 0x10041 (𐁁)
         // Note the last 2 bytes of 0x10041 are identical to 'A', but it should remain unchanged.
-        assertTrue(equalsIgnoreDnsCase(
-            "test: -->\ud800\udc00 \ud800\udc01 \ud800\udc41<-- ",
-                "Test: -->\ud800\udc00 \ud800\udc01 \ud800\udc41<-- "
-        ))
+        assertTrue(equalsIgnoreDnsCase("test: -->\ud800\udc00 \ud800\udc01 \ud800\udc41<-- ",
+                "Test: -->\ud800\udc00 \ud800\udc01 \ud800\udc41<-- "))
         // Also test some characters where the first surrogate is not \ud800
-        assertTrue(equalsIgnoreDnsCase(
-            "test: >\ud83c\udff4\udb40\udc67\udb40\udc62\udb40" +
+        assertTrue(equalsIgnoreDnsCase("test: >\ud83c\udff4\udb40\udc67\udb40\udc62\udb40" +
                 "\udc77\udb40\udc6c\udb40\udc73\udb40\udc7f<",
                 "Test: >\ud83c\udff4\udb40\udc67\udb40\udc62\udb40" +
-                        "\udc77\udb40\udc6c\udb40\udc73\udb40\udc7f<"
-        ))
+                        "\udc77\udb40\udc6c\udb40\udc73\udb40\udc7f<"))
     }
 
     @Test
@@ -113,22 +101,15 @@ class MdnsUtilsTest {
 
     @Test
     fun testTypeEqualsOrIsSubtype() {
-        assertTrue(MdnsUtils.typeEqualsOrIsSubtype(
-            arrayOf("_type", "_tcp", "local"),
-            arrayOf("_type", "_TCP", "local")
-        ))
-        assertTrue(MdnsUtils.typeEqualsOrIsSubtype(
-            arrayOf("_type", "_tcp", "local"),
-            arrayOf("a", "_SUB", "_type", "_TCP", "local")
-        ))
-        assertFalse(MdnsUtils.typeEqualsOrIsSubtype(
-            arrayOf("_sub", "_type", "_tcp", "local"),
-                arrayOf("_type", "_TCP", "local")
-        ))
+        assertTrue(MdnsUtils.typeEqualsOrIsSubtype(arrayOf("_type", "_tcp", "local"),
+            arrayOf("_type", "_TCP", "local")))
+        assertTrue(MdnsUtils.typeEqualsOrIsSubtype(arrayOf("_type", "_tcp", "local"),
+            arrayOf("a", "_SUB", "_type", "_TCP", "local")))
+        assertFalse(MdnsUtils.typeEqualsOrIsSubtype(arrayOf("_sub", "_type", "_tcp", "local"),
+                arrayOf("_type", "_TCP", "local")))
         assertFalse(MdnsUtils.typeEqualsOrIsSubtype(
                 arrayOf("a", "_other", "_type", "_tcp", "local"),
-                arrayOf("a", "_SUB", "_type", "_TCP", "local")
-        ))
+                arrayOf("a", "_SUB", "_type", "_TCP", "local")))
     }
 
     @Test
