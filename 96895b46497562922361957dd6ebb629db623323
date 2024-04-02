@@ -123,6 +123,30 @@
       },
       "revId": "96895b46497562922361957dd6ebb629db623323",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97194c5d_6d97f0a4",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-02T07:26:26Z",
+      "side": 1,
+      "message": "Fixed in this CL",
+      "parentUuid": "047c6806_74cae272",
+      "range": {
+        "startLine": 375,
+        "startChar": 8,
+        "endLine": 375,
+        "endChar": 27
+      },
+      "revId": "96895b46497562922361957dd6ebb629db623323",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

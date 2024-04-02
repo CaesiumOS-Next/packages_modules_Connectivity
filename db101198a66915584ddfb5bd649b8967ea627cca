@@ -34,6 +34,24 @@
       "parentUuid": "c625dcc6_af17c7e4",
       "revId": "db101198a66915584ddfb5bd649b8967ea627cca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "694235a4_dc742621",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-02T07:26:26Z",
+      "side": 1,
+      "message": "Fixed in this CL",
+      "parentUuid": "9c3df694_5b681d82",
+      "revId": "db101198a66915584ddfb5bd649b8967ea627cca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
