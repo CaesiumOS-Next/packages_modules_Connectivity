@@ -16,6 +16,24 @@
       "message": "```\nFAILED: out/soong/.intermediates/packages/modules/Connectivity/thread/tests/integration/ThreadNetworkIntegrationTests/android_common/javac/ThreadNetworkIntegrationTests.jar\n...workIntegrationTests/android_common/javac/classes \u0026\u0026 rm -rf \"out/soong/.intermediates/packages/modules/Connectivity/thread/tests/integration/ThreadNetworkIntegrationTests/android_common/javac/srcjars\"\npackages/modules/Connectivity/thread/tests/integration/src/android/net/thread/utils/OtDaemonController.java:73: error: cannot find symbol\n        String addressStr \u003d executeCommandAndParse(\"ipaddr mleid\").getFirst();\n                                                                  ^\n  symbol:   method getFirst()\n  location: interface List\u003cString\u003e\npackages/modules/Connectivity/thread/tests/integration/src/android/net/thread/utils/OtDaemonController.java:79: error: cannot find symbol\n        return executeCommandAndParse(\"region\").getFirst();\n                                               ^\n  symbol:   method getFirst()\n  location: interface List\u003cString\u003e\npackages/modules/Connectivity/thread/tests/integration/src/android/net/thread/utils/OtDaemonController.java:105: error: cannot find symbol\n        return prefixes.isEmpty() ? null : prefixes.getFirst();\n                                                   ^\n  symbol:   method getFirst()\n  location: variable prefixes of type List\u003cIpPrefix\u003e\npackages/modules/Connectivity/thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java:183: error: cannot find symbol\n        final Inet6Address serverAddress \u003d mOtCtl.getMeshLocalAddresses().getFirst();\n                                                                         ^\n  symbol:   method getFirst()\n  location: interface List\u003cInet6Address\u003e\n4 errors\n```\nPlease fix",
       "revId": "516998b4f74b3a13aab998de7555e7f356151c25",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a65cc4c5_2386d2a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-02T11:47:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ada9eb9f_74d80f6f",
+      "revId": "516998b4f74b3a13aab998de7555e7f356151c25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
