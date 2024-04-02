@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1dc50f4_11b5f68d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-04-02T14:27:35Z",
+      "side": 1,
+      "message": "LGTM, only some nits. You can address them in a follow-up change.",
+      "revId": "79b56fc74abf675d43e0eb3695f88a523bb20104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e05f5bb_02479563",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-04-02T14:27:35Z",
+      "side": 1,
+      "message": "While this solution can simply fix the socket mismatch problem, a better practice would be to pass the SocketKey to request the correct socket for discovery. Perhaps adding a TODO here.",
+      "range": {
+        "startLine": 244,
+        "startChar": 54,
+        "endLine": 244,
+        "endChar": 80
+      },
+      "revId": "79b56fc74abf675d43e0eb3695f88a523bb20104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b23649f9_6e675237",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSearchOptions.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-04-02T14:27:35Z",
+      "side": 1,
+      "message": "set the?",
+      "range": {
+        "startLine": 83,
+        "startChar": 59,
+        "endLine": 83,
+        "endChar": 62
+      },
+      "revId": "79b56fc74abf675d43e0eb3695f88a523bb20104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23e431f4_345c4160",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-04-02T14:27:35Z",
+      "side": 1,
+      "message": "Nit: Move this closer to its usage(L.539)",
+      "range": {
+        "startLine": 527,
+        "startChar": 8,
+        "endLine": 527,
+        "endChar": 37
+      },
+      "revId": "79b56fc74abf675d43e0eb3695f88a523bb20104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c78a7e52_fb4e7d5b",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-04-02T14:27:35Z",
+      "side": 1,
+      "message": "Nit: Move the `serviceTypeWithLocalDomain` definition above this line and use it to replace this.",
+      "range": {
+        "startLine": 535,
+        "startChar": 71,
+        "endLine": 535,
+        "endChar": 94
+      },
+      "revId": "79b56fc74abf675d43e0eb3695f88a523bb20104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
