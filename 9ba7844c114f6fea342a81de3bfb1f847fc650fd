@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "221f7550_d13e45e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015680
+      },
+      "writtenOn": "2024-04-02T12:34:07Z",
+      "side": 1,
+      "message": "Hi Maciej, can you provide more context on the -2?",
+      "revId": "9ba7844c114f6fea342a81de3bfb1f847fc650fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
