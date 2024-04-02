@@ -16,7 +16,13 @@
 
 package com.android.server
 
+import android.net.BpfNetMapsConstants.METERED_ALLOW_CHAINS
+import android.net.BpfNetMapsConstants.METERED_DENY_CHAINS
 import android.net.ConnectivityManager
+import android.net.ConnectivityManager.FIREWALL_CHAIN_METERED_ALLOW
+import android.net.ConnectivityManager.FIREWALL_CHAIN_METERED_DENY_USER
+import android.net.ConnectivityManager.FIREWALL_RULE_ALLOW
+import android.net.ConnectivityManager.FIREWALL_RULE_DENY
 import android.os.Build
 import androidx.test.filters.SmallTest
 import com.android.server.connectivity.ConnectivityFlags.BACKGROUND_FIREWALL_CHAIN
@@ -24,6 +30,7 @@ import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
+import com.android.testutils.assertThrows
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -118,24 +125,42 @@ class CSFirewallChainTest : CSTest() {
     fun setUidFirewallRule_backgroundChainEnabled_afterU() {
         val uid = 2345
 
-        cm.setUidFirewallRule(ConnectivityManager.FIREWALL_CHAIN_BACKGROUND, uid,
-            ConnectivityManager.FIREWALL_RULE_DEFAULT)
-        verify(bpfNetMaps).setUidRule(ConnectivityManager.FIREWALL_CHAIN_BACKGROUND, uid,
-            ConnectivityManager.FIREWALL_RULE_DENY)
+        cm.setUidFirewallRule(
+            ConnectivityManager.FIREWALL_CHAIN_BACKGROUND,
+            uid,
+            ConnectivityManager.FIREWALL_RULE_DEFAULT
+        )
+        verify(bpfNetMaps).setUidRule(
+            ConnectivityManager.FIREWALL_CHAIN_BACKGROUND,
+            uid,
+            ConnectivityManager.FIREWALL_RULE_DENY
+        )
 
         clearInvocations(bpfNetMaps)
 
-        cm.setUidFirewallRule(ConnectivityManager.FIREWALL_CHAIN_BACKGROUND, uid,
-            ConnectivityManager.FIREWALL_RULE_DENY)
-        verify(bpfNetMaps).setUidRule(ConnectivityManager.FIREWALL_CHAIN_BACKGROUND, uid,
-            ConnectivityManager.FIREWALL_RULE_DENY)
+        cm.setUidFirewallRule(
+            ConnectivityManager.FIREWALL_CHAIN_BACKGROUND,
+            uid,
+            ConnectivityManager.FIREWALL_RULE_DENY
+        )
+        verify(bpfNetMaps).setUidRule(
+            ConnectivityManager.FIREWALL_CHAIN_BACKGROUND,
+            uid,
+            ConnectivityManager.FIREWALL_RULE_DENY
+        )
 
         clearInvocations(bpfNetMaps)
 
-        cm.setUidFirewallRule(ConnectivityManager.FIREWALL_CHAIN_BACKGROUND, uid,
-            ConnectivityManager.FIREWALL_RULE_ALLOW)
-        verify(bpfNetMaps).setUidRule(ConnectivityManager.FIREWALL_CHAIN_BACKGROUND, uid,
-            ConnectivityManager.FIREWALL_RULE_ALLOW)
+        cm.setUidFirewallRule(
+            ConnectivityManager.FIREWALL_CHAIN_BACKGROUND,
+            uid,
+            ConnectivityManager.FIREWALL_RULE_ALLOW
+        )
+        verify(bpfNetMaps).setUidRule(
+            ConnectivityManager.FIREWALL_CHAIN_BACKGROUND,
+            uid,
+            ConnectivityManager.FIREWALL_RULE_ALLOW
+        )
     }
 
     @Test
@@ -148,10 +173,55 @@ class CSFirewallChainTest : CSTest() {
     private fun verifySetUidFirewallRuleOnBackgroundDoesNothing() {
         val uid = 2345
 
-        listOf(ConnectivityManager.FIREWALL_RULE_DEFAULT, ConnectivityManager.FIREWALL_RULE_ALLOW,
-            ConnectivityManager.FIREWALL_RULE_DENY).forEach { rule ->
+        listOf(
+            ConnectivityManager.FIREWALL_RULE_DEFAULT,
+            ConnectivityManager.FIREWALL_RULE_ALLOW,
+            ConnectivityManager.FIREWALL_RULE_DENY
+        ).forEach { rule ->
             cm.setUidFirewallRule(ConnectivityManager.FIREWALL_CHAIN_BACKGROUND, uid, rule)
             verify(bpfNetMaps, never()).setUidRule(anyInt(), anyInt(), anyInt())
         }
+    }
+
+    @Test
+    fun testSetFirewallChainEnabled_meteredChain() {
+        (METERED_ALLOW_CHAINS + METERED_DENY_CHAINS).forEach { chain ->
+            {
+                assertThrows(UnsupportedOperationException::class.java) {
+                    cm.setFirewallChainEnabled(chain, true)
+                }
+                assertThrows(UnsupportedOperationException::class.java) {
+                    cm.setFirewallChainEnabled(chain, false)
+                }
+            }
+        }
+    }
+
+    @Test
+    fun testAddUidToMeteredNetworkAllowList() {
+        val uid = 1001
+        cm.addUidToMeteredNetworkAllowList(uid)
+        verify(bpfNetMaps).setUidRule(FIREWALL_CHAIN_METERED_ALLOW, uid, FIREWALL_RULE_ALLOW)
+    }
+
+    @Test
+    fun testRemoveUidFromMeteredNetworkAllowList() {
+        val uid = 1001
+        cm.removeUidFromMeteredNetworkAllowList(uid)
+        verify(bpfNetMaps).setUidRule(FIREWALL_CHAIN_METERED_ALLOW, uid, FIREWALL_RULE_DENY)
+    }
+
+    @Test
+    fun testAddUidToMeteredNetworkDenyList() {
+        val uid = 1001
+        cm.addUidToMeteredNetworkDenyList(uid)
+        verify(bpfNetMaps).setUidRule(FIREWALL_CHAIN_METERED_DENY_USER, uid, FIREWALL_RULE_DENY)
+    }
+
+    @Test
+    fun testRemoveUidFromMeteredNetworkDenyList() {
+        val uid = 1001
+        cm.removeUidFromMeteredNetworkDenyList(uid)
+        verify(bpfNetMaps).setUidRule(FIREWALL_CHAIN_METERED_DENY_USER, uid, FIREWALL_RULE_ALLOW)
     }
 }
