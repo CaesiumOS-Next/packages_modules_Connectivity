@@ -7,23 +7,6 @@ io\.netty\..+
 kotlin\.test\..+
 kotlin\.reflect\..+
 org\.mockito\..+
+org\.junit\..+
 # Do not jarjar the api classes
 android\.net\..+
-# cronet_tests.so is not jarjared and uses base classes. We can remove this when there's a
-# separate java base target to depend on.
-org\.chromium\.base\..+
-J\.cronet_tests_N(\$.+)?
-
-# don't jarjar automatically generated FooJni files.
-org\.chromium\.net\..+Jni(\$.+)?
-
-# Do not jarjar the tests and its utils as they also do JNI with cronet_tests.so
-org\.chromium\.net\..*Test.*(\$.+)?
-org\.chromium\.net\.NativeTestServer(\$.+)?
-org\.chromium\.net\.MockUrlRequestJobFactory(\$.+)?
-org\.chromium\.net\.QuicTestServer(\$.+)?
-org\.chromium\.net\.MockCertVerifier(\$.+)?
-org\.chromium\.net\.LogcatCapture(\$.+)?
-org\.chromium\.net\.ReportingCollector(\$.+)?
-org\.chromium\.net\.Http2TestServer(\$.+)?
-org\.chromium\.net\.Http2TestHandler(\$.+)?

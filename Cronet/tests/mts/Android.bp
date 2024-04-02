@@ -43,6 +43,8 @@ android_library {
         "cronet_aml_api_java",
         "cronet_aml_java__testing",
         "cronet_java_tests",
+        "httpclient_api",
+        "httpclient_impl"
     ],
     sdk_version: "module_current",
     min_sdk_version: "30",
