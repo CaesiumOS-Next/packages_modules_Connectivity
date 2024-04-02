@@ -246,6 +246,19 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
                     @Override
                     public void onSocketCreated(@NonNull SocketKey socketKey) {
                         discoveryExecutor.ensureRunningOnHandlerThread();
+                        final int searchInterfaceIndex = searchOptions.getInterfaceIndex();
+                        if (searchOptions.getNetwork() == null
+                                && searchInterfaceIndex > 0
+                                // The interface index in options should only match interfaces that
+                                // do not have any Network; a matching Network should be provided
+                                // otherwise.
+                                && (socketKey.getNetwork() != null
+                                    || socketKey.getInterfaceIndex() != searchInterfaceIndex)) {
+                            sharedLog.i("Skipping " + socketKey + " as ifIndex "
+                                    + searchInterfaceIndex + " was requested.");
+                            return;
+                        }
+
                         // All listeners of the same service types shares the same
                         // MdnsServiceTypeClient.
                         MdnsServiceTypeClient serviceTypeClient =
