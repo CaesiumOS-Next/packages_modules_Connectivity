@@ -137,6 +137,16 @@ public class ThreadIntegrationTest {
         }
     }
 
+    @Test
+    public void udp_appStartEchoServer_udpEchoSuccess() {
+        // Test App ------ thread-wpan ------ End Device
+
+    }
+
     // TODO (b/323300829): add more tests for integration with linux platform and
     // ConnectivityService
+
+    private int startUdpEchoServer() {
+
+    }
 }
