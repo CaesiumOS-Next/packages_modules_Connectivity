@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f139c0f2_241c0925",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-02T05:41:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ba2e88f1_ee5c4779",
+      "revId": "72638cacde12f6c7d76e55546f007c5c2aa66bfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8200f6a5_5864a9b0",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-04-02T02:07:31Z",
       "side": 1,
       "message": "As per ArrayMap documentation, this is actually pretty inefficient and allocates stuff that won\u0027t be deallocated immediately:\n\nhttps://developer.android.com/reference/android/util/ArrayMap#entrySet()\n\nGenerally for ArrayMap using keyAt / valueAt is more efficient for iteration",
+      "range": {
+        "startLine": 551,
+        "startChar": 58,
+        "endLine": 551,
+        "endChar": 66
+      },
+      "revId": "72638cacde12f6c7d76e55546f007c5c2aa66bfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57e19fd6_3fe8c6a6",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-02T05:41:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8200f6a5_5864a9b0",
       "range": {
         "startLine": 551,
         "startChar": 58,
