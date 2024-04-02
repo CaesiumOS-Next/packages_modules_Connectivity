@@ -39,6 +39,30 @@
       },
       "revId": "49ec8b7609ca362e06ac778af854001c751689f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb68626a_4a9a5034",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1372,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-04-02T12:46:25Z",
+      "side": 1,
+      "message": "It is not allowed in Java to static import a method which has the same name in the caller\u0027s class. It\u0027ll has the following compile error:\n```\npackages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java:1364: error: incompatible types: IBpfMap\u003cTetherStatsKey,TetherStatsValue\u003e cannot be converted to\n IndentingPrintWriter\n                dumpRawMap(statsMap, pw);\n                           ^\npackages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java:1372: error: incompatible types: IBpfMap\u003cTether4Key,Tether4Value\u003e cannot be converted to Indenti\nngPrintWriter\n                dumpRawMap(upstreamMap, pw);\n                           ^\nNote: Some messages have been simplified; recompile with -Xdiags:verbose to get full output\n2 errors\n12:27:22 ninja failed with: exit status 1\n\nRBE Stats: down 15.60 GB, up 0 B, 52066 cache hits, 3531 racing locals, 1 non zero exit\n\nThere were 13 actions that completed after the action that failed. See verbose.log.gz for their output.\n\n#### failed to build some targets (13:11 (mm:ss)) ####\n```",
+      "parentUuid": "2373b6d1_09f6166b",
+      "range": {
+        "startLine": 1372,
+        "startChar": 24,
+        "endLine": 1372,
+        "endChar": 34
+      },
+      "revId": "49ec8b7609ca362e06ac778af854001c751689f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
