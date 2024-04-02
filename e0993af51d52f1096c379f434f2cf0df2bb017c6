@@ -59,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f40dfff1_04f52949",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1875,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-02T11:54:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "734d57ad_3315372f",
+      "range": {
+        "startLine": 1875,
+        "startChar": 51,
+        "endLine": 1875,
+        "endChar": 85
+      },
+      "revId": "e0993af51d52f1096c379f434f2cf0df2bb017c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4cb9191_fb98daec",
@@ -82,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0020e0df_e2d7b742",
+        "filename": "tests/cts/net/src/android/net/cts/MdnsTestUtils.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-02T11:54:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4cb9191_fb98daec",
+      "range": {
+        "startLine": 290,
+        "startChar": 0,
+        "endLine": 290,
+        "endChar": 8
+      },
+      "revId": "e0993af51d52f1096c379f434f2cf0df2bb017c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f6af020_5dc99696",
@@ -95,6 +143,24 @@
       "writtenOn": "2024-03-28T04:31:55Z",
       "side": 1,
       "message": "Nit: long line",
+      "revId": "e0993af51d52f1096c379f434f2cf0df2bb017c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5246aa8_1bcaafee",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 2300,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-02T11:54:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f6af020_5dc99696",
       "revId": "e0993af51d52f1096c379f434f2cf0df2bb017c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -170,6 +236,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d68e83e2_909bb385",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 2329,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-02T11:54:01Z",
+      "side": 1,
+      "message": "Got the consensus via offline discussion that we won\u0027t allow registering the key and the service separately in two registrations.",
+      "parentUuid": "74599bbb_8fdcecfb",
+      "range": {
+        "startLine": 2329,
+        "startChar": 24,
+        "endLine": 2329,
+        "endChar": 69
+      },
+      "revId": "e0993af51d52f1096c379f434f2cf0df2bb017c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84f84a4a_639ea817",
@@ -200,6 +290,24 @@
       "writtenOn": "2024-03-28T04:31:55Z",
       "side": 1,
       "message": "Nit: long line",
+      "revId": "e0993af51d52f1096c379f434f2cf0df2bb017c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6aa420cf_e39f2f9a",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 2354,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-02T11:54:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5e04191_7b47b349",
       "revId": "e0993af51d52f1096c379f434f2cf0df2bb017c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
