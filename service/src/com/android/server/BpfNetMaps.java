@@ -23,17 +23,18 @@ import static android.net.BpfNetMapsConstants.DATA_SAVER_DISABLED;
 import static android.net.BpfNetMapsConstants.DATA_SAVER_ENABLED;
 import static android.net.BpfNetMapsConstants.DATA_SAVER_ENABLED_KEY;
 import static android.net.BpfNetMapsConstants.DATA_SAVER_ENABLED_MAP_PATH;
-import static android.net.BpfNetMapsConstants.HAPPY_BOX_MATCH;
 import static android.net.BpfNetMapsConstants.IIF_MATCH;
 import static android.net.BpfNetMapsConstants.INGRESS_DISCARD_MAP_PATH;
 import static android.net.BpfNetMapsConstants.LOCKDOWN_VPN_MATCH;
-import static android.net.BpfNetMapsConstants.PENALTY_BOX_MATCH;
 import static android.net.BpfNetMapsConstants.UID_OWNER_MAP_PATH;
 import static android.net.BpfNetMapsConstants.UID_PERMISSION_MAP_PATH;
 import static android.net.BpfNetMapsConstants.UID_RULES_CONFIGURATION_KEY;
 import static android.net.BpfNetMapsUtils.getMatchByFirewallChain;
 import static android.net.BpfNetMapsUtils.isFirewallAllowList;
 import static android.net.BpfNetMapsUtils.matchToString;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_METERED_ALLOW;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_METERED_DENY_ADMIN;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_METERED_DENY_USER;
 import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
 import static android.net.INetd.PERMISSION_INTERNET;
@@ -445,60 +446,11 @@ public class BpfNetMaps {
         addRule(uid, match, 0 /* iif */, caller);
     }
 
-    /**
-     * Add naughty app bandwidth rule for specific app
-     *
-     * @param uid uid of target app
-     * @throws ServiceSpecificException in case of failure, with an error code indicating the
-     *                                  cause of the failure.
-     */
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    public void addNaughtyApp(final int uid) {
-        throwIfPreT("addNaughtyApp is not available on pre-T devices");
-
-        addRule(uid, PENALTY_BOX_MATCH, "addNaughtyApp");
-    }
-
-    /**
-     * Remove naughty app bandwidth rule for specific app
-     *
-     * @param uid uid of target app
-     * @throws ServiceSpecificException in case of failure, with an error code indicating the
-     *                                  cause of the failure.
-     */
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    public void removeNaughtyApp(final int uid) {
-        throwIfPreT("removeNaughtyApp is not available on pre-T devices");
-
-        removeRule(uid, PENALTY_BOX_MATCH, "removeNaughtyApp");
-    }
-
-    /**
-     * Add nice app bandwidth rule for specific app
-     *
-     * @param uid uid of target app
-     * @throws ServiceSpecificException in case of failure, with an error code indicating the
-     *                                  cause of the failure.
-     */
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    public void addNiceApp(final int uid) {
-        throwIfPreT("addNiceApp is not available on pre-T devices");
-
-        addRule(uid, HAPPY_BOX_MATCH, "addNiceApp");
-    }
-
-    /**
-     * Remove nice app bandwidth rule for specific app
-     *
-     * @param uid uid of target app
-     * @throws ServiceSpecificException in case of failure, with an error code indicating the
-     *                                  cause of the failure.
-     */
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    public void removeNiceApp(final int uid) {
-        throwIfPreT("removeNiceApp is not available on pre-T devices");
-
-        removeRule(uid, HAPPY_BOX_MATCH, "removeNiceApp");
+    private boolean canChainEnabled(final int chain) {
+        // These chains can not be enabled/disabled
+        return chain != FIREWALL_CHAIN_METERED_ALLOW
+                && chain != FIREWALL_CHAIN_METERED_DENY_USER
+                && chain != FIREWALL_CHAIN_METERED_DENY_ADMIN;
     }
 
     /**
@@ -513,6 +465,11 @@ public class BpfNetMaps {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void setChildChain(final int childChain, final boolean enable) {
         throwIfPreT("setChildChain is not available on pre-T devices");
+
+        if (!canChainEnabled(childChain)) {
+            throw new IllegalArgumentException(
+                    "Chain(" + childChain + ") can not be enabled/disabled");
+        }
 
         final long match = getMatchByFirewallChain(childChain);
         try {
