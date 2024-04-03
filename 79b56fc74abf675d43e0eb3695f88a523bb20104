@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "756d72fe_f85851a5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-03T03:59:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e05f5bb_02479563",
+      "range": {
+        "startLine": 244,
+        "startChar": 54,
+        "endLine": 244,
+        "endChar": 80
+      },
+      "revId": "79b56fc74abf675d43e0eb3695f88a523bb20104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b23649f9_6e675237",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-04-02T14:27:35Z",
       "side": 1,
       "message": "set the?",
+      "range": {
+        "startLine": 83,
+        "startChar": 59,
+        "endLine": 83,
+        "endChar": 62
+      },
+      "revId": "79b56fc74abf675d43e0eb3695f88a523bb20104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53dd747e_c3221c93",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSearchOptions.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-03T03:59:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b23649f9_6e675237",
       "range": {
         "startLine": 83,
         "startChar": 59,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "caaf15e0_bc343630",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-03T03:59:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23e431f4_345c4160",
+      "range": {
+        "startLine": 527,
+        "startChar": 8,
+        "endLine": 527,
+        "endChar": 37
+      },
+      "revId": "79b56fc74abf675d43e0eb3695f88a523bb20104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c78a7e52_fb4e7d5b",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-04-02T14:27:35Z",
       "side": 1,
       "message": "Nit: Move the `serviceTypeWithLocalDomain` definition above this line and use it to replace this.",
+      "range": {
+        "startLine": 535,
+        "startChar": 71,
+        "endLine": 535,
+        "endChar": 94
+      },
+      "revId": "79b56fc74abf675d43e0eb3695f88a523bb20104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d2fca21_d0a3e4e3",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-03T03:59:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c78a7e52_fb4e7d5b",
       "range": {
         "startLine": 535,
         "startChar": 71,
