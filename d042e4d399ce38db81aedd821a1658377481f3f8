@@ -101,6 +101,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35388bec_106076a3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-03T08:12:24Z",
+      "side": 1,
+      "message": "SGTM about marking link-local addresses as preferred to be consistent with Linux OTBR behavior.",
+      "parentUuid": "28178bf2_eaeeb444",
+      "range": {
+        "startLine": 283,
+        "startChar": 73,
+        "endLine": 283,
+        "endChar": 84
+      },
+      "revId": "d042e4d399ce38db81aedd821a1658377481f3f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "481eafca_0a73582f",
