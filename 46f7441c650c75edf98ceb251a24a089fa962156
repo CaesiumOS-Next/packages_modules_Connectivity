@@ -73,6 +73,24 @@
       "message": "```suggestion\n     * Executes a ot-ctl command and parses the output to a list of strings.\n```",
       "revId": "46f7441c650c75edf98ceb251a24a089fa962156",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a0c0d88_b9efaa30",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/OtDaemonController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-03T05:56:10Z",
+      "side": 1,
+      "message": "```suggestion\n     * Executes an ot-ctl command and parses the output to a list of strings.\n```",
+      "parentUuid": "6701645f_22eefe00",
+      "revId": "46f7441c650c75edf98ceb251a24a089fa962156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
