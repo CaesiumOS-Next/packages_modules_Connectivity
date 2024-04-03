@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ca03e9c4_2166e10b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-03T06:46:50Z",
+      "side": 1,
+      "message": "One alternative is `addressInfo.isPreferred \u0026\u0026 (!hasOmrAddress || addressInfo.isOmr)`. This might still not be super clear though.\n\nI also wonder what \u0027preferred\u0027 means in Thread spec?",
+      "parentUuid": "b6645191_3cdadc00",
+      "revId": "d042e4d399ce38db81aedd821a1658377481f3f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "481eafca_0a73582f",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 2
