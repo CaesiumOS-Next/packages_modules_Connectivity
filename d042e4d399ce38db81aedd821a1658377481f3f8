@@ -61,6 +61,48 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "114a3de9_c6e139f3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-03T07:48:52Z",
+      "side": 1,
+      "message": "Other than Omr and mesh-local address, there is also fe80 link-local address, they should not be deprecated if there is OmrAddress. So this suggested code would not work.\n\n`addressInfo.isPreferred \u0026\u0026 (!addressInfo.isMeshLocal || !hasOmrAddress)` would work, but I\u0027m not sure if this is easier to follow.\n\nI\u0027ll add some comments to the code.",
+      "parentUuid": "ca03e9c4_2166e10b",
+      "revId": "d042e4d399ce38db81aedd821a1658377481f3f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28178bf2_eaeeb444",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-03T07:48:52Z",
+      "side": 1,
+      "message": "isOmr means if the given address is an active OMR address, has OmrAddress means there is an active OmrAddress. If this given address is mesh-local, we need to know if there is an active Omr address to decide whether the mesh-local address should be deprecated.\n\nNote when OMR prefix is removed, existing OMR address will be deprecated, so it\u0027s `isPreferred` will be set to false, and its `isOmr` will also be false, see https://github.com/openthread/openthread/pull/9585. I\u0027ll rename `isOmr` to `isActiveOmr` to make it clearer.",
+      "parentUuid": "26129336_7ec055c9",
+      "range": {
+        "startLine": 283,
+        "startChar": 73,
+        "endLine": 283,
+        "endChar": 84
+      },
+      "revId": "d042e4d399ce38db81aedd821a1658377481f3f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "481eafca_0a73582f",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 2
