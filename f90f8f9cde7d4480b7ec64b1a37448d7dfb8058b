@@ -79,6 +79,24 @@
       "message": "Shouldn\u0027t this conflict if the record is a SRV record which conflicts with the service name, when there\u0027s no SRV record in the registration but there\u0027s a KEY record ?\n\nBasically, the use-case where the KEY record is used to protect against other services being registered with that name, even if they don\u0027t have a KEY",
       "revId": "f90f8f9cde7d4480b7ec64b1a37448d7dfb8058b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf490008_4f198036",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-03T08:45:51Z",
+      "side": 1,
+      "message": "As per chat, conflictForService currently implements the \"probing\" behavior, where it considers any record that has the service name as a conflict if there\u0027s no matching record. This CL should probably keep that behavior, so that if there\u0027s a KEY record that conflicts with the name, and there\u0027s no known matching key, it\u0027s a conflict.",
+      "parentUuid": "2539dd76_368cf0d4",
+      "revId": "f90f8f9cde7d4480b7ec64b1a37448d7dfb8058b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
