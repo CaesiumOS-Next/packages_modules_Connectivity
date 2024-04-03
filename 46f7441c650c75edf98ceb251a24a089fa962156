@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49d239c6_0e8d575c",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-03T05:30:16Z",
+      "side": 1,
+      "message": "nit:\n```suggestion\n     * Starts a UDP echo server and replies to the first UDP message.\n```",
+      "range": {
+        "startLine": 209,
+        "startChar": 36,
+        "endLine": 209,
+        "endChar": 45
+      },
+      "revId": "46f7441c650c75edf98ceb251a24a089fa962156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3bb57f2_87a05dde",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-03T05:30:16Z",
+      "side": 1,
+      "message": "remove commented code",
+      "revId": "46f7441c650c75edf98ceb251a24a089fa962156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
