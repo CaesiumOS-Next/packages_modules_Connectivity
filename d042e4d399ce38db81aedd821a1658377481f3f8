@@ -125,6 +125,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d8b66c3_9f2bf016",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-03T10:19:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "114a3de9_c6e139f3",
+      "revId": "d042e4d399ce38db81aedd821a1658377481f3f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "481eafca_0a73582f",
@@ -138,6 +156,30 @@
       "writtenOn": "2024-04-03T06:42:08Z",
       "side": 1,
       "message": "You may mark them as final",
+      "range": {
+        "startLine": 282,
+        "startChar": 8,
+        "endLine": 286,
+        "endChar": 0
+      },
+      "revId": "d042e4d399ce38db81aedd821a1658377481f3f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6197599_2ba40bad",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-03T10:19:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "481eafca_0a73582f",
       "range": {
         "startLine": 282,
         "startChar": 8,
@@ -171,6 +213,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "113af459_afca5250",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-03T10:19:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a21de41f_2336ec95",
+      "range": {
+        "startLine": 1181,
+        "startChar": 0,
+        "endLine": 1181,
+        "endChar": 64
+      },
+      "revId": "d042e4d399ce38db81aedd821a1658377481f3f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edd1d49c_57b31a97",
@@ -194,6 +260,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fafa8e7_f73df95f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-03T10:19:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edd1d49c_57b31a97",
+      "range": {
+        "startLine": 1195,
+        "startChar": 16,
+        "endLine": 1195,
+        "endChar": 22
+      },
+      "revId": "d042e4d399ce38db81aedd821a1658377481f3f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa71c214_c82915d0",
@@ -207,6 +297,30 @@
       "writtenOn": "2024-04-03T06:42:08Z",
       "side": 1,
       "message": "You may combine into one line.\n```suggestion\n            newUnicastAddresses.add(newLinkAddress(addressInfo, hasOmrAddress));\n        }\n```",
+      "range": {
+        "startLine": 1198,
+        "startChar": 12,
+        "endLine": 1199,
+        "endChar": 49
+      },
+      "revId": "d042e4d399ce38db81aedd821a1658377481f3f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a8710bc_c0374e01",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1199,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-03T10:19:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa71c214_c82915d0",
       "range": {
         "startLine": 1198,
         "startChar": 12,
