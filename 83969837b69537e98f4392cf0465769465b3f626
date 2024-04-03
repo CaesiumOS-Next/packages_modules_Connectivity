@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df46a1ce_b675c341",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/SetFeatureFlagsRule.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-03T04:10:22Z",
+      "side": 1,
+      "message": "Nit: `@get:Rule` and `val` I think ? (it didn\u0027t work with just @Rule for me IIRC)",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 10
+      },
+      "revId": "83969837b69537e98f4392cf0465769465b3f626",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
