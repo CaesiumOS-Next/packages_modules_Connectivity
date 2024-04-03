@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbfe197b_9e3bf7f6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsKeyRecord.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-03T07:32:01Z",
+      "side": 1,
+      "message": "This seems to assume that the key record is the last record in the packet ? Is there a bug here ?\n\nIf yes, can you make sure some test somewhere exercises this ?",
+      "range": {
+        "startLine": 66,
+        "startChar": 25,
+        "endLine": 66,
+        "endChar": 46
+      },
+      "revId": "f90f8f9cde7d4480b7ec64b1a37448d7dfb8058b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4a977ca_5e838c4b",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-03T07:32:01Z",
+      "side": 1,
+      "message": "Nit: this is only used much further down so may be a bit easier to follow closer to the usage",
+      "revId": "f90f8f9cde7d4480b7ec64b1a37448d7dfb8058b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69cfd440_faa2b92c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-03T07:32:01Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this use the configured nameRecordsTtlMillis ?",
+      "range": {
+        "startLine": 337,
+        "startChar": 32,
+        "endLine": 337,
+        "endChar": 63
+      },
+      "revId": "f90f8f9cde7d4480b7ec64b1a37448d7dfb8058b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2539dd76_368cf0d4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-03T07:32:01Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this conflict if the record is a SRV record which conflicts with the service name, when there\u0027s no SRV record in the registration but there\u0027s a KEY record ?\n\nBasically, the use-case where the KEY record is used to protect against other services being registered with that name, even if they don\u0027t have a KEY",
+      "revId": "f90f8f9cde7d4480b7ec64b1a37448d7dfb8058b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
