@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "502a923a_2ace9594",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1855,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-03T06:55:40Z",
+      "side": 1,
+      "message": "It would be useful to explain why: Keys are used to reserve hostnames or service names while the service is temporarily inactive, so registrations with a key and just a hostname or a service name (but no service info) are acceptable",
+      "range": {
+        "startLine": 1855,
+        "startChar": 71,
+        "endLine": 1855,
+        "endChar": 72
+      },
+      "revId": "24d4dad018d89c358d2f27564a054d5fee354038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79756dda_3501f241",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1856,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-03T06:55:40Z",
+      "side": 1,
+      "message": "Maybe more simple to understand: this is a hostname-only registration (no service or key) but addresses are missing",
+      "range": {
+        "startLine": 1856,
+        "startChar": 13,
+        "endLine": 1856,
+        "endChar": 100
+      },
+      "revId": "24d4dad018d89c358d2f27564a054d5fee354038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04f00415_0e6c9910",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 2405,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-03T06:55:40Z",
+      "side": 1,
+      "message": "Nit: long line",
+      "revId": "24d4dad018d89c358d2f27564a054d5fee354038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
