@@ -131,6 +131,7 @@ public class EthernetTracker {
     // returned when a tethered interface is requested; until then, it remains in client mode. Its
     // current mode is reflected in mTetheringInterfaceMode.
     private String mTetheringInterface;
+    private String mTetheringInterfaceHwAddr;
     private int mTetheringInterfaceMode = INTERFACE_MODE_CLIENT;
     // Tracks whether clients were notified that the tethered interface is available
     private boolean mTetheredInterfaceWasAvailable = false;
@@ -582,6 +583,7 @@ public class EthernetTracker {
         removeInterface(iface);
         if (iface.equals(mTetheringInterface)) {
             mTetheringInterface = null;
+            mTetheringInterfaceHwAddr = null;
         }
         broadcastInterfaceStateChange(iface);
     }
@@ -611,7 +613,10 @@ public class EthernetTracker {
         }
 
         if (getInterfaceMode(iface) == INTERFACE_MODE_SERVER) {
+            // if in server mode, tethering interface not tracked by factory; hw address
+            // must be maintained by EthernetTracker
             maybeUpdateServerModeInterfaceState(iface, true);
+            mTetheringInterfaceHwAddr = config.hwAddr;
             return;
         }
 
