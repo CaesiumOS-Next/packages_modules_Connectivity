@@ -58,6 +58,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4af7922f_8c6c7e05",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-03T14:42:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9d6df64_70dd581b",
+      "revId": "c2ceb8a057d4ba9ac4d7004a1ab902f3d4cfcc79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48bd07ea_17008dfa",
@@ -71,6 +89,30 @@
       "writtenOn": "2024-04-02T17:37:08Z",
       "side": 1,
       "message": "Should we deprecate this API too?",
+      "range": {
+        "startLine": 6141,
+        "startChar": 16,
+        "endLine": 6141,
+        "endChar": 46
+      },
+      "revId": "c2ceb8a057d4ba9ac4d7004a1ab902f3d4cfcc79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc042318_7293825f",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6141,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-03T14:42:27Z",
+      "side": 1,
+      "message": "Adding deprecated annotation is API change that can not be flagged by FlaggedAPI annotation.\nSo let me add todo comment.",
+      "parentUuid": "48bd07ea_17008dfa",
       "range": {
         "startLine": 6141,
         "startChar": 16,
@@ -98,6 +140,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "465bac52_699e0b40",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6157,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-03T14:42:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa21d8e8_32664199",
+      "revId": "c2ceb8a057d4ba9ac4d7004a1ab902f3d4cfcc79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2632633_0c09ddaf",
@@ -111,6 +171,30 @@
       "writtenOn": "2024-04-02T17:37:08Z",
       "side": 1,
       "message": "This doesn\u0027t make sense conceptually. If this firewall was enabled, it would deny metered network to all other apps.\nSo it is effectively only enabled when data saver is enabled.",
+      "range": {
+        "startLine": 450,
+        "startChar": 24,
+        "endLine": 450,
+        "endChar": 52
+      },
+      "revId": "c2ceb8a057d4ba9ac4d7004a1ab902f3d4cfcc79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e24bb0bb_d6770bc8",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-03T14:42:27Z",
+      "side": 1,
+      "message": "That\u0027s true since FIREWALL_CHAIN_METERED_ALLOW is allow list.\nCan we think FIREWALL_CHAIN_METERED_DENY_USER/ADMIN are always enabled and FIREWALL_CHAIN_METERED_ALLOW is enabled when data saver is enabled?\n\nI added comment on this to javadoc of each chains.",
+      "parentUuid": "a2632633_0c09ddaf",
       "range": {
         "startLine": 450,
         "startChar": 24,
