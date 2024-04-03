@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f6d1c206_af6129e2",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-03T05:55:36Z",
+      "side": 1,
+      "message": "```suggestion\n        mFtd \u003d new FullThreadDevice(10 /* nodeId */);\n```",
+      "revId": "46f7441c650c75edf98ceb251a24a089fa962156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "49d239c6_0e8d575c",
         "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
         "patchSetId": 5
@@ -37,6 +54,23 @@
       "writtenOn": "2024-04-03T05:30:16Z",
       "side": 1,
       "message": "remove commented code",
+      "revId": "46f7441c650c75edf98ceb251a24a089fa962156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6701645f_22eefe00",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/OtDaemonController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-03T05:55:36Z",
+      "side": 1,
+      "message": "```suggestion\n     * Executes a ot-ctl command and parses the output to a list of strings.\n```",
       "revId": "46f7441c650c75edf98ceb251a24a089fa962156",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
