@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5beafb7_ffecb2d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-03T21:50:35Z",
+      "side": 1,
+      "message": "Actually I am not convinced this is the best API shape for long term.\n\nIf we\u0027re not shipping the API in this form, can we just mark them as @hide and use constants from NPMS for now? (I don\u0027t know whether Flag allows rolling API back before finalization or not).\n\nI think we can write better APIs by having cleaner separation between \"metered\" restrictions, and NPMS can simply adopt them when they are available.\n\nOnce a SystemAPI is released, we have to support it for a really long time.",
+      "revId": "37daa934593e9b43c25de86bce41784e64e7053d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f29ce64_4f2f5af6",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 26
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-03T21:50:35Z",
+      "side": 1,
+      "message": "So just to confirm, IIUC these should actually be available in the tree (main) as soon as you merge them but because they will not be \"finalized\", NPMS will not be able to refer to them for VIC?\n\nCan calling code use them if the flag is enabled or not at all until after V? assuming we still do SDK extensions and this will go in to the next one.",
+      "range": {
+        "startLine": 59,
+        "startChar": 102,
+        "endLine": 59,
+        "endChar": 130
+      },
+      "revId": "37daa934593e9b43c25de86bce41784e64e7053d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df3b38f0_4fbc4e6e",
+        "filename": "framework/src/android/net/BpfNetMapsConstants.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-03T21:50:35Z",
+      "side": 1,
+      "message": "Oh this reminds me: Can we just remove the FlaggedApi annotation from this one now?",
+      "range": {
+        "startLine": 114,
+        "startChar": 12,
+        "endLine": 114,
+        "endChar": 37
+      },
+      "revId": "37daa934593e9b43c25de86bce41784e64e7053d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
