@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4a51b57_c58c4ce3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-04T04:03:42Z",
+      "side": 1,
+      "message": "If we ship V with NPMS that uses `setUidFirewallRule` with these new chains constants, we anyway need to support this feature until V is EOL.\nSo I don\u0027t think hiding API helps.\n\nCurrently there are two differences between metered chains and other chains\n1. metered chain can not be controlled by setFirewallChainEnabled.\n2. metered chain only applies to metered network.\n\nI think first difference can be removed long term.\nCurrently, metered chains and other chains are used from different bpf progs.\nAnd bpf prog for metered chains are configured on metered network by iptables.\nBut we have a plan to move to single bpf prog and remove iptables.\n\nIf we do this, we should be able to control metered chain by setFirewallChainEnabled.\nEnabling data saver is equivalent to enabling FIREWALL_CHAIN_METERED_ALLOW.\n\nSo as long term, I don\u0027t think these metered chains are so different from others.\nAnd I think this API is ok.",
+      "parentUuid": "f5beafb7_ffecb2d3",
+      "revId": "37daa934593e9b43c25de86bce41784e64e7053d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f29ce64_4f2f5af6",
         "filename": "framework/api/module-lib-current.txt",
         "patchSetId": 26
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c145574b_88fbf0fa",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 26
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-04T04:03:42Z",
+      "side": 1,
+      "message": "This is a constant so you may be able to just use FIREWALL_CHAIN_METERED_ALLOW in NPMS.\nIf this does not work, we need to define NPMS local constants.\n\nNPMS should use new API in V since we want to remove NPMS call from CS and use bpf map info on V+ to have longer soak time.\n\nWe can not enable this flag(\"com.android.net.flags.metered_network_firewall_chain\") on V.\nSo NPMS need to call new API without flag or we need to define another flag for NPMS change.",
+      "parentUuid": "3f29ce64_4f2f5af6",
+      "range": {
+        "startLine": 59,
+        "startChar": 102,
+        "endLine": 59,
+        "endChar": 130
+      },
+      "revId": "37daa934593e9b43c25de86bce41784e64e7053d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df3b38f0_4fbc4e6e",
         "filename": "framework/src/android/net/BpfNetMapsConstants.java",
         "patchSetId": 26
@@ -54,6 +96,30 @@
       "writtenOn": "2024-04-03T21:50:35Z",
       "side": 1,
       "message": "Oh this reminds me: Can we just remove the FlaggedApi annotation from this one now?",
+      "range": {
+        "startLine": 114,
+        "startChar": 12,
+        "endLine": 114,
+        "endChar": 37
+      },
+      "revId": "37daa934593e9b43c25de86bce41784e64e7053d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd07cb9d_96f25b42",
+        "filename": "framework/src/android/net/BpfNetMapsConstants.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-04T04:03:42Z",
+      "side": 1,
+      "message": "I think we need to wait V release at least since we still use FlaggedAPI to control which API should be in V sdk.",
+      "parentUuid": "df3b38f0_4fbc4e6e",
       "range": {
         "startLine": 114,
         "startChar": 12,
