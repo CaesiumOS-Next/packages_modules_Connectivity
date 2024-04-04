@@ -108,7 +108,7 @@ public class EthernetServiceImpl extends IEthernetManager.Stub {
             PermissionUtils.enforceRestrictedNetworkPermission(mContext, TAG);
         }
 
-        return new IpConfiguration(mTracker.getIpConfiguration(iface));
+        return mTracker.getIpConfiguration(iface);
     }
 
     /**
