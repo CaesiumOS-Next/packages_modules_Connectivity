@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f3519ee_6fb3a4b4",
+        "filename": "thread/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-04T11:46:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09e14b46_7282297f",
+      "range": {
+        "startLine": 8,
+        "startChar": 29,
+        "endLine": 8,
+        "endChar": 45
+      },
+      "revId": "817e163753c6f520b7531ed70f53a12b1c95b5bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29c247ff_43b8b5be",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-03-22T06:39:55Z",
       "side": 1,
       "message": "```suggestion\nm ThreadNetworkDemoApp\n```",
+      "revId": "817e163753c6f520b7531ed70f53a12b1c95b5bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf2a8d16_35f7d23a",
+        "filename": "thread/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-04T11:46:10Z",
+      "side": 1,
+      "message": "I removed the guide for the demo because it has already been added to cuttlefish image",
+      "parentUuid": "29c247ff_43b8b5be",
       "revId": "817e163753c6f520b7531ed70f53a12b1c95b5bc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
