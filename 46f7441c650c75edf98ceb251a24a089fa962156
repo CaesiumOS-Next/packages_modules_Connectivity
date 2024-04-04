@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9adc5f4f_d302f28f",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-04T10:54:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6d1c206_af6129e2",
+      "revId": "46f7441c650c75edf98ceb251a24a089fa962156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49d239c6_0e8d575c",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a80f4b18_be644921",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-04T10:54:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49d239c6_0e8d575c",
+      "range": {
+        "startLine": 209,
+        "startChar": 36,
+        "endLine": 209,
+        "endChar": 45
+      },
+      "revId": "46f7441c650c75edf98ceb251a24a089fa962156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3bb57f2_87a05dde",
@@ -54,6 +96,24 @@
       "writtenOn": "2024-04-03T05:30:16Z",
       "side": 1,
       "message": "remove commented code",
+      "revId": "46f7441c650c75edf98ceb251a24a089fa962156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9c91e2d_a486d92f",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-04T10:54:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3bb57f2_87a05dde",
       "revId": "46f7441c650c75edf98ceb251a24a089fa962156",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -89,6 +149,24 @@
       "side": 1,
       "message": "```suggestion\n     * Executes an ot-ctl command and parses the output to a list of strings.\n```",
       "parentUuid": "6701645f_22eefe00",
+      "revId": "46f7441c650c75edf98ceb251a24a089fa962156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6479f33c_ec73e31b",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/OtDaemonController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-04T10:54:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a0c0d88_b9efaa30",
       "revId": "46f7441c650c75edf98ceb251a24a089fa962156",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
