@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1aec23d1_32803c73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-04T19:39:05Z",
+      "side": 1,
+      "message": "(I don\u0027t know if the TV exceptions are needed now, or not...)",
+      "revId": "f0766dc9e19bf3fbce8288731847005c2cd81563",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
