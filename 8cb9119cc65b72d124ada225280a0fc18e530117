@@ -16,6 +16,24 @@
       "message": "I just recall, we need two wavier for GTVS device.\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:hardware/interfaces/wifi/aidl/vts/functional/wifi_sta_iface_aidl_test.cpp;l\u003d149\n\nhttps://docs.partner.android.com/tv/requirements/gtvs/android-14?hl\u003den#a14-vsr-exclusions",
       "revId": "8cb9119cc65b72d124ada225280a0fc18e530117",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c72ef98a_29755a18",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-04T19:38:08Z",
+      "side": 1,
+      "message": "Ack -- will have to solve that at some point, but not in this CL.",
+      "parentUuid": "8954c8d3_8a228a1d",
+      "revId": "8cb9119cc65b72d124ada225280a0fc18e530117",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
