@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6f97793_ada2111e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-04T05:52:10Z",
+      "side": 1,
+      "message": "I agree it can be a hard mess to clean up once we ship NPMS code in V using constants - esp. with various OEM code.\n\n\u003e Enabling data saver is equivalent to enabling FIREWALL_CHAIN_METERED_ALLOW.\n\nI think this is the key piece. If we are going to do this, then I agree we can proceed with this plan for the long term.\n\nThanks for the detailed response.",
+      "parentUuid": "e4a51b57_c58c4ce3",
+      "revId": "37daa934593e9b43c25de86bce41784e64e7053d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f29ce64_4f2f5af6",
