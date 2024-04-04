@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e41830af_6a3a0712",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-04T08:22:47Z",
+      "side": 1,
+      "message": "Hmm yes I think this is useful on production code: it ensures at build time that someone that adds other subclasses of MdnsListener in the future don\u0027t forget to override toString. Do you see a disadvantage for having it in production code ?",
+      "parentUuid": "9e66464f_f818f663",
+      "revId": "161029ce5a375047812e232e1c82c200b4037ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "62d3dc48_d1e0cd47",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 5
@@ -48,6 +66,30 @@
       "writtenOn": "2024-02-13T07:07:12Z",
       "side": 1,
       "message": "Are we better off to make logic cleaner by using \"DiscoveryListener: serviceType\u003d%s\" ?",
+      "range": {
+        "startLine": 360,
+        "startChar": 38,
+        "endLine": 360,
+        "endChar": 40
+      },
+      "revId": "161029ce5a375047812e232e1c82c200b4037ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b8ebe0e_01cd88fe",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-04T08:22:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62d3dc48_d1e0cd47",
       "range": {
         "startLine": 360,
         "startChar": 38,
@@ -81,6 +123,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d160ee30_48a1f3cf",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-04T08:22:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9a86e8e_fff006df",
+      "range": {
+        "startLine": 390,
+        "startChar": 44,
+        "endLine": 390,
+        "endChar": 56
+      },
+      "revId": "161029ce5a375047812e232e1c82c200b4037ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78b1deb7_5e811e56",
@@ -94,6 +160,30 @@
       "writtenOn": "2024-02-13T07:07:12Z",
       "side": 1,
       "message": "same here",
+      "range": {
+        "startLine": 435,
+        "startChar": 45,
+        "endLine": 435,
+        "endChar": 57
+      },
+      "revId": "161029ce5a375047812e232e1c82c200b4037ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b7df5d6_7f167450",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-04T08:22:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78b1deb7_5e811e56",
       "range": {
         "startLine": 435,
         "startChar": 45,
@@ -127,6 +217,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ccb1610_d105fc45",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2546,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-04T08:22:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef04c3ba_92efa19f",
+      "range": {
+        "startLine": 2546,
+        "startChar": 20,
+        "endLine": 2546,
+        "endChar": 27
+      },
+      "revId": "161029ce5a375047812e232e1c82c200b4037ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdc0fc19_86ab9c6b",
@@ -140,6 +254,30 @@
       "writtenOn": "2024-02-13T07:07:12Z",
       "side": 1,
       "message": "here should be serviceFullname\u003d%s",
+      "range": {
+        "startLine": 2680,
+        "startChar": 36,
+        "endLine": 2680,
+        "endChar": 52
+      },
+      "revId": "161029ce5a375047812e232e1c82c200b4037ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82c801e7_40f9e9a7",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2680,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-04T08:22:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdc0fc19_86ab9c6b",
       "range": {
         "startLine": 2680,
         "startChar": 36,
