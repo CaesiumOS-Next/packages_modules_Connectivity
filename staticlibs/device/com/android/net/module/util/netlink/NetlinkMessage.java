@@ -150,6 +150,10 @@ public class NetlinkMessage {
                 return (NetlinkMessage) RtNetlinkNeighborMessage.parse(nlmsghdr, byteBuffer);
             case NetlinkConstants.RTM_NEWNDUSEROPT:
                 return (NetlinkMessage) NduseroptMessage.parse(nlmsghdr, byteBuffer);
+            case NetlinkConstants.RTM_NEWADDRLABEL:
+            case NetlinkConstants.RTM_DELADDRLABEL:
+            case NetlinkConstants.RTM_GETADDRLABEL:
+                return RtNetlinkIfaddrlabelMessage.parse(nlmsghdr, byteBuffer);
             default: return null;
         }
     }

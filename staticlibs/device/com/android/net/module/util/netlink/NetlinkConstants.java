@@ -125,6 +125,9 @@ public class NetlinkConstants {
     public static final short RTM_GETRULE                   = 34;
     public static final short RTM_NEWPREFIX                 = 52;
     public static final short RTM_NEWNDUSEROPT              = 68;
+    public static final short RTM_NEWADDRLABEL              = 72;
+    public static final short RTM_DELADDRLABEL              = 73;
+    public static final short RTM_GETADDRLABEL              = 74;
 
     // Netfilter netlink message types are presented by two bytes: high byte subsystem and
     // low byte operation. See the macro NFNL_SUBSYS_ID and NFNL_MSG_TYPE in
@@ -212,6 +215,9 @@ public class NetlinkConstants {
             case RTM_GETRULE: return "RTM_GETRULE";
             case RTM_NEWPREFIX: return "RTM_NEWPREFIX";
             case RTM_NEWNDUSEROPT: return "RTM_NEWNDUSEROPT";
+            case RTM_NEWADDRLABEL: return "RTM_NEWADDRLABEL";
+            case RTM_DELADDRLABEL: return "RTM_DELADDRLABEL";
+            case RTM_GETADDRLABEL: return "RTM_GETADDRLABEL";
             default: return "unknown RTM type: " + String.valueOf(nlmType);
         }
     }
