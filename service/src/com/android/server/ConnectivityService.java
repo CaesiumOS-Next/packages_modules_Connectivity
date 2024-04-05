@@ -485,8 +485,19 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private final boolean mBackgroundFirewallChainEnabled;
 
     /**
-     * Stale copy of uid blocked reasons provided by NPMS. As long as they are accessed only in
-     * internal handler thread, they don't need a lock.
+     * Uids ConnectivityService tracks of to send blocked reasons callbacks.
+     * This is based on registered network requests.
+     * Key is uid, value is count of uid.
+     */
+    @GuardedBy("mBlockedReasonsTrackingUids")
+    private final SparseIntArray mBlockedReasonsTrackingUids = new SparseIntArray();
+
+    /**
+     * On V+, stale copy of uid blocked reasons based on bpf map contents. Handler thread must use
+     * this information instead of checking the bpf map contents.
+     *
+     * Before V, stale copy of uid blocked reasons provided by NPMS. As long as they are accessed
+     * only in internal handler thread, they don't need a lock.
      */
     private final SparseIntArray mUidBlockedReasons = new SparseIntArray();
 
@@ -789,8 +800,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     /**
      * Event to specify that reasons for why an uid is blocked changed.
-     * arg1 = uid
-     * arg2 = blockedReasons
+     * obj = SparseIntArray (key = uid, value = blockedReasons)
      */
     private static final int EVENT_UID_BLOCKED_REASON_CHANGED = 51;
 
@@ -1821,7 +1831,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // To ensure uid state is synchronized with Network Policy, register for
         // NetworkPolicyManagerService events must happen prior to NetworkPolicyManagerService
         // reading existing policy from disk.
-        mPolicyManager.registerNetworkPolicyCallback(null, mPolicyCallback);
+        // On V+, ConnectivityService updates blocked reasons when firewall chain and data saver
+        // status is updated based on bpf map contents instead of receiving callbacks from NPMS
+        if (!mDeps.isAtLeastV()) {
+            mPolicyManager.registerNetworkPolicyCallback(null, mPolicyCallback);
+        }
 
         final PowerManager powerManager = (PowerManager) context.getSystemService(
                 Context.POWER_SERVICE);
@@ -3304,14 +3318,35 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private final NetworkPolicyCallback mPolicyCallback = new NetworkPolicyCallback() {
         @Override
         public void onUidBlockedReasonChanged(int uid, @BlockedReason int blockedReasons) {
+            if (mDeps.isAtLeastV()) {
+                Log.wtf(TAG, "Received unexpected NetworkPolicy callback on V+");
+                return;
+            }
+            SparseIntArray uidBlockedReasons = new SparseIntArray();
+            uidBlockedReasons.put(uid, blockedReasons);
             mHandler.sendMessage(mHandler.obtainMessage(EVENT_UID_BLOCKED_REASON_CHANGED,
-                    uid, blockedReasons));
+                    uidBlockedReasons));
         }
     };
 
-    private void handleUidBlockedReasonChanged(int uid, @BlockedReason int blockedReasons) {
-        maybeNotifyNetworkBlockedForNewState(uid, blockedReasons);
-        setUidBlockedReasons(uid, blockedReasons);
+    @VisibleForTesting
+    void handleUidBlockedReasonChanged(SparseIntArray uidBlockedReasons) {
+        for (int i = 0; i < uidBlockedReasons.size(); i++) {
+            final int uid = uidBlockedReasons.keyAt(i);
+            final int blockedReasons = uidBlockedReasons.valueAt(i);
+            if (mDeps.isAtLeastV()) {
+                synchronized (mBlockedReasonsTrackingUids) {
+                    if (mBlockedReasonsTrackingUids.get(uid) == 0) {
+                        // This uid is not tracked anymore.
+                        // This can happen if the network request is unregistered while
+                        // EVENT_UID_BLOCKED_REASON_CHANGED is posted but not processed yet.
+                        continue;
+                    }
+                }
+            }
+            maybeNotifyNetworkBlockedForNewState(uid, blockedReasons);
+            setUidBlockedReasons(uid, blockedReasons);
+        }
     }
 
     static final class UidFrozenStateChangedArgs {
@@ -5718,6 +5753,26 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mNetworkRequestInfoLogs.log("RELEASE " + nri);
         checkNrisConsistency(nri);
 
+        if (mDeps.isAtLeastV() && nri.mMessenger != null) {
+            // Incrementing counter is done in the binder thread but decrementing counter needs to
+            // be done here since removing network request can be happened without user API calls
+            // (e.g. request timeout).
+            synchronized (mBlockedReasonsTrackingUids) {
+                if (!nri.mUidTrackedForBlockedReasons) {
+                    Log.wtf(TAG, "Nri is not tracked for sending blocked reasons: " + nri);
+                } else {
+                    nri.mUidTrackedForBlockedReasons = false;
+                    final int count = mBlockedReasonsTrackingUids.get(nri.mAsUid);
+                    if (count == 1) {
+                        mBlockedReasonsTrackingUids.delete(nri.mAsUid);
+                        mUidBlockedReasons.delete(nri.mAsUid);
+                    } else {
+                        mBlockedReasonsTrackingUids.put(nri.mAsUid, count - 1);
+                    }
+                }
+            }
+        }
+
         if (null != nri.getActiveRequest()) {
             if (!nri.getActiveRequest().isListen()) {
                 removeSatisfiedNetworkRequestFromNetwork(nri);
@@ -6482,7 +6537,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                             (PrivateDnsValidationUpdate) msg.obj);
                     break;
                 case EVENT_UID_BLOCKED_REASON_CHANGED:
-                    handleUidBlockedReasonChanged(msg.arg1, msg.arg2);
+                    handleUidBlockedReasonChanged((SparseIntArray) msg.obj);
                     break;
                 case EVENT_SET_REQUIRE_VPN_FOR_UIDS:
                     handleSetRequireVpnForUids(toBool(msg.arg1), (UidRange[]) msg.obj);
@@ -7347,6 +7402,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // maximum limit of registered callbacks per UID.
         final int mAsUid;
 
+        // Flag to indicate that uid of this nri is tracked for onBlockedStatusChanged callback.
+        // This is used as a safeguard to avoid double counting or leaking
+        boolean mUidTrackedForBlockedReasons;
+
         // Preference order of this request.
         final int mPreferenceOrder;
 
@@ -7560,7 +7619,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     + " " + mRequests
                     + (mPendingIntent == null ? "" : " to trigger " + mPendingIntent)
                     + " callback flags: " + mCallbackFlags
-                    + " order: " + mPreferenceOrder;
+                    + " order: " + mPreferenceOrder
+                    + " isUidTracked: " + mUidTrackedForBlockedReasons;
         }
     }
 
@@ -7790,10 +7850,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 (!networkCapabilities.equalRequestableCapabilities(defaultNc))) {
             throw new IllegalStateException(
                     "TRACK_SYSTEM_DEFAULT capabilities don't match default request: "
-                    + networkCapabilities + " vs. " + defaultNc);
+                            + networkCapabilities + " vs. " + defaultNc);
         }
 
-        mHandler.sendMessage(mHandler.obtainMessage(EVENT_REGISTER_NETWORK_REQUEST, nri));
+        registerNetworkRequest(EVENT_REGISTER_NETWORK_REQUEST, nri);
         if (timeoutMs > 0) {
             mHandler.sendMessageDelayed(mHandler.obtainMessage(EVENT_TIMEOUT_NETWORK_REQUEST,
                     nri), timeoutMs);
@@ -8042,6 +8102,43 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return true;
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private void trackUidAndMaybeUpdateBlockedReasons(final NetworkRequestInfo nri) {
+        final int uid = nri.mAsUid;
+        synchronized (mBlockedReasonsTrackingUids) {
+            if (nri.mUidTrackedForBlockedReasons) {
+                Log.wtf(TAG, "Nri is already tracked for sending blocked reasons: " + nri);
+                return;
+            }
+            nri.mUidTrackedForBlockedReasons = true;
+            final int count = mBlockedReasonsTrackingUids.get(uid);
+            if (count == 0) {
+                final SparseIntArray uidBlockedReasons = new SparseIntArray();
+                uidBlockedReasons.put(uid,
+                        mBpfNetMaps.getUidNetworkingBlockedReasons(uid));
+                mHandler.sendMessage(mHandler.obtainMessage(EVENT_UID_BLOCKED_REASON_CHANGED,
+                        uidBlockedReasons));
+            }
+            mBlockedReasonsTrackingUids.put(uid, count + 1);
+        }
+    }
+
+    private void registerNetworkRequest(final int event, NetworkRequestInfo nri) {
+        if (mDeps.isAtLeastV() && nri.mMessenger != null) {
+            // If nri.mMessenger is null, CS does not need to track the uid since CS does not call
+            // onBlockedStatusCallback for this uid. CS internal network requests are not tracked
+            // since their mMessenger is null (e.g. mobile always on).
+            // trackUidAndMaybeUpdateBlockedReasons needs to be called before posting the register
+            // network request event since ConnectivityService needs to know the blockedReasons to
+            // send Available callbacks.
+            // Also, the register network request event must be posted once
+            // trackUidAndMaybeUpdateBlockedReasons is called, otherwise the counter for uid will
+            // never be decremented.
+            trackUidAndMaybeUpdateBlockedReasons(nri);
+        }
+        mHandler.sendMessage(mHandler.obtainMessage(event, nri));
+    }
+
     @Override
     public NetworkRequest listenForNetwork(NetworkCapabilities networkCapabilities,
             Messenger messenger, IBinder binder,
@@ -8071,7 +8168,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         callingAttributionTag);
         if (VDBG) log("listenForNetwork for " + nri);
 
-        mHandler.sendMessage(mHandler.obtainMessage(EVENT_REGISTER_NETWORK_LISTENER, nri));
+        registerNetworkRequest(EVENT_REGISTER_NETWORK_LISTENER, nri);
         return networkRequest;
     }
 
@@ -13488,10 +13585,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
             throw new IllegalStateException(e);
         }
 
-        try {
-            mBpfNetMaps.setDataSaverEnabled(enable);
-        } catch (ServiceSpecificException | UnsupportedOperationException e) {
-            Log.e(TAG, "Failed to set data saver " + enable + " : " + e);
+        synchronized (mBlockedReasonsTrackingUids) {
+            try {
+                mBpfNetMaps.setDataSaverEnabled(enable);
+            } catch (ServiceSpecificException | UnsupportedOperationException e) {
+                Log.e(TAG, "Failed to set data saver " + enable + " : " + e);
+            }
+
+            if (mDeps.isAtLeastV()) {
+                updateTrackingUidsBlockedReasons();
+            }
         }
     }
 
@@ -13527,10 +13630,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
             throw new IllegalArgumentException("setUidFirewallRule with invalid rule: " + rule);
         }
 
-        try {
-            mBpfNetMaps.setUidRule(chain, uid, firewallRule);
-        } catch (ServiceSpecificException e) {
-            throw new IllegalStateException(e);
+        synchronized (mBlockedReasonsTrackingUids) {
+            try {
+                mBpfNetMaps.setUidRule(chain, uid, firewallRule);
+            } catch (ServiceSpecificException e) {
+                throw new IllegalStateException(e);
+            }
+            if (mDeps.isAtLeastV() && mBlockedReasonsTrackingUids.get(uid) != 0) {
+                final SparseIntArray uidBlockedReasons = new SparseIntArray();
+                uidBlockedReasons.put(uid, mBpfNetMaps.getUidNetworkingBlockedReasons(uid));
+                mHandler.sendMessage(mHandler.obtainMessage(EVENT_UID_BLOCKED_REASON_CHANGED,
+                        uidBlockedReasons));
+            }
         }
     }
 
@@ -13608,10 +13719,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     "Chain (" + chain + ") can not be controlled by setFirewallChainEnabled");
         }
 
-        try {
-            mBpfNetMaps.setChildChain(chain, enable);
-        } catch (ServiceSpecificException e) {
-            throw new IllegalStateException(e);
+        synchronized (mBlockedReasonsTrackingUids) {
+            try {
+                mBpfNetMaps.setChildChain(chain, enable);
+            } catch (ServiceSpecificException e) {
+                throw new IllegalStateException(e);
+            }
+            if (mDeps.isAtLeastV()) {
+                updateTrackingUidsBlockedReasons();
+            }
         }
 
         if (mDeps.isAtLeastU() && enable) {
@@ -13620,6 +13736,19 @@ public class ConnectivityService extends IConnectivityManager.Stub
             } catch (ErrnoException | SocketException | InterruptedIOException e) {
                 Log.e(TAG, "Failed to close sockets after enabling chain (" + chain + "): " + e);
             }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU) @GuardedBy("mBlockedReasonsTrackingUids")
+    private void updateTrackingUidsBlockedReasons() {
+        if (mBlockedReasonsTrackingUids.size() != 0) {
+            SparseIntArray uidBlockedReasons = new SparseIntArray();
+            for (int i = 0; i < mBlockedReasonsTrackingUids.size(); i++) {
+                final int uid = mBlockedReasonsTrackingUids.keyAt(i);
+                uidBlockedReasons.put(uid, mBpfNetMaps.getUidNetworkingBlockedReasons(uid));
+            }
+            mHandler.sendMessage(mHandler.obtainMessage(EVENT_UID_BLOCKED_REASON_CHANGED,
+                    uidBlockedReasons));
         }
     }
 
@@ -13647,7 +13776,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return;
         }
 
-        mBpfNetMaps.replaceUidChain(chain, uids);
+        synchronized (mBlockedReasonsTrackingUids) {
+            mBpfNetMaps.replaceUidChain(chain, uids);
+
+            if (mDeps.isAtLeastV()) {
+                updateTrackingUidsBlockedReasons();
+            }
+        }
     }
 
     @Override
