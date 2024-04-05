@@ -384,6 +384,7 @@ import android.util.Log;
 import android.util.Pair;
 import android.util.Range;
 import android.util.SparseArray;
+import android.util.SparseIntArray;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
@@ -1740,7 +1741,14 @@ public class ConnectivityServiceTest {
 
     private void setBlockedReasonChanged(int blockedReasons) {
         mBlockedReasons = blockedReasons;
-        mPolicyCallback.onUidBlockedReasonChanged(Process.myUid(), blockedReasons);
+        if (mDeps.isAtLeastV()) {
+            SparseIntArray uidBlockedReasons = new SparseIntArray();
+            uidBlockedReasons.put(Process.myUid(), blockedReasons);
+            visibleOnHandlerThread(mCsHandlerThread.getThreadHandler(),
+                    () -> mService.handleUidBlockedReasonChanged(uidBlockedReasons));
+        } else {
+            mPolicyCallback.onUidBlockedReasonChanged(Process.myUid(), blockedReasons);
+        }
     }
 
     private Nat464Xlat getNat464Xlat(NetworkAgentWrapper mna) {
@@ -1921,11 +1929,15 @@ public class ConnectivityServiceTest {
         mService.mLingerDelayMs = TEST_LINGER_DELAY_MS;
         mService.mNascentDelayMs = TEST_NASCENT_DELAY_MS;
 
-        final ArgumentCaptor<NetworkPolicyCallback> policyCallbackCaptor =
-                ArgumentCaptor.forClass(NetworkPolicyCallback.class);
-        verify(mNetworkPolicyManager).registerNetworkPolicyCallback(any(),
-                policyCallbackCaptor.capture());
-        mPolicyCallback = policyCallbackCaptor.getValue();
+        if (mDeps.isAtLeastV()) {
+            mPolicyCallback = null;
+        } else {
+            final ArgumentCaptor<NetworkPolicyCallback> policyCallbackCaptor =
+                    ArgumentCaptor.forClass(NetworkPolicyCallback.class);
+            verify(mNetworkPolicyManager).registerNetworkPolicyCallback(any(),
+                    policyCallbackCaptor.capture());
+            mPolicyCallback = policyCallbackCaptor.getValue();
+        }
 
         // Create local CM before sending system ready so that we can answer
         // getSystemService() correctly.
