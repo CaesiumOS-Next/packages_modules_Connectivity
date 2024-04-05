@@ -894,6 +894,18 @@ public class BpfNetMaps {
                 sConfigurationMap, sUidOwnerMap, sDataSaverEnabledMap);
     }
 
+    /**
+     * Return whether the network access of specified uid is blocked on metered networks
+     *
+     * @param uid The target uid.
+     * @return True if the network access is blocked on metered networks. Otherwise, false
+     */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    public boolean isUidRestrictedOnMeteredNetworks(final int uid) {
+        final int blockedReasons = getUidNetworkingBlockedReasons(uid);
+        return (blockedReasons & BLOCKED_METERED_REASON_MASK) != BLOCKED_REASON_NONE;
+    }
+
     /** Register callback for statsd to pull atom. */
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void setPullAtomCallback(final Context context) {
