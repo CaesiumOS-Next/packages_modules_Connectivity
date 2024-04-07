@@ -59,6 +59,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -1223,6 +1224,11 @@ public class MdnsRecordRepository {
             return false;
         }
 
+        // It cannot be a hostname conflict because not record is registered with the hostname.
+        if (registration.hostKeyRecord == null && registration.addressRecords.isEmpty()) {
+            return false;
+        }
+
         // The record's name cannot be registered by NsdManager so it's not a conflict.
         if (record.getName().length != 2 || !record.getName()[1].equals(LOCAL_TLD)) {
             return false;
@@ -1232,6 +1238,12 @@ public class MdnsRecordRepository {
         if (!MdnsUtils.equalsIgnoreDnsCase(
                 record.getName()[0], registration.serviceInfo.getHostname())) {
             return false;
+        }
+
+        // Per RFC 6762 8.1, when a record is being probed, any answer containing a record with that
+        // name, of any type, MUST be considered a conflicting response.
+        if (registration.isProbing && !ownsHostname(registration.serviceInfo.getHostname())) {
+            return true;
         }
 
         if (record instanceof MdnsKeyRecord) {
@@ -1320,7 +1332,30 @@ public class MdnsRecordRepository {
     }
 
     /**
+     * Return whether the repository is owning the hostname.
+     *
+     * <p>That is, there's any record using the hostname which has finished probing.
+     */
+    private boolean ownsHostname(String hostname) {
+        AtomicBoolean found = new AtomicBoolean(false);
+        forEachActiveServiceRegistrationWithHostname(
+                hostname,
+                (id, registration) -> {
+                    if (registration.isProbing) {
+                        return;
+                    }
+                    if (registration.hostKeyRecord == null
+                            && registration.addressRecords.isEmpty()) {
+                        return;
+                    }
+                    found.set(true);
+                });
+        return found.get();
+    }
+
+    /**
      * (Re)set a service to the probing state.
+     *
      * @return The {@link MdnsProber.ProbingInfo} to send for probing.
      */
     @Nullable
