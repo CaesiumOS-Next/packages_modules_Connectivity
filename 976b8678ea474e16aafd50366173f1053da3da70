@@ -22,6 +22,30 @@
       },
       "revId": "976b8678ea474e16aafd50366173f1053da3da70",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "395cbef7_f0538d0c",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-07T07:05:47Z",
+      "side": 1,
+      "message": "Thanks!\nIt makes sense to test the address removal cases but this is out of the scope of this CL. I added TODO for this.",
+      "parentUuid": "356eceda_43853369",
+      "range": {
+        "startLine": 167,
+        "startChar": 19,
+        "endLine": 168,
+        "endChar": 88
+      },
+      "revId": "976b8678ea474e16aafd50366173f1053da3da70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
