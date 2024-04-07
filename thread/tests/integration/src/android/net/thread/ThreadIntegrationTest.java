@@ -21,6 +21,7 @@ import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_LEADER;
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_STOPPED;
 import static android.net.thread.utils.IntegrationTestUtils.CALLBACK_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.RESTART_JOIN_TIMEOUT;
+import static android.net.thread.utils.IntegrationTestUtils.waitFor;
 
 import static com.android.compatibility.common.util.SystemUtil.runShellCommand;
 import static com.android.compatibility.common.util.SystemUtil.runShellCommandOrThrow;
@@ -53,6 +54,7 @@ import java.util.List;
 @RequiresThreadFeature
 @RunWith(AndroidJUnit4.class)
 public class ThreadIntegrationTest {
+    private static final Duration TUN_ADDR_UPDATE_TIMEOUT = Duration.ofSeconds(1);
     // A valid Thread Active Operational Dataset generated from OpenThread CLI "dataset init new".
     private static final byte[] DEFAULT_DATASET_TLVS =
             base16().decode(
@@ -133,12 +135,15 @@ public class ThreadIntegrationTest {
     public void tunInterface_joinedNetwork_otAddressesAddedToTunInterface() throws Exception {
         mController.joinAndWait(DEFAULT_DATASET);
 
-        String ifconfig = runShellCommand("ifconfig thread-wpan");
         List<Inet6Address> otAddresses = mOtCtl.getAddresses();
         assertThat(otAddresses).isNotEmpty();
-        for (Inet6Address otAddress : otAddresses) {
-            assertThat(ifconfig).contains(otAddress.getHostAddress());
-        }
+        waitFor(
+                () -> {
+                    String ifconfig = runShellCommand("ifconfig thread-wpan");
+                    return otAddresses.stream()
+                            .allMatch(addr -> ifconfig.contains(addr.getHostAddress()));
+                },
+                TUN_ADDR_UPDATE_TIMEOUT);
     }
 
     @Test
