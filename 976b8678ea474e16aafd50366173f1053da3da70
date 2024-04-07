@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "356eceda_43853369",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-07T04:58:14Z",
+      "side": 1,
+      "message": "This doesn\u0027t verify the opposite direction: all addresses on the TUN can be found in `ot-ctl ipdaddr`. Given that parsing `ifconfig` result can be hard, maybe we can do it in a future CL.",
+      "range": {
+        "startLine": 167,
+        "startChar": 19,
+        "endLine": 168,
+        "endChar": 88
+      },
+      "revId": "976b8678ea474e16aafd50366173f1053da3da70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
