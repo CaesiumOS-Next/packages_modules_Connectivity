@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b0437727_541cf36c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1288,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-08T06:22:16Z",
+      "side": 1,
+      "message": "I don\u0027t think I made a test case marking this scenario as a conflict. Could you elaborate?",
+      "parentUuid": "faea0f54_f03cdf51",
+      "range": {
+        "startLine": 1288,
+        "startChar": 35,
+        "endLine": 1288,
+        "endChar": 74
+      },
+      "revId": "ec824d015a6d9af0215eb72fdbe5753943f760f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b508c24f_28e40685",
         "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
         "patchSetId": 1
@@ -60,6 +84,30 @@
       "writtenOn": "2024-04-08T03:02:10Z",
       "side": 1,
       "message": "Also here, this shouldn\u0027t be a conflict during probing either right ?",
+      "range": {
+        "startLine": 1329,
+        "startChar": 8,
+        "endLine": 1329,
+        "endChar": 79
+      },
+      "revId": "ec824d015a6d9af0215eb72fdbe5753943f760f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64f49dae_7b91ad96",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1329,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-08T06:22:16Z",
+      "side": 1,
+      "message": "`testGetConflictingServices_customHostsReplyHasIdenticalHosts_noConflict` \n\nThis is not a test case asserting they have a conflict. Could you elaborate?",
+      "parentUuid": "b508c24f_28e40685",
       "range": {
         "startLine": 1329,
         "startChar": 8,
