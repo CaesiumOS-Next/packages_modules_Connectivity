@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "498332b3_171f0add",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-08T05:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e457a94_15938e32",
+      "revId": "2b0c0e541d953b29cb7518e982219391da1f0a26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6eb8521_3d6e90ae",
@@ -64,6 +82,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7845ff8_e15e65aa",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-08T05:34:45Z",
+      "side": 1,
+      "message": "\"results from the TrafficStats#get* APIs may be up to a few seconds late\" might be slightly misleading since we are not giving an asynchronize callback later, we still return a result immediately but it is an old one.\nRephrased see if it meets your expectation.",
+      "parentUuid": "c05138f8_1fc56c3d",
+      "range": {
+        "startLine": 103,
+        "startChar": 46,
+        "endLine": 103,
+        "endChar": 52
+      },
+      "revId": "2b0c0e541d953b29cb7518e982219391da1f0a26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01ae65be_9c50476a",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-08T05:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6eb8521_3d6e90ae",
+      "range": {
+        "startLine": 103,
+        "startChar": 53,
+        "endLine": 103,
+        "endChar": 59
+      },
+      "revId": "2b0c0e541d953b29cb7518e982219391da1f0a26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a67dd62b_380b350c",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-04-01T06:03:45Z",
       "side": 1,
       "message": "So in practice, always cause stats to be recalculated ?\nAlso may want to mention this affects performance, otherwise it sounds like targeting an old SDK is \"better\"",
+      "range": {
+        "startLine": 107,
+        "startChar": 28,
+        "endLine": 107,
+        "endChar": 29
+      },
+      "revId": "2b0c0e541d953b29cb7518e982219391da1f0a26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe7ad53f_f6fcc6e4",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-08T05:34:45Z",
+      "side": 1,
+      "message": "No this doesn\u0027t affects performance I think.\nEnabling cache is in the consideration for security.\nAnd disable cache for older platform is in the consideration of backward compatibility, which is documented above.",
+      "parentUuid": "a67dd62b_380b350c",
       "range": {
         "startLine": 107,
         "startChar": 28,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91987b7f_489fc3d4",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-08T05:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d19975e_f875eb15",
+      "range": {
+        "startLine": 110,
+        "startChar": 5,
+        "endLine": 110,
+        "endChar": 7
+      },
+      "revId": "2b0c0e541d953b29cb7518e982219391da1f0a26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f53b1ba8_709d1440",
@@ -133,6 +247,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfbe151a_d9c1e6ca",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2095,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-08T05:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f53b1ba8_709d1440",
+      "range": {
+        "startLine": 2095,
+        "startChar": 16,
+        "endLine": 2095,
+        "endChar": 19
+      },
+      "revId": "2b0c0e541d953b29cb7518e982219391da1f0a26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50d041ba_169dcc6c",
@@ -146,6 +284,30 @@
       "writtenOn": "2024-04-01T07:05:17Z",
       "side": 1,
       "message": "It\u0027s ok to set compat change status from annotation.\nBut compat change is read everytime in getStats methods.\nSo, test can set compat change in deps just before calling getStats APIs.\nAnd this should be enough.\n\nmSupportTrafficStatsRateLimitCache is loaded from constructor of NetworkStatsService.\nAnd test can not change the flag state after constructing NetworkStatsService.\nSo we need annotation to set flag value before construction.",
+      "range": {
+        "startLine": 380,
+        "startChar": 4,
+        "endLine": 380,
+        "endChar": 5
+      },
+      "revId": "2b0c0e541d953b29cb7518e982219391da1f0a26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fdbdc5f_1b19fcc6",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-08T05:34:45Z",
+      "side": 1,
+      "message": "Done, I misunderstood your comment at https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2894584/comment/217bb77b_b1be4e22/\nIt should work for you now.",
+      "parentUuid": "50d041ba_169dcc6c",
       "range": {
         "startLine": 380,
         "startChar": 4,
