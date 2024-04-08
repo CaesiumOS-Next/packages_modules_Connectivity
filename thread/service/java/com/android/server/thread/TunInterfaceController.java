@@ -21,20 +21,15 @@ import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.RouteInfo;
-import android.net.util.SocketUtils;
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
-import android.system.ErrnoException;
 import android.system.Os;
-import android.system.OsConstants;
 import android.util.Log;
 
 import com.android.net.module.util.netlink.NetlinkUtils;
-import com.android.net.module.util.netlink.RtNetlinkAddressMessage;
 
-import java.io.FileDescriptor;
 import java.io.IOException;
-import java.io.InterruptedIOException;
+import java.net.Inet6Address;
 
 /** Controller for virtual/tunnel network interfaces. */
 public class TunInterfaceController {
@@ -49,7 +44,6 @@ public class TunInterfaceController {
     private final String mIfName;
     private final LinkProperties mLinkProperties = new LinkProperties();
     private ParcelFileDescriptor mParcelTunFd;
-    private FileDescriptor mNetlinkSocket;
     private static int sNetlinkSeqNo = 0;
 
     /** Creates a new {@link TunInterfaceController} instance for given interface. */
@@ -71,22 +65,15 @@ public class TunInterfaceController {
      */
     public void createTunInterface() throws IOException {
         mParcelTunFd = ParcelFileDescriptor.adoptFd(nativeCreateTunInterface(mIfName, MTU));
-        try {
-            mNetlinkSocket = NetlinkUtils.netlinkSocketForProto(OsConstants.NETLINK_ROUTE);
-        } catch (ErrnoException e) {
-            throw new IOException("Failed to create netlink socket", e);
-        }
     }
 
     public void destroyTunInterface() {
         try {
             mParcelTunFd.close();
-            SocketUtils.closeSocket(mNetlinkSocket);
         } catch (IOException e) {
             // Should never fail
         }
         mParcelTunFd = null;
-        mNetlinkSocket = null;
     }
 
     /** Returns the FD of the tunnel interface. */
@@ -136,20 +123,14 @@ public class TunInterfaceController {
                             0L);
         }
 
-        byte[] message =
-                RtNetlinkAddressMessage.newRtmNewAddressMessage(
-                        sNetlinkSeqNo++,
-                        address.getAddress(),
-                        (short) address.getPrefixLength(),
-                        address.getFlags(),
-                        (byte) address.getScope(),
-                        Os.if_nametoindex(mIfName),
-                        validLifetimeSeconds,
-                        preferredLifetimeSeconds);
-        try {
-            Os.write(mNetlinkSocket, message, 0, message.length);
-        } catch (ErrnoException | InterruptedIOException e) {
-            Log.e(TAG, "Failed to add address " + address, e);
+        if (!NetlinkUtils.sendRtmNewAddressRequest(
+                Os.if_nametoindex(mIfName),
+                address.getAddress(),
+                (short) address.getPrefixLength(),
+                address.getFlags(),
+                (byte) address.getScope(),
+                preferredLifetimeSeconds,
+                validLifetimeSeconds)) {
             return;
         }
         mLinkProperties.addLinkAddress(address);
@@ -159,23 +140,16 @@ public class TunInterfaceController {
     /** Removes an address from the interface. */
     public void removeAddress(LinkAddress address) {
         Log.d(TAG, "Removing address " + address);
-        byte[] message =
-                RtNetlinkAddressMessage.newRtmDelAddressMessage(
-                        sNetlinkSeqNo++,
-                        address.getAddress(),
-                        (short) address.getPrefixLength(),
-                        Os.if_nametoindex(mIfName));
 
         // Intentionally update the mLinkProperties before send netlink message because the
         // address is already removed from ot-daemon and apps can't reach to the address even
         // when the netlink request below fails
         mLinkProperties.removeLinkAddress(address);
         mLinkProperties.removeRoute(getRouteForAddress(address));
-        try {
-            Os.write(mNetlinkSocket, message, 0, message.length);
-        } catch (ErrnoException | InterruptedIOException e) {
-            Log.e(TAG, "Failed to remove address " + address, e);
-        }
+        NetlinkUtils.sendRtmDelAddressRequest(
+                Os.if_nametoindex(mIfName),
+                (Inet6Address) address.getAddress(),
+                (short) address.getPrefixLength());
     }
 
     private RouteInfo getRouteForAddress(LinkAddress linkAddress) {
