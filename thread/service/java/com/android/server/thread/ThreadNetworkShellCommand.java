@@ -18,6 +18,7 @@ package com.android.server.thread;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.net.InetAddresses;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.ThreadNetworkException;
 import android.os.Binder;
@@ -27,8 +28,14 @@ import android.text.TextUtils;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.BasicShellCommandHandler;
 
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.Inet6Address;
+import java.net.InetAddress;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -47,10 +54,11 @@ import java.util.concurrent.TimeoutException;
 public class ThreadNetworkShellCommand extends BasicShellCommandHandler {
     private static final Duration SET_ENABLED_TIMEOUT = Duration.ofSeconds(2);
     private static final Duration FORCE_STOP_TIMEOUT = Duration.ofSeconds(1);
+    private static final int UDP_BUFFER_SIZE = 1024;
 
     // These don't require root access.
     private static final List<String> NON_PRIVILEGED_COMMANDS =
-            List.of("help", "get-country-code", "enable", "disable");
+            List.of("help", "get-country-code", "enable", "disable", "start-udp-echo-server");
 
     @NonNull private final ThreadNetworkControllerService mControllerService;
     @NonNull private final ThreadNetworkCountryCode mCountryCode;
@@ -139,6 +147,32 @@ public class ThreadNetworkShellCommand extends BasicShellCommandHandler {
                 return 0;
             case "get-country-code":
                 pw.println("Thread country code = " + mCountryCode.getCountryCode());
+                return 0;
+            case "start-udp-echo-server":
+                InetAddress address;
+                int port;
+                try {
+                    address = InetAddresses.parseNumericAddress(getNextArgRequired());
+                    port = Integer.parseInt(getNextArgRequired());
+                } catch (IllegalArgumentException e) {
+                    perr.println("Invalid argument: " + e.getMessage());
+                    return -1;
+                }
+                try (var udpServerSocket = new DatagramSocket(port, address)) {
+                    DatagramPacket recvPacket =
+                            new DatagramPacket(new byte[UDP_BUFFER_SIZE], UDP_BUFFER_SIZE);
+                    udpServerSocket.receive(recvPacket);
+                    byte[] sendBuffer =
+                            Arrays.copyOf(recvPacket.getData(), recvPacket.getData().length);
+                    udpServerSocket.send(
+                            new DatagramPacket(
+                                    sendBuffer,
+                                    sendBuffer.length,
+                                    (Inet6Address) recvPacket.getAddress(),
+                                    recvPacket.getPort()));
+                } catch (IOException e) {
+                    perr.println("Udp echo server failed: " + e.getMessage());
+                }
                 return 0;
             default:
                 return handleDefaultCommands(cmd);
@@ -232,6 +266,8 @@ public class ThreadNetworkShellCommand extends BasicShellCommandHandler {
         pw.println("    Disables Thread radio");
         pw.println("  get-country-code");
         pw.println("    Gets country code as a two-letter string");
+        pw.println("  start-udp-echo-server <address> <port>");
+        pw.println("    Starts an UDP echo server that replies to the first UDP packet received.");
     }
 
     private void onHelpPrivileged(PrintWriter pw) {
