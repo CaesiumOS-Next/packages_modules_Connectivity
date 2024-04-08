@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1d127d2_b36a0f40",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-08T12:47:28Z",
+      "side": 1,
+      "message": "This is going to create repeated logs for a single multicast address, but I didn\u0027t get a solution with zero overhead. Maybe just replace this log with a TODO here.",
+      "range": {
+        "startLine": 202,
+        "startChar": 16,
+        "endLine": 202,
+        "endChar": 85
+      },
+      "revId": "d0a0c7c2847834bdc792745d820b134badc2cbc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3738eb7_90e466db",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-08T12:47:28Z",
+      "side": 1,
+      "message": "This condition is short but hard to follow. Can we make it straightforward? Like:\n```\nfinal boolean isPreferred \u003d addressInfo.isPreferred;\nif (addressInfo.isMeshLocal \u0026\u0026 hasActiveOmrAddress) {\n    isPreferred \u003d false;\n}\n```",
+      "range": {
+        "startLine": 256,
+        "startChar": 16,
+        "endLine": 256,
+        "endChar": 93
+      },
+      "revId": "d0a0c7c2847834bdc792745d820b134badc2cbc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97a9673e_91e8807a",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-08T12:47:28Z",
+      "side": 1,
+      "message": "Ditto, prefer assertThat() when possible\n```suggestion\n                assertThat(address.isPreferred()).isFalse();\n```",
+      "range": {
+        "startLine": 269,
+        "startChar": 16,
+        "endLine": 269,
+        "endChar": 27
+      },
+      "revId": "d0a0c7c2847834bdc792745d820b134badc2cbc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64d65bfc_d59847ee",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-08T12:47:28Z",
+      "side": 1,
+      "message": "There is no guarantee that device under this test case can\u0027t get an OMR address. For example, if I run this test on a pixel which is connected to a Wi-Fi network, the pixel will eventually get the OMR address, though it will take a few seconds to establish the routing config.\n\nYour test can pass simply because the check runs before the routing config is established but it\u0027s not safe. Could you add a TODO here to explicitly disable border router before join?",
+      "range": {
+        "startLine": 211,
+        "startChar": 8,
+        "endLine": 211,
+        "endChar": 61
+      },
+      "revId": "d0a0c7c2847834bdc792745d820b134badc2cbc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3ff4739_e948c4db",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-08T12:47:28Z",
+      "side": 1,
+      "message": "ditto, use assertThat()",
+      "range": {
+        "startLine": 219,
+        "startChar": 16,
+        "endLine": 219,
+        "endChar": 26
+      },
+      "revId": "d0a0c7c2847834bdc792745d820b134badc2cbc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
