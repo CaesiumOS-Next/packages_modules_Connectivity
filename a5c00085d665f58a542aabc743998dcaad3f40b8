@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "64902885_9d5e0db3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-08T07:12:53Z",
+      "side": 1,
+      "message": "@handaw@google.com plan of moving this CL forward?",
+      "revId": "a5c00085d665f58a542aabc743998dcaad3f40b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a18f3941_09d28f60",
         "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
         "patchSetId": 1
