@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2670613f_3470decf",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-08T08:54:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c5d1957_b53f8c46",
+      "range": {
+        "startLine": 210,
+        "startChar": 29,
+        "endLine": 210,
+        "endChar": 46
+      },
+      "revId": "b4bdb0302b3b7c8fbd9748fda24cc5fd4d78ba10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe3a90cf_7be4b3b8",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-04-04T12:10:02Z",
       "side": 1,
       "message": "Move those changes into TunInterfaceController",
+      "range": {
+        "startLine": 1186,
+        "startChar": 0,
+        "endLine": 1214,
+        "endChar": 48
+      },
+      "revId": "b4bdb0302b3b7c8fbd9748fda24cc5fd4d78ba10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e96a2ad_66412075",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-08T08:54:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe3a90cf_7be4b3b8",
       "range": {
         "startLine": 1186,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7540021f_da8cf3c9",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-08T08:54:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56d873c7_9355c23b",
+      "range": {
+        "startLine": 268,
+        "startChar": 16,
+        "endLine": 268,
+        "endChar": 26
+      },
+      "revId": "b4bdb0302b3b7c8fbd9748fda24cc5fd4d78ba10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc6b87d1_61cb15df",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-04-04T12:10:02Z",
       "side": 1,
       "message": "Add document for this method.\nSpecifically, add example lines that this method parses\n```suggestion\n    /**\n     * Parses a line of output from \"ip -6 addr show\" into a {@link LinkAddress}.\n     *\n     * \u003cp\u003eExample line: \"inet6 2001:db8:1:1::1/64 scope global deprecated nodad\n     * valid-lft 2592000 sec preferred-lft 604800 sec\"\n     */\n    private static LinkAddress parseAddressLine(String line) {\n```\n\nThe suggestion is made by the AI tool so you don\u0027t need to follow it exactly, but the points in the suggestion makes sense to me",
+      "range": {
+        "startLine": 412,
+        "startChar": 4,
+        "endLine": 412,
+        "endChar": 62
+      },
+      "revId": "b4bdb0302b3b7c8fbd9748fda24cc5fd4d78ba10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fedff69a_1cc8b75d",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-08T08:54:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc6b87d1_61cb15df",
       "range": {
         "startLine": 412,
         "startChar": 4,
