@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef0f51c0_b4bced13",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-09T07:20:35Z",
+      "side": 1,
+      "message": "```suggestion\n    public void joinNetworkWithBrDisabled_meshLocalAddressesArePreferred() throws Exception {\n```",
+      "range": {
+        "startLine": 208,
+        "startChar": 27,
+        "endLine": 208,
+        "endChar": 37
+      },
+      "revId": "5e744f3e20179949bcfd39d13697051112030926",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
