@@ -19,6 +19,7 @@
 
 #include <bpf_helpers.h>
 #include <linux/bpf.h>
+#include <linux/icmpv6.h>
 #include <linux/if.h>
 #include <linux/if_ether.h>
 #include <linux/if_packet.h>
@@ -45,6 +46,13 @@ static const int BPF_MATCH = 1;
 // Used for 'bool enable_tracing'
 static const bool TRACE_ON = true;
 static const bool TRACE_OFF = false;
+
+// TODO: kernel definition should be added from ndisc.h to bionic/libc/kernel/uapi/linux/icmpv6.h
+#define NDISC_ROUTER_SOLICITATION 133
+#define NDISC_ROUTER_ADVERTISEMENT 134
+#define NDISC_NEIGHBOUR_SOLICITATION 135
+#define NDISC_NEIGHBOUR_ADVERTISEMENT 136
+#define NDISC_REDIRECT 137
 
 // offsetof(struct iphdr, ihl) -- but that's a bitfield
 #define IPPROTO_IHL_OFF 0
@@ -645,6 +653,55 @@ DEFINE_XTBPF_PROG("skfilter/denylist/xtbpf", AID_ROOT, AID_NET_ADMIN, xt_bpf_den
     uint32_t sock_uid = bpf_get_socket_uid(skb);
     UidOwnerValue* denylistMatch = bpf_uid_owner_map_lookup_elem(&sock_uid);
     if (denylistMatch) return denylistMatch->rule & PENALTY_BOX_MATCH ? BPF_MATCH : BPF_NOMATCH;
+    return BPF_NOMATCH;
+}
+
+DEFINE_XTBPF_PROG("skfilter/datasaver/xtbpf", AID_ROOT, AID_NET_ADMIN, xt_bpf_datasaver_prog)
+(struct __sk_buff* skb) {
+    uint32_t sock_uid = bpf_get_socket_uid(skb);
+    UidOwnerValue* listMatch = bpf_uid_owner_map_lookup_elem(&sock_uid);
+    if (listMatch) {
+        // check if deny list match
+        if (listMatch->rule & PENALTY_BOX_MATCH) return BPF_MATCH;
+
+        // check if allow list match
+        if (is_system_uid(sock_uid)) return BPF_NOMATCH;
+
+        // kernel's DEFAULT_OVERFLOWUID is 65534, this is the overflow 'nobody' uid,
+        // usually this being returned means that skb->sk is NULL during RX
+        // (early decap socket lookup failure), which commonly happens for incoming
+        // packets to an unconnected udp socket.
+        // But it can also happen for egress from a timewait socket.
+        // Let's treat such cases as 'root' which is_system_uid()
+        if (sock_uid == 65534) return BPF_NOMATCH;
+        if (listMatch->rule & HAPPY_BOX_MATCH) return BPF_NOMATCH;
+    }
+
+    // check if match ICMPv6 types match
+    if (skb->protocol == htons(ETH_P_IPV6)) {
+    uint8_t proto = 0;
+    // TODO: check if KVER_5_8 is the suitable choice
+    (void)bpf_skb_load_bytes_net(skb, IP6_OFFSET(nexthdr), &proto, sizeof(proto), KVER_5_8);
+    if (proto == IPPROTO_ICMPV6) {
+        uint8_t type = 0;
+        (void)bpf_skb_load_bytes_net(skb, sizeof(struct ipv6hdr), &type, sizeof(type), KVER_5_8);
+        if (type == ICMPV6_PKT_TOOBIG ||
+            type == NDISC_ROUTER_SOLICITATION ||
+            type == NDISC_ROUTER_ADVERTISEMENT ||
+            type == NDISC_NEIGHBOUR_SOLICITATION ||
+            type == NDISC_NEIGHBOUR_ADVERTISEMENT ||
+            type == NDISC_REDIRECT) {
+            return BPF_NOMATCH;
+            }
+        }
+    }
+    // check if data saver is enabled
+    uint32_t data_saver_map_key = DATA_SAVER_ENABLED_KEY;
+    bool *enabledRules = bpf_data_saver_enabled_map_lookup_elem(&data_saver_map_key);
+    if (enabledRules) {
+        if (*enabledRules) return BPF_MATCH;
+    }
+
     return BPF_NOMATCH;
 }
 
