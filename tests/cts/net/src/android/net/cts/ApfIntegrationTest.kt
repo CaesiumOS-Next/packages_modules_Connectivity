@@ -41,6 +41,7 @@ import kotlin.test.assertNotNull
 import org.junit.After
 import org.junit.Before
 import org.junit.BeforeClass
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -70,6 +71,9 @@ class ApfIntegrationTest {
             }
         }
     }
+
+    @get:Rule
+    val ignoreRule = DevSdkIgnoreRule()
 
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
     private val cm by lazy { context.getSystemService(ConnectivityManager::class.java)!! }
