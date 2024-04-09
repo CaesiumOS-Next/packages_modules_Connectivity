@@ -20,6 +20,7 @@ python_test_host {
     name: "CtsConnectivityMultiDevicesTestCases",
     main: "connectivity_multi_devices_test.py",
     srcs: [
+        "adb_utils.py",
         "connectivity_multi_devices_test.py",
         "tether_utils.py",
     ],
