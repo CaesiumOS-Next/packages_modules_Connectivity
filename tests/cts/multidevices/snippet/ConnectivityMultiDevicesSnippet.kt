@@ -20,6 +20,7 @@ import android.Manifest.permission.OVERRIDE_WIFI_CONFIG
 import android.content.pm.PackageManager.FEATURE_TELEPHONY
 import android.content.pm.PackageManager.FEATURE_WIFI
 import android.net.ConnectivityManager
+import android.net.MacAddress
 import android.net.Network
 import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
@@ -33,7 +34,18 @@ import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
 import android.net.wifi.WifiNetworkSpecifier
 import android.net.wifi.WifiSsid
+import android.net.util.SocketUtils
+import android.os.ParcelFileDescriptor
+import android.system.Os
+import android.system.OsConstants.AF_PACKET
+import android.system.OsConstants.SOCK_NONBLOCK
+import android.system.OsConstants.SOCK_RAW
+import android.system.PacketSocketAddress
+import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
+import com.android.net.module.util.NetworkStackConstants.ETHER_BROADCAST
+import com.android.net.module.util.Struct
+import com.android.net.module.util.structs.EthernetHeader
 import com.android.testutils.ConnectUtil
 import com.android.testutils.NetworkCallbackHelper
 import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
@@ -41,8 +53,17 @@ import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.runAsShell
 import com.google.android.mobly.snippet.Snippet
 import com.google.android.mobly.snippet.rpc.Rpc
+import java.io.BufferedReader
+import java.io.FileDescriptor
+import java.net.NetworkInterface
+import java.net.SocketAddress
+import java.nio.ByteBuffer
+import java.util.Objects
 
 class ConnectivityMultiDevicesSnippet : Snippet {
+    companion object {
+        const val ETH_P_ETHERCAT = 0x88A4
+    }
     private val context = InstrumentationRegistry.getInstrumentation().getTargetContext()
     private val wifiManager = context.getSystemService(WifiManager::class.java)!!
     private val cm = context.getSystemService(ConnectivityManager::class.java)!!
@@ -89,7 +110,7 @@ class ConnectivityMultiDevicesSnippet : Snippet {
     // Suppress warning because WifiManager methods to connect to a config are
     // documented not to be deprecated for privileged users.
     @Suppress("DEPRECATION")
-    fun connectToWifi(ssid: String, passphrase: String): Network {
+    fun connectToWifi(ssid: String, passphrase: String, requireValidation: Boolean): Network {
         val specifier = WifiNetworkSpecifier.Builder()
             .setBand(ScanResult.WIFI_BAND_24_GHZ)
             .build()
@@ -118,11 +139,17 @@ class ConnectivityMultiDevicesSnippet : Snippet {
             return networkCallback.eventuallyExpect<CapabilitiesChanged> {
                 // Remove double quotes.
                 val ssidFromCaps = it.caps.ssid?.trim('\"')
-                ssidFromCaps == ssid && it.caps.hasCapability(NET_CAPABILITY_VALIDATED)
+                ssidFromCaps == ssid && (!requireValidation ||
+                        it.caps.hasCapability(NET_CAPABILITY_VALIDATED))
             }.network
         } finally {
             cm.unregisterNetworkCallback(networkCallback)
         }
+    }
+
+    @Rpc(description = "Get Interface for Network.")
+    fun getInterfaceForNetwork(network: String) : String {
+        return cm.getLinkProperties(Network(network.toInt()))!!.getInterfaceName()!!
     }
 
     @Rpc(description = "Check whether the device supports hotspot feature.")
@@ -136,7 +163,7 @@ class ConnectivityMultiDevicesSnippet : Snippet {
     }
 
     @Rpc(description = "Start a hotspot with given SSID and passphrase.")
-    fun startHotspot(ssid: String, passphrase: String) {
+    fun startHotspot(ssid: String, passphrase: String): String {
         // Store old config.
         runAsShell(OVERRIDE_WIFI_CONFIG) {
             oldSoftApConfig = wifiManager.getSoftApConfiguration()
@@ -153,7 +180,7 @@ class ConnectivityMultiDevicesSnippet : Snippet {
         val tetheringCallback = ctsTetheringUtils.registerTetheringEventCallback()
         try {
             tetheringCallback.expectNoTetheringActive()
-            ctsTetheringUtils.startWifiTethering(tetheringCallback)
+            return ctsTetheringUtils.startWifiTethering(tetheringCallback).getInterface()
         } finally {
             ctsTetheringUtils.unregisterTetheringEventCallback(tetheringCallback)
         }
@@ -169,5 +196,91 @@ class ConnectivityMultiDevicesSnippet : Snippet {
                 wifiManager.setSoftApConfiguration(it)
             }
         }
+    }
+
+    @Rpc(description = "Transmit a broadcast empty EtherCat type packet.")
+    fun sendBroadcastEmptyEtherCatPacket(ifaceName: String) {
+        val iface = Objects.requireNonNull(NetworkInterface.getByName(ifaceName))
+        val addr = SocketUtils.makePacketSocketAddress(
+            ETH_P_ETHERCAT,
+            iface.getIndex(), ETHER_BROADCAST
+        )
+        // 2 bytes EtherCat header + minimum 44 bytes of datagram = 46, as defined in IEC 61158.
+        val buf = ByteBuffer.allocate(Struct.getSize(EthernetHeader::class.java) + 46)
+        buf.put(ETHER_BROADCAST)
+        buf.put(iface.getHardwareAddress())
+        buf.putShort(ETH_P_ETHERCAT.toShort())
+        // An empty EtherCat payload consist of all 0's in the header and datagram, no
+        // need to fill values for the rest of the buffer.
+        transmitPacket(buf, addr)
+    }
+
+    private fun transmitPacket(packet: ByteBuffer, sockAddress: SocketAddress) {
+        var sock = Os.socket(AF_PACKET, SOCK_RAW or SOCK_NONBLOCK, 0 /* protocol */)
+        try {
+            Os.sendto(sock, packet.array(), 0 /* byteOffset */, packet.limit(),
+                0 /* flags */, sockAddress)
+        } finally {
+            SocketUtils.closeSocket(sock)
+        }
+    }
+
+    @Rpc(description = "Get value of the specified APF counter, 0 if not found.")
+    fun getApfCounter(ifaceName: String, counterName: String) : Int {
+        val output = runShellCommand("dumpsys network_stack")
+        val counters = getApfCountersFromDumpsys(output, ifaceName)
+        counters.forEach {
+            Log.d("JUNYU", "[DEBUG] ${it.key}=${it.value}")
+        }
+
+        return counters.getOrDefault(counterName, 0)
+    }
+
+    private fun getApfCountersFromDumpsys(dumpsysOutput: String, ifaceName: String) : Map<String, Int> {
+        val ret = HashMap<String, Int>()
+        // The following pattern matches network_stack output like below:
+        // IpClient.wlan0
+        // ...
+        //     APF packet counters:
+        //       TOTAL_PACKETS: 12
+        //       ...
+        //
+        val apfRegex = Regex("""IpClient\.(?<iface>[A-z0-9]+)\n.*"""
+                + """APF packet counters: \n"""
+                + """(?<counterLines>((\s+[A-Z0-9_]+: \d+)\n)+)"""
+                , setOf(RegexOption.MULTILINE, RegexOption.DOT_MATCHES_ALL)
+        )
+        val counterRegex = Regex("""(?<name>[A-Z0-9_]+): (?<value>\d+)""")
+        val apfMatches = apfRegex.findAll(dumpsysOutput)
+        if (apfMatches.iterator().hasNext() == false) {
+            Log.d("JUNYU", "[DEBUG] output=" + dumpsysOutput)
+        } else {
+            Log.d("JUNYU", "[DEBUG] apfMatches=$apfMatches")
+        }
+        apfMatches.forEach { apfMatch ->
+            Log.d("JUNYU", "[DEBUG] iface=" + apfMatch.groups["iface"]?.value + " lines=" + apfMatch.groups["counterLines"]?.value)
+            // Continue
+            if (apfMatch.groups["iface"]?.value != ifaceName) return@forEach
+
+            apfMatch.groups["counterLines"]?.value?.let { counterLine ->
+                val counterMatches = counterRegex.findAll(counterLine)
+                counterMatches.forEach { counterMatch ->
+                    val value = counterMatch.groups["value"]?.value?.toInt()
+                    if (value != null && counterMatch.groups["name"]?.value != null) {
+                        counterMatch.groups["name"]?.value?.let {
+                            ret.put(it, value)
+                        }
+                    }
+                }
+            }
+        }
+        return ret
+    }
+
+    private fun runShellCommand(cmd: String): String {
+        return InstrumentationRegistry.getInstrumentation().getUiAutomation()
+            .executeShellCommand(cmd).use { pfd ->
+                ParcelFileDescriptor.AutoCloseInputStream(pfd).bufferedReader().use(BufferedReader::readText)
+            }
     }
 }

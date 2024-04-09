@@ -47,6 +47,7 @@ import android.net.NetworkTemplate.normalize
 import android.net.wifi.WifiInfo
 import android.os.Build
 import android.telephony.TelephonyManager
+import android.util.Log
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.NonNullTestUtils
@@ -62,6 +63,8 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
+import kotlin.test.fail
+import kotlin.text.RegexOption.MULTILINE
 
 private const val TEST_IMSI1 = "imsi1"
 private const val TEST_IMSI2 = "imsi2"
@@ -665,6 +668,73 @@ class NetworkTemplateTest {
             it.assertMatches(identMobileImsi1)
             it.assertMatches(identMobileImsi2)
             it.assertMatches(identMobileImsi3)
+        }
+    }
+
+    @Test
+    fun testApfDumpsys() {
+        val testData = "NetworkStack version:\n" +
+                "LocalInterface:21:9bd9d687ddb816baf1faabcad0d56ac15b22c56e\n" +
+                "ipmemorystore:10:d5ea5eb3ddbdaa9a986ce6ba70b0804ca3e39b0c\n" +
+                "netd:14:50bce96bc8d5811ed952950df30ec503f8a561ed\n" +
+                "networkstack:21:9bd9d687ddb816baf1faabcad0d56ac15b22c56e\n" +
+                "\n" +
+                "Device Configs:\n" +
+                "  SKIP_TCP_POLL_IN_LIGHT_DOZE=true\n" +
+                "  FEATURE_IS_UID_NETWORKING_BLOCKED=true\n" +
+                "  IGNORE_TCP_INFO_FOR_BLOCKED_UIDS=true\n" +
+                "\n" +
+                "NetworkStack logs:\n" +
+                "\n" +
+                "Recently active IpClient logs:\n" +
+                "IpClient.wlan0\n" +
+                "  IpClient.wlan0 APF dump:\n" +
+                "    Capabilities: ApfCapabilities{version: 4, maxSize: 2048, format: 1}\n" +
+                "    InstallableProgramSizeClamp: 2147483647\n" +
+                "    Filter update status: RUNNING\n" +
+                "    Receive thread: RUNNING\n" +
+                "    Multicast: DROP\n" +
+                "    Minimum RDNSS lifetime: 120\n" +
+                "    Program updates: 3\n" +
+                "    Last program length 661, installed 300s ago, lifetime 600s\n" +
+                "    Denylisted Ethertypes: 88a2 88a4 88b8 88cd 88e1 88e3\n" +
+                "    RA filters:\n" +
+                "      RA fe80::2a00:79e1:abe:1d01 -> ff02::1 3600s 2a00:79e1:abe:1d01::/64 2592000s/604800s DNS 1209600s 2001:4860:4860::8844 2001:4860:4860::8888 \n" +
+                "        Last seen 300s ago\n" +
+                "        Last match:\n" +
+                "          0e29d5c6f17504698f9645d986dd6000000000783afffe800000000000002a0079e10abe1d01ff0200000000000000000000000000018600f85a40000e100000000000000000010100005e00026505010000000005dc19050000001275002001486048600000000000000000884420014860486000000000000000008888030440c000278d0000093a80000000002a0079e10abe1d0100000000000000002602fff80064ff9b0000000000000000\n" +
+                "    TCP Keepalive filters:\n" +
+                "    NAT-T Keepalive filters:\n" +
+                "    Last program:\n" +
+                "      6bf8b03a01b86be8aa0fb86be4aa09b86be0aa08b86bdc6a02b8120c6dff6c94026b06006dff687c026388a26dff687c025b88a46dff687c025388b86dff687c024b88cd6dff687c024388e16dff687c023b88e384004708066a0e6dff4ca4021a000600010800060412146b947c021d00016dff4884021500021a1c6dff647c020b0000686bb4a401eb0006ffffffffffff1a266b9c7c01f400006bd87401e9120c84006d08000a17821f1112149c00181fffab0d2a108211446a3239a205060e29d5c6f1756bd47401be0a1e52f06b847c01b900e01a1e6b8c7e000001acffffffff0a1782140612149c000d1fffab0d2a108206076dff507401936bc868a401730006ffffffffffff6b907401806bd07401757c001386dd686bb0a401560006ffffffffffff6ba47401630a146ba87c015400007a0f3a0a266dff707c014d00ff6bc07401420a366b807c013f0085821a886a26a2060fff02000000000000000000000000006dff7c740122aa0e84010700aeaa0f8c0100025868a2ed0f0e29d5c6f17504698f9645d986dd606a12a2d41400783afffe800000000000002a0079e10abe1d016a36a2cd0286006a3aa2c6024000123c9400bf04b08c00ba0e106a3ea2991c0000000000000000010100005e00026505010000000005dc190500001a5a7a94009212789600000088000627008e0000007f001275006a5ea256242001486048600000000000000000884420014860486000000000000000008888030440c01a82960000004b000d2f008e0000004200278d001a869600000037000313808e0000002e00093a806c008aa20424000000002a0079e10abe1d0100000000000000002602fff80064ff9b00000000000000006ba072146bc4b03a01b87212b03a01b8720db03a01b87206b03a01b87201\n" +
+                "    APF packet counters: \n" +
+                "      TOTAL_PACKETS: 12\n" +
+                "      FILTER_AGE_SECONDS: 137\n" +
+                "      APF_PROGRAM_ID: 2\n" +
+                "      PASSED_IPV6_ICMP: 5\n" +
+                "      DROPPED_RA: 7\n" +
+                "  \n" +
+                "  IpClient.wlan0 current ProvisioningConfiguration:"
+        val ret = HashMap<String, Int>()
+        val apfRegex = Regex("""IpClient\.(?<iface>[A-z0-9]+)\n.*"""
+                + """APF packet counters: \n"""
+                + """(?<counterLines>((\s+[A-Z0-9_]+: \d+)\n)+)"""
+               , setOf(MULTILINE, RegexOption.DOT_MATCHES_ALL)
+        )
+        val counterRegex = Regex("""(?<name>[A-Z0-9_]+): (?<value>\d+)""")
+        val apfMatches = apfRegex.findAll(testData)
+        apfMatches.forEach { apfMatch ->
+            apfMatch.groups["counterLines"]?.value?.let { counterLine ->
+                val counterMatches = counterRegex.findAll(counterLine)
+                counterMatches.forEach { counterMatch ->
+                    val value = counterMatch.groups["value"]?.value?.toInt()
+                    if (value != null && counterMatch.groups["name"]?.value != null) {
+                        counterMatch.groups["name"]?.value?.let {
+                            ret.put(it, value)
+                        }
+                    }
+                }
+            }
         }
     }
 }

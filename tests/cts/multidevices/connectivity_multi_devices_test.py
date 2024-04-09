@@ -1,6 +1,7 @@
 # Lint as: python3
 """Connectivity multi devices tests."""
 import base64
+import time
 import sys
 import uuid
 
@@ -9,14 +10,20 @@ from mobly import base_test
 from mobly import test_runner
 from mobly import utils
 from mobly.controllers import android_device
+import adb_utils
 
 CONNECTIVITY_MULTI_DEVICES_SNIPPET_PACKAGE = "com.google.snippet.connectivity"
-
+COUNTER_DROPPED_ETHERTYPE_DENYLISTED_NAME = "DROPPED_ETHERTYPE_DENYLISTED"
+APF_COUNTER_POLLING_MAX_RETRY_COUNT = 10
 
 class UpstreamType:
+  NONE = 0
   CELLULAR = 1
   WIFI = 2
 
+
+class UnexpectedBehaviorException(Exception):
+  pass
 
 class ConnectivityMultiDevicesTest(base_test.BaseTestClass):
 
@@ -49,14 +56,17 @@ class ConnectivityMultiDevicesTest(base_test.BaseTestClass):
     """
     return base64.b64encode(uuid.uuid1().bytes).decode("utf-8").strip("=")
 
-  def _do_test_hotspot_for_upstream_type(self, upstream_type):
-    """Test hotspot with the specified upstream type.
+  def _setup_hotspot_and_client_for_upstream_type(self, upstream_type):
+    """Setup the hotspot with a connected client with the specified upstream type.
 
-    This test create a hotspot, make the client connect
+    This creates a hotspot, make the client connect
     to it, and verify the packet is forwarded by the hotspot.
+    And returns interface name of both if successful.
     """
     server = self.serverDevice.connectivity_multi_devices_snippet
     client = self.clientDevice.connectivity_multi_devices_snippet
+    self.server = server
+    self.client = client
 
     # Assert pre-conditions specific to each upstream type.
     asserts.skip_if(not client.hasWifiFeature(), "Client requires Wifi feature")
@@ -74,6 +84,8 @@ class ConnectivityMultiDevicesTest(base_test.BaseTestClass):
           "Server requires Wifi AP + STA concurrency",
       )
       server.ensureWifiIsDefault()
+    elif upstream_type == UpstreamType.NONE:
+      pass # No-op.
     else:
       raise ValueError(f"Invalid upstream type: {upstream_type}")
 
@@ -82,25 +94,53 @@ class ConnectivityMultiDevicesTest(base_test.BaseTestClass):
     testSsid = "HOTSPOT-" + self.generate_uuid32_base64()
     testPassphrase = self.generate_uuid32_base64()
 
-    try:
-      # Create a hotspot with fixed SSID and password.
-      server.startHotspot(testSsid, testPassphrase)
+    # Create a hotspot with fixed SSID and password.
+    hotspotInterface = server.startHotspot(testSsid, testPassphrase)
 
-      # Make the client connects to the hotspot.
-      client.connectToWifi(testSsid, testPassphrase)
+    # Make the client connects to the hotspot.
+    clientNetwork = client.connectToWifi(testSsid, testPassphrase, upstream_type != UpstreamType.NONE)
+    clientInterface = client.getInterfaceForNetwork(clientNetwork)
 
-    finally:
-      if upstream_type == UpstreamType.CELLULAR:
-        server.unrequestCellular()
-      # Teardown the hotspot.
-      server.stopAllTethering()
+    return hotspotInterface, clientInterface
+
+
+  def _cleanup_tethering_for_upstream_type(self, upstream_type):
+    if upstream_type == UpstreamType.CELLULAR:
+      self.server.unrequestCellular()
+    # Teardown the hotspot.
+    self.server.stopAllTethering()
 
   def test_hotspot_upstream_wifi(self):
-    self._do_test_hotspot_for_upstream_type(UpstreamType.WIFI)
+    try:
+      # Connectivity of the client verified by asserting the validated capability.
+      self._setup_hotspot_and_client_for_upstream_type(UpstreamType.WIFI)
+    finally:
+      self._cleanup_tethering_for_upstream_type(UpstreamType.WIFI)
 
   def test_hotspot_upstream_cellular(self):
-    self._do_test_hotspot_for_upstream_type(UpstreamType.CELLULAR)
+    try:
+      # Connectivity of the client verified by asserting the validated capability.
+      self._setup_hotspot_and_client_for_upstream_type(UpstreamType.CELLULAR)
+    finally:
+      self._cleanup_tethering_for_upstream_type(UpstreamType.CELLULAR)
 
+  def test_apf_drop_ethercat(self):
+    try:
+      server_iface, client_iface = self._setup_hotspot_and_client_for_upstream_type(UpstreamType.NONE)
+      # FIXME: Use device idle mode instead.
+      adb_utils.set_screen_state(self.clientDevice, True)
+      adb_utils.set_screen_state(self.clientDevice, False)
+      count_before_test = self.client.getApfCounter(client_iface, COUNTER_DROPPED_ETHERTYPE_DENYLISTED_NAME)
+      self.server.sendBroadcastEmptyEtherCatPacket(server_iface)
+      for _ in range(0, APF_COUNTER_POLLING_MAX_RETRY_COUNT):
+        count_after_test = self.client.getApfCounter(client_iface, COUNTER_DROPPED_ETHERTYPE_DENYLISTED_NAME)
+        if count_after_test > count_before_test:
+          return
+        time.sleep(1)
+      raise UnexpectedBehaviorException("Counter " + COUNTER_DROPPED_ETHERTYPE_DENYLISTED_NAME
+                                        + " did not increase: " + count_after_test)
+    finally:
+      self._cleanup_tethering_for_upstream_type(UpstreamType.NONE)
 
 if __name__ == "__main__":
   # Take test args
