@@ -32,6 +32,7 @@ from mobly.controllers import android_device
 
 
 class UpstreamType:
+  NONE = 0
   CELLULAR = 1
   WIFI = 2
 
@@ -76,6 +77,8 @@ def setup_hotspot_and_client_for_upstream_type(
         "Server requires Wifi AP + STA concurrency",
     )
     server.ensureWifiIsDefault()
+  elif upstream_type == UpstreamType.NONE:
+    pass  # No-op.
   else:
     raise ValueError(f"Invalid upstream type: {upstream_type}")
 
@@ -88,7 +91,9 @@ def setup_hotspot_and_client_for_upstream_type(
   hotspot_interface = server.startHotspot(test_ssid, test_passphrase)
 
   # Make the client connects to the hotspot.
-  client_network = client.connectToWifi(test_ssid, test_passphrase)
+  client_network = client.connectToWifi(
+      test_ssid, test_passphrase, upstream_type != UpstreamType.NONE
+  )
 
   return hotspot_interface, client_network
 
