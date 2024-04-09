@@ -139,6 +139,12 @@ class BpfRingbuf : public BpfRingbufBase {
   static base::Result<std::unique_ptr<BpfRingbuf<Value>>> Create(
       const char* path);
 
+  // Returns a reference to the ringbuffer's io file descriptor, and thereby
+  // providing a mechanism to subscribe on changes, for example using epoll.
+  // Note that it should never be directly read or written to. To read the
+  // messages on file descriptor changes, use the ConsumeAll method.
+  const base::unique_fd& GetIOFd() const { return mRingFd; };
+
   // Consumes all messages from the ring buffer, passing them to the callback.
   // Returns the number of messages consumed or a non-ok result on error. If the
   // ring buffer has no pending messages an OK result with count 0 is returned.
