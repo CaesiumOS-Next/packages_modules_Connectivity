@@ -68,6 +68,8 @@ public class TetheringManager {
     public static class Flags {
         static final String TETHERING_REQUEST_WITH_SOFT_AP_CONFIG =
                 "com.android.net.flags.tethering_request_with_soft_ap_config";
+        static final String TETHERING_REQUEST_VIRTUAL_MACHINE =
+                "com.android.net.flags.tethering_request_virtual_machine";
     }
 
     private static final String TAG = TetheringManager.class.getSimpleName();
@@ -195,10 +197,17 @@ public class TetheringManager {
     public static final int TETHERING_WIGIG = 6;
 
     /**
+     * VIRTUAL_MACHINE tethering type.
+     */
+    @FlaggedApi(Flags.TETHERING_REQUEST_VIRTUAL_MACHINE)
+    public static final int TETHERING_VIRTUAL_MACHINE = 7;
+
+    /**
      * The int value of last tethering type.
      * @hide
      */
-    public static final int MAX_TETHERING_TYPE = TETHERING_WIGIG;
+    @FlaggedApi(Flags.TETHERING_REQUEST_VIRTUAL_MACHINE)
+    public static final int MAX_TETHERING_TYPE = TETHERING_VIRTUAL_MACHINE;
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
