@@ -21,18 +21,17 @@ import android.Manifest.permission.OVERRIDE_WIFI_CONFIG
 import android.content.pm.PackageManager.FEATURE_TELEPHONY
 import android.content.pm.PackageManager.FEATURE_WIFI
 import android.net.ConnectivityManager
+import android.net.Network
 import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkRequest
 import android.net.cts.util.CtsNetUtils
 import android.net.cts.util.CtsTetheringUtils
-import android.net.wifi.ScanResult
 import android.net.wifi.SoftApConfiguration
 import android.net.wifi.SoftApConfiguration.SECURITY_TYPE_WPA2_PSK
 import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
-import android.net.wifi.WifiNetworkSpecifier
 import android.net.wifi.WifiSsid
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.testutils.AutoReleaseNetworkCallbackRule
@@ -48,6 +47,9 @@ import org.junit.Rule
 class ConnectivityMultiDevicesSnippet : Snippet {
     @get:Rule
     val networkCallbackRule = AutoReleaseNetworkCallbackRule()
+    companion object {
+        const val ETH_P_ETHERCAT = 0x88A4
+    }
     private val context = InstrumentationRegistry.getInstrumentation().getTargetContext()
     private val wifiManager = context.getSystemService(WifiManager::class.java)!!
     private val cm = context.getSystemService(ConnectivityManager::class.java)!!
@@ -92,10 +94,7 @@ class ConnectivityMultiDevicesSnippet : Snippet {
     // Suppress warning because WifiManager methods to connect to a config are
     // documented not to be deprecated for privileged users.
     @Suppress("DEPRECATION")
-    fun connectToWifi(ssid: String, passphrase: String): Long {
-        val specifier = WifiNetworkSpecifier.Builder()
-            .setBand(ScanResult.WIFI_BAND_24_GHZ)
-            .build()
+    fun connectToWifi(ssid: String, passphrase: String, requireValidation: Boolean): Long {
         val wifiConfig = WifiConfiguration()
         wifiConfig.SSID = "\"" + ssid + "\""
         wifiConfig.preSharedKey = "\"" + passphrase + "\""
@@ -124,9 +123,16 @@ class ConnectivityMultiDevicesSnippet : Snippet {
             return@runAsShell networkCallback.eventuallyExpect<CapabilitiesChanged> {
                 // Remove double quotes.
                 val ssidFromCaps = (WifiInfo::sanitizeSsid)(it.caps.ssid)
-                ssidFromCaps == ssid && it.caps.hasCapability(NET_CAPABILITY_VALIDATED)
+                ssidFromCaps == ssid && (!requireValidation ||
+                        it.caps.hasCapability(NET_CAPABILITY_VALIDATED))
             }.network.networkHandle
         }
+    }
+
+    @Rpc(description = "Get interface name from NetworkHandle")
+    fun getInterfaceNameFromNetworkHandle(networkHandle: Long): String {
+        val network = Network.fromNetworkHandle(networkHandle)
+        return cm.getLinkProperties(network)!!.getInterfaceName()!!
     }
 
     @Rpc(description = "Check whether the device supports hotspot feature.")
@@ -140,7 +146,7 @@ class ConnectivityMultiDevicesSnippet : Snippet {
     }
 
     @Rpc(description = "Start a hotspot with given SSID and passphrase.")
-    fun startHotspot(ssid: String, passphrase: String) {
+    fun startHotspot(ssid: String, passphrase: String): String {
         // Store old config.
         runAsShell(OVERRIDE_WIFI_CONFIG) {
             oldSoftApConfig = wifiManager.getSoftApConfiguration()
@@ -157,7 +163,7 @@ class ConnectivityMultiDevicesSnippet : Snippet {
         val tetheringCallback = ctsTetheringUtils.registerTetheringEventCallback()
         try {
             tetheringCallback.expectNoTetheringActive()
-            ctsTetheringUtils.startWifiTethering(tetheringCallback)
+            return ctsTetheringUtils.startWifiTethering(tetheringCallback).getInterface()
         } finally {
             ctsTetheringUtils.unregisterTetheringEventCallback(tetheringCallback)
         }
