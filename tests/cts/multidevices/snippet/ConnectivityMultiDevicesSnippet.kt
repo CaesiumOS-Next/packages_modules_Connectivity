@@ -21,6 +21,7 @@ import android.Manifest.permission.OVERRIDE_WIFI_CONFIG
 import android.content.pm.PackageManager.FEATURE_TELEPHONY
 import android.content.pm.PackageManager.FEATURE_WIFI
 import android.net.ConnectivityManager
+import android.net.Network
 import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkRequest
@@ -125,6 +126,12 @@ class ConnectivityMultiDevicesSnippet : Snippet {
         }
     }
 
+    @Rpc(description = "Get interface name from NetworkHandle")
+    fun getInterfaceNameFromNetworkHandle(networkHandle: Long): String {
+        val network = Network.fromNetworkHandle(networkHandle)
+        return cm.getLinkProperties(network)!!.getInterfaceName()!!
+    }
+
     @Rpc(description = "Check whether the device supports hotspot feature.")
     fun hasHotspotFeature(): Boolean {
         val tetheringCallback = ctsTetheringUtils.registerTetheringEventCallback()
@@ -136,7 +143,7 @@ class ConnectivityMultiDevicesSnippet : Snippet {
     }
 
     @Rpc(description = "Start a hotspot with given SSID and passphrase.")
-    fun startHotspot(ssid: String, passphrase: String) {
+    fun startHotspot(ssid: String, passphrase: String): String {
         // Store old config.
         runAsShell(OVERRIDE_WIFI_CONFIG) {
             oldSoftApConfig = wifiManager.getSoftApConfiguration()
@@ -153,7 +160,7 @@ class ConnectivityMultiDevicesSnippet : Snippet {
         val tetheringCallback = ctsTetheringUtils.registerTetheringEventCallback()
         try {
             tetheringCallback.expectNoTetheringActive()
-            ctsTetheringUtils.startWifiTethering(tetheringCallback)
+            return ctsTetheringUtils.startWifiTethering(tetheringCallback).getInterface()
         } finally {
             ctsTetheringUtils.unregisterTetheringEventCallback(tetheringCallback)
         }
