@@ -128,6 +128,8 @@ class ApfIntegrationTest {
 
     @Before
     fun setUp() {
+        // APF became mandatory in Android 14 VSR.
+        assume().that(getVsrApiLevel()).isAtLeast(34)
         assume().that(pm.hasSystemFeature(FEATURE_WIFI)).isTrue()
         // APF must run when the screen is off and the device is not interactive.
         // TODO: consider running some of the tests with screen on (capabilities, read / write).
@@ -165,9 +167,6 @@ class ApfIntegrationTest {
 
     @Test
     fun testApfCapabilities() {
-        // APF became mandatory in Android 14 VSR.
-        assume().that(getVsrApiLevel()).isAtLeast(34)
-
         // ApfFilter does not support anything but ARPHRD_ETHER.
         assertThat(caps.apfPacketFormat).isEqualTo(OsConstants.ARPHRD_ETHER)
 
