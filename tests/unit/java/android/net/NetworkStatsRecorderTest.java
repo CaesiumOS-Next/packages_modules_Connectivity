@@ -45,6 +45,7 @@ import android.net.NetworkStats;
 import android.net.NetworkStatsCollection;
 import android.os.DropBoxManager;
 
+import android.util.Log;
 import androidx.test.filters.SmallTest;
 
 import com.android.internal.util.FileRotator;
@@ -64,6 +65,7 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
@@ -212,5 +214,43 @@ public final class NetworkStatsRecorderTest {
                 new FileOutputStream(new File(baseDir, name)));
         out.writeChars(value);
         out.close();
+    }
+
+    @Test
+    public void testGcTriggerFileRead() throws IOException, InterruptedException {
+        final FileRotator rotator = mock(FileRotator.class);
+        final NetworkStatsRecorder recorder = buildRecorder(rotator, false);
+
+        recorder.getOrLoadPartialLocked(Long.MIN_VALUE, Long.MAX_VALUE);
+        verify(rotator).readMatching(any(), anyLong(), anyLong());
+
+        waitForGc();
+        recorder.getOrLoadPartialLocked(Long.MIN_VALUE, Long.MAX_VALUE);
+        verify(rotator, times(2)).readMatching(any(), anyLong(), anyLong());
+    }
+
+    private void forceGC() {
+        // First GC ensures that objects are collected for finalization, then second GC ensures
+        // they're garbage-collected after being finalized.
+        System.gc();
+        System.runFinalization();
+        System.gc();
+    }
+
+    private void waitForGc() throws InterruptedException {
+        WeakReference ref = new WeakReference(new Object());
+
+        int attempts = 1000;
+        long waitIntervalMs = 50L;
+        for (int i = 0; i < attempts; i++) {
+            forceGC();
+            if (ref.get() == null) {
+                return;
+            }
+            Thread.sleep(waitIntervalMs);
+        }
+        if (ref.get() != null) {
+            Log.d(TAG, "Weak referenced object is not null after GC.");
+        }
     }
 }
