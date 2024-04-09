@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ac62b13_329e5630",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-09T19:36:25Z",
+      "side": 1,
+      "message": "Having some trouble figuring out how to test this, is there somewhere on the Ethernet stack that tests tracking interfaces",
+      "revId": "55c28364cd85b18dc7c013bfdcee878d5251a7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
