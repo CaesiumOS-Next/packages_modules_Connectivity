@@ -140,7 +140,7 @@ static const int DATA_SAVER_ENABLED_MAP_SIZE = 1;
 
 /* -=-=-=-=- WARNING -=-=-=-=-
  *
- * These 4 xt_bpf program paths are actually defined by:
+ * These 5 xt_bpf program paths are actually defined by:
  *   //system/netd/include/mainline/XtBpfProgLocations.h
  * which is intentionally a non-automerged location.
  *
@@ -154,6 +154,7 @@ ASSERT_STRING_EQUAL(XT_BPF_INGRESS_PROG_PATH,   BPF_NETD_PATH "prog_netd_skfilte
 ASSERT_STRING_EQUAL(XT_BPF_EGRESS_PROG_PATH,    BPF_NETD_PATH "prog_netd_skfilter_egress_xtbpf");
 ASSERT_STRING_EQUAL(XT_BPF_ALLOWLIST_PROG_PATH, BPF_NETD_PATH "prog_netd_skfilter_allowlist_xtbpf");
 ASSERT_STRING_EQUAL(XT_BPF_DENYLIST_PROG_PATH,  BPF_NETD_PATH "prog_netd_skfilter_denylist_xtbpf");
+ASSERT_STRING_EQUAL(XT_BPF_DATASAVER_PROG_PATH, BPF_NETD_PATH "prog_netd_skfilter_datasaver_xtbpf");
 
 #define CGROUP_SOCKET_PROG_PATH BPF_NETD_PATH "prog_netd_cgroupsock_inet_create"
 

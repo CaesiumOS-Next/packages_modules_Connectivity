@@ -648,6 +648,37 @@ DEFINE_XTBPF_PROG("skfilter/denylist/xtbpf", AID_ROOT, AID_NET_ADMIN, xt_bpf_den
     return BPF_NOMATCH;
 }
 
+DEFINE_XTBPF_PROG("skfilter/datasaver/xtbpf", AID_ROOT, AID_NET_ADMIN, xt_bpf_datasaver_prog)
+(struct __sk_buff* skb) {
+    uint32_t sock_uid = bpf_get_socket_uid(skb);
+    UidOwnerValue* listMatch = bpf_uid_owner_map_lookup_elem(&sock_uid);
+    if (listMatch) {
+        // check if deny list match
+        if (listMatch->rule & PENALTY_BOX_MATCH) return BPF_MATCH;
+
+        // check if allow list match
+        if (is_system_uid(sock_uid)) return BPF_NOMATCH;
+
+        // kernel's DEFAULT_OVERFLOWUID is 65534, this is the overflow 'nobody' uid,
+        // usually this being returned means that skb->sk is NULL during RX
+        // (early decap socket lookup failure), which commonly happens for incoming
+        // packets to an unconnected udp socket.
+        // But it can also happen for egress from a timewait socket.
+        // Let's treat such cases as 'root' which is_system_uid()
+        if (sock_uid == 65534) return BPF_NOMATCH;
+        if (listMatch->rule & HAPPY_BOX_MATCH) return BPF_NOMATCH;
+    }
+
+    // check if data saver is enabled
+    uint32_t data_saver_map_key = DATA_SAVER_ENABLED_KEY;
+    bool *enabledRules = bpf_data_saver_enabled_map_lookup_elem(&data_saver_map_key);
+    if (enabledRules) {
+        if (*enabledRules) return BPF_MATCH;
+    }
+
+    return BPF_NOMATCH;
+}
+
 static __always_inline inline uint8_t get_app_permissions() {
     uint64_t gid_uid = bpf_get_current_uid_gid();
     /*
