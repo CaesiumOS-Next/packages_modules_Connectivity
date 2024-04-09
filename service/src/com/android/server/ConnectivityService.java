@@ -1966,8 +1966,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         mDestroyFrozenSockets = mDeps.isAtLeastV() || (mDeps.isAtLeastU()
                 && mDeps.isFeatureEnabled(context, KEY_DESTROY_FROZEN_SOCKETS_VERSION));
-        mDelayDestroyFrozenSockets = mDeps.isAtLeastU()
-                && mDeps.isFeatureEnabled(context, DELAY_DESTROY_FROZEN_SOCKETS_VERSION);
+        mDelayDestroyFrozenSockets = mDeps.isAtLeastV() || (mDeps.isAtLeastU()
+                && mDeps.isFeatureEnabled(context, DELAY_DESTROY_FROZEN_SOCKETS_VERSION));
         mAllowSysUiConnectivityReports = mDeps.isFeatureNotChickenedOut(
                 mContext, ALLOW_SYSUI_CONNECTIVITY_REPORTS);
         if (mDestroyFrozenSockets) {
