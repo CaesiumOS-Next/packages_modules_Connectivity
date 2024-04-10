@@ -36,6 +36,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a05f9bc_6114858a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2024-04-10T21:15:03Z",
+      "side": 1,
+      "message": "Could you also update the TEST_MAPPING at https://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:frameworks/base/services/core/java/com/android/server/net/TEST_MAPPING to include the new module? Also, when you request this to be moved under cts/, can we keep it under cts/hostside/netpolicy/?",
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70f1fe40_4160e6c9",
@@ -79,6 +96,115 @@
         "endLine": 40,
         "endChar": 24
       },
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50afa999_e0f703e5",
+        "filename": "tests/cts/hostside-network-policy/aidl/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2024-04-10T21:15:03Z",
+      "side": 1,
+      "message": "Do we need this in every build file? Based on my understanding, this is for indicating that a team owns all the tests under this directory.",
+      "range": {
+        "startLine": 15,
+        "startChar": 1,
+        "endLine": 18,
+        "endChar": 1
+      },
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb3ae846_8ff17831",
+        "filename": "tests/cts/hostside-network-policy/app/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2024-04-10T21:15:03Z",
+      "side": 1,
+      "message": "Do we need this?",
+      "range": {
+        "startLine": 33,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 29
+      },
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2448aa37_20a2dc82",
+        "filename": "tests/cts/hostside-network-policy/app/src/com/android/cts/netpolicy/hostside/DumpOnFailureRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2024-04-10T21:15:03Z",
+      "side": 1,
+      "message": "Could you update this to `CtsHostsideNetworkPolicyTests`?",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 36
+      },
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aa7a7ed_96f114a2",
+        "filename": "tests/cts/hostside-network-policy/app2/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2024-04-10T21:15:03Z",
+      "side": 1,
+      "message": "Do we need this?",
+      "range": {
+        "startLine": 29,
+        "startChar": 9,
+        "endLine": 29,
+        "endChar": 35
+      },
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cbb9350_3d22ca10",
+        "filename": "tests/cts/hostside-network-policy/app2/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2024-04-10T21:15:03Z",
+      "side": 1,
+      "message": "Could you clarify why certificate attribute was removed (https://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/cts/hostside/app2/Android.bp;l\u003d38;drc\u003d985604c94f74657ffe18e43556bfdf4fc0629e14)? This was added because there were cases where this app was being signed with a special key causing this to be treated as carrier privileged. So, we created a separate key to avoid those issues.",
       "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
