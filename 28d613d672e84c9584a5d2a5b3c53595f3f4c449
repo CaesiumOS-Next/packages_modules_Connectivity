@@ -69,6 +69,24 @@
       "parentUuid": "e28bd251_f0b911a0",
       "revId": "28d613d672e84c9584a5d2a5b3c53595f3f4c449",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3048d7c5_94bb916c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-04-10T07:29:55Z",
+      "side": 1,
+      "message": "In other words: why do we need this CL?",
+      "parentUuid": "ec4d8ed9_14a278fd",
+      "revId": "28d613d672e84c9584a5d2a5b3c53595f3f4c449",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
