@@ -19,18 +19,14 @@ package android.net.cts;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_FOTA;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_MMS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_SUPL;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED;
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
-
-import static com.android.testutils.DevSdkIgnoreRuleKt.VANILLA_ICE_CREAM;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -68,7 +64,6 @@ import com.android.testutils.ConnectivityModuleTest;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -510,32 +505,6 @@ public class NetworkRequestTest {
                 .setCapabilities(builder.build())
                 .build();
         assertArrayEquals(netCapabilities, nr.getCapabilities());
-    }
-
-    @Test @IgnoreUpTo(VANILLA_ICE_CREAM) @Ignore("b/338200742")
-    public void testDefaultCapabilities() {
-        final NetworkRequest defaultNR = new NetworkRequest.Builder().build();
-        assertTrue(defaultNR.hasForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK));
-        assertFalse(defaultNR.hasCapability(NET_CAPABILITY_LOCAL_NETWORK));
-        assertTrue(defaultNR.hasCapability(NET_CAPABILITY_NOT_VPN));
-
-        final NetworkCapabilities emptyNC =
-                NetworkCapabilities.Builder.withoutDefaultCapabilities().build();
-        assertFalse(defaultNR.canBeSatisfiedBy(emptyNC));
-
-        // defaultNC represent the capabilities of a network agent, so they must not contain
-        // forbidden capabilities by default.
-        final NetworkCapabilities defaultNC = new NetworkCapabilities.Builder().build();
-        assertArrayEquals(new int[0], defaultNC.getForbiddenCapabilities());
-        // A default NR can be satisfied by default NC.
-        assertTrue(defaultNR.canBeSatisfiedBy(defaultNC));
-
-        // Conversely, network requests have forbidden capabilities by default to manage
-        // backward compatibility, so test that these forbidden capabilities are in place.
-        // Starting in V, NET_CAPABILITY_LOCAL_NETWORK is introduced but is not seen by
-        // default, thanks to a default forbidden capability in NetworkRequest.
-        defaultNC.addCapability(NET_CAPABILITY_LOCAL_NETWORK);
-        assertFalse(defaultNR.canBeSatisfiedBy(defaultNC));
     }
 
     @Test
