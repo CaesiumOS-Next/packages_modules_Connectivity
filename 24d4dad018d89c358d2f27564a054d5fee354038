@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b9a2cfb_bab559ee",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1855,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-10T09:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "502a923a_2ace9594",
+      "range": {
+        "startLine": 1855,
+        "startChar": 71,
+        "endLine": 1855,
+        "endChar": 72
+      },
+      "revId": "24d4dad018d89c358d2f27564a054d5fee354038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79756dda_3501f241",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a36fd71b_407b2340",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1856,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-10T09:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79756dda_3501f241",
+      "range": {
+        "startLine": 1856,
+        "startChar": 13,
+        "endLine": 1856,
+        "endChar": 100
+      },
+      "revId": "24d4dad018d89c358d2f27564a054d5fee354038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04f00415_0e6c9910",
@@ -60,6 +108,24 @@
       "writtenOn": "2024-04-03T06:55:40Z",
       "side": 1,
       "message": "Nit: long line",
+      "revId": "24d4dad018d89c358d2f27564a054d5fee354038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e13b86c_7a5da279",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 2405,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-10T09:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04f00415_0e6c9910",
       "revId": "24d4dad018d89c358d2f27564a054d5fee354038",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
