@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab0bf1d7_ebdfdb7e",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-04-10T05:25:07Z",
+      "side": 1,
+      "message": "CHANNEL_MASK_11_TO_24\n```suggestion\n    private static final int CHANNEL_MASK_11_TO_24 \u003d 0x1FFF800;\n```",
+      "revId": "edeba1e42eade3d16d94fd790c14683194eb61d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7095a45b_94c255dc",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 1
