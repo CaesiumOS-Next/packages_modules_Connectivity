@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b94a995d_30d54b94",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-10T05:59:39Z",
+      "side": 1,
+      "message": "Why are 25 and 26 preferred?",
+      "range": {
+        "startLine": 118,
+        "startChar": 89,
+        "endLine": 118,
+        "endChar": 98
+      },
+      "revId": "3b01e3f19734637edbf3d42ce3cde16704cbe4c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
