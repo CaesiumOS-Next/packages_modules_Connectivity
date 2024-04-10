@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db31ce68_554642c0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1433,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-10T06:30:43Z",
+      "side": 1,
+      "message": "Yes, registerSystemDefaultNetworkCallback is S+; the previous code used the registerSystemDefaultNetworkCallback shim in NetworkStack which has a compatibility fallback for R, but that\u0027s not supported by the Rule.\n\nAdded comment and to commit message.",
+      "parentUuid": "ea19fa62_c18f12e9",
+      "range": {
+        "startLine": 1433,
+        "startChar": 16,
+        "endLine": 1433,
+        "endChar": 17
+      },
+      "revId": "96aaca8789ebf64b1fec65ad17c673bda7e67e08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9650d41c_afacaff7",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-04-10T05:52:04Z",
       "side": 1,
       "message": "nits: I think we can declare defaultCb here as well",
+      "range": {
+        "startLine": 3032,
+        "startChar": 12,
+        "endLine": 3032,
+        "endChar": 13
+      },
+      "revId": "96aaca8789ebf64b1fec65ad17c673bda7e67e08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e512658f_a17e67b0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3032,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-10T06:30:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9650d41c_afacaff7",
       "range": {
         "startLine": 3032,
         "startChar": 12,
