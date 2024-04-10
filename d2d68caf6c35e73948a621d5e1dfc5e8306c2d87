@@ -16,6 +16,52 @@
       "message": "Did this miss the API deadline for V?",
       "revId": "d2d68caf6c35e73948a621d5e1dfc5e8306c2d87",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a323a0a_965f2297",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-04-10T00:26:13Z",
+      "side": 1,
+      "message": "FWIW, getRoutes and getLinkAddresses are both Lists. I wonder if we should be consistent with those?",
+      "range": {
+        "startLine": 144,
+        "startChar": 101,
+        "endLine": 144,
+        "endChar": 104
+      },
+      "revId": "d2d68caf6c35e73948a621d5e1dfc5e8306c2d87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c85b5a2_25a4682f",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-04-10T00:26:13Z",
+      "side": 1,
+      "message": "Why module-lib? Is it important that this information not be available to applications? Could this be public?",
+      "range": {
+        "startLine": 916,
+        "startChar": 24,
+        "endLine": 916,
+        "endChar": 40
+      },
+      "revId": "d2d68caf6c35e73948a621d5e1dfc5e8306c2d87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
