@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96a32d7b_e858498a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-10T03:25:56Z",
+      "side": 1,
+      "message": "Just a heads up, git_move_with_history might have issues when you move files that was previously moved.\nI think script uses the current file path to filter git history but loses git history with previous file path.\nI\u0027m not sure if the current script takes care of this.\nBut it\u0027s better to check history when you use script.",
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70f1fe40_4160e6c9",
+        "filename": "tests/cts/hostside-network-policy/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-10T03:25:56Z",
+      "side": 1,
+      "message": "I don\u0027t think this module should be in mcts/mts-tethering.\n@reminv@google.com could you help to confirm this?",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
