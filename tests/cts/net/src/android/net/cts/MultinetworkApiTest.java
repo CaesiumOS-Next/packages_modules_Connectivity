@@ -44,6 +44,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.android.testutils.AutoReleaseNetworkCallbackRule;
+import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.DeviceConfigRule;
 
 import org.junit.Before;
@@ -53,7 +54,8 @@ import org.junit.runner.RunWith;
 
 import java.util.Set;
 
-@RunWith(AndroidJUnit4.class)
+@DevSdkIgnoreRunner.MonitorDefaultNetworkRestore
+@RunWith(DevSdkIgnoreRunner.class)
 public class MultinetworkApiTest {
     @Rule(order = 1)
     public final DeviceConfigRule mDeviceConfigRule = new DeviceConfigRule();
