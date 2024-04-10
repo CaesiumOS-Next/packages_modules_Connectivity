@@ -194,6 +194,7 @@ private fun Message(what: Int, arg1: Int, arg2: Int, obj: Any?) = Message.obtain
 // TODO : enable this in a Mainline update or in V.
 private const val SHOULD_CREATE_NETWORKS_IMMEDIATELY = false
 
+@DevSdkIgnoreRunner.RestoreDefaultNetwork
 @RunWith(DevSdkIgnoreRunner::class)
 // NetworkAgent is not updatable in R-, so this test does not need to be compatible with older
 // versions. NetworkAgent was also based on AsyncChannel before S so cannot be tested the same way.
