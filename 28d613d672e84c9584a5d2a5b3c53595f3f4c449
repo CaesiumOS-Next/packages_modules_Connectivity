@@ -34,6 +34,41 @@
       "parentUuid": "2955ecd9_4a1a62da",
       "revId": "28d613d672e84c9584a5d2a5b3c53595f3f4c449",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d31f8314_d6a92de0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-04-10T07:28:10Z",
+      "side": 1,
+      "message": "I s",
+      "revId": "28d613d672e84c9584a5d2a5b3c53595f3f4c449",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec4d8ed9_14a278fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-04-10T07:28:10Z",
+      "side": 1,
+      "message": "Is there a reason to require a permission to create a transform? The only things apps can do with transforms is apply them to things. But creating those things requires the permission anyway. So allowing a app to create a transform doesn\u0027t actually allow it to do anything if it doesn\u0027t have the INTERNET permission. Am I missing something?",
+      "parentUuid": "e28bd251_f0b911a0",
+      "revId": "28d613d672e84c9584a5d2a5b3c53595f3f4c449",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
