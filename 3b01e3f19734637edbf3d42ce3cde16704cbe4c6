@@ -22,6 +22,30 @@
       },
       "revId": "3b01e3f19734637edbf3d42ce3cde16704cbe4c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e208698a_b32a196c",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-04-10T06:07:36Z",
+      "side": 1,
+      "message": "This is the ot-daemon preferred channel mask. Vendors are able to set the ot-daemon preferred channel mask to 11 ~ 26.\n\nWe set the preferred channel mask to channel 11, 25 and 26 here to verify that the dataset won\u0027t select channel from channel 25 and 26. Because the default selected channel `DEFAULT_SELECTED_CHANNEL` is set to 11.",
+      "parentUuid": "b94a995d_30d54b94",
+      "range": {
+        "startLine": 118,
+        "startChar": 89,
+        "endLine": 118,
+        "endChar": 98
+      },
+      "revId": "3b01e3f19734637edbf3d42ce3cde16704cbe4c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
