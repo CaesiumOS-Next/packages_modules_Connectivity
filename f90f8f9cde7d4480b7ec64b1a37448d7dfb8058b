@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b7c4b2b5_9cc421ea",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsKeyRecord.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-10T12:30:50Z",
+      "side": 1,
+      "message": "Before `readData()` for the record, the the `MdnsPacketReader` sets a limit according to the length of the record. So it will only read until the end of the record.\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/service-t/src/com/android/server/connectivity/mdns/MdnsRecord.java;l\u003d89;drc\u003d8dae0e73ef4ccead69dbe533f716d76a3f056dd4",
+      "parentUuid": "dbfe197b_9e3bf7f6",
+      "range": {
+        "startLine": 66,
+        "startChar": 25,
+        "endLine": 66,
+        "endChar": 46
+      },
+      "revId": "f90f8f9cde7d4480b7ec64b1a37448d7dfb8058b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c4a977ca_5e838c4b",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
         "patchSetId": 14
@@ -37,6 +61,24 @@
       "writtenOn": "2024-04-03T07:32:01Z",
       "side": 1,
       "message": "Nit: this is only used much further down so may be a bit easier to follow closer to the usage",
+      "revId": "f90f8f9cde7d4480b7ec64b1a37448d7dfb8058b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d567a7ad_fe4d1ef8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-10T12:30:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4a977ca_5e838c4b",
       "revId": "f90f8f9cde7d4480b7ec64b1a37448d7dfb8058b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -54,6 +96,30 @@
       "writtenOn": "2024-04-03T07:32:01Z",
       "side": 1,
       "message": "Shouldn\u0027t this use the configured nameRecordsTtlMillis ?",
+      "range": {
+        "startLine": 337,
+        "startChar": 32,
+        "endLine": 337,
+        "endChar": 63
+      },
+      "revId": "f90f8f9cde7d4480b7ec64b1a37448d7dfb8058b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e642ea1f_8de5e460",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-10T12:30:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69cfd440_faa2b92c",
       "range": {
         "startLine": 337,
         "startChar": 32,
@@ -95,6 +161,24 @@
       "side": 1,
       "message": "As per chat, conflictForService currently implements the \"probing\" behavior, where it considers any record that has the service name as a conflict if there\u0027s no matching record. This CL should probably keep that behavior, so that if there\u0027s a KEY record that conflicts with the name, and there\u0027s no known matching key, it\u0027s a conflict.",
       "parentUuid": "2539dd76_368cf0d4",
+      "revId": "f90f8f9cde7d4480b7ec64b1a37448d7dfb8058b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0463aa26_06ffeb75",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-10T12:30:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf490008_4f198036",
       "revId": "f90f8f9cde7d4480b7ec64b1a37448d7dfb8058b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
