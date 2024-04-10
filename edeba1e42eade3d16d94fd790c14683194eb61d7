@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07c87373_2623f41d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-04-10T05:42:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab0bf1d7_ebdfdb7e",
+      "revId": "edeba1e42eade3d16d94fd790c14683194eb61d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7095a45b_94c255dc",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-04-10T05:24:15Z",
       "side": 1,
       "message": "Should we include some information about how users can explicitly choose channel 25 and 26?",
+      "revId": "edeba1e42eade3d16d94fd790c14683194eb61d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20c62b94_a6c0bd02",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-04-10T05:42:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7095a45b_94c255dc",
       "revId": "edeba1e42eade3d16d94fd790c14683194eb61d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
