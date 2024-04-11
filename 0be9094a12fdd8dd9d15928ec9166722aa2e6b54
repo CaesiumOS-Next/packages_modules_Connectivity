@@ -53,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af24d278_5af5c309",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-11T01:35:36Z",
+      "side": 1,
+      "message": "Created aosp/3038872. \n\nWe can note the destination on the bug when I file it.",
+      "parentUuid": "4a05f9bc_6114858a",
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70f1fe40_4160e6c9",
@@ -123,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ca4c640_bd2279e5",
+        "filename": "tests/cts/hostside-network-policy/aidl/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-11T01:35:36Z",
+      "side": 1,
+      "message": "Keeping as it is harmless (probably makes it easier to find the owner faster visually and keep ownership accurate for directory structure changes in the future)",
+      "parentUuid": "50afa999_e0f703e5",
+      "range": {
+        "startLine": 15,
+        "startChar": 1,
+        "endLine": 18,
+        "endChar": 1
+      },
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb3ae846_8ff17831",
@@ -136,6 +178,30 @@
       "writtenOn": "2024-04-10T21:15:03Z",
       "side": 1,
       "message": "Do we need this?",
+      "range": {
+        "startLine": 33,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 29
+      },
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71fab755_ab92f381",
+        "filename": "tests/cts/hostside-network-policy/app/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-11T01:35:36Z",
+      "side": 1,
+      "message": "Yes, this is needed for SdkLevel checks.",
+      "parentUuid": "cb3ae846_8ff17831",
       "range": {
         "startLine": 33,
         "startChar": 8,
@@ -169,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c00bbb_448564e5",
+        "filename": "tests/cts/hostside-network-policy/app/src/com/android/cts/netpolicy/hostside/DumpOnFailureRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-11T01:35:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2448aa37_20a2dc82",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 36
+      },
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5aa7a7ed_96f114a2",
@@ -192,6 +282,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3ca16ab_b95d28e1",
+        "filename": "tests/cts/hostside-network-policy/app2/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-11T01:35:36Z",
+      "side": 1,
+      "message": "Replaced by `modules-utils-build` for the SdkLevel class.",
+      "parentUuid": "5aa7a7ed_96f114a2",
+      "range": {
+        "startLine": 29,
+        "startChar": 9,
+        "endLine": 29,
+        "endChar": 35
+      },
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4cbb9350_3d22ca10",
@@ -205,6 +319,24 @@
       "writtenOn": "2024-04-10T21:15:03Z",
       "side": 1,
       "message": "Could you clarify why certificate attribute was removed (https://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/cts/hostside/app2/Android.bp;l\u003d38;drc\u003d985604c94f74657ffe18e43556bfdf4fc0629e14)? This was added because there were cases where this app was being signed with a special key causing this to be treated as carrier privileged. So, we created a separate key to avoid those issues.",
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "334a9121_12d187cd",
+        "filename": "tests/cts/hostside-network-policy/app2/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-11T01:35:36Z",
+      "side": 1,
+      "message": "Is there a specific test in the new module that needs it? Or you mean it is needed during some special carrier run CTS?\n\nI thought this is needed for `VpnTests` only.\nI checked that the tests ran fine after removing this, so it seemed fine. But can try to use a cert if it is required for something.",
+      "parentUuid": "4cbb9350_3d22ca10",
       "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

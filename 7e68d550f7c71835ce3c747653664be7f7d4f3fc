@@ -22,6 +22,30 @@
       },
       "revId": "7e68d550f7c71835ce3c747653664be7f7d4f3fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dc9dd95_80462c9e",
+        "filename": "tests/cts/hostside-network-policy/src/com/android/cts/netpolicy/HostsideConnOnActivityStartTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-11T01:35:36Z",
+      "side": 0,
+      "message": "It needs to be done before moving to cts/ to decouple this from `net-tests-utils-host-device-common`.\nI do not intend to change the test configuration so I inverted the include / exclude rules using more popular annotations.\n\nI can do it in a separate CL for better atomicity if you prefer.",
+      "parentUuid": "edc3b42e_552e5c14",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 47
+      },
+      "revId": "7e68d550f7c71835ce3c747653664be7f7d4f3fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
