@@ -49,6 +49,54 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "32728c0a_80f80651",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-11T22:57:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20db844d_83706462",
+      "range": {
+        "startLine": 10,
+        "startChar": 24,
+        "endLine": 10,
+        "endChar": 39
+      },
+      "revId": "55c28364cd85b18dc7c013bfdcee878d5251a7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7a1cdc9_15ee6b7f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-11T22:57:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22f02ab9_ef067773",
+      "range": {
+        "startLine": 10,
+        "startChar": 40,
+        "endLine": 10,
+        "endChar": 121
+      },
+      "revId": "55c28364cd85b18dc7c013bfdcee878d5251a7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7ac62b13_329e5630",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 6
@@ -66,6 +114,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f0283f0e_6b614ecd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-11T22:57:29Z",
+      "side": 1,
+      "message": "/",
+      "parentUuid": "7ac62b13_329e5630",
+      "revId": "55c28364cd85b18dc7c013bfdcee878d5251a7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3d8fd2e_d15f2ff0",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 6
@@ -77,6 +143,30 @@
       "writtenOn": "2024-04-11T21:44:49Z",
       "side": 1,
       "message": "remove @Nullable and return the default IpConfiguration instead of null.",
+      "range": {
+        "startLine": 393,
+        "startChar": 4,
+        "endLine": 393,
+        "endChar": 13
+      },
+      "revId": "55c28364cd85b18dc7c013bfdcee878d5251a7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4a76ae1_f310d58f",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-11T22:57:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3d8fd2e_d15f2ff0",
       "range": {
         "startLine": 393,
         "startChar": 4,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7dd1179_26fdc824",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-11T22:57:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abff8dc3_3d8b47b0",
+      "range": {
+        "startLine": 400,
+        "startChar": 8,
+        "endLine": 400,
+        "endChar": 14
+      },
+      "revId": "55c28364cd85b18dc7c013bfdcee878d5251a7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c590b104_26f09398",
@@ -123,6 +237,30 @@
       "writtenOn": "2024-04-11T21:44:49Z",
       "side": 1,
       "message": "iface.equals(mTetheringInterface)",
+      "range": {
+        "startLine": 401,
+        "startChar": 69,
+        "endLine": 402,
+        "endChar": 46
+      },
+      "revId": "55c28364cd85b18dc7c013bfdcee878d5251a7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fcb7d6e_e7124467",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-11T22:57:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c590b104_26f09398",
       "range": {
         "startLine": 401,
         "startChar": 69,
@@ -156,6 +294,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3770910f_2e943b8c",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-11T22:57:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34e37ac7_b5d1bdf9",
+      "range": {
+        "startLine": 401,
+        "startChar": 16,
+        "endLine": 403,
+        "endChar": 55
+      },
+      "revId": "55c28364cd85b18dc7c013bfdcee878d5251a7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2cb6029_c50ce20b",
@@ -179,6 +341,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69ab6d83_40faa8d2",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-11T22:57:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2cb6029_c50ce20b",
+      "range": {
+        "startLine": 404,
+        "startChar": 12,
+        "endLine": 404,
+        "endChar": 29
+      },
+      "revId": "55c28364cd85b18dc7c013bfdcee878d5251a7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3619a94_37cd3d88",
@@ -192,6 +378,30 @@
       "writtenOn": "2024-04-11T21:44:49Z",
       "side": 1,
       "message": "was already here, but should be final too.",
+      "range": {
+        "startLine": 649,
+        "startChar": 8,
+        "endLine": 649,
+        "endChar": 23
+      },
+      "revId": "55c28364cd85b18dc7c013bfdcee878d5251a7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "032b1a08_8b1387e1",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-11T22:57:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3619a94_37cd3d88",
       "range": {
         "startLine": 649,
         "startChar": 8,
@@ -227,6 +437,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ff83eaf_d347dafb",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-11T22:57:29Z",
+      "side": 1,
+      "message": "Will overload so EthernetServiceImpl doesn\u0027t need to know/worry about mac address",
+      "parentUuid": "4bfbc788_b747c62d",
+      "range": {
+        "startLine": 649,
+        "startChar": 8,
+        "endLine": 656,
+        "endChar": 9
+      },
+      "revId": "55c28364cd85b18dc7c013bfdcee878d5251a7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "adc1c4c4_9e1709aa",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 6
@@ -238,6 +472,30 @@
       "writtenOn": "2024-04-11T21:44:49Z",
       "side": 1,
       "message": "You can get rid of this function, just use getIpConfiguration(). (Then you can also slightly simplify EthernetServiceImpl#getConfiguration())",
+      "range": {
+        "startLine": 949,
+        "startChar": 4,
+        "endLine": 954,
+        "endChar": 5
+      },
+      "revId": "55c28364cd85b18dc7c013bfdcee878d5251a7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd725581_853933f8",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-11T22:57:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adc1c4c4_9e1709aa",
       "range": {
         "startLine": 949,
         "startChar": 4,
@@ -261,6 +519,30 @@
       "writtenOn": "2024-04-11T21:44:49Z",
       "side": 1,
       "message": "same as for getIpConfiguration(). See if you can pass in the hwAddress and use it in addInterface()",
+      "range": {
+        "startLine": 956,
+        "startChar": 0,
+        "endLine": 972,
+        "endChar": 5
+      },
+      "revId": "55c28364cd85b18dc7c013bfdcee878d5251a7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6671b421_88392986",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-11T22:57:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e834ca3e_3f02c3a9",
       "range": {
         "startLine": 956,
         "startChar": 0,
