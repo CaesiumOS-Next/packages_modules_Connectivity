@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8156dc2_15cb2a54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-11T18:43:04Z",
+      "side": 1,
+      "message": "logs/build_error.log on branch git_udc-mainline-prod on target mainline_modules_x86_64-userdebug at P73056797\n\npackages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java:934: error: could not resolve field VANILLA_ICE_CREAM\n    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)\n    \n    logs/build_error.log on branch git_udc-mainline-prod on target test_suites_x86_64 at P73056804\n\npackages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java:934: error: could not resolve field VANILLA_ICE_CREAM\n    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)\n    \n(also Patrick is reverting the core cl due to a regression)",
+      "revId": "ccf378e912037c11c199906f6eaa19d5dae7d1ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
