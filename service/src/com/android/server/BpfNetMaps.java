@@ -921,7 +921,7 @@ public class BpfNetMaps {
     /**
      * Return whether the network is blocked by firewall chains for the given uid.
      *
-     * Note that {@link #getDataSaverEnabled()} has a latency before V.
+     * Data saver status in the bpf map has a latency before V.
      *
      * @param uid The target uid.
      * @param isNetworkMetered Whether the target network is metered.
@@ -931,7 +931,7 @@ public class BpfNetMaps {
      *
      * @hide
      */
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
     public boolean isUidNetworkingBlocked(final int uid, boolean isNetworkMetered) {
         return BpfNetMapsUtils.isUidNetworkingBlocked(uid, isNetworkMetered,
                 sConfigurationMap, sUidOwnerMap, sDataSaverEnabledMap);
