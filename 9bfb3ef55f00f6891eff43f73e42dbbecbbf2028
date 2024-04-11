@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99fac959_47b88820",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-11T07:24:39Z",
+      "side": 1,
+      "message": "nit: Maybe also add note where NetworkStack can not use this before U due to b/326143935",
+      "range": {
+        "startLine": 80,
+        "startChar": 33,
+        "endLine": 80,
+        "endChar": 41
+      },
+      "revId": "9bfb3ef55f00f6891eff43f73e42dbbecbbf2028",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
