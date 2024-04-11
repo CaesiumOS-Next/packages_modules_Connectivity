@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd34fd87_5542bd78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-11T18:30:56Z",
+      "side": 1,
+      "message": "I have confirmed that the revert fixes this issue.",
+      "revId": "a658220234c9e08b4ac1e142ed114d514a4287f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
