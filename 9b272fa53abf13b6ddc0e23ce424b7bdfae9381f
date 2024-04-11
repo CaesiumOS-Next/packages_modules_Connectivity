@@ -46,6 +46,30 @@
       },
       "revId": "9b272fa53abf13b6ddc0e23ce424b7bdfae9381f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8151e02c_3e815215",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-11T03:15:46Z",
+      "side": 1,
+      "message": "This run from system server.\nBpf map code that is used from network stack has RequiresApi(U) annotation.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/framework/src/android/net/NetworkStackBpfNetMaps.java;l\u003d43-44?q\u003dNetworkStackBpfNetMaps.java\n\nBut I felt it\u0027s better to annotate isUidNetworkingBlocked with RequiresApi(V), so I uploaded aosp/3038853.",
+      "parentUuid": "5ba7e6e8_9d06effa",
+      "range": {
+        "startLine": 934,
+        "startChar": 37,
+        "endLine": 934,
+        "endChar": 45
+      },
+      "revId": "9b272fa53abf13b6ddc0e23ce424b7bdfae9381f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
