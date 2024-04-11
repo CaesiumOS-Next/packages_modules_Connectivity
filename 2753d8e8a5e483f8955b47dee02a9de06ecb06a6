@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e083c0d0_2b0ce3e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-11T03:28:38Z",
+      "side": 1,
+      "message": "LGTM apart from the mts tags but Lorenzo should have a look for CTS change",
+      "revId": "2753d8e8a5e483f8955b47dee02a9de06ecb06a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
