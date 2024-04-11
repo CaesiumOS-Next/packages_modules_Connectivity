@@ -33,6 +33,24 @@
       "message": "(See reply in aosp/2890277 regarding what I meant in the previous log time initialization comment)",
       "revId": "37e06c9544c9c7e2391b753783e2a20914fb7284",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7db2fbea_8f43c153",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-04-11T15:57:17Z",
+      "side": 1,
+      "message": "Got your point and fixed.",
+      "parentUuid": "80645c6d_fcf30cf3",
+      "revId": "37e06c9544c9c7e2391b753783e2a20914fb7284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
