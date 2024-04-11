@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fe474ba_e91b39db",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1434,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-04-11T17:22:43Z",
+      "side": 1,
+      "message": "Makes perfect sense (don\u0027t see any drawbacks), fixed in service/src/com/android/server/ConnectivityService.java:1469, service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java:{79|91|116}.",
+      "parentUuid": "eb7384ca_1c85d8f8",
+      "range": {
+        "startLine": 1434,
+        "startChar": 16,
+        "endLine": 1434,
+        "endChar": 61
+      },
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40053e28_afeb0d71",
@@ -109,6 +133,30 @@
       "side": 1,
       "message": "Yes, they\u0027re dropped, will add a comment.",
       "parentUuid": "40053e28_afeb0d71",
+      "range": {
+        "startLine": 56,
+        "startChar": 63,
+        "endLine": 56,
+        "endChar": 64
+      },
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a9837d4_30807065",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-04-11T17:22:43Z",
+      "side": 1,
+      "message": "Fixed: service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java:57",
+      "parentUuid": "0a165505_b4f7343a",
       "range": {
         "startLine": 56,
         "startChar": 63,
@@ -214,6 +262,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "167f3dd6_d0953452",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-04-11T17:22:43Z",
+      "side": 1,
+      "message": "I see the point now, fixed in service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java:77, service/src/com/android/server/ConnectivityService.java:1804.",
+      "parentUuid": "c9061b63_190139a5",
+      "range": {
+        "startLine": 75,
+        "startChar": 52,
+        "endLine": 75,
+        "endChar": 69
+      },
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ef5d484_a9b4b04d",
@@ -227,6 +299,30 @@
       "writtenOn": "2024-02-06T03:59:54Z",
       "side": 1,
       "message": "Nit: prefer \"return\" over \"else\" to reduce indentation.",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 16
+      },
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e36a21fc_db2ff8f4",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-04-11T17:22:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ef5d484_a9b4b04d",
       "range": {
         "startLine": 89,
         "startChar": 8,
@@ -290,6 +386,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "905c9c67_3f35eeaf",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-04-11T17:22:43Z",
+      "side": 1,
+      "message": "Fixed in service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java:77, service/src/com/android/server/ConnectivityService.java:1804.",
+      "parentUuid": "58d8ec66_47505c14",
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29942a65_10f35f6e",
@@ -303,6 +417,30 @@
       "writtenOn": "2024-02-06T03:59:54Z",
       "side": 1,
       "message": "If this really can\u0027t happen, a Log.wtf would be appropriate.\n```suggestion\n                default:\n                    Log.wtf(TAG, \"Unexpected message: \" + msg);\n```",
+      "range": {
+        "startLine": 224,
+        "startChar": 25,
+        "endLine": 224,
+        "endChar": 36
+      },
+      "revId": "878fd25d84cd941b716c980b2028b217c507d9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dda2685_17dc6205",
+        "filename": "service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-04-11T17:22:43Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "29942a65_10f35f6e",
       "range": {
         "startLine": 224,
         "startChar": 25,

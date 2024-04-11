@@ -83,6 +83,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4b8737b_60511cd9",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-04-11T17:22:43Z",
+      "side": 1,
+      "message": "Fixed: service/src/com/android/server/connectivity/NetworkRequestStateInfo.java:66, service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java:(127|146)",
+      "parentUuid": "a869ab33_94eeed7e",
+      "revId": "9d2da9e7f769052af96fd3e85d923515f07ea3bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62091cd0_a4301f34",

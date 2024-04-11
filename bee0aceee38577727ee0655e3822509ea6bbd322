@@ -70,6 +70,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a53835b_0b20c720",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-04-11T17:22:43Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "9b0c4044_22d74ee2",
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58ec695d_e908b409",
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "Also fine in a followup if you prefer",
       "parentUuid": "58ec695d_e908b409",
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfec6426_4fd19e1b",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-04-11T17:22:43Z",
+      "side": 1,
+      "message": "Fixed: service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java:146",
+      "parentUuid": "df99688e_f3b0a224",
       "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -252,6 +288,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea2c1164_179fccbb",
+        "filename": "service/src/com/android/metrics/NetworkRequestStateStatsMetrics.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-04-11T17:22:43Z",
+      "side": 1,
+      "message": "Fixed in service/src/com/android/server/connectivity/NetworkRequestStateStatsMetrics.java:192",
+      "parentUuid": "1fd8ef3a_2721d0f4",
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "303234ec_5e48657b",
@@ -300,6 +354,30 @@
       "writtenOn": "2024-01-16T07:06:24Z",
       "side": 1,
       "message": "Nit: when(...).thenReturn is hard to debug if other threads access the mocks at the same time (because it persists state in globals between the call to getElapsedRealtime() and the call to when()). doReturn(...).when(...) is generally a safer syntax",
+      "range": {
+        "startLine": 62,
+        "startChar": 57,
+        "endLine": 62,
+        "endChar": 67
+      },
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a5a5038_26f1d80e",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateInfoTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-04-11T17:22:43Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "c69eed6e_1d16eb8e",
       "range": {
         "startLine": 62,
         "startChar": 57,
@@ -404,6 +482,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36040741_9b6b199f",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-04-11T17:22:43Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "b5ce23a3_a5561eac",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 24
+      },
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44f2dff2_afdce795",
@@ -451,6 +553,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "388a8f18_64b3d34e",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-04-11T17:22:43Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "f55dfad8_b938bffa",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 24
+      },
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67036e17_2590acae",
@@ -488,6 +614,30 @@
       "side": 1,
       "message": "(can address in a followup if you want)",
       "parentUuid": "67036e17_2590acae",
+      "range": {
+        "startLine": 162,
+        "startChar": 32,
+        "endLine": 162,
+        "endChar": 33
+      },
+      "revId": "bee0aceee38577727ee0655e3822509ea6bbd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "432e6cc5_01c1271b",
+        "filename": "tests/unit/java/com/android/metrics/NetworkRequestStateStatsMetricsTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2024-04-11T17:22:43Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "a9346911_9c36ebeb",
       "range": {
         "startLine": 162,
         "startChar": 32,
