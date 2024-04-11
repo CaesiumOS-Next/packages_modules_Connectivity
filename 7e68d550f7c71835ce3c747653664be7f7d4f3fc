@@ -46,6 +46,30 @@
       },
       "revId": "7e68d550f7c71835ce3c747653664be7f7d4f3fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4590a026_0fa1200f",
+        "filename": "tests/cts/hostside-network-policy/src/com/android/cts/netpolicy/HostsideConnOnActivityStartTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2024-04-11T06:51:08Z",
+      "side": 0,
+      "message": "I see what you did, but I\u0027d prefer we don\u0027t require annotating with presubmit. By default, I think we would prefer running these tests in the presubmit. There is no reason for needing to annotate every test class with @presubmit. When a new class is added, it is easy to miss this annotation and not have the test run as part of the presubmit. Instead, using @FlakyTest annotation (including a reason/bug for why) to exclude tests would be a lot more clearer to understand the status when someone is looking at these tests.",
+      "parentUuid": "2dc9dd95_80462c9e",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 47
+      },
+      "revId": "7e68d550f7c71835ce3c747653664be7f7d4f3fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

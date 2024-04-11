@@ -189,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cedbbc3_d00acfa7",
+        "filename": "tests/cts/hostside-network-policy/aidl/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2024-04-11T06:51:08Z",
+      "side": 1,
+      "message": "I\u0027m okay with keeping this as is but I don\u0027t think we should be adding redundant things, unless this is the recommended way for some reason. TBH, I\u0027m still trying to understand this new attribution infra but comparing this with OWNERS info where we only add in the top-level directory where it is needed but we don\u0027t duplicate it in every sub-directory.",
+      "parentUuid": "4ca4c640_bd2279e5",
+      "range": {
+        "startLine": 15,
+        "startChar": 1,
+        "endLine": 18,
+        "endChar": 1
+      },
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb3ae846_8ff17831",
@@ -226,6 +250,30 @@
       "side": 1,
       "message": "Yes, this is needed for SdkLevel checks.",
       "parentUuid": "cb3ae846_8ff17831",
+      "range": {
+        "startLine": 33,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 29
+      },
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0061a281_c427955a",
+        "filename": "tests/cts/hostside-network-policy/app/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2024-04-11T06:51:08Z",
+      "side": 1,
+      "message": "Got it. I guess we can remove them once this is moved to cts/.",
+      "parentUuid": "71fab755_ab92f381",
       "range": {
         "startLine": 33,
         "startChar": 8,
@@ -361,6 +409,24 @@
       "side": 1,
       "message": "Is there a specific test in the new module that needs it? Or you mean it is needed during some special carrier run CTS?\n\nI thought this is needed for `VpnTests` only.\nI checked that the tests ran fine after removing this, so it seemed fine. But can try to use a cert if it is required for something.",
       "parentUuid": "4cbb9350_3d22ca10",
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae305356_3188a396",
+        "filename": "tests/cts/hostside-network-policy/app2/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2024-04-11T06:51:08Z",
+      "side": 1,
+      "message": "It is for any test that involves changing the appstandy bucket. Carrier privileged apps are special-cases for appstandby. So, if the test app is considered carrier privileged, then standby bucket changes will not work as expected. I don\u0027t remember why the test app was signed with a special cert that caused this issue and if this is still the case, but I do not recommend removing this as part of this CL.",
+      "parentUuid": "334a9121_12d187cd",
       "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
