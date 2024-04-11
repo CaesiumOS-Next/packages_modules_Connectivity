@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54035b52_91c4e8cf",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-11T07:04:43Z",
+      "side": 1,
+      "message": "```suggestion\n        }\n        mMulticastAddresses.clear();\n        mMulticastAddresses.addAll(newMulticastAddresses);\n```",
+      "range": {
+        "startLine": 241,
+        "startChar": 8,
+        "endLine": 241,
+        "endChar": 9
+      },
+      "revId": "3e83a3d440b42733199091a9de9acd61d2d96411",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f762854_d49ed650",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-11T07:04:43Z",
+      "side": 1,
+      "message": "Avoid `log and throw`: go/java-practices/exceptions#log_rethrow\n\n```suggestion\n            throw new IllegalStateException(\"Failed to create multicast socket \", e);\n```",
+      "range": {
+        "startLine": 306,
+        "startChar": 12,
+        "endLine": 307,
+        "endChar": 47
+      },
+      "revId": "3e83a3d440b42733199091a9de9acd61d2d96411",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2aa8779_54e046ca",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-11T07:04:43Z",
+      "side": 1,
+      "message": "```suggestion\n                    Log.i(TAG, \"Already joined group \" + address.getHostAddress(), e);\n```",
+      "range": {
+        "startLine": 319,
+        "startChar": 20,
+        "endLine": 319,
+        "endChar": 59
+      },
+      "revId": "3e83a3d440b42733199091a9de9acd61d2d96411",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1864ecc_55f5f04a",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-11T07:04:43Z",
+      "side": 1,
+      "message": "```suggestion\n            Log.e(TAG, \"Failed to join group \" + address.getHostAddress(), e);\n```",
+      "range": {
+        "startLine": 323,
+        "startChar": 12,
+        "endLine": 323,
+        "endChar": 53
+      },
+      "revId": "3e83a3d440b42733199091a9de9acd61d2d96411",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10410249_889cc166",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-11T07:04:43Z",
+      "side": 1,
+      "message": "```suggestion\n            Log.e(TAG, \"Failed to leave group \" + address.getHostAddress(), e);\n```",
+      "range": {
+        "startLine": 332,
+        "startChar": 12,
+        "endLine": 332,
+        "endChar": 54
+      },
+      "revId": "3e83a3d440b42733199091a9de9acd61d2d96411",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc3785a9_ceebe6d7",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-11T07:04:43Z",
+      "side": 1,
+      "message": "Make this a constant",
+      "range": {
+        "startLine": 277,
+        "startChar": 83,
+        "endLine": 277,
+        "endChar": 84
+      },
+      "revId": "3e83a3d440b42733199091a9de9acd61d2d96411",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
