@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1df5a38a_ebbfcbac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-11T08:48:42Z",
+      "side": 1,
+      "message": "LGTM but Lorenzo should have a look\n\nDo we also have enough coverage for the new behavior, which depends on target SDK ?",
+      "revId": "ce1a467117f947239ca2f7d80ee3e1d1e3cc3f97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
