@@ -453,6 +453,24 @@
       "parentUuid": "334a9121_12d187cd",
       "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bb94531_7dd044d4",
+        "filename": "tests/cts/hostside-network-policy/app2/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-12T22:41:44Z",
+      "side": 1,
+      "message": "Read through b/80077890\nI will just move it over to this module then. We can probably remove it later.",
+      "parentUuid": "ae305356_3188a396",
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

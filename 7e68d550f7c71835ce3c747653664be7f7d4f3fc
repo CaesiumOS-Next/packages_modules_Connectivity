@@ -118,6 +118,30 @@
       },
       "revId": "7e68d550f7c71835ce3c747653664be7f7d4f3fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b79adb5_d7300c86",
+        "filename": "tests/cts/hostside-network-policy/src/com/android/cts/netpolicy/HostsideConnOnActivityStartTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-12T22:41:44Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "f21d92ba_29062c4f",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 47
+      },
+      "revId": "7e68d550f7c71835ce3c747653664be7f7d4f3fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
