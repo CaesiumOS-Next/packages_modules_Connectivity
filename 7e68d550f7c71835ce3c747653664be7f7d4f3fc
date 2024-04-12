@@ -70,6 +70,30 @@
       },
       "revId": "7e68d550f7c71835ce3c747653664be7f7d4f3fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff2753a7_558f311d",
+        "filename": "tests/cts/hostside-network-policy/src/com/android/cts/netpolicy/HostsideConnOnActivityStartTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-12T08:56:56Z",
+      "side": 0,
+      "message": "In that case, we can achieve the decoupling by substituting SkipPresubmit with FlakyTest but always including all tests by default (that was what the original test_mapping did). Does that sound fine?",
+      "parentUuid": "4590a026_0fa1200f",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 47
+      },
+      "revId": "7e68d550f7c71835ce3c747653664be7f7d4f3fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

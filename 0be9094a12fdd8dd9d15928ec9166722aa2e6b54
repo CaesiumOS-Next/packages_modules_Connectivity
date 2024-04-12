@@ -142,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "829721ec_3d547646",
+        "filename": "tests/cts/hostside-network-policy/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-12T08:56:56Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "ae5b9651_2e23456e",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "0be9094a12fdd8dd9d15928ec9166722aa2e6b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50afa999_e0f703e5",
