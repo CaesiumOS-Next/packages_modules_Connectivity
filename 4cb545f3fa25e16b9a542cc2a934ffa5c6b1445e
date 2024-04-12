@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b9acee4_f8861ed7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-12T18:21:25Z",
+      "side": 1,
+      "message": "Sorry, s/EthernetTracker/config.xml/ is sed (https://linux.die.net/man/1/sed) syntax for \"replace the word EthernetTracker by config.xml\". So this should be:\n\"This allows the behavior to align with how MAC addresses can configure network capabilities in config.xml.",
+      "range": {
+        "startLine": 9,
+        "startChar": 95,
+        "endLine": 9,
+        "endChar": 124
+      },
+      "revId": "4cb545f3fa25e16b9a542cc2a934ffa5c6b1445e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a3848e4_98136e2f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-12T18:21:25Z",
+      "side": 1,
+      "message": "nit: the commit message seems illformatted. Can you reformat it to stick to a line length of 72 characters?\nNot sure what editor you use for your commit messages, if you happen to use vim, the following are useful short cuts when committing:\nV \u003carrow up / down\u003e (visual selection)\ng q (reformats the selection)",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 0
+      },
+      "revId": "4cb545f3fa25e16b9a542cc2a934ffa5c6b1445e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec2ea0fb_5a76c683",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetServiceImpl.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-12T18:21:25Z",
+      "side": 1,
+      "message": "pre-existing, but can you leave a note that \"This causes thread-unsafe access on mIpConfigurations which might race with calls to EthernetManager#updateConfiguration(). EthernetManager#getConfiguration() has been marked as @UnsupportedAppUsage since Android R.\"",
+      "range": {
+        "startLine": 111,
+        "startChar": 14,
+        "endLine": 111,
+        "endChar": 50
+      },
+      "revId": "4cb545f3fa25e16b9a542cc2a934ffa5c6b1445e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2eb67e5_425d809a",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-12T18:21:25Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 393,
+        "startChar": 12,
+        "endLine": 393,
+        "endChar": 18
+      },
+      "revId": "4cb545f3fa25e16b9a542cc2a934ffa5c6b1445e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a79eb56a_c6f07f92",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-12T18:21:25Z",
+      "side": 1,
+      "message": "Spelling this out will improve readability. Also, you can use either getInterfaceMode() or getInterfaceRole() to determine whether iface is the tethering interface and whether tethering is active. I would suggest using getInterfaceRole() as I really want to get rid of getInterfaceMode (an internal concept that predates the interface role but has never been cleaned up).\n\n```\nif (getInterfaceRole(iface) \u003d\u003d INTERFACE_ROLE_SERVER) {\n    return mTetheringInterfaceHwAddr;\n}\nreturn mFactory.getHwAddress(iface);\n```",
+      "range": {
+        "startLine": 394,
+        "startChar": 7,
+        "endLine": 398,
+        "endChar": 47
+      },
+      "revId": "4cb545f3fa25e16b9a542cc2a934ffa5c6b1445e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc5e6592_6a712394",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-12T18:21:25Z",
+      "side": 1,
+      "message": "Just mark this public. I am trying to get rid of package-private visibility in here as I believe it makes the interface harder to understand.",
+      "range": {
+        "startLine": 401,
+        "startChar": 4,
+        "endLine": 401,
+        "endChar": 19
+      },
+      "revId": "4cb545f3fa25e16b9a542cc2a934ffa5c6b1445e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2d4a4b8_65ffab13",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-12T18:21:25Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 405,
+        "startChar": 61,
+        "endLine": 405,
+        "endChar": 67
+      },
+      "revId": "4cb545f3fa25e16b9a542cc2a934ffa5c6b1445e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0383dfa2_fdbd2bd5",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-12T18:21:25Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 430,
+        "startChar": 69,
+        "endLine": 430,
+        "endChar": 75
+      },
+      "revId": "4cb545f3fa25e16b9a542cc2a934ffa5c6b1445e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11ba1589_9d62fb4c",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-12T18:21:25Z",
+      "side": 1,
+      "message": "isValidTestInterface(iface);",
+      "range": {
+        "startLine": 445,
+        "startChar": 40,
+        "endLine": 445,
+        "endChar": 73
+      },
+      "revId": "4cb545f3fa25e16b9a542cc2a934ffa5c6b1445e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eee427a5_5e00c0bf",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-12T18:21:25Z",
+      "side": 1,
+      "message": "it\u0027s only used here, how about we inline it? You can switch the networkCapabilities null check to:\n```\nif (networkCapabilities !\u003d null) {\n    return newtorkCapabilities\n}\n// inline createDefaultNetworkCapabilities here...\n```\n\nso you can reduce the levels of indentation.",
+      "range": {
+        "startLine": 446,
+        "startChar": 34,
+        "endLine": 446,
+        "endChar": 66
+      },
+      "revId": "4cb545f3fa25e16b9a542cc2a934ffa5c6b1445e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

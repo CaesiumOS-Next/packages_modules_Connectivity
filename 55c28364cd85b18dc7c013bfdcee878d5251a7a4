@@ -132,6 +132,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc5a88d4_ad9d0688",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-12T18:21:25Z",
+      "side": 1,
+      "message": "So one thing I was thinking of adding is a test in EthernetManagerTest for cuttlefish. Iff ConnectivityResources are accessible by EthernetManagerTest (and you have to test this, I don\u0027t know), then you could do something like:\n\n1) add support to TestNetworkService to configure the mac address on a tap interface using SIOCSIFHWADDR.\n2) add a configuration in the cuttlefish config overlay that uses the mac address.\n3) in the test, put an assumption check on whether the device you are running on has a custom config in ConnectivityResources (you can probably test both config by mac and by ifname this way).\n4) create tap interfaces according to your configuration in 3.\n5) make assertions against the callbacks, similar to other tests in that class.\n\nIt is not entirely trivial, but if we have something like this set up, then I feel pretty confident that we will never accidentally break this feature. In general, EthernetManagerTests have been immensely helpful in improving the quality of what used to be bug-riddled code...",
+      "parentUuid": "f0283f0e_6b614ecd",
+      "revId": "55c28364cd85b18dc7c013bfdcee878d5251a7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3d8fd2e_d15f2ff0",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 6
@@ -449,6 +467,30 @@
       "side": 1,
       "message": "Will overload so EthernetServiceImpl doesn\u0027t need to know/worry about mac address",
       "parentUuid": "4bfbc788_b747c62d",
+      "range": {
+        "startLine": 649,
+        "startChar": 8,
+        "endLine": 656,
+        "endChar": 9
+      },
+      "revId": "55c28364cd85b18dc7c013bfdcee878d5251a7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ed84152_06e330ad",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-12T18:21:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ff83eaf_d347dafb",
       "range": {
         "startLine": 649,
         "startChar": 8,
