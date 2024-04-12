@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c58e809_e0c1cb9b",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-04-12T08:05:13Z",
+      "side": 1,
+      "message": "These ICMPv6 ND types are not defined in our kernel headers.  \nIt might need to request to add definition from upstream, then it can be removed.",
+      "revId": "015f92aade764188faa502fcdccff45498fe8c56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b177e062_799ec5a6",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-04-12T08:05:13Z",
+      "side": 1,
+      "message": "For the bpf_skb_load_bytes_net(), what is the right kver to use?",
+      "revId": "015f92aade764188faa502fcdccff45498fe8c56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
