@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38f4c641_f62f7275",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1386891
+      },
+      "writtenOn": "2024-04-12T05:15:07Z",
+      "side": 1,
+      "message": "we don\u0027t need to reveal it for now, let it under @hide like a constant above.",
+      "range": {
+        "startLine": 203,
+        "startChar": 28,
+        "endLine": 203,
+        "endChar": 53
+      },
+      "revId": "541f6e1d9b92719864d138d130ffac59d74f4c1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
