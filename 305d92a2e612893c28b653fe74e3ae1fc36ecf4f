@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "317433ff_b09be4f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-12T23:03:32Z",
+      "side": 1,
+      "message": "@lorenzo@google.com PTAL now. It is pending your approval.",
+      "revId": "305d92a2e612893c28b653fe74e3ae1fc36ecf4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
