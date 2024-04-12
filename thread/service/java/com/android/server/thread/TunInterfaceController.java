@@ -338,4 +338,9 @@ public class TunInterfaceController {
             Log.e(TAG, "failed to leave group " + address.getHostAddress(), e);
         }
     }
+
+    private static void setAddrGenModeToNone() {
+        StructNlMsgHdr header = new StructNlMsgHdr();
+        StructIfinfoMsg ifInfo = new StructIfinfoMsg();
+    }
 }

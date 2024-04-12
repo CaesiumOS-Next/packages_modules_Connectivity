@@ -27,7 +27,6 @@
 #include <net/if.h>
 #include <spawn.h>
 #include <sys/wait.h>
-#include <string>
 
 #include <private/android_filesystem_config.h>
 

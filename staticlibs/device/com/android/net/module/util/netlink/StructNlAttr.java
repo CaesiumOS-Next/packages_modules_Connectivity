@@ -140,6 +140,11 @@ public class StructNlAttr {
 
     public StructNlAttr() {}
 
+    public StructNlAttr(short type, byte[] value) {
+        nla_type = type;
+        setValue(value);
+    }
+
     public StructNlAttr(short type, byte value) {
         nla_type = type;
         setValue(new byte[1]);
