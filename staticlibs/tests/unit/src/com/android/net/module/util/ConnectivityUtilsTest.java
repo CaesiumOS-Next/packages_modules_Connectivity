@@ -18,11 +18,15 @@ package com.android.net.module.util;
 
 import static android.net.InetAddresses.parseNumericAddress;
 
+import android.util.SparseArray;
+
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import static com.android.net.module.util.ConnectivityUtils.isIPv6ULA;
+import static com.android.net.module.util.ConnectivityUtils.getSparseArrayIndexForValue;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -42,5 +46,18 @@ public class ConnectivityUtilsTest {
 
         assertFalse(isIPv6ULA(parseNumericAddress("fe00::")));
         assertFalse(isIPv6ULA(parseNumericAddress("2480:1248::123:456")));
+    }
+
+    @Test
+    public void testGetSparseArrayIndexForValue() {
+        SparseArray<String> sparseArray = new SparseArray<>();
+        sparseArray.put(10, "abcd");
+        sparseArray.put(20, "efgh");
+
+        String value0 = new String("abcd");
+        String value1 = new String("efgh");
+
+        assertEquals(0, getSparseArrayIndexForValue(sparseArray, value0));
+        assertEquals(1, getSparseArrayIndexForValue(sparseArray, value1));
     }
 }
