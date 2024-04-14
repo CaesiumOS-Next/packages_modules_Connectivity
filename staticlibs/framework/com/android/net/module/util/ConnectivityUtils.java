@@ -18,6 +18,7 @@ package com.android.net.module.util;
 
 
 import android.annotation.Nullable;
+import android.util.SparseArray;
 
 import java.net.Inet6Address;
 import java.net.InetAddress;
@@ -63,5 +64,24 @@ public final class ConnectivityUtils {
             return Integer.MIN_VALUE;
         }
         return (int) value;
+    }
+
+    /**
+     * Returns an index of the given SparseArray that contains the given value, or a negative
+     * number if no keys map to the given value. This function compares values with equals while
+     * the SparseArray.indexOfValue compares values using ==.
+     */
+    public static <T> int getSparseArrayIndexForValue(SparseArray<T> sparseArray, T value) {
+        for(int i = 0, nsize = sparseArray.size(); i < nsize; i++) {
+            T valueAt = sparseArray.valueAt(i);
+            if (valueAt == null) {
+                if (value == null) {
+                    return i;
+                };
+            } else if (valueAt.equals(value)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
