@@ -1830,7 +1830,7 @@ public class NsdService extends INsdManager.Stub {
         if (hostname == null) {
             return true;
         }
-        String HOSTNAME_REGEX = "^[a-zA-Z]([a-zA-Z0-9-_]{0,61}[a-zA-Z0-9])?$";
+        String HOSTNAME_REGEX = "^[a-zA-Z0-9]([a-zA-Z0-9-_]{0,61}[a-zA-Z0-9])?$";
         return Pattern.compile(HOSTNAME_REGEX).matcher(hostname).matches();
     }
 
