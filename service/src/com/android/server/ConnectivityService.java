@@ -36,6 +36,7 @@ import static android.net.ConnectivityDiagnosticsManager.DataStallReport.KEY_TCP
 import static android.net.ConnectivityDiagnosticsManager.DataStallReport.KEY_TCP_PACKET_FAIL_RATE;
 import static android.net.ConnectivityManager.ACTION_RESTRICT_BACKGROUND_CHANGED;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_MASK;
+import static android.net.ConnectivityManager.BLOCKED_REASON_APP_BACKGROUND;
 import static android.net.ConnectivityManager.BLOCKED_REASON_LOCKDOWN_VPN;
 import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
 import static android.net.ConnectivityManager.CALLBACK_IP_CHANGED;
@@ -273,6 +274,7 @@ import android.util.Log;
 import android.util.Pair;
 import android.util.Range;
 import android.util.SparseArray;
+import android.util.SparseBooleanArray;
 import android.util.SparseIntArray;
 import android.util.StatsEvent;
 
@@ -866,6 +868,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * Event to inform the ConnectivityService handler when a uid has been frozen or unfrozen.
      */
     private static final int EVENT_UID_FROZEN_STATE_CHANGED = 61;
+
+    /**
+     * Event for updating background restriction status for uids
+     * obj = SparseBooleanArray
+     */
+    private static final int EVENT_UID_BACKGROUND_RESTRICTION_CHANGED = 62;
 
     /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
@@ -3400,6 +3408,30 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
             } else if (destroyReasons != null) {
                 destroyReasons.frozen = false;
+                if (!destroyReasons.shouldDestroySocket()) {
+                    mDestroySocketPendingUids.delete(uid);
+                }
+            }
+        }
+
+        if (!mDelayDestroySockets || !isCellNetworkIdle()) {
+            closePendingFrozenSockets();
+        }
+    }
+
+    private void handleUidBackgroundRestrictionChanged(final int uid, final boolean restricted) {
+        final SocketDestroyReason destroyReasons = mDestroySocketPendingUids.get(uid);
+        if (restricted) {
+            if (destroyReasons == null) {
+                mDestroySocketPendingUids.put(uid,
+                        new SocketDestroyReason(false /* frozen */,
+                                true /* isBackgroundRestricted */));
+            } else {
+                destroyReasons.backgroundRestricted = true;
+            }
+        } else {
+            if (destroyReasons != null) {
+                destroyReasons.backgroundRestricted = false;
                 if (!destroyReasons.shouldDestroySocket()) {
                     mDestroySocketPendingUids.delete(uid);
                 }
@@ -6600,6 +6632,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 case EVENT_UID_FROZEN_STATE_CHANGED:
                     UidFrozenStateChangedArgs args = (UidFrozenStateChangedArgs) msg.obj;
                     handleFrozenUids(args.mUids, args.mFrozenStates);
+                    break;
+                case EVENT_UID_BACKGROUND_RESTRICTION_CHANGED:
+                    handleUidBackgroundRestrictionChanged(msg.arg1, toBool(msg.arg2));
                     break;
             }
         }
@@ -13652,11 +13687,21 @@ public class ConnectivityService extends IConnectivityManager.Stub
             } catch (ServiceSpecificException e) {
                 throw new IllegalStateException(e);
             }
-            if (mDeps.isAtLeastV() && mBlockedReasonsTrackingUids.get(uid) != 0) {
-                final SparseIntArray uidBlockedReasons = new SparseIntArray();
-                uidBlockedReasons.put(uid, mBpfNetMaps.getUidNetworkingBlockedReasons(uid));
-                mHandler.sendMessage(mHandler.obtainMessage(EVENT_UID_BLOCKED_REASON_CHANGED,
-                        uidBlockedReasons));
+            if (mDeps.isAtLeastV()) {
+                final int blockedReasons = mBpfNetMaps.getUidNetworkingBlockedReasons(uid);
+                if (mBlockedReasonsTrackingUids.get(uid) != 0) {
+                    final SparseIntArray uidBlockedReasons = new SparseIntArray();
+                    uidBlockedReasons.put(uid, blockedReasons);
+                    mHandler.sendMessage(mHandler.obtainMessage(EVENT_UID_BLOCKED_REASON_CHANGED,
+                            uidBlockedReasons));
+                }
+                if (chain == FIREWALL_CHAIN_BACKGROUND) {
+                    final boolean backgroundRestricted =
+                            (blockedReasons & BLOCKED_REASON_APP_BACKGROUND) != BLOCKED_REASON_NONE;
+                    mHandler.sendMessage(mHandler.obtainMessage(
+                            EVENT_UID_BACKGROUND_RESTRICTION_CHANGED, uid,
+                            encodeBool(backgroundRestricted)));
+                }
             }
         }
     }
