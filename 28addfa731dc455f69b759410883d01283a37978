@@ -56,6 +56,30 @@
       },
       "revId": "28addfa731dc455f69b759410883d01283a37978",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a66eefb8_21f620db",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1976127
+      },
+      "writtenOn": "2024-04-15T03:27:05Z",
+      "side": 1,
+      "message": "Thanks Lorenzo for reviewing the changes.\n\nFor failures in other ways than with ConnectException, the test behaves the same as before (i.e., it doesn\u0027t catch the exception and fails the test case directly).\n\nThe only exception the method catches and ignores is ConnectException. This exception is happening to some partners because of access issues to Google services(b/117302377 for more details). If the user is unable to fetch the response from any of the IP_ADDRESS_ECHO_URLS, the test will fail at L826 and L828. I tested the new changes on my local machine, and it\u0027s working as expected.\n\nOne downside of patchset 4 is we need to ship the config example to all these partners separately and train them how to set up the config. WDYT?",
+      "parentUuid": "024b4df8_399443fe",
+      "range": {
+        "startLine": 854,
+        "startChar": 30,
+        "endLine": 854,
+        "endChar": 46
+      },
+      "revId": "28addfa731dc455f69b759410883d01283a37978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
