@@ -158,7 +158,7 @@ open class CSTest {
         it[ConnectivityFlags.NO_REMATCH_ALL_REQUESTS_ON_REGISTER] = true
         it[ConnectivityFlags.REQUEST_RESTRICTED_WIFI] = true
         it[ConnectivityService.KEY_DESTROY_FROZEN_SOCKETS_VERSION] = true
-        it[ConnectivityService.DELAY_DESTROY_FROZEN_SOCKETS_VERSION] = true
+        it[ConnectivityFlags.DELAY_DESTROY_SOCKETS] = true
         it[ConnectivityService.ALLOW_SYSUI_CONNECTIVITY_REPORTS] = true
         it[ConnectivityService.ALLOW_SATALLITE_NETWORK_FALLBACK] = true
         it[ConnectivityFlags.INGRESS_TO_VPN_ADDRESS_FILTERING] = true
