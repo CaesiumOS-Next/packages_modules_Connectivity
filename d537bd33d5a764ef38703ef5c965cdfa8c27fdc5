@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05118c52_851c22db",
+        "filename": "staticlibs/framework/com/android/net/module/util/ConnectivityUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-15T02:49:11Z",
+      "side": 1,
+      "message": "```suggestion\n     * Returns an index of the given SparseArray that contains the given value, or a negative\n     * number if no keys map to the given value.\n     *\n     * \u003cp\u003eThis function compares values with {@code equals} while\n     * the {@link SparseArray#indexOfValue} compares values using {@code \u003d\u003d}.\n```",
+      "range": {
+        "startLine": 70,
+        "startChar": 7,
+        "endLine": 72,
+        "endChar": 61
+      },
+      "revId": "d537bd33d5a764ef38703ef5c965cdfa8c27fdc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53d6e029_7d801a87",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/ConnectivityUtilsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-15T02:49:11Z",
+      "side": 1,
+      "message": "nit: the index value `0` is kind of a specially value, better not use it in tests to avoid escape of subtle bugs.\n\n```suggestion\n        sparseArray.put(5, \"hello\");\n        sparseArray.put(10, \"abcd\");\n        sparseArray.put(20, null);\n```",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 34
+      },
+      "revId": "d537bd33d5a764ef38703ef5c965cdfa8c27fdc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
