@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a133d8e_550ec6ec",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1833,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-04-15T12:26:05Z",
+      "side": 1,
+      "message": "Do you have reference to the RFC for this change?\n\nAlso the old regex require at least 1 [a-zA-Z], but the this change break that implication, it seems wrong to me.",
+      "range": {
+        "startLine": 1833,
+        "startChar": 35,
+        "endLine": 1833,
+        "endChar": 54
+      },
+      "revId": "dd07b924072d03b090c766159cc1f4fad959ee47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
