@@ -201,6 +201,7 @@ open class CSTest {
 
     val multicastRoutingCoordinatorService = mock<MulticastRoutingCoordinatorService>()
     val satelliteAccessController = mock<SatelliteAccessController>()
+    val destroySocketsWrapper = mock<DestroySocketsWrapper>()
 
     val deps = CSDeps()
 
@@ -252,6 +253,11 @@ open class CSTest {
         csHandlerThread.join()
         alarmHandlerThread.quitSafely()
         alarmHandlerThread.join()
+    }
+
+    // Class to be mocked and used to verify destroy sockets methods call
+    inner class DestroySocketsWrapper {
+        fun destroyLiveTcpSocketsByOwnerUids(ownerUids: Set<Int>){}
     }
 
     inner class CSDeps : ConnectivityService.Dependencies() {
@@ -359,6 +365,13 @@ open class CSTest {
 
         override fun getCallingUid() =
                 if (callingUid == CALLING_UID_UNMOCKED) super.getCallingUid() else callingUid
+
+        override fun destroyLiveTcpSocketsByOwnerUids(ownerUids: Set<Int>){
+            // Call mocked destroyLiveTcpSocketsByOwnerUids so that test can verify this method call
+            // Create copy of ownerUids so that tests can verify the correct value even if the
+            // ConnectivityService update the ownerUids after this method call.
+            destroySocketsWrapper.destroyLiveTcpSocketsByOwnerUids(ownerUids.toSet())
+        }
     }
 
     inner class CSContext(base: Context) : BroadcastInterceptingContext(base) {
