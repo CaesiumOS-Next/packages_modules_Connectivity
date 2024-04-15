@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f7646f9_7c9ba413",
+        "filename": "staticlibs/framework/com/android/net/module/util/ConnectivityUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-04-15T06:08:59Z",
+      "side": 1,
+      "message": "Maybe CollectionUtils would be better than ConnectivityUtils?",
+      "revId": "1dcf47879170f8c6dbf8b5e5871bd59238caded7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cefa638d_a2e98395",
+        "filename": "staticlibs/framework/com/android/net/module/util/ConnectivityUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-04-15T06:08:59Z",
+      "side": 1,
+      "message": "-1 ?",
+      "range": {
+        "startLine": 70,
+        "startChar": 83,
+        "endLine": 71,
+        "endChar": 13
+      },
+      "revId": "1dcf47879170f8c6dbf8b5e5871bd59238caded7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e06ec6d8_044c60d0",
+        "filename": "staticlibs/framework/com/android/net/module/util/ConnectivityUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-04-15T06:08:59Z",
+      "side": 1,
+      "message": "Given that this takes a SparseArray argument, maybe remove SparseArray from the method name?",
+      "range": {
+        "startLine": 76,
+        "startChar": 26,
+        "endLine": 76,
+        "endChar": 53
+      },
+      "revId": "1dcf47879170f8c6dbf8b5e5871bd59238caded7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
