@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4e3411b_9d2f3279",
+        "filename": "staticlibs/framework/com/android/net/module/util/ConnectivityUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-15T05:07:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05118c52_851c22db",
+      "range": {
+        "startLine": 70,
+        "startChar": 7,
+        "endLine": 72,
+        "endChar": 61
+      },
+      "revId": "d537bd33d5a764ef38703ef5c965cdfa8c27fdc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53d6e029_7d801a87",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-04-15T02:49:11Z",
       "side": 1,
       "message": "nit: the index value `0` is kind of a specially value, better not use it in tests to avoid escape of subtle bugs.\n\n```suggestion\n        sparseArray.put(5, \"hello\");\n        sparseArray.put(10, \"abcd\");\n        sparseArray.put(20, null);\n```",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 34
+      },
+      "revId": "d537bd33d5a764ef38703ef5c965cdfa8c27fdc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a8424a1_8f65e2b3",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/ConnectivityUtilsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-15T05:07:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53d6e029_7d801a87",
       "range": {
         "startLine": 54,
         "startChar": 8,
