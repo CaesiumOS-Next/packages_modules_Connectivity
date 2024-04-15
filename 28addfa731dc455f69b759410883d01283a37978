@@ -33,6 +33,29 @@
       "message": "Friendly ping~",
       "revId": "28addfa731dc455f69b759410883d01283a37978",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "024b4df8_399443fe",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-04-15T01:01:27Z",
+      "side": 1,
+      "message": "I\u0027m not sure this will work, actually. This fetch can probably fail in other ways than with ConnectException.\n\nIf the goal is to ensure that only the URLs in IP_ADDRESS_ECHO_URLS are valid URLs to pass this test, then can\u0027t we just let the user of this test configure whatever URL they want via dynamic configuration, but fail if the URL they configure is not in IP_ADDRESS_ECHO_URLS\n\nI\u0027m thinking of something like patchset 4 of this CL, but where updateSettingsFromConfig would cause the test to fail if the URL was not one of the URLs that the test supports.",
+      "range": {
+        "startLine": 854,
+        "startChar": 30,
+        "endLine": 854,
+        "endChar": 46
+      },
+      "revId": "28addfa731dc455f69b759410883d01283a37978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
