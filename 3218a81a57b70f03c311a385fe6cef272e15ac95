@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9b9b18f_e80c1d60",
+        "filename": "netbpfload/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-15T19:59:01Z",
+      "side": 1,
+      "message": "should this be renamed to netbpfload.33rc?",
+      "range": {
+        "startLine": 74,
+        "startChar": 10,
+        "endLine": 74,
+        "endChar": 32
+      },
+      "revId": "3218a81a57b70f03c311a385fe6cef272e15ac95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
