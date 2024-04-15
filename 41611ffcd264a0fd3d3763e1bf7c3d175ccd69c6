@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "823df81e_5564d7b9",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructPrefixCacheInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-15T19:41:10Z",
+      "side": 1,
+      "message": "nit: consider sticking to the same naming as prefix_cacheinfo, i.e. preferred_time / valid_time.",
+      "range": {
+        "startLine": 44,
+        "startChar": 22,
+        "endLine": 44,
+        "endChar": 31
+      },
+      "revId": "41611ffcd264a0fd3d3763e1bf7c3d175ccd69c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "04beb957_a2ea70a1",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/StructPrefixCacheInfo.java",
         "patchSetId": 3
