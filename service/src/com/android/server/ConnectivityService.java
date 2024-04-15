@@ -36,6 +36,7 @@ import static android.net.ConnectivityDiagnosticsManager.DataStallReport.KEY_TCP
 import static android.net.ConnectivityDiagnosticsManager.DataStallReport.KEY_TCP_PACKET_FAIL_RATE;
 import static android.net.ConnectivityManager.ACTION_RESTRICT_BACKGROUND_CHANGED;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_MASK;
+import static android.net.ConnectivityManager.BLOCKED_REASON_APP_BACKGROUND;
 import static android.net.ConnectivityManager.BLOCKED_REASON_LOCKDOWN_VPN;
 import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
 import static android.net.ConnectivityManager.BLOCKED_REASON_NO_INTERNET_PERMISSION;
@@ -875,6 +876,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final int EVENT_UID_FROZEN_STATE_CHANGED = 61;
 
     /**
+     * Event to inform the firewall chain is disabled.
+     * arg1 = firewall chain
+     */
+    private static final int EVENT_FIREWALL_CHAIN_DISABLED = 62;
+
+    /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
      * should be shown.
      */
@@ -1030,6 +1037,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private static final int DESTROY_SOCKET_REASON_NONE = 0;
     private static final int DESTROY_SOCKET_REASON_FROZEN = 1 << 0;
+    private static final int DESTROY_SOCKET_REASON_FIREWALL_BACKGROUND = 1 << 1;
 
     // Flag to drop packets to VPN addresses ingressing via non-VPN interfaces.
     private final boolean mIngressToVpnAddressFiltering;
@@ -3344,21 +3352,26 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             mHandler.sendMessage(mHandler.obtainMessage(
                     EVENT_UIDS_BLOCKED_REASONS_CHANGED,
+                    encodeBool(false) /* maybeDestroySockets */,
+                    0 /* arg2 */,
                     List.of(new Pair<>(uid, blockedReasons))));
         }
     };
 
     @VisibleForTesting
-    void handleUidsBlockedReasonsChanged(List<Pair<Integer, Integer>> uidBlockedReasonsList) {
+    void handleUidsBlockedReasonsChanged(List<Pair<Integer, Integer>> uidBlockedReasonsList,
+            boolean maybeDestroySockets) {
         for (Pair<Integer, Integer> uidBlockedReasons: uidBlockedReasonsList) {
             final int uid = uidBlockedReasons.first;
             final int blockedReasons = uidBlockedReasons.second;
             if (mDeps.isAtLeastV()) {
+                if (maybeDestroySockets) {
+                    updateSocketDestroyReasonsAndMaybeDestroySockets(uid, blockedReasons);
+                }
                 synchronized (mBlockedStatusTrackingUids) {
                     if (mBlockedStatusTrackingUids.get(uid) == 0) {
-                        // This uid is not tracked anymore.
-                        // This can happen if the network request is unregistered while
-                        // EVENT_UIDS_BLOCKED_REASONS_CHANGED is posted but not processed yet.
+                        // This uid is not tracked, no network requests will receive callback by
+                        // blockedReasons change for this uid.
                         continue;
                     }
                 }
@@ -3421,6 +3434,33 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         if (!mDelayDestroySockets || !isCellNetworkIdle()) {
             destroyPendingSockets();
+        }
+    }
+
+    void updateSocketDestroyReasonsAndMaybeDestroySockets(final int uid, final int blockedReasons) {
+        // TODO (b/300681644): Support other firewall chains
+        final boolean  isBlockedByBackgroundChain =
+                (blockedReasons & BLOCKED_REASON_APP_BACKGROUND) != BLOCKED_REASON_NONE;
+        updateDestroySocketReasons(uid, DESTROY_SOCKET_REASON_FIREWALL_BACKGROUND,
+                isBlockedByBackgroundChain);
+
+        if (!mDelayDestroySockets || !isCellNetworkIdle()) {
+            destroyPendingSockets();
+        }
+    }
+
+    private void handleFirewallChainDisabled(final int chain) {
+        // TODO (b/300681644): Support other firewall chains
+        if (chain != FIREWALL_CHAIN_BACKGROUND) {
+            return;
+        }
+
+        // Unset DESTROY_SOCKET_REASON_FIREWALL_BACKGROUND from all pending uids since background
+        // restriction is disabled for all uids.
+        for (int i = mDestroySocketPendingUids.size() - 1; i >= 0; i--) {
+            final int uid = mDestroySocketPendingUids.keyAt(i);
+            updateDestroySocketReasons(uid, DESTROY_SOCKET_REASON_FIREWALL_BACKGROUND,
+                    false /* addReason */);
         }
     }
 
@@ -6560,7 +6600,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                             (PrivateDnsValidationUpdate) msg.obj);
                     break;
                 case EVENT_UIDS_BLOCKED_REASONS_CHANGED:
-                    handleUidsBlockedReasonsChanged((List) msg.obj);
+                    handleUidsBlockedReasonsChanged((List) msg.obj, toBool(msg.arg1));
                     break;
                 case EVENT_SET_REQUIRE_VPN_FOR_UIDS:
                     handleSetRequireVpnForUids(toBool(msg.arg1), (UidRange[]) msg.obj);
@@ -6608,6 +6648,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 case EVENT_UID_FROZEN_STATE_CHANGED:
                     UidFrozenStateChangedArgs args = (UidFrozenStateChangedArgs) msg.obj;
                     handleFrozenUids(args.mUids, args.mFrozenStates);
+                    break;
+                case EVENT_FIREWALL_CHAIN_DISABLED:
+                    handleFirewallChainDisabled(msg.arg1);
                     break;
             }
         }
@@ -8171,7 +8214,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             final int uid = nri.mAsUid;
             final int count = mBlockedStatusTrackingUids.get(uid);
             if (count == 0) {
-                mHandler.sendMessage(mHandler.obtainMessage(EVENT_UIDS_BLOCKED_REASONS_CHANGED,
+                mHandler.sendMessage(mHandler.obtainMessage(
+                        EVENT_UIDS_BLOCKED_REASONS_CHANGED,
+                        encodeBool(false) /* maybeDestroySocket */,
+                        0 /* arg2 */,
                         List.of(new Pair<>(uid, mBpfNetMaps.getUidNetworkingBlockedReasons(uid)))));
             }
             mBlockedStatusTrackingUids.put(uid, count + 1);
@@ -13710,8 +13756,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
             } catch (ServiceSpecificException e) {
                 throw new IllegalStateException(e);
             }
-            if (mDeps.isAtLeastV() && mBlockedStatusTrackingUids.get(uid) != 0) {
-                mHandler.sendMessage(mHandler.obtainMessage(EVENT_UIDS_BLOCKED_REASONS_CHANGED,
+            if (mDeps.isAtLeastV()) {
+                mHandler.sendMessage(mHandler.obtainMessage(
+                        EVENT_UIDS_BLOCKED_REASONS_CHANGED,
+                        encodeBool(true) /* maybeDestroySockets */,
+                        0 /* arg2 */,
                         List.of(new Pair<>(uid, mBpfNetMaps.getUidNetworkingBlockedReasons(uid)))));
             }
         }
@@ -13799,6 +13848,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             if (mDeps.isAtLeastV()) {
                 updateTrackingUidsBlockedReasons();
+                // CS might delaying destroying sockets due to background firewall restriction,
+                // so post message to update destroy socket reasons of pending uids.
+                // Note that closeSocketsForFirewallChainLocked immediately closes sockets
+                // if the firewall is enabled.
+                if (chain == FIREWALL_CHAIN_BACKGROUND && !enable) {
+                    mHandler.sendMessage(mHandler.obtainMessage(
+                            EVENT_FIREWALL_CHAIN_DISABLED, chain, 0 /* arg2 */));
+
+                }
             }
         }
 
@@ -13823,7 +13881,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             uidBlockedReasonsList.add(
                     new Pair<>(uid, mBpfNetMaps.getUidNetworkingBlockedReasons(uid)));
         }
-        mHandler.sendMessage(mHandler.obtainMessage(EVENT_UIDS_BLOCKED_REASONS_CHANGED,
+        mHandler.sendMessage(mHandler.obtainMessage(
+                EVENT_UIDS_BLOCKED_REASONS_CHANGED,
+                encodeBool(true) /* maybeDestroySockets */,
+                0 /* arg2 */,
                 uidBlockedReasonsList));
     }
 
