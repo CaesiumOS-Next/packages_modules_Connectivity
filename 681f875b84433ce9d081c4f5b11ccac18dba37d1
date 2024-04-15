@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f5723d9_5fe74f51",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructPrefixMsg.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-15T19:37:40Z",
+      "side": 1,
+      "message": "why not throw an exception or let Struct.parse() throw one?",
+      "range": {
+        "startLine": 80,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 62
+      },
+      "revId": "681f875b84433ce9d081c4f5b11ccac18dba37d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f57bb6aa_b4900adf",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructPrefixMsg.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-15T19:37:40Z",
+      "side": 1,
+      "message": "nit: why \"this.\"?",
+      "range": {
+        "startLine": 91,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 13
+      },
+      "revId": "681f875b84433ce9d081c4f5b11ccac18dba37d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
