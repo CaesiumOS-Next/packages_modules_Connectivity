@@ -2181,8 +2181,6 @@ public class ConnectivityServiceTest {
                     return true;
                 case KEY_DESTROY_FROZEN_SOCKETS_VERSION:
                     return true;
-                case DELAY_DESTROY_SOCKETS:
-                    return true;
                 default:
                     return super.isFeatureEnabled(context, name);
             }
@@ -2198,6 +2196,8 @@ public class ConnectivityServiceTest {
                 case INGRESS_TO_VPN_ADDRESS_FILTERING:
                     return true;
                 case BACKGROUND_FIREWALL_CHAIN:
+                    return true;
+                case DELAY_DESTROY_SOCKETS:
                     return true;
                 default:
                     return super.isFeatureNotChickenedOut(context, name);
