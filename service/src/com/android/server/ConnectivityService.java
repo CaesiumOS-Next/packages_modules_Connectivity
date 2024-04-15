@@ -1017,7 +1017,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private final boolean mAllowSysUiConnectivityReports;
 
     // Uids that ConnectivityService is pending to close sockets of.
-    private final Set<Integer> mPendingFrozenUids = new ArraySet<>();
+    // Key is uid and value is reasons of socket destroy
+    private final SparseIntArray mDestroySocketPendingUids = new SparseIntArray();
+
+    private static final int SOCKET_DESTROY_REASON_NONE = 0;
+    private static final int SOCKET_DESTROY_REASON_FROZEN = 1 << 0;
 
     // Flag to drop packets to VPN addresses ingressing via non-VPN interfaces.
     private final boolean mIngressToVpnAddressFiltering;
@@ -3379,44 +3383,50 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return !mNetworkActivityTracker.isDefaultNetworkActive();
     }
 
-    private void handleFrozenUids(int[] uids, int[] frozenStates) {
-        final ArraySet<Integer> ownerUids = new ArraySet<>();
-
-        for (int i = 0; i < uids.length; i++) {
-            if (frozenStates[i] == UID_FROZEN_STATE_FROZEN) {
-                ownerUids.add(uids[i]);
-            } else {
-                mPendingFrozenUids.remove(uids[i]);
-            }
-        }
-
-        if (ownerUids.isEmpty()) {
-            return;
-        }
-
-        if (mDelayDestroySockets && isCellNetworkIdle()) {
-            // Delay closing sockets to avoid waking the cell modem up.
-            // Wi-Fi network state is not considered since waking Wi-Fi modem up is much cheaper
-            // than waking cell modem up.
-            mPendingFrozenUids.addAll(ownerUids);
+    private void updateDestroySocketReasons(final int uid, final int reason, final boolean isSet) {
+        final int destroyReasons = mDestroySocketPendingUids.get(uid, SOCKET_DESTROY_REASON_NONE);
+        if (isSet) {
+            mDestroySocketPendingUids.put(uid,
+                    destroyReasons | reason);
         } else {
-            try {
-                mDeps.destroyLiveTcpSocketsByOwnerUids(ownerUids);
-            } catch (SocketException | InterruptedIOException | ErrnoException e) {
-                loge("Exception in socket destroy: " + e);
+            final int newDestroyReasons = destroyReasons & ~reason;
+            if (newDestroyReasons == SOCKET_DESTROY_REASON_NONE) {
+                mDestroySocketPendingUids.delete(uid);
+            } else {
+                mDestroySocketPendingUids.put(uid, newDestroyReasons);
             }
+        }
+    }
+
+    private void handleFrozenUids(int[] uids, int[] frozenStates) {
+        for (int i = 0; i < uids.length; i++) {
+            final int uid = uids[i];
+            final boolean isReasonSet = frozenStates[i] == UID_FROZEN_STATE_FROZEN;
+            updateDestroySocketReasons(uid, SOCKET_DESTROY_REASON_FROZEN, isReasonSet);
+        }
+
+        if (!mDelayDestroySockets || !isCellNetworkIdle()) {
+            closePendingFrozenSockets();
         }
     }
 
     private void closePendingFrozenSockets() {
         ensureRunningOnConnectivityServiceThread();
+        if (mDestroySocketPendingUids.size() == 0) {
+            return;
+        }
+
+        Set<Integer> uids = new ArraySet<>();
+        for (int i = 0; i < mDestroySocketPendingUids.size(); i++) {
+            uids.add(mDestroySocketPendingUids.keyAt(i));
+        }
 
         try {
-            mDeps.destroyLiveTcpSocketsByOwnerUids(mPendingFrozenUids);
+            mDeps.destroyLiveTcpSocketsByOwnerUids(uids);
         } catch (SocketException | InterruptedIOException | ErrnoException e) {
             loge("Failed to close pending frozen app sockets: " + e);
         }
-        mPendingFrozenUids.clear();
+        mDestroySocketPendingUids.clear();
     }
 
     private void handleReportNetworkActivity(final NetworkActivityParams params) {
@@ -3435,8 +3445,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         if (mDelayDestroySockets
                 && params.isActive
-                && isCellNetworkActivity
-                && !mPendingFrozenUids.isEmpty()) {
+                && isCellNetworkActivity) {
             closePendingFrozenSockets();
         }
     }
@@ -3455,18 +3464,24 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 && newNetwork.networkCapabilities.hasTransport(TRANSPORT_CELLULAR);
 
         if (isOldNetworkCellular
-                && !isNewNetworkCellular
-                && !mPendingFrozenUids.isEmpty()) {
+                && !isNewNetworkCellular) {
             closePendingFrozenSockets();
         }
     }
 
-    private void dumpCloseFrozenAppSockets(IndentingPrintWriter pw) {
-        pw.println("CloseFrozenAppSockets:");
+    private void dumpDestroySockets(IndentingPrintWriter pw) {
+        pw.println("DestroyAppSockets:");
         pw.increaseIndent();
         pw.print("mDestroyFrozenSockets="); pw.println(mDestroyFrozenSockets);
         pw.print("mDelayDestroySockets="); pw.println(mDelayDestroySockets);
-        pw.print("mPendingFrozenUids="); pw.println(mPendingFrozenUids);
+        pw.print("mDestroySocketPendingUids:");
+        pw.increaseIndent();
+        for (int i = 0; i < mDestroySocketPendingUids.size(); i++) {
+            final int uid = mDestroySocketPendingUids.keyAt(i);
+            final int reasons = mDestroySocketPendingUids.valueAt(i);
+            pw.print(uid + ": reasons=" + reasons);
+        }
+        pw.decreaseIndent();
         pw.decreaseIndent();
     }
 
@@ -4125,7 +4140,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         dumpAvoidBadWifiSettings(pw);
 
         pw.println();
-        dumpCloseFrozenAppSockets(pw);
+        dumpDestroySockets(pw);
 
         pw.println();
         dumpBpfProgramStatus(pw);
