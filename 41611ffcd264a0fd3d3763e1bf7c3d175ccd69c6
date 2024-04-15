@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04beb957_a2ea70a1",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructPrefixCacheInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-15T19:40:02Z",
+      "side": 1,
+      "message": "again, I think throwing would be better.",
+      "range": {
+        "startLine": 59,
+        "startChar": 7,
+        "endLine": 60,
+        "endChar": 13
+      },
+      "revId": "41611ffcd264a0fd3d3763e1bf7c3d175ccd69c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
