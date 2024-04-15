@@ -1750,9 +1750,8 @@ public class ConnectivityServiceTest {
         if (mDeps.isAtLeastV()) {
             visibleOnHandlerThread(mCsHandlerThread.getThreadHandler(),
                     () -> mService.handleUidsBlockedReasonsChanged(
-                            List.of(new Pair<>(Process.myUid(), blockedReasons))
-
-                    ));
+                            List.of(new Pair<>(Process.myUid(), blockedReasons)))
+            );
         } else {
             mPolicyCallback.onUidBlockedReasonChanged(Process.myUid(), blockedReasons);
         }
