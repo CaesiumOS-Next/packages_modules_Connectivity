@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f5b7fa5_5ba05838",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructPrefixMsg.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-15T19:42:07Z",
+      "side": 1,
+      "message": "nit: consider sticking to the same naming pattern as struct prefixmsg, i.e. prefix_family, etc.",
+      "range": {
+        "startLine": 52,
+        "startChar": 23,
+        "endLine": 52,
+        "endChar": 29
+      },
+      "revId": "681f875b84433ce9d081c4f5b11ccac18dba37d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f5723d9_5fe74f51",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/StructPrefixMsg.java",
         "patchSetId": 3
