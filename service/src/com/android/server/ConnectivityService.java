@@ -36,6 +36,7 @@ import static android.net.ConnectivityDiagnosticsManager.DataStallReport.KEY_TCP
 import static android.net.ConnectivityDiagnosticsManager.DataStallReport.KEY_TCP_PACKET_FAIL_RATE;
 import static android.net.ConnectivityManager.ACTION_RESTRICT_BACKGROUND_CHANGED;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_MASK;
+import static android.net.ConnectivityManager.BLOCKED_REASON_APP_BACKGROUND;
 import static android.net.ConnectivityManager.BLOCKED_REASON_LOCKDOWN_VPN;
 import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
 import static android.net.ConnectivityManager.BLOCKED_REASON_NO_INTERNET_PERMISSION;
@@ -875,6 +876,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final int EVENT_UID_FROZEN_STATE_CHANGED = 61;
 
     /**
+     * Event for updating background restriction status for uids
+     * arg1 = uid
+     * arg2 = isBlocked
+     */
+    private static final int EVENT_UID_BACKGROUND_RESTRICTION_CHANGED = 62;
+
+    /**
+     * Event to inform the background restriction is disabled for all uids.
+     */
+    private static final int EVENT_BACKGROUND_RESTRICTION_DISABLED = 63;
+
+    /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
      * should be shown.
      */
@@ -1030,6 +1043,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private static final int DESTROY_SOCKET_REASON_NONE = 0;
     private static final int DESTROY_SOCKET_REASON_FROZEN = 1 << 0;
+    private static final int DESTROY_SOCKET_REASON_FIREWALL_BACKGROUND = 1 << 1;
 
     // Flag to drop packets to VPN addresses ingressing via non-VPN interfaces.
     private final boolean mIngressToVpnAddressFiltering;
@@ -3421,6 +3435,25 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         if (!mDelayDestroySockets || !isCellNetworkIdle()) {
             destroyPendingSockets();
+        }
+    }
+
+    private void handleUidBackgroundRestrictionChanged(final int uid, final boolean isBlocked) {
+        ensureRunningOnConnectivityServiceThread();
+        updateDestroySocketReasons(uid, DESTROY_SOCKET_REASON_FIREWALL_BACKGROUND, isBlocked);
+
+        if (!mDelayDestroySockets || !isCellNetworkIdle()) {
+            destroyPendingSockets();
+        }
+    }
+
+    private void handleBackgroundRestrictionDisabled() {
+        // Unset DESTROY_SOCKET_REASON_FIREWALL_BACKGROUND from all pending uids since background
+        // restriction is disabled for all uids.
+        for (int i = mDestroySocketPendingUids.size() - 1; i >= 0; i--) {
+            final int uid = mDestroySocketPendingUids.keyAt(i);
+            updateDestroySocketReasons(uid, DESTROY_SOCKET_REASON_FIREWALL_BACKGROUND,
+                    false /* addReason */);
         }
     }
 
@@ -6606,6 +6639,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 case EVENT_UID_FROZEN_STATE_CHANGED:
                     UidFrozenStateChangedArgs args = (UidFrozenStateChangedArgs) msg.obj;
                     handleFrozenUids(args.mUids, args.mFrozenStates);
+                    break;
+                case EVENT_UID_BACKGROUND_RESTRICTION_CHANGED:
+                    handleUidBackgroundRestrictionChanged(msg.arg1, toBool(msg.arg2));
+                    break;
+                case EVENT_BACKGROUND_RESTRICTION_DISABLED:
+                    handleBackgroundRestrictionDisabled();
                     break;
             }
         }
@@ -13705,9 +13744,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
             } catch (ServiceSpecificException e) {
                 throw new IllegalStateException(e);
             }
-            if (mDeps.isAtLeastV() && mBlockedStatusTrackingUids.get(uid) != 0) {
-                mHandler.sendMessage(mHandler.obtainMessage(EVENT_UIDS_BLOCKED_REASONS_CHANGED,
-                        List.of(new Pair<>(uid, mBpfNetMaps.getUidNetworkingBlockedReasons(uid)))));
+            if (mDeps.isAtLeastV()) {
+                final int blockedReasons = mBpfNetMaps.getUidNetworkingBlockedReasons(uid);
+                if (mBlockedStatusTrackingUids.get(uid) != 0) {
+                    mHandler.sendMessage(mHandler.obtainMessage(EVENT_UIDS_BLOCKED_REASONS_CHANGED,
+                            List.of(new Pair<>(uid, blockedReasons))));
+                }
+                // TODO (b/300681644): Support other firewall chains
+                if (chain == FIREWALL_CHAIN_BACKGROUND) {
+                    final boolean isBlockedByBackgroundChain =
+                            (blockedReasons & BLOCKED_REASON_APP_BACKGROUND) != BLOCKED_REASON_NONE;
+                    mHandler.sendMessage(mHandler.obtainMessage(
+                            EVENT_UID_BACKGROUND_RESTRICTION_CHANGED, uid,
+                            encodeBool(isBlockedByBackgroundChain)));
+                }
             }
         }
     }
@@ -13794,6 +13844,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             if (mDeps.isAtLeastV()) {
                 updateTrackingUidsBlockedReasons();
+                // TODO (b/300681644): Support other firewall chains
+                if (chain == FIREWALL_CHAIN_BACKGROUND && !enable) {
+                    mHandler.sendMessage(
+                            mHandler.obtainMessage(EVENT_BACKGROUND_RESTRICTION_DISABLED));
+
+                }
             }
         }
 
