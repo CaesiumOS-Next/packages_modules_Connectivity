@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06aa17b0_908ee286",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1078,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-16T08:59:48Z",
+      "side": 1,
+      "message": "I want to make these new chains special but they should still fit the below IntDef.\nSo I prefer to keep FIREWALL_CHAIN prefix.",
+      "parentUuid": "5e39b59f_5056576f",
+      "range": {
+        "startLine": 1078,
+        "startChar": 28,
+        "endLine": 1078,
+        "endChar": 56
+      },
+      "revId": "c2ceb8a057d4ba9ac4d7004a1ab902f3d4cfcc79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9d6df64_70dd581b",
