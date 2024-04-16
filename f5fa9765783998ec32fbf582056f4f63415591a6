@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "960eb389_821170c6",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-16T07:02:37Z",
+      "side": 1,
+      "message": "NPMS will use setUidFirewallRule with these new chains instead of calling [add/remove]UidToMeteredNetwork[Allow/Deny]List APIs.\nWe don\u0027t have NPMS side CL yet. \nNPMS side CL is required to generate correct BlockedReasons from bpf map contents.\nSo aosp/3027488 requires NPMS side CLs.",
+      "parentUuid": "c44621cd_99c0fb15",
+      "range": {
+        "startLine": 1108,
+        "startChar": 28,
+        "endLine": 1108,
+        "endChar": 60
+      },
+      "revId": "f5fa9765783998ec32fbf582056f4f63415591a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dcd82b1_b07ed5cc",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-04-16T06:08:26Z",
       "side": 1,
       "message": "Maybe also describe who controls it?",
+      "range": {
+        "startLine": 13587,
+        "startChar": 42,
+        "endLine": 13587,
+        "endChar": 92
+      },
+      "revId": "f5fa9765783998ec32fbf582056f4f63415591a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ea4ecd1_51009169",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 13587,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-16T07:02:37Z",
+      "side": 1,
+      "message": "But bpf prog that checks PENALTY_BOX and HAPPY_BOX is triggered by iptables that attached to the metered network.\nNPMs calls netd and configures iptables.\nSo in that sense, chain is controlled by NPMS.\nBut we can also says PENALTY_BOX is always enabled and HAPPY_BOX is enabled when data saver is enabled.\nI have updated the message, could you take a look?",
+      "parentUuid": "5dcd82b1_b07ed5cc",
       "range": {
         "startLine": 13587,
         "startChar": 42,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "52bc1162_50ccdd53",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 13611,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-16T07:02:37Z",
+      "side": 1,
+      "message": "I have updated the code based on the above comment, could you take a look?",
+      "parentUuid": "0251dc50_d7f3fe9c",
+      "range": {
+        "startLine": 13611,
+        "startChar": 21,
+        "endLine": 13611,
+        "endChar": 76
+      },
+      "revId": "f5fa9765783998ec32fbf582056f4f63415591a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "86e2aa0e_c31d02fe",
         "filename": "tests/unit/java/com/android/server/connectivityservice/CSFirewallChainTest.kt",
         "patchSetId": 29
@@ -83,6 +155,30 @@
       "writtenOn": "2024-04-16T06:08:26Z",
       "side": 1,
       "message": "Nit: Is it better if we import these constants and make them one line?\n cm.setUidFirewallRule(FIREWALL_CHAIN_BACKGROUND, uid, FIREWALL_RULE_DEFAULT)\n verify(bpfNetMaps).setUidRule(FIREWALL_CHAIN_BACKGROUND, uid, FIREWALL_RULE_DENY)\n        clearInvocations(bpfNetMaps)",
+      "range": {
+        "startLine": 128,
+        "startChar": 7,
+        "endLine": 132,
+        "endChar": 8
+      },
+      "revId": "f5fa9765783998ec32fbf582056f4f63415591a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3648556c_39491366",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSFirewallChainTest.kt",
+        "patchSetId": 29
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-16T07:02:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86e2aa0e_c31d02fe",
       "range": {
         "startLine": 128,
         "startChar": 7,
