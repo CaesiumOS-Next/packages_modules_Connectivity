@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b26b97ce_d9ee3a9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-16T23:42:58Z",
+      "side": 1,
+      "message": "I am removing the topic, so this CL is not blocked by aosp/3044528 (which I will start reviewing shortly).",
+      "revId": "dbbada4d7bdc48f3c2ec9981b3716662a5a2d5f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
