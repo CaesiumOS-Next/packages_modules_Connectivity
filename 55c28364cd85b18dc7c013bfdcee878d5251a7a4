@@ -148,6 +148,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1218c2d9_388f0530",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-16T21:52:09Z",
+      "side": 1,
+      "message": "Thank you for all your help with this! Pretty cool learning about the Ethernet stack a little bit!",
+      "parentUuid": "bc5a88d4_ad9d0688",
+      "revId": "55c28364cd85b18dc7c013bfdcee878d5251a7a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3d8fd2e_d15f2ff0",
