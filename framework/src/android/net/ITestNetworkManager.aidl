@@ -35,6 +35,8 @@ interface ITestNetworkManager
 
     void setCarrierEnabled(in TestNetworkInterface iface, boolean enabled);
 
+    void setHwAddress(in TestNetworkInterface iface, String hwAddress);
+
     void setupTestNetwork(in String iface, in LinkProperties lp, in boolean isMetered,
             in int[] administratorUids, in IBinder binder);
 

@@ -29,6 +29,7 @@ import android.net.ITestNetworkManager;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
+import android.net.MacAddress;
 import android.net.NetworkAgent;
 import android.net.NetworkAgentConfig;
 import android.net.NetworkCapabilities;
@@ -81,6 +82,8 @@ class TestNetworkService extends ITestNetworkManager.Stub {
 
     private static native void nativeSetTunTapCarrierEnabled(@NonNull String iface, int tunFd,
             boolean enabled);
+
+    private static native void nativeSetTapHwAddress(@NonNull String iface, byte[] macAddr);
 
     private static native void nativeBringUpInterface(String iface);
 
@@ -412,5 +415,15 @@ class TestNetworkService extends ITestNetworkManager.Stub {
         } catch (IOException e) {
             // if the close fails, there is not much that can be done -- move on.
         }
+    }
+
+    /**
+     * Set MAC address on TestNetworkInterface
+     */
+    @Override
+    public void setHwAddress(@NonNull TestNetworkInterface iface, @NonNull String hwAddress) {
+        enforceTestNetworkPermissions(mContext);
+        nativeSetTapHwAddress(iface.getInterfaceName(),
+                MacAddress.byteAddrFromStringAddr(hwAddress));
     }
 }
