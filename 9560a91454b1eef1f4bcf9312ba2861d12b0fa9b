@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d2d4af26_f231595b",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-16T08:34:46Z",
+      "side": 1,
+      "message": "Does annotate the class works? It seems all of them cannot be tested in instant app mode?",
+      "range": {
+        "startLine": 57,
+        "startChar": 13,
+        "endLine": 57,
+        "endChar": 32
+      },
+      "revId": "9560a91454b1eef1f4bcf9312ba2861d12b0fa9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0387915a_10a39d39",
         "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
         "patchSetId": 1
