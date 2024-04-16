@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35cb4720_1df48467",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-16T22:31:43Z",
+      "side": 1,
+      "message": "Not certain about this logic, first time with native functions",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 1
+      },
+      "revId": "45ecd94b9b93510a11ec701249f93b9d679eab89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
