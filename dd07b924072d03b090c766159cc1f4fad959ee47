@@ -46,6 +46,30 @@
       },
       "revId": "dd07b924072d03b090c766159cc1f4fad959ee47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f630565_23570ec7",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1833,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-16T05:25:21Z",
+      "side": 1,
+      "message": "FYI, you can get the Matter specification from https://csa-iot.org/developer-resource/specifications-download-request/ or refer to the internal version https://spang.users.x20web.corp.google.com/www/connectedhomeip-spec/index.html#ref_HostNameConstruction",
+      "parentUuid": "22070668_e952450f",
+      "range": {
+        "startLine": 1833,
+        "startChar": 35,
+        "endLine": 1833,
+        "endChar": 54
+      },
+      "revId": "dd07b924072d03b090c766159cc1f4fad959ee47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
