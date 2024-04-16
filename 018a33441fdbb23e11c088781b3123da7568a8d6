@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4fa6049_5b15c3b1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 7954,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-16T09:24:52Z",
+      "side": 1,
+      "message": "We changed behavior on V+ since there is a concern for behavior change.  \nIf we enabled on V, we will have longer soak time with huge populations.\nSo we should be able to catch the issue and fix the issue before the release.",
+      "parentUuid": "352f7dbd_f405b45f",
+      "range": {
+        "startLine": 7954,
+        "startChar": 30,
+        "endLine": 7954,
+        "endChar": 31
+      },
+      "revId": "018a33441fdbb23e11c088781b3123da7568a8d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22810220_981d164d",
