@@ -98,6 +98,7 @@ public class MultinetworkApiTest {
     }
 
     @Test
+    @AppModeFull(reason = "CHANGE_NETWORK_STATE permission can't be granted to instant apps")
     public void testGetaddrinfo() throws Exception {
         for (Network network : getTestableNetworks()) {
             int errno = runGetaddrinfoCheck(network.getNetworkHandle());
@@ -165,6 +166,7 @@ public class MultinetworkApiTest {
     }
 
     @Test
+    @AppModeFull(reason = "CHANGE_NETWORK_STATE permission can't be granted to instant apps")
     public void testNativeDatagramTransmission() throws Exception {
         for (Network network : getTestableNetworks()) {
             int errno = runDatagramCheck(network.getNetworkHandle());
@@ -189,6 +191,7 @@ public class MultinetworkApiTest {
     }
 
     @Test
+    @AppModeFull(reason = "CHANGE_NETWORK_STATE permission can't be granted to instant apps")
     public void testNetworkHandle() throws Exception {
         // Test Network -> NetworkHandle -> Network results in the same Network.
         for (Network network : getTestableNetworks()) {
@@ -213,6 +216,7 @@ public class MultinetworkApiTest {
     }
 
     @Test
+    @AppModeFull(reason = "CHANGE_NETWORK_STATE permission can't be granted to instant apps")
     public void testResNApi() throws Exception {
         for (Network network : getTestableNetworks()) {
             // Throws AssertionError directly in jni function if test fail.
