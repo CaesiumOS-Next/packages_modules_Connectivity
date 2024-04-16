@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7e7a464_b4162fda",
+        "filename": "bpf_progs/netd.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-16T04:40:17Z",
+      "side": 1,
+      "message": "My mistake.\nThank you for catching this.",
+      "parentUuid": "c71946ce_8c9f6996",
+      "range": {
+        "startLine": 196,
+        "startChar": 31,
+        "endLine": 196,
+        "endChar": 39
+      },
+      "revId": "d322df63153b64e8a4f39bda9230d4b20223d743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bff2673a_396fa665",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-04-11T06:49:21Z",
       "side": 1,
       "message": "Is it better if we re-group these chains to [REGARDLESS_OF_METEREDNESS|METERED]_[ALLOW|DENY]_CHAINS private lists for better maintain?\nIn this way maybe \n1. we can define METERED_CHAINS \u003d METERED_ALLOW_CHAIN + METERED_DENIED_CHAIN,\nand people doen\u0027t need to add a new chain to multiple places?\n2. We don\u0027t need special logic here.",
+      "range": {
+        "startLine": 86,
+        "startChar": 45,
+        "endLine": 86,
+        "endChar": 57
+      },
+      "revId": "d322df63153b64e8a4f39bda9230d4b20223d743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7964394_57b7c910",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-16T04:40:17Z",
+      "side": 1,
+      "message": "I kept ALLOW_CHAINS, DENY_CHAINS and added METERED_ALLOW_CHAINS, METERED_DENY_CHAINS.",
+      "parentUuid": "bff2673a_396fa665",
       "range": {
         "startLine": 86,
         "startChar": 45,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cbeecea_d30072ed",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-16T04:40:17Z",
+      "side": 1,
+      "message": "1. done\n2. I feel it\u0027s fine to use feature name for flag name. (go/android-aconfig). But I don\u0027t have strong opinion on this. feel free to reopen.",
+      "parentUuid": "f9c2bd19_20dff99a",
+      "range": {
+        "startLine": 131,
+        "startChar": 28,
+        "endLine": 131,
+        "endChar": 58
+      },
+      "revId": "d322df63153b64e8a4f39bda9230d4b20223d743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f30cdd0a_776b554e",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b943b03e_4646c583",
+        "filename": "tests/unit/java/android/net/NetworkStackBpfNetMapsTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-16T04:40:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f30cdd0a_776b554e",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 31
+      },
+      "revId": "d322df63153b64e8a4f39bda9230d4b20223d743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a6e16c6_db965c68",
@@ -106,6 +202,30 @@
       "writtenOn": "2024-04-11T06:49:21Z",
       "side": 1,
       "message": "1. Probably we don\u0027t want to add new tests into this file.\nCould we move them to CSTest?\n\n2. Not for this CL.\nIs it better to have something like testLegacyTestCount to assert the count of tests in this file and fails with error message to redirect people if someone add a test to it?",
+      "range": {
+        "startLine": 10643,
+        "startChar": 16,
+        "endLine": 10643,
+        "endChar": 51
+      },
+      "revId": "d322df63153b64e8a4f39bda9230d4b20223d743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eee321c2_aabf46f7",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 10643,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-16T04:40:17Z",
+      "side": 1,
+      "message": "Exactly, I totally missed this. we already had CSFirewallChainTest.\nYeah, we should have some way to prevent people from adding test to ConnectivityServiceTest.",
+      "parentUuid": "1a6e16c6_db965c68",
       "range": {
         "startLine": 10643,
         "startChar": 16,
