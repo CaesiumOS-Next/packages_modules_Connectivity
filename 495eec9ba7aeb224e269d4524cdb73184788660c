@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb1d3dc0_c70be0f2",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-16T09:05:43Z",
+      "side": 1,
+      "message": "Stupid question: Why we still got blocked reasons when no enbaled match? Do I miss something?",
+      "range": {
+        "startLine": 1214,
+        "startChar": 16,
+        "endLine": 1214,
+        "endChar": 24
+      },
+      "revId": "495eec9ba7aeb224e269d4524cdb73184788660c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
