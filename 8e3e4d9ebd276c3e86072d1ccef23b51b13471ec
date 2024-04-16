@@ -22,6 +22,30 @@
       },
       "revId": "8e3e4d9ebd276c3e86072d1ccef23b51b13471ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a722775_8ff199dc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 13615,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-16T09:34:22Z",
+      "side": 1,
+      "message": "Currently, configuration map is [not used for PENALTY_BOX and HAPPY_BOX](https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/bpf_progs/netd.c;l\u003d613-638?q\u003dnetd.c).  \n\nAs a long term, I want to\n1. Merge datasaver and HAPPY_BOX\n2. Make PENALTY_BOX and HAPPY_BOX configurable by configuration map + NPMS enables these chains correctly.\n\nBut currently, configuration map is not used, so I thought it makes sense to throw UnsupportedOperationException.",
+      "parentUuid": "b53b69f3_dc4f5bed",
+      "range": {
+        "startLine": 13613,
+        "startChar": 8,
+        "endLine": 13615,
+        "endChar": 24
+      },
+      "revId": "8e3e4d9ebd276c3e86072d1ccef23b51b13471ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
