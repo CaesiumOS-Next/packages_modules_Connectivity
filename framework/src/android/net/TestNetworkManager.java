@@ -337,4 +337,20 @@ public class TestNetworkManager {
             throw e.rethrowFromSystemServer();
         }
     }
+
+    /**
+     * Set MAC address on TestNetworkInterface
+     *
+     * @param iface interface to configure.
+     * @param hwAddress MAC address to change to.
+     * @hide
+     */
+    @RequiresPermission(Manifest.permission.MANAGE_TEST_NETWORKS)
+    public void setHwAddress(@NonNull TestNetworkInterface iface, @NonNull String hwAddress) {
+        try {
+            mService.setHwAddress(iface, hwAddress);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
 }
