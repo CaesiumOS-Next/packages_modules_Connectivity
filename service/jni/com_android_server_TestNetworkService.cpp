@@ -56,6 +56,19 @@ static void throwException(JNIEnv* env, int error, const char* action, const cha
     jniThrowException(env, "java/lang/IllegalStateException", msg.c_str());
 }
 
+static void setHwAddressImpl(JNIEnv* env, const char* iface, jbyte* hwAddress) {
+    ifreq ifr{};
+    strlcpy(ifr.ifr_name, iface, IFNAMSIZ);
+    ifr.ifr_hwaddr.sa_family = AF_PACKET;
+    memcpy(ifr.ifr_hwaddr.sa_data, hwAddress, ETH_ALEN);
+
+    base::unique_fd inet6CtrlSock(socket(AF_INET6, SOCK_DGRAM, 0));
+
+    if (ioctl(inet6CtrlSock.get(), SIOCSIFHWADDR, &ifr)) {
+        throwException(env, errno, "set hw address", iface);
+    }
+}
+
 // enable or disable  carrier on tun / tap interface.
 static void setTunTapCarrierEnabledImpl(JNIEnv* env, const char* iface, int tunFd, bool enabled) {
     uint32_t carrierOn = enabled;
@@ -151,12 +164,23 @@ static void bringUpInterface(JNIEnv* env, jclass /* clazz */, jstring jIface) {
     bringUpInterfaceImpl(env, iface.c_str());
 }
 
+static void setHwAddress(JNIEnv* env, jclass /* clazz */, jstring jIface, jbyteArray jhwAddress) {
+    ScopedUtfChars iface(env, jIface);
+    if (!iface.c_str()) {
+        jniThrowNullPointerException(env, "iface");
+        return;
+    }
+
+    setHwAddressImpl(env,iface.c_str(),env->GetByteArrayElements(jhwAddress, 0));
+}
+
 //------------------------------------------------------------------------------
 
 static const JNINativeMethod gMethods[] = {
     {"nativeSetTunTapCarrierEnabled", "(Ljava/lang/String;IZ)V", (void*)setTunTapCarrierEnabled},
     {"nativeCreateTunTap", "(ZZZLjava/lang/String;)I", (void*)createTunTap},
     {"nativeBringUpInterface", "(Ljava/lang/String;)V", (void*)bringUpInterface},
+    {"nativeSetTapHwAddress", "(Ljava/lang/String;[B)V", (void*)setHwAddress}
 };
 
 int register_com_android_server_TestNetworkService(JNIEnv* env) {
