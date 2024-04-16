@@ -46,6 +46,30 @@
       },
       "revId": "495eec9ba7aeb224e269d4524cdb73184788660c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6a359b4_8dea7023",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-16T09:17:57Z",
+      "side": 1,
+      "message": "1. If so, maybe add some comments?\n\n2.\nBut it seems weird to me the check doen\u0027t respect the configuration map.\nIs this because the current implementation doen\u0027t do this as well? (Maybe add comment in the production code).\nAlternatively, should we also check configuration map for these chains? Given those chains are always enabled, this probably no-op and making more sense?",
+      "parentUuid": "60cbe002_68be3fa0",
+      "range": {
+        "startLine": 1214,
+        "startChar": 16,
+        "endLine": 1214,
+        "endChar": 24
+      },
+      "revId": "495eec9ba7aeb224e269d4524cdb73184788660c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
