@@ -70,6 +70,30 @@
       },
       "revId": "495eec9ba7aeb224e269d4524cdb73184788660c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9cfe89d_99cead25",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-16T09:48:15Z",
+      "side": 1,
+      "message": "1.\nAdded comment.\n\n2.\nThis is [existing behavior](https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/bpf_progs/netd.c;l\u003d613-638?q\u003dnetd.c).  \nPENALTY_BOX and HAPPY_BOX is [stored in uidOwnerMap](https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java;l\u003d482-488?q\u003dBpfNetMaps.java\u0026ss\u003dh%2Fandroid%2Fplatform%2Fsuperproject%2Fmain%2F%2B%2Fmain).\nBut we can not control via configuration map.\n\nAs a long-term, I want to make this controllable by configuration map. (there are TODO comment in each chain definition)",
+      "parentUuid": "c6a359b4_8dea7023",
+      "range": {
+        "startLine": 1214,
+        "startChar": 16,
+        "endLine": 1214,
+        "endChar": 24
+      },
+      "revId": "495eec9ba7aeb224e269d4524cdb73184788660c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
