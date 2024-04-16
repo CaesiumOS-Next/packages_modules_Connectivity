@@ -22,6 +22,30 @@
       },
       "revId": "495eec9ba7aeb224e269d4524cdb73184788660c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60cbe002_68be3fa0",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-16T09:08:40Z",
+      "side": 1,
+      "message": "Since enabled matches are metered chains that are not controlled by configuration map.",
+      "parentUuid": "cb1d3dc0_c70be0f2",
+      "range": {
+        "startLine": 1214,
+        "startChar": 16,
+        "endLine": 1214,
+        "endChar": 24
+      },
+      "revId": "495eec9ba7aeb224e269d4524cdb73184788660c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
