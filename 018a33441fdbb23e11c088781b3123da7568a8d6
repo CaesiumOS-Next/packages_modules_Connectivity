@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22810220_981d164d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 7955,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-16T05:37:34Z",
+      "side": 1,
+      "message": "Do we need to modify unit test to mock bpfmap and/or NetworkPolicy for this change?",
+      "range": {
+        "startLine": 7955,
+        "startChar": 28,
+        "endLine": 7955,
+        "endChar": 60
+      },
+      "revId": "018a33441fdbb23e11c088781b3123da7568a8d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9230af50_2ac80ea0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 7969,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-16T05:37:34Z",
+      "side": 1,
+      "message": "Question: Why do we need to call both of them on V? Do we expect NPMS has different answer?",
+      "range": {
+        "startLine": 7962,
+        "startChar": 8,
+        "endLine": 7969,
+        "endChar": 9
+      },
+      "revId": "018a33441fdbb23e11c088781b3123da7568a8d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "464a35a8_be7a156f",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-16T05:37:34Z",
+      "side": 1,
+      "message": "super nit: Maybe 1 blank line before this to separate them more readible?",
+      "range": {
+        "startLine": 1236,
+        "startChar": 8,
+        "endLine": 1236,
+        "endChar": 20
+      },
+      "revId": "018a33441fdbb23e11c088781b3123da7568a8d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
