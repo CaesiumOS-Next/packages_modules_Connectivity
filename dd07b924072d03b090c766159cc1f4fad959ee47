@@ -22,6 +22,30 @@
       },
       "revId": "dd07b924072d03b090c766159cc1f4fad959ee47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22070668_e952450f",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1833,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-16T04:02:08Z",
+      "side": 1,
+      "message": "So far, I don\u0027t have a clue that RFC allows hostname starting with digits. Maybe it\u0027s still not allowed.\n\nHowever, Matter\u0027s spec suggests the devices to construct their hostname with a hex string. In section 4.3.1.1 it says:\n\n```\nFor DNS‑SD a target host name is required, in addition to the instance name. The target host name\nSHALL be constructed using one of the available link-layer addresses, such as a 48-bit device MAC\naddress (for Ethernet and Wi‑Fi) or a 64-bit MAC Extended Address (for Thread) expressed as a\nfixed-length twelve-character (or sixteen-character) hexadecimal string, encoded as ASCII (UTF-8)\ntext using capital letters, e.g., B75AFB458ECD.\u003cdomain\u003e. \n```\n\nAnd we\u0027re seeing real world examples that a Matter device registers a hostname starting with a digit.\n\n\n\u003e Also the old regex require at least 1 [a-zA-Z], but the this change break that implication, it seems wrong to me.\n\nYou\u0027re right. I\u0027ve updated the code to keep that behavior.",
+      "parentUuid": "4a133d8e_550ec6ec",
+      "range": {
+        "startLine": 1833,
+        "startChar": 35,
+        "endLine": 1833,
+        "endChar": 54
+      },
+      "revId": "dd07b924072d03b090c766159cc1f4fad959ee47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
