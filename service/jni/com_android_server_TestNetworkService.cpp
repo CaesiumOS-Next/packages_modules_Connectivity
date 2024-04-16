@@ -22,6 +22,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <linux/if.h>
+#include <linux/if_arp.h>
 #include <linux/if_tun.h>
 #include <linux/ipv6_route.h>
 #include <linux/route.h>
@@ -54,6 +55,19 @@ static void throwException(JNIEnv* env, int error, const char* action, const cha
     const std::string& msg = "Error: " + std::string(action) + " " + std::string(iface) +  ": "
                 + std::string(strerror(error));
     jniThrowException(env, "java/lang/IllegalStateException", msg.c_str());
+}
+
+static void setHwAddressImpl(JNIEnv* env, const char* iface, jbyte* hwAddress) {
+    ifreq ifr{};
+    strlcpy(ifr.ifr_name, iface, IFNAMSIZ);
+    ifr.ifr_hwaddr.sa_family = ARPHRD_ETHER;
+    memcpy(ifr.ifr_hwaddr.sa_data, hwAddress, ETH_ALEN);
+
+    base::unique_fd sock(socket(AF_INET, SOCK_DGRAM, 0));
+
+    if (ioctl(sock.get(), SIOCSIFHWADDR, &ifr)) {
+        throwException(env, errno, "set hw address", iface);
+    }
 }
 
 // enable or disable  carrier on tun / tap interface.
@@ -151,12 +165,23 @@ static void bringUpInterface(JNIEnv* env, jclass /* clazz */, jstring jIface) {
     bringUpInterfaceImpl(env, iface.c_str());
 }
 
+static void setHwAddress(JNIEnv* env, jclass /* clazz */, jstring jIface, jbyteArray jhwAddress) {
+    ScopedUtfChars iface(env, jIface);
+    if (!iface.c_str()) {
+        jniThrowNullPointerException(env, "iface");
+        return;
+    }
+
+    setHwAddressImpl(env, iface.c_str(), env->GetByteArrayElements(jhwAddress, nullptr));
+}
+
 //------------------------------------------------------------------------------
 
 static const JNINativeMethod gMethods[] = {
     {"nativeSetTunTapCarrierEnabled", "(Ljava/lang/String;IZ)V", (void*)setTunTapCarrierEnabled},
     {"nativeCreateTunTap", "(ZZZLjava/lang/String;)I", (void*)createTunTap},
     {"nativeBringUpInterface", "(Ljava/lang/String;)V", (void*)bringUpInterface},
+    {"nativeSetTapHwAddress", "(Ljava/lang/String;[B)V", (void*)setHwAddress}
 };
 
 int register_com_android_server_TestNetworkService(JNIEnv* env) {
