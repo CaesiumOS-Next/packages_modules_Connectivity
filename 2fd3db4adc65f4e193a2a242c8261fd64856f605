@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10edb1e9_c689994f",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-16T22:30:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "780b7203_c502317f",
+      "range": {
+        "startLine": 464,
+        "startChar": 12,
+        "endLine": 464,
+        "endChar": 23
+      },
+      "revId": "2fd3db4adc65f4e193a2a242c8261fd64856f605",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01213829_2a37fbb2",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-04-16T22:17:57Z",
       "side": 1,
       "message": "(maybe in a follow up CL): should we add the new NetworkCapabilities to mNetworkCapabilities, so future lookups do not require recreating a NetworkCapabilities object?",
+      "range": {
+        "startLine": 468,
+        "startChar": 8,
+        "endLine": 468,
+        "endChar": 9
+      },
+      "revId": "2fd3db4adc65f4e193a2a242c8261fd64856f605",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "085d47e7_f6dcc977",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-16T22:30:30Z",
+      "side": 1,
+      "message": "mapping it to the given iface?",
+      "parentUuid": "01213829_2a37fbb2",
       "range": {
         "startLine": 468,
         "startChar": 8,
