@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b53b69f3_dc4f5bed",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 13615,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-16T09:00:28Z",
+      "side": 1,
+      "message": "If so, calls into mBpfNetMaps.isChainEnabled(chain) will get the correct answer, right? If so, this logic is not actually needed?",
+      "range": {
+        "startLine": 13613,
+        "startChar": 8,
+        "endLine": 13615,
+        "endChar": 24
+      },
+      "revId": "8e3e4d9ebd276c3e86072d1ccef23b51b13471ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
