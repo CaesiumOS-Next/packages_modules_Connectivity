@@ -62,6 +62,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /** @hide */
 class TestNetworkService extends ITestNetworkManager.Stub {
+    @NonNull private static final String MAC_REGEX = "^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$";
+    @NonNull private static final int MAC_ADDRESS_OCTET_COUNT = 6;
     @NonNull private static final String TEST_NETWORK_LOGTAG = "TestNetworkAgent";
     @NonNull private static final String TEST_NETWORK_PROVIDER_NAME = "TestNetworkProvider";
     @NonNull private static final AtomicInteger sTestTunIndex = new AtomicInteger();
@@ -81,6 +83,8 @@ class TestNetworkService extends ITestNetworkManager.Stub {
 
     private static native void nativeSetTunTapCarrierEnabled(@NonNull String iface, int tunFd,
             boolean enabled);
+
+    private static native void nativeSetTapHwAddress(@NonNull String iface, byte[] macAddr);
 
     private static native void nativeBringUpInterface(String iface);
 
@@ -412,5 +416,46 @@ class TestNetworkService extends ITestNetworkManager.Stub {
         } catch (IOException e) {
             // if the close fails, there is not much that can be done -- move on.
         }
+    }
+
+    /**
+     * Set MAC address on TestNetworkInterface
+     */
+    @Override
+    public void setHwAddress(@NonNull TestNetworkInterface iface, @NonNull String hwAddress) {
+        enforceTestNetworkPermissions(mContext);
+        final byte[] macAddrBytes = convertMacAddressToBytes(hwAddress);
+
+        if (macAddrBytes == null) {
+            throw new IllegalArgumentException(
+                    "MAC Address not properly formatted: " + hwAddress);
+        }
+
+        nativeSetTapHwAddress(iface.getInterfaceName(), macAddrBytes);
+    }
+
+    // Converts MAC address string to the 6-byte array equivalent.
+    private static @Nullable byte[] convertMacAddressToBytes(String hwAddress) {
+        if (!hwAddress.matches(MAC_REGEX)) {
+            return null;
+        }
+
+        final String[] octets = hwAddress.split(":");
+
+        if (octets.length != MAC_ADDRESS_OCTET_COUNT) {
+            return null;
+        }
+
+        final byte[] macAddrBytes = new byte[MAC_ADDRESS_OCTET_COUNT];
+        for (int i = 0; i < MAC_ADDRESS_OCTET_COUNT; i++) {
+            try {
+                macAddrBytes[i] = (byte) Integer.parseInt(octets[i], 16);
+            } catch (NumberFormatException e) {
+                // Invalid MAC address at octet index [i], contains non-hex characters
+                return null;
+            }
+        }
+
+        return macAddrBytes;
     }
 }
