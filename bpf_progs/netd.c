@@ -19,6 +19,7 @@
 
 #include <bpf_helpers.h>
 #include <linux/bpf.h>
+#include <linux/icmpv6.h>
 #include <linux/if.h>
 #include <linux/if_ether.h>
 #include <linux/if_packet.h>
@@ -45,6 +46,13 @@ static const int BPF_MATCH = 1;
 // Used for 'bool enable_tracing'
 static const bool TRACE_ON = true;
 static const bool TRACE_OFF = false;
+
+// TODO: kernel definition should be added from ndisc.h to bionic/libc/kernel/uapi/linux/icmpv6.h
+#define NDISC_ROUTER_SOLICITATION 133
+#define NDISC_ROUTER_ADVERTISEMENT 134
+#define NDISC_NEIGHBOUR_SOLICITATION 135
+#define NDISC_NEIGHBOUR_ADVERTISEMENT 136
+#define NDISC_REDIRECT 137
 
 // offsetof(struct iphdr, ihl) -- but that's a bitfield
 #define IPPROTO_IHL_OFF 0
@@ -662,6 +670,30 @@ DEFINE_XTBPF_PROG("skfilter/denylist/xtbpf", AID_ROOT, AID_NET_ADMIN, xt_bpf_den
         if (listMatch->rule & HAPPY_BOX_MATCH) return BPF_NOMATCH;
     }
 
+    // Allow ICMPv6 packets necessary to make IPv6 connectivity work. http://b/23158230 .
+    if (skb->protocol == htons(ETH_P_IPV6)) {
+        uint8_t proto = 0;
+        (void)bpf_skb_load_bytes_net(skb, IP6_OFFSET(nexthdr), &proto, sizeof(proto), KVER_5_8);
+        if (proto == IPPROTO_ICMPV6) {
+            uint8_t type = 0;
+            (void)bpf_skb_load_bytes_net(skb, sizeof(struct ipv6hdr), &type, sizeof(type), KVER_5_8);
+            if (type == ICMPV6_PKT_TOOBIG ||
+                type == NDISC_ROUTER_SOLICITATION ||
+                type == NDISC_ROUTER_ADVERTISEMENT ||
+                type == NDISC_NEIGHBOUR_SOLICITATION ||
+                type == NDISC_NEIGHBOUR_ADVERTISEMENT ||
+                type == NDISC_REDIRECT) {
+                    return BPF_NOMATCH;
+                }
+            }
+        }
+
+    // check if data saver is enabled
+    uint32_t data_saver_map_key = DATA_SAVER_ENABLED_KEY;
+    bool *enabledRules = bpf_data_saver_enabled_map_lookup_elem(&data_saver_map_key);
+    if (enabledRules) {
+        if (*enabledRules) return BPF_MATCH;
+    }
     return BPF_NOMATCH;
 }
 
