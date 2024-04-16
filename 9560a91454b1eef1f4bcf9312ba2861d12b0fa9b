@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b375fc1d_5a173d33",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-04-16T10:51:18Z",
+      "side": 1,
+      "message": "testNoSuchNetwork is still able to run in instant mode.",
+      "parentUuid": "d2d4af26_f231595b",
+      "range": {
+        "startLine": 57,
+        "startChar": 13,
+        "endLine": 57,
+        "endChar": 32
+      },
+      "revId": "9560a91454b1eef1f4bcf9312ba2861d12b0fa9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0387915a_10a39d39",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-04-16T08:33:01Z",
       "side": 1,
       "message": "The reason should explain why we need change_network_state permission?",
+      "range": {
+        "startLine": 101,
+        "startChar": 17,
+        "endLine": 101,
+        "endChar": 23
+      },
+      "revId": "9560a91454b1eef1f4bcf9312ba2861d12b0fa9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a238dc01_ef07b2cd",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-04-16T10:51:18Z",
+      "side": 1,
+      "message": "I think we should include the detailed failure reasons in the commit message and keep the reason here simple. Update the commit message accordingly.",
+      "parentUuid": "0387915a_10a39d39",
       "range": {
         "startLine": 101,
         "startChar": 17,
