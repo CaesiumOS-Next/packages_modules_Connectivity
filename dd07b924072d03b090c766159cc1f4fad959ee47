@@ -70,6 +70,30 @@
       },
       "revId": "dd07b924072d03b090c766159cc1f4fad959ee47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1aaef727_8399b6a1",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1833,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-04-16T05:41:27Z",
+      "side": 1,
+      "message": "Acked, @handaw@google.com, could you add comment which refer to the following text? So that we can know that it is matter specific requirement. \n\n```\nFor DNS‑SD a target host name is required, in addition to the instance name. The target host name\nSHALL be constructed using one of the available link-layer addresses, such as a 48-bit device MAC\naddress (for Ethernet and Wi‑Fi) or a 64-bit MAC Extended Address (for Thread) expressed as a\nfixed-length twelve-character (or sixteen-character) hexadecimal string, encoded as ASCII (UTF-8)\ntext using capital letters, e.g., B75AFB458ECD.\u003cdomain\u003e. \n```",
+      "parentUuid": "5f630565_23570ec7",
+      "range": {
+        "startLine": 1833,
+        "startChar": 35,
+        "endLine": 1833,
+        "endChar": 54
+      },
+      "revId": "dd07b924072d03b090c766159cc1f4fad959ee47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
