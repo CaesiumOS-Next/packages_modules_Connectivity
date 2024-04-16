@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4202ddb9_4e836515",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 7955,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-16T05:48:57Z",
+      "side": 1,
+      "message": "We don\u0027t have a unit test that verifies this logic.\nIt seems we don\u0027t have cts neither. I will try to add cts in the followup.",
+      "parentUuid": "22810220_981d164d",
+      "range": {
+        "startLine": 7955,
+        "startChar": 28,
+        "endLine": 7955,
+        "endChar": 60
+      },
+      "revId": "018a33441fdbb23e11c088781b3123da7568a8d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9230af50_2ac80ea0",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ddacde7_b8690fb7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 7969,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-16T05:48:57Z",
+      "side": 1,
+      "message": "If mDeps.isAtleastV is true, CS does not interact with NPMS since there is `return` in L7959.",
+      "parentUuid": "9230af50_2ac80ea0",
+      "range": {
+        "startLine": 7962,
+        "startChar": 8,
+        "endLine": 7969,
+        "endChar": 9
+      },
+      "revId": "018a33441fdbb23e11c088781b3123da7568a8d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "464a35a8_be7a156f",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-04-16T05:37:34Z",
       "side": 1,
       "message": "super nit: Maybe 1 blank line before this to separate them more readible?",
+      "range": {
+        "startLine": 1236,
+        "startChar": 8,
+        "endLine": 1236,
+        "endChar": 20
+      },
+      "revId": "018a33441fdbb23e11c088781b3123da7568a8d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d328e6b_cf799d9d",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-16T05:48:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "464a35a8_be7a156f",
       "range": {
         "startLine": 1236,
         "startChar": 8,
