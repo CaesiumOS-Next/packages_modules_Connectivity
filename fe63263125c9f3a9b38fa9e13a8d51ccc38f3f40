@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6426802_48a68fe9",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-04-16T10:04:01Z",
+      "side": 1,
+      "message": "Not sure if KVER_5_8 is the suitable kernel version.",
+      "revId": "fe63263125c9f3a9b38fa9e13a8d51ccc38f3f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
