@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "352f7dbd_f405b45f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 7954,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-16T09:21:09Z",
+      "side": 1,
+      "message": "Question:\n Do we foresee there is any chance we need a kill switch for this feature?\n e.g. read bpf but somehow it crashes in some case?",
+      "range": {
+        "startLine": 7954,
+        "startChar": 30,
+        "endLine": 7954,
+        "endChar": 31
+      },
+      "revId": "018a33441fdbb23e11c088781b3123da7568a8d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "22810220_981d164d",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 7
