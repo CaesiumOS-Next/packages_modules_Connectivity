@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2f49a23a_97a50c6c",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-17T19:52:52Z",
+      "side": 1,
+      "message": "Sorry, apparently I need to go practice the alphabet... Describe \"before V\" and \"starting with V\" behavior is what I meant to say.",
+      "parentUuid": "d8bd5324_5ae9fb4a",
+      "range": {
+        "startLine": 641,
+        "startChar": 1,
+        "endLine": 641,
+        "endChar": 25
+      },
+      "revId": "589d512df6532eebb7b2572dc9bae54649aaa66a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27ed8593_56d2d365",
         "filename": "bpf_progs/netd.c",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "writtenOn": "2024-04-17T17:30:20Z",
       "side": 1,
       "message": "why is this first? before system / overflow?\nwhy is this returning BPF_MATCH instead of the reverse condition returning BPF_NOMATCH?\nthis is before icmp6 type checks",
+      "range": {
+        "startLine": 644,
+        "startChar": 67,
+        "endLine": 644,
+        "endChar": 76
+      },
+      "revId": "589d512df6532eebb7b2572dc9bae54649aaa66a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d99dc924_aea82ab2",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-17T19:52:52Z",
+      "side": 1,
+      "message": "This is how this used to work... Whether it is sensical, I do not know. But if we want to change this, I would prefer not doing it in this CL / right now, so changes are easier to track. (We might also want to think about how this should actually work some more.)",
+      "parentUuid": "eb66d361_84358e11",
       "range": {
         "startLine": 644,
         "startChar": 67,
@@ -142,6 +190,30 @@
       "writtenOn": "2024-04-17T17:30:20Z",
       "side": 1,
       "message": "you have to pass in KVER_4_9 if you want a constant",
+      "range": {
+        "startLine": 668,
+        "startChar": 83,
+        "endLine": 668,
+        "endChar": 91
+      },
+      "revId": "589d512df6532eebb7b2572dc9bae54649aaa66a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dc74939_17929e06",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-17T19:52:52Z",
+      "side": 1,
+      "message": "But won\u0027t this essentially break metered WiFi networks?",
+      "parentUuid": "1e51b17d_f7801c81",
       "range": {
         "startLine": 668,
         "startChar": 83,
