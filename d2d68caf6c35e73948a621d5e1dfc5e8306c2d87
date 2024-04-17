@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "476b317b_fa701feb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-04-17T03:21:32Z",
+      "side": 1,
+      "message": "Discussed this with Patrick and we think that DedicatedPrefix is the best option, because it\u0027s clear that the prefix is exclusive to the device. (DelegatedPrefix is also clear, but it suggests prefix delegation, and networks such as cell data do not use prefix delegation.) AssignedPrefix is not a good candidate because it\u0027s not clear that it is assigned to the device. It could be assigned to the link or to something else. LinkProperties#getAssignedPrefixes doesn\u0027t really convey that these prefixes are entirely dedicated to the device.",
+      "parentUuid": "ab6be9ed_5e41342b",
+      "revId": "d2d68caf6c35e73948a621d5e1dfc5e8306c2d87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3a323a0a_965f2297",
         "filename": "framework/api/module-lib-current.txt",
         "patchSetId": 10
