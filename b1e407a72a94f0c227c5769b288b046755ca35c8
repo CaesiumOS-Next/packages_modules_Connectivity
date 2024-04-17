@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67760b9c_2354ad61",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-17T21:00:30Z",
+      "side": 1,
+      "message": "Incidentally, EthernetNetworkFactory#getAvailableInterfaces() (called from EthernetTracker#unicastInterfaceStateChange, the thing that calls you back after registering an interface state listener) sorts interfaces by name, so testtap%d callbacks always arrive after callbacks for eth%d. However, on V, the default configuration starts including usb%d ethernet interfaces (see https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/service-t/src/com/android/server/ethernet/EthernetTracker.java;l\u003d247;drc\u003ddbbada4d7bdc48f3c2ec9981b3716662a5a2d5f8). Note that any device could have declared this in their config overlay even before V. So this could technically still break if a usb%d interface were present (when calling `listener.expectCallback(iface, STATE_LINK_DOWN, ROLE_CLIENT)`)\n\nMaybe you want to add an additional eventuallyExpect() call after the first disableInterface() and add another\n```\n        disableInterface(iface).expectResult(iface.name)\n        listener.expectCallback(iface, STATE_LINK_DOWN, ROLE_CLIENT)\n```\nblock at the end of the test.",
+      "range": {
+        "startLine": 908,
+        "startChar": 17,
+        "endLine": 908,
+        "endChar": 33
+      },
+      "revId": "b1e407a72a94f0c227c5769b288b046755ca35c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
