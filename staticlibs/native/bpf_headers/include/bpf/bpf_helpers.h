@@ -128,6 +128,7 @@ struct kver_uint { unsigned int kver; };
 #define KVER_(v) ((struct kver_uint){ .kver = (v) })
 #define KVER(a, b, c) KVER_(((a) << 24) + ((b) << 16) + (c))
 #define KVER_NONE KVER_(0)
+#define KVER_4_9  KVER(4, 9, 0)
 #define KVER_4_14 KVER(4, 14, 0)
 #define KVER_4_19 KVER(4, 19, 0)
 #define KVER_5_4  KVER(5, 4, 0)
