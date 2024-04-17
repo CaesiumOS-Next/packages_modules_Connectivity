@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b68b9922_a2dd8fbf",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-04-17T05:51:34Z",
+      "side": 1,
+      "message": "For KVER_5_8, I\u0027m not quite sure if it\u0027s a suitable kernel version used here.",
+      "revId": "589d512df6532eebb7b2572dc9bae54649aaa66a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
