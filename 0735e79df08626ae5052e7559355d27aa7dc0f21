@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa223fe0_40c8f64c",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-17T23:28:08Z",
+      "side": 1,
+      "message": "could use a comment about why 1480, I assume this is 1500 - ipv4 header, but not certain",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 40
+      },
+      "revId": "0735e79df08626ae5052e7559355d27aa7dc0f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "243e5c24_4590c554",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-17T23:28:08Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 105,
+        "startChar": 25,
+        "endLine": 105,
+        "endChar": 27
+      },
+      "revId": "0735e79df08626ae5052e7559355d27aa7dc0f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
