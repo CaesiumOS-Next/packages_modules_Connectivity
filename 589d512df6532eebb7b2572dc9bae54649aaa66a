@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "27d1ed04_822503db",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-17T15:33:19Z",
+      "side": 1,
+      "message": "Add a comment that explains the new behavior:\n\n- On Android T-, all packets that are not dropped by the denylist program will be explicitly passed by the blanket \"return BPF_MATCH\" in the allowlist program, and never hit the bw_data_saver rule.\n- TODO: On Android V, the iptables rules are static, and all decisions are taken by the denylist program (either drop with icmp port unreachable, or pass).",
+      "range": {
+        "startLine": 641,
+        "startChar": 1,
+        "endLine": 641,
+        "endChar": 25
+      },
+      "revId": "589d512df6532eebb7b2572dc9bae54649aaa66a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27ed8593_56d2d365",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-17T15:33:19Z",
+      "side": 1,
+      "message": "can you add some better documentation, in particular, I would suggest adding in the comments I left here https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3043652/comment/22a9beb5_affef5c3/ to make the code more readable.",
+      "range": {
+        "startLine": 643,
+        "startChar": 3,
+        "endLine": 644,
+        "endChar": 59
+      },
+      "revId": "589d512df6532eebb7b2572dc9bae54649aaa66a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b68b9922_a2dd8fbf",
         "filename": "bpf_progs/netd.c",
         "patchSetId": 1
@@ -14,6 +60,47 @@
       "writtenOn": "2024-04-17T05:51:34Z",
       "side": 1,
       "message": "For KVER_5_8, I\u0027m not quite sure if it\u0027s a suitable kernel version used here.",
+      "revId": "589d512df6532eebb7b2572dc9bae54649aaa66a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40913f11_df2d528e",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-17T15:33:19Z",
+      "side": 1,
+      "message": "So this ships all the way back to T, which supports 4.9:\n\n    if (isAtLeastT \u0026\u0026 !android::bpf::isAtLeastKernelVersion(4, 9, 0)) {\n        ALOGE(\"Android T requires kernel 4.9.\");\n        return 1;\n    }\n\nThis might be a problem...",
+      "parentUuid": "b68b9922_a2dd8fbf",
+      "revId": "589d512df6532eebb7b2572dc9bae54649aaa66a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97737976_ebdf6a11",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-17T15:33:19Z",
+      "side": 1,
+      "message": "switch / case?",
+      "range": {
+        "startLine": 673,
+        "startChar": 0,
+        "endLine": 678,
+        "endChar": 33
+      },
       "revId": "589d512df6532eebb7b2572dc9bae54649aaa66a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
