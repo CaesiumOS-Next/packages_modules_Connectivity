@@ -390,6 +390,7 @@ public class DnsManager {
                 : new String[0];            // Off
         paramsParcel.transportTypes = nc.getTransportTypes();
         paramsParcel.meteredNetwork = nc.isMetered();
+        paramsParcel.interfaceNames = lp.getAllInterfaceNames().toArray();
         // Prepare to track the validation status of the DNS servers in the
         // resolver config when private DNS is in opportunistic or strict mode.
         if (useTls) {
