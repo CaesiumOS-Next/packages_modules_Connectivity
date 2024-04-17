@@ -100,17 +100,23 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 private const val TAG = "EthernetManagerTest"
+
 // This timeout does not affect the test duration for passing tests. It needs to be long enough to
 // account for RS delay (and potentially the first retry interval (4s)). There have been failures
 // where the interface did not gain provisioning within the allotted timeout.
 private const val TIMEOUT_MS = 10_000L
+
 // Timeout used to confirm no callbacks matching given criteria are received. Must be long enough to
 // process all callbacks including ip provisioning when using the updateConfiguration API.
 // Note that increasing this timeout increases the test duration.
 private const val NO_CALLBACK_TIMEOUT_MS = 500L
 
-private val DEFAULT_IP_CONFIGURATION = IpConfiguration(IpConfiguration.IpAssignment.DHCP,
-        IpConfiguration.ProxySettings.NONE, null, null)
+private val DEFAULT_IP_CONFIGURATION = IpConfiguration(
+    IpConfiguration.IpAssignment.DHCP,
+        IpConfiguration.ProxySettings.NONE,
+    null,
+    null
+)
 private val ETH_REQUEST: NetworkRequest = NetworkRequest.Builder()
         .addTransportType(TRANSPORT_TEST)
         .addTransportType(TRANSPORT_ETHERNET)
@@ -267,8 +273,12 @@ class EthernetManagerTest {
         }
 
         private fun createChangeEvent(iface: String, state: Int, role: Int) =
-                InterfaceStateChanged(iface, state, role,
-                        if (state != STATE_ABSENT) DEFAULT_IP_CONFIGURATION else null)
+                InterfaceStateChanged(
+                    iface,
+                    state,
+                    role,
+                        if (state != STATE_ABSENT) DEFAULT_IP_CONFIGURATION else null
+                )
 
         fun eventuallyExpect(expected: CallbackEntry) {
             val cb = events.poll(TIMEOUT_MS) { it == expected }
@@ -348,7 +358,7 @@ class EthernetManagerTest {
         }
     }
 
-    private fun isEthernetSupported() : Boolean {
+    private fun isEthernetSupported(): Boolean {
         return context.getSystemService(EthernetManager::class.java) != null
     }
 
@@ -457,7 +467,8 @@ class EthernetManagerTest {
     private fun requestNetwork(request: NetworkRequest): TestableNetworkCallback {
         return TestableNetworkCallback(
                 timeoutMs = TIMEOUT_MS,
-                noCallbackTimeoutMs = NO_CALLBACK_TIMEOUT_MS).also {
+                noCallbackTimeoutMs = NO_CALLBACK_TIMEOUT_MS
+        ).also {
             cm.requestNetwork(request, it)
             registeredCallbacks.add(it)
         }
@@ -466,7 +477,8 @@ class EthernetManagerTest {
     private fun registerNetworkListener(request: NetworkRequest): TestableNetworkCallback {
         return TestableNetworkCallback(
                 timeoutMs = TIMEOUT_MS,
-                noCallbackTimeoutMs = NO_CALLBACK_TIMEOUT_MS).also {
+                noCallbackTimeoutMs = NO_CALLBACK_TIMEOUT_MS
+        ).also {
             cm.registerNetworkCallback(request, it)
             registeredCallbacks.add(it)
         }
@@ -514,7 +526,8 @@ class EthernetManagerTest {
                     .setIpConfiguration(ipConfig)
                     .setNetworkCapabilities(capabilities).build(),
                 handler::post,
-                it)
+                it
+            )
         }
     }
 
@@ -905,7 +918,7 @@ class EthernetManagerTest {
         val iface = createInterface()
         val listener = EthernetStateListener()
         addInterfaceStateListener(listener)
-        listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
+        listener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_CLIENT)
 
         disableInterface(iface).expectResult(iface.name)
         listener.expectCallback(iface, STATE_LINK_DOWN, ROLE_CLIENT)
