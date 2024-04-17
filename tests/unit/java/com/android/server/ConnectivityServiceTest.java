@@ -801,6 +801,11 @@ public class ConnectivityServiceTest {
                     .getSystemService(DevicePolicyManager.class);
             doReturn(value).when(dpmMock).getDeviceOwner();
             doReturn(value).when(mDevicePolicyManager).getDeviceOwner();
+
+            ComponentName componentName = value == null
+                    ? null : new ComponentName(value, "deviceOwnerClass");
+            doReturn(componentName).when(dpmMock).getDeviceOwnerComponentOnAnyUser();
+            doReturn(componentName).when(mDevicePolicyManager).getDeviceOwnerComponentOnAnyUser();
         }
 
         @Override
