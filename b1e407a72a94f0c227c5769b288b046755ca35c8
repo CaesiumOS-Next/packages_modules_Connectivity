@@ -22,6 +22,30 @@
       },
       "revId": "b1e407a72a94f0c227c5769b288b046755ca35c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b54ffa2_72e596a8",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-04-17T21:42:47Z",
+      "side": 1,
+      "message": "Makes sense! Why can we immediately expect the callback once we get past the two eventuallyExpect blocks?",
+      "parentUuid": "67760b9c_2354ad61",
+      "range": {
+        "startLine": 908,
+        "startChar": 17,
+        "endLine": 908,
+        "endChar": 33
+      },
+      "revId": "b1e407a72a94f0c227c5769b288b046755ca35c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
