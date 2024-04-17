@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4592f453_bcabd68e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-17T00:13:00Z",
+      "side": 1,
+      "message": "Can you add the relevant iptables / ip6tables rules to the commit message?\n\niptables data saver off:\n```\n-A bw_data_saver -j RETURN\n-A bw_happy_box -m bpf --object-pinned /sys/fs/bpf/netd_shared/prog_netd_skfilter_allowlist_xtbpf -j RETURN\n-A bw_happy_box -j bw_data_saver\n-A bw_penalty_box -m bpf --object-pinned /sys/fs/bpf/netd_shared/prog_netd_skfilter_denylist_xtbpf -j REJECT --reject-with icmp-port-unreachable\n-A bw_penalty_box -j bw_happy_box\n```\n\niptables data saver on:\n```\n-A bw_data_saver -j REJECT --reject-with icmp-port-unreachable\n-A bw_happy_box -m bpf --object-pinned /sys/fs/bpf/netd_shared/prog_netd_skfilter_allowlist_xtbpf -j RETURN\n-A bw_happy_box -j bw_data_saver\n-A bw_penalty_box -m bpf --object-pinned /sys/fs/bpf/netd_shared/prog_netd_skfilter_denylist_xtbpf -j REJECT --reject-with icmp-port-unreachable\n-A bw_penalty_box -j bw_happy_box\n```\n\nip6tables data saver off:\n```\n-A bw_data_saver -j RETURN\n-A bw_happy_box -m bpf --object-pinned /sys/fs/bpf/netd_shared/prog_netd_skfilter_allowlist_xtbpf -j RETURN\n-A bw_happy_box -j bw_data_saver\n-A bw_penalty_box -m bpf --object-pinned /sys/fs/bpf/netd_shared/prog_netd_skfilter_denylist_xtbpf -j REJECT --reject-with icmp6-port-unreachable\n-A bw_penalty_box -j bw_happy_box\n```\n\nip6tables data saver on:\n```\n-A bw_data_saver -p ipv6-icmp -m icmp6 --icmpv6-type 2 -j RETURN\n-A bw_data_saver -p ipv6-icmp -m icmp6 --icmpv6-type 133 -j RETURN\n-A bw_data_saver -p ipv6-icmp -m icmp6 --icmpv6-type 134 -j RETURN\n-A bw_data_saver -p ipv6-icmp -m icmp6 --icmpv6-type 135 -j RETURN\n-A bw_data_saver -p ipv6-icmp -m icmp6 --icmpv6-type 136 -j RETURN\n-A bw_data_saver -p ipv6-icmp -m icmp6 --icmpv6-type 137 -j RETURN\n-A bw_data_saver -j REJECT --reject-with icmp6-port-unreachable\n-A bw_happy_box -m bpf --object-pinned /sys/fs/bpf/netd_shared/prog_netd_skfilter_allowlist_xtbpf -j RETURN\n-A bw_happy_box -j bw_data_saver\n-A bw_penalty_box -m bpf --object-pinned /sys/fs/bpf/netd_shared/prog_netd_skfilter_denylist_xtbpf -j REJECT --reject-with icmp6-port-unreachable\n-A bw_penalty_box -j bw_happy_box\n```",
+      "revId": "357c1ef63bfbd28f3e63c8153f1ef17e41b146d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f011375_99c9c0a9",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-17T00:13:00Z",
+      "side": 1,
+      "message": "Presumably, this can now just return BPF_MATCH (pass), right? The BPF_NOMATCH outcome means drop / pass depending on data saver state, which should have already been done by the denylist rule.",
+      "range": {
+        "startLine": 626,
+        "startChar": 4,
+        "endLine": 639,
+        "endChar": 23
+      },
+      "revId": "357c1ef63bfbd28f3e63c8153f1ef17e41b146d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22a9beb5_affef5c3",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-17T00:13:00Z",
+      "side": 1,
+      "message": "I think this should look more like:\n```\nUidOwnerValue* listMatch \u003d bpf_uid_owner_map_lookup_elem(\u0026sock_uid);\n// in penalty box -\u003e DROP\nif (listMatch \u0026\u0026 (listMatch-\u003erule \u0026 PENALTY_BOX_MATCH)) return BPF_MATCH;\n\n// System UID -\u003e PASS\nif (is_system_uid(sock_uid)) return BPF_NOMATCH;\n\n// overflow uid -\u003e PASS\nif (sock_uid \u003d\u003d 65534) return BPF_NOMATCH;\n\n// in happy box -\u003e PASS\nif (listMatch \u0026\u0026 (listMatch-\u003erule \u0026 HAPPY_BOX_MATCH)) return BPF_NOMATCH;\n\n// data saver disabled -\u003e PASS\nuint32_t mapKey \u003d 0;\nbool* dataSaverEnabled \u003d data_saver_enabled_map_lookup_elem(\u0026mapKey);\nif (dataSaverEnabled \u003d\u003d NULL) return BPF_NOMATCH;\nif (*dataSaverEnabled \u003d\u003d false) return BPF_NOMATCH;\n\n// icmp6 type in [2, 133, 134, 135, 136, 137] -\u003e PASS\n... (here you can probably do: not ipv6? DROP, not icmpv6? DROP, etc.)\n\n// else -\u003e DROP\nreturn BPF_MATCH;\n```",
+      "range": {
+        "startLine": 643,
+        "startChar": 0,
+        "endLine": 643,
+        "endChar": 91
+      },
+      "revId": "357c1ef63bfbd28f3e63c8153f1ef17e41b146d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5688b29d_3c418e95",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-17T00:13:00Z",
+      "side": 1,
+      "message": "Add a comment somewhere that BPF_MATCH results in reject with icmp6-port-unreachable.",
+      "range": {
+        "startLine": 649,
+        "startChar": 56,
+        "endLine": 649,
+        "endChar": 65
+      },
+      "revId": "357c1ef63bfbd28f3e63c8153f1ef17e41b146d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2d5ee32_b5fa7d19",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-17T00:13:00Z",
+      "side": 1,
+      "message": "this looks wrong. If listMatch is null we never get here; however, in skfilter/allowlist/xtbpf is_system_uid() is always checked. Same for the sock_uid check below.",
+      "range": {
+        "startLine": 650,
+        "startChar": 0,
+        "endLine": 652,
+        "endChar": 56
+      },
+      "revId": "357c1ef63bfbd28f3e63c8153f1ef17e41b146d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dcb2b4f_b6cd5c85",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-17T00:13:00Z",
+      "side": 1,
+      "message": "This return is wrong. It should depend on the state of data saver. Return BPF_MATCH if data saver is enabled, and BPF_NOMATCH if data saver is disabled.",
+      "range": {
+        "startLine": 665,
+        "startChar": 4,
+        "endLine": 665,
+        "endChar": 23
+      },
+      "revId": "357c1ef63bfbd28f3e63c8153f1ef17e41b146d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
