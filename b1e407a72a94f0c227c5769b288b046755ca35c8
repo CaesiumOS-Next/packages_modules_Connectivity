@@ -46,6 +46,30 @@
       },
       "revId": "b1e407a72a94f0c227c5769b288b046755ca35c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c92e95ea_19e146ae",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-17T21:48:50Z",
+      "side": 1,
+      "message": "because if you have let\u0027s say a eth0, testtap0, and usb0, your callbacks will look like:\naddInterfaceStateListener()\n    -\u003e eth0, link_up, client\n    -\u003e testtap0, link_up, clientrecord here.\n    -\u003e usb0, link_up, client\n\neventuallyExpect(testtap0, link_up, client) // skip to testtap0, link_up above\ndisableInterface(testtap0)\n    -\u003e testtap0, link_down, client\n\neventuallyExpect(testtap0, link_down, client) // skip past the usb0, link_up above\nenableInterface(testtap0)\n    -\u003e testtap0, link_up, client\n\nexpectCallback(testtap0, link_up, client) // works, because at this point we have skipped past all of the eth0 and usb0 callbacks.",
+      "parentUuid": "0b54ffa2_72e596a8",
+      "range": {
+        "startLine": 908,
+        "startChar": 17,
+        "endLine": 908,
+        "endChar": 33
+      },
+      "revId": "b1e407a72a94f0c227c5769b288b046755ca35c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
