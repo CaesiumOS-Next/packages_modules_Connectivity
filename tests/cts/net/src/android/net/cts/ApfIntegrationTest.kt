@@ -41,7 +41,6 @@ import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.NetworkStackModuleTest
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
-import com.android.testutils.SkipPresubmit
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.runAsShell
 import com.google.common.truth.Truth.assertThat
@@ -216,16 +215,16 @@ class ApfIntegrationTest {
         return HexDump.hexStringToByteArray(progHexString)
     }
 
-    @SkipPresubmit(reason = "This test takes longer than 1 minute, do not run it on presubmit.")
     // APF integration is mostly broken before V, only run the full read / write test on V+.
     @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Test
     fun testReadWriteProgram() {
         assumeApfVersionSupportAtLeast(4)
 
-        // Only test down to 2 bytes. The first byte always stays PASS.
+        // Only test down to 2 / 3 bytes. The first byte always stays PASS.
         val program = ByteArray(caps.maximumApfProgramSize)
-        for (i in caps.maximumApfProgramSize downTo 2) {
+        var i = caps.maximumApfProgramSize
+        while (i > 2) {
             // Randomize bytes in range [1, i). And install first [0, i) bytes of program.
             // Note that only the very first instruction (PASS) is valid APF bytecode.
             Random.nextBytes(program, 1 /* fromIndex */, i /* toIndex */)
@@ -234,6 +233,7 @@ class ApfIntegrationTest {
             // Compare entire memory region.
             val readResult = readProgram()
             assertWithMessage("read/write $i byte prog failed").that(readResult).isEqualTo(program)
+            i /= 2
         }
     }
 }
