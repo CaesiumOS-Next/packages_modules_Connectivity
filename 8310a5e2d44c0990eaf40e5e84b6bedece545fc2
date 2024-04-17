@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c74e0b0_93c43195",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1825,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-04-17T01:48:02Z",
+      "side": 1,
+      "message": "It seems the name syntax in RFC1035 is just the preferred syntax, but not a mandatory requirement. And the name rules are updated in RFC1123, which officially allows name starts with digits. Perhaps we should update the comment.",
+      "revId": "8310a5e2d44c0990eaf40e5e84b6bedece545fc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
