@@ -87,6 +87,24 @@
       "parentUuid": "ec4d8ed9_14a278fd",
       "revId": "28d613d672e84c9584a5d2a5b3c53595f3f4c449",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8fd2aee_3c4d7530",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2024-04-18T17:27:23Z",
+      "side": 1,
+      "message": "Sorry for the slow response here.\n\nThere is a push (please don\u0027t ask from whence it came) for all APIs to be associated with a permission, even if it\u0027s a non-dangerous one. In this case, someone _could_ make use of a system resource (XFRM SAs) even if they can\u0027t apply them to a socket. Of course, that\u0027s probably useless in practice, but it is a kernel resource, and there are strict limits, so not likely to exhaust anything, unless it blocks another app that\u0027s doing something awful like hard-coding the SPI they choose. If we ignore that, then everything here already _implicitly_ requires the INTERNET permission. At that point, we can consider this a pure exercise in updating the documentation, but documentation isn\u0027t a bad thing.\n\nWRT the actual checks, adding them will support things like audit trails. It also puts a stake in the ground (from us, the original implementers) that these calls are non-dangerous and as such are protected with a permission of our choosing. I suppose in a way that\u0027s also a form of documentation.\n\nSo, in summary, I think we don\u0027t _need_ this CL, but I think this is _a good thing to do_. I haven\u0027t been able to come up with a reason why we wouldn\u0027t want to do this.\n\nThoughts?",
+      "parentUuid": "3048d7c5_94bb916c",
+      "revId": "28d613d672e84c9584a5d2a5b3c53595f3f4c449",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
