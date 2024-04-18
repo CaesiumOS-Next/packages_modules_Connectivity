@@ -89,6 +89,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2607ae09_b9b6d6c5",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-04-18T04:27:53Z",
+      "side": 1,
+      "message": "Modified the comment includes the above discussion.",
+      "parentUuid": "2f49a23a_97a50c6c",
+      "range": {
+        "startLine": 641,
+        "startChar": 1,
+        "endLine": 641,
+        "endChar": 25
+      },
+      "revId": "589d512df6532eebb7b2572dc9bae54649aaa66a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27ed8593_56d2d365",
@@ -149,6 +173,54 @@
       "side": 1,
       "message": "This is how this used to work... Whether it is sensical, I do not know. But if we want to change this, I would prefer not doing it in this CL / right now, so changes are easier to track. (We might also want to think about how this should actually work some more.)",
       "parentUuid": "eb66d361_84358e11",
+      "range": {
+        "startLine": 644,
+        "startChar": 67,
+        "endLine": 644,
+        "endChar": 76
+      },
+      "revId": "589d512df6532eebb7b2572dc9bae54649aaa66a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b3896a9_8c6124e2",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-04-18T04:27:53Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "27ed8593_56d2d365",
+      "range": {
+        "startLine": 643,
+        "startChar": 3,
+        "endLine": 644,
+        "endChar": 59
+      },
+      "revId": "589d512df6532eebb7b2572dc9bae54649aaa66a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78d76b15_64b42b18",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-04-18T04:27:53Z",
+      "side": 1,
+      "message": "Agree with Patrick, this is the current flow for these iptables chain/bpf program.  \nIt might be improved in other CL, that makes the current change easier to understand.",
+      "parentUuid": "d99dc924_aea82ab2",
       "range": {
         "startLine": 644,
         "startChar": 67,
@@ -265,6 +337,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90fe52a3_f289afb8",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-04-18T04:27:53Z",
+      "side": 1,
+      "message": "Per Maciej\u0027s comment, I\u0027ll use KVER_4_9 instead.",
+      "parentUuid": "40913f11_df2d528e",
+      "revId": "589d512df6532eebb7b2572dc9bae54649aaa66a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97737976_ebdf6a11",
@@ -278,6 +368,30 @@
       "writtenOn": "2024-04-17T15:33:19Z",
       "side": 1,
       "message": "switch / case?",
+      "range": {
+        "startLine": 673,
+        "startChar": 0,
+        "endLine": 678,
+        "endChar": 33
+      },
+      "revId": "589d512df6532eebb7b2572dc9bae54649aaa66a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a4fb282_a317aef4",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-04-18T04:27:53Z",
+      "side": 1,
+      "message": "Sure, tweak it to switch/case description.",
+      "parentUuid": "97737976_ebdf6a11",
       "range": {
         "startLine": 673,
         "startChar": 0,
