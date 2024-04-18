@@ -266,6 +266,19 @@ public class NetworkRanker {
         if (accepted.size() == 1) return accepted.get(0);
         if (accepted.size() > 0 && rejected.size() > 0) candidates = new ArrayList<>(accepted);
 
+        // If two networks are equivalent, and one has been destroyed pending replacement, keep the
+        // other one. This ensures that when the replacement connects, it's preferred.
+        partitionInto(candidates, nai -> !nai.getScore().hasPolicy(POLICY_IS_DESTROYED),
+                accepted, rejected);
+        if (accepted.size() == 1) return accepted.get(0);
+        // If all candidates are about to be destroyed, then the latest is preferred.
+        if (accepted.size() == 0 && rejected.size() > 0) {
+            return rejected.get(0);
+        }
+        if (accepted.size() > 0 && rejected.size() > 0) {
+            candidates = new ArrayList<>(accepted);
+        }
+
         // If any network is validated (or should be accepted even if it's not validated), then
         // don't choose one that isn't.
         partitionInto(candidates, nai -> nai.getScore().hasPolicy(POLICY_IS_VALIDATED)
@@ -334,15 +347,6 @@ public class NetworkRanker {
                 candidates = new ArrayList<>(accepted);
                 break;
             }
-        }
-
-        // If two networks are equivalent, and one has been destroyed pending replacement, keep the
-        // other one. This ensures that when the replacement connects, it's preferred.
-        partitionInto(candidates, nai -> !nai.getScore().hasPolicy(POLICY_IS_DESTROYED),
-                accepted, rejected);
-        if (accepted.size() == 1) return accepted.get(0);
-        if (accepted.size() > 0 && rejected.size() > 0) {
-            candidates = new ArrayList<>(accepted);
         }
 
         // At this point there are still multiple networks passing all the tests above. If any
