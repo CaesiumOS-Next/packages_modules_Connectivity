@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3293c13d_eb808d8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-04-18T01:49:36Z",
+      "side": 1,
+      "message": "If the reason we can\u0027t run these tests is that they call requestNetwork to avoid flakiness, then can we simply not call requestNetwork in instant mode? Something like:\n\n    if (!getContext().getApplicationInfo().isInstantApp()) {\n        // ... request network\n    }",
+      "revId": "f12aec22588f02ecadf02cc302ab9937038e8b6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
