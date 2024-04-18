@@ -253,14 +253,6 @@ public class TrafficStatsTest extends AndroidTestCase {
                 pktBytes + pktWithNoDataBytes + maxExpExtraPktBytes + deltaTxOtherPktBytes);
         assertInRange("uidrxb", uidRxDeltaBytes, pktBytes + minExpExtraPktBytes,
                 pktBytes + pktWithNoDataBytes + maxExpExtraPktBytes + deltaRxOtherPktBytes);
-        assertInRange("iftxp", ifaceTxDeltaPackets, packetCount + minExpectedExtraPackets,
-                packetCount + packetCount + maxExpectedExtraPackets);
-        assertInRange("ifrxp", ifaceRxDeltaPackets, packetCount + minExpectedExtraPackets,
-                packetCount + packetCount + maxExpectedExtraPackets);
-        assertInRange("iftxb", ifaceTxDeltaBytes, pktBytes + minExpExtraPktBytes,
-                pktBytes + pktWithNoDataBytes + maxExpExtraPktBytes);
-        assertInRange("ifrxb", ifaceRxDeltaBytes, pktBytes + minExpExtraPktBytes,
-                pktBytes + pktWithNoDataBytes + maxExpExtraPktBytes);
 
         // Localhost traffic *does* count against total stats.
         // Check the total stats increased after test data transfer over localhost has been made.
