@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0aefe342_ead1039b",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-04-18T01:54:30Z",
+      "side": 0,
+      "message": "Per discussion, if this is the thing that doesn\u0027t work in instant mode, then maybe we can do something like:\n\n    if (mContext.getPackageManager().hasSystemFeature(FEATURE_WIFI)\n            \u0026\u0026 !mContext().getApplicationInfo().isInstantApp()) {\n        testableNetworks.add(mCtsNetUtils.ensureWifiConnected());\n    }",
+      "range": {
+        "startLine": 282,
+        "startChar": 46,
+        "endLine": 282,
+        "endChar": 65
+      },
+      "revId": "7e68d550f7c71835ce3c747653664be7f7d4f3fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
