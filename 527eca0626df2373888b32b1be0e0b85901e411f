@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "539605f4_616b3362",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-18T23:48:34Z",
+      "side": 1,
+      "message": "can someone explain to me when this line triggers?\nAFAICT this never runs...\n(I think we\u0027ll return either in line 653 or 662 for kernel generated icmpv6 packets)\n\n(even ignoring the fact that bpf_skb_load_bytes_net(..., KVER_4_9) is likely buggy due to reading from the wrong place in the packet)",
+      "range": {
+        "startLine": 693,
+        "startChar": 0,
+        "endLine": 693,
+        "endChar": 30
+      },
+      "revId": "527eca0626df2373888b32b1be0e0b85901e411f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
