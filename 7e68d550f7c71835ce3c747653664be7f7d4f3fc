@@ -22,6 +22,30 @@
       },
       "revId": "7e68d550f7c71835ce3c747653664be7f7d4f3fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e44c2611_154b69e5",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-04-18T02:38:15Z",
+      "side": 0,
+      "message": "I tried adding code to ignore CtsNetUtils#ensureWifiConnected() in instant mode. However, other methods like NetworkCallbackRule#requestCell() and CtsNetUtils#getTestableNetworks() still call requestNetwork(). Ignoring all of them would lead to test failures due to no testable networks. Therefore, I think the feasible solution currently is to disable these tests in instant mode.",
+      "parentUuid": "0aefe342_ead1039b",
+      "range": {
+        "startLine": 282,
+        "startChar": 46,
+        "endLine": 282,
+        "endChar": 65
+      },
+      "revId": "7e68d550f7c71835ce3c747653664be7f7d4f3fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
