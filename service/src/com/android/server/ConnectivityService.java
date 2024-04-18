@@ -5219,7 +5219,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         // Immediate teardown.
-        if (nai.teardownDelayMs == 0) {
+        if (nai.teardownDelayMs == 0 || !nai.isDestroyed()) {
             destroyNetwork(nai);
             return;
         }
