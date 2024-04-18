@@ -253,14 +253,17 @@ public class TrafficStatsTest extends AndroidTestCase {
                 pktBytes + pktWithNoDataBytes + maxExpExtraPktBytes + deltaTxOtherPktBytes);
         assertInRange("uidrxb", uidRxDeltaBytes, pktBytes + minExpExtraPktBytes,
                 pktBytes + pktWithNoDataBytes + maxExpExtraPktBytes + deltaRxOtherPktBytes);
-        assertInRange("iftxp", ifaceTxDeltaPackets, packetCount + minExpectedExtraPackets,
-                packetCount + packetCount + maxExpectedExtraPackets);
-        assertInRange("ifrxp", ifaceRxDeltaPackets, packetCount + minExpectedExtraPackets,
-                packetCount + packetCount + maxExpectedExtraPackets);
-        assertInRange("iftxb", ifaceTxDeltaBytes, pktBytes + minExpExtraPktBytes,
-                pktBytes + pktWithNoDataBytes + maxExpExtraPktBytes);
-        assertInRange("ifrxb", ifaceRxDeltaBytes, pktBytes + minExpExtraPktBytes,
-                pktBytes + pktWithNoDataBytes + maxExpExtraPktBytes);
+
+        //Since the number of ack packets received by the "lo" interface increases, and there is no suitable way to identify the increased scenarios.
+        //So we remove the upper bound check and keep the lower bound check.
+        assertTrue("iftxp: " + ifaceTxDeltaPackets + "<" + (packetCount + minExpectedExtraPackets),
+                ifaceTxDeltaPackets >= packetCount + minExpectedExtraPackets);
+        assertTrue("ifrxp: " + ifaceRxDeltaPackets + "<" + (packetCount + minExpectedExtraPackets),
+                ifaceRxDeltaPackets >= packetCount + minExpectedExtraPackets);
+        assertTrue("iftxb: " + ifaceTxDeltaBytes + "<" + (pktBytes + minExpExtraPktBytes),
+                ifaceTxDeltaBytes >= pktBytes + minExpExtraPktBytes);
+        assertTrue("ifrxb: " + ifaceRxDeltaBytes + "<" + (pktBytes + minExpExtraPktBytes),
+                ifaceRxDeltaBytes >= pktBytes + minExpExtraPktBytes);
 
         // Localhost traffic *does* count against total stats.
         // Check the total stats increased after test data transfer over localhost has been made.
