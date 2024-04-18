@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc62b89d_227250b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-04-18T11:05:24Z",
+      "side": 1,
+      "message": "Thanks for fixing this in a way that does not reduce coverage in instant mode.\n\nDoes this CL allow us to remove @AppModeFull from other test methods as well?",
+      "revId": "82e396394bd2a67a0d905ceee2de31e69ecebd6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
