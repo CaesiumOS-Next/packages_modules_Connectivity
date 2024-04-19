@@ -357,6 +357,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89192f63_a1957432",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-19T21:45:24Z",
+      "side": 1,
+      "message": "I believe this will not work. Look at the implementation of bpf_skb_load_bytes_net. It assumes that there is no ethernet header on 4.9 and 4.14. I believe the only way you could get this to work, is by splitting the programs into a $4_9 and $4_19 versions (but then you will also have to leave the allowlist program there). This of course will only reliably work if V actually does not support 4.14, which is not a bet I am willing to make. I think this means that a) this refactor doesn\u0027t currently make anything easier, and b) it might not work at all in V. 😞",
+      "parentUuid": "90fe52a3_f289afb8",
+      "revId": "589d512df6532eebb7b2572dc9bae54649aaa66a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97737976_ebdf6a11",
         "filename": "bpf_progs/netd.c",
         "patchSetId": 1
