@@ -46,6 +46,29 @@
       },
       "revId": "977573efd02f5f75b1c229024f17312abb10ae4c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb133cff_336cfa06",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-19T00:20:53Z",
+      "side": 1,
+      "message": "should identifier be randomized once, while sequence number be a static value incremented on each call to this func?",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 80
+      },
+      "revId": "977573efd02f5f75b1c229024f17312abb10ae4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
