@@ -22,6 +22,30 @@
       },
       "revId": "527eca0626df2373888b32b1be0e0b85901e411f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d15c6ee_1d148982",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-04-19T01:17:27Z",
+      "side": 1,
+      "message": "I checked the original issue b/23158230 (CL: ag/759244), I think you\u0027re right.  \nIt should be return in 662 for kernel generated icmpv6 packets.   \nThese icmpv6 related checking can be removed if that is true.  \n\nFurther question, is that any reason that bpf_skb_load_bytes_net(..., KVER_4_9) might reading from the wrong place in the packet?",
+      "parentUuid": "539605f4_616b3362",
+      "range": {
+        "startLine": 693,
+        "startChar": 0,
+        "endLine": 693,
+        "endChar": 30
+      },
+      "revId": "527eca0626df2373888b32b1be0e0b85901e411f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
