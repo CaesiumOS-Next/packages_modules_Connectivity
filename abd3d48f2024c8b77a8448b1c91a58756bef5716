@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0fb5f88_8b830caf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-19T04:15:02Z",
+      "side": 1,
+      "message": "Could you explain what will be changed by this CL?\nI checked the bug but I\u0027m still not clear the goal of this fix.",
+      "revId": "abd3d48f2024c8b77a8448b1c91a58756bef5716",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d960da4_050fa503",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-19T04:15:02Z",
+      "side": 1,
+      "message": "Can we remove them?",
+      "range": {
+        "startLine": 802,
+        "startChar": 12,
+        "endLine": 803,
+        "endChar": 72
+      },
+      "revId": "abd3d48f2024c8b77a8448b1c91a58756bef5716",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
