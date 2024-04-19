@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f840cd2_8469ca4f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-19T02:12:11Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "27d341cf_1ada9864",
+      "range": {
+        "startLine": 9,
+        "startChar": 34,
+        "endLine": 9,
+        "endChar": 43
+      },
+      "revId": "977573efd02f5f75b1c229024f17312abb10ae4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb133cff_336cfa06",
@@ -61,6 +85,30 @@
       "writtenOn": "2024-04-19T00:20:53Z",
       "side": 1,
       "message": "should identifier be randomized once, while sequence number be a static value incremented on each call to this func?",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 80
+      },
+      "revId": "977573efd02f5f75b1c229024f17312abb10ae4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78468286_67e2daf7",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-19T02:12:11Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fb133cff_336cfa06",
       "range": {
         "startLine": 139,
         "startChar": 0,
