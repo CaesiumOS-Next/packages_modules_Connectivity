@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "393ac029_7c506437",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-19T18:41:12Z",
+      "side": 0,
+      "message": "I stand corrected...",
+      "range": {
+        "startLine": 163,
+        "startChar": 81,
+        "endLine": 164,
+        "endChar": 96
+      },
+      "revId": "c2c667ba433cebe75aff95315e40a8e4d566a586",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
