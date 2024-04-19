@@ -16,6 +16,24 @@
       "message": "LGTM but Lorenzo should have a look\n\nDo we also have enough coverage for the new behavior, which depends on target SDK ?",
       "revId": "ce1a467117f947239ca2f7d80ee3e1d1e3cc3f97",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e13a2d76_e6bbfa38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-19T02:44:25Z",
+      "side": 1,
+      "message": "For compatflag, we only have unit test currently.\nThere were minor issues (LocalNetworkConfig is not API, need to allow test local network) for adding cts, so let me add in the separate CL (b/335753704)",
+      "parentUuid": "1df5a38a_ebbfcbac",
+      "revId": "ce1a467117f947239ca2f7d80ee3e1d1e3cc3f97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
