@@ -146,6 +146,62 @@ public class EthernetServiceImpl extends IEthernetManager.Stub {
     }
 
     /**
+     * Get Ethernet IpAddress.
+     */
+    @Override
+    public String getIpAddress(String iface) {
+        PermissionUtils.enforceAccessNetworkStatePermission(mContext, TAG);
+
+        if (mTracker.isRestrictedInterface(iface)) {
+            PermissionUtils.enforceRestrictedNetworkPermission(mContext, TAG);
+        }
+
+        return mTracker.getIpAddress(iface);
+    }
+
+    /**
+     * Get Ethernet Netmask.
+     */
+    @Override
+    public String getNetmask(String iface) {
+        PermissionUtils.enforceAccessNetworkStatePermission(mContext, TAG);
+
+        if (mTracker.isRestrictedInterface(iface)) {
+            PermissionUtils.enforceRestrictedNetworkPermission(mContext, TAG);
+        }
+
+        return mTracker.getNetmask(iface);
+    }
+
+    /**
+     * Get Ethernet Gateway.
+     */
+    @Override
+    public String getGateway(String iface) {
+        PermissionUtils.enforceAccessNetworkStatePermission(mContext, TAG);
+
+        if (mTracker.isRestrictedInterface(iface)) {
+            PermissionUtils.enforceRestrictedNetworkPermission(mContext, TAG);
+        }
+
+        return mTracker.getGateway(iface);
+    }
+
+    /**
+     * Get Ethernet Dns.
+     */
+    @Override
+    public String getDns(String iface) {
+        PermissionUtils.enforceAccessNetworkStatePermission(mContext, TAG);
+
+        if (mTracker.isRestrictedInterface(iface)) {
+            PermissionUtils.enforceRestrictedNetworkPermission(mContext, TAG);
+        }
+
+        return mTracker.getDns(iface);
+    }
+
+    /**
      * Adds a listener.
      * @param listener A {@link IEthernetServiceListener} to add.
      */
