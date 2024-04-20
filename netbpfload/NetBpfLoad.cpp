@@ -224,9 +224,17 @@ int logTetheringApexVersion(void) {
     return 0;
 }
 
+void KernelInfoPlusLogger(android::base::LogId id, android::base::LogSeverity severity,
+                          const char* tag, const char* s, unsigned int i,
+                          const char* full_message) {
+    if (severity >= android::base::LogSeverity::INFO) {
+        android::base::KernelLogger(id, severity, tag, s, i, full_message);
+    }
+}
+
 int main(int argc, char** argv, char * const envp[]) {
     (void)argc;
-    android::base::InitLogging(argv, &android::base::KernelLogger);
+    android::base::InitLogging(argv, &KernelInfoPlusLogger);
 
     ALOGI("NetBpfLoad '%s' starting...", argv[0]);
 
