@@ -16,6 +16,7 @@
 
 package com.google.snippet.connectivity
 
+import android.Manifest.permission.NETWORK_SETTINGS
 import android.Manifest.permission.OVERRIDE_WIFI_CONFIG
 import android.content.pm.PackageManager.FEATURE_TELEPHONY
 import android.content.pm.PackageManager.FEATURE_WIFI
@@ -36,7 +37,6 @@ import android.net.wifi.WifiSsid
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.testutils.ConnectUtil
 import com.android.testutils.NetworkCallbackHelper
-import com.android.testutils.RecorderCallback.CallbackEntry.Available
 import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.runAsShell
@@ -90,8 +90,6 @@ class ConnectivityMultiDevicesSnippet : Snippet {
     @Suppress("DEPRECATION")
     fun connectToWifi(ssid: String, passphrase: String, requireValidation: Boolean): Network {
         val specifier = WifiNetworkSpecifier.Builder()
-            .setSsid(ssid)
-            .setWpa2Passphrase(passphrase)
             .setBand(ScanResult.WIFI_BAND_24_GHZ)
             .build()
         val wifiConfig = WifiConfiguration()
@@ -102,25 +100,30 @@ class ConnectivityMultiDevicesSnippet : Snippet {
         wifiConfig.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP)
         wifiConfig.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP)
 
-        // Register network callback for the specific wifi.
+        // Add the test configuration and connect to it.
+        val connectUtil = ConnectUtil(context)
+        connectUtil.connectToWifiConfig(wifiConfig)
+
+        // Implement manual SSID matching. Specifying the SSID in
+        // NetworkSpecifier is ineffective
+        // (see WifiNetworkAgentSpecifier#canBeSatisfiedBy for details).
+        // Note that holding permission is necessary when waiting for
+        // the callbacks. The handler thread checks permission; if
+        // it's not present, the SSID will be redacted.
         val networkCallback = TestableNetworkCallback()
-        val wifiRequest = NetworkRequest.Builder().addTransportType(TRANSPORT_WIFI)
-            .setNetworkSpecifier(specifier)
-            .build()
-        cm.registerNetworkCallback(wifiRequest, networkCallback)
-
+        val wifiRequest = NetworkRequest.Builder().addTransportType(TRANSPORT_WIFI).build()
         try {
-            // Add the test configuration and connect to it.
-            val connectUtil = ConnectUtil(context)
-            connectUtil.connectToWifiConfig(wifiConfig)
-
-            val event = networkCallback.expect<Available>()
-            if (requireValidation) {
-                networkCallback.eventuallyExpect<CapabilitiesChanged> {
-                    it.caps.hasCapability(NET_CAPABILITY_VALIDATED)
-                }
+            return runAsShell(NETWORK_SETTINGS) {
+                // Register the network callback is needed here.
+                // This is to avoid the race condition where callback is fired before
+                // acquiring permission.
+                cm.registerNetworkCallback(wifiRequest, networkCallback)
+                return@runAsShell networkCallback.eventuallyExpect<CapabilitiesChanged> {
+                    // Remove double quotes.
+                    val ssidFromCaps = it.caps.ssid?.trim('\"')
+                    ssidFromCaps == ssid && it.caps.hasCapability(NET_CAPABILITY_VALIDATED)
+                }.network
             }
-            return event.network
         } finally {
             cm.unregisterNetworkCallback(networkCallback)
         }
