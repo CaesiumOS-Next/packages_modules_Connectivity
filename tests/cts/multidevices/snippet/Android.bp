@@ -33,5 +33,6 @@ android_test_helper_app {
         "cts-net-utils",
     ],
     platform_apis: true,
+    // For getting ssid from NetworkCallback.
     min_sdk_version: "30", // R
 }
