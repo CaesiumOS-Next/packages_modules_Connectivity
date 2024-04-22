@@ -22,6 +22,30 @@
       },
       "revId": "fd207b88e7c5e024056d8ecc9b13b792b2b8ea9f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7d22eed_a7d7bb3a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-22T07:41:53Z",
+      "side": 0,
+      "message": "Good point. Added a comment to explain this.",
+      "parentUuid": "ae571b83_4c8dede9",
+      "range": {
+        "startLine": 151,
+        "startChar": 22,
+        "endLine": 151,
+        "endChar": 65
+      },
+      "revId": "fd207b88e7c5e024056d8ecc9b13b792b2b8ea9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

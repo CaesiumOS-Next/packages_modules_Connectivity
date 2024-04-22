@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c0853cf_8b952a5e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-22T07:41:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43dc2220_127c7569",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "0425c05410e522e1f344347f8e234d47259290a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fbb4f675_a51cd21d",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-04-22T06:27:39Z",
       "side": 1,
       "message": "Could you also test the MIN_MULTICAST_REPLY_INTERVAL_MS throttling still works for IPv4 and IPv6 query individually?",
+      "range": {
+        "startLine": 1016,
+        "startChar": 7,
+        "endLine": 1016,
+        "endChar": 32
+      },
+      "revId": "0425c05410e522e1f344347f8e234d47259290a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a85bd4f_cea343f4",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-04-22T07:41:53Z",
+      "side": 1,
+      "message": "Added a case where the throttling happens. \n\nHowever, because `MdnsRecordRepository` (and other mDNS classes) directly uses `SystemClock.elapsedTime()`, I cannot add a test case that a response outside the interval won\u0027t be throttled. \n\nIf you\u0027d like to I can make the clock part of `Dependencies` in a future CL to make it more testable.",
+      "parentUuid": "fbb4f675_a51cd21d",
       "range": {
         "startLine": 1016,
         "startChar": 7,
