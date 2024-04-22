@@ -375,6 +375,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "156e9687_b1d2c649",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-04-22T03:33:34Z",
+      "side": 1,
+      "message": "What if just merge denyList and allowList, and keep bw_data_saver chain as before.  \nThen we can eliminate at least bw_happy_box chain/bpf program\n\nAs for the bw_data_saver, it can be refactored if we can get rid of the old kernel (\u003c $4.19) in the new release in the future.\n\nThe iptable rules might be as follow:\n```\nip6tables data saver off:\n  -A bw_data_saver -j RETURN\n  -A bw_penalty_box -m bpf --object-pinned /sys/fs/bpf/netd_shared/prog_netd_skfilter_denylist_xtbpf -j REJECT --reject-with icmp6-port-unreachable\n  -A bw_penalty_box -j bw_data_saver\n\nip6tables data saver on:\n  -A bw_data_saver -p ipv6-icmp -m icmp6 --icmpv6-type 2 -j RETURN\n  -A bw_data_saver -p ipv6-icmp -m icmp6 --icmpv6-type 133 -j RETURN\n  -A bw_data_saver -p ipv6-icmp -m icmp6 --icmpv6-type 134 -j RETURN\n  -A bw_data_saver -p ipv6-icmp -m icmp6 --icmpv6-type 135 -j RETURN\n  -A bw_data_saver -p ipv6-icmp -m icmp6 --icmpv6-type 136 -j RETURN\n  -A bw_data_saver -p ipv6-icmp -m icmp6 --icmpv6-type 137 -j RETURN\n  -A bw_data_saver -j REJECT --reject-with icmp6-port-unreachable\n  -A bw_penalty_box -m bpf --object-pinned /sys/fs/bpf/netd_shared/prog_netd_skfilter_denylist_xtbpf -j REJECT --reject-with icmp6-port-unreachable\n  -A bw_penalty_box -j bw_data_saver\n```",
+      "parentUuid": "89192f63_a1957432",
+      "revId": "589d512df6532eebb7b2572dc9bae54649aaa66a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97737976_ebdf6a11",
         "filename": "bpf_progs/netd.c",
         "patchSetId": 1
