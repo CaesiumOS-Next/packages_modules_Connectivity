@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9543cd85_f1d47d3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-04-22T15:58:01Z",
+      "side": 1,
+      "message": "Can we also\u003d deprecate addUidToMeteredNetworkAllowList and removeUidFromMeteredNetworkAllowList? The reason for deprecation can be that those methods cannot express the difference between \"admin metered\" and \"user metered\", so callers should add/remove users from these firewall constants instead.",
+      "revId": "49506f14cbf258d95d25f20e552800944ff17acb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
