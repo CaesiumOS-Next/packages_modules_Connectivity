@@ -36,7 +36,6 @@ import android.net.wifi.WifiSsid
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.testutils.ConnectUtil
 import com.android.testutils.NetworkCallbackHelper
-import com.android.testutils.RecorderCallback.CallbackEntry.Available
 import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.runAsShell
@@ -90,10 +89,8 @@ class ConnectivityMultiDevicesSnippet : Snippet {
     // Suppress warning because WifiManager methods to connect to a config are
     // documented not to be deprecated for privileged users.
     @Suppress("DEPRECATION")
-    fun connectToWifi(ssid: String, passphrase: String, requireValidation: Boolean): Network {
+    fun connectToWifi(ssid: String, passphrase: String): Network {
         val specifier = WifiNetworkSpecifier.Builder()
-            .setSsid(ssid)
-            .setWpa2Passphrase(passphrase)
             .setBand(ScanResult.WIFI_BAND_24_GHZ)
             .build()
         val wifiConfig = WifiConfiguration()
@@ -116,13 +113,13 @@ class ConnectivityMultiDevicesSnippet : Snippet {
             val connectUtil = ConnectUtil(context)
             connectUtil.connectToWifiConfig(wifiConfig)
 
-            val event = networkCallback.expect<Available>()
-            if (requireValidation) {
-                networkCallback.eventuallyExpect<CapabilitiesChanged> {
-                    it.caps.hasCapability(NET_CAPABILITY_VALIDATED)
-                }
-            }
-            return event.network
+            // Manual match ssid since specifying ssid in the NetworkSpecifier doesn't work.
+            // See WifiNetworkAgentSpecifier#canBeSatisfiedBy for more detail.
+            return networkCallback.eventuallyExpect<CapabilitiesChanged> {
+                // Remove double quotes.
+                val ssidFromCaps = it.caps.ssid?.trim('\"')
+                ssidFromCaps == ssid && it.caps.hasCapability(NET_CAPABILITY_VALIDATED)
+            }.network
         } finally {
             cm.unregisterNetworkCallback(networkCallback)
         }

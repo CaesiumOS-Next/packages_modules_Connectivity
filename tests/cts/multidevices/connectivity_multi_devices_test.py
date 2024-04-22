@@ -87,7 +87,7 @@ class ConnectivityMultiDevicesTest(base_test.BaseTestClass):
       server.startHotspot(testSsid, testPassphrase)
 
       # Make the client connects to the hotspot.
-      client.connectToWifi(testSsid, testPassphrase, True)
+      client.connectToWifi(testSsid, testPassphrase)
 
     finally:
       if upstream_type == UpstreamType.CELLULAR:
