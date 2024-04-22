@@ -12,7 +12,8 @@
 -->
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.google.snippet.connectivity">
+    package="com.google.snippet.connectivity"
+    android:sharedUserId="android.uid.networkstack">
   <!-- Declare the minimum Android SDK version and internet permission,
        which are required by Mobly Snippet Lib since it uses network socket. -->
   <uses-sdk android:minSdkVersion="30" />
