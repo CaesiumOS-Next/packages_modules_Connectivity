@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "037e64c4_335182eb",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-22T07:01:58Z",
+      "side": 1,
+      "message": "Is it possible that the wifi is just validated but not yet a default network?\nIf so the l.902 could still get non-wifi network or null, which might be still flaky.\n\nAlternatively, if we want to ensure l.902, we might need to registerDefaultNetworkCallback, and make sure the network is not cellular (it could be wifi, ethernet, bt, etc), however this is not pretty.\n\n\nNot sure if we have better way to do this.\n+ @motomuman@google.com to comment.",
+      "range": {
+        "startLine": 899,
+        "startChar": 40,
+        "endLine": 899,
+        "endChar": 75
+      },
+      "revId": "1e7203bfd39e1767643b15978c769146f928b800",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
