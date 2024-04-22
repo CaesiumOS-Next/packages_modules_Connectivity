@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43dc2220_127c7569",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-04-22T06:27:39Z",
+      "side": 1,
+      "message": "I think you miss the `Test: ` field?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "0425c05410e522e1f344347f8e234d47259290a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbb4f675_a51cd21d",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-04-22T06:27:39Z",
+      "side": 1,
+      "message": "Could you also test the MIN_MULTICAST_REPLY_INTERVAL_MS throttling still works for IPv4 and IPv6 query individually?",
+      "range": {
+        "startLine": 1016,
+        "startChar": 7,
+        "endLine": 1016,
+        "endChar": 32
+      },
+      "revId": "0425c05410e522e1f344347f8e234d47259290a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae571b83_4c8dede9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-04-22T06:27:39Z",
+      "side": 0,
+      "message": "The lastAdvertisedTimeMs is maintained separately in this CL. However, the FIXME message here also mentioned that lastSentTimeMs also should be maintained separately. I guess it is also better off to separately the lastSentTimeMs? Or if it is not necessary, then please add a comment to explain it.",
+      "range": {
+        "startLine": 151,
+        "startChar": 22,
+        "endLine": 151,
+        "endChar": 65
+      },
+      "revId": "fd207b88e7c5e024056d8ecc9b13b792b2b8ea9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
