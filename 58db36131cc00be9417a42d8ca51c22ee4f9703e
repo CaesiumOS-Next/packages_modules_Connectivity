@@ -1,0 +1,366 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "040e67fb_a90390e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-04-22T06:24:38Z",
+      "side": 1,
+      "message": "most of comments are nits, should we also consider to add a RtNetlinkIfaddrlabelMessageTest?",
+      "revId": "58db36131cc00be9417a42d8ca51c22ee4f9703e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f75857e0_f3d1b091",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkConstants.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-04-22T06:24:38Z",
+      "side": 1,
+      "message": "also verify these rtm netlink message types in NetlinkConstantsTest#testStringForNlMsgType?",
+      "range": {
+        "startLine": 214,
+        "startChar": 43,
+        "endLine": 214,
+        "endChar": 59
+      },
+      "revId": "58db36131cc00be9417a42d8ca51c22ee4f9703e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eabc2c90_f8841894",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkIfaddrlabelMessage.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-04-22T06:24:38Z",
+      "side": 1,
+      "message": "nit: 2024",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "58db36131cc00be9417a42d8ca51c22ee4f9703e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71581743_a6c4c017",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkIfaddrlabelMessage.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-04-22T06:24:38Z",
+      "side": 1,
+      "message": "nit: final?",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 123,
+        "endChar": 24
+      },
+      "revId": "58db36131cc00be9417a42d8ca51c22ee4f9703e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfc8bd95_21e7c7ee",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkIfaddrlabelMessage.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-04-22T06:24:38Z",
+      "side": 1,
+      "message": "getValueAsInteger might return null as well, should we also address it? e.g. if label attribute is truncated, then this method should return null?",
+      "range": {
+        "startLine": 133,
+        "startChar": 33,
+        "endLine": 133,
+        "endChar": 50
+      },
+      "revId": "58db36131cc00be9417a42d8ca51c22ee4f9703e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93c01ad1_a49b0970",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkIfaddrlabelMessage.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-04-22T06:24:38Z",
+      "side": 1,
+      "message": "nit: remove this todo?",
+      "range": {
+        "startLine": 158,
+        "startChar": 8,
+        "endLine": 158,
+        "endChar": 90
+      },
+      "revId": "58db36131cc00be9417a42d8ca51c22ee4f9703e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a09121c_c002479e",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkIfaddrlabelMessage.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-04-22T06:24:38Z",
+      "side": 1,
+      "message": "nit: makeDumpAddrLabelsRequest?",
+      "range": {
+        "startLine": 182,
+        "startChar": 25,
+        "endLine": 182,
+        "endChar": 40
+      },
+      "revId": "58db36131cc00be9417a42d8ca51c22ee4f9703e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09b436f2_c9f05c32",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkIfaddrlabelMessage.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-04-22T06:24:38Z",
+      "side": 1,
+      "message": "nit: makeGetAddrLabelsRequest?",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 40
+      },
+      "revId": "58db36131cc00be9417a42d8ca51c22ee4f9703e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf649067_619fcdf0",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkIfaddrlabelMessage.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-04-22T06:24:38Z",
+      "side": 1,
+      "message": "for RTM_GETADDRLABEL, always use 128 as prefix len?",
+      "range": {
+        "startLine": 190,
+        "startChar": 39,
+        "endLine": 190,
+        "endChar": 42
+      },
+      "revId": "58db36131cc00be9417a42d8ca51c22ee4f9703e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b3e1d06_f8511d0d",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkIfaddrlabelMessage.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-04-22T06:24:38Z",
+      "side": 1,
+      "message": "nit: how about moving static queryLabel/addLabel/removeLabel to NetlinkUtils?",
+      "range": {
+        "startLine": 194,
+        "startChar": 22,
+        "endLine": 194,
+        "endChar": 32
+      },
+      "revId": "58db36131cc00be9417a42d8ca51c22ee4f9703e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b09e5a49_c1f970b3",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkIfaddrlabelMessage.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-04-22T06:24:38Z",
+      "side": 1,
+      "message": "nit: makeSetAddrLabelRequest?",
+      "range": {
+        "startLine": 220,
+        "startChar": 26,
+        "endLine": 220,
+        "endChar": 40
+      },
+      "revId": "58db36131cc00be9417a42d8ca51c22ee4f9703e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "125c588e_7cd54005",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructIfaddrlblmsg.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-04-22T06:24:38Z",
+      "side": 1,
+      "message": "nit: 2024",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "58db36131cc00be9417a42d8ca51c22ee4f9703e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fd51055_b073fecc",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructIfaddrlblmsg.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-04-22T06:24:38Z",
+      "side": 1,
+      "message": "nit: suggest to add below structure in the comment, easier to know the field type and size.\n\n```\nstruct ifaddrlblmsg {\n\t__u8\t\tifal_family;\t\t/* Address family */\n\t__u8\t\t__ifal_reserved;\t/* Reserved */\n\t__u8\t\tifal_prefixlen;\t\t/* Prefix length */\n\t__u8\t\tifal_flags;\t\t/* Flags */\n\t__u32\t\tifal_index;\t\t/* Link index */\n\t__u32\t\tifal_seq;\t\t/* sequence number */\n};\n```",
+      "range": {
+        "startLine": 31,
+        "startChar": 10,
+        "endLine": 31,
+        "endChar": 22
+      },
+      "revId": "58db36131cc00be9417a42d8ca51c22ee4f9703e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "077e40f0_bd454c02",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructIfaddrlblmsg.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-04-22T06:24:38Z",
+      "side": 1,
+      "message": "nit: suggest to keep flags here even it\u0027s unused, which is clear.",
+      "range": {
+        "startLine": 46,
+        "startChar": 55,
+        "endLine": 46,
+        "endChar": 74
+      },
+      "revId": "58db36131cc00be9417a42d8ca51c22ee4f9703e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed5b03bb_4218d26f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructIfaddrlblmsg.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-04-22T06:24:38Z",
+      "side": 1,
+      "message": "nit: STRUCT_SIZE?",
+      "range": {
+        "startLine": 76,
+        "startChar": 37,
+        "endLine": 76,
+        "endChar": 77
+      },
+      "revId": "58db36131cc00be9417a42d8ca51c22ee4f9703e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e9a1df3_3cc64abb",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/StructIfaddrlblmsg.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-04-22T06:24:38Z",
+      "side": 1,
+      "message": "nit: maybe just `writeToByteBuffer(byteBuffer);`",
+      "range": {
+        "startLine": 87,
+        "startChar": 8,
+        "endLine": 87,
+        "endChar": 13
+      },
+      "revId": "58db36131cc00be9417a42d8ca51c22ee4f9703e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
