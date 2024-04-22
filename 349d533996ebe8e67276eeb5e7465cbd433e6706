@@ -45,6 +45,30 @@
       },
       "revId": "349d533996ebe8e67276eeb5e7465cbd433e6706",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "943fd2b0_b83bf701",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5222,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-22T02:58:12Z",
+      "side": 1,
+      "message": "+1, Could you add test to [connectivityservice](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/unit/java/com/android/server/connectivityservice/)?",
+      "parentUuid": "c3df00c0_7ff95b8b",
+      "range": {
+        "startLine": 5222,
+        "startChar": 37,
+        "endLine": 5222,
+        "endChar": 61
+      },
+      "revId": "349d533996ebe8e67276eeb5e7465cbd433e6706",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
