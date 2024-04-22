@@ -437,4 +437,26 @@ public class MdnsMultinetworkSocketClientTest {
             inOrder.verify(mSocket).send(packets.get(i));
         }
     }
+
+    @Test
+    public void testSendPacketWithMultiplePacketsWithDifferentAddresses() throws IOException {
+        final SocketCallback callback = expectSocketCallback();
+        final DatagramPacket ipv4Packet = new DatagramPacket(BUFFER, 0 /* offset */, BUFFER.length,
+                InetAddresses.parseNumericAddress("192.0.2.1"), 0 /* port */);
+        final DatagramPacket ipv6Packet = new DatagramPacket(BUFFER, 0 /* offset */, BUFFER.length,
+                InetAddresses.parseNumericAddress("2001:db8::"), 0 /* port */);
+        doReturn(true).when(mSocket).hasJoinedIpv4();
+        doReturn(true).when(mSocket).hasJoinedIpv6();
+        doReturn(createEmptyNetworkInterface()).when(mSocket).getInterface();
+
+        // Notify socket created
+        callback.onSocketCreated(mSocketKey, mSocket, List.of());
+        verify(mSocketCreationCallback).onSocketCreated(mSocketKey);
+
+        // Send packets with IPv4 and IPv6 then verify sending has never been called.
+        mSocketClient.sendPacketRequestingMulticastResponse(List.of(ipv4Packet, ipv6Packet),
+                mSocketKey, false /* onlyUseIpv6OnIpv6OnlyNetworks */);
+        HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
+        verify(mSocket, never()).send(any());
+    }
 }
