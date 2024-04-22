@@ -16,6 +16,7 @@
 
 package com.google.snippet.connectivity
 
+import android.Manifest.permission.NETWORK_SETTINGS
 import android.Manifest.permission.OVERRIDE_WIFI_CONFIG
 import android.content.pm.PackageManager.FEATURE_TELEPHONY
 import android.content.pm.PackageManager.FEATURE_WIFI
@@ -33,15 +34,18 @@ import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
 import android.net.wifi.WifiNetworkSpecifier
 import android.net.wifi.WifiSsid
+import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.testutils.ConnectUtil
 import com.android.testutils.NetworkCallbackHelper
-import com.android.testutils.RecorderCallback.CallbackEntry.Available
 import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.runAsShell
 import com.google.android.mobly.snippet.Snippet
 import com.google.android.mobly.snippet.rpc.Rpc
+import java.lang.IllegalStateException
+
+private const val WIFI_CONNECT_TIMEOUT_MS = 30_000L
 
 class ConnectivityMultiDevicesSnippet : Snippet {
     private val context = InstrumentationRegistry.getInstrumentation().getTargetContext()
@@ -49,6 +53,7 @@ class ConnectivityMultiDevicesSnippet : Snippet {
     private val cm = context.getSystemService(ConnectivityManager::class.java)!!
     private val pm = context.packageManager
     private val ctsNetUtils = CtsNetUtils(context)
+    private val connectUtil = ConnectUtil(context)
     private val cbHelper = NetworkCallbackHelper()
     private val ctsTetheringUtils = CtsTetheringUtils(context)
     private var oldSoftApConfig: SoftApConfiguration? = null
@@ -92,14 +97,12 @@ class ConnectivityMultiDevicesSnippet : Snippet {
     @Suppress("DEPRECATION")
     fun connectToWifi(ssid: String, passphrase: String, requireValidation: Boolean): Network {
         val specifier = WifiNetworkSpecifier.Builder()
-            .setSsid(ssid)
-            .setWpa2Passphrase(passphrase)
             .setBand(ScanResult.WIFI_BAND_24_GHZ)
             .build()
         val wifiConfig = WifiConfiguration()
         wifiConfig.SSID = "\"" + ssid + "\""
         wifiConfig.preSharedKey = "\"" + passphrase + "\""
-        wifiConfig.hiddenSSID = true
+        // wifiConfig.hiddenSSID = true
         wifiConfig.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA2_PSK)
         wifiConfig.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP)
         wifiConfig.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP)
@@ -109,23 +112,48 @@ class ConnectivityMultiDevicesSnippet : Snippet {
         val wifiRequest = NetworkRequest.Builder().addTransportType(TRANSPORT_WIFI)
             .setNetworkSpecifier(specifier)
             .build()
-        cm.registerNetworkCallback(wifiRequest, networkCallback)
+        runAsShell(NETWORK_SETTINGS) {
+            cm.registerNetworkCallback(wifiRequest, networkCallback)
+        }
+
+        // Wait for scan result update to let NetworkCallback.onCapabilitiesChange have ssid information.
+        waitForTargetNetwork(ssid)
 
         try {
             // Add the test configuration and connect to it.
             val connectUtil = ConnectUtil(context)
             connectUtil.connectToWifiConfig(wifiConfig)
 
-            val event = networkCallback.expect<Available>()
-            if (requireValidation) {
-                networkCallback.eventuallyExpect<CapabilitiesChanged> {
-                    it.caps.hasCapability(NET_CAPABILITY_VALIDATED)
+            var mark = networkCallback.mark
+            while (true) {
+                val event = networkCallback.eventuallyExpect<CapabilitiesChanged>(from = mark)
+                mark = mark + 1
+                Log.d("JUNYU", "event=$event + mark=$mark ssid=" + event.caps.ssid)
+                if (event.caps.hasCapability(NET_CAPABILITY_VALIDATED) && event.caps.ssid == ssid) {
+                    Log.d("JUNYU", "connectToWifi--")
+                    return event.network
                 }
             }
-            return event.network
         } finally {
             cm.unregisterNetworkCallback(networkCallback)
         }
+    }
+
+    private fun waitForTargetNetwork(targetSsid: String) {
+        var scanList = listOf<ScanResult>()
+        for (retry in 1..3) {
+            scanList = connectUtil.getWifiScanResults()
+            Log.i("JUNYU", "Scan results: [" + scanList.joinToString(", ") {
+                "${it.SSID} (${it.level})"
+            } + "]")
+            if (scanList.map { it.SSID }.toSet().contains(targetSsid)) {
+                return
+            }
+        }
+        throw IllegalStateException(
+            "Cannot find target wifi $targetSsid from " +
+                scanList.joinToString(", ") { it.SSID }
+        )
     }
 
     @Rpc(description = "Check whether the device supports hotspot feature.")

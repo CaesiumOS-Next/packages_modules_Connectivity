@@ -68,7 +68,9 @@ class ConnectUtil(private val context: Context) {
         cm.requestNetwork(
             NetworkRequest.Builder()
                 .addTransportType(TRANSPORT_CELLULAR)
-                .addCapability(NET_CAPABILITY_INTERNET).build(), cb)
+                .addCapability(NET_CAPABILITY_INTERNET).build(),
+            cb
+        )
         return tryTest {
             val errorMsg = "The device does not have mobile data available. Check that it is " +
                     "setup with a SIM card that has a working data plan, that the APN " +
@@ -84,10 +86,13 @@ class ConnectUtil(private val context: Context) {
 
     private fun ensureWifiConnected(requireValidated: Boolean): Network {
         val callback = TestableNetworkCallback(timeoutMs = WIFI_CONNECT_TIMEOUT_MS)
-        cm.registerNetworkCallback(NetworkRequest.Builder()
+        cm.registerNetworkCallback(
+            NetworkRequest.Builder()
                 .addTransportType(TRANSPORT_WIFI)
                 .addCapability(NET_CAPABILITY_INTERNET)
-                .build(), callback)
+                .build(),
+            callback
+        )
 
         return tryTest {
             val connInfo = wifiManager.connectionInfo
@@ -169,8 +174,11 @@ class ConnectUtil(private val context: Context) {
             // prefer the first configuration that is in range.
             // In actual tests, there should only be one configuration, and it should be usable as
             // assumed by WifiManagerTest.testConnect.
-            Log.w(TAG, "Multiple wifi configurations found: " +
-                    configs.joinToString(", ") { it.SSID })
+            Log.w(
+                TAG,
+                "Multiple wifi configurations found: " +
+                    configs.joinToString(", ") { it.SSID }
+            )
             val scanResultsList = getWifiScanResults()
             Log.i(TAG, "Scan results: " + scanResultsList.joinToString(", ") {
                 "${it.SSID} (${it.level})"
@@ -182,16 +190,20 @@ class ConnectUtil(private val context: Context) {
         return configs[0]
     }
 
-    private fun getWifiScanResults(): List<ScanResult> {
+    fun getWifiScanResults(): List<ScanResult> {
         val scanResultsFuture = CompletableFuture<List<ScanResult>>()
         runAsShell(permission.NETWORK_SETTINGS) {
             val receiver: BroadcastReceiver = object : BroadcastReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
-                    scanResultsFuture.complete(wifiManager.scanResults)
+                    runAsShell(permission.NETWORK_SETTINGS) {
+                        scanResultsFuture.complete(wifiManager.scanResults)
+                    }
                 }
             }
-            context.registerReceiver(receiver,
-                    IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION))
+            context.registerReceiver(
+                receiver,
+                    IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
+            )
             wifiManager.startScan()
         }
         return try {
