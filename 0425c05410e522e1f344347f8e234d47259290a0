@@ -93,6 +93,30 @@
       },
       "revId": "0425c05410e522e1f344347f8e234d47259290a0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f99d86c4_4ae02744",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-04-22T11:28:03Z",
+      "side": 1,
+      "message": "Acked, please make a follow up CL to mock the clock to make it more testable.",
+      "parentUuid": "6a85bd4f_cea343f4",
+      "range": {
+        "startLine": 1016,
+        "startChar": 7,
+        "endLine": 1016,
+        "endChar": 32
+      },
+      "revId": "0425c05410e522e1f344347f8e234d47259290a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
