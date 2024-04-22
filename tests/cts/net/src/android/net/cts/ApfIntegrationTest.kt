@@ -26,6 +26,16 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.net.apf.ApfCapabilities
+import android.net.apf.ApfConstant.ETH_ETHERTYPE_OFFSET
+import android.net.apf.ApfConstant.ETH_HEADER_LEN
+import android.net.apf.ApfConstant.ICMP6_TYPE_OFFSET
+import android.net.apf.ApfConstant.IPV6_NEXT_HEADER_OFFSET
+import android.net.apf.ApfV4Generator
+import android.net.apf.ApfV4GeneratorBase
+import android.net.apf.BaseApfGenerator
+import android.net.apf.BaseApfGenerator.MemorySlot
+import android.net.apf.BaseApfGenerator.Register.R0
+import android.net.apf.BaseApfGenerator.Register.R1
 import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
@@ -36,8 +46,10 @@ import android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY
 import android.system.Os
 import android.system.OsConstants
 import android.system.OsConstants.AF_INET6
+import android.system.OsConstants.ETH_P_IPV6
 import android.system.OsConstants.IPPROTO_ICMPV6
 import android.system.OsConstants.SOCK_DGRAM
+import android.system.OsConstants.SOCK_RAW
 import android.system.OsConstants.SOCK_NONBLOCK
 import android.util.Log
 import androidx.test.filters.RequiresDevice
@@ -75,6 +87,7 @@ import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+
 
 private const val TAG = "ApfIntegrationTest"
 private const val TIMEOUT_MS = 2000L
@@ -344,13 +357,68 @@ class ApfIntegrationTest {
         }
     }
 
-    // TODO: this is a placeholder test to test the IcmpPacketReader functionality and will soon be
-    // replaced by a real test.
     @Test
-    fun testPing() {
+    fun testDropPingReply() {
+        // This test does not use the read functionality, so it should be APFv2 compatible.
+        assumeApfVersionSupportAtLeast(2)
+
+        // clear any active APF filter
+        var gen = ApfV4Generator(caps.apfVersionSupported)
+        gen.addPass()
+        installProgram(gen.generate())
+        readProgram() // wait for install completion
+
+        Thread.sleep(1000)
+
+        // Assert that initial ping does not get filtered.
         val data = ByteArray(56)
         Random.nextBytes(data)
         packetReader.sendPing(data)
         assertThat(packetReader.expectPingReply()).isEqualTo(data)
+
+        // Generate an APF program that filters the next ping
+        gen = ApfV4Generator(caps.apfVersionSupported)
+        Log.e("prohr1", "data: " + data.toHexString())
+
+        // If not IPv6 -> PASS
+        gen.addLoad16(R0, ETH_ETHERTYPE_OFFSET)
+        gen.addJumpIfR0NotEquals(ETH_P_IPV6.toLong(), BaseApfGenerator.PASS_LABEL)
+
+        // If not ICMPv6 -> PASS
+        gen.addLoad8(R0, IPV6_NEXT_HEADER_OFFSET)
+        gen.addJumpIfR0NotEquals(IPPROTO_ICMPV6.toLong(), BaseApfGenerator.PASS_LABEL)
+
+        // If not echo reply -> PASS
+        gen.addLoad8(R0, ICMP6_TYPE_OFFSET)
+        gen.addJumpIfR0NotEquals(0x81, BaseApfGenerator.PASS_LABEL)
+
+        // TODO: remove
+        //gen.addLoad8(R0, ICMP6_TYPE_OFFSET + 8)
+        //Log.e("prohr", "byte[0]=" + data[0].toUByte().toULong().toLong())
+        //gen.addJumpIfR0NotEquals(data[0].toUByte().toULong().toLong(), BaseApfGenerator.PASS_LABEL)
+        //gen.addLoad8(R0, ICMP6_TYPE_OFFSET + 9)
+        //gen.addJumpIfR0NotEquals(data[1].toUByte()toULong().toLong(), BaseApfGenerator.PASS_LABEL)
+
+        //gen.addJump(BaseApfGenerator.DROP_LABEL)
+
+        // if not data matches -> PASS
+        gen.addLoadImmediate(R0, ICMP6_TYPE_OFFSET + 8 /* echo reply header length */)
+        Log.e("prohr", "data: " + data.toHexString())
+        gen.addJumpIfBytesAtR0NotEqual(data.sliceArray(0..<4), BaseApfGenerator.PASS_LABEL)
+        //gen.addLoadImmediate(R0, ICMP6_TYPE_OFFSET + 12)
+        //gen.addJumpIfBytesAtR0NotEqual(data.sliceArray(4..<5), BaseApfGenerator.PASS_LABEL)
+
+        // DROP
+        gen.addJump(BaseApfGenerator.DROP_LABEL)
+
+        val program = gen.generate()
+        installProgram(program)
+        val readResult = readProgram() // wait for install completion
+        assertThat(readResult.sliceArray(0..<program.length)).isEqualTo(program)
+
+        Thread.sleep(1000)
+
+        packetReader.sendPing(data)
+        packetReader.expectPingDropped()
     }
 }
