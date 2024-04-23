@@ -22,6 +22,30 @@
       },
       "revId": "1e7203bfd39e1767643b15978c769146f928b800",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bb6d93c_58a58bc3",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-23T07:28:36Z",
+      "side": 1,
+      "message": "It seems [rematch happens before the onCapabilityChanged callback is triggered](https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java;l\u003d9334-9335?q\u003df:connectivityservice\u0026ss\u003dh%2Fandroid%2Fplatform%2Fsuperproject%2Fmain%2F%2B%2Fmain).\nSo, calling `ensureWifiValidated` might be enough to avoid default network switch while running test.",
+      "parentUuid": "037e64c4_335182eb",
+      "range": {
+        "startLine": 899,
+        "startChar": 40,
+        "endLine": 899,
+        "endChar": 75
+      },
+      "revId": "1e7203bfd39e1767643b15978c769146f928b800",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
