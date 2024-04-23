@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcd3fd40_253f02af",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-23T23:39:44Z",
+      "side": 1,
+      "message": "where is this used ;-)\n\nperhaps addPassIfNotIcmpv6EchoReply()",
+      "range": {
+        "startLine": 371,
+        "startChar": 51,
+        "endLine": 371,
+        "endChar": 65
+      },
+      "revId": "fb73c6f10e28b49e79b29049c36252208693e70d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3784e078_ff1f0feb",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-23T23:39:44Z",
+      "side": 1,
+      "message": "why is this \u003d\u003d 4 instead of \u003e\u003d 4",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 421,
+        "endChar": 38
+      },
+      "revId": "fb73c6f10e28b49e79b29049c36252208693e70d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f57491a7_e5945215",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-23T23:39:44Z",
+      "side": 1,
+      "message": "maybe just use 4",
+      "range": {
+        "startLine": 425,
+        "startChar": 38,
+        "endLine": 425,
+        "endChar": 57
+      },
+      "revId": "fb73c6f10e28b49e79b29049c36252208693e70d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
