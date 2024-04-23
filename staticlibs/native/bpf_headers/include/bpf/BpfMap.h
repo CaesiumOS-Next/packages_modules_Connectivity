@@ -262,6 +262,7 @@ class BpfMap : public BpfMapRO<Key, Value> {
             auto key = getFirstKey();
             if (!key.ok()) {
                 if (key.error().code() == ENOENT) return {};  // empty: success
+                if (key.error().code() == EAGAIN) continue;   // try again: but how???
                 return key.error();                           // Anything else is an error
             }
             auto res = deleteValue(key.value());
