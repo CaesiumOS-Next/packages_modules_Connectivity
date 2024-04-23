@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "93233243_7f9a5665",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-23T06:42:38Z",
+      "side": 1,
+      "message": "Hi @prohr@google.com, \nAs I briefly shared this CL in the previous meeting, I want to split PENALTY_BOX_MATCH to 2 matches (PENALTY_BOX_USER_MATCH and PENALTY_BOX_ADMIN_MATCH) so that ConnectivityService can distinguish the reasons.\nAs you are working on refactoring PENALTY_BOX iptables, do you have any concern for this change?",
+      "parentUuid": "78b5cbca_622c9294",
+      "revId": "49506f14cbf258d95d25f20e552800944ff17acb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "67a904ad_9a245fe4",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 36
