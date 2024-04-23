@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abf39202_eccf1ec6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-23T09:28:18Z",
+      "side": 1,
+      "message": "Good point, I updated the `MulticastRoutingCoordinatorServiceTest#testMulticastRouting_applyConfigNone_removesMfc` test case to use copy of interface names when updating multicast routing configs, and verified the test fails without this fix.",
+      "parentUuid": "d1761890_529d5ee0",
+      "range": {
+        "startLine": 11,
+        "startChar": 8,
+        "endLine": 11,
+        "endChar": 55
+      },
+      "revId": "171c78b00a49e69db6db510a6372733b28ae31d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "189b6c92_eb7f0983",
@@ -84,6 +108,30 @@
       "writtenOn": "2024-04-23T08:04:44Z",
       "side": 1,
       "message": "nits: it would be helpful to mentions the case where SparseArray has multiple specified values.\nI think the smallest index is returned.",
+      "range": {
+        "startLine": 396,
+        "startChar": 5,
+        "endLine": 396,
+        "endChar": 6
+      },
+      "revId": "171c78b00a49e69db6db510a6372733b28ae31d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4e175ee_b12c8aae",
+        "filename": "staticlibs/framework/com/android/net/module/util/CollectionUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-23T09:28:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35fbc76e_435b513d",
       "range": {
         "startLine": 396,
         "startChar": 5,
