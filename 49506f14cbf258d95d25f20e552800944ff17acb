@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d1411a3_e3e1b69e",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-23T06:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67a904ad_9a245fe4",
+      "range": {
+        "startLine": 1076,
+        "startChar": 88,
+        "endLine": 1076,
+        "endChar": 96
+      },
+      "revId": "49506f14cbf258d95d25f20e552800944ff17acb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bae40b9b_f23d3325",
@@ -71,6 +95,30 @@
       "writtenOn": "2024-04-22T16:38:01Z",
       "side": 1,
       "message": "separate\n\nAlso elsewhere",
+      "range": {
+        "startLine": 1079,
+        "startChar": 43,
+        "endLine": 1079,
+        "endChar": 52
+      },
+      "revId": "49506f14cbf258d95d25f20e552800944ff17acb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99a237bb_9e245aa9",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-23T06:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bae40b9b_f23d3325",
       "range": {
         "startLine": 1079,
         "startChar": 43,
@@ -104,6 +152,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98653b4d_7336a7e0",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-23T06:07:48Z",
+      "side": 1,
+      "message": "Filed b/336442007.",
+      "parentUuid": "ad8967a1_6012bbf9",
+      "range": {
+        "startLine": 1080,
+        "startChar": 59,
+        "endLine": 1080,
+        "endChar": 82
+      },
+      "revId": "49506f14cbf258d95d25f20e552800944ff17acb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4eb404df_b08fd82b",
@@ -117,6 +189,30 @@
       "writtenOn": "2024-04-22T16:38:01Z",
       "side": 1,
       "message": "user-set restrictions\n\n(the restriction is *set* by the user, it does not restrict the user)",
+      "range": {
+        "startLine": 1090,
+        "startChar": 26,
+        "endLine": 1090,
+        "endChar": 42
+      },
+      "revId": "49506f14cbf258d95d25f20e552800944ff17acb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6349c2bd_6c74fbf9",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-23T06:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4eb404df_b08fd82b",
       "range": {
         "startLine": 1090,
         "startChar": 26,
@@ -150,6 +246,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ac88c7d_b12f1fe7",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-23T06:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08e7311e_47dfc2f3",
+      "range": {
+        "startLine": 1109,
+        "startChar": 26,
+        "endLine": 1109,
+        "endChar": 31
+      },
+      "revId": "49506f14cbf258d95d25f20e552800944ff17acb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22b6aa1f_034b5ce3",
@@ -163,6 +283,30 @@
       "writtenOn": "2024-04-22T16:38:01Z",
       "side": 1,
       "message": "Per earlier comment, is it possible to deprecate this? We could say:\n\n\n@deprecated this API does not distinguish between restrictions set by the user and restrictions set by device policy. Starting from {@link Build.VERSION_CODES.VANILLA_ICE_CREAM}, ...\n\nIf it\u0027s not possible (e.g., due to flaggedapi restrictions which do not allow deprecating in an SDK extension) we can do that in the next SDK bump.",
+      "range": {
+        "startLine": 6160,
+        "startChar": 7,
+        "endLine": 6160,
+        "endChar": 9
+      },
+      "revId": "49506f14cbf258d95d25f20e552800944ff17acb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14076d25_7e996b72",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 6160,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-23T06:07:48Z",
+      "side": 1,
+      "message": "@deprecated can not be flagged so we can not deprecate this now.\nI added TODO comment to deprecate this API.",
+      "parentUuid": "22b6aa1f_034b5ce3",
       "range": {
         "startLine": 6160,
         "startChar": 7,
