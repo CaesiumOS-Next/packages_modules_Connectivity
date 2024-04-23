@@ -33,6 +33,23 @@
       "message": "Any update here?\n\nThe only presubmit failure is due to presubmit-large which I intend to bypass (as these are not new tests and I would like to keep status quo).",
       "revId": "305d92a2e612893c28b653fe74e3ae1fc36ecf4f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99778872_308e2060",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-23T00:39:23Z",
+      "side": 1,
+      "message": "The only failure is for the test_mapping which I explicitly want to bypass as already stated.",
+      "revId": "305d92a2e612893c28b653fe74e3ae1fc36ecf4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
