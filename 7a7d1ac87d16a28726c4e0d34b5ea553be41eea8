@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "48cc96d0_46970290",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-04-23T07:23:45Z",
+      "side": 1,
+      "message": "device owner model. @ferselma@google.com can help to get it verified",
+      "parentUuid": "f7b4659f_3941f31c",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "7a7d1ac87d16a28726c4e0d34b5ea553be41eea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "055ff9fc_4840133f",
