@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "189b6c92_eb7f0983",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-23T07:37:38Z",
+      "side": 1,
+      "message": "It seems SparseArray has `indexOfValueByValue`.\nCan we use this?",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 61
+      },
+      "revId": "171c78b00a49e69db6db510a6372733b28ae31d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
