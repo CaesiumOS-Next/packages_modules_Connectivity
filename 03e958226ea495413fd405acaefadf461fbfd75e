@@ -16,6 +16,24 @@
       "message": "This will break on ipv4-only networks...",
       "revId": "03e958226ea495413fd405acaefadf461fbfd75e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca07690e_34319be7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-04-23T03:03:03Z",
+      "side": 1,
+      "message": "Don\u0027t we require ipv6 connectivity for CTS? I thought we did",
+      "parentUuid": "b2520f33_c4a9347e",
+      "revId": "03e958226ea495413fd405acaefadf461fbfd75e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
