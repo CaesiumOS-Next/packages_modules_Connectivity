@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "055ff9fc_4840133f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-23T07:03:28Z",
+      "side": 1,
+      "message": "LGTM assuming @sasindran@google.com is happy with this change.",
+      "revId": "7a7d1ac87d16a28726c4e0d34b5ea553be41eea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
