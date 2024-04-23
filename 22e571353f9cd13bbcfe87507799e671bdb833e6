@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b60d577_cf133ee2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-23T23:34:41Z",
+      "side": 1,
+      "message": "maybe skippresubmit and / or requires device?",
+      "revId": "22e571353f9cd13bbcfe87507799e671bdb833e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee54c4d0_e2481789",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-23T23:34:41Z",
+      "side": 1,
+      "message": "just do 4 here and later",
+      "range": {
+        "startLine": 372,
+        "startChar": 33,
+        "endLine": 372,
+        "endChar": 57
+      },
+      "revId": "22e571353f9cd13bbcfe87507799e671bdb833e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
