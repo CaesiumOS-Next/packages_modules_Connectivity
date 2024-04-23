@@ -32,6 +32,8 @@ import static com.android.server.thread.openthread.IOtDaemon.TUN_IF_NAME;
 import static com.google.common.io.BaseEncoding.base16;
 import static com.google.common.truth.Truth.assertThat;
 
+import static org.junit.Assert.assertEquals;
+
 import android.content.Context;
 import android.net.InetAddresses;
 import android.net.IpPrefix;
@@ -235,6 +237,17 @@ public class ThreadIntegrationTest {
         mController.joinAndWait(DEFAULT_DATASET);
 
         assertTunInterfaceMemberOfGroup(GROUP_ADDR_ALL_ROUTERS);
+    }
+
+    @Test
+    public void edPingsMeshLocalAddresses_oneReplyPerRequest() throws Exception {
+        mController.joinAndWait(DEFAULT_DATASET);
+        startFtdChild(mFtd, DEFAULT_DATASET);
+        List<Inet6Address> meshLocalAddresses = mOtCtl.getMeshLocalAddresses();
+
+        for (Inet6Address address : meshLocalAddresses) {
+            assertEquals("address = " + address.getHostAddress(), 2, mFtd.ping(address, 2));
+        }
     }
 
     // TODO (b/323300829): add more tests for integration with linux platform and
