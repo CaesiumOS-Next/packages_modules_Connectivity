@@ -22,6 +22,30 @@
       },
       "revId": "171c78b00a49e69db6db510a6372733b28ae31d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eba1c6a8_4ae04b6b",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-23T07:40:30Z",
+      "side": 1,
+      "message": "`indexOfValueByValue` is hiden API so we can\u0027t use it: https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/util/SparseArray.java;l\u003d422",
+      "parentUuid": "189b6c92_eb7f0983",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 61
+      },
+      "revId": "171c78b00a49e69db6db510a6372733b28ae31d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
