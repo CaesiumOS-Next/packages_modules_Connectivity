@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7b4659f_3941f31c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-04-23T07:22:37Z",
+      "side": 1,
+      "message": "these tests alone wont be sufficient to confirm this is working fine. we need an end to end test enterprise slice on a device own",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "7a7d1ac87d16a28726c4e0d34b5ea553be41eea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "055ff9fc_4840133f",
@@ -14,6 +37,29 @@
       "writtenOn": "2024-04-23T07:03:28Z",
       "side": 1,
       "message": "LGTM assuming @sasindran@google.com is happy with this change.",
+      "revId": "7a7d1ac87d16a28726c4e0d34b5ea553be41eea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6186a53c_d3140870",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 12737,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-04-23T07:22:37Z",
+      "side": 1,
+      "message": "is this API available in T? If not then this logic should be applicable only from that version",
+      "range": {
+        "startLine": 12737,
+        "startChar": 20,
+        "endLine": 12737,
+        "endChar": 58
+      },
       "revId": "7a7d1ac87d16a28726c4e0d34b5ea553be41eea8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
