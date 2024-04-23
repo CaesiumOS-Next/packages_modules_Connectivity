@@ -237,6 +237,17 @@ public class ThreadIntegrationTest {
         assertTunInterfaceMemberOfGroup(GROUP_ADDR_ALL_ROUTERS);
     }
 
+    @Test
+    public void edPingsMeshLocalAddresses_oneReplyPerRequest() throws Exception {
+        mController.joinAndWait(DEFAULT_DATASET);
+        startFtdChild(mFtd, DEFAULT_DATASET);
+        List<Inet6Address> meshLocalAddresses = mOtCtl.getMeshLocalAddresses();
+
+        for (Inet6Address address : meshLocalAddresses) {
+            assertThat(mFtd.ping(address, 2)).isEqualTo(2);
+        }
+    }
+
     // TODO (b/323300829): add more tests for integration with linux platform and
     // ConnectivityService
 
