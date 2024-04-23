@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa27a624_c4a2461d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-04-23T18:33:23Z",
+      "side": 1,
+      "message": "LGTM but Yuyang might want to have a last look since he was reviewing previously",
+      "revId": "655c4c9162cc8e93aa90cc288627b70bfc9eae3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
