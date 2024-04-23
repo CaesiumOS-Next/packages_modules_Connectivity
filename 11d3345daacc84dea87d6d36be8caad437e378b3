@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8cd8ed0_2b3824ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 37
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-23T18:38:44Z",
+      "side": 1,
+      "message": "The bpf changes look fine, but should be in a separate CL.",
+      "revId": "11d3345daacc84dea87d6d36be8caad437e378b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
