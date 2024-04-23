@@ -30,6 +30,8 @@ import static com.android.compatibility.common.util.SystemUtil.runShellCommandOr
 import static com.google.common.io.BaseEncoding.base16;
 import static com.google.common.truth.Truth.assertThat;
 
+import static org.junit.Assert.assertEquals;
+
 import android.content.Context;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
@@ -222,6 +224,17 @@ public class ThreadIntegrationTest {
         }
 
         mOtCtl.executeCommand("br enable");
+    }
+
+    @Test
+    public void edPingsMeshLocalAddresses_oneReplyPerRequest() throws Exception {
+        mController.joinAndWait(DEFAULT_DATASET);
+        startFtdChild(mFtd, DEFAULT_DATASET);
+        List<Inet6Address> meshLocalAddresses = mOtCtl.getMeshLocalAddresses();
+
+        for (Inet6Address address : meshLocalAddresses) {
+            assertEquals(2, mFtd.ping(address, 2));
+        }
     }
 
     // TODO (b/323300829): add more tests for integration with linux platform and
