@@ -46,6 +46,29 @@
       },
       "revId": "8cfb06cd798dfb47176fc0135dc083fcaabb3994",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14104932_de504ee5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 3561,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-24T05:39:15Z",
+      "side": 1,
+      "message": "I would prefer `@Ignore` but ideally we want to change doTestFirewallBlocking to not rely on this loophole.\n\nIIRC @motomuman@google.com is the expert for this test.",
+      "range": {
+        "startLine": 3561,
+        "startChar": 3,
+        "endLine": 3561,
+        "endChar": 5
+      },
+      "revId": "8cfb06cd798dfb47176fc0135dc083fcaabb3994",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
