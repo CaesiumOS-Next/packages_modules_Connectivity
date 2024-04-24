@@ -22,6 +22,30 @@
       },
       "revId": "f5d781cc48b920c0a68d4334a2986922070830b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c17099a_d2a856d2",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-24T08:57:19Z",
+      "side": 1,
+      "message": "aosp/3057525 added blocked reasons for oem chains.\nI have updated this method to check oem chains as well.",
+      "parentUuid": "4eb9ffca_c03066ac",
+      "range": {
+        "startLine": 307,
+        "startChar": 4,
+        "endLine": 307,
+        "endChar": 5
+      },
+      "revId": "f5d781cc48b920c0a68d4334a2986922070830b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
