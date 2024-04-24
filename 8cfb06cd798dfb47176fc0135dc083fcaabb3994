@@ -22,6 +22,30 @@
       },
       "revId": "8cfb06cd798dfb47176fc0135dc083fcaabb3994",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9717b194_d5546b38",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-24T05:32:50Z",
+      "side": 1,
+      "message": "Kernel has include/net/flow.h with #define LOOPBACK_IFINDEX\t1\nbut that\u0027s not uapi include file, and in general we try to include as little as possible into bpf code.\n\nI guess we could\n  #define LOOPBACK_IFINDEX 1\nin bpf_net_helpers.h and use it here (and in line 419 and possibly elsewhere)\n\nBut everyone that does real networking knows \u0027lo\u0027 is 1 ;-)",
+      "parentUuid": "2102da2c_f9d5ea95",
+      "range": {
+        "startLine": 411,
+        "startChar": 24,
+        "endLine": 411,
+        "endChar": 25
+      },
+      "revId": "8cfb06cd798dfb47176fc0135dc083fcaabb3994",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
