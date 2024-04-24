@@ -21,7 +21,6 @@ import android.Manifest.permission.OVERRIDE_WIFI_CONFIG
 import android.content.pm.PackageManager.FEATURE_TELEPHONY
 import android.content.pm.PackageManager.FEATURE_WIFI
 import android.net.ConnectivityManager
-import android.net.Network
 import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkRequest
@@ -88,7 +87,7 @@ class ConnectivityMultiDevicesSnippet : Snippet {
     // Suppress warning because WifiManager methods to connect to a config are
     // documented not to be deprecated for privileged users.
     @Suppress("DEPRECATION")
-    fun connectToWifi(ssid: String, passphrase: String, requireValidation: Boolean): Network {
+    fun connectToWifi(ssid: String, passphrase: String): String {
         val specifier = WifiNetworkSpecifier.Builder()
             .setBand(ScanResult.WIFI_BAND_24_GHZ)
             .build()
@@ -113,7 +112,7 @@ class ConnectivityMultiDevicesSnippet : Snippet {
         val networkCallback = TestableNetworkCallback()
         val wifiRequest = NetworkRequest.Builder().addTransportType(TRANSPORT_WIFI).build()
         try {
-            return runAsShell(NETWORK_SETTINGS) {
+            val network = runAsShell(NETWORK_SETTINGS) {
                 // Register the network callback is needed here.
                 // This is to avoid the race condition where callback is fired before
                 // acquiring permission.
@@ -124,6 +123,7 @@ class ConnectivityMultiDevicesSnippet : Snippet {
                     ssidFromCaps == ssid && it.caps.hasCapability(NET_CAPABILITY_VALIDATED)
                 }.network
             }
+            return cm.getLinkProperties(network)!!.getInterfaceName()!!
         } finally {
             cm.unregisterNetworkCallback(networkCallback)
         }
