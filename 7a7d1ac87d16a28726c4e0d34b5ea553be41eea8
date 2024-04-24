@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "33eda16d_bf21ddfa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1491633
+      },
+      "writtenOn": "2024-04-24T12:51:22Z",
+      "side": 1,
+      "message": "Sorry, I\u0027m not sure why we\u0027d need an end to end test to specifically cover this change.\nI haven\u0027t changed any assumptions about how this should behave on enterprise devices, just the fact that the DO might now exist on a different user than user 0.\nIf it helps, this is the failure I got before I made this change\n```\n android.devicepolicy.cts.PreferentialNetworkServiceTest#setPreferentialNetworkServiceConfigs_default_isNotSet[IncludeRunOnSingleDeviceOwnerUser] ❌  FAILED (java.lang.IllegalArgumentException: Profile must be a managed profile or the device owner must be set. ) (1.11s)\n\ncom.android.bedstead.nene.logcat.SystemServerException: java.lang.IllegalArgumentException: Profile must be a managed profile or the device owner must be set. \n\tat android.net.connectivity.com.android.server.ConnectivityService.setProfileNetworkPreferences(ConnectivityService.java:12776)\n\tat android.net.ConnectivityManager.setProfileNetworkPreferences(ConnectivityManager.java:6000)\n\tat com.android.server.devicepolicy.DevicePolicyManagerService.lambda$updateNetworkPreferenceForUser$178(DevicePolicyManagerService.java:22081)\n\tat com.android.server.devicepolicy.DevicePolicyManagerService.$r8$lambda$yash_24RFBlnHc7Oz1gvvlWwqE4(DevicePolicyManagerService.java:0)\n\tat com.android.server.devicepolicy.DevicePolicyManagerService$$ExternalSyntheticLambda98.runOrThrow(R8$$SyntheticClass:0)\n\tat android.os.Binder.withCleanCallingIdentity(Binder.java:550)\n\tat com.android.server.devicepolicy.DevicePolicyManagerService$Injector.binderWithCleanCallingIdentity(DevicePolicyManagerService.java:1847)\n\tat com.android.server.devicepolicy.DevicePolicyManagerService.updateNetworkPreferenceForUser(DevicePolicyManagerService.java:22080)\n\tat com.android.server.devicepolicy.DevicePolicyManagerService.setPreferentialNetworkServiceConfigs(DevicePolicyManagerService.java:14518)\n\tat android.app.admin.IDevicePolicyManager$Stub.onTransact(IDevicePolicyManager.java:4443)\n\tat android.os.Binder.execTransactInternal(Binder.java:1500)\n\tat android.os.Binder.execTransact(Binder.java:1444)\nCaused by: java.lang.IllegalArgumentException: Profile must be a managed profile or the device owner must be set. \n\tat android.os.Parcel.createExceptionOrNull(Parcel.java:3246)\n\tat android.os.Parcel.createException(Parcel.java:3226)\n\tat android.os.Parcel.readException(Parcel.java:3209)\n\tat android.os.Parcel.readException(Parcel.java:3151)\n\tat android.app.admin.IDevicePolicyManager$Stub$Proxy.setPreferentialNetworkServiceConfigs(IDevicePolicyManager.java:9658)\n\tat android.app.admin.DevicePolicyManager.setPreferentialNetworkServiceConfigs(DevicePolicyManager.java:12775)\n\tat android.app.admin.RemoteDevicePolicyManagerImpl.setPreferentialNetworkServiceConfigs(RemoteDevicePolicyManagerImpl.java:812)\n\tat android.app.admin.RemoteDevicePolicyManager_Internal.method318(RemoteDevicePolicyManager_Internal.java:3586)\n\tat android.app.admin.RemoteDevicePolicyManager_Internal.$r8$lambda$sc_Dm5awUge5v27SqKI3agfpp9E(RemoteDevicePolicyManager_Internal.java:0)\n\tat android.app.admin.RemoteDevicePolicyManager_Internal$$ExternalSyntheticLambda242.call(R8$$SyntheticClass:0)\n\tat android.app.admin.RemoteDevicePolicyManager_Internal.call(RemoteDevicePolicyManager_Internal.java:4056)\n\tat com.android.bedstead.testapp.Profile_Provider_Internal.call(Profile_Provider_Internal.java:81)\n\tat com.android.bedstead.testapp.TestAppConnector_Service_Dispatcher.call(TestAppConnector_Service_Dispatcher.java:84)\n\tat com.android.bedstead.testapp.TestAppConnector_Service$1.call(TestAppConnector_Service.java:37)\n\tat com.google.android.enterprise.connectedapps.ICrossProfileService$Stub.onTransact(ICrossProfileService.java:128)\n\t... 2 more\n\n\n```",
+      "parentUuid": "48cc96d0_46970290",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "7a7d1ac87d16a28726c4e0d34b5ea553be41eea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "055ff9fc_4840133f",
@@ -78,6 +102,30 @@
       "writtenOn": "2024-04-23T07:22:37Z",
       "side": 1,
       "message": "is this API available in T? If not then this logic should be applicable only from that version",
+      "range": {
+        "startLine": 12737,
+        "startChar": 20,
+        "endLine": 12737,
+        "endChar": 58
+      },
+      "revId": "7a7d1ac87d16a28726c4e0d34b5ea553be41eea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08eb3190_0047209e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 12737,
+      "author": {
+        "id": 1491633
+      },
+      "writtenOn": "2024-04-24T12:51:22Z",
+      "side": 1,
+      "message": "It\u0027s available in T, it was added in 2017.",
+      "parentUuid": "6186a53c_d3140870",
       "range": {
         "startLine": 12737,
         "startChar": 20,
