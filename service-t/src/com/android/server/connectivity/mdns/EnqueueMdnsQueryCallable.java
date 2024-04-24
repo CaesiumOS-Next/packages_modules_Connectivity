@@ -84,7 +84,6 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
     private final byte[] packetCreationBuffer = new byte[1500]; // TODO: use interface MTU
     @NonNull
     private final List<MdnsResponse> existingServices;
-    private final boolean isQueryWithKnownAnswer;
 
     EnqueueMdnsQueryCallable(
             @NonNull MdnsSocketClientBase requestSender,
@@ -99,8 +98,7 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
             @NonNull MdnsUtils.Clock clock,
             @NonNull SharedLog sharedLog,
             @NonNull MdnsServiceTypeClient.Dependencies dependencies,
-            @NonNull Collection<MdnsResponse> existingServices,
-            boolean isQueryWithKnownAnswer) {
+            @NonNull Collection<MdnsResponse> existingServices) {
         weakRequestSender = new WeakReference<>(requestSender);
         serviceTypeLabels = TextUtils.split(serviceType, "\\.");
         this.subtypes = new ArrayList<>(subtypes);
@@ -114,7 +112,6 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
         this.sharedLog = sharedLog;
         this.dependencies = dependencies;
         this.existingServices = new ArrayList<>(existingServices);
-        this.isQueryWithKnownAnswer = isQueryWithKnownAnswer;
     }
 
     /**
@@ -229,27 +226,27 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
 
     private void sendPacket(MdnsSocketClientBase requestSender, InetSocketAddress address,
             MdnsPacket mdnsPacket) throws IOException {
-        final List<DatagramPacket> packets = dependencies.getDatagramPacketsFromMdnsPacket(
-                packetCreationBuffer, mdnsPacket, address, isQueryWithKnownAnswer);
+        final DatagramPacket packet = dependencies.getDatagramPacketFromMdnsPacket(
+                packetCreationBuffer, mdnsPacket, address);
         if (expectUnicastResponse) {
             // MdnsMultinetworkSocketClient is only available on T+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
                     && requestSender instanceof MdnsMultinetworkSocketClient) {
                 ((MdnsMultinetworkSocketClient) requestSender).sendPacketRequestingUnicastResponse(
-                        packets, socketKey, onlyUseIpv6OnIpv6OnlyNetworks);
+                        packet, socketKey, onlyUseIpv6OnIpv6OnlyNetworks);
             } else {
                 requestSender.sendPacketRequestingUnicastResponse(
-                        packets, onlyUseIpv6OnIpv6OnlyNetworks);
+                        packet, onlyUseIpv6OnIpv6OnlyNetworks);
             }
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
                     && requestSender instanceof MdnsMultinetworkSocketClient) {
                 ((MdnsMultinetworkSocketClient) requestSender)
                         .sendPacketRequestingMulticastResponse(
-                                packets, socketKey, onlyUseIpv6OnIpv6OnlyNetworks);
+                                packet, socketKey, onlyUseIpv6OnIpv6OnlyNetworks);
             } else {
                 requestSender.sendPacketRequestingMulticastResponse(
-                        packets, onlyUseIpv6OnIpv6OnlyNetworks);
+                        packet, onlyUseIpv6OnIpv6OnlyNetworks);
             }
         }
     }

@@ -227,22 +227,13 @@ public class MdnsServiceTypeClient {
         }
 
         /**
-         * Generate the DatagramPackets from given MdnsPacket and InetSocketAddress.
-         *
-         * <p> If the query with known answer feature is enabled and the MdnsPacket is too large for
-         *     a single DatagramPacket, it will be split into multiple DatagramPackets.
+         * Generate a DatagramPacket from given MdnsPacket and InetSocketAddress.
          */
-        public List<DatagramPacket> getDatagramPacketsFromMdnsPacket(
-                @NonNull byte[] packetCreationBuffer, @NonNull MdnsPacket packet,
-                @NonNull InetSocketAddress address, boolean isQueryWithKnownAnswer)
-                throws IOException {
-            if (isQueryWithKnownAnswer) {
-                return MdnsUtils.createQueryDatagramPackets(packetCreationBuffer, packet, address);
-            } else {
-                final byte[] queryBuffer =
-                        MdnsUtils.createRawDnsPacket(packetCreationBuffer, packet);
-                return List.of(new DatagramPacket(queryBuffer, 0, queryBuffer.length, address));
-            }
+        public DatagramPacket getDatagramPacketFromMdnsPacket(@NonNull byte[] packetCreationBuffer,
+                @NonNull MdnsPacket packet, @NonNull InetSocketAddress address) throws IOException {
+            final byte[] queryBuffer =
+                    MdnsUtils.createRawDnsPacket(packetCreationBuffer, packet);
+            return new DatagramPacket(queryBuffer, 0, queryBuffer.length, address);
         }
     }
 
@@ -751,8 +742,7 @@ public class MdnsServiceTypeClient {
                                 clock,
                                 sharedLog,
                                 dependencies,
-                                existingServices,
-                                featureFlags.isQueryWithKnownAnswerEnabled())
+                                existingServices)
                                 .call();
             } catch (RuntimeException e) {
                 sharedLog.e(String.format("Failed to run EnqueueMdnsQueryCallable for subtype: %s",
