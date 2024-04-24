@@ -1943,7 +1943,7 @@ public class VpnTest {
                 .build();
         final CtsNetUtils.TestNetworkCallback callback = new CtsNetUtils.TestNetworkCallback();
         mCM.requestNetwork(request, callback);
-        final FileDescriptor srcTunFd = runWithShellPermissionIdentity(() -> {
+        final TestNetworkInterface srcIface = runWithShellPermissionIdentity(() -> {
             final TestNetworkManager tnm = mTestContext.getSystemService(TestNetworkManager.class);
             List<LinkAddress> linkAddresses = duplicatedAddress
                     ? List.of(new LinkAddress("192.0.2.2/24"),
@@ -1952,7 +1952,7 @@ public class VpnTest {
                             new LinkAddress("2001:db8:3:4::ffe/64"));
             final TestNetworkInterface iface = tnm.createTunInterface(linkAddresses);
             tnm.setupTestNetwork(iface.getInterfaceName(), new Binder());
-            return iface.getFileDescriptor().getFileDescriptor();
+            return iface;
         }, MANAGE_TEST_NETWORKS);
         final Network testNetwork = callback.waitForAvailable();
         assertNotNull(testNetwork);
@@ -1966,11 +1966,11 @@ public class VpnTest {
                     false /* isAlwaysMetered */);
 
             final FileDescriptor dstUdpFd = dstSock.getFileDescriptor$();
-            checkBlockUdp(srcTunFd, dstUdpFd,
+            checkBlockUdp(srcIface.getFileDescriptor().getFileDescriptor(), dstUdpFd,
                     InetAddresses.parseNumericAddress("192.0.2.2") /* dstAddress */,
                     InetAddresses.parseNumericAddress("192.0.2.1") /* srcAddress */,
                     duplicatedAddress ? EXPECT_PASS : EXPECT_BLOCK);
-            checkBlockUdp(srcTunFd, dstUdpFd,
+            checkBlockUdp(srcIface.getFileDescriptor().getFileDescriptor(), dstUdpFd,
                     InetAddresses.parseNumericAddress("2001:db8:1:2::ffe") /* dstAddress */,
                     InetAddresses.parseNumericAddress("2001:db8:1:2::ffa") /* srcAddress */,
                     duplicatedAddress ? EXPECT_PASS : EXPECT_BLOCK);
