@@ -67,6 +67,7 @@ import android.net.thread.ThreadNetworkManager;
 import android.net.thread.utils.TapTestNetworkTracker;
 import android.net.thread.utils.ThreadFeatureCheckerRule;
 import android.net.thread.utils.ThreadFeatureCheckerRule.RequiresThreadFeature;
+import android.os.Build;
 import android.os.HandlerThread;
 import android.os.OutcomeReceiver;
 
@@ -786,6 +787,11 @@ public class ThreadNetworkControllerTest {
                 new NetworkRequest.Builder()
                         .addTransportType(NetworkCapabilities.TRANSPORT_THREAD)
                         .build();
+        // Before V, we need to explicitly set `NET_CAPABILITY_LOCAL_NETWORK` capability to request
+        // a Thread network.
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            networkRequest.networkCapabilities.addCapability(NET_CAPABILITY_LOCAL_NETWORK);
+        }
         ConnectivityManager.NetworkCallback networkCallback =
                 new ConnectivityManager.NetworkCallback() {
                     @Override
