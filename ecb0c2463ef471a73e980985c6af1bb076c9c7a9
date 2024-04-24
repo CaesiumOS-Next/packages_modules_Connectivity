@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d07853d1_c3a18b88",
+        "filename": "tests/cts/multidevices/tether_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-04-24T09:28:52Z",
+      "side": 1,
+      "message": "Why specifically strip \u0027\u003d\u0027 here? \nIs this for better human readability or other reason?",
+      "revId": "ecb0c2463ef471a73e980985c6af1bb076c9c7a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db703762_0805dcf9",
+        "filename": "tests/cts/multidevices/tether_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-04-24T09:28:52Z",
+      "side": 1,
+      "message": "It should be better to add type hint for the function.  \nRefer to https://engdoc.corp.google.com/eng/doc/devguide/py/totw/035.md?cl\u003dhead.  \n\nOther function as well.",
+      "revId": "ecb0c2463ef471a73e980985c6af1bb076c9c7a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
