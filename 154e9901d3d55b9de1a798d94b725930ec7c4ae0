@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4cc2b524_8228fede",
+        "filename": "tests/cts/multidevices/snippet/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-24T06:31:16Z",
+      "side": 1,
+      "message": "It seems to me this is because we share cts module with others so we can\u0027t actually modify it to share networkstack uid.\nLet\u0027s see whether remi have concern for this.",
+      "parentUuid": "05582e97_82b30012",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "154e9901d3d55b9de1a798d94b725930ec7c4ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4e6e73c6_3aac1645",
         "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
         "patchSetId": 2
@@ -54,6 +78,30 @@
       "writtenOn": "2024-04-24T05:39:55Z",
       "side": 1,
       "message": "Nit: Unused",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 50
+      },
+      "revId": "154e9901d3d55b9de1a798d94b725930ec7c4ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6eed16f3_258fab12",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-24T06:31:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e6e73c6_3aac1645",
       "range": {
         "startLine": 51,
         "startChar": 4,
@@ -77,6 +125,30 @@
       "writtenOn": "2024-04-24T05:39:55Z",
       "side": 1,
       "message": "Nit: Unused",
+      "range": {
+        "startLine": 93,
+        "startChar": 56,
+        "endLine": 93,
+        "endChar": 74
+      },
+      "revId": "154e9901d3d55b9de1a798d94b725930ec7c4ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b1d0008_21157098",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-04-24T06:31:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f4efd7d_f606bfc4",
       "range": {
         "startLine": 93,
         "startChar": 56,
