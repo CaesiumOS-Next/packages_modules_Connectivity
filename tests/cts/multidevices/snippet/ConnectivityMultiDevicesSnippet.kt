@@ -20,7 +20,6 @@ import android.Manifest.permission.OVERRIDE_WIFI_CONFIG
 import android.content.pm.PackageManager.FEATURE_TELEPHONY
 import android.content.pm.PackageManager.FEATURE_WIFI
 import android.net.ConnectivityManager
-import android.net.Network
 import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkRequest
@@ -89,7 +88,7 @@ class ConnectivityMultiDevicesSnippet : Snippet {
     // Suppress warning because WifiManager methods to connect to a config are
     // documented not to be deprecated for privileged users.
     @Suppress("DEPRECATION")
-    fun connectToWifi(ssid: String, passphrase: String): Network {
+    fun connectToWifi(ssid: String, passphrase: String): String {
         val specifier = WifiNetworkSpecifier.Builder()
             .setBand(ScanResult.WIFI_BAND_24_GHZ)
             .build()
@@ -115,11 +114,12 @@ class ConnectivityMultiDevicesSnippet : Snippet {
 
             // Manual match ssid since specifying ssid in the NetworkSpecifier doesn't work.
             // See WifiNetworkAgentSpecifier#canBeSatisfiedBy for more detail.
-            return networkCallback.eventuallyExpect<CapabilitiesChanged> {
+            val network = networkCallback.eventuallyExpect<CapabilitiesChanged> {
                 // Remove double quotes.
                 val ssidFromCaps = it.caps.ssid?.trim('\"')
                 ssidFromCaps == ssid && it.caps.hasCapability(NET_CAPABILITY_VALIDATED)
             }.network
+            return cm.getLinkProperties(network)!!.getInterfaceName()!!
         } finally {
             cm.unregisterNetworkCallback(networkCallback)
         }
