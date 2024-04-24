@@ -16,6 +16,75 @@
       "message": "LGTM but Yuyang might want to have a last look since he was reviewing previously",
       "revId": "655c4c9162cc8e93aa90cc288627b70bfc9eae3a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d46d7113_b7d9cbf1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsKeyRecord.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-04-24T05:59:47Z",
+      "side": 1,
+      "message": "@Nonnull also for the rest of the constructor.",
+      "range": {
+        "startLine": 48,
+        "startChar": 25,
+        "endLine": 48,
+        "endChar": 38
+      },
+      "revId": "655c4c9162cc8e93aa90cc288627b70bfc9eae3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68166674_994b57ee",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsKeyRecord.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-04-24T05:59:47Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 49,
+        "startChar": 12,
+        "endLine": 49,
+        "endChar": 18
+      },
+      "revId": "655c4c9162cc8e93aa90cc288627b70bfc9eae3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2d2d5c0_78b95929",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-04-24T05:59:47Z",
+      "side": 1,
+      "message": "extra line?",
+      "range": {
+        "startLine": 1313,
+        "startChar": 5,
+        "endLine": 1313,
+        "endChar": 6
+      },
+      "revId": "655c4c9162cc8e93aa90cc288627b70bfc9eae3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
