@@ -130,6 +130,8 @@ public class ConnectivityManager {
                 "com.android.net.flags.basic_background_restrictions_enabled";
         static final String METERED_NETWORK_FIREWALL_CHAINS =
                 "com.android.net.flags.metered_network_firewall_chains";
+        static final String BLOCKED_REASONS_OEM_DENY_CHAINS =
+                "com.android.net.flags.blocked_reasons_oem_deny_chains";
     }
 
     /**
@@ -911,6 +913,39 @@ public class ConnectivityManager {
     @FlaggedApi(Flags.BASIC_BACKGROUND_RESTRICTIONS_ENABLED)
     @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
     public static final int BLOCKED_REASON_APP_BACKGROUND = 1 << 6;
+
+    /**
+     * Flag to indicate that an app is subject to OEM-specific application restrictions that would
+     * result in its network access being blocked.
+     *
+     * @see #FIREWALL_CHAIN_OEM_DENY_1
+     * @hide
+     */
+    @FlaggedApi(Flags.BLOCKED_REASONS_OEM_DENY_CHAINS)
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    public static final int BLOCKED_REASON_OEM_DENY_1 = 1 << 7;
+
+    /**
+     * Flag to indicate that an app is subject to OEM-specific application restrictions that would
+     * result in its network access being blocked.
+     *
+     * @see #FIREWALL_CHAIN_OEM_DENY_2
+     * @hide
+     */
+    @FlaggedApi(Flags.BLOCKED_REASONS_OEM_DENY_CHAINS)
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    public static final int BLOCKED_REASON_OEM_DENY_2 = 1 << 8;
+
+    /**
+     * Flag to indicate that an app is subject to OEM-specific application restrictions that would
+     * result in its network access being blocked.
+     *
+     * @see #FIREWALL_CHAIN_OEM_DENY_3
+     * @hide
+     */
+    @FlaggedApi(Flags.BLOCKED_REASONS_OEM_DENY_CHAINS)
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    public static final int BLOCKED_REASON_OEM_DENY_3 = 1 << 8;
 
     /**
      * Flag to indicate that an app is subject to Data saver restrictions that would
