@@ -74,6 +74,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9a03e5a3_2c19f9c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-04-24T15:28:56Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "33eda16d_bf21ddfa",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "7a7d1ac87d16a28726c4e0d34b5ea553be41eea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "055ff9fc_4840133f",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -126,6 +150,30 @@
       "side": 1,
       "message": "It\u0027s available in T, it was added in 2017.",
       "parentUuid": "6186a53c_d3140870",
+      "range": {
+        "startLine": 12737,
+        "startChar": 20,
+        "endLine": 12737,
+        "endChar": 58
+      },
+      "revId": "7a7d1ac87d16a28726c4e0d34b5ea553be41eea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a44cf572_c1c732eb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 12737,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-04-24T15:28:56Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "08eb3190_0047209e",
       "range": {
         "startLine": 12737,
         "startChar": 20,
