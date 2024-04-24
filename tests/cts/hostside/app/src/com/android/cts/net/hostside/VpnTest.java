@@ -1949,7 +1949,9 @@ public class VpnTest {
                             new LinkAddress("2001:db8:3:4::ffe/64"));
             final TestNetworkInterface iface = tnm.createTunInterface(linkAddresses);
             tnm.setupTestNetwork(iface.getInterfaceName(), new Binder());
-            return iface.getFileDescriptor().getFileDescriptor();
+            // Dup the FileDescriptor so ParcelFileDescriptor's finalizer doesn't garbage collect it
+            // and cause our fd to become invalid. http://b/35927643.
+            return Os.dup(iface.getFileDescriptor().getFileDescriptor());
         }, MANAGE_TEST_NETWORKS);
         final Network testNetwork = callback.waitForAvailable();
         assertNotNull(testNetwork);
