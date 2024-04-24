@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "458b755f_f24c64d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-04-24T05:39:55Z",
+      "side": 1,
+      "message": "LGTM but @reminv@google.com should take a look this change.",
+      "revId": "154e9901d3d55b9de1a798d94b725930ec7c4ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05582e97_82b30012",
+        "filename": "tests/cts/multidevices/snippet/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-04-24T05:39:55Z",
+      "side": 1,
+      "message": "I\u0027m unsure if the CTS test can share the NetworkStack uid. @reminv@google.com should have more insight on this.",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "154e9901d3d55b9de1a798d94b725930ec7c4ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e6e73c6_3aac1645",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-04-24T05:39:55Z",
+      "side": 1,
+      "message": "Nit: Unused",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 50
+      },
+      "revId": "154e9901d3d55b9de1a798d94b725930ec7c4ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f4efd7d_f606bfc4",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-04-24T05:39:55Z",
+      "side": 1,
+      "message": "Nit: Unused",
+      "range": {
+        "startLine": 93,
+        "startChar": 56,
+        "endLine": 93,
+        "endChar": 74
+      },
+      "revId": "154e9901d3d55b9de1a798d94b725930ec7c4ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
