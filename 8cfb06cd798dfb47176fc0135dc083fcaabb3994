@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2102da2c_f9d5ea95",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-24T03:45:47Z",
+      "side": 1,
+      "message": "Just curious: is there no constant for this?",
+      "range": {
+        "startLine": 411,
+        "startChar": 24,
+        "endLine": 411,
+        "endChar": 25
+      },
+      "revId": "8cfb06cd798dfb47176fc0135dc083fcaabb3994",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
