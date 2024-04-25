@@ -87,6 +87,12 @@ public class MdnsRecordRepository {
     private static final String[] DNS_SD_SERVICE_TYPE =
             new String[] { "_services", "_dns-sd", "_udp", LOCAL_TLD };
 
+    private enum RecordConflictType {
+        NO_CONFLICT,
+        CONFLICT,
+        IDENTICAL
+    }
+
     @NonNull
     private final Random mDelayGenerator = new Random();
     // Map of service unique ID -> records for service
@@ -1172,38 +1178,62 @@ public class MdnsRecordRepository {
      * {@link MdnsInterfaceAdvertiser#CONFLICT_HOST}.
      */
     public Map<Integer, Integer> getConflictingServices(MdnsPacket packet) {
-        // Avoid allocating a new set for each incoming packet: use an empty set by default.
-        Map<Integer, Integer> conflicting = Collections.emptyMap();
+        Map<Integer, Integer> conflicting = new ArrayMap<>();
         for (MdnsRecord record : packet.answers) {
-            for (int i = 0; i < mServices.size(); i++) {
+            boolean hasIdenticalRecord = false;
+            Map<Integer, Integer> conflictingWithRecord = Collections.emptyMap();
+            for (int i = 0; i < mServices.size() && !hasIdenticalRecord; i++) {
                 final ServiceRegistration registration = mServices.valueAt(i);
                 if (registration.exiting) continue;
 
                 int conflictType = 0;
 
-                if (conflictForService(record, registration)) {
-                    conflictType |= CONFLICT_SERVICE;
+                switch (conflictForService(record, registration)) {
+                    case NO_CONFLICT:
+                        break;
+                    case CONFLICT:
+                        conflictType |= CONFLICT_SERVICE;
+                        break;
+                    case IDENTICAL:
+                        hasIdenticalRecord = true;
+                        break;
                 }
 
-                if (conflictForHost(record, registration)) {
-                    conflictType |= CONFLICT_HOST;
+                switch (conflictForHost(record, registration)) {
+                    case NO_CONFLICT:
+                        break;
+                    case CONFLICT:
+                        conflictType |= CONFLICT_HOST;
+                        break;
+                    case IDENTICAL:
+                        hasIdenticalRecord = true;
+                        break;
                 }
 
                 if (conflictType != 0) {
-                    if (conflicting.isEmpty()) {
-                        // Conflict was found: use a mutable set
-                        conflicting = new ArrayMap<>();
+                    if (conflictingWithRecord.isEmpty()) {
+                        conflictingWithRecord = new ArrayMap<>();
                     }
                     final int serviceId = mServices.keyAt(i);
-                    conflicting.put(serviceId, conflictType);
+                    conflictingWithRecord.put(serviceId, conflictType);
                 }
+            }
+            // An identical record is already in the repository so it's not a conflict.
+            if (hasIdenticalRecord) {
+                continue;
+            }
+            for (Map.Entry<Integer, Integer> entry : conflictingWithRecord.entrySet()) {
+                final int serviceId = entry.getKey();
+                final int conflictType = entry.getValue();
+                final int oldConflictType = conflicting.getOrDefault(serviceId, 0);
+                conflicting.put(serviceId, oldConflictType | conflictType);
             }
         }
 
         return conflicting;
     }
 
-    private static boolean conflictForService(
+    private static RecordConflictType conflictForService(
             @NonNull MdnsRecord record, @NonNull ServiceRegistration registration) {
         String[] fullServiceName;
         if (registration.srvRecord != null) {
@@ -1211,75 +1241,75 @@ public class MdnsRecordRepository {
         } else if (registration.serviceKeyRecord != null) {
             fullServiceName = registration.serviceKeyRecord.record.getName();
         } else {
-            return false;
+            return RecordConflictType.NO_CONFLICT;
         }
 
         if (!MdnsUtils.equalsDnsLabelIgnoreDnsCase(record.getName(), fullServiceName)) {
-            return false;
+            return RecordConflictType.NO_CONFLICT;
         }
 
         // As per RFC6762 9., it's fine if the "conflict" is an identical record with same
         // data.
         if (record instanceof MdnsServiceRecord && equals(record, registration.srvRecord)) {
-            return false;
+            return RecordConflictType.IDENTICAL;
         }
         if (record instanceof MdnsTextRecord && equals(record, registration.txtRecord)) {
-            return false;
+            return RecordConflictType.IDENTICAL;
         }
         if (record instanceof MdnsKeyRecord && equals(record, registration.serviceKeyRecord)) {
-            return false;
+            return RecordConflictType.IDENTICAL;
         }
 
-        return true;
+        return RecordConflictType.CONFLICT;
     }
 
-    private boolean conflictForHost(
+    private RecordConflictType conflictForHost(
             @NonNull MdnsRecord record, @NonNull ServiceRegistration registration) {
         // Only custom hosts are checked. When using the default host, the hostname is derived from
         // a UUID and it's supposed to be unique.
         if (registration.serviceInfo.getHostname() == null) {
-            return false;
+            return RecordConflictType.NO_CONFLICT;
         }
 
-        // It cannot be a hostname conflict because not record is registered with the hostname.
+        // It cannot be a hostname conflict because no record is registered with the hostname.
         if (registration.addressRecords.isEmpty() && registration.hostKeyRecord == null) {
-            return false;
+            return RecordConflictType.NO_CONFLICT;
         }
 
         // The record's name cannot be registered by NsdManager so it's not a conflict.
         if (record.getName().length != 2 || !record.getName()[1].equals(LOCAL_TLD)) {
-            return false;
+            return RecordConflictType.NO_CONFLICT;
         }
 
         // Different names. There won't be a conflict.
         if (!MdnsUtils.equalsIgnoreDnsCase(
                 record.getName()[0], registration.serviceInfo.getHostname())) {
-            return false;
+            return RecordConflictType.NO_CONFLICT;
         }
 
         // As per RFC6762 9., it's fine if the "conflict" is an identical record with same
         // data.
         if (record instanceof MdnsInetAddressRecord
                 && hasInetAddressRecord(registration, (MdnsInetAddressRecord) record)) {
-            return false;
+            return RecordConflictType.IDENTICAL;
         }
         if (record instanceof MdnsKeyRecord && equals(record, registration.hostKeyRecord)) {
-            return false;
+            return RecordConflictType.IDENTICAL;
         }
 
         // Per RFC 6762 8.1, when a record is being probed, any answer containing a record with that
         // name, of any type, MUST be considered a conflicting response.
         if (registration.isProbing) {
-            return true;
+            return RecordConflictType.CONFLICT;
         }
         if (record instanceof MdnsInetAddressRecord && !registration.addressRecords.isEmpty()) {
-            return true;
+            return RecordConflictType.CONFLICT;
         }
         if (record instanceof MdnsKeyRecord && registration.hostKeyRecord != null) {
-            return true;
+            return RecordConflictType.CONFLICT;
         }
 
-        return false;
+        return RecordConflictType.NO_CONFLICT;
     }
 
     private List<RecordInfo<MdnsInetAddressRecord>> getInetAddressRecordsForHostname(
