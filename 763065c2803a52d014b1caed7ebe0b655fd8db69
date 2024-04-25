@@ -22,6 +22,30 @@
       },
       "revId": "763065c2803a52d014b1caed7ebe0b655fd8db69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35114b1a_1a4d3bf1",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-04-25T17:44:29Z",
+      "side": 1,
+      "message": "or sleep for 5200 ms",
+      "parentUuid": "22ab229a_aebd3829",
+      "range": {
+        "startLine": 506,
+        "startChar": 70,
+        "endLine": 506,
+        "endChar": 71
+      },
+      "revId": "763065c2803a52d014b1caed7ebe0b655fd8db69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
