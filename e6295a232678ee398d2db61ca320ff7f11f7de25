@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48cd49bc_074f989f",
+        "filename": "common/flags.aconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-25T09:29:14Z",
+      "side": 0,
+      "message": "This file is not used in udc-mainline-prod.\nAlso, the build error is happening in bluetooth module not tethering module.\n```\nmerge_zips.go:780: out/prebuilt_cached/mainline_modules_x86/com.google.android.go.btservices-base.zip: zip: not a valid zip file\n```\n\nCan we check the result of builds which are currently building?",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 1
+      },
+      "revId": "e6295a232678ee398d2db61ca320ff7f11f7de25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
