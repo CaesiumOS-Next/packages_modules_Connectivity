@@ -1175,6 +1175,9 @@ public class MdnsRecordRepository {
         // Avoid allocating a new set for each incoming packet: use an empty set by default.
         Map<Integer, Integer> conflicting = Collections.emptyMap();
         for (MdnsRecord record : packet.answers) {
+            if (hasProbedRecord(record)) {
+                continue;
+            }
             for (int i = 0; i < mServices.size(); i++) {
                 final ServiceRegistration registration = mServices.valueAt(i);
                 if (registration.exiting) continue;
@@ -1337,6 +1340,22 @@ public class MdnsRecordRepository {
                 consumer.accept(id, service);
             }
         }
+    }
+
+    /** Returns whether a specified {@code record} has been registered and probed. */
+    private boolean hasProbedRecord(@NonNull MdnsRecord record) {
+        for (int i = 0; i < mServices.size(); ++i) {
+            ServiceRegistration registration = mServices.valueAt(i);
+            if (registration.isProbing || registration.exiting) {
+                continue;
+            }
+            for (RecordInfo<?> recordInfo : registration.allRecords) {
+                if (Objects.equals(record, recordInfo.record)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
