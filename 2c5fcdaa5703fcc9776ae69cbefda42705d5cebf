@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc37314d_b8b61f1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-04-25T09:22:33Z",
+      "side": 1,
+      "message": "I don\u0027t think the build failure \"merge_zips.go:780: out/prebuilt_cached/mainline_modules_x86/com.google.android.go.btservices-base.zip: zip: not a valid zip file\" was caused by this CL. Motomo can correct me if I\u0027m wrong.",
+      "revId": "2c5fcdaa5703fcc9776ae69cbefda42705d5cebf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
