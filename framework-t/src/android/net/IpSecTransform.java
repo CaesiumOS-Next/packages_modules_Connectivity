@@ -223,6 +223,15 @@ public final class IpSecTransform implements AutoCloseable {
 
         // TODO: Consider adding check to prevent DDoS attack.
 
+        if (mResourceId == INVALID_RESOURCE_ID) {
+            executor.execute(
+                    () -> {
+                        callback.onError(
+                                new IllegalStateException("This transform is already closed"));
+                    });
+            return;
+        }
+
         try {
             final IpSecTransformState ipSecTransformState =
                     getIpSecManager(mContext).getTransformState(mResourceId);
