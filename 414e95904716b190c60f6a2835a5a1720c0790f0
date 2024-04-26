@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e573939_5a279d28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2024-04-26T20:39:42Z",
+      "side": 1,
+      "message": "INVALID_RESOURCE_ID can never be the value of a \"constructed\" IpSecTransform until close() is called; therefore, the correct error for passing in a closed transform is indeed ISE.",
+      "revId": "414e95904716b190c60f6a2835a5a1720c0790f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
