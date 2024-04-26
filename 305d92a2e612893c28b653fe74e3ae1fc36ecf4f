@@ -75,6 +75,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddc4f51a_afa3cf3e",
+        "filename": "tests/cts/hostside-network-policy/src/com/android/cts/netpolicy/HostsideNetworkPolicyTestCase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-26T19:11:54Z",
+      "side": 1,
+      "message": "This is tracked in b/334171080. This is pre-existing and this change is already complex, so will be addressed separately.",
+      "parentUuid": "db7f0e77_50e33501",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 46
+      },
+      "revId": "305d92a2e612893c28b653fe74e3ae1fc36ecf4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ddf42a0_c2e6e63a",
@@ -88,6 +112,24 @@
       "writtenOn": "2024-04-26T06:10:01Z",
       "side": 1,
       "message": "Can we remove this file? The OWNERS file in the parent directory should be enough.",
+      "revId": "305d92a2e612893c28b653fe74e3ae1fc36ecf4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "694f1e1b_baa7647c",
+        "filename": "tests/cts/hostside/OWNERS",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-26T19:11:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ddf42a0_c2e6e63a",
       "revId": "305d92a2e612893c28b653fe74e3ae1fc36ecf4f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
