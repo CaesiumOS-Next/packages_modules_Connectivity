@@ -34,6 +34,7 @@ import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.util.Log;
 
+import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 
 import dalvik.system.CloseGuard;
@@ -124,7 +125,7 @@ public final class IpSecTransform implements AutoCloseable {
     private IpSecTransform activate()
             throws IOException, IpSecManager.ResourceUnavailableException,
                     IpSecManager.SpiUnavailableException {
-        synchronized (this) {
+        synchronized (mLock) {
             try {
                 IpSecTransformResponse result = getIpSecManager(mContext).createTransform(
                         mConfig, new Binder(), mContext.getOpPackageName());
@@ -169,15 +170,18 @@ public final class IpSecTransform implements AutoCloseable {
             mCloseGuard.close();
             return;
         }
-        try {
-            getIpSecManager(mContext).deleteTransform(mResourceId);
-        } catch (Exception e) {
-            // On close we swallow all random exceptions since failure to close is not
-            // actionable by the user.
-            Log.e(TAG, "Failed to close " + this + ", Exception=" + e);
-        } finally {
-            mResourceId = INVALID_RESOURCE_ID;
-            mCloseGuard.close();
+
+        synchronized(mLock) {
+            try {
+                    getIpSecManager(mContext).deleteTransform(mResourceId);
+            } catch (Exception e) {
+                // On close we swallow all random exceptions since failure to close is not
+                // actionable by the user.
+                Log.e(TAG, "Failed to close " + this + ", Exception=" + e);
+            } finally {
+                mResourceId = INVALID_RESOURCE_ID;
+                mCloseGuard.close();
+            }
         }
     }
 
@@ -196,6 +200,8 @@ public final class IpSecTransform implements AutoCloseable {
     }
 
     private final IpSecConfig mConfig;
+    private final Object mLock = new Object();
+    @GuardedBy("mLock")
     private int mResourceId;
     private final Context mContext;
     private final CloseGuard mCloseGuard = CloseGuard.get();
@@ -203,7 +209,9 @@ public final class IpSecTransform implements AutoCloseable {
     /** @hide */
     @VisibleForTesting
     public int getResourceId() {
-        return mResourceId;
+        synchronized(mLock) {
+            return mResourceId;
+        }
     }
 
     /**
@@ -224,8 +232,10 @@ public final class IpSecTransform implements AutoCloseable {
         // TODO: Consider adding check to prevent DDoS attack.
 
         try {
-            final IpSecTransformState ipSecTransformState =
-                    getIpSecManager(mContext).getTransformState(mResourceId);
+            IpSecTransformState ipSecTransformState;
+            synchronized(mLock) {
+                ipSecTransformState = getIpSecManager(mContext).getTransformState(mResourceId);
+            }
             executor.execute(
                     () -> {
                         callback.onResult(ipSecTransformState);
