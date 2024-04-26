@@ -1446,4 +1446,13 @@ interface INetd {
     *                               - subPriority: unused
     */
     void setNetworkAllowlist(in NativeUidRangeConfig[] allowedNetworks);
+
+    /**
+     * Allow the UID to explicitly select the given network even if it is subject to a VPN.
+     *
+     * @param allow whether to allow or disallow the operation.
+     * @param uid the UID
+     * @param netId the netId that the UID is allowed to select.
+     */
+    void networkAllowBypassVpnOnNetwork(boolean allow, int uid, int netId);
 }
