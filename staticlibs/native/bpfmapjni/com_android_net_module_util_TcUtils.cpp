@@ -19,6 +19,8 @@
 #include <nativehelper/scoped_utf_chars.h>
 #include <tcutils/tcutils.h>
 
+#include "BpfSyscallWrappers.h"
+
 namespace android {
 
 static void throwIOException(JNIEnv *env, const char *msg, int error) {
@@ -96,6 +98,14 @@ static void com_android_net_module_util_TcUtils_tcQdiscAddDevClsact(JNIEnv *env,
   }
 }
 
+static jboolean com_android_net_module_util_TcUtils_programUsable(JNIEnv *env,
+                                                                  jclass clazz,
+                                                                  jstring bpfProgPath) {
+    ScopedUtfChars pathname(env, bpfProgPath);
+    return bpf::usableProgram(pathname.c_str());
+}
+
+
 /*
  * JNI registration.
  */
@@ -111,6 +121,8 @@ static const JNINativeMethod gMethods[] = {
      (void *)com_android_net_module_util_TcUtils_tcFilterDelDev},
     {"tcQdiscAddDevClsact", "(I)V",
      (void *)com_android_net_module_util_TcUtils_tcQdiscAddDevClsact},
+    {"programUsable", "(Ljava/lang/String;)Z",
+     (void *)com_android_net_module_util_TcUtils_programUsable},
 };
 
 int register_com_android_net_module_util_TcUtils(JNIEnv *env,
