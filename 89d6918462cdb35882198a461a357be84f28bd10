@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5654bb0_e6f3db43",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestableNetworkCallback.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-26T06:49:20Z",
+      "side": 1,
+      "message": "nits: should the indent level be aligned?",
+      "range": {
+        "startLine": 224,
+        "startChar": 4,
+        "endLine": 224,
+        "endChar": 5
+      },
+      "revId": "89d6918462cdb35882198a461a357be84f28bd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c2a0062_43d958c7",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestableNetworkCallback.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-04-26T06:49:20Z",
+      "side": 1,
+      "message": "nits: ditto, can we have the same indent level?",
+      "range": {
+        "startLine": 555,
+        "startChar": 12,
+        "endLine": 555,
+        "endChar": 15
+      },
+      "revId": "89d6918462cdb35882198a461a357be84f28bd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
