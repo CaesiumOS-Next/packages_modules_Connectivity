@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84d160ea_2f68656c",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2024-04-26T01:11:30Z",
+      "side": 1,
+      "message": "While I don\u0027t think it\u0027s likely that you\u0027re going to hit it, I believe there\u0027s still a race where the SA is closed on the service side. IOW, this will have to be checked on the service side with the synchronized() lock held.",
+      "range": {
+        "startLine": 226,
+        "startChar": 12,
+        "endLine": 226,
+        "endChar": 23
+      },
+      "revId": "95b2c90948a8100c5763fafa103398d642d9cc8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
