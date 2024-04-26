@@ -2380,6 +2380,7 @@ public class Tethering {
 
     /** Register tethering event callback */
     void registerTetheringEventCallback(ITetheringEventCallback callback) {
+        if (callback == null) return;
         final boolean hasListPermission =
                 hasCallingPermission(NETWORK_SETTINGS)
                         || hasCallingPermission(PERMISSION_MAINLINE_NETWORK_STACK)
