@@ -36,6 +36,7 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkUtils;
 import android.net.cts.util.CtsNetUtils;
 import android.platform.test.annotations.AppModeFull;
+import android.platform.test.annotations.AppModeNonSdkSandbox;
 import android.system.ErrnoException;
 import android.system.OsConstants;
 import android.util.ArraySet;
@@ -98,6 +99,7 @@ public class MultinetworkApiTest {
     }
 
     @Test
+    @AppModeNonSdkSandbox(reason = "SDK sandboxes do not have CHANGE_NETWORK_STATE permission")
     public void testGetaddrinfo() throws Exception {
         for (Network network : getTestableNetworks()) {
             int errno = runGetaddrinfoCheck(network.getNetworkHandle());
@@ -110,6 +112,7 @@ public class MultinetworkApiTest {
 
     @Test
     @AppModeFull(reason = "CHANGE_NETWORK_STATE permission can't be granted to instant apps")
+    @AppModeNonSdkSandbox(reason = "SDK sandboxes do not have CHANGE_NETWORK_STATE permission")
     public void testSetprocnetwork() throws Exception {
         // Hopefully no prior test in this process space has set a default network.
         assertNull(mCM.getProcessDefaultNetwork());
@@ -154,6 +157,7 @@ public class MultinetworkApiTest {
 
     @Test
     @AppModeFull(reason = "CHANGE_NETWORK_STATE permission can't be granted to instant apps")
+    @AppModeNonSdkSandbox(reason = "SDK sandboxes do not have CHANGE_NETWORK_STATE permission")
     public void testSetsocknetwork() throws Exception {
         for (Network network : getTestableNetworks()) {
             int errno = runSetsocknetwork(network.getNetworkHandle());
@@ -165,6 +169,7 @@ public class MultinetworkApiTest {
     }
 
     @Test
+    @AppModeNonSdkSandbox(reason = "SDK sandboxes do not have CHANGE_NETWORK_STATE permission")
     public void testNativeDatagramTransmission() throws Exception {
         for (Network network : getTestableNetworks()) {
             int errno = runDatagramCheck(network.getNetworkHandle());
@@ -189,6 +194,7 @@ public class MultinetworkApiTest {
     }
 
     @Test
+    @AppModeNonSdkSandbox(reason = "SDK sandboxes do not have CHANGE_NETWORK_STATE permission")
     public void testNetworkHandle() throws Exception {
         // Test Network -> NetworkHandle -> Network results in the same Network.
         for (Network network : getTestableNetworks()) {
@@ -213,6 +219,7 @@ public class MultinetworkApiTest {
     }
 
     @Test
+    @AppModeNonSdkSandbox(reason = "SDK sandboxes do not have CHANGE_NETWORK_STATE permission")
     public void testResNApi() throws Exception {
         for (Network network : getTestableNetworks()) {
             // Throws AssertionError directly in jni function if test fail.
@@ -233,6 +240,7 @@ public class MultinetworkApiTest {
 
     @Test
     @AppModeFull(reason = "WRITE_SECURE_SETTINGS permission can't be granted to instant apps")
+    @AppModeNonSdkSandbox(reason = "SDK sandboxes do not have WRITE_SECURE_SETTINGS permission")
     public void testResNApiNXDomainPrivateDns() throws Exception {
         // Use async private DNS resolution to avoid flakes due to races applying the setting
         mDeviceConfigRule.setConfig(NAMESPACE_CONNECTIVITY,
