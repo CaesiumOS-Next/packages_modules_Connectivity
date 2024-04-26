@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47cf0c42_99652375",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-04-26T16:33:40Z",
+      "side": 1,
+      "message": "Generally LGTM, but since we only have 32 bits for blocked reasons I wonder if we should use all 3 here. Maybe we could just add one BLOCKED_REASON_OEM_DENY? Maybe this is fine though.",
+      "revId": "822d41886bfa321af2ba156c52585a73e44f5efb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
