@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a23b615b_f4eabe1d",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2024-04-27T00:31:07Z",
+      "side": 1,
+      "message": "Do we also need to put this block into the mLock block? Otherwise\n- thread A check the mResourceId is valid\n- thread B close the transform and set mResourceId to -1\n- thread A call `deleteTransform(-1)`\n\nBut at the same time, we already catch all random exception from the binder call  ¯\\_(ツ)_/¯",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 9
+      },
+      "revId": "ad80ccb38e09bc09e884c509ddaf2bc42c41962c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
