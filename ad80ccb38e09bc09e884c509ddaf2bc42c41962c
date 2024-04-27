@@ -22,6 +22,30 @@
       },
       "revId": "ad80ccb38e09bc09e884c509ddaf2bc42c41962c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bf8741b_bcb6e124",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2024-04-27T00:34:19Z",
+      "side": 1,
+      "message": "When I looked at it initially I decided against it because it was safe not to and I try to keep lock scope as small as possible, but I think you are right: just because it doesn\u0027t blow up doesn\u0027t mean that I should rely on an error leg given that checking the resourceId is very very cheap.",
+      "parentUuid": "a23b615b_f4eabe1d",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 9
+      },
+      "revId": "ad80ccb38e09bc09e884c509ddaf2bc42c41962c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
