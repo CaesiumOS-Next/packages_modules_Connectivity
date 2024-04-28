@@ -19216,6 +19216,22 @@ public class ConnectivityServiceTest {
                 EXPECTED_TEST_METHOD_COUNT, actualTestMethodCount);
     }
 
+    @Test
+    public void testUpdateAllowListBeforeConnected() throws Exception {
+        // 1、Register networkAgent
+        mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        // 2、Call setTeardownDelayMillis
+        mCellAgent.getNetworkAgent().setTeardownDelayMillis(300);
+        // 3、Call unregisterAfterReplacement
+        mCellAgent.getNetworkAgent().unregister();
+        // 4、Register new networkAgent
+        TestNetworkAgentWrapper newCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        // 5、Verify networkSetPermissionForNetwork is not called for the old network.
+        verify(mMockNetd).networkSetPermissionForNetwork(mCellAgent.getNetwork().getNetId(), INetd.PERMISSION_SYSTEM);
+        newCellAgent.getNetworkAgent().unregister();
+    }
+
+
     // Note : adding tests in ConnectivityServiceTest is deprecated, as it is too big for
     // maintenance. Please consider adding new tests in subclasses of CSTest instead.
 }
