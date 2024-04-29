@@ -46,6 +46,30 @@
       },
       "revId": "91bcf6d66a3816d3496631fb4954bab08c47fd55",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3219f6fc_8b24e418",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-29T07:52:09Z",
+      "side": 1,
+      "message": "Found that we can use `assertWithMessage`:\n\n```\nimport static com.google.common.truth.Truth.assertWithMessage;\n\nassertWithMessage(\"Ping to %s may have duplicate replies\").that(mFtd.ping(address, 2)).isEqualTo(2);\n```\n\nLet\u0027s stick with the `Truth` asserting framework. See go/java-tips/008",
+      "parentUuid": "7c75f101_5daf014a",
+      "range": {
+        "startLine": 247,
+        "startChar": 12,
+        "endLine": 247,
+        "endChar": 59
+      },
+      "revId": "91bcf6d66a3816d3496631fb4954bab08c47fd55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
