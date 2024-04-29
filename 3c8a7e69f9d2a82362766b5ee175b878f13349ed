@@ -16,6 +16,24 @@
       "message": "nit: Use `assertThat` to be consistent with other test cases",
       "revId": "3c8a7e69f9d2a82362766b5ee175b878f13349ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e751f4c_8d08674b",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-04-29T02:21:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7351dea0_2cfb0e07",
+      "revId": "3c8a7e69f9d2a82362766b5ee175b878f13349ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
