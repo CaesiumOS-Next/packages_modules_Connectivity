@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16e76945_3811c85a",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-04-29T02:29:57Z",
+      "side": 1,
+      "message": "If this assertion failed, are there enough logs for debugging which address goes wrong?\n\nIf not, then you probably need to print a log for the FTD ping command in `FullThreadDevice#ping()`",
+      "range": {
+        "startLine": 247,
+        "startChar": 12,
+        "endLine": 247,
+        "endChar": 59
+      },
+      "revId": "91bcf6d66a3816d3496631fb4954bab08c47fd55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
