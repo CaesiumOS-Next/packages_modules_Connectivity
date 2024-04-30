@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "206b066b_fec7253a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-04-30T01:14:13Z",
+      "side": 1,
+      "message": "@lorenzo@google.com Ping! This is blocked on owners approval again. \nYour vote got removed after I addressed the comments",
+      "revId": "0001cfd931e810acc905cf43292cd32e58ec5213",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
