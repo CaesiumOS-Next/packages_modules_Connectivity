@@ -22,6 +22,30 @@
       },
       "revId": "6d151ef0e973d91526e43d4d9fcba7dd533a0c9f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02254b34_be74b915",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-01T07:21:22Z",
+      "side": 1,
+      "message": "The valid range is either -128 to 127, or 0 to 255, so safe to assume 0..127\n\nI want something unique-ish (patch to make things more unique elsewhere in this file hasn\u0027t been sent out yet), as this is one of the few things that we actually see (via init logging it) on netbpfload/bpfloader failure.\n\nie. ideally every return failure would return a unique error code.",
+      "parentUuid": "52c8d335_6d1a91f5",
+      "range": {
+        "startLine": 433,
+        "startChar": 19,
+        "endLine": 433,
+        "endChar": 22
+      },
+      "revId": "6d151ef0e973d91526e43d4d9fcba7dd533a0c9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
