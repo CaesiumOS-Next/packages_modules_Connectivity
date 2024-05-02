@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12694a1c_af61d2be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-02T03:40:18Z",
+      "side": 1,
+      "message": "Could you add a bit more details as discussed in chat ?\n\nThe current function returns Unit, which is interpreted as a falsy value when called from the host in Python",
+      "range": {
+        "startLine": 9,
+        "startChar": 34,
+        "endLine": 9,
+        "endChar": 58
+      },
+      "revId": "254b0c11c2a7c4d520eef5f40c889a7cbabdff25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
