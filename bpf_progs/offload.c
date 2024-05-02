@@ -144,13 +144,19 @@ static inline __always_inline int do_forward6(struct __sk_buff* skb,
     // It has to be done early cause it will invalidate any skb->data/data_end derived pointers.
     try_make_writable(skb, l2_header_size + IP6_HLEN + TCP_HLEN);
 
-    void* data = (void*)(long)skb->data;
-    const void* data_end = (void*)(long)skb->data_end;
+    // We don't yet actually know if we're dealing with IPv6/TCP or IPv6/UDP or something else.
+    // Hence, the above pull *might* fail, for example for IPv6/UDP GRO fraglist packets.
+    // Thus to be safe, we should also pull the shorter IPv6 header to handle non-TCP.
+    // If the above pull already succeeded, then this is a trivial operation.
+    try_make_writable(skb, l2_header_size + IP6_HLEN);
+
+    void* data = (void*)(unsigned long)skb->data;
+    const void* data_end = (void*)(unsigned long)skb->data_end;
     struct ethhdr* eth = is_ethernet ? data : NULL;  // used iff is_ethernet
     struct ipv6hdr* ip6 = is_ethernet ? (void*)(eth + 1) : data;
 
     // Must have (ethernet and) ipv6 header
-    if (data + l2_header_size + sizeof(*ip6) > data_end) return TC_ACT_PIPE;
+    if (l2_header_size + sizeof(*ip6) > data_end - data) return TC_ACT_PIPE;
 
     // Ethertype - if present - must be IPv6
     if (is_ethernet && (eth->h_proto != htons(ETH_P_IPV6))) return TC_ACT_PIPE;
@@ -168,7 +174,7 @@ static inline __always_inline int do_forward6(struct __sk_buff* skb,
         struct tcphdr* tcph = (void*)(ip6 + 1);
 
         // Make sure we can get at the tcp header
-        if (data + l2_header_size + sizeof(*ip6) + sizeof(*tcph) > data_end)
+        if (l2_header_size + sizeof(*ip6) + sizeof(*tcph) > data_end - data)
             TC_PUNT(INVALID_TCP_HEADER);
 
         // Do not offload TCP packets with any one of the SYN/FIN/RST flags
@@ -259,13 +265,13 @@ static inline __always_inline int do_forward6(struct __sk_buff* skb,
         }
 
         // bpf_skb_change_head() invalidates all pointers - reload them
-        data = (void*)(long)skb->data;
-        data_end = (void*)(long)skb->data_end;
+        data = (void*)(unsigned long)skb->data;
+        data_end = (void*)(unsigned long)skb->data_end;
         eth = data;
         ip6 = (void*)(eth + 1);
 
         // I do not believe this can ever happen, but keep the verifier happy...
-        if (data + sizeof(struct ethhdr) + sizeof(*ip6) > data_end) {
+        if (sizeof(struct ethhdr) + sizeof(*ip6) > data_end - data) {
             __sync_fetch_and_add(stream.down ? &stat_v->rxErrors : &stat_v->txErrors, 1);
             TC_DROP(TOO_SHORT);
         }
@@ -370,7 +376,7 @@ static inline __always_inline int do_forward4_bottom(struct __sk_buff* skb,
 
     if (is_tcp) {
         // Make sure we can get at the tcp header
-        if (data + l2_header_size + sizeof(*ip) + sizeof(*tcph) > data_end)
+        if (l2_header_size + sizeof(*ip) + sizeof(*tcph) > data_end - data)
             TC_PUNT(SHORT_TCP_HEADER);
 
         // If hardware offload is running and programming flows based on conntrack entries, try not
@@ -378,7 +384,7 @@ static inline __always_inline int do_forward4_bottom(struct __sk_buff* skb,
         if (tcph->syn || tcph->fin || tcph->rst) TC_PUNT(TCPV4_CONTROL_PACKET);
     } else { // UDP
         // Make sure we can get at the udp header
-        if (data + l2_header_size + sizeof(*ip) + sizeof(*udph) > data_end)
+        if (l2_header_size + sizeof(*ip) + sizeof(*udph) > data_end - data)
             TC_PUNT(SHORT_UDP_HEADER);
 
         // Skip handling of CHECKSUM_COMPLETE packets with udp checksum zero due to need for
@@ -478,15 +484,15 @@ static inline __always_inline int do_forward4_bottom(struct __sk_buff* skb,
         }
 
         // bpf_skb_change_head() invalidates all pointers - reload them
-        data = (void*)(long)skb->data;
-        data_end = (void*)(long)skb->data_end;
+        data = (void*)(unsigned long)skb->data;
+        data_end = (void*)(unsigned long)skb->data_end;
         eth = data;
         ip = (void*)(eth + 1);
         tcph = is_tcp ? (void*)(ip + 1) : NULL;
         udph = is_tcp ? NULL : (void*)(ip + 1);
 
         // I do not believe this can ever happen, but keep the verifier happy...
-        if (data + sizeof(struct ethhdr) + sizeof(*ip) + (is_tcp ? sizeof(*tcph) : sizeof(*udph)) > data_end) {
+        if (sizeof(struct ethhdr) + sizeof(*ip) + (is_tcp ? sizeof(*tcph) : sizeof(*udph)) > data_end - data) {
             __sync_fetch_and_add(stream.down ? &stat_v->rxErrors : &stat_v->txErrors, 1);
             TC_DROP(TOO_SHORT);
         }
@@ -574,13 +580,20 @@ static inline __always_inline int do_forward4(struct __sk_buff* skb,
     // It has to be done early cause it will invalidate any skb->data/data_end derived pointers.
     try_make_writable(skb, l2_header_size + IP4_HLEN + TCP_HLEN);
 
-    void* data = (void*)(long)skb->data;
-    const void* data_end = (void*)(long)skb->data_end;
+    // We don't yet actually know if we're dealing with IPv4/UDP or IPv4/TCP or something else.
+    // Hence, the above pull *might* fail, for example for IPv4/UDP GRO fraglist packets.
+    // Thus to be safe, we should also pull the shorter IPv4/UDP header.
+    // If the above pull already succeeded, then this is a trivial operation.
+    // This is only needed if we even support UDP, which requires updatetime.
+    if (updatetime.updatetime) try_make_writable(skb, l2_header_size + IP4_HLEN + UDP_HLEN);
+
+    void* data = (void*)(unsigned long)skb->data;
+    const void* data_end = (void*)(unsigned long)skb->data_end;
     struct ethhdr* eth = is_ethernet ? data : NULL;  // used iff is_ethernet
     struct iphdr* ip = is_ethernet ? (void*)(eth + 1) : data;
 
     // Must have (ethernet and) ipv4 header
-    if (data + l2_header_size + sizeof(*ip) > data_end) return TC_ACT_PIPE;
+    if (l2_header_size + sizeof(*ip) > data_end - data) return TC_ACT_PIPE;
 
     // Ethertype - if present - must be IPv4
     if (is_ethernet && (eth->h_proto != htons(ETH_P_IP))) return TC_ACT_PIPE;
@@ -638,7 +651,7 @@ static inline __always_inline int do_forward4(struct __sk_buff* skb,
     // to the checksum field which is in bytes 7 and 8.  While for TCP we'll need to read the
     // TCP flags (at offset 13) and access to the checksum field (2 bytes at offset 16).
     // As such we *always* need access to at least 8 bytes.
-    if (data + l2_header_size + sizeof(*ip) + 8 > data_end) TC_PUNT(SHORT_L4_HEADER);
+    if (l2_header_size + sizeof(*ip) + 8 > data_end - data) TC_PUNT(SHORT_L4_HEADER);
 
     // We're forcing the compiler to emit two copies of the following code, optimized
     // separately for is_tcp being true or false.  This simplifies the resulting bpf
@@ -820,8 +833,8 @@ static inline __always_inline int do_xdp_forward4(struct xdp_md *ctx, const stru
 
 static inline __always_inline int do_xdp_forward_ether(struct xdp_md *ctx,
                                                        const struct stream_bool stream) {
-    const void* data = (void*)(long)ctx->data;
-    const void* data_end = (void*)(long)ctx->data_end;
+    const void* data = (void*)(unsigned long)ctx->data;
+    const void* data_end = (void*)(unsigned long)ctx->data_end;
     const struct ethhdr* eth = data;
 
     // Make sure we actually have an ethernet header
@@ -838,8 +851,8 @@ static inline __always_inline int do_xdp_forward_ether(struct xdp_md *ctx,
 
 static inline __always_inline int do_xdp_forward_rawip(struct xdp_md *ctx,
                                                        const struct stream_bool stream) {
-    const void* data = (void*)(long)ctx->data;
-    const void* data_end = (void*)(long)ctx->data_end;
+    const void* data = (void*)(unsigned long)ctx->data;
+    const void* data_end = (void*)(unsigned long)ctx->data_end;
 
     // The top nibble of both IPv4 and IPv6 headers is the IP version.
     if (data_end - data < 1) return XDP_PASS;
