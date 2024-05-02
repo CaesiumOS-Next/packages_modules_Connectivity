@@ -144,6 +144,12 @@ static inline __always_inline int do_forward6(struct __sk_buff* skb,
     // It has to be done early cause it will invalidate any skb->data/data_end derived pointers.
     try_make_writable(skb, l2_header_size + IP6_HLEN + TCP_HLEN);
 
+    // We don't yet actually know if we're dealing with IPv6/TCP or IPv6/UDP or something else.
+    // Hence, the above pull *might* fail, for example for IPv6/UDP GRO fraglist packets.
+    // Thus to be safe, we should also pull the shorter IPv6 header to handle non-TCP.
+    // If the above pull already succeeded, then this is a trivial operation.
+    // try_make_writable(skb, l2_header_size + IP6_HLEN);
+
     void* data = (void*)(long)skb->data;
     const void* data_end = (void*)(long)skb->data_end;
     struct ethhdr* eth = is_ethernet ? data : NULL;  // used iff is_ethernet
@@ -573,6 +579,13 @@ static inline __always_inline int do_forward4(struct __sk_buff* skb,
     // Note: this is a blind best effort pull, which may fail or pull less - this doesn't matter.
     // It has to be done early cause it will invalidate any skb->data/data_end derived pointers.
     try_make_writable(skb, l2_header_size + IP4_HLEN + TCP_HLEN);
+
+    // We don't yet actually know if we're dealing with IPv4/UDP or IPv4/TCP or something else.
+    // Hence, the above pull *might* fail, for example for IPv4/UDP GRO fraglist packets.
+    // Thus to be safe, we should also pull the shorter IPv4/UDP header.
+    // If the above pull already succeeded, then this is a trivial operation.
+    // This is only needed if we even support UDP, which requires updatetime.
+    // if (updatetime.updatetime) try_make_writable(skb, l2_header_size + IP4_HLEN + UDP_HLEN);
 
     void* data = (void*)(long)skb->data;
     const void* data_end = (void*)(long)skb->data_end;
