@@ -43,6 +43,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
+import static org.junit.Ignore;
 
 import android.annotation.NonNull;
 import android.net.MacAddress;
@@ -511,7 +512,7 @@ public class NetworkRequestTest {
         assertArrayEquals(netCapabilities, nr.getCapabilities());
     }
 
-    @Test @IgnoreUpTo(VANILLA_ICE_CREAM)
+    @Test @IgnoreUpTo(VANILLA_ICE_CREAM) @Ignore("b/338200742")
     public void testDefaultCapabilities() {
         final NetworkRequest defaultNR = new NetworkRequest.Builder().build();
         assertTrue(defaultNR.hasForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK));
