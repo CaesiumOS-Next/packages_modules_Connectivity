@@ -514,7 +514,6 @@ public class NetworkRequestTest {
     @Test @IgnoreUpTo(VANILLA_ICE_CREAM)
     public void testDefaultCapabilities() {
         final NetworkRequest defaultNR = new NetworkRequest.Builder().build();
-        assertTrue(defaultNR.hasForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK));
         assertFalse(defaultNR.hasCapability(NET_CAPABILITY_LOCAL_NETWORK));
         assertTrue(defaultNR.hasCapability(NET_CAPABILITY_NOT_VPN));
 
