@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "548dfad6_f01ab915",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-06T04:47:03Z",
+      "side": 1,
+      "message": "I\u0027m not sure this test has actually ever run, so it seems fine to disable it for now. See comments on bug.",
+      "revId": "1da4d329ce9faa7536a832cebc6473158333c59a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
