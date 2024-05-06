@@ -159,6 +159,7 @@ struct ignore_on_userdebug_bool { bool ignore_on_userdebug; };
  */
 struct bpf_map_def {
     enum bpf_map_type type;
+    enum bpf_map_type inner_type;  // field added in V
     unsigned int key_size;
     unsigned int value_size;
     unsigned int max_entries;
