@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08b2c785_7ff494cb",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2024-05-06T21:46:50Z",
+      "side": 1,
+      "message": "This probably should also be locked",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 84
+      },
+      "revId": "ee48ab3c68b6f8e8e6b82ca382a9ba0cc8372195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98fd03a7_2a9f941a",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2024-05-06T21:46:50Z",
+      "side": 1,
+      "message": "Suggest move into sync block, this could cause some funky logging",
+      "range": {
+        "startLine": 166,
+        "startChar": 51,
+        "endLine": 166,
+        "endChar": 62
+      },
+      "revId": "ee48ab3c68b6f8e8e6b82ca382a9ba0cc8372195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d55aa32c_5b9231a9",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2024-05-06T21:46:50Z",
+      "side": 1,
+      "message": "Ideally, this should lock, so we get a consistent state",
+      "range": {
+        "startLine": 454,
+        "startChar": 20,
+        "endLine": 454,
+        "endChar": 31
+      },
+      "revId": "ee48ab3c68b6f8e8e6b82ca382a9ba0cc8372195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
