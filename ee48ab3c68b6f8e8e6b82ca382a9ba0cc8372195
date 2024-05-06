@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f7bb1e5_436d980d",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2024-05-06T22:29:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "367d54a8_26960418",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 84
+      },
+      "revId": "ee48ab3c68b6f8e8e6b82ca382a9ba0cc8372195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98fd03a7_2a9f941a",
@@ -143,6 +167,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56b79557_948589cc",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2024-05-06T22:29:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9a9ba376_a65b25a1",
+      "range": {
+        "startLine": 166,
+        "startChar": 51,
+        "endLine": 166,
+        "endChar": 62
+      },
+      "revId": "ee48ab3c68b6f8e8e6b82ca382a9ba0cc8372195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d55aa32c_5b9231a9",
@@ -201,6 +249,30 @@
         "id": 1060151
       },
       "writtenOn": "2024-05-06T22:28:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5910a6b8_3b8a9756",
+      "range": {
+        "startLine": 454,
+        "startChar": 20,
+        "endLine": 454,
+        "endChar": 31
+      },
+      "revId": "ee48ab3c68b6f8e8e6b82ca382a9ba0cc8372195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7276f8d7_be40f553",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2024-05-06T22:29:00Z",
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "5910a6b8_3b8a9756",
