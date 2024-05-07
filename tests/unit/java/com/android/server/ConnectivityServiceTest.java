@@ -151,6 +151,7 @@ import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST_ONLY
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_UNINITIALIZED;
 import static android.net.Proxy.PROXY_CHANGE_ACTION;
 import static android.net.RouteInfo.RTN_UNREACHABLE;
+import static android.net.connectivity.ConnectivityCompatChanges.RETURN_ACTUAL_BLOCKED_STATE;
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.PREFIX_OPERATION_ADDED;
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.PREFIX_OPERATION_REMOVED;
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALIDATION_RESULT_FAILURE;
@@ -9741,6 +9742,7 @@ public class ConnectivityServiceTest {
 
     @Test
     public void testNetworkBlockedStatus() throws Exception {
+        mDeps.setChangeIdEnabled(true, RETURN_ACTUAL_BLOCKED_STATE, Process.myUid());
         final TestNetworkCallback cellNetworkCallback = new TestNetworkCallback();
         final NetworkRequest cellRequest = new NetworkRequest.Builder()
                 .addTransportType(TRANSPORT_CELLULAR)
@@ -9977,6 +9979,7 @@ public class ConnectivityServiceTest {
 
     @Test
     public void testNetworkBlockedStatusAlwaysOnVpn() throws Exception {
+        mDeps.setChangeIdEnabled(true, RETURN_ACTUAL_BLOCKED_STATE, Process.myUid());
         mServiceContext.setPermission(
                 Manifest.permission.CONTROL_ALWAYS_ON_VPN, PERMISSION_GRANTED);
         mServiceContext.setPermission(
@@ -10225,6 +10228,7 @@ public class ConnectivityServiceTest {
 
     private void doTestLockdownVpn(boolean isIkev2Vpn)
             throws Exception {
+        mDeps.setChangeIdEnabled(true, RETURN_ACTUAL_BLOCKED_STATE, Process.myUid());
         mServiceContext.setPermission(
                 Manifest.permission.CONTROL_VPN, PERMISSION_GRANTED);
 
