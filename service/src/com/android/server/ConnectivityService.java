@@ -64,6 +64,7 @@ import static android.net.ConnectivityManager.TYPE_WIFI_P2P;
 import static android.net.ConnectivityManager.getNetworkTypeName;
 import static android.net.ConnectivityManager.isNetworkTypeValid;
 import static android.net.ConnectivitySettingsManager.PRIVATE_DNS_MODE_OPPORTUNISTIC;
+import static android.net.INetd.PERMISSION_INTERNET;
 import static android.net.INetworkMonitor.NETWORK_VALIDATION_PROBE_PRIVDNS;
 import static android.net.INetworkMonitor.NETWORK_VALIDATION_RESULT_PARTIAL;
 import static android.net.INetworkMonitor.NETWORK_VALIDATION_RESULT_SKIPPED;
@@ -99,6 +100,7 @@ import static android.net.NetworkRequest.Type.LISTEN_FOR_BEST;
 import static android.net.NetworkScore.POLICY_TRANSPORT_PRIMARY;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST_ONLY;
+import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_BPF_MAP_BLOCKED_STATE;
 import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_MATCH_LOCAL_NETWORK;
 import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION;
 import static android.os.Process.INVALID_UID;
@@ -2322,7 +2324,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final int uid = mDeps.getCallingUid();
         final NetworkAgentInfo nai = getNetworkAgentInfoForUid(uid);
         if (nai == null) return null;
-        final NetworkInfo networkInfo = getFilteredNetworkInfo(nai, uid, false);
+        final boolean ignoreBlocked = mDeps.isAtLeastV()
+                && (mBpfNetMaps.getNetPermForUid(uid) & PERMISSION_INTERNET) == 0
+                && !mDeps.isChangeEnabled(ENABLE_BPF_MAP_BLOCKED_STATE, uid);
+        final NetworkInfo networkInfo = getFilteredNetworkInfo(nai, uid, ignoreBlocked);
         maybeLogBlockedNetworkInfo(networkInfo, uid);
         return networkInfo;
     }

@@ -804,6 +804,24 @@ public class BpfNetMaps {
     }
 
     /**
+     * Get granted permissions for specified uid. If uid is not in the map, this method returns
+     * INTERNET permission since this is a default permission.
+     * See {@link #setNetPermForUids}
+     *
+     * @param uid target uid
+     * @return    Granted permissions.
+     */
+    @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    public int getNetPermForUid(final int uid) {
+        try {
+            final U8 permissions = sUidPermissionMap.getValue(new S32(uid));
+            return permissions != null ? permissions.val : PERMISSION_INTERNET;
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno, "Failed to get net perm for uid: " + uid);
+        }
+    }
+
+    /**
      * Set Data Saver enabled or disabled
      *
      * @param enable     whether Data Saver is enabled or disabled.
