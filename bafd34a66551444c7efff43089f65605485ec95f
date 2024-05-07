@@ -16,6 +16,92 @@
       "message": "Kindly ping~",
       "revId": "bafd34a66551444c7efff43089f65605485ec95f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9108e69e_56895cf8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-07T14:38:53Z",
+      "side": 1,
+      "message": "Generally LGTM. Comments are mostly questions to make sure I at least understand how this works.",
+      "revId": "bafd34a66551444c7efff43089f65605485ec95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f840d4f_9c35bcaa",
+        "filename": "tests/cts/net/DynamicConfig.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-07T14:38:53Z",
+      "side": 1,
+      "message": "Why is this key necessary?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "bafd34a66551444c7efff43089f65605485ec95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8ff521c_b3bd7447",
+        "filename": "tests/cts/net/DynamicConfig.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-07T14:38:53Z",
+      "side": 1,
+      "message": "If the value is fetched dynamically, do we need to specify this here as well? Does specifying it here make the test faster to run locally, or make the test pass even if there is no Internet access or...?",
+      "range": {
+        "startLine": 22,
+        "startChar": 8,
+        "endLine": 22,
+        "endChar": 73
+      },
+      "revId": "bafd34a66551444c7efff43089f65605485ec95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a9149b0_80621c5d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-07T14:38:53Z",
+      "side": 1,
+      "message": "What does this string actually end up being? \"CtsNetTestCases\"?",
+      "range": {
+        "startLine": 334,
+        "startChar": 12,
+        "endLine": 334,
+        "endChar": 29
+      },
+      "revId": "bafd34a66551444c7efff43089f65605485ec95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
