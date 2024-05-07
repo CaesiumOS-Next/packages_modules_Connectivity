@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8363b341_404d2bb1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-07T09:13:49Z",
+      "side": 1,
+      "message": "The same with \nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3048592/comment/27c7dfed_72a72ffe/",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 79
+      },
+      "revId": "1c6834751872d3adf2172eb6820db327b62ca54b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cb6b3a7_07353a97",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 19203,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-07T09:13:49Z",
+      "side": 1,
+      "message": "It is unlikely to me this test can be passed with this CL.\nDid you run this locally?",
+      "range": {
+        "startLine": 19203,
+        "startChar": 16,
+        "endLine": 19203,
+        "endChar": 35
+      },
+      "revId": "1c6834751872d3adf2172eb6820db327b62ca54b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c75bd7c5_399fdbeb",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 2
