@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f5034e5_a31ee9a6",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1952,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-07T07:30:33Z",
+      "side": 1,
+      "message": "Could you have this return the ParcelFileDescriptor instead (just `iface.getFileDescriptor()`), or the whole TestNetworkInterface (`iface`) so it isn\u0027t garbage collected as there\u0027s still a reference ?\n\nI think keeping a reference to the ParcelFileDescriptor while it\u0027s still necessary is a more common usage pattern, and less complex than using `dup` to workaround the auto-cleanup.",
+      "range": {
+        "startLine": 1952,
+        "startChar": 15,
+        "endLine": 1952,
+        "endChar": 18
+      },
+      "revId": "391ab82e2995eb4f85edf6b2cee45f98277c99ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
