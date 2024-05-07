@@ -18,6 +18,7 @@ package android.net.connectivity;
 import android.compat.annotation.ChangeId;
 import android.compat.annotation.EnabledAfter;
 import android.compat.annotation.EnabledSince;
+import android.net.ConnectivityManager;
 import android.os.Build;
 
 /**
@@ -98,6 +99,26 @@ public final class ConnectivityCompatChanges {
     @ChangeId
     @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     public static final long ENABLE_MATCH_LOCAL_NETWORK = 319212206L;
+
+    /**
+     * On Android {@link android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM} or higher releases, for
+     * apps targeting Android {@link android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM} or higher,
+     * {@link ConnectivityManager#getActiveNetworkInfo()} returns NetworkInfo with actual blocked
+     * state regardless of the permission.
+     *
+     * On Android {@link android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM} or higher releases,
+     * for apps that target lower than {@link android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM} and
+     * don't have {@link android.net.INetd.PERMISSION_INTERNET},
+     * {@link ConnectivityManager#getActiveNetworkInfo()} does not return NetworkInfo with
+     * blocked state even if the network is blocked.
+     * This is the same with the behavior on Android
+     * {@link android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE} or lower releases.
+     *
+     * @hide
+     */
+    @ChangeId
+    @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    public static final long RETURN_ACTUAL_BLOCKED_STATE = 333340911L;
 
     private ConnectivityCompatChanges() {
     }
