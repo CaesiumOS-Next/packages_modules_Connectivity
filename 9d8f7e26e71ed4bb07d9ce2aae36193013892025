@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e9f6d46_ed5861a0",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-07T15:08:38Z",
+      "side": 1,
+      "message": "Might want to clarify that this is only in NetworkInfo? Something like NETWORKINFO_WITHOUT_INTERNET_ALWAYS_BLOCKED?",
+      "range": {
+        "startLine": 120,
+        "startChar": 29,
+        "endLine": 120,
+        "endChar": 56
+      },
+      "revId": "9d8f7e26e71ed4bb07d9ce2aae36193013892025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "450babaf_0a174b3e",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-07T15:08:38Z",
+      "side": 1,
+      "message": "This cannot happen, right? And if it does, it\u0027s really not going to be very useful to apps, because there is nothing they can do about it. And ServiceSpecificException isn\u0027t even a public API, I think it\u0027s @SystemApi. So it\u0027s probably not worth sending the exception to the app.\n\nMaybe just log a WTF and return INTERNET?",
+      "range": {
+        "startLine": 820,
+        "startChar": 22,
+        "endLine": 820,
+        "endChar": 46
+      },
+      "revId": "9d8f7e26e71ed4bb07d9ce2aae36193013892025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd4d2c6d_e94ae131",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 9745,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-07T15:08:38Z",
+      "side": 1,
+      "message": "Instead of setting this separately in tests, we might want to set it globally once - maybe in setUp?",
+      "revId": "9d8f7e26e71ed4bb07d9ce2aae36193013892025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "690b41d5_553fcd38",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSActiveNetworkInfoTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-07T15:08:38Z",
+      "side": 1,
+      "message": "Nit: could be cm.activeNetworkInfo",
+      "range": {
+        "startLine": 62,
+        "startChar": 26,
+        "endLine": 62,
+        "endChar": 51
+      },
+      "revId": "9d8f7e26e71ed4bb07d9ce2aae36193013892025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
