@@ -16,6 +16,29 @@
       "message": "Note the tests failed:\n\n```\nandroid.net.connectivity.com.android.server.ConnectivityServiceTest#testUpdateAllowListBeforeConnected\n\nWanted but not invoked:\nmMockNetd.networkSetPermissionForNetwork(\n    64510,\n    2\n);\n-\u003e at android.net.connectivity.com.android.server.ConnectivityServiceTest.testUpdateAllowListBeforeConnected(ConnectivityServiceTest.java:19230)\n\n```\n\nAlso:\n\n```\nandroid.net.connectivity.com.android.server.ConnectivityServiceTest#testTestMethodCount\n\njava.lang.AssertionError: Adding tests in ConnectivityServiceTest is deprecated, as it is too big for maintenance. Please consider adding new tests in subclasses of CSTest instead. expected:\u003c332\u003e but was:\u003c333\u003e\n```\n\nAnd:\n\n```\nandroid.net.connectivity.com.android.server.ConnectivityServiceTest#testNetworkAgentCallbacks\n\norg.junit.ComparisonFailure: expected:\u003c[timePasses]\u003e but was:\u003c[onNetworkDisconnected]\u003e\n\tat org.junit.Assert.assertEquals(Assert.java:117)\n\tat org.junit.Assert.assertEquals(Assert.java:146)\n```\n\nYou should be able to verify the tests with a command like:\n\n```\natest ConnectivityCoverageTests:android.net.connectivity.com.android.server.ConnectivityServiceTest\n```",
       "revId": "1c6834751872d3adf2172eb6820db327b62ca54b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "194d3377_aea75733",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 19232,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-07T07:57:58Z",
+      "side": 1,
+      "message": "As https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3048592/comment/c3df00c0_7ff95b8b/ suggested, could you add test to [connectivityservice](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/unit/java/com/android/server/connectivityservice/)?\nWe are not adding new tests to ConnectivityServiceTest.",
+      "range": {
+        "startLine": 19232,
+        "startChar": 4,
+        "endLine": 19232,
+        "endChar": 5
+      },
+      "revId": "1c6834751872d3adf2172eb6820db327b62ca54b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
