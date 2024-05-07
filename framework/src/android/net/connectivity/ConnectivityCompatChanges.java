@@ -99,6 +99,33 @@ public final class ConnectivityCompatChanges {
     @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     public static final long ENABLE_MATCH_LOCAL_NETWORK = 319212206L;
 
+    /**
+     * On Android {@link android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM} or higher releases, for
+     * apps targeting Android {@link android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM} or higher,
+     * {@link android.net.ConnectivityManager#getActiveNetworkInfo()} returns NetworkInfo with
+     * actual blocked state regardless of whether apps have
+     * {@link android.net.INetd.PERMISSION_INTERNET} or not.
+     * {@link com.android.server.net.NetworkPolicyManagerService} does not set uid rule for apps
+     * without {@link android.net.INetd.PERMISSION_INTERNET}.
+     * So if the allow firewall chains
+     * (e.g. {@link android.net.ConnectivityManager#FIREWALL_CHAIN_BACKGROUND} are enabled, network
+     * for apps is blocked and {@link android.net.ConnectivityManager#getActiveNetworkInfo()}
+     * returns NetworkInfo with blocked state.
+     *
+     * On Android {@link android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM} or higher releases,
+     * for apps that target lower than {@link android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM} and
+     * don't have {@link android.net.INetd.PERMISSION_INTERNET},
+     * {@link android.net.ConnectivityManager#getActiveNetworkInfo()} does not return NetworkInfo
+     * with blocked state even if the network is blocked.
+     * This is the same behavior as on Android
+     * {@link android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE} or lower releases.
+     *
+     * @hide
+     */
+    @ChangeId
+    @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    public static final long NETWORKINFO_WITHOUT_INTERNET_BLOCKED = 333340911L;
+
     private ConnectivityCompatChanges() {
     }
 }
