@@ -75,6 +75,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d866213_75ed9bdb",
+        "filename": "tests/cts/net/DynamicConfig.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1976127
+      },
+      "writtenOn": "2024-05-08T06:10:24Z",
+      "side": 1,
+      "message": "The DynamicConfig feature has provided two modes to get configs: remote mode and local mode. The remote mode has been deprecated and the local mode requires the settings explicitly. This cl is to utilize the local mode to decouple the IP_ADDRESS_ECHO_URL from the test and make it configurable.",
+      "parentUuid": "7f840d4f_9c35bcaa",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "bafd34a66551444c7efff43089f65605485ec95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8ff521c_b3bd7447",
@@ -98,6 +122,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98924828_ce6db03e",
+        "filename": "tests/cts/net/DynamicConfig.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1976127
+      },
+      "writtenOn": "2024-05-08T06:10:24Z",
+      "side": 1,
+      "message": "We will not fetch the value remotely from the server side at the runtime (remote mode of DynamicConfig) because 1) the remode mode has been deprecated 2) we will have to detect user\u0027s location to return IP_ADDRESS_ECHO_URL dynamically.\n\nInstead, we will use the local mode to provide the value for IP_ADDRESS_ECHO_URL. The config xml file will be packaged into the CTS tool and if users can access .com service (which is for the majority users), they are able to get the value seamlessly from the xml file. If users have to access .cn service, we will provide a separate xml file to provide .cn IP_ADDRESS_ECHO_URL for them.",
+      "parentUuid": "c8ff521c_b3bd7447",
+      "range": {
+        "startLine": 22,
+        "startChar": 8,
+        "endLine": 22,
+        "endChar": 73
+      },
+      "revId": "bafd34a66551444c7efff43089f65605485ec95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a9149b0_80621c5d",
@@ -111,6 +159,30 @@
       "writtenOn": "2024-05-07T14:38:53Z",
       "side": 1,
       "message": "What does this string actually end up being? \"CtsNetTestCases\"?",
+      "range": {
+        "startLine": 334,
+        "startChar": 12,
+        "endLine": 334,
+        "endChar": 29
+      },
+      "revId": "bafd34a66551444c7efff43089f65605485ec95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "872eee75_abfb2869",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1976127
+      },
+      "writtenOn": "2024-05-08T06:10:24Z",
+      "side": 1,
+      "message": "it ends up being the module name. The test has been packaged into CtsNetTestCases, CtsNetTestCasesMaxTargetSdkDefaults and CtsNetTestCasesMaxTargetSdk31 (for android 13), so it could be any one of them depending on the module devices run.",
+      "parentUuid": "5a9149b0_80621c5d",
       "range": {
         "startLine": 334,
         "startChar": 12,
