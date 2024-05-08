@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb9f84ef_c0c5b20e",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-08T12:18:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f5e9348_26b410d0",
+      "range": {
+        "startLine": 105,
+        "startChar": 70,
+        "endLine": 106,
+        "endChar": 59
+      },
+      "revId": "0b372fd69b2ed0f15ea7f4786527d0a102ab45f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e08a525_bf10886c",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-08T07:48:04Z",
       "side": 1,
       "message": "Might want to link to android.Manifest.permission#INTERNET instead.",
+      "range": {
+        "startLine": 109,
+        "startChar": 22,
+        "endLine": 109,
+        "endChar": 59
+      },
+      "revId": "0b372fd69b2ed0f15ea7f4786527d0a102ab45f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d984c55_5bced6f9",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-08T12:18:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e08a525_bf10886c",
       "range": {
         "startLine": 109,
         "startChar": 22,

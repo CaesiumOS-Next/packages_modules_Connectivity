@@ -379,6 +379,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a54bd4d_75fae80f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2336,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-08T12:18:46Z",
+      "side": 1,
+      "message": "I think BpfNetMaps#isUidNetworkingBlocked was implemented as a replacement of NetworkPolicyManager#isUidNetworkingBlocked originally.\nSo this method only checks the firewall chain status and does not check app\u0027s permission.\n\nI agree that we should say network is blocked for apps without INTERNET permission.\nwe may want to define BLOCKED_REASON for lack of internet permission.\nFor this CL, I have updated isNetworkWithCapabilitiesBlocked to check app\u0027s permission on V+.",
+      "parentUuid": "801269dd_23f68842",
+      "range": {
+        "startLine": 2336,
+        "startChar": 40,
+        "endLine": 2336,
+        "endChar": 62
+      },
+      "revId": "9d8f7e26e71ed4bb07d9ce2aae36193013892025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd4d2c6d_e94ae131",
