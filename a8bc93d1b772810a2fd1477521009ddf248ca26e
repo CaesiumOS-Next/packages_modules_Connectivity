@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "592b09c0_ea4b324b",
+        "filename": "tests/cts/multidevices/snippet/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-08T07:51:56Z",
+      "side": 1,
+      "message": "If so, for aosp/3057802, is there any way we can use RAW socket?\nCurrently this share uid with networkstack so it works.",
+      "parentUuid": "e5da07d8_dafaab42",
+      "range": {
+        "startLine": 37,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "a8bc93d1b772810a2fd1477521009ddf248ca26e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "22144d97_1e800fab",
         "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
         "patchSetId": 3
