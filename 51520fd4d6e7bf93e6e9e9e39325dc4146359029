@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2658a585_fbf24e3c",
+        "filename": "tests/cts/net/src/android/net/cts/TrafficStatsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-08T05:05:43Z",
+      "side": 1,
+      "message": "Maybe:\n// Do not check upper bound here since some applications are known to\n// have traffic on the loopback interface and there is no suitable way to\n// exclude such statistics.\n```suggestion\n        // Do not check upper bound here since some applications are known to\n        // have traffic on the loopback interface and there is no suitable way to\n        // exclude such statistics.\n```",
+      "range": {
+        "startLine": 257,
+        "startChar": 8,
+        "endLine": 258,
+        "endChar": 76
+      },
+      "revId": "51520fd4d6e7bf93e6e9e9e39325dc4146359029",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
