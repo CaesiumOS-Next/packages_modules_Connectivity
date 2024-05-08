@@ -101,6 +101,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b37b14a7_eb5b8896",
+        "filename": "tests/cts/net/DynamicConfig.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-08T07:32:39Z",
+      "side": 1,
+      "message": "If the remote mode is deprecated, why do tests like this one need to explicitly disable it? Can\u0027t we disable it by default tree-wide?",
+      "parentUuid": "4d866213_75ed9bdb",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "bafd34a66551444c7efff43089f65605485ec95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8ff521c_b3bd7447",
         "filename": "tests/cts/net/DynamicConfig.xml",
         "patchSetId": 9
@@ -136,6 +160,30 @@
       "side": 1,
       "message": "We will not fetch the value remotely from the server side at the runtime (remote mode of DynamicConfig) because 1) the remode mode has been deprecated 2) we will have to detect user\u0027s location to return IP_ADDRESS_ECHO_URL dynamically.\n\nInstead, we will use the local mode to provide the value for IP_ADDRESS_ECHO_URL. The config xml file will be packaged into the CTS tool and if users can access .com service (which is for the majority users), they are able to get the value seamlessly from the xml file. If users have to access .cn service, we will provide a separate xml file to provide .cn IP_ADDRESS_ECHO_URL for them.",
       "parentUuid": "c8ff521c_b3bd7447",
+      "range": {
+        "startLine": 22,
+        "startChar": 8,
+        "endLine": 22,
+        "endChar": 73
+      },
+      "revId": "bafd34a66551444c7efff43089f65605485ec95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f5dc0a2_eac6ac33",
+        "filename": "tests/cts/net/DynamicConfig.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-08T07:32:39Z",
+      "side": 1,
+      "message": "I see. But still, the current CL specifies the URL three times. Once in this file, once in ALLOWED_IP_ADDRESS_ECHO_URLS and once when setting sIpAddressEchoUrl. Can we reduce that duplication? Perhaps we could rename this key to IP_ADDRESS_ECHO_URL_OVERRIDE and make default it to empty? Then the code could do something like:\n\n    private static final String IP_ADDRESS_ECHO_URL \u003d\n            \"https://google-ipv6test.appspot.com/ip.js?fmt\u003dtext\";\n    private static final List\u003cString\u003e ALLOWED_IP_ADDRESS_ECHO_URL_OVERRIDES \u003d List.of(\n            \"https://ipv6test.googleapis-cn.com/ip.js?fmt\u003dtext\");\n\n\nand then in updateSettingsFromConfig:\n\n            final String overrideUrl \u003d dynamicConfig.getValue(\"IP_ADDRESS_ECHO_URL_OVERRIDE\");\n            if (ALLOWED_IP_ADDRESS_ECHO_URL_OVERRIDES.contains(overrideUrl)) {\n                sIpAddressEchoUrl \u003d overrideUrl;\n            } else {\n                sIpAddressEchoUrl \u003d IP_ADDRESS_ECHO_URL;\n            }",
+      "parentUuid": "98924828_ce6db03e",
       "range": {
         "startLine": 22,
         "startChar": 8,
@@ -188,6 +236,53 @@
         "startChar": 12,
         "endLine": 334,
         "endChar": 29
+      },
+      "revId": "bafd34a66551444c7efff43089f65605485ec95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d3aba2c_5b8cbbfd",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-08T07:32:39Z",
+      "side": 1,
+      "message": "Ok, so what does this string need to match? Does someone who wants to override the URL need to provide three different XML files, one for each module? Is that what we want?",
+      "parentUuid": "872eee75_abfb2869",
+      "range": {
+        "startLine": 334,
+        "startChar": 12,
+        "endLine": 334,
+        "endChar": 29
+      },
+      "revId": "bafd34a66551444c7efff43089f65605485ec95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11807e4a_8aa0387c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-08T07:32:39Z",
+      "side": 1,
+      "message": "When can this be null?",
+      "range": {
+        "startLine": 334,
+        "startChar": 30,
+        "endLine": 334,
+        "endChar": 37
       },
       "revId": "bafd34a66551444c7efff43089f65605485ec95f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
