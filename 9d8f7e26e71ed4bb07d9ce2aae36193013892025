@@ -189,6 +189,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fdfabe78_df01a492",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2336,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-08T06:30:42Z",
+      "side": 1,
+      "message": "So you\u0027re saying that this code should return BLOCKED even on pre-V if the app doesn\u0027t have the internet permission?\n\nI think that\u0027s harder because the checks are spread between multiple methods, and the existing code only has a way to ignore blocked status and doesn\u0027t have a way to force blocked status, and there\u0027s complications such as legacy lockdown. The best I can come up with is:\n\n    final boolean hasInternetPermission \u003d (mBpfNetMaps.getNetPermForUid(uid) \u0026 PERMISSION_INTERNET) !\u003d 0;\n    final boolean blockedByNoInternet \u003d !hasInternetPermission \u0026\u0026 mDeps.isChangeEnabled(\n            NETWORKINFO_WITHOUT_INTERNET_BLOCKED, uid);\n\n    final NetworkInfo networkInfo \u003d getFilteredNetworkInfo(nai, uid, !blockedByNoInternet);\n    if (blockedByNoInternet) {\n        networkInfo.setDetailedState(DetailedState.BLOCKED, null /* reason */,\n                null /* extraInfo */);\n    }\n\nIt\u0027s not super easy to read, but maybe it\u0027s OK. Or maybe we could add an extra forceBlocked parameter to filterNetworkInfo.\n\nMotomu, what do you think?",
+      "parentUuid": "f341ea6b_79028ae4",
+      "range": {
+        "startLine": 2336,
+        "startChar": 40,
+        "endLine": 2336,
+        "endChar": 62
+      },
+      "revId": "9d8f7e26e71ed4bb07d9ce2aae36193013892025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fd4d2c6d_e94ae131",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 10
