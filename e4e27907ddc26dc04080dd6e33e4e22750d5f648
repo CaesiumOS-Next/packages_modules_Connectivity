@@ -16,6 +16,24 @@
       "message": "The commit message says:\n\n \u003e While the second registartion is being probed, its KEY RR is considered\nas conflicting with the address record of the first registraiton.\n\nBut shouldn\u0027t that be avoided by this check ? (the KEY RR is the same as the one in the first registration, so no conflict for host with the first service) ?",
       "revId": "e4e27907ddc26dc04080dd6e33e4e22750d5f648",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77f3337f_dba992f6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1269,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-08T09:33:00Z",
+      "side": 1,
+      "message": "Both registrations have the KEY RR for the hostname respectively. The first one has been probed while the second one is being probed. \n\nThe conflict happens between the address record announcement of the first registration and the (probing) KEY RR of the second registration. So it won\u0027t go into this branch but will result in a conflict at line 1276.",
+      "parentUuid": "3286fa6e_2d536d8f",
+      "revId": "e4e27907ddc26dc04080dd6e33e4e22750d5f648",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
