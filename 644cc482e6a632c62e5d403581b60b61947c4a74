@@ -33,6 +33,24 @@
       "message": "Let\u0027s make sure we submit this with the child chain together.",
       "revId": "644cc482e6a632c62e5d403581b60b61947c4a74",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcc2ca2a_19c8a19b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-08T02:28:45Z",
+      "side": 1,
+      "message": "Do you mean the networkPolicyManager change to use FIREWALL_CHAIN_METERED_DENY_USER/ADMIN?\nisUidNetworkingBlocked does not care blocked reasons.\nSo this CL does not need to wait that, I think.",
+      "parentUuid": "ed9d3ee7_9450765e",
+      "revId": "644cc482e6a632c62e5d403581b60b61947c4a74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
