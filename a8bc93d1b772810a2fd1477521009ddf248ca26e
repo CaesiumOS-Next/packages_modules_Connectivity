@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a2a50e0a_9a27be51",
+        "filename": "tests/cts/multidevices/snippet/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-08T08:07:47Z",
+      "side": 1,
+      "message": "Unprivileged apps can\u0027t use raw sockets. You\u0027d need some call into the networkstack module (presumably protected by NETWORK_SETTINGS) that would send packets for you, or that would return the FileDescriptor of a bound packet socket that you can use to send packets.",
+      "parentUuid": "592b09c0_ea4b324b",
+      "range": {
+        "startLine": 37,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "a8bc93d1b772810a2fd1477521009ddf248ca26e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "22144d97_1e800fab",
         "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
         "patchSetId": 3
