@@ -69,6 +69,24 @@
       "parentUuid": "dcc2ca2a_19c8a19b",
       "revId": "644cc482e6a632c62e5d403581b60b61947c4a74",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ad12c90_46a62ea4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-08T05:49:56Z",
+      "side": 1,
+      "message": "Yes aosp/3076606 is under the same topic.",
+      "parentUuid": "e4881d06_046a6ecf",
+      "revId": "644cc482e6a632c62e5d403581b60b61947c4a74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
