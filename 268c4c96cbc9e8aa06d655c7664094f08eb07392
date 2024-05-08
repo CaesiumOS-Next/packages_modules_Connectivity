@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78264458_717fd7bf",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-05-08T22:20:41Z",
+      "side": 1,
+      "message": "If you called this/the corresponding java function after creating an interface, how can you guarantee the HW address would be referred to correctly within EthernetTracker onNewLink? Does the HW address update have to happen in the process of creating the interface (like within createTunTap)?",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 1
+      },
+      "revId": "268c4c96cbc9e8aa06d655c7664094f08eb07392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
