@@ -69,6 +69,30 @@
       },
       "revId": "a8bc93d1b772810a2fd1477521009ddf248ca26e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eedcf421_1073a563",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-08T06:53:29Z",
+      "side": 1,
+      "message": "What code redacts it?\n\nDid you try looking at the SSID in the TransportInfo instead?",
+      "parentUuid": "266623e3_c743bdf0",
+      "range": {
+        "startLine": 120,
+        "startChar": 38,
+        "endLine": 120,
+        "endChar": 47
+      },
+      "revId": "a8bc93d1b772810a2fd1477521009ddf248ca26e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
