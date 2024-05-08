@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e038f30_efe9effa",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-08T07:27:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "777df7f0_0173ea16",
+      "range": {
+        "startLine": 105,
+        "startChar": 70,
+        "endLine": 106,
+        "endChar": 59
+      },
+      "revId": "9d8f7e26e71ed4bb07d9ce2aae36193013892025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6381f6aa_1ac80411",
@@ -49,6 +73,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "760cbe4e_fd326d03",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-08T07:27:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6381f6aa_1ac80411",
+      "range": {
+        "startLine": 113,
+        "startChar": 33,
+        "endLine": 113,
+        "endChar": 50
+      },
+      "revId": "9d8f7e26e71ed4bb07d9ce2aae36193013892025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bd8149de_02652fde",
         "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
         "patchSetId": 10
@@ -60,6 +108,30 @@
       "writtenOn": "2024-05-07T20:57:24Z",
       "side": 1,
       "message": "Clarification: Is there a reason to not use EnabledSince by convention?",
+      "range": {
+        "startLine": 119,
+        "startChar": 5,
+        "endLine": 119,
+        "endChar": 17
+      },
+      "revId": "9d8f7e26e71ed4bb07d9ce2aae36193013892025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a5bada9_009b0f31",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-08T07:27:49Z",
+      "side": 1,
+      "message": "No specific reason.\nJust because other compat flags (exept one) use EnabledAfter.",
+      "parentUuid": "bd8149de_02652fde",
       "range": {
         "startLine": 119,
         "startChar": 5,
@@ -117,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "327a4977_0aa49d04",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-08T07:27:49Z",
+      "side": 1,
+      "message": "Renamed to NETWORKINFO_WITHOUT_INTERNET_BLOCKED since it\u0027s possible that app without INTERNET permission is not blocked if the allow chain is not enabled.",
+      "parentUuid": "18992257_ad3f0231",
+      "range": {
+        "startLine": 120,
+        "startChar": 29,
+        "endLine": 120,
+        "endChar": 56
+      },
+      "revId": "9d8f7e26e71ed4bb07d9ce2aae36193013892025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "450babaf_0a174b3e",
@@ -154,6 +250,30 @@
       "side": 1,
       "message": "+1 to logging.",
       "parentUuid": "450babaf_0a174b3e",
+      "range": {
+        "startLine": 820,
+        "startChar": 22,
+        "endLine": 820,
+        "endChar": 46
+      },
+      "revId": "9d8f7e26e71ed4bb07d9ce2aae36193013892025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4a4c002_f9b03f9f",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-08T07:27:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cb34227_24f4d665",
       "range": {
         "startLine": 820,
         "startChar": 22,
@@ -211,6 +331,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da55b637_e0c69850",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2336,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-08T07:27:49Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s easy to do on pre-V.\nIt\u0027s possible that BpfNetMaps#isUidNetworkingBlocked returns false for app without INTERNET if no allowlist firewall chains is enabled.\nSo, it\u0027s not easy to keep the behavior consistent between U- and V+ with compat flag enabled.\nI prefer to keep the current behavior on U- and change the behavior only on V+.",
+      "parentUuid": "f341ea6b_79028ae4",
+      "range": {
+        "startLine": 2336,
+        "startChar": 40,
+        "endLine": 2336,
+        "endChar": 62
+      },
+      "revId": "9d8f7e26e71ed4bb07d9ce2aae36193013892025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd4d2c6d_e94ae131",
@@ -228,6 +372,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e9eeec8_9606f6b8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 9745,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-08T07:27:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd4d2c6d_e94ae131",
+      "revId": "9d8f7e26e71ed4bb07d9ce2aae36193013892025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "690b41d5_553fcd38",
@@ -241,6 +403,30 @@
       "writtenOn": "2024-05-07T15:08:38Z",
       "side": 1,
       "message": "Nit: could be cm.activeNetworkInfo",
+      "range": {
+        "startLine": 62,
+        "startChar": 26,
+        "endLine": 62,
+        "endChar": 51
+      },
+      "revId": "9d8f7e26e71ed4bb07d9ce2aae36193013892025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22bff963_3d4422da",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSActiveNetworkInfoTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-08T07:27:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "690b41d5_553fcd38",
       "range": {
         "startLine": 62,
         "startChar": 26,
