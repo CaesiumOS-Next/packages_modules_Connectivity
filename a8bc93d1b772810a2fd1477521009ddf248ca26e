@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5da07d8_dafaab42",
+        "filename": "tests/cts/multidevices/snippet/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-08T07:20:05Z",
+      "side": 1,
+      "message": "+1, CTS shouldn\u0027t get resigned, so devices that run a production-signed networkstack won\u0027t have a matching key in CTS.\n\nAlso non-mainline devices are free to sign networkstack with any key, so there is no single networkstack key that CTS could be signed with.",
+      "parentUuid": "13ce0ea2_081b16ac",
+      "range": {
+        "startLine": 37,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "a8bc93d1b772810a2fd1477521009ddf248ca26e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "22144d97_1e800fab",
         "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
         "patchSetId": 3
