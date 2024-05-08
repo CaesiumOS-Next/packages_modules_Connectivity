@@ -163,6 +163,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.MessageQueue;
@@ -185,6 +186,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.RequiresDevice;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.compatibility.common.util.DynamicConfigDeviceSide;
 import com.android.internal.util.ArrayUtils;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.CollectionUtils;
@@ -213,6 +215,7 @@ import libcore.io.Streams;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
@@ -237,6 +240,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -322,8 +326,15 @@ public class ConnectivityManagerTest {
     private static final String TEST_HTTPS_URL_PATH = "/https_path";
     private static final String TEST_HTTP_URL_PATH = "/http_path";
     private static final String LOCALHOST_HOSTNAME = "localhost";
+    private static final String DYNAMIC_CONFIG_NAME_OPTION = "dynamic-config-name";
+    private static final String IP_ADDRESS_ECHO_URL_KEY = "IP_ADDRESS_ECHO_URL";
+    private static final List<String> ALLOWED_IP_ADDRESS_ECHO_URLS = Arrays.asList(
+            "https://google-ipv6test.appspot.com/ip.js?fmt=text",
+            "https://ipv6test.googleapis-cn.com/ip.js?fmt=text");
     // Re-connecting to the AP, obtaining an IP address, revalidating can take a long time
     private static final long WIFI_CONNECT_TIMEOUT_MS = 60_000L;
+
+    private static String sIpAddressEchoUrl;
 
     private Context mContext;
     private Instrumentation mInstrumentation;
@@ -339,6 +350,15 @@ public class ConnectivityManagerTest {
     private final List<Range<Integer>> mVpnRequiredUidRanges = new ArrayList<>();
 
     private final TestHttpServer mHttpServer = new TestHttpServer(LOCALHOST_HOSTNAME);
+
+    @BeforeClass
+    public static void updateSettingsFromConfig() throws Exception {
+        Bundle instrumentationArgs = InstrumentationRegistry.getArguments();
+        String dynamicConfigName = instrumentationArgs.getString(DYNAMIC_CONFIG_NAME_OPTION);
+        // Get the DynamicConfig.xml contents and extract the ipv6 test URL.
+        DynamicConfigDeviceSide dynamicConfig = new DynamicConfigDeviceSide(dynamicConfigName);
+        sIpAddressEchoUrl = dynamicConfig.getValue(IP_ADDRESS_ECHO_URL_KEY);
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -852,7 +872,8 @@ public class ConnectivityManagerTest {
         Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
         Network cellNetwork = networkCallbackRule.requestCell();
         // This server returns the requestor's IP address as the response body.
-        URL url = new URL("http://google-ipv6test.appspot.com/ip.js?fmt=text");
+        assertContains(ALLOWED_IP_ADDRESS_ECHO_URLS, sIpAddressEchoUrl);
+        URL url = new URL(sIpAddressEchoUrl);
         String wifiAddressString = httpGet(wifiNetwork, url);
         String cellAddressString = httpGet(cellNetwork, url);
 
