@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d1e8749_4f5321a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-05-08T22:43:56Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "0b4be79e525a99a73e11cc034dac7a9ee85b77b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69a24ffd_259a05b0",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-05-08T22:43:56Z",
+      "side": 1,
+      "message": "Just FTR, my motivation for simplification was directly from here. If the end goal is to not have this differentiation in behavior, we can remove this extra clause. And this makes for a simpler (probably easier too) story for developers to adopt.",
+      "range": {
+        "startLine": 103,
+        "startChar": 18,
+        "endLine": 103,
+        "endChar": 93
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "cc245d20_2ea6d14c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+              "range": {
+                "startLine": 103,
+                "startChar": 0,
+                "endLine": 106,
+                "endChar": 0
+              },
+              "replacement": "     * When apps that do not have the {@link android.Manifest.permission#INTERNET} permission call\n"
+            },
+            {
+              "path": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+              "range": {
+                "startLine": 110,
+                "startChar": 0,
+                "endLine": 114,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "0b4be79e525a99a73e11cc034dac7a9ee85b77b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
