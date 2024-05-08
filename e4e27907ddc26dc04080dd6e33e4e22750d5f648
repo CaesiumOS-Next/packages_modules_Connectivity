@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3286fa6e_2d536d8f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1269,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-08T07:26:53Z",
+      "side": 1,
+      "message": "The commit message says:\n\n \u003e While the second registartion is being probed, its KEY RR is considered\nas conflicting with the address record of the first registraiton.\n\nBut shouldn\u0027t that be avoided by this check ? (the KEY RR is the same as the one in the first registration, so no conflict for host with the first service) ?",
+      "revId": "e4e27907ddc26dc04080dd6e33e4e22750d5f648",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
