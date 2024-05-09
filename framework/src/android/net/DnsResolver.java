@@ -47,6 +47,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Executor;
 
 /**
@@ -61,6 +62,7 @@ public final class DnsResolver {
     private static final int FD_EVENTS = EVENT_INPUT | EVENT_ERROR;
     private static final int MAXPACKET = 8 * 1024;
     private static final int SLEEP_TIME_MS = 2;
+    private static final String LOCAL_DOMAIN = ".local";
 
     @IntDef(prefix = { "CLASS_" }, value = {
             CLASS_IN
@@ -265,13 +267,17 @@ public final class DnsResolver {
         private final Callback<? super List<InetAddress>> mUserCallback;
         private final int mTargetAnswerCount;
         private int mReceivedAnswerCount = 0;
+        @Nullable
+        private final Set<Integer> mQueryTypes;
 
         InetAddressAnswerAccumulator(@NonNull Network network, int size,
-                @NonNull Callback<? super List<InetAddress>> callback) {
+                @NonNull Callback<? super List<InetAddress>> callback,
+                @Nullable Set<Integer> queryTypes) {
             mNetwork = network;
             mTargetAnswerCount = size;
             mAllAnswers = new ArrayList<>();
             mUserCallback = callback;
+            mQueryTypes = queryTypes;
         }
 
         private boolean maybeReportError() {
@@ -300,7 +306,7 @@ public final class DnsResolver {
                 mRcode = rcode;
             }
             try {
-                mAllAnswers.addAll(new DnsAddressAnswer(answer).getAddresses());
+                mAllAnswers.addAll(new DnsAddressAnswer(answer, mQueryTypes).getAddresses());
             } catch (DnsPacket.ParseException e) {
                 // Convert the com.android.net.module.util.DnsPacket.ParseException to an
                 // android.net.ParseException. This is the type that was used in Q and is implied
@@ -357,8 +363,11 @@ public final class DnsResolver {
             executor.execute(() -> callback.onError(new DnsException(ERROR_SYSTEM, e)));
             return;
         }
-        final boolean queryIpv6 = haveIpv6(queryNetwork);
-        final boolean queryIpv4 = haveIpv4(queryNetwork);
+        // If the domain ends with ".local", it should be queried via mDNS so it doesn't need
+        // connectivity to the Internet.
+        final boolean isMdns = domain.toLowerCase().endsWith(LOCAL_DOMAIN);
+        final boolean queryIpv6 = isMdns || haveIpv6(queryNetwork);
+        final boolean queryIpv4 = isMdns || haveIpv4(queryNetwork);
 
         // This can only happen if queryIpv4 and queryIpv6 are both false.
         // This almost certainly means that queryNetwork does not exist or no longer exists.
@@ -403,8 +412,9 @@ public final class DnsResolver {
             queryCount++;
         } else v4fd = null;
 
+        final Set<Integer> queryTypes = isMdns ? Set.of(TYPE_A, TYPE_AAAA) : null;
         final InetAddressAnswerAccumulator accumulator =
-                new InetAddressAnswerAccumulator(queryNetwork, queryCount, callback);
+                new InetAddressAnswerAccumulator(queryNetwork, queryCount, callback, queryTypes);
 
         synchronized (lock)  {
             if (queryIpv6) {
@@ -459,8 +469,10 @@ public final class DnsResolver {
             executor.execute(() -> callback.onError(new DnsException(ERROR_SYSTEM, e)));
             return;
         }
+        final boolean isMdns = domain.toLowerCase().endsWith(LOCAL_DOMAIN);
+        Set<Integer> queryTypes = isMdns ? Set.of(nsType) : null;
         final InetAddressAnswerAccumulator accumulator =
-                new InetAddressAnswerAccumulator(queryNetwork, 1, callback);
+                new InetAddressAnswerAccumulator(queryNetwork, 1, callback, queryTypes);
         synchronized (lock)  {
             registerFDListener(executor, queryfd, accumulator, cancellationSignal, lock);
             if (cancellationSignal == null) return;
@@ -547,18 +559,26 @@ public final class DnsResolver {
         private static final String TAG = "DnsResolver.DnsAddressAnswer";
         private static final boolean DBG = false;
 
-        private final int mQueryType;
+        private final Set<Integer> mQueryTypes;
 
-        DnsAddressAnswer(@NonNull byte[] data) throws ParseException {
+        DnsAddressAnswer(@NonNull byte[] data, @Nullable Set<Integer> queryTypes)
+                throws ParseException {
             super(data);
             if ((mHeader.getFlags() & (1 << 15)) == 0) {
                 throw new ParseException("Not an answer packet");
             }
-            if (mHeader.getRecordCount(QDSECTION) == 0) {
-                throw new ParseException("No question found");
+            // If queryTypes is unspecified, infer it from the question section of the packet.
+            // In the mDNS scenario, the queryTypes must be set to non-null because there's no
+            // question section in the mDNS response.
+            if (queryTypes == null) {
+                if (mHeader.getRecordCount(QDSECTION) == 0) {
+                    throw new ParseException("No question found");
+                }
+                // Expect only one question in question section.
+                mQueryTypes = Set.of(mRecords[QDSECTION].get(0).nsType);
+            } else {
+                mQueryTypes = queryTypes;
             }
-            // Expect only one question in question section.
-            mQueryType = mRecords[QDSECTION].get(0).nsType;
         }
 
         public @NonNull List<InetAddress> getAddresses() {
@@ -568,7 +588,7 @@ public final class DnsResolver {
             for (final DnsRecord ansSec : mRecords[ANSECTION]) {
                 // Only support A and AAAA, also ignore answers if query type != answer type.
                 int nsType = ansSec.nsType;
-                if (nsType != mQueryType || (nsType != TYPE_A && nsType != TYPE_AAAA)) {
+                if (!mQueryTypes.contains(nsType) || (nsType != TYPE_A && nsType != TYPE_AAAA)) {
                     continue;
                 }
                 try {
