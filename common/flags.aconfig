@@ -99,3 +99,11 @@ flag {
   description: "Flag for oem deny chains blocked reasons API"
   bug: "328732146"
 }
+
+flag {
+  name: "blocked_reason_no_internet_permission"
+  is_exported: true
+  namespace: "android_core_networking"
+  description: "Flag for no internet permission blocked reasons API"
+  bug: "339559837"
+}

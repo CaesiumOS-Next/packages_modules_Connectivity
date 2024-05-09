@@ -27,6 +27,7 @@ import android.content.pm.UserInfo
 import android.content.res.Resources
 import android.net.ConnectivityManager
 import android.net.INetd
+import android.net.INetd.PERMISSION_INTERNET
 import android.net.InetAddresses
 import android.net.LinkProperties
 import android.net.LocalNetworkConfig
@@ -183,7 +184,9 @@ open class CSTest {
     val connResources = makeMockConnResources(sysResources, packageManager)
 
     val netd = mock<INetd>()
-    val bpfNetMaps = mock<BpfNetMaps>()
+    val bpfNetMaps = mock<BpfNetMaps>().also {
+        doReturn(PERMISSION_INTERNET).`when`(it).getNetPermForUid(Process.myUid())
+    }
     val clatCoordinator = mock<ClatCoordinator>()
     val networkRequestStateStatsMetrics = mock<NetworkRequestStateStatsMetrics>()
     val proxyTracker = ProxyTracker(context, mock<Handler>(), 16 /* EVENT_PROXY_HAS_CHANGED */)
