@@ -22,6 +22,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <linux/if.h>
+#include <linux/if_arp.h>
 #include <linux/if_tun.h>
 #include <linux/ipv6_route.h>
 #include <linux/route.h>
@@ -65,7 +66,7 @@ static void setTunTapCarrierEnabledImpl(JNIEnv* env, const char* iface, int tunF
 }
 
 static int createTunTapImpl(JNIEnv* env, bool isTun, bool hasCarrier, bool setIffMulticast,
-                            const char* iface) {
+                            const char *iface, jbyteArray jMacAddress) {
     base::unique_fd tun(open("/dev/tun", O_RDWR | O_NONBLOCK));
     ifreq ifr{};
 
@@ -84,6 +85,17 @@ static int createTunTapImpl(JNIEnv* env, bool isTun, bool hasCarrier, bool setIf
     if (ioctl(tun.get(), TUNSETIFF, &ifr)) {
         throwException(env, errno, "allocating", ifr.ifr_name);
         return -1;
+    }
+
+    // Set MAC address of TAP interface if provided
+    if (!isTun && !env->IsSameObject(jMacAddress, nullptr)) {
+        jbyte *macAddressBytes = env->GetByteArrayElements(jMacAddress, nullptr);
+        ifr.ifr_hwaddr.sa_family = ARPHRD_ETHER;
+        memcpy(ifr.ifr_hwaddr.sa_data, macAddressBytes, ETH_ALEN);
+
+        if (ioctl(tun.get(), SIOCSIFHWADDR, &ifr)) {
+            throwException(env, errno, "set hw address", ifr.ifr_name);
+        }
     }
 
     // Mark some TAP interfaces as supporting multicast
@@ -132,14 +144,15 @@ static void setTunTapCarrierEnabled(JNIEnv* env, jclass /* clazz */, jstring
 }
 
 static jint createTunTap(JNIEnv* env, jclass /* clazz */, jboolean isTun,
-                             jboolean hasCarrier, jboolean setIffMulticast, jstring jIface) {
+                         jboolean hasCarrier, jboolean setIffMulticast, jstring jIface,
+                         jbyteArray jMacAddress) {
     ScopedUtfChars iface(env, jIface);
     if (!iface.c_str()) {
         jniThrowNullPointerException(env, "iface");
         return -1;
     }
 
-    return createTunTapImpl(env, isTun, hasCarrier, setIffMulticast, iface.c_str());
+    return createTunTapImpl(env, isTun, hasCarrier, setIffMulticast, iface.c_str(), jMacAddress);
 }
 
 static void bringUpInterface(JNIEnv* env, jclass /* clazz */, jstring jIface) {
@@ -155,7 +168,7 @@ static void bringUpInterface(JNIEnv* env, jclass /* clazz */, jstring jIface) {
 
 static const JNINativeMethod gMethods[] = {
     {"nativeSetTunTapCarrierEnabled", "(Ljava/lang/String;IZ)V", (void*)setTunTapCarrierEnabled},
-    {"nativeCreateTunTap", "(ZZZLjava/lang/String;)I", (void*)createTunTap},
+    {"nativeCreateTunTap", "(ZZZLjava/lang/String;[B)I", (void *) createTunTap},
     {"nativeBringUpInterface", "(Ljava/lang/String;)V", (void*)bringUpInterface},
 };
 
