@@ -34,6 +34,24 @@
       "parentUuid": "3286fa6e_2d536d8f",
       "revId": "e4e27907ddc26dc04080dd6e33e4e22750d5f648",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b03eeb6d_beef627a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1269,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-09T08:34:44Z",
+      "side": 1,
+      "message": "Oh I see, \"record\" is a MdnsInetAddressRecord in this case, got it\n\nIn that case I think the solution we discussed previously, which we thought wasn\u0027t necessary, would work: have conflictForHost return a tri-state (conflict, no conflict, has record). If any service returns \"has record\" when looping over services in getConflictingServices, then it\u0027s not a conflict.\n\nThat avoids looping over all records twice; with the current CL code, like L.1265 is a bit redundant.",
+      "parentUuid": "77f3337f_dba992f6",
+      "revId": "e4e27907ddc26dc04080dd6e33e4e22750d5f648",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
