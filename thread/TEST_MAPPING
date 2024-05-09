@@ -8,6 +8,9 @@
     },
     {
       "name": "ThreadNetworkIntegrationTests"
+    },
+    {
+      "name": "ThreadNetworkMultiDeviceTests"
     }
   ],
   "postsubmit": [
