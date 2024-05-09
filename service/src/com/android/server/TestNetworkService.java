@@ -29,6 +29,7 @@ import android.net.ITestNetworkManager;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
+import android.net.MacAddress;
 import android.net.NetworkAgent;
 import android.net.NetworkAgentConfig;
 import android.net.NetworkCapabilities;
@@ -77,7 +78,7 @@ class TestNetworkService extends ITestNetworkManager.Stub {
 
     // Native method stubs
     private static native int nativeCreateTunTap(boolean isTun, boolean hasCarrier,
-            boolean setIffMulticast, @NonNull String iface);
+            boolean setIffMulticast, @NonNull String iface, @Nullable byte[] macAddr);
 
     private static native void nativeSetTunTapCarrierEnabled(@NonNull String iface, int tunFd,
             boolean enabled);
@@ -120,8 +121,10 @@ class TestNetworkService extends ITestNetworkManager.Stub {
      * interface.
      */
     @Override
-    public TestNetworkInterface createInterface(boolean isTun, boolean hasCarrier, boolean bringUp,
-            boolean disableIpv6ProvisioningDelay, LinkAddress[] linkAddrs, @Nullable String iface) {
+    public TestNetworkInterface createInterfaceWithHwAddress(boolean isTun,
+            boolean hasCarrier, boolean bringUp,
+            boolean disableIpv6ProvisioningDelay, LinkAddress[] linkAddrs, @Nullable String iface,
+            @Nullable String hwAddress) {
         enforceTestNetworkPermissions(mContext);
 
         Objects.requireNonNull(linkAddrs, "missing linkAddrs");
@@ -134,6 +137,11 @@ class TestNetworkService extends ITestNetworkManager.Stub {
             throw new IllegalArgumentException("invalid interface name requested: " + iface);
         }
 
+        byte[] macAddresBytes = null;
+        if (hwAddress != null && !isTun) {
+            macAddresBytes = MacAddress.byteAddrFromStringAddr(hwAddress);
+        }
+
         final long token = Binder.clearCallingIdentity();
         try {
             // Note: if the interface is brought up by ethernet, setting IFF_MULTICAST
@@ -143,7 +151,8 @@ class TestNetworkService extends ITestNetworkManager.Stub {
             // flags atomically.
             final boolean setIffMulticast = bringUp;
             ParcelFileDescriptor tunIntf = ParcelFileDescriptor.adoptFd(
-                    nativeCreateTunTap(isTun, hasCarrier, setIffMulticast, interfaceName));
+                    nativeCreateTunTap(isTun, hasCarrier, setIffMulticast, interfaceName,
+                            macAddresBytes));
 
             // Disable DAD and remove router_solicitation_delay before assigning link addresses.
             if (disableIpv6ProvisioningDelay) {
@@ -169,6 +178,20 @@ class TestNetworkService extends ITestNetworkManager.Stub {
         } finally {
             Binder.restoreCallingIdentity(token);
         }
+    }
+
+    /**
+     * Create a TUN or TAP interface with the specified parameters.
+     *
+     * <p>This method will return the FileDescriptor to the interface. Close it to tear down the
+     * interface.
+     */
+    @Override
+    public TestNetworkInterface createInterface(boolean isTun, boolean hasCarrier, boolean bringUp,
+            boolean disableIpv6ProvisioningDelay, LinkAddress[] linkAddrs, @Nullable String iface) {
+        return createInterfaceWithHwAddress(isTun, hasCarrier, bringUp,
+                disableIpv6ProvisioningDelay, linkAddrs,
+                iface, null);
     }
 
     // Tracker for TestNetworkAgents
