@@ -21,11 +21,13 @@ import android.net.ConnectivityManager.BLOCKED_METERED_REASON_USER_RESTRICTED
 import android.net.ConnectivityManager.BLOCKED_REASON_APP_BACKGROUND
 import android.net.ConnectivityManager.BLOCKED_REASON_DOZE
 import android.net.ConnectivityManager.BLOCKED_REASON_NONE
+import android.net.ConnectivityManager.BLOCKED_REASON_NO_INTERNET_PERMISSION
 import android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND
 import android.net.ConnectivityManager.FIREWALL_CHAIN_METERED_DENY_USER
 import android.net.ConnectivityManager.FIREWALL_RULE_ALLOW
 import android.net.ConnectivityManager.FIREWALL_RULE_DENY
 import android.net.ConnectivitySettingsManager
+import android.net.INetd.PERMISSION_NONE
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
@@ -35,6 +37,7 @@ import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkRequest
+import android.net.connectivity.ConnectivityCompatChanges.NETWORK_BLOCKED_WITHOUT_INTERNET_PERMISSION
 import android.os.Build
 import android.os.Process
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
@@ -143,6 +146,9 @@ class CSBlockedReasonsTest : CSTest() {
         cm.setDataSaverEnabled(false)
         cellCb.expectBlockedStatusChanged(cellAgent.network, BLOCKED_REASON_APP_BACKGROUND)
 
+        // waitForIdle since stubbing bpfNetMaps while CS handler thread call
+        // bpfNetMaps.getNetPermForUid throws exception
+        waitForIdle()
         // Enable data saver
         doReturn(BLOCKED_REASON_APP_BACKGROUND or BLOCKED_METERED_REASON_DATA_SAVER)
                 .`when`(bpfNetMaps).getUidNetworkingBlockedReasons(Process.myUid())
@@ -222,6 +228,9 @@ class CSBlockedReasonsTest : CSTest() {
                 BLOCKED_REASON_APP_BACKGROUND or BLOCKED_METERED_REASON_USER_RESTRICTED
         )
 
+        // waitForIdle since stubbing bpfNetMaps while CS handler thread call
+        // bpfNetMaps.getNetPermForUid throws exception
+        waitForIdle()
         // Set RULE_ALLOW on metered deny chain
         doReturn(BLOCKED_REASON_APP_BACKGROUND)
                 .`when`(bpfNetMaps).getUidNetworkingBlockedReasons(Process.myUid())
@@ -287,5 +296,63 @@ class CSBlockedReasonsTest : CSTest() {
         cellAgent.disconnect()
         wifiAgent.disconnect()
         cm.unregisterNetworkCallback(cb)
+    }
+
+    private fun doTestBlockedReasonsNoInternetPermission(
+            blockedWithoutInternetPermission: Boolean) {
+        doReturn(PERMISSION_NONE).`when`(bpfNetMaps).getNetPermForUid(Process.myUid())
+
+        val wifiCb = DetailedBlockedStatusCallback()
+        cm.requestNetwork(wifiRequest(), wifiCb)
+        val wifiAgent = Agent(nc = wifiNc())
+        wifiAgent.connect()
+        val expectedBlockedReason = if (blockedWithoutInternetPermission) {
+            BLOCKED_REASON_NO_INTERNET_PERMISSION
+        } else {
+            BLOCKED_REASON_NONE
+        }
+        wifiCb.expectAvailableCallbacks(
+                wifiAgent.network,
+                validated = false,
+                blockedReason = expectedBlockedReason
+        )
+
+        // Enable background firewall chain
+        doReturn(BLOCKED_REASON_APP_BACKGROUND)
+                .`when`(bpfNetMaps).getUidNetworkingBlockedReasons(Process.myUid())
+        cm.setFirewallChainEnabled(FIREWALL_CHAIN_BACKGROUND, true)
+        if (blockedWithoutInternetPermission) {
+            wifiCb.expectBlockedStatusChanged(
+                    wifiAgent.network,
+                    BLOCKED_REASON_NO_INTERNET_PERMISSION or BLOCKED_REASON_APP_BACKGROUND
+            )
+        }
+
+        // Disable background firewall chain
+        doReturn(BLOCKED_REASON_NONE)
+                .`when`(bpfNetMaps).getUidNetworkingBlockedReasons(Process.myUid())
+        cm.setFirewallChainEnabled(FIREWALL_CHAIN_BACKGROUND, false)
+        if (blockedWithoutInternetPermission) {
+            wifiCb.expectBlockedStatusChanged(
+                    wifiAgent.network,
+                    BLOCKED_REASON_NO_INTERNET_PERMISSION
+            )
+        } else {
+            // No callback is expected since blocked reasons does not change from
+            // BLOCKED_REASON_NONE.
+            wifiCb.assertNoCallback()
+        }
+    }
+
+    @Test
+    fun testBlockedReasonsNoInternetPermission_changeDisabled() {
+        deps.setChangeIdEnabled(false, NETWORK_BLOCKED_WITHOUT_INTERNET_PERMISSION)
+        doTestBlockedReasonsNoInternetPermission(blockedWithoutInternetPermission = false)
+    }
+
+    @Test
+    fun testBlockedReasonsNoInternetPermission_changeEnabled() {
+        deps.setChangeIdEnabled(true, NETWORK_BLOCKED_WITHOUT_INTERNET_PERMISSION)
+        doTestBlockedReasonsNoInternetPermission(blockedWithoutInternetPermission = true)
     }
 }
