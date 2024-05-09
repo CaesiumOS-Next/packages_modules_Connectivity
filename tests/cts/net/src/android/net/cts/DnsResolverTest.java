@@ -41,11 +41,14 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.DnsResolver;
+import android.net.InetAddresses;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.net.ParseException;
 import android.net.cts.util.CtsNetUtils;
+import android.net.nsd.NsdManager;
+import android.net.nsd.NsdServiceInfo;
 import android.os.CancellationSignal;
 import android.os.Handler;
 import android.os.Looper;
@@ -76,10 +79,15 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 @AppModeFull(reason = "WRITE_SECURE_SETTINGS permission can't be granted to instant apps")
 @RunWith(AndroidJUnit4.class)
@@ -96,6 +104,7 @@ public class DnsResolverTest {
 
     static final String TEST_DOMAIN = "www.google.com";
     static final String TEST_NX_DOMAIN = "test1-nx.metric.gstatic.com";
+    static final String TEST_LOCAL_DOMAIN = "test-host.local";
     static final String INVALID_PRIVATE_DNS_SERVER = "invalid.google";
     static final String GOOGLE_PRIVATE_DNS_SERVER = "dns.google";
     static final byte[] TEST_BLOB = new byte[]{
@@ -122,6 +131,7 @@ public class DnsResolverTest {
     private ContentResolver mCR;
     private ConnectivityManager mCM;
     private PackageManager mPackageManager;
+    private NsdManager mNsdManager;
     private CtsNetUtils mCtsNetUtils;
     private Executor mExecutor;
     private Executor mExecutorInline;
@@ -154,6 +164,7 @@ public class DnsResolverTest {
         mCtsNetUtils = new CtsNetUtils(mContext);
         mCtsNetUtils.storePrivateDnsSetting();
         mPackageManager = mContext.getPackageManager();
+        mNsdManager = mContext.getSystemService(NsdManager.class);
     }
 
     @After
@@ -340,6 +351,46 @@ public class DnsResolverTest {
             assertEquals(mMsg + " Not an empty answer", mDnsAnswer.getANCount(), 0);
             // Check question counts.
             assertGreaterThan(mMsg + " No question found", mDnsAnswer.getQDCount(), 0);
+        }
+    }
+
+    private class RegistrationListener implements NsdManager.RegistrationListener {
+        private final CompletableFuture<Integer> mRegistrationFuture;
+        private final CompletableFuture<Integer> mUnregistrationFuture;
+
+        RegistrationListener() {
+            mRegistrationFuture = new CompletableFuture<>();
+            mUnregistrationFuture = new CompletableFuture<>();
+        }
+
+        int waitForRegistrationComplete()
+                throws ExecutionException, InterruptedException, TimeoutException {
+            return mRegistrationFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        }
+
+        int waitForUnregistrationComplete()
+                throws ExecutionException, InterruptedException, TimeoutException {
+            return mUnregistrationFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        }
+
+        @Override
+        public void onRegistrationFailed(NsdServiceInfo serviceInfo, int errorCode) {
+            mRegistrationFuture.complete(errorCode);
+        }
+
+        @Override
+        public void onUnregistrationFailed(NsdServiceInfo serviceInfo, int errorCode) {
+            mRegistrationFuture.complete(errorCode);
+        }
+
+        @Override
+        public void onServiceRegistered(NsdServiceInfo serviceInfo) {
+            mRegistrationFuture.complete(0);
+        }
+
+        @Override
+        public void onServiceUnregistered(NsdServiceInfo serviceInfo) {
+            mUnregistrationFuture.complete(0);
         }
     }
 
@@ -737,6 +788,74 @@ public class DnsResolverTest {
                         latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
             } while (retry);
         }
+    }
+
+    @Test
+    public void testQueryLocalDomainForInetAddress() throws Exception {
+        for (Network network : getTestableNetworks()) {
+            if (network == null) {
+                continue;
+            }
+            final NetworkCapabilities nc = mCM.getNetworkCapabilities(network);
+            assertNotNull("Couldn't determine NetworkCapabilities for " + network, nc);
+            // Only test for WiFi networks
+            if (!nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                continue;
+            }
+            NsdServiceInfo serviceInfo =  new NsdServiceInfo();
+            serviceInfo.setHostname("test-host");
+            serviceInfo.setHostAddresses(
+                    List.of(
+                            InetAddresses.parseNumericAddress("192.0.2.123"),
+                            InetAddresses.parseNumericAddress("192.0.2.124"),
+                            InetAddresses.parseNumericAddress("2001:db8::123")));
+            serviceInfo.setNetwork(network);
+            RegistrationListener registrationListener = new RegistrationListener();
+            mNsdManager.registerService(
+                    serviceInfo, NsdManager.PROTOCOL_DNS_SD, registrationListener);
+            registrationListener.waitForRegistrationComplete();
+            try {
+                doTestQueryLocalDomainForInetAddressIpv4(network);
+                doTestQueryLocalDomainForInetAddressIpv6(network);
+            } finally {
+                mNsdManager.unregisterService(registrationListener);
+                registrationListener.waitForUnregistrationComplete();
+            }
+        }
+    }
+
+    private void doTestQueryLocalDomainForInetAddressIpv4(Network network) throws Exception {
+        final String msg = "Test query for IPv4 InetAddress " + TEST_LOCAL_DOMAIN;
+        final VerifyCancelInetAddressCallback callback =
+                new VerifyCancelInetAddressCallback(msg, null);
+        mDns.query(network, TEST_LOCAL_DOMAIN, TYPE_A, FLAG_NO_CACHE_LOOKUP,
+                mExecutor, null, callback);
+
+        assertTrue(msg + " but no answer after " + TIMEOUT_MS + "ms.",
+                callback.waitForAnswer());
+        callback.assertNoError();
+        assertEquals(
+                Set.of(
+                        InetAddresses.parseNumericAddress("192.0.2.123"),
+                        InetAddresses.parseNumericAddress("192.0.2.124")),
+                new HashSet<>(callback.mAnswers));
+        assertEquals(2, callback.mAnswers.size());
+        assertTrue(msg + " returned Ipv6 results", !callback.hasIpv6Answer());
+    }
+
+    private void doTestQueryLocalDomainForInetAddressIpv6(Network network) throws Exception {
+        final String msg = "Test query for IPv6 InetAddress " + TEST_LOCAL_DOMAIN;
+        final VerifyCancelInetAddressCallback callback =
+                new VerifyCancelInetAddressCallback(msg, null);
+        mDns.query(network, TEST_LOCAL_DOMAIN, TYPE_AAAA, FLAG_NO_CACHE_LOOKUP,
+                mExecutor, null, callback);
+
+        assertTrue(msg + " but no answer after " + TIMEOUT_MS + "ms.",
+                callback.waitForAnswer());
+        callback.assertNoError();
+        assertEquals(
+                List.of(InetAddresses.parseNumericAddress("2001:db8::123")), callback.mAnswers);
+        assertTrue(msg + " returned Ipv4 results", !callback.hasIpv4Answer());
     }
 
     public void doTestQueryForInetAddressIpv4(Executor executor) throws InterruptedException {
