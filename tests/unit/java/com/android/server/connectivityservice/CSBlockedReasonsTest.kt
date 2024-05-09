@@ -20,12 +20,17 @@ import android.net.ConnectivityManager.BLOCKED_METERED_REASON_DATA_SAVER
 import android.net.ConnectivityManager.BLOCKED_METERED_REASON_USER_RESTRICTED
 import android.net.ConnectivityManager.BLOCKED_REASON_APP_BACKGROUND
 import android.net.ConnectivityManager.BLOCKED_REASON_DOZE
+import android.net.ConnectivityManager.BLOCKED_REASON_INTERNET_PERMISSION
 import android.net.ConnectivityManager.BLOCKED_REASON_NONE
 import android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND
 import android.net.ConnectivityManager.FIREWALL_CHAIN_METERED_DENY_USER
 import android.net.ConnectivityManager.FIREWALL_RULE_ALLOW
 import android.net.ConnectivityManager.FIREWALL_RULE_DENY
+<<<<<<< HEAD
 import android.net.ConnectivitySettingsManager
+=======
+import android.net.INetd.PERMISSION_NONE
+>>>>>>> 0d4f4babd8 (Add blocked reason for internet permission)
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
@@ -286,5 +291,38 @@ class CSBlockedReasonsTest : CSTest() {
         cellAgent.disconnect()
         wifiAgent.disconnect()
         cm.unregisterNetworkCallback(cb)
+    }
+
+    @Test
+    fun testBlockedReasons_internetPermission() {
+        doReturn(PERMISSION_NONE).`when`(bpfNetMaps).getNetPermForUid(Process.myUid())
+
+        val wifiCb = DetailedBlockedStatusCallback()
+        cm.requestNetwork(wifiRequest(), wifiCb)
+        val wifiAgent = Agent(nc = wifiNc())
+        wifiAgent.connect()
+        wifiCb.expectAvailableCallbacks(
+                wifiAgent.network,
+                validated = false,
+                blockedReason = BLOCKED_REASON_INTERNET_PERMISSION
+        )
+
+        // Enable background firewall chain
+        doReturn(BLOCKED_REASON_APP_BACKGROUND)
+                .`when`(bpfNetMaps).getUidNetworkingBlockedReasons(Process.myUid())
+        cm.setFirewallChainEnabled(FIREWALL_CHAIN_BACKGROUND, true)
+        wifiCb.expectBlockedStatusChanged(
+                wifiAgent.network,
+                BLOCKED_REASON_INTERNET_PERMISSION or BLOCKED_REASON_APP_BACKGROUND
+        )
+
+        // Disable background firewall chain
+        doReturn(BLOCKED_REASON_NONE)
+                .`when`(bpfNetMaps).getUidNetworkingBlockedReasons(Process.myUid())
+        cm.setFirewallChainEnabled(FIREWALL_CHAIN_BACKGROUND, false)
+        wifiCb.expectBlockedStatusChanged(
+                wifiAgent.network,
+                BLOCKED_REASON_INTERNET_PERMISSION
+        )
     }
 }
