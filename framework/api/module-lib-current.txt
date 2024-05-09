@@ -49,6 +49,7 @@ package android.net {
     field public static final int BLOCKED_REASON_APP_STANDBY = 4; // 0x4
     field public static final int BLOCKED_REASON_BATTERY_SAVER = 1; // 0x1
     field public static final int BLOCKED_REASON_DOZE = 2; // 0x2
+    field @FlaggedApi("com.android.net.flags.blocked_reason_internet_permission") public static final int BLOCKED_REASON_INTERNET_PERMISSION = 256; // 0x100
     field public static final int BLOCKED_REASON_LOCKDOWN_VPN = 16; // 0x10
     field public static final int BLOCKED_REASON_LOW_POWER_STANDBY = 32; // 0x20
     field public static final int BLOCKED_REASON_NONE = 0; // 0x0

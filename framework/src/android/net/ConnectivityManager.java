@@ -132,6 +132,8 @@ public class ConnectivityManager {
                 "com.android.net.flags.metered_network_firewall_chains";
         static final String BLOCKED_REASON_OEM_DENY_CHAINS =
                 "com.android.net.flags.blocked_reason_oem_deny_chains";
+        static final String BLOCKED_REASON_INTERNET_PERMISSION =
+                "com.android.net.flags.blocked_reason_internet_permission";
     }
 
     /**
@@ -926,6 +928,16 @@ public class ConnectivityManager {
     @FlaggedApi(Flags.BLOCKED_REASON_OEM_DENY_CHAINS)
     @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
     public static final int BLOCKED_REASON_OEM_DENY = 1 << 7;
+
+    /**
+     * Flag to indicate that an app does not have {@link android.Manifest.permission#INTERNET}
+     * permission that would result in its network access being blocked.
+     *
+     * @hide
+     */
+    @FlaggedApi(Flags.BLOCKED_REASON_INTERNET_PERMISSION)
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    public static final int BLOCKED_REASON_INTERNET_PERMISSION = 1 << 8;
 
     /**
      * Flag to indicate that an app is subject to Data saver restrictions that would
