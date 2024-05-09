@@ -33,6 +33,10 @@ interface ITestNetworkManager
             boolean disableIpv6ProvisioningDelay, in LinkAddress[] addrs,
             in @nullable String iface);
 
+    TestNetworkInterface createInterfaceWithHwAddress(boolean isTun, boolean hasCarrier,
+            boolean bringUp, boolean disableIpv6ProvisioningDelay, in LinkAddress[] addrs,
+            in @nullable String iface, in @nullable String hwAddress);
+
     void setCarrierEnabled(in TestNetworkInterface iface, boolean enabled);
 
     void setupTestNetwork(in String iface, in LinkProperties lp, in boolean isMetered,
