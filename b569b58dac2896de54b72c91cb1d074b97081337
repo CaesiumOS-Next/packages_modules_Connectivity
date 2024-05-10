@@ -75,6 +75,30 @@
       },
       "revId": "b569b58dac2896de54b72c91cb1d074b97081337",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84d270da_e19bb91d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 11235,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-10T08:20:52Z",
+      "side": 1,
+      "message": "CompatFlag aosp/3076606 introduced is only for getActiveNetworkInfo to workaround the issue.\nSo we already don\u0027t have consistency between other APIs(e.g. getNetworkInfo).\nThis is not great but I think this is acceptable since NetworkInfo is deprecated.\n\nSo I think it\u0027s ok to just change behavior on V+.",
+      "parentUuid": "5d85d1c5_347b0da5",
+      "range": {
+        "startLine": 11235,
+        "startChar": 26,
+        "endLine": 11235,
+        "endChar": 51
+      },
+      "revId": "b569b58dac2896de54b72c91cb1d074b97081337",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
