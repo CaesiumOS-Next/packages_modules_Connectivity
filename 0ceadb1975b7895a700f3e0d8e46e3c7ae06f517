@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c4efaba_415c84ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-10T03:07:14Z",
+      "side": 1,
+      "message": "This is continued from aosp/3054202. LGTM",
+      "revId": "0ceadb1975b7895a700f3e0d8e46e3c7ae06f517",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
