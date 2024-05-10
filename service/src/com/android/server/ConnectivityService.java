@@ -110,10 +110,16 @@ import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
 
 import static com.android.net.module.util.BpfUtils.BPF_CGROUP_INET4_BIND;
+import static com.android.net.module.util.BpfUtils.BPF_CGROUP_INET4_CONNECT;
 import static com.android.net.module.util.BpfUtils.BPF_CGROUP_INET6_BIND;
+import static com.android.net.module.util.BpfUtils.BPF_CGROUP_INET6_CONNECT;
 import static com.android.net.module.util.BpfUtils.BPF_CGROUP_INET_EGRESS;
 import static com.android.net.module.util.BpfUtils.BPF_CGROUP_INET_INGRESS;
 import static com.android.net.module.util.BpfUtils.BPF_CGROUP_INET_SOCK_CREATE;
+import static com.android.net.module.util.BpfUtils.BPF_CGROUP_UDP4_RECVMSG;
+import static com.android.net.module.util.BpfUtils.BPF_CGROUP_UDP4_SENDMSG;
+import static com.android.net.module.util.BpfUtils.BPF_CGROUP_UDP6_RECVMSG;
+import static com.android.net.module.util.BpfUtils.BPF_CGROUP_UDP6_SENDMSG;
 import static com.android.net.module.util.NetworkMonitorUtils.isPrivateDnsValidationRequired;
 import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermission;
@@ -3441,12 +3447,29 @@ public class ConnectivityService extends IConnectivityManager.Stub
             pw.println(mDeps.getBpfProgramId(BPF_CGROUP_INET_INGRESS));
             pw.print("CGROUP_INET_EGRESS: ");
             pw.println(mDeps.getBpfProgramId(BPF_CGROUP_INET_EGRESS));
+
             pw.print("CGROUP_INET_SOCK_CREATE: ");
             pw.println(mDeps.getBpfProgramId(BPF_CGROUP_INET_SOCK_CREATE));
+
             pw.print("CGROUP_INET4_BIND: ");
             pw.println(mDeps.getBpfProgramId(BPF_CGROUP_INET4_BIND));
             pw.print("CGROUP_INET6_BIND: ");
             pw.println(mDeps.getBpfProgramId(BPF_CGROUP_INET6_BIND));
+
+            pw.print("CGROUP_INET4_CONNECT: ");
+            pw.println(mDeps.getBpfProgramId(BPF_CGROUP_INET4_CONNECT));
+            pw.print("CGROUP_INET6_CONNECT: ");
+            pw.println(mDeps.getBpfProgramId(BPF_CGROUP_INET6_CONNECT));
+
+            pw.print("CGROUP_UDP4_SENDMSG: ");
+            pw.println(mDeps.getBpfProgramId(BPF_CGROUP_UDP4_SENDMSG));
+            pw.print("CGROUP_UDP6_SENDMSG: ");
+            pw.println(mDeps.getBpfProgramId(BPF_CGROUP_UDP6_SENDMSG));
+
+            pw.print("CGROUP_UDP4_RECVMSG: ");
+            pw.println(mDeps.getBpfProgramId(BPF_CGROUP_UDP4_RECVMSG));
+            pw.print("CGROUP_UDP6_RECVMSG: ");
+            pw.println(mDeps.getBpfProgramId(BPF_CGROUP_UDP6_RECVMSG));
         } catch (IOException e) {
             pw.println("  IOException");
         }
