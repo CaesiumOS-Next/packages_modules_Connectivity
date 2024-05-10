@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ceccc74c_4fb05f3b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-10T05:39:10Z",
+      "side": 1,
+      "message": "```suggestion\n            // Remember whether the user wanted to keep Thread enabled in airplane mode. If once\n```\n\nMay not say `ever` because only the last intention is memorized.",
+      "revId": "fa697a6fdaf90b59bda21f3fe98b2f8588599019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5919cfdb_42c049dc",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-10T05:39:10Z",
+      "side": 1,
+      "message": "```suggestion\n                    public void onError(int errorCode, String errorMessage) {\n```\nnit: be consistent with the interface",
+      "revId": "fa697a6fdaf90b59bda21f3fe98b2f8588599019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d295e362_7bf912b5",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-10T05:39:10Z",
+      "side": 1,
+      "message": "```suggestion\n                \u0026\u0026 (!mAirplaneModeOn || enabledInAirplaneMode)\n```\nMay be more clear if the second condition\u0027s scope is smaller",
+      "revId": "fa697a6fdaf90b59bda21f3fe98b2f8588599019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
