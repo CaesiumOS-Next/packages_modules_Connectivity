@@ -229,7 +229,7 @@ static bool isGSI() {
 }
 
 static int doLoad(char** argv, char * const envp[]) {
-    const int device_api_level = android_get_device_api_level();
+    const int device_api_level = getuid() ? android_get_device_api_level() : __ANDROID_API_V__;
     const bool isAtLeastT = (device_api_level >= __ANDROID_API_T__);
     const bool isAtLeastU = (device_api_level >= __ANDROID_API_U__);
     const bool isAtLeastV = (device_api_level >= __ANDROID_API_V__);
