@@ -16,19 +16,46 @@
 
 package com.android.testutils.connectivitypreparer
 
+import android.Manifest.permission.NETWORK_SETTINGS
 import android.content.pm.PackageManager.FEATURE_TELEPHONY
 import android.content.pm.PackageManager.FEATURE_WIFI
+import android.net.LinkAddress
+import android.net.Network
+import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
+import android.net.NetworkCapabilities.TRANSPORT_WIFI
+import android.net.NetworkRequest
 import android.telephony.TelephonyManager
+import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.android.net.module.util.NetworkStackConstants
+import com.android.testutils.AutoReleaseNetworkCallbackRule
 import com.android.testutils.ConnectUtil
+import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
+import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
+import com.android.testutils.runAsShell
+import com.android.testutils.tryTest
+import java.io.IOException
+import java.net.DatagramPacket
+import java.net.DatagramSocket
+import java.net.InetAddress
+import java.util.Random
+import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 import kotlin.test.fail
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+private const val QUIC_SOCKET_TIMEOUT_MS = 5_000
+private const val QUIC_RETRY_COUNT = 5
+
 @RunWith(AndroidJUnit4::class)
 class ConnectivityCheckTest {
+    @get:Rule
+    val networkCallbackRule = AutoReleaseNetworkCallbackRule()
+
+    private val logTag = ConnectivityCheckTest::class.simpleName
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
     private val pm by lazy { context.packageManager }
     private val connectUtil by lazy { ConnectUtil(context) }
@@ -42,6 +69,82 @@ class ConnectivityCheckTest {
     private fun checkWifiSetup() {
         if (!pm.hasSystemFeature(FEATURE_WIFI)) return
         connectUtil.ensureWifiValidated()
+
+        val (wifiNetwork, wifiSsid) = runAsShell(NETWORK_SETTINGS) {
+            val cb = networkCallbackRule.requestNetwork(
+                NetworkRequest.Builder()
+                    .addTransportType(TRANSPORT_WIFI)
+                    .addCapability(NET_CAPABILITY_INTERNET)
+                    .build()
+            )
+            // Expect a global IPv6 address, and native or stacked IPv4
+            val network = cb.eventuallyExpect<LinkPropertiesChanged>(timeoutMs = 30_000L) {
+                it.lp.hasGlobalIpv6Address() && it.lp.allLinkAddresses.any(LinkAddress::isIpv4)
+            }.network
+            val ssid = cb.eventuallyExpect<CapabilitiesChanged>(from = 0) {
+                it.network == network
+            }.caps.ssid
+            assertNotNull(ssid, "No SSID for wifi network $network")
+
+            Pair(network, ssid)
+        }
+
+        checkQuic(wifiNetwork, wifiSsid, NetworkStackConstants.IPV4_ADDR_ANY)
+        checkQuic(wifiNetwork, wifiSsid, NetworkStackConstants.IPV6_ADDR_ANY)
+    }
+
+    private fun checkQuic(network: Network, ssid: String, bindAddr: InetAddress) {
+        // Same endpoint as used in MultinetworkApiTest in CTS
+        val hostname = "connectivitycheck.android.com"
+        val targetAddrs = network.getAllByName(hostname)
+        val socket = DatagramSocket(0, bindAddr)
+        tryTest {
+            socket.soTimeout = QUIC_SOCKET_TIMEOUT_MS
+            network.bindSocket(socket)
+
+            // For reference see Version-Independent Properties of QUIC:
+            // https://datatracker.ietf.org/doc/html/rfc8999
+            val connectionId = ByteArray(8).apply { Random().nextBytes(this) }
+            val quicData = byteArrayOf(
+                // long header
+                0xc0.toByte(),
+                // reserved-space version number
+                0xaa.toByte(), 0xda.toByte(), 0xca.toByte(), 0xca.toByte(),
+                // destination connection ID length
+                0x08,
+            ) + connectionId + byteArrayOf(
+                // source connection ID length
+                0x00,
+            ) + ByteArray(1185) // Ensure the packet is 1200 bytes long
+            val targetAddr = targetAddrs.firstOrNull { it.javaClass == bindAddr.javaClass }
+                ?: fail("No ${bindAddr.javaClass} found for $hostname " +
+                        "(got ${targetAddrs.joinToString()})")
+            repeat(QUIC_RETRY_COUNT) { i ->
+                socket.send(DatagramPacket(quicData, quicData.size, targetAddr, 443))
+
+                val receivedPacket = DatagramPacket(ByteArray(1500), 1500)
+                try {
+                    socket.receive(receivedPacket)
+                } catch (e: IOException) {
+                    Log.d(logTag, "No response from $hostname on QUIC try $i", e)
+                    return@repeat
+                }
+
+                val receivedConnectionId = receivedPacket.data.copyOfRange(7, 7 + 8)
+                if (connectionId.contentEquals(receivedConnectionId)) {
+                    return@tryTest
+                } else {
+                    Log.d(logTag, "Received invalid connection ID on QUIC try $i: " +
+                            receivedConnectionId.joinToString())
+                }
+            }
+            fail("QUIC is not working on SSID $ssid connecting to $targetAddr " +
+                    "with local source port ${socket.localPort}: check the firewall for UDP port " +
+                    "443 access."
+            )
+        } cleanup {
+            socket.close()
+        }
     }
 
     private fun checkTelephonySetup() {
@@ -57,12 +160,16 @@ class ConnectivityCheckTest {
         if (tm.simState == TelephonyManager.SIM_STATE_ABSENT) {
             fail("The device has no SIM card inserted. $commonError")
         } else if (tm.simState != TelephonyManager.SIM_STATE_READY) {
-            fail("The device is not setup with a usable SIM card. Sim state was ${tm.simState}. " +
-                    commonError)
+            fail(
+                "The device is not setup with a usable SIM card. Sim state was ${tm.simState}. " +
+                    commonError
+            )
         }
-        assertTrue(tm.isDataConnectivityPossible,
+        assertTrue(
+            tm.isDataConnectivityPossible,
             "The device has a SIM card, but it does not supports data connectivity. " +
-            "Check the data plan, and verify that mobile data is working. " + commonError)
+            "Check the data plan, and verify that mobile data is working. " + commonError
+        )
         connectUtil.ensureCellularValidated()
     }
 }
