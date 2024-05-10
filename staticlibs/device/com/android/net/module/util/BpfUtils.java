@@ -15,10 +15,9 @@
  */
 package com.android.net.module.util;
 
+import android.annotation.NonNull;
+import android.annotation.RequiresApi;
 import android.os.Build;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 
@@ -39,6 +38,15 @@ public class BpfUtils {
     public static final int BPF_CGROUP_INET_SOCK_CREATE = 2;
     public static final int BPF_CGROUP_INET4_BIND = 8;
     public static final int BPF_CGROUP_INET6_BIND = 9;
+    public static final int BPF_CGROUP_INET4_CONNECT = 10;
+    public static final int BPF_CGROUP_INET6_CONNECT = 11;
+    public static final int BPF_CGROUP_UDP4_SENDMSG = 14;
+    public static final int BPF_CGROUP_UDP6_SENDMSG = 15;
+    public static final int BPF_CGROUP_UDP4_RECVMSG = 19;
+    public static final int BPF_CGROUP_UDP6_RECVMSG = 20;
+    public static final int BPF_CGROUP_GETSOCKOPT = 21;
+    public static final int BPF_CGROUP_SETSOCKOPT = 22;
+    public static final int BPF_CGROUP_INET_SOCK_RELEASE = 34;
 
     // Note: This is only guaranteed to be accurate on U+ devices. It is likely to be accurate
     // on T+ devices as well, but this is not guaranteed.
