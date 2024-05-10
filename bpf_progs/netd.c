@@ -666,11 +666,59 @@ static __always_inline inline uint8_t get_app_permissions() {
     return permissions ? *permissions : BPF_PERMISSION_INTERNET;
 }
 
-DEFINE_NETD_BPF_PROG_KVER("cgroupsock/inet/create", AID_ROOT, AID_ROOT, inet_socket_create,
+DEFINE_NETD_BPF_PROG_KVER("cgroupsock/inet_create", AID_ROOT, AID_ROOT, inet_socket_create,
                           KVER_4_14)
 (struct bpf_sock* sk) {
     // A return value of 1 means allow, everything else means deny.
     return (get_app_permissions() & BPF_PERMISSION_INTERNET) ? 1 : 0;
+}
+
+static __always_inline inline int check_localhost(struct bpf_sock_addr *ctx) {
+    // See include/uapi/linux/bpf.h:
+    //
+    // struct bpf_sock_addr {
+    //   __u32 user_family;	//     R: 4 byte
+    //   __u32 user_ip4;	// BE, R: 1,2,4-byte,   W: 4-byte
+    //   __u32 user_ip6[4];	// BE, R: 1,2,4,8-byte, W: 4,8-byte
+    //   __u32 user_port;	// BE, R: 1,2,4-byte,   W: 4-byte
+    //   __u32 family;		//     R: 4 byte
+    //   __u32 type;		//     R: 4 byte
+    //   __u32 protocol;	//     R: 4 byte
+    //   __u32 msg_src_ip4;	// BE, R: 1,2,4-byte,   W: 4-byte
+    //   __u32 msg_src_ip6[4];	// BE, R: 1,2,4,8-byte, W: 4,8-byte
+    //   __bpf_md_ptr(struct bpf_sock *, sk);
+    // };
+    return 1;
+}
+
+DEFINE_NETD_BPF_PROG_KVER("connect4/inet4_connect", AID_ROOT, AID_ROOT, inet4_connect, KVER_4_14)
+(struct bpf_sock_addr *ctx) {
+    return check_localhost(ctx);
+}
+
+DEFINE_NETD_BPF_PROG_KVER("connect6/inet6_connect", AID_ROOT, AID_ROOT, inet6_connect, KVER_4_14)
+(struct bpf_sock_addr *ctx) {
+    return check_localhost(ctx);
+}
+
+DEFINE_NETD_BPF_PROG_KVER("recvmsg4/udp4_recvmsg", AID_ROOT, AID_ROOT, udp4_recvmsg, KVER_4_14)
+(struct bpf_sock_addr *ctx) {
+    return check_localhost(ctx);
+}
+
+DEFINE_NETD_BPF_PROG_KVER("recvmsg6/udp6_recvmsg", AID_ROOT, AID_ROOT, udp6_recvmsg, KVER_4_14)
+(struct bpf_sock_addr *ctx) {
+    return check_localhost(ctx);
+}
+
+DEFINE_NETD_BPF_PROG_KVER("sendmsg4/udp4_sendmsg", AID_ROOT, AID_ROOT, udp4_sendmsg, KVER_4_14)
+(struct bpf_sock_addr *ctx) {
+    return check_localhost(ctx);
+}
+
+DEFINE_NETD_BPF_PROG_KVER("sendmsg6/udp6_sendmsg", AID_ROOT, AID_ROOT, udp6_sendmsg, KVER_4_14)
+(struct bpf_sock_addr *ctx) {
+    return check_localhost(ctx);
 }
 
 LICENSE("Apache 2.0");
