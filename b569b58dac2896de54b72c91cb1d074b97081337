@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b05abaa_313e308f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-05-10T07:36:09Z",
+      "side": 1,
+      "message": "For clarity, what is the expected trigger of the callback since this is a normal permission?\nI assume that it will be sent immediately after register and then never again...",
+      "revId": "b569b58dac2896de54b72c91cb1d074b97081337",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
