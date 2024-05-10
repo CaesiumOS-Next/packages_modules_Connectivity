@@ -44,7 +44,6 @@ java_test_host {
         "general-tests",
         "mcts-tethering",
         "mts-tethering",
-        "sts",
     ],
     data: [
         ":CtsHostsideNetworkTestsApp",
