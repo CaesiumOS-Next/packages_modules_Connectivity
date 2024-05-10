@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81084ddb_c8a076e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 50
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-10T08:29:02Z",
+      "side": 1,
+      "message": "Not done but there are some questions.",
+      "revId": "809acd45be0f85761c7beb21226fb9553333f572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4732fc33_7f5d8361",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-10T08:29:02Z",
+      "side": 1,
+      "message": "Question: Is this to track uids the CS will send callback? Or it is the counts CS sent callbacks? Maybe explain more.",
+      "range": {
+        "startLine": 488,
+        "startChar": 31,
+        "endLine": 488,
+        "endChar": 75
+      },
+      "revId": "809acd45be0f85761c7beb21226fb9553333f572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6d41213_41f3dabb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-10T08:29:02Z",
+      "side": 1,
+      "message": "Maybe also comment your threading model here so people know why this is needed?",
+      "range": {
+        "startLine": 491,
+        "startChar": 4,
+        "endLine": 491,
+        "endChar": 44
+      },
+      "revId": "809acd45be0f85761c7beb21226fb9553333f572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9b83b2e_0b719c45",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-10T08:29:02Z",
+      "side": 1,
+      "message": "Stupid question: Why we still need a stale copy instead of directly using bpf map contents?",
+      "range": {
+        "startLine": 495,
+        "startChar": 14,
+        "endLine": 495,
+        "endChar": 25
+      },
+      "revId": "809acd45be0f85761c7beb21226fb9553333f572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f39c4c5_101f697d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-10T08:29:02Z",
+      "side": 1,
+      "message": "Need to update this?",
+      "range": {
+        "startLine": 801,
+        "startChar": 7,
+        "endLine": 801,
+        "endChar": 71
+      },
+      "revId": "809acd45be0f85761c7beb21226fb9553333f572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c1da497_104e5ec9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 3327,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-10T08:29:02Z",
+      "side": 1,
+      "message": "nit: In this case, we\u0027ll only have 1 pair of content here, right?\nIf so maybe add comment?\nNo strong opinion.",
+      "range": {
+        "startLine": 3327,
+        "startChar": 20,
+        "endLine": 3327,
+        "endChar": 37
+      },
+      "revId": "809acd45be0f85761c7beb21226fb9553333f572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d68bc3d3_07d7a76d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 3332,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-10T08:29:02Z",
+      "side": 1,
+      "message": "Not sure if we want to update the event and method name to reflect that we now handling multiple events in one batch.",
+      "range": {
+        "startLine": 3332,
+        "startChar": 9,
+        "endLine": 3332,
+        "endChar": 38
+      },
+      "revId": "809acd45be0f85761c7beb21226fb9553333f572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d7dff47_2f466d09",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 3332,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-10T08:29:02Z",
+      "side": 1,
+      "message": "1. If we don\u0027t need to use uidBlockedReasons.get(uid), maybe use a list is better for memory usage?\n2. Maybe named with something like uidBlockedReasonsList would be easier to follow?\nGiven that each uid already has blockedReasons with them.",
+      "range": {
+        "startLine": 3332,
+        "startChar": 54,
+        "endLine": 3332,
+        "endChar": 71
+      },
+      "revId": "809acd45be0f85761c7beb21226fb9553333f572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee2896fe_c2236e2a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 7405,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-10T08:29:02Z",
+      "side": 1,
+      "message": "Stupid question:\nStill not following about why this is needed.\nIs there any doc or example to make me understand this?",
+      "range": {
+        "startLine": 7404,
+        "startChar": 9,
+        "endLine": 7405,
+        "endChar": 75
+      },
+      "revId": "809acd45be0f85761c7beb21226fb9553333f572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
