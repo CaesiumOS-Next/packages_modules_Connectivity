@@ -99,6 +99,30 @@
       },
       "revId": "b569b58dac2896de54b72c91cb1d074b97081337",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b184f214_841add9b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 11235,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-05-10T21:56:41Z",
+      "side": 1,
+      "message": "When we talk about maintaining compatibility, the boundary that matters more is the targetSdk of the app. Because the app doesn\u0027t get a chance to change when the OS updates on a user\u0027s device. In this sense the OS version is actually irrelevant.\n\nI am not worried about the SystemAPI for the blocked reasons as much, but if any app was relying on the public API to read the blocked status, it would suddenly start seeing `true` instead of `false`. This is in essence the same pattern that AiCore ran into but here the API isn\u0027t even deprecated (onBlockedStatusChanged), so I would be more worried about switching this behavior suddenly...\n\nIn short, I think if we\u0027re adding a compat id to maintain compatibility, maintaining the same behavior in the non-deprecated APIs is more important than the deprecated ones.",
+      "parentUuid": "84d270da_e19bb91d",
+      "range": {
+        "startLine": 11235,
+        "startChar": 26,
+        "endLine": 11235,
+        "endChar": 51
+      },
+      "revId": "b569b58dac2896de54b72c91cb1d074b97081337",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
