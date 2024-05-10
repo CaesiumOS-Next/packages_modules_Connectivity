@@ -88,6 +88,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74bc45b6_c0215ca6",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-10T07:47:35Z",
+      "side": 1,
+      "message": "There are many places using isEnabled and in some conditions the meaning we want is \"is enabled\". Note that this is not introduced by this CL but I am just moving the place to group similar methods closer to each other.",
+      "parentUuid": "2ec7adf8_1558b629",
+      "revId": "71c57f6b4a31406d45054c41f2922942e256e302",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e4e8d826_a3ea149c",
         "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
         "patchSetId": 4
@@ -117,6 +135,24 @@
           ]
         }
       ],
+      "revId": "71c57f6b4a31406d45054c41f2922942e256e302",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d32c41f_2010e8bc",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-10T07:47:35Z",
+      "side": 1,
+      "message": "There is already \"thread_enabled\" key in the settings, better just keep consistent",
+      "parentUuid": "e4e8d826_a3ea149c",
       "revId": "71c57f6b4a31406d45054c41f2922942e256e302",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
