@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b8d1a52_30ca9b08",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-10T13:14:36Z",
+      "side": 1,
+      "message": "Updated the comments.",
+      "parentUuid": "4732fc33_7f5d8361",
+      "range": {
+        "startLine": 488,
+        "startChar": 31,
+        "endLine": 488,
+        "endChar": 75
+      },
+      "revId": "809acd45be0f85761c7beb21226fb9553333f572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6d41213_41f3dabb",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-05-10T08:29:02Z",
       "side": 1,
       "message": "Maybe also comment your threading model here so people know why this is needed?",
+      "range": {
+        "startLine": 491,
+        "startChar": 4,
+        "endLine": 491,
+        "endChar": 44
+      },
+      "revId": "809acd45be0f85761c7beb21226fb9553333f572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a38fb1ef_7f34f37a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-10T13:14:36Z",
+      "side": 1,
+      "message": "mBlockedStatusTrackingUids is guarded because this is accessed from binder thread.\nI have updated the comment.",
+      "parentUuid": "a6d41213_41f3dabb",
       "range": {
         "startLine": 491,
         "startChar": 4,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d66b6d2a_fdc4feaf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-10T13:14:36Z",
+      "side": 1,
+      "message": "If CS always checks the bpf map contents from handler thread, we will have race issue.\nFor example, if the the following two operations happens in a short second\n1. uid0 register network request\n2. Update firewall0 to deny uid0 (this is done in binder thread)\n2. Update firewall1 to deny uid0 (this is done in binder thread)\n\nWe need to send callback in the order of BLOCKED_REASON_NONE -\u003e BLOCKED_REASON_CHAIN0 -\u003e BLOCKED_REASON_CHAIN0+1.\nBut, without maintaining states in CS, it would be difficult to send blocked status callback correctly from handler thread.\n\nFor example, if we check the bpf contents while processing register network request event from handler thread, bpf might already have firewall0 and firewall1 rule for uid0.\n\nAlso, reusing EVENT_UIDS_BLOCKED_REASONS_CHANGED makes this CL simpler.",
+      "parentUuid": "a9b83b2e_0b719c45",
+      "range": {
+        "startLine": 495,
+        "startChar": 14,
+        "endLine": 495,
+        "endChar": 25
+      },
+      "revId": "809acd45be0f85761c7beb21226fb9553333f572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f39c4c5_101f697d",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff51dc95_6ea91860",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-10T13:14:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f39c4c5_101f697d",
+      "range": {
+        "startLine": 801,
+        "startChar": 7,
+        "endLine": 801,
+        "endChar": 71
+      },
+      "revId": "809acd45be0f85761c7beb21226fb9553333f572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c1da497_104e5ec9",
@@ -123,6 +219,30 @@
       "writtenOn": "2024-05-10T08:29:02Z",
       "side": 1,
       "message": "nit: In this case, we\u0027ll only have 1 pair of content here, right?\nIf so maybe add comment?\nNo strong opinion.",
+      "range": {
+        "startLine": 3327,
+        "startChar": 20,
+        "endLine": 3327,
+        "endChar": 37
+      },
+      "revId": "809acd45be0f85761c7beb21226fb9553333f572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4abc7038_a14474dc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 3327,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-10T13:14:36Z",
+      "side": 1,
+      "message": "Updated SparseIntArray to List, I think now it\u0027s clear that this only contains single pair.",
+      "parentUuid": "5c1da497_104e5ec9",
       "range": {
         "startLine": 3327,
         "startChar": 20,
@@ -179,6 +299,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c706dfa7_4484150c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 3332,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-10T13:14:36Z",
+      "side": 1,
+      "message": "Updated to `EVENT_UIDS_BLOCKED_REASONS_CHANGED` and `handleUidsBlockedReasonsChanged`",
+      "parentUuid": "d68bc3d3_07d7a76d",
+      "range": {
+        "startLine": 3332,
+        "startChar": 9,
+        "endLine": 3332,
+        "endChar": 38
+      },
+      "revId": "809acd45be0f85761c7beb21226fb9553333f572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06642b46_e39cc957",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 3332,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-10T13:14:36Z",
+      "side": 1,
+      "message": "That\u0027s true.\nUpdated to list and renamed.",
+      "parentUuid": "4d7dff47_2f466d09",
+      "range": {
+        "startLine": 3332,
+        "startChar": 54,
+        "endLine": 3332,
+        "endChar": 71
+      },
+      "revId": "809acd45be0f85761c7beb21226fb9553333f572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee2896fe_c2236e2a",
@@ -192,6 +360,30 @@
       "writtenOn": "2024-05-10T08:29:02Z",
       "side": 1,
       "message": "Stupid question:\nStill not following about why this is needed.\nIs there any doc or example to make me understand this?",
+      "range": {
+        "startLine": 7404,
+        "startChar": 9,
+        "endLine": 7405,
+        "endChar": 75
+      },
+      "revId": "809acd45be0f85761c7beb21226fb9553333f572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3322873_4d3b17a9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 7405,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-10T13:14:36Z",
+      "side": 1,
+      "message": "mBlockedStatusTrackingUids tracks the uid and number of registered network requests.\nIf we increment or decrement count twice for the same network request info, counter in mBlockedStatusTrackingUids will be wrong.\nSo to decrease the possibility of miscounting, I added this flag and check this flag before increment or decrement the count.",
+      "parentUuid": "ee2896fe_c2236e2a",
       "range": {
         "startLine": 7404,
         "startChar": 9,
