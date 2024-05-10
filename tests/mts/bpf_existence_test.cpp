@@ -118,6 +118,12 @@ static const set<string> MAINLINE_FOR_T_PLUS = {
 // Provided by *current* mainline module for T+ devices with 4.14+ kernels
 static const set<string> MAINLINE_FOR_T_4_14_PLUS = {
     NETD "prog_netd_cgroupsock_inet_create",
+    NETD "prog_netd_connect4_inet4_connect",
+    NETD "prog_netd_connect6_inet6_connect",
+    NETD "prog_netd_recvmsg4_udp4_recvmsg",
+    NETD "prog_netd_recvmsg6_udp6_recvmsg",
+    NETD "prog_netd_sendmsg4_udp4_sendmsg",
+    NETD "prog_netd_sendmsg6_udp6_sendmsg",
 };
 
 // Provided by *current* mainline module for T+ devices with 5.4+ kernels
