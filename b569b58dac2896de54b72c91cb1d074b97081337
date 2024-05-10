@@ -52,6 +52,29 @@
       "parentUuid": "cc97b768_c11ce45a",
       "revId": "b569b58dac2896de54b72c91cb1d074b97081337",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d85d1c5_347b0da5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 11235,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-05-10T08:07:12Z",
+      "side": 1,
+      "message": "Do we check the compat id anywhere?\nAre we being consistent in the NetworkInfo.DetailedState and the onBlockedStatus values being sent for apps targeting U- on OS versions V+?",
+      "range": {
+        "startLine": 11235,
+        "startChar": 26,
+        "endLine": 11235,
+        "endChar": 51
+      },
+      "revId": "b569b58dac2896de54b72c91cb1d074b97081337",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
