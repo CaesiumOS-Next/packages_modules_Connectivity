@@ -16,6 +16,24 @@
       "message": "For clarity, what is the expected trigger of the callback since this is a normal permission?\nI assume that it will be sent immediately after register and then never again...",
       "revId": "b569b58dac2896de54b72c91cb1d074b97081337",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc97b768_c11ce45a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-10T07:58:51Z",
+      "side": 1,
+      "message": "BlockedReasons is used for onAvailable and onBlockedStatusChanged Callback.\nIf apps does not have INTERNET permission, this will not changed so blocked reasons for this app will always contain BLOCKED_REASON_INTERNET_PERMISSION.\nApps will receive callback immediately after registration and if blockedReasons changed, apps would receive onBlockedStatusChanged with new blockedReasons.\n\nI don\u0027t think this behavior is particularly useful but I don\u0027t think ConnectivityService should send callback with blocked\u003dfalse or blockedReasons\u003dBLOCKED_REASON_NONE.",
+      "parentUuid": "9b05abaa_313e308f",
+      "revId": "b569b58dac2896de54b72c91cb1d074b97081337",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
