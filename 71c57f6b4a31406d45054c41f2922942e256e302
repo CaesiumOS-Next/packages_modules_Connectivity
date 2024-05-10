@@ -155,6 +155,51 @@
       "parentUuid": "e4e8d826_a3ea149c",
       "revId": "71c57f6b4a31406d45054c41f2922942e256e302",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b1c900e_07d6eb5b",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-10T08:04:20Z",
+      "side": 1,
+      "message": "maybe a test case to verify after set enabled when airplane mode is on, then set disabled is called when airplane mode is still on, next time when airplane mode is changed to on, thread is disabled?",
+      "fixSuggestions": [
+        {
+          "fixId": "43481e11_f3ede681",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+              "range": {
+                "startLine": 455,
+                "startChar": 0,
+                "endLine": 456,
+                "endChar": 0
+              },
+              "replacement": "    public void airplaneMode_setEnabledWhenAirplaneModeIsOn_willNotAutoDisableSecondTime() {\n"
+            },
+            {
+              "path": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+              "range": {
+                "startLine": 474,
+                "startChar": 0,
+                "endLine": 474,
+                "endChar": 0
+              },
+              "replacement": "\n    @Test\n    public void airplaneMode_setEnabledWhenAirplaneModeIsOn_willAutoDisableThirdTime() {\n        Settings.Global.putInt(mContext.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 1);\n        AtomicReference\u003cBroadcastReceiver\u003e receiverRef \u003d\n                captureBroadcastReceiver(Intent.ACTION_AIRPLANE_MODE_CHANGED);\n        CompletableFuture\u003cVoid\u003e setEnabledFuture \u003d new CompletableFuture\u003c\u003e();\n        mService.initialize();\n        mService.setEnabled(true, newOperationReceiver(setEnabledFuture));\n        mTestLooper.dispatchAll();\n\n        Settings.Global.putInt(mContext.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0);\n        receiverRef.get().onReceive(mContext, new Intent());\n        mTestLooper.dispatchAll();\n        Settings.Global.putInt(mContext.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 1);\n        receiverRef.get().onReceive(mContext, new Intent());\n        mTestLooper.dispatchAll();\n        Settings.Global.putInt(mContext.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0);\n        receiverRef.get().onReceive(mContext, new Intent());\n        mTestLooper.dispatchAll();\n\n        assertThat(mFakeOtDaemon.getEnabledState()).isEqualTo(STATE_DISABLED);\n        assertThat(mPersistentSettings.get(THREAD_ENABLED_IN_AIRPLANE_MODE)).isFalse();\n    }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "71c57f6b4a31406d45054c41f2922942e256e302",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
