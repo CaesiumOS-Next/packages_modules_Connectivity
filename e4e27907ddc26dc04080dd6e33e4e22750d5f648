@@ -52,6 +52,24 @@
       "parentUuid": "77f3337f_dba992f6",
       "revId": "e4e27907ddc26dc04080dd6e33e4e22750d5f648",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b13c0344_1d64660e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1269,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-10T09:55:07Z",
+      "side": 1,
+      "message": "Updated it to tri-state. Please take a look.",
+      "parentUuid": "b03eeb6d_beef627a",
+      "revId": "e4e27907ddc26dc04080dd6e33e4e22750d5f648",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
