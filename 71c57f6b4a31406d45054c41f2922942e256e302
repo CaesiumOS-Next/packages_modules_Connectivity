@@ -106,6 +106,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "85815a34_ca164db4",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-05-11T03:11:59Z",
+      "side": 1,
+      "message": "The name is confusing. How about cleaning it up in a separate CL?",
+      "parentUuid": "74bc45b6_c0215ca6",
+      "revId": "71c57f6b4a31406d45054c41f2922942e256e302",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e4e8d826_a3ea149c",
         "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
         "patchSetId": 4
@@ -153,6 +171,24 @@
       "side": 1,
       "message": "There is already \"thread_enabled\" key in the settings, better just keep consistent",
       "parentUuid": "e4e8d826_a3ea149c",
+      "revId": "71c57f6b4a31406d45054c41f2922942e256e302",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e84f5ae7_0fae9571",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-05-11T03:11:59Z",
+      "side": 1,
+      "message": "I noticed that. If we are going to keep all settings having this prefix in future, that\u0027s fine.",
+      "parentUuid": "3d32c41f_2010e8bc",
       "revId": "71c57f6b4a31406d45054c41f2922942e256e302",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
