@@ -122,6 +122,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6631cc9c_144abd07",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-11T03:54:40Z",
+      "side": 1,
+      "message": "Sounds good, see aosp/3079297",
+      "parentUuid": "85815a34_ca164db4",
+      "revId": "71c57f6b4a31406d45054c41f2922942e256e302",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4e8d826_a3ea149c",
