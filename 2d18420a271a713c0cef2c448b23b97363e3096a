@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00a81288_d89cfdcf",
+        "filename": "staticlibs/testutils/app/connectivitychecker/src/com/android/testutils/connectivitypreparer/ConnectivityCheckTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-13T10:09:14Z",
+      "side": 1,
+      "message": "Added some comments to explain the packet",
+      "parentUuid": "ce9c38d7_fd572fe4",
+      "range": {
+        "startLine": 125,
+        "startChar": 20,
+        "endLine": 125,
+        "endChar": 34
+      },
+      "revId": "2d18420a271a713c0cef2c448b23b97363e3096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb10db18_b856ab85",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-05-13T05:29:47Z",
       "side": 1,
       "message": "nits: If this is for debugging, I think we should log whole header(maybe first 15 bytes).",
+      "range": {
+        "startLine": 138,
+        "startChar": 28,
+        "endLine": 138,
+        "endChar": 63
+      },
+      "revId": "2d18420a271a713c0cef2c448b23b97363e3096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4e560e2_81da9961",
+        "filename": "staticlibs/testutils/app/connectivitychecker/src/com/android/testutils/connectivitypreparer/ConnectivityCheckTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-13T10:09:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb10db18_b856ab85",
       "range": {
         "startLine": 138,
         "startChar": 28,
