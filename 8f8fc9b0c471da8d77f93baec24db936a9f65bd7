@@ -16,6 +16,24 @@
       "message": "The control flow is a bit hard to follow, this \"continue\" is actually more like a \"break\" since the for loop checks for the same condition, so that\u0027s also a bit redundant.\n\nI think it would be a bit easier to follow by clearing conflictingWithRecord and breaking when IDENTICAL is seen, something like:\n\n```\nfor (MdnsRecord in packet.answers) {\n    final SparseIntArray recordConflicts \u003d new SparseIntArray();\n    for (ServiceRegistration in mServices) {\n        final RecordConflictType conflictForService \u003d ...;\n        final RecordConflictType conflictForHost \u003d ...;\n        if (conflictForService \u003d\u003d IDENTICAL || conflictForHost \u003d\u003d IDENTICAL) {\n            // This record is contained in a registration, so conflicts with none\n            conflictingWithRecord.clear();\n            break;\n        }\n\n        int conflictType \u003d 0;\n        if (conflictForService \u003d\u003d CONFLICT) {\n            conflictType |\u003d ...;\n        }\n        if (conflictForHost \u003d\u003d CONFLICT) {\n            conflictType |\u003d ...;\n        }\n        \n        if (conflictType !\u003d 0) {\n            conflictingWithRecord.put(serviceId, conflictType);\n        }\n    }\n    for (int i \u003d 0; i \u003c recordConflicts.size(); i++) {\n        // update conflicting with recordConflicts.keyAt / .valueAt\n    }\n}\n```",
       "revId": "8f8fc9b0c471da8d77f93baec24db936a9f65bd7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42d6e8c6_01c07bf4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-13T10:00:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59c2b5d1_c842572d",
+      "revId": "8f8fc9b0c471da8d77f93baec24db936a9f65bd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
