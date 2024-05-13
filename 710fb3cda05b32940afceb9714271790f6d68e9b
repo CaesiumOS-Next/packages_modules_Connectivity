@@ -46,6 +46,30 @@
       },
       "revId": "710fb3cda05b32940afceb9714271790f6d68e9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "693e6d3e_0df1788d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 56
+      },
+      "lineNbr": 13353,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-13T07:57:39Z",
+      "side": 1,
+      "message": "Added skipUpdateBlockedStatusTrackingUids arg to handleRemoveNetworkRequests and update this method not to touch blockedStatusTrackingUids",
+      "parentUuid": "b04aa4a1_ca58d626",
+      "range": {
+        "startLine": 13353,
+        "startChar": 8,
+        "endLine": 13353,
+        "endChar": 22
+      },
+      "revId": "710fb3cda05b32940afceb9714271790f6d68e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
