@@ -46,6 +46,30 @@
       },
       "revId": "4e19c9a647d47d03055ccd53cdabebc5b6eb0396",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "807e9899_7409d4fe",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-05-13T06:16:35Z",
+      "side": 1,
+      "message": "Oops, I rearranged the CLs and they\u0027re in the next one.",
+      "parentUuid": "759935ae_27477581",
+      "range": {
+        "startLine": 835,
+        "startChar": 16,
+        "endLine": 835,
+        "endChar": 30
+      },
+      "revId": "4e19c9a647d47d03055ccd53cdabebc5b6eb0396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
