@@ -16,6 +16,8 @@
 
 package android.net.thread;
 
+import static android.Manifest.permission.ACCESS_NETWORK_STATE;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK;
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_DETACHED;
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_LEADER;
 import static android.net.thread.ThreadNetworkController.DEVICE_ROLE_STOPPED;
@@ -28,20 +30,30 @@ import static android.net.thread.utils.IntegrationTestUtils.waitFor;
 import static com.android.compatibility.common.util.SystemUtil.runShellCommand;
 import static com.android.compatibility.common.util.SystemUtil.runShellCommandOrThrow;
 import static com.android.server.thread.openthread.IOtDaemon.TUN_IF_NAME;
+import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static com.google.common.io.BaseEncoding.base16;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.InetAddresses;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
+import android.net.LinkProperties;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
+import android.net.RouteInfo;
 import android.net.thread.utils.FullThreadDevice;
 import android.net.thread.utils.OtDaemonController;
 import android.net.thread.utils.ThreadFeatureCheckerRule;
 import android.net.thread.utils.ThreadFeatureCheckerRule.RequiresThreadFeature;
 import android.net.thread.utils.ThreadNetworkControllerWrapper;
+import android.os.Build;
 import android.os.SystemClock;
 
 import androidx.test.core.app.ApplicationProvider;
@@ -62,6 +74,7 @@ import java.net.InetAddress;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -76,6 +89,9 @@ public class ThreadIntegrationTest {
     // The maximum time for OT addresses to be propagated to the TUN interface "thread-wpan"
     private static final Duration TUN_ADDR_UPDATE_TIMEOUT = Duration.ofSeconds(1);
 
+    // The maximum time for changes to be propagated to netdata.
+    private static final Duration NET_DATA_UPDATE_TIMEOUT = Duration.ofSeconds(1);
+
     // A valid Thread Active Operational Dataset generated from OpenThread CLI "dataset init new".
     private static final byte[] DEFAULT_DATASET_TLVS =
             base16().decode(
@@ -89,6 +105,10 @@ public class ThreadIntegrationTest {
 
     private static final Inet6Address GROUP_ADDR_ALL_ROUTERS =
             (Inet6Address) InetAddresses.parseNumericAddress("ff02::2");
+
+    private static final String TEST_NO_SLAAC_PREFIX = "2001:dead:beef:cafe::/64";
+    private static final InetAddress TEST_NO_SLAAC_PREFIX_ADDRESS =
+            InetAddresses.parseNumericAddress("2001:dead:beef:cafe::");
 
     @Rule public final ThreadFeatureCheckerRule mThreadRule = new ThreadFeatureCheckerRule();
 
@@ -251,6 +271,55 @@ public class ThreadIntegrationTest {
                     .that(mFtd.ping(address, 2))
                     .isEqualTo(2);
         }
+    }
+
+    @Test
+    public void addPrefixToNetData_routeIsAddedToTunInterface() throws Exception {
+        mController.joinAndWait(DEFAULT_DATASET);
+        CompletableFuture<LinkProperties> lpFuture = new CompletableFuture<>();
+        ConnectivityManager cm = mContext.getSystemService(ConnectivityManager.class);
+        NetworkRequest.Builder networkRequestBuilder =
+                new NetworkRequest.Builder().addTransportType(NetworkCapabilities.TRANSPORT_THREAD);
+        // Before V, we need to explicitly set `NET_CAPABILITY_LOCAL_NETWORK` capability to request
+        // a Thread network.
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            networkRequestBuilder.addCapability(NET_CAPABILITY_LOCAL_NETWORK);
+        }
+        NetworkRequest networkRequest = networkRequestBuilder.build();
+        ConnectivityManager.NetworkCallback networkCallback =
+                new ConnectivityManager.NetworkCallback() {
+                    @Override
+                    public void onLinkPropertiesChanged(
+                            Network network, LinkProperties linkProperties) {
+                        lpFuture.complete(linkProperties);
+                    }
+                };
+        runAsShell(
+                ACCESS_NETWORK_STATE,
+                () -> cm.registerNetworkCallback(networkRequest, networkCallback));
+
+        // Ftd child doesn't have the ability to add a prefix, so let BR itself add a prefix.
+        mOtCtl.executeCommand("prefix add " + TEST_NO_SLAAC_PREFIX + " pros med");
+        mOtCtl.executeCommand("netdata register");
+        waitFor(
+                () -> {
+                    String netData = mOtCtl.executeCommand("netdata show");
+                    return netData.contains(TEST_NO_SLAAC_PREFIX);
+                },
+                NET_DATA_UPDATE_TIMEOUT);
+
+        LinkProperties lp = lpFuture.get(1, SECONDS);
+        assertThat(lp).isNotNull();
+        boolean containsTestRoute = false;
+        for (RouteInfo route : lp.getRoutes()) {
+            if (route.matches(TEST_NO_SLAAC_PREFIX_ADDRESS)) {
+                containsTestRoute = true;
+                break;
+            }
+        }
+        assertThat(containsTestRoute).isTrue();
+        assertThat(runShellCommand("ip -6 route show table thread-wpan"))
+                .contains(TEST_NO_SLAAC_PREFIX);
     }
 
     // TODO (b/323300829): add more tests for integration with linux platform and
