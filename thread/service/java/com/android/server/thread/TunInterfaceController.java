@@ -34,6 +34,7 @@ import android.util.Log;
 import com.android.net.module.util.LinkPropertiesUtils.CompareResult;
 import com.android.net.module.util.netlink.NetlinkUtils;
 import com.android.net.module.util.netlink.RtNetlinkAddressMessage;
+import com.android.server.thread.openthread.BorderRouterConfig;
 import com.android.server.thread.openthread.Ipv6AddressInfo;
 
 import java.io.FileDescriptor;
@@ -67,6 +68,7 @@ public class TunInterfaceController {
     private final MulticastSocket mMulticastSocket; // For join group and leave group
     private NetworkInterface mNetworkInterface;
     private List<InetAddress> mMulticastAddresses = new ArrayList<>();
+    private List<RouteInfo> mNetDataPrefixes = new ArrayList<>();
 
     /** Creates a new {@link TunInterfaceController} instance for given interface. */
     public TunInterfaceController(String interfaceName) {
@@ -243,9 +245,40 @@ public class TunInterfaceController {
         mMulticastAddresses.addAll(newMulticastAddresses);
     }
 
+    public void updatePrefixes(List<BorderRouterConfig> borderRouterConfigList) {
+        final List<RouteInfo> newNetDataPrefixes = new ArrayList<>();
+
+        for (BorderRouterConfig borderRouterConfig : borderRouterConfigList) {
+            newNetDataPrefixes.add(getRouteForPrefix(borderRouterConfig));
+        }
+
+        final CompareResult<RouteInfo> prefixDiff =
+                new CompareResult<>(mNetDataPrefixes, newNetDataPrefixes);
+        for (RouteInfo routeRemoved : prefixDiff.removed) {
+            mLinkProperties.removeRoute(routeRemoved);
+        }
+        for (RouteInfo routeAdded : prefixDiff.added) {
+            mLinkProperties.addRoute(routeAdded);
+        }
+
+        mNetDataPrefixes.clear();
+        mNetDataPrefixes.addAll(newNetDataPrefixes);
+    }
+
     private RouteInfo getRouteForAddress(LinkAddress linkAddress) {
         return new RouteInfo(
                 new IpPrefix(linkAddress.getAddress(), linkAddress.getPrefixLength()),
+                null,
+                mIfName,
+                RouteInfo.RTN_UNICAST,
+                MTU);
+    }
+
+    private RouteInfo getRouteForPrefix(BorderRouterConfig borderRouterConfig) {
+        return new RouteInfo(
+                new IpPrefix(
+                        bytesToInet6Address(borderRouterConfig.prefix),
+                        borderRouterConfig.prefixLength),
                 null,
                 mIfName,
                 RouteInfo.RTN_UNICAST,

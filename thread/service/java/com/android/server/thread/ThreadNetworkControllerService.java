@@ -114,6 +114,7 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.ServiceManagerWrapper;
 import com.android.server.connectivity.ConnectivityResources;
 import com.android.server.thread.openthread.BackboneRouterState;
+import com.android.server.thread.openthread.BorderRouterConfig;
 import com.android.server.thread.openthread.BorderRouterConfigurationParcel;
 import com.android.server.thread.openthread.IChannelMasksReceiver;
 import com.android.server.thread.openthread.IOtDaemon;
@@ -1159,6 +1160,18 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
     }
 
+    private void handlePrefixChanged(List<BorderRouterConfig> borderRouterConfigList) {
+        checkOnHandlerThread();
+
+        mTunIfController.updatePrefixes(borderRouterConfigList);
+
+        // The OT daemon can send link property updates before the networkAgent is
+        // registered
+        if (mNetworkAgent != null) {
+            mNetworkAgent.sendLinkProperties(mTunIfController.getLinkProperties());
+        }
+    }
+
     private void sendLocalNetworkConfig() {
         if (mNetworkAgent == null) {
             return;
@@ -1506,6 +1519,11 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         @Override
         public void onBackboneRouterStateChanged(BackboneRouterState state) {
             mHandler.post(() -> handleMulticastForwardingChanged(state));
+        }
+
+        @Override
+        public void onPrefixChanged(List<BorderRouterConfig> borderRouterConfigList) {
+            mHandler.post(() -> handlePrefixChanged(borderRouterConfigList));
         }
     }
 }
