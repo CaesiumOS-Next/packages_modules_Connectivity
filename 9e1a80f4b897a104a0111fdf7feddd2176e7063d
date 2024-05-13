@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31351834_8a9e93ac",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-13T14:43:58Z",
+      "side": 1,
+      "message": "Consider adding a test case to ThreadNetworkControllerTest.java to verify the authoritative bit changes.",
+      "range": {
+        "startLine": 792,
+        "startChar": 75,
+        "endLine": 792,
+        "endChar": 87
+      },
+      "revId": "9e1a80f4b897a104a0111fdf7feddd2176e7063d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
