@@ -70,6 +70,24 @@
       "parentUuid": "b03eeb6d_beef627a",
       "revId": "e4e27907ddc26dc04080dd6e33e4e22750d5f648",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95e3a6a7_0aa92849",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1269,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-13T06:48:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b13c0344_1d64660e",
+      "revId": "e4e27907ddc26dc04080dd6e33e4e22750d5f648",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
