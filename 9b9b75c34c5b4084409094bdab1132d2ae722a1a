@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92e399bd_2e7a31c2",
+        "filename": "thread/tests/multidevices/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-13T14:37:27Z",
+      "side": 1,
+      "message": "```suggestion\n        \"mts-tethering\",\n        \"general-tests\",\n```\n\nThe tests are not ready to be CTS given it requires `ot-ctl` (which is absent on user build vendor devices).\n\nWe can make it CTS when the \"adb cmd thread_network ot-ctl\" command is supported (b/323164524)",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "9b9b75c34c5b4084409094bdab1132d2ae722a1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7b9216f_2836ddc2",
+        "filename": "thread/tests/multidevices/AndroidTest.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-13T14:37:27Z",
+      "side": 1,
+      "message": "```suggestion\n\u003c!-- Copyright (C) 2024 The Android Open Source Project\n\n     Licensed under the Apache License, Version 2.0 (the \"License\");\n     you may not use this file except in compliance with the License.\n     You may obtain a copy of the License at\n\n          http://www.apache.org/licenses/LICENSE-2.0\n\n     Unless required by applicable law or agreed to in writing, software\n     distributed under the License is distributed on an \"AS IS\" BASIS,\n     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n     See the License for the specific language governing permissions and\n     limitations under the License.\n--\u003e\n```",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 5
+      },
+      "revId": "9b9b75c34c5b4084409094bdab1132d2ae722a1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04f2b8d9_abe035fe",
+        "filename": "thread/tests/multidevices/AndroidTest.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-13T14:37:27Z",
+      "side": 1,
+      "message": "nit: run on only U+ devices:\n```suggestion\n    \u003c!--\n        Only run tests if the device under test is SDK version 34 (Android 14) or above.\n    --\u003e\n    \u003cobject type\u003d\"module_controller\"\n            class\u003d\"com.android.tradefed.testtype.suite.module.Sdk34ModuleController\" /\u003e\n\n    \u003cobject type\u003d\"module_controller\" class\u003d\"com.android.tradefed.testtype.suite.module.MainlineTestModuleController\"\u003e\n        \u003coption name\u003d\"mainline-module-package-name\" value\u003d\"com.google.android.tethering\" /\u003e\n    \u003c/object\u003e\n```",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 13
+      },
+      "revId": "9b9b75c34c5b4084409094bdab1132d2ae722a1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dc9bb8b_c2f85e9d",
+        "filename": "thread/tests/multidevices/AndroidTest.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-13T14:37:27Z",
+      "side": 1,
+      "message": "The tests require root to use ot-ctl, you can add RootTargetPreparer for this purpose\n```\n    \u003ctarget_preparer class\u003d\"com.android.tradefed.targetprep.RootTargetPreparer\" /\u003e\n```",
+      "revId": "9b9b75c34c5b4084409094bdab1132d2ae722a1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
