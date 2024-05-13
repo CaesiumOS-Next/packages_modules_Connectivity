@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89c295cc_e6a81486",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-13T09:12:56Z",
+      "side": 1,
+      "message": "y",
+      "revId": "e14bc973fd593345ad4232065d6af900a470f3d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef04e74c_d7b02b03",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-13T09:12:56Z",
+      "side": 1,
+      "message": "Why not `mNetDataPrefixes \u003d newNetDataPrefixes`? Or you may want `mNetDataPrefixes` to be final?",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 52
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "7b664708_645ae87f",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+              "range": {
+                "startLine": 262,
+                "startChar": 0,
+                "endLine": 265,
+                "endChar": 0
+              },
+              "replacement": "        mNetDataPrefixes \u003d newNetDataPrefixes;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "e14bc973fd593345ad4232065d6af900a470f3d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54fbd429_f25fa6c0",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-13T09:12:56Z",
+      "side": 1,
+      "message": "Maybe you can create another version of `getRouteForAddress` that takes an `IpPrefix` as the input and implement these two `getRouteForAddress` versions on top of that.",
+      "revId": "e14bc973fd593345ad4232065d6af900a470f3d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b48bfcb2_03443366",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-13T09:12:56Z",
+      "side": 1,
+      "message": "```suggestion\n        // Ftd child doesn\u0027t have the ability to add a prefix, so let BR itself add a prefix.\n```",
+      "revId": "e14bc973fd593345ad4232065d6af900a470f3d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
