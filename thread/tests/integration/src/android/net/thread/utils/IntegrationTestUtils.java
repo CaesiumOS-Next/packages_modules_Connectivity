@@ -375,6 +375,12 @@ public final class IntegrationTestUtils {
         }
     }
 
+    public static String getPrefixesFromNetData(String netData) {
+        int startIdx = netData.indexOf("Prefixes:");
+        int endIdx = netData.indexOf("Routes:");
+        return netData.substring(startIdx, endIdx);
+    }
+
     private static class DefaultDiscoveryListener implements NsdManager.DiscoveryListener {
         @Override
         public void onStartDiscoveryFailed(String serviceType, int errorCode) {}
