@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dbdbfbe_6080e8cc",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-13T13:23:19Z",
+      "side": 1,
+      "message": "```suggestion\n    private static final String TEST_NO_SLAAC_PREFIX \u003d \"2001:dead:beef:cafe::/64\";\n```",
+      "range": {
+        "startLine": 96,
+        "startChar": 32,
+        "endLine": 96,
+        "endChar": 43
+      },
+      "revId": "24431fe997948af2b0a33d1efc4c1cc85690e64c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77ad00f0_166083ba",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-13T13:23:19Z",
+      "side": 1,
+      "message": "Please add a prefix that won\u0027t create SLAAC addresses:\n```suggestion\n        mOtCtl.executeCommand(\"prefix add \" + TEST_PREFIX + \" pros med\");\n```\n\nIf a SLAAC address is created, the TunIfController will add a route for that address even without this CL, hence your change is not covered by the tests",
+      "range": {
+        "startLine": 266,
+        "startChar": 62,
+        "endLine": 266,
+        "endChar": 67
+      },
+      "revId": "24431fe997948af2b0a33d1efc4c1cc85690e64c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a68568a_f304210c",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-13T13:23:19Z",
+      "side": 1,
+      "message": "Shall we use the ConnectivityManager#RegisterNetworkCallback() to get the LinkProperties (and hence the routes) for the Thread network? Given the route is added by ConnectivityService so it\u0027s better to verify via the ConnectivityService as well.\n\nBesides, the java API is always more stable than shell commands.",
+      "range": {
+        "startLine": 275,
+        "startChar": 8,
+        "endLine": 275,
+        "endChar": 96
+      },
+      "revId": "24431fe997948af2b0a33d1efc4c1cc85690e64c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -61,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f6107af_6438b5e6",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-13T13:23:19Z",
+      "side": 1,
+      "message": "I vote for making mNetDataPrefixes `final`",
+      "parentUuid": "ef04e74c_d7b02b03",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 52
+      },
+      "revId": "e14bc973fd593345ad4232065d6af900a470f3d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "54fbd429_f25fa6c0",
         "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
         "patchSetId": 1
