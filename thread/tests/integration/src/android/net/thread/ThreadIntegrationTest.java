@@ -76,6 +76,9 @@ public class ThreadIntegrationTest {
     // The maximum time for OT addresses to be propagated to the TUN interface "thread-wpan"
     private static final Duration TUN_ADDR_UPDATE_TIMEOUT = Duration.ofSeconds(1);
 
+    // The maximum time for changes to be propagated to netdata.
+    private static final Duration NET_DATA_UPDATE_TIMEOUT = Duration.ofSeconds(1);
+
     // A valid Thread Active Operational Dataset generated from OpenThread CLI "dataset init new".
     private static final byte[] DEFAULT_DATASET_TLVS =
             base16().decode(
@@ -89,6 +92,8 @@ public class ThreadIntegrationTest {
 
     private static final Inet6Address GROUP_ADDR_ALL_ROUTERS =
             (Inet6Address) InetAddresses.parseNumericAddress("ff02::2");
+
+    private static final String TEST_PREFIX = "2001:dead:beef:cafe::/64";
 
     @Rule public final ThreadFeatureCheckerRule mThreadRule = new ThreadFeatureCheckerRule();
 
@@ -251,6 +256,23 @@ public class ThreadIntegrationTest {
                     .that(mFtd.ping(address, 2))
                     .isEqualTo(2);
         }
+    }
+
+    @Test
+    public void addPrefixToNetData_routeIsAddedToTunInterface() throws Exception {
+        mController.joinAndWait(DEFAULT_DATASET);
+
+        // Ftd child does't have the ability to add prefix, so letting BR itself add a prefix.
+        mOtCtl.executeCommand("prefix add " + TEST_PREFIX + " paros med");
+        mOtCtl.executeCommand("netdata register");
+        waitFor(
+                () -> {
+                    String netData = mOtCtl.executeCommand("netdata show");
+                    return netData.contains(TEST_PREFIX);
+                },
+                NET_DATA_UPDATE_TIMEOUT);
+
+        assertThat(runShellCommand("ip -6 route show table thread-wpan")).contains(TEST_PREFIX);
     }
 
     // TODO (b/323300829): add more tests for integration with linux platform and

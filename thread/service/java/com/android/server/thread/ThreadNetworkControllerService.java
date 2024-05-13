@@ -1159,6 +1159,18 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
     }
 
+    private void handlePrefixChanged(List<Ipv6AddressInfo> addressInfoList) {
+        checkOnHandlerThread();
+
+        mTunIfController.updatePrefixes(addressInfoList);
+
+        // The OT daemon can send link property updates before the networkAgent is
+        // registered
+        if (mNetworkAgent != null) {
+            mNetworkAgent.sendLinkProperties(mTunIfController.getLinkProperties());
+        }
+    }
+
     private void sendLocalNetworkConfig() {
         if (mNetworkAgent == null) {
             return;
@@ -1506,6 +1518,11 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         @Override
         public void onBackboneRouterStateChanged(BackboneRouterState state) {
             mHandler.post(() -> handleMulticastForwardingChanged(state));
+        }
+
+        @Override
+        public void onPrefixChanged(List<Ipv6AddressInfo> addressInfoList) {
+            mHandler.post(() -> handlePrefixChanged(addressInfoList));
         }
     }
 }

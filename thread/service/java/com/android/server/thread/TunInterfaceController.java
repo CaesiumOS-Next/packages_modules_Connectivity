@@ -67,6 +67,7 @@ public class TunInterfaceController {
     private final MulticastSocket mMulticastSocket; // For join group and leave group
     private NetworkInterface mNetworkInterface;
     private List<InetAddress> mMulticastAddresses = new ArrayList<>();
+    private List<RouteInfo> mNetDataPrefixes = new ArrayList<>();
 
     /** Creates a new {@link TunInterfaceController} instance for given interface. */
     public TunInterfaceController(String interfaceName) {
@@ -243,9 +244,38 @@ public class TunInterfaceController {
         mMulticastAddresses.addAll(newMulticastAddresses);
     }
 
+    public void updatePrefixes(List<Ipv6AddressInfo> addressInfoList) {
+        final List<RouteInfo> newNetDataPrefixes = new ArrayList<>();
+
+        for (Ipv6AddressInfo addressInfo : addressInfoList) {
+            newNetDataPrefixes.add(getRouteForAddress(addressInfo));
+        }
+
+        final CompareResult<RouteInfo> prefixDiff =
+                new CompareResult<>(mNetDataPrefixes, newNetDataPrefixes);
+        for (RouteInfo routeRemoved : prefixDiff.removed) {
+            mLinkProperties.removeRoute(routeRemoved);
+        }
+        for (RouteInfo routeAdded : prefixDiff.added) {
+            mLinkProperties.addRoute(routeAdded);
+        }
+
+        mNetDataPrefixes.clear();
+        mNetDataPrefixes.addAll(newNetDataPrefixes);
+    }
+
     private RouteInfo getRouteForAddress(LinkAddress linkAddress) {
         return new RouteInfo(
                 new IpPrefix(linkAddress.getAddress(), linkAddress.getPrefixLength()),
+                null,
+                mIfName,
+                RouteInfo.RTN_UNICAST,
+                MTU);
+    }
+
+    private RouteInfo getRouteForAddress(Ipv6AddressInfo addressInfo) {
+        return new RouteInfo(
+                new IpPrefix(addressInfoToInetAddress(addressInfo), addressInfo.prefixLength),
                 null,
                 mIfName,
                 RouteInfo.RTN_UNICAST,
