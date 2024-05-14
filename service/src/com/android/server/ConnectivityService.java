@@ -3423,6 +3423,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void destroyPendingSockets() {
         ensureRunningOnConnectivityServiceThread();
+        if (mPendingFrozenUids.isEmpty()) {
+            return;
+        }
 
         try {
             mDeps.destroyLiveTcpSocketsByOwnerUids(mPendingFrozenUids);
@@ -3446,10 +3449,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             isCellNetworkActivity = params.label == TRANSPORT_CELLULAR;
         }
 
-        if (mDelayDestroySockets
-                && params.isActive
-                && isCellNetworkActivity
-                && !mPendingFrozenUids.isEmpty()) {
+        if (mDelayDestroySockets && params.isActive && isCellNetworkActivity) {
             destroyPendingSockets();
         }
     }
@@ -3467,9 +3467,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final boolean isNewNetworkCellular = newNetwork != null
                 && newNetwork.networkCapabilities.hasTransport(TRANSPORT_CELLULAR);
 
-        if (isOldNetworkCellular
-                && !isNewNetworkCellular
-                && !mPendingFrozenUids.isEmpty()) {
+        if (isOldNetworkCellular && !isNewNetworkCellular) {
             destroyPendingSockets();
         }
     }
