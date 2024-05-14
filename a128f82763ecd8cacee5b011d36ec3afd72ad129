@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aa27cc8_7d8fdb86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1881060
+      },
+      "writtenOn": "2024-05-14T00:44:55Z",
+      "side": 1,
+      "message": "This CL require aosp/3079534 to be merged and is only a nice cleanup from permission point of view.\n\nI don\u0027t want to slow down the landing of the initial CL as it is marked as a release blocker.",
+      "revId": "a128f82763ecd8cacee5b011d36ec3afd72ad129",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
