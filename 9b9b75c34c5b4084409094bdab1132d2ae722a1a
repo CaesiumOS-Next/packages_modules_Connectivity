@@ -85,6 +85,76 @@
       "message": "The tests require root to use ot-ctl, you can add RootTargetPreparer for this purpose\n```\n    \u003ctarget_preparer class\u003d\"com.android.tradefed.targetprep.RootTargetPreparer\" /\u003e\n```",
       "revId": "9b9b75c34c5b4084409094bdab1132d2ae722a1a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61ee4608_85f44b7e",
+        "filename": "thread/tests/multidevices/thread_network_multi_device_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-05-14T01:15:52Z",
+      "side": 1,
+      "message": "Why do we run this command twice?",
+      "fixSuggestions": [
+        {
+          "fixId": "ceb9c03b_f94143a0",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/multidevices/thread_network_multi_device_test.py",
+              "range": {
+                "startLine": 48,
+                "startChar": 0,
+                "endLine": 49,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "9b9b75c34c5b4084409094bdab1132d2ae722a1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecd3ddd2_d3afb2a2",
+        "filename": "thread/tests/multidevices/thread_network_multi_device_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-05-14T01:15:52Z",
+      "side": 1,
+      "message": "Why do we need to run `ifconfig up` before running `scan`?",
+      "fixSuggestions": [
+        {
+          "fixId": "50fc7cbb_d1410054",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/multidevices/thread_network_multi_device_test.py",
+              "range": {
+                "startLine": 57,
+                "startChar": 0,
+                "endLine": 57,
+                "endChar": 0
+              },
+              "replacement": "        # TODO(wgtdkp): remove this once b/271951111 is fixed\n"
+            }
+          ]
+        }
+      ],
+      "revId": "9b9b75c34c5b4084409094bdab1132d2ae722a1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
