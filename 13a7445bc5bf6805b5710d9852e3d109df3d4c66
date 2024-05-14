@@ -26,6 +26,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7e59ce6_4a1ffbe0",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-14T07:52:19Z",
+      "side": 1,
+      "message": "I think you also need to check the scenario when the prefix is removed.",
+      "revId": "13a7445bc5bf6805b5710d9852e3d109df3d4c66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "377020bd_a8163bb7",
         "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
         "patchSetId": 3
