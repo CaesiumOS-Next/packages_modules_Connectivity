@@ -3414,13 +3414,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    private void closePendingFrozenSockets() {
+    private void destroyPendingSockets() {
         ensureRunningOnConnectivityServiceThread();
 
         try {
             mDeps.destroyLiveTcpSocketsByOwnerUids(mPendingFrozenUids);
         } catch (SocketException | InterruptedIOException | ErrnoException e) {
-            loge("Failed to close pending frozen app sockets: " + e);
+            loge("Failed to destroy sockets: " + e);
         }
         mPendingFrozenUids.clear();
     }
@@ -3443,17 +3443,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 && params.isActive
                 && isCellNetworkActivity
                 && !mPendingFrozenUids.isEmpty()) {
-            closePendingFrozenSockets();
+            destroyPendingSockets();
         }
     }
 
     /**
-     * If the cellular network is no longer the default network, close pending frozen sockets.
+     * If the cellular network is no longer the default network, destroy pending sockets.
      *
      * @param newNetwork new default network
      * @param oldNetwork old default network
      */
-    private void maybeClosePendingFrozenSockets(NetworkAgentInfo newNetwork,
+    private void maybeDestroyPendingSockets(NetworkAgentInfo newNetwork,
             NetworkAgentInfo oldNetwork) {
         final boolean isOldNetworkCellular = oldNetwork != null
                 && oldNetwork.networkCapabilities.hasTransport(TRANSPORT_CELLULAR);
@@ -3463,7 +3463,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (isOldNetworkCellular
                 && !isNewNetworkCellular
                 && !mPendingFrozenUids.isEmpty()) {
-            closePendingFrozenSockets();
+            destroyPendingSockets();
         }
     }
 
@@ -5244,7 +5244,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
                 if (mDefaultRequest == nri) {
                     mNetworkActivityTracker.updateDefaultNetwork(null /* newNetwork */, nai);
-                    maybeClosePendingFrozenSockets(null /* newNetwork */, nai);
+                    maybeDestroyPendingSockets(null /* newNetwork */, nai);
                     ensureNetworkTransitionWakelock(nai.toShortString());
                 }
             }
@@ -10194,7 +10194,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mLingerMonitor.noteLingerDefaultNetwork(oldDefaultNetwork, newDefaultNetwork);
         }
         mNetworkActivityTracker.updateDefaultNetwork(newDefaultNetwork, oldDefaultNetwork);
-        maybeClosePendingFrozenSockets(newDefaultNetwork, oldDefaultNetwork);
+        maybeDestroyPendingSockets(newDefaultNetwork, oldDefaultNetwork);
         mProxyTracker.setDefaultProxy(null != newDefaultNetwork
                 ? newDefaultNetwork.linkProperties.getHttpProxy() : null);
         resetHttpProxyForNonDefaultNetwork(oldDefaultNetwork);
