@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "927ff269_0def033d",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-14T07:31:32Z",
+      "side": 1,
+      "message": "nit: This should be fine now but when we have PD, it could also be generated via SLAAC.\nMay use some different prefix like `9010::/64` `6667::/64` ?",
+      "range": {
+        "startLine": 109,
+        "startChar": 55,
+        "endLine": 109,
+        "endChar": 82
+      },
+      "revId": "13a7445bc5bf6805b5710d9852e3d109df3d4c66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "377020bd_a8163bb7",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-14T07:31:32Z",
+      "side": 1,
+      "message": "nit: comment the timeout argument or make it a constant",
+      "revId": "13a7445bc5bf6805b5710d9852e3d109df3d4c66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b249d62_2c54cbcd",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-14T07:31:32Z",
+      "side": 1,
+      "message": "Do we still need this?",
+      "range": {
+        "startLine": 321,
+        "startChar": 6,
+        "endLine": 322,
+        "endChar": 48
+      },
+      "revId": "13a7445bc5bf6805b5710d9852e3d109df3d4c66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
