@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c37d9691_a0dd0b98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-05-14T14:53:24Z",
+      "side": 1,
+      "message": "Let\u0027s revert and merge it again once we have test coverage. I saw that the WTF is actually hit in the interface teardown code path which we need to fix (please cc me next time, this almost made it into a release).",
+      "revId": "1ad35a97816d31bc70a22d3c4dd95d4edef96457",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
