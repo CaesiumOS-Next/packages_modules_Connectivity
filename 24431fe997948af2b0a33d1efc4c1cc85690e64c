@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "58a16c27_2c748128",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-14T07:20:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8dbdbfbe_6080e8cc",
+      "range": {
+        "startLine": 96,
+        "startChar": 32,
+        "endLine": 96,
+        "endChar": 43
+      },
+      "revId": "24431fe997948af2b0a33d1efc4c1cc85690e64c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77ad00f0_166083ba",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c67d9f63_f1e1a34b",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-14T07:20:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77ad00f0_166083ba",
+      "range": {
+        "startLine": 266,
+        "startChar": 62,
+        "endLine": 266,
+        "endChar": 67
+      },
+      "revId": "24431fe997948af2b0a33d1efc4c1cc85690e64c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a68568a_f304210c",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-05-13T13:23:19Z",
       "side": 1,
       "message": "Shall we use the ConnectivityManager#RegisterNetworkCallback() to get the LinkProperties (and hence the routes) for the Thread network? Given the route is added by ConnectivityService so it\u0027s better to verify via the ConnectivityService as well.\n\nBesides, the java API is always more stable than shell commands.",
+      "range": {
+        "startLine": 275,
+        "startChar": 8,
+        "endLine": 275,
+        "endChar": 96
+      },
+      "revId": "24431fe997948af2b0a33d1efc4c1cc85690e64c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad1159b8_6086b4b1",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-14T07:20:19Z",
+      "side": 1,
+      "message": "Added check for routes in link properties, also kept the check with ip command.",
+      "parentUuid": "7a68568a_f304210c",
       "range": {
         "startLine": 275,
         "startChar": 8,
