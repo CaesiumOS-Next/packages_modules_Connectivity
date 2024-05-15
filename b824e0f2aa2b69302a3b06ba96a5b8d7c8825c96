@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01a9f61c_1645a4a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-15T03:03:20Z",
+      "side": 1,
+      "message": "Do we need to update cts while the import work?\nCTS depends on public APIs so I thought we should not need to update cts while the import work.",
+      "range": {
+        "startLine": 9,
+        "startChar": 15,
+        "endLine": 9,
+        "endChar": 68
+      },
+      "revId": "b824e0f2aa2b69302a3b06ba96a5b8d7c8825c96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
