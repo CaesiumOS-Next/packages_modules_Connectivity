@@ -19,6 +19,7 @@ import android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.Manifest.permission.NETWORK_SETTINGS
 import android.content.Context
+import android.content.res.Resources
 import android.net.ConnectivityManager
 import android.net.EthernetManager
 import android.net.EthernetManager.ETHERNET_STATE_DISABLED
@@ -60,8 +61,11 @@ import android.os.OutcomeReceiver
 import android.os.Process
 import android.os.SystemProperties
 import android.platform.test.annotations.AppModeFull
+import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
+import com.android.modules.utils.build.SdkLevel
 import com.android.net.module.util.ArrayTrackRecord
+import com.android.net.module.util.DeviceConfigUtils
 import com.android.net.module.util.TrackRecord
 import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.DevSdkIgnoreRule
@@ -86,13 +90,13 @@ import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 import java.util.function.IntConsumer
-import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import kotlin.test.assertTrue
 import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Assume.assumeFalse
 import org.junit.Assume.assumeTrue
 import org.junit.Before
@@ -100,17 +104,23 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 private const val TAG = "EthernetManagerTest"
+
 // This timeout does not affect the test duration for passing tests. It needs to be long enough to
 // account for RS delay (and potentially the first retry interval (4s)). There have been failures
 // where the interface did not gain provisioning within the allotted timeout.
 private const val TIMEOUT_MS = 10_000L
+
 // Timeout used to confirm no callbacks matching given criteria are received. Must be long enough to
 // process all callbacks including ip provisioning when using the updateConfiguration API.
 // Note that increasing this timeout increases the test duration.
 private const val NO_CALLBACK_TIMEOUT_MS = 500L
 
-private val DEFAULT_IP_CONFIGURATION = IpConfiguration(IpConfiguration.IpAssignment.DHCP,
-        IpConfiguration.ProxySettings.NONE, null, null)
+private val DEFAULT_IP_CONFIGURATION = IpConfiguration(
+    IpConfiguration.IpAssignment.DHCP,
+    IpConfiguration.ProxySettings.NONE,
+    null,
+    null
+)
 private val ETH_REQUEST: NetworkRequest = NetworkRequest.Builder()
         .addTransportType(TRANSPORT_TEST)
         .addTransportType(TRANSPORT_ETHERNET)
@@ -148,7 +158,9 @@ class EthernetManagerTest {
     private class EthernetTestInterface(
         context: Context,
         private val handler: Handler,
-        hasCarrier: Boolean
+        ifaceName: String?,
+        hasCarrier: Boolean,
+        macAddress: String?
     ) {
         private val tapInterface: TestNetworkInterface
         private val packetReader: TapPacketReader
@@ -166,7 +178,7 @@ class EthernetManagerTest {
                 // false, it is subsequently disabled. This means that the interface may briefly get
                 // link. With IPv6 provisioning delays (RS delay and DAD) disabled, this can cause
                 // tests that expect no network to come up when hasCarrier is false to become flaky.
-                tnm.createTapInterface(hasCarrier, false /* bringUp */)
+                tnm.createTapInterface(hasCarrier, false /* bringUp */, ifaceName, macAddress)
             }
             val mtu = tapInterface.mtu
             packetReader = TapPacketReader(handler, tapInterface.fileDescriptor.fileDescriptor, mtu)
@@ -266,17 +278,31 @@ class EthernetManagerTest {
             expectCallback(EthernetStateChanged(state))
         }
 
-        private fun createChangeEvent(iface: String, state: Int, role: Int) =
-                InterfaceStateChanged(iface, state, role,
-                        if (state != STATE_ABSENT) DEFAULT_IP_CONFIGURATION else null)
+        private fun createChangeEvent(
+            iface: String,
+            state: Int,
+            role: Int,
+            expectedConfig: IpConfiguration = DEFAULT_IP_CONFIGURATION
+        ) =
+            InterfaceStateChanged(
+                iface,
+                state,
+                role,
+                if (state != STATE_ABSENT) expectedConfig else null
+            )
 
         fun eventuallyExpect(expected: CallbackEntry) {
             val cb = events.poll(TIMEOUT_MS) { it == expected }
             assertNotNull(cb, "Never received expected $expected. Received: ${events.backtrace()}")
         }
 
-        fun eventuallyExpect(iface: EthernetTestInterface, state: Int, role: Int) {
-            eventuallyExpect(createChangeEvent(iface.name, state, role))
+        fun eventuallyExpect(
+            iface: EthernetTestInterface,
+            state: Int,
+            role: Int,
+            expectedConfig: IpConfiguration = DEFAULT_IP_CONFIGURATION
+        ) {
+            eventuallyExpect(createChangeEvent(iface.name, state, role, expectedConfig))
         }
 
         fun eventuallyExpect(state: Int) {
@@ -348,7 +374,34 @@ class EthernetManagerTest {
         }
     }
 
-    private fun isEthernetSupported() : Boolean {
+    private class EthernetInterfaceConfig(tokens: List<String?>) {
+        val mIface: String?
+        val mCapabilities: String?
+        val mIpConfig: String?
+        val mTransport: String?
+        val isHwAddress: Boolean?
+
+        init {
+            mIface = tokens.getOrNull(0)
+            mCapabilities = tokens.getOrNull(1)
+            mIpConfig = tokens.getOrNull(2)?.takeIf { it.isNotEmpty() }
+            mTransport = tokens.getOrNull(3)
+
+            isHwAddress = try {
+                mIface?.let {
+                    MacAddress.fromString(it)
+                }
+                true
+            } catch (e: IllegalArgumentException) {
+                // If the string is not a valid representation of a MAC address
+                // IllegalArgumentException is thrown. An mIface that is a hwAddress requires
+                // different arguments for createInterface.
+                false
+            }
+        }
+    }
+
+    private fun isEthernetSupported(): Boolean {
         return context.getSystemService(EthernetManager::class.java) != null
     }
 
@@ -427,12 +480,27 @@ class EthernetManagerTest {
 
     // WARNING: setting hasCarrier to false requires kernel support. Call
     // assumeCreateInterfaceWithoutCarrierSupported() at the top of your test.
-    private fun createInterface(hasCarrier: Boolean = true): EthernetTestInterface {
+    private fun createInterface(
+        hasCarrier: Boolean = true,
+        ifaceName: String? = null,
+        hwAddress: String? = null,
+        hasIpConfig: Boolean = false
+    ): EthernetTestInterface {
         val iface = EthernetTestInterface(
             context,
             handler,
-            hasCarrier
+            ifaceName,
+            hasCarrier,
+            hwAddress
         ).also { createdIfaces.add(it) }
+
+        // If setting hw address there will not be an initial broadcast of
+        // the interface state since setIncludeTestInterfaces is called with false.
+        // If hasIpConfig, can't expect the DEFAULT_IP_CONFIGURATION from the ifaceListener.
+        // These kinds of tests should still listen to the state of the iface
+        if (hwAddress != null || hasIpConfig) {
+            return iface
+        }
 
         // when an interface comes up, we should always see a down cb before an up cb.
         ifaceListener.eventuallyExpect(iface, STATE_LINK_DOWN, ROLE_CLIENT)
@@ -457,7 +525,8 @@ class EthernetManagerTest {
     private fun requestNetwork(request: NetworkRequest): TestableNetworkCallback {
         return TestableNetworkCallback(
                 timeoutMs = TIMEOUT_MS,
-                noCallbackTimeoutMs = NO_CALLBACK_TIMEOUT_MS).also {
+            noCallbackTimeoutMs = NO_CALLBACK_TIMEOUT_MS
+        ).also {
             cm.requestNetwork(request, it)
             registeredCallbacks.add(it)
         }
@@ -466,7 +535,8 @@ class EthernetManagerTest {
     private fun registerNetworkListener(request: NetworkRequest): TestableNetworkCallback {
         return TestableNetworkCallback(
                 timeoutMs = TIMEOUT_MS,
-                noCallbackTimeoutMs = NO_CALLBACK_TIMEOUT_MS).also {
+            noCallbackTimeoutMs = NO_CALLBACK_TIMEOUT_MS
+        ).also {
             cm.registerNetworkCallback(request, it)
             registeredCallbacks.add(it)
         }
@@ -514,7 +584,8 @@ class EthernetManagerTest {
                     .setIpConfiguration(ipConfig)
                     .setNetworkCapabilities(capabilities).build(),
                 handler::post,
-                it)
+                it
+            )
         }
     }
 
@@ -525,6 +596,106 @@ class EthernetManagerTest {
         val listener = EthernetStateListener()
         addEthernetStateListener(listener)
         listener.eventuallyExpect(if (enabled) ETHERNET_STATE_ENABLED else ETHERNET_STATE_DISABLED)
+    }
+
+    private fun getConnectivityResources(): Resources {
+        val resourcePackage = DeviceConfigUtils.getConnectivityResourcesPackageName(context)
+        val packageContext = context.createPackageContext(resourcePackage, 0 /* flags */)
+        return packageContext.resources
+    }
+
+    private fun createNetworkCapabilities(
+        commaSeparatedCapabilities: List<String>,
+        configTransport: String?
+    ): NetworkCapabilities.Builder {
+        val builder = NetworkCapabilities.Builder()
+        for (strNetworkCapability in commaSeparatedCapabilities) {
+            if (strNetworkCapability.isNotEmpty()) {
+                try {
+                    builder.addCapability(Integer.valueOf(strNetworkCapability))
+                } catch (e: NumberFormatException) {
+                    Log.e(TAG, "Capability '$strNetworkCapability' could not be parsed")
+                } catch (e: IllegalArgumentException) {
+                    Log.e(
+                        TAG,
+                        strNetworkCapability + " is not a valid " +
+                                "NetworkCapability.NET_CAPABILITY_* value"
+                    )
+                }
+            }
+        }
+
+        var transport = TRANSPORT_ETHERNET
+        if (!configTransport.isNullOrEmpty()) {
+            try {
+                val parsedTransport: Int = Integer.valueOf(configTransport)
+                if (parsedTransport == NetworkCapabilities.TRANSPORT_VPN ||
+                    parsedTransport == NetworkCapabilities.TRANSPORT_WIFI_AWARE ||
+                    parsedTransport == NetworkCapabilities.TRANSPORT_LOWPAN) {
+                    Log.e(
+                        TAG,
+                        "Override transport '$parsedTransport' is not supported. " +
+                                "Defaulting to TRANSPORT_ETHERNET"
+                    )
+                } else {
+                    transport = parsedTransport
+                }
+            } catch (e: NumberFormatException) {
+                Log.e(
+                    TAG,
+                    "Override transport type '$configTransport' could not be parsed. " +
+                            "Defaulting to TRANSPORT_ETHERNET"
+                )
+            }
+        }
+
+        // Apply the transport. If the user supplied a valid number that is not a valid transport
+        // then adding will throw an exception. Default back to TRANSPORT_ETHERNET if that happens
+        try {
+            builder.addTransportType(transport)
+        } catch (e: IllegalArgumentException) {
+            Log.e(
+                TAG,
+                "$transport is not a valid NetworkCapability.TRANSPORT_* value. " +
+                        "Defaulting to TRANSPORT_ETHERNET"
+            )
+            builder.addTransportType(TRANSPORT_ETHERNET)
+        }
+
+        return builder
+    }
+
+    private fun parseStaticIpConfiguration(staticIpConfig: String): IpConfiguration {
+        val staticIpConfigBuilder = StaticIpConfiguration.Builder()
+        val pairs = staticIpConfig.trim().split(" ")
+                .filter { it.isNotEmpty() }
+                .associate {
+                    val (key, value) = it.split("=")
+                    key to value
+                }
+
+        for ((key, value) in pairs) {
+            when (key) {
+                "ip" -> staticIpConfigBuilder.setIpAddress(LinkAddress(value))
+                "domains" -> staticIpConfigBuilder.setDomains(value)
+                "gateway" -> staticIpConfigBuilder.setGateway(InetAddresses.parseNumericAddress(
+                    value
+                ))
+                "dns" -> {
+                    val dnsAddresses =
+                        value.split(",")
+                                .filter { it.isNotEmpty() }
+                                .map { InetAddresses.parseNumericAddress(it) }
+                    staticIpConfigBuilder.setDnsServers(dnsAddresses)
+                }
+
+                else -> Log.e(TAG, "Unexpected key: $key in $staticIpConfig")
+            }
+        }
+
+        return IpConfiguration.Builder()
+                .setStaticIpConfiguration(staticIpConfigBuilder.build())
+                .build()
     }
 
     // NetworkRequest.Builder does not create a copy of the passed NetworkRequest, so in order to
@@ -552,7 +723,11 @@ class EthernetManagerTest {
         eventuallyExpect(CapabilitiesChanged::class) {
             // CS may mix in additional capabilities, so NetworkCapabilities#equals cannot be used.
             // Check if all expected capabilities are present instead.
-            it is CapabilitiesChanged && nc.capabilities.all { c -> it.caps.hasCapability(c) }
+            it is CapabilitiesChanged &&
+                    nc.capabilities.all { c -> it.caps.hasCapability(c) } &&
+                    nc.transportTypes.all { t ->
+                        it.caps.hasTransport(t)
+                    }
         }
     }
 
@@ -1025,5 +1200,100 @@ class EthernetManagerTest {
         iface.setCarrierEnabled(true)
         cb.eventuallyExpectCapabilities(TEST_CAPS)
         cb.eventuallyExpectLpForStaticConfig(STATIC_IP_CONFIGURATION.staticIpConfiguration)
+    }
+
+    private fun assumeEthernetInterfaceConfig(isTestingHwAddr: Boolean):
+            List<EthernetInterfaceConfig> {
+        val resources = getConnectivityResources()
+        val ethernetInterfaceResId =
+            resources.getIdentifier(
+                "config_ethernet_interfaces",
+                "array",
+                "com.google.android.connectivity.resources.cuttlefish"
+            )
+        val interfaces = resources.getStringArray(ethernetInterfaceResId)
+        assumeTrue("Ethernet interfaces", interfaces.isNotEmpty())
+        val ethernetIfaceRegexResId =
+            resources.getIdentifier(
+                "config_ethernet_iface_regex",
+                "string",
+                "com.google.android.connectivity.resources.cuttlefish"
+            )
+
+        val ifaceRegex = when (resources.getString(ethernetIfaceRegexResId)) {
+            // "*" is a magic string to indicate "pick the default".
+            "*" -> if (SdkLevel.isAtLeastV()) "(usb|eth)\\d+" else "eth\\d+"
+            else -> resources.getString(ethernetIfaceRegexResId)
+        }
+
+        return interfaces
+                .mapNotNull { ifaceString ->
+                    EthernetInterfaceConfig(ifaceString.split(";", limit = 4))
+                }
+                .filter {
+                    it.mIface?.matches(Regex(ifaceRegex)) == false &&
+                            it.isHwAddress == isTestingHwAddr
+                }
+    }
+
+    private fun testConfigInterface(
+        iface: EthernetTestInterface,
+        ethInterface: EthernetInterfaceConfig
+    ) {
+        val ipConfig = if (!ethInterface.mIpConfig.isNullOrEmpty()) {
+            parseStaticIpConfiguration(ethInterface.mIpConfig)
+        } else {
+            DEFAULT_IP_CONFIGURATION
+        }
+
+        ifaceListener.eventuallyExpect(iface, STATE_LINK_DOWN, ROLE_CLIENT, ipConfig)
+        ifaceListener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_CLIENT, ipConfig)
+
+        val cb = requestNetwork(ETH_REQUEST)
+        cb.expect<Available>()
+
+        if (!ethInterface.mCapabilities.isNullOrEmpty()) {
+            val builder =
+                createNetworkCapabilities(
+                    ethInterface.mCapabilities.split(","),
+                    ethInterface.mTransport
+                )
+            // ETH_REQUEST removes the NET_CAPABILITY_TRUSTED capability
+            builder.removeCapability(NET_CAPABILITY_TRUSTED)
+            cb.eventuallyExpectCapabilities(builder.build())
+        }
+
+        // Tests hardware address access after interface is removed
+        removeInterface(iface)
+
+        cb.eventuallyExpectLost()
+    }
+
+    @Test
+    fun testConfigInterfaceByHwAddr() {
+        val interfaces = assumeEthernetInterfaceConfig(isTestingHwAddr = true)
+
+        for (ethInterface in interfaces) {
+            // setIncludeTestInterface is called to make sure hwAddress is properly updated
+            setIncludeTestInterfaces(false)
+            val iface = createInterface(hwAddress = ethInterface.mIface)
+            setIncludeTestInterfaces(true)
+
+            testConfigInterface(iface, ethInterface)
+        }
+    }
+
+    @Test
+    fun testConfigInterfaceByIface() {
+        val interfaces = assumeEthernetInterfaceConfig(isTestingHwAddr = false)
+
+        for (ethInterface in interfaces) {
+            val iface = createInterface(
+                ifaceName = ethInterface.mIface,
+                hasIpConfig = !ethInterface.mIpConfig.isNullOrEmpty()
+            )
+
+            testConfigInterface(iface, ethInterface)
+        }
     }
 }
