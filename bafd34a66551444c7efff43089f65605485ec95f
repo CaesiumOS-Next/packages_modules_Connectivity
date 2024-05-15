@@ -188,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fdae564_480b0cbd",
+        "filename": "tests/cts/net/DynamicConfig.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1976127
+      },
+      "writtenOn": "2024-05-15T13:30:05Z",
+      "side": 1,
+      "message": "We can but we need to do it carefully.\n\nFor the existing remote config tests, if remote_config_required default to true, the test will fail if users can\u0027t retrieve latest remote configs. If we change the default to false, there is a risk that users can use the local configs (which might be outdated) to pass these tests.\n\nWe don\u0027t want to silently change the behavior until we get confirmation from test owners who maintain these remote config tests that they are Okay with it.\n\nIs it possible to make the DynamicConfig refactoring separate from this cl? Thanks!",
+      "parentUuid": "34e24194_2d44afac",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "bafd34a66551444c7efff43089f65605485ec95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8ff521c_b3bd7447",
@@ -439,6 +463,30 @@
       "side": 1,
       "message": "Can you explain why not? As far as I can tell the code does:\n\n    DynamicConfigDeviceSide dynamicConfig \u003d new DynamicConfigDeviceSide(\n        \"CtsNetTestCasesLatestSdk\");\n    sIpAddressEchoUrl \u003d dynamicConfig.getValue(\"IP_ADDRESS_ECHO_URL\");\n\nand if I\u0027m reading that correctly, that means it will load /sdcard/dynamic-config-files/CtsNetTestCasesLatestSdk.dynamic either via a contentprovider (using \"content://android.tradefed.contentprovider/sdcard/dynamic-config-files/CtsNetTestCasesLatestSdk.dynamic\") or via direct read.\n\nIt will parse that using an XML parser, it will will look for an \u003centry key\u003d\"IP_ADDRESS_ECHO_URL\"\u003e and if it finds it, it will load the value into sIpAddressEchoUrl.",
       "parentUuid": "69bf335e_0a326af2",
+      "range": {
+        "startLine": 334,
+        "startChar": 12,
+        "endLine": 334,
+        "endChar": 29
+      },
+      "revId": "bafd34a66551444c7efff43089f65605485ec95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b9babd9_064a39f0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1976127
+      },
+      "writtenOn": "2024-05-15T13:30:05Z",
+      "side": 1,
+      "message": "If someone can access the .com service, everything will work as you described and they don’t need to do anything else.\n\nWhile if someone can’t access the .com service and wants to override the URL. They just need to put a file UrlReplacement.xml with a list of \u003creplaced URL, new URL\u003e to CTS root directory. DynamicConfigPusher will do the replacement at L275 with the help of UrlReplacement.java and DynamicConfigHandler.java.",
+      "parentUuid": "4229e1a6_b4f30d11",
       "range": {
         "startLine": 334,
         "startChar": 12,
