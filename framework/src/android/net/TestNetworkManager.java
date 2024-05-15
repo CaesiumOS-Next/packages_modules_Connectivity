@@ -278,24 +278,27 @@ public class TestNetworkManager {
     }
 
     /**
-     * Create a tap interface with or without carrier and with the given mac address
-     * for testing purposes.
+     * Create a tap interface with or without carrier, the given mac address, and the given
+     * interface name for testing purposes.
      *
-     * Note: setting carrierUp = false is not supported until kernel version 6.0.
-     * Note: mac address can only be set for tap interfaces
+     * <p>Note: setting carrierUp = false is not supported until kernel version 6.0.
+     * <p>Note: mac address can only be set for tap interfaces
      *
      * @param carrierUp whether the created interface has a carrier or not.
      * @param bringUp whether to bring up the interface before returning it.
+     * @param iface interface name to be assigned, so far only interface name which starts with
+     *     "v4-testtap" or "v4-testtun" is allowed to be created. If it's null, then use the default
+     *     name(e.g. testtap or testtun).
      * @param macAddress mac address to be assigned
      * @hide
      */
     @RequiresPermission(Manifest.permission.MANAGE_TEST_NETWORKS)
     @NonNull
-    public TestNetworkInterface createTapInterface(boolean carrierUp, boolean bringUp,
-            String macAddress) {
+    public TestNetworkInterface createTapInterface(
+            boolean carrierUp, boolean bringUp, String iface, String macAddress) {
         try {
             return mService.createInterfaceWithHwAddress(TAP, carrierUp, bringUp,
-                    USE_IPV6_PROV_DELAY, NO_ADDRS, null /* iface */, macAddress);
+                    USE_IPV6_PROV_DELAY, NO_ADDRS, iface, macAddress);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
