@@ -85,6 +85,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a933f6ba_4e396a0e",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-15T09:42:28Z",
+      "side": 1,
+      "message": "You don\u0027t need to use runAsShell, the ThreadIntegrationTest.apk does have those permissions by default (requested in AndroidManifest.xml: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/thread/tests/integration/AndroidManifest.xml)",
+      "range": {
+        "startLine": 297,
+        "startChar": 8,
+        "endLine": 297,
+        "endChar": 19
+      },
+      "revId": "13a7445bc5bf6805b5710d9852e3d109df3d4c66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f96c632_8a9c60be",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-15T09:42:28Z",
+      "side": 1,
+      "message": "We don\u0027t care about those details in this test. Can we create a blocking helper method for it?\n\nE.g. `Network getThreadNetwork(Duration timeout) {}`\nAnd use ConnectivityManager#getLinkProperties(Network network) to get the LinkProperties",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 83
+      },
+      "revId": "13a7445bc5bf6805b5710d9852e3d109df3d4c66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "377020bd_a8163bb7",
         "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
         "patchSetId": 3
