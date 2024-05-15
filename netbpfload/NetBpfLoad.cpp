@@ -333,6 +333,11 @@ static int doLoad(char** argv, char * const envp[]) {
         return 1;
     }
 
+    if (isRiscV()) {
+        ALOGE("RiscV not supported.");
+        return 1;
+    }
+
     // Ensure we can determine the Android build type.
     if (!isEng() && !isUser() && !isUserdebug()) {
         ALOGE("Failed to determine the build type: got %s, want 'eng', 'user', or 'userdebug'",
