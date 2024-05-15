@@ -2243,8 +2243,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
         try {
             final boolean metered = nc == null ? true : nc.isMetered();
             if (mDeps.isAtLeastV()) {
-                return mBpfNetMaps.isUidNetworkingBlocked(uid, metered)
-                        || (mBpfNetMaps.getNetPermForUid(uid) & PERMISSION_INTERNET) == 0;
+                final boolean hasInternetPermission =
+                        (mBpfNetMaps.getNetPermForUid(uid) & PERMISSION_INTERNET) != 0;
+                if (mDeps.isChangeEnabled(NETWORKINFO_WITHOUT_INTERNET_BLOCKED, uid)) {
+                    return hasInternetPermission
+                            ? mBpfNetMaps.isUidNetworkingBlocked(uid, metered)
+                            : false;
+                } else {
+                    return mBpfNetMaps.isUidNetworkingBlocked(uid, metered)
+                            || !hasInternetPermission;
+                }
             } else {
                 return mPolicyManager.isUidNetworkingBlocked(uid, metered);
             }
@@ -2325,12 +2333,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final int uid = mDeps.getCallingUid();
         final NetworkAgentInfo nai = getNetworkAgentInfoForUid(uid);
         if (nai == null) return null;
-        // Ignore blocked state to keep the backward compatibility if the compat flag is
-        // disabled and app does not have PERMISSION_INTERNET.
-        final boolean ignoreBlocked = mDeps.isAtLeastV()
-                && !mDeps.isChangeEnabled(NETWORKINFO_WITHOUT_INTERNET_BLOCKED, uid)
-                && (mBpfNetMaps.getNetPermForUid(uid) & PERMISSION_INTERNET) == 0;
-        final NetworkInfo networkInfo = getFilteredNetworkInfo(nai, uid, ignoreBlocked);
+        final NetworkInfo networkInfo = getFilteredNetworkInfo(nai, uid, false /* ignoreBlocked */);
         maybeLogBlockedNetworkInfo(networkInfo, uid);
         return networkInfo;
     }
@@ -11052,7 +11055,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final boolean metered = nai.networkCapabilities.isMetered();
         final boolean vpnBlocked = isUidBlockedByVpn(nri.mAsUid, mVpnBlockedUidRanges);
         callCallbackForRequest(nri, nai, ConnectivityManager.CALLBACK_AVAILABLE,
-                getBlockedState(blockedReasons, metered, vpnBlocked));
+                getBlockedState(nri.mAsUid, blockedReasons, metered, vpnBlocked));
     }
 
     // Notify the requests on this NAI that the network is now lingered.
@@ -11061,7 +11064,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         notifyNetworkCallbacks(nai, ConnectivityManager.CALLBACK_LOSING, lingerTime);
     }
 
-    private static int getBlockedState(int reasons, boolean metered, boolean vpnBlocked) {
+    private int getBlockedState(int uid, int reasons, boolean metered, boolean vpnBlocked) {
+        final boolean ignoreFirewallBlockedReasons = mDeps.isAtLeastV()
+                && !mDeps.isChangeEnabled(NETWORKINFO_WITHOUT_INTERNET_BLOCKED, uid)
+                && (mBpfNetMaps.getNetPermForUid(uid) & PERMISSION_INTERNET) == 0;
+        if (ignoreFirewallBlockedReasons) reasons = BLOCKED_REASON_NONE;
         if (!metered) reasons &= ~BLOCKED_METERED_REASON_MASK;
         return vpnBlocked
                 ? reasons | BLOCKED_REASON_LOCKDOWN_VPN
@@ -11102,8 +11109,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     ? isUidBlockedByVpn(nri.mAsUid, newBlockedUidRanges)
                     : oldVpnBlocked;
 
-            final int oldBlockedState = getBlockedState(blockedReasons, oldMetered, oldVpnBlocked);
-            final int newBlockedState = getBlockedState(blockedReasons, newMetered, newVpnBlocked);
+            final int oldBlockedState = getBlockedState(nri.mAsUid, blockedReasons, oldMetered, oldVpnBlocked);
+            final int newBlockedState = getBlockedState(nri.mAsUid, blockedReasons, newMetered, newVpnBlocked);
             if (oldBlockedState != newBlockedState) {
                 callCallbackForRequest(nri, nai, ConnectivityManager.CALLBACK_BLK_CHANGED,
                         newBlockedState);
@@ -11121,9 +11128,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
             final boolean metered = nai.networkCapabilities.isMetered();
             final boolean vpnBlocked = isUidBlockedByVpn(uid, mVpnBlockedUidRanges);
 
-            final int oldBlockedState = getBlockedState(
+            final boolean ignoreFirewallBlockedReasons = mDeps.isAtLeastV()
+                    && !mDeps.isChangeEnabled(NETWORKINFO_WITHOUT_INTERNET_BLOCKED, uid)
+                    && (mBpfNetMaps.getNetPermForUid(uid) & PERMISSION_INTERNET) == 0;
+
+            final int oldBlockedState = getBlockedState(uid,
                     mUidBlockedReasons.get(uid, BLOCKED_REASON_NONE), metered, vpnBlocked);
-            final int newBlockedState = getBlockedState(blockedReasons, metered, vpnBlocked);
+            final int newBlockedState = getBlockedState(uid, blockedReasons, metered, vpnBlocked);
             if (oldBlockedState == newBlockedState) {
                 continue;
             }
