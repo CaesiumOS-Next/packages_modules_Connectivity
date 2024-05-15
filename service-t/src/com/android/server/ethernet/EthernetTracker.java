@@ -18,6 +18,7 @@ package com.android.server.ethernet;
 
 import static android.net.EthernetManager.ETHERNET_STATE_DISABLED;
 import static android.net.EthernetManager.ETHERNET_STATE_ENABLED;
+import static android.net.TestNetworkManager.CLAT_INTERFACE_PREFIX;
 import static android.net.TestNetworkManager.TEST_TAP_PREFIX;
 
 import static com.android.internal.annotations.VisibleForTesting.Visibility.PACKAGE;
@@ -89,6 +90,8 @@ public class EthernetTracker {
     private static final boolean DBG = EthernetNetworkFactory.DBG;
 
     private static final String TEST_IFACE_REGEXP = TEST_TAP_PREFIX + "\\d+";
+    private static final String TEST_CLAT_IFACE_REGEXP =
+            CLAT_INTERFACE_PREFIX + TEST_TAP_PREFIX + "\\d+";
 
     // TODO: consider using SharedLog consistently across ethernet service.
     private static final SharedLog sLog = new SharedLog(TAG);
@@ -700,7 +703,6 @@ public class EthernetTracker {
         final NetworkCapabilities nc = getNetworkCapabilities(iface, hwAddress);
         final IpConfiguration ipConfiguration = getIpConfiguration(iface, hwAddress);
 
-        Log.d(TAG, "Tracking interface in client mode: " + iface);
         mFactory.addInterface(iface, hwAddress, ipConfiguration, nc);
 
         // Note: if the interface already has link (e.g., if we crashed and got
@@ -985,7 +987,8 @@ public class EthernetTracker {
      * interface prefix, {@code false} otherwise.
      */
     public boolean isValidTestInterface(@NonNull final String iface) {
-        return mIncludeTestInterfaces && iface.matches(TEST_IFACE_REGEXP);
+        return mIncludeTestInterfaces && (iface.matches(TEST_IFACE_REGEXP) || iface.matches(
+                TEST_CLAT_IFACE_REGEXP));
     }
 
     private void postAndWaitForRunnable(Runnable r) {
