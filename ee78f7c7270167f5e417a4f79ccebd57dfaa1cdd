@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "066a07b5_c7dd1e69",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-05-15T21:44:05Z",
+      "side": 1,
+      "message": "These functions are adapted from EthernetTracker, not sure if it would be possible to use them since they are package-protected",
+      "range": {
+        "startLine": 606,
+        "startChar": 0,
+        "endLine": 698,
+        "endChar": 5
+      },
+      "revId": "ee78f7c7270167f5e417a4f79ccebd57dfaa1cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f7b721e_a881687e",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1266,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-05-15T21:44:05Z",
+      "side": 1,
+      "message": "This part is testing for the log.wtf, wasn\u0027t sure if there was a way to intercept the logging programmatically to check",
+      "range": {
+        "startLine": 1266,
+        "startChar": 8,
+        "endLine": 1266,
+        "endChar": 30
+      },
+      "revId": "ee78f7c7270167f5e417a4f79ccebd57dfaa1cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
