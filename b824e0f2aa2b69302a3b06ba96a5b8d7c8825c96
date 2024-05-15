@@ -70,6 +70,23 @@
       },
       "revId": "b824e0f2aa2b69302a3b06ba96a5b8d7c8825c96",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af29231b_2a5fdeeb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-05-15T16:42:45Z",
+      "side": 1,
+      "message": "I think this change makes sense. The only possible downside I can see is that changes to CTS won\u0027t be covered by the release review anymore. (I guess that\u0027s an easy fix: include all changes that land on main inside /external/cronet). In any case, I don\u0027t know how important that is as long as the import rotation is familiar with MCTS (and its pitfalls).",
+      "revId": "b824e0f2aa2b69302a3b06ba96a5b8d7c8825c96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
