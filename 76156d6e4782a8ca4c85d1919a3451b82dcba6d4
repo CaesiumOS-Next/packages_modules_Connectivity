@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "695ef079_5d87376c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-15T03:32:13Z",
+      "side": 1,
+      "message": "Maybe describe it more specifically?",
+      "range": {
+        "startLine": 15,
+        "startChar": 50,
+        "endLine": 15,
+        "endChar": 65
+      },
+      "revId": "76156d6e4782a8ca4c85d1919a3451b82dcba6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0680b769_806b5326",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-15T03:32:13Z",
+      "side": 1,
+      "message": "Maybe this is too generic since we are not destroy all sockets?",
+      "range": {
+        "startLine": 18,
+        "startChar": 17,
+        "endLine": 18,
+        "endChar": 24
+      },
+      "revId": "76156d6e4782a8ca4c85d1919a3451b82dcba6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
