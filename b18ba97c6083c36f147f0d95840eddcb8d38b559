@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c7fc858_a653f63c",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-15T13:12:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32132a59_1b3ff3c8",
+      "range": {
+        "startLine": 285,
+        "startChar": 8,
+        "endLine": 292,
+        "endChar": 47
+      },
+      "revId": "b18ba97c6083c36f147f0d95840eddcb8d38b559",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "720a8072_7840d0b8",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-15T12:01:37Z",
       "side": 1,
       "message": "```suggestion\n        assertThat(lp.getRoutes().stream().anyMatch(r -\u003e r.matches(TEST_NO_SLAAC_PREFIX_ADDRESS))).isFalse();\n```",
+      "range": {
+        "startLine": 313,
+        "startChar": 8,
+        "endLine": 320,
+        "endChar": 48
+      },
+      "revId": "b18ba97c6083c36f147f0d95840eddcb8d38b559",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4369f0c5_361e2308",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-15T13:12:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "720a8072_7840d0b8",
       "range": {
         "startLine": 313,
         "startChar": 8,
