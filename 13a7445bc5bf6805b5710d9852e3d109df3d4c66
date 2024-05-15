@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef5ddd9f_80b662a1",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-15T09:38:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "927ff269_0def033d",
+      "range": {
+        "startLine": 109,
+        "startChar": 55,
+        "endLine": 109,
+        "endChar": 82
+      },
+      "revId": "13a7445bc5bf6805b5710d9852e3d109df3d4c66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7e59ce6_4a1ffbe0",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-05-14T07:52:19Z",
       "side": 1,
       "message": "I think you also need to check the scenario when the prefix is removed.",
+      "revId": "13a7445bc5bf6805b5710d9852e3d109df3d4c66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95ca23a1_f5478cbe",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-15T09:38:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7e59ce6_4a1ffbe0",
       "revId": "13a7445bc5bf6805b5710d9852e3d109df3d4c66",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -58,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20c0968d_6ccc2aeb",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-15T09:38:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "377020bd_a8163bb7",
+      "revId": "13a7445bc5bf6805b5710d9852e3d109df3d4c66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b249d62_2c54cbcd",
@@ -71,6 +131,30 @@
       "writtenOn": "2024-05-14T07:31:32Z",
       "side": 1,
       "message": "Do we still need this?",
+      "range": {
+        "startLine": 321,
+        "startChar": 6,
+        "endLine": 322,
+        "endChar": 48
+      },
+      "revId": "13a7445bc5bf6805b5710d9852e3d109df3d4c66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c91799da_3ca4f774",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-15T09:38:15Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "8b249d62_2c54cbcd",
       "range": {
         "startLine": 321,
         "startChar": 6,
