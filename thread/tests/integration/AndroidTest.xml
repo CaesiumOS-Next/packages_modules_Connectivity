@@ -33,6 +33,12 @@
 
     <target_preparer class="com.android.tradefed.targetprep.RootTargetPreparer" />
 
+    <target_preparer class="com.android.tradefed.targetprep.RunCommandTargetPreparer">
+        <option name="run-command" value="setprop persist.vendor.otsim.local_interface ''" />
+        <option name="run-command" value="stop vendor.threadnetwork_hal" />
+        <option name="run-command" value="start vendor.threadnetwork_hal" />
+    </target_preparer>
+
     <!-- Install test -->
     <target_preparer class="com.android.tradefed.targetprep.suite.SuiteApkInstaller">
         <option name="test-file-name" value="ThreadNetworkIntegrationTests.apk" />

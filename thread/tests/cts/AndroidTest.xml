@@ -45,6 +45,13 @@
         <option name="cleanup-apks" value="true" />
     </target_preparer>
 
+    <!-- for cuttlefish -->
+    <target_preparer class="com.android.tradefed.targetprep.RunCommandTargetPreparer">
+        <option name="run-command" value="setprop persist.vendor.otsim.local_interface ''" />
+        <option name="run-command" value="stop vendor.threadnetwork_hal || true" />
+        <option name="run-command" value="start vendor.threadnetwork_hal || true" />
+    </target_preparer>
+
     <test class="com.android.tradefed.testtype.AndroidJUnitTest" >
         <option name="package" value="android.net.thread.cts" />
         <!-- Ignores tests introduced by guava-android-testlib -->
