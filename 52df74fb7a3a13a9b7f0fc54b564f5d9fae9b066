@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acc82091_30668220",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-15T09:45:15Z",
+      "side": 1,
+      "message": "and therefore cannot access any networks",
+      "range": {
+        "startLine": 934,
+        "startChar": 18,
+        "endLine": 934,
+        "endChar": 71
+      },
+      "revId": "52df74fb7a3a13a9b7f0fc54b564f5d9fae9b066",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47da9432_a0b6c97e",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-15T09:45:15Z",
+      "side": 1,
+      "message": "BLOCKED_REASON_NO_INTERNET_PERMISSION",
+      "range": {
+        "startLine": 940,
+        "startChar": 28,
+        "endLine": 940,
+        "endChar": 62
+      },
+      "revId": "52df74fb7a3a13a9b7f0fc54b564f5d9fae9b066",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fc7f98a_d86d3693",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 11147,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-15T09:45:15Z",
+      "side": 1,
+      "message": "This method is useful. It would be good to use it in the other related CLs as well. IIRC those CLs have duplicated code to do this.",
+      "range": {
+        "startLine": 11147,
+        "startChar": 20,
+        "endLine": 11147,
+        "endChar": 52
+      },
+      "revId": "52df74fb7a3a13a9b7f0fc54b564f5d9fae9b066",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10f3d78b_5d57e642",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 11168,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-15T09:45:15Z",
+      "side": 1,
+      "message": "noInternetPermission?\n\nRationale: the internet permission is not blocked. The app is blocked.",
+      "range": {
+        "startLine": 11168,
+        "startChar": 22,
+        "endLine": 11168,
+        "endChar": 47
+      },
+      "revId": "52df74fb7a3a13a9b7f0fc54b564f5d9fae9b066",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
