@@ -42,7 +42,6 @@ java_defaults {
     // Tag this module as a cts test artifact
     test_suites: [
         "general-tests",
-        "sts",
     ],
 }
 
