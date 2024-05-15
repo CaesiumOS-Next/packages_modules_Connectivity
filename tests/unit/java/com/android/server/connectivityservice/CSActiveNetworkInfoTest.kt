@@ -24,7 +24,7 @@ import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkInfo.DetailedState.BLOCKED
 import android.net.NetworkInfo.DetailedState.CONNECTED
-import android.net.connectivity.ConnectivityCompatChanges.NETWORKINFO_WITHOUT_INTERNET_BLOCKED
+import android.net.connectivity.ConnectivityCompatChanges.NETWORK_BLOCKED_WITHOUT_INTERNET_PERMISSION
 import android.os.Build
 import androidx.test.filters.SmallTest
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
@@ -53,7 +53,7 @@ class CSActiveNetworkInfoTest : CSTest() {
             permissions: Int,
             expectBlocked: Boolean
     ) {
-        deps.setChangeIdEnabled(changeEnabled, NETWORKINFO_WITHOUT_INTERNET_BLOCKED)
+        deps.setChangeIdEnabled(changeEnabled, NETWORK_BLOCKED_WITHOUT_INTERNET_PERMISSION)
         doReturn(permissions).`when`(bpfNetMaps).getNetPermForUid(anyInt())
 
         val agent = Agent(nc = nc())
