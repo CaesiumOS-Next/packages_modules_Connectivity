@@ -166,6 +166,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34e24194_2d44afac",
+        "filename": "tests/cts/net/DynamicConfig.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-15T10:37:35Z",
+      "side": 1,
+      "message": "I get that both configurations are in use. But if remote_config_required\u003dtrue is deprecated, then why can\u0027t we make remote_config_required default to false?\n\nIf we don\u0027t do that, then every new test we add will need to say remote_config_required \u003d false, like we do here.\n\nIt seems better to:\n- Change the tests that require remote config to set remote_config_required\u003dtrue in their DynamicConfig.xml.\n- Change the default in DynamicConfig.java to false.",
+      "parentUuid": "c9922cc5_59f514e9",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "bafd34a66551444c7efff43089f65605485ec95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8ff521c_b3bd7447",
         "filename": "tests/cts/net/DynamicConfig.xml",
         "patchSetId": 9
@@ -391,6 +415,30 @@
       "side": 1,
       "message": "No, they don\u0027t need to.\n\n1. DynamicConfig.xml will be packaged into each module respectively (this is to support different configs on different modules, though they are same in our example), Tradefed will read the file under the module sub-directory to get the configs.\n2. Tradefed supports to override the URL added in the DynamicConfig.xml at suite level if UrlReplacement.xml exits. So if someone wants to override the URL, the only thing they need to do is to put the file under the cts tool root directory.\n\nAn simpler solution for users is we update the test logic to 1) try to connect to .com domain, 2) if timeout try to connect to .cn domain like what Patchset 6 did. But I have dropped it. Thanks!",
       "parentUuid": "0d3aba2c_5b8cbbfd",
+      "range": {
+        "startLine": 334,
+        "startChar": 12,
+        "endLine": 334,
+        "endChar": 29
+      },
+      "revId": "bafd34a66551444c7efff43089f65605485ec95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4229e1a6_b4f30d11",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-15T10:37:35Z",
+      "side": 1,
+      "message": "Can you explain why not? As far as I can tell the code does:\n\n    DynamicConfigDeviceSide dynamicConfig \u003d new DynamicConfigDeviceSide(\n        \"CtsNetTestCasesLatestSdk\");\n    sIpAddressEchoUrl \u003d dynamicConfig.getValue(\"IP_ADDRESS_ECHO_URL\");\n\nand if I\u0027m reading that correctly, that means it will load /sdcard/dynamic-config-files/CtsNetTestCasesLatestSdk.dynamic either via a contentprovider (using \"content://android.tradefed.contentprovider/sdcard/dynamic-config-files/CtsNetTestCasesLatestSdk.dynamic\") or via direct read.\n\nIt will parse that using an XML parser, it will will look for an \u003centry key\u003d\"IP_ADDRESS_ECHO_URL\"\u003e and if it finds it, it will load the value into sIpAddressEchoUrl.",
+      "parentUuid": "69bf335e_0a326af2",
       "range": {
         "startLine": 334,
         "startChar": 12,

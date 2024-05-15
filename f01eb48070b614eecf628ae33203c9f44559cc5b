@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5900573a_7cd6b1f9",
+        "filename": "tests/cts/net/AndroidTestTemplate.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-15T10:37:35Z",
+      "side": 1,
+      "message": "Is this used by the test harness in some way? As far as I can tell the DynamicConfigPusher preparer has an option with this name, but we\u0027re not setting that here - the DynamicConfigPusher is configured above.\n\nIf this is not used by the test harness, then can we set it to something that\u0027s more meaningful to our test, such as \"test-module-name\"?",
+      "range": {
+        "startLine": 45,
+        "startChar": 48,
+        "endLine": 45,
+        "endChar": 67
+      },
+      "revId": "f01eb48070b614eecf628ae33203c9f44559cc5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
