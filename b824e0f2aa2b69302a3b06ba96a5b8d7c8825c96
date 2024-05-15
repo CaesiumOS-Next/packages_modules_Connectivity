@@ -46,6 +46,30 @@
       },
       "revId": "b824e0f2aa2b69302a3b06ba96a5b8d7c8825c96",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93692210_3a15d17e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-15T14:09:34Z",
+      "side": 1,
+      "message": "Thank you for clarification.\nLGTM.",
+      "parentUuid": "e2cfd3e8_e6155af9",
+      "range": {
+        "startLine": 9,
+        "startChar": 15,
+        "endLine": 9,
+        "endChar": 68
+      },
+      "revId": "b824e0f2aa2b69302a3b06ba96a5b8d7c8825c96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
