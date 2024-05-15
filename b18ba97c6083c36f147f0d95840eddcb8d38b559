@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32132a59_1b3ff3c8",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-15T12:01:37Z",
+      "side": 1,
+      "message": "Avoid forloop in tests if you can:\n```suggestion\n        assertThat(lp.getRoutes().stream().anyMatch(r -\u003e r.matches(TEST_NO_SLAAC_PREFIX_ADDRESS))).isTrue();\n```",
+      "range": {
+        "startLine": 285,
+        "startChar": 8,
+        "endLine": 292,
+        "endChar": 47
+      },
+      "revId": "b18ba97c6083c36f147f0d95840eddcb8d38b559",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "720a8072_7840d0b8",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-15T12:01:37Z",
+      "side": 1,
+      "message": "```suggestion\n        assertThat(lp.getRoutes().stream().anyMatch(r -\u003e r.matches(TEST_NO_SLAAC_PREFIX_ADDRESS))).isFalse();\n```",
+      "range": {
+        "startLine": 313,
+        "startChar": 8,
+        "endLine": 320,
+        "endChar": 48
+      },
+      "revId": "b18ba97c6083c36f147f0d95840eddcb8d38b559",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
