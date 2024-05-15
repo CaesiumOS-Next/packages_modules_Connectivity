@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "542c3821_30fa4d3b",
+        "filename": "tests/cts/netpermission/updatestatspermission/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-15T06:18:56Z",
+      "side": 1,
+      "message": "I can build pass but got this error in runtime:\n\nandroid.networkpermission.updatestatspermission.cts (1 Test)\n[1/1] android.net.cts.networkpermission.updatestatspermission.UpdateStatsPermissionTest#testUpdateDeviceStatsPermission: FAILED (156ms)\n\nSTACKTRACE:\njava.lang.NoSuchMethodError: No static method clearRateLimitCaches()V in class Landroid/net/TrafficStats; or its super classes (declaration of \u0027android.net.TrafficStats\u0027 appears in /apex/com.android.tethering/javalib/framework-connectivity-t.jar)\n\tat android.net.cts.networkpermission.updatestatspermission.UpdateStatsPermissionTest.lambda$testUpdateDeviceStatsPermission$0(UpdateStatsPermissionTest.java:76)\n\tat android.net.cts.networkpermission.updatestatspermission.UpdateStatsPermissionTest$$ExternalSyntheticLambda0.run(D8$$SyntheticClass:0)\n\nMight need some help for this.\n@reminv@google.com",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "14a7a269b1d007e22ac5510731c7ff682df15112",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
