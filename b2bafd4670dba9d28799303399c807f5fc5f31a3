@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2b4d66b_62d504dd",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-15T09:43:56Z",
+      "side": 1,
+      "message": "Very nit: call it `getRouteForOnMeshPrefix`\n\nI\u0027m fine with keeping it as-is in this CL though.",
+      "range": {
+        "startLine": 273,
+        "startChar": 22,
+        "endLine": 273,
+        "endChar": 39
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "fc22852b_f9d270e2",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+              "range": {
+                "startLine": 252,
+                "startChar": 0,
+                "endLine": 253,
+                "endChar": 0
+              },
+              "replacement": "            newNetDataPrefixes.add(getRouteForOnMeshPrefix(onMeshPrefixConfig));\n"
+            },
+            {
+              "path": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+              "range": {
+                "startLine": 273,
+                "startChar": 0,
+                "endLine": 274,
+                "endChar": 0
+              },
+              "replacement": "    private RouteInfo getRouteForOnMeshPrefix(OnMeshPrefixConfig onMeshPrefixConfig) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b2bafd4670dba9d28799303399c807f5fc5f31a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
