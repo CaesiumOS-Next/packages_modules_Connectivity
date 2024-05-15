@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdb5e66a_66ed4e5d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2249,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-15T09:35:48Z",
+      "side": 1,
+      "message": "Factor this out?\n\n    final boolean blockedByUidRules \u003d isUidNetworkingBlocked(uid, metered);\n    if (mDeps.isChangeEnabled(NETWORKINFO_WITHOUT_INTERNET_BLOCKED, uid)) {\n        return blockedByUidRules || !hasInternetPermission;\n    } else {\n        return hasInternetPermission \u0026\u0026 blockedByUidRules;\n    }",
+      "range": {
+        "startLine": 2249,
+        "startChar": 39,
+        "endLine": 2249,
+        "endChar": 61
+      },
+      "revId": "fb032ff1dd7d3de119f0ac4cef7fb9152d6af7b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b58ee8ca_90fb75ae",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 11112,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-15T09:35:48Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Check Contents: Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nLines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.",
+      "range": {
+        "startLine": 11112,
+        "startChar": 0,
+        "endLine": 11112,
+        "endChar": 111
+      },
+      "revId": "fb032ff1dd7d3de119f0ac4cef7fb9152d6af7b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
