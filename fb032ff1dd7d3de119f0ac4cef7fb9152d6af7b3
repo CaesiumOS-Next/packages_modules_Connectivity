@@ -50,6 +50,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ecb66d7_dfc2186d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 11067,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-15T11:07:36Z",
+      "side": 1,
+      "message": "Per discussion, maybe move these changes from this CL to aosp/3079290 , and only focus this CL on the compat flag?",
+      "range": {
+        "startLine": 11067,
+        "startChar": 16,
+        "endLine": 11067,
+        "endChar": 31
+      },
+      "revId": "fb032ff1dd7d3de119f0ac4cef7fb9152d6af7b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b58ee8ca_90fb75ae",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 3
