@@ -167,7 +167,7 @@ static constexpr bool isRiscV() {
 #endif
 }
 
-static_assert(isArm() || isX86() || isRiscV(), "Unknown architecture");
+static_assert(isArm() || isX86(), "Unknown/unsupported architecture");
 
 static __unused const char * describeArch() {
     // ordered so as to make it easier to compile time optimize,
