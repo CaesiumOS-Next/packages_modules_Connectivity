@@ -33,7 +33,6 @@ android_test_helper_app {
     test_suites: [
         "cts",
         "general-tests",
-        "sts",
     ],
     certificate: ":cts-netpolicy-app",
 }
