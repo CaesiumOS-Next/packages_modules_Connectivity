@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fec978d7_4d4ab021",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-15T09:05:05Z",
+      "side": 1,
+      "message": "LGTM, this is continued review from aosp/3054202.\n@reminv@google.com to review since this is CTS fix.",
+      "revId": "6c746c6af8af213c1ef58da559aa9cf689b27e6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
