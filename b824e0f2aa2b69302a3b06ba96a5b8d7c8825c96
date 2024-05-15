@@ -22,6 +22,30 @@
       },
       "revId": "b824e0f2aa2b69302a3b06ba96a5b8d7c8825c96",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2cfd3e8_e6155af9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2024-05-15T10:09:59Z",
+      "side": 1,
+      "message": "Generally, we don\u0027t need to update CTS and we haven\u0027t had any incident of updating Cronet CTS tests while importing. However, the reasoning for moving the tests is because the code-under-test exists under external/Cronet. So if in the future we decide to add a new API, tweak something. We don\u0027t want the hassle of coordinating changes across two repositories.\n\nWe will still include tethering team in critical changes that requires coordination but for now, we want to increase our velocity.",
+      "parentUuid": "01a9f61c_1645a4a7",
+      "range": {
+        "startLine": 9,
+        "startChar": 15,
+        "endLine": 9,
+        "endChar": 68
+      },
+      "revId": "b824e0f2aa2b69302a3b06ba96a5b8d7c8825c96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
