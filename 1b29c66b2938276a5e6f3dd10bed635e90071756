@@ -40,6 +40,30 @@
       ],
       "revId": "1b29c66b2938276a5e6f3dd10bed635e90071756",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40ce97cb_eb03f6cb",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-16T08:40:57Z",
+      "side": 1,
+      "message": "This is done for the following lint error.\nI\u0027m not sure if there is a better fix.\n```\nA block comment in between other elements on the same line is disallowed (standard:comment-wrapping)\n```",
+      "parentUuid": "ee1cf5f6_7b0ba36d",
+      "range": {
+        "startLine": 176,
+        "startChar": 8,
+        "endLine": 176,
+        "endChar": 25
+      },
+      "revId": "1b29c66b2938276a5e6f3dd10bed635e90071756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
