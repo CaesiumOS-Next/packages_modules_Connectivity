@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "037a0ba6_dac66972",
+        "filename": "thread/tests/multidevices/AndroidTest.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-16T07:15:35Z",
+      "side": 1,
+      "message": "Basically a system component testing should not be depending on a vendor specific property or feature. What happens when running this test on a real TV or phone device? Will it fail with module error or skip silently?\n\nCan we change the `ot-cli-ftd` in existing tests to use also `eth1` rather than `loopback` for simulation radio transmission?",
+      "range": {
+        "startLine": 40,
+        "startChar": 13,
+        "endLine": 40,
+        "endChar": 98
+      },
+      "revId": "10161e80c5b2d308fac420926a1ce024021f469f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
