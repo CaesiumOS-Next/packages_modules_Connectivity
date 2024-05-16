@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b66ceb8_4f13989e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-16T08:13:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "695ef079_5d87376c",
+      "range": {
+        "startLine": 15,
+        "startChar": 50,
+        "endLine": 15,
+        "endChar": 65
+      },
+      "revId": "76156d6e4782a8ca4c85d1919a3451b82dcba6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0680b769_806b5326",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-15T03:32:13Z",
       "side": 1,
       "message": "Maybe this is too generic since we are not destroy all sockets?",
+      "range": {
+        "startLine": 18,
+        "startChar": 17,
+        "endLine": 18,
+        "endChar": 24
+      },
+      "revId": "76156d6e4782a8ca4c85d1919a3451b82dcba6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "810b6ac1_264e1a29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-16T08:13:23Z",
+      "side": 1,
+      "message": "We have a separated flags that control destroy socket (destroy_frozen_sockets_version, background_firewall_chain).\nAnd we would have more flags for other reasons of socket destroy in the future.\n\nThis flag is to control if we will delay socket destroy or not regardless of reasons. so I felt this name makes sense.",
+      "parentUuid": "0680b769_806b5326",
       "range": {
         "startLine": 18,
         "startChar": 17,
