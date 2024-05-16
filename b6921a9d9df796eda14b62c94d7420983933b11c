@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8286d3cd_8c73abc9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-16T08:51:32Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "b6921a9d9df796eda14b62c94d7420983933b11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c121bc9b_18cf9f62",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 3419,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-16T08:51:32Z",
+      "side": 1,
+      "message": "nit: It seems to me the destroyPendingSockets is dealing with sockets more then just fronzen ones, right?\nIf so, do we want to add comment here to describe mismatch, or we are going to change this shortly?",
+      "range": {
+        "startLine": 3419,
+        "startChar": 12,
+        "endLine": 3419,
+        "endChar": 30
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "b0c4818d_212cf7e8",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 3420,
+                "startChar": 0,
+                "endLine": 3422,
+                "endChar": 0
+              },
+              "replacement": "             return;\n         }\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 3423,
+                "startChar": 0,
+                "endLine": 3429,
+                "endChar": 0
+              },
+              "replacement": "         try {\n             mDeps.destroyLiveTcpSocketsByOwnerUids(mPendingFrozenUids);\n         } catch (SocketException | InterruptedIOException | ErrnoException e) {\n             loge(\"Failed to destroy sockets: \" + e);\n         }\n         mPendingFrozenUids.clear();\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b6921a9d9df796eda14b62c94d7420983933b11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
