@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d037844a_6a0a8910",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2024-05-16T16:54:34Z",
+      "side": 1,
+      "message": "Wasn\u0027t sure if the methods should be extracted to a helper class, didn\u0027t want to create a dependency",
+      "parentUuid": "066a07b5_c7dd1e69",
+      "range": {
+        "startLine": 606,
+        "startChar": 0,
+        "endLine": 698,
+        "endChar": 5
+      },
+      "revId": "ee78f7c7270167f5e417a4f79ccebd57dfaa1cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1f7b721e_a881687e",
         "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
         "patchSetId": 1
