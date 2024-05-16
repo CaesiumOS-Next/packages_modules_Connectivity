@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "167342cf_e40696e6",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSActiveNetworkInfoTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-16T07:12:01Z",
+      "side": 1,
+      "message": "Perhaps not for this CL, but can you test coverage for getActiveNetwork as well? Should be easy, just add something like\n\n    assertEquals(expectBlocked, cm.activeNetwork \u003d\u003d null)\n\nto doTestGetActiveNetworkInfo above (just before line 69).",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 5
+      },
+      "revId": "ba66b67ebc31d479cd4fa73adaab604289022f1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
