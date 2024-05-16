@@ -1,0 +1,108 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08032ad9_a518e153",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 80
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-16T09:35:18Z",
+      "side": 1,
+      "message": "nit: Maybe also specify this is no-op change?",
+      "revId": "f31fe9a497c929c9f9cdfc13c6fb5fd68a4b94bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f02222f9_532cf28a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-16T09:35:18Z",
+      "side": 1,
+      "message": "nit: Maybe also add comment to specify this is only accessed on the handler thread?\nNo strong opinion.",
+      "range": {
+        "startLine": 1022,
+        "startChar": 33,
+        "endLine": 1022,
+        "endChar": 47
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "34fd1b13_0ae6b88e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 1023,
+                "startChar": 0,
+                "endLine": 1023,
+                "endChar": 0
+              },
+              "replacement": "    // This is only accessed on the handler thread.\n    private static final int DESTROY_SOCKET_REASON_NONE \u003d 0;\n    private static final int DESTROY_SOCKET_REASON_FROZEN \u003d 1 \u003c\u003c0;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "f31fe9a497c929c9f9cdfc13c6fb5fd68a4b94bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1257386_4dd2fd84",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 3405,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-16T09:35:18Z",
+      "side": 1,
+      "message": "It seems to me this logic might be better to have some unit tests.\nIs it worthy if we make an generic util class like UidRange?\ne.g. UidFlagMap",
+      "range": {
+        "startLine": 3392,
+        "startChar": 2,
+        "endLine": 3405,
+        "endChar": 5
+      },
+      "revId": "f31fe9a497c929c9f9cdfc13c6fb5fd68a4b94bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec500ff6_0992db37",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 3407,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-16T09:35:18Z",
+      "side": 1,
+      "message": "nit: Can we ensureRunningOnConnectivityServiceThread() here?",
+      "range": {
+        "startLine": 3407,
+        "startChar": 17,
+        "endLine": 3407,
+        "endChar": 33
+      },
+      "revId": "f31fe9a497c929c9f9cdfc13c6fb5fd68a4b94bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
