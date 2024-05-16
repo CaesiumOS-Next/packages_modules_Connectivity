@@ -18,6 +18,7 @@ package com.android.server.thread;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.content.Context;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.ThreadNetworkException;
 import android.os.Binder;
@@ -34,6 +35,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import android.util.Log;
 
 /**
  * Interprets and executes 'adb shell cmd thread_network [args]'.
@@ -52,14 +54,17 @@ public class ThreadNetworkShellCommand extends BasicShellCommandHandler {
     private static final List<String> NON_PRIVILEGED_COMMANDS =
             List.of("help", "get-country-code", "enable", "disable");
 
+    private final Context mContext;
     @NonNull private final ThreadNetworkControllerService mControllerService;
     @NonNull private final ThreadNetworkCountryCode mCountryCode;
     @Nullable private PrintWriter mOutputWriter;
     @Nullable private PrintWriter mErrorWriter;
 
     ThreadNetworkShellCommand(
+            Context context,
             @NonNull ThreadNetworkControllerService controllerService,
             @NonNull ThreadNetworkCountryCode countryCode) {
+        mContext = context;
         mControllerService = controllerService;
         mCountryCode = countryCode;
     }
@@ -84,6 +89,9 @@ public class ThreadNetworkShellCommand extends BasicShellCommandHandler {
         if (TextUtils.isEmpty(cmd)) {
             cmd = "help";
         }
+
+        int granted = mContext.checkCallingPermission ("android.permission.THREAD_NETWORK_SHELL");
+        Log.e("ThreadShell", "Do I have permission android.permission.THREAD_NETWORK_SHELL: " + granted);
 
         final PrintWriter pw = getOutputWriter();
         final PrintWriter perr = getErrorWriter();

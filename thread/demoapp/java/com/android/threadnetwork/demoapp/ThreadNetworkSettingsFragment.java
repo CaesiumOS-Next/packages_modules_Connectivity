@@ -99,6 +99,9 @@ public final class ThreadNetworkSettingsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        int granted = getActivity().checkSelfPermission("android.permission.THREAD_NETWORK_SHELL");
+        Log.e(TAG, "Do I have permission android.permission.THREAD_NETWORK_SHELL: " + granted);
+
         ConnectivityManager cm = getActivity().getSystemService(ConnectivityManager.class);
         cm.registerNetworkCallback(
                 new NetworkRequest.Builder()

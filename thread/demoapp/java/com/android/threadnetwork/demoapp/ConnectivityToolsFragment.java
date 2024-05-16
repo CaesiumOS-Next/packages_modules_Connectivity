@@ -108,18 +108,6 @@ public final class ConnectivityToolsFragment extends Fragment {
                 new Handler(Looper.myLooper()));
     }
 
-    private static String getPingCommand(String serverIp) {
-        try {
-            InetAddress serverAddress = InetAddresses.forString(serverIp);
-            return (serverAddress instanceof Inet6Address)
-                    ? "/system/bin/ping6"
-                    : "/system/bin/ping";
-        } catch (IllegalArgumentException e) {
-            // The ping command can handle the illegal argument and output error message
-            return "/system/bin/ping6";
-        }
-    }
-
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -247,6 +235,21 @@ public final class ConnectivityToolsFragment extends Fragment {
                             },
                             mMainExecutor);
                 });
+
+        Futures.submit(() -> testThreadCommands(), mBackgroundExecutor);
+    }
+
+    private String testThreadCommands() {
+        try {
+            String result = executeShellCommand("cmd ");
+            Log.e(TAG, "cmd thread_network help: " + result);
+
+            result = executeShellCommand("cmd thread_network force-country-code disabled");
+            Log.e(TAG, "cmd thread_network force-country-code disabled: " + result);
+        } catch (IOException e) {
+            Log.e(TAG, "Thread command test failed", e);
+        }
+        return "";
     }
 
     private void updateServerIpCandidates(String newServerIp) {
@@ -270,13 +273,27 @@ public final class ConnectivityToolsFragment extends Fragment {
     }
 
     private String doSendPing(String serverIp) throws IOException {
-        String pingCommand = getPingCommand(serverIp);
+        return executeShellCommand(getPingCommand(serverIp) + " -c 1 " + serverIp);
+    }
+
+    private static String getPingCommand(String serverIp) {
+        try {
+            InetAddress serverAddress = InetAddresses.forString(serverIp);
+            return (serverAddress instanceof Inet6Address)
+                    ? "/system/bin/ping6"
+                    : "/system/bin/ping";
+        } catch (IllegalArgumentException e) {
+            // The ping command can handle the illegal argument and output error message
+            return "/system/bin/ping6";
+        }
+    }
+
+    private static String executeShellCommand(String cmd) throws IOException {
         Process process =
                 new ProcessBuilder()
-                        .command(pingCommand, "-c 1", serverIp)
+                        .command(cmd)
                         .redirectErrorStream(true)
                         .start();
-
         return CharStreams.toString(new InputStreamReader(process.getInputStream()));
     }
 
