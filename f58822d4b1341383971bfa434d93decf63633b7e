@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b98a77d_97282e8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-16T10:35:40Z",
+      "side": 1,
+      "message": "LGTM but Lorenzo should review for CTS",
+      "revId": "f58822d4b1341383971bfa434d93decf63633b7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "488c399e_16b115a5",
+        "filename": "tests/cts/netpermission/updatestatspermission/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-16T10:35:40Z",
+      "side": 1,
+      "message": "Do you actually need this ? There doesn\u0027t seem to be any new usage of it",
+      "revId": "f58822d4b1341383971bfa434d93decf63633b7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
