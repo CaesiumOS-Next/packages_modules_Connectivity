@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee1cf5f6_7b0ba36d",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-16T08:38:44Z",
+      "side": 1,
+      "message": "nit: looks like unneccessary format change to me.\nBut no strong opinion.\nAlso for below.",
+      "range": {
+        "startLine": 176,
+        "startChar": 8,
+        "endLine": 176,
+        "endChar": 25
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "162ffd8e_d8a69152",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+              "range": {
+                "startLine": 176,
+                "startChar": 0,
+                "endLine": 181,
+                "endChar": 0
+              },
+              "replacement": "    val PRIMARY_USER_INFO \u003d UserInfo(PRIMARY_USER, \"\", // name\n                                      UserInfo.FLAG_PRIMARY)\n"
+            }
+          ]
+        }
+      ],
+      "revId": "1b29c66b2938276a5e6f3dd10bed635e90071756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
