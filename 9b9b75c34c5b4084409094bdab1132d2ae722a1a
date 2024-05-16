@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2ef0da7_74145b22",
+        "filename": "thread/tests/multidevices/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-05-16T06:50:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92e399bd_2e7a31c2",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "9b9b75c34c5b4084409094bdab1132d2ae722a1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7b9216f_2836ddc2",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-13T14:37:27Z",
       "side": 1,
       "message": "```suggestion\n\u003c!-- Copyright (C) 2024 The Android Open Source Project\n\n     Licensed under the Apache License, Version 2.0 (the \"License\");\n     you may not use this file except in compliance with the License.\n     You may obtain a copy of the License at\n\n          http://www.apache.org/licenses/LICENSE-2.0\n\n     Unless required by applicable law or agreed to in writing, software\n     distributed under the License is distributed on an \"AS IS\" BASIS,\n     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n     See the License for the specific language governing permissions and\n     limitations under the License.\n--\u003e\n```",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 5
+      },
+      "revId": "9b9b75c34c5b4084409094bdab1132d2ae722a1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d118abc_d430e03a",
+        "filename": "thread/tests/multidevices/AndroidTest.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-05-16T06:50:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7b9216f_2836ddc2",
       "range": {
         "startLine": 2,
         "startChar": 0,
@@ -89,6 +137,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95b4982c_90202faf",
+        "filename": "thread/tests/multidevices/AndroidTest.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-05-16T06:50:52Z",
+      "side": 1,
+      "message": "It seems that is not necessary.",
+      "parentUuid": "0dc9bb8b_c2f85e9d",
+      "revId": "9b9b75c34c5b4084409094bdab1132d2ae722a1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "61ee4608_85f44b7e",
         "filename": "thread/tests/multidevices/thread_network_multi_device_test.py",
         "patchSetId": 5
@@ -118,6 +184,24 @@
           ]
         }
       ],
+      "revId": "9b9b75c34c5b4084409094bdab1132d2ae722a1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f09e37b2_e49766da",
+        "filename": "thread/tests/multidevices/thread_network_multi_device_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-05-16T06:50:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61ee4608_85f44b7e",
       "revId": "9b9b75c34c5b4084409094bdab1132d2ae722a1a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -153,6 +237,24 @@
           ]
         }
       ],
+      "revId": "9b9b75c34c5b4084409094bdab1132d2ae722a1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab8a5df9_f86faf62",
+        "filename": "thread/tests/multidevices/thread_network_multi_device_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-05-16T06:50:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecd3ddd2_d3afb2a2",
       "revId": "9b9b75c34c5b4084409094bdab1132d2ae722a1a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
