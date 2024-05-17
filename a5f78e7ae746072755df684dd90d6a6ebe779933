@@ -1,0 +1,114 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64e69e56_3e54ae2a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 85
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-05-17T07:16:57Z",
+      "side": 1,
+      "message": "nit: prefer *_CHAIN_* / *_FIREWALL_* to indicate that this is due to the firewall rules",
+      "range": {
+        "startLine": 1039,
+        "startChar": 50,
+        "endLine": 1039,
+        "endChar": 51
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "49346290_418fd9bd",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 1038,
+                "startChar": 0,
+                "endLine": 1040,
+                "endChar": 0
+              },
+              "replacement": "    private static final int DESTROY_SOCKET_REASON_FROZEN \u003d 1 \u003c\u003c0;\n    private static final int DESTROY_SOCKET_REASON_BACKGROUND \u003d 1 \u003c\u003c1;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "a5f78e7ae746072755df684dd90d6a6ebe779933",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fbce675_3ab9563e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 85
+      },
+      "lineNbr": 3438,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-05-17T07:16:57Z",
+      "side": 1,
+      "message": "Confirming: This returns `false` when on Wifi?",
+      "range": {
+        "startLine": 3438,
+        "startChar": 38,
+        "endLine": 3438,
+        "endChar": 55
+      },
+      "revId": "a5f78e7ae746072755df684dd90d6a6ebe779933",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37bae8bd_51503827",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 85
+      },
+      "lineNbr": 13829,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-05-17T07:16:57Z",
+      "side": 1,
+      "message": "This chain will never be disabled. But I agree with the logic, we should definitely remove affected uids from the pendingDestroyList (otherwise socket may be closed at a really bad time).",
+      "range": {
+        "startLine": 13829,
+        "startChar": 29,
+        "endLine": 13829,
+        "endChar": 54
+      },
+      "revId": "a5f78e7ae746072755df684dd90d6a6ebe779933",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac084d9a_0b16d422",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 85
+      },
+      "lineNbr": 13839,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-05-17T07:16:57Z",
+      "side": 1,
+      "message": "Just confirming: This also delays until modem is active, right?",
+      "range": {
+        "startLine": 13839,
+        "startChar": 16,
+        "endLine": 13839,
+        "endChar": 50
+      },
+      "revId": "a5f78e7ae746072755df684dd90d6a6ebe779933",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
