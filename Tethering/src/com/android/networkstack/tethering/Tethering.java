@@ -38,6 +38,7 @@ import static android.net.TetheringManager.TETHERING_ETHERNET;
 import static android.net.TetheringManager.TETHERING_INVALID;
 import static android.net.TetheringManager.TETHERING_NCM;
 import static android.net.TetheringManager.TETHERING_USB;
+import static android.net.TetheringManager.TETHERING_VIRTUAL_MACHINE;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHERING_WIGIG;
@@ -719,6 +720,9 @@ public class Tethering {
             case TETHERING_ETHERNET:
                 result = setEthernetTethering(enable);
                 break;
+            case TETHERING_VIRTUAL_MACHINE:
+                result = setVirtualMachineTethering(enable);
+                break;
             default:
                 Log.w(TAG, "Invalid tether type.");
                 result = TETHER_ERROR_UNKNOWN_TYPE;
@@ -970,6 +974,11 @@ public class Tethering {
             }
             stopEthernetTethering();
         }
+    }
+
+    private int setVirtualMachineTethering(final boolean enable) {
+        enableIpServing(TETHERING_VIRTUAL_MACHINE, "crosvm_tap", getRequestedState(TETHERING_VIRTUAL_MACHINE));
+        return TETHER_ERROR_NO_ERROR;
     }
 
     void tether(String iface, int requestedState, final IIntResultListener listener) {
