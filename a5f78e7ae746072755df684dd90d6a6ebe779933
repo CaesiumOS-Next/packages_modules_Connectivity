@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9b3ee69_01009cd7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 85
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T07:29:53Z",
+      "side": 1,
+      "message": "Renamed to DESTROY_SOCKET_REASON_FIREWALL_BACKGROUND",
+      "parentUuid": "64e69e56_3e54ae2a",
+      "range": {
+        "startLine": 1039,
+        "startChar": 50,
+        "endLine": 1039,
+        "endChar": 51
+      },
+      "revId": "a5f78e7ae746072755df684dd90d6a6ebe779933",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0fbce675_3ab9563e",
