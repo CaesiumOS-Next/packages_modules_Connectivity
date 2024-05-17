@@ -99,3 +99,11 @@ flag {
   description: "Flag for oem deny chains blocked reasons API"
   bug: "328732146"
 }
+
+flag {
+  name: "tethering_request_virtual_machine"
+  is_exported: true
+  namespace: "android_core_networking"
+  description: "Flag for introducing TETHERING_VIRTUAL_MACHINE type"
+  bug: "340376953"
+}
