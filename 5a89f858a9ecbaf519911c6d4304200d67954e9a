@@ -16,6 +16,24 @@
       "message": "```\nFAILED: out/soong/build.aosp_cheetah.ninja\ncd \"$(dirname \"out/host/linux-x86/bin/soong_build\")\" \u0026\u0026 BUILDER\u003d\"$PWD/$(basename \"out/host/linux-x86/bin/soong_build\")\" \u0026\u0026 cd / \u0026\u0026 env -i  \"$BUILDER\"     --top \"$TOP\"     --soong_out \"out/soong\"     --out \"out\"     --soong_variables out/soong/soong.aosp_cheetah.variables -o out/soong/build.aosp_cheetah.ninja --globListDir aosp_cheetah --globFile out/soong/globs-aosp_cheetah.ninja -l out/.module_paths/Android.bp.list --available_env out/soong/soong.environment.available --used_env out/soong/soong.environment.used.aosp_cheetah.build Android.bp\nerror: packages/modules/Connectivity/thread/tests/multidevices/Android.bp:22:1: module \"ThreadNetworkMultiDeviceTestCases\" variant \"linux_glibc_x86_64_PY3\": module source path \"packages/modules/Connectivity/thread/tests/multidevices/AndroidTest.xml\" does not exist\n```\n\nPlease fix",
       "revId": "5a89f858a9ecbaf519911c6d4304200d67954e9a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbf28749_c4af9838",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-05-17T03:28:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7882305c_2452c839",
+      "revId": "5a89f858a9ecbaf519911c6d4304200d67954e9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
