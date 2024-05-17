@@ -16,22 +16,24 @@
 
 package com.android.server.thread;
 
-import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.contains;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.validateMockitoUsage;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import android.content.Context;
 import android.os.Binder;
-import android.os.Process;
 
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -49,19 +51,25 @@ import java.io.PrintWriter;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class ThreadNetworkShellCommandTest {
-    private static final String TAG = "ThreadNetworkShellCommandTTest";
-    @Mock ThreadNetworkControllerService mControllerService;
-    @Mock ThreadNetworkCountryCode mCountryCode;
-    @Mock PrintWriter mErrorWriter;
-    @Mock PrintWriter mOutputWriter;
+    @Mock private ThreadNetworkControllerService mControllerService;
+    @Mock private ThreadNetworkCountryCode mCountryCode;
+    @Mock private PrintWriter mErrorWriter;
+    @Mock private PrintWriter mOutputWriter;
 
-    ThreadNetworkShellCommand mShellCommand;
+    private Context mContext;
+    private ThreadNetworkShellCommand mShellCommand;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        mShellCommand = new ThreadNetworkShellCommand(mControllerService, mCountryCode);
+        mContext = spy(ApplicationProvider.getApplicationContext());
+        doNothing()
+                .when(mContext)
+                .enforceCallingOrSelfPermission(
+                        eq("android.permission.THREAD_NETWORK_SHELL"), anyString());
+
+        mShellCommand = new ThreadNetworkShellCommand(mContext, mControllerService, mCountryCode);
         mShellCommand.setPrintWriters(mOutputWriter, mErrorWriter);
     }
 
@@ -71,8 +79,16 @@ public class ThreadNetworkShellCommandTest {
     }
 
     @Test
-    public void getCountryCode_executeInUnrootedShell_allowed() {
-        BinderUtil.setUid(Process.SHELL_UID);
+    public void onCommand_ShellPermissionIsChecked() {
+        mShellCommand.onCommand("");
+
+        verify(mContext, times(1))
+                .enforceCallingOrSelfPermission(
+                        eq("android.permission.THREAD_NETWORK_SHELL"), anyString());
+    }
+
+    @Test
+    public void getCountryCode_currentCountryCodePrinted() {
         when(mCountryCode.getCountryCode()).thenReturn("US");
 
         mShellCommand.exec(
@@ -86,24 +102,7 @@ public class ThreadNetworkShellCommandTest {
     }
 
     @Test
-    public void forceSetCountryCodeEnabled_executeInUnrootedShell_notAllowed() {
-        BinderUtil.setUid(Process.SHELL_UID);
-
-        mShellCommand.exec(
-                new Binder(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new String[] {"force-country-code", "enabled", "US"});
-
-        verify(mCountryCode, never()).setOverrideCountryCode(eq("US"));
-        verify(mErrorWriter).println(contains("force-country-code"));
-    }
-
-    @Test
-    public void forceSetCountryCodeEnabled_executeInRootedShell_allowed() {
-        BinderUtil.setUid(Process.ROOT_UID);
-
+    public void forceSetCountryCodeEnabled_countryCodeIsOverridden() {
         mShellCommand.exec(
                 new Binder(),
                 new FileDescriptor(),
@@ -115,24 +114,7 @@ public class ThreadNetworkShellCommandTest {
     }
 
     @Test
-    public void forceSetCountryCodeDisabled_executeInUnrootedShell_notAllowed() {
-        BinderUtil.setUid(Process.SHELL_UID);
-
-        mShellCommand.exec(
-                new Binder(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new String[] {"force-country-code", "disabled"});
-
-        verify(mCountryCode, never()).setOverrideCountryCode(any());
-        verify(mErrorWriter).println(contains("force-country-code"));
-    }
-
-    @Test
-    public void forceSetCountryCodeDisabled_executeInRootedShell_allowed() {
-        BinderUtil.setUid(Process.ROOT_UID);
-
+    public void forceSetCountryCodeDisabled_overriddenCountryCodeIsCleared() {
         mShellCommand.exec(
                 new Binder(),
                 new FileDescriptor(),
@@ -144,24 +126,7 @@ public class ThreadNetworkShellCommandTest {
     }
 
     @Test
-    public void forceStopOtDaemon_executeInUnrootedShell_failedAndServiceApiNotCalled() {
-        BinderUtil.setUid(Process.SHELL_UID);
-
-        mShellCommand.exec(
-                new Binder(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new String[] {"force-stop-ot-daemon", "enabled"});
-
-        verify(mControllerService, never()).forceStopOtDaemonForTest(anyBoolean(), any());
-        verify(mErrorWriter, atLeastOnce()).println(contains("force-stop-ot-daemon"));
-        verify(mOutputWriter, never()).println();
-    }
-
-    @Test
     public void forceStopOtDaemon_serviceThrows_failed() {
-        BinderUtil.setUid(Process.ROOT_UID);
         doThrow(new SecurityException(""))
                 .when(mControllerService)
                 .forceStopOtDaemonForTest(eq(true), any());
@@ -179,7 +144,6 @@ public class ThreadNetworkShellCommandTest {
 
     @Test
     public void forceStopOtDaemon_serviceApiTimeout_failedWithTimeoutError() {
-        BinderUtil.setUid(Process.ROOT_UID);
         doNothing().when(mControllerService).forceStopOtDaemonForTest(eq(true), any());
 
         mShellCommand.exec(
