@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e80842e_8ccb5846",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 85
+      },
+      "lineNbr": 3438,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T07:25:21Z",
+      "side": 1,
+      "message": "If the default network is Wifi, this returns false.\nThis returns true only when the default network is cell and cell network is idle.",
+      "parentUuid": "0fbce675_3ab9563e",
+      "range": {
+        "startLine": 3438,
+        "startChar": 38,
+        "endLine": 3438,
+        "endChar": 55
+      },
+      "revId": "a5f78e7ae746072755df684dd90d6a6ebe779933",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37bae8bd_51503827",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 85
@@ -90,6 +114,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "65d0d3bf_796aea6e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 85
+      },
+      "lineNbr": 13829,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T07:25:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "37bae8bd_51503827",
+      "range": {
+        "startLine": 13829,
+        "startChar": 29,
+        "endLine": 13829,
+        "endChar": 54
+      },
+      "revId": "a5f78e7ae746072755df684dd90d6a6ebe779933",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ac084d9a_0b16d422",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 85
@@ -101,6 +149,30 @@
       "writtenOn": "2024-05-17T07:16:57Z",
       "side": 1,
       "message": "Just confirming: This also delays until modem is active, right?",
+      "range": {
+        "startLine": 13839,
+        "startChar": 16,
+        "endLine": 13839,
+        "endChar": 50
+      },
+      "revId": "a5f78e7ae746072755df684dd90d6a6ebe779933",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "567afa13_433c468c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 85
+      },
+      "lineNbr": 13839,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T07:25:21Z",
+      "side": 1,
+      "message": "This immediately closes the sockets.\nI\u0027m not sure about the original background of this code (this was originally done in netd) but maybe we can delay this as well.\nI don\u0027t think this is a issue for background chain since we don\u0027t disable chain.",
+      "parentUuid": "ac084d9a_0b16d422",
       "range": {
         "startLine": 13839,
         "startChar": 16,
