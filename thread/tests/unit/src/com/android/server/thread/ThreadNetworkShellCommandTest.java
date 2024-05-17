@@ -29,9 +29,11 @@ import static org.mockito.Mockito.validateMockitoUsage;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import android.content.Context;
 import android.os.Binder;
 import android.os.Process;
 
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -49,7 +51,7 @@ import java.io.PrintWriter;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class ThreadNetworkShellCommandTest {
-    private static final String TAG = "ThreadNetworkShellCommandTTest";
+    final Context mContext = ApplicationProvider.getApplicationContext();
     @Mock ThreadNetworkControllerService mControllerService;
     @Mock ThreadNetworkCountryCode mCountryCode;
     @Mock PrintWriter mErrorWriter;
@@ -61,7 +63,7 @@ public class ThreadNetworkShellCommandTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        mShellCommand = new ThreadNetworkShellCommand(mControllerService, mCountryCode);
+        mShellCommand = new ThreadNetworkShellCommand(mContext, mControllerService, mCountryCode);
         mShellCommand.setPrintWriters(mOutputWriter, mErrorWriter);
     }
 
