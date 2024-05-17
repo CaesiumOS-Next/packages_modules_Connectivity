@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61643fee_fd582b4d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 84
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-17T06:27:47Z",
+      "side": 1,
+      "message": "LGTM assuming comment will be adressed.\nFeel free to ignore.",
+      "revId": "041699f6c0fed89df0e0f84e05965a283e36fa3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d9393c6_4b39a4a3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 84
+      },
+      "lineNbr": 3428,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-17T06:27:47Z",
+      "side": 1,
+      "message": "It seems to me keys in mDestroySocketPendingUids are unlikely will be duplicated, right?\nIf so, Is it better if we iterate mDestroySocketPendingUids directly?",
+      "range": {
+        "startLine": 3428,
+        "startChar": 21,
+        "endLine": 3428,
+        "endChar": 46
+      },
+      "revId": "041699f6c0fed89df0e0f84e05965a283e36fa3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

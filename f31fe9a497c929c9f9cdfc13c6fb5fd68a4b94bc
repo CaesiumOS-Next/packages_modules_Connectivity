@@ -148,6 +148,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39e39da6_51fe7eb9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 3405,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-17T06:27:47Z",
+      "side": 1,
+      "message": "SGTM\nno strong opinion.",
+      "parentUuid": "86c8d0cd_e600c5c7",
+      "range": {
+        "startLine": 3392,
+        "startChar": 2,
+        "endLine": 3405,
+        "endChar": 5
+      },
+      "revId": "f31fe9a497c929c9f9cdfc13c6fb5fd68a4b94bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec500ff6_0992db37",
