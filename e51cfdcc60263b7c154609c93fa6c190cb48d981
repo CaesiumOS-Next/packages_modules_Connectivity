@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "668014f1_b3892c37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 87
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-17T09:16:52Z",
+      "side": 1,
+      "message": "Not yet done for the tests.",
+      "revId": "e51cfdcc60263b7c154609c93fa6c190cb48d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52f45de0_8be703c3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 87
+      },
+      "lineNbr": 13741,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-17T09:16:52Z",
+      "side": 1,
+      "message": "It seems strange to me to fire 2 events differently.\nIs it better we do these in the handler of EVENT_UIDS_BLOCKED_REASONS_CHANGED?\nNo strong opinion.",
+      "range": {
+        "startLine": 13734,
+        "startChar": 16,
+        "endLine": 13741,
+        "endChar": 17
+      },
+      "revId": "e51cfdcc60263b7c154609c93fa6c190cb48d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c2040e9_045a521c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 87
+      },
+      "lineNbr": 13829,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-17T09:16:52Z",
+      "side": 1,
+      "message": "Why enable is not needed? Maybe add comments?",
+      "range": {
+        "startLine": 13829,
+        "startChar": 58,
+        "endLine": 13829,
+        "endChar": 65
+      },
+      "revId": "e51cfdcc60263b7c154609c93fa6c190cb48d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
