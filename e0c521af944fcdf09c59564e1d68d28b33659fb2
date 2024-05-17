@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d0c0aee_9350c1a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 58
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63c0f103_ee34b2ed",
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1765eb51_f8db47f4",
@@ -64,6 +82,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2d0e89a_0d59f6c8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1765eb51_f8db47f4",
+      "range": {
+        "startLine": 493,
+        "startChar": 80,
+        "endLine": 493,
+        "endChar": 81
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90789124_8b53126f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Updated the comment based on the below review comment.",
+      "parentUuid": "5247b311_ae55988b",
+      "range": {
+        "startLine": 493,
+        "startChar": 29,
+        "endLine": 493,
+        "endChar": 32
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "040c2edd_67751361",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-05-15T11:07:51Z",
       "side": 1,
       "message": "* Stale copy of UID blocked reasons. This is used to send onBlockedStatusChanged\n    * callbacks. This is only used on the handler thread so it does not require a lock.\n    * - On U-, the blocked reasons come from NPMS.\n    * - On V+, the blocked reasons come from the BPF map contents.",
+      "range": {
+        "startLine": 499,
+        "startChar": 0,
+        "endLine": 503,
+        "endChar": 63
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac06b7cc_2a304afc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "040c2edd_67751361",
       "range": {
         "startLine": 499,
         "startChar": 0,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06adad3f_b807cd96",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 3344,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "My thought was \"blockedReasons\" of multiple \"uids\".\nSo I used uidBlockedReasons for the blockReasons of the single \"uid\".",
+      "parentUuid": "353825b8_3cb3d47f",
+      "range": {
+        "startLine": 3344,
+        "startChar": 33,
+        "endLine": 3344,
+        "endChar": 37
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86db2234_8cca3a1f",
@@ -133,6 +247,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1ec352c_0c603ad6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 3349,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Yes, maybeNotifyNetworkBlockedForNewState goes through mNetworkAgentInfos to find the nri CS needs to send the callback.\nSo if the nri is not in the mNetworkAgentInfos, maybeNotifyNetworkBlockedForNewState does not do anything.",
+      "parentUuid": "86db2234_8cca3a1f",
+      "range": {
+        "startLine": 3349,
+        "startChar": 12,
+        "endLine": 3349,
+        "endChar": 48
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34d93336_65e8f491",
@@ -146,6 +284,30 @@
       "writtenOn": "2024-05-15T11:07:51Z",
       "side": 1,
       "message": "Is there a guarantee that if the app now calls unregisterNetworkCallback, that we will clear it from the blocked reasons?",
+      "range": {
+        "startLine": 3350,
+        "startChar": 12,
+        "endLine": 3350,
+        "endChar": 32
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb870588_f8b5d0de",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 3350,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "handleRemoveNetworkRequest decrement the count and if the count become 0, mUidBlockedReasons entry for the uid is removed.",
+      "parentUuid": "34d93336_65e8f491",
       "range": {
         "startLine": 3350,
         "startChar": 12,
@@ -197,6 +359,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ec2187e_23b13828",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 5763,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Yes, skipping decrement/increment in addPerAppDefaultNetworkRequests should fix  b/339106399.\nI have commented this idea on b/339106399",
+      "parentUuid": "87d0b130_d59d66e8",
+      "range": {
+        "startLine": 5763,
+        "startChar": 0,
+        "endLine": 5763,
+        "endChar": 41
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56edfdef_ef429218",
@@ -210,6 +396,30 @@
       "writtenOn": "2024-05-15T11:07:51Z",
       "side": 1,
       "message": "There\u0027s a lot of indentation here. Factor out to a function? maybeDeleteFromBlockedStatusTrackingUids? maybeStopTrackingUidAndClearBlockedReasons? You could put it next to trackUidAndClearBlockedReasons.",
+      "range": {
+        "startLine": 5767,
+        "startChar": 8,
+        "endLine": 5767,
+        "endChar": 10
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8693d1ff_dae8ae2e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 5767,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56edfdef_ef429218",
       "range": {
         "startLine": 5767,
         "startChar": 8,
@@ -261,6 +471,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a15d312b_2b2d19e8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 7421,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2115fd80_a075b3d0",
+      "range": {
+        "startLine": 7421,
+        "startChar": 96,
+        "endLine": 7421,
+        "endChar": 97
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5144ba3_98128536",
@@ -284,6 +518,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b66b2b84_ffc1a439",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 8123,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5144ba3_98128536",
+      "range": {
+        "startLine": 8123,
+        "startChar": 17,
+        "endLine": 8123,
+        "endChar": 53
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3cb1fc1_15973603",
@@ -297,6 +555,30 @@
       "writtenOn": "2024-05-15T02:42:53Z",
       "side": 1,
       "message": "nit: The naming sounds like a public API that handles all registrations but it is not, right?\nIs it better if we name it more specifically?",
+      "range": {
+        "startLine": 8140,
+        "startChar": 17,
+        "endLine": 8140,
+        "endChar": 39
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe6326b3_fc25b098",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 8140,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3cb1fc1_15973603",
       "range": {
         "startLine": 8140,
         "startChar": 17,
@@ -354,6 +636,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3db118c_f4cb8390",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 8144,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "272bdcb8_d5d7979b",
+      "range": {
+        "startLine": 8144,
+        "startChar": 27,
+        "endLine": 8144,
+        "endChar": 69
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5b9d224_ae790136",
@@ -395,6 +701,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3f11756_df299d1d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 8145,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5b9d224_ae790136",
+      "range": {
+        "startLine": 8145,
+        "startChar": 11,
+        "endLine": 8145,
+        "endChar": 98
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d81c539_d83559ea",
@@ -408,6 +738,30 @@
       "writtenOn": "2024-05-15T11:07:51Z",
       "side": 1,
       "message": "Also, once... the register network request event must be posted, because otherwise...",
+      "range": {
+        "startLine": 8148,
+        "startChar": 15,
+        "endLine": 8148,
+        "endChar": 21
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a898f5fc_871c6d0d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 8148,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d81c539_d83559ea",
       "range": {
         "startLine": 8148,
         "startChar": 15,
@@ -454,6 +808,54 @@
       "writtenOn": "2024-05-15T11:07:51Z",
       "side": 1,
       "message": "// This method does not need to modify mBlockedStatusTrackingUids because:\n    // - |nris| only contains per-app network requests created by ConnectivityService which\n    //   have no messenger and are not associated with any callbacks, and so do not need to be\n    //   tracked in mBlockedStatusTrackingUids.\n    // - The requests in perAppCallbackRequestsToUpdate are removed, modified, and re-added,\n    //   but the same number of requests is removed and re-added, and none of the requests\n    //   changes UID, so the number of requests for that UID before and after this method\n    //   remains the same. Re-adding the requests does not modify mBlockedStatusTrackingUids\n    //   (that is done when the app registers the request), so removing them must not\n    //   modify mBlockedStatusTrackingUids either.\n\n\nAfter this CL, it might be better to change this code so that instead of removing requests and re-adding them, modify them in place. This can be done by:\n- Registering the new requests in |nris| separately from the existing requests\n  which are currently returned by getPerAppCallbackRequestsToUpdate().\n- Instead of having getPerAppCallbackRequestsToUpdate return a list of NRIs to\n  update, rename it to updatePerAppCallbackRequests (or similar) and have it\n  scan the requests, and for each one replace it with the result of calling \n  createPerAppCallbackRequestsToRegister on that request.\n  - TODO: check what to do about the UID rule changes in handleRemoveNetworkRequest.\n    Maybe nothing, because if the rematch doesn\u0027t change the app\u0027s default, then no\n    changes need to be made, and if the rematch does change the app\u0027s default, then\n    makeDefaultForApps will take care of it?\n  - TODO: check what to do about the offer changes in handleRemoveNetworkRequest.",
+      "range": {
+        "startLine": 13367,
+        "startChar": 11,
+        "endLine": 13370,
+        "endChar": 63
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2373aa9_7588a1ac",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 13370,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "I have updated the comments.\n\nNetworkRequest for tracking default network has capabilities of the default network.\nHowever, if per-app default network have some changes, capabilities of these network requests might need to be updated so that network request is satisfied by new per-app default network.\nSo, this method remove, modify, re-add network requests to track per-app default network.",
+      "parentUuid": "9d9b405c_42779246",
+      "range": {
+        "startLine": 13367,
+        "startChar": 86,
+        "endLine": 13370,
+        "endChar": 63
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27da6886_3a33fd2c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 13370,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Updated the comment and filed b/341228979 for TODO.",
+      "parentUuid": "c2559adb_7b2351d5",
       "range": {
         "startLine": 13367,
         "startChar": 11,
@@ -511,6 +913,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cac1f7b4_0a82e9a9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 13761,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d0376c3_9cbd6a65",
+      "range": {
+        "startLine": 13761,
+        "startChar": 46,
+        "endLine": 13761,
+        "endChar": 57
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa5e64fc_92e3237d",
@@ -524,6 +950,30 @@
       "writtenOn": "2024-05-15T11:07:51Z",
       "side": 1,
       "message": "Prefer to unindent:\n\n    if (mBlockedStatusTrackingUids \u003d\u003d 0) {\n        return;\n    }",
+      "range": {
+        "startLine": 13763,
+        "startChar": 46,
+        "endLine": 13763,
+        "endChar": 53
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95c927d6_2d295a99",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 13763,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa5e64fc_92e3237d",
       "range": {
         "startLine": 13763,
         "startChar": 46,
@@ -557,6 +1007,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bce498c7_5ae899f3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 13764,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1c4f143_f234de81",
+      "range": {
+        "startLine": 13764,
+        "startChar": 12,
+        "endLine": 13764,
+        "endChar": 21
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "453e79dc_b90b010b",
@@ -570,6 +1044,30 @@
       "writtenOn": "2024-05-15T02:42:53Z",
       "side": 1,
       "message": "Stupid Question: It seems to me pairs in this list is not necessarily have changes about blocked reasons, right? And uid with no changes are skipped in maybeNotifyNetworkBlockedForNewState?",
+      "range": {
+        "startLine": 13767,
+        "startChar": 16,
+        "endLine": 13767,
+        "endChar": 37
+      },
+      "revId": "e0c521af944fcdf09c59564e1d68d28b33659fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c26b5b48_289ed6b3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 58
+      },
+      "lineNbr": 13767,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T10:30:10Z",
+      "side": 1,
+      "message": "Yes, if the old blocked state and new blocked state are the same, callback is not called.",
+      "parentUuid": "453e79dc_b90b010b",
       "range": {
         "startLine": 13767,
         "startChar": 16,
