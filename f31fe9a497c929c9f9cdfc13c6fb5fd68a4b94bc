@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d1a03a8_2ecad213",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 80
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T06:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08032ad9_a518e153",
+      "revId": "f31fe9a497c929c9f9cdfc13c6fb5fd68a4b94bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f02222f9_532cf28a",
@@ -59,6 +77,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f7b93ca_4e687c1d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T06:13:28Z",
+      "side": 1,
+      "message": "I don\u0027t feel strong necessity for this. I think many fields have that constraint.",
+      "parentUuid": "f02222f9_532cf28a",
+      "range": {
+        "startLine": 1022,
+        "startChar": 33,
+        "endLine": 1022,
+        "endChar": 47
+      },
+      "revId": "f31fe9a497c929c9f9cdfc13c6fb5fd68a4b94bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1257386_4dd2fd84",
@@ -84,6 +126,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "86c8d0cd_e600c5c7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 3405,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T06:13:28Z",
+      "side": 1,
+      "message": "I\u0027m not sure if we want to have class for this since I don\u0027t think the class will have much logic except this method and other methods(e.g. get, clear) will be just proxy for SparseIntArray.\n\nThis code path is covered by existing tests (e.g.  testDelayFrozenUidSocketDestroy_InactiveCellular) and tests in aosp/3040175.\nBut if you think it\u0027s better to have unit test for this method, I can make this method static and add unit tests.",
+      "parentUuid": "c1257386_4dd2fd84",
+      "range": {
+        "startLine": 3392,
+        "startChar": 2,
+        "endLine": 3405,
+        "endChar": 5
+      },
+      "revId": "f31fe9a497c929c9f9cdfc13c6fb5fd68a4b94bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec500ff6_0992db37",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 80
@@ -95,6 +161,30 @@
       "writtenOn": "2024-05-16T09:35:18Z",
       "side": 1,
       "message": "nit: Can we ensureRunningOnConnectivityServiceThread() here?",
+      "range": {
+        "startLine": 3407,
+        "startChar": 17,
+        "endLine": 3407,
+        "endChar": 33
+      },
+      "revId": "f31fe9a497c929c9f9cdfc13c6fb5fd68a4b94bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7da44700_4a94923d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 80
+      },
+      "lineNbr": 3407,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-17T06:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec500ff6_0992db37",
       "range": {
         "startLine": 3407,
         "startChar": 17,
