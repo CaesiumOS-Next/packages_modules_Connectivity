@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3e97383_0f4794c5",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-19T13:34:51Z",
+      "side": 1,
+      "message": "this comment should probably actually be at line 650",
+      "range": {
+        "startLine": 641,
+        "startChar": 0,
+        "endLine": 641,
+        "endChar": 8
+      },
+      "revId": "584a5136a181f15ec91bdede20cd26f0d7568ccb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
