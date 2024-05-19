@@ -202,7 +202,7 @@ public class Nat464Xlat {
             try {
                 addrStr = mClatCoordinator.clatStart(baseIface, getNetId(), mNat64PrefixInUse);
             } catch (IOException e) {
-                Log.e(TAG, "Error starting clatd on " + baseIface + ": " + e);
+                Log.e(TAG, "Error starting clatd on " + baseIface, e);
             }
         } else {
             try {
