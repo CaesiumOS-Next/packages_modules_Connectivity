@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8fd1e5e0_b8baf469",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-19T13:40:15Z",
+      "side": 1,
+      "message": "query:\n\nwould a\n\nbool exception \u003d true\ntry {\n  ...all the various stuff that can fail...\n  exception \u003d false\n} finally {\n  if (exception) maybeCleanUp(...)\n}\n\nperhaps simplify error handling?",
+      "revId": "584a5136a181f15ec91bdede20cd26f0d7568ccb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d3e97383_0f4794c5",
         "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
         "patchSetId": 4
