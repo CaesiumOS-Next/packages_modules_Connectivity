@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "eea0f5cc_746eedc1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-19T13:56:52Z",
+      "side": 1,
+      "message": "Let me think through about it. I do feel the current error handling logic is kind unnecessary. The line that cause the exception already include in the error. So we really don\u0027t need to create different IOException.\n\nOn the other hands, there are some block that contains nested error handling. Maybe I can try to unroll it.",
+      "parentUuid": "8fd1e5e0_b8baf469",
+      "revId": "584a5136a181f15ec91bdede20cd26f0d7568ccb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d3e97383_0f4794c5",
         "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
         "patchSetId": 4
@@ -31,6 +49,30 @@
       "writtenOn": "2024-05-19T13:34:51Z",
       "side": 1,
       "message": "this comment should probably actually be at line 650",
+      "range": {
+        "startLine": 641,
+        "startChar": 0,
+        "endLine": 641,
+        "endChar": 8
+      },
+      "revId": "584a5136a181f15ec91bdede20cd26f0d7568ccb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c664c812_2e212a1c",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-19T13:56:52Z",
+      "side": 1,
+      "message": "Yeah. That\u0027s right. Let me raise a CL to fix that.",
+      "parentUuid": "d3e97383_0f4794c5",
       "range": {
         "startLine": 641,
         "startChar": 0,
