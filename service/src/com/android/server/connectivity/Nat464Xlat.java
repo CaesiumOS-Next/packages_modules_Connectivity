@@ -202,13 +202,13 @@ public class Nat464Xlat {
             try {
                 addrStr = mClatCoordinator.clatStart(baseIface, getNetId(), mNat64PrefixInUse);
             } catch (IOException e) {
-                Log.e(TAG, "Error starting clatd on " + baseIface + ": " + e);
+                Log.e(TAG, "Error starting clatd on " + baseIface, e);
             }
         } else {
             try {
                 addrStr = mNetd.clatdStart(baseIface, mNat64PrefixInUse.toString());
             } catch (RemoteException | ServiceSpecificException e) {
-                Log.e(TAG, "Error starting clatd on " + baseIface + ": " + e);
+                Log.e(TAG, "Error starting clatd on " + baseIface, e);
             }
         }
         mIface = CLAT_PREFIX + baseIface;
