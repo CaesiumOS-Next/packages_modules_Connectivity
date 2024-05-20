@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15b0eb07_b4345185",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 87
+      },
+      "lineNbr": 13741,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-20T10:23:04Z",
+      "side": 1,
+      "message": "I have merged to the single message.\nMeaning of EVENT_UIDS_BLOCKED_REASONS_CHANGED might be a bit confusing.\nBut I think new code is simpler.",
+      "parentUuid": "52f45de0_8be703c3",
+      "range": {
+        "startLine": 13734,
+        "startChar": 16,
+        "endLine": 13741,
+        "endChar": 17
+      },
+      "revId": "e51cfdcc60263b7c154609c93fa6c190cb48d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c2040e9_045a521c",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-05-17T09:16:52Z",
       "side": 1,
       "message": "Why enable is not needed? Maybe add comments?",
+      "range": {
+        "startLine": 13829,
+        "startChar": 58,
+        "endLine": 13829,
+        "endChar": 65
+      },
+      "revId": "e51cfdcc60263b7c154609c93fa6c190cb48d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ebb86ac_ac6565d4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 87
+      },
+      "lineNbr": 13829,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-20T10:23:04Z",
+      "side": 1,
+      "message": "Added comments.",
+      "parentUuid": "4c2040e9_045a521c",
       "range": {
         "startLine": 13829,
         "startChar": 58,

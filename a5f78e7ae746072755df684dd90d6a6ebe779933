@@ -253,6 +253,30 @@
       },
       "revId": "a5f78e7ae746072755df684dd90d6a6ebe779933",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2b37fe3_b483fc32",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 85
+      },
+      "lineNbr": 13839,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-20T10:23:04Z",
+      "side": 1,
+      "message": "If this is rare, I don\u0027t think it\u0027s worth to support delaying this.\nUnlike setUidFirewallRule, for allowlist chain, CS doesn\u0027t know the list of uids that got impact by this change.\nSo closeSocketsForFirewallChainLocked closes the sockets with (UID ranges + exemptUids).\nIt\u0027s possible to maintaining socket destroy reasons for UID \"range + exemptUids\" and uids somehow, but this will be really complicated.",
+      "parentUuid": "c24ef949_99e9a7bc",
+      "range": {
+        "startLine": 13839,
+        "startChar": 16,
+        "endLine": 13839,
+        "endChar": 50
+      },
+      "revId": "a5f78e7ae746072755df684dd90d6a6ebe779933",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
