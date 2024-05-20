@@ -15,3 +15,9 @@ RequiresPermission: android.net.TetheringManager#stopTethering(int):
 
 SdkConstant: android.net.TetheringManager#ACTION_TETHER_STATE_CHANGED:
     Field 'ACTION_TETHER_STATE_CHANGED' is missing @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
+
+
+UnflaggedApi: android.net.TetheringManager.TetheringRequest#getInterfaceName():
+    New API must be flagged with @FlaggedApi: method android.net.TetheringManager.TetheringRequest.getInterfaceName()
+UnflaggedApi: android.net.TetheringManager.TetheringRequest.Builder#setInterfaceName(String):
+    New API must be flagged with @FlaggedApi: method android.net.TetheringManager.TetheringRequest.Builder.setInterfaceName(String)
