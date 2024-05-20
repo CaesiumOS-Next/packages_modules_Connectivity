@@ -1,0 +1,109 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f79a7f4_617c3791",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkConstants.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-05-20T10:09:25Z",
+      "side": 1,
+      "message": "IFF_NOARP and IFF_MULTICAST has defined in OsConstants https://source.corp.google.com/h/android/platform/superproject/main/+/main:libcore/luni/src/main/java/android/system/OsConstants.java;l\u003d380;bpv\u003d0;bpt\u003d1, maybe no need to define again.",
+      "range": {
+        "startLine": 162,
+        "startChar": 28,
+        "endLine": 162,
+        "endChar": 37
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "aa19ba76_a3a5553e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkConstants.java",
+              "range": {
+                "startLine": 162,
+                "startChar": 0,
+                "endLine": 164,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "369cfe14e8b482ac06ea2e01e84a4d3922846734",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "415fd3db_7ad39cdc",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-05-20T10:09:25Z",
+      "side": 1,
+      "message": "nit: thinking if we can find another appropriate place to define add_gen_mode, given ProvisioningConfigruation also uses these constants, maybe NetworkStackConstants?",
+      "range": {
+        "startLine": 47,
+        "startChar": 30,
+        "endLine": 47,
+        "endChar": 52
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "056793b0_6ffbc036",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 47,
+                "startChar": 0,
+                "endLine": 49,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "369cfe14e8b482ac06ea2e01e84a4d3922846734",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "908b2edf_0eed3b53",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-05-20T10:09:25Z",
+      "side": 1,
+      "message": "nit: for debugging?",
+      "range": {
+        "startLine": 412,
+        "startChar": 0,
+        "endLine": 413,
+        "endChar": 47
+      },
+      "revId": "369cfe14e8b482ac06ea2e01e84a4d3922846734",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
