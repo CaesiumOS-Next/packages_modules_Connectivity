@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4539fbcd_c1afd409",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-20T23:47:21Z",
+      "side": 1,
+      "message": "LGTM. Feel free to fix the docs in a follow-up CL.",
+      "revId": "09abed67932980d9a659141215dfca2e7a42c64f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e8fe0ac_88c41ee3",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 1451,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-20T23:47:21Z",
+      "side": 1,
+      "message": "Would be good to document what happens if this is called more than once for the same UID (does it need to be removed twice, or just once?), how it interact with networkSetProtectAllow and networkSetProtectDeny (they both work independently as documented and can be used together), ...",
+      "range": {
+        "startLine": 1451,
+        "startChar": 90,
+        "endLine": 1451,
+        "endChar": 91
+      },
+      "revId": "09abed67932980d9a659141215dfca2e7a42c64f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4bbb165_20f2197c",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 1456,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-20T23:47:21Z",
+      "side": 1,
+      "message": "Does this throw?",
+      "range": {
+        "startLine": 1456,
+        "startChar": 5,
+        "endLine": 1456,
+        "endChar": 7
+      },
+      "revId": "09abed67932980d9a659141215dfca2e7a42c64f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
