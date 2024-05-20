@@ -16,6 +16,75 @@
       "message": "Ready for review.\n\nDepending on https://android-review.git.corp.google.com/q/topic:%22dnsresolver-interface-aware%22.",
       "revId": "9bdecd214f353232db3224da0d6d6a7b881d811c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d31a285_9af5705d",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-20T08:31:38Z",
+      "side": 1,
+      "message": "This one seems has to be @Nullable. However, can rename it to `mPredefinedQueryTypes` to indicate it is sometime passed from upper layer?",
+      "range": {
+        "startLine": 270,
+        "startChar": 8,
+        "endLine": 271,
+        "endChar": 47
+      },
+      "revId": "9bdecd214f353232db3224da0d6d6a7b881d811c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73a92220_73a66137",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-20T08:31:38Z",
+      "side": 1,
+      "message": "I think we can have two constructors here as well",
+      "range": {
+        "startLine": 275,
+        "startChar": 16,
+        "endLine": 275,
+        "endChar": 49
+      },
+      "revId": "9bdecd214f353232db3224da0d6d6a7b881d811c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d3c1640_e7735115",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-20T08:31:38Z",
+      "side": 1,
+      "message": "Can we try to avoid using the @Nullable? \n\nI think in general, make the variable @NonNull when possible can reduce the chance of NPE error.\n\nFor example, here we can make two constructors\n\nDnsAddressAnswer(@NonNull byte[] data)\n\nDnsAddressAnswer(@NonNull byte[] data, @NonNull Set\u003cInteger\u003e queryTypes)",
+      "range": {
+        "startLine": 564,
+        "startChar": 8,
+        "endLine": 564,
+        "endChar": 81
+      },
+      "revId": "9bdecd214f353232db3224da0d6d6a7b881d811c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
