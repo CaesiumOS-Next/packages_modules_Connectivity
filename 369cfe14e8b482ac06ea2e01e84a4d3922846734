@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "045addcd_890126ae",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkConstants.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-20T14:51:55Z",
+      "side": 1,
+      "message": ":+1: thanks!",
+      "parentUuid": "5f79a7f4_617c3791",
+      "range": {
+        "startLine": 162,
+        "startChar": 28,
+        "endLine": 162,
+        "endChar": 37
+      },
+      "revId": "369cfe14e8b482ac06ea2e01e84a4d3922846734",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "415fd3db_7ad39cdc",
@@ -83,6 +107,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4ca6d55_5431b0ec",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-20T14:51:55Z",
+      "side": 1,
+      "message": "Probably here because this value is from linux header and meant to be used together with `IFLA_INET6_ADDR_GEN_MODE`.\n\nNote that `IPV6_ADDR_GEN_MODE_EUI64` in ProvisioningConfiguration is from Inetd.aidl rather than linux header. Though they do have the same value as `IN6_ADDR_GEN_MODE_EUI64`.\n\n\nI am keeping it as is and closing this comment, but feel free to reopen if you have strong preference on this.",
+      "parentUuid": "415fd3db_7ad39cdc",
+      "range": {
+        "startLine": 47,
+        "startChar": 30,
+        "endLine": 47,
+        "endChar": 52
+      },
+      "revId": "369cfe14e8b482ac06ea2e01e84a4d3922846734",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "908b2edf_0eed3b53",
@@ -96,6 +144,30 @@
       "writtenOn": "2024-05-20T10:09:25Z",
       "side": 1,
       "message": "nit: for debugging?",
+      "range": {
+        "startLine": 412,
+        "startChar": 0,
+        "endLine": 413,
+        "endChar": 47
+      },
+      "revId": "369cfe14e8b482ac06ea2e01e84a4d3922846734",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c86c085_1903d58d",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-20T14:51:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "908b2edf_0eed3b53",
       "range": {
         "startLine": 412,
         "startChar": 0,
