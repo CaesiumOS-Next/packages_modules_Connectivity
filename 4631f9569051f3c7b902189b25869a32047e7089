@@ -16,6 +16,24 @@
       "message": "Hi, CL needs code-review +2 from test owner. Thanks",
       "revId": "4631f9569051f3c7b902189b25869a32047e7089",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca764f03_d1d3664c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-20T02:18:54Z",
+      "side": 1,
+      "message": "No, this is replaced by aosp/3088286.\nSuggest abandon this to prevent from misleading people.",
+      "parentUuid": "ea44b4ff_5e88cef4",
+      "revId": "4631f9569051f3c7b902189b25869a32047e7089",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
