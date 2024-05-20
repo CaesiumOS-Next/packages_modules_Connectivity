@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cdf2bc8_d4279f2b",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/SetFeatureFlagsRule.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-20T11:20:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67f17c2d_798ef07f",
+      "range": {
+        "startLine": 48,
+        "startChar": 48,
+        "endLine": 48,
+        "endChar": 55
+      },
+      "revId": "70eed173b224946fcce72cd4cb0977fb6ea64347",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bbe4049_fb603d92",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-20T09:42:04Z",
       "side": 1,
       "message": "Why not `mutableMapOf\u003cString, Boolean?\u003e()` ? It should better fit the source data which should have one value per flag. I think the annotations order isn\u0027t guaranteed anyway (or you could use a LinkHashMap if order matters)",
+      "range": {
+        "startLine": 78,
+        "startChar": 41,
+        "endLine": 78,
+        "endChar": 50
+      },
+      "revId": "70eed173b224946fcce72cd4cb0977fb6ea64347",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe4c2ae6_42f3abdd",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/SetFeatureFlagsRule.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-20T11:20:42Z",
+      "side": 1,
+      "message": "Done, good to know this.",
+      "parentUuid": "4bbe4049_fb603d92",
       "range": {
         "startLine": 78,
         "startChar": 41,
