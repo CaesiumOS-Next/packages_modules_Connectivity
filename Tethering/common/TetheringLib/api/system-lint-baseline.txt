@@ -15,3 +15,4 @@ RequiresPermission: android.net.TetheringManager#stopTethering(int):
 
 SdkConstant: android.net.TetheringManager#ACTION_TETHER_STATE_CHANGED:
     Field 'ACTION_TETHER_STATE_CHANGED' is missing @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
+
