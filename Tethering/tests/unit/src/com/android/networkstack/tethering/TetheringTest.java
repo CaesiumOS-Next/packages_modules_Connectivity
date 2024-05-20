@@ -256,6 +256,7 @@ public class TetheringTest {
     private static final String TEST_WLAN_IFNAME = "test_wlan1";
     private static final String TEST_WLAN2_IFNAME = "test_wlan2";
     private static final String TEST_P2P_IFNAME = "test_p2p-p2p0-0";
+    private static final String TEST_P2P2_IFNAME = "test_p2p-p2p0-1";
     private static final String TEST_NCM_IFNAME = "test_ncm0";
     private static final String TEST_ETH_IFNAME = "test_eth0";
     private static final String TEST_BT_IFNAME = "test_pan0";
@@ -419,6 +420,7 @@ public class TetheringTest {
                             || ifName.equals(TEST_MOBILE_IFNAME)
                             || ifName.equals(TEST_DUN_IFNAME)
                             || ifName.equals(TEST_P2P_IFNAME)
+                            || ifName.equals(TEST_P2P2_IFNAME)
                             || ifName.equals(TEST_NCM_IFNAME)
                             || ifName.equals(TEST_ETH_IFNAME)
                             || ifName.equals(TEST_BT_IFNAME));
@@ -774,16 +776,17 @@ public class TetheringTest {
     }
 
     private TetheringRequest createTetheringRequest(final int type) {
-        return createTetheringRequest(type, null, null, false, CONNECTIVITY_SCOPE_GLOBAL);
+        return createTetheringRequest(type, null, null, false, CONNECTIVITY_SCOPE_GLOBAL, null);
     }
 
     private TetheringRequest createTetheringRequest(final int type,
             final LinkAddress localIPv4Address, final LinkAddress staticClientAddress,
-            final boolean exempt, final int scope) {
+            final boolean exempt, final int scope, final String iface) {
         TetheringRequest.Builder builder = new TetheringRequest.Builder(type)
                 .setExemptFromEntitlementCheck(exempt)
                 .setConnectivityScope(scope)
-                .setShouldShowEntitlementUi(false);
+                .setShouldShowEntitlementUi(false)
+                .setInterfaceName(iface)
         if (localIPv4Address != null && staticClientAddress != null) {
             builder.setStaticIpv4Addresses(localIPv4Address, staticClientAddress);
         }
@@ -2888,7 +2891,7 @@ public class TetheringTest {
         // Enable USB tethering with a different request and expect that USB is stopped and
         // started.
         mTethering.startTethering(createTetheringRequest(TETHERING_USB,
-                  serverLinkAddr, clientLinkAddr, false, CONNECTIVITY_SCOPE_GLOBAL),
+                  serverLinkAddr, clientLinkAddr, false, CONNECTIVITY_SCOPE_GLOBAL, null),
                   TEST_CALLER_PKG, thirdResult);
         mLooper.dispatchAll();
         thirdResult.assertHasResult();
@@ -2919,7 +2922,7 @@ public class TetheringTest {
         final ArgumentCaptor<DhcpServingParamsParcel> dhcpParamsCaptor =
                 ArgumentCaptor.forClass(DhcpServingParamsParcel.class);
         mTethering.startTethering(createTetheringRequest(TETHERING_USB,
-                  serverLinkAddr, clientLinkAddr, false, CONNECTIVITY_SCOPE_GLOBAL),
+                  serverLinkAddr, clientLinkAddr, false, CONNECTIVITY_SCOPE_GLOBAL, null),
                   TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
         verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_NCM);
@@ -3900,6 +3903,55 @@ public class TetheringTest {
         verify(mUpstreamNetworkMonitor).setTryCell(true);
     }
 
+    @Test
+    public void testWifiDualP2PTethering() throws Exception {
+        initTetheringOnTestThread();
+
+        /* Start 2 Tethering interfaces of same P2P type */
+        // Start P2P tethering interface 1
+        final TetheringRequest p2pRequest1 = createTetheringRequest(TETHERING_WIFI_P2P, null,
+                null,false,CONNECTIVITY_SCOPE_GLOBAL,TEST_P2P_IFNAME);
+        mTethering.startTethering(p2pRequest1, TEST_CALLER_PKG, null);
+        mLooper.dispatchAll();
+        assertEquals(TETHER_ERROR_NO_ERROR, mTethering.getLastErrorForTest(TEST_P2P_IFNAME));
+
+        // Start P2P tethering interface 2
+        final TetheringRequest p2pRequest2 = createTetheringRequest(TETHERING_WIFI_P2P, null,
+                null,false,CONNECTIVITY_SCOPE_GLOBAL,TEST_P2P2_IFNAME);
+        mTethering.startTethering(p2pRequest2, TEST_CALLER_PKG, null);
+        mLooper.dispatchAll();
+        assertEquals(TETHER_ERROR_NO_ERROR, mTethering.getLastErrorForTest(TEST_P2P2_IFNAME));
+
+        mTethering.stopTetheringInternal(p2pRequest1);
+        mTethering.stopTetheringInternal(p2pRequest2);
+
+
+        /* Create Tethering Request of same type and interface : should be same */
+        /*
+        final TetheringRequest p2pRequest3 = createTetheringRequest(TETHERING_WIFI_P2P, null,
+                null,false,CONNECTIVITY_SCOPE_GLOBAL,TEST_P2P_IFNAME);
+        mTethering.startTethering(p2pRequest3, TEST_CALLER_PKG, null);
+        mLooper.dispatchAll();
+        final TetheringRequest p2pRequest4 = createTetheringRequest(TETHERING_WIFI_P2P, null,
+                null, false, CONNECTIVITY_SCOPE_GLOBAL, TEST_P2P_IFNAME);
+        mTethering.startTethering(p2pRequest4, TEST_CALLER_PKG, null);
+        mLooper.dispatchAll();
+        assertEquals(TETHER_ERROR_NO_ERROR, mTethering.getLastErrorForTest(TEST_P2P_IFNAME));
+        mTethering.stopTetheringInternal(p2pRequest3);
+        */
+
+
+        /* Try to restart the Tethering same tethering request */
+        mTethering.startTethering(p2pRequest1, TEST_CALLER_PKG, null);
+        mLooper.dispatchAll();
+        assertEquals(TETHER_ERROR_NO_ERROR, mTethering.getLastErrorForTest(TEST_P2P_IFNAME));
+        mTethering.startTethering(p2pRequest2, TEST_CALLER_PKG, null);
+        mLooper.dispatchAll();
+        assertEquals(TETHER_ERROR_NO_ERROR, mTethering.getLastErrorForTest(TEST_P2P_IFNAME));
+        mTethering.stopTetheringInternal(p2pRequest1);
+        mTethering.stopTetheringInternal(p2pRequest2);
+
+    }
     // TODO: Test that a request for hotspot mode doesn't interfere with an
     // already operating tethering mode interface.
 }
