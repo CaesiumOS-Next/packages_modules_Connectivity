@@ -763,6 +763,19 @@ public class TetheringManager {
                 mBuilderParcel.connectivityScope = getDefaultConnectivityScope(type);
                 mBuilderParcel.uid = Process.INVALID_UID;
                 mBuilderParcel.softApConfig = null;
+                mBuilderParcel.interfaceName = null;
+            }
+
+            /**
+            * Set tethering interface Name
+            *
+            * @param iface The interface Name Corresponding to the Request
+            */
+            @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED)
+            @NonNull
+            public Builder setInterfaceName(@Nullable String iface) {
+                mBuilderParcel.interfaceName = iface;
+                return this;
             }
 
             /**
@@ -851,6 +864,15 @@ public class TetheringManager {
             public TetheringRequest build() {
                 return new TetheringRequest(mBuilderParcel);
             }
+        }
+
+        /**
+         * Get tethering interface name, if one was configured with
+         * {@link Builder#setInterfaceName}.
+         */
+        @Nullable
+        public String getInterfaceName() {
+            return mRequestParcel.interfaceName;
         }
 
         /**
