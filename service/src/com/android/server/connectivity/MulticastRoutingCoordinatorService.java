@@ -168,6 +168,8 @@ public class MulticastRoutingCoordinatorService {
     public void applyMulticastRoutingConfig(
             final String iifName, final String oifName, final MulticastRoutingConfig newConfig) {
         checkOnHandlerThread();
+        Objects.requireNonNull(iifName, "IifName can't be null");
+        Objects.requireNonNull(oifName, "OifName can't be null");
 
         if (newConfig.getForwardingMode() != FORWARD_NONE) {
             // Make sure iif and oif are added as multicast forwarding interfaces
@@ -296,7 +298,10 @@ public class MulticastRoutingCoordinatorService {
         if (getIndexForValue(mVirtualInterfaces, ifName) >= 0) return;
 
         int nextVirtualIndex = getNextAvailableVirtualIndex();
-        int ifIndex = mDependencies.getInterfaceIndex(ifName);
+        Integer ifIndex = mDependencies.getInterfaceIndex(ifName);
+        if (ifIndex == null) {
+            throw new IllegalStateException("Can't get interface index for " + ifName);
+        }
         final StructMif6ctl mif6ctl =
                     new StructMif6ctl(
                             nextVirtualIndex,
@@ -801,8 +806,10 @@ public class MulticastRoutingCoordinatorService {
         public Integer getInterfaceIndex(String ifName) {
             try {
                 NetworkInterface ni = NetworkInterface.getByName(ifName);
+                Objects.requireNonNull(ni, "Network interface not found: " + ifName);
                 return ni.getIndex();
-            } catch (NullPointerException | SocketException e) {
+            } catch (SocketException e) {
+                Log.e(TAG, "Unable to get interface index for " + ifName , e);
                 return null;
             }
         }
