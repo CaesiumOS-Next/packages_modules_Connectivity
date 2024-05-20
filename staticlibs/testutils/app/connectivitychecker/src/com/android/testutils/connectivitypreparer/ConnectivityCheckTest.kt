@@ -62,12 +62,7 @@ class ConnectivityCheckTest {
     private val connectUtil by lazy { ConnectUtil(context) }
 
     @Test
-    fun testCheckConnectivity() {
-        checkWifiSetup()
-        checkTelephonySetup()
-    }
-
-    private fun checkWifiSetup() {
+    fun testCheckWifiSetup() {
         if (!pm.hasSystemFeature(FEATURE_WIFI)) return
         connectUtil.ensureWifiValidated()
 
@@ -155,7 +150,8 @@ class ConnectivityCheckTest {
         }
     }
 
-    private fun checkTelephonySetup() {
+    @Test
+    fun testCheckTelephonySetup() {
         if (!pm.hasSystemFeature(FEATURE_TELEPHONY)) return
         val tm = context.getSystemService(TelephonyManager::class.java)
                 ?: fail("Could not get telephony service")
