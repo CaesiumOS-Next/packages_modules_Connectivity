@@ -1,0 +1,68 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d58ed91b_3fd5a092",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-20T08:25:28Z",
+      "side": 1,
+      "message": "I think there\u0027s only 1 call site... should this now be inlined?",
+      "range": {
+        "startLine": 705,
+        "startChar": 12,
+        "endLine": 705,
+        "endChar": 24
+      },
+      "revId": "11f2d4bb3145ea9bb2b8744a54bbdf6fb2f16774",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbfc264a_46b84047",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-20T08:25:28Z",
+      "side": 1,
+      "message": "i guess here too",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 56
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "69819df7_105e9b7a",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+              "range": {
+                "startLine": 220,
+                "startChar": 0,
+                "endLine": 221,
+                "endChar": 0
+              },
+              "replacement": "            Log.e(TAG, \"Invalid IPv6 address \" + addrStr, e);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "11f2d4bb3145ea9bb2b8744a54bbdf6fb2f16774",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
