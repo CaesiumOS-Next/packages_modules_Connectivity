@@ -16,7 +16,6 @@
 
 package com.android.testutils
 
-import com.android.ddmlib.testrunner.TestResult
 import com.android.tradefed.config.Option
 import com.android.tradefed.invoker.TestInformation
 import com.android.tradefed.result.CollectingTestListener
@@ -28,9 +27,11 @@ import com.android.tradefed.targetprep.suite.SuiteApkInstaller
 private const val CONNECTIVITY_CHECKER_APK = "ConnectivityTestPreparer.apk"
 private const val CONNECTIVITY_PKG_NAME = "com.android.testutils.connectivitypreparer"
 private const val CONNECTIVITY_CHECK_CLASS = "$CONNECTIVITY_PKG_NAME.ConnectivityCheckTest"
+
 // As per the <instrumentation> defined in the checker manifest
 private const val CONNECTIVITY_CHECK_RUNNER_NAME = "androidx.test.runner.AndroidJUnitRunner"
-private const val IGNORE_CONN_CHECK_OPTION = "ignore-connectivity-check"
+private const val IGNORE_WIFI_CHECK = "ignore-wifi-check"
+private const val IGNORE_MOBILE_DATA_CHECK = "ignore-mobile-data-check"
 
 // The default updater package names, which might be updating packages while the CTS
 // are running
@@ -41,14 +42,23 @@ private val UPDATER_PKGS = arrayOf("com.google.android.gms", "com.android.vendin
  *
  * For quick and dirty local testing, the connectivity check can be disabled by running tests with
  * "atest -- \
- * --test-arg com.android.testutils.ConnectivityTestTargetPreparer:ignore-connectivity-check:true".
+ * --test-arg com.android.testutils.ConnectivityTestTargetPreparer:ignore-mobile-data-check:true". \
+ * --test-arg com.android.testutils.ConnectivityTestTargetPreparer:ignore-wifi-check:true".
  */
 open class ConnectivityTestTargetPreparer : BaseTargetPreparer() {
     private val installer = SuiteApkInstaller()
 
-    @Option(name = IGNORE_CONN_CHECK_OPTION,
-            description = "Disables the check for mobile data and wifi")
-    private var ignoreConnectivityCheck = false
+    @Option(
+        name = IGNORE_WIFI_CHECK,
+            description = "Disables the check for wifi"
+    )
+    private var ignoreWifiCheck = false
+    @Option(
+        name = IGNORE_MOBILE_DATA_CHECK,
+            description = "Disables the check for mobile data"
+    )
+    private var ignoreMobileDataCheck = false
+
     // The default value is never used, but false is a reasonable default
     private var originalTestChainEnabled = false
     private val originalUpdaterPkgsStatus = HashMap<String, Boolean>()
@@ -58,65 +68,85 @@ open class ConnectivityTestTargetPreparer : BaseTargetPreparer() {
         disableGmsUpdate(testInfo)
         originalTestChainEnabled = getTestChainEnabled(testInfo)
         originalUpdaterPkgsStatus.putAll(getUpdaterPkgsStatus(testInfo))
-        setUpdaterNetworkingEnabled(testInfo, enableChain = true,
-                enablePkgs = UPDATER_PKGS.associateWith { false })
-        runPreparerApk(testInfo)
+        setUpdaterNetworkingEnabled(
+            testInfo,
+            enableChain = true,
+                enablePkgs = UPDATER_PKGS.associateWith { false }
+        )
+        runConnectivityCheckApk(testInfo)
     }
 
-    private fun runPreparerApk(testInfo: TestInformation) {
+    private fun runConnectivityCheckApk(testInfo: TestInformation) {
         installer.setCleanApk(true)
         installer.addTestFileName(CONNECTIVITY_CHECKER_APK)
         installer.setShouldGrantPermission(true)
         installer.setUp(testInfo)
 
+        val testMethods = mutableListOf<String>()
+        if (!ignoreWifiCheck) {
+            testMethods.add("testCheckWifiSetup")
+        }
+        if (!ignoreMobileDataCheck) {
+            testMethods.add("testCheckTelephonySetup")
+        }
+
+        testMethods.forEach {
+            runTestMethod(testInfo, it)
+        }
+    }
+
+    private fun runTestMethod(testInfo: TestInformation, method: String) {
         val runner = DefaultRemoteAndroidTestRunner(
-                CONNECTIVITY_PKG_NAME,
-                CONNECTIVITY_CHECK_RUNNER_NAME,
-                testInfo.device.iDevice)
+            CONNECTIVITY_PKG_NAME,
+            CONNECTIVITY_CHECK_RUNNER_NAME,
+            testInfo.device.iDevice
+        )
         runner.runOptions = "--no-hidden-api-checks"
+        runner.setMethodName(CONNECTIVITY_CHECK_CLASS, method)
 
         val receiver = CollectingTestListener()
         if (!testInfo.device.runInstrumentationTests(runner, receiver)) {
-            throw TargetSetupError("Device state check failed to complete",
-                    testInfo.device.deviceDescriptor)
+            throw TargetSetupError(
+                "Device state check failed to complete",
+                testInfo.device.deviceDescriptor
+            )
         }
 
         val runResult = receiver.currentRunResults
         if (runResult.isRunFailure) {
-            throw TargetSetupError("Failed to check device state before the test: " +
-                    runResult.runFailureMessage, testInfo.device.deviceDescriptor)
+            throw TargetSetupError(
+                "Failed to check device state before the test: " +
+                    runResult.runFailureMessage,
+                testInfo.device.deviceDescriptor
+            )
         }
 
-        val ignoredTestClasses = mutableSetOf<String>()
-        if (ignoreConnectivityCheck) {
-            ignoredTestClasses.add(CONNECTIVITY_CHECK_CLASS)
-        }
-
-        val errorMsg = runResult.testResults.mapNotNull { (testDescription, testResult) ->
-            if (TestResult.TestStatus.FAILURE != testResult.status ||
-                    ignoredTestClasses.contains(testDescription.className)) {
-                null
-            } else {
-                "$testDescription: ${testResult.stackTrace}"
-            }
+        val errorMsg = runResult.testResults.map { (testDescription, testResult) ->
+            "$testDescription: ${testResult.stackTrace}"
         }.joinToString("\n")
         if (errorMsg.isBlank()) return
 
-        throw TargetSetupError("Device setup checks failed. Check the test bench: \n$errorMsg",
-                testInfo.device.deviceDescriptor)
+        throw TargetSetupError(
+            "Device setup checks failed. Check the test bench: \n$errorMsg",
+            testInfo.device.deviceDescriptor
+        )
     }
 
     private fun disableGmsUpdate(testInfo: TestInformation) {
         // This will be a no-op on devices without root (su) or not using gservices, but that's OK.
-        testInfo.exec("su 0 am broadcast " +
+        testInfo.exec(
+            "su 0 am broadcast " +
                 "-a com.google.gservices.intent.action.GSERVICES_OVERRIDE " +
-                "-e finsky.play_services_auto_update_enabled false")
+                "-e finsky.play_services_auto_update_enabled false"
+        )
     }
 
     private fun clearGmsUpdateOverride(testInfo: TestInformation) {
-        testInfo.exec("su 0 am broadcast " +
+        testInfo.exec(
+            "su 0 am broadcast " +
                 "-a com.google.gservices.intent.action.GSERVICES_OVERRIDE " +
-                "--esn finsky.play_services_auto_update_enabled")
+                "--esn finsky.play_services_auto_update_enabled"
+        )
     }
 
     private fun setUpdaterNetworkingEnabled(
@@ -144,9 +174,11 @@ open class ConnectivityTestTargetPreparer : BaseTargetPreparer() {
     override fun tearDown(testInfo: TestInformation, e: Throwable?) {
         if (isTearDownDisabled) return
         installer.tearDown(testInfo, e)
-        setUpdaterNetworkingEnabled(testInfo,
+        setUpdaterNetworkingEnabled(
+            testInfo,
                 enableChain = originalTestChainEnabled,
-                enablePkgs = originalUpdaterPkgsStatus)
+                enablePkgs = originalUpdaterPkgsStatus
+        )
         clearGmsUpdateOverride(testInfo)
     }
 }
