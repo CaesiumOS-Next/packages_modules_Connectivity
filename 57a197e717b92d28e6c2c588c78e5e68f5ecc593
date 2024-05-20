@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "085064fe_92af90ee",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-20T04:28:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0327d5b4_45d2c3f2",
+      "range": {
+        "startLine": 303,
+        "startChar": 12,
+        "endLine": 303,
+        "endChar": 43
+      },
+      "revId": "57a197e717b92d28e6c2c588c78e5e68f5ecc593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "727aefc1_52ef9287",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-20T03:26:05Z",
       "side": 1,
       "message": "```suggestion\n        @Nullable\n        public Integer getInterfaceIndex(String ifName) {\n```",
+      "range": {
+        "startLine": 806,
+        "startChar": 8,
+        "endLine": 806,
+        "endChar": 57
+      },
+      "revId": "57a197e717b92d28e6c2c588c78e5e68f5ecc593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4ba4337_9d1959c2",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-20T04:28:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "727aefc1_52ef9287",
       "range": {
         "startLine": 806,
         "startChar": 8,
