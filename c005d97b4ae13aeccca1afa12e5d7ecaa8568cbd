@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "222b298a_06dc9bc1",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-20T08:20:57Z",
+      "side": 1,
+      "message": "nit: final",
+      "revId": "c005d97b4ae13aeccca1afa12e5d7ecaa8568cbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba24b3de_d9100f98",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-20T08:20:57Z",
+      "side": 1,
+      "message": "nits:\n- final\n- ifInet6 -\u003e afInet6",
+      "range": {
+        "startLine": 387,
+        "startChar": 2,
+        "endLine": 391,
+        "endChar": 0
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "0c7c31f1_d2744386",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+              "range": {
+                "startLine": 387,
+                "startChar": 0,
+                "endLine": 388,
+                "endChar": 0
+              },
+              "replacement": "        final StructNlAttr addrGenMode \u003d\n"
+            },
+            {
+              "path": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+              "range": {
+                "startLine": 389,
+                "startChar": 0,
+                "endLine": 391,
+                "endChar": 0
+              },
+              "replacement": "        final StructNlAttr afInet6 \u003d new StructNlAttr((short) AF_INET6, addrGenMode);\n        final StructNlAttr afSpec \u003d new StructNlAttr(IFLA_AF_SPEC, afInet6);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c005d97b4ae13aeccca1afa12e5d7ecaa8568cbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07f84b49_b49cf169",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-20T08:20:57Z",
+      "side": 1,
+      "message": "nit: final",
+      "range": {
+        "startLine": 396,
+        "startChar": 7,
+        "endLine": 397,
+        "endChar": 46
+      },
+      "revId": "c005d97b4ae13aeccca1afa12e5d7ecaa8568cbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ed32af7_95c0269c",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-20T08:20:57Z",
+      "side": 1,
+      "message": "Could there be an error message wrapped?",
+      "fixSuggestions": [
+        {
+          "fixId": "5747ca18_797cc9d0",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+              "range": {
+                "startLine": 406,
+                "startChar": 0,
+                "endLine": 407,
+                "endChar": 0
+              },
+              "replacement": "            throw new AssertionError(\"Failed to pack the message\");\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c005d97b4ae13aeccca1afa12e5d7ecaa8568cbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52410ccb_98a26c91",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-20T08:20:57Z",
+      "side": 1,
+      "message": "Seems unnecessary. May consider lower log level.",
+      "range": {
+        "startLine": 409,
+        "startChar": 8,
+        "endLine": 411,
+        "endChar": 0
+      },
+      "revId": "c005d97b4ae13aeccca1afa12e5d7ecaa8568cbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
