@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0382df42_8d993359",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-20T11:57:07Z",
+      "side": 1,
+      "message": "I don\u0027t quite want to break boot, but I figure a slow boot will result in devices getting fixed rather than released with ancient/unsupported/buggy kernels...",
+      "revId": "2cdd14dd037d3dba703ddedcc71c45c97b3fa443",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
