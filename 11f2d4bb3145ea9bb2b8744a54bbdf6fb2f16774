@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fd51a10_a7c74f9a",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-20T08:44:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d58ed91b_3fd5a092",
+      "range": {
+        "startLine": 705,
+        "startChar": 12,
+        "endLine": 705,
+        "endChar": 24
+      },
+      "revId": "11f2d4bb3145ea9bb2b8744a54bbdf6fb2f16774",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbfc264a_46b84047",
@@ -61,6 +85,30 @@
           ]
         }
       ],
+      "revId": "11f2d4bb3145ea9bb2b8744a54bbdf6fb2f16774",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca1b55e8_9cc9b340",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-20T08:44:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbfc264a_46b84047",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 56
+      },
       "revId": "11f2d4bb3145ea9bb2b8744a54bbdf6fb2f16774",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
