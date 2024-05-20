@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed4890d9_d976e451",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-05-20T22:23:35Z",
+      "side": 1,
+      "message": "nit: should this be a bit more specific?",
+      "range": {
+        "startLine": 435,
+        "startChar": 15,
+        "endLine": 435,
+        "endChar": 22
+      },
+      "revId": "66f1629a5273d622935e9e84a143363994f860ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
